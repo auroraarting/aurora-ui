@@ -1,0 +1,14 @@
+$colors: "primary" "primary_contrast", "secondary" "secondary_contrast", "white";
+
+@each $color, $color_text in $colors {
+	// Classes for Background colors
+	.bg_#{$color} {
+		background-color: var(--color_#{$color});
+		color: var(--color_#{$color_text});
+	}
+
+	// Classes for Text colors
+	.color_#{$color} {
+		color: var(--color_#{$color});
+	}
+}

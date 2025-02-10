@@ -1,0 +1,36 @@
+{
+	"name": "tbnt",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"create-component": "node scripts/createComponent.js",
+		"create-section": "node scripts/createSection.js",
+		"create-page": "node scripts/createPage.js"
+	},
+	"dependencies": {
+		"commander": "^11.1.0",
+		"fs-extra": "^11.2.0",
+		"@studio-freight/lenis": "^1.0.22",
+		"html-react-parser": "^5.0.6",
+		"next": "12.3.0",
+		"path": "^0.12.7",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"react-hook-form": "^7.45.4",
+		"resend": "^2.0.0",
+		"sass": "^1.54.9"
+	},
+	"devDependencies": {
+		"@types/node": "^20.10.5",
+		"@types/react": "18.2.45",
+		"@typescript-eslint/eslint-plugin": "^5.59.5",
+		"@typescript-eslint/parser": "^5.59.5",
+		"eslint": "^8.40.0",
+		"eslint-config-next": "13.4.2",
+		"eslint-plugin-react": "^7.32.2"
+	}
+}

@@ -1,0 +1,27 @@
+// .text_xxs {}
+// .text_xs {}
+// .text_sm {}
+
+// For default body copy font
+.text_reg {
+	font-size: 18px;
+	line-height: calc(27 / 18);
+}
+
+// .text_md {}
+// .text_lg {}
+// .text_xl {}
+// .text_xxl {}
+// .text_xxxl {}
+// .text_xxxxl {}
+
+// // Each loop for creating font weights ->
+// //.text_100, .text_200 .....
+// light, reg, med, semibold, bold, extrabold,black
+$sizes: 300, 400, 500, 600, 700, 800, 900;
+
+@each $size in $sizes {
+	.text_#{$size} {
+		font-weight: $size;
+	}
+}
