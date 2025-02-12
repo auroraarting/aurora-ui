@@ -128,3 +128,16 @@ section {
 		object-fit: cover !important;
 	}
 }
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	background: var(--color_secondary);
+}
+::-webkit-scrollbar-track {
+	border-radius: 50px;
+}
+::-webkit-scrollbar-thumb {
+	background: var(--color_primary);
+	border-radius: 50px;
+}
