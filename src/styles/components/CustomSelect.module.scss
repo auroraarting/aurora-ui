@@ -1,0 +1,70 @@
+@import "../helpers/helpers.scss";
+
+.CustomSelect {
+	position: relative;
+
+	.selected {
+		background-color: #e5e5e5;
+		border-radius: 20px;
+		padding: 6px 14px;
+		display: flex;
+		justify-content: space-between;
+		cursor: pointer;
+		z-index: 2;
+		position: relative;
+
+		.arrow {
+			transition: all 0.4s ease-in-out;
+		}
+	}
+
+	.list {
+		z-index: 1;
+		position: absolute;
+		width: 100%;
+		height: 0px;
+		background-color: #e5e5e5;
+		top: 50%;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+		transition: all 0.4s ease-in-out;
+		padding: 6px 0px;
+		padding-top: 0px;
+		overflow: hidden;
+		// opacity: 0;
+
+		.listInner {
+			height: 100%;
+			overflow-y: auto;
+
+			.listItem {
+				padding: 0 14px;
+				padding-bottom: 5px;
+				cursor: pointer;
+
+				&:hover {
+					background-color: #c6c6c6;
+				}
+
+				&.alreadySelected {
+					background-color: #c6c6c6;
+				}
+			}
+		}
+	}
+
+	&.open {
+		.selected {
+			.arrow {
+				transform: rotate(180deg);
+			}
+		}
+
+		.list {
+			top: 50%;
+			height: 150px;
+			padding-top: 20px;
+			// opacity: 1;
+		}
+	}
+}

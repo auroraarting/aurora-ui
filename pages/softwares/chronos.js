@@ -7,6 +7,7 @@ import MetaTags from "@/components/MetaTags";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
+import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 
 // PLUGINS //
 
@@ -32,6 +33,7 @@ export default function SoftwarePage() {
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>
 				<SoftwareBanner />
+				<SoftwareMarket />
 			</main>
 			{/* Page Content ends here */}
 
