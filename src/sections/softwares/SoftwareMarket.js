@@ -43,7 +43,7 @@ export default function SoftwareMarket() {
 							/>
 
 							<div className={`${styles.bookBtn}`}>
-								<Button color="secondary" variant="filled" shape="rounded">
+								<Button color="primary" variant="filled" shape="rounded">
 									Book a Demo
 								</Button>
 							</div>

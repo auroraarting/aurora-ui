@@ -16,7 +16,7 @@ import styles from "@/styles/components/Buttons/Button.module.scss";
 // DATA //
 
 /** Button Component */
-export default function Button({ children, shape, color, variant }) {
+export default function Button({ children, shape, color, variant, mode }) {
 	return (
 		<button
 			className={`text_sm font_secondary
@@ -25,9 +25,13 @@ export default function Button({ children, shape, color, variant }) {
 				${styles[`btn_${color}`]}
 				${styles[`btn_${variant}`]}
 				${styles[shape]}
+				${styles[`mode_${mode}`]}
 				`}
 		>
-			{children}
+			<div className={`${styles.textWrap}`}>
+				<p className={`${styles.animatedText1} text_500`}>{children}</p>
+				<p className={`${styles.animatedText2} text_500`}>{children}</p>
+			</div>
 		</button>
 	);
 }

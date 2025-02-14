@@ -14,30 +14,130 @@
 .btn_common_styles {
 	cursor: pointer;
 	border: 2px solid transparent;
-	padding: 10px 20px;
+	padding: 10px 0px;
 	border-radius: 5px;
 	transition: all 0.2s ease-in;
+	width: 150px;
+
+	.textWrap {
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+		width: 100%;
+
+		.animatedText2 {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, 150%);
+			width: max-content;
+		}
+
+		.animatedText1 {
+			display: block;
+			position: relative;
+			z-index: 2;
+		}
+
+		.animatedText2 {
+			z-index: 2;
+		}
+
+		.animatedText1,
+		.animatedText2 {
+			transition: transform 0.5s ease-in-out;
+		}
+	}
 }
 
 // Filled Button
 .btn_filled {
-	// Filled Primary Button
-	&.btn_primary {
-		background-color: var(--color_primary);
-		color: var(--color_black);
+	// // Filled Primary Button
+	// &.btn_primary {
+	// 	background-color: var(--color_primary);
+	// 	color: var(--color_black);
 
-		&:hover {
-			background-color: var(--color_primary_light);
-		}
-	}
+	// 	&:hover {
+	// 		background-color: var(--color_primary_light);
+	// 	}
+	// }
 
 	// Filled Secondary Button
 	&.btn_secondary {
-		background-color: var(--color_secondary);
-		color: var(--color_white);
+		background-color: transparent;
+		color: var(--color_black);
+		border: 1px solid var(--color_black);
 
 		&:hover {
-			background-color: var(--color_secondary_light);
+			border: 2px solid var(--color_black);
+
+			p {
+				font-weight: 600;
+			}
+		}
+
+		&.mode_dark {
+			color: var(--color_white);
+			border: 1px solid var(--color_white);
+
+			&:hover {
+				border: 2px solid var(--color_white);
+
+				p {
+					font-weight: 600;
+				}
+			}
+		}
+	}
+
+	// Filled White Button
+	&.btn_primary {
+		background-color: var(--color_black);
+		color: var(--color_white);
+		position: relative;
+		overflow: hidden;
+		border: 0px solid transparent;
+
+		&::after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 100%;
+			height: 100%;
+			bottom: 0;
+			background-color: var(--color_primary);
+			z-index: 1;
+			clip-path: circle(0% at 50% 100%);
+			transition: all 0.5s ease-in-out;
+		}
+
+		&:hover {
+			filter: drop-shadow(0px 0px 10px #ffcc00);
+			.animatedText1 {
+				transform: translateY(-100%);
+			}
+			.animatedText2 {
+				transform: translate(-50%, -50%);
+				&.mode_dark {
+					color: var(--color_black) !important;
+				}
+			}
+			&::after {
+				clip-path: circle(100% at 50% 100%);
+			}
+			// background-color: var(--color_secondary_light);
+		}
+
+		&.mode_dark {
+			background-color: var(--color_white);
+			color: var(--color_black);
+
+			&:hover {
+				.animatedText2 {
+					color: var(--color_black) !important;
+				}
+			}
 		}
 	}
 
@@ -98,6 +198,8 @@
 	padding-top: 4px;
 	padding-bottom: 4px;
 	@extend %relative_box;
+	width: max-content;
+	color: var(--color_secondary);
 
 	&:after {
 		content: "";
@@ -106,29 +208,31 @@
 		bottom: 0px;
 		height: 1px;
 		transform-origin: left;
+		background-color: var(--color_secondary);
+	}
+
+	.animatedText2 {
+		transform: translate(-170%, -50%) !important;
 	}
 
 	&:hover {
+		.animatedText1 {
+			transform: translateX(120%);
+		}
+		.animatedText2 {
+			transform: translate(-50%, -50%) !important;
+		}
+
 		&:after {
-			animation: line_animation 0.6s ease-in-out;
+			// animation: line_animation 0.6s ease-in-out;
 		}
 	}
 
-	// Underlined Primary Button
-	&.btn_primary {
-		color: var(--color_primary);
+	&.mode_dark {
+		color: var(--color_white);
 
 		&:after {
-			background-color: var(--color_primary);
-		}
-	}
-
-	// Underlined Secondary Button
-	&.btn_secondary {
-		color: var(--color_secondary);
-
-		&:after {
-			background-color: var(--color_secondary);
+			background-color: var(--color_white);
 		}
 	}
 }

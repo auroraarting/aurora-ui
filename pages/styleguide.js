@@ -132,6 +132,24 @@ const StyleGuide = () => {
 						</Button>
 					</div>
 				</div>
+
+				<div
+					className={styles.color_palette}
+					style={{ background: "black", padding: 10 }}
+				>
+					<div className={styles.btn_box}>
+						<Button color="primary" variant="filled" shape="rounded" mode="dark">
+							Read More
+						</Button>
+						<Button color="primary" variant="filled" shape="squared" mode="dark">
+							Read More
+						</Button>
+						<Button color="primary" variant="filled" mode="dark">
+							Read More
+						</Button>
+					</div>
+				</div>
+
 				<div className={styles.color_palette}>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="filled" shape="rounded">
@@ -145,38 +163,38 @@ const StyleGuide = () => {
 						</Button>
 					</div>
 				</div>
-				<div className={styles.color_palette}>
+
+				<div
+					className={styles.color_palette}
+					style={{ background: "black", padding: 10 }}
+				>
 					<div className={styles.btn_box}>
-						<Button color="primary" variant="outlined" shape="rounded">
+						<Button color="secondary" variant="filled" shape="rounded" mode="dark">
 							Read More
 						</Button>
-						<Button color="primary" variant="outlined" shape="squared">
+						<Button color="secondary" variant="filled" shape="squared" mode="dark">
 							Read More
 						</Button>
-						<Button color="primary" variant="outlined">
+						<Button color="secondary" variant="filled" mode="dark">
 							Read More
 						</Button>
 					</div>
 				</div>
-				<div className={styles.color_palette}>
-					<div className={styles.btn_box}>
-						<Button color="secondary" variant="outlined" shape="rounded">
-							Read More
-						</Button>
-						<Button color="secondary" variant="outlined" shape="squared">
-							Read More
-						</Button>
-						<Button color="secondary" variant="outlined">
-							Read More
-						</Button>
-					</div>
-				</div>
+
 				<div className={styles.color_palette}>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="underline">
 							Read More
 						</Button>
-						<Button color="primary" variant="underline">
+					</div>
+				</div>
+
+				<div
+					className={styles.color_palette}
+					style={{ background: "black", padding: 10 }}
+				>
+					<div className={styles.btn_box}>
+						<Button color="secondary" variant="underline" mode="dark">
 							Read More
 						</Button>
 					</div>
