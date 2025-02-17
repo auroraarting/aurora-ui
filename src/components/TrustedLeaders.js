@@ -102,7 +102,7 @@ export default function TrustedLeaders() {
 							fill: "row", // This is important for row layout
 							rows: 2,
 						}}
-						spaceBetween={15}
+						spaceBetween={20}
 						// pagination={{
 						// 	clickable: true,
 						// }}

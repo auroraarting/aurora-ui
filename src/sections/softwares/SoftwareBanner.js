@@ -38,7 +38,7 @@ export default function SoftwareBanner() {
 						</h1>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<p className={`${styles.label} text_reg color_secondary_dark`}>
+						<p className={`${styles.label} text_reg color_dark_gray`}>
 							Harness innovative tools to simplify complexity, optimise decisions, and
 							drive impactful energy solutions with confidence and precision.
 						</p>

@@ -91,7 +91,7 @@ export default function TestimonialFeedback() {
 							<SwiperSlide>
 								<div className={`${styles.testimonialItem}`}>
 									<div className={`${styles.testimonialTxt}`}>
-										<p className="text_md color_secondary_dark f_w_i font_primary d_f">
+										<p className="text_md color_dark_gray f_w_i font_primary d_f">
 											<img src={quate.src} className={`${styles.quate}`} alt="quate" />
 											Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
 											tellus imperdiet. Porttitor leo vel morbi diam pulvinar massa nunc
@@ -102,7 +102,7 @@ export default function TestimonialFeedback() {
 										<h5 className="text_lg ont_primary f_w_m color_secondary">
 											EQT Ventures
 										</h5>
-										<p className="text_xs color_secondary_dark f_w_m pt_10">
+										<p className="text_xs color_dark_gray f_w_m pt_10">
 											Senior Vice President
 										</p>
 									</div>
@@ -111,7 +111,7 @@ export default function TestimonialFeedback() {
 							<SwiperSlide>
 								<div className={`${styles.testimonialItem}`}>
 									<div className={`${styles.testimonialTxt}`}>
-										<p className="text_md color_secondary_dark f_w_i font_primary d_f">
+										<p className="text_md color_dark_gray f_w_i font_primary d_f">
 											<img src={quate.src} className={`${styles.quate}`} alt="quate" />
 											Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
 											tellus imperdiet. Porttitor leo vel morbi diam pulvinar massa nunc
@@ -122,7 +122,7 @@ export default function TestimonialFeedback() {
 										<h5 className="text_lg ont_primary f_w_m color_secondary">
 											EQT Ventures
 										</h5>
-										<p className="text_xs color_secondary_dark f_w_m pt_10">
+										<p className="text_xs color_dark_gray f_w_m pt_10">
 											Senior Vice President
 										</p>
 									</div>
