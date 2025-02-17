@@ -10,7 +10,7 @@ $browser-prefixes: false !default;
 	--color_primary_shade: #FFD940;
 	--color_primary_light: #FFE57F;
 	--color_primary_tint: #FFF2BF;
-	--color_primary_tint: #FFF9DF;
+	--color_vanilla: #FFF9DF;
 	--color_secondary: #1D1D1D;
 	--color_gray: #2C2C2C;
 	--color_dark_gray: #3C3C3B;
@@ -28,7 +28,6 @@ $browser-prefixes: false !default;
 	// Secondary colors
 	--color_black: #000000;
 	--color_white: #ffffff;
-	--light_blue: #00b6ed;
 
 	// Extras
 	--container_width: 100%;

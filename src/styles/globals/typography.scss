@@ -85,24 +85,62 @@
 .color_black {
 	color: var(--color_black);
 }
-.color_sand_white {
-	color: var(--color_sand_white);
+.color_primary {
+	color: var(--color_primary);
 }
-.color_red {
-	color: var(--color_red);
+.color_primary_shade {
+	color: var(--color_primary_shade);
+}
+.color_primary_light {
+	color: var(--color_primary_light);
+}
+.color_primary_tint {
+	color: var(--color_primary_tint);
+}
+.color_vanilla {
+	color: var(--color_vanilla);
+}
+.color_secondary {
+	color: var(--color_secondary);
+}
+.color_gray {
+	color: var(--color_gray);
 }
 .color_dark_gray {
 	color: var(--color_dark_gray);
 }
-.color_secondary_dark {
-	color: var(--color_secondary_dark);
-}
-.light_blue {
-	color: var(--light_blue);
-}
 .color_light_gray {
-	color: var(--color_dark_gray);
-	opacity: 0.8;
+	color: var(--color_light_gray);
+}
+.color_medium_gray {
+	color: var(--color_medium_gray);
+}
+.color_silver_gray {
+	color: var(--color_silver_gray);
+}
+.color_platinum_gray {
+	color: var(--color_platinum_gray);
+}
+.color_silver {
+	color: var(--color_silver);
+}
+.color_blue {
+	color: var(--color_blue);
+}
+.color_green {
+	color: var(--color_green);
+}
+.color_sky_blue {
+	color: var(--color_sky_blue);
+}
+.color_orange {
+	color: var(--color_orange);
+}
+.color_royal_blue {
+	color: var(--color_royal_blue);
+}
+.color_purple {
+	color: var(--color_purple);
 }
 // color style end
 
