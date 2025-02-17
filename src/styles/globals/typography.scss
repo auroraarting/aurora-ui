@@ -79,7 +79,6 @@
 }
 
 // color style
-
 .color_white {
 	color: var(--color_white);
 }
@@ -100,6 +99,13 @@
 	opacity: 0.8;
 }
 // color style end
+
+.yellow_gradient{
+	background: linear-gradient(180deg, #FC0 0%, #FFF2BF 100%);
+}
+.dark_gradient{
+	background: linear-gradient(180deg, #246093 0.03%, #0B1D2D 133.43%);
+}
 
 // line height
 .l_h_1 {
