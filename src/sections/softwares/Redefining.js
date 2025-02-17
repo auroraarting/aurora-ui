@@ -25,7 +25,7 @@ export default function Redefining() {
 				<div className={`${styles.flexBox} f_r_aj_between`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h2 className="text_xxl font_primary f_w_s_b color_secondary pb_20">
-							Redefining <span className="light_blue">battery evaluation</span>
+							Redefining <span className="color_sky_blue">battery evaluation</span>
 						</h2>
 						<p className="text_reg color_secondary_dark">
 							CHRONOS delivers precise battery valuations with advanced analytics
