@@ -119,9 +119,6 @@
 			}
 			.animatedText2 {
 				transform: translate(-50%, -50%);
-				&.mode_dark {
-					color: var(--color_black) !important;
-				}
 			}
 			&::after {
 				clip-path: circle(100% at 50% 100%);
