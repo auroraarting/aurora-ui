@@ -6,15 +6,15 @@ $browser-prefixes: false !default;
 	--font_secondary: "Lato", serif;
 
 	// Primary colors
-	--color_primary: #FFCC00;
-	--color_primary_shade: #FFD940;
-	--color_primary_light: #FFE57F;
-	--color_primary_tint: #FFF2BF;
-	--color_primary_tint: #FFF9DF;
+	--color_primary: #ffcc00;
+	--color_primary_shade: #ffd940;
+	--color_primary_light: #ffe57f;
+	--color_primary_tint: #fff2bf;
+	--color_primary_tint: #fff9df;
 	// Secondary colors
 	--color_secondary_tint: #87a8ab;
 	--color_secondary_light: #6f969b;
-	--color_secondary: #1D1D1D;
+	--color_secondary: #1d1d1d;
 	--color_secondary_shade: #4b696c;
 	--color_secondary_dark: #3b5254;
 	--color_secondary_deep: #2a3a3c;
@@ -22,6 +22,7 @@ $browser-prefixes: false !default;
 	// Secondary colors
 	--color_black: #000000;
 	--color_white: #ffffff;
+	--light_blue: #00b6ed;
 
 	// Extras
 	--container_width: 100%;
