@@ -1,0 +1,51 @@
+@import "../helpers/helpers.scss";
+.TrustedLeaders {
+	.box_wrap {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-gap: 20px;
+		@media (max-width: 767px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+		.box_item {
+			position: relative;
+			padding: 0px 20px 20px 0px;
+			// border-right: 1px solid #000;
+			// border-bottom: 1px solid #000;
+			&::after {
+				content: " ";
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				height: 90%;
+				width: 1px;
+				background-color: #e5e5e5;
+			}
+			&::before {
+				content: " ";
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+				height: 2px;
+				width: 90%;
+				background-color: #e5e5e5;
+			}
+			.imgBox {
+				border-radius: 8px;
+				padding: 30px 30px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 155px;
+				transition: 0.5s all;
+				@media (max-width: 991px) {
+					height: 150px;
+				}
+				&:hover {
+					background-color: var(--color_white);
+					transition: 0.5s all;
+				}
+			}
+		}
+	}
+}

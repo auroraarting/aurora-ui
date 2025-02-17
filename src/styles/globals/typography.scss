@@ -94,6 +94,12 @@
 .color_dark_gray {
 	color: var(--color_dark_gray);
 }
+.color_secondary_dark {
+	color: var(--color_secondary_dark);
+}
+.light_blue {
+	color: var(--light_blue);
+}
 .color_light_gray {
 	color: var(--color_dark_gray);
 	opacity: 0.8;
@@ -152,10 +158,6 @@
 }
 // font weight end
 
-.text_italic {
-	font-style: italic;
-}
-
 .text_center {
 	text-align: center;
 }
@@ -169,7 +171,7 @@
 	text-transform: uppercase;
 }
 
-.overflow_hidden{
+.overflow_hidden {
 	overflow: hidden;
 }
 
@@ -183,7 +185,7 @@
 	border-radius: 5px;
 }
 
-.width_100{
+.width_100 {
 	width: 100%;
 }
 
@@ -257,19 +259,19 @@
 	flex-direction: column;
 	justify-content: center;
 }
-.a_c_space_evenly{
+.a_c_space_evenly {
 	align-content: space-evenly;
 }
-.j_c_center{
+.j_c_center {
 	justify-content: center;
 }
-.f_d_c{
+.f_d_c {
 	flex-direction: column;
 }
 // flex class end
 
 // spacing
-.m_0_auto{
+.m_0_auto {
 	margin: 0 auto;
 }
 .m_tb_0 {
