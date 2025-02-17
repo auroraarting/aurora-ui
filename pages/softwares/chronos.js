@@ -4,12 +4,13 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
 import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 import Redefining from "@/sections/softwares/Redefining";
-import TrustedLeaders from "@/sections/softwares/TrustedLeaders";
+import TrustedLeaders from "@/components/TrustedLeaders";
 
 // PLUGINS //
 
@@ -38,6 +39,7 @@ export default function SoftwarePage() {
 				<Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
+				<TestimonialFeedback />
 			</main>
 			{/* Page Content ends here */}
 

@@ -10,10 +10,10 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/softwares/TrustedLeaders.module.scss";
+import styles from "@/styles/components/TrustedLeaders.module.scss";
 
 // IMAGES //
-import erste from "../../../public/img/softwares/erste.png";
+import erste from "../../public/img/softwares/erste.png";
 
 // DATA //
 
@@ -64,7 +64,7 @@ export default function TrustedLeaders() {
 		<section className={`${styles.TrustedLeaders} pb_100`}>
 			<div className="container">
 				<div className="pb_40">
-					<h2 className="text_xl font_primary f_w_s_m color_secondary">
+					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						Trusted by industry leaders
 					</h2>
 				</div>

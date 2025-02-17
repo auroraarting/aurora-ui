@@ -27,7 +27,7 @@ export default function Redefining() {
 						<h2 className="text_xxl font_primary f_w_s_b color_secondary pb_20">
 							Redefining <span className="light_blue">battery evaluation</span>
 						</h2>
-						<p className={`${styles.label} text_reg color_secondary_dark`}>
+						<p className="text_reg color_secondary_dark">
 							CHRONOS delivers precise battery valuations with advanced analytics
 							allowing to optimise your investments, transactions, strategies, and
 							valuate any storage asset or project using our cutting-edge proprietary
