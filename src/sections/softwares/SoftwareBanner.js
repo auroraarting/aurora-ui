@@ -15,6 +15,7 @@ import styles from "@/styles/sections/softwares/SoftwareBanner.module.scss";
 // IMAGES //
 import SoftwareLogo from "../../../public/img/softwares/chronos-logo.png";
 import mac_img from "../../../public/img/softwares/mac_img.png";
+import frame_video from "../../../public/img/softwares/frame_video.png";
 
 // DATA //
 
@@ -50,6 +51,16 @@ export default function SoftwareBanner() {
 				</div>
 				<div className={`${styles.macFrameBox} f_r_aj_center`}>
 					<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
+					{/* <img
+						src={frame_video.src}
+						alt="mac img"
+						className={`${styles.frame_video}`}
+					/> */}
+					<div className={`${styles.frame_video}`}>
+						<video autoPlay muted loop>
+							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
+						</video>
+					</div>
 				</div>
 			</div>
 		</section>
