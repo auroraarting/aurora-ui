@@ -10,7 +10,7 @@
 }
 .text_xl {
 	font-size: 52px;
-	line-height: 1;
+	line-height: 1.2;
 	font-weight: 600;
 	font-family: var(--font_primary);
 	@media (max-width: 1199px) {
@@ -40,7 +40,7 @@
 }
 .text_reg {
 	font-size: 18px;
-	line-height: 1.4;
+	line-height: 1.6;
 	font-weight: 400;
 	font-family: var(--font_secondary);
 }
@@ -141,6 +141,9 @@
 }
 .color_purple {
 	color: var(--color_purple);
+}
+.dark_bg{
+	background-color: var(--color_secondary);
 }
 // color style end
 

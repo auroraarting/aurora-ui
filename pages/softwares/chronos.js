@@ -11,6 +11,7 @@ import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
 import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 import Redefining from "@/sections/softwares/Redefining";
 import TrustedLeaders from "@/components/TrustedLeaders";
+import ServicesCircle from "@/components/ServicesCircle";
 
 // PLUGINS //
 
@@ -36,10 +37,11 @@ export default function SoftwarePage() {
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>
 				<SoftwareBanner />
-				<Redefining />
+				{/* <Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
-				<TestimonialFeedback />
+				<TestimonialFeedback /> */}
+				<ServicesCircle />
 			</main>
 			{/* Page Content ends here */}
 
