@@ -10,7 +10,7 @@
 		display: flex;
 		justify-content: space-between;
 		cursor: pointer;
-		z-index: 2;
+		z-index: 4;
 		position: relative;
 
 		.arrow {
@@ -56,7 +56,6 @@
 
 	&.open {
 		.selected {
-			z-index: 4;
 			.arrow {
 				transform: rotate(180deg);
 			}
@@ -64,7 +63,6 @@
 
 		.list {
 			z-index: 3;
-
 			top: 50%;
 			height: 150px;
 			padding-top: 20px;

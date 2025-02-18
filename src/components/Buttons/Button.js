@@ -16,10 +16,17 @@ import styles from "@/styles/components/Buttons/Button.module.scss";
 // DATA //
 
 /** Button Component */
-export default function Button({ children, shape, color, variant, mode }) {
+export default function Button({
+	children,
+	shape,
+	color,
+	variant,
+	mode,
+	size = "text_sm",
+}) {
 	return (
 		<button
-			className={`text_sm font_secondary
+			className={`${size} font_secondary
 			 text_600
 				${styles.btn_common_styles}
 				${styles[`btn_${color}`]}

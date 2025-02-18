@@ -108,12 +108,13 @@
 			bottom: 0;
 			background-color: var(--color_primary);
 			z-index: 1;
+			border-radius: 5px;
 			clip-path: circle(0% at 50% 100%);
 			transition: all 0.5s ease-in-out;
 		}
 
 		&:hover {
-			filter: drop-shadow(0px 0px 10px #ffcc00);
+			// filter: drop-shadow(0px 0px 10px #ffcc00);
 			.animatedText1 {
 				transform: translateY(-100%);
 			}
@@ -122,6 +123,7 @@
 			}
 			&::after {
 				clip-path: circle(100% at 50% 100%);
+				transform: translateX(-50%) scale(1.2);
 			}
 			// background-color: var(--color_secondary_light);
 		}

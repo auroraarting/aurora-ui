@@ -1,0 +1,33 @@
+@import "../helpers/helpers.scss";
+
+.SectionsHeader {
+	--widthOfEachDiv: 20%;
+	--progress: 20%;
+	position: sticky;
+	left: 0;
+	top: 0;
+	z-index: 99;
+
+	.boxWrap {
+		display: flex;
+		justify-content: space-between;
+		background-color: var(--color_silver);
+
+		.box {
+			width: var(--widthOfEachDiv);
+
+			padding: 20px 0;
+
+			&.onlyText {
+				text-align: center;
+			}
+		}
+	}
+
+	.progress {
+		height: 3px;
+		width: var(--progress);
+		background-color: var(--color_blue);
+		transition: all 0.7s ease-in-out;
+	}
+}

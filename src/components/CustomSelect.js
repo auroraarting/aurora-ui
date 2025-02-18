@@ -18,10 +18,11 @@ import DrownDownArrow from "/public/img/softwares/arrow.svg";
 // DATA //
 
 /** CustomSelect Component */
-export default function CustomSelect({ defaultId, list, afterSelect }) {
+export default function CustomSelect({ defaultId, list, afterSelect, value }) {
 	const [open, setOpen] = useState(false);
 	const [selectedId, setSelectedId] = useState(defaultId || 0);
 	const selectRef = useRef(null);
+	const listScrollPrevent = open ? { "data-lenis-prevent": true } : {};
 
 	/** handleStateOfSelect */
 	const handleStateOfSelect = () => {
@@ -49,6 +50,10 @@ export default function CustomSelect({ defaultId, list, afterSelect }) {
 		};
 	}, []);
 
+	useEffect(() => {
+		setSelectedId(value);
+	}, [value]);
+
 	return (
 		<div
 			className={`${styles.CustomSelect} ${open && styles.open}`}
@@ -64,7 +69,7 @@ export default function CustomSelect({ defaultId, list, afterSelect }) {
 					alt="DrownDownArrow"
 				/>
 			</div>
-			<div className={`${styles.list}`}>
+			<div className={`${styles.list}`} {...listScrollPrevent}>
 				<div className={`${styles.listInner}`}>
 					{list?.map((item, ind) => {
 						return (

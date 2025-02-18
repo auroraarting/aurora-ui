@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
+import SectionsHeader from "@/components/SectionsHeader";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
@@ -37,6 +38,7 @@ export default function SoftwarePage() {
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>
 				<SoftwareBanner />
+				<SectionsHeader />
 				<Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />

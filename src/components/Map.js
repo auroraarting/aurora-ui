@@ -1,5 +1,5 @@
 // MODULES //
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // COMPONENTS //
 
@@ -22,11 +22,13 @@ import styles from "@/styles/components/Map.module.scss";
 // IMAGES //
 
 // DATA //
+import locationJson from "@/data/locations.json";
 
 // MAP DETAILS //
 const containerStyle = {
-	width: "100%",
+	width: "650px",
 	height: "100%",
+	background: "transparent",
 };
 
 const stylesMap = [
@@ -80,36 +82,81 @@ const stylesMap = [
 		stylers: [
 			{
 				color: "#f7f7f7",
+				opacity: 0,
 			},
 		],
 	},
 ];
 
-const center = {
-	lat: -25.2744,
-	lng: 133.7751,
-};
-
 /** Map Component */
-export default function Map() {
-	const [map, setMap] = useState(null);
+export default function Map({
+	mapCenter,
+	setVisibleLocations,
+	setValueOfSelect,
+	map,
+	setMap,
+}) {
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
 
-	const onLoad = useCallback((map) => {
+	const center = mapCenter;
+
+	const onLoad = useCallback((mapObj) => {
 		const bounds = new window.google.maps.LatLngBounds(center);
-		map.fitBounds(bounds);
+		mapObj.fitBounds(bounds);
 
 		// Set zoom level after fitBounds
 		setTimeout(() => {
-			map.setZoom(4); // Change this value as needed
+			mapObj.setZoom(4); // Change this value as needed
 		}, 100);
 
-		setMap(map);
+		setMap(mapObj);
 	}, []);
+
+	/** Function to update visible locations based on map viewport */
+	const updateVisibleLocations = (mapObj) => {
+		if (!mapObj) return;
+		const bounds = map.getBounds(); // Get the visible area of the map
+
+		if (bounds) {
+			const filteredLocations = locationJson.flatMap((country) =>
+				country.markers.filter((loc) =>
+					bounds.contains(new window.google.maps.LatLng(loc.lat, loc.lng))
+				)
+			);
+
+			setVisibleLocations(filteredLocations);
+		}
+
+		// Identify the country of visible markers
+		const visibleCountries = new Set();
+		locationJson.forEach((country, index) => {
+			if (
+				country.markers.some((loc) =>
+					bounds.contains(new window.google.maps.LatLng(loc.lat, loc.lng))
+				)
+			) {
+				setValueOfSelect(index);
+				visibleCountries.add(country.name);
+			}
+		});
+
+		// // If only one country is visible, set it
+		// if (visibleCountries.size === 1) {
+		// 	setVisibleCountry([...visibleCountries][0]);
+		// } else {
+		// 	setVisibleCountry(""); // If multiple countries, clear the state
+		// }
+	};
 
 	const onUnmount = useCallback(function callback(map) {
 		setMap(null);
 	}, []);
+
+	useEffect(() => {
+		if (map) {
+			map.addListener("bounds_changed", () => updateVisibleLocations(map));
+		}
+	}, [map]);
 
 	return (
 		<LoadScript
@@ -117,6 +164,7 @@ export default function Map() {
 			libraries={["places"]}
 		>
 			<GoogleMap
+				mapContainerClassName={`${styles.mapContainer}`}
 				mapContainerStyle={containerStyle}
 				center={center}
 				onLoad={onLoad}
@@ -132,27 +180,35 @@ export default function Map() {
 				}}
 			>
 				{/* Child components, such as markers, info windows, etc. */}
-				<Marker
-					position={{ lat: -33.8688, lng: 151.2093 }}
-					icon={{
-						url: "/img/softwares/mapMarker.svg",
-						// scaledSize: new window.google.maps.Size(10, 10),
-						// origin: new window.google.maps.Point(0, 0),
-						// anchor: new window.google.maps.Point(25, 50),
-					}}
-					onMouseOver={() => setSelectedMarker("New South Wales")}
-					// onMouseOut={() => setSelectedMarker(null)}
-				/>
-				{/* Show InfoWindow when hovering */}
-				{selectedMarker && (
-					<InfoWindow
-						position={{ lat: -33.8688, lng: 151.2093 }}
-						onCloseClick={() => setSelectedMarker(null)}
-					>
-						<div style={{ fontSize: "14px", fontWeight: "bold" }}>
-							{selectedMarker}
-						</div>
-					</InfoWindow>
+				{locationJson.map((country) =>
+					country.markers.map((marker, index) => {
+						return (
+							<>
+								<Marker
+									position={{ lat: marker.lat, lng: marker.lng }}
+									icon={{
+										url: "/img/softwares/mapMarker.svg",
+										// scaledSize: new window.google.maps.Size(10, 10),
+										// origin: new window.google.maps.Point(0, 0),
+										// anchor: new window.google.maps.Point(25, 50),
+									}}
+									onMouseOver={() => setSelectedMarker(marker.name)}
+									// onMouseOut={() => setSelectedMarker(null)}
+								/>
+								{/* Show InfoWindow when hovering */}
+								{selectedMarker === marker.name && (
+									<InfoWindow
+										position={{ lat: marker.lat, lng: marker.lng }}
+										onCloseClick={() => setSelectedMarker(null)}
+									>
+										<div style={{ fontSize: "14px", fontWeight: "bold" }}>
+											{selectedMarker}
+										</div>
+									</InfoWindow>
+								)}
+							</>
+						);
+					})
 				)}
 			</GoogleMap>
 		</LoadScript>

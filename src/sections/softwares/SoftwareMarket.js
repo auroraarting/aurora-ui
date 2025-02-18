@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -20,11 +21,34 @@ import DrownDownArrow from "/public/img/softwares/arrow.svg";
 // import Map from "/public/img/softwares/map.png";
 
 // DATA //
+import locationJson from "@/data/locations.json";
 
 /** SoftwareBanner Section */
 export default function SoftwareMarket() {
+	const [visibleLocations, setVisibleLocations] = useState([]);
+	const [visibleCountry, setVisibleCountry] = useState(""); // Stores the currently visible country
+	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
+	const [valueOfSelect, setValueOfSelect] = useState(0);
+	const [map, setMap] = useState(null);
+
+	/** changeMapCenter */
+	const changeMapCenter = (country) => {
+		console.log(country, "country");
+		setMapCenter(locationJson[country.index]?.centerOfCountry);
+		console.log(map, "zxczxc");
+		map.setZoom(locationJson[country.index]?.zoom || 4);
+	};
+
+	useEffect(() => {
+		if (visibleCountry === "") {
+			return;
+		}
+		const index = locationJson.findIndex((item) => item.name === visibleCountry);
+		setValueOfSelect(index);
+	}, [visibleCountry]);
+
 	return (
-		<section className={`${styles.SoftwareMarket} ptb_100`}>
+		<section className={`${styles.SoftwareMarket} ptb_100`} id="availableregions">
 			<div className="container">
 				<div className={`${styles.inner}`}>
 					<div className={`${styles.left}`}>
@@ -39,8 +63,9 @@ export default function SoftwareMarket() {
 
 							<CustomSelect
 								defaultId={0}
-								list={["Australia", "India", "USA", "UK", "Europe"]}
-								afterSelect={(result) => console.log(result)}
+								list={locationJson.map((item) => item.name)}
+								afterSelect={changeMapCenter}
+								value={valueOfSelect}
 							/>
 
 							<div className={`${styles.bookBtn}`}>
@@ -71,7 +96,15 @@ export default function SoftwareMarket() {
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
-						<Map />
+						<Map
+							mapCenter={mapCenter}
+							setVisibleLocations={setVisibleLocations}
+							setVisibleCountry={setVisibleCountry}
+							setValueOfSelect={setValueOfSelect}
+							valueOfSelect={valueOfSelect}
+							map={map}
+							setMap={setMap}
+						/>
 						<div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>
 							<div className={`${styles.detailText} text_xs`}>Available Locations</div>

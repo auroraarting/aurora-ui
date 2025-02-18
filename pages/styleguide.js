@@ -199,6 +199,25 @@ const StyleGuide = () => {
 						</Button>
 					</div>
 				</div>
+
+				<div className={styles.color_palette}>
+					<div className={styles.btn_box}>
+						<Button color="secondary" variant="underline" size="xs">
+							Read More
+						</Button>
+					</div>
+				</div>
+
+				<div
+					className={styles.color_palette}
+					style={{ background: "black", padding: 10 }}
+				>
+					<div className={styles.btn_box}>
+						<Button color="secondary" variant="underline" mode="dark" size="xs">
+							Read More
+						</Button>
+					</div>
+				</div>
 			</section>
 		</div>
 	);

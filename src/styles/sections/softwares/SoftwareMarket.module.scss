@@ -6,8 +6,13 @@
 		justify-content: space-between;
 		--gap: calc(18px / 2);
 
+		@include lg-down {
+			flex-direction: column;
+		}
+
 		.left {
-			width: calc(50% - var(--gap));
+			flex: 1;
+			padding-right: 18px;
 			.dropdownWrap {
 				margin-top: 60px;
 				.label {
@@ -49,8 +54,11 @@
 		}
 
 		.right {
-			width: calc(50% - var(--gap));
-
+			.mapContainer {
+				@include lg-down {
+					height: 600px;
+				}
+			}
 			.markerDetail {
 				display: flex;
 				justify-content: center;
