@@ -12,10 +12,11 @@
 		"create-page": "node scripts/createPage.js"
 	},
 	"dependencies": {
+		"@react-google-maps/api": "^2.20.6",
+		"@studio-freight/lenis": "^1.0.22",
 		"commander": "^11.1.0",
 		"fs-extra": "^11.2.0",
 		"gsap": "^3.8.2",
-		"@studio-freight/lenis": "^1.0.22",
 		"html-react-parser": "^5.0.6",
 		"next": "12.3.0",
 		"path": "^0.12.7",

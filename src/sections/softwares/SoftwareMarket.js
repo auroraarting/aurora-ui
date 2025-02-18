@@ -3,6 +3,7 @@
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import CustomSelect from "@/components/CustomSelect";
+import Map from "@/components/Map";
 
 // SECTIONS //
 
@@ -16,7 +17,7 @@ import styles from "@/styles/sections/softwares/SoftwareMarket.module.scss";
 // IMAGES //
 import AuthorPic from "/public/img/softwares/authorPic.svg";
 import DrownDownArrow from "/public/img/softwares/arrow.svg";
-import Map from "/public/img/softwares/map.png";
+// import Map from "/public/img/softwares/map.png";
 
 // DATA //
 
@@ -69,7 +70,8 @@ export default function SoftwareMarket() {
 						</div>
 					</div>
 					<div className={`${styles.right}`}>
-						<img className={`${styles.map}`} src={Map.src} alt="Map" />
+						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
+						<Map />
 						<div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>
 							<div className={`${styles.detailText} text_xs`}>Available Locations</div>
