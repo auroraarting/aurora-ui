@@ -15,6 +15,7 @@ import TrustedLeaders from "@/components/TrustedLeaders";
 import ServicesCircle from "@/components/ServicesCircle";
 import IntuitiveStepProcess from "@/sections/softwares/IntuitiveStepProcess";
 import SmarterEnergy from "@/components/SmarterEnergy";
+import Insights from "@/components/Insights";
 
 // PLUGINS //
 
@@ -49,13 +50,14 @@ export default function SoftwarePage() {
 				/> */}
 				<SoftwareBanner />
 
-				{/* <Redefining />
+				<Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
-				<TestimonialFeedback /> */}
-				{/* <ServicesCircle /> */}
+				<TestimonialFeedback />
+				<ServicesCircle />
 				<IntuitiveStepProcess />
 				<SmarterEnergy />
+				<Insights />
 			</main>
 			{/* Page Content ends here */}
 
