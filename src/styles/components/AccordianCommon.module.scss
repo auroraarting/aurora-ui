@@ -1,0 +1,72 @@
+@import "../helpers/helpers.scss";
+.accordion {
+	border-radius: 8px;
+	overflow: hidden;
+
+	.accordionItem {
+		padding: 0;
+		border-bottom: 1px solid var(--color_platinum_gray);
+		&:last-child {
+			border-bottom: none;
+		}
+
+		.accordionHeader {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 25px 0px;
+
+			cursor: pointer;
+			transition: all 0.3s;
+			@media (max-width: 767px) {
+				padding: 25px 0px;
+				gap: 20px;
+			}
+			.AccImg {
+				transition: all 0.5s;
+				&.activeImg {
+					//transform: rotate(180deg);
+				}
+			}
+			:global(.headerF) {
+				width: 95%;
+				@media (max-width: 767px) {
+					width: 95%;
+				}
+			}
+
+			span {
+				font-size: 18px;
+				font-weight: bold;
+				width: 30px;
+				@media (max-width: 767px) {
+					width: 30px;
+				}
+			}
+		}
+
+		.accordionContent {
+			padding: 0 0px;
+			@media (max-width: 767px) {
+				padding: 0px 0px;
+			}
+			&.active {
+				.activeInner {
+					//border-top: 1px solid #ababab;
+				}
+			}
+
+			.activeInner {
+				padding: 0px 0 20px;
+				@media (max-width: 767px) {
+					padding: 0px 0px 20px;
+				}
+			}
+		}
+	}
+	// .activeBgTitle {
+	// 	.AccImgMinus {
+	// 		display: block !important;
+	// 	}
+	// }
+}

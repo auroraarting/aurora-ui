@@ -14,6 +14,7 @@ import Redefining from "@/sections/softwares/Redefining";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import ServicesCircle from "@/components/ServicesCircle";
 import IntuitiveStepProcess from "@/sections/softwares/IntuitiveStepProcess";
+import SmarterEnergy from "@/components/SmarterEnergy";
 
 // PLUGINS //
 
@@ -48,12 +49,13 @@ export default function SoftwarePage() {
 				/> */}
 				<SoftwareBanner />
 
-				<Redefining />
+				{/* <Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
-				<TestimonialFeedback />
+				<TestimonialFeedback /> */}
 				{/* <ServicesCircle /> */}
 				<IntuitiveStepProcess />
+				<SmarterEnergy />
 			</main>
 			{/* Page Content ends here */}
 
