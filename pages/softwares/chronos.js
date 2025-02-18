@@ -37,10 +37,10 @@ export default function SoftwarePage() {
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>
 				<SoftwareBanner />
-				{/* <Redefining />
+				<Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
-				<TestimonialFeedback /> */}
+				<TestimonialFeedback />
 				<ServicesCircle />
 			</main>
 			{/* Page Content ends here */}
