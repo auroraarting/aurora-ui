@@ -125,10 +125,10 @@ export default function Map() {
 					styles: stylesMap,
 					mapTypeControl: false, // Hide the "Map" and "Satellite" buttons
 					streetViewControl: false, // Hide the Pegman (Street View) icon
-					zoomControl: false, // Hide the plus and minus zoom buttons
-					fullscreenControl: false, // Hide fullscreen button
+					// zoomControl: false, // Hide the plus and minus zoom buttons
+					// fullscreenControl: false, // Hide fullscreen button
 					gestureHandling: "greedy", // Optional: Control gestures (pan, zoom)
-					disableDefaultUI: true, // Disable all default UI elements (including keyboard shortcuts)
+					// disableDefaultUI: true, // Disable all default UI elements (including keyboard shortcuts)
 				}}
 			>
 				{/* Child components, such as markers, info windows, etc. */}
