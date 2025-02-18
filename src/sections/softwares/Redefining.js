@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/softwares/redefining.module.scss";
+import styles from "@/styles/sections/softwares/Redefining.module.scss";
 
 // IMAGES //
 import redefining from "../../../public/img/softwares/redefining.png";
