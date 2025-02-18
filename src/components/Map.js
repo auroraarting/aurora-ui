@@ -79,7 +79,7 @@ const stylesMap = [
 		elementType: "geometry.fill",
 		stylers: [
 			{
-				color: "#ffffff",
+				color: "#f7f7f7",
 			},
 		],
 	},
