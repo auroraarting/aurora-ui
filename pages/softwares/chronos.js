@@ -47,12 +47,13 @@ export default function SoftwarePage() {
 					videoSrc="../../img/softwares/frame_video.mp4"
 				/> */}
 				<SoftwareBanner />
-				<IntuitiveStepProcess />
+
 				<Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
 				<TestimonialFeedback />
 				{/* <ServicesCircle /> */}
+				<IntuitiveStepProcess />
 			</main>
 			{/* Page Content ends here */}
 

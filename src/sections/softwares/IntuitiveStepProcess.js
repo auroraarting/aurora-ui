@@ -32,7 +32,7 @@ export default function IntuitiveStepProcess() {
 		},
 	};
 	return (
-		<section className={`${styles.IntuitiveStepProcess} dark_bg ptb_100`}>
+		<section className={`${styles.IntuitiveStepProcess} dark_bg pt_100 pb_40`}>
 			<div className="container">
 				<div className={`${styles.StepProcessTxt} `}>
 					<h5 className="text_lg color_white f_w_s_b">
