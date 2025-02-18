@@ -10,7 +10,7 @@
 }
 .text_xl {
 	font-size: 52px;
-	line-height: 1;
+	line-height: 1.2;
 	font-weight: 600;
 	font-family: var(--font_primary);
 	@media (max-width: 1199px) {
@@ -40,7 +40,7 @@
 }
 .text_reg {
 	font-size: 18px;
-	line-height: 1.4;
+	line-height: 1.6;
 	font-weight: 400;
 	font-family: var(--font_secondary);
 }
@@ -79,27 +79,80 @@
 }
 
 // color style
-
 .color_white {
 	color: var(--color_white);
 }
 .color_black {
 	color: var(--color_black);
 }
-.color_sand_white {
-	color: var(--color_sand_white);
+.color_primary {
+	color: var(--color_primary);
 }
-.color_red {
-	color: var(--color_red);
+.color_primary_shade {
+	color: var(--color_primary_shade);
+}
+.color_primary_light {
+	color: var(--color_primary_light);
+}
+.color_primary_tint {
+	color: var(--color_primary_tint);
+}
+.color_vanilla {
+	color: var(--color_vanilla);
+}
+.color_secondary {
+	color: var(--color_secondary);
+}
+.color_gray {
+	color: var(--color_gray);
 }
 .color_dark_gray {
 	color: var(--color_dark_gray);
 }
 .color_light_gray {
-	color: var(--color_dark_gray);
-	opacity: 0.8;
+	color: var(--color_light_gray);
+}
+.color_medium_gray {
+	color: var(--color_medium_gray);
+}
+.color_silver_gray {
+	color: var(--color_silver_gray);
+}
+.color_platinum_gray {
+	color: var(--color_platinum_gray);
+}
+.color_silver {
+	color: var(--color_silver);
+}
+.color_blue {
+	color: var(--color_blue);
+}
+.color_green {
+	color: var(--color_green);
+}
+.color_sky_blue {
+	color: var(--color_sky_blue);
+}
+.color_orange {
+	color: var(--color_orange);
+}
+.color_royal_blue {
+	color: var(--color_royal_blue);
+}
+.color_purple {
+	color: var(--color_purple);
+}
+.dark_bg{
+	background-color: var(--color_secondary);
 }
 // color style end
+
+.yellow_gradient{
+	background: linear-gradient(180deg, #FC0 0%, #FFF2BF 100%);
+}
+.dark_gradient{
+	background: linear-gradient(180deg, #246093 0.03%, #0B1D2D 133.43%);
+}
 
 // line height
 .l_h_1 {
@@ -146,10 +199,6 @@
 }
 // font weight end
 
-.text_italic {
-	font-style: italic;
-}
-
 .text_center {
 	text-align: center;
 }
@@ -163,7 +212,7 @@
 	text-transform: uppercase;
 }
 
-.overflow_hidden{
+.overflow_hidden {
 	overflow: hidden;
 }
 
@@ -177,7 +226,7 @@
 	border-radius: 5px;
 }
 
-.width_100{
+.width_100 {
 	width: 100%;
 }
 
@@ -251,19 +300,19 @@
 	flex-direction: column;
 	justify-content: center;
 }
-.a_c_space_evenly{
+.a_c_space_evenly {
 	align-content: space-evenly;
 }
-.j_c_center{
+.j_c_center {
 	justify-content: center;
 }
-.f_d_c{
+.f_d_c {
 	flex-direction: column;
 }
 // flex class end
 
 // spacing
-.m_0_auto{
+.m_0_auto {
 	margin: 0 auto;
 }
 .m_tb_0 {

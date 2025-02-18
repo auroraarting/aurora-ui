@@ -1,0 +1,26 @@
+.ServicesCircleSection{
+    padding: 150px 0;
+
+    .CircleGrid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 220px;
+        align-items: center;
+        .CircleInfo{
+            &.CircleBox {
+                width: 450px; 
+                height: 450px; 
+                border-radius: 50%;
+                background-color: #1a1a1a; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                border: 2px solid #333;
+            }
+        }
+        
+    }
+}
