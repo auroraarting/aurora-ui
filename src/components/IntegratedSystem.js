@@ -44,22 +44,73 @@ export default function IntegratedSystem() {
 					<div className={`${styles.integratedImgMain}`}>
 						<div className={`${styles.integratedImgBox} f_w`}>
 							<div className={`${styles.itemBox}`}>
-								<img
-									src={system_one.src}
-									className={`${styles.imgOne} b_r_t_l`}
-									alt="img"
-								/>
-							</div>
-							<div className={`${styles.itemBox}`}>
-								<img src={amun_logo.src} className={`${styles.centerLogo}`} alt="img" />
-								<div className={`${styles.hoverBox}`}>
-									<a href="#" className="text_xs text_uppercase f_w_m">
-										Know More
-										<img src={hover_arrow.src} className="" alt="img" />
-									</a>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={system_one.src}
+										className={`${styles.imgOne} b_r_t_l`}
+										alt="img"
+									/>
+								</div>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={amun_logo.src}
+										className={`${styles.centerLogo}`}
+										alt="img"
+									/>
+									<div className={`${styles.hoverBox}`}>
+										<a href="#" className="text_xs text_uppercase f_w_m">
+											Know More
+											<img src={hover_arrow.src} className="" alt="img" />
+										</a>
+									</div>
 								</div>
 							</div>
 							<div className={`${styles.itemBox}`}>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={amun_logo.src}
+										className={`${styles.centerLogo}`}
+										alt="img"
+									/>
+									<div className={`${styles.hoverBox}`}>
+										<a href="#" className="text_xs text_uppercase f_w_m">
+											Know More
+											<img src={hover_arrow.src} className="" alt="img" />
+										</a>
+									</div>
+								</div>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={system_one.src}
+										className={`${styles.imgOne} b_r_t_l`}
+										alt="img"
+									/>
+								</div>
+							</div>
+							<div className={`${styles.itemBox}`}>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={system_one.src}
+										className={`${styles.imgOne} b_r_t_l`}
+										alt="img"
+									/>
+								</div>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={amun_logo.src}
+										className={`${styles.centerLogo}`}
+										alt="img"
+									/>
+									<div className={`${styles.hoverBox}`}>
+										<a href="#" className="text_xs text_uppercase f_w_m">
+											Know More
+											<img src={hover_arrow.src} className="" alt="img" />
+										</a>
+									</div>
+								</div>
+							</div>
+
+							{/* <div className={`${styles.itemBox}`}>
 								<img
 									src={system_one.src}
 									className={`${styles.imgOne} b_r_t_r`}
@@ -86,7 +137,7 @@ export default function IntegratedSystem() {
 										<img src={hover_arrow.src} className="" alt="img" />
 									</a>
 								</div>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>
