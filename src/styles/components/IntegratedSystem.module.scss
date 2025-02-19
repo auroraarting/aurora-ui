@@ -1,0 +1,68 @@
+@import "../helpers/helpers.scss";
+
+.IntegratedSystem {
+	.integratedSystemFlex {
+		.title_wrap {
+			width: 45%;
+			@media (max-width: 991px) {
+				width: 100%;
+				margin-bottom: 40px;
+			}
+		}
+		.integratedImgMain {
+			width: 50%;
+			@media (max-width: 991px) {
+				width: 100%;
+			}
+			.integratedImgBox {
+				border-radius: 10px;
+				background-color: var(--color_secondary);
+				.itemBox {
+					position: relative;
+					width: 33.333%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					// flex-wrap: wrap;
+					height: 175px;
+					overflow: hidden;
+					.imgOne {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						object-position: top;
+					}
+					.centerLogo {
+						transition: 0.5s all;
+					}
+					.hoverBox {
+						position: absolute;
+						left: 0px;
+
+						width: 100%;
+						background-color: #23ae84;
+						padding: 8px 10px;
+						transform: translateY(110px);
+						transition: 0.5s all;
+						a {
+							letter-spacing: 1.12px;
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+						}
+					}
+					&:hover {
+						.centerLogo {
+							transition: 0.5s all;
+							margin-top: -20px;
+						}
+						.hoverBox {
+							transition: 0.5s all;
+							transform: translateY(72px);
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -142,16 +142,16 @@
 .color_purple {
 	color: var(--color_purple);
 }
-.dark_bg{
+.dark_bg {
 	background-color: var(--color_secondary);
 }
 // color style end
 
-.yellow_gradient{
-	background: linear-gradient(180deg, #FC0 0%, #FFF2BF 100%);
+.yellow_gradient {
+	background: linear-gradient(180deg, #fc0 0%, #fff2bf 100%);
 }
-.dark_gradient{
-	background: linear-gradient(180deg, #246093 0.03%, #0B1D2D 133.43%);
+.dark_gradient {
+	background: linear-gradient(180deg, #246093 0.03%, #0b1d2d 133.43%);
 }
 
 // line height
@@ -224,6 +224,12 @@
 }
 .b_r_5 {
 	border-radius: 5px;
+}
+.b_r_t_l {
+	border-top-left-radius: 10px;
+}
+.b_r_t_r {
+	border-top-right-radius: 10px;
 }
 
 .width_100 {

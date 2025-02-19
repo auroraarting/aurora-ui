@@ -16,6 +16,7 @@ import ServicesCircle from "@/components/ServicesCircle";
 import IntuitiveStepProcess from "@/sections/softwares/IntuitiveStepProcess";
 import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
+import IntegratedSystem from "@/components/IntegratedSystem";
 
 // PLUGINS //
 
@@ -58,6 +59,7 @@ export default function SoftwarePage() {
 				<IntuitiveStepProcess /> */}
 				<SmarterEnergy />
 				<Insights />
+				<IntegratedSystem />
 			</main>
 			{/* Page Content ends here */}
 
