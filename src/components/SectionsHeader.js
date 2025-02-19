@@ -87,7 +87,7 @@ export default function SectionsHeader() {
 	}, []);
 
 	return (
-		<div className={`${styles.SectionsHeader} pb_80`}>
+		<div className={`${styles.SectionsHeader}`}>
 			<div className={`${styles.boxWrap}`}>
 				{data?.map((item, ind) => {
 					return (
