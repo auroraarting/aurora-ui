@@ -17,18 +17,9 @@ import Button from "./Buttons/Button";
 // IMAGES //
 
 // DATA //
-const data = [
-	{ name: "Expertise", id: "#expertise" },
-	{ name: "Available Regions", id: "#availableregions" },
-	{ name: "Why Aurora", id: "#whyaurora" },
-	{ name: "Clients", id: "#clients" },
-	// <Button key="btn" color="primary" variant="filled" shape="rounded">
-	// 	Read More
-	// </Button>,
-];
 
 /** SectionsHeader Component */
-export default function SectionsHeader() {
+export default function SectionsHeader({ data }) {
 	const [activeTab, setActiveTab] = useState(0);
 
 	useEffect(() => {
@@ -40,9 +31,6 @@ export default function SectionsHeader() {
 					if (index !== -1) {
 						const diff = 100 / data.length;
 						const percentage = `${diff * (index + 1)}%`;
-						console.log(
-							`${entry.target.id} has entered the viewport! ${percentage} ${diff}`
-						);
 
 						// Update CSS variable on the `.SectionsHeader` element
 						document
@@ -54,7 +42,6 @@ export default function SectionsHeader() {
 					// Perform your desired action here
 					// Example: setActiveTab based on the entry.target.id
 				} else {
-					console.log(`${entry.target.id} has left the viewport!`);
 					// Optionally handle exit from viewport
 				}
 			});
@@ -92,12 +79,12 @@ export default function SectionsHeader() {
 				{data?.map((item, ind) => {
 					return (
 						<div
-							key={item.name}
+							key={ind}
 							className={`${styles.box} ${styles.onlyText} ${
 								activeTab >= ind ? "color_medium_gray" : ""
 							} `}
 						>
-							{item.name}
+							{typeof item.name === "string" ? item.name : item}
 						</div>
 					);
 				})}

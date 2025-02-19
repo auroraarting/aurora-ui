@@ -20,6 +20,8 @@
 
 			&.onlyText {
 				text-align: center;
+				display: grid;
+				place-items: center;
 			}
 		}
 	}

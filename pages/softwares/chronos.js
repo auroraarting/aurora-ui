@@ -1,4 +1,5 @@
 // MODULES //
+import { useState } from "react";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
@@ -7,6 +8,7 @@ import MetaTags from "@/components/MetaTags";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import SectionsHeader from "@/components/SectionsHeader";
 import InnerBanner from "@/components/InnerBanner";
+import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
@@ -20,6 +22,7 @@ import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 
 // PLUGINS //
+import { Link, scroller } from "react-scroll";
 
 // UTILS //
 
@@ -33,6 +36,36 @@ import desktop_banner from "@/../public/img/banner/desktop_banner.jpg";
 
 /** Chronos Page */
 export default function SoftwarePage() {
+	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+
+	/** scrollToSection */
+	const scrollToSection = (id) => {
+		scroller.scrollTo(id, {
+			duration: 500,
+			smooth: true,
+			offset: -100,
+			spy: true,
+			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+		});
+
+		setTimeout(() => {
+			setIsFormVisible(true);
+			console.log("Scrolling finished!");
+		}, 500);
+	};
+
+	const headerArray = [
+		{ name: "Expertise", id: "#expertise" },
+		{ name: "Available Regions", id: "#availableregions" },
+		{ name: "Why Aurora", id: "#whyaurora" },
+		{ name: "Clients", id: "#clients" },
+		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+			<Button color="primary" variant="filled" shape="rounded">
+				Book a Demo
+			</Button>
+		</div>,
+	];
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -50,7 +83,7 @@ export default function SoftwarePage() {
 					mobileImage={desktop_banner.src}
 					videoSrc="../../img/softwares/frame_video.mp4"
 				/> */}
-				<SectionsHeader />
+				<SectionsHeader data={headerArray} />
 				<SoftwareBanner />
 				<Redefining />
 				<SoftwareMarket />
@@ -59,7 +92,10 @@ export default function SoftwarePage() {
 				<ServicesCircle />
 				<IntuitiveStepProcess />
 				<SmarterEnergy />
-				<Insights />
+				<Insights
+					isFormVisible={isFormVisible}
+					setIsFormVisible={setIsFormVisible}
+				/>
 				<IntegratedSystem />
 			</main>
 			{/* Page Content ends here */}

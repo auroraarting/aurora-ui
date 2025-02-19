@@ -43,7 +43,7 @@ export default function Insights() {
 		setIsTitleVisible(true); // Show title when closing form
 	};
 	return (
-		<section className={`${styles.Insights} pb_100`}>
+		<section className={`${styles.Insights} pb_100`} id="Insights">
 			<div className="container">
 				<div className={`${styles.insightsBg} dark_bg`}>
 					<div className={`${styles.powerBg}`}>
