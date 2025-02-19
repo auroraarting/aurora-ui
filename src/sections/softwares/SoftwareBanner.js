@@ -57,7 +57,7 @@ export default function SoftwareBanner() {
 						className={`${styles.frame_video}`}
 					/> */}
 					<div className={`${styles.frame_video}`}>
-						<video autoPlay muted loop>
+						<video playsInline autoPlay muted loop>
 							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
 						</video>
 					</div>
