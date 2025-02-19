@@ -51,12 +51,12 @@ export default function SoftwarePage() {
 				/> */}
 				<SoftwareBanner />
 
-				{/* <Redefining />
+				<Redefining />
 				<SoftwareMarket />
 				<TrustedLeaders />
 				<TestimonialFeedback />
 				<ServicesCircle />
-				<IntuitiveStepProcess /> */}
+				<IntuitiveStepProcess />
 				<SmarterEnergy />
 				<Insights />
 				<IntegratedSystem />
