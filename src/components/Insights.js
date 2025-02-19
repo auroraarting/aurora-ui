@@ -16,6 +16,8 @@ import styles from "@/styles/components/Insights.module.scss";
 
 // IMAGES //
 import clock from "../../public/img/icons/clock.svg";
+import close from "../../public/img/icons/close.png";
+import form_img from "../../public/img/softwares/form_img.png";
 
 // DATA //
 
@@ -26,32 +28,71 @@ export default function Insights() {
 	// 		EqualHeight("boxH");
 	// 	}, 500);
 	// }, []);
+	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const [isTitleVisible, setIsTitleVisible] = useState(true); // Title visible by default
+
+	/** handleOpenForm Section */
+	const handleOpenForm = () => {
+		setIsFormVisible(true);
+		setIsTitleVisible(false); // Hide title when opening form
+	};
+
+	/** handleCloseForm Section */
+	const handleCloseForm = () => {
+		setIsFormVisible(false);
+		setIsTitleVisible(true); // Show title when closing form
+	};
 	return (
 		<section className={`${styles.Insights} pb_100`}>
 			<div className="container">
 				<div className={`${styles.insightsBg} dark_bg`}>
-					<div className={`${styles.contentFlex} f_j`}>
-						<div className={`${styles.title_wrap}`}>
-							<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
-								Let’s power the future, together
-							</h2>
-							<p className="text_reg color_silver_gray">
-								Our team is here to help you navigate the complexities of energy
-								storage. Reach out to discover how Chronos can work for you.
-							</p>
-						</div>
-						<div className={`${styles.bookBtn}`}>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Speak To Our Experts
-							</Button>
-						</div>
+					<div className={`${styles.powerBg}`}>
+						{isTitleVisible && (
+							<div className={`${styles.contentFlex} f_j`}>
+								<div className={`${styles.title_wrap}`}>
+									<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
+										Let’s power the future, together
+									</h2>
+									<p className="text_reg color_silver_gray">
+										Our team is here to help you navigate the complexities of energy
+										storage. Reach out to discover how Chronos can work for you.
+									</p>
+								</div>
+								<div className={`${styles.bookBtn}`} onClick={handleOpenForm}>
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+										Speak To Our Experts
+									</Button>
+								</div>
+							</div>
+						)}
+						{isFormVisible && (
+							<div className={`${styles.formFlex} f_j`}>
+								<div className={`${styles.close}`} onClick={handleCloseForm}>
+									<img src={close.src} className={`${styles.closeIcon}`} alt="close" />
+								</div>
+								<div className={`${styles.form_title}`}>
+									<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
+										Let’s power the future, together
+									</h2>
+									<p className="text_reg color_silver_gray">
+										Our team is here to help you navigate the complexities of energy
+										storage. Reach out to discover how Chronos can work for you.
+									</p>
+								</div>
+								<div className={`${styles.formBox}`}>
+									<img
+										src={form_img.src}
+										className={`${styles.form_img}`}
+										alt="form_img"
+									/>
+								</div>
+							</div>
+						)}
 					</div>
 					<div className={`${styles.insightsItemBox}`}>
-						<div className={`${styles.titleFlex} f_j`}>
-							<div className={`${styles.title}`}>
-								<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
-									Insights
-								</h2>
+						<div className={`${styles.titleFlex} pb_20 f_j`}>
+							<div className={`${styles.title} `}>
+								<h2 className="text_xl font_primary f_w_s_b color_white ">Insights</h2>
 							</div>
 							<div className={`${styles.bookBtn}`}>
 								<Button color="secondary" variant="filled" shape="rounded" mode="dark">
