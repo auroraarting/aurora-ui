@@ -22,32 +22,33 @@ import form_img from "../../public/img/softwares/form_img.png";
 // DATA //
 
 /** Insights Section */
-export default function Insights() {
+export default function Insights({ isFormVisible, setIsFormVisible }) {
 	// useEffect(() => {
 	// 	setInterval(() => {
 	// 		EqualHeight("boxH");
 	// 	}, 500);
 	// }, []);
-	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-	const [isTitleVisible, setIsTitleVisible] = useState(true); // Title visible by default
+	// const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	// const [isTitleVisible, setIsTitleVisible] = useState(true); // Title visible by default
 
 	/** handleOpenForm Section */
 	const handleOpenForm = () => {
 		setIsFormVisible(true);
-		setIsTitleVisible(false); // Hide title when opening form
+		// setIsTitleVisible(false); // Hide title when opening form
 	};
 
 	/** handleCloseForm Section */
 	const handleCloseForm = () => {
 		setIsFormVisible(false);
-		setIsTitleVisible(true); // Show title when closing form
+		// setIsTitleVisible(true); // Show title when closing form
 	};
+
 	return (
 		<section className={`${styles.Insights} pb_100`} id="Insights">
 			<div className="container">
 				<div className={`${styles.insightsBg} dark_bg`}>
 					<div className={`${styles.powerBg}`}>
-						{isTitleVisible && (
+						{!isFormVisible && (
 							<div className={`${styles.contentFlex} f_j`}>
 								<div className={`${styles.title_wrap}`}>
 									<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
