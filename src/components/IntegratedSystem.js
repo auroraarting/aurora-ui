@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // MODULES //
 
 // COMPONENTS //
@@ -15,7 +16,11 @@ import styles from "@/styles/components/IntegratedSystem.module.scss";
 
 // IMAGES //
 import system_one from "../../public/img/softwares/system_one.jpg";
+import turbine_img from "../../public/img/softwares/turbine_img.jpg";
+import solar_img from "../../public/img/softwares/solar_img.jpg";
 import amun_logo from "../../public/img/softwares/amun_logo.png";
+import origin_logo from "../../public/img/softwares/origin_logo.png";
+import lumus_logo from "../../public/img/softwares/lumus_logo.png";
 import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 
 // DATA //
@@ -44,47 +49,65 @@ export default function IntegratedSystem() {
 					<div className={`${styles.integratedImgMain}`}>
 						<div className={`${styles.integratedImgBox} f_w`}>
 							<div className={`${styles.itemBox}`}>
-								<img
-									src={system_one.src}
-									className={`${styles.imgOne} b_r_t_l`}
-									alt="img"
-								/>
-							</div>
-							<div className={`${styles.itemBox}`}>
-								<img src={amun_logo.src} className={`${styles.centerLogo}`} alt="img" />
-								<div className={`${styles.hoverBox}`}>
-									<a href="#" className="text_xs text_uppercase f_w_m">
-										Know More
-										<img src={hover_arrow.src} className="" alt="img" />
-									</a>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={system_one.src}
+										className={`${styles.imgOne} b_r_t_l`}
+										alt="img"
+									/>
+								</div>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={origin_logo.src}
+										className={`${styles.centerLogo}`}
+										alt="img"
+									/>
+									<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
+										<a href="#" className="text_xs text_uppercase f_w_m">
+											Know More
+											<img src={hover_arrow.src} className="" alt="img" />
+										</a>
+									</div>
 								</div>
 							</div>
 							<div className={`${styles.itemBox}`}>
-								<img
-									src={system_one.src}
-									className={`${styles.imgOne} b_r_t_r`}
-									alt="img"
-								/>
-							</div>
-							<div className={`${styles.itemBox}`}>
-								<img src={amun_logo.src} className={`${styles.centerLogo}`} alt="img" />
-								<div className={`${styles.hoverBox}`}>
-									<a href="#" className="text_xs text_uppercase f_w_m">
-										Know More
-										<img src={hover_arrow.src} className="" alt="img" />
-									</a>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={amun_logo.src}
+										className={`${styles.centerLogo}`}
+										alt="img"
+									/>
+									<div className={`${styles.hoverBox} ${styles.hoverBoxTwo}`}>
+										<a href="#" className="text_xs text_uppercase f_w_m">
+											Know More
+											<img src={hover_arrow.src} className="" alt="img" />
+										</a>
+									</div>
+								</div>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img src={turbine_img.src} className={`${styles.imgOne} `} alt="img" />
 								</div>
 							</div>
 							<div className={`${styles.itemBox}`}>
-								<img src={system_one.src} className={`${styles.imgOne}`} alt="img" />
-							</div>
-							<div className={`${styles.itemBox}`}>
-								<img src={amun_logo.src} className={`${styles.centerLogo}`} alt="img" />
-								<div className={`${styles.hoverBox}`}>
-									<a href="#" className="text_xs text_uppercase f_w_m">
-										Know More
-										<img src={hover_arrow.src} className="" alt="img" />
-									</a>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={solar_img.src}
+										className={`${styles.imgOne} b_r_t_r`}
+										alt="img"
+									/>
+								</div>
+								<div className={`${styles.itemBoxWrap}`}>
+									<img
+										src={lumus_logo.src}
+										className={`${styles.centerLogo}`}
+										alt="img"
+									/>
+									<div className={`${styles.hoverBox} ${styles.hoverBoxThree}`}>
+										<a href="#" className="text_xs text_uppercase f_w_m">
+											Know More
+											<img src={hover_arrow.src} className="" alt="img" />
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
