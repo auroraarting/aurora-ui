@@ -5,11 +5,8 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
-<<<<<<< HEAD
 import SectionsHeader from "@/components/SectionsHeader";
-=======
 import InnerBanner from "@/components/InnerBanner";
->>>>>>> pramod
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
