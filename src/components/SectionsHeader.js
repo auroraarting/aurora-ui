@@ -12,6 +12,7 @@ import { useInView } from "react-intersection-observer";
 
 // STYLES //
 import styles from "@/styles/components/SectionsHeader.module.scss";
+import Button from "./Buttons/Button";
 
 // IMAGES //
 
@@ -21,6 +22,9 @@ const data = [
 	{ name: "Available Regions", id: "#availableregions" },
 	{ name: "Why Aurora", id: "#whyaurora" },
 	{ name: "Clients", id: "#clients" },
+	// <Button key="btn" color="primary" variant="filled" shape="rounded">
+	// 	Read More
+	// </Button>,
 ];
 
 /** SectionsHeader Component */
