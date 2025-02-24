@@ -2,6 +2,13 @@
 
 .Speedometer {
 	position: relative;
+
+	.speedometerSvg {
+		@include sm-down {
+			width: 100%;
+			height: max-content;
+		}
+	}
 	.text {
 		width: max-content;
 		@extend %rel_x_center;
@@ -13,14 +20,31 @@
 			margin-bottom: 25px;
 			width: 200px;
 
+			@include lg-down {
+				width: 150px;
+			}
+			@include sm-down {
+				width: max-content;
+				margin-bottom: 10px;
+			}
+
 			.count {
 				font-size: 115px;
+				@include lg-down {
+					font-size: 95px;
+				}
+				@include sm-down {
+					font-size: 55px;
+				}
 			}
 			.plus {
 				height: max-content;
 				position: absolute;
 				top: 0;
 				right: -40px;
+				@include sm-down {
+					right: -30px;
+				}
 			}
 		}
 		.bottomText {

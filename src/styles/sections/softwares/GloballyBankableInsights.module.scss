@@ -2,6 +2,8 @@
 
 .GloballyBankableInsights {
 	position: relative;
+	overflow: hidden;
+
 	.bg {
 		@extend %full_overlay;
 		object-fit: cover;
@@ -11,6 +13,12 @@
 			display: flex;
 			justify-content: space-between;
 			width: 100%;
+
+			@include sm-down {
+				flex-direction: column;
+				align-items: start;
+				margin-bottom: 30px;
+			}
 
 			p {
 				// flex: 1;
@@ -23,10 +31,79 @@
 			background-color: var(--color_secondary);
 			display: flex;
 			align-items: center;
+			overflow: hidden;
+			position: relative;
+
+			.bgGradient {
+				position: absolute;
+				width: fit-content;
+				bottom: 0;
+				left: 0;
+				filter: blur(50px);
+				transform: translateY(50px);
+			}
+
+			&.insightWrap2 {
+				display: block;
+			}
+
+			@include lg-down {
+				flex-direction: column;
+				gap: 50px;
+				padding: 30px;
+			}
 
 			.textData {
 				flex: 1;
 				padding-left: 70px;
+
+				@include lg-down {
+					padding-left: 0px;
+				}
+			}
+
+			.fromTo {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 60px;
+				width: 80%;
+				.tab {
+					padding: 10px 23px;
+					border-radius: 100px;
+					border: 1px solid var(--color_light_gray);
+					text-transform: uppercase;
+				}
+				.line {
+					flex: 1;
+					height: 1px;
+					background-color: var(--color_dark_gray);
+				}
+			}
+
+			.graphWrap {
+				width: 80%;
+				position: relative;
+
+				.row {
+					--widthOfRowInsights: 100%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					gap: 20px;
+					background-color: var(--color_dark_gray);
+					padding: 10px 40px;
+					margin-bottom: 10px;
+					width: var(--widthOfRowInsights);
+
+					.text {
+						min-width: 110px;
+					}
+
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
 			}
 		}
 	}

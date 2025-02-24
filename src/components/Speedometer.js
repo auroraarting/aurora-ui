@@ -6,6 +6,9 @@ import Count from "./Count";
 
 // SECTIONS //
 
+// HOOKS //
+import { useIntersectionObserver } from "@/customHooks/useIntersectionObserver";
+
 // PLUGINS //
 
 // UTILS //
@@ -18,7 +21,15 @@ import styles from "@/styles/components/Speedometer.module.scss";
 // DATA //
 
 /** Speedometer Component */
-export default function Speedometer({ value, endpoint = 1000, speed = 500 }) {
+export default function Speedometer({
+	value,
+	endpoint = 1000,
+	speed = 500,
+	startWhenInView,
+}) {
+	const { ref, isIntersecting } = useIntersectionObserver({
+		threshold: 0.5, // 50% visibility triggers intersection
+	});
 	const [duration, setDuration] = useState(null);
 
 	/** chunkArray */
@@ -29,13 +40,15 @@ export default function Speedometer({ value, endpoint = 1000, speed = 500 }) {
 		);
 	}
 
-	useEffect(() => {
+	/** runAnimation */
+	const runAnimation = () => {
 		const pathsList = document.querySelectorAll(".speedometer path");
 		let chunked = chunkArray([...pathsList], 2);
 		const diff = (value / endpoint) * 100;
 		const count = Math.floor((diff / 100) * chunked.length); // Rounds down
 
 		const duration = count * speed;
+
 		setDuration(duration);
 
 		// chunked.pop();
@@ -50,17 +63,25 @@ export default function Speedometer({ value, endpoint = 1000, speed = 500 }) {
 				});
 			}, speed * ind);
 		});
-	}, []);
+	};
+
+	useEffect(() => {
+		if (startWhenInView) {
+			if (isIntersecting && duration === null) {
+				runAnimation();
+			}
+		}
+	}, [isIntersecting]);
 
 	return (
-		<div className={`${styles.Speedometer} Speedometer`}>
+		<div className={`${styles.Speedometer} Speedometer`} ref={ref}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="510"
 				height="267"
 				viewBox="0 0 510 267"
 				fill="none"
-				className="speedometer"
+				className={`speedometer ${styles.speedometerSvg}`}
 			>
 				<path
 					d="M451.413 250.753C452.467 250.753 453.323 249.898 453.312 248.844C453.312 248.812 453.312 248.781 453.311 248.749C453.3 247.695 452.427 246.858 451.373 246.88C450.319 246.901 449.483 247.781 449.494 248.836C449.505 249.89 450.359 250.753 451.413 250.753Z"

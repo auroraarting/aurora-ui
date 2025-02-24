@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -15,8 +16,17 @@ import styles from "@/styles/sections/softwares/GloballyBankableInsights.module.
 
 // IMAGES //
 import Bg from "/public/img/softwares/bankableInsightsBg.jpg";
+import InsightsBg from "/public/img/softwares/insightsBgGradient.png";
 
 // DATA //
+const defaultRows = [
+	{ title: "Multi-Technology Project", percent: 29 },
+	{ title: "Hydrogen", percent: 24 },
+	{ title: "Solar", percent: 16 },
+	{ title: "Offshore Wind", percent: 14 },
+	{ title: "Onshore Wind", percent: 12 },
+	{ title: "Battery Energy Storage (BESS)", percent: 5 },
+];
 
 /** GloballyBankableInsights Section */
 export default function GloballyBankableInsights() {
@@ -38,18 +48,13 @@ export default function GloballyBankableInsights() {
 							</p>
 						</div>
 
-						<div className={`${styles.insightWrap} color_white`}>
-							<Speedometer value={750} />
-							<div className={`${styles.textData}`}>
-								<p className={`${styles.insightTitle} text_lg`}>
-									Data you can depend on
-								</p>
-								<p className={`${styles.insightsDesc}`}>
-									Chronos leverages Aurora’s proprietary datasets and models, trusted by
-									over 750 companies globally. When accuracy and reliability matter most,
-									Chronos delivers.
-								</p>
-							</div>
+						{/* <div className={`${styles.insightWrap} color_white`}>
+							<SingleInsight />
+						</div> */}
+						<div
+							className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
+						>
+							<MultipleInsights />
 						</div>
 					</div>
 				</div>
@@ -57,3 +62,83 @@ export default function GloballyBankableInsights() {
 		</section>
 	);
 }
+
+/** SingleInsight */
+const SingleInsight = () => {
+	return (
+		<>
+			<Speedometer value={750} endpoint={1000} speed={200} startWhenInView />
+			<div className={`${styles.textData}`}>
+				<p className={`${styles.insightTitle} text_lg`}>Data you can depend on</p>
+				<p className={`${styles.insightsDesc}`}>
+					Chronos leverages Aurora’s proprietary datasets and models, trusted by over
+					750 companies globally. When accuracy and reliability matter most, Chronos
+					delivers.
+				</p>
+			</div>
+		</>
+	);
+};
+
+/** MultipleInsights  */
+const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
+	const [list, setList] = useState([]);
+	const hightestValue = rows.reduce(
+		(max, row) => (row.percent > max.percent ? row : max),
+		rows[0]
+	)?.percent;
+
+	/** calculateRelativePercentage  */
+	function calculateRelativePercentage(start, end, percent) {
+		return parseFloat((((percent - start) / (end - start)) * 100).toFixed(2));
+	}
+
+	useEffect(() => {
+		const temp = rows.map((item) => {
+			const percentage = calculateRelativePercentage(
+				start,
+				hightestValue,
+				item.percent
+			);
+			return { ...item, percentage: percentage };
+		});
+		setList(temp);
+	}, []);
+
+	return (
+		<>
+			<div className={`${styles.multipleSectionhead}`}>
+				<p className={`${styles.headText} text_lg f_w_s_b`}>
+					Energy by the numbers
+				</p>
+				<p className={`${styles.headSubText}`}>
+					Explore how resources are driving diverse energy technologies:
+				</p>
+			</div>
+			<div className={`${styles.fromTo}`}>
+				<div className={`${styles.tab} text_xs f_w_s_b `}>Technology</div>
+				<div className={`${styles.line}`}></div>
+				<div className={`${styles.tab} text_xs f_w_s_b`}>Percentage</div>
+			</div>
+			<img
+				className={`${styles.bgGradient}`}
+				src={InsightsBg.src}
+				alt="InsightsBg"
+			/>
+			<div className={`${styles.graphWrap} m_t_30`}>
+				{list?.map((item, ind) => {
+					return (
+						<div
+							style={{ width: `${item?.percentage}%` }}
+							className={`${styles.row} text_xs f_w_s_b text_uppercase`}
+							key={item.title || ind} // Use index only if title is not unique
+						>
+							<span className={`${styles.text} `}>{item.title}</span>
+							<span className={`${styles.percent} text_xl`}>{item.percent}%</span>
+						</div>
+					);
+				})}
+			</div>
+		</>
+	);
+};
