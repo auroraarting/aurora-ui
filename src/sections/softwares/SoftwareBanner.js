@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -16,11 +17,27 @@ import styles from "@/styles/sections/softwares/SoftwareBanner.module.scss";
 import SoftwareLogo from "../../../public/img/softwares/chronos-logo.png";
 import mac_img from "../../../public/img/softwares/mac_img.png";
 import frame_video from "../../../public/img/softwares/frame_video.png";
+import pause_button from "../../../public/img/icons/pause_button.svg";
+import play_button from "../../../public/img/icons/play_icon.png";
 
 // DATA //
 
 /** SoftwareBanner Section */
 export default function SoftwareBanner() {
+	const [isPlaying, setIsPlaying] = useState(true);
+	const videoRef = useRef(null);
+
+	/** togglePlayPause */
+	const togglePlayPause = () => {
+		if (videoRef.current) {
+			if (isPlaying) {
+				videoRef.current.pause();
+			} else {
+				videoRef.current.play();
+			}
+			setIsPlaying(!isPlaying);
+		}
+	};
 	return (
 		<section className={`${styles.SoftwareBanner} ptb_100`}>
 			<div className="container">
@@ -57,9 +74,25 @@ export default function SoftwareBanner() {
 						className={`${styles.frame_video}`}
 					/> */}
 					<div className={`${styles.frame_video}`}>
-						<video playsInline autoPlay muted loop>
+						<video ref={videoRef} playsInline autoPlay muted loop>
 							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
 						</video>
+						{/* Play/Pause Button */}
+						<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
+							{isPlaying ? (
+								<img
+									src={pause_button.src}
+									className={`${styles.pause_button}`}
+									alt="Pause"
+								/>
+							) : (
+								<img
+									src={play_button.src}
+									className={`${styles.play_button}`}
+									alt="Play"
+								/>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

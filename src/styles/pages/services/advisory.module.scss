@@ -1,0 +1,9 @@
+.AdvisoryPage {
+	background-color: var(--color_silver);
+	:global(.TrustedLeaders) {
+		padding-top: 100px;
+		@media (max-width: 767px) {
+			padding-top: 60px;
+		}
+	}
+}

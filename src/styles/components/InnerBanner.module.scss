@@ -4,11 +4,30 @@
 	@extend %relative_box;
 	overflow: hidden;
 	.banner_image {
-		img,video{
+		img,
+		video {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 			border-radius: 20px;
+		}
+	}
+	.VideoBox {
+		position: relative;
+		.playPauseBtn {
+			position: absolute;
+			right: 20px;
+			bottom: 20px;
+			cursor: pointer;
+			@media (max-width: 767px) {
+				right: 10px;
+				bottom: 10px;
+			}
+			img {
+				@media (max-width: 767px) {
+					width: 30px;
+				}
+			}
 		}
 	}
 	.flexBox {

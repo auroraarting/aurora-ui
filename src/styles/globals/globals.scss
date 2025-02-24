@@ -58,6 +58,12 @@ section {
 	width: var(--container_width);
 }
 
+.containerLarge {
+	@extend .container-fluid;
+	margin: 0 auto;
+	width: var(--container_large_width);
+}
+
 .row {
 	display: flex;
 	flex-wrap: wrap;

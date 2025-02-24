@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -11,6 +12,8 @@ import styles from "@/styles/components/InnerBanner.module.scss";
 // IMAGES //
 import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "@/../public/img/banner/defaultMobileBanner.jpg";
+import pause_button from "../../public/img/icons/pause_button.svg";
+import play_button from "../../public/img/icons/play_icon.png";
 
 // UTILS //
 
@@ -21,35 +24,71 @@ function InnerBanner({
 	bannerDescription,
 	mobileImage,
 	videoSrc,
+	btnTxt,
 }) {
+	const [isPlaying, setIsPlaying] = useState(true);
+	const videoRef = useRef(null);
+
+	/** togglePlayPause */
+	const togglePlayPause = () => {
+		if (videoRef.current) {
+			if (isPlaying) {
+				videoRef.current.pause();
+			} else {
+				videoRef.current.play();
+			}
+			setIsPlaying(!isPlaying);
+		}
+	};
 	return (
 		<section>
 			<div className="container">
-				<div className={`${styles.inner_banner_wrap} `}>
-					{/* Banner Content */}
-					<div className={`${styles.flexBox} f_j ptb_60`}>
-						<div className={`${styles.flexItemOne}`}>
-							<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
-								{bannerTitle}
-							</h1>
-						</div>
-						<div className={`${styles.flexItemTwo}`}>
-							<p className={`${styles.label} text_reg color_dark_gray`}>
-								{bannerDescription}
-							</p>
-							<div className={`${styles.bookBtn} pt_30`}>
-								<Button color="primary" variant="filled" shape="rounded">
-									Book a Demo
-								</Button>
-							</div>
+				{/* Banner Content */}
+				<div className={`${styles.flexBox} f_j ptb_60`}>
+					<div className={`${styles.flexItemOne}`}>
+						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
+							{bannerTitle}
+						</h1>
+					</div>
+					<div className={`${styles.flexItemTwo}`}>
+						<p className={`${styles.label} text_reg color_dark_gray`}>
+							{bannerDescription}
+						</p>
+						<div className={`${styles.bookBtn} pt_30`}>
+							<Button color="primary" variant="filled" shape="rounded">
+								{btnTxt}
+							</Button>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div className="containerLarge">
+				<div className={`${styles.inner_banner_wrap} `}>
 					{/* Banner Image or Video */}
 					<div className={`${styles.banner_image} next_image`}>
 						{videoSrc ? (
-							<video playsInline autoPlay muted loop>
-								<source src={videoSrc} type="video/mp4" />
-							</video>
+							<div className={`${styles.VideoBox}`}>
+								<video ref={videoRef} playsInline autoPlay muted loop>
+									<source src={videoSrc} type="video/mp4" />
+								</video>
+
+								{/* Play/Pause Button */}
+								<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
+									{isPlaying ? (
+										<img
+											src={pause_button.src}
+											className={`${styles.pause_button}`}
+											alt="Pause"
+										/>
+									) : (
+										<img
+											src={play_button.src}
+											className={`${styles.play_button}`}
+											alt="Play"
+										/>
+									)}
+								</div>
+							</div>
 						) : (
 							<picture>
 								<source
