@@ -78,7 +78,10 @@ export default function TrustedLeaders() {
 		},
 	];
 	return (
-		<section className={`${styles.TrustedLeaders} pb_100`} id="whyaurora">
+		<section
+			className={`${styles.TrustedLeaders} TrustedLeaders pb_100`}
+			id="whyaurora"
+		>
 			<div className="container">
 				<div className="pb_40">
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
