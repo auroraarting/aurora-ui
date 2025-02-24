@@ -1,0 +1,31 @@
+@import "../helpers/helpers.scss";
+
+.Speedometer {
+	position: relative;
+	.text {
+		width: max-content;
+		@extend %rel_x_center;
+		bottom: 0;
+		.countWrap {
+			position: relative;
+			width: max-content;
+			margin: 0 auto;
+			margin-bottom: 25px;
+			width: 200px;
+
+			.count {
+				font-size: 115px;
+			}
+			.plus {
+				height: max-content;
+				position: absolute;
+				top: 0;
+				right: -40px;
+			}
+		}
+		.bottomText {
+			text-transform: uppercase;
+			text-align: center;
+		}
+	}
+}

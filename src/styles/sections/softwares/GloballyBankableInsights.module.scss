@@ -1,0 +1,33 @@
+@import "../../helpers/helpers.scss";
+
+.GloballyBankableInsights {
+	position: relative;
+	.bg {
+		@extend %full_overlay;
+		object-fit: cover;
+	}
+	.wrap {
+		.head {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+
+			p {
+				// flex: 1;
+			}
+		}
+
+		.insightWrap {
+			border-radius: 40px;
+			padding: 50px;
+			background-color: var(--color_secondary);
+			display: flex;
+			align-items: center;
+
+			.textData {
+				flex: 1;
+				padding-left: 70px;
+			}
+		}
+	}
+}

@@ -9,17 +9,18 @@ import TestimonialFeedback from "@/components/TestimonialFeedback";
 import SectionsHeader from "@/components/SectionsHeader";
 import InnerBanner from "@/components/InnerBanner";
 import Button from "@/components/Buttons/Button";
+import TrustedLeaders from "@/components/TrustedLeaders";
+import ServicesCircle from "@/components/ServicesCircle";
+import SmarterEnergy from "@/components/SmarterEnergy";
+import Insights from "@/components/Insights";
+import IntegratedSystem from "@/components/IntegratedSystem";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
 import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 import Redefining from "@/sections/softwares/Redefining";
-import TrustedLeaders from "@/components/TrustedLeaders";
-import ServicesCircle from "@/components/ServicesCircle";
+import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 import IntuitiveStepProcess from "@/sections/softwares/IntuitiveStepProcess";
-import SmarterEnergy from "@/components/SmarterEnergy";
-import Insights from "@/components/Insights";
-import IntegratedSystem from "@/components/IntegratedSystem";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -92,6 +93,7 @@ export default function SoftwarePage() {
 				<ServicesCircle />
 				<IntuitiveStepProcess />
 				<SmarterEnergy />
+				<GloballyBankableInsights />
 				<Insights
 					isFormVisible={isFormVisible}
 					setIsFormVisible={setIsFormVisible}
