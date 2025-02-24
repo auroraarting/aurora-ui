@@ -46,14 +46,10 @@ export default function Speedometer({
 		let chunked = chunkArray([...pathsList], 2);
 		const diff = (value / endpoint) * 100;
 		const count = Math.floor((diff / 100) * chunked.length); // Rounds down
-
 		const duration = count * speed;
-
 		setDuration(duration);
-
 		// chunked.pop();
-
-		chunked.map((item, ind) => {
+		chunked.reverse().map((item, ind) => {
 			if (ind + 1 >= count) {
 				return;
 			}

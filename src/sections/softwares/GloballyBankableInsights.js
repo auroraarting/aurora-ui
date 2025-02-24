@@ -7,6 +7,9 @@ import Speedometer from "@/components/Speedometer";
 
 // SECTIONS //
 
+// HOOKS //
+import { useIntersectionObserver } from "@/customHooks/useIntersectionObserver";
+
 // PLUGINS //
 
 // UTILS //
@@ -82,6 +85,9 @@ const SingleInsight = () => {
 
 /** MultipleInsights  */
 const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
+	const { ref, isIntersecting } = useIntersectionObserver({
+		threshold: 0.5, // 50% visibility triggers intersection
+	});
 	const [list, setList] = useState([]);
 	const hightestValue = rows.reduce(
 		(max, row) => (row.percent > max.percent ? row : max),
@@ -125,11 +131,11 @@ const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
 				src={InsightsBg.src}
 				alt="InsightsBg"
 			/>
-			<div className={`${styles.graphWrap} m_t_30`}>
+			<div className={`${styles.graphWrap} m_t_30`} ref={ref}>
 				{list?.map((item, ind) => {
 					return (
 						<div
-							style={{ width: `${item?.percentage}%` }}
+							style={{ width: `${isIntersecting ? item.percentage : 0}%` }}
 							className={`${styles.row} text_xs f_w_s_b text_uppercase`}
 							key={item.title || ind} // Use index only if title is not unique
 						>
