@@ -201,8 +201,11 @@ export default function Map({
 										position={{ lat: marker.lat, lng: marker.lng }}
 										onCloseClick={() => setSelectedMarker(null)}
 									>
-										<div style={{ fontSize: "14px", fontWeight: "bold" }}>
-											{selectedMarker}
+										<div
+											className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
+											// style={{ fontSize: "14px", fontWeight: "bold" }}
+										>
+											{marker.name}
 										</div>
 									</InfoWindow>
 								)}

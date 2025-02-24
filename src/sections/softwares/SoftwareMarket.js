@@ -33,9 +33,7 @@ export default function SoftwareMarket() {
 
 	/** changeMapCenter */
 	const changeMapCenter = (country) => {
-		console.log(country, "country");
 		setMapCenter(locationJson[country.index]?.centerOfCountry);
-		console.log(map, "zxczxc");
 		map.setZoom(locationJson[country.index]?.zoom || 4);
 	};
 
