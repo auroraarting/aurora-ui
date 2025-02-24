@@ -41,7 +41,7 @@ function InnerBanner({
 		}
 	};
 	return (
-		<section>
+		<section className={`${styles.BannerMain}`}>
 			<div className="container">
 				{/* Banner Content */}
 				<div className={`${styles.flexBox} f_j ptb_60`}>
