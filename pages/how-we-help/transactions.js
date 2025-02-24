@@ -14,6 +14,7 @@ import Insights from "@/components/Insights";
 // SECTIONS //
 
 // PLUGINS //
+import { Link, scroller } from "react-scroll";
 
 // UTILS //
 
