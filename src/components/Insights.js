@@ -81,11 +81,16 @@ export default function Insights({ isFormVisible, setIsFormVisible }) {
 									</p>
 								</div>
 								<div className={`${styles.formBox}`}>
-									<img
+									{/* <img
 										src={form_img.src}
 										className={`${styles.form_img}`}
 										alt="form_img"
-									/>
+									/> */}
+									<iframe
+										src="../../../img/softwares/form.html"
+										className={`${styles.form_img}`}
+										title="Form"
+									></iframe>
 								</div>
 							</div>
 						)}
