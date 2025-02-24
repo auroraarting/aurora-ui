@@ -68,6 +68,11 @@
 				align-items: center;
 				margin-top: 60px;
 				width: 80%;
+
+				@include lg-down {
+					width: 100%;
+				}
+
 				.tab {
 					padding: 10px 23px;
 					border-radius: 100px;
@@ -84,6 +89,10 @@
 			.graphWrap {
 				width: 80%;
 				position: relative;
+
+				@include lg-down {
+					width: 100%;
+				}
 
 				.row {
 					--widthOfRowInsights: 100%;
