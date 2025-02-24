@@ -24,9 +24,10 @@ export default function AccordianCommon({
 	fontWeight,
 	fontFamily,
 	fontColor,
+	defaultActiveId = 0,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState(defaultActiveId);
 	const [heights, setHeights] = useState([]);
 	const contentRefs = useRef([]);
 	useEffect(() => {

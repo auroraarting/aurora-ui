@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Button from "@/components/Buttons/Button";
 import CustomSelect from "@/components/CustomSelect";
 import Map from "@/components/Map";
+import AccordianCommon from "@/components/AccordianCommon";
 
 // SECTIONS //
 
@@ -18,6 +19,11 @@ import styles from "@/styles/sections/softwares/SoftwareMarket.module.scss";
 // IMAGES //
 import AuthorPic from "/public/img/softwares/authorPic.svg";
 import DrownDownArrow from "/public/img/softwares/arrow.svg";
+import transaction from "/public/img/softwares/transaction.svg";
+import portfolio from "/public/img/softwares/portfolio.svg";
+import asset from "/public/img/softwares/asset.svg";
+import strategy from "/public/img/softwares/strategy.svg";
+
 // import Map from "/public/img/softwares/map.png";
 
 // DATA //
@@ -86,10 +92,29 @@ export default function SoftwareMarket() {
 								</div>
 							</div>
 
-							<div className={`${styles.upcoming}`}>
+							{/* <div className={`${styles.upcoming}`}>
 								<p className={`${styles.text} text_500`}>Upcoming Locations</p>
 								<img src={DrownDownArrow.src} alt="DrownDownArrow" />
-							</div>
+							</div> */}
+							<AccordianCommon
+								fontStyle={"text_reg"}
+								fontWeight={"f_w_m"}
+								fontFamily={"font_primary"}
+								fontColor={"color_secondary"}
+								defaultActiveId={-1}
+								items={[
+									{
+										title: "Upcoming Location",
+										children: (
+											<div className={`${styles.content_wrap}`}>
+												<p className="text_reg color_dark_gray">
+													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+												</p>
+											</div>
+										),
+									},
+								]}
+							/>
 						</div>
 					</div>
 					<div className={`${styles.right}`}>
@@ -103,6 +128,7 @@ export default function SoftwareMarket() {
 							map={map}
 							setMap={setMap}
 						/>
+
 						<div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>
 							<div className={`${styles.detailText} text_xs`}>Available Locations</div>
