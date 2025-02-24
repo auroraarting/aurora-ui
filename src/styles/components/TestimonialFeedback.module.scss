@@ -2,7 +2,7 @@
 
 .TestimonialFeedback {
 	.testimonialBox {
-		padding: 0px 30px;
+		padding: 0px 0px;
 		@media (max-width: 767px) {
 			padding: 0px 0px;
 		}
@@ -44,11 +44,11 @@
 	}
 	.arrowSection {
 		position: absolute;
-		right: 105px;
+		right: 80px;
 		bottom: 50px;
 		z-index: 1;
 		@media (max-width: 1199px) {
-			right: 90px;
+			right: 55px;
 		}
 		@media (max-width: 767px) {
 			right: 30px;
