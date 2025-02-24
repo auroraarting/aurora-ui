@@ -22,14 +22,14 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/services/advisory.module.scss";
+import styles from "@/styles/pages/who-are-you/FinancialSector.module.scss";
 
 // IMAGES //
-import desktop_banner from "@/../public/img/services/advisory/desktop_banner.jpg";
+import desktop_banner from "@/../public/img/financial-sector/desktop_banner.jpg";
 
 // DATA //
 
-/** Advisory Page */
+/** FinancialSector Page */
 export default function Advisory() {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
@@ -63,18 +63,23 @@ export default function Advisory() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Advisory"} Desc={""} OgImg={""} Url={"/advisory"} />
+			<MetaTags
+				Title={"Financial Sector"}
+				Desc={""}
+				OgImg={""}
+				Url={"/financial-sector"}
+			/>
 
 			{/* Header */}
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.AdvisoryPage}>
+			<main className={styles.FinancialSectorPage}>
 				<SectionsHeader data={headerArray} />
 				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					btnTxt="Get Started"
+					bannerTitle="Energy solutions for those who see beyond the grid"
+					bannerDescription="Aurora empowers industries with tailored energy intelligence, helping decision-makers drive impact, manage risks, and seize opportunities in a rapidly changing energy landscape."
+					btnTxt="Connect Now"
 					desktopImage={desktop_banner.src}
 					mobileImage={desktop_banner.src}
 					// videoSrc="../../img/softwares/frame_video.mp4"

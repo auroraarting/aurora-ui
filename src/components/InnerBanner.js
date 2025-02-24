@@ -43,25 +43,27 @@ function InnerBanner({
 	return (
 		<section>
 			<div className="container">
-				<div className={`${styles.inner_banner_wrap} `}>
-					{/* Banner Content */}
-					<div className={`${styles.flexBox} f_j ptb_60`}>
-						<div className={`${styles.flexItemOne}`}>
-							<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
-								{bannerTitle}
-							</h1>
-						</div>
-						<div className={`${styles.flexItemTwo}`}>
-							<p className={`${styles.label} text_reg color_dark_gray`}>
-								{bannerDescription}
-							</p>
-							<div className={`${styles.bookBtn} pt_30`}>
-								<Button color="primary" variant="filled" shape="rounded">
-									{btnTxt}
-								</Button>
-							</div>
+				{/* Banner Content */}
+				<div className={`${styles.flexBox} f_j ptb_60`}>
+					<div className={`${styles.flexItemOne}`}>
+						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
+							{bannerTitle}
+						</h1>
+					</div>
+					<div className={`${styles.flexItemTwo}`}>
+						<p className={`${styles.label} text_reg color_dark_gray`}>
+							{bannerDescription}
+						</p>
+						<div className={`${styles.bookBtn} pt_30`}>
+							<Button color="primary" variant="filled" shape="rounded">
+								{btnTxt}
+							</Button>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div className="containerLarge">
+				<div className={`${styles.inner_banner_wrap} `}>
 					{/* Banner Image or Video */}
 					<div className={`${styles.banner_image} next_image`}>
 						{videoSrc ? (
