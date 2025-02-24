@@ -95,18 +95,23 @@
 				}
 
 				.row {
-					--widthOfRowInsights: 100%;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					gap: 20px;
 					background-color: var(--color_dark_gray);
-					padding: 10px 40px;
+					padding: 0px 0px;
 					margin-bottom: 10px;
-					width: var(--widthOfRowInsights);
+					width: 0%;
+					transition: all 1s ease-in-out;
 
 					.text {
-						min-width: 110px;
+						// min-width: 110px;
+						padding: 10px 40px;
+						white-space: nowrap;
+					}
+
+					.percent {
+						padding-right: 40px;
 					}
 
 					&:last-child {
