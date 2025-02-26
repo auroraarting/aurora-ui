@@ -12,6 +12,8 @@ import TrustedLeaders from "@/components/TrustedLeaders";
 import Insights from "@/components/Insights";
 
 // SECTIONS //
+import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
+import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -27,7 +29,7 @@ import desktop_banner from "@/../public/img/financial-sector/desktop_banner.jpg"
 // DATA //
 
 /** Transactions Page */
-export default function Advisory() {
+export default function Transactions() {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -72,10 +74,13 @@ export default function Advisory() {
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
-				<SectionsHeader data={headerArray} />
-
+				{/* <SectionsHeader data={headerArray} /> */}
+				<TransactionsBanner />
 				<TrustedLeaders />
 				<TestimonialFeedback />
+				<div className="pb_100">
+					<TransactionSolutions />
+				</div>
 				<Insights
 					isFormVisible={isFormVisible}
 					setIsFormVisible={setIsFormVisible}

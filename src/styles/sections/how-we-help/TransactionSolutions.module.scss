@@ -1,0 +1,34 @@
+@import "../../helpers/helpers.scss";
+.TransactionSolutions {
+	background: linear-gradient(0deg, #0069B4 0.03%, #0B1D2D 133.43%);
+  
+  .flexBox {
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+		}
+		.flexItemOne {
+      padding-left: calc(var(--container_left_space));
+			width: 50%;
+			display: flex;
+      align-items: center;
+      justify-content: center;
+      //padding: 50px 120px;
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+      .SpaceLeft{
+        padding: 40px 30px 40px 60px;
+      }
+		}
+		.flexItemTwo {
+			width: 50%;
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+      img{
+        width: 100%;
+      }
+		}
+	}
+}
