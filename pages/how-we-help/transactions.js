@@ -14,6 +14,7 @@ import Insights from "@/components/Insights";
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import SolutionsChallenge from "@/sections/how-we-help/SolutionsChallenge";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -85,6 +86,7 @@ export default function Transactions() {
 					isFormVisible={isFormVisible}
 					setIsFormVisible={setIsFormVisible}
 				/>
+				<SolutionsChallenge />
 			</main>
 			{/* Page Content ends here */}
 
