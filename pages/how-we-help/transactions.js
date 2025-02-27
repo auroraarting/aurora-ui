@@ -75,7 +75,7 @@ export default function Transactions() {
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
-				{/* <SectionsHeader data={headerArray} /> */}
+				<SectionsHeader data={headerArray} />
 				<TransactionsBanner />
 				<TrustedLeaders />
 				<TestimonialFeedback />
