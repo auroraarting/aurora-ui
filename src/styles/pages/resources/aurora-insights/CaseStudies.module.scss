@@ -1,0 +1,15 @@
+@import "../../../helpers/helpers.scss";
+
+.CaseStudiesPage {
+	background-color: var(--color_silver);
+	.CaseStudiesMiddle {
+		.CaseStudiesMiddleFlex {
+			.CaseStudiesMiddleLeft {
+				width: 68%;
+			}
+			.CaseStudiesMiddleRight {
+				width: 30%;
+			}
+		}
+	}
+}
