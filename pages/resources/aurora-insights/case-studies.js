@@ -13,6 +13,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 import CaseStudiesTop from "@/sections/resources/case-studies/CaseStudiesTop";
 import CaseStudiesMiddleDescription from "@/sections/resources/case-studies/CaseStudiesMiddleDescription";
+import Client from "@/sections/resources/case-studies/Client";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -81,7 +82,9 @@ export default function CaseStudies() {
 							<div className={`${styles.CaseStudiesMiddleLeft}`}>
 								<CaseStudiesMiddleDescription />
 							</div>
-							<div className={`${styles.CaseStudiesMiddleRight}`}>fdhdf</div>
+							<div className={`${styles.CaseStudiesMiddleRight}`}>
+								<Client />
+							</div>
 						</div>
 					</div>
 				</section>

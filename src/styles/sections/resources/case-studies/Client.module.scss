@@ -1,0 +1,30 @@
+@import "../../../helpers/helpers.scss";
+.ClientBox {
+	.whiteBox {
+		background-color: var(--color_white);
+		padding: 20px 20px;
+		border-radius: 20px;
+		.itemBox {
+			.ClientFlex {
+				border-bottom: 1px solid var(--color_platinum_gray);
+				padding-bottom: 20px;
+				margin-bottom: 20px;
+				.ClientLogo {
+					width: 20%;
+					img {
+						width: 60px;
+						height: 60px;
+						border-radius: 50%;
+					}
+				}
+				.ClientDescription {
+					width: 78%;
+					padding-left: 10px;
+					.social {
+						margin-top: 5px;
+					}
+				}
+			}
+		}
+	}
+}
