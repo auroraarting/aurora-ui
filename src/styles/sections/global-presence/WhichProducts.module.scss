@@ -1,0 +1,16 @@
+@import "../../helpers/helpers.scss";
+.WhichProducts {
+  .common_queries_faq {
+    
+    .content_wrap{
+      padding-left: 75px;
+    }
+  }
+  :global(.headerF) {
+    display: flex;
+    align-items: center;
+  }
+  :global(.imgIcons) {
+    margin-right: 15px;
+  }
+}
