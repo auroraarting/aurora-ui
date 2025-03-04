@@ -23,11 +23,17 @@
 		}
 		.downloadListenBox {
 			margin-top: 20px;
-
 			border-top: 1px solid var(--color_platinum_gray);
 			border-bottom: 1px solid var(--color_platinum_gray);
+			@media (max-width: 767px) {
+				flex-wrap: wrap;
+			}
 			.downloadListen {
 				.downloadBox {
+					
+					@media (max-width: 767px) {
+						padding: 15px 0px;
+					}
 					a {
 						margin-right: 40px;
 						&:last-child {
@@ -42,6 +48,11 @@
 			.downloadListenShare {
 				padding: 15px 0px;
 				border-left: 1px solid var(--color_platinum_gray);
+				@media (max-width: 767px) {
+					width: 100%;
+					border-left: none;
+					border-top: 1px solid var(--color_platinum_gray);
+				}
 				a {
 					padding-left: 20px;
 				}
