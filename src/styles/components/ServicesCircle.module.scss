@@ -1,97 +1,110 @@
+@import "../helpers/helpers.scss";
 .ServicesCircleSection {
-    padding: 150px 0;
-  
-    .CircleGrid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-column-gap: 220px;
-      align-items: center;
-  
-      .CircleBox {
-        position: relative;
-        width: 450px;
-        height: 450px;
-        border-radius: 50%;
-        background-color: #1a1a1a;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        border: 2px solid #333;
-      }
-  
-      .Quadrant:first-child {
-        background-color: #ffcc00;
-  
-        .Icon {
-          filter: invert(0);
-        }
-      }
-  
-      .CircleBox:hover .Quadrant:first-child {
-        background-color: transparent;
-      }
-      .CircleBox:hover .Quadrant:first-child .Icon{
-        filter: invert(1);
-      }
-  
-      .TopLeft {
-        top: 0;
-        left: 0;
-      }
-  
-      .TopRight {
-        top: 0;
-        right: 0;
-      }
-  
-      .BottomLeft {
-        bottom: 0;
-        left: 0;
-      }
-  
-      .BottomRight {
-        bottom: 0;
-        right: 0;
-      }
-  
-      .CenterBox {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        background-color: #1a1a1a;
-        border-radius: 50%;
-        border: 2px solid #333;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      }
-  
-      
-      .Quadrant {
-        position: absolute;
-        width: 50%;
-        height: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 24px;
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-        transition: 0.3s all ease-in;
-  
-        &:hover {
-          background-color: #ffcc00 !important;
+	padding: 150px 0;
 
-          .Icon {
-            filter: invert(0) !important;
-          }
-        }
-      }
-      .Icon {
-        width: 50px;
-        height: 50px;
-        filter: invert(1);
-      }
-    }
-  }
-  
+	.CircleGrid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 220px;
+		align-items: center;
+
+		@include md-down {
+			grid-template-columns: repeat(1, 1fr);
+		}
+
+		.CircleBox {
+			position: relative;
+			width: 500px;
+			height: 500px;
+			border-radius: 50%;
+			// background-color: #1a1a1a;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			// overflow: hidden;
+			// box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+			// border: 2px solid #333;
+
+			@include sm-down {
+				width: 300px;
+				height: 300px;
+			}
+		}
+
+		.Quadrant:first-child {
+			background-color: #ffcc00;
+
+			.Icon {
+				filter: invert(0);
+			}
+		}
+
+		.CircleBox:hover .Quadrant:first-child {
+			background-color: transparent;
+		}
+		.CircleBox:hover .Quadrant:first-child .Icon {
+			filter: invert(1);
+		}
+
+		.TopLeft {
+			top: 0;
+			left: 0;
+		}
+
+		.TopRight {
+			top: 0;
+			right: 0;
+		}
+
+		.BottomLeft {
+			bottom: 0;
+			left: 0;
+		}
+
+		.BottomRight {
+			bottom: 0;
+			right: 0;
+		}
+
+		.CenterBox {
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			background-color: #1a1a1a;
+			border-radius: 50%;
+			border: 2px solid #333;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+			@include sm-down {
+				width: 100px;
+				height: 100px;
+			}
+		}
+
+		.Quadrant {
+			position: absolute;
+			width: 50%;
+			height: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			font-size: 24px;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+			transition: 0.3s all ease-in;
+
+			&:hover {
+				background-color: #ffcc00 !important;
+
+				.Icon {
+					filter: invert(0) !important;
+				}
+			}
+		}
+		.Icon {
+			width: 50px;
+			height: 50px;
+			filter: invert(1);
+		}
+	}
+}
