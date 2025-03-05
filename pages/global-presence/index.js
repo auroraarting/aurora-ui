@@ -8,12 +8,18 @@ import MetaTags from "@/components/MetaTags";
 import Button from "@/components/Buttons/Button";
 import SectionsHeader from "@/components/SectionsHeader";
 import InnerBanner from "@/components/InnerBanner";
+import Insights from "@/components/Insights";
+import TrustedLeaders from "@/components/TrustedLeaders";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
+import ServicesCircle from "@/components/ServicesCircle";
 
 // SECTIONS //
 import ProductSlider from "@/sections/global-presence/ProductSlider";
 import Introduction from "@/sections/global-presence/Introduction";
 import WhichProducts from "@/sections/global-presence/WhichProducts";
 import PublicWebinar from "@/sections/global-presence/PublicWebinar";
+import EosIntegratedSystem from "@/sections/global-presence/EosIntegratedSystem";
+import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -86,7 +92,20 @@ export default function GlobalPresence() {
 				<SectionsHeader data={headerArray} />
 				<Introduction />
 				<WhichProducts />
+				<ServicesCircle />
+				<SoftwareMarket />
+				<TrustedLeaders />
+				<TestimonialFeedback />
 				<PublicWebinar />
+				<div className={`${styles.insightBg} pb_100 pt_30`}>
+					<div className={`${styles.boxBg}`}>
+						<Insights
+							isFormVisible={isFormVisible}
+							setIsFormVisible={setIsFormVisible}
+						/>
+					</div>
+					<EosIntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

@@ -18,6 +18,22 @@
 			}
 			.productLogoBox {
 				width: 20%;
+				.LogoBox {
+					img {
+						width: 100%;
+					}
+				}
+				.videoBox {
+					position: relative;
+					.videoThumbnail {
+						width: 100%;
+					}
+					.playIcon {
+						position: absolute;
+						bottom: 10px;
+						right: 10px;
+					}
+				}
 			}
 			.testimonialTxt {
 				width: 76%;

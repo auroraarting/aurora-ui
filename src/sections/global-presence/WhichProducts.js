@@ -24,8 +24,13 @@ import valuation from "../../../public/img/global-presence/valuation.svg";
 /** WhichProducts Section */
 export default function WhichProducts() {
 	return (
-		<section className={`${styles.WhichProducts}`}>
+		<section className={`${styles.WhichProducts} pb_100`}>
 			<div className="container">
+				<div className={`${styles.titleTxt} pb_30`}>
+					<h2 className="text_xl font_primary f_w_m color_secondary">
+						Which products are available
+					</h2>
+				</div>
 				<div className={`${styles.common_queries_faq}`}>
 					<div className={`${styles.accordian_main}`}>
 						<AccordianCommon
