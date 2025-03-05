@@ -23,9 +23,9 @@ export default function Introduction() {
 			<div className="container">
 				<div className={`${styles.flexBox} f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
-						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
+						<h2 className="text_xl font_primary f_w_m color_secondary text_uppercase">
 							Lorem ipsum dolor sit amet
-						</h1>
+						</h2>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						<p className={`${styles.label} text_reg color_dark_gray pb_10`}>

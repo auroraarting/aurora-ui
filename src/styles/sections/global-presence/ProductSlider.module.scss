@@ -1,44 +1,42 @@
 @import "../../helpers/helpers.scss";
 .ProductSlider {
-  margin-top: 30px;
+	margin-top: 30px;
 	.testimonialWhiteBox {
-    background-color: var(--color_white);
-    border-radius: 20px;
-    background-image: url("../../../../public/img/global-presence/sliderBg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom center;
-    .testimonialItem {
-      padding: 35px 60px;
-      @media (max-width: 1199px) {
-        padding: 30px 50px;
-      }
-      @media (max-width: 767px) {
-        padding: 30px 20px 30px 40px;
-      }
-      .productLogoBox{
-        width: 20%;
-      }
-      .testimonialTxt {
-        width: 76%;
-        p {
-          position: relative;
-          align-items: flex-start;
-          img {
-            position: absolute;
-            left: -35px;
-            margin-top: 4px;
-            margin-right: 10px;
-            @media (max-width: 767px) {
-              left: -30px;
-              margin-right: 5px;
-            }
-          }
-        }
-      }
-    }
-  }
-  .arrowSection {
+		background-color: var(--color_white);
+		border-radius: 20px;
+		background-image: url("../../../../public/img/global-presence/sliderBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: bottom center;
+		.testimonialItem {
+			padding: 35px 60px;
+			@media (max-width: 1199px) {
+				padding: 30px 50px;
+			}
+			@media (max-width: 767px) {
+				padding: 30px 20px 30px 40px;
+			}
+			.productLogoBox {
+				width: 20%;
+			}
+			.testimonialTxt {
+				width: 76%;
+				p {
+					img {
+						position: absolute;
+						left: -35px;
+						margin-top: 4px;
+						margin-right: 10px;
+						@media (max-width: 767px) {
+							left: -30px;
+							margin-right: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+	.arrowSection {
 		position: absolute;
 		right: 80px;
 		bottom: 50px;

@@ -60,9 +60,9 @@ export default function ProductSlider() {
 										in Australia. If you want to learn about how Chronos can help you with
 										you next energy storage project, get in touch now!
 									</p>
-									<div className={`${styles.bookBtn} pt_20`}>
+									<div className={`${styles.bookBtnOne} pt_20`}>
 										<Button color="primary" variant="filled" shape="rounded">
-											Learn More
+											Read More
 										</Button>
 									</div>
 								</div>
@@ -82,9 +82,9 @@ export default function ProductSlider() {
 										in Australia. If you want to learn about how Chronos can help you with
 										you next energy storage project, get in touch now!
 									</p>
-									<div className={`${styles.bookBtn} pt_20`}>
+									<div className={`${styles.bookBtnOne} pt_20`}>
 										<Button color="primary" variant="filled" shape="rounded">
-											Learn More
+											Read More
 										</Button>
 									</div>
 								</div>

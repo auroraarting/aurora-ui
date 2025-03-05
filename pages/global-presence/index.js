@@ -13,6 +13,7 @@ import InnerBanner from "@/components/InnerBanner";
 import ProductSlider from "@/sections/global-presence/ProductSlider";
 import Introduction from "@/sections/global-presence/Introduction";
 import WhichProducts from "@/sections/global-presence/WhichProducts";
+import PublicWebinar from "@/sections/global-presence/PublicWebinar";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -85,6 +86,7 @@ export default function GlobalPresence() {
 				<SectionsHeader data={headerArray} />
 				<Introduction />
 				<WhichProducts />
+				<PublicWebinar />
 			</main>
 			{/* Page Content ends here */}
 

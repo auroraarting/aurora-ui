@@ -14,12 +14,10 @@ import AccordianCommon from "@/components/AccordianCommon";
 import styles from "@/styles/sections/global-presence/WhichProducts.module.scss";
 
 // IMAGES //
-import chronos from "../../../public/img/global-presence/chronos.png";
-import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
 import power from "../../../public/img/global-presence/power.svg";
-import portfolio from "../../../public/img/softwares/portfolio.svg";
-import asset from "../../../public/img/softwares/asset.svg";
-import strategy from "../../../public/img/softwares/strategy.svg";
+import energy from "../../../public/img/global-presence/energy.svg";
+import hydrogen from "../../../public/img/global-presence/hydrogen.svg";
+import valuation from "../../../public/img/global-presence/valuation.svg";
 
 // DATA //
 
@@ -55,7 +53,7 @@ export default function WhichProducts() {
 								},
 								{
 									title: "Flexible Energy Service",
-									imgIcons: power.src,
+									imgIcons: energy.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>
 											<p className="text_reg color_dark_gray">
@@ -71,7 +69,7 @@ export default function WhichProducts() {
 								},
 								{
 									title: "Hydrogen Service",
-									imgIcons: power.src,
+									imgIcons: hydrogen.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>
 											<p className="text_reg color_dark_gray">
@@ -87,7 +85,7 @@ export default function WhichProducts() {
 								},
 								{
 									title: "Amun – Wind Valuation Software",
-									imgIcons: power.src,
+									imgIcons: valuation.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>
 											<p className="text_reg color_dark_gray">
