@@ -42,7 +42,7 @@ export default function ProductSlider() {
 			slideLogo: chronos.src,
 			title: "Bankable battery valuations at your fingertips",
 			description:
-				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project, get in touch now!",
+				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project, get in touch now!",
 		},
 		{
 			type: "video",
@@ -50,14 +50,14 @@ export default function ProductSlider() {
 			videoThumbnail: chronos.src,
 			title: "Watch our latest battery valuation insights",
 			description:
-				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project, get in touch now!",
+				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project, get in touch now!",
 		},
 		{
 			type: "logo",
 			slideLogo: chronos.src,
 			title: "Bankable battery valuations at your fingertips3",
 			description:
-				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project, get in touch now!",
+				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project,get in touch now!",
 		},
 	];
 	return (
