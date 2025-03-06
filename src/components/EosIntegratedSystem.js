@@ -10,10 +10,10 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/global-presence/EosIntegratedSystem.module.scss";
+import styles from "@/styles/components/EosIntegratedSystem.module.scss";
 
 // IMAGES //
-import IMac from "../../../public/img/global-presence/IMac.png";
+import IMac from "../../public/img/global-presence/IMac.png";
 
 // DATA //
 

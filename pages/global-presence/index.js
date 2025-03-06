@@ -12,13 +12,13 @@ import Insights from "@/components/Insights";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import ServicesCircle from "@/components/ServicesCircle";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // SECTIONS //
 import ProductSlider from "@/sections/global-presence/ProductSlider";
 import Introduction from "@/sections/global-presence/Introduction";
 import WhichProducts from "@/sections/global-presence/WhichProducts";
 import PublicWebinar from "@/sections/global-presence/PublicWebinar";
-import EosIntegratedSystem from "@/sections/global-presence/EosIntegratedSystem";
 import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 
 // PLUGINS //
