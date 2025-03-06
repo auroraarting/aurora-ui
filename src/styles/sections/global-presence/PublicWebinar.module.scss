@@ -34,10 +34,12 @@
 		}
 		.publicRight {
 			width: 58%;
-
+			@media (max-width: 991px) {
+				width: 50%;
+			}
 			@media (max-width: 767px) {
 				width: 100%;
-				margin-bottom: 20px;
+				margin-bottom: 60px;
 			}
 			.ItemBox {
 				height: 485px;
@@ -49,24 +51,41 @@
 				display: flex;
 				align-items: flex-end;
 				padding: 30px 45px;
+				@media (max-width: 991px) {
+					padding: 30px 20px;
+					height: 440px;
+				}
+				@media (max-width: 767px) {
+					height: 300px;
+				}
 				.hoverBox {
 				}
 			}
 		}
 		.publicleft {
 			width: 40%;
-
+			@media (max-width: 991px) {
+				width: 48%;
+			}
 			@media (max-width: 767px) {
 				width: 100%;
 			}
 			.webinarBox {
 				border-left: 1px solid var(--color_platinum_gray);
+				@media (max-width: 767px) {
+					border-left: none;
+				}
 				.webinarItem {
 					margin-left: 10px;
-
+					@media (max-width: 767px) {
+						margin-left: 0px;
+					}
 					.contentBox {
 						border-bottom: 1px solid var(--color_platinum_gray);
 						padding: 20px 20px;
+						@media (max-width: 991px) {
+							padding: 15px 0px;
+						}
 						.categoryTxt {
 							&::before {
 								background-color: var(--color_primary);

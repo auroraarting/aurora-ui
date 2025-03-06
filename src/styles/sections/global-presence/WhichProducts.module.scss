@@ -4,6 +4,9 @@
     
     .content_wrap{
       padding-left: 75px;
+      @media (max-width: 767px) {
+        padding-left: 55px;
+      }
     }
   }
   :global(.headerF) {
@@ -12,5 +15,8 @@
   }
   :global(.imgIcons) {
     margin-right: 15px;
+    @media (max-width: 767px) {
+      width: 40px;
+    }
   }
 }

@@ -13,11 +13,19 @@
 			@media (max-width: 1199px) {
 				padding: 30px 50px;
 			}
-			@media (max-width: 767px) {
-				padding: 30px 20px 30px 40px;
+			@media (max-width: 991px) {
+				padding: 20px 20px 100px;
 			}
+			
 			.productLogoBox {
 				width: 20%;
+				@media (max-width: 991px) {
+					width: 25%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					margin-bottom: 20px;
+				}
 				.LogoBox {
 					img {
 						width: 100%;
@@ -37,6 +45,12 @@
 			}
 			.testimonialTxt {
 				width: 76%;
+				@media (max-width: 991px) {
+					width: 70%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+				}
 				p {
 					img {
 						position: absolute;
@@ -60,8 +74,16 @@
 		@media (max-width: 1199px) {
 			right: 55px;
 		}
-		@media (max-width: 767px) {
+		@media (max-width: 991px) {
 			right: 30px;
+			bottom: 30px;
+		}
+		@media (max-width: 767px) {
+			left: 50%;
+			transform: translateX(-50%);
+			right: unset;
+			bottom: 25px;
+
 		}
 		.customPrev,
 		.customNext {
