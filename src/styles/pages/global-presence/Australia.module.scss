@@ -1,0 +1,16 @@
+@import "../../helpers/helpers.scss";
+.AustraliaPage {
+	background-color: #f7f7f7;
+	.insightBg {
+		background-color: var(--color_secondary);
+		.boxBg {
+			background-image: url("../../../../public/img/global-presence/insightBg.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: top center;
+			:global(.powerBg) {
+				display: none;
+			}
+		}
+	}
+}

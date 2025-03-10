@@ -30,42 +30,12 @@ import { Link, scroller } from "react-scroll";
 import styles from "@/styles/pages/global-presence/GlobalPresence.module.scss";
 
 // IMAGES //
-import desktop_banner from "@/../public/img/global-presence/desktop_banner.jpg";
+import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
 /** GlobalPresence Page */
 export default function GlobalPresence() {
-	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Book a Demo
-			</Button>
-		</div>,
-	];
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -82,30 +52,76 @@ export default function GlobalPresence() {
 			{/* Page Content starts here */}
 			<main className={styles.GlobalPresencePage}>
 				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					btnTxt="Get in Touch"
-					desktopImage={desktop_banner.src}
-					mobileImage={desktop_banner.src}
+					bannerTitle="Empowering markets globally"
+					bannerDescription="Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
+					showContentOnly
 				/>
-				<ProductSlider />
-				<SectionsHeader data={headerArray} />
-				<Introduction />
-				<WhichProducts />
-				<ServicesCircle />
-				<SoftwareMarket />
-				<TrustedLeaders />
-				<TestimonialFeedback />
-				<PublicWebinar />
-				<div className={`${styles.insightBg} pb_100 pt_30`}>
-					<div className={`${styles.boxBg}`}>
-						<Insights
-							isFormVisible={isFormVisible}
-							setIsFormVisible={setIsFormVisible}
-						/>
+				<section className={`${styles.CountryMain}`}>
+					<div className="container">
+						<div className={`${styles.CountryWrapper} pb_60`}>
+							<div className={`${styles.CountryTitle}`}>
+								<h3 className="text_lg font_primary f_w_s_b color_secondary">Asia</h3>
+							</div>
+							{/* <div className={`${styles.CountryBox}`}>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										India
+									</h5>
+								</div>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										Japan
+									</h5>
+								</div>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										Korea
+									</h5>
+								</div>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										Philippines
+									</h5>
+								</div>
+							</div> */}
+						</div>
+						{/* <div className={`${styles.CountryWrapper} pb_60`}>
+							<div className={`${styles.CountryTitle}`}>
+								<h3 className="text_lg font_primary f_w_s_b color_secondary">Asia</h3>
+							</div>
+							<div className={`${styles.CountryBox}`}>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										India
+									</h5>
+								</div>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										Japan
+									</h5>
+								</div>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										Korea
+									</h5>
+								</div>
+								<div className={`${styles.CountryItem}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
+										Philippines
+									</h5>
+								</div>
+							</div>
+						</div> */}
 					</div>
-					<EosIntegratedSystem />
-				</div>
+				</section>
 			</main>
 			{/* Page Content ends here */}
 
