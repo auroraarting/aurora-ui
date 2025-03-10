@@ -62,7 +62,7 @@ export default function GlobalPresence() {
 							<div className={`${styles.CountryTitle}`}>
 								<h3 className="text_lg font_primary f_w_s_b color_secondary">Asia</h3>
 							</div>
-							{/* <div className={`${styles.CountryBox}`}>
+							<div className={`${styles.CountryBox}`}>
 								<div className={`${styles.CountryItem}`}>
 									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
 									<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
@@ -87,9 +87,9 @@ export default function GlobalPresence() {
 										Philippines
 									</h5>
 								</div>
-							</div> */}
+							</div>
 						</div>
-						{/* <div className={`${styles.CountryWrapper} pb_60`}>
+						<div className={`${styles.CountryWrapper} pb_60`}>
 							<div className={`${styles.CountryTitle}`}>
 								<h3 className="text_lg font_primary f_w_s_b color_secondary">Asia</h3>
 							</div>
@@ -119,7 +119,7 @@ export default function GlobalPresence() {
 									</h5>
 								</div>
 							</div>
-						</div> */}
+						</div>
 					</div>
 				</section>
 			</main>
