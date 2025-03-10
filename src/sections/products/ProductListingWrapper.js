@@ -22,7 +22,7 @@ import power from "@/../public/img/products/power.svg";
 /** ProductListingWrapper Section */
 export default function ProductListingWrapper() {
 	return (
-		<section className={`${styles.ProductListingWrapper} pb_100`}>
+		<section className={`${styles.ProductListingWrapper} `}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
@@ -47,7 +47,7 @@ export default function ProductListingWrapper() {
 							<div className="f_r_a_center pb_10">
 								<img src={power.src} className={`${styles.icon}`} alt="icon" />
 								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Power & Renewables Service
+									Power & Renewables Service Power & Renewables Service
 								</h5>
 							</div>
 							<p className={`${styles.para} text_reg color_dark_gray`}>

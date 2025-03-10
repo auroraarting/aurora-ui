@@ -5,9 +5,16 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
+import ServicesCircle from "@/components/ServicesCircle";
+import TrustedLeaders from "@/components/TrustedLeaders";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
+import Insights from "@/components/Insights";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import IntegratedSystem from "@/components/IntegratedSystem";
 
 // SECTIONS //
 import ProductListingWrapper from "@/sections/products/ProductListingWrapper";
+import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -34,6 +41,19 @@ export default function Products() {
 			{/* Page Content starts here */}
 			<main className={styles.ProductsPage}>
 				<ProductListingWrapper />
+				<SoftwareMarket />
+				<ServicesCircle />
+				<TrustedLeaders />
+				<TestimonialFeedback />
+				<div className={`${styles.insightBg} pb_100 pt_30`}>
+					<div className={`${styles.boxBg}`}>
+						<Insights />
+					</div>
+					<EosIntegratedSystem />
+				</div>
+				<div className="pt_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
