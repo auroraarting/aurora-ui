@@ -14,6 +14,7 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import ServicesCircle from "@/components/ServicesCircle";
+import CaseStudy from "@/components/CaseStudy";
 
 // SECTIONS //
 
@@ -84,6 +85,9 @@ export default function Advisory() {
 				<SectionsHeader data={headerArray} />
 				<SmarterEnergy />
 				<ServicesCircle />
+				<div className="pt_100">
+					<CaseStudy />
+				</div>
 				<div className="ptb_100">
 					<TrustedLeaders />
 				</div>

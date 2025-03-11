@@ -76,14 +76,18 @@ export default function Australia() {
 
 			{/* Page Content starts here */}
 			<main className={styles.AustraliaPage}>
-				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					btnTxt="Get in Touch"
-					desktopImage={desktop_banner.src}
-					mobileImage={desktop_banner.src}
-				/>
-				<ProductSlider />
+				<div>
+					<InnerBanner
+						bannerTitle="Lorem ipsum dolor sit amet consectetur."
+						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
+						btnTxt="Get in Touch"
+						desktopImage={desktop_banner.src}
+						mobileImage={desktop_banner.src}
+					/>
+				</div>
+				<div className="pb_40">
+					<ProductSlider />
+				</div>
 				<SectionsHeader data={headerArray} />
 				<Introduction />
 				<div className="pb_100">

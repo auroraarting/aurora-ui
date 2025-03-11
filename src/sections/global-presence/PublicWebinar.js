@@ -38,8 +38,8 @@ export default function PublicWebinar() {
 									Public Webinar
 								</p>
 								<h4 className={`${styles.descTxt} text_lg color_secondary pt_10`}>
-									Overview of the Tucson Electric Power Resource Plan and Procurement
-									Activities
+									Analysing the financial roadmap to Net Zero by 2035. Analysing the
+									financial roadmap to Net Zero by 2035
 								</h4>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
@@ -56,7 +56,7 @@ export default function PublicWebinar() {
 											className={`${styles.location}`}
 											alt="location"
 										/>
-										<span>WECC</span>
+										<span>India</span>
 									</p>
 								</div>
 							</div>
