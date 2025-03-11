@@ -1,6 +1,7 @@
 // MODULES //
 
 // COMPONENTS //
+import CircularMenu from "./CircularMenu";
 
 // SECTIONS //
 
@@ -16,12 +17,12 @@ import IconStrategy from "../../public/img/softwares/Icon-Strategy.svg";
 
 // DATA //
 const services = [
-	{ id: 1, icon: IconStrategy.src, label: "Strategy" },
-	{ id: 2, icon: IconStrategy.src, label: "Execution" },
-	{ id: 3, icon: IconStrategy.src, label: "Innovation" },
-	{ id: 4, icon: IconStrategy.src, label: "Growth" },
-	{ id: 5, icon: IconStrategy.src, label: "Optimization" },
-	{ id: 6, icon: IconStrategy.src, label: "Sustainability" },
+	{ id: 1, icon: IconStrategy, label: "Strategy" },
+	{ id: 2, icon: IconStrategy, label: "Execution" },
+	{ id: 3, icon: IconStrategy, label: "Innovation" },
+	{ id: 4, icon: IconStrategy, label: "Growth" },
+	{ id: 5, icon: IconStrategy, label: "Optimization" },
+	{ id: 6, icon: IconStrategy, label: "Sustainability" },
 ];
 
 /** ServicesCircle Component */
@@ -41,12 +42,8 @@ export default function ServicesCircle() {
 						</p>
 					</div>
 					<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
-						{/* Quadrants */}
-						<div className={`${styles.Quadrant} ${styles.TopLeft}`}>
+						{/*<div className={`${styles.Quadrant} ${styles.TopLeft}`}>
 							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-							{/* <p className={`${styles.IconInfo}`}>
-								Lorem ipsum dolor sit amet consectetur. Sed dolor purus elit.
-							</p> */}
 						</div>
 						<div className={`${styles.Quadrant} ${styles.TopRight}`}>
 							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
@@ -57,7 +54,8 @@ export default function ServicesCircle() {
 						<div className={`${styles.Quadrant} ${styles.BottomRight}`}>
 							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
 						</div>
-						{/* Inner Circle */}
+						<div className={`${styles.CenterBox}`}></div>*/}
+						<CircularMenu items={services} />
 						<div className={`${styles.CenterBox}`}></div>
 					</div>
 				</div>
