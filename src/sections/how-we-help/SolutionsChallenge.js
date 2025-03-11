@@ -24,7 +24,7 @@ import ppa from "@/../public/img/transactions/ppa.png";
 /** SolutionsChallenge Section */
 export default function SolutionsChallenge() {
 	return (
-		<section className={`${styles.SolutionsChallenge} pb_100`}>
+		<section className={`${styles.SolutionsChallenge}`}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>

@@ -5,21 +5,10 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
-import Button from "@/components/Buttons/Button";
-import SectionsHeader from "@/components/SectionsHeader";
 import InnerBanner from "@/components/InnerBanner";
-import Insights from "@/components/Insights";
-import TrustedLeaders from "@/components/TrustedLeaders";
-import TestimonialFeedback from "@/components/TestimonialFeedback";
-import ServicesCircle from "@/components/ServicesCircle";
-import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import IntegratedSystem from "@/components/IntegratedSystem";
 
 // SECTIONS //
-import ProductSlider from "@/sections/global-presence/ProductSlider";
-import Introduction from "@/sections/global-presence/Introduction";
-import WhichProducts from "@/sections/global-presence/WhichProducts";
-import PublicWebinar from "@/sections/global-presence/PublicWebinar";
-import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -58,7 +47,7 @@ export default function GlobalPresence() {
 				/>
 				<section className={`${styles.CountryMain}`}>
 					<div className="container">
-						<div className={`${styles.CountryWrapper} pb_60`}>
+						<div className={`${styles.CountryWrapper} pb_80`}>
 							<div className={`${styles.CountryTitle}`}>
 								<h3 className="text_lg font_primary f_w_s_b color_secondary">Asia</h3>
 							</div>
@@ -97,7 +86,7 @@ export default function GlobalPresence() {
 								</div>
 							</div>
 						</div>
-						<div className={`${styles.CountryWrapper} pb_60`}>
+						<div className={`${styles.CountryWrapper} pb_80`}>
 							<div className={`${styles.CountryTitle}`}>
 								<h3 className="text_lg font_primary f_w_s_b color_secondary">
 									Australia
@@ -140,6 +129,9 @@ export default function GlobalPresence() {
 						</div>
 					</div>
 				</section>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

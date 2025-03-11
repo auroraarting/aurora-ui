@@ -86,18 +86,31 @@ export default function Australia() {
 				<ProductSlider />
 				<SectionsHeader data={headerArray} />
 				<Introduction />
-				<WhichProducts />
+				<div className="pb_100">
+					<WhichProducts />
+				</div>
 				<ServicesCircle />
-				<SoftwareMarket />
-				<TrustedLeaders />
-				<TestimonialFeedback />
-				<PublicWebinar />
+				<div className="ptb_100">
+					<SoftwareMarket />
+				</div>
+				<div className="pb_100">
+					<TrustedLeaders />
+				</div>
+				<div className="pb_100">
+					<TestimonialFeedback />
+				</div>
+				<div className="pb_100">
+					<PublicWebinar />
+				</div>
+
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>
-						<Insights
-							isFormVisible={isFormVisible}
-							setIsFormVisible={setIsFormVisible}
-						/>
+						<div className="pb_100">
+							<Insights
+								isFormVisible={isFormVisible}
+								setIsFormVisible={setIsFormVisible}
+							/>
+						</div>
 					</div>
 					<EosIntegratedSystem />
 				</div>

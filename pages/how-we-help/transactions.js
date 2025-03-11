@@ -10,6 +10,7 @@ import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import Insights from "@/components/Insights";
+import ServicesCircle from "@/components/ServicesCircle";
 
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
@@ -75,18 +76,29 @@ export default function Transactions() {
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
-				<SectionsHeader data={headerArray} />
 				<TransactionsBanner />
-				<TrustedLeaders />
-				<TestimonialFeedback />
+				<SectionsHeader data={headerArray} />
+				<div className="ptb_100">
+					<TrustedLeaders />
+				</div>
+				<div className="pb_100">
+					<TestimonialFeedback />
+				</div>
+				<div>
+					<ServicesCircle />
+				</div>
 				<div className="pb_100">
 					<TransactionSolutions />
 				</div>
-				<Insights
-					isFormVisible={isFormVisible}
-					setIsFormVisible={setIsFormVisible}
-				/>
-				<SolutionsChallenge />
+				<div className="pb_100">
+					<Insights
+						isFormVisible={isFormVisible}
+						setIsFormVisible={setIsFormVisible}
+					/>
+				</div>
+				<div className="pb_100">
+					<SolutionsChallenge />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

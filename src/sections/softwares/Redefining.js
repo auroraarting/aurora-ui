@@ -20,7 +20,7 @@ import redefining from "../../../public/img/softwares/redefining.png";
 /** redefining Section */
 export default function Redefining() {
 	return (
-		<section className={`${styles.redefining} pb_100`} id="expertise">
+		<section className={`${styles.redefining}`} id="expertise">
 			<div className="container">
 				<div className={`${styles.flexBox} f_r_aj_between`}>
 					<div className={`${styles.flexItemOne}`}>

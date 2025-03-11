@@ -33,7 +33,7 @@ import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 /** IntegratedSystem Section */
 export default function IntegratedSystem() {
 	return (
-		<section className={`${styles.IntegratedSystem} pb_100`}>
+		<section className={`${styles.IntegratedSystem}`}>
 			<div className="container">
 				<div className={`${styles.integratedSystemFlex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>

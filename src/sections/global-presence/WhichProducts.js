@@ -24,7 +24,7 @@ import valuation from "../../../public/img/global-presence/valuation.svg";
 /** WhichProducts Section */
 export default function WhichProducts() {
 	return (
-		<section className={`${styles.WhichProducts} pb_100`}>
+		<section className={`${styles.WhichProducts}`}>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary">

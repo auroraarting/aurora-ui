@@ -13,6 +13,7 @@ import TrustedLeaders from "@/components/TrustedLeaders";
 import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
+import ServicesCircle from "@/components/ServicesCircle";
 
 // SECTIONS //
 
@@ -70,23 +71,34 @@ export default function Advisory() {
 
 			{/* Page Content starts here */}
 			<main className={styles.AdvisoryPage}>
+				<div className="pb_60">
+					<InnerBanner
+						bannerTitle="Lorem ipsum dolor sit amet consectetur."
+						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
+						btnTxt="Get Started"
+						desktopImage={desktop_banner.src}
+						mobileImage={desktop_banner.src}
+						// videoSrc="../../img/softwares/frame_video.mp4"
+					/>
+				</div>
 				<SectionsHeader data={headerArray} />
-				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					btnTxt="Get Started"
-					desktopImage={desktop_banner.src}
-					mobileImage={desktop_banner.src}
-					// videoSrc="../../img/softwares/frame_video.mp4"
-				/>
 				<SmarterEnergy />
-				<TrustedLeaders />
-				<TestimonialFeedback />
-				<Insights
-					isFormVisible={isFormVisible}
-					setIsFormVisible={setIsFormVisible}
-				/>
-				<IntegratedSystem />
+				<ServicesCircle />
+				<div className="ptb_100">
+					<TrustedLeaders />
+				</div>
+				<div className="pb_100">
+					<TestimonialFeedback />
+				</div>
+				<div className="pb_100">
+					<Insights
+						isFormVisible={isFormVisible}
+						setIsFormVisible={setIsFormVisible}
+					/>
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

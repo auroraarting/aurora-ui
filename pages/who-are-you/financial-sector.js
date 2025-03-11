@@ -15,6 +15,7 @@ import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 
 // SECTIONS //
+import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -75,23 +76,36 @@ export default function Advisory() {
 
 			{/* Page Content starts here */}
 			<main className={styles.FinancialSectorPage}>
+				<div className="pb_60">
+					<InnerBanner
+						bannerTitle="Energy solutions for those who see beyond the grid"
+						bannerDescription="Aurora empowers industries with tailored energy intelligence, helping decision-makers drive impact, manage risks, and seize opportunities in a rapidly changing energy landscape."
+						btnTxt="Connect Now"
+						desktopImage={desktop_banner.src}
+						mobileImage={desktop_banner.src}
+						// videoSrc="../../img/softwares/frame_video.mp4"
+					/>
+				</div>
 				<SectionsHeader data={headerArray} />
-				<InnerBanner
-					bannerTitle="Energy solutions for those who see beyond the grid"
-					bannerDescription="Aurora empowers industries with tailored energy intelligence, helping decision-makers drive impact, manage risks, and seize opportunities in a rapidly changing energy landscape."
-					btnTxt="Connect Now"
-					desktopImage={desktop_banner.src}
-					mobileImage={desktop_banner.src}
-					// videoSrc="../../img/softwares/frame_video.mp4"
-				/>
 				<SmarterEnergy />
-				<TrustedLeaders />
-				<TestimonialFeedback />
-				<Insights
-					isFormVisible={isFormVisible}
-					setIsFormVisible={setIsFormVisible}
-				/>
-				<IntegratedSystem />
+				<div className="pt_100">
+					<SoftwareMarket />
+				</div>
+				<div className="ptb_100">
+					<TrustedLeaders />
+				</div>
+				<div className="pb_100">
+					<TestimonialFeedback />
+				</div>
+				<div className="pb_100">
+					<Insights
+						isFormVisible={isFormVisible}
+						setIsFormVisible={setIsFormVisible}
+					/>
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

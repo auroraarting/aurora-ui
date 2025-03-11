@@ -74,8 +74,10 @@ export default function CaseStudies() {
 
 			{/* Page Content starts here */}
 			<main className={styles.CaseStudiesPage}>
+				<div className="pb_60">
+					<CaseStudiesTop />
+				</div>
 				<SectionsHeader data={headerArray} />
-				<CaseStudiesTop />
 				<section className={`${styles.CaseStudiesMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
@@ -88,11 +90,15 @@ export default function CaseStudies() {
 						</div>
 					</div>
 				</section>
-				<TestimonialFeedback />
-				<Insights
-					isFormVisible={isFormVisible}
-					setIsFormVisible={setIsFormVisible}
-				/>
+				<div className="pb_100">
+					<TestimonialFeedback />
+				</div>
+				<div className="pb_100">
+					<Insights
+						isFormVisible={isFormVisible}
+						setIsFormVisible={setIsFormVisible}
+					/>
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
