@@ -9,6 +9,7 @@ import InnerBanner from "@/components/InnerBanner";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // SECTIONS //
 
@@ -24,7 +25,6 @@ import styles from "@/styles/pages/global-presence/GlobalPresence.module.scss";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import available_regions from "@/../public/img/global-presence/available_regions.jpg";
 import slider_arrow from "../../public/img/icons/slider_arrow.svg";
-import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // DATA //
 

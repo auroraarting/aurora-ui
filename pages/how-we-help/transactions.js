@@ -11,11 +11,11 @@ import Button from "@/components/Buttons/Button";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import Insights from "@/components/Insights";
 import ServicesCircle from "@/components/ServicesCircle";
+import SolutionsChallenge from "@/components/SolutionsChallenge";
 
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
-import SolutionsChallenge from "@/sections/how-we-help/SolutionsChallenge";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";

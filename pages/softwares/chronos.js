@@ -28,7 +28,7 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/softwares/Software.module.scss";
+import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
 
 // IMAGES //
 import desktop_banner from "@/../public/img/banner/desktop_banner.jpg";

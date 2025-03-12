@@ -11,7 +11,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/how-we-help/SolutionsChallenge.module.scss";
+import styles from "@/styles/components/SolutionsChallenge.module.scss";
 
 // IMAGES //
 import portfolio from "@/../public/img/transactions/portfolio.png";
