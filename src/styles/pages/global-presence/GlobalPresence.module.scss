@@ -3,6 +3,8 @@
 	background-color: var(--color_silver);
 	.CountryMain {
 		.CountryWrapper {
+			border-top: 1px solid var(--color_platinum_gray);
+			padding: 20px 0px 30px;
 			.CountryTitle {
 				padding-bottom: 20px;
 				margin-bottom: 20px;
@@ -22,8 +24,21 @@
 					background-color: var(--color_white);
 					border-radius: 10px;
 					padding: 20px;
+					.icon{
+						width: 32px;
+					}
 				}
 			}
 		}
+	}
+	.insightBg {
+		background-color: var(--color_secondary);
+		background-image: url("../../../../public/img/global-presence/topBg.png");
+		background-repeat: no-repeat;
+		background-size: 100%;
+    background-position: top center;
+	}
+	:global(.accordionItem){
+		border-bottom: 1px solid var(--color_platinum_gray) !important;
 	}
 }

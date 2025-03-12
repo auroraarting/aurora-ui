@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import IntegratedSystem from "@/components/IntegratedSystem";
+import Button from "@/components/Buttons/Button";
+import AccordianCommon from "@/components/AccordianCommon";
 
 // SECTIONS //
 
@@ -20,6 +22,9 @@ import styles from "@/styles/pages/global-presence/GlobalPresence.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
+import available_regions from "@/../public/img/global-presence/available_regions.jpg";
+import slider_arrow from "../../public/img/icons/slider_arrow.svg";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // DATA //
 
@@ -45,91 +50,310 @@ export default function GlobalPresence() {
 					bannerDescription="Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
 					showContentOnly
 				/>
-				<section className={`${styles.CountryMain}`}>
+
+				<section>
+					<img src={available_regions.src} className="width_100" alt="img" />
+				</section>
+
+				<section className={`${styles.CountryMain} ptb_100`}>
 					<div className="container">
-						<div className={`${styles.CountryWrapper} pb_80`}>
-							<div className={`${styles.CountryTitle}`}>
-								<h3 className="text_lg font_primary f_w_s_b color_secondary">Asia</h3>
-							</div>
-							<div className={`${styles.CountryBox}`}>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											India
-										</h5>
-									</a>
-								</div>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											Japan
-										</h5>
-									</a>
-								</div>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											Korea
-										</h5>
-									</a>
-								</div>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											Philippines
-										</h5>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div className={`${styles.CountryWrapper} pb_80`}>
-							<div className={`${styles.CountryTitle}`}>
-								<h3 className="text_lg font_primary f_w_s_b color_secondary">
-									Australia
-								</h3>
-							</div>
-							<div className={`${styles.CountryBox}`}>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											India
-										</h5>
-									</a>
-								</div>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											Japan
-										</h5>
-									</a>
-								</div>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											Korea
-										</h5>
-									</a>
-								</div>
-								<div className={`${styles.CountryItem}`}>
-									<a href="">
-										<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-										<h5 className="text_reg font_primary f_w_m color_secondary pt_10">
-											Philippines
-										</h5>
-									</a>
-								</div>
-							</div>
+						<div className={`${styles.accordian_main}`}>
+							<AccordianCommon
+								fontStyle={"text_lg"}
+								fontWeight={"f_w_s_b"}
+								fontFamily={"font_primary"}
+								fontColor={"color_secondary"}
+								items={[
+									{
+										title: "Asia",
+										children: (
+											<div className={`${styles.CountryWrapper}`}>
+												<div className={`${styles.CountryBox}`}>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	India
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Japan
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Korea
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Philippines
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										),
+									},
+									{
+										title: "Australia",
+										children: (
+											<div className={`${styles.CountryWrapper}`}>
+												<div className={`${styles.CountryBox}`}>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	India
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Japan
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Korea
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Philippines
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										),
+									},
+									{
+										title: "Europe",
+										children: (
+											<div className={`${styles.CountryWrapper}`}>
+												<div className={`${styles.CountryBox}`}>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	India
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Japan
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Korea
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+													<div className={`${styles.CountryItem}`}>
+														<a href="">
+															<img
+																src={country_thumb.src}
+																className="width_100 b_r_10"
+																alt="img"
+															/>
+															<div className="f_j a_center pt_10">
+																<h5 className="text_reg font_primary f_w_m color_secondary ">
+																	Philippines
+																</h5>
+																<span>
+																	<img
+																		src={slider_arrow.src}
+																		className={`${styles.icon}`}
+																		alt="arrow"
+																	/>
+																</span>
+															</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										),
+									},
+								]}
+							/>
 						</div>
 					</div>
 				</section>
-				<div className="pb_100">
+
+				<div className={`${styles.insightBg} ptb_80`}>
+					<div className={`${styles.boxBg}`}></div>
+					<EosIntegratedSystem />
+				</div>
+				<div className="ptb_100">
 					<IntegratedSystem />
 				</div>
 			</main>
