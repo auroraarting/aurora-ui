@@ -28,7 +28,7 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/softwares/Software.module.scss";
+import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
 
 // IMAGES //
 import desktop_banner from "@/../public/img/banner/desktop_banner.jpg";
@@ -84,21 +84,37 @@ export default function SoftwarePage() {
 					mobileImage={desktop_banner.src}
 					videoSrc="../../img/softwares/frame_video.mp4"
 				/> */}
-				<SectionsHeader data={headerArray} />
+
 				<SoftwareBanner />
-				<Redefining />
-				<SoftwareMarket />
-				<TrustedLeaders />
-				<TestimonialFeedback />
+				<SectionsHeader data={headerArray} />
+				<div className="ptb_100">
+					<Redefining />
+				</div>
+				<div className="pb_100">
+					<SoftwareMarket />
+				</div>
+				<div className="pb_100">
+					<TrustedLeaders />
+				</div>
+				<div className="pb_100">
+					<TestimonialFeedback />
+				</div>
 				<ServicesCircle />
+				<div>
+					<GloballyBankableInsights />
+				</div>
 				<IntuitiveStepProcess />
 				<SmarterEnergy />
-				<GloballyBankableInsights />
-				<Insights
-					isFormVisible={isFormVisible}
-					setIsFormVisible={setIsFormVisible}
-				/>
-				<IntegratedSystem />
+
+				<div className="pb_100">
+					<Insights
+						isFormVisible={isFormVisible}
+						setIsFormVisible={setIsFormVisible}
+					/>
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

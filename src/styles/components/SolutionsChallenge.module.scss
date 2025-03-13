@@ -1,0 +1,53 @@
+@import "../helpers/helpers.scss";
+.SolutionsChallenge {
+  
+  .flexBox {
+    align-items: center;
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+		}
+		.flexItemOne {
+			width: 40%;
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+		.flexItemTwo {
+			width: 55%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 5px;
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+      .whiteBox{
+        background-color: var(--color_white);
+        padding: 50px 30px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media (max-width: 991px) {
+          padding: 30px 15px;
+          flex-wrap: wrap;
+        }
+        @media (max-width: 767px) {
+          padding: 20px 15px;
+        }
+        .logo{
+          width: 30%;
+          @media (max-width: 991px) {
+            width: 100%;
+          }
+        }
+        .content{
+          width: 65%;
+          @media (max-width: 991px) {
+            width: 100%;
+          }
+        }
+      }
+		}
+	}
+}

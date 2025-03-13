@@ -35,7 +35,7 @@ const defaultRows = [
 export default function GloballyBankableInsights() {
 	return (
 		<section className={`${styles.GloballyBankableInsights}`} id="expertise">
-			{/* <img className={`${styles.bg}`} src={Bg.src} alt="Bg" /> */}
+			<img className={`${styles.bg}`} src={Bg.src} alt="Bg" />
 			<div className="section_spacing">
 				<div className="container">
 					<div className={`${styles.wrap}`}>
@@ -51,14 +51,14 @@ export default function GloballyBankableInsights() {
 							</p>
 						</div>
 
-						{/* <div className={`${styles.insightWrap} color_white`}>
+						<div className={`${styles.insightWrap} color_white`}>
 							<SingleInsight />
-						</div> */}
-						<div
+						</div>
+						{/* <div
 							className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
 						>
 							<MultipleInsights />
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

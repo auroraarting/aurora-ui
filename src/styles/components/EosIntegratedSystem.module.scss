@@ -1,0 +1,35 @@
+@import "../helpers/helpers.scss";
+.EosIntegratedSystem {
+	.flexBox {
+		align-items: center;
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+			align-items: flex-start;
+		}
+		.flexItemOne {
+			width: 35%;
+			@media (max-width: 1199px) {
+				width: 38%;
+			}
+			@media (max-width: 991px) {
+				width: 45%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+		.flexItemTwo {
+			width: 60%;
+			@media (max-width: 1199px) {
+				width: 58%;
+			}
+			@media (max-width: 991px) {
+				width: 48%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+		}
+	}
+}

@@ -1,0 +1,85 @@
+@import "../../helpers/helpers.scss";
+.ProductListingWrapper {
+	.flexBox {
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+		}
+		.flexItemOne {
+			width: 56%;
+			@media (max-width: 991px) {
+				width: 55%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+		.flexItemTwo {
+			width: 40%;
+			@media (max-width: 1199px) {
+				width: 48%;
+			}
+			@media (max-width: 991px) {
+				width: 42%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+		}
+	}
+	.ListingWrapper {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 20px;
+		@media (max-width: 991px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (max-width: 767px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+		.ListingBox {
+			background-color: var(--color_white);
+			border-radius: 10px;
+			padding: 20px;
+			overflow: hidden;
+			height: 335px;
+			.thumbnail {
+				img {
+					height: 240px;
+					object-fit: cover;
+					object-position: top;
+					transition: 0.5s all;
+				}
+			}
+			.iconContent {
+				.icon {
+					width: 40px;
+				}
+				h5 {
+					padding-left: 15px;
+					display: -webkit-box;
+					-webkit-line-clamp: 1;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				.para {
+					display: -webkit-box;
+					-webkit-line-clamp: 3;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				.btn_box {
+					padding-top: 15px;
+				}
+			}
+			&:hover {
+				.thumbnail {
+					img {
+						height: 100px;
+						transition: 0.5s all;
+					}
+				}
+			}
+		}
+	}
+}

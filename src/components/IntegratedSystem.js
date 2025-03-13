@@ -8,6 +8,11 @@ import AccordianCommon from "@/components/AccordianCommon";
 // SECTIONS //
 
 // PLUGINS //
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 // UTILS //
 
@@ -28,7 +33,7 @@ import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 /** IntegratedSystem Section */
 export default function IntegratedSystem() {
 	return (
-		<section className={`${styles.IntegratedSystem} pb_100`}>
+		<section className={`${styles.IntegratedSystem}`}>
 			<div className="container">
 				<div className={`${styles.integratedSystemFlex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
@@ -47,69 +52,124 @@ export default function IntegratedSystem() {
 						</div>
 					</div>
 					<div className={`${styles.integratedImgMain}`}>
-						<div className={`${styles.integratedImgBox} f_w`}>
-							<div className={`${styles.itemBox}`}>
-								<div className={`${styles.itemBoxWrap}`}>
-									<img
-										src={system_one.src}
-										className={`${styles.imgOne} b_r_t_l`}
-										alt="img"
-									/>
-								</div>
-								<div className={`${styles.itemBoxWrap}`}>
-									<img
-										src={origin_logo.src}
-										className={`${styles.centerLogo}`}
-										alt="img"
-									/>
-									<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
-										<a href="#" className="text_xs text_uppercase f_w_m">
-											Know More
-											<img src={hover_arrow.src} className="" alt="img" />
-										</a>
+						<div className={`${styles.integratedImgBox} `}>
+							<Swiper
+								modules={[Navigation, Pagination, Autoplay]}
+								slidesPerView={2}
+								spaceBetween={0}
+								grabCursor={true}
+								speed={500}
+								loop={true}
+								navigation={{
+									prevEl: "#customPrev",
+									nextEl: "#customNext",
+								}}
+								// autoplay={{
+								// 	delay: 3000,
+								// 	disableOnInteraction: false,
+								// }}
+								pagination={{
+									clickable: true, // Makes it interactive
+								}}
+								breakpoints={{
+									767: {
+										slidesPerView: 2,
+									},
+									768: {
+										slidesPerView: 3,
+									},
+								}}
+								className={styles.slider}
+							>
+								<SwiperSlide>
+									<div className={`${styles.itemBox}`}>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img
+												src={system_one.src}
+												className={`${styles.imgOne} `}
+												alt="img"
+											/>
+										</div>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img
+												src={origin_logo.src}
+												className={`${styles.centerLogo}`}
+												alt="img"
+											/>
+											<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
+												<a href="#" className="text_xs text_uppercase f_w_m">
+													Know More
+													<img src={hover_arrow.src} className="" alt="img" />
+												</a>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div className={`${styles.itemBox}`}>
-								<div className={`${styles.itemBoxWrap}`}>
-									<img
-										src={amun_logo.src}
-										className={`${styles.centerLogo}`}
-										alt="img"
-									/>
-									<div className={`${styles.hoverBox} ${styles.hoverBoxTwo}`}>
-										<a href="#" className="text_xs text_uppercase f_w_m">
-											Know More
-											<img src={hover_arrow.src} className="" alt="img" />
-										</a>
+								</SwiperSlide>
+								<SwiperSlide>
+									<div className={`${styles.itemBox}`}>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img
+												src={turbine_img.src}
+												className={`${styles.imgOne} `}
+												alt="img"
+											/>
+										</div>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img
+												src={amun_logo.src}
+												className={`${styles.centerLogo}`}
+												alt="img"
+											/>
+											<div className={`${styles.hoverBox} ${styles.hoverBoxTwo}`}>
+												<a href="#" className="text_xs text_uppercase f_w_m">
+													Know More
+													<img src={hover_arrow.src} className="" alt="img" />
+												</a>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div className={`${styles.itemBoxWrap}`}>
-									<img src={turbine_img.src} className={`${styles.imgOne} `} alt="img" />
-								</div>
-							</div>
-							<div className={`${styles.itemBox}`}>
-								<div className={`${styles.itemBoxWrap}`}>
-									<img
-										src={solar_img.src}
-										className={`${styles.imgOne} b_r_t_r`}
-										alt="img"
-									/>
-								</div>
-								<div className={`${styles.itemBoxWrap}`}>
-									<img
-										src={lumus_logo.src}
-										className={`${styles.centerLogo}`}
-										alt="img"
-									/>
-									<div className={`${styles.hoverBox} ${styles.hoverBoxThree}`}>
-										<a href="#" className="text_xs text_uppercase f_w_m">
-											Know More
-											<img src={hover_arrow.src} className="" alt="img" />
-										</a>
+								</SwiperSlide>
+								<SwiperSlide>
+									<div className={`${styles.itemBox}`}>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img src={solar_img.src} className={`${styles.imgOne} `} alt="img" />
+										</div>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img
+												src={lumus_logo.src}
+												className={`${styles.centerLogo}`}
+												alt="img"
+											/>
+											<div className={`${styles.hoverBox} ${styles.hoverBoxThree}`}>
+												<a href="#" className="text_xs text_uppercase f_w_m">
+													Know More
+													<img src={hover_arrow.src} className="" alt="img" />
+												</a>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
+								</SwiperSlide>
+								<SwiperSlide>
+									<div className={`${styles.itemBox}`}>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img src={solar_img.src} className={`${styles.imgOne} `} alt="img" />
+										</div>
+										<div className={`${styles.itemBoxWrap}`}>
+											<img
+												src={lumus_logo.src}
+												className={`${styles.centerLogo}`}
+												alt="img"
+											/>
+											<div className={`${styles.hoverBox} ${styles.hoverBoxThree}`}>
+												<a href="#" className="text_xs text_uppercase f_w_m">
+													Know More
+													<img src={hover_arrow.src} className="" alt="img" />
+												</a>
+											</div>
+										</div>
+									</div>
+								</SwiperSlide>
+							</Swiper>
 						</div>
 					</div>
 				</div>

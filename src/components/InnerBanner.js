@@ -25,6 +25,7 @@ function InnerBanner({
 	mobileImage,
 	videoSrc,
 	btnTxt,
+	showContentOnly = false, // New prop to toggle visibility
 }) {
 	const [isPlaying, setIsPlaying] = useState(true);
 	const videoRef = useRef(null);
@@ -54,56 +55,60 @@ function InnerBanner({
 						<p className={`${styles.label} text_reg color_dark_gray`}>
 							{bannerDescription}
 						</p>
-						<div className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								{btnTxt}
-							</Button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="containerLarge">
-				<div className={`${styles.inner_banner_wrap} `}>
-					{/* Banner Image or Video */}
-					<div className={`${styles.banner_image} next_image`}>
-						{videoSrc ? (
-							<div className={`${styles.VideoBox}`}>
-								<video ref={videoRef} playsInline autoPlay muted loop>
-									<source src={videoSrc} type="video/mp4" />
-								</video>
-
-								{/* Play/Pause Button */}
-								<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
-									{isPlaying ? (
-										<img
-											src={pause_button.src}
-											className={`${styles.pause_button}`}
-											alt="Pause"
-										/>
-									) : (
-										<img
-											src={play_button.src}
-											className={`${styles.play_button}`}
-											alt="Play"
-										/>
-									)}
-								</div>
+						{btnTxt && (
+							<div className={`${styles.bookBtn} pt_30`}>
+								<Button color="primary" variant="filled" shape="rounded">
+									{btnTxt}
+								</Button>
 							</div>
-						) : (
-							<picture>
-								<source
-									srcSet={desktopImage ? desktopImage : DefaultBanner.src}
-									media="(min-width:767px)"
-								/>
-								<img
-									src={mobileImage ? mobileImage : DefaultBannerMob.src}
-									alt="Banner Image"
-								/>
-							</picture>
 						)}
 					</div>
 				</div>
 			</div>
+			{!showContentOnly && (
+				<div className="containerLarge">
+					<div className={`${styles.inner_banner_wrap} `}>
+						{/* Banner Image or Video */}
+						<div className={`${styles.banner_image} next_image`}>
+							{videoSrc ? (
+								<div className={`${styles.VideoBox}`}>
+									<video ref={videoRef} playsInline autoPlay muted loop>
+										<source src={videoSrc} type="video/mp4" />
+									</video>
+
+									{/* Play/Pause Button */}
+									<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
+										{isPlaying ? (
+											<img
+												src={pause_button.src}
+												className={`${styles.pause_button}`}
+												alt="Pause"
+											/>
+										) : (
+											<img
+												src={play_button.src}
+												className={`${styles.play_button}`}
+												alt="Play"
+											/>
+										)}
+									</div>
+								</div>
+							) : (
+								<picture>
+									<source
+										srcSet={desktopImage ? desktopImage : DefaultBanner.src}
+										media="(min-width:767px)"
+									/>
+									<img
+										src={mobileImage ? mobileImage : DefaultBannerMob.src}
+										alt="Banner Image"
+									/>
+								</picture>
+							)}
+						</div>
+					</div>
+				</div>
+			)}
 		</section>
 	);
 }

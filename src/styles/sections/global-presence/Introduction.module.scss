@@ -1,0 +1,33 @@
+@import "../../helpers/helpers.scss";
+.Introduction {
+  .flexBox {
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+		}
+		.flexItemOne {
+			width: 40%;
+			@media (max-width: 1199px) {
+				width: 38%;
+			}
+			@media (max-width: 991px) {
+				width: 50%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+		.flexItemTwo {
+			width: 50%;
+			@media (max-width: 1199px) {
+				width: 58%;
+			}
+			@media (max-width: 991px) {
+				width: 48%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+		}
+	}
+}

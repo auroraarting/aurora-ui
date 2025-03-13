@@ -1,0 +1,18 @@
+[
+	{
+		"centerOfCountry": { "lat": 18.1307561, "lng": 23.554042 },
+		"name": "Australia",
+		"zoom": 9,
+		"markers": [
+			{
+				"lat": -33.8688,
+				"lng": 151.2093,
+				"name": "Sydney",
+				"icon": "/img/global-presence/serviceIcon.png",
+				"url": "/softwares/chronos"
+			},
+			{ "lat": -37.8136, "lng": 144.9631, "name": "Melbourne" },
+			{ "lat": -31.9505, "lng": 115.8605, "name": "Perth" }
+		]
+	}
+]

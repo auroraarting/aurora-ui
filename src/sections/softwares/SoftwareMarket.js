@@ -52,7 +52,7 @@ export default function SoftwareMarket() {
 	}, [visibleCountry]);
 
 	return (
-		<section className={`${styles.SoftwareMarket} ptb_100`} id="availableregions">
+		<section className={`${styles.SoftwareMarket} `} id="availableregions">
 			<div className="container">
 				<div className={`${styles.inner}`}>
 					<div className={`${styles.left}`}>

@@ -1,0 +1,49 @@
+@import "../../helpers/helpers.scss";
+.TransactionSolutions {
+	background: linear-gradient(0deg, #0069b4 0.03%, #0b1d2d 133.43%);
+
+	.flexBox {
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+		}
+		@media (max-width: 767px) {
+			flex-direction: column-reverse;
+		}
+		.flexItemOne {
+			padding-left: calc(var(--container_left_space));
+			width: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			//padding: 50px 120px;
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+				padding-left: 0px;
+			}
+			.SpaceLeft {
+				padding: 40px 30px 40px 20px;
+				@media (max-width: 991px) {
+					padding: 20px 20px;
+				}
+			}
+		}
+		.flexItemTwo {
+			width: 50%;
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+			img {
+				width: 100%;
+				@media (max-width: 991px) {
+					height: 420px;
+					object-fit: cover;
+					object-position: center;
+				}
+				@media (max-width: 767px) {
+					height: 300px;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,103 @@
+@import "../../helpers/helpers.scss";
+.ProductSlider {
+	margin-top: 30px;
+	.testimonialWhiteBox {
+		background-color: var(--color_white);
+		border-radius: 20px;
+		background-image: url("../../../../public/img/global-presence/sliderBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: bottom center;
+		.testimonialItem {
+			padding: 35px 60px;
+			@media (max-width: 1199px) {
+				padding: 30px 50px;
+			}
+			@media (max-width: 991px) {
+				padding: 20px 20px 100px;
+			}
+			
+			.productLogoBox {
+				width: 20%;
+				@media (max-width: 991px) {
+					width: 25%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					margin-bottom: 20px;
+				}
+				.LogoBox {
+					img {
+						width: 100%;
+					}
+				}
+				.videoBox {
+					position: relative;
+					.videoThumbnail {
+						width: 100%;
+					}
+					.playIcon {
+						position: absolute;
+						bottom: 10px;
+						right: 10px;
+					}
+				}
+			}
+			.testimonialTxt {
+				width: 76%;
+				@media (max-width: 991px) {
+					width: 70%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+				}
+				p {
+					img {
+						position: absolute;
+						left: -35px;
+						margin-top: 4px;
+						margin-right: 10px;
+						@media (max-width: 767px) {
+							left: -30px;
+							margin-right: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+	.arrowSection {
+		position: absolute;
+		right: 80px;
+		bottom: 50px;
+		z-index: 1;
+		@media (max-width: 1199px) {
+			right: 55px;
+		}
+		@media (max-width: 991px) {
+			right: 30px;
+			bottom: 30px;
+		}
+		@media (max-width: 767px) {
+			left: 50%;
+			transform: translateX(-50%);
+			right: unset;
+			bottom: 25px;
+
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
+}

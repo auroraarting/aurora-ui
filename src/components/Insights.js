@@ -44,10 +44,10 @@ export default function Insights({ isFormVisible, setIsFormVisible }) {
 	};
 
 	return (
-		<section className={`${styles.Insights} pb_100`} id="Insights">
+		<section className={`${styles.Insights}`} id="Insights">
 			<div className="containerLarge">
 				<div className={`${styles.insightsBg} dark_bg`}>
-					<div className={`${styles.powerBg}`}>
+					<div className={`${styles.powerBg} powerBg`}>
 						{!isFormVisible && (
 							<div className={`${styles.contentFlex} f_j`}>
 								<div className={`${styles.title_wrap}`}>
