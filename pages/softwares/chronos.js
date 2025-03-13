@@ -14,6 +14,7 @@ import ServicesCircle from "@/components/ServicesCircle";
 import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
+import CaseStudy from "@/components/CaseStudy";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
@@ -32,6 +33,7 @@ import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
 
 // IMAGES //
 import desktop_banner from "@/../public/img/banner/desktop_banner.jpg";
+import available_regions from "@/../public/img/global-presence/available_regions.jpg";
 
 // DATA //
 
@@ -90,10 +92,16 @@ export default function SoftwarePage() {
 				<div className="ptb_100">
 					<Redefining />
 				</div>
-				<div className="pb_100">
-					<SoftwareMarket />
+				<section>
+					<img src={available_regions.src} className="width_100" alt="img" />
+				</section>
+				<div className="pt_100">
+					<CaseStudy />
 				</div>
-				<div className="pb_100">
+				{/* <div className="pb_100">
+					<SoftwareMarket />
+				</div> */}
+				<div className="ptb_100">
 					<TrustedLeaders />
 				</div>
 				<div className="pb_100">

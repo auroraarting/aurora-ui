@@ -14,6 +14,7 @@ import styles from "@/styles/components/AccordianCommon.module.scss";
 // IMAGES //
 import plus_arrow from "@/../public/img/icons/plus_arrow.svg";
 import minus_icon from "@/../public/img/icons/minus_icon.svg";
+import location from "@/../public/img/icons/location.svg";
 
 // DATA //
 
@@ -24,6 +25,7 @@ export default function AccordianCommon({
 	fontWeight,
 	fontFamily,
 	fontColor,
+	locationData,
 	defaultActiveId = 0,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
@@ -74,7 +76,19 @@ export default function AccordianCommon({
 								alt=""
 							/>
 
-							{item.title}
+							<div>
+								{item.title}
+								{item.locationData && (
+									<div className={`${styles.locationList} d_f pt_10`}>
+										<img
+											src={location.src}
+											className={`${styles.location}`}
+											alt="location"
+										/>
+										<p className="text_xs color_light_gray">{item.locationData}</p>
+									</div>
+								)}
+							</div>
 						</div>
 						<span>
 							{activeIndex === index ? (
