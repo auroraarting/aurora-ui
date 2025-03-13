@@ -76,12 +76,12 @@ export default function CaseStudiesMiddleDescription() {
 				</h3>
 				<p className="text_reg color_dark_gray pb_20">
 					Aurora’s analysis provided the client with critical insights into various
-					energy scenarios' financial and environmental implications. The findings
-					demonstrated that a market dominated by offshore wind offers the most
-					cost-effective solution for achieving net-zero emissions targets set by the
-					government. By transparently breaking down consumer costs, the analysis
-					underscored the economic benefits of offshore wind, particularly when
-					compared to alternatives like gas CCUS.
+					energy scenarios&apos; financial and environmental implications. The
+					findings demonstrated that a market dominated by offshore wind offers the
+					most cost-effective solution for achieving net-zero emissions targets set
+					by the government. By transparently breaking down consumer costs, the
+					analysis underscored the economic benefits of offshore wind, particularly
+					when compared to alternatives like gas CCUS.
 				</p>
 				<p className="text_reg color_dark_gray pb_20">
 					The study validated that offshore wind not only meets long-term
