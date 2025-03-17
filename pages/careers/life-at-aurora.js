@@ -92,12 +92,13 @@ export default function LifeAtAurora() {
 				<div className="pt_60">
 					<TeamAurora />
 				</div>
-				<div className="">
+				{/* <div className="">
 					<img src={available_regions.src} className="width_100" alt="img" />
+				</div> */}
+				<div className="dark_bg">
+					<GlobalMap locationJson={locationJson} />
 				</div>
 				<div className="dark_bg pt_100">
-				<GlobalMap locationJson={locationJson} />
-				<div className="dark_bg ptb_100">
 					<EarlyCareers />
 				</div>
 				<div>
