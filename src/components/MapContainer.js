@@ -23,7 +23,6 @@ import styles from "@/styles/components/Map.module.scss";
 
 // DATA //
 import locationJson from "@/data/globalMap.json";
-import Link from "next/link";
 
 // MAP DETAILS //
 const containerStyle = {
@@ -266,7 +265,6 @@ const stylesMap = [
 /** Map Component */
 export default function Map({
 	mapCenter,
-	setVisibleLocations,
 	setValueOfSelect,
 	map,
 	setMap,
@@ -293,16 +291,6 @@ export default function Map({
 		if (!mapObj) return;
 		const bounds = map.getBounds(); // Get the visible area of the map
 
-		if (bounds) {
-			const filteredLocations = locationJson.flatMap((country) =>
-				country.markers.filter((loc) =>
-					bounds.contains(new window.google.maps.LatLng(loc.lat, loc.lng))
-				)
-			);
-
-			setVisibleLocations(filteredLocations);
-		}
-
 		// Identify the country of visible markers
 		const visibleCountries = new Set();
 		locationJson.forEach((country, index) => {
@@ -315,13 +303,6 @@ export default function Map({
 				visibleCountries.add(country.name);
 			}
 		});
-
-		// // If only one country is visible, set it
-		// if (visibleCountries.size === 1) {
-		// 	setVisibleCountry([...visibleCountries][0]);
-		// } else {
-		// 	setVisibleCountry(""); // If multiple countries, clear the state
-		// }
 	};
 
 	const onUnmount = useCallback(function callback(map) {

@@ -1,0 +1,24 @@
+@import "../helpers/helpers.scss";
+
+.globalMap {
+	min-height: 100vh;
+	width: 100%;
+	background-color: var(--color_black);
+
+	&:global(.section_spacing) {
+		padding-bottom: 0%;
+	}
+
+	.title {
+		text-align: center;
+		margin-left: 30px;
+	}
+
+	:global(.container) {
+		height: 100%;
+	}
+	:global(.mapContainer) {
+		width: 100% !important;
+		height: 70vh !important;
+	}
+}

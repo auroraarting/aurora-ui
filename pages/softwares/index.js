@@ -11,6 +11,7 @@ import InnerBanner from "@/components/InnerBanner";
 import Button from "@/components/Buttons/Button";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import GlobalMap from "@/components/GlobalMap";
 
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
@@ -30,6 +31,7 @@ import Insights from "@/components/Insights";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // DATA //
+import locationJson from "@/data/globalMap.json";
 
 /** Chronos Page */
 export default function Softwares() {
@@ -56,9 +58,7 @@ export default function Softwares() {
 				<div>
 					<GloballyBankableInsights />
 				</div>
-				<section>
-					<img src={available_regions.src} className="width_100" alt="img" />
-				</section>
+				<GlobalMap locationJson={locationJson} />
 				<div className="ptb_100">
 					<TrustedLeaders />
 				</div>

@@ -95,7 +95,7 @@ export default function Australia() {
 				</div>
 				<ServicesCircle />
 				<div className="ptb_100">
-					<SoftwareMarket />
+					<SoftwareMarket sectionTitle="Energy intelligence across every key market" />
 				</div>
 				<div className="pb_100">
 					<TrustedLeaders />

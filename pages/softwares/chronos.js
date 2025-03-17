@@ -15,6 +15,7 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import CaseStudy from "@/components/CaseStudy";
+import GlobalMap from "@/components/GlobalMap";
 
 // SECTIONS //
 import SoftwareBanner from "@/sections/softwares/SoftwareBanner";
@@ -36,6 +37,7 @@ import desktop_banner from "@/../public/img/banner/desktop_banner.jpg";
 import available_regions from "@/../public/img/global-presence/available_regions.jpg";
 
 // DATA //
+import locationJson from "@/data/globalMap.json";
 
 /** Chronos Page */
 export default function SoftwarePage() {
@@ -92,9 +94,7 @@ export default function SoftwarePage() {
 				<div className="ptb_100">
 					<Redefining />
 				</div>
-				<section>
-					<img src={available_regions.src} className="width_100" alt="img" />
-				</section>
+				<GlobalMap locationJson={locationJson} />
 				<div className="pt_100">
 					<CaseStudy />
 				</div>
