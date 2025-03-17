@@ -309,6 +309,26 @@ export default function Map({
 		setMap(null);
 	}, []);
 
+	/** handleInfoWindowPosition  */
+	const handleInfoWindowPosition = (lat, lng) => {
+		if (!map) return { lat, lng };
+
+		const bounds = map.getBounds();
+		const ne = bounds.getNorthEast(); // Top-right corner of visible map
+		const sw = bounds.getSouthWest(); // Bottom-left corner of visible map
+
+		let newLat = lat;
+		let newLng = lng;
+
+		// Adjust if the InfoWindow is near the edges
+		if (lat > ne.lat() - 0.1) newLat -= 0.1; // Move down if near the top
+		if (lat < sw.lat() + 0.1) newLat += 0.1; // Move up if near the bottom
+		if (lng > ne.lng() - 0.1) newLng -= 0.1; // Move left if near the right
+		if (lng < sw.lng() + 0.1) newLng += 0.1; // Move right if near the left
+
+		return { lat: newLat, lng: newLng };
+	};
+
 	useEffect(() => {
 		if (map) {
 			map.addListener("bounds_changed", () => updateVisibleLocations(map));
@@ -358,14 +378,19 @@ export default function Map({
 								{selectedMarker === marker.name && (
 									<InfoWindow
 										position={{ lat: marker.lat, lng: marker.lng }}
+										// position={handleInfoWindowPosition(marker.lat, marker.lng)}
+										// mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
 										onCloseClick={() => setSelectedMarker(null)}
 									>
 										<a href={marker.url || "/contact"}>
 											<div
-												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
+												className={`${styles.markerHover} ${
+													marker.hoverImg && styles.isHoverImg
+												} text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker.name}
+												{marker.hoverImg && <img src={marker.hoverImg} />}
+												<p>{marker.name}</p>
 											</div>
 										</a>
 									</InfoWindow>
