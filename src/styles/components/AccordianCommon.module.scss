@@ -69,4 +69,16 @@
 	// 		display: block !important;
 	// 	}
 	// }
+
+	.locationList {
+		width: 350px;
+		align-items: flex-start;
+		@media (max-width: 767px) {
+			width: 100%;
+		}
+		img {
+			margin-top: 2px;
+			margin-right: 5px;
+		}
+	}
 }

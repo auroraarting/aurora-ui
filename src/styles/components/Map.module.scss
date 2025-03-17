@@ -1,6 +1,7 @@
 @import "../helpers/helpers.scss";
 
 .mapContainer {
+	border-radius: 20px;
 	@include lg-down {
 		height: 600px !important;
 		width: 100% !important;

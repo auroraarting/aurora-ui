@@ -41,6 +41,7 @@ export default function WhichProducts() {
 							items={[
 								{
 									title: "Power & Renewables Service",
+									locationData: "AIES  |  WECC  |  MISO  |  SPP  |  PJM  | ISO-NE ",
 									imgIcons: power.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>
@@ -58,6 +59,7 @@ export default function WhichProducts() {
 								},
 								{
 									title: "Flexible Energy Service",
+									locationData: "MISO  |  NYISO  |  CAISO  |  ERCOT  |  PJM",
 									imgIcons: energy.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>
@@ -74,6 +76,7 @@ export default function WhichProducts() {
 								},
 								{
 									title: "Hydrogen Service",
+									locationData: "MISO  |  NYISO  |  CAISO  |  ERCOT  |  PJM",
 									imgIcons: hydrogen.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>
@@ -89,7 +92,8 @@ export default function WhichProducts() {
 									),
 								},
 								{
-									title: "Amun – Wind Valuation Software",
+									title: "Amun - Wind Valuation Software",
+									locationData: "MISO  |  NYISO  |  CAISO  |  ERCOT  |  PJM",
 									imgIcons: valuation.src,
 									children: (
 										<div className={`${styles.content_wrap}`}>

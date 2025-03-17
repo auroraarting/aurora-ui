@@ -10,12 +10,14 @@ import IntegratedSystem from "@/components/IntegratedSystem";
 import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import GlobalMap from "@/components/GlobalMap";
 
 // SECTIONS //
-import Map from "@/sections/global-presence/Map";
+import Map from "@/components/MapContainer";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
+import Marquee from "react-fast-marquee";
 
 // UTILS //
 
@@ -32,26 +34,6 @@ import locationJson from "@/data/globalMap.json";
 
 /** GlobalPresence Page */
 export default function GlobalPresence() {
-	const [visibleLocations, setVisibleLocations] = useState([]);
-	const [visibleCountry, setVisibleCountry] = useState(""); // Stores the currently visible country
-	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
-	const [valueOfSelect, setValueOfSelect] = useState(0);
-	const [map, setMap] = useState(null);
-
-	/** changeMapCenter */
-	const changeMapCenter = (country) => {
-		setMapCenter(locationJson[country.index]?.centerOfCountry);
-		map.setZoom(locationJson[country.index]?.zoom || 4);
-	};
-
-	useEffect(() => {
-		if (visibleCountry === "") {
-			return;
-		}
-		const index = locationJson.findIndex((item) => item.name === visibleCountry);
-		setValueOfSelect(index);
-	}, [visibleCountry]);
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -73,24 +55,7 @@ export default function GlobalPresence() {
 					showContentOnly
 				/>
 
-				<section className={`${styles.globalMap} section_spacing`}>
-					{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
-					{/* <div className="container"> */}
-					<p className={`${styles.title} color_white text_xxl pb_40`}>
-						Energy intelligence across every key market
-					</p>
-					<Map
-						mapCenter={mapCenter}
-						setVisibleLocations={setVisibleLocations}
-						setVisibleCountry={setVisibleCountry}
-						setValueOfSelect={setValueOfSelect}
-						valueOfSelect={valueOfSelect}
-						map={map}
-						setMap={setMap}
-						defaultZoom={2.2}
-					/>
-					{/* </div> */}
-				</section>
+				<GlobalMap locationJson={locationJson} />
 
 				<section className={`${styles.CountryMain} ptb_100`}>
 					<div className="container">

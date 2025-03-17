@@ -13,8 +13,12 @@
 		.left {
 			flex: 1;
 			padding-right: 18px;
-			.dropdownWrap {
+			.meetTitle {
 				margin-top: 60px;
+				margin-bottom: 20px;
+			}
+			.dropdownWrap {
+				margin-bottom: 40px;
 				.label {
 					margin-bottom: 16px;
 				}
@@ -24,12 +28,18 @@
 						margin-top: 20px;
 					}
 				}
+
 				.author {
 					padding: 20px 0;
 					border: 1px solid #e5e5e5;
 					border-left: 0;
 					border-right: 0;
-					margin-top: 40px;
+					border-top: 0;
+					margin-top: 0px;
+
+					&:last-child {
+						border-bottom: 0px;
+					}
 
 					.authorInner {
 						display: flex;
