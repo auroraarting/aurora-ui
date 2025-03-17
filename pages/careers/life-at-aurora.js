@@ -27,8 +27,10 @@ import styles from "@/styles/pages/careers/LifeAtAurora.module.scss";
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import available_regions from "@/../public/img/global-presence/available_regions.jpg";
+import GlobalMap from "@/components/GlobalMap";
 
 // DATA //
+import locationJson from "@/data/globalMap.json";
 
 /** LifeAtAurora Page */
 export default function LifeAtAurora() {
@@ -94,6 +96,8 @@ export default function LifeAtAurora() {
 					<img src={available_regions.src} className="width_100" alt="img" />
 				</div>
 				<div className="dark_bg pt_100">
+				<GlobalMap locationJson={locationJson} />
+				<div className="dark_bg ptb_100">
 					<EarlyCareers />
 				</div>
 				<div>
