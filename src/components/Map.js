@@ -33,6 +33,57 @@ const containerStyle = {
 
 const stylesMap = [
 	{
+		elementType: "geometry",
+		stylers: [
+			{
+				color: "#212121",
+			},
+		],
+	},
+	{
+		elementType: "labels.icon",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#757575",
+			},
+		],
+	},
+	{
+		elementType: "labels.text.stroke",
+		stylers: [
+			{
+				color: "#212121",
+			},
+		],
+	},
+	{
+		featureType: "administrative",
+		elementType: "geometry",
+		stylers: [
+			{
+				color: "#757575",
+			},
+		],
+	},
+	{
+		featureType: "administrative.country",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#9e9e9e",
+			},
+		],
+	},
+	{
+		featureType: "administrative.land_parcel",
 		elementType: "labels",
 		stylers: [
 			{
@@ -41,7 +92,17 @@ const stylesMap = [
 		],
 	},
 	{
-		featureType: "administrative.land_parcel",
+		featureType: "administrative.locality",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#bdbdbd",
+			},
+		],
+	},
+	{
+		featureType: "poi",
+		elementType: "labels.text",
 		stylers: [
 			{
 				visibility: "off",
@@ -49,7 +110,16 @@ const stylesMap = [
 		],
 	},
 	{
-		featureType: "administrative.neighborhood",
+		featureType: "poi",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#757575",
+			},
+		],
+	},
+	{
+		featureType: "poi.business",
 		stylers: [
 			{
 				visibility: "off",
@@ -57,19 +127,44 @@ const stylesMap = [
 		],
 	},
 	{
-		featureType: "landscape.natural.landcover",
-		elementType: "geometry.fill",
+		featureType: "poi.park",
+		elementType: "geometry",
 		stylers: [
 			{
-				color: "#e5e5e5",
+				color: "#181818",
 			},
+		],
+	},
+	{
+		featureType: "poi.park",
+		elementType: "labels.text.fill",
+		stylers: [
 			{
-				visibility: "on",
+				color: "#616161",
+			},
+		],
+	},
+	{
+		featureType: "poi.park",
+		elementType: "labels.text.stroke",
+		stylers: [
+			{
+				color: "#1b1b1b",
 			},
 		],
 	},
 	{
 		featureType: "road",
+		elementType: "geometry.fill",
+		stylers: [
+			{
+				color: "#2c2c2c",
+			},
+		],
+	},
+	{
+		featureType: "road",
+		elementType: "labels.icon",
 		stylers: [
 			{
 				visibility: "off",
@@ -77,12 +172,91 @@ const stylesMap = [
 		],
 	},
 	{
-		featureType: "water",
-		elementType: "geometry.fill",
+		featureType: "road",
+		elementType: "labels.text.fill",
 		stylers: [
 			{
-				color: "#f7f7f7",
-				opacity: 0,
+				color: "#8a8a8a",
+			},
+		],
+	},
+	{
+		featureType: "road.arterial",
+		elementType: "geometry",
+		stylers: [
+			{
+				color: "#373737",
+			},
+		],
+	},
+	{
+		featureType: "road.highway",
+		elementType: "geometry",
+		stylers: [
+			{
+				color: "#3c3c3c",
+			},
+		],
+	},
+	{
+		featureType: "road.highway.controlled_access",
+		elementType: "geometry",
+		stylers: [
+			{
+				color: "#4e4e4e",
+			},
+		],
+	},
+	{
+		featureType: "road.local",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "road.local",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#616161",
+			},
+		],
+	},
+	{
+		featureType: "transit",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "transit",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#757575",
+			},
+		],
+	},
+	{
+		featureType: "water",
+		elementType: "geometry",
+		stylers: [
+			{
+				color: "#000000",
+			},
+		],
+	},
+	{
+		featureType: "water",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#3d3d3d",
 			},
 		],
 	},
@@ -175,7 +349,7 @@ export default function Map({
 					streetViewControl: false, // Hide the Pegman (Street View) icon
 					// zoomControl: false, // Hide the plus and minus zoom buttons
 					// fullscreenControl: false, // Hide fullscreen button
-					gestureHandling: "greedy", // Optional: Control gestures (pan, zoom)
+					gestureHandling: "zoom", // Optional: Control gestures (pan, zoom)
 					// disableDefaultUI: true, // Disable all default UI elements (including keyboard shortcuts)
 				}}
 			>
@@ -187,14 +361,14 @@ export default function Map({
 								<Marker
 									position={{ lat: marker.lat, lng: marker.lng }}
 									icon={{
-										url: "/img/softwares/mapMarker.svg",
+										url: marker.icon || "/img/softwares/mapMarker.svg",
 										// scaledSize: new window.google.maps.Size(10, 10),
 										// origin: new window.google.maps.Point(0, 0),
 										// anchor: new window.google.maps.Point(25, 50),
 									}}
 									onMouseOver={() => setSelectedMarker(marker.name)}
 									// onMouseOut={() => setSelectedMarker(null)}
-									onClick={() => (window.location.href = "/contact")}
+									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
 								{selectedMarker === marker.name && (
@@ -202,12 +376,14 @@ export default function Map({
 										position={{ lat: marker.lat, lng: marker.lng }}
 										onCloseClick={() => setSelectedMarker(null)}
 									>
-										<div
-											className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
-											// style={{ fontSize: "14px", fontWeight: "bold" }}
-										>
-											{marker.name}
-										</div>
+										<a href={marker.url || "/contact"}>
+											<div
+												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
+												// style={{ fontSize: "14px", fontWeight: "bold" }}
+											>
+												{marker.name}
+											</div>
+										</a>
 									</InfoWindow>
 								)}
 							</>

@@ -30,7 +30,9 @@ import strategy from "/public/img/softwares/strategy.svg";
 import locationJson from "@/data/locations.json";
 
 /** SoftwareBanner Section */
-export default function SoftwareMarket() {
+export default function SoftwareMarket({
+	sectionTitle = "From your market to the world",
+}) {
 	const [visibleLocations, setVisibleLocations] = useState([]);
 	const [visibleCountry, setVisibleCountry] = useState(""); // Stores the currently visible country
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
@@ -56,28 +58,10 @@ export default function SoftwareMarket() {
 			<div className="container">
 				<div className={`${styles.inner}`}>
 					<div className={`${styles.left}`}>
-						<p className={`${styles.title} text_xl text_600`}>
-							From your market to the world
-						</p>
+						<p className={`${styles.title} text_xl text_600`}>{sectionTitle}</p>
 
+						<div className={`${styles.meetTitle} text_reg f_w_m`}>Meet the Team</div>
 						<div className={`${styles.dropdownWrap}`}>
-							<p className={`${styles.label} text_reg text_500`}>
-								Explore All Locations
-							</p>
-
-							<CustomSelect
-								defaultId={0}
-								list={locationJson.map((item) => item.name)}
-								afterSelect={changeMapCenter}
-								value={valueOfSelect}
-							/>
-
-							<div className={`${styles.bookBtn}`}>
-								<Button color="primary" variant="filled" shape="rounded">
-									Book a Demo
-								</Button>
-							</div>
-
 							<div className={`${styles.author}`}>
 								<div className={`${styles.authorInner}`}>
 									<div className={`${styles.pic}`}>
@@ -91,12 +75,24 @@ export default function SoftwareMarket() {
 									</div>
 								</div>
 							</div>
-
+							<div className={`${styles.author}`}>
+								<div className={`${styles.authorInner}`}>
+									<div className={`${styles.pic}`}>
+										<img src={AuthorPic.src} alt="AuthorPic" />
+									</div>
+									<div className={`${styles.detail}`}>
+										<p className={`${styles.name} text_500`}>Hugo Batten</p>
+										<p className={`${styles.position} text_xs text_300`}>
+											Head of Australia
+										</p>
+									</div>
+								</div>
+							</div>
 							{/* <div className={`${styles.upcoming}`}>
 								<p className={`${styles.text} text_500`}>Upcoming Locations</p>
 								<img src={DrownDownArrow.src} alt="DrownDownArrow" />
 							</div> */}
-							<AccordianCommon
+							{/* <AccordianCommon
 								fontStyle={"text_reg"}
 								fontWeight={"f_w_m"}
 								fontFamily={"font_primary"}
@@ -114,8 +110,11 @@ export default function SoftwareMarket() {
 										),
 									},
 								]}
-							/>
+							/> */}
 						</div>
+						<Button color="primary" variant="filled" shape="rounded">
+							Get in Touch
+						</Button>
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
