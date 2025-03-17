@@ -1,0 +1,69 @@
+@import "../../helpers/helpers.scss";
+.CollaborationSupport {
+	position: relative;
+	.title_wrap {
+		.bookBtn {
+			margin-right: 110px;
+		}
+	}
+	.SliderMain {
+		position: relative;
+		padding-left: calc(var(--container_left_space) + 15px);
+
+		.cardItem {
+			background-color: var(--color_white);
+			border-radius: 20px;
+			.cardDesc {
+				width: 50%;
+				padding: 40px 40px;
+				h4 {
+					margin-bottom: 15px;
+					padding-bottom: 15px;
+					border-bottom: 1px solid var(--color_platinum_gray);
+					span {
+						margin-left: 20px;
+					}
+				}
+			}
+			.cardImg {
+				position: relative;
+				width: 50%;
+				img {
+					height: 380px;
+					width: 100%;
+					object-fit: cover;
+					object-position: center;
+					border-top-right-radius: 20px;
+					border-bottom-right-radius: 20px;
+				}
+			}
+		}
+	}
+	.arrowSection {
+		position: absolute;
+		right: 0px;
+		top: 20px;
+		bottom: unset;
+		z-index: 1;
+		@media (max-width: 1199px) {
+			right: 55px;
+		}
+		@media (max-width: 767px) {
+			right: 30px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
+}

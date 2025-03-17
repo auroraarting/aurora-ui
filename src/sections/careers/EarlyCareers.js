@@ -20,6 +20,7 @@ import styles from "@/styles/sections/careers/EarlyCareers.module.scss";
 // IMAGES //
 import country_img from "../../../public/img/careers/country_img.png";
 import location from "../../../public/img/icons/location.svg";
+import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg";
 
 // DATA //
 
@@ -37,6 +38,14 @@ export default function EarlyCareers() {
 							Explore
 						</Button>
 					</div>
+				</div>
+				<div className={`${styles.arrowSection} f_w_a_j_center`}>
+					<button className={`${styles.customPrev}`} id="customPrev">
+						<img src={slider_arrow_black.src} alt="icon" />
+					</button>
+					<button className={styles.customNext} id="customNext">
+						<img src={slider_arrow_black.src} alt="icon" />
+					</button>
 				</div>
 			</div>
 			<div className={`${styles.SliderMain} pt_20`}>
@@ -83,7 +92,7 @@ export default function EarlyCareers() {
 								</p>
 							</div>
 							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center">
+								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
 									<img
 										src={location.src}
 										className={`${styles.location}`}
@@ -113,7 +122,7 @@ export default function EarlyCareers() {
 								</p>
 							</div>
 							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center">
+								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
 									<img
 										src={location.src}
 										className={`${styles.location}`}
@@ -143,7 +152,7 @@ export default function EarlyCareers() {
 								</p>
 							</div>
 							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center">
+								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
 									<img
 										src={location.src}
 										className={`${styles.location}`}
@@ -173,7 +182,7 @@ export default function EarlyCareers() {
 								</p>
 							</div>
 							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center">
+								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
 									<img
 										src={location.src}
 										className={`${styles.location}`}
@@ -194,6 +203,9 @@ export default function EarlyCareers() {
 					</SwiperSlide>
 				</Swiper>
 			</div>
+			{/* <div className="container">
+				
+			</div> */}
 		</section>
 	);
 }
