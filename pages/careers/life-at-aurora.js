@@ -12,6 +12,7 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 
 // SECTIONS //
 import TeamAurora from "@/sections/careers/TeamAurora";
+import EarlyCareers from "@/sections/careers/EarlyCareers";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -89,6 +90,9 @@ export default function LifeAtAurora() {
 				</div>
 				<div className="">
 					<img src={available_regions.src} className="width_100" alt="img" />
+				</div>
+				<div className="dark_bg ptb_100">
+					<EarlyCareers />
 				</div>
 			</main>
 			{/* Page Content ends here */}

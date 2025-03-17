@@ -1,0 +1,48 @@
+@import "../../helpers/helpers.scss";
+.EarlyCareers {
+	position: relative;
+	.title_wrap {
+	}
+	.SliderMain {
+		position: relative;
+		padding-left: calc(var(--container_left_space) + 15px);
+		.cardItem {
+			background-color: var(--color_gray);
+			padding: 20px 20px 30px;
+			border-radius: 20px;
+			.cardImg {
+				position: relative;
+				.categoryTxt {
+					position: absolute;
+					top: 20px;
+					left: 20px;
+					padding-left: 10px;
+					background-color: var(--color_primary);
+					border-radius: 8px;
+					padding: 10px 20px;
+					&::before {
+						content: " ";
+						position: absolute;
+						left: 10px;
+						top: 50%;
+						transform: translateY(-50%);
+						width: 4px;
+						height: 4px;
+						background-color: var(--color_secondary);
+						border-radius: 50%;
+					}
+				}
+			}
+			.cardDesc {
+				p {
+					img {
+						filter: invert(1);
+					}
+					span {
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+	}
+}
