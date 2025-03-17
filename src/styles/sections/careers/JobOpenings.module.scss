@@ -1,0 +1,18 @@
+@import "../../helpers/helpers.scss";
+.JobOpenings {
+	.title_wrap {
+	}
+	.tableBox {
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			border-top: 1px solid var(--color_dark_gray);
+		}
+		td,
+		th {
+			border-bottom: 1px solid var(--color_dark_gray);
+			text-align: left;
+			padding: 25px 20px;
+		}
+	}
+}

@@ -1,5 +1,9 @@
 @import "../../helpers/helpers.scss";
 .CollaborationSupport {
+	background-image: url("../../../../public/img/softwares/energy_bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom center;
 	position: relative;
 	.title_wrap {
 		.bookBtn {

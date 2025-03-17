@@ -18,10 +18,8 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import styles from "@/styles/sections/careers/CollaborationSupport.module.scss";
 
 // IMAGES //
-import country_img from "../../../public/img/careers/country_img.png";
 import strategy_img from "../../../public/img/careers/strategy_img.jpg";
 import strategy_icon from "../../../public/img/careers/strategy_icon.svg";
-import location from "../../../public/img/icons/location.svg";
 import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
 
 // DATA //
@@ -29,7 +27,7 @@ import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
 /** CollaborationSupport Section */
 export default function CollaborationSupport() {
 	return (
-		<section className={`${styles.CollaborationSupport} pb_50`}>
+		<section className={`${styles.CollaborationSupport} ptb_100`}>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
@@ -48,7 +46,7 @@ export default function CollaborationSupport() {
 			<div className={`${styles.SliderMain} pt_20`}>
 				<Swiper
 					modules={[Navigation, Autoplay]}
-					slidesPerView={1.4}
+					slidesPerView={1.3}
 					spaceBetween={20}
 					grabCursor={true}
 					speed={500}
