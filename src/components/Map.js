@@ -367,7 +367,7 @@ export default function Map({
 										// anchor: new window.google.maps.Point(25, 50),
 									}}
 									onMouseOver={() => setSelectedMarker(marker.name)}
-									// onMouseOut={() => setSelectedMarker(null)}
+									onMouseOut={() => setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
