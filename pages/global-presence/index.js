@@ -16,6 +16,7 @@ import Map from "@/sections/global-presence/Map";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
+import Marquee from "react-fast-marquee";
 
 // UTILS //
 
@@ -76,9 +77,12 @@ export default function GlobalPresence() {
 				<section className={`${styles.globalMap} section_spacing`}>
 					{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 					{/* <div className="container"> */}
-					<p className={`${styles.title} color_white text_xxl pb_40`}>
-						Energy intelligence across every key market
-					</p>
+					<Marquee className="pb_40" speed={100}>
+						<span className={`${styles.title} color_white text_xxl`}>
+							{" Energy intelligence across every key market"}
+						</span>
+					</Marquee>
+
 					<Map
 						mapCenter={mapCenter}
 						setVisibleLocations={setVisibleLocations}
