@@ -1,0 +1,18 @@
+@import "../../helpers/helpers.scss";
+.Counter {
+	.counterFlex{
+    width: 80%;
+    margin: 0 auto;
+    .countBox{
+      text-align: center;
+      border-right: 1px solid var(--color_dark_gray);
+      padding: 0px 60px;
+      &:last-child{
+        border-right: none;
+      }
+      p{
+        padding-top: 10px;
+      }
+    }
+  }
+}

@@ -9,12 +9,16 @@ import InnerBanner from "@/components/InnerBanner";
 import Button from "@/components/Buttons/Button";
 import SectionsHeader from "@/components/SectionsHeader";
 import SmarterEnergy from "@/components/SmarterEnergy";
+import IntegratedSystem from "@/components/IntegratedSystem";
+import GlobalMap from "@/components/GlobalMap";
 
 // SECTIONS //
 import TeamAurora from "@/sections/careers/TeamAurora";
 import EarlyCareers from "@/sections/careers/EarlyCareers";
 import CollaborationSupport from "@/sections/careers/CollaborationSupport";
 import JobOpenings from "@/sections/careers/JobOpenings";
+import ConnectWithUs from "@/sections/careers/ConnectWithUs";
+import Counter from "@/sections/careers/Counter";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -27,7 +31,6 @@ import styles from "@/styles/pages/careers/LifeAtAurora.module.scss";
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import available_regions from "@/../public/img/global-presence/available_regions.jpg";
-import GlobalMap from "@/components/GlobalMap";
 
 // DATA //
 import locationJson from "@/data/globalMap.json";
@@ -98,6 +101,9 @@ export default function LifeAtAurora() {
 				<div className="dark_bg">
 					<GlobalMap locationJson={locationJson} />
 				</div>
+				<div>
+					<Counter />
+				</div>
 				<div className="dark_bg pt_100">
 					<EarlyCareers />
 				</div>
@@ -107,6 +113,13 @@ export default function LifeAtAurora() {
 				<div>
 					<JobOpenings />
 				</div>
+
+				{/* <div className="pt_100">
+					<ConnectWithUs />
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div> */}
 			</main>
 			{/* Page Content ends here */}
 

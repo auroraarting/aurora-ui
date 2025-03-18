@@ -1,0 +1,43 @@
+@import "../../helpers/helpers.scss";
+.ConnectWithUs {
+	position: relative;
+	.title_wrap {
+		
+	}
+	.SliderMain {
+		position: relative;
+		padding-left: calc(var(--container_left_space) + 15px);
+    :global(.swiper-wrapper) {
+			padding: 40px 0px;
+		}
+		:global(.swiper-slide) {
+			height: 400px;
+			border-radius: 20px;
+		}
+		.cardItem {
+			background-color: var(--color_white);
+			padding: 20px 20px 30px;
+			border-radius: 20px;
+			max-height: 345px;
+			transition: 0.5s ease-in-out;
+			overflow: hidden;
+			.cardImg {
+				position: relative;
+				img {
+					height: 300px;
+					width: 100%;
+					object-fit: cover;
+					object-position: center;
+				}
+				
+			}
+			&:hover {
+				max-height: 390px;
+        transform: rotate(-5deg);
+        box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
+				transition: 0.5s ease-in-out;
+        
+			}
+		}
+	}
+}
