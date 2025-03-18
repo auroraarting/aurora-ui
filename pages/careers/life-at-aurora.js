@@ -111,12 +111,12 @@ export default function LifeAtAurora() {
 					<JobOpenings />
 				</div>
 
-				{/* <div className="pt_100">
+				<div className="pt_100">
 					<ConnectWithUs />
 				</div>
 				<div className="pb_100">
 					<IntegratedSystem />
-				</div> */}
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
