@@ -2,8 +2,15 @@
 .EarlyCareers {
 	position: relative;
 	.title_wrap {
+		@media (max-width: 767px) {
+			flex-wrap: wrap;
+		}
 		.bookBtn {
 			margin-right: 110px;
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-right: 0px;
+			}
 		}
 	}
 	.SliderMain {
@@ -12,6 +19,9 @@
 		:global(.swiper-slide) {
 			height: 365px;
 			border-radius: 20px;
+			@media (max-width: 767px) {
+				height: auto;
+			}
 		}
 		.cardItem {
 			background-color: var(--color_gray);
@@ -20,6 +30,9 @@
 			max-height: 310px;
 			transition: 0.5s ease-in-out;
 			overflow: hidden;
+			@media (max-width: 767px) {
+				max-height: unset;
+			}
 			.cardImg {
 				position: relative;
 				img {
@@ -27,6 +40,9 @@
 					width: 100%;
 					object-fit: cover;
 					object-position: center;
+					@media (max-width: 767px) {
+						height: auto;
+					}
 				}
 				.categoryTxt {
 					position: absolute;
@@ -62,6 +78,9 @@
 			&:hover {
 				max-height: 370px;
 				transition: 0.5s ease-in-out;
+				@media (max-width: 767px) {
+					max-height: unset;
+				}
 			}
 		}
 	}
@@ -72,10 +91,12 @@
 		bottom: unset;
 		z-index: 1;
 		@media (max-width: 1199px) {
-			right: 55px;
+			right: 0px;
+			top: 12px;
 		}
 		@media (max-width: 767px) {
-			right: 30px;
+			right: 10px;
+			bottom: -50px;
 		}
 		.customPrev,
 		.customNext {

@@ -46,7 +46,7 @@ export default function CollaborationSupport() {
 			<div className={`${styles.SliderMain} pt_20`}>
 				<Swiper
 					modules={[Navigation, Autoplay]}
-					slidesPerView={1.3}
+					slidesPerView={1.1}
 					spaceBetween={20}
 					grabCursor={true}
 					speed={500}
@@ -59,6 +59,11 @@ export default function CollaborationSupport() {
 					// 	delay: 3000,
 					// 	disableOnInteraction: false,
 					// }}
+					breakpoints={{
+						768: {
+							slidesPerView: 1.3,
+						},
+					}}
 					className={styles.slider}
 				>
 					<SwiperSlide>

@@ -3,12 +3,24 @@
 	.counterFlex{
     width: 80%;
     margin: 0 auto;
+    @media (max-width: 1199px) {
+			width: 100%;
+		}
     .countBox{
       text-align: center;
       border-right: 1px solid var(--color_dark_gray);
       padding: 0px 60px;
+      @media (max-width: 767px) {
+        padding: 25px 0px;
+        width: 100%;
+        border-bottom: 1px solid var(--color_dark_gray);
+        border-right: none;
+      }
       &:last-child{
         border-right: none;
+        @media (max-width: 767px) {
+          border-bottom: none;
+        }
       }
       p{
         padding-top: 10px;

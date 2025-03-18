@@ -17,9 +17,20 @@
 		.cardItem {
 			background-color: var(--color_white);
 			border-radius: 20px;
+			@media (max-width: 991px) {
+				flex-wrap: wrap;
+				flex-direction: column-reverse;
+			}
 			.cardDesc {
 				width: 50%;
 				padding: 40px 40px;
+				@media (max-width: 1199px) {
+					padding: 40px 20px;
+				}
+				@media (max-width: 991px) {
+					width: 100%;
+					padding: 20px 20px;
+				}
 				h4 {
 					margin-bottom: 15px;
 					padding-bottom: 15px;
@@ -32,6 +43,9 @@
 			.cardImg {
 				position: relative;
 				width: 50%;
+				@media (max-width: 991px) {
+					width: 100%;
+				}
 				img {
 					height: 380px;
 					width: 100%;
@@ -39,6 +53,14 @@
 					object-position: center;
 					border-top-right-radius: 20px;
 					border-bottom-right-radius: 20px;
+					@media (max-width: 1199px) {
+						height: 400px;
+					}
+					@media (max-width: 991px) {
+						border-top-left-radius: 20px;
+						border-bottom-right-radius: 0px;
+						height: auto;
+					}
 				}
 			}
 		}
@@ -50,10 +72,12 @@
 		bottom: unset;
 		z-index: 1;
 		@media (max-width: 1199px) {
-			right: 55px;
+			right: 0px;
+			top: 10px;
 		}
 		@media (max-width: 767px) {
-			right: 30px;
+			right: 10px;
+			top: 50px;
 		}
 		.customPrev,
 		.customNext {

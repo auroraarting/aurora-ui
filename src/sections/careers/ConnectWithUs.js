@@ -42,7 +42,7 @@ export default function ConnectWithUs() {
 			<div className={`${styles.SliderMain}`}>
 				<Swiper
 					modules={[Navigation, Pagination, Autoplay]}
-					slidesPerView={1.1}
+					slidesPerView={1.2}
 					spaceBetween={20}
 					grabCursor={true}
 					speed={500}
@@ -62,7 +62,7 @@ export default function ConnectWithUs() {
 					// }}
 					breakpoints={{
 						768: {
-							slidesPerView: 2.1,
+							slidesPerView: 2.2,
 							spaceBetween: 20,
 						},
 						992: {

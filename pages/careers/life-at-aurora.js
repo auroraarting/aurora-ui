@@ -86,18 +86,15 @@ export default function LifeAtAurora() {
 					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
 					videoSrc="../../img/softwares/frame_video.mp4"
 				/>
-				<div>
+				{/* <div>
 					<SectionsHeader data={headerArray} />
-				</div>
+				</div> */}
 				<div>
 					<SmarterEnergy />
 				</div>
 				<div className="pt_60">
 					<TeamAurora />
 				</div>
-				{/* <div className="">
-					<img src={available_regions.src} className="width_100" alt="img" />
-				</div> */}
 				<div className="dark_bg">
 					<GlobalMap locationJson={locationJson} />
 				</div>
@@ -114,12 +111,12 @@ export default function LifeAtAurora() {
 					<JobOpenings />
 				</div>
 
-				<div className="pt_100">
+				{/* <div className="pt_100">
 					<ConnectWithUs />
 				</div>
 				<div className="pb_100">
 					<IntegratedSystem />
-				</div>
+				</div> */}
 			</main>
 			{/* Page Content ends here */}
 
