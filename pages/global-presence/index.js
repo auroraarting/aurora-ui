@@ -31,9 +31,33 @@ import slider_arrow from "../../public/img/icons/slider_arrow.svg";
 
 // DATA //
 import locationJson from "@/data/globalMap.json";
+// export async function getStaticProps() {
+// 	try {
+// 		const [globalPresenceDataRes] = await Promise.all([
+// 			fetch(`${process.env.LIVE_URL}/api/global-presence`),
+// 		]);
+
+// 		const globalPresenceData = await globalPresenceRes.json();
+
+// 		return {
+// 			props: {
+// 				globalPresenceData: globalPresenceData.globalPresenceData || null,
+// 			},
+// 			revalidate: 30,
+// 		};
+// 	} catch (error) {
+// 		console.error("Error fetching data:", error);
+// 		return {
+// 			props: {
+// 				globalPresenceData: null,
+// 			},
+// 			revalidate: 30,
+// 		};
+// 	}
+// }
 
 /** GlobalPresence Page */
-export default function GlobalPresence() {
+export default function GlobalPresence({ globalPresenceData }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -49,11 +73,7 @@ export default function GlobalPresence() {
 
 			{/* Page Content starts here */}
 			<main className={styles.GlobalPresencePage}>
-				<InnerBanner
-					bannerTitle="Empowering markets globally"
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
-					showContentOnly
-				/>
+				<InnerBanner data={globalPresenceData} showContentOnly />
 
 				<GlobalMap locationJson={locationJson} />
 

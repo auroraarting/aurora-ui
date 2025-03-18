@@ -1,21 +1,29 @@
 @import "../../helpers/helpers.scss";
-.TransactionSolutions {
-	background: linear-gradient(0deg, #0069b4 0.03%, #0b1d2d 133.43%);
+.TransactionSolution {
 
 	.flexBox {
+		background: linear-gradient(0deg, #0069b4 0.03%, #0b1d2d 133.43%);
+		width: 50%;
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}
 		@media (max-width: 767px) {
 			flex-direction: column-reverse;
 		}
-		.flexItemOne {
+		&:first-child{
 			padding-left: calc(var(--container_left_space));
-			width: 50%;
+			// width: 50%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			//padding: 50px 120px;
+			flex-wrap: wrap;
+		}
+		.flexItemOne {
+			// padding-left: calc(var(--container_left_space));
+			// width: 50%;
+			// display: flex;
+			// align-items: center;
+			// justify-content: center;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-bottom: 20px;
@@ -29,7 +37,7 @@
 			}
 		}
 		.flexItemTwo {
-			width: 50%;
+			// width: 50%;
 			@media (max-width: 767px) {
 				width: 100%;
 			}
