@@ -9,6 +9,8 @@ import InnerBanner from "@/components/InnerBanner";
 
 // SECTIONS //
 import TopEvents from "@/sections/events/TopEvents";
+import EventsListing from "@/sections/events/EventsListing";
+import Speakers from "@/sections/events/Speakers";
 
 // PLUGINS //
 
@@ -19,7 +21,6 @@ import styles from "@/styles/pages/events/events.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
-import EventsListing from "@/sections/events/EventsListing";
 
 // DATA //
 
@@ -46,7 +47,9 @@ export default function events() {
 				<div className="pt_60">
 					<EventsListing />
 				</div>
-				<div className="pt_60"></div>
+				<div className="ptb_100">
+					<Speakers />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
