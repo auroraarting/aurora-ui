@@ -32,8 +32,18 @@ import slider_arrow from "../../public/img/icons/slider_arrow.svg";
 // DATA //
 import locationJson from "@/data/globalMap.json";
 
+// SERVICES //
+import { getRegions } from "@/services/GlobalService.service";
+
+/** Fetch  */
+export async function getStaticProps() {
+	const regions = await getRegions();
+	return { props: { regions } };
+}
+
 /** GlobalPresence Page */
-export default function GlobalPresence() {
+export default function GlobalPresence({ regions }) {
+	console.log(regions);
 	return (
 		<div>
 			{/* Metatags */}
