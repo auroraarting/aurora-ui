@@ -11,6 +11,8 @@ import InnerBanner from "@/components/InnerBanner";
 import TopEvents from "@/sections/events/TopEvents";
 import EventsListing from "@/sections/events/EventsListing";
 import Speakers from "@/sections/events/Speakers";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
+import EventSmarterEnergy from "@/sections/events/EventSmarterEnergy";
 
 // PLUGINS //
 
@@ -36,11 +38,13 @@ export default function events() {
 
 			{/* Page Content starts here */}
 			<main className={styles.eventsPage}>
-				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Each year, our landmark events bring together international industry leaders, government officials and academics to engage in addressing the hottest energy topics."
-					showContentOnly
-				/>
+				<div className={`${styles.topBg}`}>
+					<InnerBanner
+						bannerTitle="Lorem ipsum dolor sit amet consectetur."
+						bannerDescription="Each year, our landmark events bring together international industry leaders, government officials and academics to engage in addressing the hottest energy topics."
+						showContentOnly
+					/>
+				</div>
 				<div>
 					<TopEvents />
 				</div>
@@ -50,6 +54,17 @@ export default function events() {
 				<div className="ptb_100">
 					<Speakers />
 				</div>
+				{/* <div className="pb_100">
+					<div className="container">
+						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
+							Audience Speak
+						</h2>
+					</div>
+					<TestimonialFeedback />
+				</div>
+				<div className="dark_bg ptb_100">
+					<EventSmarterEnergy />
+				</div> */}
 			</main>
 			{/* Page Content ends here */}
 
