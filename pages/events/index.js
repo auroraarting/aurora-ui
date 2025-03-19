@@ -54,6 +54,7 @@ export default function events() {
 				<div className="ptb_100">
 					<Speakers />
 				</div>
+
 				{/* <div className="pb_100">
 					<div className="container">
 						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
