@@ -15,7 +15,10 @@ import Header from "@/components/Header";
 import styles from "@/styles/pages/BlogsInside.module.scss";
 
 // SERVICES //
-import { getBlogBySlug, getRelatedBlogsBySlug } from "@/services/BlogService";
+import {
+	getBlogBySlug,
+	getRelatedBlogsBySlug,
+} from "@/services/GlobalService.service";
 
 // UTILS //
 
