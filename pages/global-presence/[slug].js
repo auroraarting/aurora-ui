@@ -34,8 +34,19 @@ import desktop_banner from "@/../public/img/global-presence/desktop_banner.jpg";
 
 // DATA //
 
+// SERVICES //
+import { getCountryInside } from "@/services/GlobalPresence.service";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const data = await getCountryInside(params.slug);
+
+	return { props: { data: data.data.countryBy } };
+}
+
 /** Australia Page */
-export default function Australia() {
+export default function Australia({ data }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */

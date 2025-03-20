@@ -5,19 +5,44 @@
 		width: 60%;
 		margin: 0 auto;
 		text-align: center;
+		@media (max-width: 767px) {
+			width: 100%;
+		}
 	}
 	.TeamBoxRow {
 		position: relative;
 		height: 420px;
+		@media (max-width: 991px) {
+			// height: auto;
+			// display: flex;
+			// flex-wrap: wrap;
+			// justify-content: space-between;
+			margin-top: 40px;
+		}
+		@media (max-width: 767px) {
+			 height: auto;
+		}
 		.teamItem {
 			background-color: var(--color_white);
 			padding: 15px 15px;
 			border-radius: 20px;
 			width: 360px;
 			position: absolute;
-
 			transition: 0.5s ease-in-out;
 			overflow: hidden;
+			@media (max-width: 1199px) {
+				width: 340px;
+			}
+			@media (max-width: 991px) {
+				width: 48%;
+				// position: relative;
+				//margin-bottom: 25px;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				position: relative;
+				margin-bottom: 25px;
+			}
 			.teamHoverShow {
 				opacity: 0;
 				max-height: 0px;
@@ -71,35 +96,102 @@
 			&.teamItemOne {
 				top: -60px;
 				left: -30px;
+				@media (max-width: 1199px) {
+					left: 0px;
+				}
+				@media (max-width: 991px) {
+					top: 0px;
+				}
 			}
 
 			&.teamItemTwo {
 				top: -60px;
 				right: -30px;
+				@media (max-width: 1199px) {
+					right: 0px;
+				}
+				@media (max-width: 991px) {
+					top: 0px;
+				}
 			}
 			&.teamItemThree {
 				top: 60px;
 				left: 200px;
+				@media (max-width: 1199px) {
+					left: 80px;
+				}
+				@media (max-width: 991px) {
+					top: 110px;
+					left: 0px;
+				}
+				@media (max-width: 767px) {
+					top: 0px;
+				}
 			}
 			&.teamItemFour {
 				top: 60px;
 				right: 200px;
+				@media (max-width: 1199px) {
+					right: 80px;
+				}
+				@media (max-width: 991px) {
+					top: 110px;
+					right: 0px;
+				}
+				@media (max-width: 767px) {
+					top: 0px;
+				}
 			}
 			&.teamItemFive {
 				top: 180px;
 				right: 500px;
+				@media (max-width: 1199px) {
+					right: unset;
+					left: 0px;
+				}
+				@media (max-width: 991px) {
+					top: 220px;
+					left: 0px;
+				}
+				@media (max-width: 767px) {
+					top: 0px;
+				}
 			}
 			&.teamItemSix {
 				top: 180px;
 				right: 30px;
+				@media (max-width: 991px) {
+					top: 220px;
+					right: 0px;
+				}
+				@media (max-width: 767px) {
+					top: 0px;
+				}
 			}
 			&.teamItemSeven {
 				top: 300px;
 				left: 100px;
+				@media (max-width: 1199px) {
+					left: 50px;
+				}
+				@media (max-width: 991px) {
+					top: 330px;
+					left: 0px;
+				}
+				@media (max-width: 767px) {
+					top: 0px;
+				}
 			}
 			&.teamItemEight {
 				top: 300px;
 				right: 150px;
+				@media (max-width: 991px) {
+					top: 330px;
+					right: 0px;
+				}
+				@media (max-width: 767px) {
+					top: 0px;
+				}
 			}
 		}
 	}
