@@ -19,11 +19,24 @@ import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import search from "../../../public/img/icons/search.svg";
+import popup_close from "../../../public/img/icons/popup_close.svg";
 
 // DATA //
 
 /** EventsListing Section */
 export default function EventsListing() {
+	const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+	/** Toggle Search Input */
+	const toggleSearchInput = () => {
+		setIsSearchVisible((prev) => !prev);
+	};
+
+	/** Close Search Input */
+	const closeSearchInput = () => {
+		setIsSearchVisible(false);
+	};
+
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
@@ -295,6 +308,7 @@ export default function EventsListing() {
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}
+							onClick={toggleSearchInput}
 						>
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
@@ -303,6 +317,19 @@ export default function EventsListing() {
 								</span>
 							</div>
 						</div>
+						{/* Search Input - Show/Hide on Click */}
+						{isSearchVisible && (
+							<div className={`${styles.searchInput} f_r_aj_between`}>
+								<input type="text" placeholder="Search Events" />
+								<span className="d_f">
+									<img src={search.src} alt="icon" />
+									{/* Close Button */}
+									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										x
+									</span>
+								</span>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
