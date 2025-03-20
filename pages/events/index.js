@@ -23,11 +23,14 @@ import styles from "@/styles/pages/events/events.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
+import Insights from "@/components/Insights";
 
 // DATA //
 
 /** events Page */
 export default function events() {
+	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -55,7 +58,7 @@ export default function events() {
 					<Speakers />
 				</div>
 
-				{/* <div className="pb_100">
+				<div className={`${styles.bottomBg} pb_100`}>
 					<div className="container">
 						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
 							Audience Speak
@@ -64,8 +67,9 @@ export default function events() {
 					<TestimonialFeedback />
 				</div>
 				<div className="dark_bg ptb_100">
+					<Insights isPowerBgVisible={true} />
 					<EventSmarterEnergy />
-				</div> */}
+				</div>
 			</main>
 			{/* Page Content ends here */}
 

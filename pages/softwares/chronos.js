@@ -118,6 +118,8 @@ export default function SoftwarePage() {
 					<Insights
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
+						isPowerBgVisible={true}
+						isInsightsBlogsVisible={true}
 					/>
 				</div>
 				<div className="pb_100">
