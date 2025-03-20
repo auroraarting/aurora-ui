@@ -22,7 +22,7 @@ import styles from "@/styles/components/Map.module.scss";
 // IMAGES //
 
 // DATA //
-import locationJson from "@/data/globalMap.json";
+// import locationJson from "@/data/globalMap.json";
 
 // MAP DETAILS //
 const containerStyle = {
@@ -269,6 +269,7 @@ export default function Map({
 	map,
 	setMap,
 	defaultZoom = 4,
+	locationJson,
 }) {
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
 

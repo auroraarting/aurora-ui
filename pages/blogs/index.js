@@ -17,7 +17,7 @@ import DummyComponent from "@/components/DummyComponent";
 import styles from "@/styles/pages/Blogs.module.scss";
 
 // SERVICES //
-import { getAllBlogs } from "@/services/GlobalService.service";
+import { getAllBlogs } from "@/services/GlobalPresence.service";
 
 // DATA //
 import dummyData from "@/data/tempStrapiData.json";
