@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Regions Data */
 export const getRegions = async () => {
 	const query = `
-    query NewQuery {
+   query NewQuery {
   regions {
     nodes {
       name
@@ -66,6 +66,12 @@ export const getRegions = async () => {
                   }
                 }
               }
+            }
+          }
+          featuredImage {
+            node {
+              altText
+              sourceUrl(size: LARGE)
             }
           }
         }

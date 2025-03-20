@@ -68,7 +68,7 @@ export default function GlobalPresence({ regions, page }) {
 									<div className={`${styles.CountryItem}`} key={item2.slug}>
 										<a href={`/global-presence/${item2.slug}`}>
 											<img
-												src={item2?.countries?.bannerSection?.image?.node?.sourceUrl}
+												src={item2?.featuredImage?.node?.sourceUrl}
 												className="width_100 b_r_10"
 												alt="img"
 											/>
@@ -138,7 +138,7 @@ export default function GlobalPresence({ regions, page }) {
 		setData({ regionsArr, mapJson, page });
 	}, []);
 
-	console.log(data);
+	console.log(regions);
 
 	return (
 		<div>
