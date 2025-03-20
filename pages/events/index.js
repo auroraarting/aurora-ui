@@ -64,7 +64,7 @@ export default function events() {
 					</div>
 					<TestimonialFeedback />
 				</div>
-				<div className="dark_bg ptb_100">
+				<div className={`${styles.eventBottomBg} dark_bg ptb_100`}>
 					<Insights isPowerBgVisible={true} />
 					<EventSmarterEnergy />
 				</div>
