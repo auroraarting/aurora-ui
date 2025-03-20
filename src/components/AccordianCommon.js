@@ -100,25 +100,27 @@ export default function AccordianCommon({
 					</div>
 
 					{/* Accordion Content */}
-					<div
-						className={`${styles.accordionContent} ${
-							activeIndex === index ? styles.active : ""
-						}`}
-						ref={(el) => (contentRefs.current[index] = el)}
-						style={{
-							height: activeIndex === index ? `${heights[index]}px` : "0px",
-							overflow: "hidden",
-							transition: "height 0.3s ease",
-						}}
-					>
+					{item.children && (
 						<div
-							className={`${
-								activeIndex === index ? styles.activeInner : ""
-							} activeSpace`}
+							className={`${styles.accordionContent} ${
+								activeIndex === index ? styles.active : ""
+							}`}
+							ref={(el) => (contentRefs.current[index] = el)}
+							style={{
+								height: activeIndex === index ? `${heights[index]}px` : "0px",
+								overflow: "hidden",
+								transition: "height 0.3s ease",
+							}}
 						>
-							{item.children}
+							<div
+								className={`${
+									activeIndex === index ? styles.activeInner : ""
+								} activeSpace`}
+							>
+								{item.children}
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			))}
 		</div>

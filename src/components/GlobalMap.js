@@ -41,6 +41,7 @@ export default function GlobalMap({ locationJson }) {
 				map={map}
 				setMap={setMap}
 				defaultZoom={2.2}
+				locationJson={locationJson}
 			/>
 			{/* </div> */}
 		</section>
