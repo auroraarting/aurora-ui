@@ -39,9 +39,13 @@ import {
 } from "@/services/GlobalPresence.service";
 
 /** Fetch  */
-export async function getStaticProps() {
-	const regions = await getRegions();
-	const page = await getGlobalPresencePage();
+export async function getServerSideProps() {
+	// const regions = await getRegions();
+	// const page = await getGlobalPresencePage();
+	const [regions, page] = await Promise.all([
+		getRegions(),
+		getGlobalPresencePage(),
+	]);
 
 	return { props: { regions, page: page.data.page.globalPresence } };
 }
