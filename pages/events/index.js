@@ -29,8 +29,6 @@ import Insights from "@/components/Insights";
 
 /** events Page */
 export default function events() {
-	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-
 	return (
 		<div>
 			{/* Metatags */}

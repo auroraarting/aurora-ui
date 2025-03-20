@@ -97,6 +97,8 @@ export default function CaseStudies() {
 					<Insights
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
+						isPowerBgVisible={true}
+						isInsightsBlogsVisible={true}
 					/>
 				</div>
 			</main>
