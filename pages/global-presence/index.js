@@ -33,17 +33,23 @@ import slider_arrow from "../../public/img/icons/slider_arrow.svg";
 import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
-import { getRegions } from "@/services/GlobalService.service";
+import {
+	getGlobalPresencePage,
+	getRegions,
+} from "@/services/GlobalPresence.service";
 
 /** Fetch  */
 export async function getStaticProps() {
 	const regions = await getRegions();
-	return { props: { regions } };
+	const page = await getGlobalPresencePage();
+
+	return { props: { regions, page: page.data.page.globalPresence } };
 }
 
 /** GlobalPresence Page */
-export default function GlobalPresence({ regions }) {
+export default function GlobalPresence({ regions, page }) {
 	const [data, setData] = useState();
+
 	useEffect(() => {
 		const regionsArr = regions?.data?.regions?.nodes?.map((item) => {
 			let obj = {};
@@ -125,12 +131,10 @@ export default function GlobalPresence({ regions }) {
 			});
 		});
 
-		setData({ regionsArr, mapJson });
+		setData({ regionsArr, mapJson, page });
 	}, []);
 
-	console.log(data?.mapJson, locationJson);
-
-	if (!data) return null;
+	console.log(data);
 
 	return (
 		<div>
@@ -146,37 +150,42 @@ export default function GlobalPresence({ regions }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.GlobalPresencePage}>
-				<InnerBanner
-					bannerTitle="Empowering markets globally"
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
-					showContentOnly
-				/>
+			{data && (
+				<main className={styles.GlobalPresencePage}>
+					<InnerBanner
+						bannerTitle={data.page.title}
+						bannerDescription={data.page.description}
+						showContentOnly
+					/>
 
-				<GlobalMap locationJson={data.mapJson} />
+					<GlobalMap
+						locationJson={data.mapJson}
+						marqueeText={data.page.mapMarquee}
+					/>
 
-				<section className={`${styles.CountryMain} ptb_100`}>
-					<div className="container">
-						<div className={`${styles.accordian_main}`}>
-							<AccordianCommon
-								fontStyle={"text_lg"}
-								fontWeight={"f_w_s_b"}
-								fontFamily={"font_primary"}
-								fontColor={"color_secondary"}
-								items={data.regionsArr}
-							/>
+					<section className={`${styles.CountryMain} ptb_100`}>
+						<div className="container">
+							<div className={`${styles.accordian_main}`}>
+								<AccordianCommon
+									fontStyle={"text_lg"}
+									fontWeight={"f_w_s_b"}
+									fontFamily={"font_primary"}
+									fontColor={"color_secondary"}
+									items={data.regionsArr}
+								/>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
 
-				<div className={`${styles.insightBg} ptb_80`}>
-					<div className={`${styles.boxBg}`}></div>
-					<EosIntegratedSystem />
-				</div>
-				<div className="ptb_100">
-					<IntegratedSystem />
-				</div>
-			</main>
+					<div className={`${styles.insightBg} ptb_80`}>
+						<div className={`${styles.boxBg}`}></div>
+						<EosIntegratedSystem />
+					</div>
+					<div className="ptb_100">
+						<IntegratedSystem />
+					</div>
+				</main>
+			)}
 			{/* Page Content ends here */}
 
 			{/* Footer */}

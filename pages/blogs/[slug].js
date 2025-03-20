@@ -18,7 +18,7 @@ import styles from "@/styles/pages/BlogsInside.module.scss";
 import {
 	getBlogBySlug,
 	getRelatedBlogsBySlug,
-} from "@/services/GlobalService.service";
+} from "@/services/GlobalPresence.service";
 
 // UTILS //
 

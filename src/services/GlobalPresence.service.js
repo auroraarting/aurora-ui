@@ -1,7 +1,7 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import GraphQLAPI from "./Graphql.service";
 
-/** Fetch Blog Data */
+/** Fetch Regions Data */
 export const getRegions = async () => {
 	const query = `
     query NewQuery {
@@ -148,6 +148,23 @@ export const getRegions = async () => {
     }
   }
 }
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** Fetch Page */
+export const getGlobalPresencePage = async () => {
+	const query = `
+    query NewQuery {
+    page(id: "global-presence", idType: URI) {
+      globalPresence {
+        title
+        mapMarquee
+        description
+      }
+    }
+  }
     `;
 	const res = await GraphQLAPI(query);
 	return res;

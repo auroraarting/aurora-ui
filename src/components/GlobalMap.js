@@ -19,7 +19,10 @@ import styles from "@/styles/components/MapContainer.module.scss";
 // DATA //
 
 /** GlobalMap Component */
-export default function GlobalMap({ locationJson }) {
+export default function GlobalMap({
+	locationJson,
+	marqueeText = " Energy intelligence across every key market",
+}) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 	const [map, setMap] = useState(null);
@@ -30,7 +33,7 @@ export default function GlobalMap({ locationJson }) {
 			{/* <div className="container"> */}
 			<Marquee className="pb_40" speed={100}>
 				<span className={`${styles.title} color_white text_xxl`}>
-					{" Energy intelligence across every key market"}
+					{marqueeText}
 				</span>
 			</Marquee>
 
