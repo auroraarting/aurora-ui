@@ -1,5 +1,5 @@
 // MODULES //
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";

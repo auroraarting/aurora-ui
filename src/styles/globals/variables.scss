@@ -31,7 +31,7 @@ $browser-prefixes: false !default;
 
 	// Extras
 	--container_width: 100%;
-	--container_left_space: calc((100% - var(--container_width)) / 2);
+	--container_left_space: calc((100vw - var(--container_width)) / 2);
 	--transition: ease all 300ms;
 
 	@media (min-width: 768px) and (max-width: 991px) {

@@ -1,28 +1,51 @@
 @import "../../helpers/helpers.scss";
 .TransactionSolutions {
 	background: linear-gradient(0deg, #0069b4 0.03%, #0b1d2d 133.43%);
+	height: 100vh;
 
 	.flexBox {
+		height: 100%;
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}
 		@media (max-width: 767px) {
 			flex-direction: column-reverse;
 		}
+
 		.flexItemOne {
-			padding-left: calc(var(--container_left_space));
+			// padding-left: var(--container_left_space);
 			width: 50%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			position: relative;
 			//padding: 50px 120px;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-bottom: 20px;
 				padding-left: 0px;
 			}
+
 			.SpaceLeft {
-				padding: 40px 30px 40px 20px;
+				padding: 40px 30px 40px calc(var(--container_left_space) + 20px);
+
+				position: relative;
+				height: 100%;
+				display: grid;
+				place-items: center;
+				&:not(&:nth-child(1)) {
+					position: absolute;
+					top: 0;
+					left: 0;
+					transform: translateY(100%);
+				}
+
+				&:nth-child(2) {
+					background-color: red;
+				}
+				&:nth-child(3) {
+					background-color: green;
+				}
 				@media (max-width: 991px) {
 					padding: 20px 20px;
 				}
@@ -30,11 +53,21 @@
 		}
 		.flexItemTwo {
 			width: 50%;
+			position: relative;
 			@media (max-width: 767px) {
 				width: 100%;
 			}
 			img {
+				height: 100%;
 				width: 100%;
+
+				&:not(&:nth-child(1)) {
+					position: absolute;
+					top: 0;
+					left: 0;
+					opacity: 0;
+				}
+
 				@media (max-width: 991px) {
 					height: 420px;
 					object-fit: cover;
