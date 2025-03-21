@@ -1,0 +1,33 @@
+@import "../../helpers/helpers.scss";
+.eventsPage {
+	background-color: var(--color_silver);
+	.topBg {
+		// background-image: url("../../../../public/img/events/topBg.png");
+		// background-repeat: no-repeat;
+		// background-size: cover;
+		// background-position: top left;
+	}
+	.bottomBg {
+		// background-image: url("../../../../public/img/events/topBg.png");
+		// background-repeat: no-repeat;
+		// background-size: cover;
+		// background-position: bottom left;
+	}
+	.eventBottomBg {
+		background-image: url("../../../../public/img/softwares/insightsBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center center;
+	}
+	:global(.insightsBg) {
+		background-image: none !important;
+		padding: 0px 60px !important;
+		@media (max-width: 991px) {
+			padding: 0px 0px !important;
+		}
+	}
+	:global(.powerBg) {
+		border-bottom: none !important;
+		padding-bottom: 0px;
+	}
+}

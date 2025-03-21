@@ -54,7 +54,7 @@ export default function Products() {
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
-							<Insights />
+							<Insights isInsightsBlogsVisible={true} />
 						</div>
 					</div>
 					<EosIntegratedSystem />

@@ -135,6 +135,8 @@ export default function Australia({ data }) {
 							<Insights
 								isFormVisible={isFormVisible}
 								setIsFormVisible={setIsFormVisible}
+								isPowerBgVisible={true}
+								isInsightsBlogsVisible={true}
 							/>
 						</div>
 					</div>

@@ -147,3 +147,19 @@ section {
 	background: var(--color_primary);
 	border-radius: 50px;
 }
+
+.activeDropDown{
+	.select_bg{
+		background-color: var(--color_secondary);
+		color: var(--color_white);
+		&:hover{
+			background-color: var(--color_secondary) !important;
+			color: var(--color_white);
+		}
+		img{
+			transform: rotate(180deg);
+			filter: invert(1);
+		}
+	}
+	
+}
