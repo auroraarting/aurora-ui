@@ -6,13 +6,14 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
+import Insights from "@/components/Insights";
 
 // SECTIONS //
 import TopEvents from "@/sections/events/TopEvents";
 import EventsListing from "@/sections/events/EventsListing";
 import Speakers from "@/sections/events/Speakers";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
-import EventSmarterEnergy from "@/sections/events/EventSmarterEnergy";
+import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // PLUGINS //
 
@@ -23,7 +24,6 @@ import styles from "@/styles/pages/events/events.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
-import Insights from "@/components/Insights";
 
 // DATA //
 

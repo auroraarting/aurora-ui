@@ -1,4 +1,4 @@
-@import "../../helpers/helpers.scss";
+@import "../helpers/helpers.scss";
 .EventSmarterEnergy {
 	.category {
 		.switchBox {
@@ -31,6 +31,10 @@
 	.categoryContent {
 		width: 80%;
 		margin: 0 auto;
+		text-align: center;
+		@media (max-width: 991px) {
+			width: 100%;
+		}
 		.categoryList {
 			margin-top: 20px;
 			p {

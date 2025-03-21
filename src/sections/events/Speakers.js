@@ -204,6 +204,9 @@ export default function Speakers() {
 															</p>
 														</div>
 													</div>
+													<div>
+														<h4>Session</h4>
+													</div>
 												</div>
 											</SwiperSlide>
 										))}

@@ -11,16 +11,16 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/events/EventSmarterEnergy.module.scss";
+import styles from "@/styles/components/EventSmarterEnergy.module.scss";
 
 // IMAGES //
-import software_chronos from "../../../public/img/events/software_chronos.png";
+import software_chronos from "../../public/img/events/software_chronos.png";
 
 // DATA //
 
 /** EventSmarterEnergy Section */
 export default function EventSmarterEnergy() {
-	const [activeTab, setActiveTab] = useState("Product");
+	const [activeTab, setActiveTab] = useState("Software");
 
 	/** */
 	const handleTabClick = (tab) => {

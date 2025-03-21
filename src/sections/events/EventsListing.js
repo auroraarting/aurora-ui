@@ -25,6 +25,7 @@ import popup_close from "../../../public/img/icons/popup_close.svg";
 
 /** EventsListing Section */
 export default function EventsListing() {
+	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 
 	/** Toggle Search Input */
@@ -35,6 +36,11 @@ export default function EventsListing() {
 	/** Close Search Input */
 	const closeSearchInput = () => {
 		setIsSearchVisible(false);
+	};
+
+	/** checkBox Input */
+	const handleChange = (option) => {
+		setSelected((prev) => ({ ...prev, [option]: !prev[option] }));
 	};
 
 	const [dropdowns, setDropdowns] = useState({
@@ -121,6 +127,26 @@ export default function EventsListing() {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
+
+	const checkBoxData = [
+		{
+			category: "Product",
+			options: [
+				"Power & Renewables",
+				"Flexible Energy",
+				"Grid Add-on",
+				"Hydrogen Service",
+			],
+		},
+		{
+			category: "Software",
+			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
+		},
+		{
+			category: "Service",
+			options: ["Advisory"],
+		},
+	];
 
 	return (
 		<section className={styles.EventsListing}>
@@ -213,21 +239,31 @@ export default function EventsListing() {
 									</div>
 								</div>
 								{dropdowns.offeringsType.isOpen && (
-									<ul className={styles.selectOptionBox}>
-										{optionsData.offeringsType.map((option) => (
-											<li
-												key={option.title}
-												className={
-													option.title === dropdowns.offeringsType.selected.title
-														? "selected"
-														: ""
-												}
-												onClick={() => handleOptionClick("offeringsType", option)}
-											>
-												{option.title}
-											</li>
+									<div
+										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
+									>
+										{checkBoxData.map((item, index) => (
+											<div key={index} className={styles.checkBoxItem}>
+												<h4 className="text_sm color_dark_gray text_500">
+													{item.category}
+												</h4>
+												<div className={styles.checkBoxList}>
+													{item.options.map((option, idx) => (
+														<label key={idx} className={styles.checkboxLabel}>
+															<input
+																type="checkbox"
+																className={styles.hiddenCheckbox}
+																checked={selected[option] || false}
+																onChange={() => handleChange(option)}
+															/>
+															<span className={styles.customCheckbox}></span>
+															{option}
+														</label>
+													))}
+												</div>
+											</div>
 										))}
-									</ul>
+									</div>
 								)}
 							</div>
 						</div>
@@ -267,7 +303,7 @@ export default function EventsListing() {
 							</div>
 						</div>
 
-						{/* Event Status Type Dropdown */}
+						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}
 							ref={dropdownRefs.yearsType}
