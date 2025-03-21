@@ -18,7 +18,7 @@ import styles from "@/styles/components/CircularMenu.module.scss";
 // DATA //
 
 /** CircularMenu Component */
-export default function CircularMenu({ items }) {
+export default function CircularMenu({ items, iconDefault }) {
 	const containerRef = useRef(null);
 	const [size, setSize] = useState(450); // Default size
 	const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -96,11 +96,11 @@ export default function CircularMenu({ items }) {
 								// whileFocus={{ fill: "#FFCC00" }}
 							/>
 							<image
-								href={item.icon.src}
-								width={item.icon.width}
-								height={item.icon.height}
-								x={midX - item.icon.width / 2} // Center the image
-								y={midY - item.icon.height / 2}
+								href={item?.image?.node?.sourceUrl || iconDefault.src}
+								width={iconDefault.width}
+								height={iconDefault.height}
+								x={midX - iconDefault.width / 2} // Center the image
+								y={midY - iconDefault.height / 2}
 								style={{
 									filter: hoveredIndex === i ? "none" : "invert(1)", // Default white, hover shows original
 									transition: "filter 0.3s ease-in-out",
