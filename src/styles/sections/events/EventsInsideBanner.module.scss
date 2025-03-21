@@ -1,0 +1,49 @@
+@import "../../helpers/helpers.scss";
+.EventsInsideBanner {
+	.tag {
+		background-color: var(--color_blue);
+		padding: 12px 20px;
+		border-radius: 8px;
+		width: max-content;
+		margin-bottom: 30px;
+	}
+	.bannerTxt {
+		width: 70%;
+	}
+	.dateBox {
+		ul {
+			padding-left: 0px;
+
+			li {
+				display: inline-flex;
+				align-items: center;
+				list-style-type: none;
+				padding-right: 15px;
+				margin-right: 15px;
+				border-right: 1px solid var(--color_medium_gray);
+				&:last-child {
+					border-right: none;
+				}
+				span {
+					padding-left: 5px;
+				}
+			}
+		}
+	}
+	.inner_banner_wrap {
+		position: relative;
+		.banner_image {
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 20px;
+			}
+		}
+		.banner_logo {
+			position: absolute;
+			left: 20px;
+			bottom: 20px;
+		}
+	}
+}
