@@ -201,6 +201,105 @@
 				}
 			}
 		}
+		.sessionWapper {
+			margin: 50px 0px;
+			@media (max-width: 767px) {
+				margin: 40px 0px 20px;
+			}
+			h3 {
+				border-bottom: 1px solid var(--color_gray);
+				padding-bottom: 20px;
+			}
+			.sessionBox {
+				background-color: var(--color_gray);
+				border-radius: 12px;
+				padding: 20px 20px;
+				margin-top: 20px;
+				.sessionTime {
+					width: 8%;
+					@media (max-width: 991px) {
+						width: 12%;
+					}
+					@media (max-width: 767px) {
+						width: 100%;
+						margin-bottom: 10px;
+					}
+					.tag {
+						background-color: var(--color_blue);
+						padding: 12px 18px;
+						border-radius: 8px;
+						width: max-content;
+					}
+				}
+				.sessionDescription {
+					width: 92%;
+					padding-left: 20px;
+					@media (max-width: 991px) {
+						width: 88%;
+					}
+					@media (max-width: 767px) {
+						width: 100%;
+						padding-left: 0px;
+					}
+					.dateFlex {
+						align-items: center;
+						@media (max-width: 767px) {
+							flex-wrap: wrap;
+						}
+						p {
+							margin-right: 40px;
+							@media (max-width: 767px) {
+								width: 100%;
+								margin-bottom: 10px;
+								margin-right: 0px;
+								align-items: flex-start;
+							}
+							img {
+								filter: invert(1);
+								@media (max-width: 767px) {
+									width: 6%;
+									margin-top: 5px;
+								}
+							}
+							.clock {
+								filter: invert(0);
+							}
+							span {
+								margin-left: 5px;
+								margin-top: 2px;
+								@media (max-width: 767px) {
+									width: 90%;
+								}
+							}
+						}
+					}
+					.ClientFlex {
+						margin-top: 15px;
+						.ClientLogo {
+							width: 5%;
+							@media (max-width: 991px) {
+								width: 8%;
+							}
+							@media (max-width: 767px) {
+								width: 16%;
+							}
+							img {
+								width: 40px;
+								height: 40px;
+								border-radius: 50%;
+							}
+						}
+						.ClientDescription {
+							width: 90%;
+							padding-left: 10px;
+							@media (max-width: 767px) {
+								width: 82%;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	.arrowSection {
