@@ -21,7 +21,8 @@ import "lightgallery/css/lg-video.css";
 import styles from "@/styles/sections/events/EventsGallery.module.scss";
 
 // IMAGES //
-import gallery_img from "@/../public/img/events/gallery_img.jpg";
+// import gallery_img from "@/../public/img/events/gallery_img.jpg";
+import gallery_img from "../../../public/img/events/gallery_img.jpg";
 import gallery_two_img from "@/../public/img/events/gallery_two_img.jpg";
 import gallery_three_img from "@/../public/img/events/gallery_three_img.jpg";
 import gallery_four_img from "@/../public/img/events/gallery_four_img.jpg";
@@ -33,12 +34,22 @@ import gallery_seven_img from "@/../public/img/events/gallery_seven_img.jpg";
 
 /** EventsGallery Section */
 export default function EventsGallery() {
+	/** EventsGallery Section */
+	const onInit = () => {
+		console.log("lightGallery has been initialized");
+	};
 	return (
-		<div className={`${styles.EventsGallery} `}>
+		<div className={`${styles.EventsGallery} EventsGallery `}>
 			<h2 className="text_lg color_secondary pb_10">Glimpses of our event</h2>
 			<div className={`${styles.galleryMain}`}>
-				<LightGallery speed={500} plugins={[lgThumbnail, lgZoom, lgVideo]}>
-					<div className={`${styles.galleryBox}`}>
+				<div className={styles.galleryBox}>
+					<LightGallery
+						onInit={onInit}
+						speed={500}
+						plugins={[lgThumbnail, lgVideo]}
+						mode="lg-fade"
+						mobileSettings={{ closable: true }}
+					>
 						<a
 							href={gallery_img.src}
 							data-src={gallery_img.src}
@@ -116,8 +127,8 @@ export default function EventsGallery() {
 								alt="Gallery"
 							/>
 						</a>
-					</div>
-				</LightGallery>
+					</LightGallery>
+				</div>
 			</div>
 		</div>
 	);

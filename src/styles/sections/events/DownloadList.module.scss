@@ -1,0 +1,40 @@
+@import "../../helpers/helpers.scss";
+.DownloadWrapper {
+	.teamItem {
+		background-color: var(--color_white);
+		padding: 15px 15px;
+		border-radius: 20px;
+		width: max-content;
+		margin-right: 20px;
+		@media (max-width: 1199px) {
+			margin-bottom: 20px;
+		}
+		@media (max-width: 767px) {
+			width: 100%;
+		}
+		.teamFlex {
+			.teamLogo {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: var(--color_black);
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				border: 2px solid var(--color_primary);
+				box-shadow: 1px 1px 15px rgba(255, 204, 0, 0.4);
+				img {
+				}
+			}
+			.teamDescription {
+				width: 82%;
+				padding-left: 10px;
+				a {
+					span {
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+	}
+}

@@ -18,6 +18,7 @@ import EventInsideVideo from "@/sections/events/EventInsideVideo";
 import Speakers from "@/sections/events/Speakers";
 import EventsMiddleRight from "@/sections/events/EventsMiddleRight";
 import EventsGallery from "@/sections/events/EventsGallery";
+import AudienceBreakdown from "@/sections/events/AudienceBreakdown";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -26,6 +27,7 @@ import { Link, scroller } from "react-scroll";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
+import DownloadList from "@/sections/events/DownloadList";
 
 // IMAGES //
 
@@ -87,7 +89,7 @@ export default function EventsInside() {
 							<div className={`${styles.eventsMiddleLeft}`}>
 								<EventsMiddleDescription />
 								<EventsLocation />
-								<div>
+								<div className="pb_60">
 									<EventsGallery />
 								</div>
 								<Sponsors />
@@ -102,13 +104,18 @@ export default function EventsInside() {
 					</div>
 				</section>
 				<div className="pb_100">
+					<AudienceBreakdown />
+				</div>
+				<div className="pb_40">
 					<Speakers />
+				</div>
+				<div className="pb_60">
+					<DownloadList />
 				</div>
 				<div className="pb_100">
 					<Insights
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
-						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 					/>
 				</div>
