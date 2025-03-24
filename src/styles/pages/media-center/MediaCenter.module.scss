@@ -1,0 +1,10 @@
+@import "../../helpers/helpers.scss";
+.MediaCenterPage {
+	background-color: var(--color_silver);
+	.topBg {
+		background-image: url("../../../../public/img/media-center/topBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: bottom left;
+	}
+}

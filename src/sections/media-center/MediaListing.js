@@ -11,7 +11,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/events/EventsListing.module.scss";
+import styles from "@/styles/sections/media-center/MediaListing.module.scss";
 
 // IMAGES //
 import energy_transition from "../../../public/img/events/energy_transition.png";
@@ -23,8 +23,8 @@ import popup_close from "../../../public/img/icons/popup_close.svg";
 
 // DATA //
 
-/** EventsListing Section */
-export default function EventsListing() {
+/** MediaListing Section */
+export default function MediaListing() {
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 
@@ -45,44 +45,32 @@ export default function EventsListing() {
 
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+		languageType: { isOpen: false, selected: { title: "Language" } },
+		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 
 	const dropdownRefs = {
 		eventNameType: useRef(null),
-		countryType: useRef(null),
+		languageType: useRef(null),
 		offeringsType: useRef(null),
 		eventStatusType: useRef(null),
 		yearsType: useRef(null),
 	};
 
 	const optionsData = {
-		eventNameType: [
-			{ title: "Event Name1" },
-			{ title: "Event Name2" },
-			{ title: "Event Name3" },
-			{ title: "Event Name4" },
-		],
-		countryType: [
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
+		languageType: [
+			{ title: "English" },
+			{ title: "English" },
+			{ title: "English" },
+			{ title: "English" },
 		],
 		offeringsType: [
 			{ title: "Offerings1" },
 			{ title: "Offerings2" },
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
-		],
-		eventStatusType: [
-			{ title: "Event Status" },
-			{ title: "Event Status" },
-			{ title: "Event Status" },
-			{ title: "Event Status" },
 		],
 		yearsType: [
 			{ title: "2025" },
@@ -149,80 +137,10 @@ export default function EventsListing() {
 	];
 
 	return (
-		<section className={styles.EventsListing}>
+		<section className={styles.MediaListing}>
 			<div className={styles.filterMain}>
 				<div className="container">
 					<div className={styles.filterflex}>
-						{/* Event Name Type Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.eventNameType}>
-							<div className={styles.custom_select}>
-								<div
-									className={`${styles.select_header_wapper} ${
-										dropdowns.eventNameType.isOpen ? "activeDropDown" : ""
-									}`}
-									onClick={() => toggleDropdown("eventNameType")}
-									tabIndex={0}
-								>
-									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.eventNameType.selected.title}
-										<img src={dropdown_arrow.src} alt="icon" />
-									</div>
-								</div>
-								{dropdowns.eventNameType.isOpen && (
-									<ul className={styles.selectOptionBox}>
-										{optionsData.eventNameType.map((option) => (
-											<li
-												key={option.title}
-												className={
-													option.title === dropdowns.eventNameType.selected.title
-														? "selected"
-														: ""
-												}
-												onClick={() => handleOptionClick("eventNameType", option)}
-											>
-												{option.title}
-											</li>
-										))}
-									</ul>
-								)}
-							</div>
-						</div>
-
-						{/* Country Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
-							<div className={styles.custom_select}>
-								<div
-									className={`${styles.select_header_wapper} ${
-										dropdowns.countryType.isOpen ? "activeDropDown" : ""
-									}`}
-									onClick={() => toggleDropdown("countryType")}
-									tabIndex={0}
-								>
-									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.countryType.selected.title}
-										<img src={dropdown_arrow.src} alt="icon" />
-									</div>
-								</div>
-								{dropdowns.countryType.isOpen && (
-									<ul className={styles.selectOptionBox}>
-										{optionsData.countryType.map((option) => (
-											<li
-												key={option.title}
-												className={
-													option.title === dropdowns.countryType.selected.title
-														? "selected"
-														: ""
-												}
-												onClick={() => handleOptionClick("countryType", option)}
-											>
-												{option.title}
-											</li>
-										))}
-									</ul>
-								)}
-							</div>
-						</div>
-
 						{/* Offerings Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
@@ -267,42 +185,6 @@ export default function EventsListing() {
 								)}
 							</div>
 						</div>
-
-						{/* Event Status Type Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
-							<div className={styles.custom_select}>
-								<div
-									className={`${styles.select_header_wapper} ${
-										dropdowns.eventStatusType.isOpen ? "activeDropDown" : ""
-									}`}
-									onClick={() => toggleDropdown("eventStatusType")}
-									tabIndex={0}
-								>
-									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.eventStatusType.selected.title}
-										<img src={dropdown_arrow.src} alt="icon" />
-									</div>
-								</div>
-								{dropdowns.eventStatusType.isOpen && (
-									<ul className={styles.selectOptionBox}>
-										{optionsData.eventStatusType.map((option) => (
-											<li
-												key={option.title}
-												className={
-													option.title === dropdowns.eventStatusType.selected.title
-														? "selected"
-														: ""
-												}
-												onClick={() => handleOptionClick("eventStatusType", option)}
-											>
-												{option.title}
-											</li>
-										))}
-									</ul>
-								)}
-							</div>
-						</div>
-
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}
@@ -332,6 +214,41 @@ export default function EventsListing() {
 														: ""
 												}
 												onClick={() => handleOptionClick("yearsType", option)}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div>
+
+						{/* Language Dropdown */}
+						<div className={styles.selectBox} ref={dropdownRefs.languageType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.languageType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("languageType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{dropdowns.languageType.selected.title}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.languageType.isOpen && (
+									<ul className={styles.selectOptionBox}>
+										{optionsData.languageType.map((option) => (
+											<li
+												key={option.title}
+												className={
+													option.title === dropdowns.languageType.selected.title
+														? "selected"
+														: ""
+												}
+												onClick={() => handleOptionClick("languageType", option)}
 											>
 												{option.title}
 											</li>
@@ -374,17 +291,15 @@ export default function EventsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
 								<p
 									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
 								>
-									Spring Forum
+									Press Release
 								</p>
 								<p
 									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
+									Spain doubles its renewable capacity amidst grid limitations
 								</p>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -394,14 +309,6 @@ export default function EventsListing() {
 											alt="calender"
 										/>
 										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
 									</p>
 								</div>
 							</div>
@@ -410,17 +317,15 @@ export default function EventsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
 								<p
 									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
 								>
-									Spring Forum
+									Press Release
 								</p>
 								<p
 									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
+									Spain doubles its renewable capacity amidst grid limitations
 								</p>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -430,14 +335,6 @@ export default function EventsListing() {
 											alt="calender"
 										/>
 										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
 									</p>
 								</div>
 							</div>
@@ -446,17 +343,15 @@ export default function EventsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
 								<p
 									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
 								>
-									Spring Forum
+									Press Release
 								</p>
 								<p
 									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
+									Spain doubles its renewable capacity amidst grid limitations
 								</p>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -466,14 +361,6 @@ export default function EventsListing() {
 											alt="calender"
 										/>
 										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
 									</p>
 								</div>
 							</div>
@@ -482,17 +369,15 @@ export default function EventsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
 								<p
 									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
 								>
-									Spring Forum
+									Press Release
 								</p>
 								<p
 									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
+									Spain doubles its renewable capacity amidst grid limitations
 								</p>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -502,14 +387,6 @@ export default function EventsListing() {
 											alt="calender"
 										/>
 										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
 									</p>
 								</div>
 							</div>
@@ -518,17 +395,15 @@ export default function EventsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
 								<p
 									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
 								>
-									Spring Forum
+									Press Release
 								</p>
 								<p
 									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
+									Spain doubles its renewable capacity amidst grid limitations
 								</p>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -538,14 +413,6 @@ export default function EventsListing() {
 											alt="calender"
 										/>
 										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
 									</p>
 								</div>
 							</div>
@@ -554,17 +421,15 @@ export default function EventsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
 								<p
 									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
 								>
-									Spring Forum
+									Press Release
 								</p>
 								<p
 									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
+									Spain doubles its renewable capacity amidst grid limitations
 								</p>
 								<div className={`${styles.dateFlex} f_j pt_30`}>
 									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -574,130 +439,12 @@ export default function EventsListing() {
 											alt="calender"
 										/>
 										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
 									</p>
 								</div>
 							</div>
 						</a>
 					</div>
 				</div>
-				{/* <div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div> */}
 			</div>
 		</section>
 	);
