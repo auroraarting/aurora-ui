@@ -82,7 +82,7 @@ export default function EventsInside() {
 				<div className="pt_100">
 					<EventsInsideBanner />
 				</div>
-				{/* <SectionsHeader data={headerArray} /> */}
+				<SectionsHeader data={headerArray} />
 				<section className={`${styles.eventsMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
