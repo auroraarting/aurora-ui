@@ -11,8 +11,15 @@
 			width: 25%;
 			border-right: 1px solid var(--color_platinum_gray);
 			padding: 20px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			@media (max-width: 767px) {
+				padding: 10px 10px;
+			}
 			&:first-child {
 				padding-left: 0px;
+				justify-content: flex-start;
 			}
 			img {
 				margin: 0 auto;

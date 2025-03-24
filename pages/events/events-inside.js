@@ -14,6 +14,10 @@ import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
 import EventsMiddleDescription from "@/sections/events/EventsMiddleDescription";
 import EventsLocation from "@/sections/events/EventsLocation";
 import Sponsors from "@/sections/events/Sponsors";
+import EventInsideVideo from "@/sections/events/EventInsideVideo";
+import Speakers from "@/sections/events/Speakers";
+import EventsMiddleRight from "@/sections/events/EventsMiddleRight";
+import EventsGallery from "@/sections/events/EventsGallery";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -76,19 +80,30 @@ export default function EventsInside() {
 				<div className="pt_100">
 					<EventsInsideBanner />
 				</div>
-				<SectionsHeader data={headerArray} />
+				{/* <SectionsHeader data={headerArray} /> */}
 				<section className={`${styles.eventsMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
 								<EventsMiddleDescription />
 								<EventsLocation />
+								<div>
+									<EventsGallery />
+								</div>
 								<Sponsors />
+								<div className="">
+									<EventInsideVideo />
+								</div>
 							</div>
-							<div className={`${styles.eventsMiddleRight}`}>{/* <Client /> */}</div>
+							<div className={`${styles.eventsMiddleRight}`}>
+								<EventsMiddleRight />
+							</div>
 						</div>
 					</div>
 				</section>
+				<div className="pb_100">
+					<Speakers />
+				</div>
 				<div className="pb_100">
 					<Insights
 						isFormVisible={isFormVisible}
