@@ -10,6 +10,11 @@
 		}
 		@media (max-width: 767px) {
 			flex-direction: column-reverse;
+			.flexItemOne,
+			.flexItemTwo {
+				// height: 50%;
+				overflow: hidden;
+			}
 		}
 
 		.flexItemOne {
@@ -22,8 +27,9 @@
 			//padding: 50px 120px;
 			@media (max-width: 767px) {
 				width: 100%;
-				margin-bottom: 20px;
+				// margin-bottom: 20px;
 				padding-left: 0px;
+				flex: 1;
 			}
 
 			.SpaceLeft {
