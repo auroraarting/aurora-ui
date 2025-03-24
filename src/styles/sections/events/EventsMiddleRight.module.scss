@@ -1,0 +1,47 @@
+@import "../../helpers/helpers.scss";
+.EventsMiddleRightBox {
+	position: sticky;
+	top: 100px;
+	.whiteBox {
+		background-color: var(--color_white);
+		padding: 30px 20px 30px;
+		border-radius: 20px;
+		margin-bottom: 20px;
+		.subTxt {
+			border-bottom: 1px solid var(--color_platinum_gray);
+		}
+		.itemBox {
+			&:last-child {
+				.dateFlex {
+					margin-bottom: 0px;
+				}
+			}
+			.ClientFlex {
+				.ClientDescription {
+					width: 100%;
+					.social {
+						margin-top: 5px;
+					}
+				}
+			}
+			.dateFlex {
+				border-bottom: 1px solid var(--color_platinum_gray);
+				padding-bottom: 15px;
+				margin-bottom: 15px;
+				p {
+					span {
+						margin-left: 5px;
+						margin-top: 2px;
+					}
+				}
+			}
+
+			.shareIcon {
+				margin-right: 10px;
+			}
+		}
+	}
+	.yellowBox {
+		background-color: var(--color_primary);
+	}
+}

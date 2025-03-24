@@ -1,0 +1,14 @@
+@import "../../helpers/helpers.scss";
+.EventInsideVideo {
+	.videoThumb {
+		position: relative;
+		cursor: pointer;
+		.videoPlay {
+			position: absolute;
+			right: 15px;
+			bottom: 15px;
+			display: grid;
+			place-items: center;
+		}
+	}
+}

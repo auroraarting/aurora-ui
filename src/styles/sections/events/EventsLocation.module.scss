@@ -1,0 +1,16 @@
+@import "../../helpers/helpers.scss";
+.EventsLocation {
+	.locationLeft {
+		width: 35%;
+		@media (max-width: 991px) {
+			width: 100%;
+			margin-bottom: 20px;
+		}
+	}
+	.locationRight {
+		width: 60%;
+		@media (max-width: 991px) {
+			width: 100%;
+		}
+	}
+}
