@@ -1,28 +1,80 @@
 @import "../../helpers/helpers.scss";
 .TransactionSolutions {
 	background: linear-gradient(0deg, #0069b4 0.03%, #0b1d2d 133.43%);
+	height: 100vh;
 
 	.flexBox {
+		height: 100%;
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}
 		@media (max-width: 767px) {
 			flex-direction: column-reverse;
+			.flexItemOne,
+			.flexItemTwo {
+				// height: 50%;
+				overflow: hidden;
+			}
 		}
+
 		.flexItemOne {
-			padding-left: calc(var(--container_left_space));
+			// padding-left: var(--container_left_space);
 			width: 50%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			position: relative;
 			//padding: 50px 120px;
 			@media (max-width: 767px) {
 				width: 100%;
-				margin-bottom: 20px;
+				// margin-bottom: 20px;
 				padding-left: 0px;
+				flex: 1;
 			}
+
 			.SpaceLeft {
-				padding: 40px 30px 40px 20px;
+				padding: 40px 30px 40px calc(var(--container_left_space) + 20px);
+
+				position: relative;
+				height: 100%;
+				display: grid;
+				place-items: center;
+				&:not(&:nth-child(1)) {
+					position: absolute;
+					top: 0;
+					left: 0;
+					transform: translateY(100%);
+				}
+
+				&:nth-child(1) {
+					background: linear-gradient(
+						180deg,
+						rgba(0, 182, 237, 1) 0%,
+						rgba(11, 29, 45, 1) 100%
+					);
+				}
+
+				&:nth-child(2) {
+					background: linear-gradient(
+						180deg,
+						rgba(255, 204, 0, 1) 25%,
+						rgba(156, 126, 2, 1) 100%
+					);
+				}
+				&:nth-child(3) {
+					background: linear-gradient(
+						180deg,
+						rgba(112, 48, 160, 1) 0%,
+						rgba(11, 29, 45, 1) 100%
+					);
+				}
+				&:nth-child(4) {
+					background: linear-gradient(
+						180deg,
+						rgba(60, 60, 59, 1) 0%,
+						rgba(29, 29, 29, 1) 100%
+					);
+				}
 				@media (max-width: 991px) {
 					padding: 20px 20px;
 				}
@@ -30,11 +82,21 @@
 		}
 		.flexItemTwo {
 			width: 50%;
+			position: relative;
 			@media (max-width: 767px) {
 				width: 100%;
 			}
 			img {
+				height: 100%;
 				width: 100%;
+
+				&:not(&:nth-child(1)) {
+					position: absolute;
+					top: 0;
+					left: 0;
+					opacity: 0;
+				}
+
 				@media (max-width: 991px) {
 					height: 420px;
 					object-fit: cover;

@@ -1,5 +1,5 @@
 // MODULES //
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
@@ -23,10 +23,14 @@ import { Link, scroller } from "react-scroll";
 
 // STYLES //
 import styles from "@/styles/pages/Products.module.scss";
+import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import InnerBanner from "@/components/InnerBanner";
+import GlobalMap from "@/components/GlobalMap";
 
 // IMAGES //
 
 // DATA //
+import locationJson from "@/data/globalMap.json";
 
 /** Products Page */
 export default function Products() {
@@ -40,10 +44,19 @@ export default function Products() {
 
 			{/* Page Content starts here */}
 			<main className={styles.ProductsPage}>
-				<ProductListingWrapper />
-				<div className="ptb_100">
-					<SoftwareMarket />
+				{/* <ProductListingWrapper /> */}
+				<InnerBanner
+					bannerTitle="Lorem ipsum dolor sit amet consectetur."
+					bannerDescription="Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
+					showContentOnly
+				/>
+				<div>
+					<TransactionSolutions />
 				</div>
+				<GlobalMap locationJson={locationJson} />
+				{/* <div className="ptb_100">
+					<SoftwareMarket />
+				</div> */}
 				<ServicesCircle />
 				<div className="ptb_100">
 					<TrustedLeaders />

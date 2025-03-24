@@ -14,6 +14,7 @@ import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "@/../public/img/banner/defaultMobileBanner.jpg";
 import pause_button from "../../public/img/icons/pause_button.svg";
 import play_button from "../../public/img/icons/play_icon.png";
+import ContentFromCms from "./ContentFromCms";
 
 // UTILS //
 
@@ -52,9 +53,11 @@ function InnerBanner({
 						</h1>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<p className={`${styles.label} text_reg color_dark_gray`}>
-							{bannerDescription}
-						</p>
+						<div className={`${styles.label} text_reg color_dark_gray`}>
+							{bannerDescription && (
+								<ContentFromCms>{bannerDescription}</ContentFromCms>
+							)}
+						</div>
 						{btnTxt && (
 							<div className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
