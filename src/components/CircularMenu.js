@@ -68,8 +68,9 @@ export default function CircularMenu({ items, iconDefault }) {
 						center + radius * Math.sin(((i + 1) * sliceAngle * Math.PI) / 180);
 
 					// Midpoint formula for placing the image at the center of the slice
-					const midX = (center + startX + endX) / 3;
-					const midY = (center + startY + endY) / 3;
+					const midAngle = ((i + 0.5) * sliceAngle * Math.PI) / 180;
+					const midX = center + ((radius * 2) / 3) * Math.cos(midAngle);
+					const midY = center + ((radius * 2) / 3) * Math.sin(midAngle);
 
 					// Position text outside the slice
 					const textX =
