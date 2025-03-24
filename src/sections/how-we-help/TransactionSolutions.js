@@ -19,12 +19,21 @@ import styles from "@/styles/sections/how-we-help/TransactionSolutions.module.sc
 import solar_plant from "@/../public/img/transactions/solar_plant.jpg";
 import lumus_logo from "@/../public/img/transactions/lumus_logo.png";
 import TestImg from "/public/img/softwares/insightsBg.png";
+import Banner1 from "/public/img/products/banner1.jpg";
+import Banner2 from "/public/img/products/banner2.jpg";
+import Banner3 from "/public/img/products/banner3.jpg";
+import Banner4 from "/public/img/products/banner4.jpg";
+
+import PowerRenewables from "/public/img/products/power-renewables.png";
+import Hydrogen from "/public/img/products/hydrogen.png";
+import Grid from "/public/img/products/grid.png";
 
 // DATA //
 
 /** TransactionSolutions Section */
 export default function TransactionSolutions() {
 	const animTimeline = gsap.timeline({});
+
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
@@ -35,21 +44,20 @@ export default function TransactionSolutions() {
 
 		spaceLeftArray.forEach((star, idx) => {
 			if (spaceLeftArray.length === idx + 1) {
-				animTimeline
-					.to(
-						spaceLeftArray[idx + 1],
-						{
-							y: 0,
-						},
-						`${idx}st`
-					)
-					.to(
-						spaceLeftArrayImg[idx + 1],
-						{
-							opacity: 0,
-						},
-						`${idx}st`
-					);
+				animTimeline.to(
+					spaceLeftArray[idx + 1],
+					{
+						y: 0,
+					},
+					`${idx}st`
+				);
+				// .to(
+				// 	spaceLeftArrayImg[idx + 1],
+				// 	{
+				// 		opacity: 0,
+				// 	},
+				// 	`${idx}st`
+				// );
 			} else {
 				animTimeline
 					.to(star, { y: "-100%" }, `${idx}st`)
@@ -87,7 +95,7 @@ export default function TransactionSolutions() {
 			end: "+=" + winH * spaceLeftArrayImg.length,
 			scrub: true,
 			pin: true,
-			markers: true,
+			// markers: true,
 		});
 	}, []);
 
@@ -114,9 +122,9 @@ export default function TransactionSolutions() {
 					</div>
 					<div className={`${styles.SpaceLeft}`}>
 						<div className={`${styles.spaceInner}`}>
-							<img src={lumus_logo.src} alt="solar plant" />
+							<img src={PowerRenewables.src} alt="solar plant" />
 							<h2 className="text_xl font_primary f_w_m color_white pt_40">
-								Transaction solutions powered by Lumus PPA
+								Lorem ipsum dolor sit amet consectetur
 							</h2>
 							<p className={`${styles.label} text_reg color_platinum_gray`}>
 								Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
@@ -131,9 +139,26 @@ export default function TransactionSolutions() {
 					</div>
 					<div className={`${styles.SpaceLeft}`}>
 						<div className={`${styles.spaceInner}`}>
-							<img src={lumus_logo.src} alt="solar plant" />
+							<img src={Hydrogen.src} alt="solar plant" />
 							<h2 className="text_xl font_primary f_w_m color_white pt_40">
-								Transaction solutions powered by Lumus PPA
+								Lorem ipsum dolor sit amet consectetur
+							</h2>
+							<p className={`${styles.label} text_reg color_platinum_gray`}>
+								Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
+								tellus imperdiet.
+							</p>
+							<div className={`${styles.bookBtn} pt_30`}>
+								<Button color="secondary" variant="underline" mode="dark">
+									Know more
+								</Button>
+							</div>
+						</div>
+					</div>
+					<div className={`${styles.SpaceLeft}`}>
+						<div className={`${styles.spaceInner}`}>
+							<img src={Grid.src} alt="solar plant" />
+							<h2 className="text_xl font_primary f_w_m color_white pt_40">
+								Lorem ipsum dolor sit amet consectetur
 							</h2>
 							<p className={`${styles.label} text_reg color_platinum_gray`}>
 								Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
@@ -148,9 +173,10 @@ export default function TransactionSolutions() {
 					</div>
 				</div>
 				<div className={`${styles.flexItemTwo}`}>
-					<img src={solar_plant.src} alt="solar plant" />
-					<img src={TestImg.src} alt="solar plant" />
-					<img src={solar_plant.src} alt="solar plant" />
+					<img src={Banner1.src} alt="solar plant" />
+					<img src={Banner2.src} alt="solar plant" />
+					<img src={Banner3.src} alt="solar plant" />
+					<img src={Banner4.src} alt="solar plant" />
 				</div>
 			</div>
 		</section>
