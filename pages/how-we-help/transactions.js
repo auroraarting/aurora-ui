@@ -94,6 +94,8 @@ export default function Transactions() {
 					<Insights
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
+						isPowerBgVisible={true}
+						isInsightsBlogsVisible={true}
 					/>
 				</div>
 				<div className="pb_100">

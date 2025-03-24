@@ -89,22 +89,33 @@ export default function Australia({ data }) {
 			<main className={styles.AustraliaPage}>
 				<div>
 					<InnerBanner
-						bannerTitle="Lorem ipsum dolor sit amet consectetur."
-						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
+						bannerTitle={
+							data.countries.bannerSection.title ||
+							"Lorem ipsum dolor sit amet consectetur."
+						}
+						bannerDescription={
+							data.countries.bannerSection.description ||
+							"Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
+						}
 						btnTxt="Get in Touch"
-						desktopImage={desktop_banner.src}
-						mobileImage={desktop_banner.src}
+						desktopImage={
+							data.countries.bannerSection.image.node.sourceUrl || desktop_banner.src
+						}
+						mobileImage={
+							data.countries.bannerSection.mobileImage?.node?.sourceUrl ||
+							desktop_banner.src
+						}
 					/>
 				</div>
 				<div className="pb_40">
-					<ProductSlider />
+					<ProductSlider data={data.countries.announcement.slide} />
 				</div>
 				<SectionsHeader data={headerArray} />
-				<Introduction />
+				<Introduction data={data.countries.introduction} />
 				<div className="pb_100">
 					<WhichProducts />
 				</div>
-				<ServicesCircle />
+				<ServicesCircle data={data.countries.keyAdvantages} />
 				<div className="ptb_100">
 					<SoftwareMarket sectionTitle="Energy intelligence across every key market" />
 				</div>
@@ -124,6 +135,8 @@ export default function Australia({ data }) {
 							<Insights
 								isFormVisible={isFormVisible}
 								setIsFormVisible={setIsFormVisible}
+								isPowerBgVisible={true}
+								isInsightsBlogsVisible={true}
 							/>
 						</div>
 					</div>

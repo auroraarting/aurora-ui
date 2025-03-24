@@ -86,9 +86,9 @@ export default function LifeAtAurora() {
 					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
 					videoSrc="../../img/softwares/frame_video.mp4"
 				/>
-				{/* <div>
+				<div>
 					<SectionsHeader data={headerArray} />
-				</div> */}
+				</div>
 				<div>
 					<SmarterEnergy />
 				</div>

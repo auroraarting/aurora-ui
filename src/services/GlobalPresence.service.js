@@ -108,12 +108,18 @@ export const getCountryInside = async (slug) => {
   countryBy(slug: "${slug}") {
     slug
       title
-      countries {
+       countries {
         bannerSection {
           description
           title
           videoLink
           image {
+            node {
+              altText
+              sourceUrl(size: LARGE)
+            }
+          }
+          mobileImage {
             node {
               altText
               sourceUrl(size: LARGE)

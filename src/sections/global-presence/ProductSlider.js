@@ -31,11 +31,12 @@ import styles from "@/styles/sections/global-presence/ProductSlider.module.scss"
 import chronos from "../../../public/img/global-presence/chronos.png";
 import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
 import play from "@/../public/img/resources/aurora_insights/play.svg";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
 /** ProductSlider Section */
-export default function ProductSlider() {
+export default function ProductSlider({ data }) {
 	const slidesData = [
 		{
 			type: "logo",
@@ -75,20 +76,24 @@ export default function ProductSlider() {
 						}}
 						className={styles.slider}
 					>
-						{slidesData.map((slide, index) => (
+						{data.map((slide, index) => (
 							<SwiperSlide key={index}>
 								<div className={`${styles.testimonialItem} f_w_j`}>
 									<div className={`${styles.productLogoBox}`}>
-										{slide.type === "logo" ? (
+										{!slide.videoLink ? (
 											<div className={`${styles.LogoBox}`}>
-												<img src={slide.slideLogo} className="img b_r_10" alt="logo" />
+												<img
+													src={slide.thumbnailImage.node.sourceUrl}
+													className="img b_r_10"
+													alt="logo"
+												/>
 											</div>
 										) : (
 											<div className={`${styles.videoBox}`}>
 												<LightGallery speed={500} plugins={[lgThumbnail, lgZoom, lgVideo]}>
-													<div data-src={slide.videoUrl}>
+													<div data-src={slide.videoLink}>
 														<img
-															src={slide.videoThumbnail}
+															src={slide.thumbnailImage.node.sourceUrl}
 															className={`${styles.videoThumbnail} img b_r_10`}
 															alt="video thumbnail"
 														/>
@@ -103,13 +108,17 @@ export default function ProductSlider() {
 										)}
 									</div>
 									<div className={`${styles.testimonialTxt}`}>
-										<h3 className="text_lg color_secondary pb_10">{slide.title}</h3>
-										<p className="text_reg color_dark_gray">{slide.description}</p>
-										<div className={`${styles.bookBtnOne} pt_20`}>
+										<h3 className="text_lg color_secondary pb_10">{slide.heading}</h3>
+										{slide.description && (
+											<div className="text_reg color_dark_gray">
+												<ContentFromCms>{slide.description}</ContentFromCms>
+											</div>
+										)}
+										<a href={slide.buttonLink} className={`${styles.bookBtnOne} pt_20`}>
 											<Button color="primary" variant="filled" shape="rounded">
-												Learn More
+												{slide.buttonText}
 											</Button>
-										</div>
+										</a>
 									</div>
 								</div>
 							</SwiperSlide>
