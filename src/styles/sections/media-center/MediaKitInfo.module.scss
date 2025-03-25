@@ -1,0 +1,37 @@
+@import "../../helpers/helpers.scss";
+.MediaKitInfo {
+	.InfoBoxFlex{
+    .infoContent{
+      width: 50%;
+      .downloadBtn{
+        display: inline-flex;
+        a{
+          align-items: center;
+          background-color: var(--color_secondary);
+          padding: 5px 15px 5px 5px;
+          font-size: 16px;
+          line-height: 1.4;
+          font-weight: 400;
+          font-family: var(--font_primary);
+          color: var(--color_white);
+          border-radius: 50px;
+          margin-right: 20px;
+          img{
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .infoLogo{
+      width: 45%;
+      background-color: var(--color_white);
+      padding: 40px 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .whiteBox{
+      }
+    }
+  }
+}
