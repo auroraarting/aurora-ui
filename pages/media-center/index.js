@@ -13,6 +13,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 // SECTIONS //
 import TopMedia from "@/sections/media-center/TopMedia";
 import MediaListing from "@/sections/media-center/MediaListing";
+import MediaTeam from "@/sections/media-center/MediaTeam";
 
 // PLUGINS //
 
@@ -28,6 +29,12 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 /** MediaCenter Page */
 export default function MediaCenter() {
+	const [activeTab, setActiveTab] = useState("PressRoom");
+
+	/** */
+	const handleTabClick = (tab) => {
+		setActiveTab(tab);
+	};
 	return (
 		<div>
 			{/* Metatags */}
@@ -50,11 +57,47 @@ export default function MediaCenter() {
 						showContentOnly
 					/>
 				</div>
-				<div className="pb_40">
-					<TopMedia />
-				</div>
-				<div>
-					<MediaListing />
+				<section className={`${styles.tabMain} pt_60`}>
+					<div className={`${styles.category}`}>
+						<div className={`${styles.switchBox}`}>
+							<div
+								className={`${styles.listTxt} ${
+									activeTab === "PressRoom" ? styles.active : ""
+								}`}
+								onClick={() => handleTabClick("PressRoom")}
+							>
+								<p className="text_xs f_w_m font_primary ">Press Room</p>
+							</div>
+							<div
+								className={`${styles.listTxt} ${
+									activeTab === "MediaKit" ? styles.active : ""
+								}`}
+								onClick={() => handleTabClick("MediaKit")}
+							>
+								<p className="text_xs f_w_m font_primary ">Media Kit</p>
+							</div>
+						</div>
+					</div>
+					{activeTab === "PressRoom" && (
+						<div className={`${styles.categoryContent} pt_60`}>
+							<div className="pb_40">
+								<TopMedia />
+							</div>
+							<div>
+								<MediaListing />
+							</div>
+						</div>
+					)}
+					{activeTab === "MediaKit" && (
+						<div className={`${styles.categoryContent}`}>fgfhgfd</div>
+					)}
+				</section>
+				<div className={`${styles.mediaBottomBg} dark_bg ptb_100`}>
+					<div className="pb_40">
+						<MediaTeam />
+					</div>
+					<Insights isPowerBgVisible={true} />
+					<EventSmarterEnergy />
 				</div>
 			</main>
 			{/* Page Content ends here */}
