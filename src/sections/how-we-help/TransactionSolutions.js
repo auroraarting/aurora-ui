@@ -100,8 +100,26 @@ export default function TransactionSolutions() {
 	}, []);
 
 	return (
-		<section className={`${styles.TransactionSolutions}`}>
-			<div className={`${styles.flexBox} f_j`}>
+		<section className={`${styles.TransactionSolution} f_j`}>
+			<div className={`${styles.flexBox}`}>
+				<div className={`${styles.flexItemOne}`}>
+					<div className={`${styles.SpaceLeft}`}>
+						<img src={lumus_logo.src} alt="solar plant" />
+						<h2 className="text_xl font_primary f_w_m color_white pt_40">
+							Transaction solutions powered by Lumus PPA
+						</h2>
+						<p className={`${styles.label} text_reg color_platinum_gray`}>
+							Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
+							tellus imperdiet.
+						</p>
+						<div className={`${styles.bookBtn} pt_30`}>
+							<Button color="secondary" variant="underline" mode="dark">
+								Know more
+							</Button>
+						</div>
+					</div>
+				</div>
+
 				<div className={`${styles.flexItemOne}`}>
 					<div className={`${styles.SpaceLeft}`}>
 						<div className={`${styles.spaceInner}`}>
@@ -172,6 +190,12 @@ export default function TransactionSolutions() {
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className={`${styles.flexBox}`}>
+				<div className={`${styles.flexItemTwo}`}>
+					<img src={solar_plant.src} alt="solar plant" />
+				</div>
+
 				<div className={`${styles.flexItemTwo}`}>
 					<img src={Banner1.src} alt="solar plant" />
 					<img src={Banner2.src} alt="solar plant" />

@@ -128,10 +128,10 @@ export default function SoftwareMarket({
 							setMap={setMap}
 						/>
 
-						<div className={`${styles.markerDetail}`}>
+						{/* <div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>
 							<div className={`${styles.detailText} text_xs`}>Available Locations</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
