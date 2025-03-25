@@ -22,19 +22,99 @@ import strategy from "../../public/img/softwares/strategy.svg";
 // DATA //
 
 /** SmarterEnergy Section */
-export default function SmarterEnergy() {
+export default function SmarterEnergy({ data }) {
+	const accordianData = data?.accordian?.map((item, ind) => {
+		return {
+			title: item.title,
+			imgIcons: item.icon.node.sourceUrl,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">{item.description}</p>
+					<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</a>
+				</div>
+			),
+		};
+	});
+	const tempAccordian = [
+		{
+			title: "Transaction Support",
+			imgIcons: transaction.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+		{
+			title: "Portfolio Valuation",
+			imgIcons: portfolio.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+		{
+			title: "Asset Citing & Optimisation",
+			imgIcons: asset.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+		{
+			title: "Strategy",
+			imgIcons: strategy.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+	];
 	return (
 		<section className={`${styles.SmarterEnergy} ptb_100`}>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-							Smarter energy solutions start here
+							{data?.title || "title"}
 						</h2>
 						<p className="text_reg color_dark_gray">
-							Gain unparalleled expertise in renewable energy analytics. Our team
-							delivers data and insights designed to navigate complexities, manage
-							risks, and unlock opportunities tailored to your sector.
+							{data?.description || "description"}
 						</p>
 					</div>
 					<div className={`${styles.common_queries_faq}`}>
@@ -44,72 +124,73 @@ export default function SmarterEnergy() {
 								fontWeight={"f_w_m"}
 								fontFamily={"font_primary"}
 								fontColor={"color_secondary"}
-								items={[
-									{
-										title: "Transaction Support",
-										imgIcons: transaction.src,
-										children: (
-											<div className={`${styles.content_wrap}`}>
-												<p className="text_reg color_dark_gray">
-													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-												</p>
-												<div className={`${styles.bookBtn} pt_30`}>
-													<Button color="secondary" variant="underline">
-														Know more
-													</Button>
-												</div>
-											</div>
-										),
-									},
-									{
-										title: "Portfolio Valuation",
-										imgIcons: portfolio.src,
-										children: (
-											<div className={`${styles.content_wrap}`}>
-												<p className="text_reg color_dark_gray">
-													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-												</p>
-												<div className={`${styles.bookBtn} pt_30`}>
-													<Button color="secondary" variant="underline">
-														Know more
-													</Button>
-												</div>
-											</div>
-										),
-									},
-									{
-										title: "Asset Citing & Optimisation",
-										imgIcons: asset.src,
-										children: (
-											<div className={`${styles.content_wrap}`}>
-												<p className="text_reg color_dark_gray">
-													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-												</p>
-												<div className={`${styles.bookBtn} pt_30`}>
-													<Button color="secondary" variant="underline">
-														Know more
-													</Button>
-												</div>
-											</div>
-										),
-									},
-									{
-										title: "Strategy",
-										imgIcons: strategy.src,
-										children: (
-											<div className={`${styles.content_wrap}`}>
-												<p className="text_reg color_dark_gray">
-													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-												</p>
-												<div className={`${styles.bookBtn} pt_30`}>
-													<Button color="secondary" variant="underline">
-														Know more
-													</Button>
-												</div>
-											</div>
-										),
-									},
-								]}
+								// items={[
+								// 	{
+								// 		title: "Transaction Support",
+								// 		imgIcons: transaction.src,
+								// 		children: (
+								// 			<div className={`${styles.content_wrap}`}>
+								// 				<p className="text_reg color_dark_gray">
+								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+								// 				</p>
+								// 				<div className={`${styles.bookBtn} pt_30`}>
+								// 					<Button color="secondary" variant="underline">
+								// 						Know more
+								// 					</Button>
+								// 				</div>
+								// 			</div>
+								// 		),
+								// 	},
+								// 	{
+								// 		title: "Portfolio Valuation",
+								// 		imgIcons: portfolio.src,
+								// 		children: (
+								// 			<div className={`${styles.content_wrap}`}>
+								// 				<p className="text_reg color_dark_gray">
+								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+								// 				</p>
+								// 				<div className={`${styles.bookBtn} pt_30`}>
+								// 					<Button color="secondary" variant="underline">
+								// 						Know more
+								// 					</Button>
+								// 				</div>
+								// 			</div>
+								// 		),
+								// 	},
+								// 	{
+								// 		title: "Asset Citing & Optimisation",
+								// 		imgIcons: asset.src,
+								// 		children: (
+								// 			<div className={`${styles.content_wrap}`}>
+								// 				<p className="text_reg color_dark_gray">
+								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+								// 				</p>
+								// 				<div className={`${styles.bookBtn} pt_30`}>
+								// 					<Button color="secondary" variant="underline">
+								// 						Know more
+								// 					</Button>
+								// 				</div>
+								// 			</div>
+								// 		),
+								// 	},
+								// 	{
+								// 		title: "Strategy",
+								// 		imgIcons: strategy.src,
+								// 		children: (
+								// 			<div className={`${styles.content_wrap}`}>
+								// 				<p className="text_reg color_dark_gray">
+								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+								// 				</p>
+								// 				<div className={`${styles.bookBtn} pt_30`}>
+								// 					<Button color="secondary" variant="underline">
+								// 						Know more
+								// 					</Button>
+								// 				</div>
+								// 			</div>
+								// 		),
+								// 	},
+								// ]}
+								items={accordianData || tempAccordian}
 							/>
 						</div>
 					</div>

@@ -46,7 +46,7 @@ export default function ServicesCircle({ data }) {
 							</ContentFromCms>
 						</div>
 						<div className="pt_40">
-							<a href={data?.buttonLink || "/"}>
+							<a href={data?.buttonLink || ""}>
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
 									{data?.buttonText || "View More"}
 								</Button>
