@@ -33,10 +33,10 @@
 		}
 	}
 	.mediaBottomBg {
-		background-image: url("../../../../public/img/softwares/insightsBg.png");
+		background-image: url("../../../../public/img/events/bottomBg.png");
 		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center center;
+		background-size: contain;
+		background-position: bottom center;
 	}
 	:global(.insightsBg) {
 		background-image: none !important;
@@ -47,6 +47,6 @@
 	}
 	:global(.powerBg) {
 		border-bottom: none !important;
-		padding-bottom: 0px;
+		padding-bottom: 0px !important;
 	}
 }

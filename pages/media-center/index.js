@@ -93,7 +93,7 @@ export default function MediaCenter() {
 					)}
 				</section>
 				<div className={`${styles.mediaBottomBg} dark_bg ptb_100`}>
-					<div className="pb_40">
+					<div className="pb_80">
 						<MediaTeam />
 					</div>
 					<Insights isPowerBgVisible={true} />
