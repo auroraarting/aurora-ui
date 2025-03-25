@@ -23,7 +23,7 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
-	const accordianData = data.accordian.map((item, ind) => {
+	const accordianData = data?.accordian?.map((item, ind) => {
 		return {
 			title: item.title,
 			imgIcons: item.icon.node.sourceUrl,
@@ -39,15 +39,83 @@ export default function SmarterEnergy({ data }) {
 			),
 		};
 	});
+	const tempAccordian = [
+		{
+			title: "Transaction Support",
+			imgIcons: transaction.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+		{
+			title: "Portfolio Valuation",
+			imgIcons: portfolio.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+		{
+			title: "Asset Citing & Optimisation",
+			imgIcons: asset.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+		{
+			title: "Strategy",
+			imgIcons: strategy.src,
+			children: (
+				<div className={`${styles.content_wrap}`}>
+					<p className="text_reg color_dark_gray">
+						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
+					</p>
+					<div className={`${styles.bookBtn} pt_30`}>
+						<Button color="secondary" variant="underline">
+							Know more
+						</Button>
+					</div>
+				</div>
+			),
+		},
+	];
 	return (
 		<section className={`${styles.SmarterEnergy} ptb_100`}>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-							{data.title}
+							{data?.title || "title"}
 						</h2>
-						<p className="text_reg color_dark_gray">{data.description}</p>
+						<p className="text_reg color_dark_gray">
+							{data?.description || "description"}
+						</p>
 					</div>
 					<div className={`${styles.common_queries_faq}`}>
 						<div className={`${styles.accordian_main}`}>
@@ -122,7 +190,7 @@ export default function SmarterEnergy({ data }) {
 								// 		),
 								// 	},
 								// ]}
-								items={accordianData}
+								items={accordianData || tempAccordian}
 							/>
 						</div>
 					</div>
