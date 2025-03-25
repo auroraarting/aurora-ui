@@ -31,8 +31,18 @@ import desktop_banner from "@/../public/img/services/advisory/desktop_banner.jpg
 
 // DATA //
 
+// SERVICES //
+import { getServiceData } from "@/services/Service.service";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data] = await Promise.all([getServiceData(params.slug)]);
+	return { props: { data: data.data.servicesBy } };
+}
+
 /** Advisory Page */
-export default function Advisory() {
+export default function Advisory({ data }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -62,10 +72,16 @@ export default function Advisory() {
 			</Button>
 		</div>,
 	];
+
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Advisory"} Desc={""} OgImg={""} Url={"/advisory"} />
+			<MetaTags
+				Title={data.title}
+				Desc={""}
+				OgImg={""}
+				Url={`/services/${data.slug}`}
+			/>
 
 			{/* Header */}
 			{/* <Header /> */}
@@ -74,17 +90,26 @@ export default function Advisory() {
 			<main className={styles.AdvisoryPage}>
 				<div className="pb_60">
 					<InnerBanner
-						bannerTitle="Lorem ipsum dolor sit amet consectetur."
-						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-						btnTxt="Get Started"
-						desktopImage={desktop_banner.src}
-						mobileImage={desktop_banner.src}
-						// videoSrc="../../img/softwares/frame_video.mp4"
+						bannerTitle={
+							data.banner.banner.title || "Lorem ipsum dolor sit amet consectetur."
+						}
+						bannerDescription={
+							data.banner.banner.description ||
+							"Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
+						}
+						btnTxt={data.banner.banner.buttonLink || "Get Started"}
+						desktopImage={
+							data.banner.banner.desktopThumbnail?.node.sourceUrl || desktop_banner.src
+						}
+						mobileImage={
+							data.banner.banner.mobileThumbnail?.node.sourceUrl || desktop_banner.src
+						}
+						videoSrc={data.banner.banner.vimeoLink}
 					/>
 				</div>
 				<SectionsHeader data={headerArray} />
-				<SmarterEnergy />
-				<ServicesCircle />
+				<SmarterEnergy data={data.banner.expertise} />
+				<ServicesCircle data={data.banner.keyAdvantages} />
 				<div className="pt_100">
 					<CaseStudy />
 				</div>

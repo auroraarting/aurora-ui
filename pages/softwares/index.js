@@ -18,6 +18,8 @@ import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsig
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 // UTILS //
 
@@ -53,7 +55,7 @@ export default function Softwares() {
 					showContentOnly
 				/>
 				<div>
-					<TransactionSolutions />
+					<TransactionSolutions gsap={gsap} ScrollTrigger={ScrollTrigger} />
 				</div>
 				<div>
 					<GloballyBankableInsights />
