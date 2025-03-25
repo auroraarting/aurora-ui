@@ -1,5 +1,5 @@
 @import "../../helpers/helpers.scss";
-.EventsListing {
+.MediaListing {
 	.filterMain {
 		border-top: 1px solid var(--color_platinum_gray);
 		border-bottom: 1px solid var(--color_platinum_gray);
@@ -9,7 +9,7 @@
 			position: relative;
 			.selectBox {
 				position: relative;
-				width: 19%;
+				width: 25%;
 				border: 0;
 				border-radius: 0;
 				padding-bottom: 5px;
@@ -134,8 +134,8 @@
 					}
 					.checkBoxWapper {
 						width: 730px;
-						left: 50%;
-						transform: translateX(-50%);
+						left: 0%;
+						transform: translateX(0%);
 						padding: 40px 40px;
 						.checkBoxItem {
 							width: 33.33%;
@@ -200,9 +200,9 @@
 					}
 				}
 
-				&.widthCustom {
-					width: 12%;
-				}
+				// &.widthCustom {
+				// 	width: 12%;
+				// }
 				.searchBox {
 					padding: 10px 0px 10px 30px;
 					cursor: pointer;
@@ -285,11 +285,12 @@
 				.categoryTxt {
 					position: relative;
 					padding-left: 10px;
+					letter-spacing: 1px;
 					&::before {
 						content: " ";
 						position: absolute;
 						left: 0;
-						top: 5px;
+						top: 6px;
 						width: 4px;
 						height: 4px;
 						background-color: var(--color_primary);

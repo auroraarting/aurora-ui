@@ -1,11 +1,23 @@
 @import "../../helpers/helpers.scss";
 .EventsGallery {
+	&:global(.EventsGallery .lg-react-element) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		gap: 8px;
+	}
+
+	&:global(.EventsGallery .lg-image) {
+		img {
+			border-radius: 10px;
+		}
+	}
 	.galleryMain {
 		.galleryBox {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			grid-template-rows: repeat(3, 1fr);
-			gap: 8px;
+			// display: grid;
+			// grid-template-columns: repeat(3, 1fr);
+			// grid-template-rows: repeat(3, 1fr);
+			// gap: 8px;
 		}
 
 		.galleryItemOne {
