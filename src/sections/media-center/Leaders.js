@@ -26,7 +26,9 @@ import profile_pic from "../../../public/img/events/profile_pic.png";
 import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import location from "../../../public/img/icons/location.svg";
-import clock from "../../../public/img/icons/clock.svg";
+import calender from "../../../public/img/icons/calender.svg";
+import black_down_arrow from "../../../public/img/icons/black_down_arrow.svg";
+import linkedin from "../../../public/img/icons/linkedin.svg";
 
 // DATA //
 
@@ -60,62 +62,92 @@ export default function Leaders() {
 		{
 			name: "Anna Clunes1",
 			designation: "British Ambassador, Poland1",
+			linkedinUrl: "http:linkedin/test",
+			downloadProfileUrl: "http:testdownloadProfile",
 			desc:
 				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
 			thumbnail: management_img.src,
-			sessions: [
+			leaderBlogHeading: "Latest Articles by John Feddersen1",
+			blogData: [
 				{
-					time: "1:30 PM1",
-					topicName: "Welcome and Opening Remarks1",
-					timeDateSession: "1:30 PM - 1:40 PM CET1",
-					locationSession: "InterContinental Warsaw, Conference Room1",
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
 				},
 				{
-					time: "1:30 PM1",
-					topicName: "Welcome and Opening Remarks1",
-					timeDateSession: "1:30 PM - 1:40 PM CET1",
-					locationSession: "InterContinental Warsaw, Conference Room1",
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
+				},
+				{
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
 				},
 			],
 		},
 		{
 			name: "Anna Clunes2",
 			designation: "British Ambassador, Poland2",
+			linkedinUrl: "http:linkedin/test",
+			downloadProfileUrl: "http:testdownloadProfile",
 			desc:
 				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
 			thumbnail: management_img.src,
-			sessions: [
+			leaderBlogHeading: "Latest Articles by John Feddersen2",
+			blogData: [
 				{
-					time: "1:30 PM2",
-					topicName: "Welcome and Opening Remarks2",
-					timeDateSession: "1:30 PM - 1:40 PM CET2",
-					locationSession: "InterContinental Warsaw, Conference Room2",
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
+				},
+				{
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
 				},
 			],
 		},
 		{
 			name: "Anna Clunes3",
 			designation: "British Ambassador, Poland3",
+			linkedinUrl: "http:linkedin/test",
+			downloadProfileUrl: "http:testdownloadProfile",
 			desc:
 				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
 			thumbnail: management_img.src,
-			sessions: [],
+			// leaderBlogHeading: [],
+			blogData: [],
 		},
 		{
 			name: "Anna Clunes3",
 			designation: "British Ambassador, Poland3",
+			linkedinUrl: "http:linkedin/test",
+			downloadProfileUrl: "http:testdownloadProfile",
 			desc:
 				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
 			thumbnail: management_img.src,
-			sessions: [],
+			blogData: [],
 		},
 		{
 			name: "Anna Clunes3",
 			designation: "British Ambassador, Poland3",
+			linkedinUrl: "http:linkedin/test",
+			downloadProfileUrl: "http:testdownloadProfile",
 			desc:
 				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
 			thumbnail: management_img.src,
-			sessions: [],
+			blogData: [],
 		},
 	];
 	return (
@@ -135,7 +167,7 @@ export default function Leaders() {
 					<div className={`${styles.box_wrap}`}>
 						<Swiper
 							modules={[Navigation, Autoplay]}
-							slidesPerView={1}
+							slidesPerView={1.2}
 							spaceBetween={20}
 							grabCursor={true}
 							speed={500}
@@ -174,6 +206,9 @@ export default function Leaders() {
 													{item.name}
 												</h5>
 												<p className="text_xs color_platinum_gray">{item.designation}</p>
+												<div className={`${styles.downIcon}`}>
+													<img src={black_down_arrow.src} className="" alt="icons" />
+												</div>
 											</div>
 											<div className={`${styles.hoverEffect} pt_20`}>
 												<img src={hoverEffect.src} className="" alt=" img" />
@@ -214,6 +249,7 @@ export default function Leaders() {
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
+										autoHeight={true}
 										speed={500}
 										loop={true}
 										navigation={{
@@ -238,62 +274,64 @@ export default function Leaders() {
 																	{item.name}
 																</h5>
 																<p className="text_xs color_silver_gray">{item.designation}</p>
+																<div className={`${styles.downloadProfile} f_w_j`}>
+																	<div className={`${styles.linkedin}`}>
+																		<a href={item.linkedinUrl} className="d_f">
+																			<img src={linkedin.src} alt="icon" />
+																		</a>
+																	</div>
+																	<div className={`${styles.profileDownload}`}>
+																		<a href={item.downloadProfileUrl} className="d_f">
+																			Download Profile
+																			<img src={black_down_arrow.src} alt="icon" />
+																		</a>
+																	</div>
+																</div>
 															</div>
-															<p className={`${styles.Desc} text_xs color_silver_gray`}>
+															<p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
 																{parse(item.desc)}
 															</p>
 														</div>
 													</div>
-													{item.sessions.length > 0 && (
-														<div className={`${styles.sessionWapper}`}>
-															<h3 className="text_lg color_white">Session</h3>
-															{item.sessions.map((session, index) => (
-																<div className={`${styles.sessionBox} f_w`} key={index}>
-																	<div className={`${styles.sessionTime}`}>
-																		<p
-																			className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-																		>
-																			{session.time}
-																		</p>
-																	</div>
-																	<div className={`${styles.sessionDescription}`}>
-																		<h4 className="text_xs font_primary color_white f_w_s_b">
-																			{session.topicName}
-																		</h4>
-																		<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
-																			<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
-																				<img
-																					src={clock.src}
-																					className={`${styles.clock}`}
-																					alt="clock"
-																				/>
-																				<span>{session.timeDateSession}</span>
+													{item.blogData.length > 0 && (
+														<div className={`${styles.blogWapper}`}>
+															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
+															<div className={`${styles.insightsItemFlex} d_f m_t_30`}>
+																{item.blogData.map((blogData, index) => (
+																	<div className={`${styles.ItemBox} `} key={index}>
+																		<div className={`${styles.hoverBox}`}>
+																			<p
+																				className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+																			>
+																				{blogData.tags}
 																			</p>
-																			<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
-																				<img
-																					src={location.src}
-																					className={`${styles.location}`}
-																					alt="location"
-																				/>
-																				<span>{session.locationSession}</span>
+																			<p
+																				className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
+																			>
+																				{blogData.blogDesc}
 																			</p>
-																		</div>
-																		<div className={`${styles.ClientFlex} f_r_a_center`}>
-																			<div className={`${styles.ClientLogo}`}>
-																				<img src={item.thumbnail} alt="pic" />
-																			</div>
-																			<div className={`${styles.ClientDescription}`}>
-																				<h5 className="text_xs font_primary color_white f_w_m">
-																					{item.name}
-																				</h5>
-																				<p className="text_xxs color_silver_gray f_w_l">
-																					{item.designation}
+																			<div className={`${styles.dateFlex} f_j pt_30`}>
+																				<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																					<img
+																						src={calender.src}
+																						className={`${styles.clock}`}
+																						alt="clock"
+																					/>
+																					<span>{blogData.blogDate}</span>
+																				</p>
+																				<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																					<img
+																						src={location.src}
+																						className={`${styles.clock}`}
+																						alt="clock"
+																					/>
+																					<span>{blogData.blogLocation}</span>
 																				</p>
 																			</div>
 																		</div>
 																	</div>
-																</div>
-															))}
+																))}
+															</div>
 														</div>
 													)}
 												</div>

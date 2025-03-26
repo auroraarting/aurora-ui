@@ -22,6 +22,9 @@
 				padding: 15px 60px;
 				letter-spacing: 1px;
 				color: var(--color_light_gray);
+				@media (max-width: 767px) {
+					padding: 12px 25px;
+				}
 			}
 
 			.active {
