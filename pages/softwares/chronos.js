@@ -23,6 +23,7 @@ import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 import Redefining from "@/sections/softwares/Redefining";
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 import IntuitiveStepProcess from "@/sections/softwares/IntuitiveStepProcess";
+import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -113,6 +114,9 @@ export default function SoftwarePage() {
 				</div>
 				<IntuitiveStepProcess />
 				<SmarterEnergy />
+				<div className="ptb_100">
+					<TrustOurExperts />
+				</div>
 
 				<div className="pb_100">
 					<Insights
