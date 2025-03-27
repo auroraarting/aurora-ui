@@ -1,11 +1,11 @@
 @import "../../helpers/helpers.scss";
-.redefining {
+.MarketIntelligence {
 	.flexBox {
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}
 		.flexItemOne {
-			width: 50%;
+			width: 55%;
 			@media (max-width: 991px) {
 				width: 55%;
 			}

@@ -18,6 +18,12 @@
 				width: 100%;
 				margin-bottom: 20px;
 			}
+			img {
+				@media (max-width: 767px) {
+					width: 80%;
+					margin: 0 auto;
+				}
+			}
 		}
 		.flexItemTwo {
 			width: 60%;

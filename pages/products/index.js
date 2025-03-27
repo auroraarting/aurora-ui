@@ -22,7 +22,7 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/Products.module.scss";
+import styles from "@/styles/pages/product/Products.module.scss";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
 import InnerBanner from "@/components/InnerBanner";
 import GlobalMap from "@/components/GlobalMap";
