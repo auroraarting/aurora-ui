@@ -1,0 +1,83 @@
+@import "../../helpers/helpers.scss";
+.EosBanner {
+	background-image: url("../../../../public/img/eos/topBg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom center;
+	background-color: var(--color_secondary);
+	.flexBox {
+		@media (max-width: 991px) {
+			flex-wrap: wrap;
+		}
+		.flexItemOne {
+			width: 50%;
+			@media (max-width: 991px) {
+				width: 55%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+		.flexItemTwo {
+			width: 40%;
+			@media (max-width: 1199px) {
+				width: 48%;
+			}
+			@media (max-width: 991px) {
+				width: 42%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+		}
+	}
+	.macFrameBox {
+		position: relative;
+		width: 820px;
+		margin: 80px auto 0px;
+		@media (max-width: 991px) {
+			width: 650px;
+		}
+		@media (max-width: 767px) {
+			width: 300px;
+		}
+		@media (max-width: 767px) {
+			margin-top: 40px;
+		}
+		.frame_video {
+			position: absolute;
+			top: 35%;
+			transform: translateY(-50%);
+			width: 755px;
+			height: 430px;
+			@media (max-width: 991px) {
+				width: 600px;
+				height: 340px;
+			}
+			@media (max-width: 767px) {
+				width: 280px;
+				height: 160px;
+			}
+			video {
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.playPauseBtn {
+			position: absolute;
+			right: 20px;
+			bottom: 20px;
+			cursor: pointer;
+			@media (max-width: 767px) {
+				right: 10px;
+				bottom: 10px;
+			}
+			img {
+				@media (max-width: 767px) {
+					width: 30px;
+				}
+			}
+		}
+	}
+}
