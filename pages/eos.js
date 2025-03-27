@@ -30,6 +30,8 @@ import styles from "@/styles/pages/Eos.module.scss";
 
 // DATA //
 import locationJson from "@/data/globalMap.json";
+import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
+import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 /** EOS Page */
 export default function EOSPage() {
@@ -85,6 +87,9 @@ export default function EOSPage() {
 				</div>
 
 				<ServicesCircle />
+				<div className="pt_100">
+					<CuttingEdgeModels />
+				</div>
 				<div className="ptb_100">
 					<TrustedLeaders />
 				</div>
@@ -93,7 +98,7 @@ export default function EOSPage() {
 				</div>
 
 				<div className={`${styles.insightBg} pt_30`}>
-					<div className={`${styles.boxBg}`}>
+					<div>
 						<div className="pb_100">
 							<Insights
 								isFormVisible={isFormVisible}
@@ -102,6 +107,9 @@ export default function EOSPage() {
 								isInsightsBlogsVisible={true}
 							/>
 						</div>
+					</div>
+					<div className={`${styles.boxBg} pb_100`}>
+						<EventSmarterEnergy />
 					</div>
 				</div>
 			</main>
