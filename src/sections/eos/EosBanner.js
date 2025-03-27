@@ -44,7 +44,7 @@ export default function EosBanner() {
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_white text_uppercase">
-							Optimise energy flexibilityLorem ipsum dolor sit amet
+							Lorem ipsum dolor sit amet
 						</h1>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
@@ -53,8 +53,11 @@ export default function EosBanner() {
 							informed investment decisions with Aurora’s Flexible Energy Service.
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								Speak To Our Experts
+							<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								Book a Demo
+							</Button>
+							<Button color="secondary" variant="filled" shape="rounded" mode="dark">
+								EOS Sign in
 							</Button>
 						</div>
 					</div>
