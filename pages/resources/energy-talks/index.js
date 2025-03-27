@@ -11,16 +11,14 @@ import TestimonialFeedback from "@/components/TestimonialFeedback";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // SECTIONS //
-import TopEvents from "@/sections/events/TopEvents";
-import EventsListing from "@/sections/events/EventsListing";
-import Speakers from "@/sections/events/Speakers";
+import TopEnergy from "@/sections/resources/energy-talks/TopEnergy";
 
 // PLUGINS //
 
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/events/events.module.scss";
+import styles from "@/styles/pages/resources/energy-talks/EnergyTalks.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
@@ -51,10 +49,10 @@ export default function EnergyTalks() {
 						showContentOnly
 					/>
 				</div>
-				{/* <div>
-					<TopEvents />
+				<div>
+					<TopEnergy />
 				</div>
-				<div className="pt_60">
+				{/* <div className="pt_60">
 					<EventsListing />
 				</div> */}
 			</main>
