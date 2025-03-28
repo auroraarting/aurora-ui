@@ -11,20 +11,18 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/MediaListing.module.scss";
+import styles from "@/styles/sections/resources/energy-talks/EnergyListing.module.scss";
 
 // IMAGES //
-import energy_transition from "../../../public/img/events/energy_transition.png";
-import location from "../../../public/img/icons/location.svg";
-import calender from "../../../public/img/icons/calender.svg";
-import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
-import search from "../../../public/img/icons/search.svg";
-import popup_close from "../../../public/img/icons/popup_close.svg";
+import location from "@/../public/img/icons/location.svg";
+import calender from "@/../public/img/icons/calender.svg";
+import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
+import search from "@/../public/img/icons/search.svg";
 
 // DATA //
 
-/** MediaListing Section */
-export default function MediaListing() {
+/** EnergyListing Section */
+export default function EnergyListing() {
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 
@@ -44,23 +42,23 @@ export default function MediaListing() {
 	};
 
 	const [dropdowns, setDropdowns] = useState({
-		languageType: { isOpen: false, selected: { title: "Language" } },
+		countryType: { isOpen: false, selected: { title: "Country" } },
 		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 
 	const dropdownRefs = {
-		languageType: useRef(null),
+		countryType: useRef(null),
 		offeringsType: useRef(null),
 		yearsType: useRef(null),
 	};
 
 	const optionsData = {
-		languageType: [
-			{ title: "English" },
-			{ title: "English" },
-			{ title: "English" },
-			{ title: "English" },
+		countryType: [
+			{ title: "India" },
+			{ title: "India" },
+			{ title: "India" },
+			{ title: "India" },
 		],
 		offeringsType: [
 			{ title: "Offerings1" },
@@ -133,10 +131,44 @@ export default function MediaListing() {
 	];
 
 	return (
-		<section className={styles.MediaListing}>
+		<section className={styles.EnergyListing}>
 			<div className={styles.filterMain}>
 				<div className="container">
 					<div className={styles.filterflex}>
+						{/* Country Dropdown */}
+						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.countryType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("countryType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{dropdowns.countryType.selected.title}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.countryType.isOpen && (
+									<ul className={styles.selectOptionBox}>
+										{optionsData.countryType.map((option) => (
+											<li
+												key={option.title}
+												className={
+													option.title === dropdowns.countryType.selected.title
+														? "selected"
+														: ""
+												}
+												onClick={() => handleOptionClick("countryType", option)}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div>
 						{/* Offerings Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
@@ -218,42 +250,6 @@ export default function MediaListing() {
 								)}
 							</div>
 						</div>
-
-						{/* Language Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.languageType}>
-							<div className={styles.custom_select}>
-								<div
-									className={`${styles.select_header_wapper} ${
-										dropdowns.languageType.isOpen ? "activeDropDown" : ""
-									}`}
-									onClick={() => toggleDropdown("languageType")}
-									tabIndex={0}
-								>
-									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.languageType.selected.title}
-										<img src={dropdown_arrow.src} alt="icon" />
-									</div>
-								</div>
-								{dropdowns.languageType.isOpen && (
-									<ul className={styles.selectOptionBox}>
-										{optionsData.languageType.map((option) => (
-											<li
-												key={option.title}
-												className={
-													option.title === dropdowns.languageType.selected.title
-														? "selected"
-														: ""
-												}
-												onClick={() => handleOptionClick("languageType", option)}
-											>
-												{option.title}
-											</li>
-										))}
-									</ul>
-								)}
-							</div>
-						</div>
-
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}

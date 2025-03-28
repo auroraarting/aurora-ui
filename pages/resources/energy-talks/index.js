@@ -12,6 +12,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // SECTIONS //
 import TopEnergy from "@/sections/resources/energy-talks/TopEnergy";
+import EnergyListing from "@/sections/resources/energy-talks/EnergyListing";
 
 // PLUGINS //
 
@@ -41,7 +42,7 @@ export default function EnergyTalks() {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.eventsPage}>
+			<main className={styles.EnergyPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
 						bannerTitle="Lorem ipsum dolor sit amet consectetur."
@@ -52,9 +53,13 @@ export default function EnergyTalks() {
 				<div>
 					<TopEnergy />
 				</div>
-				{/* <div className="pt_60">
-					<EventsListing />
-				</div> */}
+				<div className="pt_60 pb_100">
+					<EnergyListing />
+				</div>
+				<div className={`${styles.eventBottomBg} dark_bg ptb_100`}>
+					<Insights isPowerBgVisible={true} />
+					<EventSmarterEnergy />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
