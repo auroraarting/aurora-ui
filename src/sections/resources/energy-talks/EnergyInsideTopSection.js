@@ -30,11 +30,6 @@ export default function EnergyInsideTopSection() {
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
-						<div
-							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-						>
-							Latest Podcast
-						</div>
 						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
 							<span className="color_blue">ep.234</span> Lucy yu & jon norman on the
 							role of flexibility to enable a clean power grid

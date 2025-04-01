@@ -48,7 +48,7 @@ export default function EnergyMiddleRight() {
 				</div>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-					<div className={`${styles.ClientFlex} ${styles.poweredBy}`}>
+					<div className={`${styles.poweredBy}`}>
 						<a href="">
 							<div className={`${styles.poweredLogo}`}>
 								<img
@@ -92,7 +92,7 @@ export default function EnergyMiddleRight() {
 
 			<div className={`${styles.whiteBox}`}>
 				<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
-					Upcoming Events
+					Upcoming Podcast
 				</h5>
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex}`}>
