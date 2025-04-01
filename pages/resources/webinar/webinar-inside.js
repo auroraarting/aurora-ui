@@ -74,7 +74,7 @@ export default function WebinarInside() {
 
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg} pt_100 pb_40`}>
+				<div className={`${styles.topBg} pt_100 pb_60`}>
 					<WebinarInsideTopSection />
 				</div>
 				<SectionsHeader data={headerArray} />

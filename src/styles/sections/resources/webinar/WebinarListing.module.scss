@@ -4,9 +4,15 @@
 		border-top: 1px solid var(--color_platinum_gray);
 		border-bottom: 1px solid var(--color_platinum_gray);
 		padding: 5px 0px;
+		@media screen and (max-width: 767px) {
+			padding: 10px 0px 20px;
+		}
 		.filterflex {
 			display: flex;
 			position: relative;
+			@media screen and (max-width: 767px) {
+				flex-wrap: wrap;
+			}
 			.selectBox {
 				position: relative;
 				width: 25%;
@@ -15,13 +21,19 @@
 				// padding-bottom: 5px;
 				// border-bottom: 1px solid #f8f8f8;
 				@media screen and (max-width: 767px) {
-					width: 120px;
+					width: 100%;
 				}
 				.custom_select {
 					.select_header_wapper {
 						border-right: 1px solid var(--color_platinum_gray);
 						padding: 0px 15px;
-
+						@media screen and (max-width: 1199px) {
+							padding: 0px 8px;
+						}
+						@media screen and (max-width: 767px) {
+							border-right: none;
+							padding: 10px 0px;
+						}
 						.select_header {
 							position: relative;
 							// background-image: url("../../../../public/img/icons/dropdown_arrow.svg");
@@ -31,6 +43,9 @@
 							border-radius: 50px;
 							cursor: pointer;
 							transition: 0.5s all;
+							@media screen and (max-width: 767px) {
+								background-color: var(--color_white);
+							}
 							img {
 								position: absolute;
 								right: 10px;
@@ -137,12 +152,27 @@
 						left: 50%;
 						transform: translateX(-50%);
 						padding: 40px 40px;
+						@media screen and (max-width: 991px) {
+							width: 660px;
+							padding: 20px 20px;
+						}
+						@media screen and (max-width: 767px) {
+							padding: 30px 20px;
+							width: 100%;
+						}
 						.checkBoxItem {
 							width: 33.33%;
 							padding-right: 15px;
+							@media screen and (max-width: 767px) {
+								width: 100%;
+								padding-right: 0px;
+								margin-bottom: 20px;
+							}
 							.checkBoxList {
 								padding-left: 20px;
-
+								@media screen and (max-width: 767px) {
+									padding-left: 10px;
+								}
 								.checkBoxList {
 									display: flex;
 									flex-direction: column;
@@ -203,10 +233,17 @@
 				// &.widthCustom {
 				// 	width: 12%;
 				// }
+
 				.searchBox {
 					padding: 10px 0px 10px 30px;
 					cursor: pointer;
 					width: 100%;
+					@media screen and (max-width: 767px) {
+						background-color: var(--color_white);
+						border-radius: 50px;
+						padding: 10px 15px;
+						margin-top: 10px;
+					}
 				}
 			}
 			.searchInput {
@@ -254,6 +291,7 @@
 			}
 		}
 	}
+
 	.insightsItemFlex {
 		flex-wrap: wrap;
 		//border-bottom: 1px solid var(--color_platinum_gray);
