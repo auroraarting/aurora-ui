@@ -8,6 +8,7 @@ import Button from "@/components/Buttons/Button";
 import styles from "@/styles/components/InnerBanner.module.scss";
 
 // PLUGINS //
+import Vimeo from "@u-wave/react-vimeo";
 
 // IMAGES //
 import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
@@ -24,24 +25,31 @@ function InnerBanner({
 	bannerTitle,
 	bannerDescription,
 	mobileImage,
-	videoSrc,
 	btnTxt,
 	showContentOnly = false, // New prop to toggle visibility
+	vimeoid,
 }) {
+	const defaultVimeoObj = {
+		video: vimeoid,
+		controls: false,
+		paused: false,
+		autoplay: true,
+		loop: true,
+		responsive: true,
+	};
 	const [isPlaying, setIsPlaying] = useState(true);
-	const videoRef = useRef(null);
+	const vimeoRef = useRef(null);
 
 	/** togglePlayPause */
 	const togglePlayPause = () => {
-		if (videoRef.current) {
-			if (isPlaying) {
-				videoRef.current.pause();
-			} else {
-				videoRef.current.play();
-			}
-			setIsPlaying(!isPlaying);
+		if (isPlaying) {
+			vimeoRef.current.player.pause();
+		} else {
+			vimeoRef.current.player.play();
 		}
+		setIsPlaying(!isPlaying);
 	};
+
 	return (
 		<section className={`${styles.BannerMain}`}>
 			<div className="container">
@@ -73,11 +81,17 @@ function InnerBanner({
 					<div className={`${styles.inner_banner_wrap} `}>
 						{/* Banner Image or Video */}
 						<div className={`${styles.banner_image} next_image`}>
-							{videoSrc ? (
+							{vimeoid ? (
 								<div className={`${styles.VideoBox}`}>
-									<video ref={videoRef} playsInline autoPlay muted loop>
+									<Vimeo
+										className={`${styles.vimeoPlayer}`}
+										ref={vimeoRef}
+										{...defaultVimeoObj}
+									/>
+									{/* <video ref={videoRef} playsInline autoPlay muted loop>
 										<source src={videoSrc} type="video/mp4" />
 									</video>
+								 */}
 
 									{/* Play/Pause Button */}
 									<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
