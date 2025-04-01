@@ -13,10 +13,6 @@ import Button from "@/components/Buttons/Button";
 import styles from "@/styles/sections/resources/webinar/WebinarInsideTopSection.module.scss";
 
 // IMAGES //
-import energy_logo from "@/../public/img/energy_talks/energy_logo.jpg";
-import spotify from "@/../public/img/energy_talks/spotify.svg";
-import apple from "@/../public/img/energy_talks/apple.svg";
-import google from "@/../public/img/energy_talks/google.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import share from "@/../public/img/resources/aurora_insights/share.svg";
 import location from "@/../public/img/icons/location.svg";

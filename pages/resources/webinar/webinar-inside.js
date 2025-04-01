@@ -11,6 +11,9 @@ import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
+import WebinarMiddleDescription from "@/sections/resources/webinar/WebinarMiddleDescription";
+import WebinarMiddleRight from "@/sections/resources/webinar/WebinarMiddleRight";
+import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -78,8 +81,15 @@ export default function WebinarInside() {
 				<section className={`${styles.mediaMiddle} pt_80`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
-							<div className={`${styles.mediaMiddleLeft}`}>fgfdgf</div>
-							<div className={`${styles.mediaMiddleRight}`}>dfhfd</div>
+							<div className={`${styles.mediaMiddleLeft}`}>
+								<WebinarMiddleDescription />
+								<div className="pt_60">
+									<WebinarRecording />
+								</div>
+							</div>
+							<div className={`${styles.mediaMiddleRight}`}>
+								<WebinarMiddleRight />
+							</div>
 						</div>
 					</div>
 				</section>
