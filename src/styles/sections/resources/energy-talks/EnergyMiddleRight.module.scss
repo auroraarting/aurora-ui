@@ -1,0 +1,118 @@
+@import "../../../helpers/helpers.scss";
+.EnergyMiddleRightBox {
+	position: sticky;
+	top: 100px;
+	.whiteBox {
+		background-color: var(--color_white);
+		padding: 30px 20px 30px;
+		border-radius: 20px;
+		margin-bottom: 20px;
+		.subTxt {
+			border-bottom: 1px solid var(--color_platinum_gray);
+		}
+		.itemBox {
+			&:last-child {
+				.dateFlex {
+					margin-bottom: 0px;
+				}
+			}
+			.ClientFlex {
+				&.speakerFlex {
+					border-bottom: 1px solid var(--color_platinum_gray);
+					padding-bottom: 20px;
+					margin-bottom: 20px;
+				}
+				.ClientDescription {
+					width: 100%;
+					.social {
+						margin-top: 5px;
+					}
+				}
+			}
+			.poweredBy {
+				.poweredLogo {
+					background-color: var(--color_green);
+					border-radius: 10px;
+					position: relative;
+					height: 120px;
+					transition: 0.5s all;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					.amun_logo {
+						margin-top: -15px;
+					}
+					// .amun_hover_logo {
+					// 	position: absolute;
+					// 	opacity: 0;
+					// 	transition: 0.5s all;
+					// }
+					span {
+						//opacity: 0;
+						width: 100%;
+						background-color: var(--color_secondary);
+						color: var(--color_white);
+						position: absolute;
+						bottom: 0;
+						padding: 3px 10px;
+						border-bottom-right-radius: 10px;
+						border-bottom-left-radius: 10px;
+					}
+				}
+				// &:hover {
+				// 	width: 100%;
+				// 	background-color: var(--color_green);
+				// 	transition: 0.5s all;
+				// 	border-radius: 10px;
+				// 	.poweredLogo {
+				// 		height: 120px;
+				// 		display: flex;
+				// 		align-items: center;
+				// 		justify-content: center;
+				// 		transition: 0.5s all;
+				// 		.amun_hover_logo {
+				// 			opacity: 1;
+				// 			transition: 0.5s all;
+				// 		}
+				// 		// .amun_logo {
+				// 		// 	opacity: 0;
+				// 		// 	transition: 0.5s all;
+				// 		// }
+				// 		span {
+				// 			opacity: 1;
+				// 		}
+				// 	}
+				// }
+			}
+			.dateFlex {
+				border-bottom: 1px solid var(--color_platinum_gray);
+				padding-bottom: 15px;
+				margin-bottom: 15px;
+				p {
+					span {
+						margin-left: 5px;
+						margin-top: 2px;
+					}
+				}
+			}
+
+			.shareIcon {
+				margin-right: 10px;
+			}
+		}
+	}
+	.yellowBox {
+		background-color: var(--color_primary);
+		.ClientFlex {
+			border-bottom: none;
+			padding-bottom: 0px;
+			margin-bottom: 0px;
+			.ClientDescription {
+				width: 100%;
+				.social {
+					margin-top: 5px;
+				}
+			}
+		}
+	}
+}

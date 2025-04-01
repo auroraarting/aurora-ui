@@ -10,20 +10,23 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/resources/energy-talks/TopEnergy.module.scss";
+import styles from "@/styles/sections/resources/energy-talks/EnergyInsideTopSection.module.scss";
 
 // IMAGES //
 import energy_logo from "@/../public/img/energy_talks/energy_logo.jpg";
-import location from "@/../public/img/icons/location.svg";
+import spotify from "@/../public/img/energy_talks/spotify.svg";
+import apple from "@/../public/img/energy_talks/apple.svg";
+import google from "@/../public/img/energy_talks/google.svg";
 import calender from "@/../public/img/icons/calender.svg";
+import share from "@/../public/img/resources/aurora_insights/share.svg";
 import black_clock from "@/../public/img/icons/black_clock.svg";
 
 // DATA //
 
-/** TopEnergy Section */
-export default function TopEnergy() {
+/** EnergyInsideTopSection Section */
+export default function EnergyInsideTopSection() {
 	return (
-		<section className={`${styles.TopEnergy}`}>
+		<section className={`${styles.EnergyInsideTopSection} `}>
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
@@ -32,7 +35,7 @@ export default function TopEnergy() {
 						>
 							Latest Podcast
 						</div>
-						<h2 className="text_lg color_white text_uppercase f_w_m pt_30">
+						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
 							<span className="color_blue">ep.234</span> Lucy yu & jon norman on the
 							role of flexibility to enable a clean power grid
 						</h2>
@@ -53,18 +56,35 @@ export default function TopEnergy() {
 								/>
 								<span>28 min 24 sec</span>
 							</p>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>country</span>
-							</p>
 						</div>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
 						<img src={energy_logo.src} className="width_100 b_r_20" alt="img" />
+					</div>
+				</div>
+				<div className={`${styles.dateBox}`}>
+					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
+						<div className={`${styles.downloadListen}`}>
+							<div className={`${styles.downloadBox} f_r_a_center`}>
+								<p className="text_xs f_w_m font_primary color_secondary text_uppercase">
+									Stream on
+								</p>
+								<a href="">
+									<img src={spotify.src} alt="spotify" />
+								</a>
+								<a href="">
+									<img src={apple.src} alt="apple" />
+								</a>
+								<a href="">
+									<img src={google.src} alt="google" />
+								</a>
+							</div>
+						</div>
+						<div className={`${styles.downloadListenShare} f_r_a_center`}>
+							<a href="" className="text_sm f_w_m font_primary f_r_a_center">
+								<img src={share.src} alt="share" />
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
