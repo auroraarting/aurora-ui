@@ -40,10 +40,9 @@ export default function WebinarMiddleRight() {
 							<img src={author_logo.src} alt="pic" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
-							<h5 className="text_reg font_primary color_gray f_w_m font_primary">
-								John Feddersen
+							<h5 className="text_xs font_primary color_gray f_w_b font_primary">
+								Power & Renewables Service
 							</h5>
-							<p className="text_xs f_w_l">Founder and CEO</p>
 						</div>
 					</div>
 				</div>
