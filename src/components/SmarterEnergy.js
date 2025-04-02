@@ -30,15 +30,18 @@ export default function SmarterEnergy({ data }) {
 			children: (
 				<div className={`${styles.content_wrap}`}>
 					<p className="text_reg color_dark_gray">{item.description}</p>
-					<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
-						<Button color="secondary" variant="underline">
-							Know more
-						</Button>
-					</a>
+					{item.buttonLink && (
+						<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
+							<Button color="secondary" variant="underline">
+								Know more
+							</Button>
+						</a>
+					)}
 				</div>
 			),
 		};
 	});
+
 	const tempAccordian = [
 		{
 			title: "Transaction Support",
@@ -105,6 +108,7 @@ export default function SmarterEnergy({ data }) {
 			),
 		},
 	];
+
 	return (
 		<section className={`${styles.SmarterEnergy} ptb_100`}>
 			<div className="container">

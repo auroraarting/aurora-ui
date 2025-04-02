@@ -135,10 +135,10 @@ export default function GlobalPresence({ regions, page }) {
 			});
 		});
 
+		console.log(mapJson);
+
 		setData({ regionsArr, mapJson, page });
 	}, []);
-
-	console.log(regions);
 
 	return (
 		<div>
