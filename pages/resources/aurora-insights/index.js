@@ -11,6 +11,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // SECTIONS //
 import InsightsTop from "@/sections/resources/aurora-insights/InsightsTop";
+import InsightsListing from "@/sections/resources/aurora-insights/InsightsListing";
 
 // PLUGINS //
 
@@ -51,9 +52,9 @@ export default function AuroraInsights() {
 				<div>
 					<InsightsTop />
 				</div>
-				{/* <div className="pt_60 pb_100">
-					<EnergyListing />
-				</div> */}
+				<div className="pt_60 pb_100">
+					<InsightsListing />
+				</div>
 				<div className={`${styles.eventBottomBg} dark_bg ptb_100`}>
 					<Insights isPowerBgVisible={true} />
 					<EventSmarterEnergy />
