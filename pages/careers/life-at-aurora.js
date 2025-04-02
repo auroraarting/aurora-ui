@@ -92,28 +92,6 @@ export default function LifeAtAurora({ data }) {
 			markers: [],
 		};
 
-		// [
-		// 	{
-		// 		centerOfCountry: {
-		// 			lat: 18.1307561,
-		// 			lng: 23.554042,
-		// 		},
-		// 		markers: [
-		// 			{
-		// 				name: "Advisory",
-		// 				lat: -33.8688,
-		// 				lng: 151.2093,
-		// 				url: "/services/advisory",
-		// 				hoverImg: "",
-		// 				icon:
-		// 					"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
-		// 			},
-		// 		],
-		// 		zoom: 9,
-		// 		name: "Australia",
-		// 	},
-		// ];
-
 		data.offices?.map((item) => {
 			let obj = {
 				name: item.title,
@@ -171,13 +149,15 @@ export default function LifeAtAurora({ data }) {
 					)}
 				</div>
 				<div>
-					<Counter />
+					<Counter
+						data={{ stats: { ...data.stats, offices: data.offices.length } }}
+					/>
 				</div>
 				<div className="dark_bg pt_100">
 					<EarlyCareers />
 				</div>
 				<div>
-					<CollaborationSupport />
+					<CollaborationSupport data={data.collaborationSupport} />
 				</div>
 				<div>
 					<JobOpenings />

@@ -43,8 +43,26 @@ query MyQuery {
         auroreans
         nationalities
       }
-         globalMap {
+      globalMap {
         marqueetext
+      }
+      collaborationSupport {
+        list {
+          description
+          name
+          icon {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+          image {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
       }
     }
     slug
