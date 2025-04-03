@@ -30,10 +30,8 @@ export default function CaseStudiesMiddleDescription() {
 				/>
 			</div> */}
 			<div className="pb_60">
-				<h3 className="text_lg font_primary f_w_m color_secondary pb_20">
-					Understanding Consumer Cost Implications
-				</h3>
-				<p className="text_reg color_dark_gray">
+				<h3>Understanding Consumer Cost Implications</h3>
+				<p>
 					The client required an in-depth evaluation of the cost impact on consumers
 					under multiple energy scenarios. Aurora’s analysis explored cases such as
 					gas CCUS replacing offshore wind, expanding offshore wind capacity to 50
@@ -43,38 +41,60 @@ export default function CaseStudiesMiddleDescription() {
 				</p>
 			</div>
 			<div className="pb_60">
-				<h3 className="text_lg font_primary f_w_m color_secondary pb_20">
-					Modelling Scenarios with Financial Accuracy
-				</h3>
-				<p className="text_reg color_dark_gray">
+				<h3>Modelling Scenarios with Financial Accuracy</h3>
+				<p>
 					Aurora developed and analysed bespoke energy scenarios, ensuring all
 					cost-related factors were included in the assessment. Financial models were
 					built for each scenario to calculate costs across the forecast period. The
 					approach involved:
 				</p>
 				<ul>
-					<li className="text_reg color_dark_gray">
+					<li>
 						Replacing offshore wind with gas CCUS and alternative renewable energy
 						technologies.
 					</li>
-					<li className="text_reg color_dark_gray">
+					<li>
 						Analysing cost implications for consumers under each replacement scenario.
 					</li>
-					<li className="text_reg color_dark_gray">
+					<li>
 						Factoring in operational, capital, and carbon pricing variables to ensure
 						financial precision.
 					</li>
 				</ul>
-				<p className="text_reg color_dark_gray">
+				<p>
 					This approach enabled a reliable comparison of costs and supported informed
 					decision-making.
 				</p>
 			</div>
 			<div className="pb_60">
-				<h3 className="text_lg font_primary f_w_m color_secondary pb_20">
-					Achieving Cost-Efficient Net-Zero Goals
-				</h3>
-				<p className="text_reg color_dark_gray pb_20">
+				<h3>Modelling Scenarios with Financial Accuracy</h3>
+				<p>
+					Aurora developed and analysed bespoke energy scenarios, ensuring all
+					cost-related factors were included in the assessment. Financial models were
+					built for each scenario to calculate costs across the forecast period. The
+					approach involved:
+				</p>
+				<ol>
+					<li>
+						Replacing offshore wind with gas CCUS and alternative renewable energy
+						technologies.
+					</li>
+					<li>
+						Analysing cost implications for consumers under each replacement scenario.
+					</li>
+					<li>
+						Factoring in operational, capital, and carbon pricing variables to ensure
+						financial precision.
+					</li>
+				</ol>
+				<p>
+					This approach enabled a reliable comparison of costs and supported informed
+					decision-making.
+				</p>
+			</div>
+			<div className="pb_60">
+				<h3>Achieving Cost-Efficient Net-Zero Goals</h3>
+				<p>
 					Aurora’s analysis provided the client with critical insights into various
 					energy scenarios&apos; financial and environmental implications. The
 					findings demonstrated that a market dominated by offshore wind offers the
@@ -83,14 +103,14 @@ export default function CaseStudiesMiddleDescription() {
 					analysis underscored the economic benefits of offshore wind, particularly
 					when compared to alternatives like gas CCUS.
 				</p>
-				<p className="text_reg color_dark_gray pb_20">
+				<p>
 					The study validated that offshore wind not only meets long-term
 					sustainability goals but also minimises financial burden on consumers. This
 					evidence-based approach enabled the client to make well-informed decisions
 					regarding energy investments, ensuring alignment with economic and
 					environmental priorities.
 				</p>
-				<p className="text_reg color_dark_gray pb_20">
+				<p>
 					Aurora’s clear and methodical cost breakdown positioned offshore wind as a
 					reliable pathway for achieving net-zero emissions while delivering the best
 					economic value.
