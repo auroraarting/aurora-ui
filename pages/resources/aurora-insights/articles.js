@@ -21,15 +21,15 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/resources/aurora-insights/CaseStudies.module.scss";
+import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
 
 // IMAGES //
 //import desktop_banner from "@/../public/img/resources/aurora-insights/desktop_banner.jpg";
 
 // DATA //
 
-/** CaseStudies Page */
-export default function CaseStudies() {
+/** Articles Page */
+export default function Articles() {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -62,18 +62,13 @@ export default function CaseStudies() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
-				Title={"Case Studies"}
-				Desc={""}
-				OgImg={""}
-				Url={"/case-studies"}
-			/>
+			<MetaTags Title={"Articles"} Desc={""} OgImg={""} Url={"/articles"} />
 
 			{/* Header */}
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.CaseStudiesPage}>
+			<main className={styles.articlesPage}>
 				<div className="pb_60">
 					<CaseStudiesTop />
 				</div>

@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/resources/aurora-insights/case-studies/CaseStudiesMiddleDescription.module.scss";
+import styles from "@/styles/sections/resources/aurora-insights/CaseStudiesMiddleDescription.module.scss";
 
 // IMAGES //
 import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
@@ -22,13 +22,13 @@ import graph_img from "@/../public/img/resources/aurora_insights/graph_img.png";
 export default function CaseStudiesMiddleDescription() {
 	return (
 		<div className={`${styles.contentBox}`}>
-			<div className="pb_60">
+			{/* <div className="pb_60">
 				<img
 					src={plant_img.src}
 					className={`${styles.plant_img} width_100 b_r_20`}
 					alt="plant img"
 				/>
-			</div>
+			</div> */}
 			<div className="pb_60">
 				<h3 className="text_lg font_primary f_w_m color_secondary pb_20">
 					Understanding Consumer Cost Implications

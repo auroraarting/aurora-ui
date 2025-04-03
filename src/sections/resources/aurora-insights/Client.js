@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/resources/aurora-insights/case-studies/Client.module.scss";
+import styles from "@/styles/sections/resources/aurora-insights/Client.module.scss";
 
 // IMAGES //
 import client_logo from "@/../public/img/resources/aurora_insights/client_logo.svg";
