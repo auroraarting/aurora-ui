@@ -48,6 +48,9 @@
 		}
 	}
 	.poweredBy {
+		margin-bottom: 20px;
+		display: inline-block;
+		width: 100%;
 		.poweredLogo {
 			background-color: var(--color_green);
 			border-radius: 10px;
