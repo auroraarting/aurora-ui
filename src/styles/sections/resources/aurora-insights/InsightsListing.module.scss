@@ -43,6 +43,9 @@
 							border-radius: 50px;
 							cursor: pointer;
 							transition: 0.5s all;
+							@media screen and (min-width: 768px) and (max-width: 1199px) {
+								padding: 10px 10px;
+							}
 							@media screen and (max-width: 767px) {
 								background-color: var(--color_white);
 							}
@@ -50,6 +53,9 @@
 								position: absolute;
 								right: 10px;
 								top: 15px;
+								@media screen and (min-width: 768px) and (max-width: 1199px) {
+									right: 5px;
+								}
 							}
 							&:hover {
 								background-color: var(--color_white);
@@ -192,38 +198,69 @@
 									margin-top: 15px;
 								}
 
-								.hiddenCheckbox {
+								// .hiddenCheckbox {
+								// 	display: none;
+								// }
+
+								// .customCheckbox {
+								// 	width: 18px;
+								// 	height: 18px;
+								// 	border: 1px solid var(--color_secondary);
+								// 	border-radius: 3px;
+								// 	display: inline-block;
+								// 	position: relative;
+								// 	margin-right: 8px;
+								// 	transition: all 0.2s ease;
+								// }
+
+								// /* When the checkbox is checked */
+								// .hiddenCheckbox:checked + .customCheckbox {
+								// 	background-color: var(--color_white);
+								// 	border-color: var(--color_secondary);
+								// 	border: 2px solid var(--color_secondary);
+								// }
+
+								// /* Show checkmark when checked */
+								// .hiddenCheckbox:checked + .customCheckbox::after {
+								// 	content: "✔";
+								// 	position: absolute;
+								// 	top: 50%;
+								// 	left: 50%;
+								// 	transform: translate(-50%, -50%);
+								// 	font-size: 13px;
+								// 	color: var(--color_secondary);
+								// 	font-weight: bold;
+								// }
+
+								.hiddenRadio {
 									display: none;
 								}
 
-								.customCheckbox {
-									width: 18px;
-									height: 18px;
-									border: 1px solid var(--color_secondary);
-									border-radius: 3px;
+								.customRadio {
 									display: inline-block;
+									width: 16px;
+									height: 16px;
+									border: 2px solid #555;
+									border-radius: 50%;
 									position: relative;
 									margin-right: 8px;
-									transition: all 0.2s ease;
 								}
 
-								/* When the checkbox is checked */
-								.hiddenCheckbox:checked + .customCheckbox {
-									background-color: var(--color_white);
-									border-color: var(--color_secondary);
-									border: 2px solid var(--color_secondary);
+								.hiddenRadio:checked + .customRadio {
+									background-color: var(--color_primary_shade);
+									border-color: var(--color_primary_shade);
 								}
 
-								/* Show checkmark when checked */
-								.hiddenCheckbox:checked + .customCheckbox::after {
-									content: "✔";
+								.hiddenRadio:checked + .customRadio::after {
+									content: "";
+									width: 8px;
+									height: 8px;
+									background: var(--color_secondary);
+									border-radius: 50%;
 									position: absolute;
 									top: 50%;
 									left: 50%;
 									transform: translate(-50%, -50%);
-									font-size: 13px;
-									color: var(--color_secondary);
-									font-weight: bold;
 								}
 							}
 						}
@@ -231,7 +268,9 @@
 				}
 
 				// &.widthCustom {
-				// 	width: 12%;
+				// 	@media screen and (min-width: 768px) and (max-width: 1199px) {
+				// 		width: 15%;
+				// 	}
 				// }
 
 				.searchBox {

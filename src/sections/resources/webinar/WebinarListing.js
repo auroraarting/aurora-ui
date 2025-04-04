@@ -36,9 +36,9 @@ export default function WebinarListing() {
 		setIsSearchVisible(false);
 	};
 
-	/** checkBox Input */
+	/** radio Input */
 	const handleChange = (option) => {
-		setSelected((prev) => ({ ...prev, [option]: !prev[option] }));
+		setSelected(option); // Only one selected option at a time
 	};
 
 	const [dropdowns, setDropdowns] = useState({
@@ -113,7 +113,7 @@ export default function WebinarListing() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const checkBoxData = [
+	const radioData = [
 		{
 			category: "Product",
 			options: [
@@ -225,7 +225,7 @@ export default function WebinarListing() {
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
 									>
-										{checkBoxData.map((item, index) => (
+										{radioData.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
 												<h4 className="text_sm color_dark_gray text_500">
 													{item.category}
@@ -234,12 +234,13 @@ export default function WebinarListing() {
 													{item.options.map((option, idx) => (
 														<label key={idx} className={styles.checkboxLabel}>
 															<input
-																type="checkbox"
-																className={styles.hiddenCheckbox}
-																checked={selected[option] || false}
+																type="radio"
+																name="singleSelection" // Single name for all radio buttons
+																className={styles.hiddenRadio}
+																checked={selected === option} // Ensure only one is selected overall
 																onChange={() => handleChange(option)}
 															/>
-															<span className={styles.customCheckbox}></span>
+															<span className={styles.customRadio}></span>
 															{option}
 														</label>
 													))}
