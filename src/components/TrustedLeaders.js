@@ -23,7 +23,7 @@ import erste from "../../public/img/softwares/erste.png";
 // DATA //
 
 /** TrustedLeaders Section */
-export default function TrustedLeaders() {
+export default function TrustedLeaders({ data }) {
 	const LogoData = [
 		{
 			logos: erste.src,
@@ -124,11 +124,15 @@ export default function TrustedLeaders() {
 						modules={[Grid, Pagination]}
 						className="mySwiper"
 					>
-						{LogoData.map((item, ind) => (
+						{data.selectLogos.nodes.map((item, ind) => (
 							<SwiperSlide key={ind}>
 								<div className={`${styles.box_item}`} key={ind}>
 									<div className={`${styles.imgBox}`}>
-										<img src={item.logos} className="b_r_10" alt="story img" />
+										<img
+											src={item.featuredImage.node.sourceUrl}
+											className="b_r_10"
+											alt="story img"
+										/>
 									</div>
 								</div>
 							</SwiperSlide>

@@ -54,6 +54,8 @@ export async function getServerSideProps() {
 export default function GlobalPresence({ regions, page }) {
 	const [data, setData] = useState();
 
+	console.log(regions);
+
 	useEffect(() => {
 		const regionsArr = regions?.data?.regions?.nodes?.map((item) => {
 			let obj = {};
@@ -170,13 +172,15 @@ export default function GlobalPresence({ regions, page }) {
 					<section className={`${styles.CountryMain} ptb_100`}>
 						<div className="container">
 							<div className={`${styles.accordian_main}`}>
-								<AccordianCommon
-									fontStyle={"text_lg"}
-									fontWeight={"f_w_s_b"}
-									fontFamily={"font_primary"}
-									fontColor={"color_secondary"}
-									items={data.regionsArr}
-								/>
+								{data.regionsArr && (
+									<AccordianCommon
+										fontStyle={"text_lg"}
+										fontWeight={"f_w_s_b"}
+										fontFamily={"font_primary"}
+										fontColor={"color_secondary"}
+										items={data.regionsArr}
+									/>
+								)}
 							</div>
 						</div>
 					</section>

@@ -23,7 +23,7 @@ import steps_img from "../../../public/img/softwares/steps_img.jpg";
 // DATA //
 
 /** IntuitiveStepProcess Section */
-export default function IntuitiveStepProcess() {
+export default function IntuitiveStepProcess({ data }) {
 	/** pagination */
 	const pagination = {
 		clickable: true,
@@ -31,15 +31,12 @@ export default function IntuitiveStepProcess() {
 			return `<span class="${className}">${index + 1}</span>`;
 		},
 	};
+
 	return (
 		<section className={`${styles.IntuitiveStepProcess} dark_bg pt_100 pb_40`}>
 			<div className="container">
 				<div className={`${styles.StepProcessTxt} `}>
-					<h5 className="text_lg color_white f_w_s_b">
-						EOS is a cloud-based software platform functions as an interactive
-						database offering essential insights, forecasts, and reports on energy
-						markets.
-					</h5>
+					<h5 className="text_lg color_white f_w_s_b">{data.description}</h5>
 					<div className={`${styles.bookBtn} pt_50`}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Book a Demo
@@ -48,7 +45,7 @@ export default function IntuitiveStepProcess() {
 				</div>
 				<div className={`${styles.stepsTxt} pt_80`}>
 					<h2 className="text_xl font_primary f_w_s_b text_center color_white ">
-						Intuitive 4 Step Process
+						{data.processTitle}
 					</h2>
 				</div>
 			</div>
@@ -63,6 +60,48 @@ export default function IntuitiveStepProcess() {
 					speed={500}
 					className={styles.slider}
 				>
+					{data.process.map((item, ind) => {
+						return (
+							<SwiperSlide className={`${styles.item}`} key={ind}>
+								<div className={`${styles.SliderItem} f_w_j a_center`}>
+									<div className={`${styles.imgVideo}`}>
+										<img
+											src={item.image.node.sourceUrl || steps_img.src}
+											className={`${styles.steps_img}`}
+											alt="steps img"
+										/>
+										{/* <video playsInline autoPlay muted loop>
+									<source src="../../img/softwares/frame_video.mp4" type="video/mp4" />
+								</video> */}
+									</div>
+									<div className={`${styles.Content}`}>
+										{item.processDetails.map((item, ind) => {
+											return (
+												<div className={`${styles.contentItem}`} key={ind}>
+													<h5 className="text_md color_white f_w_s_b">{item.description}</h5>
+												</div>
+											);
+										})}
+										{/* <div className={`${styles.contentItem}`}>
+											<h5 className="text_md color_white f_w_s_b">
+												Up-to-date locational benefits & charges
+											</h5>
+										</div>
+										<div className={`${styles.contentItem}`}>
+											<h5 className="text_md color_white f_w_s_b">
+												Up-to-date locational benefits & charges
+											</h5>
+										</div>
+										<div className={`${styles.contentItem}`}>
+											<h5 className="text_md color_white f_w_s_b">
+												Up-to-date locational benefits & charges
+											</h5>
+										</div> */}
+									</div>
+								</div>
+							</SwiperSlide>
+						);
+					})}
 					<SwiperSlide className={`${styles.item}`}>
 						<div className={`${styles.SliderItem} f_w_j a_center`}>
 							<div className={`${styles.imgVideo}`}>

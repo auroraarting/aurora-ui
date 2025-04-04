@@ -54,7 +54,7 @@ export const getRegions = async () => {
                     }
                     ... on Software {
                       id
-                      banner {
+                      softwares {
                         map {
                           lat
                           lng

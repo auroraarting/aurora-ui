@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "./ContentFromCms";
 
 // STYLES //
 import styles from "@/styles/components/InnerBanner.module.scss";
@@ -15,7 +16,6 @@ import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "@/../public/img/banner/defaultMobileBanner.jpg";
 import pause_button from "../../public/img/icons/pause_button.svg";
 import play_button from "../../public/img/icons/play_icon.png";
-import ContentFromCms from "./ContentFromCms";
 
 // UTILS //
 
