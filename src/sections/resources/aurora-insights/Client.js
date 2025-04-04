@@ -20,6 +20,8 @@ import origin from "@/../public/img/resources/aurora_insights/origin.png";
 import linkedin from "@/../public/img/resources/aurora_insights/linkedin.svg";
 import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 import tag_download_icon from "@/../public/img/resources/aurora_insights/tag_download_icon.svg";
+import amun_hover_logo from "@/../public/img/energy_talks/amun_hover_logo.png";
+import white_arrow from "@/../public/img/energy_talks/white_arrow.svg";
 
 // DATA //
 
@@ -60,8 +62,29 @@ export default function Client() {
 				</div>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-					<div className={`${styles.ClientFlex}`}>
+					{/* <div className={`${styles.ClientFlex}`}>
 						<img src={origin.src} alt="origin" />
+					</div> */}
+					<div className={`${styles.poweredBy}`}>
+						<a href="">
+							<div className={`${styles.poweredLogo}`}>
+								<img
+									src={amun_hover_logo.src}
+									className={`${styles.amun_logo}`}
+									alt="amun_logo"
+								/>
+								{/* <img
+								src={amun_hover_logo.src}
+								className={`${styles.amun_hover_logo}`}
+								alt="amun_logo"
+							/> */}
+
+								<span className="f_r_aj_between text_xxs text_uppercase">
+									Know More
+									<img src={white_arrow.src} className="" alt="amun_logo" />
+								</span>
+							</div>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -113,6 +136,40 @@ export default function Client() {
 						<img src={tag_download_icon.src} alt="download" />
 						<span>Download</span>
 					</a>
+				</div>
+			</div>
+			<div className={`${styles.whiteBox}`}>
+				<div className={`${styles.itemBox}`}>
+					<div className={`${styles.ClientFlex} f_r_a_center`}>
+						<div className={`${styles.ClientLogo}`}>
+							<img src={client_logo.src} alt="logo" />
+						</div>
+						<div className={`${styles.ClientDescription}`}>
+							<p className="text_reg font_primary">Shaping the energy discussion</p>
+							<div className={`${styles.btn_box} `}>
+								<Button color="secondary" variant="underline">
+									View Webinar
+								</Button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className={`${styles.whiteBox}`}>
+				<div className={`${styles.itemBox}`}>
+					<div className={`${styles.ClientFlex} f_r_a_center`}>
+						<div className={`${styles.ClientLogo}`}>
+							<img src={client_logo.src} alt="logo" />
+						</div>
+						<div className={`${styles.ClientDescription}`}>
+							<p className="text_reg font_primary">Energy unplugged by Aurora</p>
+							<div className={`${styles.btn_box} `}>
+								<Button color="secondary" variant="underline">
+									View All Podcast
+								</Button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
