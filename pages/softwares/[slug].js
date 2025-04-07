@@ -132,8 +132,8 @@ export default function SoftwarePage({ data }) {
 				<div>
 					<GloballyBankableInsights data={data.whyAurora} />
 				</div>
-				<IntuitiveStepProcess />
-				<SmarterEnergy />
+				<IntuitiveStepProcess data={data.fourStepProcess} />
+				<SmarterEnergy data={data.expertise} />
 				<div className="ptb_100">
 					<TrustOurExperts />
 				</div>
