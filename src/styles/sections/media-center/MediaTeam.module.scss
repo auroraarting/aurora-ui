@@ -9,4 +9,26 @@
 			width: 100%;
 		}
 	}
+  .mediaTeamBox{
+    display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 20px;
+		@media (max-width: 767px) {
+			grid-template-columns: repeat(1, 1fr);
+			grid-gap: 20px;
+		}
+    .mediaTeamBoxItem{
+      background-color: var(--color_gray);
+      padding: 40px 20px;
+      border-radius: 12px;
+      .labelTxt{
+        img{
+          width: 17px;
+        }
+        a{
+          margin-left: 10px;
+        }
+      }
+    }
+  }
 }

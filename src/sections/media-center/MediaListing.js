@@ -38,24 +38,20 @@ export default function MediaListing() {
 		setIsSearchVisible(false);
 	};
 
-	/** checkBox Input */
+	/** radio Input */
 	const handleChange = (option) => {
-		setSelected((prev) => ({ ...prev, [option]: !prev[option] }));
+		setSelected(option); // Only one selected option at a time
 	};
 
 	const [dropdowns, setDropdowns] = useState({
-		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
 		languageType: { isOpen: false, selected: { title: "Language" } },
 		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
-		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 
 	const dropdownRefs = {
-		eventNameType: useRef(null),
 		languageType: useRef(null),
 		offeringsType: useRef(null),
-		eventStatusType: useRef(null),
 		yearsType: useRef(null),
 	};
 
@@ -116,7 +112,7 @@ export default function MediaListing() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const checkBoxData = [
+	const radioData = [
 		{
 			category: "Product",
 			options: [
@@ -160,7 +156,7 @@ export default function MediaListing() {
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
 									>
-										{checkBoxData.map((item, index) => (
+										{radioData.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
 												<h4 className="text_sm color_dark_gray text_500">
 													{item.category}
@@ -169,12 +165,13 @@ export default function MediaListing() {
 													{item.options.map((option, idx) => (
 														<label key={idx} className={styles.checkboxLabel}>
 															<input
-																type="checkbox"
-																className={styles.hiddenCheckbox}
-																checked={selected[option] || false}
+																type="radio"
+																name="singleSelection" // Single name for all radio buttons
+																className={styles.hiddenRadio}
+																checked={selected === option} // Ensure only one is selected overall
 																onChange={() => handleChange(option)}
 															/>
-															<span className={styles.customCheckbox}></span>
+															<span className={styles.customRadio}></span>
 															{option}
 														</label>
 													))}

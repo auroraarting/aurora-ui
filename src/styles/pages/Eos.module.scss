@@ -1,0 +1,14 @@
+@import "../helpers/helpers.scss";
+
+.EOSPage {
+	background-color: var(--color_silver);
+	.insightBg {
+		background-color: var(--color_secondary);
+		.boxBg {
+			background-image: url("../../../public/img/events/bottomBg.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: top center;
+		}
+	}
+}

@@ -19,8 +19,7 @@ import SoftwareLogo from "../../../public/img/softwares/chronos-logo.png";
 import mac_img from "../../../public/img/softwares/mac_img.png";
 import frame_video from "../../../public/img/softwares/frame_video.png";
 import pause_button from "../../../public/img/icons/pause_button.svg";
-import play_button from "../../../public/img/icons/play_icon.png";
-import ContentFromCms from "@/components/ContentFromCms";
+import play_button from "../../../public/img/icons/video_play.svg";
 
 // DATA //
 

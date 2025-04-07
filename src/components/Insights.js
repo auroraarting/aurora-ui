@@ -16,6 +16,8 @@ import styles from "@/styles/components/Insights.module.scss";
 
 // IMAGES //
 import clock from "../../public/img/icons/clock.svg";
+import white_calendar from "../../public/img/icons/white_calendar.svg";
+import white_location from "../../public/img/icons/white_location.svg";
 import close from "../../public/img/icons/close.png";
 import form_img from "../../public/img/softwares/form_img.png";
 
@@ -127,34 +129,13 @@ export default function Insights({
 											financial roadmap to Net Zero by 2035
 										</p>
 										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_medium_gray text_uppercase">
-												November 2024
+											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+												<img src={white_calendar.src} alt="calendar" />
+												<span>November 2024</span>
 											</p>
-											<p className="text_xs f_w_m color_medium_gray d_f">
-												<img src={clock.src} className={`${styles.clock}`} alt="clock" />
-												5min
-											</p>
-										</div>
-									</div>
-								</div>
-								<div className={`${styles.ItemBox} boxH`}>
-									<div className={`${styles.hoverBox}`}>
-										<p
-											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-										>
-											Case Study
-										</p>
-										<p className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}>
-											Analysing the financial roadmap to Net Zero by 2035. Analysing the
-											financial roadmap to Net Zero by 2035
-										</p>
-										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_medium_gray text_uppercase">
-												November 2024
-											</p>
-											<p className="text_xs f_w_m color_medium_gray d_f">
-												<img src={clock.src} className={`${styles.clock}`} alt="clock" />
-												5min
+											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+												<img src={white_location.src} alt="location" />
+												<span>India</span>
 											</p>
 										</div>
 									</div>
@@ -171,12 +152,36 @@ export default function Insights({
 											financial roadmap to Net Zero by 2035
 										</p>
 										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_medium_gray text_uppercase">
-												November 2024
+											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+												<img src={white_calendar.src} alt="calendar" />
+												<span>November 2024</span>
 											</p>
-											<p className="text_xs f_w_m color_medium_gray d_f">
-												<img src={clock.src} className={`${styles.clock}`} alt="clock" />
-												5min
+											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+												<img src={white_location.src} alt="location" />
+												<span>India</span>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div className={`${styles.ItemBox} boxH`}>
+									<div className={`${styles.hoverBox}`}>
+										<p
+											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+										>
+											Case Study
+										</p>
+										<p className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}>
+											Analysing the financial roadmap to Net Zero by 2035. Analysing the
+											financial roadmap to Net Zero by 2035
+										</p>
+										<div className={`${styles.dateFlex} f_j pt_30`}>
+											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+												<img src={white_calendar.src} alt="calendar" />
+												<span>November 2024</span>
+											</p>
+											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+												<img src={white_location.src} alt="location" />
+												<span>India</span>
 											</p>
 										</div>
 									</div>

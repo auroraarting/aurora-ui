@@ -1,0 +1,25 @@
+<svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="19.5" cy="2.5" r="1.75" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="37.5" cy="20" r="1.75" transform="rotate(90 37.5 20)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="32.3744" cy="32.375" r="1.75" transform="rotate(135 32.3744 32.375)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="7.62451" cy="32.3746" r="1.75" transform="rotate(-135 7.62451 32.3746)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="2.5" cy="2.5" r="1.75" transform="matrix(1 0 0 -1 17 40)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="2.5" cy="2.5" r="1.75" transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 17.5)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="2.5" cy="2.5" r="1.75" transform="matrix(-0.707107 0.707107 0.707107 0.707107 7.62549 4.08984)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="2.5" cy="2.5" r="1.75" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 35.9092 7.625)" stroke="#1D1D1D" stroke-width="1.5"/>
+<line x1="19.25" y1="8" x2="19.25" y2="4" stroke="#1D1D1D" stroke-width="1.5"/>
+<line x1="32" y1="19.75" x2="36" y2="19.75" stroke="#1D1D1D" stroke-width="1.5"/>
+<line x1="28.6622" y1="28.3056" x2="31.4906" y2="31.134" stroke="#1D1D1D" stroke-width="1.5"/>
+<line x1="11.6912" y1="28.6631" x2="8.86279" y2="31.4916" stroke="#1D1D1D" stroke-width="1.5"/>
+<line y1="-0.75" x2="4" y2="-0.75" transform="matrix(-4.37115e-08 1 1 4.37115e-08 20 32)" stroke="#1D1D1D" stroke-width="1.5"/>
+<line y1="-0.75" x2="4" y2="-0.75" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 8 20.5)" stroke="#1D1D1D" stroke-width="1.5"/>
+<line y1="-0.75" x2="4" y2="-0.75" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 11.1611 11.8672)" stroke="#1D1D1D" stroke-width="1.5"/>
+<line y1="-0.75" x2="4" y2="-0.75" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 28.1306 11.1602)" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="20" cy="20" r="13.25" fill="#F7F7F7" stroke="#1D1D1D" stroke-width="1.5"/>
+<circle cx="20" cy="20" r="9.4" stroke="#1D1D1D" stroke-width="1.2"/>
+<mask id="path-19-inside-1_4122_50793" fill="white">
+<path d="M16 24C16 21.7909 17.7909 20 20 20C22.2091 20 24 21.7909 24 24V25.994C24 25.9973 23.9973 26 23.994 26H16.006C16.0027 26 16 25.9973 16 25.994V24Z"/>
+</mask>
+<path d="M16 24C16 21.7909 17.7909 20 20 20C22.2091 20 24 21.7909 24 24V25.994C24 25.9973 23.9973 26 23.994 26H16.006C16.0027 26 16 25.9973 16 25.994V24Z" stroke="#1D1D1D" stroke-width="3" stroke-linejoin="round" mask="url(#path-19-inside-1_4122_50793)"/>
+<circle cx="20" cy="17" r="2.25" stroke="#1D1D1D" stroke-width="1.5"/>
+</svg>

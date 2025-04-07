@@ -148,18 +148,25 @@ section {
 	border-radius: 50px;
 }
 
-.activeDropDown{
-	.select_bg{
+.activeDropDown {
+	.select_bg {
 		background-color: var(--color_secondary);
 		color: var(--color_white);
-		&:hover{
+		@media screen and (max-width: 767px) {
+			background-color: var(--color_white);
+			color: var(--color_black);
+		}
+		&:hover {
 			background-color: var(--color_secondary) !important;
 			color: var(--color_white);
+			@media screen and (max-width: 767px) {
+				background-color: var(--color_white) !important;
+				color: var(--color_black);
+			}
 		}
-		img{
+		img {
 			transform: rotate(180deg);
 			filter: invert(1);
 		}
 	}
-	
 }

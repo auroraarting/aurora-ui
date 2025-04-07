@@ -1,0 +1,211 @@
+@import "../../helpers/helpers.scss";
+.CuttingEdgeModels {
+	.titleWrapper {
+		width: 55%;
+		@media (max-width: 1199px) {
+			width: 80%;
+		}
+		@media (max-width: 991px) {
+			width: 100%;
+		}
+	}
+	.box_wrap {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 20px;
+		@media (max-width: 991px) {
+			grid-template-columns: repeat(2, 1fr);
+			grid-gap: 20px;
+		}
+		@media (max-width: 767px) {
+			grid-template-columns: repeat(2, 1fr);
+			grid-gap: 15px;
+		}
+		.box_item {
+			position: relative;
+			border-radius: 20px;
+			background-color: var(--color_white);
+			padding: 25px 25px 40px;
+			cursor: pointer;
+			@media (max-width: 767px) {
+				border-radius: 10px;
+				padding: 20px 15px 20px;
+			}
+
+			.content {
+				h5 {
+					transition: 0.5s all;
+					// border-top: 1px solid rgba(206, 206, 206, 0.2);
+					// padding-top: 5px;
+					@media (max-width: 767px) {
+						font-size: 18px;
+					}
+				}
+				.arrowBox {
+					margin-top: 40px;
+					padding-top: 40px;
+					border-top: 1px solid var(--color_platinum_gray);
+					transition: 0.5s all;
+					@media (max-width: 767px) {
+						margin-top: 15px;
+						padding-top: 15px;
+					}
+					span {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 32px;
+						height: 32px;
+						background-color: var(--color_platinum_gray);
+						border-radius: 50%;
+						transition: 0.5s all;
+					}
+				}
+				.hoverEffect {
+					position: absolute;
+					bottom: 0;
+					right: 0px;
+					opacity: 0;
+					transition: 0.5s all;
+					img {
+						border-radius: 20px;
+						@media (max-width: 767px) {
+							border-radius: 10px;
+						}
+					}
+				}
+			}
+
+			&:hover {
+				background-color: var(--color_secondary);
+				transition: 0.5s all;
+				.content {
+					h5 {
+						color: var(--color_white);
+						transition: 0.5s all;
+					}
+
+					.hoverEffect {
+						opacity: 1;
+						transition: 0.5s all;
+						z-index: 2;
+					}
+					.arrowBox {
+						border-top: 1px solid var(--color_dark_gray);
+						transition: 0.5s all;
+						span {
+							background-color: var(--color_primary);
+							transition: 0.5s all;
+						}
+					}
+				}
+			}
+		}
+	}
+	.popup {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		// background-color: rgba(0, 0, 0, 0.7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+		// background: rgba(0, 0, 0, 0.51);
+		// box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+		// backdrop-filter: blur(7px);
+		// -webkit-backdrop-filter: blur(7px);
+		.Overlay {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			z-index: 1001;
+			background-color: rgba(0, 0, 0, 0.7);
+			background: rgba(0, 0, 0, 0.3);
+			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(7px);
+			-webkit-backdrop-filter: blur(7px);
+		}
+		.popup_content {
+			position: relative;
+			z-index: 1002;
+			width: var(--container_width);
+			margin-left: auto;
+			border-radius: 0px;
+			padding: 80px 60px 80px;
+			border: 1px solid var(--text_color);
+			background-color: var(--color_secondary);
+			height: 100vh;
+			overflow-y: scroll;
+			@media (max-width: 1199px) {
+				padding: 40px 20px 55px;
+			}
+			@media only screen and (max-width: 767px) {
+				padding: 55px 15px 30px;
+				width: calc(100% - 20px);
+			}
+		}
+		.close_btn {
+			padding: 0;
+			position: absolute;
+			right: 20px;
+			top: 20px;
+			z-index: 2;
+			border: none;
+			box-shadow: none;
+			filter: drop-shadow(0px 7px 12px rgba(0, 0, 0, 0.23));
+			text-shadow: none;
+			background-color: transparent;
+			outline: none !important;
+			cursor: pointer;
+			img {
+				// filter: brightness(285%);
+			}
+			// @media only screen and (min-width: 767px) and (max-width: 992px) {
+			// 	right: 25px;
+			// 	top: 35px;
+			// }
+			@media only screen and (max-width: 767px) {
+				right: 10px;
+				top: 10px;
+				z-index: 1;
+			}
+		}
+	}
+	.PopupItem {
+		&::-webkit-scrollbar {
+			width: 2px;
+			height: 2px;
+			// background: var(--color_white);
+		}
+		.BoxFlex {
+			.Details {
+				.boxName {
+					border-bottom: 1px solid rgba(206, 206, 206, 0.2);
+					margin-bottom: 20px;
+					padding-bottom: 20px;
+				}
+			}
+		}
+	}
+
+	.arrowSection {
+		justify-content: flex-end;
+		@media (max-width: 767px) {
+			justify-content: center;
+			margin-top: 10px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
+}

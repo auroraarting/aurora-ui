@@ -25,6 +25,12 @@
 			@media (max-width: 767px) {
 				width: 100%;
 			}
+			.redefining {
+				@media (max-width: 767px) {
+					width: 80%;
+					margin: 0 auto;
+				}
+			}
 		}
 	}
 }
