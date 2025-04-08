@@ -35,8 +35,22 @@ import available_regions from "@/../public/img/global-presence/available_regions
 // DATA //
 import locationJson from "@/data/globalMap.json";
 
+// SERVICES //
+import { getLifeAtAurora } from "@/services/Careers.service";
+
+/** Fetch  */
+export async function getServerSideProps() {
+	const [data] = await Promise.all([getLifeAtAurora()]);
+	let obj = {
+		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+	};
+	delete obj.data.lifeAtAurora;
+	return { props: { ...obj } };
+}
+
 /** LifeAtAurora Page */
-export default function LifeAtAurora() {
+export default function LifeAtAurora({ data }) {
+	const [mapJson, setMapJson] = useState();
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -66,6 +80,35 @@ export default function LifeAtAurora() {
 			</Button>
 		</div>,
 	];
+
+	useEffect(() => {
+		let tempMapJson = {
+			zoom: 9,
+			name: "Global",
+			centerOfCountry: {
+				lat: 18.1307561,
+				lng: 23.554042,
+			},
+			markers: [],
+		};
+
+		data.offices?.map((item) => {
+			let obj = {
+				name: item.title,
+				lat: item.offices.map.lat,
+				lng: item.offices.map.lng,
+				url: "/careers/life-at-aurora",
+				hoverImg: item.offices.thumbnail.node.sourceUrl,
+				// icon:
+				// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
+			};
+
+			tempMapJson.markers.push(obj);
+		});
+
+		setMapJson(tempMapJson);
+	}, []);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -82,30 +125,39 @@ export default function LifeAtAurora() {
 			{/* Page Content starts here */}
 			<main className={styles.LifeAtAuroraPage}>
 				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					videoSrc="../../img/softwares/frame_video.mp4"
+					bannerTitle={data.banner.title}
+					bannerDescription={data.banner.description}
+					desktopImage={data.banner.dekstopimage.node.sourceUrl}
+					mobileImage={data.banner.mobileimage.node.sourceUrl}
+					vimeoid={data.banner.videoLink}
 				/>
 				<div>
 					<SectionsHeader data={headerArray} />
 				</div>
 				<div>
-					<SmarterEnergy />
+					<SmarterEnergy data={data.keyAdvantages} />
 				</div>
 				<div className="pt_60">
 					<TeamAurora />
 				</div>
 				<div className="dark_bg">
-					<GlobalMap locationJson={locationJson} />
+					{mapJson && (
+						<GlobalMap
+							locationJson={[mapJson]}
+							marqueeText={data?.globalMap?.marqueetext}
+						/>
+					)}
 				</div>
 				<div>
-					<Counter />
+					<Counter
+						data={{ stats: { ...data.stats, offices: data.offices.length } }}
+					/>
 				</div>
 				<div className="dark_bg pt_100">
 					<EarlyCareers />
 				</div>
 				<div>
-					<CollaborationSupport />
+					<CollaborationSupport data={data.collaborationSupport} />
 				</div>
 				<div>
 					<JobOpenings />
