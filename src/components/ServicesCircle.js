@@ -41,8 +41,7 @@ export default function ServicesCircle({ data }) {
 							<ContentFromCms>
 								{data?.descripition ||
 									`Lorem ipsum dolor sit amet consectetur. Velit vel iaculis fames velit
-// 							mauris morbi volutpat. Senectus purus est cursus ac. Amet tortor at ac a
-// 							mi eu urna risus nulla.`}
+                                    mauris morbi volutpat. Senectus purus est cursus ac. Amet tortor at ac a mi eu urna risus nulla.`}
 							</ContentFromCms>
 						</div>
 						<div className="pt_40">
@@ -54,24 +53,10 @@ export default function ServicesCircle({ data }) {
 						</div>
 					</div>
 					<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
-						{/*<div className={`${styles.Quadrant} ${styles.TopLeft}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.Quadrant} ${styles.TopRight}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.Quadrant} ${styles.BottomLeft}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.Quadrant} ${styles.BottomRight}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.CenterBox}`}></div>*/}
 						<CircularMenu
 							items={data?.advantages || services}
 							iconDefault={IconStrategy}
 						/>
-						<div className={`${styles.CenterBox}`}></div>
 					</div>
 				</div>
 			</div>

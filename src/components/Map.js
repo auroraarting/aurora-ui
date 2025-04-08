@@ -269,9 +269,12 @@ export default function Map({
 	setValueOfSelect,
 	map,
 	setMap,
+	mapJson,
 }) {
+	let jsonToBeMapped = mapJson ? [mapJson] : locationJson;
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
 
+	console.log(jsonToBeMapped, "asda");
 	const center = mapCenter;
 
 	const onLoad = useCallback((mapObj) => {
@@ -292,24 +295,24 @@ export default function Map({
 		const bounds = map.getBounds(); // Get the visible area of the map
 
 		if (bounds) {
-			const filteredLocations = locationJson.flatMap((country) =>
+			const filteredLocations = jsonToBeMapped.flatMap((country) =>
 				country.markers.filter((loc) =>
 					bounds.contains(new window.google.maps.LatLng(loc.lat, loc.lng))
 				)
 			);
 
-			setVisibleLocations(filteredLocations);
+			setVisibleLocations && setVisibleLocations(filteredLocations);
 		}
 
 		// Identify the country of visible markers
 		const visibleCountries = new Set();
-		locationJson.forEach((country, index) => {
+		jsonToBeMapped.forEach((country, index) => {
 			if (
 				country.markers.some((loc) =>
 					bounds.contains(new window.google.maps.LatLng(loc.lat, loc.lng))
 				)
 			) {
-				setValueOfSelect(index);
+				setValueOfSelect && setValueOfSelect(index);
 				visibleCountries.add(country.name);
 			}
 		});
@@ -354,34 +357,59 @@ export default function Map({
 				}}
 			>
 				{/* Child components, such as markers, info windows, etc. */}
-				{locationJson.map((country) =>
+				{jsonToBeMapped.map((country) =>
 					country.markers.map((marker, index) => {
+						/** href */
+						const href = () => {
+							// marker.url ||
+							// 					`/${marker.category.nodes?.[0]?.contentType.node.name}/${marker.category.nodes?.[0]?.slug}` ||
+							// 					"/contact"
+							if (marker.url) return marker.url;
+							if (
+								marker.category.nodes?.[0]?.contentType.node.name &&
+								marker.category.nodes?.[0]?.slug
+							) {
+								return `/${marker.category.nodes?.[0]?.contentType.node.name}/${marker.category.nodes?.[0]?.slug}`;
+							}
+
+							return "/contact";
+						};
+
 						return (
 							<>
 								<Marker
-									position={{ lat: marker.lat, lng: marker.lng }}
+									position={{
+										lat: parseFloat(marker.lat) || parseFloat(marker.coordinates.lat),
+										lng: parseFloat(marker.lng) || parseFloat(marker.coordinates.lng),
+									}}
 									icon={{
-										url: marker.icon || "/img/softwares/mapMarker.svg",
+										url:
+											marker?.icon?.node?.sourceUrl ||
+											marker?.icon ||
+											"/img/softwares/mapMarker.svg",
 										// scaledSize: new window.google.maps.Size(10, 10),
 										// origin: new window.google.maps.Point(0, 0),
 										// anchor: new window.google.maps.Point(25, 50),
 									}}
 									onMouseOver={() => setSelectedMarker(marker.name)}
-									onMouseOut={() => setSelectedMarker(null)}
+									// onMouseOut={() => setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
 								{selectedMarker === marker.name && (
 									<InfoWindow
-										position={{ lat: marker.lat, lng: marker.lng }}
+										position={{
+											lat: parseFloat(marker.lat) || parseFloat(marker.coordinates.lat),
+											lng: parseFloat(marker.lng) || parseFloat(marker.coordinates.lng),
+										}}
 										onCloseClick={() => setSelectedMarker(null)}
 									>
-										<a href={marker.url || "/contact"}>
+										<a href={href()}>
 											<div
 												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker.name}
+												{marker.name || marker.category.nodes?.[0]?.title}
 											</div>
 										</a>
 									</InfoWindow>

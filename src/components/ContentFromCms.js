@@ -18,5 +18,8 @@ import styles from "@/styles/components/ContentFromCms.module.scss";
 
 /** Content from cms */
 export default function ContentFromCms({ children }) {
+	if (!children) {
+		return "";
+	}
 	return <div className={`${styles.contentFromCms}`}>{parse(children)}</div>;
 }

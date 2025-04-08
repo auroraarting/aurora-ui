@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Regions Data */
 export const getRegions = async () => {
 	const query = `
-   query NewQuery {
+ query NewQuery {
   regions {
     nodes {
       name
@@ -41,29 +41,26 @@ export const getRegions = async () => {
                         name
                       }
                     }
-                    ... on Services {
+                    ... on Product {
                       id
-                      banner {
-                        map {
-                          lat
-                          lng
-                        }
-                      }
-                      slug
                       title
+                      slug
                     }
                     ... on Software {
                       id
-                      softwares {
-                        map {
-                          lat
-                          lng
-                        }
-                      }
+                      title
+                      slug
+                    }
+                    ... on Services {
+                      id
                       title
                       slug
                     }
                   }
+                }
+                coordinates {
+                  lat
+                  lng
                 }
               }
             }
@@ -105,152 +102,149 @@ export const getGlobalPresencePage = async () => {
 export const getCountryInside = async (slug) => {
 	const query = `
    query NewQuery {
-  countryBy(slug: "${slug}") {
-    slug
-      title
-       countries {
-        bannerSection {
-          description
-          title
-          videoLink
-          image {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
-          mobileImage {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
-        }
-        announcement {
-          slide {
-            thumbnailImage {
-              node {
-                altText
-                sourceUrl
-              }
-            }
-            videoLink
-            heading
-            description
-            buttonText
-            buttonLink
-          }
-        }
-        introduction {
-          sectionTitle
-          tabTitle
-          description
-        }
-        ourOfferings {
-          sectionTitle
-          tabTitle
-        }
-        keyAdvantages {
-          buttonLink
-          buttonText
-          descripition
-          sectionTitle
-          advantages {
-            description
-            image {
-              node {
-                altText
-                sourceUrl(size: LARGE)
-              }
-            }
-          }
-        }
-        availableRegions {
-          sectionTitle
-          tabTitle
-        }
-        ourClients {
-          sectionTitle
-          tabTitle
-        }
-        eventsAndWebinars {
-          sectionTitle
-          tabTitle
-        }
-        insights {
-          sectionTitle
-        }
-        subscribeSection {
-          description
-          sectionTitle
-          image {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
-        }
-        map {
-          zoom
-          countryPin {
-            lat
-            lng
-          }
-          markers {
-            icon {
-              node {
-                altText
-                sourceUrl(size: LARGE)
-              }
-            }
-            mapThumbnail {
-              node {
-                altText
-                sourceUrl(size: LARGE)
-              }
-            }
-            category {
-              nodes {
-                contentType {
-                  node {
-                    name
-                  }
+    countryBy(slug: "${slug}") {
+            slug
+            title
+            countries {
+            bannerSection {
+                description
+                title
+                videoLink
+                image {
+                node {
+                    altText
+                    sourceUrl(size: LARGE)
                 }
-                ... on Services {
-                  id
-                  banner {
-                    map {
-                      lat
-                      lng
+                }
+                mobileImage {
+                node {
+                    altText
+                    sourceUrl(size: LARGE)
+                }
+                }
+            }
+            announcement {
+                slide {
+                thumbnailImage {
+                    node {
+                    altText
+                    sourceUrl
                     }
-                  }
-                  slug
-                  title
                 }
-                ... on Software {
-                  id
-                  banner {
-                    map {
-                      lat
-                      lng
-                    }
-                  }
-                  title
-                  slug
+                videoLink
+                heading
+                description
+                buttonText
+                buttonLink
                 }
-              }
             }
-          }
+            introduction {
+                sectionTitle
+                tabTitle
+                description
+            }
+            ourOfferings {
+                sectionTitle
+                tabTitle
+            }
+            keyAdvantages {
+                buttonLink
+                buttonText
+                descripition
+                sectionTitle
+                advantages {
+                description
+                image {
+                    node {
+                    altText
+                    sourceUrl(size: LARGE)
+                    }
+                }
+                }
+            }
+            availableRegions {
+                sectionTitle
+                tabTitle
+            }
+            ourClients {
+                sectionTitle
+                tabTitle
+            }
+            eventsAndWebinars {
+                sectionTitle
+                tabTitle
+            }
+            insights {
+                sectionTitle
+            }
+            subscribeSection {
+                description
+                sectionTitle
+                image {
+                node {
+                    altText
+                    sourceUrl(size: LARGE)
+                }
+                }
+            }
+            map {
+                zoom
+                countryPin {
+                lat
+                lng
+                }
+                markers {
+                icon {
+                    node {
+                    altText
+                    sourceUrl(size: LARGE)
+                    }
+                }
+                mapThumbnail {
+                    node {
+                    altText
+                    sourceUrl(size: LARGE)
+                    }
+                }
+                category {
+                    nodes {
+                    contentType {
+                        node {
+                        name
+                        }
+                    }
+                    ... on Services {
+                        id
+                        slug
+                        title
+                    }
+                    ... on Software {
+                        id
+                        title
+                        slug
+                    }
+                    ... on Product {
+                        id
+                        title
+                        slug
+                    }
+                    }
+                }
+                coordinates {
+                    lat
+                    lng
+                }
+                }
+            }
+            }
+            featuredImage {
+            node {
+                altText
+                sourceUrl(size: LARGE)
+            }
+            }
         }
-      }
-      featuredImage {
-        node {
-          altText
-          sourceUrl(size: LARGE)
-        }
-      }
-  }
-}
+    }
     `;
 	const res = await GraphQLAPI(query);
 	return res;

@@ -94,10 +94,10 @@ export default function TestimonialFeedback({ data }) {
 									<SwiperSlide key={ind}>
 										<div className={`${styles.testimonialItem}`}>
 											<div className={`${styles.testimonialTxt}`}>
-												<p className="text_md color_dark_gray f_w_i font_primary d_f">
+												<div className="text_md color_dark_gray f_w_i font_primary d_f">
 													<img src={quate.src} className={`${styles.quate}`} alt="quate" />
 													<ContentFromCms>{item.content}</ContentFromCms>
-												</p>
+												</div>
 											</div>
 											<div className={`${styles.nameTxt}`}>
 												<h5 className="text_lg ont_primary f_w_m color_secondary">
