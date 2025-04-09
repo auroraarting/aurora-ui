@@ -4,14 +4,65 @@
 	width: 100%;
 	z-index: 20;
 	top: 0;
-	box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.2);
+	// box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.2);
 	background-color: var(--color_white);
-	padding: 0px 80px;
+	border-bottom: 1px solid rgba(44, 44, 44, 0.2);
+
+	.headerTopBg {
+		background-color: var(--color_primary);
+		padding: 0px 80px;
+		@media (max-width: 1199px) {
+			padding: 0px 30px;
+		}
+		@media (max-width: 767px) {
+			padding: 0px 15px;
+		}
+		.searchRight {
+			width: 80%;
+			padding: 7px 20px 7px 0px;
+			border-right: 1px solid rgba(44, 44, 44, 0.2);
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			@media (max-width: 767px) {
+				width: 50%;
+			}
+			.searchFlex {
+				span {
+					padding-left: 15px;
+				}
+			}
+		}
+		.searchLeft {
+			width: 20%;
+			padding-left: 20px;
+			@media (max-width: 767px) {
+				width: 50%;
+			}
+			.eosFlex {
+				span {
+					padding-left: 5px;
+				}
+			}
+		}
+	}
 }
 .main_header {
+	padding: 0px 80px;
+	@media (max-width: 1199px) {
+		padding: 0px 30px;
+	}
+	@media (max-width: 767px) {
+		padding: 0px 15px;
+	}
+	.menuListBox {
+	}
 	.header_inside {
 		@extend %f_r_a_center;
 		justify-content: space-between;
+		width: 80%;
+		border-right: 1px solid rgba(44, 44, 44, 0.2);
+		padding-right: 20px;
 		.image_wrap {
 			padding: 10px 0;
 			// max-width: 120px;
@@ -22,7 +73,7 @@
 			align-self: stretch;
 			padding-inline-start: 0;
 			// The menu is transformed as per sidebar on click of hamburger icon
-			@include sm-down {
+			@include lg-down {
 				padding-top: 5%;
 				background-color: var(--color_white);
 				transition: ease all 300ms;
@@ -40,7 +91,7 @@
 				list-style-type: none;
 				cursor: pointer;
 				padding: 0 15px;
-				@include sm-down {
+				@include lg-down {
 					padding: 15px;
 					flex-direction: column;
 					align-items: stretch;
@@ -68,7 +119,7 @@
 					top: 100%;
 					transform: translateY(-10px);
 					visibility: hidden;
-					@include sm-down {
+					@include lg-down {
 						padding-top: 15px;
 						position: relative;
 						display: none;
@@ -106,7 +157,7 @@
 						transform: translateY(2px);
 						opacity: 1;
 						visibility: visible;
-						@include sm-down {
+						@include lg-down {
 							display: block;
 						}
 					}
@@ -131,10 +182,14 @@
 				background-color: black;
 				transition: ease all 300ms;
 			}
-			@include sm-down {
+			@include lg-down {
 				display: flex;
 			}
 		}
+	}
+	.globalList {
+		width: 20%;
+		padding-left: 20px;
 	}
 
 	// This class is added when hamburger is clicked to open in mobile

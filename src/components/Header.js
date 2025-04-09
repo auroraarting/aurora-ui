@@ -17,6 +17,8 @@ import styles from "@/styles/components/Header.module.scss";
 // IMAGES //
 import Arrow from "@/../public/img/icons/arrow.svg";
 import logo from "@/../public/img/logo.svg";
+import search from "@/../public/img/icons/search.svg";
+import login_icon from "@/../public/img/icons/login_icon.svg";
 
 // DATA //
 
@@ -39,13 +41,32 @@ export default function Header() {
 
 	return (
 		<header className={`${styles.main_headerBox}`}>
-			<div>dfdg</div>
+			<div className={`${styles.headerTopBg} f_r_aj_between`}>
+				<div className={`${styles.searchRight}`}>
+					<a
+						href=""
+						className={`${styles.searchFlex} text_sm f_w_m color_dark_gray font_primary f_r_a_center`}
+					>
+						<img src={search.src} alt="search" />
+						<span>Search</span>
+					</a>
+				</div>
+				<div className={`${styles.searchLeft}`}>
+					<a
+						href=""
+						className={`${styles.eosFlex} text_xxs f_w_m font_primary color_secondary f_r_a_center`}
+					>
+						<img src={login_icon.src} alt="login" />
+						<span>EOS Sign in</span>
+					</a>
+				</div>
+			</div>
 			<div
 				className={`${styles.main_header} ${
 					openSidebar ? styles.sidebar_opened : ""
 				}`}
 			>
-				<div className="">
+				<div className={`${styles.menuListBox} f_r_aj_between`}>
 					<div className={`${styles.header_inside}`}>
 						{/* Logo wrap */}
 						<Link href="/">
@@ -125,6 +146,9 @@ export default function Header() {
 							<span className={styles.hamburger_line}></span>
 							<span className={styles.hamburger_line}></span>
 						</div>
+					</div>
+					<div className={`${styles.globalList}`}>
+						<p>Global Presence </p>
 					</div>
 				</div>
 			</div>
