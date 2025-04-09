@@ -42,6 +42,8 @@ export default function TransactionSolutions({ data }) {
 		const spaceLeftArray = gsap.utils.toArray(`.${styles.SpaceLeft}`);
 		const spaceLeftArrayImg = gsap.utils.toArray(`.${styles.flexItemTwo} img`);
 
+		console.log(spaceLeftArray.length);
+
 		spaceLeftArray.forEach((star, idx) => {
 			if (spaceLeftArray.length === idx + 1) {
 				animTimeline.to(
@@ -92,7 +94,7 @@ export default function TransactionSolutions({ data }) {
 			animation: animTimeline,
 			trigger: `.${styles.TransactionSolutions}`,
 			start: "top top",
-			end: "+=" + winH * data.length,
+			end: "+=" + winH * (data?.length || spaceLeftArray.length),
 			scrub: true,
 			pin: true,
 			// markers: true,
@@ -103,7 +105,7 @@ export default function TransactionSolutions({ data }) {
 		<section className={`${styles.TransactionSolutions}`}>
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
-					{data.map((item, ind) => {
+					{data?.map((item, ind) => {
 						return (
 							<div
 								className={`${styles.SpaceLeft}`}
@@ -134,9 +136,81 @@ export default function TransactionSolutions({ data }) {
 							</div>
 						);
 					})}
+					{(data?.length === 0 || !data) && (
+						<>
+							<div className={`${styles.SpaceLeft}`}>
+								<div className={`${styles.spaceInner}`}>
+									<img src={PowerRenewables.src} alt="solar plant" />
+									<h2 className="text_xl font_primary f_w_m color_white pt_40">
+										Lorem ipsum dolor sit amet consectetur
+									</h2>
+									<p className={`${styles.label} text_reg color_platinum_gray`}>
+										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
+										tellus imperdiet.
+									</p>
+									<div className={`${styles.bookBtn} pt_30`}>
+										<Button color="secondary" variant="underline" mode="dark">
+											Know more
+										</Button>
+									</div>
+								</div>
+							</div>
+							<div className={`${styles.SpaceLeft}`}>
+								<div className={`${styles.spaceInner}`}>
+									<img src={PowerRenewables.src} alt="solar plant" />
+									<h2 className="text_xl font_primary f_w_m color_white pt_40">
+										Lorem ipsum dolor sit amet consectetur
+									</h2>
+									<p className={`${styles.label} text_reg color_platinum_gray`}>
+										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
+										tellus imperdiet.
+									</p>
+									<div className={`${styles.bookBtn} pt_30`}>
+										<Button color="secondary" variant="underline" mode="dark">
+											Know more
+										</Button>
+									</div>
+								</div>
+							</div>
+							<div className={`${styles.SpaceLeft}`}>
+								<div className={`${styles.spaceInner}`}>
+									<img src={Hydrogen.src} alt="solar plant" />
+									<h2 className="text_xl font_primary f_w_m color_white pt_40">
+										Lorem ipsum dolor sit amet consectetur
+									</h2>
+									<p className={`${styles.label} text_reg color_platinum_gray`}>
+										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
+										tellus imperdiet.
+									</p>
+									<div className={`${styles.bookBtn} pt_30`}>
+										<Button color="secondary" variant="underline" mode="dark">
+											Know more
+										</Button>
+									</div>
+								</div>
+							</div>
+							<div className={`${styles.SpaceLeft}`}>
+								<div className={`${styles.spaceInner}`}>
+									<img src={Grid.src} alt="solar plant" />
+									<h2 className="text_xl font_primary f_w_m color_white pt_40">
+										Lorem ipsum dolor sit amet consectetur
+									</h2>
+									<p className={`${styles.label} text_reg color_platinum_gray`}>
+										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
+										tellus imperdiet.
+									</p>
+									<div className={`${styles.bookBtn} pt_30`}>
+										<Button color="secondary" variant="underline" mode="dark">
+											Know more
+										</Button>
+									</div>
+								</div>
+							</div>
+						</>
+					)}
 				</div>
 				<div className={`${styles.flexItemTwo}`}>
-					{data.map((item, ind) => {
+					{data?.map((item, ind) => {
 						return (
 							<img
 								key={ind}
@@ -145,6 +219,14 @@ export default function TransactionSolutions({ data }) {
 							/>
 						);
 					})}
+					{(data?.length === 0 || !data) && (
+						<>
+							<img src={Banner1.src} alt="solar plant" />
+							<img src={Banner2.src} alt="solar plant" />
+							<img src={Banner3.src} alt="solar plant" />
+							<img src={Banner4.src} alt="solar plant" />
+						</>
+					)}
 				</div>
 			</div>
 		</section>
