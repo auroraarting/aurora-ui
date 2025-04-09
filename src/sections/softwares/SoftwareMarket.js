@@ -32,26 +32,22 @@ import locationJson from "@/data/locations.json";
 /** SoftwareBanner Section */
 export default function SoftwareMarket({
 	sectionTitle = "From your market to the world",
+	mapJson,
 }) {
-	const [visibleLocations, setVisibleLocations] = useState([]);
-	const [visibleCountry, setVisibleCountry] = useState(""); // Stores the currently visible country
-	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
-	const [valueOfSelect, setValueOfSelect] = useState(0);
-	const [map, setMap] = useState(null);
+	/** centerOfCountry  */
+	let centerOfCountry = () => {
+		if (mapJson) {
+			return {
+				lat: parseFloat(mapJson.countryPin.lat),
+				lng: parseFloat(mapJson.countryPin.lng),
+			};
+		}
 
-	/** changeMapCenter */
-	const changeMapCenter = (country) => {
-		setMapCenter(locationJson[country.index]?.centerOfCountry);
-		map.setZoom(locationJson[country.index]?.zoom || 4);
+		return locationJson[0]?.centerOfCountry;
 	};
 
-	useEffect(() => {
-		if (visibleCountry === "") {
-			return;
-		}
-		const index = locationJson.findIndex((item) => item.name === visibleCountry);
-		setValueOfSelect(index);
-	}, [visibleCountry]);
+	const [mapCenter, setMapCenter] = useState(centerOfCountry());
+	const [map, setMap] = useState(null);
 
 	return (
 		<section className={`${styles.SoftwareMarket} `} id="availableregions">
@@ -118,15 +114,7 @@ export default function SoftwareMarket({
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
-						<Map
-							mapCenter={mapCenter}
-							setVisibleLocations={setVisibleLocations}
-							setVisibleCountry={setVisibleCountry}
-							setValueOfSelect={setValueOfSelect}
-							valueOfSelect={valueOfSelect}
-							map={map}
-							setMap={setMap}
-						/>
+						<Map mapCenter={mapCenter} map={map} setMap={setMap} mapJson={mapJson} />
 
 						{/* <div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>

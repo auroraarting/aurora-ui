@@ -14,6 +14,8 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import TopMedia from "@/sections/media-center/TopMedia";
 import MediaListing from "@/sections/media-center/MediaListing";
 import MediaTeam from "@/sections/media-center/MediaTeam";
+import MediaKitInfo from "@/sections/media-center/MediaKitInfo";
+import Leaders from "@/sections/media-center/Leaders";
 
 // PLUGINS //
 
@@ -83,17 +85,24 @@ export default function MediaCenter() {
 							<div className="pb_40">
 								<TopMedia />
 							</div>
-							<div>
+							<div className="pb_100">
 								<MediaListing />
 							</div>
 						</div>
 					)}
 					{activeTab === "MediaKit" && (
-						<div className={`${styles.categoryContent}`}>fgfhgfd</div>
+						<div className={`${styles.categoryContent} pt_60`}>
+							<div className="pb_100">
+								<MediaKitInfo />
+							</div>
+							<div className="pb_100">
+								<Leaders />
+							</div>
+						</div>
 					)}
 				</section>
 				<div className={`${styles.mediaBottomBg} dark_bg ptb_100`}>
-					<div className="pb_40">
+					<div className="pb_80">
 						<MediaTeam />
 					</div>
 					<Insights isPowerBgVisible={true} />

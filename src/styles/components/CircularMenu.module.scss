@@ -1,1 +1,54 @@
 @import "../helpers/helpers.scss";
+
+.selected {
+	&.hide {
+		opacity: 0;
+	}
+}
+
+.CircleBox {
+	position: relative;
+	width: 500px;
+	height: 500px;
+	border-radius: 50%;
+	flex-direction: column;
+	// background-color: #1a1a1a;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	// overflow: hidden;
+	// box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	// border: 2px solid #333;
+
+	@include sm-down {
+		width: 300px;
+		height: 300px;
+	}
+}
+.CircleBox:hover .Quadrant:first-child {
+	background-color: transparent;
+}
+.CircleBox:hover .Quadrant:first-child .Icon {
+	filter: invert(1);
+}
+
+.CenterBox {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	background-color: #1a1a1a;
+	border-radius: 50%;
+	border: 2px solid #333;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+	&.white {
+		background-color: var(--color_silver);
+		border: 2px solid var(--color_silver_gray);
+		box-shadow: none;
+	}
+
+	@include sm-down {
+		width: 100px;
+		height: 100px;
+	}
+}

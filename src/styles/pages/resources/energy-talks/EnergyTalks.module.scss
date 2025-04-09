@@ -1,0 +1,21 @@
+@import "../../../helpers/helpers.scss";
+.EnergyPage {
+	background-color: var(--color_silver);
+	.eventBottomBg {
+		background-image: url("../../../../../public/img/events/bottomBg.png");
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: bottom center;
+	}
+	:global(.insightsBg) {
+		background-image: none !important;
+		padding: 0px 60px !important;
+		@media (max-width: 1340px) {
+			padding: 0px 0px !important;
+		}
+	}
+	:global(.powerBg) {
+		border-bottom: none !important;
+		padding-bottom: 0px !important;
+	}
+}

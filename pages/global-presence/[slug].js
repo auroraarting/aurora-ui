@@ -117,7 +117,10 @@ export default function Australia({ data }) {
 				</div>
 				<ServicesCircle data={data.countries.keyAdvantages} />
 				<div className="ptb_100">
-					<SoftwareMarket sectionTitle="Energy intelligence across every key market" />
+					<SoftwareMarket
+						sectionTitle="Energy intelligence across every key market"
+						mapJson={data.countries.map}
+					/>
 				</div>
 				<div className="pb_100">
 					<TrustedLeaders />

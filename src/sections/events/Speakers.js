@@ -131,7 +131,7 @@ export default function Speakers() {
 									</div>
 									<div className={`${styles.content} pt_20`}>
 										<h5 className="text_reg f_w_m color_white font_secondary">
-											{item.title}
+											{item.name}
 										</h5>
 										<p className="text_xs color_platinum_gray">{item.designation}</p>
 									</div>
@@ -164,6 +164,7 @@ export default function Speakers() {
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
+										autoHeight={true}
 										speed={500}
 										loop={true}
 										navigation={{
@@ -187,7 +188,9 @@ export default function Speakers() {
 																>
 																	{item.name}
 																</h5>
-																<p className="text_xs color_silver_gray">{item.designation}</p>
+																<p className="text_xs color_silver_gray l_h_6">
+																	{item.designation}
+																</p>
 															</div>
 															<p className={`${styles.Desc} text_xs color_silver_gray`}>
 																{parse(item.desc)}

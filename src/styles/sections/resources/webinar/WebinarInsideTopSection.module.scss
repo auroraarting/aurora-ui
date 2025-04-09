@@ -1,0 +1,43 @@
+@import "../../../helpers/helpers.scss";
+.WebinarInsideTopSection {
+	.card {
+		@media (max-width: 767px) {
+			flex-direction: column-reverse;
+		}
+		.content {
+			width: 50%;
+			// @media (max-width: 1199px) {
+			// 	width: 54%;
+			// }
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-top: 30px;
+			}
+			.tag {
+				background-color: var(--color_blue);
+				padding: 12px 12px;
+				border-radius: 8px;
+				width: max-content;
+				margin-top: 30px;
+			}
+
+			.dateFlex {
+				align-items: center;
+				p {
+					margin-right: 20px;
+					padding-right: 20px;
+					border-right: 1px solid var(--color_dark_gray);
+					&:last-child {
+						border-right: none;
+					}
+					img {
+					}
+					span {
+						margin-left: 5px;
+						margin-top: 2px;
+					}
+				}
+			}
+		}
+	}
+}

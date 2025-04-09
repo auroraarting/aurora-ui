@@ -11,9 +11,9 @@ import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
-import CaseStudiesTop from "@/sections/resources/case-studies/CaseStudiesTop";
-import CaseStudiesMiddleDescription from "@/sections/resources/case-studies/CaseStudiesMiddleDescription";
-import Client from "@/sections/resources/case-studies/Client";
+import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
+import CaseStudiesMiddleDescription from "@/sections/resources/aurora-insights/CaseStudiesMiddleDescription";
+import Client from "@/sections/resources/aurora-insights/Client";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";

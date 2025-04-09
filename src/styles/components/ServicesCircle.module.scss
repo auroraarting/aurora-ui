@@ -12,22 +12,9 @@
 			grid-template-columns: repeat(1, 1fr);
 		}
 
-		.CircleBox {
-			position: relative;
-			width: 500px;
-			height: 500px;
-			border-radius: 50%;
-			// background-color: #1a1a1a;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			// overflow: hidden;
-			// box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-			// border: 2px solid #333;
-
-			@include sm-down {
-				width: 300px;
-				height: 300px;
+		.selected {
+			&.hide {
+				opacity: 0;
 			}
 		}
 
@@ -37,13 +24,6 @@
 			.Icon {
 				filter: invert(0);
 			}
-		}
-
-		.CircleBox:hover .Quadrant:first-child {
-			background-color: transparent;
-		}
-		.CircleBox:hover .Quadrant:first-child .Icon {
-			filter: invert(1);
 		}
 
 		.TopLeft {
@@ -74,6 +54,12 @@
 			border-radius: 50%;
 			border: 2px solid #333;
 			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+			&.white {
+				background-color: var(--color_silver);
+				border: 2px solid var(--color_silver_gray);
+				box-shadow: none;
+			}
 
 			@include sm-down {
 				width: 100px;

@@ -1,0 +1,42 @@
+@import "../../../helpers/helpers.scss";
+.WebinarInsidePage {
+	background-color: var(--color_silver);
+	.topBg {
+		background-image: url("../../../../../public/img/resources/webinar/webinarBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: bottom left;
+	}
+	.mediaMiddle {
+		.mediaMiddleFlex {
+			@media (max-width: 767px) {
+				flex-wrap: wrap;
+			}
+			.mediaMiddleLeft {
+				width: 67%;
+				@media (max-width: 1199px) {
+					width: 63%;
+				}
+				// @media (max-width: 991px) {
+				// 	width: 55%;
+				// }
+				@media (max-width: 767px) {
+					width: 100%;
+					margin-bottom: 40px;
+				}
+			}
+			.mediaMiddleRight {
+				width: 25%;
+				@media (max-width: 1199px) {
+					width: 30%;
+				}
+				@media (max-width: 991px) {
+					width: 35%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

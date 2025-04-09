@@ -1,0 +1,13 @@
+@import "../../helpers/helpers.scss";
+.ProductInsidePage {
+	background-color: var(--color_silver);
+	.insightBg {
+		background-color: var(--color_secondary);
+		.boxBg {
+			background-image: url("../../../../public/img/global-presence/insightBg.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: top center;
+		}
+	}
+}
