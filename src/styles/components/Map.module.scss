@@ -12,7 +12,7 @@
 		// border-radius: 100px;
 		padding: 0;
 		background-color: transparent;
-		transform: translateX(-120%) translateY(-50%);
+		transform: translateX(calc(-100% - 15px)) translateY(-50%);
 	}
 	:global(.gm-style-iw-d) {
 		overflow: hidden !important;

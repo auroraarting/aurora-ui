@@ -34,8 +34,18 @@ import styles from "@/styles/pages/product/ProductInside.module.scss";
 // DATA //
 import locationJson from "@/data/globalMap.json";
 
+// SERVICES //
+import { getProductBySlug } from "@/services/Products.service";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data] = await Promise.all([getProductBySlug(params.slug)]);
+	return { props: { data: data.data.productBy } };
+}
+
 /** ProductInside Page */
-export default function ProductInside() {
+export default function ProductInside({ data }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
