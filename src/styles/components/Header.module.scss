@@ -10,20 +10,23 @@
 
 	.headerTopBg {
 		background-color: var(--color_primary);
-		padding: 0px 80px;
-		@media (max-width: 1199px) {
+		padding: 0px 50px;
+		@media (max-width: 1366px) {
 			padding: 0px 30px;
 		}
 		@media (max-width: 767px) {
 			padding: 0px 15px;
 		}
 		.searchRight {
-			width: 80%;
+			width: 85%;
 			padding: 7px 20px 7px 0px;
 			border-right: 1px solid rgba(44, 44, 44, 0.2);
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
+			@media (max-width: 1199px) {
+				width: 75%;
+			}
 			@media (max-width: 767px) {
 				width: 50%;
 			}
@@ -34,8 +37,11 @@
 			}
 		}
 		.searchLeft {
-			width: 20%;
+			width: 15%;
 			padding-left: 20px;
+			@media (max-width: 1199px) {
+				width: 25%;
+			}
 			@media (max-width: 767px) {
 				width: 50%;
 			}
@@ -48,21 +54,34 @@
 	}
 }
 .main_header {
-	padding: 0px 80px;
-	@media (max-width: 1199px) {
+	padding: 0px 50px;
+	@media (max-width: 1366px) {
 		padding: 0px 30px;
 	}
 	@media (max-width: 767px) {
-		padding: 0px 15px;
+		padding: 0px 0px;
 	}
 	.menuListBox {
+		@media (max-width: 767px) {
+			flex-wrap: wrap;
+		}
 	}
 	.header_inside {
 		@extend %f_r_a_center;
 		justify-content: space-between;
-		width: 80%;
+		width: 85%;
 		border-right: 1px solid rgba(44, 44, 44, 0.2);
 		padding-right: 20px;
+		@media (max-width: 1199px) {
+			width: 75%;
+		}
+		@media (max-width: 767px) {
+			width: 100%;
+			border-right: none;
+			border-bottom: 1px solid rgba(44, 44, 44, 0.2);
+			padding: 0px 16px;
+			padding-right: 15px;
+		}
 		.image_wrap {
 			padding: 10px 0;
 			// max-width: 120px;
@@ -89,12 +108,29 @@
 				@extend %relative_box;
 				@extend %f_r_a_center;
 				list-style-type: none;
-				cursor: pointer;
-				padding: 0 15px;
+				// cursor: pointer;
+				margin: 0 8px;
+				//height: 80px;
 				@include lg-down {
+					margin: 0px;
 					padding: 15px;
 					flex-direction: column;
 					align-items: stretch;
+					//height: auto;
+				}
+				&::after{
+					content: '';
+					position: absolute;
+					width: 100%;
+					height: 4px;
+					background-color: var(--color_blue);
+					bottom: 0;
+					left: 0;
+					transform: scale(0);
+					transition: .5s all ease-out;
+				}
+				&:hover:after {
+					transform: scaleX(1);
 				}
 				&:last-child {
 					margin-right: 0;
@@ -103,6 +139,11 @@
 				.link_title {
 					@extend %f_r_a_center;
 					justify-content: space-between;
+					cursor: pointer;
+					height: 80px;
+					@media (max-width: 1199px) {
+						height: auto;
+					}
 				}
 
 				// Dropdown on links
@@ -111,14 +152,15 @@
 					transform-origin: top;
 					transition: ease all 300ms;
 					background-color: var(--color_white);
-					min-width: 200px;
-					width: max-content;
+					// min-width: 200px;
+					// width: max-content;
 					border-top: 0;
-					position: absolute;
+					position: fixed;
 					left: 0;
-					top: 100%;
+					top: 116px;
 					transform: translateY(-10px);
 					visibility: hidden;
+					width: 100%;
 					@include lg-down {
 						padding-top: 15px;
 						position: relative;
@@ -137,7 +179,7 @@
 				&.has_dropdown {
 					.link_title {
 						p {
-							margin-right: 15px;
+							margin-right: 8px;
 						}
 					}
 					.arrow_img {
@@ -188,8 +230,17 @@
 		}
 	}
 	.globalList {
-		width: 20%;
+		width: 15%;
 		padding-left: 20px;
+		display: flex;
+    align-items: center;
+		@media (max-width: 1199px) {
+			width: 25%;
+		}
+		@media (max-width: 767px) {
+			width: 100%;
+			padding: 10px 15px;
+		}
 	}
 
 	// This class is added when hamburger is clicked to open in mobile
@@ -209,6 +260,46 @@
 		}
 		.links_wrap {
 			transform: translateX(0) !important;
+		}
+	}
+
+	.megaMenuBox{
+		padding-left: calc(var(--container_left_space) + 15px);
+		border-bottom: 1px solid rgba(44, 44, 44, 0.2);
+		.menuBoxRight{
+			width: 65%;
+			padding: 40px 40px 60px 0px;
+			.pageName{
+				padding-bottom: 10px;
+				border-bottom: 1px solid var(--color_platinum_gray);
+			}
+			.pageLinks{
+				width: 400px;
+				display: flex;
+				flex-wrap: wrap;
+				.pageLinksTxt{
+					width: 50%;
+					margin-bottom: 10px;
+					span{
+						padding-right: 10px;
+					}
+					img{
+						opacity: 0;
+					}
+					&:hover{
+						color: var(--color_secondary);
+						font-weight: 600;
+						img{
+							opacity: 1;
+						}
+					}
+				}
+			}
+		}
+		.menuBoxleft{
+			width: 35%;
+			background-color: var(--color_silver);
+			padding: 60px 40px 60px 40px;
 		}
 	}
 }

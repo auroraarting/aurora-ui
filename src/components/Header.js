@@ -19,6 +19,7 @@ import Arrow from "@/../public/img/icons/arrow.svg";
 import logo from "@/../public/img/logo.svg";
 import search from "@/../public/img/icons/search.svg";
 import login_icon from "@/../public/img/icons/login_icon.svg";
+import menu_hover_arrow from "@/../public/img/icons/menu_hover_arrow.svg";
 
 // DATA //
 
@@ -80,12 +81,67 @@ export default function Header() {
 							{/* Add "has_dropdown" class if your link has dropdown */}
 							<div
 								className={`${styles.links} ${styles.has_dropdown} ${
-									openDropdown === "aboutUs" ? styles.dropdown_opened : ""
+									openDropdown === "company" ? styles.dropdown_opened : ""
 								} dropdown`}
-								onClick={() => toggleDropdown("aboutUs")}
+								onClick={() => toggleDropdown("company")}
 							>
 								<div className={styles.link_title}>
-									<p>About Us</p>
+									<p className="text_xs font_primary color_dark_gray">Company</p>
+									<span className={styles.arrow_img}>
+										<Image src={Arrow} alt="Arrow" />
+									</span>
+								</div>
+								{/* Dropdown is opened when link is clicked */}
+								<div className={`${styles.dropdown_wrap}`}>
+									<div className={`${styles.megaMenuBox} f_w_j`}>
+										<div className={`${styles.menuBoxRight}`}>
+											<div className={`${styles.pageName}`}>
+												<h4 className="text_xxs font_primary color_medium_gray">
+													Who We Are
+												</h4>
+											</div>
+											<div className={`${styles.pageLinks} pt_20`}>
+												<a
+													href=""
+													className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+												>
+													<span>About Us</span>{" "}
+													<img src={menu_hover_arrow.src} alt="arrow" />
+												</a>
+												<a
+													href=""
+													className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+												>
+													<span>Global Presence</span>{" "}
+													<img src={menu_hover_arrow.src} alt="arrow" />
+												</a>
+												<a
+													href=""
+													className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+												>
+													<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
+												</a>
+												<a
+													href=""
+													className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+												>
+													<span>Contact Us</span>{" "}
+													<img src={menu_hover_arrow.src} alt="arrow" />
+												</a>
+											</div>
+										</div>
+										<div className={`${styles.menuBoxleft}`}>bcvbc</div>
+									</div>
+								</div>
+							</div>
+							<div
+								className={`${styles.links} ${styles.has_dropdown} ${
+									openDropdown === "WhoAreYou" ? styles.dropdown_opened : ""
+								} dropdown`}
+								onClick={() => toggleDropdown("WhoAreYou")}
+							>
+								<div className={styles.link_title}>
+									<p className="text_xs font_primary color_dark_gray">Who Are You</p>
 									<span className={styles.arrow_img}>
 										<Image src={Arrow} alt="Arrow" />
 									</span>
@@ -93,24 +149,76 @@ export default function Header() {
 								{/* Dropdown is opened when link is clicked */}
 								<div className={`${styles.dropdown_wrap}`}>
 									<Link href="">
-										<p className={styles.dropdown_links}>About 1</p>
+										<p className={styles.dropdown_links}>Blog 1</p>
 									</Link>
 									<Link href="">
-										<p className={styles.dropdown_links}>About 2</p>
+										<p className={styles.dropdown_links}>Blog 2</p>
 									</Link>
 									<Link href="">
-										<p className={styles.dropdown_links}>About 3</p>
+										<p className={styles.dropdown_links}>Blog 3</p>
 									</Link>
 								</div>
 							</div>
 							<div
 								className={`${styles.links} ${styles.has_dropdown} ${
-									openDropdown === "blogs" ? styles.dropdown_opened : ""
+									openDropdown === "HowWeHelp" ? styles.dropdown_opened : ""
 								} dropdown`}
-								onClick={() => toggleDropdown("blogs")}
+								onClick={() => toggleDropdown("HowWeHelp")}
 							>
 								<div className={styles.link_title}>
-									<p>Blogs</p>
+									<p className="text_xs font_primary color_dark_gray">How We Help</p>
+									<span className={styles.arrow_img}>
+										<Image src={Arrow} alt="Arrow" />
+									</span>
+								</div>
+								{/* Dropdown is opened when link is clicked */}
+								<div className={`${styles.dropdown_wrap}`}>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 1</p>
+									</Link>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 2</p>
+									</Link>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 3</p>
+									</Link>
+								</div>
+							</div>
+							<div
+								className={`${styles.links} ${styles.has_dropdown} ${
+									openDropdown === "ProductServices" ? styles.dropdown_opened : ""
+								} dropdown`}
+								onClick={() => toggleDropdown("ProductServices")}
+							>
+								<div className={styles.link_title}>
+									<p className="text_xs font_primary color_dark_gray">
+										Product & Services
+									</p>
+									<span className={styles.arrow_img}>
+										<Image src={Arrow} alt="Arrow" />
+									</span>
+								</div>
+								{/* Dropdown is opened when link is clicked */}
+								<div className={`${styles.dropdown_wrap}`}>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 1</p>
+									</Link>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 2</p>
+									</Link>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 3</p>
+									</Link>
+								</div>
+							</div>
+							<div
+								className={`${styles.links} ${styles.has_dropdown} ${
+									openDropdown === "Resources" ? styles.dropdown_opened : ""
+								} dropdown`}
+								onClick={() => toggleDropdown("Resources")}
+							>
+								<div className={styles.link_title}>
+									<p className="text_xs font_primary color_dark_gray">Resources</p>
 									<span className={styles.arrow_img}>
 										<Image src={Arrow} alt="Arrow" />
 									</span>
@@ -130,13 +238,37 @@ export default function Header() {
 							</div>
 							<div className={styles.links}>
 								<Link href="">
-									<div className={styles.link_title}>Career</div>
+									<div
+										className={`${styles.link_title} text_xs font_primary color_dark_gray`}
+									>
+										Events
+									</div>
 								</Link>
 							</div>
-							<div className={styles.links}>
-								<Link href="">
-									<div className={styles.link_title}>Contact</div>
-								</Link>
+							<div
+								className={`${styles.links} ${styles.has_dropdown} ${
+									openDropdown === "Careers" ? styles.dropdown_opened : ""
+								} dropdown`}
+								onClick={() => toggleDropdown("Careers")}
+							>
+								<div className={styles.link_title}>
+									<p className="text_xs font_primary color_dark_gray">Careers</p>
+									<span className={styles.arrow_img}>
+										<Image src={Arrow} alt="Arrow" />
+									</span>
+								</div>
+								{/* Dropdown is opened when link is clicked */}
+								<div className={`${styles.dropdown_wrap}`}>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 1</p>
+									</Link>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 2</p>
+									</Link>
+									<Link href="">
+										<p className={styles.dropdown_links}>Blog 3</p>
+									</Link>
+								</div>
 							</div>
 						</div>
 
@@ -148,7 +280,9 @@ export default function Header() {
 						</div>
 					</div>
 					<div className={`${styles.globalList}`}>
-						<p>Global Presence </p>
+						<p className="text_sm font_primary color_dark_gray f_w_m">
+							Global Presence{" "}
+						</p>
 					</div>
 				</div>
 			</div>
