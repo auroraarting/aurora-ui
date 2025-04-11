@@ -176,3 +176,94 @@ query GetSoftwaresBySlug {
 	const res = await GraphQLAPI(query);
 	return res;
 };
+
+/** Fetch Page */
+export const getSoftwarePage = async (slug) => {
+	const query = `
+query GetPageSoftwares {
+  page(id: "software", idType: URI) {
+    title
+    slug
+    softwareLanding {
+      banner {
+        title
+        description
+      }
+      mapMarquee
+      keyAdvantages {
+        title
+        tabTitle
+        description
+        advantages {
+          title
+          description
+          icon {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
+  }
+  softwares {
+    nodes {
+      title
+      slug
+      softwares {
+        thumbnail {
+          banner {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+          logo {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          gradient {
+            from
+            to
+          }
+          shortDescription
+        }
+        ourClient {
+          selectLogos {
+            nodes {
+              ... on ClientsLogo {
+                id
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+          testimonials {
+            nodes {
+              ... on Testimonial {
+                id
+                content
+                title
+                testimonials {
+                  designation
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+      `;
+	const res = await GraphQLAPI(query);
+	return res;
+};

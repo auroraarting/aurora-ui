@@ -358,18 +358,15 @@ export default function Map({
 			>
 				{/* Child components, such as markers, info windows, etc. */}
 				{jsonToBeMapped.map((country) =>
-					country.markers.map((marker, index) => {
+					country?.markers?.map((marker, index) => {
 						/** href */
 						const href = () => {
-							// marker.url ||
-							// 					`/${marker.category.nodes?.[0]?.contentType.node.name}/${marker.category.nodes?.[0]?.slug}` ||
-							// 					"/contact"
-							if (marker.url) return marker.url;
+							if (marker?.url) return marker?.url;
 							if (
-								marker.category.nodes?.[0]?.contentType.node.name &&
-								marker.category.nodes?.[0]?.slug
+								marker?.category?.nodes?.[0]?.contentType?.node?.name &&
+								marker?.category?.nodes?.[0]?.slug
 							) {
-								return `/${marker.category.nodes?.[0]?.contentType.node.name}/${marker.category.nodes?.[0]?.slug}`;
+								return `/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`;
 							}
 
 							return "/contact";
@@ -409,7 +406,7 @@ export default function Map({
 												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker.name || marker.category.nodes?.[0]?.title}
+												{marker?.name || marker?.category?.nodes?.[0]?.title}
 											</div>
 										</a>
 									</InfoWindow>
