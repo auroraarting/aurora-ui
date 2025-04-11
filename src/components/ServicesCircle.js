@@ -35,11 +35,14 @@ export default function ServicesCircle({ data }) {
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
 						<h3 className="text_xl color_white pb_20">
-							{data?.sectionTitle || "Chronos Edge in Energy Storage Valuation"}
+							{data?.sectionTitle ||
+								data?.title ||
+								"Chronos Edge in Energy Storage Valuation"}
 						</h3>
 						<div className="text_reg color_platinum_gray">
 							<ContentFromCms>
 								{data?.descripition ||
+									data?.desciption ||
 									`Lorem ipsum dolor sit amet consectetur. Velit vel iaculis fames velit
                                     mauris morbi volutpat. Senectus purus est cursus ac. Amet tortor at ac a mi eu urna risus nulla.`}
 							</ContentFromCms>

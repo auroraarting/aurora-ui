@@ -25,8 +25,8 @@ import formatDate from "@/utils";
 
 /** CaseStudy Section */
 export default function CaseStudy({ data }) {
-	const first = data?.selectCaseStudies.nodes.slice(0, 1);
-	const restArr = data?.selectCaseStudies.nodes.slice(1, data.length);
+	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
+	const restArr = data?.selectCaseStudies?.nodes?.slice(1, data.length);
 
 	return (
 		<section className={`${styles.CaseStudy}`}>
