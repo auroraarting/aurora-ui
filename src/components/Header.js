@@ -4,6 +4,7 @@ import { useState } from "react";
 // COMPONENTS //
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
 
@@ -15,11 +16,17 @@ import Link from "next/link";
 import styles from "@/styles/components/Header.module.scss";
 
 // IMAGES //
-import Arrow from "@/../public/img/icons/arrow.svg";
+import Arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import logo from "@/../public/img/logo.svg";
 import search from "@/../public/img/icons/search.svg";
 import login_icon from "@/../public/img/icons/login_icon.svg";
+import location from "@/../public/img/icons/location.svg";
+import calender from "@/../public/img/icons/calender.svg";
+import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import menu_hover_arrow from "@/../public/img/icons/menu_hover_arrow.svg";
+import header_img from "@/../public/img/header/header_img.jpg";
+import event_img from "@/../public/img/header/event_img.jpg";
+import event_logo from "@/../public/img/header/event_logo.png";
 
 // DATA //
 
@@ -88,7 +95,7 @@ export default function Header() {
 								<div className={styles.link_title}>
 									<p className="text_xs font_primary color_dark_gray">Company</p>
 									<span className={styles.arrow_img}>
-										<Image src={Arrow} alt="Arrow" />
+										<img src={dropdown_arrow.src} alt="arrow" />
 									</span>
 								</div>
 								{/* Dropdown is opened when link is clicked */}
@@ -129,8 +136,77 @@ export default function Header() {
 													<img src={menu_hover_arrow.src} alt="arrow" />
 												</a>
 											</div>
+											<div className={`${styles.weAreHiring} f_w_j`}>
+												<div className={`${styles.imgBox}`}>
+													<img src={header_img.src} className="width_100 b_r_10" alt="img" />
+												</div>
+												<div className={`${styles.contentBox}`}>
+													<h4 className="text_reg font_primary color_secondary">
+														We are hiring!
+													</h4>
+													<p className="text_xs color_light_gray">
+														Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
+														sodales mperdiet volutpat dui ipsum massa.
+													</p>
+													<div className={`${styles.btn_box} pt_20`}>
+														<Button color="primary" variant="filled" shape="rounded">
+															See Open Positions
+														</Button>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div className={`${styles.menuBoxleft}`}>bcvbc</div>
+										<div className={`${styles.menuBoxleft}`}>
+											<div className={`${styles.ItemBox}`}>
+												<a href="">
+													<div className={`${styles.hoverBox}`}>
+														<div className={`${styles.eventImgBox}`}>
+															<img
+																src={event_img.src}
+																className={`${styles.eventImg}`}
+																alt="img"
+															/>
+															<img
+																src={event_logo.src}
+																className={`${styles.eventLogo}`}
+																alt="event logo"
+															/>
+														</div>
+														<div className={`${styles.eventContentBox}`}>
+															<div
+																className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+															>
+																Upcoming Event
+															</div>
+															<h4
+																className={`${styles.descTxt} text_reg font_primary color_secondary `}
+															>
+																Aurora Energy Transition Summit Warsaw 2025 Aurora Energy
+																Transition Summit Warsaw 2025
+															</h4>
+															<div className={`${styles.dateFlex} f_j pt_30`}>
+																<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+																	<img
+																		src={calender.src}
+																		className={`${styles.calender}`}
+																		alt="calender"
+																	/>
+																	<span>Feb 26, 2025</span>
+																</p>
+																<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
+																	<img
+																		src={location.src}
+																		className={`${styles.location}`}
+																		alt="location"
+																	/>
+																	<span>UK</span>
+																</p>
+															</div>
+														</div>
+													</div>
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -143,7 +219,7 @@ export default function Header() {
 								<div className={styles.link_title}>
 									<p className="text_xs font_primary color_dark_gray">Who Are You</p>
 									<span className={styles.arrow_img}>
-										<Image src={Arrow} alt="Arrow" />
+										<img src={dropdown_arrow.src} alt="arrow" />
 									</span>
 								</div>
 								{/* Dropdown is opened when link is clicked */}
@@ -168,7 +244,7 @@ export default function Header() {
 								<div className={styles.link_title}>
 									<p className="text_xs font_primary color_dark_gray">How We Help</p>
 									<span className={styles.arrow_img}>
-										<Image src={Arrow} alt="Arrow" />
+										<img src={dropdown_arrow.src} alt="arrow" />
 									</span>
 								</div>
 								{/* Dropdown is opened when link is clicked */}
@@ -195,7 +271,7 @@ export default function Header() {
 										Product & Services
 									</p>
 									<span className={styles.arrow_img}>
-										<Image src={Arrow} alt="Arrow" />
+										<img src={dropdown_arrow.src} alt="arrow" />
 									</span>
 								</div>
 								{/* Dropdown is opened when link is clicked */}
@@ -220,7 +296,7 @@ export default function Header() {
 								<div className={styles.link_title}>
 									<p className="text_xs font_primary color_dark_gray">Resources</p>
 									<span className={styles.arrow_img}>
-										<Image src={Arrow} alt="Arrow" />
+										<img src={dropdown_arrow.src} alt="arrow" />
 									</span>
 								</div>
 								{/* Dropdown is opened when link is clicked */}
@@ -254,7 +330,7 @@ export default function Header() {
 								<div className={styles.link_title}>
 									<p className="text_xs font_primary color_dark_gray">Careers</p>
 									<span className={styles.arrow_img}>
-										<Image src={Arrow} alt="Arrow" />
+										<img src={dropdown_arrow.src} alt="arrow" />
 									</span>
 								</div>
 								{/* Dropdown is opened when link is clicked */}
@@ -280,8 +356,9 @@ export default function Header() {
 						</div>
 					</div>
 					<div className={`${styles.globalList}`}>
-						<p className="text_sm font_primary color_dark_gray f_w_m">
-							Global Presence{" "}
+						<p className="text_sm font_primary color_dark_gray f_w_m f_r_a_center">
+							<span>Global Presence </span>
+							<img src={dropdown_arrow.src} alt="arrow" />
 						</p>
 					</div>
 				</div>

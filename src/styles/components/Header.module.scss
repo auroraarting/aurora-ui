@@ -72,6 +72,9 @@
 		width: 85%;
 		border-right: 1px solid rgba(44, 44, 44, 0.2);
 		padding-right: 20px;
+		@media (min-width: 1200px) {
+			padding-right: 120px
+		}
 		@media (max-width: 1199px) {
 			width: 75%;
 		}
@@ -109,7 +112,7 @@
 				@extend %f_r_a_center;
 				list-style-type: none;
 				// cursor: pointer;
-				margin: 0 8px;
+				margin: 0 10px;
 				//height: 80px;
 				@include lg-down {
 					margin: 0px;
@@ -151,7 +154,7 @@
 					opacity: 0;
 					transform-origin: top;
 					transition: ease all 300ms;
-					background-color: var(--color_white);
+					//background-color: var(--color_white);
 					// min-width: 200px;
 					// width: max-content;
 					border-top: 0;
@@ -161,6 +164,15 @@
 					transform: translateY(-10px);
 					visibility: hidden;
 					width: 100%;
+					&::after{
+						content: ' ';
+						position: absolute;
+						background-color: rgba(0, 0, 0, 0.3);
+						left: 0px;
+						top: 0px;
+						width: 100%;
+						height: 100vh;
+					}
 					@include lg-down {
 						padding-top: 15px;
 						position: relative;
@@ -178,16 +190,19 @@
 
 				&.has_dropdown {
 					.link_title {
-						p {
-							margin-right: 8px;
-						}
+						// p {
+						// 	margin-right: 8px;
+						// }
 					}
 					.arrow_img {
 						@extend %f_r_aj_center;
 						width: 12px;
-						transform: rotate(90deg);
+						//transform: rotate(90deg);
 						transition: ease all 300ms;
-
+						
+						@media (min-width: 1200px) {
+							display: none;
+						}
 						img {
 							filter: brightness(0);
 						}
@@ -204,7 +219,7 @@
 						}
 					}
 					.arrow_img {
-						transform: rotate(-90deg);
+						transform: rotate(-180deg);
 					}
 				}
 			}
@@ -216,6 +231,7 @@
 			height: 24px;
 			@extend %f_d_column;
 			justify-content: space-between;
+			cursor: pointer;
 			.hamburger_line {
 				transform-origin: left;
 				display: inline-block;
@@ -241,6 +257,11 @@
 			width: 100%;
 			padding: 10px 15px;
 		}
+		p{
+			span{
+				margin-right: 10px;
+			}
+		}
 	}
 
 	// This class is added when hamburger is clicked to open in mobile
@@ -264,8 +285,11 @@
 	}
 
 	.megaMenuBox{
+		position: relative;
 		padding-left: calc(var(--container_left_space) + 15px);
 		border-bottom: 1px solid rgba(44, 44, 44, 0.2);
+		z-index: 2;
+    background-color: var(--color_white);
 		.menuBoxRight{
 			width: 65%;
 			padding: 40px 40px 60px 0px;
@@ -295,11 +319,77 @@
 					}
 				}
 			}
+			.weAreHiring{
+				background-color: var(--color_silver);
+				padding: 20px 20px;
+				border-radius: 12px;
+				margin-top: 20px;
+				.imgBox{
+					width: 40%;
+				}
+				.contentBox{
+					width: 60%;
+					padding-left: 40px;
+					h4{
+						font-size: 20px;
+					}
+				}
+			}
 		}
 		.menuBoxleft{
 			width: 35%;
 			background-color: var(--color_silver);
 			padding: 60px 40px 60px 40px;
+			.ItemBox {
+				background-color: var(--color_white);
+				border-radius: 15px;
+				@media (max-width: 767px) {
+					width: 100%;
+					padding-top: 20px;
+					padding: 20px 0px;
+					border-bottom: 1px solid var(--color_platinum_gray);
+					border-right: none;
+				}
+				.hoverBox {
+					.eventImgBox{
+						position: relative;
+						.eventImg{
+							border-radius: 10px;
+						}
+						.eventLogo{
+							position: absolute;
+							left: 10px;
+							bottom: 10px;
+						}
+					}
+					.eventContentBox{
+						padding: 20px 20px 20px;
+						.tag {
+							background-color: var(--color_blue);
+							padding: 6px 12px;
+							border-radius: 8px;
+							width: max-content;
+							margin-bottom: 15px;
+							letter-spacing: 1px;
+						}
+						.descTxt {
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+							overflow: hidden;
+						}
+						.dateFlex {
+							align-items: center;
+							p {
+								span {
+									margin-left: 5px;
+									margin-top: 2px;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
