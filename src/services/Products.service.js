@@ -231,6 +231,34 @@ query GetProductBySlug {
         lng
         marquee
       }
+      whyAurora {
+        description
+        meterCaption
+        meterDescription
+        meterEndpoint
+        meterSpeed
+        meterTitle
+        meterValue
+        tabTitle
+        title
+      }
+      fourStepProcess {
+        buttonLink
+        description
+        processTitle
+        tabTitle
+        process {
+          image {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+          processDetails {
+            description
+          }
+        }
+      }
     }
   }
 }

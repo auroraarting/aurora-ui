@@ -45,6 +45,7 @@ export function removeDuplicatesByKeys(arr, keys) {
 /** getMapJsonForProducts  */
 export function getMapJsonForProducts(regions) {
 	const mapJson = [];
+	console.log(regions, "asd");
 	regions?.data?.regions?.nodes?.map((item) => {
 		item.countries.nodes.map((item2) => {
 			let obj = {
@@ -130,4 +131,23 @@ export function getMapJsonForSoftware(regions) {
 		});
 	});
 	return mapJson;
+}
+
+/** filterMarkersBySlug  */
+export function filterMarkersBySlug(data, slug) {
+	data.regions?.nodes.forEach((region) => {
+		region.countries?.nodes.forEach((country) => {
+			const markers = country.countries?.map?.markers || [];
+
+			const filteredMarkers = markers.filter((marker) =>
+				marker.category?.nodes?.some((cat) => cat.slug === slug)
+			);
+
+			if (country.countries?.map) {
+				country.countries.map.markers = filteredMarkers;
+			}
+		});
+	});
+
+	return data;
 }
