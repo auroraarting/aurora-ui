@@ -89,7 +89,7 @@ export default function TestimonialFeedback({ data }) {
 							// }}
 							className={styles.slider}
 						>
-							{data?.testimonials.nodes.map((item, ind) => {
+							{data?.testimonials?.nodes?.map((item, ind) => {
 								return (
 									<SwiperSlide key={ind}>
 										<div className={`${styles.testimonialItem}`}>
@@ -111,7 +111,7 @@ export default function TestimonialFeedback({ data }) {
 									</SwiperSlide>
 								);
 							})}
-							{!data?.testimonials.nodes && (
+							{!data?.testimonials?.nodes && (
 								<>
 									<SwiperSlide>
 										<div className={`${styles.testimonialItem}`}>
@@ -156,7 +156,8 @@ export default function TestimonialFeedback({ data }) {
 								</>
 							)}
 						</Swiper>
-						{(data?.testimonials.nodes.length > 1 || !data?.testimonials.nodes) && (
+						{(data?.testimonials?.nodes?.length > 1 ||
+							!data?.testimonials?.nodes) && (
 							<div className={`${styles.arrowSection} f_w_a_j_center`}>
 								<button className={`${styles.customPrev}`} id="customPrev">
 									<img src={slider_arrow.src} alt="icon" />

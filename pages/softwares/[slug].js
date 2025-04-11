@@ -29,6 +29,7 @@ import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
@@ -42,15 +43,22 @@ import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
 import { getSingleSoftware } from "@/services/Softwares.service";
+import { getRegions } from "@/services/GlobalPresence.service";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data] = await Promise.all([getSingleSoftware(params.slug)]);
-	return { props: { data: data.data.softwareBy.softwares } };
+	const [data, regions] = await Promise.all([
+		getSingleSoftware(params.slug),
+		getRegions(),
+	]);
+	const mapJson = getMapJsonForProducts(
+		filterMarkersBySlug(regions, data.data.softwareBy.slug)
+	);
+	return { props: { data: data.data.softwareBy.softwares, mapJson } };
 }
 
 /** Chronos Page */
-export default function SoftwarePage({ data }) {
+export default function SoftwarePage({ data, mapJson }) {
 	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
@@ -115,7 +123,7 @@ export default function SoftwarePage({ data }) {
 						image={data.introduction.image.node.sourceUrl}
 					/>
 				</div>
-				<GlobalMap locationJson={locationJson} />
+				<GlobalMap locationJson={mapJson} />
 				<div className="pt_100">
 					<CaseStudy data={data.caseStudy} />
 				</div>

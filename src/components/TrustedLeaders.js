@@ -124,7 +124,7 @@ export default function TrustedLeaders({ data }) {
 						modules={[Grid, Pagination]}
 						className="mySwiper"
 					>
-						{data?.selectLogos.nodes.map((item, ind) => (
+						{data?.selectLogos?.nodes?.map((item, ind) => (
 							<SwiperSlide key={ind}>
 								<div className={`${styles.box_item}`} key={ind}>
 									<div className={`${styles.imgBox}`}>
@@ -137,7 +137,7 @@ export default function TrustedLeaders({ data }) {
 								</div>
 							</SwiperSlide>
 						))}
-						{!data?.selectLogos.nodes &&
+						{!data?.selectLogos?.nodes &&
 							LogoData.map((item, ind) => (
 								<SwiperSlide key={ind}>
 									<div className={`${styles.box_item}`}>
