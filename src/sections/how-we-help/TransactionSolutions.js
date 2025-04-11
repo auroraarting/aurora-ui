@@ -31,8 +31,10 @@ import Grid from "/public/img/products/grid.png";
 // DATA //
 
 /** TransactionSolutions Section */
-export default function TransactionSolutions({ data, key }) {
+export default function TransactionSolutions({ data, keyValue = "products" }) {
 	const animTimeline = gsap.timeline({});
+
+	console.log(keyValue, "key");
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -106,25 +108,27 @@ export default function TransactionSolutions({ data, key }) {
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
 					{data?.map((item, ind) => {
-						console.log(key);
+						console.log(keyValue);
 						return (
 							<div
 								className={`${styles.SpaceLeft}`}
 								key={ind}
 								style={{
-									background: `linear-gradient(180deg,${item?.[key]?.thumbnail.gradient.from} 0%,${item?.[key]?.thumbnail.gradient.to} 100%)`,
+									background: `linear-gradient(180deg,${item?.[keyValue]?.thumbnail.gradient.from} 0%,${item?.[keyValue]?.thumbnail.gradient.to} 100%)`,
 								}}
 							>
 								<div className={`${styles.spaceInner}`}>
 									<img
-										src={item?.[key]?.thumbnail.logo.node.sourceUrl || lumus_logo.src}
+										src={
+											item?.[keyValue]?.thumbnail.logo.node.sourceUrl || lumus_logo.src
+										}
 										alt="solar plant"
 									/>
 									<h2 className="text_xl font_primary f_w_m color_white pt_40">
 										{item.title}
 									</h2>
 									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										{item?.[key]?.thumbnail.shortDescription}
+										{item?.[keyValue]?.thumbnail.shortDescription}
 									</p>
 									<div className={`${styles.bookBtn} pt_30`}>
 										<a href={`/products/${item.slug}`}>
@@ -215,7 +219,7 @@ export default function TransactionSolutions({ data, key }) {
 						return (
 							<img
 								key={ind}
-								src={item?.[key]?.thumbnail.banner.node.sourceUrl}
+								src={item?.[keyValue]?.thumbnail.banner.node.sourceUrl}
 								alt="solar plant"
 							/>
 						);

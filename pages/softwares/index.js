@@ -125,7 +125,7 @@ export default function Softwares({
 						gsap={gsap}
 						ScrollTrigger={ScrollTrigger}
 						data={softwares.nodes}
-						key={"softwares"}
+						keyValue={"softwares"}
 					/>
 				</div>
 				<div>
