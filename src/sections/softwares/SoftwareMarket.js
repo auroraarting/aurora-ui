@@ -127,7 +127,7 @@ export default function SoftwareMarket({
 							valueOfSelect={valueOfSelect}
 							map={map}
 							setMap={setMap}
-							defaultZoom={mapJson.zoom}
+							defaultZoom={mapJson?.zoom || 4}
 							locationJson={[customMapJson]}
 						/>
 
