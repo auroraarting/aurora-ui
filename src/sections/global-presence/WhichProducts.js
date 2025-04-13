@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -18,7 +19,6 @@ import power from "../../../public/img/global-presence/power.svg";
 import energy from "../../../public/img/global-presence/energy.svg";
 import hydrogen from "../../../public/img/global-presence/hydrogen.svg";
 import valuation from "../../../public/img/global-presence/valuation.svg";
-import { useEffect, useState } from "react";
 
 // DATA //
 
