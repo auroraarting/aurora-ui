@@ -42,6 +42,37 @@ export function removeDuplicatesByKeys(arr, keys) {
 	});
 }
 
+/** getMapJsonForCountries  */
+export function getMapJsonForCountries(data) {
+	let mapJson = {
+		...data,
+		centerOfCountry: {
+			lat: parseFloat(data.countryPin.lat),
+			lng: parseFloat(data.countryPin.lng),
+		},
+		markers: data.markers.map((markerItem) => {
+			let obj = {
+				name: markerItem.category.nodes?.[0].title || "",
+				lat: parseFloat(markerItem.coordinates.lat),
+				lng: parseFloat(markerItem.coordinates.lng),
+				url: `/${markerItem.category.nodes?.[0].contentType.node.name}/${markerItem.category.nodes?.[0].slug}`,
+			};
+
+			if (markerItem?.mapThumbnail) {
+				obj.hoverImg = markerItem.mapThumbnail.node.sourceUrl;
+			}
+			if (markerItem?.icon?.node?.sourceUrl) {
+				obj.icon = markerItem.icon.node.sourceUrl;
+			}
+
+			return obj;
+		}),
+	};
+
+	// delete mapJson["countryPin"];
+	return mapJson;
+}
+
 /** getMapJsonForProducts  */
 export function getMapJsonForProducts(regions) {
 	const mapJson = [];

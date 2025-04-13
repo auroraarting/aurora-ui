@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import CustomSelect from "@/components/CustomSelect";
-import Map from "@/components/Map";
+import Map from "@/components/MapContainer";
 import AccordianCommon from "@/components/AccordianCommon";
 
 // SECTIONS //
@@ -12,6 +12,7 @@ import AccordianCommon from "@/components/AccordianCommon";
 // PLUGINS //
 
 // UTILS //
+import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/softwares/SoftwareMarket.module.scss";
@@ -42,12 +43,18 @@ export default function SoftwareMarket({
 				lng: parseFloat(mapJson.countryPin.lng),
 			};
 		}
-
-		return locationJson[0]?.centerOfCountry;
 	};
+
+	let customMapJson = {
+		...mapJson,
+		centerOfCountry: centerOfCountry(),
+	};
+
+	// console.log(customMapJson, "customMapJson");
 
 	const [mapCenter, setMapCenter] = useState(centerOfCountry());
 	const [map, setMap] = useState(null);
+	const [valueOfSelect, setValueOfSelect] = useState(0);
 
 	return (
 		<section className={`${styles.SoftwareMarket} `} id="availableregions">
@@ -114,7 +121,15 @@ export default function SoftwareMarket({
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
-						<Map mapCenter={mapCenter} map={map} setMap={setMap} mapJson={mapJson} />
+						<Map
+							mapCenter={mapCenter}
+							setValueOfSelect={setValueOfSelect}
+							valueOfSelect={valueOfSelect}
+							map={map}
+							setMap={setMap}
+							defaultZoom={mapJson.zoom}
+							locationJson={[customMapJson]}
+						/>
 
 						{/* <div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>

@@ -274,7 +274,6 @@ export default function Map({
 	let jsonToBeMapped = mapJson ? [mapJson] : locationJson;
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
 
-	console.log(jsonToBeMapped, "asda");
 	const center = mapCenter;
 
 	const onLoad = useCallback((mapObj) => {
@@ -403,7 +402,9 @@ export default function Map({
 									>
 										<a href={href()}>
 											<div
-												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
+												className={`${styles.markerHover} ${
+													marker?.hoverImg && `${styles.isHoverImg} isHoverImg`
+												}  text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
 												{marker?.name || marker?.category?.nodes?.[0]?.title}
