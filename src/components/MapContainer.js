@@ -377,8 +377,8 @@ export default function Map({
 							<>
 								<Marker
 									position={{
-										lat: parseFloat(marker?.lat) || parseFloat(marker?.coordinates?.lat),
-										lng: parseFloat(marker?.lng) || parseFloat(marker?.coordinates?.lng),
+										lat: parseFloat(marker?.coordinates?.lat) || parseFloat(marker?.lat),
+										lng: parseFloat(marker?.coordinates?.lng) || parseFloat(marker?.lng),
 									}}
 									icon={{
 										url:
@@ -404,9 +404,12 @@ export default function Map({
 									>
 										<a href={href()}>
 											<div
-												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
+												className={`${styles.markerHover} ${
+													marker?.hoverImg && `${styles.isHoverImg} isHoverImg`
+												} text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
+												{marker.hoverImg && <img src={marker.hoverImg} />}
 												{marker?.name || marker?.category?.nodes?.[0]?.title}
 											</div>
 										</a>
