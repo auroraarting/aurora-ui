@@ -33,15 +33,23 @@ import desktop_banner from "@/../public/img/services/advisory/desktop_banner.jpg
 
 // SERVICES //
 import { getServiceData } from "@/services/Service.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data] = await Promise.all([getServiceData(params.slug)]);
-	return { props: { data: data.data.servicesBy } };
+	const [data, regions] = await Promise.all([
+		getServiceData(params.slug),
+		getRegions(),
+	]);
+	const mapJson = getMapJsonForProducts(
+		filterMarkersBySlug(regions, data.data.servicesBy.slug)
+	);
+	return { props: { data: data.data.servicesBy, mapJson } };
 }
 
 /** Advisory Page */
-export default function Advisory({ data }) {
+export default function Advisory({ data, mapJson }) {
 	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
@@ -91,33 +99,34 @@ export default function Advisory({ data }) {
 				<div className="pb_60">
 					<InnerBanner
 						bannerTitle={
-							data.banner.banner.title || "Lorem ipsum dolor sit amet consectetur."
+							data.service.banner.title || "Lorem ipsum dolor sit amet consectetur."
 						}
 						bannerDescription={
-							data.banner.banner.description ||
+							data.service.banner.description ||
 							"Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
 						}
-						btnTxt={data.banner.banner.buttonLink || "Get Started"}
+						btnTxt={data.service.banner.buttonLink || "Get Started"}
 						desktopImage={
-							data.banner.banner.desktopThumbnail?.node.sourceUrl || desktop_banner.src
+							data.service.banner.desktopThumbnail?.node.sourceUrl ||
+							desktop_banner.src
 						}
 						mobileImage={
-							data.banner.banner.mobileThumbnail?.node.sourceUrl || desktop_banner.src
+							data.service.banner.mobileThumbnail?.node.sourceUrl || desktop_banner.src
 						}
-						videoSrc={data.banner.banner.vimeoLink}
+						videoSrc={data.service.banner.vimeoLink}
 					/>
 				</div>
 				<SectionsHeader data={headerArray} />
-				<SmarterEnergy data={data.banner.expertise} />
-				<ServicesCircle data={data.banner.keyAdvantages} />
+				<SmarterEnergy data={data.service.expertise} />
+				<ServicesCircle data={data.service.keyAdvantages} />
 				<div className="pt_100">
-					<CaseStudy />
+					<CaseStudy data={data.service.caseStudy} />
 				</div>
 				<div className="ptb_100">
-					<TrustedLeaders />
+					<TrustedLeaders data={data.service.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={data.service.ourClient} />
 				</div>
 				<div className="pb_100">
 					<Insights

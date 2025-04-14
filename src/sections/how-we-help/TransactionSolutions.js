@@ -31,8 +31,10 @@ import Grid from "/public/img/products/grid.png";
 // DATA //
 
 /** TransactionSolutions Section */
-export default function TransactionSolutions({ data }) {
+export default function TransactionSolutions({ data, keyValue = "products" }) {
 	const animTimeline = gsap.timeline({});
+
+	console.log(keyValue, "key");
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -41,8 +43,6 @@ export default function TransactionSolutions({ data }) {
 
 		const spaceLeftArray = gsap.utils.toArray(`.${styles.SpaceLeft}`);
 		const spaceLeftArrayImg = gsap.utils.toArray(`.${styles.flexItemTwo} img`);
-
-		console.log(spaceLeftArray.length);
 
 		spaceLeftArray.forEach((star, idx) => {
 			if (spaceLeftArray.length === idx + 1) {
@@ -101,29 +101,34 @@ export default function TransactionSolutions({ data }) {
 		});
 	}, []);
 
+	const key1 = "softwares";
+
 	return (
 		<section className={`${styles.TransactionSolutions}`}>
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
 					{data?.map((item, ind) => {
+						console.log(keyValue);
 						return (
 							<div
 								className={`${styles.SpaceLeft}`}
 								key={ind}
 								style={{
-									background: `linear-gradient(180deg,${item.products.thumbnail.gradient.from} 0%,${item.products.thumbnail.gradient.to} 100%)`,
+									background: `linear-gradient(180deg,${item?.[keyValue]?.thumbnail.gradient.from} 0%,${item?.[keyValue]?.thumbnail.gradient.to} 100%)`,
 								}}
 							>
 								<div className={`${styles.spaceInner}`}>
 									<img
-										src={item.products.thumbnail.logo.node.sourceUrl || lumus_logo.src}
+										src={
+											item?.[keyValue]?.thumbnail.logo.node.sourceUrl || lumus_logo.src
+										}
 										alt="solar plant"
 									/>
 									<h2 className="text_xl font_primary f_w_m color_white pt_40">
 										{item.title}
 									</h2>
 									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										{item.products.thumbnail.shortDescription}
+										{item?.[keyValue]?.thumbnail.shortDescription}
 									</p>
 									<div className={`${styles.bookBtn} pt_30`}>
 										<a href={`/products/${item.slug}`}>
@@ -214,7 +219,7 @@ export default function TransactionSolutions({ data }) {
 						return (
 							<img
 								key={ind}
-								src={item.products.thumbnail.banner.node.sourceUrl}
+								src={item?.[keyValue]?.thumbnail.banner.node.sourceUrl}
 								alt="solar plant"
 							/>
 						);

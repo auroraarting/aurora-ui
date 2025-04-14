@@ -87,7 +87,9 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 				} m_b_15`}
 			>
 				<p
-					className={`${styles.title} color_secondary text_md font_secondary text_500 m_b_15`}
+					className={`${styles.title} ${
+						mode === "light" ? "color_secondary" : "color_white"
+					} text_md font_secondary text_500 m_b_15`}
 				>
 					{items?.[selectedService]?.title || "Lorem ipsum dolor"}
 				</p>

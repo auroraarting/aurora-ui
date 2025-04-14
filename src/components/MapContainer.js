@@ -336,8 +336,6 @@ export default function Map({
 		}
 	}, [map]);
 
-	console.log(locationJson);
-
 	return (
 		<LoadScript
 			googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
@@ -361,19 +359,16 @@ export default function Map({
 				}}
 			>
 				{/* Child components, such as markers, info windows, etc. */}
-				{locationJson.map((country) =>
-					country.markers.map((marker, index) => {
+				{locationJson?.map((country) =>
+					country?.markers?.map((marker, index) => {
 						/** href */
 						const href = () => {
-							// marker.url ||
-							// 					`/${marker.category.nodes?.[0]?.contentType.node.name}/${marker.category.nodes?.[0]?.slug}` ||
-							// 					"/contact"
 							if (marker.url) return marker.url;
 							if (
-								marker.category.nodes?.[0]?.contentType.node.name &&
-								marker.category.nodes?.[0]?.slug
+								marker?.category?.nodes?.[0]?.contentType?.node?.name &&
+								marker?.category?.nodes?.[0]?.slug
 							) {
-								return `/${marker.category.nodes?.[0]?.contentType.node.name}/${marker.category.nodes?.[0]?.slug}`;
+								return `/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`;
 							}
 
 							return "/contact";
@@ -382,8 +377,8 @@ export default function Map({
 							<>
 								<Marker
 									position={{
-										lat: parseFloat(marker.lat) || parseFloat(marker.coordinates.lat),
-										lng: parseFloat(marker.lng) || parseFloat(marker.coordinates.lng),
+										lat: parseFloat(marker?.coordinates?.lat) || parseFloat(marker?.lat),
+										lng: parseFloat(marker?.coordinates?.lng) || parseFloat(marker?.lng),
 									}}
 									icon={{
 										url:
@@ -394,25 +389,28 @@ export default function Map({
 										// origin: new window.google.maps.Point(0, 0),
 										// anchor: new window.google.maps.Point(25, 50),
 									}}
-									onMouseOver={() => setSelectedMarker(marker.name)}
+									onMouseOver={() => setSelectedMarker(marker?.name)}
 									// onMouseOut={() => setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
-								{selectedMarker === marker.name && (
+								{selectedMarker === marker?.name && (
 									<InfoWindow
 										position={{
-											lat: parseFloat(marker.lat) || parseFloat(marker.coordinates.lat),
-											lng: parseFloat(marker.lng) || parseFloat(marker.coordinates.lng),
+											lat: parseFloat(marker?.lat) || parseFloat(marker?.coordinates?.lat),
+											lng: parseFloat(marker?.lng) || parseFloat(marker?.coordinates?.lng),
 										}}
 										onCloseClick={() => setSelectedMarker(null)}
 									>
 										<a href={href()}>
 											<div
-												className={`${styles.markerHover} text_xs f_w_s_b text_uppercase`}
+												className={`${styles.markerHover} ${
+													marker?.hoverImg && `${styles.isHoverImg} isHoverImg`
+												} text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker.name || marker.category.nodes?.[0]?.title}
+												{marker.hoverImg && <img src={marker.hoverImg} />}
+												{marker?.name || marker?.category?.nodes?.[0]?.title}
 											</div>
 										</a>
 									</InfoWindow>

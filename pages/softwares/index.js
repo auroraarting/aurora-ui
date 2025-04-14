@@ -22,6 +22,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 // UTILS //
+import { getMapJsonForSoftware, removeDuplicatesByKeys } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareLanding.module.scss";
@@ -35,8 +36,68 @@ import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 // DATA //
 import locationJson from "@/data/globalMap.json";
 
+// SERVICES //
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getSoftwarePage } from "@/services/Softwares.service";
+
+/** Fetch */
+export async function getServerSideProps() {
+	const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
+	const softwares = data.data.softwares;
+	const mapJson = getMapJsonForSoftware(regions);
+
+	let testimonials = {
+		testimonials: {
+			nodes: [],
+		},
+	};
+	let clientLogos = {
+		selectLogos: {
+			nodes: [],
+		},
+	};
+
+	softwares.nodes.map((item) => {
+		// testimonials
+		testimonials.testimonials.nodes = removeDuplicatesByKeys(
+			[
+				...testimonials.testimonials.nodes,
+				...item.softwares.ourClient.testimonials.nodes,
+			],
+			["id"]
+		);
+		clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
+			[
+				...clientLogos.selectLogos.nodes,
+				...item.softwares.ourClient.selectLogos.nodes,
+			],
+			["id"]
+		);
+	});
+
+	return {
+		props: {
+			data: {
+				...data.data.page.softwareLanding,
+			},
+			softwares,
+			testimonials,
+			clientLogos,
+			regions,
+			mapJson,
+		},
+	};
+}
+
 /** Chronos Page */
-export default function Softwares() {
+export default function Softwares({
+	mapJson,
+	data,
+	clientLogos,
+	testimonials,
+	softwares,
+}) {
+	console.log(softwares, "data");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	return (
@@ -50,22 +111,32 @@ export default function Softwares() {
 			{/* Page Content starts here */}
 			<main className={styles.SoftwareLanding}>
 				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
+					bannerTitle={
+						data.banner.title || "Lorem ipsum dolor sit amet consectetur."
+					}
+					bannerDescription={
+						data.banner.description ||
+						"Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
+					}
 					showContentOnly
 				/>
 				<div>
-					<TransactionSolutions gsap={gsap} ScrollTrigger={ScrollTrigger} />
+					<TransactionSolutions
+						gsap={gsap}
+						ScrollTrigger={ScrollTrigger}
+						data={softwares.nodes}
+						keyValue={"softwares"}
+					/>
 				</div>
 				<div>
-					<GloballyBankableInsights />
+					<GloballyBankableInsights data={data.keyAdvantages} />
 				</div>
-				<GlobalMap locationJson={locationJson} />
+				<GlobalMap locationJson={mapJson} />
 				<div className="ptb_100">
-					<TrustedLeaders />
+					<TrustedLeaders data={clientLogos} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={testimonials} />
 				</div>
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>

@@ -3,37 +3,104 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Page */
 export const getServiceData = async (slug) => {
 	const query = `
-    query designation {
+query GetProductBySlug {
   servicesBy(slug: "${slug}") {
-    content
-    slug
     title
-    banner {
-      banner {
-        title
-        description
-        mobileThumbnail{
+    slug
+    service {
+      thumbnail {
+        banner {
           node {
             altText
             sourceUrl
           }
         }
+        logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        gradient {
+          from
+          to
+        }
+        shortDescription
+      }
+      ourClient {
+        selectLogos {
+          nodes {
+            ... on ClientsLogo {
+              id
+              featuredImage {
+                node {
+                  altText
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
+        testimonials {
+          nodes {
+            ... on Testimonial {
+              id
+              content
+              title
+              testimonials {
+                designation
+              }
+            }
+          }
+        }
+      }
+      availableRegions {
+        marqueeText
+        tabTitle
+      }
+      banner {
+        buttonLink
+        description
+        title
+        vimeoLink
         desktopThumbnail {
           node {
             altText
             sourceUrl
           }
         }
-        vimeoLink
-        buttonLink
+        mobileThumbnail {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      caseStudy {
+        tabTitle
+        title
+      }
+      customerSuccess {
+        sectionTitle
+        tabTitle
+        customerSuccessRow {
+          description
+          title
+          icon {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
       }
       expertise {
-        title
-        tabTitle
         description
-        accordian {
-          title
-          description
+        tabTitle
+        title
+        expertiseAccordion {
+          accordionDescription
+          accordionTitle
           buttonLink
           icon {
             node {
@@ -43,13 +110,24 @@ export const getServiceData = async (slug) => {
           }
         }
       }
-      keyAdvantages {
-        title
-        desciption
-        buttonLink
+      introduction {
+        description
         tabTitle
+        title
+        image {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      keyAdvantages {
+        desciption
+        tabTitle
+        title
         advantages {
-          description
+          advantagesTitle
+          advantagesDescription
           icon {
             node {
               altText
@@ -58,17 +136,38 @@ export const getServiceData = async (slug) => {
           }
         }
       }
-      availableRegions {
-        tabTitle
-        marqueeText
-      }
-      ourClients {
-        tabTitle
-        title
-      }
       map {
         lat
         lng
+        marquee
+      }
+      whyAurora {
+        description
+        meterCaption
+        meterDescription
+        meterEndpoint
+        meterSpeed
+        meterTitle
+        meterValue
+        tabTitle
+        title
+      }
+      fourStepProcess {
+        buttonLink
+        description
+        processTitle
+        tabTitle
+        process {
+          image {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+          processDetails {
+            description
+          }
+        }
       }
     }
   }

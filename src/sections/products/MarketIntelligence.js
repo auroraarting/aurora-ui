@@ -2,6 +2,7 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -18,24 +19,20 @@ import market_intelligence from "../../../public/img/products/market_intelligenc
 // DATA //
 
 /** MarketIntelligence Section */
-export default function MarketIntelligence() {
+export default function MarketIntelligence({ data }) {
 	return (
 		<section className={`${styles.MarketIntelligence}`}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_r_aj_between`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h2 className="text_xxl font_primary f_w_s_b color_secondary pb_20">
-							Market intelligence for flexible assets
+							<ContentFromCms>{data.title}</ContentFromCms>
 						</h2>
-						<p className="text_reg color_dark_gray">
-							Flexible Energy Service delivers bankable forecasts and analytics,
-							helping investors and operators optimise battery storage and gas peaker
-							strategies.
-						</p>
+						<p className="text_reg color_dark_gray">{data.description}</p>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						<img
-							src={market_intelligence.src}
+							src={data.image.node.sourceUrl || market_intelligence.src}
 							className={`${styles.redefining} img`}
 							alt="redefining"
 						/>
