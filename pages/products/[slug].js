@@ -89,6 +89,7 @@ export default function ProductInside({ data, mapJson }) {
 			</Button>
 		</div>,
 	];
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -107,7 +108,16 @@ export default function ProductInside({ data, mapJson }) {
 				<div>
 					<ProductBanner />
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					data={headerArray}
+					customHtml={
+						<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+							<Button color="primary" variant="filled" shape="rounded">
+								Book a Demo
+							</Button>
+						</div>
+					}
+				/>
 				<div className="ptb_100">
 					<MarketIntelligence data={data.products.introduction} />
 				</div>

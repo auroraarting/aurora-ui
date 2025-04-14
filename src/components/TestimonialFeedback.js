@@ -68,7 +68,11 @@ export default function TestimonialFeedback({ data }) {
 	// 	},
 	// ];
 	return (
-		<section className={`${styles.TestimonialFeedback}`}>
+		<section
+			className={`${styles.TestimonialFeedback}`}
+			id="testimonial"
+			data-name="Testimonial"
+		>
 			<div className="container">
 				<div className={`${styles.testimonialBox}`}>
 					<div className={`${styles.testimonialWhiteBox}`}>

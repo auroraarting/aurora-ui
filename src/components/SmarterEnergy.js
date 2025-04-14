@@ -110,7 +110,11 @@ export default function SmarterEnergy({ data }) {
 	];
 
 	return (
-		<section className={`${styles.SmarterEnergy} ptb_100`}>
+		<section
+			className={`${styles.SmarterEnergy} ptb_100`}
+			id="expertise"
+			data-name="Expertise"
+		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>

@@ -78,7 +78,11 @@ export default function TrustedLeaders({ data }) {
 		},
 	];
 	return (
-		<section className={`${styles.TrustedLeaders} TrustedLeaders`} id="whyaurora">
+		<section
+			className={`${styles.TrustedLeaders} TrustedLeaders`}
+			id="ourClients"
+			data-name="Our Clients"
+		>
 			<div className="container">
 				<div className="pb_40">
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">

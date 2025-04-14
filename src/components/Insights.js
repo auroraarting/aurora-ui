@@ -51,7 +51,11 @@ export default function Insights({
 	};
 
 	return (
-		<section className={`${styles.Insights} Insights`} id="Insights">
+		<section
+			className={`${styles.Insights} Insights`}
+			id="insights"
+			data-name="Insights"
+		>
 			<div className="containerLarge">
 				<div className={`${styles.insightsBg} insightsBg dark_bg`}>
 					{isPowerBgVisible && (
