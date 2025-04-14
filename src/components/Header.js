@@ -1,5 +1,5 @@
 // MODULES //
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 // COMPONENTS //
 import Image from "next/image";
@@ -29,6 +29,7 @@ import event_img from "@/../public/img/header/event_img.jpg";
 import event_logo from "@/../public/img/header/event_logo.png";
 import mac_img from "@/../public/img/header/mac_img.png";
 import amun_logo from "@/../public/img/header/amun_logo.svg";
+import popup_close from "@/../public/img/icons/popup_close.svg";
 
 // DATA //
 
@@ -36,6 +37,27 @@ import amun_logo from "@/../public/img/header/amun_logo.svg";
 export default function Header() {
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState(null);
+	const [isPopupActive, setIsPopupActive] = useState(false);
+	const footerHeight = useRef(null);
+	const [toggleState, settoggleState] = useState(null);
+
+	/** toggle */
+	const toggleTab = (index) => {
+		if (toggleState == index) {
+			return settoggleState(null);
+		}
+		settoggleState(index);
+	};
+
+	/** Open togglePopup on click of hamburger */
+	const togglePopup = () => {
+		setIsPopupActive((prev) => !prev);
+	};
+
+	/** Open closePopup on click of hamburger */
+	const closePopup = () => {
+		setIsPopupActive(false);
+	};
 
 	/** Open sidebar on click of hamburger */
 	const toggleSidebar = () => {
@@ -53,7 +75,7 @@ export default function Header() {
 		<header className={`${styles.main_headerBox}`}>
 			<div className={`${styles.headerTopBg} f_r_aj_between`}>
 				{/* mobile Global list Wrap */}
-				<div className={`${styles.globalListMobile}`}>
+				<div className={`${styles.globalListMobile}`} onClick={togglePopup}>
 					<p className="text_sm font_primary color_dark_gray f_w_m f_r_a_center">
 						<span>Global Presence </span>
 						<img src={dropdown_arrow.src} alt="arrow" />
@@ -892,11 +914,169 @@ export default function Header() {
 							<span className={styles.hamburger_line}></span>
 						</div>
 					</div>
-					<div className={`${styles.globalList}`}>
+					<div className={`${styles.globalList}`} onClick={togglePopup}>
 						<p className="text_sm font_primary color_dark_gray f_w_m f_r_a_center">
 							<span>Global Presence </span>
 							<img src={dropdown_arrow.src} alt="arrow" />
 						</p>
+					</div>
+				</div>
+			</div>
+			<div
+				className={`${styles.globalPopUp} ${isPopupActive ? styles.active : ""}`}
+				data-lenis-prevent
+			>
+				<div className="container">
+					<div className={`${styles.globalListMain}`}>
+						<button className={styles.close_btn} onClick={closePopup}>
+							<img src={popup_close.src} alt="" />
+						</button>
+						<div className={`${styles.listFlex} f_w`}>
+							<div className={`${styles.listItem}`}>
+								<div
+									className={`${styles.CountryHeading}`}
+									onClick={() => toggleTab(1)}
+								>
+									<h4 className="text_md f_w_m color_white font_primary">Asia</h4>
+									<img
+										src={dropdown_arrow.src}
+										className={`${
+											toggleState === 1 ? styles.arrow_rotate : ""
+										} visible_xs`}
+										alt=""
+									/>
+								</div>
+								<div
+									className={`${styles.CountryNameBox} ${
+										toggleState === 1 ? styles.ul_section_active : ""
+									} `}
+								>
+									<ul>
+										<li className="text_xs color_platinum_gray">India</li>
+										<li className="text_xs color_platinum_gray">Japan</li>
+										<li className="text_xs color_platinum_gray">Korea</li>
+										<li className="text_xs color_platinum_gray">Philippines</li>
+									</ul>
+								</div>
+							</div>
+							<div className={`${styles.listItem}`}>
+								<div
+									className={`${styles.CountryHeading}`}
+									onClick={() => toggleTab(2)}
+								>
+									<h4 className="text_md f_w_m color_white font_primary">Australia</h4>
+									<img
+										src={dropdown_arrow.src}
+										className={`${
+											toggleState === 2 ? styles.arrow_rotate : ""
+										} visible_xs`}
+										alt=""
+									/>
+								</div>
+								<div
+									className={`${styles.CountryNameBox} ${
+										toggleState === 2 ? styles.ul_section_active : ""
+									} `}
+								>
+									<ul>
+										<li className="text_xs color_platinum_gray">Australia</li>
+									</ul>
+								</div>
+							</div>
+							<div className={`${styles.listItem}`}>
+								<div
+									className={`${styles.CountryHeading}`}
+									onClick={() => toggleTab(3)}
+								>
+									<h4 className="text_md f_w_m color_white font_primary">
+										North America
+									</h4>
+									<img
+										src={dropdown_arrow.src}
+										className={`${
+											toggleState === 3 ? styles.arrow_rotate : ""
+										} visible_xs`}
+										alt=""
+									/>
+								</div>
+								<div
+									className={`${styles.CountryNameBox} ${
+										toggleState === 3 ? styles.ul_section_active : ""
+									} `}
+								>
+									<ul>
+										<li className="text_xs color_platinum_gray">USA</li>
+										<li className="text_xs color_platinum_gray">Canada</li>
+									</ul>
+								</div>
+							</div>
+							<div className={`${styles.listItem}`}>
+								<div
+									className={`${styles.CountryHeading}`}
+									onClick={() => toggleTab(4)}
+								>
+									<h4 className="text_md f_w_m color_white font_primary">Europe</h4>
+									<img
+										src={dropdown_arrow.src}
+										className={`${
+											toggleState === 4 ? styles.arrow_rotate : ""
+										} visible_xs`}
+										alt=""
+									/>
+								</div>
+								<div
+									className={`${styles.CountryNameBox} ${
+										toggleState === 4 ? styles.ul_section_active : ""
+									} `}
+								>
+									<ul>
+										<li className="text_xs color_platinum_gray">Austria</li>
+										<li className="text_xs color_platinum_gray">Baltics</li>
+										<li className="text_xs color_platinum_gray">Belgium</li>
+										<li className="text_xs color_platinum_gray">Bulgaria</li>
+									</ul>
+									<ul>
+										<li className="text_xs color_platinum_gray">Austria</li>
+										<li className="text_xs color_platinum_gray">Baltics</li>
+										<li className="text_xs color_platinum_gray">Belgium</li>
+										<li className="text_xs color_platinum_gray">Bulgaria</li>
+									</ul>
+									<ul>
+										<li className="text_xs color_platinum_gray">Austria</li>
+										<li className="text_xs color_platinum_gray">Baltics</li>
+										<li className="text_xs color_platinum_gray">Belgium</li>
+										<li className="text_xs color_platinum_gray">Bulgaria</li>
+									</ul>
+								</div>
+							</div>
+							<div className={`${styles.listItem}`}>
+								<div
+									className={`${styles.CountryHeading}`}
+									onClick={() => toggleTab(5)}
+								>
+									<h4 className="text_md f_w_m color_white font_primary">
+										South America
+									</h4>
+									<img
+										src={dropdown_arrow.src}
+										className={`${
+											toggleState === 5 ? styles.arrow_rotate : ""
+										} visible_xs`}
+										alt=""
+									/>
+								</div>
+								<div
+									className={`${styles.CountryNameBox} ${
+										toggleState === 5 ? styles.ul_section_active : ""
+									} `}
+								>
+									<ul>
+										<li className="text_xs color_platinum_gray">USA</li>
+										<li className="text_xs color_platinum_gray">Canada</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
