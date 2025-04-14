@@ -9,6 +9,7 @@
 	border-bottom: 1px solid rgba(44, 44, 44, 0.2);
 
 	.headerTopBg {
+		position: relative;
 		background-color: var(--color_primary);
 		padding: 0px 50px;
 		@media (max-width: 1366px) {
@@ -16,6 +17,7 @@
 		}
 		@media (max-width: 767px) {
 			padding: 0px 15px;
+			justify-content: flex-end;
 		}
 		.searchRight {
 			width: 85%;
@@ -28,11 +30,15 @@
 				width: 75%;
 			}
 			@media (max-width: 767px) {
-				width: 50%;
+				width: 40px;
+				padding: 7px 10px;
 			}
 			.searchFlex {
 				span {
 					padding-left: 15px;
+					@media (max-width: 767px) {
+						display: none;
+					}
 				}
 			}
 		}
@@ -43,12 +49,35 @@
 				width: 25%;
 			}
 			@media (max-width: 767px) {
-				width: 50%;
+				width: 35px;
+				padding-left: 10px;
+				margin-right: 0;
 			}
 			.eosFlex {
+				@media (max-width: 767px) {
+					justify-content: flex-end;
+				}
 				span {
 					padding-left: 5px;
+					@media (max-width: 767px) {
+						display: none;
+					}
 				}
+			}
+		}
+	}
+	.globalListMobile {
+		position: absolute;
+		left: 15px;
+		@media (min-width: 768px) {
+			display: none;
+		}
+		p {
+			@media (max-width: 767px) {
+				font-size: 14px;
+			}
+			span {
+				margin-right: 10px;
 			}
 		}
 	}
@@ -73,7 +102,7 @@
 		border-right: 1px solid rgba(44, 44, 44, 0.2);
 		padding-right: 20px;
 		@media (min-width: 1200px) {
-			padding-right: 120px
+			padding-right: 120px;
 		}
 		@media (max-width: 1199px) {
 			width: 75%;
@@ -96,16 +125,19 @@
 			padding-inline-start: 0;
 			// The menu is transformed as per sidebar on click of hamburger icon
 			@include lg-down {
-				padding-top: 5%;
+				padding-top: 20px;
 				background-color: var(--color_white);
 				transition: ease all 300ms;
 				transform: translateX(-100%);
 				flex-direction: column;
 				width: 100%;
 				position: absolute;
-				top: 100%;
+				top: 98px;
 				left: 0;
 				height: 100vh;
+			}
+			@media (max-width: 767px) {
+				top: 93px;
 			}
 			.links {
 				@extend %relative_box;
@@ -119,10 +151,11 @@
 					padding: 15px;
 					flex-direction: column;
 					align-items: stretch;
+					border-bottom: 1px solid rgba(44, 44, 44, 0.2);
 					//height: auto;
 				}
-				&::after{
-					content: '';
+				&::after {
+					content: "";
 					position: absolute;
 					width: 100%;
 					height: 4px;
@@ -130,10 +163,13 @@
 					bottom: 0;
 					left: 0;
 					transform: scale(0);
-					transition: .5s all ease-out;
+					transition: 0.5s all ease-out;
 				}
 				&:hover:after {
 					transform: scaleX(1);
+					@media (max-width: 1199px) {
+						content: none;
+					}
 				}
 				&:last-child {
 					margin-right: 0;
@@ -164,14 +200,17 @@
 					transform: translateY(-10px);
 					visibility: hidden;
 					width: 100%;
-					&::after{
-						content: ' ';
+					&::after {
+						content: " ";
 						position: absolute;
 						background-color: rgba(0, 0, 0, 0.3);
 						left: 0px;
 						top: 0px;
 						width: 100%;
 						height: 100vh;
+						@media (max-width: 1199px) {
+							content: none;
+						}
 					}
 					@include lg-down {
 						padding-top: 15px;
@@ -199,9 +238,12 @@
 						width: 12px;
 						//transform: rotate(90deg);
 						transition: ease all 300ms;
-						
+
 						@media (min-width: 1200px) {
 							display: none;
+						}
+						@media (max-width: 1199px) {
+							width: 16px;
 						}
 						img {
 							filter: brightness(0);
@@ -210,6 +252,10 @@
 				}
 				// This class is added when link is clicked
 				&.dropdown_opened {
+					@media (max-width: 1199px) {
+						max-height: 450px;
+						overflow: auto;
+					}
 					.dropdown_wrap {
 						transform: translateY(2px);
 						opacity: 1;
@@ -227,8 +273,8 @@
 		// The hamburger icon is visible only if it is mobile
 		.hamburger_icon {
 			display: none;
-			width: 32px;
-			height: 24px;
+			width: 28px;
+			height: 18px;
 			@extend %f_d_column;
 			justify-content: space-between;
 			cursor: pointer;
@@ -237,7 +283,7 @@
 				display: inline-block;
 				width: 100%;
 				height: 2px;
-				background-color: black;
+				background-color: var(--color_secondary);
 				transition: ease all 300ms;
 			}
 			@include lg-down {
@@ -249,16 +295,20 @@
 		width: 15%;
 		padding-left: 20px;
 		display: flex;
-    align-items: center;
+		align-items: center;
 		@media (max-width: 1199px) {
 			width: 25%;
 		}
 		@media (max-width: 767px) {
 			width: 100%;
 			padding: 10px 15px;
+			display: none;
 		}
-		p{
-			span{
+		p {
+			@media (max-width: 767px) {
+				font-family: 14px;
+			}
+			span {
 				margin-right: 10px;
 			}
 		}
@@ -275,6 +325,8 @@
 					opacity: 0;
 				}
 				&:last-child {
+					position: relative;
+					top: 3px;
 					transform: rotate(-45deg);
 				}
 			}
@@ -284,85 +336,125 @@
 		}
 	}
 
-	.megaMenuBox{
+	.megaMenuBox {
 		position: relative;
 		padding-left: calc(var(--container_left_space) + 15px);
 		border-bottom: 1px solid rgba(44, 44, 44, 0.2);
+		@media (max-width: 1199px) {
+			padding-left: 0px;
+			border-bottom: none;
+		}
 		z-index: 2;
-    background-color: var(--color_white);
-		.menuBoxRight{
+		background-color: var(--color_white);
+		.menuBoxRight {
 			width: 65%;
 			padding: 40px 40px 60px 0px;
-			.pageName{
+			@media (max-width: 1199px) {
+				padding: 30px 30px 10px 0px;
+			}
+			@media (max-width: 991px) {
+				width: 55%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				padding: 0px 0px 10px 0px;
+			}
+			.pageName {
 				padding-bottom: 10px;
 				border-bottom: 1px solid var(--color_platinum_gray);
 			}
-			.pageLinks{
+			.pageLinks {
 				width: 400px;
 				display: flex;
 				flex-wrap: wrap;
-				.pageLinksTxt{
+				@media (max-width: 767px) {
+					width: 100%;
+				}
+				.pageLinksTxt {
 					width: 50%;
 					margin-bottom: 10px;
-					span{
+					span {
 						padding-right: 10px;
 					}
-					img{
+					img {
 						opacity: 0;
+						@media (max-width: 767px) {
+							opacity: 1;
+						}
 					}
-					&:hover{
+					&:hover {
 						color: var(--color_secondary);
 						font-weight: 600;
-						img{
+						img {
 							opacity: 1;
 						}
 					}
 				}
 			}
-			.weAreHiring{
+			.weAreHiring {
 				background-color: var(--color_silver);
 				padding: 20px 20px;
 				border-radius: 12px;
 				margin-top: 20px;
-				.imgBox{
-					width: 40%;
+				@media (max-width: 767px) {
+					padding: 15px 15px;
+					margin-top: 15px;
 				}
-				.contentBox{
+				.imgBox {
+					width: 40%;
+					@media (max-width: 991px) {
+						width: 100%;
+					}
+				}
+				.contentBox {
 					width: 60%;
 					padding-left: 40px;
-					h4{
+					@media (max-width: 991px) {
+						width: 100%;
+						padding-left: 0px;
+						margin-top: 20px;
+					}
+					h4 {
 						font-size: 20px;
 					}
 				}
 			}
 		}
-		.menuBoxleft{
+		.menuBoxleft {
 			width: 35%;
 			background-color: var(--color_silver);
 			padding: 60px 40px 60px 40px;
+			@media (max-width: 1199px) {
+				padding: 30px 30px;
+			}
+			@media (max-width: 991px) {
+				width: 45%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				padding: 15px 15px;
+				border-radius: 15px;
+			}
 			.ItemBox {
 				background-color: var(--color_white);
 				border-radius: 15px;
 				@media (max-width: 767px) {
 					width: 100%;
-					padding-top: 20px;
-					padding: 20px 0px;
-					border-bottom: 1px solid var(--color_platinum_gray);
 					border-right: none;
 				}
 				.hoverBox {
-					.eventImgBox{
+					.eventImgBox {
 						position: relative;
-						.eventImg{
+						.eventImg {
 							border-radius: 10px;
 						}
-						.eventLogo{
+						.eventLogo {
 							position: absolute;
 							left: 10px;
 							bottom: 10px;
 						}
 					}
-					.eventContentBox{
+					.eventContentBox {
 						padding: 20px 20px 20px;
 						.tag {
 							background-color: var(--color_blue);
