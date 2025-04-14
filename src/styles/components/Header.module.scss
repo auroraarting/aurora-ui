@@ -326,7 +326,7 @@
 				}
 				&:last-child {
 					position: relative;
-					top: 3px;
+					top: 4px;
 					transform: rotate(-45deg);
 				}
 			}
@@ -350,7 +350,7 @@
 			width: 65%;
 			padding: 40px 40px 60px 0px;
 			@media (max-width: 1199px) {
-				padding: 30px 30px 10px 0px;
+				padding: 0px 30px 10px 0px;
 			}
 			@media (max-width: 991px) {
 				width: 55%;
@@ -373,12 +373,13 @@
 				.pageLinksTxt {
 					width: 50%;
 					margin-bottom: 10px;
+					padding-right: 15px;
 					span {
 						padding-right: 10px;
 					}
 					img {
 						opacity: 0;
-						@media (max-width: 767px) {
+						@media (max-width: 1199px) {
 							opacity: 1;
 						}
 					}
@@ -480,6 +481,91 @@
 							}
 						}
 					}
+				}
+			}
+		}
+	}
+	.productBox {
+		.menuBoxRight {
+			.eosAdvisoryFlex {
+				.eosItem {
+					width: 48%;
+					padding: 20px 0px;
+					border-bottom: 1px solid rgba(44, 44, 44, 0.2);
+					@media (max-width: 767px) {
+						width: 100%;
+					}
+					.eosLinksTxt {
+						font-size: 20px;
+						justify-content: space-between;
+						img {
+							opacity: 0;
+							@media (max-width: 767px) {
+								opacity: 1;
+							}
+						}
+						&:hover {
+							img {
+								opacity: 1;
+							}
+						}
+					}
+				}
+			}
+			.softwareFlex {
+				.softwareItem {
+					width: 48%;
+					padding: 20px 0px;
+					@media (max-width: 991px) {
+						width: 100%;
+					}
+					.softwareTxt {
+						font-size: 20px;
+						justify-content: space-between;
+						margin-bottom: 10px;
+						img {
+							opacity: 0;
+						}
+						&:hover {
+							img {
+								opacity: 1;
+							}
+						}
+					}
+					.softwareListBox {
+						display: flex;
+						flex-wrap: wrap;
+
+						@media (max-width: 767px) {
+							width: 100%;
+						}
+						.softwareLinksTxt {
+							width: 50%;
+							margin-bottom: 5px;
+							padding-right: 15px;
+							span {
+								padding-left: 5px;
+							}
+							img {
+								opacity: 1;
+							}
+							&:hover {
+								font-weight: 600;
+							}
+						}
+					}
+				}
+			}
+		}
+		.menuBoxleft {
+			background-color: var(--color_secondary);
+			background-image: url("../../../public/img/header/headerBg.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: top center;
+			.productImgBox {
+				img {
+					margin: 0 auto;
 				}
 			}
 		}
