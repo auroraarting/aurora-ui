@@ -21,7 +21,11 @@ import market_intelligence from "../../../public/img/products/market_intelligenc
 /** MarketIntelligence Section */
 export default function MarketIntelligence({ data }) {
 	return (
-		<section className={`${styles.MarketIntelligence}`}>
+		<section
+			className={`${styles.MarketIntelligence}`}
+			id="introduction"
+			data-name="Introduction"
+		>
 			<div className="container">
 				<div className={`${styles.flexBox} f_r_aj_between`}>
 					<div className={`${styles.flexItemOne}`}>

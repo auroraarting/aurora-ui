@@ -19,69 +19,85 @@ import Button from "./Buttons/Button";
 // DATA //
 
 /** SectionsHeader Component */
-export default function SectionsHeader({ data }) {
+export default function SectionsHeader({ data, customHtml }) {
 	const [activeTab, setActiveTab] = useState(0);
+	const [sectionsList, setSectionsList] = useState([]);
 
 	useEffect(() => {
-		/** Define the callback function to execute when the target enters the viewport */
-		const callback = (entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const index = data.findIndex((item) => item.id === `#${entry.target.id}`);
-					if (index !== -1) {
-						const diff = 100 / data.length;
-						const percentage = `${diff * (index + 1)}%`;
+		const getAllSections = document.querySelectorAll("section[id][data-name]");
+		const sections = [...getAllSections].map((section) => {
+			return {
+				id: "#" + section.id,
+				name: section.dataset.name,
+			};
+		});
+		if (customHtml) {
+			sections.push(customHtml);
+		}
 
-						// Update CSS variable on the `.SectionsHeader` element
-						document
-							.querySelector(`.${styles.SectionsHeader}`)
-							.style.setProperty("--progress", percentage);
+		const list = sections ? sections : data;
 
-						setActiveTab(index);
-					}
-					// Perform your desired action here
-					// Example: setActiveTab based on the entry.target.id
-				} else {
-					// Optionally handle exit from viewport
+		setSectionsList(list);
+		console.log(sections, "Zxccxzc");
+
+		// const headerArray = [
+		// 	{ name: "Expertise", id: "#expertise" },
+		// 	{ name: "Available Regions", id: "#availableregions" },
+		// 	{ name: "Why Aurora", id: "#whyaurora" },
+		// 	{ name: "Clients", id: "#clients" },
+		// 	<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+		// 		<Button color="primary" variant="filled" shape="rounded">
+		// 			Book a Demo
+		// 		</Button>
+		// 	</div>,
+		// ];
+
+		const sectionElements = list
+			.filter((item) => typeof item.id === "string")
+			.map((item) => document.querySelector(item.id));
+
+		/** handleScroll  */
+		const handleScroll = () => {
+			let currentIndex = 0;
+
+			sectionElements.forEach((el, index) => {
+				if (!el) return;
+				const rect = el.getBoundingClientRect();
+				// Choose the section whose top is closest to 0 but still <= 0 (in view)
+				if (rect.top <= window.innerHeight * 0.3) {
+					currentIndex = index;
 				}
 			});
+
+			const diff = 100 / list.length;
+			const percentage = `${diff * (currentIndex + 1)}%`;
+
+			document
+				.querySelector(`.${styles.SectionsHeader}`)
+				.style.setProperty("--progress", percentage);
+
+			setActiveTab(currentIndex);
 		};
 
-		/** Create an Intersection Observer instance */
-		const observer = new IntersectionObserver(callback, {
-			root: null,
-			rootMargin: "0px",
-			threshold: 0.5, // Trigger when 10% of the element is visible
-		});
+		window.addEventListener("scroll", handleScroll, { passive: true });
 
-		data?.map((item, ind) => {
-			if (typeof item.id != "string") {
-				return;
-			}
+		// Run once on mount
+		handleScroll();
 
-			const targetedHTML = document.querySelector(item.id);
-
-			if (targetedHTML) {
-				/** Start observing the target element */
-				observer.observe(targetedHTML);
-			}
-		});
-
-		/** Cleanup observer on component unmount */
 		return () => {
-			observer.disconnect();
+			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
 
 	return (
 		<div className={`${styles.SectionsHeader}`}>
 			<div className={`${styles.boxWrap}`}>
-				{data?.map((item, ind) => {
+				{sectionsList?.map((item, ind) => {
 					return (
 						<div
 							key={ind}
 							className={`${styles.box} ${styles.onlyText} ${
-								activeTab >= ind ? "color_medium_gray" : ""
+								activeTab >= ind ? "" : "color_medium_gray"
 							} `}
 						>
 							{typeof item.name === "string" ? item.name : item}

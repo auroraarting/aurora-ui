@@ -30,7 +30,11 @@ const services = [
 /** ServicesCircle Component */
 export default function ServicesCircle({ data }) {
 	return (
-		<div className={`${styles.ServicesCircleSection} dark_bg `}>
+		<section
+			className={`${styles.ServicesCircleSection} dark_bg `}
+			id="keyAdvantages"
+			data-name="Key Advantages"
+		>
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
@@ -63,7 +67,7 @@ export default function ServicesCircle({ data }) {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 }
 

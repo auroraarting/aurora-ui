@@ -34,7 +34,11 @@ const defaultRows = [
 /** GloballyBankableInsights Section */
 export default function GloballyBankableInsights({ data }) {
 	return (
-		<section className={`${styles.GloballyBankableInsights}`} id="expertise">
+		<section
+			className={`${styles.GloballyBankableInsights}`}
+			id="whyAurora"
+			data-name="Why Aurora"
+		>
 			<img className={`${styles.bg}`} src={Bg.src} alt="Bg" />
 			<div className="section_spacing">
 				<div className="container">
