@@ -36,7 +36,7 @@ export default function MarketIntelligence({ data }) {
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						<img
-							src={data.image.node.sourceUrl || market_intelligence.src}
+							src={data?.image?.node?.sourceUrl || market_intelligence.src}
 							className={`${styles.redefining} img`}
 							alt="redefining"
 						/>
