@@ -95,7 +95,7 @@ export function getMapJsonForProducts(regions) {
 						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
 					}
 
-					if (item3.category.nodes.length > 0) {
+					if (item3?.category?.nodes?.length > 0) {
 						let node = item3.category.nodes[0];
 
 						if (node.contentType.node.name != "products") {
@@ -140,7 +140,7 @@ export function getMapJsonForSoftware(regions) {
 						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
 					}
 
-					if (item3.category.nodes.length > 0) {
+					if (item3?.category?.nodes?.length > 0) {
 						let node = item3.category.nodes[0];
 
 						if (node.contentType.node.name != "softwares") {
@@ -208,7 +208,7 @@ export function getMapJsonForAllRegions(regions) {
 						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
 					}
 
-					if (item3.category.nodes.length > 0) {
+					if (item3?.category?.nodes?.length > 0) {
 						let node = item3.category.nodes[0];
 						obj2.name = node.title;
 						obj2.lat = parseFloat(item3.coordinates.lat);

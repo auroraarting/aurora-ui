@@ -13,6 +13,7 @@ import Insights from "@/components/Insights";
 import ServicesCircle from "@/components/ServicesCircle";
 import SolutionsChallenge from "@/components/SolutionsChallenge";
 import GlobalMap from "@/components/GlobalMap";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
@@ -43,7 +44,6 @@ import {
 import { getRegions } from "@/services/GlobalPresence.service";
 
 // DATA //
-import locationJson from "@/data/globalMap.json";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
@@ -138,6 +138,9 @@ export default function Transactions({ data, services, mapJson }) {
 						data={services}
 						keyValue="howWeHelpInside"
 					/>
+				</div>
+				<div className="ptb_100 dark_bg">
+					<EosIntegratedSystem />
 				</div>
 				<div className="pb_100">
 					<Insights

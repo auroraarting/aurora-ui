@@ -126,6 +126,7 @@ export default function Softwares({
 						ScrollTrigger={ScrollTrigger}
 						data={softwares.nodes}
 						keyValue={"softwares"}
+						slugPage="softwares"
 					/>
 				</div>
 				<div>

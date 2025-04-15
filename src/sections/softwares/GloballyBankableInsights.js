@@ -39,7 +39,7 @@ export default function GloballyBankableInsights({ data, isMultiple }) {
 			id="whyAurora"
 			data-name="Why Aurora"
 		>
-			<img className={`${styles.bg}`} src={Bg.src} alt="Bg" />
+			{!isMultiple && <img className={`${styles.bg}`} src={Bg.src} alt="Bg" />}
 			<div className="section_spacing">
 				<div className="container">
 					<div className={`${styles.wrap}`}>
