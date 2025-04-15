@@ -31,10 +31,12 @@ import Grid from "/public/img/products/grid.png";
 // DATA //
 
 /** TransactionSolutions Section */
-export default function TransactionSolutions({ data, keyValue = "products" }) {
+export default function TransactionSolutions({
+	data,
+	slugPage = "products",
+	keyValue = "products",
+}) {
 	const animTimeline = gsap.timeline({});
-
-	console.log(keyValue, "key");
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -108,7 +110,6 @@ export default function TransactionSolutions({ data, keyValue = "products" }) {
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
 					{data?.map((item, ind) => {
-						console.log(keyValue);
 						return (
 							<div
 								className={`${styles.SpaceLeft}`}
@@ -131,7 +132,7 @@ export default function TransactionSolutions({ data, keyValue = "products" }) {
 										{item?.[keyValue]?.thumbnail.shortDescription}
 									</p>
 									<div className={`${styles.bookBtn} pt_30`}>
-										<a href={`/products/${item.slug}`}>
+										<a href={`/${slugPage}/${item.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
 												Know more
 											</Button>

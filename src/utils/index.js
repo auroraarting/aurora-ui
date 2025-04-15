@@ -182,3 +182,49 @@ export function filterMarkersBySlug(data, slug) {
 
 	return data;
 }
+
+/** getMapJsonForAllRegions  */
+export function getMapJsonForAllRegions(regions) {
+	const mapJson = [];
+	regions?.data?.regions?.nodes?.map((item) => {
+		item.countries.nodes.map((item2) => {
+			let obj = {
+				// centerOfCountry: {
+				// 	lat: parseFloat(item2.countries.map.countryPin.lat),
+				// 	lng: parseFloat(item2.countries.map.countryPin.lng),
+				// },
+				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
+				markers: item2.countries.map?.markers?.map((item3) => {
+					let obj2 = {
+						name: "",
+						lat: "",
+						lng: "",
+						url: "",
+						hoverImg: "",
+						icon: item3.icon.node.sourceUrl,
+					};
+
+					if (item3?.mapThumbnail?.node?.sourceUrl) {
+						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+					}
+
+					if (item3.category.nodes.length > 0) {
+						let node = item3.category.nodes[0];
+						obj2.name = node.title;
+						obj2.lat = parseFloat(item3.coordinates.lat);
+						obj2.lng = parseFloat(item3.coordinates.lng);
+						obj2.url = `/${node.contentType.node.name}/${node.slug}`;
+					}
+
+					return obj2;
+				}),
+				zoom: item2.countries.map.zoom,
+				name: item2.title,
+			};
+
+			mapJson.push(obj);
+		});
+	});
+
+	return mapJson;
+}

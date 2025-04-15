@@ -9,6 +9,7 @@ export const getSingleHowWeHelp = async (slug) => {
     slug
     howWeHelpInside {
       banner {
+      title
         fieldGroupName
         description
       }
@@ -34,7 +35,7 @@ export const getSingleHowWeHelp = async (slug) => {
       ourClient {
         title
         tabTitle
-        selectLogo {
+        selectLogos {
           nodes {
             ... on ClientsLogo {
               id
@@ -51,6 +52,11 @@ export const getSingleHowWeHelp = async (slug) => {
           nodes {
             ... on Testimonial {
               id
+               content
+                title
+                testimonials {
+                  designation
+                }
               featuredImage {
                 node {
                   altText
@@ -92,9 +98,13 @@ export const getHowWeHelps = async () => {
 	const query = `
 query GetAllHowWeHelps {
   howWeHelps {
+
     nodes {
+    title
+    slug
       howWeHelpInside {
         banner {
+        title
         fieldGroupName
         description
       }
@@ -120,7 +130,7 @@ query GetAllHowWeHelps {
       ourClient {
         title
         tabTitle
-        selectLogo {
+        selectLogos {
           nodes {
             ... on ClientsLogo {
               id
@@ -137,6 +147,11 @@ query GetAllHowWeHelps {
           nodes {
             ... on Testimonial {
               id
+               content
+                title
+                testimonials {
+                  designation
+                }
               featuredImage {
                 node {
                   altText

@@ -22,6 +22,7 @@ import styles from "@/styles/components/MapContainer.module.scss";
 export default function GlobalMap({
 	locationJson,
 	marqueeText = " Energy intelligence across every key market",
+	className,
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
@@ -29,7 +30,7 @@ export default function GlobalMap({
 
 	return (
 		<section
-			className={`${styles.globalMap} section_spacing`}
+			className={`${styles.globalMap} section_spacing ${className}`}
 			id="availableregions"
 			data-name="Available Regions"
 		>
