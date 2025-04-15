@@ -66,9 +66,52 @@
 					background-color: var(--color_white);
 					border-radius: 10px;
 					padding: 20px;
-					.icon{
-						width: 32px;
-					}
+          transition: ease-out 0.5s;
+          .countryImg{
+            overflow: hidden;
+            border-radius: 12px;
+            img{
+              transition: ease-out 0.5s;
+            }
+          }
+          .address{
+            align-items: flex-start;
+            img{
+              margin-top: 3px;
+              width: 16px;
+            }
+            span{
+              padding-left: 10px;
+            }
+          }
+          &:hover{
+            background-color: var(--color_secondary);
+            transition: ease-out 0.5s;
+            .countryImg{
+              img{
+                transform: scale(1.1);
+                transition: ease-out 0.5s;
+              }
+            }
+            h5{
+              color: var(--color_white);
+            }
+            button{
+              color: var(--color_white);
+              &::after{
+                background-color: var(--color_white);
+              }
+            }
+            .address{
+              color: var(--color_white);
+              img{
+               filter: invert(1);
+              }
+              span{
+                padding-left: 10px;
+              }
+            }
+          }
 				}
 			}
 		}
