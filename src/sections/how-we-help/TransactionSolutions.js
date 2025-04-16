@@ -39,6 +39,8 @@ export default function TransactionSolutions({
 	const animTimeline = gsap.timeline({});
 
 	useEffect(() => {
+		if (data?.length === 0 || !data) return null;
+
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
 		const winH = window.innerHeight;
@@ -83,15 +85,6 @@ export default function TransactionSolutions({
 			}
 		});
 
-		// ScrollTrigger.create({
-		// 	// animation: animTimeline,
-		// 	trigger: `.${styles.TransactionSolutions}`,
-		// 	start: "top top",
-		// 	end: "+=" + winH,
-		// 	scrub: true,
-		// 	pin: true,
-		// });
-
 		ScrollTrigger.create({
 			animation: animTimeline,
 			trigger: `.${styles.TransactionSolutions}`,
@@ -103,7 +96,7 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	const key1 = "softwares";
+	if (data.length === 0) return <></>;
 
 	return (
 		<section className={`${styles.TransactionSolutions}`}>
@@ -115,24 +108,22 @@ export default function TransactionSolutions({
 								className={`${styles.SpaceLeft}`}
 								key={ind}
 								style={{
-									background: `linear-gradient(180deg,${item?.[keyValue]?.thumbnail.gradient.from} 0%,${item?.[keyValue]?.thumbnail.gradient.to} 100%)`,
+									background: `linear-gradient(180deg,${item?.[keyValue]?.thumbnail?.gradient?.from} 0%,${item?.[keyValue]?.thumbnail?.gradient?.to} 100%)`,
 								}}
 							>
 								<div className={`${styles.spaceInner}`}>
 									<img
-										src={
-											item?.[keyValue]?.thumbnail.logo.node.sourceUrl || lumus_logo.src
-										}
+										src={item?.[keyValue]?.thumbnail?.logo?.node?.sourceUrl}
 										alt="solar plant"
 									/>
 									<h2 className="text_xl font_primary f_w_m color_white pt_40">
-										{item.title}
+										{item?.title}
 									</h2>
 									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										{item?.[keyValue]?.thumbnail.shortDescription}
+										{item?.[keyValue]?.thumbnail?.shortDescription}
 									</p>
 									<div className={`${styles.bookBtn} pt_30`}>
-										<a href={`/${slugPage}/${item.slug}`}>
+										<a href={`/${slugPage}/${item?.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
 												Know more
 											</Button>
@@ -142,97 +133,17 @@ export default function TransactionSolutions({
 							</div>
 						);
 					})}
-					{(data?.length === 0 || !data) && (
-						<>
-							<div className={`${styles.SpaceLeft}`}>
-								<div className={`${styles.spaceInner}`}>
-									<img src={PowerRenewables.src} alt="solar plant" />
-									<h2 className="text_xl font_primary f_w_m color_white pt_40">
-										Lorem ipsum dolor sit amet consectetur
-									</h2>
-									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
-										tellus imperdiet.
-									</p>
-									<div className={`${styles.bookBtn} pt_30`}>
-										<Button color="secondary" variant="underline" mode="dark">
-											Know more
-										</Button>
-									</div>
-								</div>
-							</div>
-							<div className={`${styles.SpaceLeft}`}>
-								<div className={`${styles.spaceInner}`}>
-									<img src={PowerRenewables.src} alt="solar plant" />
-									<h2 className="text_xl font_primary f_w_m color_white pt_40">
-										Lorem ipsum dolor sit amet consectetur
-									</h2>
-									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
-										tellus imperdiet.
-									</p>
-									<div className={`${styles.bookBtn} pt_30`}>
-										<Button color="secondary" variant="underline" mode="dark">
-											Know more
-										</Button>
-									</div>
-								</div>
-							</div>
-							<div className={`${styles.SpaceLeft}`}>
-								<div className={`${styles.spaceInner}`}>
-									<img src={Hydrogen.src} alt="solar plant" />
-									<h2 className="text_xl font_primary f_w_m color_white pt_40">
-										Lorem ipsum dolor sit amet consectetur
-									</h2>
-									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
-										tellus imperdiet.
-									</p>
-									<div className={`${styles.bookBtn} pt_30`}>
-										<Button color="secondary" variant="underline" mode="dark">
-											Know more
-										</Button>
-									</div>
-								</div>
-							</div>
-							<div className={`${styles.SpaceLeft}`}>
-								<div className={`${styles.spaceInner}`}>
-									<img src={Grid.src} alt="solar plant" />
-									<h2 className="text_xl font_primary f_w_m color_white pt_40">
-										Lorem ipsum dolor sit amet consectetur
-									</h2>
-									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra a
-										tellus imperdiet.
-									</p>
-									<div className={`${styles.bookBtn} pt_30`}>
-										<Button color="secondary" variant="underline" mode="dark">
-											Know more
-										</Button>
-									</div>
-								</div>
-							</div>
-						</>
-					)}
 				</div>
 				<div className={`${styles.flexItemTwo}`}>
 					{data?.map((item, ind) => {
 						return (
 							<img
 								key={ind}
-								src={item?.[keyValue]?.thumbnail.banner.node.sourceUrl}
+								src={item?.[keyValue]?.thumbnail?.banner?.node?.sourceUrl}
 								alt="solar plant"
 							/>
 						);
 					})}
-					{(data?.length === 0 || !data) && (
-						<>
-							<img src={Banner1.src} alt="solar plant" />
-							<img src={Banner2.src} alt="solar plant" />
-							<img src={Banner3.src} alt="solar plant" />
-							<img src={Banner4.src} alt="solar plant" />
-						</>
-					)}
 				</div>
 			</div>
 		</section>

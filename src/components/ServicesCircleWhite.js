@@ -30,36 +30,33 @@ const services = [
 
 /** ServicesCircle Component */
 export default function ServicesCircleWhite({ data }) {
+	if (data.advantages?.length === 0) return <></>;
 	return (
 		<div className={`${styles.ServicesCircleSection} white_bg `}>
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
-						<h3 className="text_xl  pb_20">
-							{data?.sectionTitle || "Chronos Edge in Energy Storage Valuation"}
-						</h3>
+						<h3 className="text_xl  pb_20">{data?.sectionTitle}</h3>
 						<div className="text_reg color_dark_gray">
-							<ContentFromCms>
-								{data?.descripition ||
-									`Lorem ipsum dolor sit amet consectetur. Velit vel iaculis fames velit
-                                    mauris morbi volutpat. Senectus purus est cursus ac. Amet tortor at ac a mi eu urna risus nulla.`}
-							</ContentFromCms>
+							<ContentFromCms>{data?.descripition}</ContentFromCms>
 						</div>
 						<div className="pt_40">
-							<a href={data?.buttonLink || ""}>
+							<a href={data?.buttonLink}>
 								<Button color="primary" variant="filled" shape="rounded" mode="light">
-									{data?.buttonText || "View More"}
+									{data?.buttonText}
 								</Button>
 							</a>
 						</div>
 					</div>
 
 					<div>
-						<CircularMenu
-							items={data?.advantages || services}
-							iconDefault={IconStrategy}
-							mode="light"
-						/>
+						{data?.advantages?.length > 0 && (
+							<CircularMenu
+								items={data?.advantages}
+								iconDefault={IconStrategy}
+								mode="light"
+							/>
+						)}
 					</div>
 				</div>
 			</div>

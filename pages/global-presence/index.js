@@ -111,6 +111,7 @@ export default function GlobalPresence({ regions, page }) {
 							url: "",
 							hoverImg: "",
 							icon: item3.icon.node.sourceUrl,
+							unique: Math.random(),
 						};
 
 						if (item3?.mapThumbnail?.node?.sourceUrl) {
@@ -135,7 +136,7 @@ export default function GlobalPresence({ regions, page }) {
 			});
 		});
 
-		console.log(mapJson);
+		console.log(mapJson, "Asdasdasd");
 
 		setData({ regionsArr, mapJson, page });
 	}, []);
