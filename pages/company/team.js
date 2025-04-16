@@ -9,6 +9,7 @@ import InnerBanner from "@/components/InnerBanner";
 
 // SECTIONS //
 import AdvisoryLeadership from "@/sections/company/team/AdvisoryLeadership";
+import ResearchLeadership from "@/sections/company/team/ResearchLeadership";
 
 // PLUGINS //
 
@@ -78,7 +79,7 @@ export default function Team() {
 					{activeTab === "ResearchLeadership" && (
 						<div className={`${styles.categoryContent} `}>
 							<div className="pb_100">
-								<AdvisoryLeadership />
+								<ResearchLeadership />
 							</div>
 						</div>
 					)}

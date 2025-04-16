@@ -17,7 +17,7 @@ import parse from "html-react-parser";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/team/AdvisoryLeadership.module.scss";
+import styles from "@/styles/sections/company/team/ResearchLeadership.module.scss";
 
 // IMAGES //
 import management_img from "../../../../public/img/events/management_img.jpg";
@@ -32,8 +32,8 @@ import linkedin from "../../../../public/img/icons/linkedin.svg";
 
 // DATA //
 
-/** AdvisoryLeadership Section */
-export default function AdvisoryLeadership() {
+/** ResearchLeadership Section */
+export default function ResearchLeadership() {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 
@@ -172,7 +172,7 @@ export default function AdvisoryLeadership() {
 		},
 	];
 	return (
-		<section className={`${styles.AdvisoryLeadership}`}>
+		<section className={`${styles.ResearchLeadership}`}>
 			<div className="container">
 				<div className={`${styles.content_main_wrap} pt_40`}>
 					<div className={`${styles.box_wrap}`}>

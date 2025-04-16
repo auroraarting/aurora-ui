@@ -8,6 +8,10 @@
 		background-position: bottom left;
 	}
 	.category {
+		@media (max-width: 767px) {
+			overflow-x: scroll;
+			white-space: nowrap;
+		}
 		.switchBox {
 			display: flex;
 			align-items: center;
