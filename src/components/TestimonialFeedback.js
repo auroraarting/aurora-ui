@@ -67,7 +67,7 @@ export default function TestimonialFeedback({ data }) {
 	// 		logos: erste.src,
 	// 	},
 	// ];
-	if (!data) return <></>;
+	if (!data || data?.testimonials?.nodes.length === 0) return <></>;
 	return (
 		<section
 			className={`${styles.TestimonialFeedback}`}

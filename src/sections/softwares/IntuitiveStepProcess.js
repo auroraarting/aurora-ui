@@ -24,7 +24,7 @@ import steps_img from "../../../public/img/softwares/steps_img.jpg";
 
 /** IntuitiveStepProcess Section */
 export default function IntuitiveStepProcess({ data }) {
-	if (!data) return <></>;
+	if (data.process.length === 0) return <></>;
 
 	/** pagination */
 	const pagination = {

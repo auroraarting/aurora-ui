@@ -116,13 +116,8 @@ export default function Products({
 			<main className={styles.ProductsPage}>
 				{/* <ProductListingWrapper /> */}
 				<InnerBanner
-					bannerTitle={
-						data.banner.title || "Lorem ipsum dolor sit amet consectetur."
-					}
-					bannerDescription={
-						data.banner.description ||
-						"Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
-					}
+					bannerTitle={data?.banner?.title}
+					bannerDescription={data?.banner?.description}
 					showContentOnly
 				/>
 				<div>
