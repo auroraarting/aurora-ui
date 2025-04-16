@@ -7,6 +7,7 @@ import MetaTags from "@/components/MetaTags";
 import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
 import InnerBanner from "@/components/InnerBanner";
+import SoftwareCards from "@/components/SoftwareCards";
 
 // SECTIONS //
 
@@ -18,10 +19,10 @@ import styles from "@/styles/pages/Contact.module.scss";
 // UTILS //
 
 // IMAGES //
-import close from "../public/img/icons/close.png";
+import call_icon from "../public/img/icons/call_icon.svg";
 import location from "../public/img/icons/location.svg";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
-import slider_arrow from "../public/img/icons/slider_arrow.svg";
+import hoverBg from "@/../public/img/contact/hoverBg.png";
 
 // DATA //
 
@@ -63,7 +64,7 @@ export default function ContactPage() {
 						</div>
 					</div>
 				</div>
-				<section className={`${styles.CountryMain} ptb_100`}>
+				<section className={`${styles.CountryMain} pb_100`}>
 					<div className="container">
 						<div className={`${styles.accordian_main}`}>
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
@@ -81,6 +82,11 @@ export default function ContactPage() {
 											<div className={`${styles.CountryWrapper}`}>
 												<div className={`${styles.CountryBox}`}>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -108,11 +114,16 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -140,11 +151,16 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -172,7 +188,7 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
@@ -186,6 +202,11 @@ export default function ContactPage() {
 											<div className={`${styles.CountryWrapper}`}>
 												<div className={`${styles.CountryBox}`}>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -213,11 +234,16 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -245,11 +271,16 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -277,7 +308,7 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
@@ -291,6 +322,11 @@ export default function ContactPage() {
 											<div className={`${styles.CountryWrapper}`}>
 												<div className={`${styles.CountryBox}`}>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -318,11 +354,16 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -350,11 +391,16 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
 													<div className={`${styles.CountryItem}`}>
+														<img
+															src={hoverBg.src}
+															className={`${styles.hoverBg} width_100 b_r_10`}
+															alt="img"
+														/>
 														<div className={`${styles.countryImg}`}>
 															<img
 																src={country_thumb.src}
@@ -382,7 +428,7 @@ export default function ContactPage() {
 															href="tel:+441865952700"
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="img" />
 															<span>+44 1865 952700</span>
 														</a>
 													</div>
@@ -395,6 +441,9 @@ export default function ContactPage() {
 						</div>
 					</div>
 				</section>
+				<div className="pb_100">
+					<SoftwareCards />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
