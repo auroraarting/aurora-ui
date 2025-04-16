@@ -12,15 +12,23 @@ import TrustedLeaders from "@/components/TrustedLeaders";
 import Insights from "@/components/Insights";
 import ServicesCircle from "@/components/ServicesCircle";
 import SolutionsChallenge from "@/components/SolutionsChallenge";
+import GlobalMap from "@/components/GlobalMap";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import {
+	getMapJsonForAllRegions,
+	getMapJsonForCountries,
+	getMapJsonForProducts,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/how-we-help/Transactions.module.scss";
@@ -28,10 +36,37 @@ import styles from "@/styles/pages/how-we-help/Transactions.module.scss";
 // IMAGES //
 import desktop_banner from "@/../public/img/financial-sector/desktop_banner.jpg";
 
+// SERVICES //
+import {
+	getHowWeHelps,
+	getSingleHowWeHelp,
+} from "@/services/HowWeHelp.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+
 // DATA //
 
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data, services, regions] = await Promise.all([
+		getSingleHowWeHelp(params.slug),
+		getHowWeHelps(),
+		getRegions(),
+	]);
+	const mapJson = getMapJsonForAllRegions(regions);
+
+	return {
+		props: {
+			data: data.data.howwehelpBy,
+			services: services.data.howWeHelps.nodes,
+			mapJson,
+			regions,
+		},
+	};
+}
+
 /** Transactions Page */
-export default function Transactions() {
+export default function Transactions({ data, services, mapJson }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -50,25 +85,14 @@ export default function Transactions() {
 		}, 500);
 	};
 
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
 	return (
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={"Transactions"}
+				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={"/transactions"}
+				Url={`/how-we-help/${data.slug}`}
 			/>
 
 			{/* Header */}
@@ -76,19 +100,47 @@ export default function Transactions() {
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
-				<TransactionsBanner />
-				<SectionsHeader data={headerArray} />
+				<TransactionsBanner data={data.howWeHelpInside.banner} />
+				<SectionsHeader
+					customHtml={
+						<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+							<Button color="primary" variant="filled" shape="rounded">
+								Get Transaction Support
+							</Button>
+						</div>
+					}
+				/>
+				<div>
+					<GloballyBankableInsights isMultiple={true} />
+				</div>
 				<div className="ptb_100">
-					<TrustedLeaders />
+					<TrustedLeaders
+						data={data.howWeHelpInside.ourClient}
+						sectionTitle={data?.howWeHelpInside?.ourClient?.title}
+					/>
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={data.howWeHelpInside.ourClient} />
 				</div>
 				<div>
-					<ServicesCircle />
+					<ServicesCircle data={data.howWeHelpInside.keyAdvantages} />
+				</div>
+				<div>
+					<GlobalMap
+						className="dark_bg"
+						locationJson={mapJson}
+						marqueeText={data?.howWeHelpInside?.availableRegions?.marqueeText}
+					/>
 				</div>
 				<div className="pb_100">
-					<TransactionSolutions />
+					<TransactionSolutions
+						slugPage="how-we-help"
+						data={services}
+						keyValue="howWeHelpInside"
+					/>
+				</div>
+				<div className="ptb_100 dark_bg">
+					<EosIntegratedSystem />
 				</div>
 				<div className="pb_100">
 					<Insights

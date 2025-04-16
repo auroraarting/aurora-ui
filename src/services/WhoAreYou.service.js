@@ -1,40 +1,66 @@
 import GraphQLAPI from "./Graphql.service";
 
 /** Fetch Page */
-export const getSingleHowWeHelp = async (slug) => {
+export const getSingleWhoAreYou = async (slug) => {
 	const query = `
-        query GetSingleHowWeHelp {
-  howwehelpBy(slug: "${slug}") {
+ query GetWhoAreYouBySlug {
+  whoareyouBy(slug: "${slug}") {
     title
     slug
-    howWeHelpInside {
+    whoAreYous {
       banner {
-      title
-        fieldGroupName
+        buttonLink
         description
+        title
+        vimeoLink
+        desktopThumbnail {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        mobileThumbnail {
+          node {
+            altText
+            sourceUrl
+          }
+        }
       }
-      thumbnail {
-        shortDescription
-        banner {
-          node {
-            altText
-            sourceUrl
+      expertise {
+        tabTitle
+        title
+        description
+        expertiseAccordion {
+          accordionDescription
+          accordionTitle
+          buttonLink
+          icon {
+            node {
+              altText
+              sourceUrl
+            }
           }
         }
-        gradient {
-          from
-          to
-        }
-        logo {
-          node {
-            altText
-            sourceUrl
-          }
+      }
+      availableRegions {
+        marqueeText
+      }
+      whyAurora {
+        description
+        end
+        endText
+        startText
+        title
+        list {
+          caption
+          description
+          title
+          value
         }
       }
       ourClient {
-        title
         tabTitle
+        title
         selectLogos {
           nodes {
             ... on ClientsLogo {
@@ -52,38 +78,14 @@ export const getSingleHowWeHelp = async (slug) => {
           nodes {
             ... on Testimonial {
               id
-               content
-                title
-                testimonials {
-                  designation
-                }
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
+              content
+              testimonials {
+                designation
               }
+              title
             }
           }
         }
-      }
-      keyAdvantages {
-        tabTitle
-        title
-        description
-        advantages {
-          advantagesTitle
-          advantagesDescription
-          icon {
-            node {
-              altText
-              sourceUrl
-            }
-          }
-        }
-      }
-      availableRegions {
-        marqueeText
       }
     }
   }
@@ -94,13 +96,13 @@ export const getSingleHowWeHelp = async (slug) => {
 };
 
 /** Fetch Page */
-export const getHowWeHelps = async () => {
+export const getWhoAreYous = async () => {
 	const query = `
 query GetAllHowWeHelps {
   howWeHelps {
-
     nodes {
-slug
+    title
+    slug
       howWeHelpInside {
         banner {
         title

@@ -126,7 +126,7 @@ export default function Products({
 					showContentOnly
 				/>
 				<div>
-					<TransactionSolutions data={products.nodes} />
+					<TransactionSolutions data={products.nodes} slugPage="products" />
 				</div>
 				<GlobalMap locationJson={mapJson} marqueeText={data.mapMarquee} />
 				{/* <div className="ptb_100">

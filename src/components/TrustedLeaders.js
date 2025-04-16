@@ -23,7 +23,10 @@ import erste from "../../public/img/softwares/erste.png";
 // DATA //
 
 /** TrustedLeaders Section */
-export default function TrustedLeaders({ data }) {
+export default function TrustedLeaders({
+	data,
+	sectionTitle = "Trusted by industry leaders",
+}) {
 	const LogoData = [
 		{
 			logos: erste.src,
@@ -86,7 +89,7 @@ export default function TrustedLeaders({ data }) {
 			<div className="container">
 				<div className="pb_40">
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
-						Trusted by industry leaders
+						{sectionTitle}
 					</h2>
 				</div>
 				{/* <div className={`${styles.box_wrap}`}>
