@@ -34,11 +34,11 @@ export default function MarketIntelligence({ data }) {
 						<h2 className="text_xxl font_primary f_w_s_b color_secondary pb_20">
 							<ContentFromCms>{data?.title}</ContentFromCms>
 						</h2>
-						<p className="text_reg color_dark_gray">{data.description}</p>
+						<p className="text_reg color_dark_gray">{data?.description}</p>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						<img
-							src={data?.image?.node?.sourceUrl || market_intelligence.src}
+							src={data?.image?.node?.sourceUrl}
 							className={`${styles.redefining} img`}
 							alt="redefining"
 						/>

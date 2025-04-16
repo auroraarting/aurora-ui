@@ -77,7 +77,7 @@ export default function ProductSlider({ data }) {
 						}}
 						className={styles.slider}
 					>
-						{data.map((slide, index) => (
+						{data?.map((slide, index) => (
 							<SwiperSlide key={index}>
 								<div className={`${styles.testimonialItem} f_w_j`}>
 									<div className={`${styles.productLogoBox}`}>
@@ -110,14 +110,14 @@ export default function ProductSlider({ data }) {
 									</div>
 									<div className={`${styles.testimonialTxt}`}>
 										<h3 className="text_lg color_secondary pb_10">{slide.heading}</h3>
-										{slide.description && (
+										{slide?.description && (
 											<div className="text_reg color_dark_gray">
-												<ContentFromCms>{slide.description}</ContentFromCms>
+												<ContentFromCms>{slide?.description}</ContentFromCms>
 											</div>
 										)}
-										<a href={slide.buttonLink} className={`${styles.bookBtnOne} pt_20`}>
+										<a href={slide?.buttonLink} className={`${styles.bookBtnOne} pt_20`}>
 											<Button color="primary" variant="filled" shape="rounded">
-												{slide.buttonText}
+												{slide?.buttonText}
 											</Button>
 										</a>
 									</div>
@@ -125,14 +125,16 @@ export default function ProductSlider({ data }) {
 							</SwiperSlide>
 						))}
 					</Swiper>
-					<div className={`${styles.arrowSection} f_w_a_j_center`}>
-						<button className={`${styles.customPrev}`} id="customPrev">
-							<img src={slider_arrow.src} alt="icon" />
-						</button>
-						<button className={styles.customNext} id="customNext">
-							<img src={slider_arrow.src} alt="icon" />
-						</button>
-					</div>
+					{data?.length > 1 && (
+						<div className={`${styles.arrowSection} f_w_a_j_center`}>
+							<button className={`${styles.customPrev}`} id="customPrev">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+							<button className={styles.customNext} id="customNext">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 		</section>

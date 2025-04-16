@@ -55,8 +55,7 @@ export default function GloballyBankableInsights({ data, isMultiple }) {
 								{/* Trusted by experts, Aurora&apos;s analytics ensure accuracy,
 								reliability, and <br /> strategic foresight. Our data helps sector
 								leaders confidently navigate <br /> renewable energy transitions. */}
-								{data?.description ||
-									"Trusted by experts, Aurora&apos;s analytics ensure accuracy, reliability, and  strategic foresight. Our data helps sector leaders confidently navigate renewable energy transitions"}
+								{data?.description}
 							</p>
 						</div>
 

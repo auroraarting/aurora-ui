@@ -21,6 +21,8 @@ import mac_img from "../../../public/img/softwares/mac_img.png";
 import frame_video from "../../../public/img/softwares/frame_video.png";
 import pause_button from "../../../public/img/icons/pause_button.svg";
 import play_button from "../../../public/img/icons/video_play.svg";
+import DefaultBanner from "/public/img/banner/defaultDesktopBanner.jpg";
+import DefaultBannerMob from "/public/img/banner/defaultMobileBanner.jpg";
 
 // DATA //
 
@@ -89,15 +91,16 @@ export default function SoftwareBanner({
 						</div>
 					</div>
 				</div>
-				<div className={`${styles.macFrameBox} f_r_aj_center`}>
-					<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
-					{/* <img
+				{vimeoid ? (
+					<div className={`${styles.macFrameBox} f_r_aj_center`}>
+						<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
+						{/* <img
 						src={frame_video.src}
 						alt="mac img"
 						className={`${styles.frame_video}`}
 					/> */}
-					<div className={`${styles.frame_video}`}>
-						{/* {vimeoid ? (
+						<div className={`${styles.frame_video}`}>
+							{/* {vimeoid ? (
 							<Vimeo
 								className={`${styles.vimeoPlayer}`}
 								ref={videoRef}
@@ -108,31 +111,45 @@ export default function SoftwareBanner({
 								<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
 							</video>
 						)} */}
-						{vimeoid && (
-							<Vimeo
-								className={`${styles.vimeoPlayer}`}
-								ref={videoRef}
-								{...defaultVimeoObj}
-							/>
-						)}
-						{/* Play/Pause Button */}
-						<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
-							{isPlaying ? (
-								<img
-									src={pause_button.src}
-									className={`${styles.pause_button}`}
-									alt="Pause"
-								/>
-							) : (
-								<img
-									src={play_button.src}
-									className={`${styles.play_button}`}
-									alt="Play"
+							{vimeoid && (
+								<Vimeo
+									className={`${styles.vimeoPlayer}`}
+									ref={videoRef}
+									{...defaultVimeoObj}
 								/>
 							)}
+							{/* Play/Pause Button */}
+							<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
+								{isPlaying ? (
+									<img
+										src={pause_button.src}
+										className={`${styles.pause_button}`}
+										alt="Pause"
+									/>
+								) : (
+									<img
+										src={play_button.src}
+										className={`${styles.play_button}`}
+										alt="Play"
+									/>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
+				) : (
+					<div className={`${styles.banner_image} next_image`}>
+						<picture>
+							<source
+								srcSet={desktopImage ? desktopImage : DefaultBanner.src}
+								media="(min-width:767px)"
+							/>
+							<img
+								src={mobileImage ? mobileImage : DefaultBannerMob.src}
+								alt="Banner Image"
+							/>
+						</picture>
+					</div>
+				)}
 			</div>
 		</section>
 	);
