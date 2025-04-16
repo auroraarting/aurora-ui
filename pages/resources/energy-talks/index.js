@@ -26,7 +26,7 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
-/** events Page */
+/** Energy Page */
 export default function EnergyTalks() {
 	return (
 		<div>

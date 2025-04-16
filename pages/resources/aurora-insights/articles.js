@@ -5,17 +5,15 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
-import TestimonialFeedback from "@/components/TestimonialFeedback";
 import SectionsHeader from "@/components/SectionsHeader";
-import InnerBanner from "@/components/InnerBanner";
-import Button from "@/components/Buttons/Button";
-import TrustedLeaders from "@/components/TrustedLeaders";
-import SmarterEnergy from "@/components/SmarterEnergy";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
 import Insights from "@/components/Insights";
-import IntegratedSystem from "@/components/IntegratedSystem";
+import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
-import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
+import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
+import CaseStudiesMiddleDescription from "@/sections/resources/aurora-insights/CaseStudiesMiddleDescription";
+import Client from "@/sections/resources/aurora-insights/Client";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -23,15 +21,15 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/who-are-you/FinancialSector.module.scss";
+import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
 
 // IMAGES //
-import desktop_banner from "@/../public/img/financial-sector/desktop_banner.jpg";
+//import desktop_banner from "@/../public/img/resources/aurora-insights/desktop_banner.jpg";
 
 // DATA //
 
-/** FinancialSector Page */
-export default function Advisory() {
+/** Articles Page */
+export default function Articles() {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -64,36 +62,29 @@ export default function Advisory() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
-				Title={"Financial Sector"}
-				Desc={""}
-				OgImg={""}
-				Url={"/financial-sector"}
-			/>
+			<MetaTags Title={"Articles"} Desc={""} OgImg={""} Url={"/articles"} />
 
 			{/* Header */}
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.FinancialSectorPage}>
+			<main className={styles.articlesPage}>
 				<div className="pb_60">
-					<InnerBanner
-						bannerTitle="Energy solutions for those who see beyond the grid"
-						bannerDescription="Aurora empowers industries with tailored energy intelligence, helping decision-makers drive impact, manage risks, and seize opportunities in a rapidly changing energy landscape."
-						btnTxt="Connect Now"
-						desktopImage={desktop_banner.src}
-						mobileImage={desktop_banner.src}
-						// videoSrc="../../img/softwares/frame_video.mp4"
-					/>
+					<CaseStudiesTop />
 				</div>
 				<SectionsHeader data={headerArray} />
-				<SmarterEnergy />
-				<div className="pt_100">
-					<SoftwareMarket />
-				</div>
-				<div className="ptb_100">
-					<TrustedLeaders />
-				</div>
+				<section className={`${styles.CaseStudiesMiddle} pb_80 pt_40`}>
+					<div className="container">
+						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
+							<div className={`${styles.CaseStudiesMiddleLeft}`}>
+								<CaseStudiesMiddleDescription />
+							</div>
+							<div className={`${styles.CaseStudiesMiddleRight}`}>
+								<Client />
+							</div>
+						</div>
+					</div>
+				</section>
 				<div className="pb_100">
 					<TestimonialFeedback />
 				</div>
@@ -104,9 +95,6 @@ export default function Advisory() {
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 					/>
-				</div>
-				<div className="pb_100">
-					<IntegratedSystem />
 				</div>
 			</main>
 			{/* Page Content ends here */}

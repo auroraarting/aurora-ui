@@ -35,7 +35,7 @@ export default function events() {
 			<MetaTags Title={"Events"} Desc={""} OgImg={""} Url={"/events"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.eventsPage}>

@@ -23,42 +23,57 @@ import InsightsBg from "/public/img/softwares/insightsBgGradient.png";
 
 // DATA //
 const defaultRows = [
-	{ title: "Multi-Technology Project", percent: 29 },
-	{ title: "Hydrogen", percent: 24 },
-	{ title: "Solar", percent: 16 },
-	{ title: "Offshore Wind", percent: 14 },
-	{ title: "Onshore Wind", percent: 12 },
-	{ title: "Battery Energy Storage (BESS)", percent: 5 },
+	{ title: "Lorem Ipsum", percent: 29 },
+	{ title: "Lorem Ipsum", percent: 24 },
+	{ title: "Lorem Ipsum", percent: 16 },
+	{ title: "Lorem Ipsum", percent: 14 },
+	{ title: "Lorem Ipsum", percent: 12 },
+	{ title: "Lorem Ipsum", percent: 5 },
 ];
 
 /** GloballyBankableInsights Section */
-export default function GloballyBankableInsights() {
+export default function GloballyBankableInsights({ data, isMultiple }) {
 	return (
-		<section className={`${styles.GloballyBankableInsights}`} id="expertise">
-			<img className={`${styles.bg}`} src={Bg.src} alt="Bg" />
+		<section
+			className={`${styles.GloballyBankableInsights}`}
+			id="whyAurora"
+			data-name="Why Aurora"
+		>
+			{!isMultiple && <img className={`${styles.bg}`} src={Bg.src} alt="Bg" />}
 			<div className="section_spacing">
 				<div className="container">
 					<div className={`${styles.wrap}`}>
 						<div className={`${styles.head} f_r_aj_between`}>
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-								Globally bankable <br /> insights
+								{/* Globally bankable <br /> insights */}
+								{data?.title || (
+									<>
+										Globally bankable <br /> insights
+									</>
+								)}
 							</h2>
 
 							<p>
-								Trusted by experts, Aurora&apos;s analytics ensure accuracy,
+								{/* Trusted by experts, Aurora&apos;s analytics ensure accuracy,
 								reliability, and <br /> strategic foresight. Our data helps sector
-								leaders confidently navigate <br /> renewable energy transitions.
+								leaders confidently navigate <br /> renewable energy transitions. */}
+								{data?.description ||
+									"Trusted by experts, Aurora&apos;s analytics ensure accuracy, reliability, and  strategic foresight. Our data helps sector leaders confidently navigate renewable energy transitions"}
 							</p>
 						</div>
 
-						<div className={`${styles.insightWrap} color_white`}>
-							<SingleInsight />
-						</div>
-						{/* <div
-							className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
-						>
-							<MultipleInsights />
-						</div> */}
+						{!isMultiple && (
+							<div className={`${styles.insightWrap} color_white`}>
+								<SingleInsight data={data} />
+							</div>
+						)}
+						{isMultiple && (
+							<div
+								className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
+							>
+								<MultipleInsights />
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -67,16 +82,22 @@ export default function GloballyBankableInsights() {
 }
 
 /** SingleInsight */
-const SingleInsight = () => {
+const SingleInsight = ({ data }) => {
 	return (
 		<>
-			<Speedometer value={750} endpoint={1000} speed={200} startWhenInView />
+			<Speedometer
+				value={data?.meterValue || 750}
+				endpoint={data?.meterEndpoint || 1000}
+				speed={data?.metetSpeed || 200}
+				startWhenInView
+			/>
 			<div className={`${styles.textData}`}>
-				<p className={`${styles.insightTitle} text_lg`}>Data you can depend on</p>
+				<p className={`${styles.insightTitle} text_lg`}>
+					{data?.meterTitle || "Trusted by companies globally"}
+				</p>
 				<p className={`${styles.insightsDesc}`}>
-					Chronos leverages Aurora’s proprietary datasets and models, trusted by over
-					750 companies globally. When accuracy and reliability matter most, Chronos
-					delivers.
+					{data?.meterDescription ||
+						"Chronos leverages Aurora’s proprietary datasets and models, trusted by over 750 companies globally. When accuracy and reliability matter most, Chronos delivers."}
 				</p>
 			</div>
 		</>

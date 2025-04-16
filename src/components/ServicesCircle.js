@@ -30,19 +30,25 @@ const services = [
 /** ServicesCircle Component */
 export default function ServicesCircle({ data }) {
 	return (
-		<div className={`${styles.ServicesCircleSection} dark_bg `}>
+		<section
+			className={`${styles.ServicesCircleSection} dark_bg `}
+			id="keyAdvantages"
+			data-name="Key Advantages"
+		>
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
 						<h3 className="text_xl color_white pb_20">
-							{data?.sectionTitle || "Chronos Edge in Energy Storage Valuation"}
+							{data?.sectionTitle ||
+								data?.title ||
+								"Chronos Edge in Energy Storage Valuation"}
 						</h3>
 						<div className="text_reg color_platinum_gray">
 							<ContentFromCms>
 								{data?.descripition ||
+									data?.desciption ||
 									`Lorem ipsum dolor sit amet consectetur. Velit vel iaculis fames velit
-// 							mauris morbi volutpat. Senectus purus est cursus ac. Amet tortor at ac a
-// 							mi eu urna risus nulla.`}
+                                    mauris morbi volutpat. Senectus purus est cursus ac. Amet tortor at ac a mi eu urna risus nulla.`}
 							</ContentFromCms>
 						</div>
 						<div className="pt_40">
@@ -54,28 +60,14 @@ export default function ServicesCircle({ data }) {
 						</div>
 					</div>
 					<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
-						{/*<div className={`${styles.Quadrant} ${styles.TopLeft}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.Quadrant} ${styles.TopRight}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.Quadrant} ${styles.BottomLeft}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.Quadrant} ${styles.BottomRight}`}>
-							<img src={IconStrategy.src} alt="Strategy" className={styles.Icon} />
-						</div>
-						<div className={`${styles.CenterBox}`}></div>*/}
 						<CircularMenu
 							items={data?.advantages || services}
 							iconDefault={IconStrategy}
 						/>
-						<div className={`${styles.CenterBox}`}></div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 }
 

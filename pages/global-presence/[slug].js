@@ -25,6 +25,7 @@ import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { getMapJsonForCountries, getMapJsonForProducts } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/global-presence/Australia.module.scss";
@@ -35,18 +36,26 @@ import desktop_banner from "@/../public/img/global-presence/desktop_banner.jpg";
 // DATA //
 
 // SERVICES //
-import { getCountryInside } from "@/services/GlobalPresence.service";
+import {
+	getCountryInside,
+	getRegions,
+} from "@/services/GlobalPresence.service";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const data = await getCountryInside(params.slug);
+	const [data] = await Promise.all([getCountryInside(params.slug)]);
+	const mapJson = getMapJsonForCountries(data.data.countryBy.countries.map);
 
-	return { props: { data: data.data.countryBy } };
+	return {
+		props: {
+			data: data.data.countryBy,
+			mapJson,
+		},
+	};
 }
 
 /** Australia Page */
-export default function Australia({ data }) {
-	console.log(data);
+export default function Australia({ data, mapJson }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -77,10 +86,17 @@ export default function Australia({ data }) {
 		</div>,
 	];
 
+	console.log(data);
+
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Australia"} Desc={""} OgImg={""} Url={"/australia"} />
+			<MetaTags
+				Title={data.title}
+				Desc={""}
+				OgImg={""}
+				Url={`/global-presense/${data.slug}`}
+			/>
 
 			{/* Header */}
 			{/* <Header /> */}
@@ -113,17 +129,20 @@ export default function Australia({ data }) {
 				<SectionsHeader data={headerArray} />
 				<Introduction data={data.countries.introduction} />
 				<div className="pb_100">
-					<WhichProducts />
+					<WhichProducts data={data.countries.map} />
 				</div>
 				<ServicesCircle data={data.countries.keyAdvantages} />
 				<div className="ptb_100">
-					<SoftwareMarket sectionTitle="Energy intelligence across every key market" />
+					<SoftwareMarket
+						sectionTitle="Energy intelligence across every key market"
+						mapJson={mapJson}
+					/>
 				</div>
 				<div className="pb_100">
-					<TrustedLeaders />
+					<TrustedLeaders data={data.countries.ourClients} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={data.countries.ourClients} />
 				</div>
 				<div className="pb_100">
 					<PublicWebinar />

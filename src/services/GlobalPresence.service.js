@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Regions Data */
 export const getRegions = async () => {
 	const query = `
-   query NewQuery {
+ query NewQuery {
   regions {
     nodes {
       name
@@ -41,29 +41,26 @@ export const getRegions = async () => {
                         name
                       }
                     }
-                    ... on Services {
+                    ... on Product {
                       id
-                      banner {
-                        map {
-                          lat
-                          lng
-                        }
-                      }
-                      slug
                       title
+                      slug
                     }
                     ... on Software {
                       id
-                      banner {
-                        map {
-                          lat
-                          lng
-                        }
-                      }
+                      title
+                      slug
+                    }
+                    ... on Services {
+                      id
                       title
                       slug
                     }
                   }
+                }
+                coordinates {
+                  lat
+                  lng
                 }
               }
             }
@@ -104,151 +101,178 @@ export const getGlobalPresencePage = async () => {
 /** Fetch Country Inside */
 export const getCountryInside = async (slug) => {
 	const query = `
-   query NewQuery {
+query GetCountryInside {
   countryBy(slug: "${slug}") {
     slug
-      title
-       countries {
-        bannerSection {
-          description
-          title
+    title
+    countries {
+      bannerSection {
+        description
+        title
+        videoLink
+        image {
+          node {
+            altText
+            sourceUrl(size: LARGE)
+          }
+        }
+        mobileImage {
+          node {
+            altText
+            sourceUrl(size: LARGE)
+          }
+        }
+      }
+      announcement {
+        slide {
+          thumbnailImage {
+            node {
+              altText
+              sourceUrl
+            }
+          }
           videoLink
-          image {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
-          mobileImage {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
-        }
-        announcement {
-          slide {
-            thumbnailImage {
-              node {
-                altText
-                sourceUrl
-              }
-            }
-            videoLink
-            heading
-            description
-            buttonText
-            buttonLink
-          }
-        }
-        introduction {
-          sectionTitle
-          tabTitle
+          heading
           description
-        }
-        ourOfferings {
-          sectionTitle
-          tabTitle
-        }
-        keyAdvantages {
-          buttonLink
           buttonText
-          descripition
-          sectionTitle
-          advantages {
-            description
-            image {
-              node {
-                altText
-                sourceUrl(size: LARGE)
+          buttonLink
+        }
+      }
+      introduction {
+        sectionTitle
+        tabTitle
+        description
+      }
+      ourOfferings {
+        sectionTitle
+        tabTitle
+      }
+      keyAdvantages {
+        title
+        tabTitle
+        description
+        advantages {
+          icon {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+          advantagesTitle
+          advantagesDescription
+        }
+      }
+      availableRegions {
+        sectionTitle
+        tabTitle
+      }
+      ourClients {
+        sectionTitle
+        tabTitle
+        selectLogos {
+          nodes {
+            ... on ClientsLogo {
+              id
+              featuredImage {
+                node {
+                  altText
+                  sourceUrl
+                }
               }
             }
           }
         }
-        availableRegions {
-          sectionTitle
-          tabTitle
+        testimonials {
+          nodes {
+            ... on Testimonial {
+              id
+              title
+              content
+              testimonials {
+                designation
+              }
+            }
+          }
         }
-        ourClients {
-          sectionTitle
-          tabTitle
+      }
+      eventsAndWebinars {
+        sectionTitle
+        tabTitle
+      }
+      insights {
+        sectionTitle
+      }
+      subscribeSection {
+        description
+        sectionTitle
+        image {
+          node {
+            altText
+            sourceUrl(size: LARGE)
+          }
         }
-        eventsAndWebinars {
-          sectionTitle
-          tabTitle
+      }
+      map {
+        zoom
+        countryPin {
+          lat
+          lng
         }
-        insights {
-          sectionTitle
-        }
-        subscribeSection {
-          description
-          sectionTitle
-          image {
+        markers {
+          icon {
             node {
               altText
               sourceUrl(size: LARGE)
             }
           }
-        }
-        map {
-          zoom
-          countryPin {
+          mapThumbnail {
+            node {
+              altText
+              sourceUrl(size: LARGE)
+            }
+          }
+          category {
+            nodes {
+              contentType {
+                node {
+                  name
+                }
+              }
+              ... on Services {
+                id
+                slug
+                title
+                content
+              }
+              ... on Software {
+                id
+                title
+                slug
+                content
+              }
+              ... on Product {
+                id
+                title
+                slug
+                content
+              }
+              slug
+            }
+          }
+          coordinates {
             lat
             lng
           }
-          markers {
-            icon {
-              node {
-                altText
-                sourceUrl(size: LARGE)
-              }
-            }
-            mapThumbnail {
-              node {
-                altText
-                sourceUrl(size: LARGE)
-              }
-            }
-            category {
-              nodes {
-                contentType {
-                  node {
-                    name
-                  }
-                }
-                ... on Services {
-                  id
-                  banner {
-                    map {
-                      lat
-                      lng
-                    }
-                  }
-                  slug
-                  title
-                }
-                ... on Software {
-                  id
-                  banner {
-                    map {
-                      lat
-                      lng
-                    }
-                  }
-                  title
-                  slug
-                }
-              }
-            }
-          }
+          locationtitle
         }
       }
-      featuredImage {
-        node {
-          altText
-          sourceUrl(size: LARGE)
-        }
+    }
+    featuredImage {
+      node {
+        altText
+        sourceUrl(size: LARGE)
       }
+    }
   }
 }
     `;

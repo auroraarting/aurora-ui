@@ -14,7 +14,6 @@ import styles from "@/styles/sections/resources/energy-talks/TopEnergy.module.sc
 
 // IMAGES //
 import energy_logo from "@/../public/img/energy_talks/energy_logo.jpg";
-import upcoming_img from "@/../public/img/events/upcoming_img.jpg";
 import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import black_clock from "@/../public/img/icons/black_clock.svg";
@@ -34,8 +33,8 @@ export default function TopEnergy() {
 							Latest Podcast
 						</div>
 						<h2 className="text_lg color_white text_uppercase f_w_m pt_30">
-							ep.234 Lucy yu & jon norman on the role of flexibility to enable a clean
-							power grid
+							<span className="color_blue">ep.234</span> Lucy yu & jon norman on the
+							role of flexibility to enable a clean power grid
 						</h2>
 						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
 							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">

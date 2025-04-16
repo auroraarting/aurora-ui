@@ -23,7 +23,10 @@ import erste from "../../public/img/softwares/erste.png";
 // DATA //
 
 /** TrustedLeaders Section */
-export default function TrustedLeaders() {
+export default function TrustedLeaders({
+	data,
+	sectionTitle = "Trusted by industry leaders",
+}) {
 	const LogoData = [
 		{
 			logos: erste.src,
@@ -78,11 +81,15 @@ export default function TrustedLeaders() {
 		},
 	];
 	return (
-		<section className={`${styles.TrustedLeaders} TrustedLeaders`} id="whyaurora">
+		<section
+			className={`${styles.TrustedLeaders} TrustedLeaders`}
+			id="ourClients"
+			data-name="Our Clients"
+		>
 			<div className="container">
 				<div className="pb_40">
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
-						Trusted by industry leaders
+						{sectionTitle}
 					</h2>
 				</div>
 				{/* <div className={`${styles.box_wrap}`}>
@@ -124,15 +131,29 @@ export default function TrustedLeaders() {
 						modules={[Grid, Pagination]}
 						className="mySwiper"
 					>
-						{LogoData.map((item, ind) => (
+						{data?.selectLogos?.nodes?.map((item, ind) => (
 							<SwiperSlide key={ind}>
 								<div className={`${styles.box_item}`} key={ind}>
 									<div className={`${styles.imgBox}`}>
-										<img src={item.logos} className="b_r_10" alt="story img" />
+										<img
+											src={item.featuredImage.node.sourceUrl}
+											className="b_r_10"
+											alt="story img"
+										/>
 									</div>
 								</div>
 							</SwiperSlide>
 						))}
+						{!data?.selectLogos?.nodes &&
+							LogoData.map((item, ind) => (
+								<SwiperSlide key={ind}>
+									<div className={`${styles.box_item}`}>
+										<div className={`${styles.imgBox}`}>
+											<img src={item.logos} className="b_r_10" alt="story img" />
+										</div>
+									</div>
+								</SwiperSlide>
+							))}
 					</Swiper>
 				</div>
 			</div>

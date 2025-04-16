@@ -29,7 +29,7 @@ export default function HomePage() {
 			<Header />
 
 			{/* Page Content starts here */}
-			<main className={`${styles.HomePage} yellow_gradient`}>
+			<main className={`${styles.HomePage}`}>
 				<h2>This is ting base next.js template</h2>
 			</main>
 			{/* Page Content ends here */}

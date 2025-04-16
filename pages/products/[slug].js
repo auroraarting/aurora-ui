@@ -25,6 +25,7 @@ import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsig
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/product/ProductInside.module.scss";
@@ -34,8 +35,31 @@ import styles from "@/styles/pages/product/ProductInside.module.scss";
 // DATA //
 import locationJson from "@/data/globalMap.json";
 
+// SERVICES //
+import { getProductBySlug } from "@/services/Products.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data, regions] = await Promise.all([
+		getProductBySlug(params.slug),
+		getRegions(),
+	]);
+	const mapJson = getMapJsonForProducts(
+		filterMarkersBySlug(regions, params.slug)
+	);
+
+	return {
+		props: {
+			data: data.data.productBy,
+			mapJson,
+		},
+	};
+}
+
 /** ProductInside Page */
-export default function ProductInside() {
+export default function ProductInside({ data, mapJson }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -65,14 +89,15 @@ export default function ProductInside() {
 			</Button>
 		</div>,
 	];
+
 	return (
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={"Product Inside"}
+				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={"/product-inside"}
+				Url={`/products/${data.slug}`}
 			/>
 
 			{/* Header */}
@@ -83,26 +108,35 @@ export default function ProductInside() {
 				<div>
 					<ProductBanner />
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					data={headerArray}
+					customHtml={
+						<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+							<Button color="primary" variant="filled" shape="rounded">
+								Book a Demo
+							</Button>
+						</div>
+					}
+				/>
 				<div className="ptb_100">
-					<MarketIntelligence />
+					<MarketIntelligence data={data.products.introduction} />
 				</div>
-				<GlobalMap locationJson={locationJson} />
+				<GlobalMap locationJson={mapJson} marqueeText={data.products.map.marquee} />
 				{/* <div className="ptb_100">
 					<SoftwareMarket />
 				</div> */}
 				<div className="ptb_100">
-					<TrustedLeaders />
+					<TrustedLeaders data={data.products.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={data.products.ourClient} />
 				</div>
-				<ServicesCircle />
+				<ServicesCircle data={data.products.keyAdvantages} />
 				<div>
-					<GloballyBankableInsights />
+					<GloballyBankableInsights data={data.products.whyAurora} />
 				</div>
 				<div>
-					<SmarterEnergy />
+					<SmarterEnergy data={data.products.expertise} />
 				</div>
 
 				<div className={`${styles.insightBg} pb_100 pt_30`}>

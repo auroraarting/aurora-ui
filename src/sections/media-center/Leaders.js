@@ -265,6 +265,18 @@ export default function Leaders() {
 													<div className={`${styles.BoxFlex} f_w`}>
 														<div className={styles.Imgthumbnail}>
 															<img src={item.thumbnail} className="b_r_20" alt="story img" />
+															<div className={`${styles.profileDownload}`}>
+																<a
+																	href={item.downloadProfileUrl}
+																	className="d_f"
+																	download
+																	target="_blank"
+																	rel="noopener noreferrer"
+																>
+																	Download Profile
+																	<img src={black_down_arrow.src} alt="icon" />
+																</a>
+															</div>
 														</div>
 														<div className={`${styles.Details}`}>
 															<div className={`${styles.boxName}`}>
@@ -274,16 +286,10 @@ export default function Leaders() {
 																	{item.name}
 																</h5>
 																<p className="text_xs color_silver_gray">{item.designation}</p>
-																<div className={`${styles.downloadProfile} f_w_j`}>
+																<div className={`${styles.downloadProfile} pt_20 f_w_j`}>
 																	<div className={`${styles.linkedin}`}>
 																		<a href={item.linkedinUrl} className="d_f">
 																			<img src={linkedin.src} alt="icon" />
-																		</a>
-																	</div>
-																	<div className={`${styles.profileDownload}`}>
-																		<a href={item.downloadProfileUrl} className="d_f">
-																			Download Profile
-																			<img src={black_down_arrow.src} alt="icon" />
 																		</a>
 																	</div>
 																</div>

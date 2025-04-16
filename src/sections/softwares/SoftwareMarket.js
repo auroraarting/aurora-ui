@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import CustomSelect from "@/components/CustomSelect";
-import Map from "@/components/Map";
+import Map from "@/components/MapContainer";
 import AccordianCommon from "@/components/AccordianCommon";
 
 // SECTIONS //
@@ -12,6 +12,7 @@ import AccordianCommon from "@/components/AccordianCommon";
 // PLUGINS //
 
 // UTILS //
+import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/softwares/SoftwareMarket.module.scss";
@@ -32,26 +33,28 @@ import locationJson from "@/data/locations.json";
 /** SoftwareBanner Section */
 export default function SoftwareMarket({
 	sectionTitle = "From your market to the world",
+	mapJson,
 }) {
-	const [visibleLocations, setVisibleLocations] = useState([]);
-	const [visibleCountry, setVisibleCountry] = useState(""); // Stores the currently visible country
-	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
-	const [valueOfSelect, setValueOfSelect] = useState(0);
-	const [map, setMap] = useState(null);
-
-	/** changeMapCenter */
-	const changeMapCenter = (country) => {
-		setMapCenter(locationJson[country.index]?.centerOfCountry);
-		map.setZoom(locationJson[country.index]?.zoom || 4);
+	/** centerOfCountry  */
+	let centerOfCountry = () => {
+		if (mapJson) {
+			return {
+				lat: parseFloat(mapJson.countryPin.lat),
+				lng: parseFloat(mapJson.countryPin.lng),
+			};
+		}
 	};
 
-	useEffect(() => {
-		if (visibleCountry === "") {
-			return;
-		}
-		const index = locationJson.findIndex((item) => item.name === visibleCountry);
-		setValueOfSelect(index);
-	}, [visibleCountry]);
+	let customMapJson = {
+		...mapJson,
+		centerOfCountry: centerOfCountry(),
+	};
+
+	// console.log(customMapJson, "customMapJson");
+
+	const [mapCenter, setMapCenter] = useState(centerOfCountry());
+	const [map, setMap] = useState(null);
+	const [valueOfSelect, setValueOfSelect] = useState(0);
 
 	return (
 		<section className={`${styles.SoftwareMarket} `} id="availableregions">
@@ -120,12 +123,12 @@ export default function SoftwareMarket({
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
 						<Map
 							mapCenter={mapCenter}
-							setVisibleLocations={setVisibleLocations}
-							setVisibleCountry={setVisibleCountry}
 							setValueOfSelect={setValueOfSelect}
 							valueOfSelect={valueOfSelect}
 							map={map}
 							setMap={setMap}
+							defaultZoom={mapJson?.zoom || 4}
+							locationJson={[customMapJson]}
 						/>
 
 						{/* <div className={`${styles.markerDetail}`}>

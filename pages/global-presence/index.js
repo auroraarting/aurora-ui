@@ -117,11 +117,11 @@ export default function GlobalPresence({ regions, page }) {
 							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
 						}
 
-						if (item3.category.nodes.length > 0) {
+						if (item3?.category?.nodes?.length > 0) {
 							let node = item3.category.nodes[0];
 							obj2.name = node.title;
-							obj2.lat = parseFloat(node.banner.map.lat);
-							obj2.lng = parseFloat(node.banner.map.lng);
+							obj2.lat = parseFloat(item3.coordinates.lat);
+							obj2.lng = parseFloat(item3.coordinates.lng);
 							obj2.url = `/${node.contentType.node.name}/${node.slug}`;
 						}
 
@@ -170,13 +170,15 @@ export default function GlobalPresence({ regions, page }) {
 					<section className={`${styles.CountryMain} ptb_100`}>
 						<div className="container">
 							<div className={`${styles.accordian_main}`}>
-								<AccordianCommon
-									fontStyle={"text_lg"}
-									fontWeight={"f_w_s_b"}
-									fontFamily={"font_primary"}
-									fontColor={"color_secondary"}
-									items={data.regionsArr}
-								/>
+								{data.regionsArr && (
+									<AccordianCommon
+										fontStyle={"text_lg"}
+										fontWeight={"f_w_s_b"}
+										fontFamily={"font_primary"}
+										fontColor={"color_secondary"}
+										items={data.regionsArr}
+									/>
+								)}
 							</div>
 						</div>
 					</section>

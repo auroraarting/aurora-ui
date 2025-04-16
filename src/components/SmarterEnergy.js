@@ -23,25 +23,6 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
-	const accordianData = data?.accordian?.map((item, ind) => {
-		return {
-			title: item.title,
-			imgIcons: item.icon.node.sourceUrl,
-			children: (
-				<div className={`${styles.content_wrap}`}>
-					<p className="text_reg color_dark_gray">{item.description}</p>
-					{item.buttonLink && (
-						<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
-							<Button color="secondary" variant="underline">
-								Know more
-							</Button>
-						</a>
-					)}
-				</div>
-			),
-		};
-	});
-
 	const tempAccordian = [
 		{
 			title: "Transaction Support",
@@ -109,8 +90,55 @@ export default function SmarterEnergy({ data }) {
 		},
 	];
 
+	/** accordianData  */
+	const accordianData = () => {
+		if (data?.accordian)
+			return data?.accordian?.map((item, ind) => {
+				return {
+					title: item.title,
+					imgIcons: item.icon.node.sourceUrl,
+					children: (
+						<div className={`${styles.content_wrap}`}>
+							<p className="text_reg color_dark_gray">{item.description}</p>
+							{item.buttonLink && (
+								<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
+									<Button color="secondary" variant="underline">
+										Know more
+									</Button>
+								</a>
+							)}
+						</div>
+					),
+				};
+			});
+		if (data?.expertiseAccordion)
+			return data?.expertiseAccordion?.map((item, ind) => {
+				return {
+					title: item.accordionTitle,
+					imgIcons: item.icon.node.sourceUrl,
+					children: (
+						<div className={`${styles.content_wrap}`}>
+							<p className="text_reg color_dark_gray">{item.accordionDescription}</p>
+							{item.buttonLink && (
+								<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
+									<Button color="secondary" variant="underline">
+										Know more
+									</Button>
+								</a>
+							)}
+						</div>
+					),
+				};
+			});
+		return tempAccordian;
+	};
+
 	return (
-		<section className={`${styles.SmarterEnergy} ptb_100`}>
+		<section
+			className={`${styles.SmarterEnergy} ptb_100`}
+			id="expertise"
+			data-name="Expertise"
+		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
@@ -194,7 +222,7 @@ export default function SmarterEnergy({ data }) {
 								// 		),
 								// 	},
 								// ]}
-								items={accordianData || tempAccordian}
+								items={accordianData()}
 							/>
 						</div>
 					</div>

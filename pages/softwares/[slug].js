@@ -29,6 +29,7 @@ import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
@@ -40,8 +41,25 @@ import available_regions from "@/../public/img/global-presence/available_regions
 // DATA //
 import locationJson from "@/data/globalMap.json";
 
+// SERVICES //
+import { getSingleSoftware } from "@/services/Softwares.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data, regions] = await Promise.all([
+		getSingleSoftware(params.slug),
+		getRegions(),
+	]);
+	const mapJson = getMapJsonForProducts(
+		filterMarkersBySlug(regions, data.data.softwareBy.slug)
+	);
+	return { props: { data: data.data.softwareBy.softwares, mapJson } };
+}
+
 /** Chronos Page */
-export default function SoftwarePage() {
+export default function SoftwarePage({ data, mapJson }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -90,30 +108,40 @@ export default function SoftwarePage() {
 					videoSrc="../../img/softwares/frame_video.mp4"
 				/> */}
 
-				<SoftwareBanner />
+				<SoftwareBanner
+					bannerTitle={data.banner.title}
+					bannerDescription={data.banner.description}
+					desktopImage={data.banner.desktopThumbnail?.node.sourceUrl}
+					mobileImage={data.banner.mobileThumbnail?.node.sourceUrl}
+					vimeoid={data.banner.vimeoLink}
+				/>
 				<SectionsHeader data={headerArray} />
 				<div className="ptb_100">
-					<Redefining />
+					<Redefining
+						title={data.introduction.title}
+						description={data.introduction.description}
+						image={data.introduction.image.node.sourceUrl}
+					/>
 				</div>
-				<GlobalMap locationJson={locationJson} />
+				<GlobalMap locationJson={mapJson} />
 				<div className="pt_100">
-					<CaseStudy />
+					<CaseStudy data={data.caseStudy} />
 				</div>
 				{/* <div className="pb_100">
 					<SoftwareMarket />
 				</div> */}
 				<div className="ptb_100">
-					<TrustedLeaders />
+					<TrustedLeaders data={data.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={data.ourClient} />
 				</div>
-				<ServicesCircle />
+				<ServicesCircle data={data.keyAdvantages} />
 				<div>
-					<GloballyBankableInsights />
+					<GloballyBankableInsights data={data.whyAurora} />
 				</div>
-				<IntuitiveStepProcess />
-				<SmarterEnergy />
+				<IntuitiveStepProcess data={data.fourStepProcess} />
+				<SmarterEnergy data={data.expertise} />
 				<div className="ptb_100">
 					<TrustOurExperts />
 				</div>

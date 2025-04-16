@@ -22,13 +22,18 @@ import styles from "@/styles/components/MapContainer.module.scss";
 export default function GlobalMap({
 	locationJson,
 	marqueeText = " Energy intelligence across every key market",
+	className,
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 	const [map, setMap] = useState(null);
 
 	return (
-		<section className={`${styles.globalMap} section_spacing`}>
+		<section
+			className={`${styles.globalMap} section_spacing ${className}`}
+			id="availableregions"
+			data-name="Available Regions"
+		>
 			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 			{/* <div className="container"> */}
 			<Marquee className="pb_40" speed={100}>
@@ -37,15 +42,17 @@ export default function GlobalMap({
 				</span>
 			</Marquee>
 
-			<Map
-				mapCenter={mapCenter}
-				setValueOfSelect={setValueOfSelect}
-				valueOfSelect={valueOfSelect}
-				map={map}
-				setMap={setMap}
-				defaultZoom={2.2}
-				locationJson={locationJson}
-			/>
+			<div className="container">
+				<Map
+					mapCenter={mapCenter}
+					setValueOfSelect={setValueOfSelect}
+					valueOfSelect={valueOfSelect}
+					map={map}
+					setMap={setMap}
+					defaultZoom={2.2}
+					locationJson={locationJson}
+				/>
+			</div>
 			{/* </div> */}
 		</section>
 	);
