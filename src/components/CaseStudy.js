@@ -25,7 +25,7 @@ import formatDate from "@/utils";
 
 /** CaseStudy Section */
 export default function CaseStudy({ data }) {
-	if (!data || data?.selectCaseStudies?.nodes.length === 0) return <></>;
+	if (!data || !data?.title) return <></>;
 
 	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
 	const restArr = data?.selectCaseStudies?.nodes?.slice(1, data.length);
