@@ -20,6 +20,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** TransactionsBanner Section */
 export default function TransactionsBanner({ data }) {
+	if (!data) return <></>;
 	return (
 		<section className={`${styles.TransactionsBanner}`}>
 			<div className="container">

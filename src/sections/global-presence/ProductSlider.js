@@ -59,6 +59,7 @@ export default function ProductSlider({ data }) {
 				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project,get in touch now!",
 		},
 	];
+	if (!data) return <></>;
 	return (
 		<section className={`${styles.ProductSlider}`}>
 			<div className="containerLarge">

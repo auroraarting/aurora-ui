@@ -39,6 +39,8 @@ export default function TransactionSolutions({
 	const animTimeline = gsap.timeline({});
 
 	useEffect(() => {
+		if (!data) return null;
+
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
 		const winH = window.innerHeight;
@@ -83,15 +85,6 @@ export default function TransactionSolutions({
 			}
 		});
 
-		// ScrollTrigger.create({
-		// 	// animation: animTimeline,
-		// 	trigger: `.${styles.TransactionSolutions}`,
-		// 	start: "top top",
-		// 	end: "+=" + winH,
-		// 	scrub: true,
-		// 	pin: true,
-		// });
-
 		ScrollTrigger.create({
 			animation: animTimeline,
 			trigger: `.${styles.TransactionSolutions}`,
@@ -103,7 +96,7 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	const key1 = "softwares";
+	if (!data) return <></>;
 
 	return (
 		<section className={`${styles.TransactionSolutions}`}>

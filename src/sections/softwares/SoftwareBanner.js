@@ -97,7 +97,7 @@ export default function SoftwareBanner({
 						className={`${styles.frame_video}`}
 					/> */}
 					<div className={`${styles.frame_video}`}>
-						{vimeoid ? (
+						{/* {vimeoid ? (
 							<Vimeo
 								className={`${styles.vimeoPlayer}`}
 								ref={videoRef}
@@ -107,6 +107,13 @@ export default function SoftwareBanner({
 							<video ref={videoRef} playsInline autoPlay muted loop>
 								<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
 							</video>
+						)} */}
+						{vimeoid && (
+							<Vimeo
+								className={`${styles.vimeoPlayer}`}
+								ref={videoRef}
+								{...defaultVimeoObj}
+							/>
 						)}
 						{/* Play/Pause Button */}
 						<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>

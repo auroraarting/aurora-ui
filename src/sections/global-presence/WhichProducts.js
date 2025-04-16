@@ -82,8 +82,10 @@ export default function WhichProducts({ data }) {
 	};
 
 	useEffect(() => {
-		setAccordianArr(getAllData());
+		data && setAccordianArr(getAllData());
 	}, []);
+
+	if (!data) return <></>;
 
 	return (
 		<section className={`${styles.WhichProducts}`}>

@@ -23,6 +23,8 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
+	if (!data) return <></>;
+
 	const tempAccordian = [
 		{
 			title: "Transaction Support",

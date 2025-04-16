@@ -56,6 +56,8 @@ export default function SoftwareMarket({
 	const [map, setMap] = useState(null);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 
+	if (!mapJson) return <></>;
+
 	return (
 		<section className={`${styles.SoftwareMarket} `} id="availableregions">
 			<div className="container">

@@ -29,6 +29,7 @@ const services = [
 
 /** ServicesCircle Component */
 export default function ServicesCircle({ data }) {
+	if (!data) return <></>;
 	return (
 		<section
 			className={`${styles.ServicesCircleSection} dark_bg `}

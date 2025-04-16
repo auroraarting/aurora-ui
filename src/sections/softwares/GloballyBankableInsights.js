@@ -33,6 +33,8 @@ const defaultRows = [
 
 /** GloballyBankableInsights Section */
 export default function GloballyBankableInsights({ data, isMultiple }) {
+	if (!data) return <></>;
+
 	return (
 		<section
 			className={`${styles.GloballyBankableInsights}`}
@@ -46,11 +48,7 @@ export default function GloballyBankableInsights({ data, isMultiple }) {
 						<div className={`${styles.head} f_r_aj_between`}>
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 								{/* Globally bankable <br /> insights */}
-								{data?.title || (
-									<>
-										Globally bankable <br /> insights
-									</>
-								)}
+								{data?.title}
 							</h2>
 
 							<p>

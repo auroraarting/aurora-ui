@@ -80,6 +80,8 @@ export default function TrustedLeaders({
 			logos: erste.src,
 		},
 	];
+
+	if (!data) return <></>;
 	return (
 		<section
 			className={`${styles.TrustedLeaders} TrustedLeaders`}

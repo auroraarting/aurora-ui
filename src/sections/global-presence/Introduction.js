@@ -19,6 +19,7 @@ import styles from "@/styles/sections/global-presence/Introduction.module.scss";
 
 /** Introduction Section */
 export default function Introduction({ data }) {
+	if (!data) return <></>;
 	return (
 		<section className={`${styles.Introduction}`}>
 			<div className="container">
