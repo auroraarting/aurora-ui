@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -28,27 +29,29 @@ export default function WhichProducts({ data }) {
 
 	/** getAllData  */
 	const getAllData = () => {
-		const markers = data.markers;
+		const markers = data?.markers;
 
 		// Create a map to group by slug
 		const groupedBySlug = {};
 
-		markers.map((marker) => {
-			marker.category.nodes.map((node) => {
-				const slug = node.slug;
+		markers?.map((marker) => {
+			marker?.category?.nodes?.map((node) => {
+				const slug = node?.slug;
 
 				if (!groupedBySlug[slug]) {
 					groupedBySlug[slug] = {
 						...node,
 						locationData: marker?.locationtitle || "",
-						imgIcons: marker.icon.node.sourceUrl,
+						imgIcons: marker?.icon?.node?.sourceUrl,
 						children: (
 							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
-									{marker.category.nodes[0].content}
-								</p>
+								<div className="text_reg color_dark_gray">
+									<ContentFromCms>
+										{marker?.category?.nodes?.[0]?.content}
+									</ContentFromCms>
+								</div>
 								<a
-									href={`/${marker.category.nodes[0].contentType?.node?.name}/${marker.category.nodes[0].slug}`}
+									href={`/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`}
 									className={`${styles.bookBtn} pt_20`}
 								>
 									<Button color="secondary" variant="underline">
@@ -82,8 +85,10 @@ export default function WhichProducts({ data }) {
 	};
 
 	useEffect(() => {
-		setAccordianArr(getAllData());
+		data && setAccordianArr(getAllData());
 	}, []);
+
+	if (!data) return <></>;
 
 	return (
 		<section className={`${styles.WhichProducts}`}>

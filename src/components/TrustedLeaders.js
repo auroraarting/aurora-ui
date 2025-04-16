@@ -80,6 +80,8 @@ export default function TrustedLeaders({
 			logos: erste.src,
 		},
 	];
+
+	if (!data || data?.selectLogos?.nodes.length === 0) return <></>;
 	return (
 		<section
 			className={`${styles.TrustedLeaders} TrustedLeaders`}
@@ -135,25 +137,17 @@ export default function TrustedLeaders({
 							<SwiperSlide key={ind}>
 								<div className={`${styles.box_item}`} key={ind}>
 									<div className={`${styles.imgBox}`}>
-										<img
-											src={item.featuredImage.node.sourceUrl}
-											className="b_r_10"
-											alt="story img"
-										/>
+										{item?.featuredImage?.node?.sourceUrl && (
+											<img
+												src={item?.featuredImage?.node?.sourceUrl}
+												className="b_r_10"
+												alt="story img"
+											/>
+										)}
 									</div>
 								</div>
 							</SwiperSlide>
 						))}
-						{!data?.selectLogos?.nodes &&
-							LogoData.map((item, ind) => (
-								<SwiperSlide key={ind}>
-									<div className={`${styles.box_item}`}>
-										<div className={`${styles.imgBox}`}>
-											<img src={item.logos} className="b_r_10" alt="story img" />
-										</div>
-									</div>
-								</SwiperSlide>
-							))}
 					</Swiper>
 				</div>
 			</div>

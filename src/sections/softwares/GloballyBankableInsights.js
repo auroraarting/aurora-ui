@@ -33,6 +33,8 @@ const defaultRows = [
 
 /** GloballyBankableInsights Section */
 export default function GloballyBankableInsights({ data, isMultiple }) {
+	if (!data?.title || data?.list?.length === 0) return <></>;
+
 	return (
 		<section
 			className={`${styles.GloballyBankableInsights}`}
@@ -46,32 +48,27 @@ export default function GloballyBankableInsights({ data, isMultiple }) {
 						<div className={`${styles.head} f_r_aj_between`}>
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 								{/* Globally bankable <br /> insights */}
-								{data?.title || (
-									<>
-										Globally bankable <br /> insights
-									</>
-								)}
+								{data?.title}
 							</h2>
 
 							<p>
 								{/* Trusted by experts, Aurora&apos;s analytics ensure accuracy,
 								reliability, and <br /> strategic foresight. Our data helps sector
 								leaders confidently navigate <br /> renewable energy transitions. */}
-								{data?.description ||
-									"Trusted by experts, Aurora&apos;s analytics ensure accuracy, reliability, and  strategic foresight. Our data helps sector leaders confidently navigate renewable energy transitions"}
+								{data?.description}
 							</p>
 						</div>
 
 						{!isMultiple && (
 							<div className={`${styles.insightWrap} color_white`}>
-								<SingleInsight data={data} />
+								<SingleInsight data={data?.list?.[0]} endPoint={data.endPoint} />
 							</div>
 						)}
 						{isMultiple && (
 							<div
 								className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
 							>
-								<MultipleInsights />
+								<MultipleInsights data={data} rows={data.list} />
 							</div>
 						)}
 					</div>
@@ -82,38 +79,39 @@ export default function GloballyBankableInsights({ data, isMultiple }) {
 }
 
 /** SingleInsight */
-const SingleInsight = ({ data }) => {
+const SingleInsight = ({ data, endPoint }) => {
 	return (
 		<>
 			<Speedometer
-				value={data?.meterValue || 750}
-				endpoint={data?.meterEndpoint || 1000}
-				speed={data?.metetSpeed || 200}
+				value={data?.value || 750}
+				endpoint={endPoint || 1000}
+				speed={data?.speed || 200}
 				startWhenInView
+				text={data?.caption}
 			/>
 			<div className={`${styles.textData}`}>
-				<p className={`${styles.insightTitle} text_lg`}>
-					{data?.meterTitle || "Trusted by companies globally"}
-				</p>
-				<p className={`${styles.insightsDesc}`}>
-					{data?.meterDescription ||
-						"Chronos leverages Aurora’s proprietary datasets and models, trusted by over 750 companies globally. When accuracy and reliability matter most, Chronos delivers."}
-				</p>
+				<p className={`${styles.insightTitle} text_lg`}>{data?.title}</p>
+				<p className={`${styles.insightsDesc}`}>{data?.description}</p>
 			</div>
 		</>
 	);
 };
 
 /** MultipleInsights  */
-const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
+const MultipleInsights = ({
+	start = 0,
+	end = 29,
+	rows = defaultRows,
+	data,
+}) => {
 	const { ref, isIntersecting } = useIntersectionObserver({
 		threshold: 0.5, // 50% visibility triggers intersection
 	});
 	const [list, setList] = useState([]);
 	const hightestValue = rows.reduce(
-		(max, row) => (row.percent > max.percent ? row : max),
+		(max, row) => (row.value > max.value ? row : max),
 		rows[0]
-	)?.percent;
+	)?.value;
 
 	/** calculateRelativePercentage  */
 	function calculateRelativePercentage(start, end, percent) {
@@ -125,7 +123,7 @@ const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
 			const percentage = calculateRelativePercentage(
 				start,
 				hightestValue,
-				item.percent
+				item.value
 			);
 			return { ...item, percentage: percentage };
 		});
@@ -143,9 +141,9 @@ const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
 				</p>
 			</div>
 			<div className={`${styles.fromTo}`}>
-				<div className={`${styles.tab} text_xs f_w_s_b `}>Technology</div>
+				<div className={`${styles.tab} text_xs f_w_s_b `}>{data.startText}</div>
 				<div className={`${styles.line}`}></div>
-				<div className={`${styles.tab} text_xs f_w_s_b`}>Percentage</div>
+				<div className={`${styles.tab} text_xs f_w_s_b`}>{data.endText}</div>
 			</div>
 			<img
 				className={`${styles.bgGradient}`}
@@ -161,7 +159,7 @@ const MultipleInsights = ({ start = 0, end = 29, rows = defaultRows }) => {
 							key={item.title || ind} // Use index only if title is not unique
 						>
 							<span className={`${styles.text} `}>{item.title}</span>
-							<span className={`${styles.percent} text_xl`}>{item.percent}%</span>
+							<span className={`${styles.value} text_xl`}>{item.value}%</span>
 						</div>
 					);
 				})}

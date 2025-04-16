@@ -25,6 +25,8 @@ import formatDate from "@/utils";
 
 /** CaseStudy Section */
 export default function CaseStudy({ data }) {
+	if (!data || !data?.title) return <></>;
+
 	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
 	const restArr = data?.selectCaseStudies?.nodes?.slice(1, data.length);
 
@@ -37,14 +39,13 @@ export default function CaseStudy({ data }) {
 							<p
 								className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 							>
-								{data?.title || "Case Study"}
+								{data?.title}
 							</p>
 							<h3 className={`${styles.descTxt} text_xl color_secondary pt_10`}>
-								{first?.[0]?.title ||
-									"Analysing the financial roadmap to Net Zero by 2035. Analysing the financial roadmap to Net Zero by 2035"}
+								{first?.[0]?.title}
 							</h3>
 							<p className="text_reg color_dark_gray font_secondary pt_10">
-								<ContentFromCms>{first?.[0]?.content || "lorem"}</ContentFromCms>
+								<ContentFromCms>{first?.[0]?.content}</ContentFromCms>
 							</p>
 							<div className={`${styles.dateFlex} f_j pt_30`}>
 								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -57,14 +58,14 @@ export default function CaseStudy({ data }) {
 								</p>
 								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img src={clock.src} className={`${styles.clock}`} alt="location" />
-									<span>{first?.[0]?.caseStudies?.readTime || "5 min"}</span>
+									<span>{first?.[0]?.caseStudies?.readTime}</span>
 								</p>
 							</div>
 						</div>
 					</div>
 					<div className={`${styles.ImgBox}`}>
 						<img
-							src={first?.[0]?.featuredImage?.node?.sourceUrl || plant_img.src}
+							src={first?.[0]?.featuredImage?.node?.sourceUrl}
 							className={`${styles.plant_img} img width_100`}
 							alt="plant_img"
 						/>
@@ -83,17 +84,17 @@ export default function CaseStudy({ data }) {
 									<p
 										className={`${styles.descTxt} text_reg color_dark_gray font_primary pt_10`}
 									>
-										{item.title}
+										{item?.title}
 									</p>
 									<div className={`${styles.dateFlex} f_j pt_30`}>
 										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 											<img
-												src={calender.src}
+												src={calender?.src}
 												className={`${styles.calender}`}
 												alt="calender"
 											/>
 											{/* <span>Feb 26, 2025</span> */}
-											<span>{formatDate(item.date)}</span>
+											<span>{item?.date && formatDate(item?.date)}</span>
 										</p>
 										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 											<img
@@ -102,8 +103,8 @@ export default function CaseStudy({ data }) {
 												alt="location"
 											/>
 											{/* <span>WECC</span> */}
-											{item.caseStudies.selectLocation.nodes.map((item2, ind2) => {
-												return <span key={item2.title}>{item2.title}</span>;
+											{item?.caseStudies?.selectLocation?.nodes?.map((item2, ind2) => {
+												return <span key={item2?.title}>{item2?.title}</span>;
 											})}
 										</p>
 									</div>
@@ -111,109 +112,6 @@ export default function CaseStudy({ data }) {
 							</div>
 						);
 					})}
-					{!restArr && (
-						<>
-							<div className={`${styles.ItemBox} boxH`}>
-								<div className={`${styles.hoverBox}`}>
-									<p
-										className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
-									>
-										Case Study
-									</p>
-									<p
-										className={`${styles.descTxt} text_reg color_dark_gray font_primary pt_10`}
-									>
-										Analysing the financial roadmap to Net Zero by 2035. Analysing the
-										financial roadmap to Net Zero by 2035
-									</p>
-									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											<span>Feb 26, 2025</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											<span>WECC</span>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div className={`${styles.ItemBox} boxH`}>
-								<div className={`${styles.hoverBox}`}>
-									<p
-										className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
-									>
-										Case Study
-									</p>
-									<p
-										className={`${styles.descTxt} text_reg color_dark_gray font_primary pt_10`}
-									>
-										Analysing the financial roadmap to Net Zero by 2035. Analysing the
-										financial roadmap to Net Zero by 2035
-									</p>
-									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											<span>Feb 26, 2025</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											<span>WECC</span>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div className={`${styles.ItemBox} boxH`}>
-								<div className={`${styles.hoverBox}`}>
-									<p
-										className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
-									>
-										Case Study
-									</p>
-									<p
-										className={`${styles.descTxt} text_reg color_dark_gray font_primary pt_10`}
-									>
-										Analysing the financial roadmap to Net Zero by 2035. Analysing the
-										financial roadmap to Net Zero by 2035
-									</p>
-									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											<span>Feb 26, 2025</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											<span>WECC</span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</>
-					)}
 				</div>
 			</div>
 		</section>

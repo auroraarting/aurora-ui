@@ -169,6 +169,34 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
+                selectCaseStudies {
+          nodes {
+            ... on CaseStudy {
+              id
+              content
+              title
+              slug
+              caseStudies {
+                selectLocation {
+                  nodes {
+                    ... on Country {
+                      id
+                      title
+                      slug
+                    }
+                  }
+                }
+                readTime
+              }
+              featuredImage {
+                node {
+                  altText
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
       }
       customerSuccess {
         sectionTitle

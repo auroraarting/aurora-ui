@@ -29,7 +29,11 @@ import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
+import {
+	filterMarkersBySlug,
+	getMapJsonForProducts,
+	getMapJsonForSoftware,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
@@ -51,15 +55,15 @@ export async function getServerSideProps({ params }) {
 		getSingleSoftware(params.slug),
 		getRegions(),
 	]);
-	const mapJson = getMapJsonForProducts(
+	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, data.data.softwareBy.slug)
 	);
-	return { props: { data: data.data.softwareBy.softwares, mapJson } };
+	return { props: { data: data.data.softwareBy.softwares, mapJson, regions } };
 }
 
 /** Chronos Page */
-export default function SoftwarePage({ data, mapJson }) {
-	console.log(data);
+export default function SoftwarePage({ data, mapJson, regions }) {
+	console.log(getMapJsonForProducts(filterMarkersBySlug(regions, "chronos")));
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -138,7 +142,10 @@ export default function SoftwarePage({ data, mapJson }) {
 				</div>
 				<ServicesCircle data={data.keyAdvantages} />
 				<div>
-					<GloballyBankableInsights data={data.whyAurora} />
+					<GloballyBankableInsights
+						data={data.whyAurora}
+						isMultiple={data.whyAurora.list.length > 1}
+					/>
 				</div>
 				<IntuitiveStepProcess data={data.fourStepProcess} />
 				<SmarterEnergy data={data.expertise} />

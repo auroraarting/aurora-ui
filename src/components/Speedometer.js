@@ -26,6 +26,7 @@ export default function Speedometer({
 	endpoint = 1000,
 	speed = 500,
 	startWhenInView,
+	text,
 }) {
 	const { ref, isIntersecting } = useIntersectionObserver({
 		threshold: 0.5, // 50% visibility triggers intersection
@@ -411,9 +412,7 @@ export default function Speedometer({
 					</span>{" "}
 					<span className={`${styles.plus} text_xl`}>+</span>
 				</p>
-				<p className={`${styles.bottomText} text_xs f_w_s_b`}>
-					Trusted by companies globally
-				</p>
+				<p className={`${styles.bottomText} text_xs f_w_s_b`}>{text}</p>
 			</div>
 		</div>
 	);

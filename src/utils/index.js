@@ -50,23 +50,26 @@ export function getMapJsonForCountries(data) {
 			lat: parseFloat(data.countryPin.lat),
 			lng: parseFloat(data.countryPin.lng),
 		},
-		markers: data.markers.map((markerItem) => {
-			let obj = {
-				name: markerItem.category.nodes?.[0].title || "",
-				lat: parseFloat(markerItem.coordinates.lat),
-				lng: parseFloat(markerItem.coordinates.lng),
-				url: `/${markerItem.category.nodes?.[0].contentType.node.name}/${markerItem.category.nodes?.[0].slug}`,
-			};
+		markers: data.markers
+			.map((markerItem) => {
+				let obj = {
+					unique: Math.random(),
+					name: markerItem?.category?.nodes?.[0]?.title || "",
+					lat: parseFloat(markerItem?.coordinates?.lat),
+					lng: parseFloat(markerItem?.coordinates?.lng),
+					url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
+				};
 
-			if (markerItem?.mapThumbnail) {
-				obj.hoverImg = markerItem.mapThumbnail.node.sourceUrl;
-			}
-			if (markerItem?.icon?.node?.sourceUrl) {
-				obj.icon = markerItem.icon.node.sourceUrl;
-			}
+				if (markerItem?.mapThumbnail) {
+					obj.hoverImg = markerItem.mapThumbnail.node.sourceUrl;
+				}
+				if (markerItem?.icon?.node?.sourceUrl) {
+					obj.icon = markerItem.icon.node.sourceUrl;
+				}
 
-			return obj;
-		}),
+				return obj;
+			})
+			.filter((item) => item),
 	};
 
 	// delete mapJson["countryPin"];
@@ -76,46 +79,49 @@ export function getMapJsonForCountries(data) {
 /** getMapJsonForProducts  */
 export function getMapJsonForProducts(regions) {
 	const mapJson = [];
-	console.log(regions, "asd");
 	regions?.data?.regions?.nodes?.map((item) => {
-		item.countries.nodes.map((item2) => {
+		item?.countries?.nodes?.map((item2) => {
 			let obj = {
 				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-				markers: item2.countries.map?.markers?.filter((item3) => {
-					let obj2 = {
-						name: "",
-						lat: "",
-						lng: "",
-						url: "",
-						hoverImg: "",
-						icon: item3.icon.node.sourceUrl,
-					};
+				markers: item2.countries.map?.markers
+					?.map((item3) => {
+						let obj2 = {
+							name: "",
+							lat: "",
+							lng: "",
+							url: "",
+							hoverImg: "",
+							icon: item3?.icon?.node?.sourceUrl,
+							unique: Math.random(),
+						};
 
-					if (item3?.mapThumbnail?.node?.sourceUrl) {
-						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
-					}
-
-					if (item3?.category?.nodes?.length > 0) {
-						let node = item3.category.nodes[0];
-
-						if (node.contentType.node.name != "products") {
-							return;
+						if (item3?.mapThumbnail?.node?.sourceUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
 						}
-						obj2.name = node.title;
-						obj2.lat = parseFloat(item3.coordinates.lat);
-						obj2.lng = parseFloat(item3.coordinates.lng);
-						obj2.url = `/${node.contentType.node.name}/${node.slug}`;
-					}
 
-					return obj2;
-				}),
-				zoom: item2.countries.map.zoom,
-				name: item2.title,
+						if (item3?.category?.nodes?.length > 0) {
+							let node = item3?.category?.nodes[0];
+
+							if (node?.contentType?.node?.name != "products") {
+								return;
+							}
+							obj2.name = node?.title;
+							obj2.lat = parseFloat(item3?.coordinates?.lat);
+							obj2.lng = parseFloat(item3?.coordinates?.lng);
+							obj2.url = `/${node?.contentType?.node?.name}/${node?.slug}`;
+						}
+
+						return obj2;
+					})
+					.filter((item) => item),
+				zoom: item2?.countries?.map?.zoom,
+				name: item2?.title,
 			};
 
-			mapJson.push(obj);
+			obj && mapJson.push(obj);
 		});
 	});
+
 	return mapJson;
 }
 
@@ -126,34 +132,37 @@ export function getMapJsonForSoftware(regions) {
 		item.countries.nodes.map((item2) => {
 			let obj = {
 				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-				markers: item2.countries.map?.markers?.filter((item3) => {
-					let obj2 = {
-						name: "",
-						lat: "",
-						lng: "",
-						url: "",
-						hoverImg: "",
-						icon: item3.icon.node.sourceUrl,
-					};
+				markers: item2.countries.map?.markers
+					?.filter((item3) => {
+						let obj2 = {
+							name: "",
+							lat: "",
+							lng: "",
+							url: "",
+							hoverImg: "",
+							icon: item3.icon.node.sourceUrl,
+							unique: Math.random(),
+						};
 
-					if (item3?.mapThumbnail?.node?.sourceUrl) {
-						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
-					}
-
-					if (item3?.category?.nodes?.length > 0) {
-						let node = item3.category.nodes[0];
-
-						if (node.contentType.node.name != "softwares") {
-							return;
+						if (item3?.mapThumbnail?.node?.sourceUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
 						}
-						obj2.name = node.title;
-						obj2.lat = parseFloat(item3.coordinates.lat);
-						obj2.lng = parseFloat(item3.coordinates.lng);
-						obj2.url = `/${node.contentType.node.name}/${node.slug}`;
-					}
 
-					return obj2;
-				}),
+						if (item3?.category?.nodes?.length > 0) {
+							let node = item3.category.nodes[0];
+
+							if (node.contentType.node.name != "softwares") {
+								return;
+							}
+							obj2.name = node.title;
+							obj2.lat = parseFloat(item3.coordinates.lat);
+							obj2.lng = parseFloat(item3.coordinates.lng);
+							obj2.url = `/${node.contentType.node.name}/${node.slug}`;
+						}
+
+						return obj2;
+					})
+					.filter((item) => item),
 				zoom: item2.countries.map.zoom,
 				name: item2.title,
 			};
@@ -194,30 +203,33 @@ export function getMapJsonForAllRegions(regions) {
 				// 	lng: parseFloat(item2.countries.map.countryPin.lng),
 				// },
 				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-				markers: item2.countries.map?.markers?.map((item3) => {
-					let obj2 = {
-						name: "",
-						lat: "",
-						lng: "",
-						url: "",
-						hoverImg: "",
-						icon: item3.icon.node.sourceUrl,
-					};
+				markers: item2.countries.map?.markers
+					?.map((item3) => {
+						let obj2 = {
+							name: "",
+							lat: "",
+							lng: "",
+							url: "",
+							hoverImg: "",
+							icon: item3.icon.node.sourceUrl,
+							unique: Math.random(),
+						};
 
-					if (item3?.mapThumbnail?.node?.sourceUrl) {
-						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
-					}
+						if (item3?.mapThumbnail?.node?.sourceUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+						}
 
-					if (item3?.category?.nodes?.length > 0) {
-						let node = item3.category.nodes[0];
-						obj2.name = node.title;
-						obj2.lat = parseFloat(item3.coordinates.lat);
-						obj2.lng = parseFloat(item3.coordinates.lng);
-						obj2.url = `/${node.contentType.node.name}/${node.slug}`;
-					}
+						if (item3?.category?.nodes?.length > 0) {
+							let node = item3.category.nodes[0];
+							obj2.name = node.title;
+							obj2.lat = parseFloat(item3.coordinates.lat);
+							obj2.lng = parseFloat(item3.coordinates.lng);
+							obj2.url = `/${node.contentType.node.name}/${node.slug}`;
+						}
 
-					return obj2;
-				}),
+						return obj2;
+					})
+					.filter((item) => item),
 				zoom: item2.countries.map.zoom,
 				name: item2.title,
 			};

@@ -28,6 +28,8 @@ export default function GlobalMap({
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 	const [map, setMap] = useState(null);
 
+	if (locationJson.length === 0) return <></>;
+
 	return (
 		<section
 			className={`${styles.globalMap} section_spacing ${className}`}
