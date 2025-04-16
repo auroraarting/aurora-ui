@@ -23,6 +23,8 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
+	if (!data) return <></>;
+
 	const tempAccordian = [
 		{
 			title: "Transaction Support",
@@ -95,13 +97,13 @@ export default function SmarterEnergy({ data }) {
 		if (data?.accordian)
 			return data?.accordian?.map((item, ind) => {
 				return {
-					title: item.title,
-					imgIcons: item.icon.node.sourceUrl,
+					title: item?.title,
+					imgIcons: item?.icon?.node?.sourceUrl,
 					children: (
 						<div className={`${styles.content_wrap}`}>
-							<p className="text_reg color_dark_gray">{item.description}</p>
-							{item.buttonLink && (
-								<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
+							<p className="text_reg color_dark_gray">{item?.description}</p>
+							{item?.buttonLink && (
+								<a href={item?.buttonLink} className={`${styles.bookBtn} pt_30`}>
 									<Button color="secondary" variant="underline">
 										Know more
 									</Button>
@@ -114,13 +116,13 @@ export default function SmarterEnergy({ data }) {
 		if (data?.expertiseAccordion)
 			return data?.expertiseAccordion?.map((item, ind) => {
 				return {
-					title: item.accordionTitle,
-					imgIcons: item.icon.node.sourceUrl,
+					title: item?.accordionTitle,
+					imgIcons: item?.icon?.node?.sourceUrl,
 					children: (
 						<div className={`${styles.content_wrap}`}>
-							<p className="text_reg color_dark_gray">{item.accordionDescription}</p>
-							{item.buttonLink && (
-								<a href={item.buttonLink} className={`${styles.bookBtn} pt_30`}>
+							<p className="text_reg color_dark_gray">{item?.accordionDescription}</p>
+							{item?.buttonLink && (
+								<a href={item?.buttonLink} className={`${styles.bookBtn} pt_30`}>
 									<Button color="secondary" variant="underline">
 										Know more
 									</Button>
@@ -143,11 +145,9 @@ export default function SmarterEnergy({ data }) {
 				<div className={`${styles.common_queries_flex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-							{data?.title || "title"}
+							{data?.title}
 						</h2>
-						<p className="text_reg color_dark_gray">
-							{data?.description || "description"}
-						</p>
+						<p className="text_reg color_dark_gray">{data?.description}</p>
 					</div>
 					<div className={`${styles.common_queries_faq}`}>
 						<div className={`${styles.accordian_main}`}>

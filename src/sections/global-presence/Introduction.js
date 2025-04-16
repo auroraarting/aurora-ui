@@ -19,13 +19,14 @@ import styles from "@/styles/sections/global-presence/Introduction.module.scss";
 
 /** Introduction Section */
 export default function Introduction({ data }) {
+	if (!data) return <></>;
 	return (
 		<section className={`${styles.Introduction}`}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h2 className="text_xl font_primary f_w_m color_secondary text_uppercase">
-							{data.sectionTitle}
+							{data?.sectionTitle}
 						</h2>
 					</div>
 					<div className={`${styles.flexItemTwo} text_reg color_dark_gray pb_10`}>

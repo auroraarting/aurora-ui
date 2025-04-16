@@ -20,6 +20,8 @@ import market_intelligence from "../../../public/img/products/market_intelligenc
 
 /** MarketIntelligence Section */
 export default function MarketIntelligence({ data }) {
+	if (!data) return <></>;
+
 	return (
 		<section
 			className={`${styles.MarketIntelligence}`}
@@ -30,13 +32,13 @@ export default function MarketIntelligence({ data }) {
 				<div className={`${styles.flexBox} f_r_aj_between`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h2 className="text_xxl font_primary f_w_s_b color_secondary pb_20">
-							<ContentFromCms>{data.title}</ContentFromCms>
+							<ContentFromCms>{data?.title}</ContentFromCms>
 						</h2>
-						<p className="text_reg color_dark_gray">{data.description}</p>
+						<p className="text_reg color_dark_gray">{data?.description}</p>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						<img
-							src={data?.image?.node?.sourceUrl || market_intelligence.src}
+							src={data?.image?.node?.sourceUrl}
 							className={`${styles.redefining} img`}
 							alt="redefining"
 						/>

@@ -140,7 +140,7 @@ export default function EnergyListing() {
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
-										dropdowns.countryType.isOpen ? "activeDropDown" : ""
+										dropdowns?.countryType?.isOpen ? "activeDropDown" : ""
 									}`}
 									onClick={() => toggleDropdown("countryType")}
 									tabIndex={0}
@@ -152,7 +152,7 @@ export default function EnergyListing() {
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
-										{optionsData.countryType.map((option) => (
+										{optionsData?.countryType.map((option) => (
 											<li
 												key={option.title}
 												className={

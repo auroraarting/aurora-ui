@@ -67,6 +67,7 @@ export default function TestimonialFeedback({ data }) {
 	// 		logos: erste.src,
 	// 	},
 	// ];
+	if (!data) return <></>;
 	return (
 		<section
 			className={`${styles.TestimonialFeedback}`}
@@ -100,7 +101,7 @@ export default function TestimonialFeedback({ data }) {
 											<div className={`${styles.testimonialTxt}`}>
 												<div className="text_md color_dark_gray f_w_i font_primary d_f">
 													<img src={quate.src} className={`${styles.quate}`} alt="quate" />
-													<ContentFromCms>{item.content}</ContentFromCms>
+													<ContentFromCms>{item?.content}</ContentFromCms>
 												</div>
 											</div>
 											<div className={`${styles.nameTxt}`}>
@@ -115,53 +116,8 @@ export default function TestimonialFeedback({ data }) {
 									</SwiperSlide>
 								);
 							})}
-							{!data?.testimonials?.nodes && (
-								<>
-									<SwiperSlide>
-										<div className={`${styles.testimonialItem}`}>
-											<div className={`${styles.testimonialTxt}`}>
-												<p className="text_md color_dark_gray f_w_i font_primary d_f">
-													<img src={quate.src} className={`${styles.quate}`} alt="quate" />
-													Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra
-													a tellus imperdiet. Porttitor leo vel morbi diam pulvinar massa
-													nunc habitasse egestas.
-												</p>
-											</div>
-											<div className={`${styles.nameTxt}`}>
-												<h5 className="text_lg ont_primary f_w_m color_secondary">
-													EQT Ventures
-												</h5>
-												<p className="text_xs color_dark_gray f_w_m pt_10">
-													Senior Vice President
-												</p>
-											</div>
-										</div>
-									</SwiperSlide>
-									<SwiperSlide>
-										<div className={`${styles.testimonialItem}`}>
-											<div className={`${styles.testimonialTxt}`}>
-												<p className="text_md color_dark_gray f_w_i font_primary d_f">
-													<img src={quate.src} className={`${styles.quate}`} alt="quate" />
-													Lorem ipsum dolor sit amet consectetur. Mauris scelerisque pharetra
-													a tellus imperdiet. Porttitor leo vel morbi diam pulvinar massa
-													nunc habitasse egestas.
-												</p>
-											</div>
-											<div className={`${styles.nameTxt}`}>
-												<h5 className="text_lg ont_primary f_w_m color_secondary">
-													EQT Ventures
-												</h5>
-												<p className="text_xs color_dark_gray f_w_m pt_10">
-													Senior Vice President
-												</p>
-											</div>
-										</div>
-									</SwiperSlide>
-								</>
-							)}
 						</Swiper>
-						{(data?.testimonials?.nodes?.length > 1 ||
-							!data?.testimonials?.nodes) && (
+						{data?.testimonials?.nodes?.length > 1 && (
 							<div className={`${styles.arrowSection} f_w_a_j_center`}>
 								<button className={`${styles.customPrev}`} id="customPrev">
 									<img src={slider_arrow.src} alt="icon" />
