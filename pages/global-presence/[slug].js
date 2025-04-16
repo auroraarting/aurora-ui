@@ -123,11 +123,15 @@ export default function Australia({ data, mapJson }) {
 						}
 					/>
 				</div>
-				<div className="pb_40">
-					<ProductSlider data={data.countries.announcement.slide} />
-				</div>
+				{data.countries.announcement.slide && (
+					<div className="pb_40">
+						<ProductSlider data={data.countries.announcement.slide} />
+					</div>
+				)}
 				<SectionsHeader data={headerArray} />
-				<Introduction data={data.countries.introduction} />
+				{data?.countries?.introduction && (
+					<Introduction data={data.countries.introduction} />
+				)}
 				<div className="pb_100">
 					<WhichProducts data={data.countries.map} />
 				</div>

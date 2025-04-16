@@ -52,10 +52,10 @@ export function getMapJsonForCountries(data) {
 		},
 		markers: data.markers.map((markerItem) => {
 			let obj = {
-				name: markerItem.category.nodes?.[0].title || "",
-				lat: parseFloat(markerItem.coordinates.lat),
-				lng: parseFloat(markerItem.coordinates.lng),
-				url: `/${markerItem.category.nodes?.[0].contentType.node.name}/${markerItem.category.nodes?.[0].slug}`,
+				name: markerItem?.category?.nodes?.[0]?.title || "",
+				lat: parseFloat(markerItem?.coordinates?.lat),
+				lng: parseFloat(markerItem?.coordinates?.lng),
+				url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
 			};
 
 			if (markerItem?.mapThumbnail) {
