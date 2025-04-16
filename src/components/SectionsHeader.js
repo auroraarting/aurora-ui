@@ -38,7 +38,6 @@ export default function SectionsHeader({ data, customHtml }) {
 		const list = sections ? sections : data;
 
 		setSectionsList(list);
-		console.log(sections, "Zxccxzc");
 
 		// const headerArray = [
 		// 	{ name: "Expertise", id: "#expertise" },

@@ -137,8 +137,6 @@ query GetProductBySlug {
         }
       }
       map {
-        lat
-        lng
         marquee
       }
       whyAurora {

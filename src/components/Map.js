@@ -307,7 +307,7 @@ export default function Map({
 		const visibleCountries = new Set();
 		jsonToBeMapped.forEach((country, index) => {
 			if (
-				country.markers.some((loc) =>
+				country?.markers?.some((loc) =>
 					bounds.contains(new window.google.maps.LatLng(loc.lat, loc.lng))
 				)
 			) {

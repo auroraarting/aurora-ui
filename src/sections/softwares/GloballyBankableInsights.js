@@ -23,23 +23,23 @@ import InsightsBg from "/public/img/softwares/insightsBgGradient.png";
 
 // DATA //
 const defaultRows = [
-	{ title: "Multi-Technology Project", percent: 29 },
-	{ title: "Hydrogen", percent: 24 },
-	{ title: "Solar", percent: 16 },
-	{ title: "Offshore Wind", percent: 14 },
-	{ title: "Onshore Wind", percent: 12 },
-	{ title: "Battery Energy Storage (BESS)", percent: 5 },
+	{ title: "Lorem Ipsum", percent: 29 },
+	{ title: "Lorem Ipsum", percent: 24 },
+	{ title: "Lorem Ipsum", percent: 16 },
+	{ title: "Lorem Ipsum", percent: 14 },
+	{ title: "Lorem Ipsum", percent: 12 },
+	{ title: "Lorem Ipsum", percent: 5 },
 ];
 
 /** GloballyBankableInsights Section */
-export default function GloballyBankableInsights({ data }) {
+export default function GloballyBankableInsights({ data, isMultiple }) {
 	return (
 		<section
 			className={`${styles.GloballyBankableInsights}`}
 			id="whyAurora"
 			data-name="Why Aurora"
 		>
-			<img className={`${styles.bg}`} src={Bg.src} alt="Bg" />
+			{!isMultiple && <img className={`${styles.bg}`} src={Bg.src} alt="Bg" />}
 			<div className="section_spacing">
 				<div className="container">
 					<div className={`${styles.wrap}`}>
@@ -58,18 +58,22 @@ export default function GloballyBankableInsights({ data }) {
 								reliability, and <br /> strategic foresight. Our data helps sector
 								leaders confidently navigate <br /> renewable energy transitions. */}
 								{data?.description ||
-									"Trusted by experts, Aurora&apos;s analytics ensure accuracy, reliability, and <br /> strategic foresight. Our data helps sector leaders confidently navigate <br /> renewable energy transitions"}
+									"Trusted by experts, Aurora&apos;s analytics ensure accuracy, reliability, and  strategic foresight. Our data helps sector leaders confidently navigate renewable energy transitions"}
 							</p>
 						</div>
 
-						<div className={`${styles.insightWrap} color_white`}>
-							<SingleInsight data={data} />
-						</div>
-						{/* <div
-							className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
-						>
-							<MultipleInsights />
-						</div> */}
+						{!isMultiple && (
+							<div className={`${styles.insightWrap} color_white`}>
+								<SingleInsight data={data} />
+							</div>
+						)}
+						{isMultiple && (
+							<div
+								className={`${styles.insightWrap} ${styles.insightWrap2} color_white`}
+							>
+								<MultipleInsights />
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

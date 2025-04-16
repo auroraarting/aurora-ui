@@ -105,10 +105,10 @@ export default function TestimonialFeedback({ data }) {
 											</div>
 											<div className={`${styles.nameTxt}`}>
 												<h5 className="text_lg ont_primary f_w_m color_secondary">
-													{item.title}
+													{item?.title}
 												</h5>
 												<p className="text_xs color_dark_gray f_w_m pt_10">
-													{item.testimonials.designation}
+													{item?.testimonials?.designation}
 												</p>
 											</div>
 										</div>

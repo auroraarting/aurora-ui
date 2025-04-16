@@ -46,7 +46,7 @@ export async function getServerSideProps({ params }) {
 		getRegions(),
 	]);
 	const mapJson = getMapJsonForProducts(
-		filterMarkersBySlug(regions, data.data.productBy.slug)
+		filterMarkersBySlug(regions, params.slug)
 	);
 
 	return {
