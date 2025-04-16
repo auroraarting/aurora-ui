@@ -23,7 +23,7 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
-	if (!data.title) return <></>;
+	if (!data?.title) return <></>;
 
 	const tempAccordian = [
 		{

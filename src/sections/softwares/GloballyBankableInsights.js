@@ -33,7 +33,7 @@ const defaultRows = [
 
 /** GloballyBankableInsights Section */
 export default function GloballyBankableInsights({ data, isMultiple }) {
-	if (!data.title) return <></>;
+	if (!data?.title) return <></>;
 
 	return (
 		<section
