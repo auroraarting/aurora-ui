@@ -39,7 +39,7 @@ export default function TransactionSolutions({
 	const animTimeline = gsap.timeline({});
 
 	useEffect(() => {
-		if (!data?.length === 0 || !data) return null;
+		if (data?.length === 0 || !data) return null;
 
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
@@ -96,7 +96,7 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	if (!data) return <></>;
+	if (data.length === 0) return <></>;
 
 	return (
 		<section className={`${styles.TransactionSolutions}`}>
