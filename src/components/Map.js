@@ -371,6 +371,7 @@ export default function Map({
 							return "/contact";
 						};
 
+						const uniqueName = marker.unique;
 						return (
 							<>
 								<Marker
@@ -387,12 +388,12 @@ export default function Map({
 										// origin: new window.google.maps.Point(0, 0),
 										// anchor: new window.google.maps.Point(25, 50),
 									}}
-									onMouseOver={() => setSelectedMarker(marker.name)}
+									onMouseOver={() => setSelectedMarker(uniqueName)}
 									// onMouseOut={() => setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
-								{selectedMarker === marker.name && (
+								{selectedMarker === uniqueName && (
 									<InfoWindow
 										position={{
 											lat: parseFloat(marker.lat) || parseFloat(marker.coordinates.lat),

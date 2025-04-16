@@ -60,19 +60,19 @@ export async function getServerSideProps() {
 		},
 	};
 
-	products.nodes.map((item) => {
+	products?.nodes?.map((item) => {
 		// testimonials
 		testimonials.testimonials.nodes = removeDuplicatesByKeys(
 			[
 				...testimonials.testimonials.nodes,
-				...item.products.ourClient.testimonials.nodes,
+				...(item.products.ourClient.testimonials?.nodes || []),
 			],
 			["id"]
 		);
 		clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
 			[
 				...clientLogos.selectLogos.nodes,
-				...item.products.ourClient.selectLogos.nodes,
+				...(item.products.ourClient.selectLogos?.nodes || []),
 			],
 			["id"]
 		);
