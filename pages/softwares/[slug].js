@@ -142,7 +142,10 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 				</div>
 				<ServicesCircle data={data.keyAdvantages} />
 				<div>
-					<GloballyBankableInsights data={data.whyAurora} />
+					<GloballyBankableInsights
+						data={data.whyAurora}
+						isMultiple={data.whyAurora.list.length > 1}
+					/>
 				</div>
 				<IntuitiveStepProcess data={data.fourStepProcess} />
 				<SmarterEnergy data={data.expertise} />
