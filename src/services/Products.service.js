@@ -258,15 +258,17 @@ query GetProductBySlug {
         marquee
       }
       whyAurora {
+         title
         description
-        meterCaption
-        meterDescription
-        meterEndpoint
-        meterSpeed
-        meterTitle
-        meterValue
-        tabTitle
-        title
+        startText
+        endText
+        endPoint
+        list{
+             title
+             description
+             caption
+             value
+        }
       }
       fourStepProcess {
         buttonLink
