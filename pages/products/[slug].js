@@ -59,7 +59,7 @@ export async function getServerSideProps({ params }) {
 
 /** ProductInside Page */
 export default function ProductInside({ data, mapJson }) {
-	console.log(mapJson);
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -106,7 +106,16 @@ export default function ProductInside({ data, mapJson }) {
 			{/* Page Content starts here */}
 			<main className={styles.ProductInsidePage}>
 				<div>
-					<ProductBanner />
+					<ProductBanner
+						data={data?.products}
+						bannerTitle={data?.products?.banner?.title}
+						bannerDescription={data?.products?.banner?.description}
+						btnTxt={data?.products?.banner?.buttonText}
+						btnLink={data?.products?.banner?.buttonLink}
+						desktopImage={data?.products?.banner?.desktopThumbnail?.node?.sourceUrl}
+						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.sourceUrl}
+						videoSrc={data?.products?.banner?.vimeoLink}
+					/>
 				</div>
 				<SectionsHeader
 					data={headerArray}

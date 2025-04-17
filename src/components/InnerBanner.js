@@ -26,6 +26,7 @@ function InnerBanner({
 	bannerDescription,
 	mobileImage,
 	btnTxt,
+	btnLink,
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
 }) {
@@ -67,11 +68,11 @@ function InnerBanner({
 							)}
 						</div>
 						{btnTxt && (
-							<div className={`${styles.bookBtn} pt_30`}>
+							<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
 									{btnTxt}
 								</Button>
-							</div>
+							</a>
 						)}
 					</div>
 				</div>

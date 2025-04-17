@@ -103,7 +103,6 @@ export default function Products({
 	regions,
 	mapJson,
 }) {
-	console.log(data);
 	return (
 		<div>
 			{/* Metatags */}
