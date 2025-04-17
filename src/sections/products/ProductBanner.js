@@ -80,29 +80,24 @@ export default function ProductBanner({
 						</a>
 					</div>
 				</div>
-				<div className={`${styles.macFrameBox} f_r_aj_center`}>
-					<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
-					{/* <img
+				{vimeoid ? (
+					<div className={`${styles.macFrameBox} f_r_aj_center`}>
+						<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
+						{/* <img
 						src={frame_video.src}
 						alt="mac img"
 						className={`${styles.frame_video}`}
 					/> */}
-					<div className={`${styles.frame_video}`}>
-						{/* <video ref={videoRef} playsInline autoPlay muted loop>
+						<div className={`${styles.frame_video}`}>
+							{/* <video ref={videoRef} playsInline autoPlay muted loop>
 							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
 						</video> */}
-						{vimeoid ? (
 							<div className={`${styles.VideoBox}`}>
 								<Vimeo
 									className={`${styles.vimeoPlayer}`}
 									ref={vimeoRef}
 									{...defaultVimeoObj}
 								/>
-								{/* <video ref={videoRef} playsInline autoPlay muted loop>
-										<source src={videoSrc} type="video/mp4" />
-									</video>
-								 */}
-
 								{/* Play/Pause Button */}
 								<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
 									{isPlaying ? (
@@ -120,14 +115,16 @@ export default function ProductBanner({
 									)}
 								</div>
 							</div>
-						) : (
-							<picture>
-								<source srcSet={desktopImage} media="(min-width:767px)" />
-								<img src={mobileImage} alt="Banner Image" />
-							</picture>
-						)}
+						</div>
 					</div>
-				</div>
+				) : (
+					<div className={`${styles.banner_image}`}>
+						<picture>
+							<source srcSet={desktopImage} media="(min-width:767px)" />
+							<img src={mobileImage} alt="Banner Image" />
+						</picture>
+					</div>
+				)}
 			</div>
 		</section>
 	);
