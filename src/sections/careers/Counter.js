@@ -20,7 +20,7 @@ import styles from "@/styles/sections/careers/Counter.module.scss";
 /** Counter Section */
 export default function Counter({ data }) {
 	return (
-		<section className={`${styles.Counter} dark_bg pt_40`}>
+		<section className={`${styles.Counter} pt_40`}>
 			<div className="container">
 				<div className={`${styles.counterFlex} f_w_j`}>
 					<div className={`${styles.countBox}`}>

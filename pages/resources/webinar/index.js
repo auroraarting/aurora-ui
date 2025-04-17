@@ -34,7 +34,7 @@ export default function WebinarTalks() {
 			<MetaTags Title={"Webinar"} Desc={""} OgImg={""} Url={"/webinar"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.WebinarPage}>

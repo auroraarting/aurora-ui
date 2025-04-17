@@ -120,7 +120,7 @@ export default function LifeAtAurora({ data }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.LifeAtAuroraPage}>
@@ -153,7 +153,7 @@ export default function LifeAtAurora({ data }) {
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="dark_bg pt_100">
+				<div className={`${styles.EarlyMain}`}>
 					<EarlyCareers />
 				</div>
 				<div>

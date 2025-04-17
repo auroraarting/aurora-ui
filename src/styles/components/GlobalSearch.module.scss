@@ -1,0 +1,81 @@
+@import "../helpers/helpers.scss";
+
+.GlobalSearch{
+    width: 100%;
+    .slobal_search_section{
+        border-radius: 6px;
+        padding: 7px 10px 7px 18px;
+        background-color: var(--color_white);
+        box-shadow: 0px 10px 22px 10px rgba(0, 0, 0, 0.15);
+
+        .input_section{
+            width: 100%;
+            input{
+                width: 90%;
+                height: 30px;
+                border: 0;
+                font-size: 18px;
+                color: var(--color_black);
+                &:focus{
+                    outline: none;
+                }
+                &::placeholder{
+                    font-size: 18px;
+                    color: var(--color_black);
+                }
+            }
+        }
+        .search_section{
+            display: flex;
+            align-items: center;
+            button{
+                border: 0;
+                box-shadow: 0;
+                background-color: transparent;
+            }
+            img{
+                width: 20px;
+                filter: invert(1);
+            }
+        }
+    }
+    .results{
+        margin-top: 10px;
+        border-radius: 6px;
+        height: 256px;
+        overflow: hidden;
+        overflow-y: scroll;
+        background-color: var(--color_white);
+        box-shadow: 0px 10px 22px 10px rgba(0, 0, 0, 0.15);    
+
+        .title_link{
+            padding: 12px 20px;
+            transition: all 0.5s;
+            // padding: 8px 0 10px 0;
+            border-bottom: 1px solid #00000029;
+            img{
+                filter: invert(1);
+                margin-right: 10px;
+            }
+            &:hover{
+                background-color: #00000010;
+            }
+        }
+    }
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        background: #e5dbdb;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 50px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        border-radius: 50px;
+        background: var(--color_black) ;
+    }
+}

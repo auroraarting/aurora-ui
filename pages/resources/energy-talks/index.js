@@ -39,7 +39,7 @@ export default function EnergyTalks() {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.EnergyPage}>

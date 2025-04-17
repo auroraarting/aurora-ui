@@ -75,7 +75,7 @@ export default function EventsInside() {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.EventsInsidePage}>

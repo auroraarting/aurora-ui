@@ -29,7 +29,7 @@ const services = [
 
 /** ServicesCircle Component */
 export default function ServicesCircle({ data }) {
-	if (data?.advantages?.length === 0) return <></>;
+	if (data?.advantages?.length === 0 || !data) return <></>;
 	return (
 		<section
 			className={`${styles.ServicesCircleSection} dark_bg `}

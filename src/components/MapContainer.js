@@ -376,7 +376,7 @@ export default function Map({
 
 						const uniqueName = marker.unique;
 						return (
-							<>
+							<div key={index}>
 								<Marker
 									position={{
 										lat: parseFloat(marker?.coordinates?.lat) || parseFloat(marker?.lat),
@@ -393,7 +393,6 @@ export default function Map({
 									}}
 									onMouseOver={() => {
 										setSelectedMarker(uniqueName);
-										console.log(uniqueName);
 									}}
 									// onMouseOut={() => setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
@@ -420,7 +419,7 @@ export default function Map({
 										</a>
 									</InfoWindow>
 								)}
-							</>
+							</div>
 						);
 					})
 				)}
