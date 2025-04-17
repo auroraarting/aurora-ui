@@ -29,8 +29,6 @@ const services = [
 
 /** ServicesCircle Component */
 export default function ServicesCircle({ data }) {
-	console.log(data);
-
 	if (!data?.sectionTitle || !data?.title) return <></>;
 	return (
 		<section
