@@ -7,4 +7,19 @@
 		background-size: cover;
 		background-position: top center;
 	}
+	.EosMain {
+		background-color: var(--color_black);
+	}
+	:global(.insightsBg) {
+		background-image: none !important;
+		padding: 0px 0px !important;
+		@media (max-width: 1340px) {
+			padding: 0px 0px !important;
+		}
+	}
+	:global(.powerBg) {
+		border-bottom: none !important;
+		padding-bottom: 0px !important;
+		margin-bottom: 0px !important;
+	}
 }

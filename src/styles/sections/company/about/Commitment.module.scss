@@ -1,0 +1,67 @@
+@import "../../../helpers/helpers.scss";
+.Commitment {
+	.commitmentWapper {
+		position: relative;
+		.commitmentImg {
+			border-radius: 40px;
+			@media (max-width: 991px) {
+				height: 400px;
+				object-fit: cover;
+				object-position: top center;
+			}
+			@media (max-width: 767px) {
+				height: 500px;
+				border-radius: 20px;
+			}
+		}
+		.CardsDesc {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 65%;
+			height: 100%;
+			padding: 40px 40px;
+			@media (max-width: 991px) {
+				width: 100%;
+			}
+			@media (max-width: 767px) {
+				padding: 30px 20px;
+			}
+			.btn_box {
+				position: relative;
+				margin-top: 30px;
+				max-width: fit-content;
+				button {
+					padding: 10px 25px 10px 50px;
+				}
+				span {
+					position: absolute;
+					left: 6px;
+					top: 5px;
+					width: 32px;
+					height: 32px;
+					border-radius: 50%;
+					background-color: var(--color_platinum_gray);
+					transition: 0.3s all;
+					z-index: 1;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					img {
+						transition: 0.3s all;
+					}
+				}
+				&:hover {
+					span {
+						background-color: var(--color_black);
+						transition: 0.3s all;
+						img {
+							filter: invert(1);
+							transition: 0.3s all;
+						}
+					}
+				}
+			}
+		}
+	}
+}
