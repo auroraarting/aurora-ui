@@ -63,7 +63,7 @@ export async function getServerSideProps({ params }) {
 
 /** Chronos Page */
 export default function SoftwarePage({ data, mapJson, regions }) {
-	console.log(getMapJsonForProducts(filterMarkersBySlug(regions, "chronos")));
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -120,6 +120,7 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 					vimeoid={data?.banner?.vimeoLink}
 					btnText={data?.banner?.buttonText}
 					btnLink={data?.banner?.buttonLink}
+					logo={data?.banner?.logo?.node?.sourceUrl}
 				/>
 				<SectionsHeader data={headerArray} />
 				<div className="ptb_100">

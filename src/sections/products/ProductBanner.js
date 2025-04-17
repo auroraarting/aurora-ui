@@ -35,6 +35,7 @@ export default function ProductBanner({
 	btnLink,
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
+	logo,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -60,9 +61,11 @@ export default function ProductBanner({
 	return (
 		<section className={`${styles.ProductBanner} ptb_100`}>
 			<div className="container">
-				<div className={`${styles.SoftwareLogo} pb_20`}>
-					<img src={flexible_energy.src} alt="Software Logo" />
-				</div>
+				{logo && (
+					<div className={`${styles.SoftwareLogo} pb_20`}>
+						<img src={logo} alt="Software Logo" />
+					</div>
+				)}
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
