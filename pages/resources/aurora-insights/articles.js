@@ -65,7 +65,7 @@ export default function Articles() {
 			<MetaTags Title={"Articles"} Desc={""} OgImg={""} Url={"/articles"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.articlesPage}>

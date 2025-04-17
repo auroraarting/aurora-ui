@@ -100,7 +100,7 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 			<MetaTags Title={"Chronos"} Desc={""} OgImg={""} Url={"/chronos"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>

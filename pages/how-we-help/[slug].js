@@ -96,7 +96,7 @@ export default function Transactions({ data, services, mapJson }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
