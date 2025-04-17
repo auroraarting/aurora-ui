@@ -4,7 +4,7 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 export default async function handler(req, res) {
 	const { searchTerm } = req.body;
 	try {
-		const response = await fetch(`${process.env.WORDPRESS_URL}`, {
+		const response = await fetch(`${process.env.API_URL}`, {
 			method: "POST",
 			headers: {
 				...ServerHeaders.headers,
