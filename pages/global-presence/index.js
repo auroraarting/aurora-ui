@@ -20,6 +20,7 @@ import { Link, scroller } from "react-scroll";
 import Marquee from "react-fast-marquee";
 
 // UTILS //
+import { getMapJsonForAllRegions } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/global-presence/GlobalPresence.module.scss";
@@ -46,12 +47,13 @@ export async function getServerSideProps() {
 		getRegions(),
 		getGlobalPresencePage(),
 	]);
+	const mapJson = getMapJsonForAllRegions(regions);
 
-	return { props: { regions, page: page.data.page.globalPresence } };
+	return { props: { regions, page: page.data.page.globalPresence, mapJson } };
 }
 
 /** GlobalPresence Page */
-export default function GlobalPresence({ regions, page }) {
+export default function GlobalPresence({ regions, page, mapJson }) {
 	const [data, setData] = useState();
 
 	useEffect(() => {
@@ -94,52 +96,6 @@ export default function GlobalPresence({ regions, page }) {
 			}
 			return obj;
 		});
-		const mapJson = [];
-		regions?.data?.regions?.nodes?.map((item) => {
-			item.countries.nodes.map((item2) => {
-				let obj = {
-					// centerOfCountry: {
-					// 	lat: parseFloat(item2.countries.map.countryPin.lat),
-					// 	lng: parseFloat(item2.countries.map.countryPin.lng),
-					// },
-					centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-					markers: item2.countries.map?.markers?.map((item3) => {
-						let node = item3?.category?.nodes?.[0];
-
-						let obj2 = {
-							name: "",
-							lat: "",
-							lng: "",
-							url: "",
-							hoverImg: "",
-							icon:
-								node?.service?.map?.logo?.node?.sourceUrl ||
-								node?.products?.map?.logo?.node?.sourceUrl ||
-								node?.softwares?.map?.logo?.node?.sourceUrl ||
-								item3?.icon?.node?.sourceUrl,
-							unique: Math.random(),
-						};
-
-						if (item3?.mapThumbnail?.node?.sourceUrl) {
-							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
-						}
-
-						if (item3?.category?.nodes?.length > 0) {
-							obj2.name = node.title;
-							obj2.lat = parseFloat(item3.coordinates.lat);
-							obj2.lng = parseFloat(item3.coordinates.lng);
-							obj2.url = `/${node.contentType.node.name}/${node.slug}`;
-						}
-
-						return obj2;
-					}),
-					zoom: item2.countries.map.zoom,
-					name: item2.title,
-				};
-
-				mapJson.push(obj);
-			});
-		});
 
 		setData({ regionsArr, mapJson, page });
 	}, []);
@@ -166,10 +122,7 @@ export default function GlobalPresence({ regions, page }) {
 						showContentOnly
 					/>
 
-					<GlobalMap
-						locationJson={data.mapJson}
-						marqueeText={data.page.mapMarquee}
-					/>
+					<GlobalMap locationJson={mapJson} marqueeText={data.page.mapMarquee} />
 
 					<section className={`${styles.CountryMain} ptb_100`}>
 						<div className="container">

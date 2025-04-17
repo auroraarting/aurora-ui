@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 			body: JSON.stringify({
 				query: `
             query Search($searchTerm: String!) {
-                projects(where: { search: $searchTerm }) {
+                projects(where: { search: ${searchTerm} }) {
                     nodes {
                     id
                     title
@@ -291,7 +291,7 @@ export default async function handler(req, res) {
 
                     contact {
                         contact {
-                            title   
+                            title
                             description
                         }
 					}
