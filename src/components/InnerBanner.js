@@ -29,6 +29,7 @@ function InnerBanner({
 	btnLink,
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
+	logo,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,

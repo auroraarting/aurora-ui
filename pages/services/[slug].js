@@ -105,6 +105,7 @@ export default function Advisory({ data, mapJson }) {
 						desktopImage={data?.service?.banner?.desktopThumbnail?.node?.sourceUrl}
 						mobileImage={data?.service?.banner?.mobileThumbnail?.node?.sourceUrl}
 						videoSrc={data?.service?.banner?.vimeoLink}
+						logo={data?.service?.banner?.logo?.node?.sourceUrl}
 					/>
 				</div>
 				<SectionsHeader data={headerArray} />
