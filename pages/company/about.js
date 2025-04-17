@@ -7,10 +7,15 @@ import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import GlobalMap from "@/components/GlobalMap";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import SoftwareCards from "@/components/SoftwareCards";
+import Insights from "@/components/Insights";
 
 // SECTIONS //
 import OurHistory from "@/sections/company/about/OurHistory";
 import OurEdge from "@/sections/company/about/OurEdge";
+import AboutLeadership from "@/sections/company/about/AboutLeadership";
+import Commitment from "@/sections/company/about/Commitment";
 import Counter from "@/sections/careers/Counter";
 
 // PLUGINS //
@@ -102,6 +107,21 @@ export default function About({ data }) {
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
+				</div>
+				<div className={`${styles.EosMain} pt_100 pb_60`}>
+					<EosIntegratedSystem />
+				</div>
+				<div className="ptb_100">
+					<SoftwareCards />
+				</div>
+				<div className="pb_100">
+					<AboutLeadership />
+				</div>
+				<div className="pb_100">
+					<Insights isPowerBgVisible={true} />
+				</div>
+				<div className="pb_100">
+					<Commitment />
 				</div>
 			</main>
 			{/* Page Content ends here */}
