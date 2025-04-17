@@ -63,7 +63,7 @@ export async function getServerSideProps({ params }) {
 
 /** Chronos Page */
 export default function SoftwarePage({ data, mapJson, regions }) {
-	console.log(data);
+	console.log(mapJson, "zxczxc");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
