@@ -113,11 +113,13 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 				/> */}
 
 				<SoftwareBanner
-					bannerTitle={data.banner.title}
-					bannerDescription={data.banner.description}
-					desktopImage={data.banner.desktopThumbnail?.node.sourceUrl}
-					mobileImage={data.banner.mobileThumbnail?.node.sourceUrl}
-					vimeoid={data.banner.vimeoLink}
+					bannerTitle={data?.banner?.title}
+					bannerDescription={data?.banner?.description}
+					desktopImage={data?.banner?.desktopThumbnail?.node?.sourceUrl}
+					mobileImage={data?.banner?.mobileThumbnail?.node?.sourceUrl}
+					vimeoid={data?.banner?.vimeoLink}
+					btnText={data?.banner?.buttonText}
+					btnLink={data?.banner?.buttonLink}
 				/>
 				<SectionsHeader data={headerArray} />
 				<div className="ptb_100">

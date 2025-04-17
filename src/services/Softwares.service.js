@@ -59,6 +59,7 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
+         buttonText
         buttonLink
         description
         title

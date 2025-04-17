@@ -1,0 +1,63 @@
+@import "../../../helpers/helpers.scss";
+.OurHistory {
+	.integratedSystemFlex {
+		.title_wrap {
+			width: 45%;
+			@media (max-width: 991px) {
+				width: 50%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-bottom: 40px;
+			}
+		}
+		.integratedImgMain {
+			width: 50%;
+			@media (max-width: 991px) {
+				width: 45%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+			.integratedImgBox {
+				.itemBox {
+					position: relative;
+					width: 100%;
+				}
+
+				:global(.swiper-horizontal) {
+					padding-bottom: 50px;
+				}
+				:global(.swiper-pagination-horizontal) {
+					bottom: 0px;
+					left: 50%;
+					width: auto;
+					transform: translateX(-50%);
+					background-color: rgba(229, 229, 229, 0.5);
+					padding: 0px 10px 4px;
+					border-radius: 50px;
+				}
+				:global(.swiper-pagination-bullet) {
+					width: 8px;
+					height: 8px;
+					text-align: center;
+					font-size: 14px;
+					font-family: var(--font_primary);
+					font-weight: 600;
+					color: var(--color_secondary);
+					opacity: 1;
+					background: var(--color_medium_gray);
+					transition: 0.5s all;
+				}
+
+				:global(.swiper-pagination-bullet-active) {
+					color: #fff;
+					background: var(--color_secondary);
+					width: 50px;
+					border-radius: 50px;
+					transition: 0.5s all;
+				}
+			}
+		}
+	}
+}
