@@ -9,6 +9,7 @@ import InnerBanner from "@/components/InnerBanner";
 
 // SECTIONS //
 import OurHistory from "@/sections/company/about/OurHistory";
+import OurEdge from "@/sections/company/about/OurEdge";
 
 // PLUGINS //
 
@@ -42,6 +43,9 @@ export default function About() {
 				</div>
 				<div className="pt_100">
 					<OurHistory />
+				</div>
+				<div className={`${styles.OurEdgeMain} pt_100`}>
+					<OurEdge />
 				</div>
 			</main>
 			{/* Page Content ends here */}
