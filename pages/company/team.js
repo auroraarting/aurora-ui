@@ -37,7 +37,7 @@ export default function Team() {
 			<MetaTags Title={"Team"} Desc={""} OgImg={""} Url={"/team"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.TeamPage}>

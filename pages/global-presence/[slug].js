@@ -41,14 +41,38 @@ import {
 	getRegions,
 } from "@/services/GlobalPresence.service";
 
+import {
+	getCountryInside as getCountryInsideWithLanguages,
+	getRegions as getRegionsWithLanguages,
+} from "@/services/GlobalPresenceLanguages.service";
+
 /** Fetch  */
-export async function getServerSideProps({ params }) {
-	const [data] = await Promise.all([getCountryInside(params.slug)]);
-	const mapJson = getMapJsonForCountries(data.data.countryBy.countries.map);
+export async function getServerSideProps({ params, query }) {
+	const language = query.language;
+	let data, countryBy, mapJson;
+
+	if (language && language === "jp") {
+		// Fetch Japanese data
+		[data] = await Promise.all([getCountryInsideWithLanguages(params.slug)]);
+		countryBy = data?.data?.countryBy?.translations?.[0];
+		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	} else {
+		// Default fetch
+		[data] = await Promise.all([getCountryInside(params.slug)]);
+		countryBy = data?.data?.countryBy;
+		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	}
+
+	// Return 404 if no valid data
+	if (!countryBy) {
+		return {
+			notFound: true,
+		};
+	}
 
 	return {
 		props: {
-			data: data.data.countryBy,
+			data: countryBy,
 			mapJson,
 		},
 	};
@@ -97,7 +121,7 @@ export default function Australia({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AustraliaPage}>
@@ -113,7 +137,8 @@ export default function Australia({ data, mapJson }) {
 						}
 						btnTxt="Get in Touch"
 						desktopImage={
-							data.countries.bannerSection.image.node.sourceUrl || desktop_banner.src
+							data.countries.bannerSection?.image?.node?.sourceUrl ||
+							desktop_banner.src
 						}
 						mobileImage={
 							data.countries.bannerSection.mobileImage?.node?.sourceUrl ||

@@ -50,7 +50,6 @@ export async function getServerSideProps({ params }) {
 
 /** Advisory Page */
 export default function Advisory({ data, mapJson }) {
-	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -92,7 +91,7 @@ export default function Advisory({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AdvisoryPage}>

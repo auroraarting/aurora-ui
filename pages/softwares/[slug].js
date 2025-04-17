@@ -58,12 +58,18 @@ export async function getServerSideProps({ params }) {
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, data.data.softwareBy.slug)
 	);
-	return { props: { data: data.data.softwareBy.softwares, mapJson, regions } };
+	return {
+		props: {
+			data: data.data.softwareBy.softwares,
+			mapJson,
+			regions,
+			meta: data.data.softwareBy,
+		},
+	};
 }
 
 /** Chronos Page */
-export default function SoftwarePage({ data, mapJson, regions }) {
-	console.log(mapJson, "zxczxc");
+export default function SoftwarePage({ data, mapJson, regions, meta }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -97,10 +103,15 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Chronos"} Desc={""} OgImg={""} Url={"/chronos"} />
+			<MetaTags
+				Title={meta?.title}
+				Desc={""}
+				OgImg={""}
+				Url={`/softwares/${meta.slug}`}
+			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>

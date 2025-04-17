@@ -78,7 +78,7 @@ export default function About({ data }) {
 			<MetaTags Title={"About"} Desc={""} OgImg={""} Url={"/about"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AboutPage}>

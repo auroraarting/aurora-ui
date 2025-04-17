@@ -70,7 +70,7 @@ export default function MarketReports() {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.MarketReportsPage}>
