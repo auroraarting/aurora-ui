@@ -15,7 +15,7 @@ import Vimeo from "@u-wave/react-vimeo";
 import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "@/../public/img/banner/defaultMobileBanner.jpg";
 import pause_button from "../../public/img/icons/pause_button.svg";
-import play_button from "../../public/img/icons/play_icon.png";
+import video_play from "../../public/img/icons/video_play.svg";
 
 // UTILS //
 
@@ -26,8 +26,10 @@ function InnerBanner({
 	bannerDescription,
 	mobileImage,
 	btnTxt,
+	btnLink,
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
+	logo,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -67,11 +69,11 @@ function InnerBanner({
 							)}
 						</div>
 						{btnTxt && (
-							<div className={`${styles.bookBtn} pt_30`}>
+							<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
 									{btnTxt}
 								</Button>
-							</div>
+							</a>
 						)}
 					</div>
 				</div>
@@ -103,7 +105,7 @@ function InnerBanner({
 											/>
 										) : (
 											<img
-												src={play_button.src}
+												src={video_play.src}
 												className={`${styles.play_button}`}
 												alt="Play"
 											/>

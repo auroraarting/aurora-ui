@@ -33,6 +33,9 @@ export default function SoftwareBanner({
 	desktopImage,
 	mobileImage,
 	vimeoid,
+	btnText,
+	btnLink,
+	logo,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -67,13 +70,15 @@ export default function SoftwareBanner({
 	return (
 		<section className={`${styles.SoftwareBanner} ptb_100`}>
 			<div className="container">
-				<div className={`${styles.SoftwareLogo} pb_20`}>
-					<img
-						src={SoftwareLogo.src}
-						alt="Software Logo"
-						className={`${styles.SoftwareLogo}`}
-					/>
-				</div>
+				{logo && (
+					<div className={`${styles.SoftwareLogo} pb_20`}>
+						<img
+							src={logo}
+							alt="Software Logo"
+							className={`${styles.SoftwareLogo}`}
+						/>
+					</div>
+				)}
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
@@ -84,11 +89,11 @@ export default function SoftwareBanner({
 						<div className={`${styles.label} text_reg color_dark_gray`}>
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
-						<div className={`${styles.bookBtn} pt_30`}>
+						<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
 							<Button color="primary" variant="filled" shape="rounded">
-								Book a Demo
+								{btnText}
 							</Button>
-						</div>
+						</a>
 					</div>
 				</div>
 				{vimeoid ? (

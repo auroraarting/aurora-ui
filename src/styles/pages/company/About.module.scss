@@ -1,0 +1,10 @@
+@import "../../helpers/helpers.scss";
+.AboutPage {
+	background-color: var(--color_silver);
+	.OurEdgeMain {
+		background-image: url("../../../../public/img/company/about/abotBg.jpg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: top center;
+	}
+}

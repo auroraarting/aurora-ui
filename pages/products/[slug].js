@@ -59,7 +59,7 @@ export async function getServerSideProps({ params }) {
 
 /** ProductInside Page */
 export default function ProductInside({ data, mapJson }) {
-	console.log(mapJson);
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -94,10 +94,10 @@ export default function ProductInside({ data, mapJson }) {
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={data.title}
+				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/products/${data.slug}`}
+				Url={`/products/${data?.slug}`}
 			/>
 
 			{/* Header */}
@@ -106,7 +106,18 @@ export default function ProductInside({ data, mapJson }) {
 			{/* Page Content starts here */}
 			<main className={styles.ProductInsidePage}>
 				<div>
-					<ProductBanner />
+					<ProductBanner
+						data={data?.products}
+						bannerTitle={data?.products?.banner?.title}
+						bannerDescription={data?.products?.banner?.description}
+						btnTxt={data?.products?.banner?.buttonText}
+						btnLink={data?.products?.banner?.buttonLink}
+						desktopImage={data?.products?.banner?.desktopThumbnail?.node?.sourceUrl}
+						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.sourceUrl}
+						videoSrc={data?.products?.banner?.vimeoLink}
+						vimeoid={data?.products?.banner?.vimeoLink}
+						logo={data?.products?.banner?.logo?.node?.sourceUrl}
+					/>
 				</div>
 				<SectionsHeader
 					data={headerArray}
@@ -119,24 +130,27 @@ export default function ProductInside({ data, mapJson }) {
 					}
 				/>
 				<div className="ptb_100">
-					<MarketIntelligence data={data.products.introduction} />
+					<MarketIntelligence data={data?.products?.introduction} />
 				</div>
-				<GlobalMap locationJson={mapJson} marqueeText={data.products.map.marquee} />
+				<GlobalMap
+					locationJson={mapJson}
+					marqueeText={data?.products?.map?.marquee}
+				/>
 				{/* <div className="ptb_100">
 					<SoftwareMarket />
 				</div> */}
 				<div className="ptb_100">
-					<TrustedLeaders data={data.products.ourClient} />
+					<TrustedLeaders data={data?.products?.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.products.ourClient} />
+					<TestimonialFeedback data={data?.products?.ourClient} />
 				</div>
-				<ServicesCircle data={data.products.keyAdvantages} />
+				<ServicesCircle data={data?.products?.keyAdvantages} />
 				<div>
-					<GloballyBankableInsights data={data.products.whyAurora} />
+					<GloballyBankableInsights data={data?.products?.whyAurora} />
 				</div>
 				<div>
-					<SmarterEnergy data={data.products.expertise} />
+					<SmarterEnergy data={data?.products?.expertise} />
 				</div>
 
 				<div className={`${styles.insightBg} pb_100 pt_30`}>

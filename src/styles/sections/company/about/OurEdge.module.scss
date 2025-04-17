@@ -1,0 +1,113 @@
+@import "../../../helpers/helpers.scss";
+.OurEdge {
+	.OurEdgeFlex {
+		.title_wrap {
+			width: 40%;
+			@media (max-width: 991px) {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+			.titleBox {
+				position: sticky;
+				top: 100px;
+			}
+		}
+		.OurEdgeHistory {
+			position: relative;
+			width: 58%;
+			@media (max-width: 991px) {
+				width: 100%;
+			}
+			.OurItem {
+				position: relative;
+				padding-bottom: 30px;
+				&::before {
+					content: " ";
+					position: absolute;
+					left: 45px;
+					top: 20px;
+					height: 100%;
+					width: 1px;
+					background-color: var(--color_platinum_gray);
+					transition: 0.3s all;
+					@media (max-width: 767px) {
+						left: 30px;
+					}
+				}
+				&:last-child {
+					&::before {
+						content: none;
+					}
+				}
+				.OurEdgeBox {
+					position: relative;
+					padding: 20px 20px 40px;
+					transition: 0.3s all;
+					@media (max-width: 767px) {
+						padding: 20px 10px 20px;
+					}
+					.iconBox {
+						position: relative;
+						width: 10%;
+						span {
+							width: 54px;
+							height: 54px;
+							border-radius: 50%;
+							background-color: var(--color_platinum_gray);
+							transition: 0.3s all;
+							@media (max-width: 767px) {
+								width: 40px;
+								height: 40px;
+							}
+							img {
+								@media (max-width: 767px) {
+									width: 30px;
+								}
+							}
+						}
+					}
+					.contentBox {
+						width: 90%;
+						padding-left: 10px;
+						@media (max-width: 767px) {
+							padding-left: 15px;
+						}
+						h4 {
+							transition: 0.3s all;
+						}
+						p {
+							transition: 0.3s all;
+						}
+					}
+				}
+				&:hover {
+					// &::before {
+					// 	background-color: var(--color_gray);
+					// 	transition: 0.3s all;
+					// }
+					.OurEdgeBox {
+						background-color: var(--color_gray);
+						border-radius: 20px;
+						transition: 0.3s all;
+						.iconBox {
+							span {
+								background-color: var(--color_primary);
+								transition: 0.3s all;
+							}
+						}
+						.contentBox {
+							h4 {
+								color: var(--color_white);
+								transition: 0.3s all;
+							}
+							p {
+								color: var(--color_silver_gray);
+								transition: 0.3s all;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
