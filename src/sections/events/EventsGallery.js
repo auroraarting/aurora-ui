@@ -36,7 +36,7 @@ import gallery_seven_img from "@/../public/img/events/gallery_seven_img.jpg";
 export default function EventsGallery() {
 	/** EventsGallery Section */
 	const onInit = () => {
-		console.log("lightGallery has been initialized");
+		// console.log("lightGallery has been initialized");
 	};
 	return (
 		<div className={`${styles.EventsGallery} EventsGallery `}>

@@ -59,7 +59,6 @@ export async function getServerSideProps({ params }) {
 
 /** ProductInside Page */
 export default function ProductInside({ data, mapJson }) {
-	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
