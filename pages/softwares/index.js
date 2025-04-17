@@ -97,7 +97,6 @@ export default function Softwares({
 	testimonials,
 	softwares,
 }) {
-	console.log(softwares, "data");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	return (
@@ -106,7 +105,7 @@ export default function Softwares({
 			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/softwares"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.SoftwareLanding}>

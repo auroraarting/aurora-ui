@@ -66,7 +66,6 @@ export async function getServerSideProps({ params }) {
 
 /** Transactions Page */
 export default function Transactions({ data, services, mapJson }) {
-	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -96,7 +95,7 @@ export default function Transactions({ data, services, mapJson }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>

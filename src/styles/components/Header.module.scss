@@ -1,6 +1,7 @@
 @import "../helpers/helpers.scss";
 .main_headerBox {
-	position: fixed;
+	// position: fixed;
+	position: sticky;
 	width: 100%;
 	z-index: 20;
 	top: 0;

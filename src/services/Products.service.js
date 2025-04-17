@@ -149,6 +149,13 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
+      logo{
+      node {
+            altText
+            sourceUrl
+          }
+      }
+        buttonText
         buttonLink
         description
         title

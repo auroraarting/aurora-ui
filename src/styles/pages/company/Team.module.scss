@@ -1,0 +1,42 @@
+@import "../../helpers/helpers.scss";
+.TeamPage {
+	background-color: var(--color_silver);
+	.topBg {
+		background-image: url("../../../../public/img/media-center/topBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: bottom left;
+	}
+	.category {
+		@media (max-width: 767px) {
+			overflow-x: scroll;
+			white-space: nowrap;
+		}
+		.switchBox {
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			justify-content: center;
+			width: max-content;
+			margin: 0 auto;
+			border: 1px solid var(--color_platinum_gray);
+			border-radius: 50px;
+			.listTxt {
+				text-transform: uppercase;
+				padding: 15px 60px;
+				letter-spacing: 1px;
+				color: var(--color_light_gray);
+				@media (max-width: 767px) {
+					padding: 12px 25px;
+				}
+			}
+
+			.active {
+				border-radius: 50px;
+				background-color: var(--color_blue);
+				opacity: 1;
+				color: var(--color_white);
+			}
+		}
+	}
+}

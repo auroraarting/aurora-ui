@@ -7,6 +7,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 
 // PLUGINS //
+import Vimeo from "@u-wave/react-vimeo";
 
 // UTILS //
 
@@ -19,78 +20,114 @@ import mac_img from "../../../public/img/softwares/mac_img.png";
 import frame_video from "../../../public/img/softwares/frame_video.png";
 import pause_button from "../../../public/img/icons/pause_button.svg";
 import play_button from "../../../public/img/icons/video_play.svg";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
 /** ProductBanner Section */
-export default function ProductBanner() {
+export default function ProductBanner({
+	data,
+	desktopImage,
+	bannerTitle,
+	bannerDescription,
+	mobileImage,
+	btnTxt,
+	btnLink,
+	showContentOnly = false, // New prop to toggle visibility
+	vimeoid,
+	logo,
+}) {
+	const defaultVimeoObj = {
+		video: vimeoid,
+		controls: false,
+		paused: false,
+		autoplay: true,
+		loop: true,
+		responsive: true,
+	};
 	const [isPlaying, setIsPlaying] = useState(true);
-	const videoRef = useRef(null);
+	const vimeoRef = useRef(null);
 
 	/** togglePlayPause */
 	const togglePlayPause = () => {
-		if (videoRef.current) {
-			if (isPlaying) {
-				videoRef.current.pause();
-			} else {
-				videoRef.current.play();
-			}
-			setIsPlaying(!isPlaying);
+		if (isPlaying) {
+			vimeoRef.current.player.pause();
+		} else {
+			vimeoRef.current.player.play();
 		}
+		setIsPlaying(!isPlaying);
 	};
+
 	return (
 		<section className={`${styles.ProductBanner} ptb_100`}>
 			<div className="container">
-				<div className={`${styles.SoftwareLogo} pb_20`}>
-					<img src={flexible_energy.src} alt="Software Logo" />
-				</div>
+				{logo && (
+					<div className={`${styles.SoftwareLogo} pb_20`}>
+						<img src={logo} alt="Software Logo" />
+					</div>
+				)}
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
-							Optimise energy flexibility
+							<ContentFromCms>{bannerTitle}</ContentFromCms>
 						</h1>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<p className={`${styles.label} text_reg color_dark_gray`}>
-							Gain deep insights into power, balancing, and ancillary markets. Make
-							informed investment decisions with Aurora’s Flexible Energy Service.
-						</p>
-						<div className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								Speak To Our Experts
-							</Button>
+						<div className={`${styles.label} text_reg color_dark_gray`}>
+							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
+						<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
+							<Button color="primary" variant="filled" shape="rounded">
+								{btnTxt}
+							</Button>
+						</a>
 					</div>
 				</div>
-				<div className={`${styles.macFrameBox} f_r_aj_center`}>
-					<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
-					{/* <img
+				{vimeoid ? (
+					<div className={`${styles.macFrameBox} f_r_aj_center`}>
+						<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
+						{/* <img
 						src={frame_video.src}
 						alt="mac img"
 						className={`${styles.frame_video}`}
 					/> */}
-					<div className={`${styles.frame_video}`}>
-						<video ref={videoRef} playsInline autoPlay muted loop>
+						<div className={`${styles.frame_video}`}>
+							{/* <video ref={videoRef} playsInline autoPlay muted loop>
 							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
-						</video>
-						{/* Play/Pause Button */}
-						<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
-							{isPlaying ? (
-								<img
-									src={pause_button.src}
-									className={`${styles.pause_button}`}
-									alt="Pause"
+						</video> */}
+							<div className={`${styles.VideoBox}`}>
+								<Vimeo
+									className={`${styles.vimeoPlayer}`}
+									ref={vimeoRef}
+									{...defaultVimeoObj}
 								/>
-							) : (
-								<img
-									src={play_button.src}
-									className={`${styles.play_button}`}
-									alt="Play"
-								/>
-							)}
+								{/* Play/Pause Button */}
+								<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
+									{isPlaying ? (
+										<img
+											src={pause_button.src}
+											className={`${styles.pause_button}`}
+											alt="Pause"
+										/>
+									) : (
+										<img
+											src={play_button.src}
+											className={`${styles.play_button}`}
+											alt="Play"
+										/>
+									)}
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				) : (
+					<div className={`${styles.banner_image}`}>
+						<picture>
+							<source srcSet={desktopImage} media="(min-width:767px)" />
+							<img src={mobileImage} alt="Banner Image" />
+						</picture>
+					</div>
+				)}
 			</div>
 		</section>
 	);

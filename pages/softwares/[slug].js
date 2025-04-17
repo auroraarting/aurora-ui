@@ -58,12 +58,19 @@ export async function getServerSideProps({ params }) {
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, data.data.softwareBy.slug)
 	);
-	return { props: { data: data.data.softwareBy.softwares, mapJson, regions } };
+	return {
+		props: {
+			data: data.data.softwareBy.softwares,
+			mapJson,
+			regions,
+			meta: data.data.softwareBy,
+		},
+	};
 }
 
 /** Chronos Page */
-export default function SoftwarePage({ data, mapJson, regions }) {
-	console.log(getMapJsonForProducts(filterMarkersBySlug(regions, "chronos")));
+export default function SoftwarePage({ data, mapJson, regions, meta }) {
+	console.log(meta, "zxczxc");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -97,10 +104,15 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Chronos"} Desc={""} OgImg={""} Url={"/chronos"} />
+			<MetaTags
+				Title={meta?.title}
+				Desc={""}
+				OgImg={""}
+				Url={`/softwares/${meta.slug}`}
+			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>
@@ -113,11 +125,14 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 				/> */}
 
 				<SoftwareBanner
-					bannerTitle={data.banner.title}
-					bannerDescription={data.banner.description}
-					desktopImage={data.banner.desktopThumbnail?.node.sourceUrl}
-					mobileImage={data.banner.mobileThumbnail?.node.sourceUrl}
-					vimeoid={data.banner.vimeoLink}
+					bannerTitle={data?.banner?.title}
+					bannerDescription={data?.banner?.description}
+					desktopImage={data?.banner?.desktopThumbnail?.node?.sourceUrl}
+					mobileImage={data?.banner?.mobileThumbnail?.node?.sourceUrl}
+					vimeoid={data?.banner?.vimeoLink}
+					btnText={data?.banner?.buttonText}
+					btnLink={data?.banner?.buttonLink}
+					logo={data?.banner?.logo?.node?.sourceUrl}
 				/>
 				<SectionsHeader data={headerArray} />
 				<div className="ptb_100">
@@ -135,20 +150,20 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 					<SoftwareMarket />
 				</div> */}
 				<div className="ptb_100">
-					<TrustedLeaders data={data.ourClient} />
+					<TrustedLeaders data={data?.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.ourClient} />
+					<TestimonialFeedback data={data?.ourClient} />
 				</div>
-				<ServicesCircle data={data.keyAdvantages} />
+				<ServicesCircle data={data?.keyAdvantages} />
 				<div>
 					<GloballyBankableInsights
-						data={data.whyAurora}
-						isMultiple={data.whyAurora.list.length > 1}
+						data={data?.whyAurora}
+						isMultiple={data?.whyAurora?.list?.length > 1}
 					/>
 				</div>
-				<IntuitiveStepProcess data={data.fourStepProcess} />
-				<SmarterEnergy data={data.expertise} />
+				<IntuitiveStepProcess data={data?.fourStepProcess} />
+				<SmarterEnergy data={data?.expertise} />
 				<div className="ptb_100">
 					<TrustOurExperts />
 				</div>

@@ -50,7 +50,6 @@ export async function getServerSideProps({ params }) {
 
 /** Advisory Page */
 export default function Advisory({ data, mapJson }) {
-	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -92,28 +91,20 @@ export default function Advisory({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AdvisoryPage}>
 				<div className="pb_60">
 					<InnerBanner
-						bannerTitle={
-							data.service.banner.title || "Lorem ipsum dolor sit amet consectetur."
-						}
-						bannerDescription={
-							data.service.banner.description ||
-							"Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-						}
-						btnTxt={data.service.banner.buttonLink || "Get Started"}
-						desktopImage={
-							data.service.banner.desktopThumbnail?.node.sourceUrl ||
-							desktop_banner.src
-						}
-						mobileImage={
-							data.service.banner.mobileThumbnail?.node.sourceUrl || desktop_banner.src
-						}
-						videoSrc={data.service.banner.vimeoLink}
+						bannerTitle={data?.service?.banner?.title}
+						bannerDescription={data?.service?.banner?.description}
+						btnLink={data?.service?.banner?.buttonLink}
+						btnTxt={data?.service?.banner?.buttonText}
+						desktopImage={data?.service?.banner?.desktopThumbnail?.node?.sourceUrl}
+						mobileImage={data?.service?.banner?.mobileThumbnail?.node?.sourceUrl}
+						videoSrc={data?.service?.banner?.vimeoLink}
+						logo={data?.service?.banner?.logo?.node?.sourceUrl}
 					/>
 				</div>
 				<SectionsHeader data={headerArray} />

@@ -110,8 +110,6 @@ export default function Australia({ data, mapJson }) {
 		</div>,
 	];
 
-	console.log(data);
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -123,7 +121,7 @@ export default function Australia({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AustraliaPage}>

@@ -103,14 +103,13 @@ export default function Products({
 	regions,
 	mapJson,
 }) {
-	console.log(data);
 	return (
 		<div>
 			{/* Metatags */}
 			<MetaTags Title={"Products"} Desc={""} OgImg={""} Url={"/products"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.ProductsPage}>

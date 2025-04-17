@@ -22,12 +22,7 @@ export const getRegions = async () => {
                 lng
               }
               markers {
-                icon {
-                  node {
-                    altText
-                    sourceUrl(size: LARGE)
-                  }
-                }
+
                 mapThumbnail {
                   node {
                     altText
@@ -41,21 +36,54 @@ export const getRegions = async () => {
                         name
                       }
                     }
-                    ... on Product {
-                      id
-                      title
-                      slug
+                     ... on Services {
+                id
+                slug
+                title
+                content
+                service {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
-                    ... on Software {
-                      id
-                      title
-                      slug
+                  }
+                }
+              }
+              ... on Software {
+                id
+                title
+                slug
+                content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
-                    ... on Services {
-                      id
-                      title
-                      slug
+                  }
+                }
+              }
+              ... on Product {
+                id
+                title
+                slug
+                content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
+                  }
+                }
+              }
                   }
                 }
                 coordinates {
@@ -219,12 +247,6 @@ query GetCountryInside {
           lng
         }
         markers {
-          icon {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
           mapThumbnail {
             node {
               altText
@@ -243,18 +265,48 @@ query GetCountryInside {
                 slug
                 title
                 content
+                service {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
               }
               ... on Software {
                 id
                 title
                 slug
                 content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
               }
               ... on Product {
                 id
                 title
                 slug
                 content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
               }
               slug
             }
