@@ -63,7 +63,7 @@ export async function getServerSideProps({ params }) {
 
 /** Chronos Page */
 export default function SoftwarePage({ data, mapJson, regions }) {
-	console.log(data);
+	console.log(mapJson, "zxczxc");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -138,20 +138,20 @@ export default function SoftwarePage({ data, mapJson, regions }) {
 					<SoftwareMarket />
 				</div> */}
 				<div className="ptb_100">
-					<TrustedLeaders data={data.ourClient} />
+					<TrustedLeaders data={data?.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.ourClient} />
+					<TestimonialFeedback data={data?.ourClient} />
 				</div>
-				<ServicesCircle data={data.keyAdvantages} />
+				<ServicesCircle data={data?.keyAdvantages} />
 				<div>
 					<GloballyBankableInsights
-						data={data.whyAurora}
-						isMultiple={data.whyAurora.list.length > 1}
+						data={data?.whyAurora}
+						isMultiple={data?.whyAurora?.list?.length > 1}
 					/>
 				</div>
-				<IntuitiveStepProcess data={data.fourStepProcess} />
-				<SmarterEnergy data={data.expertise} />
+				<IntuitiveStepProcess data={data?.fourStepProcess} />
+				<SmarterEnergy data={data?.expertise} />
 				<div className="ptb_100">
 					<TrustOurExperts />
 				</div>
