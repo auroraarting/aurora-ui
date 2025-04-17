@@ -63,7 +63,6 @@ export async function getServerSideProps({ params }) {
 
 /** FinancialSector Page */
 export default function Advisory({ data, services, mapJson, regions }) {
-	console.log(data, "data");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */

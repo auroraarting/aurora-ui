@@ -393,7 +393,6 @@ export default function Map({
 									}}
 									onMouseOver={() => {
 										setSelectedMarker(uniqueName);
-										console.log(uniqueName);
 									}}
 									// onMouseOut={() => setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
