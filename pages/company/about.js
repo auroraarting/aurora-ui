@@ -30,7 +30,7 @@ export default function About() {
 			<MetaTags Title={"About"} Desc={""} OgImg={""} Url={"/about"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AboutPage}>

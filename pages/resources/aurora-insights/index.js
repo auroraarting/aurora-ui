@@ -38,7 +38,7 @@ export default function AuroraInsights() {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.AuroraInsightsPage}>

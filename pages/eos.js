@@ -70,7 +70,7 @@ export default function EOSPage() {
 			<MetaTags Title={"EOS"} Desc={""} OgImg={""} Url={"/eos"} />
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page eos starts here */}
 			<main className={styles.EOSPage}>

@@ -69,7 +69,7 @@ export default function EnergyInside() {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.EnergyInsidePage}>

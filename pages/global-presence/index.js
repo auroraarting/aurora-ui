@@ -160,7 +160,7 @@ export default function GlobalPresence({ regions, page }) {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			{data && (

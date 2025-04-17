@@ -70,7 +70,7 @@ export default function WebinarInside() {
 			/>
 
 			{/* Header */}
-			{/* <Header /> */}
+			<Header />
 
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
