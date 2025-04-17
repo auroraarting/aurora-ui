@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Regions Data */
 export const getRegions = async () => {
 	const query = `
- query NewQuery {
+ query GetCountryInside {
   regions {
     nodes {
       name
@@ -36,26 +36,60 @@ export const getRegions = async () => {
                 }
                 category {
                   nodes {
+                    slug
                     contentType {
                       node {
                         name
                       }
                     }
-                    ... on Product {
-                      id
-                      title
-                      slug
+              ... on Services {
+                id
+                slug
+                title
+                content
+                service {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
-                    ... on Software {
-                      id
-                      title
-                      slug
+                  }
+                }
+              }
+              ... on Software {
+                id
+                title
+                slug
+                content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
-                    ... on Services {
-                      id
-                      title
-                      slug
+                  }
+                }
+              }
+              ... on Product {
+                id
+                title
+                slug
+                content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
+                  }
+                }
+              }
                   }
                 }
                 coordinates {
