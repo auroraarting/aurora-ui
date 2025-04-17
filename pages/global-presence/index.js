@@ -54,6 +54,8 @@ export async function getServerSideProps() {
 export default function GlobalPresence({ regions, page }) {
 	const [data, setData] = useState();
 
+	console.log(regions);
+
 	useEffect(() => {
 		const regionsArr = regions?.data?.regions?.nodes?.map((item) => {
 			let obj = {};
@@ -104,13 +106,22 @@ export default function GlobalPresence({ regions, page }) {
 					// },
 					centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
 					markers: item2.countries.map?.markers?.map((item3) => {
+						let node = item3?.category?.nodes?.[0];
+						console.log(
+							node?.[node.contentType.node.name]?.map?.logo?.node?.sourceUrl
+						);
+
 						let obj2 = {
 							name: "",
 							lat: "",
 							lng: "",
 							url: "",
 							hoverImg: "",
-							icon: item3.icon.node.sourceUrl,
+							icon:
+								node?.service?.map?.logo?.node?.sourceUrl ||
+								node?.products?.map?.logo?.node?.sourceUrl ||
+								node?.softwares?.map?.logo?.node?.sourceUrl ||
+								item3?.icon?.node?.sourceUrl,
 							unique: Math.random(),
 						};
 
@@ -119,7 +130,6 @@ export default function GlobalPresence({ regions, page }) {
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
-							let node = item3.category.nodes[0];
 							obj2.name = node.title;
 							obj2.lat = parseFloat(item3.coordinates.lat);
 							obj2.lng = parseFloat(item3.coordinates.lng);
@@ -135,8 +145,6 @@ export default function GlobalPresence({ regions, page }) {
 				mapJson.push(obj);
 			});
 		});
-
-		console.log(mapJson, "Asdasdasd");
 
 		setData({ regionsArr, mapJson, page });
 	}, []);

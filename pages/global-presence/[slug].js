@@ -86,8 +86,6 @@ export default function Australia({ data, mapJson }) {
 		</div>,
 	];
 
-	console.log(data);
-
 	return (
 		<div>
 			{/* Metatags */}

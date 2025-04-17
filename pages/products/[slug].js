@@ -116,6 +116,7 @@ export default function ProductInside({ data, mapJson }) {
 						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.sourceUrl}
 						videoSrc={data?.products?.banner?.vimeoLink}
 						vimeoid={data?.products?.banner?.vimeoLink}
+						logo={data?.products?.banner?.logo?.node?.sourceUrl}
 					/>
 				</div>
 				<SectionsHeader
