@@ -153,7 +153,7 @@ export default function LifeAtAurora({ data }) {
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="dark_bg pt_100">
+				<div className={`${styles.EarlyMain}`}>
 					<EarlyCareers />
 				</div>
 				<div>

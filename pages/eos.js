@@ -13,6 +13,7 @@ import ServicesCircle from "@/components/ServicesCircle";
 import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
+import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // SECTIONS //
 import EosBanner from "@/sections/eos/EosBanner";
@@ -22,6 +23,12 @@ import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsig
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import {
+	filterMarkersBySlug,
+	getMapJsonForAllRegions,
+	getMapJsonForCountries,
+	getMapJsonForProducts,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/Eos.module.scss";
@@ -31,10 +38,20 @@ import styles from "@/styles/pages/Eos.module.scss";
 // DATA //
 import locationJson from "@/data/globalMap.json";
 import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
-import EventSmarterEnergy from "@/components/EventSmarterEnergy";
+
+// SERVICES //
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getEosPage } from "@/services/Eos.service";
+
+/** Fetch  */
+export async function getServerSideProps() {
+	const [data, regions] = await Promise.all([getEosPage(), getRegions()]);
+	const mapJson = getMapJsonForAllRegions(regions);
+	return { props: { data: data.data.pageBy, mapJson } };
+}
 
 /** EOS Page */
-export default function EOSPage() {
+export default function EOSPage({ data, mapJson }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -64,6 +81,7 @@ export default function EOSPage() {
 			</Button>
 		</div>,
 	];
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -78,7 +96,7 @@ export default function EOSPage() {
 					<EosBanner />
 				</div>
 				<SectionsHeader data={headerArray} />
-				<GlobalMap locationJson={locationJson} />
+				<GlobalMap locationJson={mapJson} />
 				{/* <div className="ptb_100">
 					<SoftwareMarket />
 				</div> */}

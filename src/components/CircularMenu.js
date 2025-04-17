@@ -22,6 +22,7 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 	const containerRef = useRef(null);
 	const [selectedService, setselectedServices] = useState(null);
 	const [size, setSize] = useState(450); // Default size
+	const [isReady, setIsReady] = useState(false);
 
 	// Dynamically adjust size when parent changes
 	useEffect(() => {
@@ -29,6 +30,24 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 			for (let entry of entries) {
 				const newSize = Math.min(entry.contentRect.width, entry.contentRect.height); // Keep it square
 				setSize(newSize);
+			}
+		});
+
+		if (containerRef.current) {
+			resizeObserver.observe(containerRef.current);
+		}
+
+		return () => {
+			resizeObserver.disconnect();
+		};
+	}, []);
+
+	useEffect(() => {
+		const resizeObserver = new ResizeObserver((entries) => {
+			for (let entry of entries) {
+				const newSize = Math.min(entry.contentRect.width, entry.contentRect.height);
+				setSize(newSize);
+				setIsReady(true); // Only set after size is available
 			}
 		});
 
@@ -104,71 +123,72 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 					ref={containerRef}
 					style={{ width: "100%", height: "100%", position: "relative" }}
 				>
-					<svg
-						width="100%"
-						height="100%"
-						viewBox={`0 0 ${size} ${size}`}
-						preserveAspectRatio="xMidYMid meet"
-					>
-						{items.map((item, i) => {
-							const startX =
-								center + radius * Math.cos((i * sliceAngle * Math.PI) / 180);
-							const startY =
-								center + radius * Math.sin((i * sliceAngle * Math.PI) / 180);
-							const endX =
-								center + radius * Math.cos(((i + 1) * sliceAngle * Math.PI) / 180);
-							const endY =
-								center + radius * Math.sin(((i + 1) * sliceAngle * Math.PI) / 180);
+					{isReady && (
+						<svg
+							width="100%"
+							height="100%"
+							viewBox={`0 0 ${size} ${size}`}
+							preserveAspectRatio="xMidYMid meet"
+						>
+							{items.map((item, i) => {
+								const startX =
+									center + radius * Math.cos((i * sliceAngle * Math.PI) / 180);
+								const startY =
+									center + radius * Math.sin((i * sliceAngle * Math.PI) / 180);
+								const endX =
+									center + radius * Math.cos(((i + 1) * sliceAngle * Math.PI) / 180);
+								const endY =
+									center + radius * Math.sin(((i + 1) * sliceAngle * Math.PI) / 180);
 
-							// Midpoint formula for placing the image at the center of the slice
-							const midAngle = ((i + 0.5) * sliceAngle * Math.PI) / 180;
-							const midX = center + ((radius * 2) / 3) * Math.cos(midAngle);
-							const midY = center + ((radius * 2) / 3) * Math.sin(midAngle);
+								// Midpoint formula for placing the image at the center of the slice
+								const midAngle = ((i + 0.5) * sliceAngle * Math.PI) / 180;
+								const midX = center + ((radius * 2) / 3) * Math.cos(midAngle);
+								const midY = center + ((radius * 2) / 3) * Math.sin(midAngle);
 
-							// Position text outside the slice
-							const textX =
-								center +
-								labelRadius * Math.cos(((i + 0.5) * sliceAngle * Math.PI) / 180);
-							const textY =
-								center +
-								labelRadius * Math.sin(((i + 0.5) * sliceAngle * Math.PI) / 180);
-							const rotation = 0; // Rotate text for alignment
+								// Position text outside the slice
+								const textX =
+									center +
+									labelRadius * Math.cos(((i + 0.5) * sliceAngle * Math.PI) / 180);
+								const textY =
+									center +
+									labelRadius * Math.sin(((i + 0.5) * sliceAngle * Math.PI) / 180);
+								const rotation = 0; // Rotate text for alignment
 
-							return (
-								<g
-									key={i}
-									onMouseEnter={() => hoverOver(i)}
-									onMouseLeave={() => hoverEnd()}
-									onTouchStart={() => hoverOver(i)} // Mobile: Detect touch
-									onTouchEnd={() => setTimeout(() => hoverEnd(), 300)} // Delay reset to see effect
-								>
-									<motion.path
-										d={`M${center},${center} L${startX},${startY} A${radius},${radius} 0 0,1 ${endX},${endY} Z`}
-										fill={
-											i === selectedService ? "#FFCC00" : stylesForAlternateModes().fill
-										}
-										stroke={stylesForAlternateModes().stroke}
-										strokeWidth="2"
-										// whileHover={{ fill: "#FFCC00" }}
-										// whileTap={{ fill: "#FFCC00" }}
-										// whileFocus={{ fill: "#FFCC00" }}
-									/>
-									<image
-										href={item?.image?.node?.sourceUrl || iconDefault.src}
-										width={iconDefault.width}
-										height={iconDefault.height}
-										x={midX - iconDefault.width / 2} // Center the image
-										y={midY - iconDefault.height / 2}
-										style={{
-											filter:
-												selectedService === i
-													? stylesForAlternateModes().iconDefault
-													: stylesForAlternateModes().iconWhileHover, // Default white, hover shows original
-											transition: "filter 0.3s ease-in-out",
-											pointerEvents: "none",
-										}}
-									/>
-									{/* <text
+								return (
+									<g
+										key={i}
+										onMouseEnter={() => hoverOver(i)}
+										onMouseLeave={() => hoverEnd()}
+										onTouchStart={() => hoverOver(i)} // Mobile: Detect touch
+										onTouchEnd={() => setTimeout(() => hoverEnd(), 300)} // Delay reset to see effect
+									>
+										<motion.path
+											d={`M${center},${center} L${startX},${startY} A${radius},${radius} 0 0,1 ${endX},${endY} Z`}
+											fill={
+												i === selectedService ? "#FFCC00" : stylesForAlternateModes().fill
+											}
+											stroke={stylesForAlternateModes().stroke}
+											strokeWidth="2"
+											// whileHover={{ fill: "#FFCC00" }}
+											// whileTap={{ fill: "#FFCC00" }}
+											// whileFocus={{ fill: "#FFCC00" }}
+										/>
+										<image
+											href={item?.image?.node?.sourceUrl || iconDefault.src}
+											width={iconDefault.width}
+											height={iconDefault.height}
+											x={midX - iconDefault.width / 2} // Center the image
+											y={midY - iconDefault.height / 2}
+											style={{
+												filter:
+													selectedService === i
+														? stylesForAlternateModes().iconDefault
+														: stylesForAlternateModes().iconWhileHover, // Default white, hover shows original
+												transition: "filter 0.3s ease-in-out",
+												pointerEvents: "none",
+											}}
+										/>
+										{/* <text
 								x={textX}
 								y={textY}
 								fill="#fff"
@@ -181,10 +201,11 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 							>
 								{item.label}
 							</text> */}
-								</g>
-							);
-						})}
-					</svg>
+									</g>
+								);
+							})}
+						</svg>
+					)}
 				</div>
 				<div
 					className={`${styles.CenterBox} ${mode === "light" && styles.white}`}
