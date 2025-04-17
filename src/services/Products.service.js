@@ -169,6 +169,34 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
+                selectCaseStudies {
+          nodes {
+            ... on CaseStudy {
+              id
+              content
+              title
+              slug
+              caseStudies {
+                selectLocation {
+                  nodes {
+                    ... on Country {
+                      id
+                      title
+                      slug
+                    }
+                  }
+                }
+                readTime
+              }
+              featuredImage {
+                node {
+                  altText
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
       }
       customerSuccess {
         sectionTitle
@@ -230,15 +258,17 @@ query GetProductBySlug {
         marquee
       }
       whyAurora {
+         title
         description
-        meterCaption
-        meterDescription
-        meterEndpoint
-        meterSpeed
-        meterTitle
-        meterValue
-        tabTitle
-        title
+        startText
+        endText
+        endPoint
+        list{
+             title
+             description
+             caption
+             value
+        }
       }
       fourStepProcess {
         buttonLink
