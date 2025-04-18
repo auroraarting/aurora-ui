@@ -8,6 +8,7 @@ import MetaTags from "@/components/MetaTags";
 // SECTIONS //
 import HomeResources from "@/sections/home/HomeResources";
 import HomeEvents from "@/sections/home/HomeEvents";
+import HomeTalentMeets from "@/sections/home/HomeTalentMeets";
 
 // PLUGINS //
 
@@ -37,6 +38,9 @@ export default function HomePage() {
 				</div>
 				<div className="pb_100">
 					<HomeEvents />
+				</div>
+				<div className="">
+					<HomeTalentMeets />
 				</div>
 			</main>
 			{/* Page Content ends here */}
