@@ -81,7 +81,8 @@ export default function TrustedLeaders({
 		},
 	];
 
-	if (!data || data?.selectLogos?.nodes.length === 0) return <></>;
+	if (!data || !data?.selectLogos) return <></>;
+
 	return (
 		<section
 			className={`${styles.TrustedLeaders} TrustedLeaders`}
