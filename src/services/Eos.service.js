@@ -1,10 +1,10 @@
 import GraphQLAPI from "./Graphql.service";
 
 /** Fetch Page */
-export const getEosPage = async (slug) => {
+export const getEosPage = async () => {
 	const query = `
 query EOSPage {
-  pageBy(id: "eos") {
+  page(id: "eos", idType: URI) {
     eos {
       banner {
         buttonLink

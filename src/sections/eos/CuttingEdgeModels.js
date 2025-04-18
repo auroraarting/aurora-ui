@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -30,7 +31,7 @@ import origin_logo from "../../../public/img/eos/origin_logo.png";
 // DATA //
 
 /** CuttingEdgeModels Section */
-export default function CuttingEdgeModels() {
+export default function CuttingEdgeModels({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 
@@ -49,6 +50,7 @@ export default function CuttingEdgeModels() {
 		setIsPopupOpen(false);
 		setSlideNo(0);
 	};
+
 	useEffect(() => {
 		if (sliderRef.current?.swiper) {
 			sliderRef.current.swiper.slideTo(slideNo);
@@ -85,22 +87,26 @@ export default function CuttingEdgeModels() {
 			productLogo: origin_logo.src,
 		},
 	];
+
+	if (!data || !data.sectionTitle) return <></>;
+
 	// console.log(eventSpeakersData);
 	return (
 		<section className={`${styles.CuttingEdgeModels}`}>
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						Cutting edge models
+						<ContentFromCms>{data?.sectionTitle}</ContentFromCms>
 					</h2>
-					<p className={`${styles.label} text_reg color_dark_gray`}>
-						Lorem ipsum dolor sit amet consectetur. Lorem a ut duis nunc varius id.
-						Nibh ultrices amet tristique odio elementum ac tincidunt condimentum cras.
-					</p>
+					<div className={`${styles.label} text_reg color_dark_gray`}>
+						<ContentFromCms>{data?.sectionDescription}</ContentFromCms>
+					</div>
 				</div>
 				<div className={`${styles.content_main_wrap} pt_40`}>
 					<div className={`${styles.box_wrap}`}>
-						{eventSpeakersData.map((item, ind) => {
+						{data?.list?.map((item, ind) => {
+							const related = item?.category?.nodes?.[0];
+
 							return (
 								<div
 									className={`${styles.box_item}`}
@@ -110,7 +116,7 @@ export default function CuttingEdgeModels() {
 								>
 									<div className={`${styles.content}`}>
 										<p className="text_xs color_light_gray text_uppercase pb_10">
-											{item.productName}
+											{related?.title}
 										</p>
 										<h5 className="text_md f_w_m color_secondary font_primary">
 											{item.title}
@@ -160,31 +166,35 @@ export default function CuttingEdgeModels() {
 										className={styles.slider}
 										ref={sliderRef}
 									>
-										{eventSpeakersData.map((item, ind) => (
-											<SwiperSlide className={`${styles.item}`} key={ind}>
-												<div className={`${styles.PopupItem}`}>
-													<div className={`${styles.BoxFlex} f_w`}>
-														<div className={`${styles.Details}`}>
-															<div className={`${styles.boxName}`}>
-																<h5
-																	className={`${styles.Name} text_lg color_white font_primary`}
-																>
-																	{item.title}
-																</h5>
-																<div className={`${styles.productLogo} pt_20`}>
-																	<img src={item.productLogo} className="" alt=" img" />
+										{data?.list.map((item, ind) => {
+											const related = item?.category?.nodes?.[0];
+
+											return (
+												<SwiperSlide className={`${styles.item}`} key={ind}>
+													<div className={`${styles.PopupItem}`}>
+														<div className={`${styles.BoxFlex} f_w`}>
+															<div className={`${styles.Details}`}>
+																<div className={`${styles.boxName}`}>
+																	<h5
+																		className={`${styles.Name} text_lg color_white font_primary`}
+																	>
+																		{item.title}
+																	</h5>
+																	<div className={`${styles.productLogo} pt_20`}>
+																		<img src={item.productLogo} className="" alt=" img" />
+																	</div>
 																</div>
+																<p
+																	className={`${styles.Desc} text_reg color_platinum_gray pb_20`}
+																>
+																	{parse(item.description)}
+																</p>
 															</div>
-															<p
-																className={`${styles.Desc} text_reg color_platinum_gray pb_20`}
-															>
-																{parse(item.desc)}
-															</p>
 														</div>
 													</div>
-												</div>
-											</SwiperSlide>
-										))}
+												</SwiperSlide>
+											);
+										})}
 									</Swiper>
 									<div className={`${styles.arrowSection} f_w_a_j_center`}>
 										<button className={`${styles.customPrev}`} id="customPrev">
