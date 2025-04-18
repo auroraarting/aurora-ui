@@ -1,0 +1,69 @@
+@import "../../helpers/helpers.scss";
+.Faq {
+	background-color: var(--color_silver);
+  .tabMain{
+    .tabFlex{
+      .category {
+        width: 30%;
+        @media (max-width: 991px) {
+          width: 45%;
+        }
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+        @media (max-width: 767px) {
+          overflow-x: scroll;
+          white-space: nowrap;
+        }
+        .switchBox {
+          width: max-content;
+          margin: 0 auto;
+          @media (max-width: 767px) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color_platinum_gray);
+            border-radius: 50px;
+          }
+          
+          .listTxt {
+            text-transform: uppercase;
+            padding: 15px 60px;
+            letter-spacing: 1px;
+            color: var(--color_light_gray);
+            border: 1px solid var(--color_platinum_gray);
+            border-radius: 50px;
+            margin-bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+            @media (max-width: 767px) {
+              padding: 12px 25px;
+              margin-bottom: 0px;
+              border: none;
+              border-radius: 0px;
+              width: 230px;
+            }
+          }
+    
+          .active {
+            border-radius: 50px;
+            background-color: var(--color_blue);
+            opacity: 1;
+            color: var(--color_white);
+          }
+        }
+      }
+      .tabContent{
+        width: 65%;
+        @media (max-width: 991px) {
+          width: 50%;
+        }
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+      }
+    }
+    
+  }
+  
+}

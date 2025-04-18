@@ -1,1 +1,31 @@
-
+.HomeBanner{
+    background-image: url("../../../../public/img/home/banner-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 120px 0;
+    @media (max-width: 767px) {
+        padding: 40px 0;
+    }
+    .BannerContentSection{
+        .BannerInfo{
+            @media (max-width: 767px) {
+                flex-direction: column-reverse;
+            }
+            .BannerContent{
+                width: 57%;
+                @media (max-width: 767px) {
+                    width: 100%;
+                    padding-top: 30px;
+                }
+            }
+            .BannerImg{
+                width: 35%;
+                padding-top: 30px;
+                @media (max-width: 767px) {
+                    width: 100%;
+                    padding-top: 0;
+                }
+            }
+        }
+    }
+}
