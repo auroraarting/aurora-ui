@@ -61,10 +61,11 @@
 				}
 				.text {
 					text-align: start;
-					padding: 8px;
+					padding: 20px 8px;
 					position: relative;
 					z-index: 2;
 					transform: translateX(110%);
+					transition: all 0.3s ease-in-out;
 				}
 
 				&:hover {

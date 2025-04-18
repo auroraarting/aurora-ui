@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import CustomSelect from "./CustomSelect";
 
 // SECTIONS //
 
@@ -22,6 +23,7 @@ import Checkmark from "/public/img/checkmark.png";
 
 /** Bundles Section */
 export default function Bundles({ data }) {
+	console.log(data);
 	const [list, setList] = useState(data?.tabs?.[0]);
 
 	/**  handleTabChange */
@@ -74,6 +76,21 @@ export default function Bundles({ data }) {
 								</p>
 							</div> */}
 						</div>
+						<div className="pb_10">
+							<CustomSelect
+								list={data?.bundleTabs.map((item) => item.tabName)}
+								defaultId={0}
+								placeholder="Sample Packagess"
+								mode="dark"
+								afterSelect={(e) => {
+									const filter = data?.bundleTabs.filter(
+										(item) => item.tabName === e.value
+									);
+									handleTabChange(filter[0]);
+									console.log(e);
+								}}
+							/>
+						</div>
 					</div>
 					<table className={`${styles.table} color_white`}>
 						<tbody>
@@ -107,7 +124,7 @@ export default function Bundles({ data }) {
 										<td className={`${styles.logo}`}>
 											<img className={styles.img} src={item?.logo?.node?.sourceUrl} />
 											<div
-												className={`${styles.text} text_sm`}
+												className={`${styles.text} text_xs color_black`}
 												style={{ background: item?.bgColor }}
 											>
 												{item.logoText}
