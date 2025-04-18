@@ -13,6 +13,7 @@ import HomeBanner from "@/sections/home/HomeBanner";
 import HomeResources from "@/sections/home/HomeResources";
 import HomeEvents from "@/sections/home/HomeEvents";
 import HomeTalentMeets from "@/sections/home/HomeTalentMeets";
+import Counter from "@/sections/careers/Counter";
 
 // PLUGINS //
 
@@ -36,14 +37,16 @@ export async function getServerSideProps() {
 	const mapJson = getMapJsonForAllRegions(regions);
 	return {
 		props: {
-			data: data.data.page.home || {},
+			data: data.data.page.homepage,
+			countries: data.data.countries.nodes,
 			mapJson,
 		},
 	};
 }
 
 /** Home Page */
-export default function HomePage({ mapJson, data }) {
+export default function HomePage({ mapJson, data, countries }) {
+	console.log(countries);
 	return (
 		<div>
 			{/* Metatags */}
@@ -66,6 +69,13 @@ export default function HomePage({ mapJson, data }) {
 					</div>
 				)}
 				<GlobalMap locationJson={mapJson} />
+				{data.stats && (
+					<div>
+						<Counter
+							data={{ stats: { ...data.stats, countries: countries.length } }}
+						/>
+					</div>
+				)}
 				<div className="ptb_100">
 					<HomeResources />
 				</div>
