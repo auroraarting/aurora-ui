@@ -9,7 +9,7 @@
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/HomeHero.module.scss";
+import styles from "@/styles/sections/home/HomeHero.module.scss";
 
 // IMAGES //
 
