@@ -46,7 +46,6 @@ export async function getServerSideProps() {
 
 /** Home Page */
 export default function HomePage({ mapJson, data, countries }) {
-	console.log(countries);
 	return (
 		<div>
 			{/* Metatags */}
