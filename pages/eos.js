@@ -15,6 +15,8 @@ import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import SoftwareCards from "@/components/SoftwareCards";
+import Bundles from "@/components/Bundles";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // SECTIONS //
 import EosBanner from "@/sections/eos/EosBanner";
@@ -43,17 +45,28 @@ import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getEosPage } from "@/services/Eos.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data, regions] = await Promise.all([getEosPage(), getRegions()]);
+	const [data, regions, bundles] = await Promise.all([
+		getEosPage(),
+		getRegions(),
+		getBundlesSection(),
+	]);
 	const mapJson = getMapJsonForAllRegions(regions);
-	return { props: { data: data.data.page.eos, mapJson } };
+	return {
+		props: {
+			data: data.data.page.eos,
+			mapJson,
+			bundles: bundles.data.page.bundles,
+		},
+	};
 }
 
 /** EOS Page */
-export default function EOSPage({ data, mapJson }) {
-	console.log(data);
+export default function EOSPage({ data, mapJson, bundles }) {
+	console.log(bundles);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -131,6 +144,13 @@ export default function EOSPage({ data, mapJson }) {
 						<TestimonialFeedback data={data.ourClient} />
 					</div>
 				)}
+				<div className="ptb_100 dark_bg">
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
+				</div>
+
 				<div className={`${styles.insightBg} pt_30`}>
 					<div>
 						<div className="pb_100">
