@@ -23,30 +23,69 @@ export default function Counter({ data }) {
 		<section className={`${styles.Counter} pt_40`}>
 			<div className="container">
 				<div className={`${styles.counterFlex} f_w_j`}>
-					<div className={`${styles.countBox}`}>
-						<h4 className="text_xxl color_primary">
-							<CountUp end={data.stats.auroreans || 800} enableScrollSpy />{" "}
-							<spn>+</spn>
-						</h4>
-						<p className="text_xs color_white text_uppercase font_primary">
-							Auroreans
-						</p>
-					</div>
-					<div className={`${styles.countBox}`}>
-						<h4 className="text_xxl color_primary">
-							<CountUp end={data.stats.nationalities || 60} enableScrollSpy />{" "}
-							<spn>+</spn>
-						</h4>
-						<p className="text_xs color_white text_uppercase font_primary">
-							nationalities
-						</p>
-					</div>
-					<div className={`${styles.countBox}`}>
-						<h4 className="text_xxl color_primary">
-							<CountUp end={data.stats.offices || 15} enableScrollSpy />
-						</h4>
-						<p className="text_xs color_white text_uppercase font_primary">offices</p>
-					</div>
+					{data.stats.auroreans && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp end={data.stats.auroreans || 800} enableScrollSpy />{" "}
+								<spn>+</spn>
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								Auroreans
+							</p>
+						</div>
+					)}
+					{data.stats.nationalities && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp end={data.stats.nationalities || 60} enableScrollSpy />{" "}
+								<spn>+</spn>
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								nationalities
+							</p>
+						</div>
+					)}
+					{data.stats.offices && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp end={data.stats.offices || 15} enableScrollSpy />
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								offices
+							</p>
+						</div>
+					)}
+					{data.stats.clients && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp end={data.stats.clients || 15} enableScrollSpy />
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								Clients
+							</p>
+						</div>
+					)}
+					{data.stats.countries && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp end={data.stats.countries || 15} enableScrollSpy />
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								Countries
+							</p>
+						</div>
+					)}
+					{data.stats.transactions && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp end={data.stats.transactions || 15} enableScrollSpy />
+								<spn>+</spn>
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								Transactions
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 		</section>
