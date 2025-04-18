@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import Button from "@/components/Buttons/Button";
+import Insights from "@/components/Insights";
+import IntegratedSystem from "@/components/IntegratedSystem";
 
 // SECTIONS //
 
@@ -65,6 +67,14 @@ export default function LifeAtAurora() {
 				/>
 				<div>
 					<DepartmentList />
+				</div>
+				<div className={`${styles.containerCustom} ptb_100`}>
+					<div className="container">
+						<Insights isPowerBgVisible={true} />
+					</div>
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
 				</div>
 			</main>
 			{/* Page Content ends here */}

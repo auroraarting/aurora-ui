@@ -255,13 +255,6 @@ export default function DepartmentList() {
 					<div>
 						<JobOpenings />
 					</div>
-					<div className="pb_100">
-						<Insights
-							isFormVisible={isFormVisible}
-							setIsFormVisible={setIsFormVisible}
-							isInsightsBlogsVisible={true}
-						/>
-					</div>
 				</div>
 			</div>
 		</section>
