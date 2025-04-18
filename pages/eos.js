@@ -14,6 +14,7 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
+import SoftwareCards from "@/components/SoftwareCards";
 
 // SECTIONS //
 import EosBanner from "@/sections/eos/EosBanner";
@@ -47,11 +48,12 @@ import { getEosPage } from "@/services/Eos.service";
 export async function getServerSideProps() {
 	const [data, regions] = await Promise.all([getEosPage(), getRegions()]);
 	const mapJson = getMapJsonForAllRegions(regions);
-	return { props: { data: data.data.pageBy, mapJson } };
+	return { props: { data: data.data.page.eos, mapJson } };
 }
 
 /** EOS Page */
 export default function EOSPage({ data, mapJson }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -93,7 +95,17 @@ export default function EOSPage({ data, mapJson }) {
 			{/* Page eos starts here */}
 			<main className={styles.EOSPage}>
 				<div>
-					<EosBanner />
+					<EosBanner
+						bannerTitle={data?.banner?.title}
+						bannerDescription={data?.banner?.description}
+						btnTxt={data?.banner?.buttonText}
+						btnLink={data?.banner?.buttonLink}
+						desktopImage={data?.banner?.desktopThumbnail?.node?.sourceUrl}
+						mobileImage={data?.banner?.mobileThumbnail?.node?.sourceUrl}
+						videoSrc={data?.banner?.vimeoLink}
+						vimeoid={data?.banner?.vimeoLink}
+						logo={data?.banner?.logo?.node?.sourceUrl}
+					/>
 				</div>
 				<SectionsHeader data={headerArray} />
 				<GlobalMap locationJson={mapJson} />
@@ -101,20 +113,24 @@ export default function EOSPage({ data, mapJson }) {
 					<SoftwareMarket />
 				</div> */}
 				<div>
-					<SmarterEnergy />
+					<SmarterEnergy data={data.expertise} />
 				</div>
-
-				<ServicesCircle />
-				<div className="pt_100">
-					<CuttingEdgeModels />
-				</div>
-				<div className="ptb_100">
-					<TrustedLeaders />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback />
-				</div>
-
+				<ServicesCircle data={data.keyAdvantages} />
+				{data.trustedModels.sectionTitle && (
+					<div className="pt_100">
+						<CuttingEdgeModels data={data.trustedModels} />
+					</div>
+				)}
+				{data.ourClient.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders data={data.ourClient} />
+					</div>
+				)}
+				{data.ourClient.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data.ourClient} />
+					</div>
+				)}
 				<div className={`${styles.insightBg} pt_30`}>
 					<div>
 						<div className="pb_100">
@@ -126,9 +142,12 @@ export default function EOSPage({ data, mapJson }) {
 							/>
 						</div>
 					</div>
-					<div className={`${styles.boxBg} pb_100`}>
+					{/* <div className={`${styles.boxBg} pb_100`}>
 						<EventSmarterEnergy />
-					</div>
+					</div> */}
+				</div>
+				<div className="ptb_100">
+					<SoftwareCards />
 				</div>
 			</main>
 			{/* Page eos ends here */}
