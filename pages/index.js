@@ -28,13 +28,15 @@ import styles from "@/styles/pages/Home.module.scss";
 
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
+import { getHomePage } from "@/services/Home.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [regions] = await Promise.all([getRegions()]);
+	const [regions, data] = await Promise.all([getRegions(), getHomePage()]);
 	const mapJson = getMapJsonForAllRegions(regions);
 	return {
 		props: {
+			data: data.data.page.home || {},
 			mapJson,
 		},
 	};
