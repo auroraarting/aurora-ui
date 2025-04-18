@@ -37,12 +37,7 @@ export default function Faq() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
-				Title={"Our Team"}
-				Desc={""}
-				OgImg={""}
-				Url={"/careers/our-team"}
-			/>
+			<MetaTags Title={"Faq"} Desc={""} OgImg={""} Url={"/careers/faq"} />
 
 			{/* Header */}
 			<Header />
@@ -52,7 +47,6 @@ export default function Faq() {
 				<InnerBanner
 					bannerTitle="WE'RE HAPPY TO ANSWER YOUR QUESTIONS"
 					bannerDescription="Find below answers to the most frequently asked questions. This may help you decide if Aurora is the right place for you and clarify any doubts you may have during your journey."
-					btnTxt="Connect Now"
 					showContentOnly
 				/>
 
