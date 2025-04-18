@@ -31,6 +31,7 @@ query NewQuery {
               id
               title
               slug
+              content
               testimonials {
                 designation
               }
