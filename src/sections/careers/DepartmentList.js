@@ -2,6 +2,7 @@
 import { useRef, useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 // SECTIONS //
 import JobOpenings from "./JobOpenings";
 // PLUGINS //
@@ -15,11 +16,13 @@ import styles from "@/styles/sections/careers/DepartmentList.module.scss";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import linKed from "../../../public/img/icons/linkedin.svg";
 import advisoryMain from "../../../public/img/careers/advisoryMain.jpg";
+import Insights from "@/components/Insights";
 
 // DATA //
 
 /** DepartmentList Section */
 export default function DepartmentList() {
+	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 	const [showAll, setShowAll] = useState(false);
 
 	const [selected, setSelected] = useState({});
@@ -240,9 +243,9 @@ export default function DepartmentList() {
 											</div>
 										))}
 									</div>
-									<div onClick={() => setShowAll(true)}>
+									<div onClick={() => setShowAll(!showAll)}>
 										<Button color="secondary" variant="underline" mode="dark">
-											Read More
+											{showAll ? "Read Less" : "Read More"}
 										</Button>
 									</div>
 								</div>
@@ -251,6 +254,13 @@ export default function DepartmentList() {
 					</div>
 					<div>
 						<JobOpenings />
+					</div>
+					<div className="pb_100">
+						<Insights
+							isFormVisible={isFormVisible}
+							setIsFormVisible={setIsFormVisible}
+							isInsightsBlogsVisible={true}
+						/>
 					</div>
 				</div>
 			</div>
