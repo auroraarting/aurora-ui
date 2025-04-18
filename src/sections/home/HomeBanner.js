@@ -13,7 +13,6 @@ import Button from "@/components/Buttons/Button";
 import styles from "@/styles/sections/home/HomeBanner.module.scss";
 
 // IMAGES //
-import bannerBG from "../../../public/img/home/banner-bg.jpg";
 import bannerGraph from "../../../public/img/home/banner-graph.png";
 
 // DATA //
@@ -22,14 +21,6 @@ import bannerGraph from "../../../public/img/home/banner-graph.png";
 export default function HomeBanner() {
 	return (
 		<div className={styles.HomeBanner}>
-			<picture>
-				<source srcSet={bannerBG.src} media="(min-width:767px)" />
-				<img
-					src={bannerBG.src}
-					className={`${styles.BannerBG} width_100`}
-					alt="Banner BG"
-				/>
-			</picture>
 			<div className={`${styles.BannerContentSection}`}>
 				<div className="container">
 					<div className={`${styles.BannerInfo} f_w_j`}>
