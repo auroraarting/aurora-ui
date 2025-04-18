@@ -40,8 +40,8 @@ export default function HomeTalentMeets() {
 							environment. Discover how we support our Auroreans to thrive, belong, and
 							make a real impact in the energy transition!
 						</p>
-						<div className={`${styles.btn_box} pt_30`}>
-							<Button color="secondary" variant="filled" shape="rounded" mode="dark">
+						<div className={`${styles.bookBtnOne} pt_40`}>
+							<Button color="primary" variant="filled" shape="rounded" mode="dark">
 								Life at Aurora
 							</Button>
 						</div>

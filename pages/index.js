@@ -35,7 +35,7 @@ export default function HomePage() {
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>
 				<HomeBanner />
-				<div className="pb_100">
+				<div className="ptb_100">
 					<HomeResources />
 				</div>
 				<div className="pb_100">
