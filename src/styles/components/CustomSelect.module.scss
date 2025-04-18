@@ -2,6 +2,7 @@
 
 .CustomSelect {
 	position: relative;
+	min-width: 250px;
 
 	.selected {
 		background-color: #e5e5e5;
@@ -25,11 +26,11 @@
 		height: 0px;
 		background-color: #e5e5e5;
 		top: 50%;
-		border-bottom-right-radius: 20px;
-		border-bottom-left-radius: 20px;
+		// top: 100%;
+		border-radius: 20px;
 		transition: all 0.4s ease-in-out;
-		padding: 6px 0px;
-		padding-top: 0px;
+		// padding: 6px 0px;
+		// padding-top: 0px;
 		overflow: hidden;
 
 		// opacity: 0;
@@ -63,10 +64,27 @@
 
 		.list {
 			z-index: 3;
-			top: 50%;
+			// top: 50%;
+			top: 110%;
 			height: 150px;
+			padding: 6px 0px;
 			padding-top: 20px;
 			// opacity: 1;
+		}
+	}
+
+	&.dark {
+		.selected {
+			background-color: var(--color_secondary);
+			color: var(--color_white);
+			border: 1px solid var(--color_gray);
+			.arrow {
+				filter: invert(1);
+			}
+		}
+		.list {
+			background-color: var(--color_gray);
+			color: var(--color_white);
 		}
 	}
 }
