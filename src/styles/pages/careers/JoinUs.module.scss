@@ -1,0 +1,22 @@
+@import "../../helpers/helpers.scss";
+.JoinUs {
+	background-color: var(--color_silver);
+  .containerCustom {
+		:global(.containerLarge) {
+			width: auto !important;
+			padding: 0px !important;
+		}
+	}
+	:global(.insightsBg) {
+		background-image: none !important;
+		padding: 0px 0px !important;
+		@media (max-width: 1340px) {
+			padding: 0px 0px !important;
+		}
+	}
+	:global(.powerBg) {
+		border-bottom: none !important;
+		padding-bottom: 0px !important;
+		margin-bottom: 0px !important;
+	}
+}

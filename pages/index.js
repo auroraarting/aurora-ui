@@ -7,6 +7,9 @@ import MetaTags from "@/components/MetaTags";
 
 // SECTIONS //
 import HomeBanner from "@/sections/home/HomeBanner";
+import HomeResources from "@/sections/home/HomeResources";
+import HomeEvents from "@/sections/home/HomeEvents";
+import HomeTalentMeets from "@/sections/home/HomeTalentMeets";
 
 // PLUGINS //
 
@@ -32,6 +35,15 @@ export default function HomePage() {
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>
 				<HomeBanner />
+				<div className="pb_100">
+					<HomeResources />
+				</div>
+				<div className="pb_100">
+					<HomeEvents />
+				</div>
+				<div className="">
+					<HomeTalentMeets />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
