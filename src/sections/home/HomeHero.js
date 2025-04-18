@@ -9,13 +9,13 @@
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/home/HomeHero.module.scss";
+import styles from "@/styles/sections/home/HomeBanner.module.scss";
 
 // IMAGES //
 
 // DATA //
 
-/** HomeHero Section */
-export default function HomeHero() {
-	return <div className={styles.hero_wrap}>Home Hero</div>;
+/** HomeBanner Section */
+export default function HomeBanner() {
+	return <div className={styles.HomeBanner}>Home Hero</div>;
 }
