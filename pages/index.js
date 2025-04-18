@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 
 // SECTIONS //
+import HomeBanner from "@/sections/home/HomeBanner";
 
 // PLUGINS //
 
@@ -30,7 +31,7 @@ export default function HomePage() {
 
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>
-				<h2>This is ting base next.js template</h2>
+				<HomeBanner />
 			</main>
 			{/* Page Content ends here */}
 
