@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import GlobalMap from "@/components/GlobalMap";
+import TrustedLeaders from "@/components/TrustedLeaders";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
 
 // SECTIONS //
 import HomeBanner from "@/sections/home/HomeBanner";
@@ -39,7 +41,7 @@ export async function getServerSideProps() {
 }
 
 /** Home Page */
-export default function HomePage({ mapJson }) {
+export default function HomePage({ mapJson, data }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -51,9 +53,17 @@ export default function HomePage({ mapJson }) {
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>
 				<HomeBanner />
-<<<<<<< HEAD
+				{data?.ourClient?.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders data={data.ourClient} />
+					</div>
+				)}
+				{data?.ourClient?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data.ourClient} />
+					</div>
+				)}
 				<GlobalMap locationJson={mapJson} />
-=======
 				<div className="ptb_100">
 					<HomeResources />
 				</div>
@@ -63,7 +73,6 @@ export default function HomePage({ mapJson }) {
 				<div className="">
 					<HomeTalentMeets />
 				</div>
->>>>>>> pawan-dev
 			</main>
 			{/* Page Content ends here */}
 
