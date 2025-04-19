@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -138,6 +139,7 @@ export default function Header() {
 		}
 	}, [router.query]);
 
+	/** fetchData  */
 	async function fetchData() {
 		const [softwaresList, productsList, servicesList, regionsList] =
 			await Promise.all([
