@@ -35,12 +35,9 @@ import mac_img from "@/../public/img/header/mac_img.png";
 import amun_logo from "@/../public/img/header/amun_logo.svg";
 import popup_close from "@/../public/img/icons/popup_close.svg";
 import Close from "@/../public/img/icons/close.svg";
-import {
-	getProducts,
-	getRegions,
-	getServices,
-	getSoftwares,
-} from "@/services/Navigation.service";
+
+// SERVICES //
+import { fetchNavigationData } from "@/services/Navigation.service";
 
 // DATA //
 
@@ -141,52 +138,13 @@ export default function Header() {
 
 	/** fetchData  */
 	async function fetchData() {
-		const [softwaresList, productsList, servicesList, regionsList] =
-			await Promise.all([
-				getSoftwares(),
-				getProducts(),
-				getServices(),
-				getRegions(),
-			]);
-		const softwares = softwaresList?.data?.softwares?.nodes?.map((item) => {
-			return {
-				title: item?.title,
-				slug: item?.slug,
-				logo: {
-					logo: item?.softwares?.map?.logo?.node?.sourceUrl,
-					altText: item?.softwares?.map?.logo?.node?.altText,
-				},
-			};
-		});
-		const products = productsList?.data?.products?.nodes?.map((item) => {
-			return {
-				title: item?.title,
-				slug: item?.slug,
-				logo: {
-					logo: item?.products?.map?.logo?.node?.sourceUrl,
-					altText: item?.products?.map?.logo?.node?.altText,
-				},
-			};
-		});
-		const services = servicesList?.data?.services?.nodes?.map((item) => {
-			return {
-				title: item?.title,
-				slug: item?.slug,
-				content: item?.content,
-				logo: {
-					logo: item?.services?.map?.logo?.node?.sourceUrl,
-					altText: item?.services?.map?.logo?.node?.altText,
-				},
-			};
-		});
-		const regions = regionsList?.data?.regions.nodes;
-		setData({ products, softwares, services, regions });
+		const obj = await fetchNavigationData();
+		setData(obj);
 	}
 
 	useEffect(() => {
 		fetchData();
 	}, []);
-	console.log("softwares", data);
 
 	return (
 		<>
@@ -391,7 +349,19 @@ export default function Header() {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
+													{data?.whoareyous?.map((item, ind) => {
+														return (
+															<a
+																key={ind}
+																href={`/who-are-you/${item?.slug}`}
+																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+															>
+																<span>{item?.title}</span>{" "}
+																<img src={menu_hover_arrow.src} alt="arrow" />
+															</a>
+														);
+													})}
+													{/* <a
 														href="/who-are-you/financial-sector"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
@@ -418,7 +388,7 @@ export default function Header() {
 													>
 														<span>Developer</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</a> */}
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
@@ -522,7 +492,19 @@ export default function Header() {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
+													{data?.howWeHelps?.map((item, ind) => {
+														return (
+															<a
+																key={ind}
+																href={`/how-we-help/${item?.slug}`}
+																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+															>
+																<span>{item?.title}</span>{" "}
+																<img src={menu_hover_arrow.src} alt="arrow" />
+															</a>
+														);
+													})}
+													{/* <a
 														href="/how-we-help/transaction-support"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
@@ -555,7 +537,7 @@ export default function Header() {
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>PPAs</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</a> */}
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>

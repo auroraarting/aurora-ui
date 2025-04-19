@@ -88,7 +88,7 @@ export default function HomePage({ mapJson, data, countries }) {
 			{/* Page Content ends here */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

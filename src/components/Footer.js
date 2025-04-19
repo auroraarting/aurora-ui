@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
@@ -28,10 +29,14 @@ import soundcloud from "../../public/img/icons/social/soundcloud.svg";
 
 // DATA //
 
+// SERVICES //
+import { fetchNavigationData } from "@/services/Navigation.service";
+
 /** Footer Component */
 export default function Footer() {
 	const currentYear = new Date().getFullYear();
 	const [toggleState, settoggleState] = useState(0);
+	const [data, setData] = useState();
 
 	/** toggleTab */
 	const toggleTab = (index) => {
@@ -40,6 +45,18 @@ export default function Footer() {
 		}
 		settoggleState(index);
 	};
+
+	/** fetchData  */
+	async function fetchData() {
+		const obj = await fetchNavigationData();
+		setData(obj);
+	}
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
+	console.log("data", data);
 
 	return (
 		<footer className={`${styles.main_footer}`}>
@@ -92,7 +109,7 @@ export default function Footer() {
 								<div className={`${styles.footerMenuInnerFlex}`}>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="">About Us</Link>
+											<Link href="/about">About Us</Link>
 										</li>
 										<li
 											className={`${styles.sub_menu_box} ${
@@ -114,7 +131,21 @@ export default function Footer() {
 												/>
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
-												<p>
+												{data?.whoareyous?.map((item, ind) => {
+													return (
+														<p key={ind}>
+															<a href={`/who-are-you/${item?.slug}`}>
+																<p className="">{item?.title}</p>
+															</a>
+															<img
+																src={black_right.src}
+																className={`${styles.black_right}`}
+																alt="down"
+															/>
+														</p>
+													);
+												})}
+												{/* <p>
 													<Link href="">
 														<a className="">Flexible Energy</a>
 													</Link>
@@ -143,7 +174,7 @@ export default function Footer() {
 														className={`${styles.black_right}`}
 														alt="down"
 													/>
-												</p>
+												</p> */}
 											</div>
 										</li>
 										<li
@@ -166,7 +197,21 @@ export default function Footer() {
 												/>
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
-												<p>
+												{data?.howWeHelps?.map((item, ind) => {
+													return (
+														<p key={ind}>
+															<a href={`/how-we-help/${item?.slug}`}>
+																<p className="">{item?.title}</p>
+															</a>
+															<img
+																src={black_right.src}
+																className={`${styles.black_right}`}
+																alt="down"
+															/>
+														</p>
+													);
+												})}
+												{/* <p>
 													<Link href="">
 														<a className="">Flexible Energy</a>
 													</Link>
@@ -195,7 +240,7 @@ export default function Footer() {
 														className={`${styles.black_right}`}
 														alt="down"
 													/>
-												</p>
+												</p> */}
 											</div>
 										</li>
 										<li
@@ -205,7 +250,7 @@ export default function Footer() {
 											onClick={() => toggleTab(3)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="">Careers</a>
+												<a className="/careers">Careers</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -219,9 +264,9 @@ export default function Footer() {
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
 												<p>
-													<Link href="">
-														<a className="">Flexible Energy</a>
-													</Link>
+													<a href="/careers/flexible-energy">
+														<p className="">Flexible Energy</p>
+													</a>
 													<img
 														src={black_right.src}
 														className={`${styles.black_right}`}
@@ -229,9 +274,9 @@ export default function Footer() {
 													/>
 												</p>
 												<p>
-													<Link href="">
-														<a className="">Power & Renewable</a>
-													</Link>
+													<a href="/careers/power-renewable">
+														<p className="">Power & Renewable</p>
+													</a>
 													<img
 														src={black_right.src}
 														className={`${styles.black_right}`}
@@ -239,9 +284,9 @@ export default function Footer() {
 													/>
 												</p>
 												<p>
-													<Link href="">
-														<a className="">Hydrogen</a>
-													</Link>
+													<a href="/careers/hydrogen">
+														<p className="">Hydrogen</p>
+													</a>
 													<img
 														src={black_right.src}
 														className={`${styles.black_right}`}
@@ -253,7 +298,7 @@ export default function Footer() {
 									</ul>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="">EOS Platform</Link>
+											<a href="/eos">EOS Platform</a>
 										</li>
 										<li
 											className={`${styles.sub_menu_box} ${
@@ -262,7 +307,7 @@ export default function Footer() {
 											onClick={() => toggleTab(4)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="">Software</a>
+												<a className="/softwares">Software</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -275,7 +320,21 @@ export default function Footer() {
 												/>
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
-												<p>
+												{data?.softwares?.map((item, ind) => {
+													return (
+														<p key={ind}>
+															<a href={`/softwares/${item?.slug}`}>
+																<p className="">{item?.title}</p>
+															</a>
+															<img
+																src={black_right.src}
+																className={`${styles.black_right}`}
+																alt="down"
+															/>
+														</p>
+													);
+												})}
+												{/* <p>
 													<Link href="">
 														<a className="">Flexible Energy</a>
 													</Link>
@@ -304,7 +363,7 @@ export default function Footer() {
 														className={`${styles.black_right}`}
 														alt="down"
 													/>
-												</p>
+												</p> */}
 											</div>
 										</li>
 										<li
@@ -314,7 +373,7 @@ export default function Footer() {
 											onClick={() => toggleTab(5)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="">Subscription Analytics</a>
+												<a className="/products">Subscription Analytics</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -327,7 +386,21 @@ export default function Footer() {
 												/>
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
-												<p>
+												{data?.products?.map((item, ind) => {
+													return (
+														<p key={ind}>
+															<a href={`/products/${item?.slug}`}>
+																<p className="">{item?.title}</p>
+															</a>
+															<img
+																src={black_right.src}
+																className={`${styles.black_right}`}
+																alt="down"
+															/>
+														</p>
+													);
+												})}
+												{/* <p>
 													<Link href="">
 														<a className="">Flexible Energy</a>
 													</Link>
@@ -356,26 +429,30 @@ export default function Footer() {
 														className={`${styles.black_right}`}
 														alt="down"
 													/>
-												</p>
+												</p> */}
 											</div>
 										</li>
-										<li>
-											<Link href="">Advisory</Link>
-										</li>
+										{data?.services?.map((item, ind) => {
+											return (
+												<li key={ind}>
+													<a href={`/services/${item?.slug}`}>{item?.title}</a>
+												</li>
+											);
+										})}
 									</ul>
 
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="">Press</Link>
+											<a href="/press">Press</a>
 										</li>
 										<li>
-											<Link href="">Events</Link>
+											<a href="/events">Events</a>
 										</li>
 										<li>
-											<Link href="">Resources</Link>
+											<a href="/resources">Resources</a>
 										</li>
 										<li>
-											<Link href="">Contact Us</Link>
+											<a href="/contact">Contact Us</a>
 										</li>
 									</ul>
 								</div>
@@ -400,22 +477,25 @@ export default function Footer() {
 							<div className={`${styles.footerBtmItem}`}>
 								<ul>
 									<li className="color_silver_gray">
-										<Link href="">Terms</Link>
+										<a href="/terms-and-conditions">Terms</a>
 									</li>
 									<li className="color_silver_gray">
-										<Link href="">Cookies</Link>
+										<a href="/cookies">Cookies</a>
 									</li>
 									<li className="color_silver_gray">
-										<Link href="">Policies and Compliance</Link>
+										<a href="policies-and-compliance">Policies and Compliance</a>
 									</li>
 								</ul>
 							</div>
 							<div className={`${styles.footerBtmItem}`}>
-								<Link href="https://www.ting.in/">
-									<a className="text_reg text_500" target="_blank" rel="noreferrer">
-										<img src={ting_logo.src} alt="ting logo" />
-									</a>
-								</Link>
+								<a
+									href="https://www.ting.in/"
+									className="text_reg text_500"
+									target="_blank"
+									rel="noreferrer"
+								>
+									<img src={ting_logo.src} alt="ting logo" />
+								</a>
 							</div>
 						</div>
 					</div>
