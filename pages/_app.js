@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 
 // COMPONENTS //
+import Footer from "@/components/Footer";
 
 // SECTIONS //
 
@@ -23,5 +24,11 @@ export default function MyApp({ Component, pageProps }) {
 		SmoothScrolling();
 	}, []);
 
-	return <Component {...pageProps} />;
+	return (
+		<>
+			<Component {...pageProps} />
+			{/* Footer */}
+			<Footer />
+		</>
+	);
 }

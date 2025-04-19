@@ -42,7 +42,10 @@ export default function WhichProducts({ data }) {
 					groupedBySlug[slug] = {
 						...node,
 						locationData: marker?.locationtitle || "",
-						imgIcons: marker?.icon?.node?.sourceUrl,
+						imgIcons:
+							marker?.category?.nodes?.[0]?.[
+								marker?.category?.nodes?.[0].contentType?.node?.name
+							]?.map?.logo?.node?.sourceUrl,
 						children: (
 							<div className={`${styles.content_wrap}`}>
 								<div className="text_reg color_dark_gray">
