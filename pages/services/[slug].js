@@ -43,9 +43,9 @@ export async function getServerSideProps({ params }) {
 		getRegions(),
 	]);
 	const mapJson = getMapJsonForProducts(
-		filterMarkersBySlug(regions, data.data.servicesBy.slug)
+		filterMarkersBySlug(regions, data.data.serviceBy.slug)
 	);
-	return { props: { data: data.data.servicesBy, mapJson } };
+	return { props: { data: data.data.serviceBy, mapJson } };
 }
 
 /** Advisory Page */
@@ -97,27 +97,27 @@ export default function Advisory({ data, mapJson }) {
 			<main className={styles.AdvisoryPage}>
 				<div className="pb_60">
 					<InnerBanner
-						bannerTitle={data?.service?.banner?.title}
-						bannerDescription={data?.service?.banner?.description}
-						btnLink={data?.service?.banner?.buttonLink}
-						btnTxt={data?.service?.banner?.buttonText}
-						desktopImage={data?.service?.banner?.desktopThumbnail?.node?.sourceUrl}
-						mobileImage={data?.service?.banner?.mobileThumbnail?.node?.sourceUrl}
-						videoSrc={data?.service?.banner?.vimeoLink}
-						logo={data?.service?.banner?.logo?.node?.sourceUrl}
+						bannerTitle={data?.services?.banner?.title}
+						bannerDescription={data?.services?.banner?.description}
+						btnLink={data?.services?.banner?.buttonLink}
+						btnTxt={data?.services?.banner?.buttonText}
+						desktopImage={data?.services?.banner?.desktopThumbnail?.node?.sourceUrl}
+						mobileImage={data?.services?.banner?.mobileThumbnail?.node?.sourceUrl}
+						videoSrc={data?.services?.banner?.vimeoLink}
+						logo={data?.services?.banner?.logo?.node?.sourceUrl}
 					/>
 				</div>
 				<SectionsHeader data={headerArray} />
-				<SmarterEnergy data={data.service.expertise} />
-				<ServicesCircle data={data.service.keyAdvantages} />
+				<SmarterEnergy data={data?.services?.expertise} />
+				<ServicesCircle data={data?.services?.keyAdvantages} />
 				<div className="pt_100">
-					<CaseStudy data={data.service.caseStudy} />
+					<CaseStudy data={data?.services?.caseStudy} />
 				</div>
 				<div className="ptb_100">
-					<TrustedLeaders data={data.service.ourClient} />
+					<TrustedLeaders data={data?.services?.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.service.ourClient} />
+					<TestimonialFeedback data={data?.services?.ourClient} />
 				</div>
 				<div className="pb_100">
 					<Insights

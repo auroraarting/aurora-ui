@@ -33,11 +33,17 @@ import mac_img from "@/../public/img/header/mac_img.png";
 import amun_logo from "@/../public/img/header/amun_logo.svg";
 import popup_close from "@/../public/img/icons/popup_close.svg";
 import Close from "@/../public/img/icons/close.svg";
+import {
+	getProducts,
+	getServices,
+	getSoftwares,
+} from "@/services/Navigation.service";
 
 // DATA //
 
 /** Header Component */
 export default function Header() {
+	const [data, setData] = useState();
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState(null);
 	const [isPopupActive, setIsPopupActive] = useState(false);
@@ -129,6 +135,36 @@ export default function Header() {
 			highlightSearchTerm(decodedSearchTerm);
 		}
 	}, [router.query]);
+
+	useEffect(async () => {
+		const [softwaresList, productsList, servicesList] = await Promise.all([
+			getSoftwares(),
+			getProducts(),
+			getServices(),
+		]);
+		const softwares = softwaresList?.data?.softwares?.nodes?.map((item) => {
+			return {
+				title: item?.title,
+				slug: item?.slug,
+				logo: {
+					logo: item?.softwares?.map?.logo?.node?.sourceUrl,
+					altText: item?.softwares?.map?.logo?.node?.altText,
+				},
+			};
+		});
+		const products = productsList?.data?.products?.nodes?.map((item) => {
+			return {
+				title: item?.title,
+				slug: item?.slug,
+				logo: {
+					logo: item?.products?.map?.logo?.node?.sourceUrl,
+					altText: item?.products?.map?.logo?.node?.altText,
+				},
+			};
+		});
+		setData({ products, softwares, servicesList });
+	}, []);
+	console.log("softwares", data);
 
 	return (
 		<>

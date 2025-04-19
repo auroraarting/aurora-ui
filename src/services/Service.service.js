@@ -4,10 +4,10 @@ import GraphQLAPI from "./Graphql.service";
 export const getServiceData = async (slug) => {
 	const query = `
 query GetProductBySlug {
-  servicesBy(slug: "${slug}") {
+  serviceBy(slug: "${slug}") {
     title
     slug
-    service {
+    services {
       thumbnail {
         banner {
           node {
