@@ -139,6 +139,7 @@ export default function Header() {
 		}
 	}, [router.query]);
 
+	/** fetchData  */
 	async function fetchData() {
 		const [softwaresList, productsList, servicesList, regionsList] =
 			await Promise.all([
