@@ -57,9 +57,11 @@ export const getServices = async () => {
 	const query = `
 query GetServices {
   services {
+    nodes {
       title
       slug
-      service {
+      content
+      services {
         map {
           logo {
             node {
@@ -67,6 +69,7 @@ query GetServices {
               sourceUrl
             }
           }
+        }
       }
     }
   }
