@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
