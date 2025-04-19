@@ -47,11 +47,11 @@ export function getMapJsonForCountries(data) {
 	let mapJson = {
 		...data,
 		centerOfCountry: {
-			lat: parseFloat(data.countryPin.lat),
-			lng: parseFloat(data.countryPin.lng),
+			lat: parseFloat(data?.countryPin?.lat),
+			lng: parseFloat(data?.countryPin?.lng),
 		},
-		markers: data.markers
-			.map((markerItem) => {
+		markers: data?.markers
+			?.map((markerItem) => {
 				let node = markerItem?.category?.nodes[0];
 
 				let obj = {
@@ -91,7 +91,7 @@ export function getMapJsonForProducts(regions) {
 		item?.countries?.nodes?.map((item2) => {
 			let obj = {
 				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-				markers: item2.countries.map?.markers
+				markers: item2.countries?.map?.markers
 					?.map((item3) => {
 						let node = item3?.category?.nodes?.[0];
 

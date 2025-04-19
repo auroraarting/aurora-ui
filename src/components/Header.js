@@ -36,6 +36,7 @@ import popup_close from "@/../public/img/icons/popup_close.svg";
 import Close from "@/../public/img/icons/close.svg";
 import {
 	getProducts,
+	getRegions,
 	getServices,
 	getSoftwares,
 } from "@/services/Navigation.service";
@@ -138,11 +139,13 @@ export default function Header() {
 	}, [router.query]);
 
 	async function fetchData() {
-		const [softwaresList, productsList, servicesList] = await Promise.all([
-			getSoftwares(),
-			getProducts(),
-			getServices(),
-		]);
+		const [softwaresList, productsList, servicesList, regionsList] =
+			await Promise.all([
+				getSoftwares(),
+				getProducts(),
+				getServices(),
+				getRegions(),
+			]);
 		const softwares = softwaresList?.data?.softwares?.nodes?.map((item) => {
 			return {
 				title: item?.title,
@@ -174,7 +177,8 @@ export default function Header() {
 				},
 			};
 		});
-		setData({ products, softwares, services });
+		const regions = regionsList?.data?.regions.nodes;
+		setData({ products, softwares, services, regions });
 	}
 
 	useEffect(() => {
@@ -1094,7 +1098,45 @@ export default function Header() {
 								<img src={popup_close.src} alt="" />
 							</button>
 							<div className={`${styles.listFlex} f_w`}>
-								<div className={`${styles.listItem}`}>
+								{data?.regions?.map((item, ind) => {
+									return (
+										<div className={`${styles.listItem}`} key={ind}>
+											<div
+												className={`${styles.CountryHeading}`}
+												onClick={() => toggleTab(ind + 1)}
+											>
+												<h4 className="text_md f_w_m color_white font_primary">
+													{item?.name}
+												</h4>
+												<img
+													src={dropdown_arrow.src}
+													className={`${
+														toggleState === 1 ? styles.arrow_rotate : ""
+													} visible_xs`}
+													alt=""
+												/>
+											</div>
+											<div
+												className={`${styles.CountryNameBox} ${
+													toggleState === 1 ? styles.ul_section_active : ""
+												} `}
+											>
+												<ul>
+													{item?.countries?.nodes?.map((country, index) => (
+														<li key={index} className="text_xs color_platinum_gray">
+															<a href={`/global-presence/${country.slug}`}>{country?.title}</a>
+														</li>
+													))}
+													{/* <li className="text_xs color_platinum_gray">India</li>
+													<li className="text_xs color_platinum_gray">Japan</li>
+													<li className="text_xs color_platinum_gray">Korea</li>
+													<li className="text_xs color_platinum_gray">Philippines</li> */}
+												</ul>
+											</div>
+										</div>
+									);
+								})}
+								{/* <div className={`${styles.listItem}`}>
 									<div
 										className={`${styles.CountryHeading}`}
 										onClick={() => toggleTab(1)}
@@ -1120,8 +1162,8 @@ export default function Header() {
 											<li className="text_xs color_platinum_gray">Philippines</li>
 										</ul>
 									</div>
-								</div>
-								<div className={`${styles.listItem}`}>
+								</div> */}
+								{/* <div className={`${styles.listItem}`}>
 									<div
 										className={`${styles.CountryHeading}`}
 										onClick={() => toggleTab(2)}
@@ -1237,7 +1279,7 @@ export default function Header() {
 											<li className="text_xs color_platinum_gray">Canada</li>
 										</ul>
 									</div>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					</div>
