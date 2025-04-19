@@ -177,7 +177,7 @@ export default function Header() {
 		setData({ products, softwares, services });
 	}
 
-	useEffect(async () => {
+	useEffect(() => {
 		fetchData();
 	}, []);
 	console.log("softwares", data);
