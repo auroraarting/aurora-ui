@@ -99,7 +99,7 @@ query EOSPage {
           description
           category {
             nodes {
-              ... on Services {
+              ... on Service {
                 id
                 title
                 slug

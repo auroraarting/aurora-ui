@@ -78,3 +78,25 @@ query GetServices {
 	const res = await GraphQLAPI(query);
 	return res;
 };
+
+/** Regions */
+export const getRegions = async () => {
+	const query = `
+query GetRegions {
+  regions {
+    nodes {
+      name
+      slug
+      countries {
+        nodes {
+          slug
+          title
+        }
+      }
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
