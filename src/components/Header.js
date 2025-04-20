@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -11,6 +12,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -34,10 +36,14 @@ import amun_logo from "@/../public/img/header/amun_logo.svg";
 import popup_close from "@/../public/img/icons/popup_close.svg";
 import Close from "@/../public/img/icons/close.svg";
 
+// SERVICES //
+import { fetchNavigationData } from "@/services/Navigation.service";
+
 // DATA //
 
 /** Header Component */
 export default function Header() {
+	const [data, setData] = useState();
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState(null);
 	const [isPopupActive, setIsPopupActive] = useState(false);
@@ -130,6 +136,16 @@ export default function Header() {
 		}
 	}, [router.query]);
 
+	/** fetchData  */
+	async function fetchData() {
+		const obj = await fetchNavigationData();
+		setData(obj);
+	}
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	return (
 		<>
 			<header className={`${styles.main_headerBox}`}>
@@ -202,27 +218,27 @@ export default function Header() {
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<a
-														href=""
+														href="/about"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>About Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/global-presence"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Global Presence</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/press"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Contact Us</span>{" "}
@@ -246,9 +262,11 @@ export default function Header() {
 															sodales mperdiet volutpat dui ipsum massa.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<Button color="primary" variant="filled" shape="rounded">
-																Know More
-															</Button>
+															<a href="/eos">
+																<Button color="primary" variant="filled" shape="rounded">
+																	Know More
+																</Button>
+															</a>
 														</div>
 													</div>
 												</div>
@@ -331,34 +349,46 @@ export default function Header() {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
-														href=""
+													{data?.whoareyous?.map((item, ind) => {
+														return (
+															<a
+																key={ind}
+																href={`/who-are-you/${item?.slug}`}
+																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+															>
+																<span>{item?.title}</span>{" "}
+																<img src={menu_hover_arrow.src} alt="arrow" />
+															</a>
+														);
+													})}
+													{/* <a
+														href="/who-are-you/financial-sector"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Financial Sector</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/who-are-you/energy-consumer"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Energy Consumer</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/who-are-you/utilities"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Utilities</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/who-are-you/developer"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Developer</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</a> */}
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
@@ -462,40 +492,52 @@ export default function Header() {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
-														href=""
+													{data?.howWeHelps?.map((item, ind) => {
+														return (
+															<a
+																key={ind}
+																href={`/how-we-help/${item?.slug}`}
+																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+															>
+																<span>{item?.title}</span>{" "}
+																<img src={menu_hover_arrow.src} alt="arrow" />
+															</a>
+														);
+													})}
+													{/* <a
+														href="/how-we-help/transaction-support"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Transaction Support</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/how-we-help/portfolio-valuation"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Portfolio Valuation</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/how-we-help/asset-citing-optimisation"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Asset Citing & Optimisation</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/how-we-help/strategy-us"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Strategy Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/how-we-help/ppas"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>PPAs</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</a> */}
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
@@ -603,7 +645,7 @@ export default function Header() {
 												<div className={`${styles.eosAdvisoryFlex} f_w_j`}>
 													<div className={`${styles.eosItem}`}>
 														<a
-															href=""
+															href="/eos"
 															className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 														>
 															<span>EOS Platform</span>{" "}
@@ -613,30 +655,46 @@ export default function Header() {
 															Lorem ipsum dolor sit amet consectetur.
 														</p>
 													</div>
-													<div className={`${styles.eosItem}`}>
-														<a
-															href=""
-															className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
-														>
-															<span>Advisory</span>{" "}
-															<img src={menu_hover_arrow.src} alt="arrow" />
-														</a>
-														<p className="text_xs color_light_gray ">
-															Lorem ipsum dolor sit amet consectetur.
-														</p>
-													</div>
+													{data?.services?.map((item, ind) => {
+														return (
+															<div className={`${styles.eosItem}`} key={ind}>
+																<a
+																	href={`/services/${item?.slug}`}
+																	className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+																>
+																	<span>{item?.title}</span>{" "}
+																	<img src={menu_hover_arrow.src} alt="arrow" />
+																</a>
+																<p className="text_xs color_light_gray ">
+																	{parse(item?.content || "")}
+																</p>
+															</div>
+														);
+													})}
 												</div>
 												<div className={`${styles.softwareFlex} f_w_j`}>
 													<div className={`${styles.softwareItem}`}>
 														<a
-															href=""
+															href="/softwares"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 														>
 															<span>Software</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
 														</a>
 														<div className={`${styles.softwareListBox}`}>
-															<a
+															{data?.softwares?.map((item, ind) => {
+																return (
+																	<a
+																		key={ind}
+																		href={`/softwares/${item?.slug}`}
+																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																	>
+																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
+																		<span>{item?.title}</span>
+																	</a>
+																);
+															})}
+															{/* <a
 																href=""
 																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 															>
@@ -663,7 +721,7 @@ export default function Header() {
 															>
 																<img src={amun_logo.src} alt="arrow" />
 																<span>Lumus PPA</span>{" "}
-															</a>
+															</a> */}
 														</div>
 													</div>
 													<div className={`${styles.softwareItem}`}>
@@ -675,7 +733,19 @@ export default function Header() {
 															<img src={menu_hover_arrow.src} alt="arrow" />
 														</a>
 														<div className={`${styles.softwareListBox}`}>
-															<a
+															{data?.products?.map((item, ind) => {
+																return (
+																	<a
+																		key={ind}
+																		href={`/softwares/${item?.slug}`}
+																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																	>
+																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
+																		<span>{item?.title}</span>
+																	</a>
+																);
+															})}
+															{/* <a
 																href=""
 																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 															>
@@ -702,7 +772,7 @@ export default function Header() {
 															>
 																<img src={amun_logo.src} alt="arrow" />
 																<span>Grid Add-on</span>{" "}
-															</a>
+															</a> */}
 														</div>
 													</div>
 												</div>
@@ -740,27 +810,27 @@ export default function Header() {
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<a
-														href=""
+														href="/about"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>About Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/global-presence"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Global Presence</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/press"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Contact Us</span>{" "}
@@ -880,27 +950,27 @@ export default function Header() {
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<a
-														href=""
+														href="/about"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>About Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/global-presence"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Global Presence</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/press"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href=""
+														href="/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Contact Us</span>{" "}
@@ -1012,7 +1082,45 @@ export default function Header() {
 								<img src={popup_close.src} alt="" />
 							</button>
 							<div className={`${styles.listFlex} f_w`}>
-								<div className={`${styles.listItem}`}>
+								{data?.regions?.map((item, ind) => {
+									return (
+										<div className={`${styles.listItem}`} key={ind}>
+											<div
+												className={`${styles.CountryHeading}`}
+												onClick={() => toggleTab(ind + 1)}
+											>
+												<h4 className="text_md f_w_m color_white font_primary">
+													{item?.name}
+												</h4>
+												<img
+													src={dropdown_arrow.src}
+													className={`${
+														toggleState === 1 ? styles.arrow_rotate : ""
+													} visible_xs`}
+													alt=""
+												/>
+											</div>
+											<div
+												className={`${styles.CountryNameBox} ${
+													toggleState === 1 ? styles.ul_section_active : ""
+												} `}
+											>
+												<ul>
+													{item?.countries?.nodes?.map((country, index) => (
+														<li key={index} className="text_xs color_platinum_gray">
+															<a href={`/global-presence/${country.slug}`}>{country?.title}</a>
+														</li>
+													))}
+													{/* <li className="text_xs color_platinum_gray">India</li>
+													<li className="text_xs color_platinum_gray">Japan</li>
+													<li className="text_xs color_platinum_gray">Korea</li>
+													<li className="text_xs color_platinum_gray">Philippines</li> */}
+												</ul>
+											</div>
+										</div>
+									);
+								})}
+								{/* <div className={`${styles.listItem}`}>
 									<div
 										className={`${styles.CountryHeading}`}
 										onClick={() => toggleTab(1)}
@@ -1038,8 +1146,8 @@ export default function Header() {
 											<li className="text_xs color_platinum_gray">Philippines</li>
 										</ul>
 									</div>
-								</div>
-								<div className={`${styles.listItem}`}>
+								</div> */}
+								{/* <div className={`${styles.listItem}`}>
 									<div
 										className={`${styles.CountryHeading}`}
 										onClick={() => toggleTab(2)}
@@ -1155,7 +1263,7 @@ export default function Header() {
 											<li className="text_xs color_platinum_gray">Canada</li>
 										</ul>
 									</div>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					</div>

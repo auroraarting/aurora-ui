@@ -1,0 +1,76 @@
+@import "../../helpers/helpers.scss";
+.HomeEvents {
+  .sliderMain{
+    padding: 40px 40px;
+		background-color: var(--color_secondary);
+		border-radius: 20px;
+		@media (max-width: 1199px) {
+			padding: 25px 25px;
+		}
+    @media (max-width: 767px) {
+			padding: 15px 15px;
+		}
+    .card {
+      @media (max-width: 767px) {
+        flex-direction: column-reverse;
+        border-radius: 15px;
+      }
+      .content {
+        width: 45%;
+        // @media (max-width: 1199px) {
+        // 	width: 54%;
+        // }
+        @media (max-width: 767px) {
+          width: 100%;
+          margin-top: 30px;
+        }
+        .tag {
+          background-color: var(--color_blue);
+          padding: 12px 12px;
+          border-radius: 8px;
+          width: max-content;
+          margin-top: 30px;
+        }
+        .dateFlex {
+          align-items: center;
+          p {
+            margin-right: 40px;
+            img {
+              filter: invert(1);
+            }
+            span {
+              margin-left: 5px;
+              margin-top: 2px;
+            }
+          }
+        }
+      }
+      .imageWrapper {
+        width: 50%;
+        @media (max-width: 1199px) {
+          width: 54%;
+        }
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+      }
+    }
+    .arrowSection {
+      justify-content: flex-start;
+      @media (max-width: 767px) {
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .customPrev,
+      .customNext {
+        background-color: unset;
+        border: none;
+        cursor: pointer;
+      }
+      .customPrev {
+        rotate: 180deg;
+      }
+    }
+  }
+	
+}

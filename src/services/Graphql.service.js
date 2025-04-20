@@ -1,10 +1,10 @@
-import { ServerHeaders } from "@/utils/RequestHeaders";
+import { ClientHeaders, ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI  */
 export default async function GraphQLAPI(query) {
 	try {
-		const req = await fetch(`${process.env.API_URL}`, {
-			...ServerHeaders,
+		const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
+			...ClientHeaders,
 			body: JSON.stringify({ query }),
 		});
 		const res = await req.json();

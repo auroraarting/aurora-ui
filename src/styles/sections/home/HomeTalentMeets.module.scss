@@ -1,0 +1,52 @@
+@import "../../helpers/helpers.scss";
+.HomeTalentMeets {
+  background-color: var(--color_primary);
+  .card {
+    @media (max-width: 991px) {
+     align-items: flex-start;
+    }
+    @media (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+    .content {
+      width: 45%;
+      @media (max-width: 1199px) {
+      	width: 48%;
+      }
+      @media (max-width: 767px) {
+        width: 100%;
+        margin-top: 30px;
+      }
+      .tag {
+        background-color: var(--color_blue);
+        padding: 12px 12px;
+        border-radius: 8px;
+        width: max-content;
+        margin-top: 30px;
+      }
+      .dateFlex {
+        align-items: center;
+        p {
+          margin-right: 40px;
+          img {
+            filter: invert(1);
+          }
+          span {
+            margin-left: 5px;
+            margin-top: 2px;
+          }
+        }
+      }
+    }
+    .imageWrapper {
+      width: 50%;
+      @media (max-width: 1199px) {
+        width: 48%;
+      }
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+  }
+	
+}

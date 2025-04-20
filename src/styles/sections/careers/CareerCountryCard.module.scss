@@ -1,0 +1,127 @@
+@import "../../helpers/helpers.scss";
+.CareerCountryCard {
+	position: relative;
+  background-color: var(--color_secondary);
+	.title_wrap {
+		@media (max-width: 767px) {
+			flex-wrap: wrap;
+		}
+		.bookBtn {
+			margin-right: 110px;
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-right: 0px;
+			}
+		}
+	}
+	.SliderMain {
+		position: relative;
+    display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 20px;
+		// @media (max-width: 991px) {
+		// 	grid-template-columns: repeat(3, 1fr);
+		// 	grid-gap: 20px;
+		// }
+		// @media (max-width: 767px) {
+		// 	grid-template-columns: repeat(2, 1fr);
+		// 	grid-gap: 15px;
+		// }
+		// :global(.swiper-slide) {
+		// 	height: 365px;
+		// 	border-radius: 20px;
+		// 	@media (max-width: 767px) {
+		// 		height: auto;
+		// 	}
+		// }
+		.cardItem {
+			background-color: var(--color_gray);
+			padding: 20px 20px 30px;
+			border-radius: 20px;
+			max-height: 310px;
+			transition: 0.5s ease-in-out;
+			overflow: hidden;
+			@media (max-width: 767px) {
+				max-height: unset;
+			}
+			.cardImg {
+				position: relative;
+				img {
+					height: 182px;
+					width: 100%;
+					object-fit: cover;
+					object-position: center;
+					@media (max-width: 767px) {
+						height: auto;
+					}
+				}
+				.categoryTxt {
+					position: absolute;
+					top: 20px;
+					left: 20px;
+					padding-left: 10px;
+					background-color: var(--color_primary);
+					border-radius: 8px;
+					padding: 10px 20px;
+					&::before {
+						content: " ";
+						position: absolute;
+						left: 10px;
+						top: 50%;
+						transform: translateY(-50%);
+						width: 4px;
+						height: 4px;
+						background-color: var(--color_secondary);
+						border-radius: 50%;
+					}
+				}
+			}
+			.cardDesc {
+				p {
+					img {
+						filter: invert(1);
+					}
+					span {
+						margin-left: 5px;
+					}
+				}
+			}
+			&:hover {
+				max-height: 370px;
+				transition: 0.5s ease-in-out;
+				@media (max-width: 767px) {
+					max-height: unset;
+				}
+			}
+		}
+	}
+	.arrowSection {
+		position: absolute;
+		right: 0px;
+		top: 20px;
+		bottom: unset;
+		z-index: 1;
+		@media (max-width: 1199px) {
+			right: 0px;
+			top: 12px;
+		}
+		@media (max-width: 767px) {
+			right: 10px;
+			bottom: -50px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
+}

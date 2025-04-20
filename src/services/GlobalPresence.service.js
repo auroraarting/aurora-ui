@@ -36,12 +36,12 @@ export const getRegions = async () => {
                         name
                       }
                     }
-                     ... on Services {
+                     ... on Service {
                 id
                 slug
                 title
                 content
-                service {
+                services {
                   map {
                     logo {
                       node {
@@ -260,12 +260,12 @@ query GetCountryInside {
                   name
                 }
               }
-              ... on Services {
+              ... on Service {
                 id
                 slug
                 title
                 content
-                service {
+                services {
                   map {
                     logo {
                       node {

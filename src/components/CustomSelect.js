@@ -18,9 +18,15 @@ import DrownDownArrow from "/public/img/softwares/arrow.svg";
 // DATA //
 
 /** CustomSelect Component */
-export default function CustomSelect({ defaultId, list, afterSelect, value }) {
+export default function CustomSelect({
+	defaultId,
+	list,
+	afterSelect,
+	placeholder = "Select",
+	mode = "light",
+}) {
 	const [open, setOpen] = useState(false);
-	const [selectedId, setSelectedId] = useState(defaultId || 0);
+	const [selectedId, setSelectedId] = useState();
 	const selectRef = useRef(null);
 	const listScrollPrevent = open ? { "data-lenis-prevent": true } : {};
 
@@ -33,7 +39,7 @@ export default function CustomSelect({ defaultId, list, afterSelect, value }) {
 	const onSelect = (id) => {
 		handleStateOfSelect();
 		setSelectedId(id);
-		afterSelect({ index: id, value: list[id] });
+		afterSelect && afterSelect({ index: id, value: list[id] });
 	};
 
 	useEffect(() => {
@@ -50,18 +56,14 @@ export default function CustomSelect({ defaultId, list, afterSelect, value }) {
 		};
 	}, []);
 
-	useEffect(() => {
-		setSelectedId(value);
-	}, [value]);
-
 	return (
 		<div
-			className={`${styles.CustomSelect} ${open && styles.open}`}
+			className={`${styles.CustomSelect} ${open && styles.open} ${styles[mode]}`}
 			ref={selectRef}
 		>
 			<div className={`${styles.selected}`} onClick={handleStateOfSelect}>
-				<span className={`${styles.selectedText} text_reg text_500`}>
-					{list[selectedId]}
+				<span className={`${styles.selectedText} text_xs text_500`}>
+					{list?.[selectedId] || placeholder}
 				</span>
 				<img
 					className={`${styles.arrow}`}
@@ -76,7 +78,7 @@ export default function CustomSelect({ defaultId, list, afterSelect, value }) {
 							<p
 								className={`${styles.listItem} ${
 									selectedId === ind && styles.alreadySelected
-								}`}
+								} text_xs`}
 								key={item}
 								onClick={() => onSelect(ind)}
 							>
