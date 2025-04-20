@@ -12,6 +12,9 @@
 				position: relative;
 				align-items: center;
 				width: 30%;
+				@media screen and (min-width: 767px) and (max-width: 992px) {
+					width: 40%;
+				}
 				@media screen and (max-width: 767px) {
 					flex-wrap: wrap;
 				}
@@ -168,7 +171,7 @@
 							grid-template-columns: repeat(3, 1fr); // 2 columns
 							gap: 16px;
 							@media screen and (max-width: 991px) {
-								width: 660px;
+								width: 450px;
 								padding: 20px 20px;
 							}
 							@media screen and (max-width: 767px) {
@@ -307,9 +310,16 @@
 					.teamDetailsItem {
 						&:first-child {
 							width: 40%;
+							@media (max-width: 767px) {
+								width: 100%;
+								margin-bottom: 30px;
+							}
 						}
 						&:last-child {
 							width: 58%;
+							@media (max-width: 767px) {
+								width: 100%;
+							}
 						}
 					}
 				}
@@ -324,12 +334,22 @@
 				}
 				.leadDetailsFlex {
 					padding: 50px 50px;
+					@media (max-width: 767px) {
+						padding: 25px;
+					}
 					.leadDetailsItem {
 						&:first-child {
 							width: 30%;
+							@media (max-width: 767px) {
+								width: 100%;
+								margin-bottom: 30px;
+							}
 						}
 						&:last-child {
 							width: 67%;
+							@media (max-width: 767px) {
+								width: 100%;
+							}
 						}
 						.leadDetailsContent {
 						}
