@@ -271,21 +271,42 @@ export default function Map({
 	defaultZoom = 4,
 	locationJson,
 }) {
+	const [show, setShow] = useState(false);
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
 
 	const center = mapCenter;
 
-	const onLoad = useCallback((mapObj) => {
-		const bounds = new window.google.maps.LatLngBounds(center);
-		mapObj.fitBounds(bounds);
+	const onLoad = useCallback(
+		(mapObj) => {
+			if (locationJson?.length) {
+				const bounds = new window.google.maps.LatLngBounds();
 
-		// Set zoom level after fitBounds
-		setTimeout(() => {
-			mapObj.setZoom(defaultZoom); // Change this value as needed
-		}, 100);
+				locationJson.forEach((country) => {
+					country.markers.forEach((marker) => {
+						const lat = parseFloat(marker?.coordinates?.lat || marker?.lat);
+						const lng = parseFloat(marker?.coordinates?.lng || marker?.lng);
+						bounds.extend(new window.google.maps.LatLng(lat, lng));
+					});
+				});
 
-		setMap(mapObj);
-	}, []);
+				mapObj.fitBounds(bounds);
+
+				// Optional: Limit max zoom after fitBounds
+				const listener = window.google.maps.event.addListenerOnce(
+					mapObj,
+					"bounds_changed",
+					() => {
+						if (mapObj.getZoom() > defaultZoom) {
+							mapObj.setZoom(defaultZoom);
+						}
+					}
+				);
+			}
+
+			setMap(mapObj);
+		},
+		[locationJson, defaultZoom, setMap]
+	);
 
 	/** Function to update visible locations based on map viewport */
 	const updateVisibleLocations = (mapObj) => {
@@ -335,6 +356,12 @@ export default function Map({
 			map.addListener("bounds_changed", () => updateVisibleLocations(map));
 		}
 	}, [map]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setShow(true);
+		}, 1000);
+	}, []);
 
 	return (
 		<LoadScript

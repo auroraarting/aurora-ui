@@ -71,7 +71,7 @@ export default function EarlyCareers() {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.EarlyCareers}>

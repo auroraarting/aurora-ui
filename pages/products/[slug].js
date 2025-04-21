@@ -20,6 +20,7 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 import ProductBanner from "@/sections/products/ProductBanner";
 import MarketIntelligence from "@/sections/products/MarketIntelligence";
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
+import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -100,7 +101,7 @@ export default function ProductInside({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.ProductInsidePage}>
@@ -128,9 +129,11 @@ export default function ProductInside({ data, mapJson }) {
 						</div>
 					}
 				/>
-				<div className="ptb_100">
-					<MarketIntelligence data={data?.products?.introduction} />
-				</div>
+				{data?.products?.introduction?.title && (
+					<div className="ptb_100">
+						<MarketIntelligence data={data?.products?.introduction} />
+					</div>
+				)}
 				<GlobalMap
 					locationJson={mapJson}
 					marqueeText={data?.products?.map?.marquee}
@@ -138,12 +141,16 @@ export default function ProductInside({ data, mapJson }) {
 				{/* <div className="ptb_100">
 					<SoftwareMarket />
 				</div> */}
-				<div className="ptb_100">
-					<TrustedLeaders data={data?.products?.ourClient} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.products?.ourClient} />
-				</div>
+				{data?.products?.ourClient?.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders data={data?.products?.ourClient} />
+					</div>
+				)}
+				{data?.products?.ourClient?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data?.products?.ourClient} />
+					</div>
+				)}
 				<ServicesCircle data={data?.products?.keyAdvantages} />
 				<div>
 					<GloballyBankableInsights data={data?.products?.whyAurora} />
@@ -151,6 +158,11 @@ export default function ProductInside({ data, mapJson }) {
 				<div>
 					<SmarterEnergy data={data?.products?.expertise} />
 				</div>
+				{data?.products?.expertSupport?.list?.length > 0 && (
+					<div className="ptb_100">
+						<TrustOurExperts data={data?.products?.expertSupport} />
+					</div>
+				)}
 
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>

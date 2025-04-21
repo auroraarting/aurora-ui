@@ -30,7 +30,7 @@ query GetPageProduct {
       }
     }
   }
-  products {
+  products(first: 999) {
     nodes {
       title
       slug
@@ -55,7 +55,7 @@ query GetPageProduct {
           shortDescription
         }
         ourClient {
-          selectLogos {
+          selectLogos(first: 999) {
             nodes {
               ... on ClientsLogo {
                 id
@@ -68,7 +68,7 @@ query GetPageProduct {
               }
             }
           }
-          testimonials {
+          testimonials(first: 999) {
             nodes {
               ... on Testimonial {
                 id
@@ -205,13 +205,18 @@ query GetProductBySlug {
           }
         }
       }
-      customerSuccess {
+      expertSupport {
         sectionTitle
-        tabTitle
-        customerSuccessRow {
+        image {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        list {
           description
           title
-          icon {
+          logo {
             node {
               altText
               sourceUrl

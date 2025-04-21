@@ -28,7 +28,7 @@ query GetProductBySlug {
         shortDescription
       }
       ourClient {
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -41,7 +41,7 @@ query GetProductBySlug {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -59,13 +59,13 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
-        logo{
-      node {
+        logo {
+          node {
             altText
             sourceUrl
           }
-      }
-         buttonText
+        }
+        buttonText
         buttonLink
         description
         title
@@ -86,7 +86,7 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
-                selectCaseStudies {
+        selectCaseStudies(first: 999) {
           nodes {
             ... on CaseStudy {
               id
@@ -94,7 +94,7 @@ query GetProductBySlug {
               title
               slug
               caseStudies {
-                selectLocation {
+                selectLocation(first: 999) {
                   nodes {
                     ... on Country {
                       id
@@ -115,20 +115,25 @@ query GetProductBySlug {
           }
         }
       }
-      customerSuccess {
-        sectionTitle
-        tabTitle
-        customerSuccessRow {
-          description
-          title
-          icon {
+                expertSupport {
+          sectionTitle
+          image {
             node {
               altText
               sourceUrl
             }
           }
+          list {
+            title
+            description
+            logo {
+              node {
+                altText
+                sourceUrl
+              }
+            }
+          }
         }
-      }
       expertise {
         description
         tabTitle
@@ -160,7 +165,7 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
-                buttonLink
+        buttonLink
         buttonText
         advantages {
           advantagesTitle
@@ -182,11 +187,11 @@ query GetProductBySlug {
         startText
         endText
         endPoint
-        list{
-             title
-             description
-             caption
-             value
+        list {
+          title
+          description
+          caption
+          value
         }
       }
       fourStepProcess {
@@ -231,7 +236,7 @@ query GetPageSoftwares {
         title
         tabTitle
         description
-                buttonLink
+        buttonLink
         buttonText
         advantages {
           title
@@ -246,7 +251,7 @@ query GetPageSoftwares {
       }
     }
   }
-  softwares {
+  softwares(first: 999) {
     nodes {
       title
       slug
@@ -271,7 +276,7 @@ query GetPageSoftwares {
           shortDescription
         }
         ourClient {
-          selectLogos {
+          selectLogos(first: 999) {
             nodes {
               ... on ClientsLogo {
                 id
@@ -284,7 +289,7 @@ query GetPageSoftwares {
               }
             }
           }
-          testimonials {
+          testimonials(first: 999) {
             nodes {
               ... on Testimonial {
                 id
@@ -298,7 +303,6 @@ query GetPageSoftwares {
           }
         }
       }
-
     }
   }
 }

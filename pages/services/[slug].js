@@ -91,7 +91,7 @@ export default function Advisory({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.AdvisoryPage}>
@@ -110,15 +110,21 @@ export default function Advisory({ data, mapJson }) {
 				<SectionsHeader data={headerArray} />
 				<SmarterEnergy data={data?.services?.expertise} />
 				<ServicesCircle data={data?.services?.keyAdvantages} />
-				<div className="pt_100">
-					<CaseStudy data={data?.services?.caseStudy} />
-				</div>
-				<div className="ptb_100">
-					<TrustedLeaders data={data?.services?.ourClient} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.services?.ourClient} />
-				</div>
+				{data?.services?.caseStudy?.title && (
+					<div className="pt_100">
+						<CaseStudy data={data?.services?.caseStudy} />
+					</div>
+				)}
+				{data?.services?.ourClient?.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders data={data?.services?.ourClient} />
+					</div>
+				)}
+				{data?.services?.ourClient?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data?.services?.ourClient} />
+					</div>
+				)}
 				<div className="pb_100">
 					<Insights
 						isFormVisible={isFormVisible}

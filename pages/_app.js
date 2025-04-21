@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 // SECTIONS //
 
@@ -26,6 +27,8 @@ export default function MyApp({ Component, pageProps }) {
 
 	return (
 		<>
+			{/* Header */}
+			<Header />
 			<Component {...pageProps} />
 			{/* Footer */}
 			<Footer />

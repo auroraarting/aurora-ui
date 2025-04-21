@@ -109,7 +109,7 @@ export default function Products({
 			<MetaTags Title={"Products"} Desc={""} OgImg={""} Url={"/products"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.ProductsPage}>

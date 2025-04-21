@@ -40,7 +40,7 @@ export default function Faq() {
 			<MetaTags Title={"Faq"} Desc={""} OgImg={""} Url={"/careers/faq"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.Faq}>
