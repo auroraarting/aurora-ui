@@ -187,7 +187,6 @@ query GetCountryInside {
         title
         tabTitle
         description
-
         advantages {
           icon {
             node {

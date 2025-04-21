@@ -5,11 +5,11 @@ import GraphQLAPI from "./Graphql.service";
 export const getRegions = async () => {
 	const query = `
  query NewQuery {
-  regions {
+  regions(first: 999) {
     nodes {
       name
       slug
-      countries {
+      countries(first: 999) {
         nodes {
           content
           slug
@@ -22,68 +22,67 @@ export const getRegions = async () => {
                 lng
               }
               markers {
-
                 mapThumbnail {
                   node {
                     altText
                     sourceUrl(size: LARGE)
                   }
                 }
-                category {
+                category(first: 999) {
                   nodes {
                     contentType {
                       node {
                         name
                       }
                     }
-                     ... on Service {
-                id
-                slug
-                title
-                content
-                services {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        sourceUrl
+                    ... on Service {
+                      id
+                      slug
+                      title
+                      content
+                      services {
+                        map {
+                          logo {
+                            node {
+                              altText
+                              sourceUrl
+                            }
+                          }
+                        }
                       }
                     }
-                  }
-                }
-              }
-              ... on Software {
-                id
-                title
-                slug
-                content
-                softwares {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        sourceUrl
+                    ... on Software {
+                      id
+                      title
+                      slug
+                      content
+                      softwares {
+                        map {
+                          logo {
+                            node {
+                              altText
+                              sourceUrl
+                            }
+                          }
+                        }
                       }
                     }
-                  }
-                }
-              }
-              ... on Product {
-                id
-                title
-                slug
-                content
-                products {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        sourceUrl
+                    ... on Product {
+                      id
+                      title
+                      slug
+                      content
+                      products {
+                        map {
+                          logo {
+                            node {
+                              altText
+                              sourceUrl
+                            }
+                          }
+                        }
                       }
                     }
-                  }
-                }
-              }
                   }
                 }
                 coordinates {
@@ -197,7 +196,7 @@ query GetCountryInside {
       ourClients {
         sectionTitle
         tabTitle
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -210,7 +209,7 @@ query GetCountryInside {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -253,7 +252,7 @@ query GetCountryInside {
               sourceUrl(size: LARGE)
             }
           }
-          category {
+          category(first: 999) {
             nodes {
               contentType {
                 node {
