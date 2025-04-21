@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/media-center/InsideMediaContact.module.scss";
+import styles from "@/styles/sections/company/press-releases/InsideMediaContact.module.scss";
 
 // IMAGES //
 import mail from "@/../public/img/icons/mail.svg";

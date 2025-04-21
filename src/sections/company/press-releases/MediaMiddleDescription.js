@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/media-center/MediaMiddleDescription.module.scss";
+import styles from "@/styles/sections/company/press-releases/MediaMiddleDescription.module.scss";
 
 // IMAGES //
 import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";

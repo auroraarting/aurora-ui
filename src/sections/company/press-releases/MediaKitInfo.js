@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/media-center/MediaKitInfo.module.scss";
+import styles from "@/styles/sections/company/press-releases/MediaKitInfo.module.scss";
 
 // IMAGES //
 import Aurora_Logo from "@/../public/img/media-center/Aurora_Logo.png";
