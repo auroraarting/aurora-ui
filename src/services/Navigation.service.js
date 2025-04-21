@@ -104,8 +104,8 @@ query GetRegions {
 /** fetchNavigationData  */
 export async function fetchNavigationData() {
 	const combinedQuery = `
-  query GetAllNavigationData {
-  softwares {
+ query GetAllNavigationData {
+  softwares(first: 999) {
     nodes {
       title
       slug
@@ -121,7 +121,7 @@ export async function fetchNavigationData() {
       }
     }
   }
-  products {
+  products(first: 999) {
     nodes {
       title
       slug
@@ -137,7 +137,7 @@ export async function fetchNavigationData() {
       }
     }
   }
-  services {
+  services(first: 999) {
     nodes {
       title
       slug
@@ -154,7 +154,7 @@ export async function fetchNavigationData() {
       }
     }
   }
-  regions {
+  regions(first: 999) {
     nodes {
       name
       slug
@@ -166,13 +166,13 @@ export async function fetchNavigationData() {
       }
     }
   }
-  whoareyous {
+  whoareyous(first: 999) {
     nodes {
       title
       slug
     }
   }
-  howWeHelps {
+  howWeHelps(first: 999) {
     nodes {
       title
       slug

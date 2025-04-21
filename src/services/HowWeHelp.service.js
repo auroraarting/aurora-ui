@@ -3,13 +3,13 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Page */
 export const getSingleHowWeHelp = async (slug) => {
 	const query = `
-        query GetSingleHowWeHelp {
+query GetSingleHowWeHelp {
   howwehelpBy(slug: "${slug}") {
     title
     slug
     howWeHelpInside {
       banner {
-      title
+        title
         fieldGroupName
         description
       }
@@ -35,7 +35,7 @@ export const getSingleHowWeHelp = async (slug) => {
       ourClient {
         title
         tabTitle
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -48,15 +48,15 @@ export const getSingleHowWeHelp = async (slug) => {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
-               content
-                title
-                testimonials {
-                  designation
-                }
+              content
+              title
+              testimonials {
+                designation
+              }
               featuredImage {
                 node {
                   altText
@@ -71,7 +71,7 @@ export const getSingleHowWeHelp = async (slug) => {
         tabTitle
         title
         description
-                buttonLink
+        buttonLink
         buttonText
         advantages {
           advantagesTitle
@@ -99,90 +99,89 @@ export const getSingleHowWeHelp = async (slug) => {
 export const getHowWeHelps = async () => {
 	const query = `
 query GetAllHowWeHelps {
-  howWeHelps {
-
+  howWeHelps(first: 999) {
     nodes {
-slug
+      slug
       howWeHelpInside {
         banner {
-        title
-        fieldGroupName
-        description
-      }
-      thumbnail {
-        shortDescription
-        banner {
-          node {
-            altText
-            sourceUrl
-          }
+          title
+          fieldGroupName
+          description
         }
-        gradient {
-          from
-          to
-        }
-        logo {
-          node {
-            altText
-            sourceUrl
-          }
-        }
-      }
-      ourClient {
-        title
-        tabTitle
-        selectLogos {
-          nodes {
-            ... on ClientsLogo {
-              id
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
-              }
+        thumbnail {
+          shortDescription
+          banner {
+            node {
+              altText
+              sourceUrl
             }
           }
-        }
-        testimonials {
-          nodes {
-            ... on Testimonial {
-              id
-               content
-                title
-                testimonials {
-                  designation
-                }
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
-              }
-            }
+          gradient {
+            from
+            to
           }
-        }
-      }
-      keyAdvantages {
-        tabTitle
-        title
-        description
-                buttonLink
-        buttonText
-        advantages {
-          advantagesTitle
-          advantagesDescription
-          icon {
+          logo {
             node {
               altText
               sourceUrl
             }
           }
         }
-      }
-      availableRegions {
-        marqueeText
-      }
+        ourClient {
+          title
+          tabTitle
+          selectLogos(first: 999) {
+            nodes {
+              ... on ClientsLogo {
+                id
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+          testimonials(first: 999) {
+            nodes {
+              ... on Testimonial {
+                id
+                content
+                title
+                testimonials {
+                  designation
+                }
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+        keyAdvantages {
+          tabTitle
+          title
+          description
+          buttonLink
+          buttonText
+          advantages {
+            advantagesTitle
+            advantagesDescription
+            icon {
+              node {
+                altText
+                sourceUrl
+              }
+            }
+          }
+        }
+        availableRegions {
+          marqueeText
+        }
       }
     }
   }
