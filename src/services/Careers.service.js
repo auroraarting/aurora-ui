@@ -27,6 +27,8 @@ query MyQuery {
         title
         description
         tabTitle
+         buttonLink
+        buttonText
         accordian {
           title
           description

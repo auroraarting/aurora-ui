@@ -167,6 +167,8 @@ query GetAllHowWeHelps {
         tabTitle
         title
         description
+                buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription

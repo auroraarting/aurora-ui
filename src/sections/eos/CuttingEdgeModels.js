@@ -167,7 +167,10 @@ export default function CuttingEdgeModels({ data }) {
 										ref={sliderRef}
 									>
 										{data?.list.map((item, ind) => {
-											const related = item?.category?.nodes?.[0];
+											const relatedLogo =
+												item?.category?.nodes?.[0]?.[
+													item?.category?.nodes?.[0].contentType?.node?.name
+												]?.map?.logo?.node?.sourceUrl;
 
 											return (
 												<SwiperSlide className={`${styles.item}`} key={ind}>
@@ -181,7 +184,7 @@ export default function CuttingEdgeModels({ data }) {
 																		{item.title}
 																	</h5>
 																	<div className={`${styles.productLogo} pt_20`}>
-																		<img src={item.productLogo} className="" alt=" img" />
+																		<img src={relatedLogo} className="" alt=" img" />
 																	</div>
 																</div>
 																<p

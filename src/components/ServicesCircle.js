@@ -43,15 +43,19 @@ export default function ServicesCircle({ data }) {
 							{data?.sectionTitle || data?.title}
 						</h3>
 						<div className="text_reg color_platinum_gray">
-							<ContentFromCms>{data?.descripition || data?.desciption}</ContentFromCms>
+							<ContentFromCms>
+								{data?.descripition || data?.desciption || data?.description}
+							</ContentFromCms>
 						</div>
-						<div className="pt_40">
-							<a href={data?.buttonLink}>
-								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									{data?.buttonText}
-								</Button>
-							</a>
-						</div>
+						{data?.buttonText && (
+							<div className="pt_40">
+								<a href={data?.buttonLink}>
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+										{data?.buttonText}
+									</Button>
+								</a>
+							</div>
+						)}
 					</div>
 					<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
 						{data?.advantages?.length > 0 && (

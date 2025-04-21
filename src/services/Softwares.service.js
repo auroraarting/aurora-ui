@@ -160,6 +160,8 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
+                buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription
@@ -229,6 +231,8 @@ query GetPageSoftwares {
         title
         tabTitle
         description
+                buttonLink
+        buttonText
         advantages {
           title
           description
