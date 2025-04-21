@@ -26,6 +26,8 @@ import x from "../../public/img/icons/social/x.svg";
 import footer_linkedin from "../../public/img/icons/social/footer_linkedin.svg";
 import footer_youtube from "../../public/img/icons/social/footer_youtube.svg";
 import soundcloud from "../../public/img/icons/social/soundcloud.svg";
+import popup_close from "/public/img/icons/popup_close.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
@@ -37,6 +39,7 @@ export default function Footer() {
 	const currentYear = new Date().getFullYear();
 	const [toggleState, settoggleState] = useState(0);
 	const [data, setData] = useState();
+	const [isPopupActive, setIsPopupActive] = useState(false);
 
 	/** toggleTab */
 	const toggleTab = (index) => {
@@ -51,6 +54,16 @@ export default function Footer() {
 		const obj = await fetchNavigationData();
 		setData(obj);
 	}
+
+	/** Open closePopup on click of hamburger */
+	const closePopup = () => {
+		setIsPopupActive(false);
+	};
+
+	/** Open togglePopup on click of hamburger */
+	const togglePopup = () => {
+		setIsPopupActive((prev) => !prev);
+	};
 
 	useEffect(() => {
 		fetchData();
@@ -476,7 +489,7 @@ export default function Footer() {
 								</div>
 							</div>
 						</div>
-						<div className={`${styles.footerGlobal} m_t_30`}>
+						<div className={`${styles.footerGlobal} m_t_30`} onClick={togglePopup}>
 							<p className="font_primary color_white f_r_aj_between">
 								<span>Global Presence</span>
 								<img
@@ -515,6 +528,58 @@ export default function Footer() {
 									<img src={ting_logo.src} alt="ting logo" />
 								</a>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				className={`${styles.globalPopUp} ${isPopupActive ? styles.active : ""}`}
+				data-lenis-prevent
+			>
+				<div className="container">
+					<div className={`${styles.globalListMain}`}>
+						<button className={styles.close_btn} onClick={closePopup}>
+							<img src={popup_close.src} alt="" />
+						</button>
+						<div className={`${styles.listFlex} f_w`}>
+							{data?.regions?.map((item, ind) => {
+								return (
+									<div className={`${styles.listItem}`} key={ind}>
+										<div
+											className={`${styles.CountryHeading}`}
+											onClick={() => toggleTab(ind + 1)}
+										>
+											<h4 className="text_md f_w_m color_white font_primary">
+												{item?.name}
+											</h4>
+											<img
+												src={dropdown_arrow.src}
+												className={`${
+													toggleState === 1 ? styles.arrow_rotate : ""
+												} visible_xs`}
+												alt=""
+											/>
+										</div>
+										<div
+											className={`${styles.CountryNameBox} ${
+												toggleState === 1 ? styles.ul_section_active : ""
+											} `}
+										>
+											<ul>
+												{item?.countries?.nodes?.map((country, index) => (
+													<li key={index} className="text_xs color_platinum_gray">
+														<a href={`/global-presence/${country.slug}`}>{country?.title}</a>
+													</li>
+												))}
+												{/* <li className="text_xs color_platinum_gray">India</li>
+													<li className="text_xs color_platinum_gray">Japan</li>
+													<li className="text_xs color_platinum_gray">Korea</li>
+													<li className="text_xs color_platinum_gray">Philippines</li> */}
+											</ul>
+										</div>
+									</div>
+								);
+							})}
 						</div>
 					</div>
 				</div>

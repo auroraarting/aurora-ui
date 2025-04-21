@@ -134,26 +134,34 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 					logo={data?.banner?.logo?.node?.sourceUrl}
 				/>
 				<SectionsHeader data={headerArray} />
-				<div className="ptb_100">
-					<Redefining
-						title={data.introduction.title}
-						description={data.introduction.description}
-						image={data.introduction.image.node.sourceUrl}
-					/>
-				</div>
+				{data?.introduction?.title && (
+					<div className="ptb_100">
+						<Redefining
+							title={data?.introduction?.title}
+							description={data?.introduction?.description}
+							image={data?.introduction?.image?.node?.sourceUrl}
+						/>
+					</div>
+				)}
 				<GlobalMap locationJson={mapJson} />
-				<div className="pt_100">
-					<CaseStudy data={data.caseStudy} />
-				</div>
+				{data?.caseStudy?.title && (
+					<div className="pt_100">
+						<CaseStudy data={data?.caseStudy} />
+					</div>
+				)}
 				{/* <div className="pb_100">
 					<SoftwareMarket />
 				</div> */}
-				<div className="ptb_100">
-					<TrustedLeaders data={data?.ourClient} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.ourClient} />
-				</div>
+				{data?.ourClient?.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders data={data?.ourClient} />
+					</div>
+				)}
+				{data?.ourClient?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data?.ourClient} />
+					</div>
+				)}
 				<ServicesCircle data={data?.keyAdvantages} />
 				<div>
 					<GloballyBankableInsights
@@ -163,9 +171,11 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 				</div>
 				<IntuitiveStepProcess data={data?.fourStepProcess} />
 				<SmarterEnergy data={data?.expertise} />
-				<div className="ptb_100">
-					<TrustOurExperts />
-				</div>
+				{data?.expertSupport?.list?.length > 0 && (
+					<div className="ptb_100">
+						<TrustOurExperts data={data?.expertSupport} />
+					</div>
+				)}
 
 				<div className="pb_100">
 					<Insights
@@ -176,7 +186,7 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 					/>
 				</div>
 				<div className="pb_100">
-					<IntegratedSystem />
+					<IntegratedSystem module="products" />
 				</div>
 			</main>
 			{/* Page Content ends here */}
