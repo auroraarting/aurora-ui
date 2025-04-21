@@ -1,22 +1,8 @@
-@import "../../helpers/helpers.scss";
-.CareerCountryCard {
-	position: relative;
-	background-color: var(--color_secondary);
-	.title_wrap {
-		@media (max-width: 767px) {
-			flex-wrap: wrap;
-		}
-		.bookBtn {
-			margin-right: 110px;
-			@media (max-width: 767px) {
-				width: 100%;
-				margin-right: 0px;
-			}
-		}
-	}
+@import "../../../helpers/helpers.scss";
+.MediaListing {
 	.filterMain {
-		border-top: 1px solid var(--color_dark_gray);
-		border-bottom: 1px solid var(--color_dark_gray);
+		border-top: 1px solid var(--color_platinum_gray);
+		border-bottom: 1px solid var(--color_platinum_gray);
 		padding: 5px 0px;
 		@media screen and (max-width: 767px) {
 			padding: 10px 0px 20px;
@@ -39,34 +25,37 @@
 				}
 				.custom_select {
 					.select_header_wapper {
-						border-right: 1px solid var(--color_dark_gray);
+						border-right: 1px solid var(--color_platinum_gray);
 						padding: 0px 15px;
 						@media screen and (max-width: 1199px) {
 							padding: 0px 8px;
 						}
-
+						@media screen and (min-width: 768px) and (max-width: 991px) {
+							height: 65px;
+						}
 						@media screen and (max-width: 767px) {
 							border-right: none;
 							padding: 10px 0px;
 						}
 						.select_header {
 							position: relative;
+							// background-image: url("../../../../public/img/icons/dropdown_arrow.svg");
+							// background-repeat: no-repeat;
+							// background-position: 95% 58%;
 							padding: 10px 15px;
 							border-radius: 50px;
 							cursor: pointer;
 							transition: 0.5s all;
-							border: 1px solid var(--color_secondary);
 							@media screen and (max-width: 767px) {
-								border: 1px solid var(--color_dark_gray);
+								background-color: var(--color_white);
 							}
 							img {
 								position: absolute;
 								right: 10px;
 								top: 15px;
-								filter: invert(1);
 							}
 							&:hover {
-								background-color: var(--color_gray);
+								background-color: var(--color_white);
 								transition: 0.5s all;
 							}
 							&.active {
@@ -80,20 +69,16 @@
 						position: absolute;
 						top: 50px;
 						left: 0%;
-						background: var(--color_gray);
+						background: var(--color_white);
 						border-radius: 10px;
 						max-height: fit-content;
 						z-index: 5;
 						padding: 0px 0px;
 						list-style-type: none;
 						width: 100%;
-						color: var(--color_silver_gray);
+						color: var(--color_secondary);
 						transition: 0.5s all;
 						box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
-						border: 1px solid var(--color_dark_gray);
-						@media screen and (max-width: 767px) {
-							top: 55px;
-						}
 						li {
 							padding: 10px 20px;
 							transition: 0.5s all;
@@ -112,7 +97,6 @@
 							&:hover {
 								background-color: var(--color_primary);
 								transition: 0.5s all;
-								color: var(--color_secondary);
 							}
 						}
 						.select_option {
@@ -246,54 +230,32 @@
 					}
 				}
 
-				&.widthCustomSearch {
-					width: 50%;
-					display: flex;
-					align-items: center;
-					justify-content: flex-end;
-					@media screen and (max-width: 767px) {
-						width: 100%;
-					}
-				}
+				// &.widthCustom {
+				// 	width: 12%;
+				// }
 
 				.searchBox {
 					padding: 10px 0px 10px 30px;
 					cursor: pointer;
-					display: flex;
-					align-items: center;
-					justify-content: flex-end;
+					width: 100%;
 					@media screen and (max-width: 767px) {
+						background-color: var(--color_white);
 						border-radius: 50px;
 						padding: 10px 15px;
 						margin-top: 10px;
-						border: 1px solid var(--color_dark_gray);
-						width: 100%;
-						justify-content: space-between;
-					}
-					p {
-						margin-right: 15px;
-					}
-					span {
-						img {
-							filter: invert(1);
-						}
 					}
 				}
 			}
 			.searchInput {
 				position: absolute;
 				right: 0px;
-				top: -2px;
+				top: 0px;
 				width: 100%;
-				border: 1px solid var(--color_dark_gray);
-				background-color: var(--color_gray);
+				border: 1px solid var(--color_platinum_gray);
+				background-color: var(--color_white);
 				border-radius: 50px;
 				padding: 10px 20px;
 				transition: 0.5s all;
-				@media screen and (max-width: 767px) {
-					top: inherit;
-					bottom: 0px;
-				}
 				input {
 					width: 100%;
 					border: none;
@@ -301,10 +263,9 @@
 					line-height: 1.4;
 					font-weight: 400;
 					font-family: var(--font_primary);
-					color: var(--color_silver_gray);
-					background-color: var(--color_gray);
+					color: var(--color_dark_gray);
 					&::placeholder {
-						color: var(--color_silver_gray);
+						color: var(--color_dark_gray);
 					}
 					&:focus-visible {
 						outline: none;
@@ -312,14 +273,11 @@
 				}
 				span {
 					cursor: pointer;
-					width: 64px;
-
 					img {
 						margin-right: 10px;
-						filter: invert(1);
 					}
 					.closeBox {
-						width: 26px;
+						width: 28px;
 						height: 26px;
 						line-height: 26px;
 						border-radius: 50%;
@@ -333,106 +291,75 @@
 			}
 		}
 	}
+	.insightsItemFlex {
+		flex-wrap: wrap;
+		//border-bottom: 1px solid var(--color_platinum_gray);
+		padding-bottom: 20px;
 
-	.SliderMain {
-		position: relative;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 20px;
-		@media (max-width: 1199px) {
-			grid-template-columns: repeat(2, 1fr);
-		}
 		@media (max-width: 767px) {
-			grid-template-columns: repeat(1, 1fr);
+			margin-top: 0px;
 		}
-		.cardItem {
-			background-color: var(--color_gray);
-			padding: 20px 20px 30px;
-			border-radius: 20px;
-			max-height: 310px;
-			transition: 0.5s ease-in-out;
-			overflow: hidden;
+		.ItemBox {
+			width: 33.333%;
+			padding: 20px 20px 20px;
+			border-right: 1px solid var(--color_platinum_gray);
+			border-bottom: 1px solid var(--color_platinum_gray);
 			@media (max-width: 767px) {
-				max-height: unset;
+				width: 100%;
+				padding-top: 20px;
+				padding: 20px 0px;
+				border-bottom: 1px solid var(--color_platinum_gray);
+				border-right: none;
 			}
-			.cardImg {
-				position: relative;
-				img {
-					height: 182px;
-					width: 100%;
-					object-fit: cover;
-					object-position: center;
-					@media (max-width: 767px) {
-						height: auto;
-					}
-				}
+			&:nth-child(3) {
+				border-right: none;
+			}
+			&:nth-child(6) {
+				border-right: none;
+			}
+			.hoverBox {
+				padding: 20px 20px;
 				.categoryTxt {
-					position: absolute;
-					top: 20px;
-					left: 20px;
+					position: relative;
 					padding-left: 10px;
-					background-color: var(--color_primary);
-					border-radius: 8px;
-					padding: 10px 20px;
+					letter-spacing: 1px;
 					&::before {
 						content: " ";
 						position: absolute;
-						left: 10px;
-						top: 50%;
-						transform: translateY(-50%);
+						left: 0;
+						top: 6px;
 						width: 4px;
 						height: 4px;
-						background-color: var(--color_secondary);
+						background-color: var(--color_primary);
 						border-radius: 50%;
 					}
 				}
-			}
-			.cardDesc {
-				p {
-					img {
-						filter: invert(1);
-					}
-					span {
-						margin-left: 5px;
+				.descTxt {
+					display: -webkit-box;
+					-webkit-line-clamp: 3;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				.dateFlex {
+					align-items: center;
+					p {
+						span {
+							margin-left: 5px;
+							margin-top: 2px;
+						}
 					}
 				}
 			}
 			&:hover {
-				max-height: 370px;
-				transition: 0.5s ease-in-out;
-				@media (max-width: 767px) {
-					max-height: unset;
+				.hoverBox {
+					background-color: var(--color_white);
+					border-radius: 15px;
+					.descTxt {
+						font-weight: 600;
+						text-decoration: underline;
+					}
 				}
 			}
-		}
-	}
-	.arrowSection {
-		position: absolute;
-		right: 0px;
-		top: 20px;
-		bottom: unset;
-		z-index: 1;
-		@media (max-width: 1199px) {
-			right: 0px;
-			top: 12px;
-		}
-		@media (max-width: 767px) {
-			right: 10px;
-			bottom: -50px;
-		}
-		.customPrev,
-		.customNext {
-			background-color: unset;
-			border: none;
-			cursor: pointer;
-			img {
-				@media (max-width: 767px) {
-					width: 35px;
-				}
-			}
-		}
-		.customPrev {
-			rotate: 180deg;
 		}
 	}
 }

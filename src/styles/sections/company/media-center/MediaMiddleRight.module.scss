@@ -1,0 +1,79 @@
+@import "../../../helpers/helpers.scss";
+.MediaMiddleRight {
+	position: sticky;
+	top: 100px;
+	.whiteBox {
+		background-color: var(--color_white);
+		padding: 20px 20px 0px;
+		border-radius: 20px;
+		margin-bottom: 20px;
+		.itemBox {
+			&:last-child {
+				.ClientFlex {
+					border-bottom: none;
+				}
+			}
+			.ClientFlex {
+				border-bottom: 1px solid var(--color_platinum_gray);
+				padding-bottom: 20px;
+				margin-bottom: 20px;
+				align-items: flex-start;
+				.ClientLogo {
+					width: 25%;
+					img {
+						width: 60px;
+						height: 60px;
+						border-radius: 50%;
+					}
+				}
+				.ClientDescription {
+					width: 75%;
+					padding-left: 10px;
+					.social {
+						margin-top: 5px;
+					}
+				}
+			}
+			.tagLinks {
+				text-transform: uppercase;
+				padding: 5px 12px;
+				border-radius: 30px;
+				border: 1px solid var(--color_silver_gray);
+				margin-top: 10px;
+				margin-right: 15px;
+			}
+			.shareIcon {
+				margin-right: 10px;
+			}
+		}
+	}
+	.bgGreyBox {
+		background-color: var(--color_platinum_gray);
+
+		padding: 0px;
+		.InsideItem {
+			padding: 20px 20px 0px;
+			.itemBox {
+				&:last-child {
+					.ClientFlex {
+						border-bottom: none;
+					}
+				}
+				.ClientFlex {
+					border-bottom: 1px solid var(--color_silver_gray);
+				}
+			}
+		}
+	}
+	.DownBtn {
+		background-color: var(--color_primary);
+		padding: 10px 20px;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+		a {
+			span {
+				margin-left: 15px;
+			}
+		}
+	}
+}

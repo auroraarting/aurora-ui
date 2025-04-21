@@ -171,6 +171,28 @@ section {
 	}
 }
 
-.gmnoprint.gm-style-mtc-bbw {
-	// opacity: 0 !important;
+.CareerCountryCard {
+	.activeDropDown {
+		.select_bg {
+			background-color: var(--color_gray);
+			color: var(--color_white);
+			border: 1px solid var(--color_white) !important;
+			// @media screen and (max-width: 767px) {
+			// 	background-color: var(--color_white);
+			// 	color: var(--color_black);
+			// }
+			&:hover {
+				background-color: var(--color_secondary) !important;
+				color: var(--color_white);
+				// @media screen and (max-width: 767px) {
+				// 	background-color: var(--color_white) !important;
+				// 	color: var(--color_black);
+				// }
+			}
+			img {
+				transform: rotate(180deg);
+				filter: invert(1);
+			}
+		}
+	}
 }

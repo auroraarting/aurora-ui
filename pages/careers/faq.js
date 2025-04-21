@@ -94,7 +94,7 @@ export default function Faq() {
 			{/* Page Content ends here */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }
