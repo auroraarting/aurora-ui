@@ -17,7 +17,7 @@
 		font-size: 40px;
 	}
 	@media (max-width: 991px) {
-		font-size: 36px;
+		font-size: 32px;
 	}
 }
 .text_lg {
@@ -26,7 +26,7 @@
 	font-weight: 600;
 	font-family: var(--font_primary);
 	@media (max-width: 991px) {
-		font-size: 25px;
+		font-size: 22px;
 	}
 }
 .text_md {
@@ -35,7 +35,7 @@
 	font-weight: 400;
 	font-family: var(--font_secondary);
 	@media (max-width: 991px) {
-		font-size: 22px;
+		font-size: 20px;
 	}
 }
 .text_reg {
@@ -49,12 +49,18 @@
 	line-height: 1.4;
 	font-weight: 400;
 	font-family: var(--font_secondary);
+	@media (max-width: 991px) {
+		font-size: 14px;
+	}
 }
 .text_xs {
 	font-size: 14px;
 	line-height: 1.4;
 	font-weight: 400;
 	font-family: var(--font_secondary);
+	@media (max-width: 991px) {
+		font-size: 12px;
+	}
 }
 .text_xxs {
 	font-size: 12px;
