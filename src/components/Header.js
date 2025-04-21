@@ -744,7 +744,7 @@ export default function Header() {
 																return (
 																	<a
 																		key={ind}
-																		href={`/softwares/${item?.slug}`}
+																		href={`/products/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 																	>
 																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
