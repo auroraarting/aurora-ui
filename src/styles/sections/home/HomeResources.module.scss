@@ -95,11 +95,37 @@
 						border-bottom: 1px solid var(--color_platinum_gray);
 						padding: 20px 20px;
 						@media (max-width: 991px) {
-							padding: 15px 0px;
+							padding: 15px;
 						}
 						.categoryTxt {
 							&::before {
 								background-color: var(--color_primary);
+							}
+						}
+						@media (max-width: 767px) {
+							background-color: var(--color_secondary);
+							border-radius: 12px;
+							margin: 0 0 5px;
+							.categoryTxt{
+								position: relative;
+								color: var(--color_medium_gray);
+							}
+							.descTxt{
+								position: relative;
+								color: var(--color_white);
+							} 
+							.dateFlex{
+								position: relative;
+								p{
+								
+								color: var(--color_silver_gray);
+								}
+								img{
+								filter: invert(1);
+								}
+							}
+							.hoverBg {
+								opacity: 1;
 							}
 						}
             .hoverBg {

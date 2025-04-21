@@ -79,72 +79,74 @@ export default function Cookies() {
 								help you to decide whether you want to agree to cookies being placed and
 								to know more about what data they collect and what is done with it.
 							</p>
-							<table>
-								<tr>
-									<th>Cookie Title / Name </th>
-									<th>Purpose</th>
-									<th>More information</th>
-								</tr>
-								<tr>
-									<td>
-										eos-sid <br />
-										JSESSIONID
-									</td>
-									<td>
-										Keeps track of individual users in the EOS platform, so they can
-										remain logged in, and so that they are shown the right information for
-										the services they subscribe to.
-									</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td>
-										_ga <br />
-										_gid
-										<br />
-										_gat
-									</td>
-									<td>
-										Google Analytics to support usage analytics of the website and the EOS
-										platform, so we can monitor things like number of visitors, most
-										visited pages, etc.
-									</td>
-									<td>
-										Read more from Google{" "}
-										<a href="https://developers.google.com/analytics/legacy/universal-analytics">
-											here.
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>geo</td>
-									<td>
-										Functional cookie for Apple Podcasts used for identifying the
-										geographical location by country of the user
-									</td>
-									<td>
-										Read{" "}
-										<a href="https://www.apple.com/ca/legal/privacy/en-ww/cookies/">
-											Cookie Policy
-										</a>{" "}
-										from Apple.
-									</td>
-								</tr>
-								<tr>
-									<td>gscs</td>
-									<td>
-										Registers data on visitor’s website behaviour. This is used for
-										internal analysis and website optimization. Provided by MSLETB via
-										Getsitecontrol.com
-									</td>
-									<td>
-										<a href="https://getsitecontrol.com/">https://getsitecontrol.com.</a>{" "}
-										Read the{" "}
-										<a href="https://getsitecontrol.com/privacy/">Privacy Policy</a> from
-										Getsitecontrol.com.
-									</td>
-								</tr>
-							</table>
+							<div className={`${styles.tableBox} `}>
+								<table>
+									<tr>
+										<th>Cookie Title / Name </th>
+										<th>Purpose</th>
+										<th>More information</th>
+									</tr>
+									<tr>
+										<td>
+											eos-sid <br />
+											JSESSIONID
+										</td>
+										<td>
+											Keeps track of individual users in the EOS platform, so they can
+											remain logged in, and so that they are shown the right information
+											for the services they subscribe to.
+										</td>
+										<td>-</td>
+									</tr>
+									<tr>
+										<td>
+											_ga <br />
+											_gid
+											<br />
+											_gat
+										</td>
+										<td>
+											Google Analytics to support usage analytics of the website and the
+											EOS platform, so we can monitor things like number of visitors, most
+											visited pages, etc.
+										</td>
+										<td>
+											Read more from Google{" "}
+											<a href="https://developers.google.com/analytics/legacy/universal-analytics">
+												here.
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td>geo</td>
+										<td>
+											Functional cookie for Apple Podcasts used for identifying the
+											geographical location by country of the user
+										</td>
+										<td>
+											Read{" "}
+											<a href="https://www.apple.com/ca/legal/privacy/en-ww/cookies/">
+												Cookie Policy
+											</a>{" "}
+											from Apple.
+										</td>
+									</tr>
+									<tr>
+										<td>gscs</td>
+										<td>
+											Registers data on visitor’s website behaviour. This is used for
+											internal analysis and website optimization. Provided by MSLETB via
+											Getsitecontrol.com
+										</td>
+										<td>
+											<a href="https://getsitecontrol.com/">https://getsitecontrol.com.</a>{" "}
+											Read the{" "}
+											<a href="https://getsitecontrol.com/privacy/">Privacy Policy</a> from
+											Getsitecontrol.com.
+										</td>
+									</tr>
+								</table>
+							</div>
 							<h2>3. Third party cookie usage</h2>
 							<p>
 								Please note that the following third parties may also use cookies, over

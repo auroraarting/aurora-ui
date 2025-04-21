@@ -10,6 +10,8 @@ import TestimonialFeedback from "@/components/TestimonialFeedback";
 
 // SECTIONS //
 import HomeBanner from "@/sections/home/HomeBanner";
+import HomeOurOfferings from "@/sections/home/HomeOurOfferings";
+import HomeWhoWeAre from "@/sections/home/HomeWhoWeAre";
 import HomeResources from "@/sections/home/HomeResources";
 import HomeEvents from "@/sections/home/HomeEvents";
 import HomeTalentMeets from "@/sections/home/HomeTalentMeets";
@@ -57,6 +59,7 @@ export default function HomePage({ mapJson, data, countries }) {
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>
 				<HomeBanner />
+				<HomeOurOfferings />
 				{data?.ourClient?.selectLogos && (
 					<div className="ptb_100">
 						<TrustedLeaders data={data.ourClient} />
@@ -75,6 +78,7 @@ export default function HomePage({ mapJson, data, countries }) {
 						/>
 					</div>
 				)}
+				<HomeWhoWeAre />
 				<div className="ptb_100">
 					<HomeResources />
 				</div>
