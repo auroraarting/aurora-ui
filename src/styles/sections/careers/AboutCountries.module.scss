@@ -1,0 +1,70 @@
+@import "../../helpers/helpers.scss";
+.aboutCountries {
+	.SliderMain {
+		position: relative;
+		padding-left: calc(var(--container_left_space) + 15px);
+
+		.cardItem {
+			background-color: var(--color_white);
+			border-radius: 20px;
+			@media (max-width: 991px) {
+				flex-wrap: wrap;
+				flex-direction: column-reverse;
+			}
+			.cardDesc {
+				width: 50%;
+				padding: 40px 40px;
+				@media (max-width: 1199px) {
+					padding: 40px 20px;
+				}
+				@media (max-width: 991px) {
+					width: 100%;
+					padding: 20px 20px;
+				}
+				h4 {
+					margin-bottom: 15px;
+					padding-bottom: 15px;
+					border-bottom: 1px solid #919191;
+					span {
+						margin-left: 20px;
+					}
+				}
+			}
+			.cardImg {
+				position: relative;
+				width: 50%;
+				@media (max-width: 991px) {
+					width: 100%;
+				}
+				img {
+					height: 380px;
+					width: 100%;
+					object-fit: cover;
+					object-position: center;
+					border-top-right-radius: 20px;
+					border-bottom-right-radius: 20px;
+					@media (max-width: 1199px) {
+						height: 400px;
+					}
+					@media (max-width: 991px) {
+						border-top-left-radius: 20px;
+						border-bottom-right-radius: 0px;
+						height: auto;
+					}
+				}
+			}
+		}
+		.points {
+			ul {
+				margin: 0;
+				padding: 0 0 0 16px;
+				li {
+					// padding-bottom: 5px;
+					&::marker {
+						font-size: 20px;
+					}
+				}
+			}
+		}
+	}
+}

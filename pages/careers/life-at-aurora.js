@@ -11,6 +11,7 @@ import SectionsHeader from "@/components/SectionsHeader";
 import SmarterEnergy from "@/components/SmarterEnergy";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import GlobalMap from "@/components/GlobalMap";
+import Insights from "@/components/Insights";
 
 // SECTIONS //
 import TeamAurora from "@/sections/careers/TeamAurora";
@@ -165,6 +166,11 @@ export default function LifeAtAurora({ data }) {
 
 				<div className="pt_100">
 					<ConnectWithUs />
+				</div>
+				<div className={`${styles.containerCustom} pb_100`}>
+					<div className="container">
+						<Insights isPowerBgVisible={true} />
+					</div>
 				</div>
 				<div className="pb_100">
 					<IntegratedSystem />

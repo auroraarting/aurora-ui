@@ -1,0 +1,23 @@
+@import "../../helpers/helpers.scss";
+.workingTeams {
+	.workingTeamsHead {
+		align-items: flex-end;
+		.workingTeamsHeadItem {
+			&:first-child {
+				width: 60%;
+				@media screen and (max-width: 992px) {
+					width: 100%;
+					margin-bottom: 20px;
+				}
+			}
+		}
+	}
+	.workingTeamsGrid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 50px 50px;
+		@media screen and (max-width: 992px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
+}
