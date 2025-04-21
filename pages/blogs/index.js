@@ -49,7 +49,7 @@ export default function Blogs({ blogsData }) {
 				Url={"/blogs"}
 			/>
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content Starts */}
 			<main className={`${styles.blogs_page}`}>

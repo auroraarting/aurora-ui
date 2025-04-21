@@ -1,0 +1,62 @@
+@import "../../../helpers/helpers.scss";
+.TopMedia {
+	.card {
+		padding: 40px 40px;
+		background-color: var(--color_secondary);
+		border-radius: 20px;
+		@media (max-width: 1199px) {
+			padding: 25px 25px;
+		}
+		@media (max-width: 767px) {
+			padding: 15px 15px;
+			flex-direction: column-reverse;
+			border-radius: 15px;
+		}
+		.content {
+			width: 45%;
+			// @media (max-width: 1199px) {
+			// 	width: 54%;
+			// }
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-top: 30px;
+			}
+			.categoryTxt {
+				position: relative;
+				padding-left: 10px;
+				letter-spacing: 1px;
+				&::before {
+					content: " ";
+					position: absolute;
+					left: 0;
+					top: 6px;
+					width: 4px;
+					height: 4px;
+					background-color: var(--color_primary);
+					border-radius: 50%;
+				}
+			}
+			.dateFlex {
+				align-items: center;
+				p {
+					margin-right: 40px;
+					img {
+					}
+					span {
+						margin-left: 5px;
+						margin-top: 2px;
+					}
+				}
+			}
+		}
+		.imageWrapper {
+			width: 50%;
+			@media (max-width: 1199px) {
+				width: 54%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+		}
+	}
+}

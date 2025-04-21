@@ -34,7 +34,7 @@ export default function JoinUs() {
 			<MetaTags Title={"Join Us"} Desc={""} OgImg={""} Url={"/careers/join-us"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.JoinUs}>
@@ -59,7 +59,7 @@ export default function JoinUs() {
 			{/* Page Content ends here */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

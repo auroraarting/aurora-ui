@@ -111,7 +111,7 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.SoftwarePage}>

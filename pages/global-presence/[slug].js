@@ -121,7 +121,7 @@ export default function Australia({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.AustraliaPage}>

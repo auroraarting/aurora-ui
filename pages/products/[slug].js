@@ -100,7 +100,7 @@ export default function ProductInside({ data, mapJson }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.ProductInsidePage}>

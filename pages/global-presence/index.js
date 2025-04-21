@@ -111,7 +111,7 @@ export default function GlobalPresence({ regions, page, mapJson }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			{data && (

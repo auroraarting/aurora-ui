@@ -271,6 +271,7 @@ export default function Map({
 	defaultZoom = 4,
 	locationJson,
 }) {
+	const [show, setShow] = useState(false);
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
 
 	const center = mapCenter;
@@ -335,6 +336,14 @@ export default function Map({
 			map.addListener("bounds_changed", () => updateVisibleLocations(map));
 		}
 	}, [map]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setShow(true);
+		}, 1000);
+	}, []);
+
+	if (!show) return <></>;
 
 	return (
 		<LoadScript

@@ -1,0 +1,53 @@
+@import "../../helpers/helpers.scss";
+.CareerSeries {
+	background-color: var(--color_secondary);
+	.card {
+		@media (max-width: 991px) {
+			align-items: flex-start;
+		}
+		@media (max-width: 767px) {
+			flex-wrap: wrap;
+			flex-direction: column-reverse;
+		}
+		.content {
+			width: 45%;
+			@media (max-width: 1199px) {
+				width: 48%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-top: 30px;
+			}
+			.categoryTxt {
+				position: relative;
+				padding-left: 10px;
+				letter-spacing: 1px;
+				&::before {
+					content: " ";
+					position: absolute;
+					left: 0;
+					top: 5px;
+					width: 4px;
+					height: 4px;
+					background-color: var(--color_primary);
+					border-radius: 50%;
+				}
+			}
+		}
+		.imageWrapper {
+			position: relative;
+			width: 50%;
+			@media (max-width: 1199px) {
+				width: 48%;
+			}
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+			.playIcon {
+				position: absolute;
+				bottom: 20px;
+				right: 20px;
+			}
+		}
+	}
+}

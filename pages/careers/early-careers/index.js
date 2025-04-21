@@ -10,9 +10,13 @@ import InnerBanner from "@/components/InnerBanner";
 import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import SectionsHeader from "@/components/SectionsHeader";
+import SmarterEnergy from "@/components/SmarterEnergy";
 
 // SECTIONS //
 import CareerCountryCard from "@/sections/careers/CareerCountryCard";
+import CareerSeries from "@/sections/careers/CareerSeries";
+import TeamAurora from "@/sections/careers/TeamAurora";
+import ConnectWithUs from "@/sections/careers/ConnectWithUs";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -28,9 +32,20 @@ import desktop_banner from "@/../public/img/careers/early_careers/desktop_banner
 // DATA //
 
 // SERVICES //
+import { getLifeAtAurora } from "@/services/Careers.service";
+
+/** Fetch  */
+export async function getServerSideProps() {
+	const [data] = await Promise.all([getLifeAtAurora()]);
+	let obj = {
+		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+	};
+	delete obj.data.lifeAtAurora;
+	return { props: { ...obj } };
+}
 
 /** EarlyCareers Page */
-export default function EarlyCareers() {
+export default function EarlyCareers({ data }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -71,7 +86,7 @@ export default function EarlyCareers() {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.EarlyCareers}>
@@ -87,11 +102,23 @@ export default function EarlyCareers() {
 				<div className="pt_60">
 					<CareerCountryCard />
 				</div>
+				<div>
+					<SmarterEnergy data={data.keyAdvantages} />
+				</div>
+				<div>
+					<CareerSeries />
+				</div>
+				<div className="pt_80">
+					<TeamAurora />
+				</div>
+				<div className="">
+					<ConnectWithUs />
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
-
-			{/* Footer */}
-			<Footer />
 		</div>
 	);
 }

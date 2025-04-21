@@ -34,7 +34,7 @@ export default function ContactPage() {
 			<MetaTags Title={"Contact"} Desc={""} OgImg={""} Url={"/contact"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.ContactPage}>
