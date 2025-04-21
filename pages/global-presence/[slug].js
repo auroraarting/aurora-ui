@@ -80,7 +80,6 @@ export async function getServerSideProps({ params, query }) {
 
 /** Australia Page */
 export default function Australia({ data, mapJson }) {
-	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
