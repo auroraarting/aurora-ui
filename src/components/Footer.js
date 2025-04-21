@@ -262,8 +262,8 @@ export default function Footer() {
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
 												<p>
-													<a href="/careers/flexible-energy">
-														<p className="">Flexible Energy</p>
+													<a href="/careers/early-careers">
+														<p className="">Early Careers</p>
 													</a>
 													<img
 														src={black_right.src}
@@ -272,8 +272,8 @@ export default function Footer() {
 													/>
 												</p>
 												<p>
-													<a href="/careers/power-renewable">
-														<p className="">Power & Renewable</p>
+													<a href="/careers/faq">
+														<p className="">Faq</p>
 													</a>
 													<img
 														src={black_right.src}
@@ -282,8 +282,28 @@ export default function Footer() {
 													/>
 												</p>
 												<p>
-													<a href="/careers/hydrogen">
-														<p className="">Hydrogen</p>
+													<a href="/careers/join-us">
+														<p className="">Join Us</p>
+													</a>
+													<img
+														src={black_right.src}
+														className={`${styles.black_right}`}
+														alt="down"
+													/>
+												</p>
+												<p>
+													<a href="/careers/life-at-aurora">
+														<p className="">Life at Aurora</p>
+													</a>
+													<img
+														src={black_right.src}
+														className={`${styles.black_right}`}
+														alt="down"
+													/>
+												</p>
+												<p>
+													<a href="/careers/our-team">
+														<p className="">Our Team</p>
 													</a>
 													<img
 														src={black_right.src}
@@ -441,7 +461,7 @@ export default function Footer() {
 
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<a href="/company/press">Press</a>
+											<a href="/company/press-releases">Press</a>
 										</li>
 										<li>
 											<a href="/events">Events</a>

@@ -232,7 +232,7 @@ export default function Header() {
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/company/press"
+														href="/company/press-releases"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
