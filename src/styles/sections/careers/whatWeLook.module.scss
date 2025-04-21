@@ -1,0 +1,32 @@
+@import "../../helpers/helpers.scss";
+.whatWeLook {
+	background-image: url("../../../../public/img/softwares/energy_bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom center;
+	.whatWeLookItem {
+		width: 48%;
+		@media screen and (max-width: 992px) {
+			width: 100%;
+		}
+		&:first-child {
+			margin-bottom: 20px;
+		}
+		.list_wrap {
+			ul {
+				padding: 0 0 0 16px;
+				li {
+					position: relative;
+					padding-left: 10px;
+					font-size: 20px;
+					&::marker {
+						content: url("../../../../public/img/icons/checkIcn.svg");
+					}
+					@media screen and (max-width: 992px) {
+						font-size: 18px;
+					}
+				}
+			}
+		}
+	}
+}

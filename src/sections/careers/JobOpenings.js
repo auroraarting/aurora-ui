@@ -23,8 +23,8 @@ export default function JobOpenings() {
 		offeringsType: useRef(null),
 	};
 	const [dropdowns, setDropdowns] = useState({
-		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
-		offeringsType: { isOpen: false, selected: { title: "Advisory" } },
+		eventNameType: { isOpen: false, selected: { title: "Country" } },
+		offeringsType: { isOpen: false, selected: { title: "Department" } },
 	});
 	const optionsData = {
 		eventNameType: [
@@ -144,9 +144,7 @@ export default function JobOpenings() {
 									</div>
 								</div>
 								<div>
-									<Button color="primary" variant="filled" shape="rounded">
-										Read More
-									</Button>
+									<input type="text" placeholder="Serach" />
 								</div>
 							</div>
 						</div>
