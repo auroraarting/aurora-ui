@@ -218,7 +218,7 @@ export default function Header() {
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<a
-														href="/about"
+														href="/company/about"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>About Us</span>{" "}
@@ -232,10 +232,16 @@ export default function Header() {
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/press"
+														href="/company/press"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
+													</a>
+													<a
+														href="/company/team"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+													>
+														<span>Team</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
 														href="/contact"
@@ -805,35 +811,29 @@ export default function Header() {
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
-														Who We Are
+														Latest from Aurora
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<a
-														href="/about"
+														href="/resources/aurora-insights"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>About Us</span>{" "}
+														<span>Aurora Insights</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/global-presence"
+														href="/resources/energy-talks"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>Global Presence</span>{" "}
+														<span>Energy Talks</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/press"
+														href="/resources/webinar"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/contact"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Contact Us</span>{" "}
+														<span>Webinars</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 												</div>
@@ -917,13 +917,13 @@ export default function Header() {
 								</div>
 
 								<div className={styles.links}>
-									<Link href="">
+									<a href="/events">
 										<div
 											className={`${styles.link_title} text_xs font_primary color_dark_gray`}
 										>
 											Events
 										</div>
-									</Link>
+									</a>
 								</div>
 
 								<div
@@ -945,36 +945,43 @@ export default function Header() {
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
-														Who We Are
+														Work with us
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<a
-														href="/about"
+														href="/careers/join-us"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>About Us</span>{" "}
+														<span>Join Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/global-presence"
+														href="/careers/early-careers"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>Global Presence</span>{" "}
+														<span>Early Careers</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/press"
+														href="/careers/our-team"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
+														<span>Our Teams</span>{" "}
+														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/contact"
+														href="/careers/life-at-aurora"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
-														<span>Contact Us</span>{" "}
+														<span>Life at Aurora</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
+													</a>
+													<a
+														href="/careers/faq"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+													>
+														<span>Faq</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>

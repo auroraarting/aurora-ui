@@ -105,7 +105,7 @@ export default function Softwares({
 			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/softwares"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.SoftwareLanding}>

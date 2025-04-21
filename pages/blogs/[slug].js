@@ -51,7 +51,7 @@ export default function BlogsInside({ blogsInsideData }) {
 				Url={`/blogs/${blogsInsideData.slug}`}
 			/>
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content Starts */}
 			<main className={`${styles.blogs_inside_page} no_banner_page`}></main>

@@ -107,7 +107,7 @@ export default function Footer() {
 								<div className={`${styles.footerMenuInnerFlex}`}>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="/about">About Us</Link>
+											<Link href="/company/about">About Us</Link>
 										</li>
 										<li
 											className={`${styles.sub_menu_box} ${
@@ -441,7 +441,7 @@ export default function Footer() {
 
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<a href="/press">Press</a>
+											<a href="/company/press">Press</a>
 										</li>
 										<li>
 											<a href="/events">Events</a>

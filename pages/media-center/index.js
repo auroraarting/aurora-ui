@@ -48,7 +48,7 @@ export default function MediaCenter() {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.MediaCenterPage}>
