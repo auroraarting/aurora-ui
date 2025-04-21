@@ -413,7 +413,7 @@ export default function Map({
 												} text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker.hoverImg && <img src={marker.hoverImg} />}
+												{marker?.hoverImg && <img src={marker.hoverImg} />}
 												{marker?.name || marker?.category?.nodes?.[0]?.title}
 											</div>
 										</a>

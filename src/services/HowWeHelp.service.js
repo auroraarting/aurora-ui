@@ -71,6 +71,8 @@ export const getSingleHowWeHelp = async (slug) => {
         tabTitle
         title
         description
+                buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription
@@ -165,6 +167,8 @@ slug
         tabTitle
         title
         description
+                buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription
