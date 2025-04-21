@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -28,10 +29,42 @@ import origin_logo from "../../public/img/softwares/origin_logo.png";
 import lumus_logo from "../../public/img/softwares/lumus_logo.png";
 import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 
+// SERVICES //
+import { getProducts, getSoftwares } from "@/services/Navigation.service";
+
 // DATA //
+const placeholders = [system_one.src, turbine_img.src, solar_img.src];
 
 /** IntegratedSystem Section */
-export default function IntegratedSystem() {
+export default function IntegratedSystem({ module = "softwares" }) {
+	const [data, setData] = useState();
+
+	/** fetchdata  */
+	const fetchdata = async () => {
+		let count = -1;
+		let res;
+		if (module === "softwares") {
+			res = await getSoftwares();
+		} else {
+			res = await getProducts();
+		}
+		let arr = res?.data?.[module]?.nodes?.map((item) => {
+			if (count > 2) {
+				count = 0;
+			} else {
+				count = count + 1;
+			}
+			return { ...item, placeholder: placeholders[count] };
+		});
+		setData(arr);
+	};
+
+	useEffect(() => {
+		fetchdata();
+	}, []);
+
+	console.log(data, "data");
+
 	return (
 		<section className={`${styles.IntegratedSystem}`}>
 			<div className="container">
@@ -81,7 +114,43 @@ export default function IntegratedSystem() {
 								}}
 								className={styles.slider}
 							>
-								<SwiperSlide>
+								{data?.map((item, ind) => {
+									return (
+										<SwiperSlide key={ind}>
+											<div className={`${styles.itemBox}`}>
+												<div className={`${styles.itemBoxWrap}`}>
+													<img
+														src={item?.placeholder || system_one.src}
+														className={`${styles.imgOne} `}
+														alt="img"
+													/>
+												</div>
+												<div className={`${styles.itemBoxWrap}`}>
+													<div className={`${styles.boxWrap}`}>
+														<img
+															src={
+																item?.[module]?.map?.logo?.node?.sourceUrl || origin_logo.src
+															}
+															className={`${styles.centerLogo}`}
+															alt="img"
+														/>
+														<p className="color_white text_xxs f_w_b">{item?.title}</p>
+													</div>
+													<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
+														<a
+															href={`/${module}/${item?.slug}`}
+															className="text_xs text_uppercase f_w_m"
+														>
+															Know More
+															<img src={hover_arrow.src} className="" alt="img" />
+														</a>
+													</div>
+												</div>
+											</div>
+										</SwiperSlide>
+									);
+								})}
+								{/* <SwiperSlide>
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap}`}>
 											<img
@@ -168,7 +237,7 @@ export default function IntegratedSystem() {
 											</div>
 										</div>
 									</div>
-								</SwiperSlide>
+								</SwiperSlide> */}
 							</Swiper>
 						</div>
 					</div>

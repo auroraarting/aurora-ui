@@ -112,15 +112,19 @@ export default function Transactions({ data, services, mapJson }) {
 				<div>
 					<GloballyBankableInsights isMultiple={true} />
 				</div>
-				<div className="ptb_100">
-					<TrustedLeaders
-						data={data?.howWeHelpInside?.ourClient}
-						sectionTitle={data?.howWeHelpInside?.ourClient?.title}
-					/>
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.howWeHelpInside?.ourClient} />
-				</div>
+				{data?.howWeHelpInside?.ourClient?.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders
+							data={data?.howWeHelpInside?.ourClient}
+							sectionTitle={data?.howWeHelpInside?.ourClient?.title}
+						/>
+					</div>
+				)}
+				{data?.howWeHelpInside?.ourClient?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data?.howWeHelpInside?.ourClient} />
+					</div>
+				)}
 				<div>
 					<ServicesCircle data={data?.howWeHelpInside?.keyAdvantages} />
 				</div>

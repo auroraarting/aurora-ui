@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSoftwares = async () => {
 	const query = `
 query GetSoftwares {
-  softwares {
+  softwares(first: 999) {
     nodes {
       title
       slug

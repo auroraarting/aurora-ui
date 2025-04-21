@@ -115,20 +115,25 @@ query GetProductBySlug {
           }
         }
       }
-      customerSuccess {
-        sectionTitle
-        tabTitle
-        customerSuccessRow {
-          description
-          title
-          icon {
+                expertSupport {
+          sectionTitle
+          image {
             node {
               altText
               sourceUrl
             }
           }
+          list {
+            title
+            description
+            logo {
+              node {
+                altText
+                sourceUrl
+              }
+            }
+          }
         }
-      }
       expertise {
         description
         tabTitle

@@ -137,12 +137,16 @@ export default function Advisory({ data, services, mapJson, regions }) {
 					<GloballyBankableInsights isMultiple={true} />
 				</div>
 
-				<div className="ptb_100">
-					<TrustedLeaders data={data?.whoAreYous?.ourClient} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.whoAreYous?.ourClient} />
-				</div>
+				{data?.services?.ourClient?.selectLogos && (
+					<div className="ptb_100">
+						<TrustedLeaders data={data?.whoAreYous?.ourClient} />
+					</div>
+				)}
+				{data?.services?.ourClient?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback data={data?.whoAreYous?.ourClient} />
+					</div>
+				)}
 				<div className="ptb_100 dark_bg">
 					<EosIntegratedSystem />
 				</div>

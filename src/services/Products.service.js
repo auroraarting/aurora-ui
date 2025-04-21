@@ -118,7 +118,7 @@ query GetProductBySlug {
         shortDescription
       }
       ourClient {
-        selectLogos(first: 999) {
+        selectLogos {
           nodes {
             ... on ClientsLogo {
               id
@@ -131,7 +131,7 @@ query GetProductBySlug {
             }
           }
         }
-        testimonials(first: 999) {
+        testimonials {
           nodes {
             ... on Testimonial {
               id
@@ -149,12 +149,12 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
-        logo {
-          node {
+      logo{
+      node {
             altText
             sourceUrl
           }
-        }
+      }
         buttonText
         buttonLink
         description
@@ -176,7 +176,7 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
-        selectCaseStudies(first: 999) {
+                selectCaseStudies {
           nodes {
             ... on CaseStudy {
               id
@@ -184,7 +184,7 @@ query GetProductBySlug {
               title
               slug
               caseStudies {
-                selectLocation(first: 999) {
+                selectLocation {
                   nodes {
                     ... on Country {
                       id
@@ -205,13 +205,18 @@ query GetProductBySlug {
           }
         }
       }
-      customerSuccess {
+      expertSupport {
         sectionTitle
-        tabTitle
-        customerSuccessRow {
+        image {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        list {
           description
           title
-          icon {
+          logo {
             node {
               altText
               sourceUrl
@@ -250,7 +255,7 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
-        buttonLink
+                buttonLink
         buttonText
         advantages {
           advantagesTitle
@@ -267,16 +272,16 @@ query GetProductBySlug {
         marquee
       }
       whyAurora {
-        title
+         title
         description
         startText
         endText
         endPoint
-        list {
-          title
-          description
-          caption
-          value
+        list{
+             title
+             description
+             caption
+             value
         }
       }
       fourStepProcess {

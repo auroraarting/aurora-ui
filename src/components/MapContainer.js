@@ -363,8 +363,6 @@ export default function Map({
 		}, 1000);
 	}, []);
 
-	if (!show) return <></>;
-
 	return (
 		<LoadScript
 			googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
