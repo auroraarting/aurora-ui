@@ -42,11 +42,6 @@ export default function CareerCountryCard() {
 		setIsSearchVisible(false);
 	};
 
-	/** radio Input */
-	const handleChange = (option) => {
-		setSelected(option); // Only one selected option at a time
-	};
-
 	const [dropdowns, setDropdowns] = useState({
 		countryType: { isOpen: false, selected: { title: "India" } },
 		programsType: { isOpen: false, selected: { title: "Program" } },

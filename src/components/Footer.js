@@ -75,28 +75,28 @@ export default function Footer() {
 								<div className={`${styles.social_media} pt_40`}>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="">
+											<Link href="https://x.com/i/flow/login?redirect_after_login=%2Fauroraer_oxford">
 												<a target="_blank" rel="noreferrer">
 													<img src={x.src} alt="x" />
 												</a>
 											</Link>
 										</li>
 										<li>
-											<Link href="">
+											<Link href="https://www.linkedin.com/company/aurora-energy-research-limited">
 												<a target="_blank" rel="noreferrer">
 													<img src={footer_linkedin.src} alt="linkedin" />
 												</a>
 											</Link>
 										</li>
 										<li>
-											<Link href="">
+											<Link href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ">
 												<a target="_blank" rel="noreferrer">
 													<img src={footer_youtube.src} alt="youtube" />
 												</a>
 											</Link>
 										</li>
 										<li>
-											<Link href="">
+											<Link href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ">
 												<a target="_blank" rel="noreferrer">
 													<img src={soundcloud.src} alt="soundcloud" />
 												</a>
@@ -477,13 +477,13 @@ export default function Footer() {
 							<div className={`${styles.footerBtmItem}`}>
 								<ul>
 									<li className="color_silver_gray">
-										<a href="/terms-and-conditions">Terms</a>
+										<a href="/legal/terms">Terms</a>
 									</li>
 									<li className="color_silver_gray">
-										<a href="/cookies">Cookies</a>
+										<a href="/legal/cookies">Cookies</a>
 									</li>
 									<li className="color_silver_gray">
-										<a href="policies-and-compliance">Policies and Compliance</a>
+										<a href="/policies-and-compliance">Policies and Compliance</a>
 									</li>
 								</ul>
 							</div>
