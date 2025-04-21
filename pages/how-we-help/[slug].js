@@ -88,10 +88,10 @@ export default function Transactions({ data, services, mapJson }) {
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={data.title}
+				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/how-we-help/${data.slug}`}
+				Url={`/how-we-help/${data?.slug}`}
 			/>
 
 			{/* Header */}
@@ -99,7 +99,7 @@ export default function Transactions({ data, services, mapJson }) {
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
-				<TransactionsBanner data={data.howWeHelpInside.banner} />
+				<TransactionsBanner data={data?.howWeHelpInside?.banner} />
 				<SectionsHeader
 					customHtml={
 						<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
@@ -114,15 +114,15 @@ export default function Transactions({ data, services, mapJson }) {
 				</div>
 				<div className="ptb_100">
 					<TrustedLeaders
-						data={data.howWeHelpInside.ourClient}
+						data={data?.howWeHelpInside?.ourClient}
 						sectionTitle={data?.howWeHelpInside?.ourClient?.title}
 					/>
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.howWeHelpInside.ourClient} />
+					<TestimonialFeedback data={data?.howWeHelpInside?.ourClient} />
 				</div>
 				<div>
-					<ServicesCircle data={data.howWeHelpInside.keyAdvantages} />
+					<ServicesCircle data={data?.howWeHelpInside?.keyAdvantages} />
 				</div>
 				<div>
 					<GlobalMap

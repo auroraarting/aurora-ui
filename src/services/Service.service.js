@@ -160,6 +160,8 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
+                buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription

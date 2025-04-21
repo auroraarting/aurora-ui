@@ -49,6 +49,8 @@ query EOSPage {
       keyAdvantages {
         description
         title
+        buttonLink
+        buttonText
         advantages {
           advantagesDescription
           advantagesTitle
@@ -99,13 +101,24 @@ query EOSPage {
           description
           category {
             nodes {
-              ... on Service {
+               contentType {
+                      node {
+                        name
+                      }
+                    }
+  ... on Service {
                 id
-                title
                 slug
-                contentType {
-                  node {
-                    name
+                title
+                content
+                services {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }
@@ -113,9 +126,15 @@ query EOSPage {
                 id
                 title
                 slug
-                contentType {
-                  node {
-                    name
+                content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }
@@ -123,9 +142,15 @@ query EOSPage {
                 id
                 title
                 slug
-                contentType {
-                  node {
-                    name
+                content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }

@@ -56,8 +56,6 @@ export default function Footer() {
 		fetchData();
 	}, []);
 
-	console.log("data", data);
-
 	return (
 		<footer className={`${styles.main_footer}`}>
 			<div className={`${styles.bg_footer}`}>
