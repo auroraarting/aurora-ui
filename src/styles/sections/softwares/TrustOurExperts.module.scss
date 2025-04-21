@@ -1,17 +1,44 @@
 @import "../../helpers/helpers.scss";
 .TrustOurExperts {
-	.trustOurBox {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-gap: 50px;
+	.wrap {
+		display: flex;
+		gap: 100px;
 
-		@media (max-width: 991px) {
-			grid-template-columns: repeat(3, 1fr);
+		.trustOurBox {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr);
+			grid-gap: 0px;
+			width: 50%;
+
+			@include lg-down {
+				width: 100%;
+			}
+
+			.trustOurItemOne {
+				padding-top: 20px;
+				padding-bottom: 20px;
+				border-bottom: 1px solid #e5e5e5;
+				display: flex;
+				gap: 20px;
+
+				&:first-child {
+					padding-top: 0;
+				}
+			}
 		}
-		@media (max-width: 767px) {
-			grid-template-columns: repeat(2, 1fr);
+		.placeholderImg {
+			width: 50%;
+			@include lg-down {
+				width: 100%;
+			}
+			img {
+				width: 100%;
+			}
 		}
-		.trustItemOne {
+
+		@include lg-down {
+			flex-direction: column-reverse;
+			gap: 20px;
 		}
 	}
 }
