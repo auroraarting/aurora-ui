@@ -37,17 +37,17 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 // DATA //
 
 // SERVICES //
-import { getLifeAtAurora } from "@/services/Careers.service";
+// import { getLifeAtAurora } from "@/services/Careers.service";
 
 /** Fetch  */
-export async function getServerSideProps() {
-	const [data] = await Promise.all([getLifeAtAurora()]);
-	let obj = {
-		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
-	};
-	delete obj.data.lifeAtAurora;
-	return { props: { ...obj } };
-}
+// export async function getServerSideProps() {
+// 	const [data] = await Promise.all([getLifeAtAurora()]);
+// 	let obj = {
+// 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+// 	};
+// 	delete obj.data.lifeAtAurora;
+// 	return { props: { ...obj } };
+// }
 
 /** EarlyCareers Page */
 export default function EarlyCareers({ data }) {
@@ -132,7 +132,7 @@ export default function EarlyCareers({ data }) {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.EarlyCareers}>
@@ -155,7 +155,7 @@ export default function EarlyCareers({ data }) {
 					<AboutCountries />
 				</div>
 				<div className="SmarterEnergy">
-					<SmarterEnergy data={data?.keyAdvantages} />
+					<SmarterEnergy />
 				</div>
 				<div>
 					<CareerSeries />
