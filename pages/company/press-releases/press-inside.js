@@ -11,11 +11,11 @@ import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
-import InsideTopSection from "@/sections/company/media-center/InsideTopSection";
-import MediaMiddleDescription from "@/sections/company/media-center/MediaMiddleDescription";
-import InsideMediaContact from "@/sections/company/media-center/InsideMediaContact";
-import MediaAbout from "@/sections/company/media-center/MediaAbout";
-import MediaMiddleRight from "@/sections/company/media-center/MediaMiddleRight";
+import InsideTopSection from "@/sections/company/press-releases/InsideTopSection";
+import MediaMiddleDescription from "@/sections/company/press-releases/MediaMiddleDescription";
+import InsideMediaContact from "@/sections/company/press-releases/InsideMediaContact";
+import MediaAbout from "@/sections/company/press-releases/MediaAbout";
+import MediaMiddleRight from "@/sections/company/press-releases/MediaMiddleRight";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -23,14 +23,14 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/company/media-center/MediaInside.module.scss";
+import styles from "@/styles/pages/company/press-releases/PressInside.module.scss";
 
 // IMAGES //
 
 // DATA //
 
-/** CaseStudies Page */
-export default function CaseStudies() {
+/** PressInside Page */
+export default function PressInside() {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -64,10 +64,10 @@ export default function CaseStudies() {
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={"Media Inside"}
+				Title={"Press Inside"}
 				Desc={""}
 				OgImg={""}
-				Url={"/media-inside"}
+				Url={"/press-inside"}
 			/>
 
 			{/* Header */}

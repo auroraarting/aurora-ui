@@ -11,26 +11,26 @@ import TestimonialFeedback from "@/components/TestimonialFeedback";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // SECTIONS //
-import TopMedia from "@/sections/company/media-center/TopMedia";
-import MediaListing from "@/sections/company/media-center/MediaListing";
-import MediaTeam from "@/sections/company/media-center/MediaTeam";
-import MediaKitInfo from "@/sections/company/media-center/MediaKitInfo";
-import Leaders from "@/sections/company/media-center/Leaders";
+import TopMedia from "@/sections/company/press-releases/TopMedia";
+import MediaListing from "@/sections/company/press-releases/MediaListing";
+import MediaTeam from "@/sections/company/press-releases/MediaTeam";
+import MediaKitInfo from "@/sections/company/press-releases/MediaKitInfo";
+import Leaders from "@/sections/company/press-releases/Leaders";
 
 // PLUGINS //
 
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/company/media-center/MediaCenter.module.scss";
+import styles from "@/styles/pages/company/press-releases/PressReleases.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
-/** MediaCenter Page */
-export default function MediaCenter() {
+/** Press Releases Page */
+export default function PressReleases() {
 	const [activeTab, setActiveTab] = useState("PressRoom");
 
 	/** */

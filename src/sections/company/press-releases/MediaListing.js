@@ -11,7 +11,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/media-center/MediaListing.module.scss";
+import styles from "@/styles/sections/company/press-releases/MediaListing.module.scss";
 
 // IMAGES //
 import energy_transition from "@/../public/img/events/energy_transition.png";

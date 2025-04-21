@@ -17,7 +17,7 @@ import parse from "html-react-parser";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/media-center/Learders.module.scss";
+import styles from "@/styles/sections/company/press-releases/Learders.module.scss";
 
 // IMAGES //
 import management_img from "@/../public/img/events/management_img.jpg";

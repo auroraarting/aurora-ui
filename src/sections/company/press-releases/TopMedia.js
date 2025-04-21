@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/company/media-center/TopMedia.module.scss";
+import styles from "@/styles/sections/company/press-releases/TopMedia.module.scss";
 
 // IMAGES //
 import press_img from "@/../public/img/media-center/press_img.jpg";
