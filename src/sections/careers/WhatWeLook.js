@@ -37,25 +37,25 @@ export default function WhatWeLook() {
 					<div className={`${styles.whatWeLookItem}`}>
 						<div className={`${styles.list_wrap}`}>
 							<ul>
-								<li className="font_primary f_w_m color_secondary pb_20">
+								<li className="font_primary f_w_m text_reg color_secondary pb_20">
 									An ability to collect, analyse, and interpret complex information
 								</li>
-								<li className="font_primary f_w_m color_secondary pb_20">
+								<li className="font_primary f_w_m text_reg color_secondary pb_20">
 									An ability to communicate and collaborate with a wide range of people
 								</li>
-								<li className="font_primary f_w_m color_secondary pb_20">
+								<li className="font_primary f_w_m text_reg color_secondary pb_20">
 									Evidence of quantitative skills
 								</li>
-								<li className="font_primary f_w_m color_secondary pb_20">
+								<li className="font_primary f_w_m text_reg color_secondary pb_20">
 									Evidence of effective teamwork
 								</li>
-								<li className="font_primary f_w_m color_secondary pb_20">
+								<li className="font_primary f_w_m text_reg color_secondary pb_20">
 									Motivation for driving the green energy transition
 								</li>
-								<li className="font_primary f_w_m color_secondary pb_20">
+								<li className="font_primary f_w_m text_reg color_secondary pb_20">
 									Evidence of fluency in English (required)
 								</li>
-								<li className="font_primary f_w_m color_secondary">
+								<li className="font_primary f_w_m text_reg color_secondary">
 									Fluency in German, Dutch, or Polish (highly-valued)
 								</li>
 							</ul>
