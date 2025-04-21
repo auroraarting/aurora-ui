@@ -11,18 +11,18 @@ import TestimonialFeedback from "@/components/TestimonialFeedback";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 
 // SECTIONS //
-import TopMedia from "@/sections/media-center/TopMedia";
-import MediaListing from "@/sections/media-center/MediaListing";
-import MediaTeam from "@/sections/media-center/MediaTeam";
-import MediaKitInfo from "@/sections/media-center/MediaKitInfo";
-import Leaders from "@/sections/media-center/Leaders";
+import TopMedia from "@/sections/company/media-center/TopMedia";
+import MediaListing from "@/sections/company/media-center/MediaListing";
+import MediaTeam from "@/sections/company/media-center/MediaTeam";
+import MediaKitInfo from "@/sections/company/media-center/MediaKitInfo";
+import Leaders from "@/sections/company/media-center/Leaders";
 
 // PLUGINS //
 
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/media-center/MediaCenter.module.scss";
+import styles from "@/styles/pages/company/media-center/MediaCenter.module.scss";
 
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";

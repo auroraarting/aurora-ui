@@ -17,18 +17,18 @@ import parse from "html-react-parser";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/Learders.module.scss";
+import styles from "@/styles/sections/company/media-center/Learders.module.scss";
 
 // IMAGES //
-import management_img from "../../../public/img/events/management_img.jpg";
-import hoverEffect from "../../../public/img/events/hoverEffect.png";
-import profile_pic from "../../../public/img/events/profile_pic.png";
-import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
-import popup_close from "../../../public/img/icons/popup_close.svg";
-import location from "../../../public/img/icons/location.svg";
-import calender from "../../../public/img/icons/calender.svg";
-import black_down_arrow from "../../../public/img/icons/black_down_arrow.svg";
-import linkedin from "../../../public/img/icons/linkedin.svg";
+import management_img from "@/../public/img/events/management_img.jpg";
+import hoverEffect from "@/../public/img/events/hoverEffect.png";
+import profile_pic from "@/../public/img/events/profile_pic.png";
+import slider_arrow from "@/../public/img/icons/slider_arrow.svg";
+import popup_close from "@/../public/img/icons/popup_close.svg";
+import location from "@/../public/img/icons/location.svg";
+import calender from "@/../public/img/icons/calender.svg";
+import black_down_arrow from "@/../public/img/icons/black_down_arrow.svg";
+import linkedin from "@/../public/img/icons/linkedin.svg";
 
 // DATA //
 

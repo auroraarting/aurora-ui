@@ -10,12 +10,12 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/InsideTopSection.module.scss";
+import styles from "@/styles/sections/company/media-center/InsideTopSection.module.scss";
 
 // IMAGES //
-import press_img from "../../../public/img/media-center/press_img.jpg";
-import grey_clock from "../../../public/img/icons/grey_clock.svg";
-import calender from "../../../public/img/icons/calender.svg";
+import press_img from "@/../public/img/media-center/press_img.jpg";
+import grey_clock from "@/../public/img/icons/grey_clock.svg";
+import calender from "@/../public/img/icons/calender.svg";
 
 import download from "@/../public/img/resources/aurora_insights/download.svg";
 import share from "@/../public/img/resources/aurora_insights/share.svg";

@@ -10,11 +10,11 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/MediaKitInfo.module.scss";
+import styles from "@/styles/sections/company/media-center/MediaKitInfo.module.scss";
 
 // IMAGES //
-import Aurora_Logo from "../../../public/img/media-center/Aurora_Logo.png";
-import white_down_arrow from "../../../public/img/icons/white_down_arrow.svg";
+import Aurora_Logo from "@/../public/img/media-center/Aurora_Logo.png";
+import white_down_arrow from "@/../public/img/icons/white_down_arrow.svg";
 
 // DATA //
 

@@ -1,8 +1,8 @@
-@import "../../helpers/helpers.scss";
+@import "../../../helpers/helpers.scss";
 .MediaCenterPage {
 	background-color: var(--color_silver);
 	.topBg {
-		background-image: url("../../../../public/img/media-center/topBg.png");
+		background-image: url("../../../../../public/img/media-center/topBg.png");
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: bottom left;
@@ -36,7 +36,7 @@
 		}
 	}
 	.mediaBottomBg {
-		background-image: url("../../../../public/img/events/bottomBg.png");
+		background-image: url("../../../../../public/img/events/bottomBg.png");
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: bottom center;

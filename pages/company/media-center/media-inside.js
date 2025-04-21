@@ -11,11 +11,11 @@ import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
-import InsideTopSection from "@/sections/media-center/InsideTopSection";
-import MediaMiddleDescription from "@/sections/media-center/MediaMiddleDescription";
-import InsideMediaContact from "@/sections/media-center/InsideMediaContact";
-import MediaAbout from "@/sections/media-center/MediaAbout";
-import MediaMiddleRight from "@/sections/media-center/MediaMiddleRight";
+import InsideTopSection from "@/sections/company/media-center/InsideTopSection";
+import MediaMiddleDescription from "@/sections/company/media-center/MediaMiddleDescription";
+import InsideMediaContact from "@/sections/company/media-center/InsideMediaContact";
+import MediaAbout from "@/sections/company/media-center/MediaAbout";
+import MediaMiddleRight from "@/sections/company/media-center/MediaMiddleRight";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -23,7 +23,7 @@ import { Link, scroller } from "react-scroll";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/pages/media-center/MediaInside.module.scss";
+import styles from "@/styles/pages/company/media-center/MediaInside.module.scss";
 
 // IMAGES //
 

@@ -10,12 +10,12 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/TopMedia.module.scss";
+import styles from "@/styles/sections/company/media-center/TopMedia.module.scss";
 
 // IMAGES //
-import press_img from "../../../public/img/media-center/press_img.jpg";
-import clock from "../../../public/img/icons/clock.svg";
-import white_calendar from "../../../public/img/icons/white_calendar.svg";
+import press_img from "@/../public/img/media-center/press_img.jpg";
+import clock from "@/../public/img/icons/clock.svg";
+import white_calendar from "@/../public/img/icons/white_calendar.svg";
 
 // DATA //
 

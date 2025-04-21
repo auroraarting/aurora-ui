@@ -10,11 +10,11 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/MediaAbout.module.scss";
+import styles from "@/styles/sections/company/media-center/MediaAbout.module.scss";
 
 // IMAGES //
-import mail from "../../../public/img/icons/mail.svg";
-import tel_icon from "../../../public/img/icons/tel_icon.svg";
+import mail from "@/../public/img/icons/mail.svg";
+import tel_icon from "@/../public/img/icons/tel_icon.svg";
 
 // DATA //
 

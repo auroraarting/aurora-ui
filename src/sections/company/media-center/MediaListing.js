@@ -11,15 +11,15 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/media-center/MediaListing.module.scss";
+import styles from "@/styles/sections/company/media-center/MediaListing.module.scss";
 
 // IMAGES //
-import energy_transition from "../../../public/img/events/energy_transition.png";
-import location from "../../../public/img/icons/location.svg";
-import calender from "../../../public/img/icons/calender.svg";
-import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
-import search from "../../../public/img/icons/search.svg";
-import popup_close from "../../../public/img/icons/popup_close.svg";
+import energy_transition from "@/../public/img/events/energy_transition.png";
+import location from "@/../public/img/icons/location.svg";
+import calender from "@/../public/img/icons/calender.svg";
+import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
+import search from "@/../public/img/icons/search.svg";
+import popup_close from "@/../public/img/icons/popup_close.svg";
 
 // DATA //
 
