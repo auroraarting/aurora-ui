@@ -110,6 +110,8 @@ export default function Australia({ data, mapJson }) {
 		</div>,
 	];
 
+	console.log("data", data);
+
 	return (
 		<div>
 			{/* Metatags */}
