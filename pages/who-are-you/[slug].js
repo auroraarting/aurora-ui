@@ -116,16 +116,16 @@ export default function Advisory({ data, services, mapJson, regions }) {
 						// desktopImage={desktop_banner.src}
 						// mobileImage={desktop_banner.src}
 
-						bannerTitle={data.whoAreYous.banner.title}
-						bannerDescription={data.whoAreYous.banner.description}
-						desktopImage={data.whoAreYous.banner.desktopThumbnail.node.sourceUrl}
-						mobileImage={data.whoAreYous.banner.mobileThumbnail.node.sourceUrl}
-						vimeoid={data.whoAreYous.banner.videoLink}
+						bannerTitle={data?.whoAreYous?.banner?.title}
+						bannerDescription={data?.whoAreYous?.banner?.description}
+						desktopImage={data?.whoAreYous?.banner?.desktopThumbnail?.node?.sourceUrl}
+						mobileImage={data?.whoAreYous?.banner?.mobileThumbnail?.node?.sourceUrl}
+						vimeoid={data?.whoAreYous?.banner?.videoLink}
 						btnTxt="Connect Now"
 					/>
 				</div>
 				<SectionsHeader data={headerArray} />
-				<SmarterEnergy data={data.whoAreYous.expertise} />
+				<SmarterEnergy data={data?.whoAreYous?.expertise} />
 				<div>
 					<GlobalMap
 						className="dark_bg"
@@ -138,10 +138,10 @@ export default function Advisory({ data, services, mapJson, regions }) {
 				</div>
 
 				<div className="ptb_100">
-					<TrustedLeaders data={data.whoAreYous.ourClient} />
+					<TrustedLeaders data={data?.whoAreYous?.ourClient} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.whoAreYous.ourClient} />
+					<TestimonialFeedback data={data?.whoAreYous?.ourClient} />
 				</div>
 				<div className="ptb_100 dark_bg">
 					<EosIntegratedSystem />
