@@ -160,9 +160,9 @@ export default function EarlyCareers({ data }) {
 				<div>
 					<CareerSeries />
 				</div>
-				<div className={`${styles.EarlyMain}`}>
+				{/* <div className={`${styles.EarlyMain}`}>
 					<EarlyCareers />
-				</div>
+				</div> */}
 			</main>
 			{/* Page Content ends here */}
 
