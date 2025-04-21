@@ -57,6 +57,12 @@
 				padding-bottom: 10px;
 			}
 		}
+		.tableBox {
+			@media (max-width: 767px) {
+				overflow-y: auto;
+				white-space: nowrap;
+			}
+		}
 		table {
 			border-collapse: collapse;
 			width: 100%;
