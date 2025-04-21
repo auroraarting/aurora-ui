@@ -12,7 +12,7 @@ query NewQuery {
         transactions
       }
       ourClient {
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -25,7 +25,7 @@ query NewQuery {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -41,7 +41,7 @@ query NewQuery {
       }
     }
   }
-  countries {
+  countries(first: 999) {
     nodes {
       title
       slug

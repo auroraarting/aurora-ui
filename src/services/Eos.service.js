@@ -49,6 +49,8 @@ query EOSPage {
       keyAdvantages {
         description
         title
+        buttonLink
+        buttonText
         advantages {
           advantagesDescription
           advantagesTitle
@@ -65,7 +67,7 @@ query EOSPage {
       }
       ourClient {
         title
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -78,7 +80,7 @@ query EOSPage {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -97,15 +99,26 @@ query EOSPage {
         list {
           title
           description
-          category {
+          category(first: 999) {
             nodes {
+              contentType {
+                node {
+                  name
+                }
+              }
               ... on Service {
                 id
-                title
                 slug
-                contentType {
-                  node {
-                    name
+                title
+                content
+                services {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }
@@ -113,9 +126,15 @@ query EOSPage {
                 id
                 title
                 slug
-                contentType {
-                  node {
-                    name
+                content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }
@@ -123,9 +142,15 @@ query EOSPage {
                 id
                 title
                 slug
-                contentType {
-                  node {
-                    name
+                content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }

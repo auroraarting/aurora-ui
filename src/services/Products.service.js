@@ -30,7 +30,7 @@ query GetPageProduct {
       }
     }
   }
-  products {
+  products(first: 999) {
     nodes {
       title
       slug
@@ -55,7 +55,7 @@ query GetPageProduct {
           shortDescription
         }
         ourClient {
-          selectLogos {
+          selectLogos(first: 999) {
             nodes {
               ... on ClientsLogo {
                 id
@@ -68,7 +68,7 @@ query GetPageProduct {
               }
             }
           }
-          testimonials {
+          testimonials(first: 999) {
             nodes {
               ... on Testimonial {
                 id
@@ -118,7 +118,7 @@ query GetProductBySlug {
         shortDescription
       }
       ourClient {
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -131,7 +131,7 @@ query GetProductBySlug {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -149,12 +149,12 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
-      logo{
-      node {
+        logo {
+          node {
             altText
             sourceUrl
           }
-      }
+        }
         buttonText
         buttonLink
         description
@@ -176,7 +176,7 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
-                selectCaseStudies {
+        selectCaseStudies(first: 999) {
           nodes {
             ... on CaseStudy {
               id
@@ -184,7 +184,7 @@ query GetProductBySlug {
               title
               slug
               caseStudies {
-                selectLocation {
+                selectLocation(first: 999) {
                   nodes {
                     ... on Country {
                       id
@@ -250,6 +250,8 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
+        buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription
@@ -265,16 +267,16 @@ query GetProductBySlug {
         marquee
       }
       whyAurora {
-         title
+        title
         description
         startText
         endText
         endPoint
-        list{
-             title
-             description
-             caption
-             value
+        list {
+          title
+          description
+          caption
+          value
         }
       }
       fourStepProcess {

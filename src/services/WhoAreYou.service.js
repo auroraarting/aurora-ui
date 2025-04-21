@@ -61,7 +61,7 @@ export const getSingleWhoAreYou = async (slug) => {
       ourClient {
         tabTitle
         title
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -74,7 +74,7 @@ export const getSingleWhoAreYou = async (slug) => {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -99,88 +99,90 @@ export const getSingleWhoAreYou = async (slug) => {
 export const getWhoAreYous = async () => {
 	const query = `
 query GetAllHowWeHelps {
-  howWeHelps {
+  howWeHelps(first: 999) {
     nodes {
-    title
-    slug
+      title
+      slug
       howWeHelpInside {
         banner {
-        title
-        fieldGroupName
-        description
-      }
-      thumbnail {
-        shortDescription
-        banner {
-          node {
-            altText
-            sourceUrl
-          }
+          title
+          fieldGroupName
+          description
         }
-        gradient {
-          from
-          to
-        }
-        logo {
-          node {
-            altText
-            sourceUrl
-          }
-        }
-      }
-      ourClient {
-        title
-        tabTitle
-        selectLogos {
-          nodes {
-            ... on ClientsLogo {
-              id
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
-              }
+        thumbnail {
+          shortDescription
+          banner {
+            node {
+              altText
+              sourceUrl
             }
           }
-        }
-        testimonials {
-          nodes {
-            ... on Testimonial {
-              id
-               content
-                title
-                testimonials {
-                  designation
-                }
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
-              }
-            }
+          gradient {
+            from
+            to
           }
-        }
-      }
-      keyAdvantages {
-        tabTitle
-        title
-        description
-        advantages {
-          advantagesTitle
-          advantagesDescription
-          icon {
+          logo {
             node {
               altText
               sourceUrl
             }
           }
         }
-      }
-      availableRegions {
-        marqueeText
-      }
+        ourClient {
+          title
+          tabTitle
+          selectLogos(first: 999) {
+            nodes {
+              ... on ClientsLogo {
+                id
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+          testimonials(first: 999) {
+            nodes {
+              ... on Testimonial {
+                id
+                content
+                title
+                testimonials {
+                  designation
+                }
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+        keyAdvantages {
+          tabTitle
+          title
+          description
+          buttonLink
+          buttonText
+          advantages {
+            advantagesTitle
+            advantagesDescription
+            icon {
+              node {
+                altText
+                sourceUrl
+              }
+            }
+          }
+        }
+        availableRegions {
+          marqueeText
+        }
       }
     }
   }

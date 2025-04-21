@@ -23,7 +23,6 @@ import Checkmark from "/public/img/checkmark.png";
 
 /** Bundles Section */
 export default function Bundles({ data }) {
-	console.log(data);
 	const [list, setList] = useState(data?.tabs?.[0]);
 
 	/**  handleTabChange */

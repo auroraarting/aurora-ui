@@ -28,7 +28,7 @@ query GetProductBySlug {
         shortDescription
       }
       ourClient {
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -41,7 +41,7 @@ query GetProductBySlug {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -59,13 +59,13 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
-        logo{
-      node {
+        logo {
+          node {
             altText
             sourceUrl
           }
-      }
-      buttonText
+        }
+        buttonText
         buttonLink
         description
         title
@@ -86,7 +86,7 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
-                selectCaseStudies {
+        selectCaseStudies(first: 999) {
           nodes {
             ... on CaseStudy {
               id
@@ -94,7 +94,7 @@ query GetProductBySlug {
               title
               slug
               caseStudies {
-                selectLocation {
+                selectLocation(first: 999) {
                   nodes {
                     ... on Country {
                       id
@@ -160,6 +160,8 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
+        buttonLink
+        buttonText
         advantages {
           advantagesTitle
           advantagesDescription
@@ -174,7 +176,7 @@ query GetProductBySlug {
       map {
         marquee
       }
-   whyAurora {
+      whyAurora {
         description
         endText
         startText

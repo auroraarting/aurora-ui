@@ -66,7 +66,7 @@ export async function getServerSideProps() {
 
 /** EOS Page */
 export default function EOSPage({ data, mapJson, bundles }) {
-	console.log(bundles);
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
