@@ -49,7 +49,7 @@ export default function CareerCountryCard() {
 
 	const [dropdowns, setDropdowns] = useState({
 		countryType: { isOpen: false, selected: { title: "India" } },
-		programsType: { isOpen: false, selected: { title: "Programs" } },
+		programsType: { isOpen: false, selected: { title: "Program" } },
 	});
 
 	const dropdownRefs = {
