@@ -28,7 +28,7 @@ export default function Terms() {
 			<MetaTags Title={"Terms"} Desc={""} OgImg={""} Url={"/terms"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.TermsPage}>
