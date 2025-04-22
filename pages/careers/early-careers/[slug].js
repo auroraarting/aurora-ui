@@ -19,7 +19,7 @@ import AboutCountries from "@/sections/careers/AboutCountries";
 import CareerSeries from "@/sections/careers/CareerSeries";
 import WorkingTeams from "@/sections/careers/WorkingTeams";
 import ConnectWithUs from "@/sections/careers/ConnectWithUs";
-import EarlyCareersInside from "@/sections/careers/EarlyCareers";
+import EarlyCareersInside from "@/sections/careers/EarlyCareersInside";
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
 
