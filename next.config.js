@@ -31,7 +31,7 @@ const nextConfig = {
 					},
 					{
 						key: "X-Frame-Options",
-						value: "DENY",
+						value: "ALLOW-FROM https://www-production.auroraer.com/",
 					},
 					{
 						key: "X-Content-Type-Options",
