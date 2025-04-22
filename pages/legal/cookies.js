@@ -28,7 +28,7 @@ export default function Cookies() {
 			<MetaTags Title={"Cookies"} Desc={""} OgImg={""} Url={"/cookies"} />
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.TermsPage}>
