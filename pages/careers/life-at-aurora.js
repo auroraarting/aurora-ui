@@ -15,7 +15,7 @@ import Insights from "@/components/Insights";
 
 // SECTIONS //
 import TeamAurora from "@/sections/careers/TeamAurora";
-import EarlyCareers from "@/sections/careers/EarlyCareers";
+import EarlyCareersInside from "@/sections/careers/EarlyCareersInside";
 import CollaborationSupport from "@/sections/careers/CollaborationSupport";
 import JobOpenings from "@/sections/careers/JobOpenings";
 import ConnectWithUs from "@/sections/careers/ConnectWithUs";
@@ -155,7 +155,7 @@ export default function LifeAtAurora({ data }) {
 					/>
 				</div>
 				<div className={`${styles.EarlyMain}`}>
-					<EarlyCareers />
+					<EarlyCareersInside />
 				</div>
 				<div>
 					<CollaborationSupport data={data.collaborationSupport} />

@@ -86,6 +86,7 @@ export default function About({ data }) {
 					<InnerBanner
 						bannerTitle="latest press releases & media contacts"
 						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
+						btnTxt="Lorem Ipsum"
 						vimeoid="1071368007"
 					/>
 				</div>

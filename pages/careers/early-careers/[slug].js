@@ -8,12 +8,18 @@ import MetaTags from "@/components/MetaTags";
 import Button from "@/components/Buttons/Button";
 import InnerBanner from "@/components/InnerBanner";
 import ServicesCircle from "@/components/ServicesCircle";
+import SmarterEnergy from "@/components/SmarterEnergy";
+import IntegratedSystem from "@/components/IntegratedSystem";
+import Insights from "@/components/Insights";
 // SECTIONS //
 import SectionsHeader from "@/components/SectionsHeader";
 import WhatWeLook from "@/sections/careers/WhatWeLook";
 import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
 import AboutCountries from "@/sections/careers/AboutCountries";
 import CareerSeries from "@/sections/careers/CareerSeries";
+import WorkingTeams from "@/sections/careers/WorkingTeams";
+import ConnectWithUs from "@/sections/careers/ConnectWithUs";
+import EarlyCareersInside from "@/sections/careers/EarlyCareers";
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
 
@@ -29,29 +35,26 @@ import styles from "@/styles/pages/careers/early-careers/EarlyCareers.module.scs
 
 // IMAGES //
 import desktop_banner from "@/../public/img/careers/early_careers/desktop_banner.jpg";
-
 import IconStrategy from "@/../public/img/softwares/Icon-Strategy.svg";
-import WorkingTeams from "@/sections/careers/WorkingTeams";
-import SmarterEnergy from "@/components/SmarterEnergy";
 
 // DATA //
 
 // SERVICES //
-// import { getLifeAtAurora } from "@/services/Careers.service";
+import { getLifeAtAurora } from "@/services/Careers.service";
 
 /** Fetch  */
-// export async function getServerSideProps() {
-// 	const [data] = await Promise.all([getLifeAtAurora()]);
-// 	let obj = {
-// 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
-// 	};
-// 	delete obj.data.lifeAtAurora;
-// 	return { props: { ...obj } };
-// }
+export async function getServerSideProps() {
+	const [data] = await Promise.all([getLifeAtAurora()]);
+	let obj = {
+		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+	};
+	delete obj.data.lifeAtAurora;
+	return { props: { ...obj } };
+}
 
 /** EarlyCareers Page */
 export default function EarlyCareers({ data }) {
-	console.log(data, " datadata");
+	//console.log(data, " datadata");
 
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 	// DATA //
@@ -154,15 +157,34 @@ export default function EarlyCareers({ data }) {
 				<div>
 					<AboutCountries />
 				</div>
+				<div>
+					<SmarterEnergy data={data.keyAdvantages} />
+				</div>
 				<div className="SmarterEnergy">
 					<SmarterEnergy />
 				</div>
 				<div>
 					<CareerSeries />
 				</div>
-				{/* <div className={`${styles.EarlyMain}`}>
-					<EarlyCareers />
-				</div> */}
+				<div>
+					<SmarterEnergy data={data.keyAdvantages} />
+				</div>
+				<div className={`${styles.EarlyMain} pt_100`}>
+					<div className={`${styles.containerCustom}`}>
+						<div className="container">
+							<Insights isPowerBgVisible={true} />
+						</div>
+					</div>
+					<div className="pt_100">
+						<EarlyCareersInside />
+					</div>
+				</div>
+				<div className="pt_100">
+					<ConnectWithUs />
+				</div>
+				<div className="pb_100">
+					<IntegratedSystem />
+				</div>
 			</main>
 			{/* Page Content ends here */}
 
