@@ -23,6 +23,27 @@ import "@/styles/globals/globals.scss";
 export default function MyApp({ Component, pageProps }) {
 	useEffect(() => {
 		SmoothScrolling();
+
+		// Change Global Css Variables
+		const header = document
+			?.querySelector(".main_headerBox")
+			?.getBoundingClientRect();
+		const sectionHeader = document
+			?.querySelector(".SectionsHeader")
+			?.getBoundingClientRect();
+
+		if (header) {
+			document.documentElement.style.setProperty(
+				"--header_height",
+				`${header.height}px`
+			);
+		}
+		if (sectionHeader) {
+			document.documentElement.style.setProperty(
+				"--section_height",
+				`${sectionHeader.height}px`
+			);
+		}
 	}, []);
 
 	return (

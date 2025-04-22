@@ -146,7 +146,7 @@ export default function Footer() {
 													return (
 														<p key={ind}>
 															<a href={`/who-are-you/${item?.slug}`}>
-																<p className="">{item?.title}</p>
+																<span className="">{item?.title}</span>
 															</a>
 															<img
 																src={black_right.src}
@@ -156,36 +156,6 @@ export default function Footer() {
 														</p>
 													);
 												})}
-												{/* <p>
-													<Link href="">
-														<a className="">Flexible Energy</a>
-													</Link>
-													<img
-														src={black_right.src}
-														className={`${styles.black_right}`}
-														alt="down"
-													/>
-												</p>
-												<p>
-													<Link href="">
-														<a className="">Power & Renewable</a>
-													</Link>
-													<img
-														src={black_right.src}
-														className={`${styles.black_right}`}
-														alt="down"
-													/>
-												</p>
-												<p>
-													<Link href="">
-														<a className="">Hydrogen</a>
-													</Link>
-													<img
-														src={black_right.src}
-														className={`${styles.black_right}`}
-														alt="down"
-													/>
-												</p> */}
 											</div>
 										</li>
 										<li
@@ -212,7 +182,7 @@ export default function Footer() {
 													return (
 														<p key={ind}>
 															<a href={`/how-we-help/${item?.slug}`}>
-																<p className="">{item?.title}</p>
+																<span className="">{item?.title}</span>
 															</a>
 															<img
 																src={black_right.src}
@@ -222,36 +192,6 @@ export default function Footer() {
 														</p>
 													);
 												})}
-												{/* <p>
-													<Link href="">
-														<a className="">Flexible Energy</a>
-													</Link>
-													<img
-														src={black_right.src}
-														className={`${styles.black_right}`}
-														alt="down"
-													/>
-												</p>
-												<p>
-													<Link href="">
-														<a className="">Power & Renewable</a>
-													</Link>
-													<img
-														src={black_right.src}
-														className={`${styles.black_right}`}
-														alt="down"
-													/>
-												</p>
-												<p>
-													<Link href="">
-														<a className="">Hydrogen</a>
-													</Link>
-													<img
-														src={black_right.src}
-														className={`${styles.black_right}`}
-														alt="down"
-													/>
-												</p> */}
 											</div>
 										</li>
 										<li
@@ -276,7 +216,7 @@ export default function Footer() {
 											<div className={`${styles.sub_menu_list}`}>
 												<p>
 													<a href="/careers/early-careers">
-														<p className="">Early Careers</p>
+														<span className="">Early Careers</span>
 													</a>
 													<img
 														src={black_right.src}
@@ -286,7 +226,7 @@ export default function Footer() {
 												</p>
 												<p>
 													<a href="/careers/faq">
-														<p className="">Faq</p>
+														<span className="">Faq</span>
 													</a>
 													<img
 														src={black_right.src}
@@ -296,7 +236,7 @@ export default function Footer() {
 												</p>
 												<p>
 													<a href="/careers/join-us">
-														<p className="">Join Us</p>
+														<span className="">Join Us</span>
 													</a>
 													<img
 														src={black_right.src}
@@ -306,7 +246,7 @@ export default function Footer() {
 												</p>
 												<p>
 													<a href="/careers/life-at-aurora">
-														<p className="">Life at Aurora</p>
+														<span className="">Life at Aurora</span>
 													</a>
 													<img
 														src={black_right.src}
@@ -316,7 +256,7 @@ export default function Footer() {
 												</p>
 												<p>
 													<a href="/careers/our-team">
-														<p className="">Our Team</p>
+														<span className="">Our Team</span>
 													</a>
 													<img
 														src={black_right.src}
