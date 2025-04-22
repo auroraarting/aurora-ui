@@ -39,11 +39,11 @@ export default function ContactPage() {
 			{/* Page Content starts here */}
 			<main className={styles.ContactPage}>
 				<div className={`${styles.topBg} ptb_100`}>
-					<InnerBanner
+					{/* <InnerBanner
 						bannerTitle="Lorem ipsum dolor sit amet consectetur"
 						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
 						showContentOnly
-					/>
+					/> */}
 					<div className="container">
 						<div className={`${styles.formFlex} f_j`}>
 							<div className={`${styles.form_title}`}>
@@ -448,7 +448,7 @@ export default function ContactPage() {
 			{/* Page Content ends here */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }
