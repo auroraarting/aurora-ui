@@ -107,7 +107,7 @@ export default function Footer() {
 											</Link>
 										</li>
 										<li>
-											<Link href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ">
+											<Link href="https://soundcloud.com/user-564729441">
 												<a target="_blank" rel="noreferrer">
 													<img src={soundcloud.src} alt="soundcloud" />
 												</a>
