@@ -89,7 +89,7 @@ export default function SectionsHeader({ data, customHtml }) {
 	}, []);
 
 	return (
-		<div className={`${styles.SectionsHeader}`}>
+		<div className={`${styles.SectionsHeader} SectionsHeader`}>
 			<div className={`${styles.boxWrap}`}>
 				{sectionsList?.map((item, ind) => {
 					return (

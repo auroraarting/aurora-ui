@@ -73,8 +73,8 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 			obj = {
 				fill: "#f7f7f7",
 				stroke: "#CECECE",
-				iconDefault: "none",
-				iconWhileHover: "none",
+				iconDefault: "invert(1)",
+				iconWhileHover: "invert(1)",
 			};
 		}
 
@@ -178,15 +178,17 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 										/>
 										<image
 											href={item?.image?.node?.sourceUrl || item?.icon?.node?.sourceUrl}
-											width={iconDefault.width}
-											height={iconDefault.height}
+											// width={iconDefault.width}
+											// height={iconDefault.height}
+											width={40}
+											height={40}
 											x={midX - iconDefault.width / 2} // Center the image
 											y={midY - iconDefault.height / 2}
 											style={{
 												filter:
 													selectedService === i
-														? stylesForAlternateModes().iconDefault
-														: stylesForAlternateModes().iconWhileHover, // Default white, hover shows original
+														? stylesForAlternateModes().iconWhileHover
+														: stylesForAlternateModes().iconDefault, // Default white, hover shows original
 												transition: "filter 0.3s ease-in-out",
 												pointerEvents: "none",
 											}}
