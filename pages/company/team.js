@@ -23,14 +23,33 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
+// SECTORS //
+import { getTeamSectors } from "@/services/Teams.service";
+
+/** Fetch */
+export async function getServerSideProps() {
+	const [data] = await Promise.all([getTeamSectors()]);
+
+	return {
+		props: {
+			data: data.data.teamsectors.nodes,
+		},
+	};
+}
+
 /** Team Page */
-export default function Team() {
-	const [activeTab, setActiveTab] = useState("AdvisoryLeadership");
+export default function Team({ data }) {
+	const [activeTab, setActiveTab] = useState("advisory-leadership");
+	const [teams, setTeams] = useState(data?.[0]?.teams?.nodes);
+
+	console.log(data);
 
 	/** */
 	const handleTabClick = (tab) => {
-		setActiveTab(tab);
+		setActiveTab(tab?.slug);
+		setTeams(tab?.teams?.nodes);
 	};
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -51,35 +70,25 @@ export default function Team() {
 				<section className={`${styles.tabMain} pt_60`}>
 					<div className={`${styles.category}`}>
 						<div className={`${styles.switchBox}`}>
-							<div
-								className={`${styles.listTxt} ${
-									activeTab === "AdvisoryLeadership" ? styles.active : ""
-								}`}
-								onClick={() => handleTabClick("AdvisoryLeadership")}
-							>
-								<p className="text_xs f_w_m font_primary ">Advisory Leadership</p>
-							</div>
-							<div
-								className={`${styles.listTxt} ${
-									activeTab === "ResearchLeadership" ? styles.active : ""
-								}`}
-								onClick={() => handleTabClick("ResearchLeadership")}
-							>
-								<p className="text_xs f_w_m font_primary ">Research Leadership</p>
-							</div>
+							{data?.map((item, ind) => {
+								return (
+									<div
+										key={ind}
+										className={`${styles.listTxt} ${
+											activeTab === item?.slug ? styles.active : ""
+										}`}
+										onClick={() => handleTabClick(item)}
+									>
+										<p className="text_xs f_w_m font_primary ">{item?.name}</p>
+									</div>
+								);
+							})}
 						</div>
 					</div>
-					{activeTab === "AdvisoryLeadership" && (
+					{teams && (
 						<div className={`${styles.categoryContent} `}>
 							<div className="pb_100">
-								<AdvisoryLeadership />
-							</div>
-						</div>
-					)}
-					{activeTab === "ResearchLeadership" && (
-						<div className={`${styles.categoryContent} `}>
-							<div className="pb_100">
-								<ResearchLeadership />
+								<AdvisoryLeadership data={teams} />
 							</div>
 						</div>
 					)}

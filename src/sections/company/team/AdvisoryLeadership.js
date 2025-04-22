@@ -33,12 +33,14 @@ import linkedin from "../../../../public/img/icons/linkedin.svg";
 // DATA //
 
 /** AdvisoryLeadership Section */
-export default function AdvisoryLeadership() {
+export default function AdvisoryLeadership({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
-
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+
+	console.log(data);
+
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index, data) => {
 		e.preventDefault();
@@ -52,6 +54,7 @@ export default function AdvisoryLeadership() {
 		setIsPopupOpen(false);
 		setSlideNo(0);
 	};
+
 	useEffect(() => {
 		if (sliderRef.current?.swiper) {
 			sliderRef.current.swiper.slideTo(slideNo);
@@ -171,12 +174,13 @@ export default function AdvisoryLeadership() {
 			blogData: [],
 		},
 	];
+
 	return (
 		<section className={`${styles.AdvisoryLeadership}`}>
 			<div className="container">
 				<div className={`${styles.content_main_wrap} pt_40`}>
 					<div className={`${styles.box_wrap}`}>
-						{mediaLeadersData.map((item, ind) => {
+						{data?.map((item, ind) => {
 							return (
 								<div
 									className={`${styles.box_item}`}
@@ -185,13 +189,19 @@ export default function AdvisoryLeadership() {
 									key={ind}
 								>
 									<div className={`${styles.thumbnailImg}`}>
-										<img src={item.thumbnail} className="b_r_20" alt="story img" />
+										<img
+											src={item?.teams?.thumbnail?.image?.node?.sourceUrl}
+											className="b_r_20"
+											alt="story img"
+										/>
 									</div>
 									<div className={`${styles.content} pt_20`}>
 										<h5 className="text_reg f_w_m color_white font_secondary">
-											{item.name}
+											{item?.title}
 										</h5>
-										<p className="text_xs color_platinum_gray">{item.designation}</p>
+										<p className="text_xs color_platinum_gray">
+											{item?.teams?.thumbnail?.designation}
+										</p>
 									</div>
 									<div className={`${styles.hoverEffect} pt_20`}>
 										<img src={hoverEffect.src} className="" alt=" img" />
@@ -231,12 +241,16 @@ export default function AdvisoryLeadership() {
 										className={styles.slider}
 										ref={sliderRef}
 									>
-										{mediaLeadersData.map((item, ind) => (
+										{data?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
 												<div className={`${styles.PopupItem}`}>
 													<div className={`${styles.BoxFlex} f_w`}>
 														<div className={styles.Imgthumbnail}>
-															<img src={item.thumbnail} className="b_r_20" alt="story img" />
+															<img
+																src={item?.teams?.thumbnail?.image?.node?.sourceUrl}
+																className="b_r_20"
+																alt="story img"
+															/>
 															{/* <div className={`${styles.profileDownload}`}>
 																<a
 																	href={item.downloadProfileUrl}
@@ -255,23 +269,30 @@ export default function AdvisoryLeadership() {
 																<h5
 																	className={`${styles.Name} text_reg f_w_m color_white font_secondary`}
 																>
-																	{item.name}
+																	{item?.title}
 																</h5>
-																<p className="text_xs color_silver_gray">{item.designation}</p>
-																<div className={`${styles.downloadProfile} pt_20 f_w_j`}>
-																	<div className={`${styles.linkedin}`}>
-																		<a href={item.linkedinUrl} className="d_f">
-																			<img src={linkedin.src} alt="icon" />
-																		</a>
+																<p className="text_xs color_silver_gray">
+																	{item?.teams?.thumbnail?.designation}
+																</p>
+																{item?.teams?.thumbnail?.linkedinLink && (
+																	<div className={`${styles.downloadProfile} pt_20 f_w_j`}>
+																		<div className={`${styles.linkedin}`}>
+																			<a
+																				href={item?.teams?.thumbnail?.linkedinLink}
+																				className="d_f"
+																			>
+																				<img src={linkedin.src} alt="icon" />
+																			</a>
+																		</div>
 																	</div>
-																</div>
+																)}
 															</div>
 															<p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
-																{parse(item.desc)}
+																{parse(item?.content || "")}
 															</p>
 														</div>
 													</div>
-													{item.blogData.length > 0 && (
+													{item?.blogData?.length > 0 && (
 														<div className={`${styles.blogWapper}`}>
 															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
@@ -350,14 +371,16 @@ export default function AdvisoryLeadership() {
 											</SwiperSlide>
 										))}
 									</Swiper>
-									<div className={`${styles.arrowSection} f_w_a_j_center`}>
-										<button className={`${styles.customPrev}`} id="customPrev">
-											<img src={slider_arrow.src} alt="icon" />
-										</button>
-										<button className={styles.customNext} id="customNext">
-											<img src={slider_arrow.src} alt="icon" />
-										</button>
-									</div>
+									{data?.length > 1 && (
+										<div className={`${styles.arrowSection} f_w_a_j_center`}>
+											<button className={`${styles.customPrev}`} id="customPrev">
+												<img src={slider_arrow.src} alt="icon" />
+											</button>
+											<button className={styles.customNext} id="customNext">
+												<img src={slider_arrow.src} alt="icon" />
+											</button>
+										</div>
+									)}
 								</div>
 							)}
 						</div>
