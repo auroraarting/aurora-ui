@@ -148,7 +148,7 @@ export default function Header() {
 
 	return (
 		<>
-			<header className={`${styles.main_headerBox}`}>
+			<header className={`${styles.main_headerBox} main_headerBox`}>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
 					<div className={`${styles.globalListMobile}`} onClick={togglePopup}>
