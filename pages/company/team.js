@@ -42,8 +42,6 @@ export default function Team({ data }) {
 	const [activeTab, setActiveTab] = useState("advisory-leadership");
 	const [teams, setTeams] = useState(data?.[0]?.teams?.nodes);
 
-	console.log(data);
-
 	/** */
 	const handleTabClick = (tab) => {
 		setActiveTab(tab?.slug);

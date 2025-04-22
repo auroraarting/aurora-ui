@@ -24,6 +24,37 @@ query GetTeamSectors {
                 }
               }
             }
+                articles {
+                  articlesby {
+                    nodes {
+                      ... on CaseStudy {
+                        id
+                        content
+                        title
+                        slug
+                        date
+                        featuredImage {
+                          node {
+                            altText
+                            sourceUrl
+                          }
+                        }
+                        caseStudies {
+                          readTime
+                          selectLocation {
+                            nodes {
+                              ... on Country {
+                                id
+                                title
+                                slug
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
           }
         }
       }

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -15,6 +16,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
+import formatDate from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/team/AdvisoryLeadership.module.scss";
@@ -38,8 +40,6 @@ export default function AdvisoryLeadership({ data }) {
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
-
-	console.log(data);
 
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index, data) => {
@@ -175,6 +175,8 @@ export default function AdvisoryLeadership({ data }) {
 		},
 	];
 
+	console.log(data, "data");
+
 	return (
 		<section className={`${styles.AdvisoryLeadership}`}>
 			<div className="container">
@@ -292,7 +294,7 @@ export default function AdvisoryLeadership({ data }) {
 															</p>
 														</div>
 													</div>
-													{item?.blogData?.length > 0 && (
+													{item?.teams?.articles?.articlesby?.nodes?.length > 0 && (
 														<div className={`${styles.blogWapper}`}>
 															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
@@ -313,58 +315,67 @@ export default function AdvisoryLeadership({ data }) {
 																	}}
 																	className={styles.sliderLeaders}
 																>
-																	{item.blogData.map((blogData, index) => (
-																		<SwiperSlide key={index}>
-																			<div className={`${styles.ItemBox} `}>
-																				<div className={`${styles.hoverBox}`}>
-																					<p
-																						className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-																					>
-																						{blogData.tags}
-																					</p>
-																					<p
-																						className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
-																					>
-																						{blogData.blogDesc}
-																					</p>
-																					<div className={`${styles.dateFlex} f_j pt_30`}>
-																						<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
-																							<img
-																								src={calender.src}
-																								className={`${styles.clock}`}
-																								alt="clock"
-																							/>
-																							<span>{blogData.blogDate}</span>
+																	{item?.teams?.articles?.articlesby?.nodes?.map(
+																		(blogData, index) => (
+																			<SwiperSlide key={index}>
+																				<div className={`${styles.ItemBox} `}>
+																					<div className={`${styles.hoverBox}`}>
+																						<p
+																							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+																						>
+																							{/* {blogData.tags} */}
+																							Case Study
 																						</p>
-																						<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
-																							<img
-																								src={location.src}
-																								className={`${styles.clock}`}
-																								alt="clock"
-																							/>
-																							<span>{blogData.blogLocation}</span>
+																						<p
+																							className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
+																						>
+																							<ContentFromCms>{blogData?.title}</ContentFromCms>
 																						</p>
+																						<div className={`${styles.dateFlex} f_j pt_30`}>
+																							<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																								<img
+																									src={calender.src}
+																									className={`${styles.clock}`}
+																									alt="clock"
+																								/>
+																								<span>{formatDate(blogData?.date)}</span>
+																							</p>
+																							<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																								<img
+																									src={location.src}
+																									className={`${styles.clock}`}
+																									alt="clock"
+																								/>
+																								<span>
+																									{blogData?.caseStudies?.selectLocation?.nodes?.map(
+																										(item2) => `${item2?.title} `
+																									)}
+																								</span>
+																							</p>
+																						</div>
 																					</div>
 																				</div>
-																			</div>
-																		</SwiperSlide>
-																	))}
+																			</SwiperSlide>
+																		)
+																	)}
 																</Swiper>
 															</div>
-															<div className={`${styles.arrowSectionLeaders} `}>
-																<button
-																	className={`${styles.customPrev}`}
-																	id="customPrevCollaboration"
-																>
-																	<img src={slider_arrow.src} alt="icon" />
-																</button>
-																<button
-																	className={styles.customNext}
-																	id="customNextCollaboration"
-																>
-																	<img src={slider_arrow.src} alt="icon" />
-																</button>
-															</div>
+															{item?.teams?.articles?.articlesby?.nodes?.length > 1 && (
+																<div className={`${styles.arrowSectionLeaders} `}>
+																	<button
+																		className={`${styles.customPrev}`}
+																		id="customPrevCollaboration"
+																	>
+																		<img src={slider_arrow.src} alt="icon" />
+																	</button>
+																	<button
+																		className={styles.customNext}
+																		id="customNextCollaboration"
+																	>
+																		<img src={slider_arrow.src} alt="icon" />
+																	</button>
+																</div>
+															)}
 														</div>
 													)}
 												</div>

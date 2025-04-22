@@ -31,20 +31,22 @@ import styles from "@/styles/pages/company/About.module.scss";
 
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
+import { getAboutPage } from "@/services/About.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data] = await Promise.all([getLifeAtAurora()]);
+	const [data] = await Promise.all([getAboutPage()]);
 	let obj = {
-		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+		data: { ...data.data.page.about, offices: data.data.offices.nodes },
 	};
-	delete obj.data.lifeAtAurora;
+	delete obj.data.about;
 	return { props: { ...obj } };
 }
 
 /** About Page */
 export default function About({ data }) {
 	const [mapJson, setMapJson] = useState();
+
 	useEffect(() => {
 		let tempMapJson = {
 			zoom: 9,
@@ -72,6 +74,7 @@ export default function About({ data }) {
 
 		setMapJson(tempMapJson);
 	}, []);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -84,22 +87,28 @@ export default function About({ data }) {
 			<main className={styles.AboutPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
-						bannerTitle="latest press releases & media contacts"
-						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
-						vimeoid="1071368007"
+						bannerTitle={data?.banner?.title}
+						bannerDescription={data?.banner?.description}
+						desktopImage={data?.banner?.dekstopimage?.node?.sourceUrl}
+						mobileImage={data?.banner?.mobileimage?.node?.sourceUrl}
+						vimeoid={data?.banner?.videoLink}
 					/>
 				</div>
-				<div className="pt_100">
-					<OurHistory />
-				</div>
-				<div className={`${styles.OurEdgeMain} pt_100`}>
-					<OurEdge />
-				</div>
+				{data?.history?.sectionTitle && (
+					<div className="pt_100">
+						<OurHistory data={data?.history} />
+					</div>
+				)}
+				{data?.ourEdge?.sectionTitle && (
+					<div className={`${styles.OurEdgeMain} pt_100`}>
+						<OurEdge data={data?.ourEdge} />
+					</div>
+				)}
 				<div className="dark_bg">
 					{mapJson && (
 						<GlobalMap
 							locationJson={[mapJson]}
-							marqueeText={data?.globalMap?.marqueetext}
+							marqueeText={data?.map?.marqueetext}
 						/>
 					)}
 				</div>
@@ -114,9 +123,11 @@ export default function About({ data }) {
 				<div className="ptb_100">
 					<SoftwareCards />
 				</div>
-				<div className="pb_100">
-					<AboutLeadership />
-				</div>
+				{data?.leaders?.sectionTitle && (
+					<div className="pb_100">
+						<AboutLeadership data={data?.leaders} />
+					</div>
+				)}
 				<div className="pb_100">
 					<Insights isPowerBgVisible={true} />
 				</div>

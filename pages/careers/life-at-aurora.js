@@ -126,18 +126,20 @@ export default function LifeAtAurora({ data }) {
 			{/* Page Content starts here */}
 			<main className={styles.LifeAtAuroraPage}>
 				<InnerBanner
-					bannerTitle={data.banner.title}
-					bannerDescription={data.banner.description}
-					desktopImage={data.banner.dekstopimage.node.sourceUrl}
-					mobileImage={data.banner.mobileimage.node.sourceUrl}
-					vimeoid={data.banner.videoLink}
+					bannerTitle={data?.banner?.title}
+					bannerDescription={data?.banner?.description}
+					desktopImage={data?.banner?.dekstopimage?.node?.sourceUrl}
+					mobileImage={data?.banner?.mobileimage?.node?.sourceUrl}
+					vimeoid={data?.banner?.videoLink}
 				/>
 				<div>
 					<SectionsHeader data={headerArray} />
 				</div>
-				<div>
-					<SmarterEnergy data={data.keyAdvantages} />
-				</div>
+				{data?.keyAdvantages && (
+					<div>
+						<SmarterEnergy data={data?.keyAdvantages} />
+					</div>
+				)}
 				<div className="pt_60">
 					<TeamAurora />
 				</div>
@@ -157,9 +159,11 @@ export default function LifeAtAurora({ data }) {
 				<div className={`${styles.EarlyMain}`}>
 					<EarlyCareers />
 				</div>
-				<div>
-					<CollaborationSupport data={data.collaborationSupport} />
-				</div>
+				{data?.collaborationSupport?.list?.length > 0 && (
+					<div>
+						<CollaborationSupport data={data?.collaborationSupport} />
+					</div>
+				)}
 				<div>
 					<JobOpenings />
 				</div>

@@ -93,6 +93,7 @@ query GetProductBySlug {
               content
               title
               slug
+              date
               caseStudies {
                 selectLocation(first: 999) {
                   nodes {

@@ -100,7 +100,6 @@ export default function Products({
 	products,
 	testimonials,
 	clientLogos,
-	regions,
 	mapJson,
 }) {
 	return (
