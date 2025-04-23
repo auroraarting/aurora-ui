@@ -134,7 +134,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 															className={`${styles.centerLogo}`}
 															alt="img"
 														/>
-														<p className="color_white text_xxs f_w_b">{item?.title}</p>
+														<p className="color_white text_xxs f_w_b pt_10">{item?.title}</p>
 													</div>
 													<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
 														<a

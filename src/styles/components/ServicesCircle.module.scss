@@ -1,6 +1,6 @@
 @import "../helpers/helpers.scss";
 .ServicesCircleSection {
-	padding: 150px 0;
+	padding: 100px 0;
 
 	.CircleGrid {
 		display: grid;
@@ -44,6 +44,11 @@
 		.BottomRight {
 			bottom: 0;
 			right: 0;
+		}
+		.CircleBox {
+			@media (max-width: 991px) {
+				margin: 20px auto 0px auto;
+			}
 		}
 
 		.CenterBox {

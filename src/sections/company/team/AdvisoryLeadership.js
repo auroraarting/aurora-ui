@@ -31,6 +31,7 @@ import location from "../../../../public/img/icons/location.svg";
 import calender from "../../../../public/img/icons/calender.svg";
 import black_down_arrow from "../../../../public/img/icons/black_down_arrow.svg";
 import linkedin from "../../../../public/img/icons/linkedin.svg";
+import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -322,6 +323,11 @@ export default function AdvisoryLeadership({ data }) {
 																			<SwiperSlide key={index}>
 																				<div className={`${styles.ItemBox} `}>
 																					<div className={`${styles.hoverBox}`}>
+																						<img
+																							src={hoverBg.src}
+																							className={`${styles.hoverBg} width_100 b_r_10`}
+																							alt="img"
+																						/>
 																						<p
 																							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 																						>
