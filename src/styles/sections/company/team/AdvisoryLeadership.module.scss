@@ -357,6 +357,11 @@
 			background-color: unset;
 			border: none;
 			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 30px;
+				}
+			}
 		}
 		.customPrev {
 			rotate: 180deg;
