@@ -88,29 +88,62 @@ export default function GlobalSearch() {
 	const getLinkAndTitle = (key, item = {}) => {
 		switch (key) {
 			case "about":
-				return { link: "/company/about", title: "About" };
+				return {
+					link: `/company/about?search=${encodeURIComponent(searchTerm)}`,
+					title: "About",
+				};
 			case "eos":
-				return { link: "/eos", title: "Eos" };
+				return {
+					link: `/eos?search=${encodeURIComponent(searchTerm)}`,
+					title: "Eos",
+				};
 			case "globalPresence":
-				return { link: "/global-presence", title: "Global Presence" };
+				return {
+					link: `/global-presence?search=${encodeURIComponent(searchTerm)}`,
+					title: "Global Presence",
+				};
 			case "homepage":
-				return { link: "/", title: "Home" };
+				return {
+					link: `/?search=${encodeURIComponent(searchTerm)}`,
+					title: "Home",
+				};
 			case "lifeAtAurora":
 			case "offices":
-				return { link: "/careers/life-at-aurora", title: "Life At Aurora" };
+				return {
+					link: `/careers/life-at-aurora?search=${encodeURIComponent(searchTerm)}`,
+					title: "Life At Aurora",
+				};
 			case "softwares":
-				return { link: `/software/${item.slug}`, title: item.title };
+				return {
+					link: `/software/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			case "products":
-				return { link: `/products/${item.slug}`, title: item.title };
+				return {
+					link: `/products/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			case "services":
-				return { link: `/service/${item.slug}`, title: item.title };
+				return {
+					link: `/service/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			case "teams":
 			case "teamsectors":
-				return { link: "/company/team", title: item.title };
+				return {
+					link: `/company/team?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			case "whoareyous":
-				return { link: `/who-are-you/${item.slug}`, title: item.title };
+				return {
+					link: `/who-are-you/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			case "howWeHelps":
-				return { link: `/how-we-help/${item.slug}`, title: item.title };
+				return {
+					link: `/how-we-help/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			default:
 				return { link: "#", title: item.title || "PPAs" };
 		}
@@ -155,6 +188,7 @@ export default function GlobalSearch() {
 							return (
 								<div className={styles.title_link} key={`${key}-${idx}`}>
 									<a
+										// href={/projects/${contentObj?.slug}?search=${encodeURIComponent(searchTerm)}}
 										className="text_xs d_f"
 										href={link}
 										target="_blank"
