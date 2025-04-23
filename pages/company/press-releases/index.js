@@ -9,6 +9,7 @@ import InnerBanner from "@/components/InnerBanner";
 import Insights from "@/components/Insights";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
+import SoftwareCards from "@/components/SoftwareCards";
 
 // SECTIONS //
 import TopMedia from "@/sections/company/press-releases/TopMedia";
@@ -101,12 +102,20 @@ export default function PressReleases() {
 						</div>
 					)}
 				</section>
-				<div className={`${styles.mediaBottomBg} dark_bg ptb_100`}>
+				{/* <div className={`${styles.mediaBottomBg} dark_bg ptb_100`}>
 					<div className="pb_80">
 						<MediaTeam />
 					</div>
 					<Insights isPowerBgVisible={true} />
 					<EventSmarterEnergy />
+				</div> */}
+				<div className={`${styles.containerCustom} pb_100`}>
+					<div className="container">
+						<Insights isPowerBgVisible={true} />
+					</div>
+				</div>
+				<div className="pb_100">
+					<SoftwareCards />
 				</div>
 			</main>
 			{/* Page Content ends here */}

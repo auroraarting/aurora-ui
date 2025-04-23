@@ -18,6 +18,7 @@ import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import search from "@/../public/img/icons/search.svg";
+import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -336,8 +337,13 @@ export default function InsightsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
 								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 								>
 									Press Release
 								</p>
@@ -370,8 +376,13 @@ export default function InsightsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
 								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 								>
 									Press Release
 								</p>
@@ -404,8 +415,13 @@ export default function InsightsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
 								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 								>
 									Press Release
 								</p>
@@ -438,8 +454,13 @@ export default function InsightsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
 								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 								>
 									Press Release
 								</p>
@@ -472,42 +493,13 @@ export default function InsightsListing() {
 					<div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
 								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 								>
 									Press Release
 								</p>
