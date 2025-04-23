@@ -1105,14 +1105,14 @@ export default function Header() {
 												<img
 													src={dropdown_arrow.src}
 													className={`${
-														toggleState === 1 ? styles.arrow_rotate : ""
+														toggleState === ind + 1 ? styles.arrow_rotate : ""
 													} visible_xs`}
 													alt=""
 												/>
 											</div>
 											<div
 												className={`${styles.CountryNameBox} ${
-													toggleState === 1 ? styles.ul_section_active : ""
+													toggleState === ind + 1 ? styles.ul_section_active : ""
 												} `}
 											>
 												<ul>
