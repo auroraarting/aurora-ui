@@ -45,6 +45,11 @@
 			bottom: 0;
 			right: 0;
 		}
+		.CircleBox {
+			@media (max-width: 991px) {
+				margin: 20px auto 0px auto;
+			}
+		}
 
 		.CenterBox {
 			position: absolute;
