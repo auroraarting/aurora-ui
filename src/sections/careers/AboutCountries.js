@@ -79,7 +79,7 @@ export default function AboutCountries() {
 	};
 
 	return (
-		<section className={`${styles.aboutCountries} ptb_100`}>
+		<section className={`${styles.aboutCountries} pt_100`}>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">

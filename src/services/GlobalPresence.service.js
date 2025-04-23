@@ -317,6 +317,12 @@ query GetCountryInside {
           locationtitle
         }
       }
+      mapThumb {
+        node {
+          altText
+          sourceUrl
+        }
+      }
     }
     featuredImage {
       node {

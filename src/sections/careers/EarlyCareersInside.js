@@ -15,7 +15,7 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/careers/EarlyCareers.module.scss";
+import styles from "@/styles/sections/careers/EarlyCareersInside.module.scss";
 
 // IMAGES //
 import country_img from "../../../public/img/careers/country_img.png";
@@ -25,7 +25,7 @@ import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg
 // DATA //
 
 /** EarlyCareers Section */
-export default function EarlyCareers() {
+export default function EarlyCareersInside() {
 	return (
 		<section className={`${styles.EarlyCareers} pb_50`}>
 			<div className="container">

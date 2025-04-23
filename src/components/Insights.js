@@ -99,7 +99,7 @@ export default function Insights({
 										alt="form_img"
 									/> */}
 										<iframe
-											src="../../../img/softwares/form.html"
+											src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
 											className={`${styles.form_img}`}
 											title="Form"
 										></iframe>

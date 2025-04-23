@@ -183,7 +183,9 @@ query GetProductBySlug {
               content
               title
               slug
+              date
               caseStudies {
+
                 selectLocation {
                   nodes {
                     ... on Country {

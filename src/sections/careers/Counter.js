@@ -23,21 +23,20 @@ export default function Counter({ data }) {
 		<section className={`${styles.Counter} pt_40`}>
 			<div className="container">
 				<div className={`${styles.counterFlex} f_w_j`}>
-					{data.stats.auroreans && (
+					{data?.stats?.auroreans && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data.stats.auroreans || 800} enableScrollSpy />{" "}
-								<spn>+</spn>
+								<CountUp end={data?.stats?.auroreans} enableScrollSpy /> <spn>+</spn>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								Auroreans
 							</p>
 						</div>
 					)}
-					{data.stats.nationalities && (
+					{data?.stats?.nationalities && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data.stats.nationalities || 60} enableScrollSpy />{" "}
+								<CountUp end={data?.stats?.nationalities} enableScrollSpy />{" "}
 								<spn>+</spn>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
@@ -45,40 +44,40 @@ export default function Counter({ data }) {
 							</p>
 						</div>
 					)}
-					{data.stats.offices && (
+					{data?.stats?.offices && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data.stats.offices || 15} enableScrollSpy />
+								<CountUp end={data?.stats?.offices} enableScrollSpy />
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								offices
 							</p>
 						</div>
 					)}
-					{data.stats.clients && (
+					{data?.stats?.clients && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data.stats.clients || 15} enableScrollSpy />
+								<CountUp end={data?.stats?.clients} enableScrollSpy />
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								Clients
 							</p>
 						</div>
 					)}
-					{data.stats.countries && (
+					{data?.stats?.countries && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data.stats.countries || 15} enableScrollSpy />
+								<CountUp end={data?.stats?.countries} enableScrollSpy />
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								Countries
 							</p>
 						</div>
 					)}
-					{data.stats.transactions && (
+					{data?.stats?.transactions && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data.stats.transactions || 15} enableScrollSpy />
+								<CountUp end={data?.stats?.transactions} enableScrollSpy />
 								<spn>+</spn>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">

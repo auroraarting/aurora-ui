@@ -47,6 +47,7 @@ export async function getServerSideProps() {
 		getRegions(),
 		getGlobalPresencePage(),
 	]);
+
 	const mapJson = getMapJsonForAllRegions(regions);
 
 	return { props: { regions, page: page.data.page.globalPresence, mapJson } };

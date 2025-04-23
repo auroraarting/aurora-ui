@@ -1,7 +1,7 @@
 @import "../helpers/helpers.scss";
 
 .main_footer {
-	z-index: 999;
+	z-index: 10;
 	position: relative;
 	background-color: var(--color_secondary);
 	background-image: url(../../../public/img/footer/footer_bg.png);
