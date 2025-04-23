@@ -107,7 +107,7 @@ export default function Footer() {
 											</Link>
 										</li>
 										<li>
-											<Link href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ">
+											<Link href="https://soundcloud.com/user-564729441">
 												<a target="_blank" rel="noreferrer">
 													<img src={soundcloud.src} alt="soundcloud" />
 												</a>
@@ -278,7 +278,7 @@ export default function Footer() {
 											onClick={() => toggleTab(4)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="/softwares">Software</a>
+												<a className="/software">Software</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -294,7 +294,7 @@ export default function Footer() {
 												{data?.softwares?.map((item, ind) => {
 													return (
 														<p key={ind}>
-															<a href={`/softwares/${item?.slug}`}>
+															<a href={`/software/${item?.slug}`}>
 																<p className="">{item?.title}</p>
 															</a>
 															<img
@@ -406,7 +406,7 @@ export default function Footer() {
 										{data?.services?.map((item, ind) => {
 											return (
 												<li key={ind}>
-													<a href={`/services/${item?.slug}`}>{item?.title}</a>
+													<a href={`/service/${item?.slug}`}>{item?.title}</a>
 												</li>
 											);
 										})}
@@ -423,7 +423,7 @@ export default function Footer() {
 											<a href="/resources">Resources</a>
 										</li>
 										<li>
-											<a href="/contact">Contact Us</a>
+											<a href="/company/contact">Contact Us</a>
 										</li>
 									</ul>
 								</div>
