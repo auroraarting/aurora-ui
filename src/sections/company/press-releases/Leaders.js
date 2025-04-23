@@ -29,6 +29,7 @@ import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import black_down_arrow from "@/../public/img/icons/black_down_arrow.svg";
 import linkedin from "@/../public/img/icons/linkedin.svg";
+import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -69,6 +70,20 @@ export default function Leaders() {
 			thumbnail: management_img.src,
 			leaderBlogHeading: "Latest Articles by John Feddersen1",
 			blogData: [
+				{
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
+				},
+				{
+					tags: "Case Study",
+					blogDesc:
+						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
+					blogDate: "Feb 20, 2025",
+					blogLocation: "Australia",
+				},
 				{
 					tags: "Case Study",
 					blogDesc:
@@ -302,41 +317,80 @@ export default function Leaders() {
 													{item.blogData.length > 0 && (
 														<div className={`${styles.blogWapper}`}>
 															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
-															<div className={`${styles.insightsItemFlex} d_f m_t_30`}>
-																{item.blogData.map((blogData, index) => (
-																	<div className={`${styles.ItemBox} `} key={index}>
-																		<div className={`${styles.hoverBox}`}>
-																			<p
-																				className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-																			>
-																				{blogData.tags}
-																			</p>
-																			<p
-																				className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
-																			>
-																				{blogData.blogDesc}
-																			</p>
-																			<div className={`${styles.dateFlex} f_j pt_30`}>
-																				<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+															<div className={`${styles.insightsItemFlex} m_t_30`}>
+																<Swiper
+																	modules={[Navigation]}
+																	slidesPerView={1.1}
+																	grabCursor={true}
+																	speed={500}
+																	loop={true}
+																	navigation={{
+																		prevEl: "#blogsPrevCollaboration",
+																		nextEl: "#blogsNextCollaboration",
+																	}}
+																	breakpoints={{
+																		768: {
+																			slidesPerView: 3,
+																		},
+																	}}
+																	className={styles.sliderLeaders}
+																>
+																	{item.blogData.map((blogData, index) => (
+																		<SwiperSlide key={index}>
+																			<div className={`${styles.ItemBox} `}>
+																				<div className={`${styles.hoverBox}`}>
 																					<img
-																						src={calender.src}
-																						className={`${styles.clock}`}
-																						alt="clock"
+																						src={hoverBg.src}
+																						className={`${styles.hoverBg} width_100 b_r_10`}
+																						alt="img"
 																					/>
-																					<span>{blogData.blogDate}</span>
-																				</p>
-																				<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
-																					<img
-																						src={location.src}
-																						className={`${styles.clock}`}
-																						alt="clock"
-																					/>
-																					<span>{blogData.blogLocation}</span>
-																				</p>
+																					<p
+																						className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+																					>
+																						{blogData.tags}
+																					</p>
+																					<p
+																						className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
+																					>
+																						{blogData.blogDesc}
+																					</p>
+																					<div className={`${styles.dateFlex} f_j pt_30`}>
+																						<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																							<img
+																								src={calender.src}
+																								className={`${styles.clock}`}
+																								alt="clock"
+																							/>
+																							<span>{blogData.blogDate}</span>
+																						</p>
+																						<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																							<img
+																								src={location.src}
+																								className={`${styles.clock}`}
+																								alt="clock"
+																							/>
+																							<span>{blogData.blogLocation}</span>
+																						</p>
+																					</div>
+																				</div>
 																			</div>
-																		</div>
-																	</div>
-																))}
+																		</SwiperSlide>
+																	))}
+																</Swiper>
+															</div>
+															<div className={`${styles.arrowBlogLeaders} `}>
+																<button
+																	className={`${styles.customPrev}`}
+																	id="blogsPrevCollaboration"
+																>
+																	<img src={slider_arrow.src} alt="icon" />
+																</button>
+																<button
+																	className={styles.customNext}
+																	id="blogsNextCollaboration"
+																>
+																	<img src={slider_arrow.src} alt="icon" />
+																</button>
 															</div>
 														</div>
 													)}
