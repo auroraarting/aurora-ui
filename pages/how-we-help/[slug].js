@@ -14,6 +14,7 @@ import ServicesCircle from "@/components/ServicesCircle";
 import SolutionsChallenge from "@/components/SolutionsChallenge";
 import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import Bundles from "@/components/Bundles";
 
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
@@ -43,7 +44,6 @@ import {
 } from "@/services/HowWeHelp.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
-import Bundles from "@/components/Bundles";
 
 // DATA //
 
