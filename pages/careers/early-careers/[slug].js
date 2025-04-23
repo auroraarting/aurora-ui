@@ -16,7 +16,7 @@ import SectionsHeader from "@/components/SectionsHeader";
 import WhatWeLook from "@/sections/careers/WhatWeLook";
 import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
 import AboutCountries from "@/sections/careers/AboutCountries";
-import CareerSeries from "@/sections/careers/CareerSeries";
+import AllVideos from "@/components/AllVideos";
 import WorkingTeams from "@/sections/careers/WorkingTeams";
 import ConnectWithUs from "@/sections/careers/ConnectWithUs";
 import EarlyCareersInside from "@/sections/careers/EarlyCareersInside";
@@ -163,8 +163,8 @@ export default function EarlyCareers({ data }) {
 				<div className="SmarterEnergy">
 					<SmarterEnergy />
 				</div>
-				<div>
-					<CareerSeries />
+				<div className="ptb_100 dark_bg">
+					<AllVideos />
 				</div>
 				<div>
 					<SmarterEnergy data={data.keyAdvantages} />

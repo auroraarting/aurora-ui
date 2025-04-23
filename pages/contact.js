@@ -31,6 +31,7 @@ import {
 	getGlobalPresencePage,
 	getRegions,
 } from "@/services/GlobalPresence.service";
+import { getOfficesByRegions } from "@/services/Offices.service";
 
 // DATA //
 const tempArr = [
@@ -309,116 +310,67 @@ const tempArr = [
 /** Fetch  */
 export async function getServerSideProps() {
 	const [regions, page] = await Promise.all([
-		getRegions(),
+		getOfficesByRegions(),
 		getGlobalPresencePage(),
 	]);
-	const mapJson = getMapJsonForAllRegions(regions);
 
 	return {
-		props: { mapJson, regions },
+		props: { regions: regions.data.regions.nodes },
 	};
 }
 
 /** Contact Page */
-export default function ContactPage({ mapJson, regions }) {
+export default function ContactPage({ regions }) {
 	const [data, setData] = useState();
 
 	useEffect(() => {
-		const regionsArr = regions?.data?.regions?.nodes?.map((item) => {
+		const regionsArr = regions?.map((item) => {
 			let obj = {};
-
 			obj.title = item?.name;
+			console.log("asd", item?.countries);
 			if (item?.countries?.nodes?.length > 0) {
 				obj.children = (
 					<div className={`${styles.CountryWrapper}`}>
 						<div className={`${styles.CountryBox}`}>
-							<div className={`${styles.CountryItem}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<div className={`${styles.countryImg}`}>
-									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-								</div>
-								<div className="f_j a_center pt_10">
-									<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
-									<Button color="secondary" variant="underline" size="xs">
-										View Map
-									</Button>
-								</div>
-								<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
-									<img src={location.src} className="" alt="img" />
-									<span>
-										St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-									</span>
-								</p>
-								<a
-									href="tel:+441865952700"
-									className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-								>
-									<img src={call_icon.src} className="" alt="img" />
-									<span>+44 1865 952700</span>
-								</a>
-							</div>
-							<div className={`${styles.CountryItem}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<div className={`${styles.countryImg}`}>
-									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-								</div>
-								<div className="f_j a_center pt_10">
-									<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
-									<Button color="secondary" variant="underline" size="xs">
-										View Map
-									</Button>
-								</div>
-								<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
-									<img src={location.src} className="" alt="img" />
-									<span>
-										St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-									</span>
-								</p>
-								<a
-									href="tel:+441865952700"
-									className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-								>
-									<img src={call_icon.src} className="" alt="img" />
-									<span>+44 1865 952700</span>
-								</a>
-							</div>
-							<div className={`${styles.CountryItem}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<div className={`${styles.countryImg}`}>
-									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
-								</div>
-								<div className="f_j a_center pt_10">
-									<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
-									<Button color="secondary" variant="underline" size="xs">
-										View Map
-									</Button>
-								</div>
-								<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
-									<img src={location.src} className="" alt="img" />
-									<span>
-										St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-									</span>
-								</p>
-								<a
-									href="tel:+441865952700"
-									className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-								>
-									<img src={call_icon.src} className="" alt="img" />
-									<span>+44 1865 952700</span>
-								</a>
-							</div>
+							{item?.countries?.nodes?.map((item2, ind2) => {
+								return item2?.countries?.offices?.offices?.nodes?.map((item3, ind3) => {
+									return (
+										<div className={`${styles.CountryItem}`} key={item2?.title}>
+											<img
+												src={hoverBg.src}
+												className={`${styles.hoverBg} width_100 b_r_10`}
+												alt="img"
+											/>
+											<div className={`${styles.countryImg}`}>
+												<img
+													src={item3?.offices?.thumbnail?.node?.sourceUrl}
+													className="width_100 b_r_10"
+													alt="img"
+												/>
+											</div>
+											<div className="f_j a_center pt_10">
+												<h5 className="text_reg font_primary f_w_m color_secondary ">
+													{item2?.title}
+												</h5>
+												<Button color="secondary" variant="underline" size="xs">
+													View Map
+												</Button>
+											</div>
+											<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+												<img src={location.src} className="" alt="img" />
+												<span>{item3?.offices?.contact?.address}</span>
+											</p>
+											<a
+												href={`tel:${item3?.offices?.contact?.tel}`}
+												className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+											>
+												<img src={call_icon.src} className="" alt="img" />
+												<span>{item3?.offices?.contact?.tel}</span>
+											</a>
+										</div>
+									);
+								});
+							})}
 						</div>
 					</div>
 				);
@@ -426,7 +378,6 @@ export default function ContactPage({ mapJson, regions }) {
 			return obj;
 		});
 		setData({ regionsArr });
-		console.log(regionsArr, "regionsArr");
 	}, []);
 
 	return (
@@ -471,13 +422,15 @@ export default function ContactPage({ mapJson, regions }) {
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 								Our Presence
 							</h2>
-							<AccordianCommon
-								fontStyle={"text_lg"}
-								fontWeight={"f_w_s_b"}
-								fontFamily={"font_primary"}
-								fontColor={"color_secondary"}
-								items={tempArr}
-							/>
+							{data && (
+								<AccordianCommon
+									fontStyle={"text_lg"}
+									fontWeight={"f_w_s_b"}
+									fontFamily={"font_primary"}
+									fontColor={"color_secondary"}
+									items={data?.regionsArr}
+								/>
+							)}
 						</div>
 					</div>
 				</section>

@@ -116,7 +116,7 @@ export default function Insights({
 									<h2 className="text_xl font_primary f_w_s_b color_white ">Insights</h2>
 								</div>
 								<div className={`${styles.bookBtn}`}>
-									<Button color="secondary" variant="filled" shape="rounded" mode="dark">
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
 										View All
 									</Button>
 								</div>
