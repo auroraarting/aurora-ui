@@ -439,11 +439,7 @@ export default function ContactPage({ mapJson, regions }) {
 
 			{/* Page Content starts here */}
 			<main className={styles.ContactPage}>
-<<<<<<< HEAD:pages/contact.js
-				<div className={`${styles.topBg}`}>
-=======
 				<div className={`${styles.topBg} pb_100`}>
->>>>>>> pramod:pages/company/contact.js
 					<InnerBanner
 						bannerTitle="Lorem ipsum dolor sit amet consectetur"
 						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
@@ -461,11 +457,7 @@ export default function ContactPage({ mapJson, regions }) {
 							</div>
 							<div className={`${styles.formBox}`}>
 								<iframe
-<<<<<<< HEAD:pages/contact.js
-									src="/img/softwares/form.html"
-=======
 									src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
->>>>>>> pramod:pages/company/contact.js
 									className={`${styles.form_img}`}
 									title="Form"
 								></iframe>
