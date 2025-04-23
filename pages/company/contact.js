@@ -14,13 +14,13 @@ import SoftwareCards from "@/components/SoftwareCards";
 // PLUGINS //
 
 // STYLES //
-import styles from "@/styles/pages/Contact.module.scss";
+import styles from "@/styles/pages/company/Contact.module.scss";
 
 // UTILS //
 
 // IMAGES //
-import call_icon from "../public/img/icons/call_icon.svg";
-import location from "../public/img/icons/location.svg";
+import call_icon from "@/../public/img/icons/call_icon.svg";
+import location from "@/../public/img/icons/location.svg";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import hoverBg from "@/../public/img/contact/hoverBg.png";
 
@@ -38,12 +38,12 @@ export default function ContactPage() {
 
 			{/* Page Content starts here */}
 			<main className={styles.ContactPage}>
-				<div className={`${styles.topBg} ptb_100`}>
-					{/* <InnerBanner
+				<div className={`${styles.topBg} pb_100`}>
+					<InnerBanner
 						bannerTitle="Lorem ipsum dolor sit amet consectetur"
 						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
 						showContentOnly
-					/> */}
+					/>
 					<div className="container">
 						<div className={`${styles.formFlex} f_j`}>
 							<div className={`${styles.form_title}`}>
@@ -56,7 +56,7 @@ export default function ContactPage() {
 							</div>
 							<div className={`${styles.formBox}`}>
 								<iframe
-									src="../../../img/softwares/form.html"
+									src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
 									className={`${styles.form_img}`}
 									title="Form"
 								></iframe>
