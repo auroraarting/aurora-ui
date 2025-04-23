@@ -14,7 +14,7 @@ import SmarterEnergy from "@/components/SmarterEnergy";
 
 // SECTIONS //
 import CareerCountryCard from "@/sections/careers/CareerCountryCard";
-import CareerSeries from "@/sections/careers/CareerSeries";
+import AllVideos from "@/components/AllVideos";
 import TeamAurora from "@/sections/careers/TeamAurora";
 import ConnectWithUs from "@/sections/careers/ConnectWithUs";
 
@@ -105,8 +105,8 @@ export default function EarlyCareers({ data }) {
 				<div>
 					<SmarterEnergy data={data.keyAdvantages} />
 				</div>
-				<div>
-					<CareerSeries />
+				<div className="ptb_100 dark_bg">
+					<AllVideos />
 				</div>
 				<div className="pt_80">
 					<TeamAurora />

@@ -9,6 +9,8 @@ import InnerBanner from "@/components/InnerBanner";
 import Insights from "@/components/Insights";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
+import SoftwareCards from "@/components/SoftwareCards";
+import AllVideos from "@/components/AllVideos";
 
 // SECTIONS //
 import TopEnergy from "@/sections/resources/energy-talks/TopEnergy";
@@ -56,9 +58,16 @@ export default function EnergyTalks() {
 				<div className="pt_60 pb_100">
 					<EnergyListing />
 				</div>
-				<div className={`${styles.eventBottomBg} dark_bg ptb_100`}>
-					<Insights isPowerBgVisible={true} />
-					<EventSmarterEnergy />
+				<div className="pb_100">
+					<AllVideos />
+				</div>
+				<div className={`${styles.containerCustom} pb_100`}>
+					<div className="container">
+						<Insights isPowerBgVisible={true} />
+					</div>
+				</div>
+				<div className="pb_100">
+					<SoftwareCards />
 				</div>
 			</main>
 			{/* Page Content ends here */}
