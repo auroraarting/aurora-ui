@@ -135,15 +135,13 @@ export default function Transactions({ data, services, mapJson }) {
 						marqueeText={data?.howWeHelpInside?.availableRegions?.marqueeText}
 					/>
 				</div>
-				{!services.length && (
-					<div className="pb_100">
-						<TransactionSolutions
-							slugPage="how-we-help"
-							data={services}
-							keyValue="howWeHelpInside"
-						/>
-					</div>
-				)}
+				<div className="pb_100">
+					<TransactionSolutions
+						slugPage="how-we-help"
+						data={services}
+						keyValue="howWeHelpInside"
+					/>
+				</div>
 				<div className="ptb_100 dark_bg">
 					<EosIntegratedSystem />
 				</div>
