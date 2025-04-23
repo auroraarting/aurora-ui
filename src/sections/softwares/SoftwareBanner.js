@@ -23,6 +23,7 @@ import pause_button from "../../../public/img/icons/pause_button.svg";
 import play_button from "../../../public/img/icons/video_play.svg";
 import DefaultBanner from "/public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "/public/img/banner/defaultMobileBanner.jpg";
+import Script from "next/script";
 
 // DATA //
 
@@ -37,8 +38,20 @@ export default function SoftwareBanner({
 	btnLink,
 	logo,
 }) {
+	/** Function to generate the correct video URL  */
+	const getVimeoUrl = (vimeoid) => {
+		if (vimeoid.includes("/")) {
+			// If the vimeoid has the format "id/hash", construct the embed URL
+			const [id, hash] = vimeoid.split("/");
+			return `https://player.vimeo.com/video/${id}?h=${hash}&amp;`;
+		} else {
+			// If it's just the ID, return the embed URL for the video ID
+			return `https://player.vimeo.com/video/${vimeoid}`;
+		}
+	};
+
 	const defaultVimeoObj = {
-		video: vimeoid,
+		video: getVimeoUrl(vimeoid),
 		controls: false,
 		paused: false,
 		autoplay: true,
@@ -123,6 +136,7 @@ export default function SoftwareBanner({
 									{...defaultVimeoObj}
 								/>
 							)}
+
 							{/* Play/Pause Button */}
 							<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
 								{isPlaying ? (
