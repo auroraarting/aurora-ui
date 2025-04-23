@@ -296,7 +296,9 @@ export default function AdvisoryLeadership({ data }) {
 													</div>
 													{item?.teams?.articles?.articlesby?.nodes?.length > 0 && (
 														<div className={`${styles.blogWapper}`}>
-															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
+															<h3 className="text_lg color_white">
+																Latest Articles by {item?.title}
+															</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
 																<Swiper
 																	modules={[Navigation]}
@@ -360,7 +362,7 @@ export default function AdvisoryLeadership({ data }) {
 																	)}
 																</Swiper>
 															</div>
-															{item?.teams?.articles?.articlesby?.nodes?.length > 1 && (
+															{item?.teams?.articles?.articlesby?.nodes?.length > 3 && (
 																<div className={`${styles.arrowSectionLeaders} `}>
 																	<button
 																		className={`${styles.customPrev}`}
