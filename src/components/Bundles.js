@@ -11,6 +11,7 @@ import CustomSelect from "./CustomSelect";
 
 // UTILS //
 import EqualHeight from "../utils/EqualHeight";
+import { dispatchCustomEvent } from "@/utils/CustomEvent";
 
 // STYLES //
 import styles from "@/styles/components/Bundles.module.scss";
@@ -24,6 +25,7 @@ import Checkmark from "/public/img/checkmark.png";
 /** Bundles Section */
 export default function Bundles({ data }) {
 	const [list, setList] = useState(data?.tabs?.[0]);
+	const [selectVal, setSelectVal] = useState();
 
 	/**  handleTabChange */
 	const handleTabChange = (tab) => {
@@ -52,7 +54,10 @@ export default function Bundles({ data }) {
 											list.tabName === item.tabName && styles.active
 										}`}
 										key={ind}
-										onClick={() => handleTabChange(item)}
+										onClick={() => {
+											handleTabChange(item);
+											dispatchCustomEvent("resetCustomSelect1");
+										}}
 									>
 										<p
 											className={`${styles.text} text_xs font_primary f_w_b  ${
@@ -77,10 +82,13 @@ export default function Bundles({ data }) {
 						</div>
 						<div className="pb_10">
 							<CustomSelect
+								eventId="resetCustomSelect1"
 								list={data?.bundleTabs.map((item) => item.tabName)}
 								defaultId={0}
 								placeholder="Sample Packagess"
 								mode="dark"
+								selectVal={selectVal}
+								setSelectVal={setSelectVal}
 								afterSelect={(e) => {
 									const filter = data?.bundleTabs.filter(
 										(item) => item.tabName === e.value
