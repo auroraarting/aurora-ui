@@ -288,6 +288,7 @@
 				// }
 				.hoverBox {
 					min-height: 190px;
+					padding: 15px 15px;
 					// transition: 0.3s all;
 					.categoryTxt {
 						position: relative;
@@ -304,12 +305,14 @@
 						}
 					}
 					.descTxt {
+						position: relative;
 						display: -webkit-box;
 						-webkit-line-clamp: 3;
 						-webkit-box-orient: vertical;
 						overflow: hidden;
 					}
 					.dateFlex {
+						position: relative;
 						align-items: center;
 						p {
 							img {
@@ -320,20 +323,39 @@
 							}
 						}
 					}
+					.hoverBg {
+						position: absolute;
+						left: 0;
+						top: 0px;
+						opacity: 0;
+						height: 100%;
+						width: 100%;
+						z-index: 0;
+					}
 				}
 				&:hover {
 					.hoverBox {
-						background-color: var(--color_white);
-						padding: 15px 15px;
+						background-color: var(--color_secondary);
+
 						border-radius: 20px;
 						// transition: 0.3s all;
 						.descTxt {
-							color: var(--color_black);
+							color: var(--color_white);
+							position: relative;
+							text-decoration: underline;
+							font-weight: 600;
 						}
 						.dateFlex {
-							img {
-								filter: invert(0);
+							p {
+								color: var(--color_white);
+								img {
+									// filter: invert(1);
+									// opacity: 0.5;
+								}
 							}
+						}
+						.hoverBg {
+							opacity: 1;
 						}
 					}
 				}
