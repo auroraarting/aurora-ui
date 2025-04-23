@@ -32,7 +32,7 @@ export default function PoliciesAndCompliance() {
 			/>
 
 			{/* Header */}
-			<Header />
+			{/* <Header /> */}
 
 			{/* Page Content starts here */}
 			<main className={styles.TermsPage}>
