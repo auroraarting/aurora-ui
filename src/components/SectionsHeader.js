@@ -125,9 +125,8 @@ export default function SectionsHeader({ data, customHtml }) {
 						className={`${styles.dropdownToggle} f_r_aj_between`}
 						onClick={() => setDropdownOpen((prev) => !prev)}
 					>
-						<span>{sectionsList[activeTab]?.name || "Select"}</span>
-						<div className={`${styles.flexInner} d_f`}>
-							{customHtml}{" "}
+						<span>
+							{sectionsList[activeTab]?.name || "Select"} &nbsp;
 							<img
 								src={accarrow.src}
 								className={`${styles.dropArrow} ${
@@ -135,7 +134,8 @@ export default function SectionsHeader({ data, customHtml }) {
 								}`}
 								alt=""
 							/>
-						</div>
+						</span>
+						<div className={`${styles.flexInner} d_f`}>{customHtml} </div>
 					</div>
 					{dropdownOpen && (
 						<div className={styles.dropdownList}>

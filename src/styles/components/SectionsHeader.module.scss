@@ -52,7 +52,7 @@
 	.dropdownToggle {
 		background-color: var(--color_silver);
 		border-bottom: 1px solid var(--color_silver_gray);
-		padding: 0.75rem 1rem;
+		padding: 10px 15px;
 		border-radius: 8px;
 		cursor: pointer;
 		position: relative;
@@ -62,6 +62,8 @@
 		}
 		.dropArrow {
 			transition: all 0.5s;
+			display: inline-block;
+			vertical-align: middle;
 			// padding-left: 10px;
 			&.dropArrowAct {
 				transform: rotate(180deg);
