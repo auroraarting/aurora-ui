@@ -40,41 +40,35 @@ export async function getServerSideProps() {
 		data: { ...data.data.page.about, offices: data.data.offices.nodes },
 	};
 	delete obj.data.about;
-	return { props: { ...obj } };
+
+	let tempMapJson = {
+		zoom: 9,
+		name: "Global",
+		centerOfCountry: {
+			lat: 18.1307561,
+			lng: 23.554042,
+		},
+		markers: [],
+	};
+
+	data.offices?.map((item) => {
+		let obj = {
+			name: item.title,
+			lat: item.offices.map.lat,
+			lng: item.offices.map.lng,
+			url: "/careers/life-at-aurora",
+			hoverImg: item.offices.thumbnail.node.sourceUrl,
+			// icon:
+			// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
+		};
+
+		tempMapJson.markers.push(obj);
+	});
+	return { props: { ...obj, mapJson: tempMapJson } };
 }
 
 /** About Page */
-export default function About({ data }) {
-	const [mapJson, setMapJson] = useState();
-
-	useEffect(() => {
-		let tempMapJson = {
-			zoom: 9,
-			name: "Global",
-			centerOfCountry: {
-				lat: 18.1307561,
-				lng: 23.554042,
-			},
-			markers: [],
-		};
-
-		data.offices?.map((item) => {
-			let obj = {
-				name: item.title,
-				lat: item.offices.map.lat,
-				lng: item.offices.map.lng,
-				url: "/careers/life-at-aurora",
-				hoverImg: item.offices.thumbnail.node.sourceUrl,
-				// icon:
-				// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
-			};
-
-			tempMapJson.markers.push(obj);
-		});
-
-		setMapJson(tempMapJson);
-	}, []);
-
+export default function About({ data, mapJson }) {
 	return (
 		<div>
 			{/* Metatags */}

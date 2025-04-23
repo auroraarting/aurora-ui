@@ -216,10 +216,10 @@ export function filterMarkersBySlug(data, slug) {
 export function getMapJsonForAllRegions(regions) {
 	const mapJson = [];
 	regions?.data?.regions?.nodes?.map((item) => {
-		item.countries.nodes.map((item2) => {
-			let obj = {
-				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-				markers: item2.countries.map?.markers?.map((item3) => {
+		item?.countries?.nodes?.map((item2) => {
+			let markers = [];
+			if (item2?.countries?.map?.markers) {
+				markers = item2?.countries?.map?.markers?.map((item3) => {
 					let node = item3?.category?.nodes?.[0];
 
 					let obj2 = {
@@ -241,16 +241,20 @@ export function getMapJsonForAllRegions(regions) {
 					}
 
 					if (item3?.category?.nodes?.length > 0) {
-						obj2.name = node.title;
-						obj2.lat = parseFloat(item3.coordinates.lat);
-						obj2.lng = parseFloat(item3.coordinates.lng);
-						obj2.url = `/${node.contentType.node.name}/${node.slug}`;
+						obj2.name = node?.title;
+						obj2.lat = parseFloat(item3?.coordinates?.lat);
+						obj2.lng = parseFloat(item3?.coordinates?.lng);
+						obj2.url = `/${node.contentType?.node?.name}/${node?.slug}`;
 					}
 
 					return obj2;
-				}),
-				zoom: item2.countries.map.zoom,
-				name: item2.title,
+				});
+			}
+			let obj = {
+				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
+				markers: markers,
+				zoom: item2?.countries?.map?.zoom || 4,
+				name: item2?.title,
 			};
 
 			mapJson.push(obj);

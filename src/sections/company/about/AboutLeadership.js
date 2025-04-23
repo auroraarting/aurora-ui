@@ -247,17 +247,20 @@ export default function AboutLeadership({ data }) {
 							})}
 						</Swiper>
 					</div>
-					<div className={`${styles.aboutArrowSectionLeaders} f_w_a_j_center`}>
-						<button
-							className={`${styles.customPrev}`}
-							id="aboutsCustomPrevCollaboration"
-						>
-							<img src={slider_arrow.src} alt="icon" />
-						</button>
-						<button className={styles.customNext} id="aboutsCustomNextCollaboration">
-							<img src={slider_arrow.src} alt="icon" />
-						</button>
-					</div>
+					{data?.leaders?.nodes?.length > 1 && (
+						<div className={`${styles.aboutArrowSectionLeaders} f_w_a_j_center`}>
+							<button
+								className={`${styles.customPrev}`}
+								id="aboutsCustomPrevCollaboration"
+							>
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+							<button className={styles.customNext} id="aboutsCustomNextCollaboration">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+						</div>
+					)}
+
 					{/*  */}
 				</div>
 			</div>

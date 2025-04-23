@@ -110,8 +110,6 @@ export default function Australia({ data, mapJson }) {
 		</div>,
 	];
 
-	console.log("data", data);
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -129,23 +127,11 @@ export default function Australia({ data, mapJson }) {
 			<main className={styles.AustraliaPage}>
 				<div>
 					<InnerBanner
-						bannerTitle={
-							data.countries.bannerSection.title ||
-							"Lorem ipsum dolor sit amet consectetur."
-						}
-						bannerDescription={
-							data.countries.bannerSection.description ||
-							"Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-						}
+						bannerTitle={data.countries.bannerSection.title}
+						bannerDescription={data.countries.bannerSection.description}
 						btnTxt="Get in Touch"
-						desktopImage={
-							data.countries.bannerSection?.image?.node?.sourceUrl ||
-							desktop_banner.src
-						}
-						mobileImage={
-							data.countries.bannerSection.mobileImage?.node?.sourceUrl ||
-							desktop_banner.src
-						}
+						desktopImage={data.countries.bannerSection?.image?.node?.sourceUrl}
+						mobileImage={data.countries.bannerSection.mobileImage?.node?.sourceUrl}
 					/>
 				</div>
 				<div className="pb_40">

@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
@@ -17,6 +18,7 @@ import SoftwareCards from "@/components/SoftwareCards";
 import styles from "@/styles/pages/Contact.module.scss";
 
 // UTILS //
+import { getMapJsonForAllRegions } from "@/utils";
 
 // IMAGES //
 import call_icon from "../public/img/icons/call_icon.svg";
@@ -24,10 +26,409 @@ import location from "../public/img/icons/location.svg";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import hoverBg from "@/../public/img/contact/hoverBg.png";
 
+// SERVICES //
+import {
+	getGlobalPresencePage,
+	getRegions,
+} from "@/services/GlobalPresence.service";
+
 // DATA //
+const tempArr = [
+	{
+		title: "Asia",
+		children: (
+			<div className={`${styles.CountryWrapper}`}>
+				<div className={`${styles.CountryBox}`}>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		),
+	},
+	{
+		title: "Australia",
+		children: (
+			<div className={`${styles.CountryWrapper}`}>
+				<div className={`${styles.CountryBox}`}>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		),
+	},
+	{
+		title: "Europe",
+		children: (
+			<div className={`${styles.CountryWrapper}`}>
+				<div className={`${styles.CountryBox}`}>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+					<div className={`${styles.CountryItem}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.countryImg}`}>
+							<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+						</div>
+						<div className="f_j a_center pt_10">
+							<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+							<Button color="secondary" variant="underline" size="xs">
+								View Map
+							</Button>
+						</div>
+						<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+							<img src={location.src} className="" alt="img" />
+							<span>St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK</span>
+						</p>
+						<a
+							href="tel:+441865952700"
+							className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+						>
+							<img src={call_icon.src} className="" alt="img" />
+							<span>+44 1865 952700</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		),
+	},
+];
+
+/** Fetch  */
+export async function getServerSideProps() {
+	const [regions, page] = await Promise.all([
+		getRegions(),
+		getGlobalPresencePage(),
+	]);
+	const mapJson = getMapJsonForAllRegions(regions);
+
+	return {
+		props: { mapJson, regions },
+	};
+}
 
 /** Contact Page */
-export default function ContactPage() {
+export default function ContactPage({ mapJson, regions }) {
+	const [data, setData] = useState();
+
+	useEffect(() => {
+		const regionsArr = regions?.data?.regions?.nodes?.map((item) => {
+			let obj = {};
+
+			obj.title = item?.name;
+			if (item?.countries?.nodes?.length > 0) {
+				obj.children = (
+					<div className={`${styles.CountryWrapper}`}>
+						<div className={`${styles.CountryBox}`}>
+							<div className={`${styles.CountryItem}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
+								<div className={`${styles.countryImg}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+								</div>
+								<div className="f_j a_center pt_10">
+									<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+									<Button color="secondary" variant="underline" size="xs">
+										View Map
+									</Button>
+								</div>
+								<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+									<img src={location.src} className="" alt="img" />
+									<span>
+										St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
+									</span>
+								</p>
+								<a
+									href="tel:+441865952700"
+									className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+								>
+									<img src={call_icon.src} className="" alt="img" />
+									<span>+44 1865 952700</span>
+								</a>
+							</div>
+							<div className={`${styles.CountryItem}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
+								<div className={`${styles.countryImg}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+								</div>
+								<div className="f_j a_center pt_10">
+									<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+									<Button color="secondary" variant="underline" size="xs">
+										View Map
+									</Button>
+								</div>
+								<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+									<img src={location.src} className="" alt="img" />
+									<span>
+										St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
+									</span>
+								</p>
+								<a
+									href="tel:+441865952700"
+									className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+								>
+									<img src={call_icon.src} className="" alt="img" />
+									<span>+44 1865 952700</span>
+								</a>
+							</div>
+							<div className={`${styles.CountryItem}`}>
+								<img
+									src={hoverBg.src}
+									className={`${styles.hoverBg} width_100 b_r_10`}
+									alt="img"
+								/>
+								<div className={`${styles.countryImg}`}>
+									<img src={country_thumb.src} className="width_100 b_r_10" alt="img" />
+								</div>
+								<div className="f_j a_center pt_10">
+									<h5 className="text_reg font_primary f_w_m color_secondary ">India</h5>
+									<Button color="secondary" variant="underline" size="xs">
+										View Map
+									</Button>
+								</div>
+								<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+									<img src={location.src} className="" alt="img" />
+									<span>
+										St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
+									</span>
+								</p>
+								<a
+									href="tel:+441865952700"
+									className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+								>
+									<img src={call_icon.src} className="" alt="img" />
+									<span>+44 1865 952700</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				);
+			}
+			return obj;
+		});
+		setData({ regionsArr });
+		console.log(regionsArr, "regionsArr");
+	}, []);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -38,7 +439,7 @@ export default function ContactPage() {
 
 			{/* Page Content starts here */}
 			<main className={styles.ContactPage}>
-				<div className={`${styles.topBg} ptb_100`}>
+				<div className={`${styles.topBg}`}>
 					<InnerBanner
 						bannerTitle="Lorem ipsum dolor sit amet consectetur"
 						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
@@ -56,7 +457,7 @@ export default function ContactPage() {
 							</div>
 							<div className={`${styles.formBox}`}>
 								<iframe
-									src="../../../img/softwares/form.html"
+									src="/img/softwares/form.html"
 									className={`${styles.form_img}`}
 									title="Form"
 								></iframe>
@@ -75,368 +476,7 @@ export default function ContactPage() {
 								fontWeight={"f_w_s_b"}
 								fontFamily={"font_primary"}
 								fontColor={"color_secondary"}
-								items={[
-									{
-										title: "Asia",
-										children: (
-											<div className={`${styles.CountryWrapper}`}>
-												<div className={`${styles.CountryBox}`}>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										),
-									},
-									{
-										title: "Australia",
-										children: (
-											<div className={`${styles.CountryWrapper}`}>
-												<div className={`${styles.CountryBox}`}>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										),
-									},
-									{
-										title: "Europe",
-										children: (
-											<div className={`${styles.CountryWrapper}`}>
-												<div className={`${styles.CountryBox}`}>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-													<div className={`${styles.CountryItem}`}>
-														<img
-															src={hoverBg.src}
-															className={`${styles.hoverBg} width_100 b_r_10`}
-															alt="img"
-														/>
-														<div className={`${styles.countryImg}`}>
-															<img
-																src={country_thumb.src}
-																className="width_100 b_r_10"
-																alt="img"
-															/>
-														</div>
-														<div className="f_j a_center pt_10">
-															<h5 className="text_reg font_primary f_w_m color_secondary ">
-																India
-															</h5>
-															<Button color="secondary" variant="underline" size="xs">
-																View Map
-															</Button>
-														</div>
-														<p
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={location.src} className="" alt="img" />
-															<span>
-																St Aldates Chambers, 109-113 St Aldates, Oxford, OX1 1DS, UK
-															</span>
-														</p>
-														<a
-															href="tel:+441865952700"
-															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-														>
-															<img src={call_icon.src} className="" alt="img" />
-															<span>+44 1865 952700</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										),
-									},
-								]}
+								items={tempArr}
 							/>
 						</div>
 					</div>
@@ -448,7 +488,7 @@ export default function ContactPage() {
 			{/* Page Content ends here */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }
