@@ -42,15 +42,18 @@ import {
 	getSingleHowWeHelp,
 } from "@/services/HowWeHelp.service";
 import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
+import Bundles from "@/components/Bundles";
 
 // DATA //
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, services, regions] = await Promise.all([
+	const [data, services, regions, bundles] = await Promise.all([
 		getSingleHowWeHelp(params.slug),
 		getHowWeHelps(),
 		getRegions(),
+		getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
 
@@ -60,12 +63,13 @@ export async function getServerSideProps({ params }) {
 			services: services.data.howWeHelps.nodes,
 			mapJson,
 			regions,
+			bundles: bundles.data.page.bundles,
 		},
 	};
 }
 
 /** Transactions Page */
-export default function Transactions({ data, services, mapJson }) {
+export default function Transactions({ data, services, mapJson, bundles }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -135,7 +139,7 @@ export default function Transactions({ data, services, mapJson }) {
 						marqueeText={data?.howWeHelpInside?.availableRegions?.marqueeText}
 					/>
 				</div>
-				<div className="pb_100">
+				<div className="">
 					<TransactionSolutions
 						slugPage="how-we-help"
 						data={services}
@@ -143,7 +147,10 @@ export default function Transactions({ data, services, mapJson }) {
 					/>
 				</div>
 				<div className="ptb_100 dark_bg">
-					<EosIntegratedSystem />
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
 				</div>
 				<div className="pb_100">
 					<Insights
