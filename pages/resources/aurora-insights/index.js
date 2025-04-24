@@ -29,30 +29,54 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 // DATA //
 
 // SERVICES //
-import { getInsights } from "@/services/Insights.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data] = await Promise.all([getInsights()]);
+	const [data, categoriesForSelect] = await Promise.all([
+		getInsights({ first: 40, after: null }),
+		getInsightsCategories(),
+	]);
 	return {
 		props: {
 			data: data.data.posts.nodes,
+			tags: categoriesForSelect.data.tags.nodes,
+			categories: categoriesForSelect.data.categories.nodes,
+			countries: categoriesForSelect.data.countries.nodes,
+			products: categoriesForSelect.data.products.nodes,
+			softwares: categoriesForSelect.data.softwares.nodes,
+			services: categoriesForSelect.data.services.nodes,
 		},
 	};
 }
 
 /** AuroraInsights Page */
-export default function AuroraInsights({ data }) {
-	console.log("data", data);
+export default function AuroraInsights({
+	data,
+	tags,
+	categories,
+	countries,
+	products,
+	softwares,
+	services,
+}) {
+	console.log("data", {
+		data,
+		tags,
+		categories,
+		countries,
+		products,
+		softwares,
+		services,
+	});
+
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
-				Title={"Aurora Insights"}
-				Desc={""}
-				OgImg={""}
-				Url={"/aurora-insights"}
-			/>
+			<MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} />
 
 			{/* Header */}
 			{/* <Header /> */}
