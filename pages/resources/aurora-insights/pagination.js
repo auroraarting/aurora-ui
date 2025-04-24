@@ -30,7 +30,7 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 // DATA //
 
 // SERVICES //
-import { getInsights } from "@/services/Pagination.service";
+import { getInsights } from "@/services/InsightsPagination.service";
 
 /** Fetch  */
 export async function getServerSideProps(context) {
@@ -61,6 +61,7 @@ export async function getServerSideProps(context) {
 
 /** AuroraInsights Page */
 export default function AuroraInsights({ posts, currentPage, hasNextPage }) {
+	console.log("posts", posts);
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
