@@ -1,5 +1,6 @@
 // MODULES //
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
@@ -18,7 +19,12 @@ import InsightsListing from "@/sections/resources/aurora-insights/InsightsListin
 // PLUGINS //
 
 // UTILS //
-import { getMapJsonForAllRegions } from "@/utils";
+import {
+	buildQueryFromContext,
+	convertToGraphQLArgsString,
+	getMapJsonForAllRegions,
+	objectToGraphQLArgs,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/AuroraInsights.module.scss";
@@ -35,14 +41,18 @@ import {
 } from "@/services/Insights.service";
 
 /** Fetch  */
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+	const queryToUse = buildQueryFromContext(context.query);
+
 	const [data, categoriesForSelect] = await Promise.all([
-		getInsights({ first: 40, after: null }),
+		getInsights(objectToGraphQLArgs(queryToUse)),
 		getInsightsCategories(),
 	]);
+
 	return {
 		props: {
-			data: data.data.posts.nodes,
+			pagination: data.data?.posts?.pageInfo || {},
+			data: data?.data?.posts?.nodes || [],
 			tags: categoriesForSelect.data.tags.nodes,
 			categories: categoriesForSelect.data.categories.nodes,
 			countries: categoriesForSelect.data.countries.nodes,
@@ -55,6 +65,7 @@ export async function getServerSideProps() {
 
 /** AuroraInsights Page */
 export default function AuroraInsights({
+	pagination,
 	data,
 	tags,
 	categories,
@@ -63,15 +74,16 @@ export default function AuroraInsights({
 	softwares,
 	services,
 }) {
-	console.log("data", {
-		data,
-		tags,
-		categories,
-		countries,
-		products,
-		softwares,
-		services,
-	});
+	// console.log("data", {
+	// 	pagination,
+	// 	data,
+	// 	tags,
+	// 	categories,
+	// 	countries,
+	// 	products,
+	// 	softwares,
+	// 	services,
+	// });
 
 	return (
 		<div>
@@ -94,7 +106,28 @@ export default function AuroraInsights({
 					<InsightsTop />
 				</div>
 				<div className="pt_60 pb_100">
-					<InsightsListing />
+					<InsightsListing
+						data={data}
+						pagination={pagination}
+						countries={countries}
+						products={products}
+						softwares={softwares}
+						services={services}
+						productService={[
+							{
+								category: "Product",
+								options: products?.map((item) => item.title),
+							},
+							{
+								category: "Software",
+								options: softwares?.map((item) => item.title),
+							},
+							{
+								category: "Service",
+								options: services?.map((item) => item.title),
+							},
+						]}
+					/>
 				</div>
 				<div className="pb_100">
 					<AllVideos />

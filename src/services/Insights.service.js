@@ -1,14 +1,22 @@
 import GraphQLAPI from "./Graphql.service";
 
 /** Insights Page */
-export const getInsights = async ({ first, after }) => {
+export const getInsights = async (filterString) => {
+	console.log(filterString, "filterString");
 	const query = `
 query GetInsights {
-  posts(first: ${first}, after:${after}) {
+  posts(${filterString}) {
+  pageInfo {
+               endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+        }
     nodes {
       content
       title
       slug
+      date
       categories(first: 9999) {
         nodes {
           slug

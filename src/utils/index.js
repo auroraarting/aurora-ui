@@ -263,3 +263,165 @@ export function getMapJsonForAllRegions(regions) {
 
 	return mapJson;
 }
+
+/** buildGraphQLArgs  */
+export const buildGraphQLArgs = ({ first = 10, after = "", where = {} }) => {
+	const formatValue = (value) => {
+		if (typeof value === "string") return `"${value}"`;
+		if (typeof value === "object" && value !== null) {
+			const nested = Object.entries(value)
+				.map(([k, v]) => `${k}: ${formatValue(v)}`)
+				.join(", ");
+			return `{ ${nested} }`;
+		}
+		return value;
+	};
+
+	const whereStr = Object.keys(where).length
+		? `where: ${formatValue(where)}`
+		: "";
+
+	return `first: ${first}, after: "${after}"${whereStr ? `, ${whereStr}` : ""}`;
+};
+
+/** convertToGraphQLArgsString  */
+export const convertToGraphQLArgsString = (obj) => {
+	const formatValue = (value) => {
+		if (typeof value === "string") {
+			return isNaN(Number(value)) ? `"${value}"` : value; // "null" stays in quotes
+		}
+		if (typeof value === "number" || typeof value === "boolean") {
+			return value;
+		}
+		if (value === null) {
+			return `"null"`; // Keep null as string "null"
+		}
+		if (typeof value === "object") {
+			return `{ ${Object.entries(value)
+				.map(([k, v]) => `${k}: ${formatValue(v)}`)
+				.join(", ")} }`;
+		}
+		return value;
+	};
+
+	const withAfter = {
+		after: "null",
+		...obj,
+	};
+
+	return Object.entries(withAfter)
+		.map(([key, value]) => `${key}: ${formatValue(value)}`)
+		.join(", ");
+};
+
+/** transformQueryObject  */
+export const transformQueryObject = (input, categories, countries, years) => {
+	const output = {
+		first: input.first,
+		after: input.after,
+		category: "",
+		country: "",
+		productService: "",
+	};
+
+	// Parse the "where" string safely
+	const where = input.where ? JSON.parse(input.where) : {};
+	const categoryNames = where.categoryName ? where.categoryName.split(",") : [];
+
+	for (const word of categoryNames) {
+		const trimmedWord = word.trim();
+
+		if (categories.find((item) => item.title === trimmedWord)) {
+			output.category = trimmedWord;
+		} else if (countries.find((item) => item.title === trimmedWord)) {
+			output.country = trimmedWord;
+		} else {
+			// If it doesn't match category or country, assume it's a product/service
+			if (output.productService) {
+				output.productService += `,${trimmedWord}`;
+			} else {
+				output.productService = trimmedWord;
+			}
+		}
+	}
+
+	// Extract year
+	if (where.dateQuery && where.dateQuery.year) {
+		output.year = 2001; // or use actual year: where.dateQuery.year
+	}
+
+	return output;
+};
+
+/** compareArrays  */
+export function compareTitleArrays(arr1, arr2) {
+	for (let item1 of arr1) {
+		for (let item2 of arr2) {
+			if (item1.title === item2.title) {
+				console.log("found");
+				return;
+			}
+		}
+	}
+}
+
+/** formatValue */
+function formatValue(value) {
+	if (value === "null") return `"null"`; // Handle string 'null'
+	if (value === null) return "null"; // Handle actual null
+	if (!isNaN(value) && typeof value !== "object") return value;
+	return `"${value}"`;
+}
+
+/** objectToGraphQLArgs */
+export function objectToGraphQLArgs(obj, isRoot = true) {
+	if (typeof obj === "object" && obj !== null) {
+		const fields = Object.entries(obj).map(([key, value]) => {
+			// ✅ categoryIn must be a single quoted string of comma-separated values
+			if (key === "categoryIn" && typeof value === "string") {
+				const clean = value
+					.split(",")
+					.map((v) => v.trim())
+					.join(", ");
+				return `${key}: "${clean}"`;
+			}
+
+			// Default object formatting
+			return `${key}: ${objectToGraphQLArgs(value, false)}`;
+		});
+
+		return isRoot ? fields.join(", ") : `{ ${fields.join(", ")} }`;
+	}
+
+	return formatValue(obj);
+}
+
+export function buildQueryFromContext(context) {
+	const query = context;
+	const queryToUse = {
+		first: query.first,
+		after: query.after || "null",
+	};
+
+	const categoryInList = [];
+
+	// Add all category-based filters
+	["category", "country", "product", "software", "service"].forEach((key) => {
+		if (query[key]) categoryInList.push(query[key]);
+	});
+
+	// Construct `where` if needed
+	if (categoryInList.length || query.year) {
+		queryToUse.where = {};
+
+		if (categoryInList.length) {
+			queryToUse.where.categoryName = categoryInList.join(",");
+		}
+
+		if (query.year) {
+			queryToUse.where.dateQuery = { year: query.year };
+		}
+	}
+
+	return queryToUse;
+}
