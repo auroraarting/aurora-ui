@@ -25,10 +25,7 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 import { getInsights } from "@/services/Insights.service";
 import formatDate, {
 	buildQueryFromContext,
-	convertToGraphQLArgsString,
 	objectToGraphQLArgs,
-	replaceWords,
-	transformQueryObject,
 } from "@/utils";
 
 // DATA //
@@ -139,14 +136,26 @@ export default function InsightsListing({
 	/** handleNextPage  */
 	const handleNextPage = async () => {
 		setLoading(true);
-		await router.push({
-			pathname: router.pathname,
-			query: {
-				...router.query,
-				after: filteredPagination.endCursor,
+		// Build your query with the new `after` cursor
+		const newQuery = {
+			...router.query,
+			after: filteredPagination.endCursor,
+		};
+
+		router.push(
+			{
+				pathname: router.pathname,
+				query: newQuery,
 			},
-		});
-		window.location.reload();
+			undefined,
+			{ shallow: true }
+		);
+
+		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(newQuery));
+		const filteredData = await getInsights(queryToUse);
+		setLoading(false);
+		setList(filteredData.data.posts.nodes);
+		setFilteredPagination(filteredData.data?.posts?.pageInfo);
 	};
 
 	/** handleNextPage  */

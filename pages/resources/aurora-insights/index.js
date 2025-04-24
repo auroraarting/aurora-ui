@@ -19,12 +19,7 @@ import InsightsListing from "@/sections/resources/aurora-insights/InsightsListin
 // PLUGINS //
 
 // UTILS //
-import {
-	buildQueryFromContext,
-	convertToGraphQLArgsString,
-	getMapJsonForAllRegions,
-	objectToGraphQLArgs,
-} from "@/utils";
+import { buildQueryFromContext, objectToGraphQLArgs } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/AuroraInsights.module.scss";

@@ -264,56 +264,6 @@ export function getMapJsonForAllRegions(regions) {
 	return mapJson;
 }
 
-/** buildGraphQLArgs  */
-export const buildGraphQLArgs = ({ first = 10, after = "", where = {} }) => {
-	const formatValue = (value) => {
-		if (typeof value === "string") return `"${value}"`;
-		if (typeof value === "object" && value !== null) {
-			const nested = Object.entries(value)
-				.map(([k, v]) => `${k}: ${formatValue(v)}`)
-				.join(", ");
-			return `{ ${nested} }`;
-		}
-		return value;
-	};
-
-	const whereStr = Object.keys(where).length
-		? `where: ${formatValue(where)}`
-		: "";
-
-	return `first: ${first}, after: "${after}"${whereStr ? `, ${whereStr}` : ""}`;
-};
-
-/** convertToGraphQLArgsString  */
-export const convertToGraphQLArgsString = (obj) => {
-	const formatValue = (value) => {
-		if (typeof value === "string") {
-			return isNaN(Number(value)) ? `"${value}"` : value; // "null" stays in quotes
-		}
-		if (typeof value === "number" || typeof value === "boolean") {
-			return value;
-		}
-		if (value === null) {
-			return `"null"`; // Keep null as string "null"
-		}
-		if (typeof value === "object") {
-			return `{ ${Object.entries(value)
-				.map(([k, v]) => `${k}: ${formatValue(v)}`)
-				.join(", ")} }`;
-		}
-		return value;
-	};
-
-	const withAfter = {
-		after: "null",
-		...obj,
-	};
-
-	return Object.entries(withAfter)
-		.map(([key, value]) => `${key}: ${formatValue(value)}`)
-		.join(", ");
-};
-
 /** transformQueryObject  */
 export const transformQueryObject = (input, categories, countries, years) => {
 	const output = {
@@ -353,20 +303,9 @@ export const transformQueryObject = (input, categories, countries, years) => {
 	return output;
 };
 
-/** compareArrays  */
-export function compareTitleArrays(arr1, arr2) {
-	for (let item1 of arr1) {
-		for (let item2 of arr2) {
-			if (item1.title === item2.title) {
-				console.log("found");
-				return;
-			}
-		}
-	}
-}
-
 /** formatValue */
 function formatValue(value) {
+	// eslint-disable-next-line quotes
 	if (value === "null") return `"null"`; // Handle string 'null'
 	if (value === null) return "null"; // Handle actual null
 	if (!isNaN(value) && typeof value !== "object") return value;
@@ -396,10 +335,11 @@ export function objectToGraphQLArgs(obj, isRoot = true) {
 	return formatValue(obj);
 }
 
+/** buildQueryFromContext  */
 export function buildQueryFromContext(context) {
 	const query = context;
 	const queryToUse = {
-		first: query.first,
+		first: query.first || 10,
 		after: query.after || "null",
 	};
 
