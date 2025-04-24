@@ -18,6 +18,7 @@ import InsightsListing from "@/sections/resources/aurora-insights/InsightsListin
 // PLUGINS //
 
 // UTILS //
+import { getMapJsonForAllRegions } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/AuroraInsights.module.scss";
@@ -27,8 +28,22 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
+// SERVICES //
+import { getInsights } from "@/services/Insights.service";
+
+/** Fetch  */
+export async function getServerSideProps() {
+	const [data] = await Promise.all([getInsights()]);
+	return {
+		props: {
+			data: data.data.posts.nodes,
+		},
+	};
+}
+
 /** AuroraInsights Page */
-export default function AuroraInsights() {
+export default function AuroraInsights({ data }) {
+	console.log("data", data);
 	return (
 		<div>
 			{/* Metatags */}
