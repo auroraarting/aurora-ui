@@ -295,7 +295,7 @@ export default function Footer() {
 													return (
 														<p key={ind}>
 															<a href={`/software/${item?.slug}`}>
-																<p className="">{item?.title}</p>
+																<span className="">{item?.title}</span>
 															</a>
 															<img
 																src={black_right.src}
@@ -361,7 +361,7 @@ export default function Footer() {
 													return (
 														<p key={ind}>
 															<a href={`/products/${item?.slug}`}>
-																<p className="">{item?.title}</p>
+																<span className="">{item?.title}</span>
 															</a>
 															<img
 																src={black_right.src}
