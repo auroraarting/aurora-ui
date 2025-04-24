@@ -39,13 +39,33 @@ export async function getServerSideProps() {
 			data: data.data.posts.nodes,
 			tags: data.data.tags.nodes,
 			categories: data.data.categories.nodes,
+			countries: data.data.countries.nodes,
+			products: data.data.products.nodes,
+			softwares: data.data.softwares.nodes,
+			services: data.data.services.nodes,
 		},
 	};
 }
 
 /** AuroraInsights Page */
-export default function AuroraInsights({ data, tags, categories }) {
-	console.log("data");
+export default function AuroraInsights({
+	data,
+	tags,
+	categories,
+	countries,
+	products,
+	softwares,
+	services,
+}) {
+	console.log("data", {
+		data,
+		tags,
+		categories,
+		countries,
+		products,
+		softwares,
+		services,
+	});
 
 	return (
 		<div>

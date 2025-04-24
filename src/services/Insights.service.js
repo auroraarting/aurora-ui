@@ -41,6 +41,30 @@ query GetInsights {
       slug
     }
   }
+  countries(first: 9999) {
+    nodes {
+      title
+      slug
+    }
+  }
+  products(first: 9999) {
+    nodes {
+      title
+      slug
+    }
+  }
+  softwares(first: 9999) {
+    nodes {
+      slug
+      title
+    }
+  }
+  services(first: 9999) {
+    nodes {
+      slug
+      title
+    }
+  }
 }
     `;
 	const res = await GraphQLAPI(query);
