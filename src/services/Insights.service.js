@@ -1,10 +1,10 @@
 import GraphQLAPI from "./Graphql.service";
 
 /** Insights Page */
-export const getInsights = async () => {
+export const getInsights = async ({ first, after }) => {
 	const query = `
 query GetInsights {
-  posts(first: 9999) {
+  posts(first: ${first}, after:${after}) {
     nodes {
       content
       title
@@ -29,6 +29,16 @@ query GetInsights {
       }
     }
   }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** getInsights Categories  */
+export const getInsightsCategories = async () => {
+	const query = `
+query GetInsightsDropDowns {
   tags(first: 9999) {
     nodes {
       name
