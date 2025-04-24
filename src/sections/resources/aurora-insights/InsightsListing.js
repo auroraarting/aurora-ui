@@ -62,7 +62,11 @@ export default function InsightsListing() {
 	};
 
 	const optionsData = {
-		categoryType: [{ title: "Public" }, { title: "Subscriber" }],
+		categoryType: [
+			{ title: "Articles" },
+			{ title: "Case studies" },
+			{ title: "Market reports" },
+		],
 		countryType: [
 			{ title: "India" },
 			{ title: "India" },

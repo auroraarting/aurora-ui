@@ -37,22 +37,20 @@ export async function getServerSideProps() {
 	return {
 		props: {
 			data: data.data.posts.nodes,
+			tags: data.data.tags.nodes,
+			categories: data.data.categories.nodes,
 		},
 	};
 }
 
 /** AuroraInsights Page */
-export default function AuroraInsights({ data }) {
-	console.log("data", data);
+export default function AuroraInsights({ data, tags, categories }) {
+	console.log("data");
+
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
-				Title={"Aurora Insights"}
-				Desc={""}
-				OgImg={""}
-				Url={"/aurora-insights"}
-			/>
+			<MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} />
 
 			{/* Header */}
 			{/* <Header /> */}
