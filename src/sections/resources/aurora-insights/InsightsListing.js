@@ -72,9 +72,13 @@ export default function InsightsListing({
 
 	const optionsData = {
 		categoryType: [
-			{ title: "Articles" },
-			{ title: "Case studies" },
-			{ title: "Market reports" },
+			{ title: "Articles", alternate: "Commentary" },
+			{ title: "Case studies", alternate: "Case studies" },
+			{ title: "Market reports", alternate: "Market reports" },
+			{ title: "Press Release", alternate: "Press Release" },
+			{ title: "Past Webinars", alternate: "Webinar Recording" },
+			{ title: "Reports", alternate: "Reports" },
+			{ title: "Public", alternate: "Public" },
 		],
 		countryType: [
 			{ title: "India" },
@@ -110,7 +114,11 @@ export default function InsightsListing({
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
-		filter(option.title, key);
+		if (key === "categoryType") {
+			filter(option, key);
+		} else {
+			filter(option.title, key);
+		}
 	};
 
 	const radioData = [
@@ -163,6 +171,22 @@ export default function InsightsListing({
 		window.history.back();
 	};
 
+	/** filterBySelectedCategories  */
+	function filterBySelectedCategories(articles, selected) {
+		if (!selected) return articles;
+
+		const selectedValues = Object.values(selected)
+			.filter(Boolean) // remove empty, null, undefined
+			.map((val) => val.toLowerCase());
+
+		return articles.filter((article) => {
+			const categoryNames = article.categories.nodes.map((node) =>
+				node.name.toLowerCase()
+			);
+			return selectedValues.some((val) => categoryNames.includes(val));
+		});
+	}
+
 	/** filter  */
 	const filter = async (catName, key) => {
 		let queryObj = { ...router.query };
@@ -174,8 +198,8 @@ export default function InsightsListing({
 			queryObj.search = catName;
 		}
 		if (key === "categoryType") {
-			selectedObj.category = catName;
-			queryObj.category = catName;
+			selectedObj.category = catName.title;
+			queryObj.category = catName.alternate;
 		}
 		if (key === "countryType") {
 			selectedObj.country = catName;
@@ -202,20 +226,44 @@ export default function InsightsListing({
 			queryObj.service = catName;
 		}
 		setSelected(selectedObj);
-		router.push(
-			{
-				pathname: router.pathname,
-				query: queryObj,
-			},
-			undefined,
-			{ shallow: true }
-		);
+		// Removed For Now
+		// router.push(
+		// 	{
+		// 		pathname: router.pathname,
+		// 		query: queryObj,
+		// 	},
+		// 	undefined,
+		// 	{ shallow: true }
+		// );
 		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(queryObj));
 		const filteredData = await getInsights(queryToUse);
+		const filtered = filterBySelectedCategories(
+			filteredData.data.posts.nodes,
+			queryObj
+		);
+		console.log(filtered, filteredData);
 		setLoading(false);
-		setList(filteredData.data.posts.nodes);
+		setList(filtered);
 		setFilteredPagination(filteredData.data?.posts?.pageInfo);
 	};
+
+	/** findFunc  */
+	const isCategory = (categoryList, dynamicWords) => {
+		const titles2 = new Set(dynamicWords.map((item) => item.name));
+		let txt = "";
+		categoryList.filter((item) => {
+			if (titles2.has(item.alternate || item.title)) {
+				if (!txt) {
+					txt += item.title;
+				} else {
+					txt += `, ${item.title}`;
+				}
+			}
+		});
+		return txt;
+	};
+
+	// console.log(list);
 
 	/** Close Dropdown on Click Outside */
 	useEffect(() => {
@@ -432,49 +480,64 @@ export default function InsightsListing({
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
 					{!loading &&
-						list?.map((item, ind) => {
-							return (
-								<div className={`${styles.ItemBox}`} key={item?.title}>
-									<a href="">
-										<div className={`${styles.hoverBox}`}>
-											<img
-												src={hoverBg.src}
-												className={`${styles.hoverBg} width_100 b_r_10`}
-												alt="img"
-											/>
-											<p
-												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-											>
-												Press Release
-											</p>
-											<p
-												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-											>
-												{item?.title}
-											</p>
-											<div className={`${styles.dateFlex} f_j pt_30`}>
-												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-													<img
-														src={calender.src}
-														className={`${styles.calender}`}
-														alt="calender"
-													/>
-													<span>{formatDate(item?.date)}</span>
+						list
+							// ?.filter((filitem) => {
+							// 	// selected
+							// 	return filitem.categories?.nodes.some((filitem2) => {
+							// 		if (selected?.category) {
+							// 			return filitem2 === selected?.category;
+							// 		}
+							// 	});
+							// })
+							.map((item, ind) => {
+								return (
+									<div className={`${styles.ItemBox}`} key={item?.title}>
+										<a href="">
+											<div className={`${styles.hoverBox}`}>
+												<img
+													src={hoverBg.src}
+													className={`${styles.hoverBg} width_100 b_r_10`}
+													alt="img"
+												/>
+												{isCategory(optionsData.categoryType, item?.categories?.nodes) && (
+													<p
+														className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
+													>
+														{/* Press Release */}
+														{isCategory(optionsData.categoryType, item?.categories?.nodes)}
+													</p>
+												)}
+												<p
+													className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+												>
+													{item?.title}
 												</p>
-												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-													<img
-														src={location.src}
-														className={`${styles.calender}`}
-														alt="calender"
-													/>
-													<span>India</span>
-												</p>
+												<div className={`${styles.dateFlex} f_j pt_30`}>
+													<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+														<img
+															src={calender.src}
+															className={`${styles.calender}`}
+															alt="calender"
+														/>
+														<span>{formatDate(item?.date)}</span>
+													</p>
+													{isCategory(countries, item?.categories?.nodes) && (
+														<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+															<img
+																src={location.src}
+																className={`${styles.calender}`}
+																alt="calender"
+															/>
+															{/* <span>India</span> */}
+															<span>{isCategory(countries, item?.categories?.nodes)}</span>
+														</p>
+													)}
+												</div>
 											</div>
-										</div>
-									</a>
-								</div>
-							);
-						})}
+										</a>
+									</div>
+								);
+							})}
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>

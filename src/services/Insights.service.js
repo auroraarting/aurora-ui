@@ -13,7 +13,6 @@ query GetInsights {
       startCursor
         }
     nodes {
-      content
       title
       slug
       date
