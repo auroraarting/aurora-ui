@@ -88,8 +88,6 @@ export default function Transactions({ data, services, mapJson, bundles }) {
 		}, 500);
 	};
 
-	console.log("data?.whyAurora", data.howWeHelpInside);
-
 	return (
 		<div>
 			{/* Metatags */}
