@@ -98,7 +98,7 @@ export default function AuroraInsights({
 					/>
 				</div>
 				<div>
-					<InsightsTop />
+					<InsightsTop data={data?.[0]} />
 				</div>
 				<div className="pt_60 pb_100">
 					<InsightsListing

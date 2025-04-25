@@ -346,9 +346,11 @@ export function buildQueryFromContext(context) {
 	const categoryInList = [];
 
 	// Add all category-based filters
-	["category", "country", "product", "software", "service"].forEach((key) => {
-		if (query[key]) categoryInList.push(query[key]);
-	});
+	["category", "country", "product", "software", "service", "search"].forEach(
+		(key) => {
+			if (query[key]) categoryInList.push(query[key]);
+		}
+	);
 
 	// Construct `where` if needed
 	if (categoryInList.length || query.year) {
@@ -364,4 +366,20 @@ export function buildQueryFromContext(context) {
 	}
 
 	return queryToUse;
+}
+
+/** findFunc  */
+export function isCategory(categoryList, dynamicWords) {
+	const titles2 = new Set(dynamicWords.map((item) => item.name));
+	let txt = "";
+	categoryList.filter((item) => {
+		if (titles2.has(item.alternate || item.title)) {
+			if (!txt) {
+				txt += item.title;
+			} else {
+				txt += `, ${item.title}`;
+			}
+		}
+	});
+	return txt;
 }

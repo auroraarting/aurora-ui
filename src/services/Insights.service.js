@@ -13,10 +13,15 @@ query GetInsights {
       startCursor
         }
     nodes {
-      content
       title
       slug
       date
+      featuredImage {
+        node {
+          altText
+          sourceUrl
+        }
+      }
       categories(first: 9999) {
         nodes {
           slug
