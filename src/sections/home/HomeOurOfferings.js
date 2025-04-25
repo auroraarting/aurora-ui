@@ -144,12 +144,12 @@ export default function HomeOurOfferings() {
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
 							</div>
-							{/* <img
+							<img
 								src={macEOS.src}
 								alt="mac eos"
 								className={`${styles.BoxImg} m_0_auto`}
-							/> */}
-							<div className={`${styles.softwareAnim}`} ref={animRefs[0]}></div>
+							/>
+							{/* <div className={`${styles.softwareAnim}`} ref={animRefs[0]}></div> */}
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
@@ -166,12 +166,12 @@ export default function HomeOurOfferings() {
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
 							</div>
-							{/* <img
+							<img
 								src={macEOS.src}
 								alt="mac eos"
 								className={`${styles.BoxImg} m_0_auto`}
-							/> */}
-							<div className={`${styles.softwareAnim}`} ref={animRefs2[0]}></div>
+							/>
+							{/* <div className={`${styles.softwareAnim}`} ref={animRefs2[0]}></div> */}
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
