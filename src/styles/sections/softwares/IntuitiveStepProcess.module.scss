@@ -61,7 +61,7 @@
   :global(.swiper-pagination-horizontal){
     bottom: 40px;
     left: 50%;
-    width: auto;
+    width: max-content;
     transform: translateX(-50%);
     background-color: rgba(229, 229, 229, 0.5);
     padding: 4px 5px;
