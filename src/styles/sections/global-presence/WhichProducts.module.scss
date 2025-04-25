@@ -17,8 +17,9 @@
 	}
 	:global(.imgIcons) {
 		margin-right: 15px;
-		@media (max-width: 767px) {
-			width: 40px;
-		}
+		width: 40px;
+		// @media (max-width: 767px) {
+			
+		// }
 	}
 }

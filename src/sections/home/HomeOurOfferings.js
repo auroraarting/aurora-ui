@@ -78,7 +78,7 @@ export default function HomeOurOfferings() {
 	useEffect(() => {
 		playLottie();
 		platLottieResp();
-		//EqualHeight("cardHBg");
+		EqualHeight("cardHBg");
 	}, []);
 	return (
 		<section className={`${styles.HomeOurOfferings} pt_100`}>
@@ -110,7 +110,7 @@ export default function HomeOurOfferings() {
 					className={styles.slider}
 				>
 					<SwiperSlide>
-						<div className={`${styles.itemBox}`}>
+						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
 								<img
 									src={menu_hover_arrow.src}
@@ -131,8 +131,8 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox}`}>
-							<div className={`${styles.Content} ${styles.LottieContent}`}>
+						<div className={`${styles.itemBox} cardHBg`}>
+							<div className={`${styles.Content}`}>
 								<img
 									src={menu_hover_arrow.src}
 									alt="icon"
@@ -153,8 +153,8 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox}`}>
-							<div className={`${styles.Content} ${styles.LottieContent}`}>
+						<div className={`${styles.itemBox} ${styles.LottieContent} cardHBg`}>
+							<div className={`${styles.Content}`}>
 								<img
 									src={menu_hover_arrow.src}
 									alt="icon"
@@ -175,7 +175,7 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox}`}>
+						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
 								<img
 									src={menu_hover_arrow.src}
