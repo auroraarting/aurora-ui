@@ -16,6 +16,12 @@ query GetInsights {
       title
       slug
       date
+      featuredImage {
+        node {
+          altText
+          sourceUrl
+        }
+      }
       categories(first: 9999) {
         nodes {
           slug

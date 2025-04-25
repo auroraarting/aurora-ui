@@ -367,3 +367,19 @@ export function buildQueryFromContext(context) {
 
 	return queryToUse;
 }
+
+/** findFunc  */
+export function isCategory(categoryList, dynamicWords) {
+	const titles2 = new Set(dynamicWords.map((item) => item.name));
+	let txt = "";
+	categoryList.filter((item) => {
+		if (titles2.has(item.alternate || item.title)) {
+			if (!txt) {
+				txt += item.title;
+			} else {
+				txt += `, ${item.title}`;
+			}
+		}
+	});
+	return txt;
+}

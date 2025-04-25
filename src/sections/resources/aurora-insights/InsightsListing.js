@@ -10,6 +10,11 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
+import formatDate, {
+	buildQueryFromContext,
+	isCategory,
+	objectToGraphQLArgs,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/aurora-insights/InsightsListing.module.scss";
@@ -23,10 +28,6 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // SERVICES //
 import { getInsights } from "@/services/Insights.service";
-import formatDate, {
-	buildQueryFromContext,
-	objectToGraphQLArgs,
-} from "@/utils";
 
 // DATA //
 
@@ -247,22 +248,6 @@ export default function InsightsListing({
 		setFilteredPagination(filteredData.data?.posts?.pageInfo);
 	};
 
-	/** findFunc  */
-	const isCategory = (categoryList, dynamicWords) => {
-		const titles2 = new Set(dynamicWords.map((item) => item.name));
-		let txt = "";
-		categoryList.filter((item) => {
-			if (titles2.has(item.alternate || item.title)) {
-				if (!txt) {
-					txt += item.title;
-				} else {
-					txt += `, ${item.title}`;
-				}
-			}
-		});
-		return txt;
-	};
-
 	// console.log(list);
 
 	/** Close Dropdown on Click Outside */
@@ -480,64 +465,55 @@ export default function InsightsListing({
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
 					{!loading &&
-						list
-							// ?.filter((filitem) => {
-							// 	// selected
-							// 	return filitem.categories?.nodes.some((filitem2) => {
-							// 		if (selected?.category) {
-							// 			return filitem2 === selected?.category;
-							// 		}
-							// 	});
-							// })
-							.map((item, ind) => {
-								return (
-									<div className={`${styles.ItemBox}`} key={item?.title}>
-										<a href="">
-											<div className={`${styles.hoverBox}`}>
-												<img
-													src={hoverBg.src}
-													className={`${styles.hoverBg} width_100 b_r_10`}
-													alt="img"
-												/>
-												{isCategory(optionsData.categoryType, item?.categories?.nodes) && (
-													<p
-														className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-													>
-														{/* Press Release */}
-														{isCategory(optionsData.categoryType, item?.categories?.nodes)}
-													</p>
-												)}
+						list.map((item, ind) => {
+							return (
+								<div className={`${styles.ItemBox}`} key={item?.title}>
+									<a href="">
+										<div className={`${styles.hoverBox}`}>
+											<img
+												src={hoverBg.src}
+												className={`${styles.hoverBg} width_100 b_r_10`}
+												alt="img"
+											/>
+											{isCategory(optionsData.categoryType, item?.categories?.nodes) && (
 												<p
-													className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+													className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 												>
-													{item?.title}
+													{/* Press Release */}
+													{isCategory(optionsData.categoryType, item?.categories?.nodes)}
 												</p>
-												<div className={`${styles.dateFlex} f_j pt_30`}>
+											)}
+											<p
+												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+											>
+												{item?.title}
+											</p>
+											<div className={`${styles.dateFlex} f_j pt_30`}>
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={data?.featuredImage?.node?.sourceUrl || calender.src}
+														className={`${styles.calender}`}
+														alt="calender"
+													/>
+													<span>{formatDate(item?.date)}</span>
+												</p>
+												{isCategory(countries, item?.categories?.nodes) && (
 													<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 														<img
-															src={calender.src}
+															src={location.src}
 															className={`${styles.calender}`}
 															alt="calender"
 														/>
-														<span>{formatDate(item?.date)}</span>
+														{/* <span>India</span> */}
+														<span>{isCategory(countries, item?.categories?.nodes)}</span>
 													</p>
-													{isCategory(countries, item?.categories?.nodes) && (
-														<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-															<img
-																src={location.src}
-																className={`${styles.calender}`}
-																alt="calender"
-															/>
-															{/* <span>India</span> */}
-															<span>{isCategory(countries, item?.categories?.nodes)}</span>
-														</p>
-													)}
-												</div>
+												)}
 											</div>
-										</a>
-									</div>
-								);
-							})}
+										</div>
+									</a>
+								</div>
+							);
+						})}
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
