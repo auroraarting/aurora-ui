@@ -42,6 +42,9 @@ export default function GlobalMap({
 				<span className={`${styles.title} color_white text_xxl`}>
 					{marqueeText}
 				</span>
+				<span className={`${styles.title} color_white text_xxl`}>
+					{marqueeText}
+				</span>
 			</Marquee>
 
 			<div className="container">

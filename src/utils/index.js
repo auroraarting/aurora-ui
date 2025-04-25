@@ -216,10 +216,10 @@ export function filterMarkersBySlug(data, slug) {
 export function getMapJsonForAllRegions(regions) {
 	const mapJson = [];
 	regions?.data?.regions?.nodes?.map((item) => {
-		item.countries.nodes.map((item2) => {
-			let obj = {
-				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
-				markers: item2.countries.map?.markers?.map((item3) => {
+		item?.countries?.nodes?.map((item2) => {
+			let markers = [];
+			if (item2?.countries?.map?.markers) {
+				markers = item2?.countries?.map?.markers?.map((item3) => {
 					let node = item3?.category?.nodes?.[0];
 
 					let obj2 = {
@@ -241,16 +241,20 @@ export function getMapJsonForAllRegions(regions) {
 					}
 
 					if (item3?.category?.nodes?.length > 0) {
-						obj2.name = node.title;
-						obj2.lat = parseFloat(item3.coordinates.lat);
-						obj2.lng = parseFloat(item3.coordinates.lng);
-						obj2.url = `/${node.contentType.node.name}/${node.slug}`;
+						obj2.name = node?.title;
+						obj2.lat = parseFloat(item3?.coordinates?.lat);
+						obj2.lng = parseFloat(item3?.coordinates?.lng);
+						obj2.url = `/${node.contentType?.node?.name}/${node?.slug}`;
 					}
 
 					return obj2;
-				}),
-				zoom: item2.countries.map.zoom,
-				name: item2.title,
+				});
+			}
+			let obj = {
+				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
+				markers: markers,
+				zoom: item2?.countries?.map?.zoom || 4,
+				name: item2?.title,
 			};
 
 			mapJson.push(obj);
@@ -258,4 +262,106 @@ export function getMapJsonForAllRegions(regions) {
 	});
 
 	return mapJson;
+}
+
+/** transformQueryObject  */
+export const transformQueryObject = (input, categories, countries, years) => {
+	const output = {
+		first: input.first,
+		after: input.after,
+		category: "",
+		country: "",
+		productService: "",
+	};
+
+	// Parse the "where" string safely
+	const where = input.where ? JSON.parse(input.where) : {};
+	const categoryNames = where.categoryName ? where.categoryName.split(",") : [];
+
+	for (const word of categoryNames) {
+		const trimmedWord = word.trim();
+
+		if (categories.find((item) => item.title === trimmedWord)) {
+			output.category = trimmedWord;
+		} else if (countries.find((item) => item.title === trimmedWord)) {
+			output.country = trimmedWord;
+		} else {
+			// If it doesn't match category or country, assume it's a product/service
+			if (output.productService) {
+				output.productService += `,${trimmedWord}`;
+			} else {
+				output.productService = trimmedWord;
+			}
+		}
+	}
+
+	// Extract year
+	if (where.dateQuery && where.dateQuery.year) {
+		output.year = 2001; // or use actual year: where.dateQuery.year
+	}
+
+	return output;
+};
+
+/** formatValue */
+function formatValue(value) {
+	// eslint-disable-next-line quotes
+	if (value === "null") return `"null"`; // Handle string 'null'
+	if (value === null) return "null"; // Handle actual null
+	if (!isNaN(value) && typeof value !== "object") return value;
+	return `"${value}"`;
+}
+
+/** objectToGraphQLArgs */
+export function objectToGraphQLArgs(obj, isRoot = true) {
+	if (typeof obj === "object" && obj !== null) {
+		const fields = Object.entries(obj).map(([key, value]) => {
+			// ✅ categoryIn must be a single quoted string of comma-separated values
+			if (key === "categoryIn" && typeof value === "string") {
+				const clean = value
+					.split(",")
+					.map((v) => v.trim())
+					.join(", ");
+				return `${key}: "${clean}"`;
+			}
+
+			// Default object formatting
+			return `${key}: ${objectToGraphQLArgs(value, false)}`;
+		});
+
+		return isRoot ? fields.join(", ") : `{ ${fields.join(", ")} }`;
+	}
+
+	return formatValue(obj);
+}
+
+/** buildQueryFromContext  */
+export function buildQueryFromContext(context) {
+	const query = context;
+	const queryToUse = {
+		first: query.first || 10,
+		after: query.after || "null",
+	};
+
+	const categoryInList = [];
+
+	// Add all category-based filters
+	["category", "country", "product", "software", "service"].forEach((key) => {
+		if (query[key]) categoryInList.push(query[key]);
+	});
+
+	// Construct `where` if needed
+	if (categoryInList.length || query.year) {
+		queryToUse.where = {};
+
+		if (categoryInList.length) {
+			queryToUse.where.categoryName = categoryInList.join(",");
+		}
+
+		if (query.year) {
+			queryToUse.where.dateQuery = { year: query.year };
+		}
+	}
+
+	return queryToUse;
 }

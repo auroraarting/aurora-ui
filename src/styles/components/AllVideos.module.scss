@@ -1,6 +1,5 @@
-@import "../../helpers/helpers.scss";
+@import "../helpers/helpers.scss";
 .CareerSeries {
-	background-color: var(--color_secondary);
 	.card {
 		@media (max-width: 991px) {
 			align-items: flex-start;

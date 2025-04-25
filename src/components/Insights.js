@@ -20,6 +20,7 @@ import white_calendar from "../../public/img/icons/white_calendar.svg";
 import white_location from "../../public/img/icons/white_location.svg";
 import close from "../../public/img/icons/close.png";
 import form_img from "../../public/img/softwares/form_img.png";
+import hoverBg from "../../public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -99,7 +100,7 @@ export default function Insights({
 										alt="form_img"
 									/> */}
 										<iframe
-											src="../../../img/softwares/form.html"
+											src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
 											className={`${styles.form_img}`}
 											title="Form"
 										></iframe>
@@ -115,7 +116,7 @@ export default function Insights({
 									<h2 className="text_xl font_primary f_w_s_b color_white ">Insights</h2>
 								</div>
 								<div className={`${styles.bookBtn}`}>
-									<Button color="secondary" variant="filled" shape="rounded" mode="dark">
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
 										View All
 									</Button>
 								</div>
@@ -123,6 +124,11 @@ export default function Insights({
 							<div className={`${styles.insightsItemFlex} d_f m_t_30`}>
 								<div className={`${styles.ItemBox} boxH`}>
 									<div className={`${styles.hoverBox}`}>
+										<img
+											src={hoverBg.src}
+											className={`${styles.hoverBg} width_100 b_r_10`}
+											alt="img"
+										/>
 										<p
 											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 										>
@@ -146,6 +152,11 @@ export default function Insights({
 								</div>
 								<div className={`${styles.ItemBox} boxH`}>
 									<div className={`${styles.hoverBox}`}>
+										<img
+											src={hoverBg.src}
+											className={`${styles.hoverBg} width_100 b_r_10`}
+											alt="img"
+										/>
 										<p
 											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 										>
@@ -169,6 +180,11 @@ export default function Insights({
 								</div>
 								<div className={`${styles.ItemBox} boxH`}>
 									<div className={`${styles.hoverBox}`}>
+										<img
+											src={hoverBg.src}
+											className={`${styles.hoverBg} width_100 b_r_10`}
+											alt="img"
+										/>
 										<p
 											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 										>

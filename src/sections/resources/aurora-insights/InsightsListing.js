@@ -1,5 +1,6 @@
 // MODULES //
 import { useRef, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -18,13 +19,39 @@ import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import search from "@/../public/img/icons/search.svg";
+import hoverBg from "@/../public/img/home/hoverBg.png";
+
+// SERVICES //
+import { getInsights } from "@/services/Insights.service";
+import formatDate, {
+	buildQueryFromContext,
+	objectToGraphQLArgs,
+} from "@/utils";
 
 // DATA //
 
 /** InsightsListing Section */
-export default function InsightsListing() {
+export default function InsightsListing({
+	data,
+	pagination,
+	countries,
+	productService,
+	products,
+	softwares,
+	services,
+}) {
+	const router = useRouter();
+	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
+	const [filteredPagination, setFilteredPagination] = useState(pagination);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [dropdowns, setDropdowns] = useState({
+		categoryType: { isOpen: false, selected: { title: "Category" } },
+		countryType: { isOpen: false, selected: { title: "Country" } },
+		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		yearsType: { isOpen: false, selected: { title: "Year" } },
+	});
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -36,23 +63,6 @@ export default function InsightsListing() {
 		setIsSearchVisible(false);
 	};
 
-	/** checkBox Input */
-	// const handleChange = (option) => {
-	// 	setSelected((prev) => ({ ...prev, [option]: !prev[option] }));
-	// };
-
-	/** radio Input */
-	const handleChange = (option) => {
-		setSelected(option); // Only one selected option at a time
-	};
-
-	const [dropdowns, setDropdowns] = useState({
-		categoryType: { isOpen: false, selected: { title: "Category" } },
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
-		yearsType: { isOpen: false, selected: { title: "Year" } },
-	});
-
 	const dropdownRefs = {
 		categoryType: useRef(null),
 		countryType: useRef(null),
@@ -61,7 +71,11 @@ export default function InsightsListing() {
 	};
 
 	const optionsData = {
-		categoryType: [{ title: "Public" }, { title: "Subscriber" }],
+		categoryType: [
+			{ title: "Articles" },
+			{ title: "Case studies" },
+			{ title: "Market reports" },
+		],
 		countryType: [
 			{ title: "India" },
 			{ title: "India" },
@@ -74,12 +88,12 @@ export default function InsightsListing() {
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
 		],
-		yearsType: [
-			{ title: "2025" },
-			{ title: "2024" },
-			{ title: "2023" },
-			{ title: "2022" },
-		],
+		yearsType: Array(new Date().getFullYear() - 2000)
+			.fill(null)
+			.map((item, ind) => {
+				return { title: 2001 + ind };
+			})
+			.reverse(),
 	};
 
 	/** Toggle Dropdown */
@@ -96,6 +110,107 @@ export default function InsightsListing() {
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
+		filter(option.title, key);
+	};
+
+	const radioData = [
+		{
+			category: "Product",
+			options: [
+				"Power & Renewables",
+				"Flexible Energy",
+				"Grid Add-on",
+				"Hydrogen Service",
+			],
+		},
+		{
+			category: "Software",
+			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
+		},
+		{
+			category: "Service",
+			options: ["Advisory"],
+		},
+	];
+
+	/** handleNextPage  */
+	const handleNextPage = async () => {
+		setLoading(true);
+		// Build your query with the new `after` cursor
+		const newQuery = {
+			...router.query,
+			after: filteredPagination.endCursor,
+		};
+
+		router.push(
+			{
+				pathname: router.pathname,
+				query: newQuery,
+			},
+			undefined,
+			{ shallow: true }
+		);
+
+		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(newQuery));
+		const filteredData = await getInsights(queryToUse);
+		setLoading(false);
+		setList(filteredData.data.posts.nodes);
+		setFilteredPagination(filteredData.data?.posts?.pageInfo);
+	};
+
+	/** handleNextPage  */
+	const handlePreviousPage = async () => {
+		window.history.back();
+	};
+
+	/** filter  */
+	const filter = async (catName, key) => {
+		let queryObj = { ...router.query };
+		let selectedObj = selected;
+		setLoading(true);
+
+		if (key === "categoryType") {
+			selectedObj.category = catName;
+			queryObj.category = catName;
+		}
+		if (key === "countryType") {
+			selectedObj.country = catName;
+			queryObj.country = catName;
+		}
+		if (key === "offeringsType") {
+			selectedObj.productService = catName;
+			queryObj.productService = catName;
+		}
+		if (key === "yearsType") {
+			selectedObj.year = catName;
+			queryObj.year = catName;
+		}
+		if (key === "Product") {
+			selectedObj.product = catName;
+			queryObj.product = catName;
+		}
+		if (key === "Software") {
+			selectedObj.software = catName;
+			queryObj.software = catName;
+		}
+		if (key === "Service") {
+			selectedObj.service = catName;
+			queryObj.service = catName;
+		}
+		setSelected(selectedObj);
+		router.push(
+			{
+				pathname: router.pathname,
+				query: queryObj,
+			},
+			undefined,
+			{ shallow: true }
+		);
+		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(queryObj));
+		const filteredData = await getInsights(queryToUse);
+		setLoading(false);
+		setList(filteredData.data.posts.nodes);
+		setFilteredPagination(filteredData.data?.posts?.pageInfo);
 	};
 
 	/** Close Dropdown on Click Outside */
@@ -118,25 +233,9 @@ export default function InsightsListing() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
+	useEffect(() => {
+		setSelected(router.query);
+	}, []);
 
 	return (
 		<section className={styles.InsightsListing}>
@@ -154,7 +253,7 @@ export default function InsightsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.categoryType.selected.title}
+										{selected.category || "Category"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -163,11 +262,7 @@ export default function InsightsListing() {
 										{optionsData.categoryType.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === dropdowns.categoryType.selected.title
-														? "selected"
-														: ""
-												}
+												className={option.title === selected.category ? "selected" : ""}
 												onClick={() => handleOptionClick("categoryType", option)}
 											>
 												{option.title}
@@ -188,20 +283,16 @@ export default function InsightsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.countryType.selected.title}
+										{selected.country || "Country"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
-										{optionsData.countryType.map((option) => (
+										{countries?.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === dropdowns.countryType.selected.title
-														? "selected"
-														: ""
-												}
+												className={option.title === selected.country ? "selected" : ""}
 												onClick={() => handleOptionClick("countryType", option)}
 											>
 												{option.title}
@@ -222,7 +313,8 @@ export default function InsightsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.offeringsType.selected.title}
+										{/* {selected.productService || "Products & Services"} */}
+										Products & Services
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -230,30 +322,26 @@ export default function InsightsListing() {
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
 									>
-										{radioData.map((item, index) => (
+										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
 												<h4 className="text_sm color_dark_gray text_500">
 													{item.category}
 												</h4>
 												<div className={styles.checkBoxList}>
-													{item.options.map((option, idx) => (
-														// <label key={idx} className={styles.checkboxLabel}>
-														// 	<input
-														// 		type="checkbox"
-														// 		className={styles.hiddenCheckbox}
-														// 		checked={selected[option] || false}
-														// 		onChange={() => handleChange(option)}
-														// 	/>
-														// 	<span className={styles.customCheckbox}></span>
-														// 	{option}
-														// </label>
-														<label key={idx} className={styles.checkboxLabel}>
+													{item?.options?.map((option, idx) => (
+														<label key={option} className={styles.checkboxLabel}>
 															<input
 																type="radio"
-																name="singleSelection" // Single name for all radio buttons
+																id={item.category}
+																name={item.category} // Single name for all radio buttons
 																className={styles.hiddenRadio}
-																checked={selected === option} // Ensure only one is selected overall
-																onChange={() => handleChange(option)}
+																defaultChecked={
+																	selected?.[item.category.toLowerCase()] === option
+																} // Ensure only one is selected overall
+																onChange={() => {
+																	// handleChange(option);
+																	filter(option, item.category);
+																}}
 															/>
 															<span className={styles.customRadio}></span>
 															{option}
@@ -280,7 +368,7 @@ export default function InsightsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.yearsType.selected.title}
+										{selected.year || "Years"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -289,11 +377,7 @@ export default function InsightsListing() {
 										{optionsData.yearsType.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === dropdowns.yearsType.selected.title
-														? "selected"
-														: ""
-												}
+												className={option.title === selected.year ? "selected" : ""}
 												onClick={() => handleOptionClick("yearsType", option)}
 											>
 												{option.title}
@@ -333,212 +417,60 @@ export default function InsightsListing() {
 			</div>
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
+					{!loading &&
+						list?.map((item, ind) => {
+							return (
+								<div className={`${styles.ItemBox}`} key={item?.title}>
+									<a href="">
+										<div className={`${styles.hoverBox}`}>
+											<img
+												src={hoverBg.src}
+												className={`${styles.hoverBg} width_100 b_r_10`}
+												alt="img"
+											/>
+											<p
+												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
+											>
+												Press Release
+											</p>
+											<p
+												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+											>
+												{item?.title}
+											</p>
+											<div className={`${styles.dateFlex} f_j pt_30`}>
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={calender.src}
+														className={`${styles.calender}`}
+														alt="calender"
+													/>
+													<span>{formatDate(item?.date)}</span>
+												</p>
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={location.src}
+														className={`${styles.calender}`}
+														alt="calender"
+													/>
+													<span>India</span>
+												</p>
+											</div>
+										</div>
+									</a>
 								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
+							);
+						})}
+					{loading && <p>Loading...</p>}
+					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
 			</div>
+			{filteredPagination.hasPreviousPage && (
+				<button onClick={handlePreviousPage}>Previous</button>
+			)}
+			{filteredPagination.hasNextPage && (
+				<button onClick={handleNextPage}>Next</button>
+			)}
 		</section>
 	);
 }

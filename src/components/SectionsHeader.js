@@ -15,15 +15,25 @@ import styles from "@/styles/components/SectionsHeader.module.scss";
 import Button from "./Buttons/Button";
 
 // IMAGES //
-
+import accarrow from "../../public/img/icons/acc_arrow.svg";
 // DATA //
 
 /** SectionsHeader Component */
 export default function SectionsHeader({ data, customHtml }) {
 	const [activeTab, setActiveTab] = useState(0);
 	const [sectionsList, setSectionsList] = useState([]);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+
+	/**  */
+	const handleItemClick = (item) => {
+		if (item?.id) {
+			document.querySelector(item.id)?.scrollIntoView({ behavior: "smooth" });
+		}
+		setDropdownOpen(false);
+	};
 
 	useEffect(() => {
+		const winH = window.innerWidth;
 		const getAllSections = document.querySelectorAll("section[id][data-name]");
 		const sections = [...getAllSections].map((section) => {
 			return {
@@ -32,7 +42,9 @@ export default function SectionsHeader({ data, customHtml }) {
 			};
 		});
 		if (customHtml) {
-			sections.push(customHtml);
+			if (winH > 992) {
+				sections.push(customHtml);
+			}
 		}
 
 		const list = sections ? sections : data;
@@ -89,22 +101,57 @@ export default function SectionsHeader({ data, customHtml }) {
 	}, []);
 
 	return (
-		<div className={`${styles.SectionsHeader} SectionsHeader`}>
-			<div className={`${styles.boxWrap}`}>
-				{sectionsList?.map((item, ind) => {
-					return (
-						<div
-							key={ind}
-							className={`${styles.box} ${styles.onlyText} ${
-								activeTab >= ind ? "" : "color_medium_gray"
-							} `}
-						>
-							{typeof item.name === "string" ? item.name : item}
-						</div>
-					);
-				})}
+		<>
+			<div className={`${styles.SectionsHeader} SectionsHeader`}>
+				<div className={`${styles.boxWrap}`}>
+					{sectionsList?.map((item, ind) => {
+						return (
+							<div
+								key={ind}
+								className={`${styles.box} ${styles.onlyText} ${
+									activeTab >= ind ? "" : "color_medium_gray"
+								} `}
+							>
+								{typeof item.name === "string" ? item.name : item}
+							</div>
+						);
+					})}
+				</div>
+				<div className={`${styles.progress}`}></div>
 			</div>
-			<div className={`${styles.progress}`}></div>
-		</div>
+			<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
+				<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
+					<div
+						className={`${styles.dropdownToggle} f_r_aj_between`}
+						onClick={() => setDropdownOpen((prev) => !prev)}
+					>
+						<span>
+							{sectionsList[activeTab]?.name || "Select"} &nbsp;
+							<img
+								src={accarrow.src}
+								className={`${styles.dropArrow} ${
+									dropdownOpen ? styles.dropArrowAct : ""
+								}`}
+								alt=""
+							/>
+						</span>
+						<div className={`${styles.flexInner} d_f`}>{customHtml} </div>
+					</div>
+					{dropdownOpen && (
+						<div className={styles.dropdownList}>
+							{sectionsList?.map((item, ind) => (
+								<div
+									key={ind}
+									className={styles.dropdownItem}
+									onClick={() => handleItemClick(item)}
+								>
+									{typeof item.name === "string" ? item.name : item}
+								</div>
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+		</>
 	);
 }

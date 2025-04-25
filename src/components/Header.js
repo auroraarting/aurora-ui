@@ -169,7 +169,9 @@ export default function Header() {
 					</div>
 					<div className={`${styles.searchLeft}`}>
 						<a
-							href=""
+							href="https://eos.auroraer.com/dragonfly/login/"
+							target="_blank"
+							rel="noreferrer"
 							className={`${styles.eosFlex} text_xxs f_w_m font_primary color_secondary f_r_a_center`}
 						>
 							<img src={login_icon.src} alt="login" />
@@ -245,7 +247,7 @@ export default function Header() {
 														<span>Team</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
 													<a
-														href="/contact"
+														href="/company/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Contact Us</span>{" "}
@@ -666,7 +668,7 @@ export default function Header() {
 														return (
 															<div className={`${styles.eosItem}`} key={ind}>
 																<a
-																	href={`/services/${item?.slug}`}
+																	href={`/service/${item?.slug}`}
 																	className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 																>
 																	<span>{item?.title}</span>{" "}
@@ -682,7 +684,7 @@ export default function Header() {
 												<div className={`${styles.softwareFlex} f_w_j`}>
 													<div className={`${styles.softwareItem}`}>
 														<a
-															href="/softwares"
+															href="/software"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 														>
 															<span>Software</span>{" "}
@@ -693,7 +695,7 @@ export default function Header() {
 																return (
 																	<a
 																		key={ind}
-																		href={`/softwares/${item?.slug}`}
+																		href={`/software/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 																	>
 																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
@@ -1103,14 +1105,14 @@ export default function Header() {
 												<img
 													src={dropdown_arrow.src}
 													className={`${
-														toggleState === 1 ? styles.arrow_rotate : ""
+														toggleState === ind + 1 ? styles.arrow_rotate : ""
 													} visible_xs`}
 													alt=""
 												/>
 											</div>
 											<div
 												className={`${styles.CountryNameBox} ${
-													toggleState === 1 ? styles.ul_section_active : ""
+													toggleState === ind + 1 ? styles.ul_section_active : ""
 												} `}
 											>
 												<ul>

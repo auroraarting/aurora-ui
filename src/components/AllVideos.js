@@ -18,18 +18,18 @@ import "lightgallery/css/lg-video.css";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/careers/CareerSeries.module.scss";
+import styles from "@/styles/components/AllVideos.module.scss";
 
 // IMAGES //
-import video_img from "../../../public/img/careers/early_careers/video_img.jpg";
+import video_img from "@/../public/img/careers/early_careers/video_img.jpg";
 import video_play from "@/../public/img/icons/video_play.svg";
 
 // DATA //
 
 /** CareerSeries Section */
-export default function CareerSeries() {
+export default function AllVideos() {
 	return (
-		<section className={`${styles.CareerSeries} ptb_100`}>
+		<section className={`${styles.CareerSeries} CareerSeries`}>
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.content}`}>
@@ -41,7 +41,11 @@ export default function CareerSeries() {
 						<h2 className="text_xl font_primary f_w_m color_white pb_20">
 							Where talent meets purpose
 						</h2>
-						<div className={`${styles.bookBtnOne}`}>
+						<p className="text_reg color_dark_gray pb_20">
+							Lorem ipsum dolor sit amet consectetur. Lectus aliquam lectus sed
+							ultrices tincidunt viverra integer vitae. Posuere mauris magna
+						</p>
+						<div className={`${styles.bookBtnOne} bookBtnOne`}>
 							<Button color="secondary" variant="underline" mode="dark" size="xs">
 								Watch All Videos
 							</Button>

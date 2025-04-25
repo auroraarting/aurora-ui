@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSoftwares = async () => {
 	const query = `
 query GetSoftwares {
-  softwares(first: 999) {
+  softwares(first: 9999) {
     nodes {
       title
       slug
@@ -105,7 +105,7 @@ query GetRegions {
 export async function fetchNavigationData() {
 	const combinedQuery = `
  query GetAllNavigationData {
-  softwares(first: 999) {
+  softwares(first: 9999) {
     nodes {
       title
       slug
@@ -121,7 +121,7 @@ export async function fetchNavigationData() {
       }
     }
   }
-  products(first: 999) {
+  products(first: 9999) {
     nodes {
       title
       slug
@@ -137,7 +137,7 @@ export async function fetchNavigationData() {
       }
     }
   }
-  services(first: 999) {
+  services(first: 9999) {
     nodes {
       title
       slug
@@ -154,11 +154,11 @@ export async function fetchNavigationData() {
       }
     }
   }
-  regions(first: 999) {
+  regions(first: 9999) {
     nodes {
       name
       slug
-      countries {
+      countries(first: 9999) {
         nodes {
           slug
           title
@@ -166,13 +166,13 @@ export async function fetchNavigationData() {
       }
     }
   }
-  whoareyous(first: 999) {
+  whoareyous(first: 9999) {
     nodes {
       title
       slug
     }
   }
-  howWeHelps(first: 999) {
+  howWeHelps(first: 9999) {
     nodes {
       title
       slug

@@ -24,6 +24,7 @@ export default function CustomSelect({
 	afterSelect,
 	placeholder = "Select",
 	mode = "light",
+	eventId,
 }) {
 	const [open, setOpen] = useState(false);
 	const [selectedId, setSelectedId] = useState();
@@ -42,6 +43,11 @@ export default function CustomSelect({
 		afterSelect && afterSelect({ index: id, value: list[id] });
 	};
 
+	/** reset  */
+	const reset = () => {
+		setSelectedId();
+	};
+
 	useEffect(() => {
 		/** Close dropdown if clicked outside */
 		const handleClickOutside = (event) => {
@@ -51,8 +57,11 @@ export default function CustomSelect({
 		};
 
 		document.addEventListener("mousedown", handleClickOutside);
+		if (eventId) window.addEventListener(eventId, reset);
+
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside);
+			if (eventId) window.removeEventListener(eventId, reset);
 		};
 	}, []);
 

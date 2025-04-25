@@ -14,6 +14,7 @@
 		}
 		@media (max-width: 767px) {
 			padding: 30px 15px 0px;
+			border-radius: 20px;
 		}
 		.powerBg {
 			position: relative;
@@ -134,8 +135,11 @@
 						}
 					}
 					.hoverBox {
+						position: relative;
 						min-height: 190px;
-						// transition: 0.3s all;
+						transition: 0.3s all;
+						padding: 15px 15px;
+						cursor: pointer;
 						.categoryTxt {
 							position: relative;
 							padding-left: 10px;
@@ -165,23 +169,40 @@
 								}
 							}
 						}
+						.hoverBg {
+							position: absolute;
+							left: 0;
+							top: 0px;
+							opacity: 0;
+							height: 100%;
+							width: 100%;
+							z-index: 0;
+						}
 					}
 					&:hover {
 						.hoverBox {
-							background-color: var(--color_white);
-							padding: 15px 15px;
+							background-color: var(--color_secondary);
 							border-radius: 20px;
-							// transition: 0.3s all;
+							transition: 0.3s all;
+
 							.descTxt {
-								color: var(--color_black);
+								color: var(--color_white);
+								position: relative;
+								text-decoration: underline;
+								font-weight: 600;
 							}
 							.dateFlex {
+								position: relative;
 								p {
+									color: var(--color_white);
 									img {
-										filter: invert(1);
-										opacity: 0.5;
+										// filter: invert(1);
+										// opacity: 0.5;
 									}
 								}
+							}
+							.hoverBg {
+								opacity: 1;
 							}
 						}
 					}

@@ -28,7 +28,7 @@ export default function Services() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Services"} Desc={""} OgImg={""} Url={"/services"} />
+			<MetaTags Title={"Services"} Desc={""} OgImg={""} Url={"/service"} />
 
 			{/* Header */}
 			{/* <Header /> */}

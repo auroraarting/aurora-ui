@@ -30,16 +30,13 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, 150%);
-			width: max-content;
+			width: 100%;
+			z-index: 2;
 		}
 
 		.animatedText1 {
 			display: block;
 			position: relative;
-			z-index: 2;
-		}
-
-		.animatedText2 {
 			z-index: 2;
 		}
 
@@ -52,16 +49,6 @@
 
 // Filled Button
 .btn_filled {
-	// // Filled Primary Button
-	// &.btn_primary {
-	// 	background-color: var(--color_primary);
-	// 	color: var(--color_black);
-
-	// 	&:hover {
-	// 		background-color: var(--color_primary_light);
-	// 	}
-	// }
-
 	// Filled Secondary Button
 	&.btn_secondary {
 		background-color: transparent;
@@ -97,6 +84,7 @@
 		position: relative;
 		overflow: hidden;
 		border: 0px solid transparent;
+		transition: all 0.4s ease-in-out;
 
 		&::after {
 			content: "";
@@ -114,6 +102,7 @@
 		}
 
 		&:hover {
+			background-color: transparent;
 			filter: drop-shadow(0px 0px 10px #ffcc00);
 			.animatedText1 {
 				transform: translateY(-100%);
