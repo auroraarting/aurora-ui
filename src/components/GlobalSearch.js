@@ -195,7 +195,7 @@ export default function GlobalSearch() {
 										rel="noreferrer"
 									>
 										<img src={SearchIcon.src} alt="search" />
-										<h3 className="text_md f_w_m">{title}</h3>
+										<h3 className="text_reg f_w_m">{title}</h3>
 									</a>
 								</div>
 							);

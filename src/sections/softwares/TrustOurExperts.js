@@ -6,6 +6,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -28,7 +29,8 @@ export default function TrustOurExperts({ data }) {
 				<h2 className="text_xl font_primary f_w_s_b color_secondary">
 					{/* Trust our experts, <br className="hidden_xs" />
 					available to support you */}
-					{data?.sectionTitle}
+					{parse(data?.sectionTitle)}
+					{/* {data?.sectionTitle} */}
 				</h2>
 				<div className={`${styles.wrap}`}>
 					<div className={`${styles.trustOurBox} pt_40`}>
