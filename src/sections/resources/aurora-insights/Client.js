@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 
 // COMPONENTS //
@@ -26,7 +27,7 @@ import white_arrow from "@/../public/img/energy_talks/white_arrow.svg";
 // DATA //
 
 /** Client Section */
-export default function Client() {
+export default function Client({ data }) {
 	return (
 		<div className={`${styles.ClientBox}`}>
 			<div className={`${styles.whiteBox}`}>
@@ -93,30 +94,19 @@ export default function Client() {
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
 						<div className={`${styles.ClientFlex} f_w`}>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								NET ZERO
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								WIND
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								United Kingdom
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								ADVISORY
-							</a>
+							{data?.tags?.nodes?.map((item) => {
+								return (
+									<a
+										key={item?.title || item?.name || item}
+										className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
+										href={`/resources/aurora-insights&search=${
+											item?.title || item?.name || item
+										}`}
+									>
+										{item?.title || item?.name || item}
+									</a>
+								);
+							})}
 						</div>
 					</div>
 					<div className={`${styles.itemBox}`}>
@@ -146,11 +136,11 @@ export default function Client() {
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
-							<div className={`${styles.btn_box} `}>
+							<a href="/resources/webinar" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
 									View Webinar
 								</Button>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -163,11 +153,11 @@ export default function Client() {
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>
-							<div className={`${styles.btn_box} `}>
+							<a href="/resources/energy-talks" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
 									View All Podcast
 								</Button>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>

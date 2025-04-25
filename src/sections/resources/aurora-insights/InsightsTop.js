@@ -56,7 +56,10 @@ export default function InsightsTop({ data }) {
 	return (
 		<section className={`${styles.InsightsTop}`}>
 			<div className="container">
-				<div className={`${styles.card} f_w_j`}>
+				<a
+					href={`/resources/aurora-insights/${data?.slug}`}
+					className={`${styles.card} f_w_j`}
+				>
 					<div className={`${styles.content}`}>
 						<div
 							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
@@ -89,7 +92,7 @@ export default function InsightsTop({ data }) {
 					<div className={`${styles.imageWrapper}`}>
 						<img src={plant_img.src} className="width_100 b_r_20" alt="img" />
 					</div>
-				</div>
+				</a>
 			</div>
 		</section>
 	);
