@@ -1,4 +1,5 @@
 // MODULES //
+import { useEffect, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -6,6 +7,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 
 // PLUGINS //
+import Lottie from "lottie-web";
 
 // UTILS //
 
@@ -19,6 +21,43 @@ import bannerGraph from "../../../public/img/home/banner-graph.png";
 
 /** HomeBanner Section */
 export default function HomeBanner() {
+	const bannerAni = useRef();
+	/** platLottie funnction */
+	function playLottie() {
+		Lottie.loadAnimation({
+			container: bannerAni.current,
+			renderer: "svg",
+			loop: true,
+			autoplay: true,
+			animationData: require("../../../public/img/home/lottie/bannerRightSide.json"),
+		});
+	}
+	const bannerAniRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+	/** platLottie funnction */
+	function platLottieResp() {
+		/** platLottie funnction */
+		const loadLottieAnimation = (ref, animationData) => {
+			if (ref.current) {
+				Lottie.loadAnimation({
+					container: ref.current,
+					renderer: "svg",
+					loop: true,
+					autoplay: true,
+					animationData: animationData,
+				});
+			}
+		};
+		const animationDataArray = [
+			require("../../../public/img/home/lottie/bannerRightSide.json"),
+		];
+		bannerAniRefs.forEach((ref, index) => {
+			loadLottieAnimation(ref, animationDataArray[index]);
+		});
+	}
+	useEffect(() => {
+		playLottie();
+		platLottieResp();
+	}, []);
 	return (
 		<div className={styles.HomeBanner}>
 			<div className={`${styles.BannerContentSection}`}>
@@ -40,11 +79,12 @@ export default function HomeBanner() {
 							</div>
 						</div>
 						<div className={`${styles.BannerImg}`}>
-							<img
+							{/* <img
 								src={bannerGraph.src}
 								className={`${styles.BannerGraph} width_100`}
 								alt="Banner Graph"
-							/>
+							/> */}
+							<div className="bannerAni" ref={bannerAniRefs[0]}></div>
 						</div>
 					</div>
 				</div>
