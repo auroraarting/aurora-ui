@@ -169,6 +169,10 @@ export default function InsightsListing({
 		let selectedObj = selected;
 		setLoading(true);
 
+		if (key === "search") {
+			selectedObj.search = catName;
+			queryObj.search = catName;
+		}
 		if (key === "categoryType") {
 			selectedObj.category = catName;
 			queryObj.category = catName;
@@ -402,7 +406,17 @@ export default function InsightsListing({
 						{/* Search Input - Show/Hide on Click */}
 						{isSearchVisible && (
 							<div className={`${styles.searchInput} f_r_aj_between`}>
-								<input type="text" placeholder="Search Events" />
+								<form
+									className="w-full"
+									onSubmit={(e) => {
+										e.preventDefault();
+										const val = e.target.search.value;
+										filter(val, "search");
+										console.log(val);
+									}}
+								>
+									<input name="search" type="text" placeholder="Search Events" />
+								</form>
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}

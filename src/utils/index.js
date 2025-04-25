@@ -346,9 +346,11 @@ export function buildQueryFromContext(context) {
 	const categoryInList = [];
 
 	// Add all category-based filters
-	["category", "country", "product", "software", "service"].forEach((key) => {
-		if (query[key]) categoryInList.push(query[key]);
-	});
+	["category", "country", "product", "software", "service", "search"].forEach(
+		(key) => {
+			if (query[key]) categoryInList.push(query[key]);
+		}
+	);
 
 	// Construct `where` if needed
 	if (categoryInList.length || query.year) {
