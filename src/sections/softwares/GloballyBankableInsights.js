@@ -45,7 +45,7 @@ export default function GloballyBankableInsights({ data, isMultiple }) {
 			<div className="section_spacing">
 				<div className="container">
 					<div className={`${styles.wrap}`}>
-						<div className={`${styles.head} f_r_aj_between`}>
+						<div className={`${styles.head} f_r_aj_between pb_20`}>
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 								{/* Globally bankable <br /> insights */}
 								{data?.title}
