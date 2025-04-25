@@ -87,6 +87,19 @@ query GetSingleHowWeHelp {
       availableRegions {
         marqueeText
       }
+      whyAurora {
+        description
+        endPoint
+        endText
+        startText
+        title
+        list {
+          caption
+          description
+          title
+          value
+        }
+      }
     }
   }
 }
