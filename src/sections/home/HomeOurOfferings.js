@@ -11,7 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import Lottie from "lottie-web";
+// import Lottie from "lottie-web";
 
 // UTILS //
 import EqualHeight from "../../utils/EqualHeight";
@@ -27,57 +27,57 @@ import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
 
 /** HomeOurOfferings Section */
 export default function HomeOurOfferings() {
-	const anim1 = useRef();
-	const anim2 = useRef();
-	/** platLottie funnction */
-	function playLottie() {
-		Lottie.loadAnimation({
-			container: anim1.current,
-			renderer: "svg",
-			loop: true,
-			autoplay: true,
-			animationData: require("../../../public/img/home/lottie/SoftwareLottie.json"),
-		});
-		Lottie.loadAnimation({
-			container: anim2.current,
-			renderer: "svg",
-			loop: true,
-			autoplay: true,
-			animationData: require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
-		});
-	}
-	const animRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	const animRefs2 = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	/** platLottie funnction */
-	function platLottieResp() {
-		/** platLottie funnction */
-		const loadLottieAnimation = (ref, animationData) => {
-			if (ref.current) {
-				Lottie.loadAnimation({
-					container: ref.current,
-					renderer: "svg",
-					loop: true,
-					autoplay: true,
-					animationData: animationData,
-				});
-			}
-		};
-		const animationDataArray = [
-			require("../../../public/img/home/lottie/SoftwareLottie.json"),
-		];
-		const animationDataArray1 = [
-			require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
-		];
-		animRefs.forEach((ref, index) => {
-			loadLottieAnimation(ref, animationDataArray[index]);
-		});
-		animRefs2.forEach((ref, index) => {
-			loadLottieAnimation(ref, animationDataArray1[index]);
-		});
-	}
+	// const anim1 = useRef();
+	// const anim2 = useRef();
+	// /** platLottie funnction */
+	// function playLottie() {
+	// 	Lottie.loadAnimation({
+	// 		container: anim1.current,
+	// 		renderer: "svg",
+	// 		loop: true,
+	// 		autoplay: true,
+	// 		animationData: require("../../../public/img/home/lottie/SoftwareLottie.json"),
+	// 	});
+	// 	Lottie.loadAnimation({
+	// 		container: anim2.current,
+	// 		renderer: "svg",
+	// 		loop: true,
+	// 		autoplay: true,
+	// 		animationData: require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
+	// 	});
+	// }
+	// const animRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+	// const animRefs2 = [useRef(null), useRef(null), useRef(null), useRef(null)];
+	// /** platLottie funnction */
+	// function platLottieResp() {
+	// 	/** platLottie funnction */
+	// 	const loadLottieAnimation = (ref, animationData) => {
+	// 		if (ref.current) {
+	// 			Lottie.loadAnimation({
+	// 				container: ref.current,
+	// 				renderer: "svg",
+	// 				loop: true,
+	// 				autoplay: true,
+	// 				animationData: animationData,
+	// 			});
+	// 		}
+	// 	};
+	// 	const animationDataArray = [
+	// 		require("../../../public/img/home/lottie/SoftwareLottie.json"),
+	// 	];
+	// 	const animationDataArray1 = [
+	// 		require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
+	// 	];
+	// 	animRefs.forEach((ref, index) => {
+	// 		loadLottieAnimation(ref, animationDataArray[index]);
+	// 	});
+	// 	animRefs2.forEach((ref, index) => {
+	// 		loadLottieAnimation(ref, animationDataArray1[index]);
+	// 	});
+	// }
 	useEffect(() => {
-		playLottie();
-		platLottieResp();
+		// playLottie();
+		// platLottieResp();
 		EqualHeight("cardHBg");
 	}, []);
 	return (
