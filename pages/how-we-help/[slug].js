@@ -88,6 +88,8 @@ export default function Transactions({ data, services, mapJson, bundles }) {
 		}, 500);
 	};
 
+	console.log("data?.whyAurora", data.howWeHelpInside);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -114,7 +116,10 @@ export default function Transactions({ data, services, mapJson, bundles }) {
 					}
 				/>
 				<div>
-					<GloballyBankableInsights isMultiple={true} />
+					<GloballyBankableInsights
+						data={data?.howWeHelpInside?.whyAurora}
+						isMultiple={data?.howWeHelpInside?.whyAurora?.list?.length > 1}
+					/>
 				</div>
 				{data?.howWeHelpInside?.ourClient?.selectLogos && (
 					<div className="ptb_100">
