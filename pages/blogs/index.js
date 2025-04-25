@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+
 // MODULES //
 
 // COMPONENTS //
@@ -7,37 +8,30 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import DummyComponent from "@/components/DummyComponent";
 
-// SECTIONS //
-
-// PLUGINS //
-
-// IMAGES //
-
 // STYLES //
 import styles from "@/styles/pages/Blogs.module.scss";
 
 // SERVICES //
-import { getAllBlogs } from "@/services/GlobalPresence.service";
+import { getAllBlogs } from "@/services/GlobalPresence.service"; // ✅ Make sure this is a named export
 
-// DATA //
-import dummyData from "@/data/tempStrapiData.json";
-
-/** Data Fetching  */
+/** Data Fetching */
 export async function getServerSideProps() {
-	// API call to get all Blogs
-	const blogs = await getAllBlogs();
+	try {
+		const blogs = await getAllBlogs();
 
-	return {
-		props: { blogsData: blogs.data },
-		// revalidate: 120,
-	};
+		return {
+			props: { blogsData: blogs.data },
+		};
+	} catch (error) {
+		console.error("Error fetching blogs:", error);
+		return {
+			props: { blogsData: [] }, // fallback to empty if error
+		};
+	}
 }
 
 /** Blogs Page */
 export default function Blogs({ blogsData }) {
-	// When fetching data from strapi use blogsData directly instead of dummyData,
-	// Here dummyData is used just for demonstration purpose
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -48,6 +42,7 @@ export default function Blogs({ blogsData }) {
 				OgImg={""}
 				Url={"/blogs"}
 			/>
+
 			{/* Header */}
 			{/* <Header /> */}
 
@@ -55,17 +50,19 @@ export default function Blogs({ blogsData }) {
 			<main className={`${styles.blogs_page}`}>
 				<div className="section_spacing">
 					<div className="container">
-						<div className={`${styles.blog_wrap}`}>
-							{dummyData.map((item, index) => {
-								return (
+						<div className={styles.blog_wrap}>
+							{blogsData.length > 0 ? (
+								blogsData.map((item, index) => (
 									<DummyComponent
 										key={item.attributes.title + index}
 										title={item.attributes.title}
 										desc={item.attributes.desc}
 										thumbImage={item.attributes.thumbImage}
 									/>
-								);
-							})}
+								))
+							) : (
+								<p>No blogs found.</p>
+							)}
 						</div>
 					</div>
 				</div>
@@ -73,7 +70,7 @@ export default function Blogs({ blogsData }) {
 			{/* Page Content Ends */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }
