@@ -33,14 +33,25 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import {
 	getInsights,
 	getInsightsCategories,
+	getInsightsPath,
 } from "@/services/Insights.service";
 
-/** Fetch  */
-export async function getServerSideProps(context) {
-	const queryToUse = buildQueryFromContext(context.query);
+/** Fetch Paths  */
+// export async function getStaticPaths() {
+// 	const data = await getInsightsPath();
 
+// 	return {
+// 		paths: data?.data?.posts?.nodes?.map((item) => {
+// 			return { params: item?.slug };
+// 		}),
+// 		fallback: true, // false or "blocking"
+// 	};
+// }
+
+/** Fetch  */
+export async function getStaticProps() {
 	const [data, categoriesForSelect] = await Promise.all([
-		getInsights(objectToGraphQLArgs(queryToUse)),
+		getInsights(),
 		getInsightsCategories(),
 	]);
 
@@ -55,6 +66,7 @@ export async function getServerSideProps(context) {
 			softwares: categoriesForSelect.data.softwares.nodes,
 			services: categoriesForSelect.data.services.nodes,
 		},
+		revalidate: 10,
 	};
 }
 
@@ -69,6 +81,7 @@ export default function AuroraInsights({
 	softwares,
 	services,
 }) {
+	const [original, setOriginal] = useState(data);
 	// console.log("data", {
 	// 	pagination,
 	// 	data,
@@ -102,12 +115,14 @@ export default function AuroraInsights({
 				</div>
 				<div className="pt_60 pb_100">
 					<InsightsListing
-						data={data}
+						data={data?.slice(1, data.length)}
 						pagination={pagination}
 						countries={countries}
 						products={products}
 						softwares={softwares}
 						services={services}
+						setOriginal={setOriginal}
+						original={original}
 						productService={[
 							{
 								category: "Product",

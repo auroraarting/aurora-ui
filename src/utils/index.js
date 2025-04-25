@@ -383,3 +383,40 @@ export function isCategory(categoryList, dynamicWords) {
 	});
 	return txt;
 }
+
+/** filterItems  */
+export const filterItems = (items, filterObj) => {
+	return items.filter((item) => {
+		const categoryNames =
+			item.categories?.nodes?.map((c) => c.name.toLowerCase()) || [];
+		const categorySlugs =
+			item.categories?.nodes?.map((c) => c.slug.toLowerCase()) || [];
+
+		const allCategoryValues = [...categoryNames, ...categorySlugs];
+
+		const matchKeys = ["category", "country", "software", "product", "service"];
+		const matchesCategoryFilters = matchKeys.every((key) => {
+			if (!filterObj[key]) return true; // skip if not filtering by this key
+			return allCategoryValues.includes(filterObj[key].toLowerCase());
+		});
+
+		const filterYear = filterObj.year;
+		const itemYear = new Date(item.date).getFullYear();
+
+		const matchesYear = filterYear ? itemYear === filterYear : true;
+
+		return matchesCategoryFilters && matchesYear;
+	});
+};
+
+/** filterBySearchQuery */
+export const filterBySearchQuery = (items, searchQuery) => {
+	if (!searchQuery) return items;
+
+	const lowerSearch = searchQuery.toLowerCase();
+
+	return items.filter((item) => {
+		const tagNames = item.tags?.nodes?.map((tag) => tag.name.toLowerCase()) || [];
+		return tagNames.some((tag) => tag.includes(lowerSearch));
+	});
+};

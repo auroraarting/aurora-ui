@@ -18,35 +18,59 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 
 /** JobOpenings Section */
 export default function JobOpenings() {
+	const [jobs, setJobs] = useState();
+	const [filterdJob, setFilterdJob] = useState();
+	const [filters, setFilters] = useState({ countries: [], departments: [] });
+	const [dropdowns, setDropdowns] = useState({
+		eventNameType: { isOpen: false, selected: { title: "" } },
+		offeringsType: { isOpen: false, selected: { title: "" } },
+		search: { isOpen: false, selected: { title: "" } },
+	});
 	const dropdownRefs = {
 		eventNameType: useRef(null),
 		offeringsType: useRef(null),
 	};
-	const [dropdowns, setDropdowns] = useState({
-		eventNameType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Department" } },
-	});
-	const optionsData = {
-		eventNameType: [
-			{ title: "Event Name1" },
-			{ title: "Event Name2" },
-			{ title: "Event Name3" },
-			{ title: "Event Name4" },
-		],
-		offeringsType: [
-			{ title: "Offerings1" },
-			{ title: "Offerings2" },
-			{ title: "Offerings3" },
-			{ title: "Offerings4" },
-		],
-	};
+
 	/** Handle Option Click */
 	const handleOptionClick = (key, option) => {
+		let arr = jobs;
+		let dropdownObj = {
+			...dropdowns,
+			[key]: { isOpen: false, selected: { title: option } },
+		};
+		if (dropdownObj.eventNameType.selected.title) {
+			arr = arr.filter((item) =>
+				item.location.name
+					.toLowerCase()
+					.includes(dropdownObj?.eventNameType?.selected?.title?.toLowerCase())
+			);
+		}
+		if (dropdownObj.offeringsType.selected.title) {
+			arr = arr.filter((item) =>
+				item?.job?.department?.name
+					?.toLowerCase()
+					?.includes(dropdownObj.offeringsType.selected.title?.toLowerCase())
+			);
+		}
+		if (dropdownObj.search.selected.title) {
+			arr = arr.filter((item) =>
+				item?.title?.toLowerCase()?.includes(dropdownObj.search.selected.title)
+			);
+		}
+		console.log(dropdownObj, "arr");
+		setFilterdJob(arr);
+
 		setDropdowns((prev) => ({
 			...prev,
-			[key]: { isOpen: false, selected: option },
+			[key]: { isOpen: false, selected: { title: option } },
 		}));
 	};
+
+	/** search  */
+	const search = (val) => {
+		console.log(val);
+	};
+
 	/** Toggle Dropdown */
 	const toggleDropdown = (key) => {
 		setDropdowns((prev) => ({
@@ -54,6 +78,39 @@ export default function JobOpenings() {
 			[key]: { ...prev[key], isOpen: !prev[key].isOpen },
 		}));
 	};
+
+	/** FetchJobData  */
+	async function FetchJobData() {
+		try {
+			const res = await fetch("https://auroraer.pinpointhq.com/postings.json");
+			const json = await res.json();
+			const tempCountries = [
+				...new Set(
+					json.data.map((item) => item?.location?.name.split(", ")[1] || "")
+				),
+			].filter((item) => item);
+			const tempDepartments = [
+				...new Set(
+					json.data.map(
+						(item) =>
+							item?.job?.department?.name?.split("/")[1] ||
+							item?.job?.department?.name?.split("/")[0]
+					)
+				),
+			].filter((item) => item);
+			setFilters({ countries: tempCountries, departments: tempDepartments });
+			setJobs(json.data);
+			setFilterdJob(json.data);
+			console.log(json.data);
+		} catch (error) {
+			console.log(error, "json");
+		}
+	}
+
+	useEffect(() => {
+		FetchJobData();
+	}, []);
+
 	return (
 		<section className={`${styles.JobOpenings} dark_bg ptb_100`}>
 			<div className="container">
@@ -84,23 +141,23 @@ export default function JobOpenings() {
 												<div
 													className={`${styles.select_header} select_bg text_sm text_500`}
 												>
-													{dropdowns.eventNameType.selected.title}
+													{dropdowns.eventNameType.selected.title || "Country"}
 													<img src={dropdown_arrow.src} alt="icon" />
 												</div>
 											</div>
 											{dropdowns.eventNameType.isOpen && (
 												<ul className={styles.selectOptionBox}>
-													{optionsData.eventNameType.map((option) => (
+													{filters?.countries?.map((option) => (
 														<li
 															key={option.title}
 															className={
-																option.title === dropdowns.eventNameType.selected.title
+																option === dropdowns.eventNameType.selected.title
 																	? "selected"
 																	: ""
 															}
 															onClick={() => handleOptionClick("eventNameType", option)}
 														>
-															{option.title}
+															{option}
 														</li>
 													))}
 												</ul>
@@ -119,23 +176,23 @@ export default function JobOpenings() {
 												<div
 													className={`${styles.select_header} select_bg text_sm text_500`}
 												>
-													{dropdowns.offeringsType.selected.title}
+													{dropdowns.offeringsType.selected.title || "Department"}
 													<img src={dropdown_arrow.src} alt="icon" />
 												</div>
 											</div>
 											{dropdowns.offeringsType.isOpen && (
 												<ul className={styles.selectOptionBox}>
-													{optionsData.offeringsType.map((option) => (
+													{filters?.departments?.map((option) => (
 														<li
 															key={option.title}
 															className={
-																option.title === dropdowns.offeringsType.selected.title
+																option === dropdowns.offeringsType.selected.title
 																	? "selected"
 																	: ""
 															}
 															onClick={() => handleOptionClick("offeringsType", option)}
 														>
-															{option.title}
+															{option}
 														</li>
 													))}
 												</ul>
@@ -144,7 +201,11 @@ export default function JobOpenings() {
 									</div>
 								</div>
 								<div>
-									<input type="text" placeholder="Serach" />
+									<input
+										type="text"
+										placeholder="Serach"
+										onChange={(e) => handleOptionClick("search", e.target.value)}
+									/>
 								</div>
 							</div>
 						</div>
@@ -152,7 +213,28 @@ export default function JobOpenings() {
 				</div>
 				<div className={`${styles.tableBox}`}>
 					<table>
-						<tr>
+						{filterdJob?.map((item, ind) => {
+							return (
+								<tr key={item?.title + ind}>
+									<td className="text_md font_primary color_white f_w_m">
+										{item?.title}
+									</td>
+									<td className="text_reg color_platinum_gray">
+										{/* Singapore */}
+										{item?.location?.province}
+									</td>
+									<td className="text_reg color_platinum_gray">
+										{/* Advisory */}
+										{item?.job?.department?.name}
+									</td>
+									<td className="text_reg color_platinum_gray">
+										{/* Permanent - Full Time */}
+										{item?.employment_type_text}
+									</td>
+								</tr>
+							);
+						})}
+						{/* <tr>
 							<td className="text_md font_primary color_white f_w_m">
 								Senior Associate
 							</td>
@@ -187,7 +269,7 @@ export default function JobOpenings() {
 							<td className="text_reg color_platinum_gray">Singapore</td>
 							<td className="text_reg color_platinum_gray">Advisory</td>
 							<td className="text_reg color_platinum_gray">Permanent - Full Time</td>
-						</tr>
+						</tr> */}
 					</table>
 				</div>
 			</div>

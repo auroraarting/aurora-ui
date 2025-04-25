@@ -20,18 +20,19 @@ import share from "@/../public/img/resources/aurora_insights/share.svg";
 import copy from "@/../public/img/resources/aurora_insights/copy.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import black_clock from "@/../public/img/icons/black_clock.svg";
+import formatDate from "@/utils";
 
 // DATA //
 
 /** CaseStudiesTop Section */
-export default function CaseStudiesTop() {
+export default function CaseStudiesTop({ data }) {
 	return (
 		<section className={`${styles.CaseStudiesTop} pt_100`}>
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
 						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
-							Analysing the financial roadmap to Net Zero by 2035
+							{data?.title}
 						</h2>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>
 							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
@@ -40,20 +41,25 @@ export default function CaseStudiesTop() {
 									className={`${styles.calender}`}
 									alt="calender"
 								/>
-								<span>mar 2025</span>
+								{/* <span>mar 2025</span> */}
+								<span>{formatDate(data?.date)}</span>
 							</p>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+							{/* <p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
 								<img
 									src={black_clock.src}
 									className={`${styles.calender}`}
 									alt="calender"
 								/>
 								<span>28 min 24 sec</span>
-							</p>
+							</p> */}
 						</div>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
-						<img src={plant_img.src} className="width_100 b_r_20" alt="img" />
+						<img
+							src={data?.featuredImage?.node?.sourceUrl || plant_img.src}
+							className="width_100 b_r_20"
+							alt="img"
+						/>
 					</div>
 				</div>
 				<div className={`${styles.dateBox}`}>
