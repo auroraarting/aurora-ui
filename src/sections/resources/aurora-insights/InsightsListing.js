@@ -12,6 +12,8 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 import formatDate, {
 	buildQueryFromContext,
+	filterBySearchQuery,
+	filterItems,
 	isCategory,
 	objectToGraphQLArgs,
 } from "@/utils";
@@ -40,6 +42,8 @@ export default function InsightsListing({
 	products,
 	softwares,
 	services,
+	original,
+	setOriginal,
 }) {
 	const router = useRouter();
 	const [list, setList] = useState(data);
@@ -172,34 +176,22 @@ export default function InsightsListing({
 		window.history.back();
 	};
 
-	/** filterBySelectedCategories  */
-	function filterBySelectedCategories(articles, selected) {
-		if (!selected) return articles;
-
-		const selectedValues = Object.values(selected)
-			.filter(Boolean) // remove empty, null, undefined
-			.map((val) => val.toLowerCase());
-
-		return articles.filter((article) => {
-			const categoryNames = article.categories.nodes.map((node) =>
-				node.name.toLowerCase()
-			);
-			return selectedValues.some((val) => categoryNames.includes(val));
-		});
-	}
-
 	/** filter  */
 	const filter = async (catName, key) => {
 		let queryObj = { ...router.query };
 		let selectedObj = selected;
+		let arr = original;
 		setLoading(true);
 
 		if (key === "search") {
 			selectedObj.search = catName;
 			queryObj.search = catName;
+
+			window.location.href = `/resources/aurora-insights?search=${catName}`;
+			return;
 		}
 		if (key === "categoryType") {
-			selectedObj.category = catName.title;
+			selectedObj.category = catName.alternate;
 			queryObj.category = catName.alternate;
 		}
 		if (key === "countryType") {
@@ -227,28 +219,12 @@ export default function InsightsListing({
 			queryObj.service = catName;
 		}
 		setSelected(selectedObj);
-		// Removed For Now
-		// router.push(
-		// 	{
-		// 		pathname: router.pathname,
-		// 		query: queryObj,
-		// 	},
-		// 	undefined,
-		// 	{ shallow: true }
-		// );
-		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(queryObj));
-		const filteredData = await getInsights(queryToUse);
-		const filtered = filterBySelectedCategories(
-			filteredData.data.posts.nodes,
-			queryObj
-		);
-		console.log(filtered, filteredData);
-		setLoading(false);
-		setList(filtered);
-		setFilteredPagination(filteredData.data?.posts?.pageInfo);
-	};
 
-	// console.log(list);
+		const filteredArr = filterItems(arr, queryObj);
+		console.log(filteredArr, queryObj);
+		setList(filteredArr);
+		setLoading(false);
+	};
 
 	/** Close Dropdown on Click Outside */
 	useEffect(() => {
@@ -271,8 +247,12 @@ export default function InsightsListing({
 	}, []);
 
 	useEffect(() => {
-		setSelected(router.query);
-	}, []);
+		if (router.query.search) {
+			const filtered = filterBySearchQuery(data, router.query.search);
+			setList(filtered);
+			setOriginal(filtered);
+		}
+	}, [router.query]);
 
 	return (
 		<section className={styles.InsightsListing}>
@@ -467,8 +447,8 @@ export default function InsightsListing({
 					{!loading &&
 						list.map((item, ind) => {
 							return (
-								<div className={`${styles.ItemBox}`} key={item?.title}>
-									<a href="">
+								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
+									<a href={`/resources/aurora-insights/${item?.slug}`}>
 										<div className={`${styles.hoverBox}`}>
 											<img
 												src={hoverBg.src}
