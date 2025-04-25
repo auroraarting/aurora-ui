@@ -70,7 +70,7 @@ export default function Blogs({ blogsData }) {
 			{/* Page Content Ends */}
 
 			{/* Footer */}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }
