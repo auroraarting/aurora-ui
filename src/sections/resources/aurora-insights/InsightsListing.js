@@ -465,12 +465,12 @@ export default function InsightsListing({
 					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
 			</div>
-			{filteredPagination.hasPreviousPage && (
+			{/* {filteredPagination?.hasPreviousPage && (
 				<button onClick={handlePreviousPage}>Previous</button>
 			)}
-			{filteredPagination.hasNextPage && (
+			{filteredPagination?.hasNextPage && (
 				<button onClick={handleNextPage}>Next</button>
-			)}
+			)} */}
 		</section>
 	);
 }

@@ -33,11 +33,7 @@ export default function Bundles({ data }) {
 	};
 
 	return (
-		<section
-			className={`${styles.Bundles} Bundles`}
-			id="bundles"
-			data-name="Bundles"
-		>
+		<section className={`${styles.Bundles} Bundles`} id="eos" data-name="Eos">
 			<div className="container">
 				<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
 					Asset Lifecycle Management tools <br /> that meet your needs
