@@ -17,10 +17,13 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 /** JobOpenings Section */
-export default function JobOpenings() {
-	const [jobs, setJobs] = useState();
-	const [filterdJob, setFilterdJob] = useState();
-	const [filters, setFilters] = useState({ countries: [], departments: [] });
+export default function JobOpenings({ data }) {
+	const [jobs, setJobs] = useState(data.jobs.data);
+	const [filterdJob, setFilterdJob] = useState(data.jobs.data);
+	const [filters, setFilters] = useState({
+		countries: data.countries,
+		departments: data.departments,
+	});
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "" } },
 		offeringsType: { isOpen: false, selected: { title: "" } },
@@ -108,7 +111,7 @@ export default function JobOpenings() {
 	}
 
 	useEffect(() => {
-		FetchJobData();
+		// FetchJobData();
 	}, []);
 
 	return (

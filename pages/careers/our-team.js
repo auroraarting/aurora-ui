@@ -11,6 +11,7 @@ import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 
 // SECTIONS //
+import DepartmentList from "@/sections/careers/DepartmentList";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -29,20 +30,20 @@ import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
-import DepartmentList from "@/sections/careers/DepartmentList";
+import { getFetchJobData } from "@/services/JobOpenings.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data] = await Promise.all([getLifeAtAurora()]);
+	const [data, jobs] = await Promise.all([getLifeAtAurora(), getFetchJobData()]);
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
 	};
 	delete obj.data.lifeAtAurora;
-	return { props: { ...obj } };
+	return { props: { ...obj, jobs } };
 }
 
 /** LifeAtAurora Page */
-export default function LifeAtAurora() {
+export default function LifeAtAurora({ jobs }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -66,7 +67,7 @@ export default function LifeAtAurora() {
 					showContentOnly
 				/>
 				<div>
-					<DepartmentList />
+					<DepartmentList data={jobs} />
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
