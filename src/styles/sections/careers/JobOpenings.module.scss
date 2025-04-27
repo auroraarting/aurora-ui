@@ -16,6 +16,8 @@
 				}
 				@media screen and (max-width: 767px) {
 					flex-wrap: wrap;
+					width: 100%;
+					gap: 20px;
 				}
 				.selectBox {
 					position: relative;
@@ -308,7 +310,7 @@
 	.tableBox {
 		@media (max-width: 991px) {
 			overflow-x: scroll;
-			white-space: nowrap;
+			// white-space: nowrap;
 		}
 		table {
 			border-collapse: collapse;
@@ -320,6 +322,22 @@
 			border-bottom: 1px solid var(--color_dark_gray);
 			text-align: left;
 			padding: 25px 20px;
+			@include sm-down {
+				padding: 10px;
+			}
+		}
+		tr {
+			@include sm-down {
+				display: flex;
+				flex-direction: column;
+
+				td {
+					opacity: 0.6;
+					&:nth-child(1) {
+						opacity: 1;
+					}
+				}
+			}
 		}
 	}
 }
