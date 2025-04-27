@@ -38,19 +38,25 @@ import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
+import { getFetchJobData } from "@/services/JobOpenings.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data] = await Promise.all([getLifeAtAurora()]);
+	const [data, jobs] = await Promise.all([getLifeAtAurora(), getFetchJobData()]);
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
 	};
 	delete obj.data.lifeAtAurora;
-	return { props: { ...obj } };
+	return {
+		props: {
+			...obj,
+			jobs,
+		},
+	};
 }
 
 /** LifeAtAurora Page */
-export default function LifeAtAurora({ data }) {
+export default function LifeAtAurora({ data, jobs }) {
 	const [mapJson, setMapJson] = useState();
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
@@ -165,7 +171,7 @@ export default function LifeAtAurora({ data }) {
 					</div>
 				)}
 				<div>
-					<JobOpenings />
+					<JobOpenings data={jobs} />
 				</div>
 
 				<div className="pt_100">

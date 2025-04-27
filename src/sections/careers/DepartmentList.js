@@ -21,7 +21,7 @@ import Insights from "@/components/Insights";
 // DATA //
 
 /** DepartmentList Section */
-export default function DepartmentList() {
+export default function DepartmentList({ data }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 	const [showAll, setShowAll] = useState(false);
 
@@ -253,7 +253,7 @@ export default function DepartmentList() {
 						</div>
 					</div>
 					<div>
-						<JobOpenings />
+						<JobOpenings data={data} />
 					</div>
 				</div>
 			</div>

@@ -25,9 +25,21 @@ import styles from "@/styles/pages/careers/JoinUs.module.scss";
 // DATA //
 
 // SERVICES //
+import { getFetchJobData } from "@/services/JobOpenings.service";
+
+/** Fetch  */
+export async function getServerSideProps() {
+	const [jobs] = await Promise.all([getFetchJobData()]);
+
+	return {
+		props: {
+			jobs,
+		},
+	};
+}
 
 /** JoinUs Page */
-export default function JoinUs() {
+export default function JoinUs({ jobs }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -45,7 +57,7 @@ export default function JoinUs() {
 					showContentOnly
 				/>
 				<div>
-					<JobOpenings />
+					<JobOpenings data={jobs} />
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
