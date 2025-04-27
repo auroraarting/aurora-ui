@@ -80,10 +80,6 @@ export default function InsightsListing({
 			{ title: "Articles", alternate: "Commentary" },
 			{ title: "Case studies", alternate: "Case studies" },
 			{ title: "Market reports", alternate: "Market reports" },
-			{ title: "Press Release", alternate: "Press Release" },
-			{ title: "Past Webinars", alternate: "Webinar Recording" },
-			{ title: "Reports", alternate: "Reports" },
-			{ title: "Public", alternate: "Public" },
 		],
 		countryType: [
 			{ title: "India" },
