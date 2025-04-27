@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useRef, useEffect, useState } from "react";
 // COMPONENTS //
@@ -121,11 +122,11 @@ export default function JobOpenings({ data }) {
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
 						Job Openings
 					</h2>
-					<div className={`${styles.bookBtn}`}>
+					<a href="/careers/join-us" className={`${styles.bookBtn}`}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Join Us
 						</Button>
-					</div>
+					</a>
 				</div>
 				<div className={`${styles.filterBox}`}>
 					<div className={`${styles.topNav}`}>
@@ -203,13 +204,13 @@ export default function JobOpenings({ data }) {
 										</div>
 									</div>
 								</div>
-								<div>
+								{/* <div>
 									<input
 										type="text"
 										placeholder="Serach"
 										onChange={(e) => handleOptionClick("search", e.target.value)}
 									/>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					</div>
