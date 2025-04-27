@@ -304,6 +304,7 @@
 	right: 0px;
 	width: 100%;
 	height: 100vh;
+	overflow-y: auto;
 	z-index: 10000;
 	background-color: var(--color_secondary);
 	transform: translateX(100%);
