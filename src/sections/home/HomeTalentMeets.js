@@ -1,4 +1,5 @@
 // MODULES //
+import Link from "next/link";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -41,9 +42,13 @@ export default function HomeTalentMeets() {
 							make a real impact in the energy transition!
 						</p>
 						<div className={`${styles.bookBtnOne} pt_40`}>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Life at Aurora
-							</Button>
+							<Link href="/careers/life-at-aurora">
+								<a>
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+										Life at Aurora
+									</Button>
+								</a>
+							</Link>
 						</div>
 					</div>
 				</div>

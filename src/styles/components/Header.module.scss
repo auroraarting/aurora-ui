@@ -661,7 +661,7 @@
 							opacity: 1;
 							transition: all 0.2s;
 							//padding-bottom: 20px;
-							display: flex;
+							// display: flex;
 							width: 100%;
 							flex-wrap: wrap;
 							padding-top: 5px;
@@ -674,35 +674,40 @@
 					list-style-type: none;
 					padding-left: 0px;
 					width: 100%;
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
+					grid-gap: 2%;
 					li {
-						padding-bottom: 5px;
+						padding-bottom: 10px;
+						width: 48%;
 					}
 				}
-				&:nth-child(1) {
-					width: 66.666%;
-					@media (max-width: 767px) {
-						width: 100%;
-					}
-					.CountryNameBox {
-						display: flex;
-						width: 100%;
-						@media (max-width: 767px) {
-							flex-wrap: wrap;
-						}
+				// &:nth-child(1) {
+				// 	width: 66.666%;
+				// 	@media (max-width: 767px) {
+				// 		width: 100%;
+				// 	}
+				// 	.CountryNameBox {
+				// 		display: flex;
+				// 		width: 100%;
+				// 		@media (max-width: 767px) {
+				// 			flex-wrap: wrap;
+				// 		}
 
-						ul {
-							width: 100%;
-							display: flow;
-							// @media (max-width: 767px) {
-							// 	width: 50%;
-							// }
-							li {
-								width: 33.33%;
-								float: left;
-							}
-						}
-					}
-				}
+				// 		ul {
+				// 			width: 100%;
+				// 			display: flow;
+				// 			// @media (max-width: 767px) {
+				// 			// 	width: 50%;
+				// 			// }
+				// 			li {
+				// 				width: 33.33%;
+				// 				float: left;
+				// 			}
+				// 		}
+				// 	}
+				// }
 			}
 		}
 	}

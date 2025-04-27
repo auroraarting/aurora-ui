@@ -1,5 +1,6 @@
 // MODULES //
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 // COMPONENTS //
 
@@ -78,7 +79,7 @@ export default function HomeOurOfferings() {
 	useEffect(() => {
 		// playLottie();
 		// platLottieResp();
-		EqualHeight("cardHBg");
+		// EqualHeight("cardHBg");
 	}, []);
 	return (
 		<section className={`${styles.HomeOurOfferings} pt_100`}>
@@ -112,11 +113,13 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<img
-									src={menu_hover_arrow.src}
-									alt="icon"
-									className={`${styles.Icon_arrow}`}
-								/>
+								<Link href="/eos">
+									<img
+										src={menu_hover_arrow.src}
+										alt="icon"
+										className={`${styles.Icon_arrow}`}
+									/>
+								</Link>
 								<h4 className="text_md f_w_m color_white ">EOS Platform</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
@@ -133,11 +136,13 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<img
-									src={menu_hover_arrow.src}
-									alt="icon"
-									className={`${styles.Icon_arrow}`}
-								/>
+								<Link href="/software">
+									<img
+										src={menu_hover_arrow.src}
+										alt="icon"
+										className={`${styles.Icon_arrow}`}
+									/>
+								</Link>
 								<h4 className="text_md f_w_m color_white ">Software</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
@@ -177,11 +182,13 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<img
-									src={menu_hover_arrow.src}
-									alt="icon"
-									className={`${styles.Icon_arrow}`}
-								/>
+								<Link href="/service/advisory">
+									<img
+										src={menu_hover_arrow.src}
+										alt="icon"
+										className={`${styles.Icon_arrow}`}
+									/>
+								</Link>
 								<h4 className="text_md f_w_m color_white ">Advisory</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
