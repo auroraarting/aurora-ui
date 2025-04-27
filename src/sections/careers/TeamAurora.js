@@ -1,4 +1,5 @@
 // MODULES //
+import Link from "next/link";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -28,9 +29,13 @@ export default function TeamAurora() {
 						What’s it like to be a part of Team Aurora?
 					</h2>
 					<div className={`${styles.bookBtn}`}>
-						<Button color="primary" variant="filled" shape="rounded">
-							Our Teams
-						</Button>
+						<Link href="/careers/our-team">
+							<a>
+								<Button color="primary" variant="filled" shape="rounded">
+									Our Teams
+								</Button>
+							</a>
+						</Link>
 					</div>
 				</div>
 				<div className={`${styles.TeamBoxRow} ${styles.TeamBoxRowOne}`}>
@@ -48,7 +53,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									John Barry
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -69,7 +74,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									Jonathan Coe
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -90,7 +95,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									Richard Bradford
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -111,7 +116,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									Oliver Ray
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -132,7 +137,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									Steve Hadley
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -153,7 +158,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									Lesley Kim
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -174,7 +179,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									John Barry
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>
@@ -195,7 +200,7 @@ export default function TeamAurora() {
 							</div>
 							<div className={`${styles.teamDescription}`}>
 								<h4 className="text_reg font_primary color_secondary f_w_m">
-									Laszlo Berencei
+									Jonathan Coe
 								</h4>
 								<p className="text_xs color_dark_gray f_w_l">Modelling, Oxford</p>
 							</div>

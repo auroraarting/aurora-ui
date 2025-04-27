@@ -1,4 +1,5 @@
 // MODULES //
+import Link from "next/link";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -33,9 +34,11 @@ export default function HomeWhoWeAre() {
 							investors trust Aurora&apos;s analytical rigor and regulatory expertise.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Button color="secondary" variant="underline" mode="dark">
-								Read More
-							</Button>
+							<Link href="/who-are-you/financial-sector">
+								<Button color="secondary" variant="underline" mode="dark">
+									Read More
+								</Button>
+							</Link>
 						</div>
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
@@ -46,9 +49,11 @@ export default function HomeWhoWeAre() {
 							operational and regulatory requirements.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Button color="secondary" variant="underline" mode="dark">
-								Know more
-							</Button>
+							<Link href="/who-are-you/energy-consumer">
+								<Button color="secondary" variant="underline" mode="dark">
+									Know more
+								</Button>
+							</Link>
 						</div>
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
@@ -59,9 +64,11 @@ export default function HomeWhoWeAre() {
 							energy demand.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Button color="secondary" variant="underline" mode="dark">
-								Know more
-							</Button>
+							<Link href="/who-are-you/utilities">
+								<Button color="secondary" variant="underline" mode="dark">
+									Know more
+								</Button>
+							</Link>
 						</div>
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
@@ -71,9 +78,11 @@ export default function HomeWhoWeAre() {
 							drive the development of renewable energy and infrastructure solutions.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Button color="secondary" variant="underline" mode="dark">
-								Know more
-							</Button>
+							<Link href="/who-are-you/developer">
+								<Button color="secondary" variant="underline" mode="dark">
+									Know more
+								</Button>
+							</Link>
 						</div>
 					</div>
 				</div>

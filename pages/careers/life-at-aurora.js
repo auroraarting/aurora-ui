@@ -157,7 +157,7 @@ export default function LifeAtAurora({ data, jobs }) {
 						/>
 					)}
 				</div>
-				<div>
+				<div className="black_bg pb_80">
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
