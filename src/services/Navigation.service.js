@@ -158,6 +158,9 @@ export async function fetchNavigationData() {
     nodes {
       name
       slug
+      regionsFields{
+        sequence
+      }
       countries(first: 9999) {
         nodes {
           slug
@@ -213,7 +216,11 @@ export async function fetchNavigationData() {
 			},
 		};
 	});
-	const regions = data?.regions.nodes;
+	const regions = data?.regions.nodes?.sort(
+		(a, b) =>
+			parseFloat(a.regionsFields?.sequence || 0) -
+			parseFloat(b.regionsFields?.sequence || 0)
+	);
 	const whoareyous = data?.whoareyous.nodes;
 	const howWeHelps = data?.howWeHelps.nodes;
 

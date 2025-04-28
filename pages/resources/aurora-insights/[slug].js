@@ -9,6 +9,8 @@ import SectionsHeader from "@/components/SectionsHeader";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
+import Script from "next/script";
 
 // SECTIONS //
 import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
@@ -29,7 +31,6 @@ import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scs
 
 // SERVICES //
 import { getInsightsInside } from "@/services/Insights.service";
-import ContentFromCms from "@/components/ContentFromCms";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
@@ -74,6 +75,7 @@ export default function Articles({ data }) {
 			</Button>
 		</div>,
 	];
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -83,6 +85,42 @@ export default function Articles({ data }) {
 				OgImg={""}
 				Url={`/resources/aurora-insights/${data?.slug}`}
 			/>
+
+			<Script id="show-banner" strategy="afterInteractive">
+				{`
+    let speechifyWidgetInstance;
+
+    import("https://storage.googleapis.com/speechify-api-cdn/speechifyapi.min.mjs")
+      .then(async (speechifyWidget) => {
+        const articleRootElement = document.querySelector(".dynamic_content");
+        const articleHeading = document.querySelector(".speechify_wrap");
+
+        const widget = speechifyWidget.makeSpeechifyExperience({
+          rootElement: articleRootElement,
+          inlinePlayerElement: articleHeading,
+          visibility: {
+            showWidget: false,
+            showWidgetOnPlay: false,
+          },
+        });
+
+        await widget.mount();
+        speechifyWidgetInstance = widget;
+      });
+
+    // Optional: Expose functions to window for easy button binding
+    window.speechifyPlay = function() {
+      if (speechifyWidgetInstance) {
+        speechifyWidgetInstance.play();
+      }
+    };
+    window.speechifyPause = function() {
+      if (speechifyWidgetInstance) {
+        speechifyWidgetInstance.pause();
+      }
+    };
+  `}
+			</Script>
 
 			{/* Header */}
 			{/* <Header /> */}
@@ -96,7 +134,7 @@ export default function Articles({ data }) {
 				<section className={`${styles.CaseStudiesMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
-							<div className={`${styles.CaseStudiesMiddleLeft}`}>
+							<div className={`${styles.CaseStudiesMiddleLeft} dynamic_content`}>
 								{/* <CaseStudiesMiddleDescription /> */}
 								<ContentFromCms>{data?.content}</ContentFromCms>
 							</div>

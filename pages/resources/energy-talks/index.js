@@ -38,7 +38,7 @@ import {
 export async function getStaticProps() {
 	const queryTxt =
 		// eslint-disable-next-line quotes
-		'first:9999, where: { categoryName: "energy" }';
+		'first:9999, where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }';
 	const [data, categoriesForSelect] = await Promise.all([
 		getInsights(queryTxt),
 		getInsightsCategories(),
@@ -95,7 +95,7 @@ export default function EnergyTalks({
 					/>
 				</div>
 				<div>
-					<TopEnergy />
+					<TopEnergy data={data?.[0]} />
 				</div>
 				<div className="pt_60 pb_100">
 					<EnergyListing

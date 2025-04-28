@@ -90,7 +90,11 @@ export default function InsightsTop({ data }) {
 						</div>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
-						<img src={plant_img.src} className="width_100 b_r_20" alt="img" />
+						<img
+							src={data?.featuredImage?.node?.sourceUrl || plant_img.src}
+							className="width_100 b_r_20"
+							alt="img"
+						/>
 					</div>
 				</a>
 			</div>

@@ -16,11 +16,12 @@ import styles from "@/styles/sections/resources/webinar/WebinarInsideTopSection.
 import calender from "@/../public/img/icons/calender.svg";
 import share from "@/../public/img/resources/aurora_insights/share.svg";
 import location from "@/../public/img/icons/location.svg";
+import formatDate, { isCategory } from "@/utils";
 
 // DATA //
 
 /** WebinarInsideTopSection Section */
-export default function WebinarInsideTopSection() {
+export default function WebinarInsideTopSection({ data, countries }) {
 	return (
 		<section className={`${styles.WebinarInsideTopSection} `}>
 			<div className="container">
@@ -32,8 +33,7 @@ export default function WebinarInsideTopSection() {
 							Upcoming: Public Webinar
 						</div>
 						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
-							Overview of the Tucson Electric Power Resource Plan and Procurement
-							Activities
+							{data?.title}
 						</h2>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>
 							<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
@@ -42,7 +42,7 @@ export default function WebinarInsideTopSection() {
 									className={`${styles.calender}`}
 									alt="calender"
 								/>
-								<span>Mar 26, 2025 @ 12:00 pm - 1:00 pm CST</span>
+								<span>{formatDate(data?.date)} @ 12:00 pm - 1:00 pm CST</span>
 							</p>
 							<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
 								<img
@@ -50,7 +50,7 @@ export default function WebinarInsideTopSection() {
 									className={`${styles.calender}`}
 									alt="calender"
 								/>
-								<span>India</span>
+								<span>{isCategory(countries, data?.categories?.nodes)}</span>
 							</p>
 							<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
 								<img src={share.src} className={`${styles.calender}`} alt="calender" />
