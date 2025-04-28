@@ -7,13 +7,14 @@ export default async function handler(req, res) {
 	console.log(searchTerm, "searchTerm");
 	try {
 		const response = await searchData(searchTerm);
+		console.log(response);
 
-		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
-		}
+		// if (!response.ok) {
+		// 	throw new Error(`HTTP error! Status: ${response.status}`);
+		// }
 
-		const { data } = await response.json();
-		const results = [...data.projects.nodes, ...data.pages.nodes]; // Combine results
+		// const { data } = await response.json();
+		const results = response; // Combine results
 		res.status(200).json(results);
 	} catch (error) {
 		console.error("Error fetching search results:", error);

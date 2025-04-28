@@ -56,11 +56,12 @@ export async function getServerSideProps({ params }) {
 		getRegions(),
 	]);
 	const mapJson = getMapJsonForSoftware(
-		filterMarkersBySlug(regions, data.data.softwareBy.slug)
+		filterMarkersBySlug(regions, params.slug)
 	);
+	console.log(data, "data");
 	return {
 		props: {
-			data: data.data.softwareBy.softwares,
+			data: data?.data?.softwareBy?.softwares || {},
 			mapJson,
 			regions,
 			meta: data.data.softwareBy,
@@ -107,7 +108,7 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 				Title={meta?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/software/${meta.slug}`}
+				Url={`/software/${meta?.slug}`}
 			/>
 
 			{/* Header */}
