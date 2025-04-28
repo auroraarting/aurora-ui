@@ -107,7 +107,7 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 				Title={meta?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/softwares/${meta.slug}`}
+				Url={`/software/${meta.slug}`}
 			/>
 
 			{/* Header */}

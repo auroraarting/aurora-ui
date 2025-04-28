@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -39,7 +40,9 @@ import {
 /** Fetch  */
 export async function getStaticProps() {
 	const [data, categoriesForSelect] = await Promise.all([
-		getInsights(),
+		getInsights(
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
 		getInsightsCategories(),
 	]);
 

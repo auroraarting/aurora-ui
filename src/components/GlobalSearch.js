@@ -43,7 +43,10 @@ export default function GlobalSearch() {
 		}
 		setIsLoading(true);
 		try {
-			const data = await searchData(searchTerm);
+			const data = await fetch("/api/search", {
+				method: "POST",
+				body: JSON.stringify({ searchTerm }),
+			});
 			setResults(data);
 		} catch (error) {
 			console.error("Error during search:", error);

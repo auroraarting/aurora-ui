@@ -102,7 +102,7 @@ export default function Softwares({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/softwares"} />
+			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/software"} />
 
 			{/* Header */}
 			{/* <Header /> */}
@@ -125,7 +125,7 @@ export default function Softwares({
 						ScrollTrigger={ScrollTrigger}
 						data={softwares.nodes}
 						keyValue={"softwares"}
-						slugPage="softwares"
+						slugPage="software"
 					/>
 				</div>
 				<div>
