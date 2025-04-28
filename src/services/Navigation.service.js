@@ -17,6 +17,14 @@ query GetSoftwares {
             }
           }
         }
+          thumbnail {
+          banner {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
       }
     }
   }
@@ -37,6 +45,14 @@ query GetProducts {
       products {
         map {
           logo {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+          thumbnail {
+          banner {
             node {
               altText
               sourceUrl

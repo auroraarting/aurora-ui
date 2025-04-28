@@ -188,7 +188,7 @@ export default function InsightsListing({
 			return;
 		}
 		if (key === "categoryType") {
-			selectedObj.category = catName.alternate;
+			selectedObj.category = catName.title;
 			queryObj.category = catName.alternate;
 		}
 		if (key === "countryType") {

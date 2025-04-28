@@ -146,6 +146,7 @@ query GetInsightsInside {
     postFields {
       appleLink
       otherLink
+      googleLink
       registerLink
       spotifyLink
       time

@@ -27,23 +27,33 @@ import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.sc
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // SERVICES //
-import { getInsightsInside } from "@/services/Insights.service";
+import { getInsights, getInsightsInside } from "@/services/Insights.service";
 
 // DATA //
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data] = await Promise.all([getInsightsInside(params.slug)]);
+	const [data, events] = await Promise.all([
+		getInsightsInside(params.slug),
+		getInsights(
+			// eslint-disable-next-line quotes
+			'first:2 ,where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }'
+		),
+	]);
 
 	return {
 		props: {
 			data: data.data.postBy,
+			events:
+				events?.data?.posts?.nodes?.filter(
+					(item) => item?.slug !== data?.data?.postBy?.slug
+				) || [],
 		},
 	};
 }
 
 /** EnergyInside Page */
-export default function EnergyInside({ data }) {
+export default function EnergyInside({ data, events }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -74,6 +84,7 @@ export default function EnergyInside({ data }) {
 		</div>,
 	];
 
+	console.log(events);
 	return (
 		<div>
 			{/* Metatags */}
@@ -101,7 +112,7 @@ export default function EnergyInside({ data }) {
 								<ContentFromCms>{data?.content}</ContentFromCms>
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
-								<EnergyMiddleRight data={data} />
+								<EnergyMiddleRight data={data} events={events} />
 							</div>
 						</div>
 					</div>

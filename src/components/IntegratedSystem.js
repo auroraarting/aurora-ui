@@ -39,10 +39,20 @@ const placeholders = [system_one.src, turbine_img.src, solar_img.src];
 export default function IntegratedSystem({ module = "softwares" }) {
 	const [data, setData] = useState();
 
+	/** keyModule  */
+	const keyModule = () => {
+		if (module === "softwares") {
+			return "software";
+		}
+
+		return module;
+	};
+
 	/** fetchdata  */
 	const fetchdata = async () => {
 		let count = -1;
 		let res;
+
 		if (module === "softwares") {
 			res = await getSoftwares();
 		} else {
@@ -63,7 +73,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		fetchdata();
 	}, []);
 
-	console.log(data, "data");
+	console.log(data, module);
 
 	return (
 		<section className={`${styles.IntegratedSystem}`}>
@@ -117,10 +127,15 @@ export default function IntegratedSystem({ module = "softwares" }) {
 								{data?.map((item, ind) => {
 									return (
 										<SwiperSlide key={ind}>
-											<div className={`${styles.itemBox}`}>
+											<a
+												href={`/${keyModule()}/${item?.slug}`}
+												className={`${styles.itemBox}`}
+											>
 												<div className={`${styles.itemBoxWrap}`}>
 													<img
-														src={item?.placeholder || system_one.src}
+														src={item?.[module]?.thumbnail?.banner?.node?.sourceUrl}
+														height={215}
+														width={277}
 														className={`${styles.imgOne} `}
 														alt="img"
 													/>
@@ -146,7 +161,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 														</a>
 													</div>
 												</div>
-											</div>
+											</a>
 										</SwiperSlide>
 									);
 								})}
