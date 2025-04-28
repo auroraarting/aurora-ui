@@ -57,6 +57,7 @@ export default function SoftwareBanner({
 		autoplay: true,
 		loop: true,
 		responsive: true,
+		muted: true, // <-- Add this!
 	};
 
 	const [isPlaying, setIsPlaying] = useState(true);
@@ -64,6 +65,7 @@ export default function SoftwareBanner({
 
 	/** togglePlayPause */
 	const togglePlayPause = () => {
+		videoRef.current.player.setVolume(1);
 		if (isPlaying) {
 			if (videoRef.current.player) {
 				videoRef.current.player.pause();

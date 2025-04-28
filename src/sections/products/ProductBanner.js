@@ -44,12 +44,14 @@ export default function ProductBanner({
 		autoplay: true,
 		loop: true,
 		responsive: true,
+		muted: true,
 	};
 	const [isPlaying, setIsPlaying] = useState(true);
 	const vimeoRef = useRef(null);
 
 	/** togglePlayPause */
 	const togglePlayPause = () => {
+		vimeoRef.current.player.setVolume(1);
 		if (isPlaying) {
 			vimeoRef.current.player.pause();
 		} else {
