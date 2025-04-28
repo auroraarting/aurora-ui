@@ -1,10 +1,10 @@
 import GraphQLAPI from "./Graphql.service";
 
 /** Insights Page */
-export const getInsights = async (filterString) => {
+export const getInsights = async (filterString = "first:9999") => {
 	const query = `
 query GetInsights {
-  posts(first:9999) {
+  posts(${filterString}) {
   pageInfo {
                endCursor
       hasNextPage
