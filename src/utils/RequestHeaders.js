@@ -6,12 +6,3 @@ export const ServerHeaders = {
 	},
 	method: "POST",
 };
-
-/** Request Headers for Client side fetching */
-export const ClientHeaders = {
-	headers: {
-		"Content-Type": "application/json",
-		Authorization: `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`,
-	},
-	method: "POST",
-};
