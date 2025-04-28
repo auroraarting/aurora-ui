@@ -28,8 +28,50 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
+// SERVICES //
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+
+/** Fetch  */
+export async function getStaticProps() {
+	const queryTxt =
+		// eslint-disable-next-line quotes
+		'first:9999, where: { categoryName: "energy" }';
+	const [data, categoriesForSelect] = await Promise.all([
+		getInsights(queryTxt),
+		getInsightsCategories(),
+	]);
+
+	return {
+		props: {
+			pagination: data.data?.posts?.pageInfo || {},
+			data: data?.data?.posts?.nodes || [],
+			tags: categoriesForSelect.data.tags.nodes,
+			categories: categoriesForSelect.data.categories.nodes,
+			countries: categoriesForSelect.data.countries.nodes,
+			products: categoriesForSelect.data.products.nodes,
+			softwares: categoriesForSelect.data.softwares.nodes,
+			services: categoriesForSelect.data.services.nodes,
+		},
+		revalidate: 10,
+	};
+}
+
 /** Energy Page */
-export default function EnergyTalks() {
+export default function EnergyTalks({
+	pagination,
+	data,
+	tags,
+	categories,
+	countries,
+	products,
+	softwares,
+	services,
+}) {
+	const [original, setOriginal] = useState(data);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -56,7 +98,30 @@ export default function EnergyTalks() {
 					<TopEnergy />
 				</div>
 				<div className="pt_60 pb_100">
-					<EnergyListing />
+					<EnergyListing
+						data={data?.slice(1, data.length)}
+						pagination={pagination}
+						countries={countries}
+						products={products}
+						softwares={softwares}
+						services={services}
+						setOriginal={setOriginal}
+						original={original}
+						productService={[
+							{
+								category: "Product",
+								options: products?.map((item) => item.title),
+							},
+							{
+								category: "Software",
+								options: softwares?.map((item) => item.title),
+							},
+							{
+								category: "Service",
+								options: services?.map((item) => item.title),
+							},
+						]}
+					/>
 				</div>
 				<div className="pb_100">
 					<AllVideos />

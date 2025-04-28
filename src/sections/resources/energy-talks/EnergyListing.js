@@ -3,12 +3,19 @@ import { useRef, useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import { useRouter } from "next/router";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
+import formatDate, {
+	allCategories,
+	filterBySearchQuery,
+	filterItems,
+	isCategory,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/energy-talks/EnergyListing.module.scss";
@@ -23,9 +30,29 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 // DATA //
 
 /** EnergyListing Section */
-export default function EnergyListing() {
+export default function EnergyListing({
+	data,
+	pagination,
+	countries,
+	productService,
+	products,
+	softwares,
+	services,
+	original,
+	setOriginal,
+}) {
+	const router = useRouter();
+	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
+	const [filteredPagination, setFilteredPagination] = useState(pagination);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [dropdowns, setDropdowns] = useState({
+		categoryType: { isOpen: false, selected: { title: "Category" } },
+		countryType: { isOpen: false, selected: { title: "Country" } },
+		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		yearsType: { isOpen: false, selected: { title: "Year" } },
+	});
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -42,12 +69,6 @@ export default function EnergyListing() {
 		setSelected(option); // Only one selected option at a time
 	};
 
-	const [dropdowns, setDropdowns] = useState({
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
-		yearsType: { isOpen: false, selected: { title: "Year" } },
-	});
-
 	const dropdownRefs = {
 		countryType: useRef(null),
 		offeringsType: useRef(null),
@@ -55,6 +76,13 @@ export default function EnergyListing() {
 	};
 
 	const optionsData = {
+		categoryType: [
+			{ title: "Articles", alternate: "Commentary" },
+			{ title: "Case studies", alternate: "Case studies" },
+			{ title: "Market reports", alternate: "Market reports" },
+			{ title: "Public", alternate: "Public" },
+			{ title: "Subscriber", alternate: "Subscriber" },
+		],
 		countryType: [
 			{ title: "India" },
 			{ title: "India" },
@@ -89,6 +117,81 @@ export default function EnergyListing() {
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
+		if (key === "categoryType") {
+			filter(option, key);
+		} else {
+			filter(option.title, key);
+		}
+	};
+
+	const radioData = [
+		{
+			category: "Product",
+			options: [
+				"Power & Renewables",
+				"Flexible Energy",
+				"Grid Add-on",
+				"Hydrogen Service",
+			],
+		},
+		{
+			category: "Software",
+			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
+		},
+		{
+			category: "Service",
+			options: ["Advisory"],
+		},
+	];
+
+	/** filter  */
+	const filter = async (catName, key) => {
+		let queryObj = { ...router.query };
+		let selectedObj = selected;
+		let arr = original;
+		setLoading(true);
+
+		if (key === "search") {
+			selectedObj.search = catName;
+			queryObj.search = catName;
+
+			window.location.href = `/resources/aurora-insights?search=${catName}`;
+			return;
+		}
+		if (key === "categoryType") {
+			selectedObj.category = catName.alternate;
+			queryObj.category = catName.alternate;
+		}
+		if (key === "countryType") {
+			selectedObj.country = catName;
+			queryObj.country = catName;
+		}
+		if (key === "offeringsType") {
+			selectedObj.productService = catName;
+			queryObj.productService = catName;
+		}
+		if (key === "yearsType") {
+			selectedObj.year = catName;
+			queryObj.year = catName;
+		}
+		if (key === "Product") {
+			selectedObj.product = catName;
+			queryObj.product = catName;
+		}
+		if (key === "Software") {
+			selectedObj.software = catName;
+			queryObj.software = catName;
+		}
+		if (key === "Service") {
+			selectedObj.service = catName;
+			queryObj.service = catName;
+		}
+		setSelected(selectedObj);
+
+		const filteredArr = filterItems(arr, queryObj);
+		console.log(filteredArr, queryObj);
+		setList(filteredArr);
+		setLoading(false);
 	};
 
 	/** Close Dropdown on Click Outside */
@@ -111,25 +214,13 @@ export default function EnergyListing() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
+	useEffect(() => {
+		if (router.query.search) {
+			const filtered = filterBySearchQuery(data, router.query.search);
+			setList(filtered);
+			setOriginal(filtered);
+		}
+	}, [router.query]);
 
 	return (
 		<section className={styles.EnergyListing}>
@@ -141,26 +232,22 @@ export default function EnergyListing() {
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
-										dropdowns?.countryType?.isOpen ? "activeDropDown" : ""
+										dropdowns.countryType.isOpen ? "activeDropDown" : ""
 									}`}
 									onClick={() => toggleDropdown("countryType")}
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.countryType.selected.title}
+										{selected.country || "Country"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
-										{optionsData?.countryType.map((option) => (
+										{countries?.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === dropdowns.countryType.selected.title
-														? "selected"
-														: ""
-												}
+												className={option.title === selected.country ? "selected" : ""}
 												onClick={() => handleOptionClick("countryType", option)}
 											>
 												{option.title}
@@ -181,7 +268,8 @@ export default function EnergyListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.offeringsType.selected.title}
+										{/* {selected.productService || "Products & Services"} */}
+										Products & Services
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -189,20 +277,26 @@ export default function EnergyListing() {
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
 									>
-										{radioData.map((item, index) => (
+										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
 												<h4 className="text_sm color_dark_gray text_500">
 													{item.category}
 												</h4>
 												<div className={styles.checkBoxList}>
-													{item.options.map((option, idx) => (
-														<label key={idx} className={styles.checkboxLabel}>
+													{item?.options?.map((option, idx) => (
+														<label key={option} className={styles.checkboxLabel}>
 															<input
 																type="radio"
-																name="singleSelection" // Single name for all radio buttons
+																id={item.category}
+																name={item.category} // Single name for all radio buttons
 																className={styles.hiddenRadio}
-																checked={selected === option} // Ensure only one is selected overall
-																onChange={() => handleChange(option)}
+																defaultChecked={
+																	selected?.[item.category.toLowerCase()] === option
+																} // Ensure only one is selected overall
+																onChange={() => {
+																	// handleChange(option);
+																	filter(option, item.category);
+																}}
 															/>
 															<span className={styles.customRadio}></span>
 															{option}
@@ -229,7 +323,7 @@ export default function EnergyListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.yearsType.selected.title}
+										{selected.year || "Years"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -238,11 +332,7 @@ export default function EnergyListing() {
 										{optionsData.yearsType.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === dropdowns.yearsType.selected.title
-														? "selected"
-														: ""
-												}
+												className={option.title === selected.year ? "selected" : ""}
 												onClick={() => handleOptionClick("yearsType", option)}
 											>
 												{option.title}
@@ -267,7 +357,17 @@ export default function EnergyListing() {
 						{/* Search Input - Show/Hide on Click */}
 						{isSearchVisible && (
 							<div className={`${styles.searchInput} f_r_aj_between`}>
-								<input type="text" placeholder="Search Events" />
+								<form
+									className="w-full"
+									onSubmit={(e) => {
+										e.preventDefault();
+										const val = e.target.search.value;
+										filter(val, "search");
+										console.log(val);
+									}}
+								>
+									<input name="search" type="text" placeholder="Search Events" />
+								</form>
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
@@ -282,203 +382,66 @@ export default function EnergyListing() {
 			</div>
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
+					{!loading &&
+						list.map((item, ind) => {
+							return (
+								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
+									<a href={`/resources/energy-talks/${item?.slug}`}>
+										<div className={`${styles.hoverBox}`}>
+											<img
+												src={hoverBg.src}
+												className={`${styles.hoverBg} width_100 b_r_10`}
+												alt="img"
+											/>
+											{isCategory(allCategories, item?.categories?.nodes) && (
+												<p
+													className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
+												>
+													{/* Press Release */}
+													{isCategory(allCategories, item?.categories?.nodes)}
+												</p>
+											)}
+											<p
+												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+											>
+												{item?.title}
+											</p>
+											<div className={`${styles.dateFlex} f_j pt_30`}>
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={data?.featuredImage?.node?.sourceUrl || calender.src}
+														className={`${styles.calender}`}
+														alt="calender"
+													/>
+													<span>{formatDate(item?.date)}</span>
+												</p>
+												{isCategory(countries, item?.categories?.nodes) && (
+													<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+														<img
+															src={location.src}
+															className={`${styles.calender}`}
+															alt="calender"
+														/>
+														{/* <span>India</span> */}
+														<span>{isCategory(countries, item?.categories?.nodes)}</span>
+													</p>
+												)}
+											</div>
+										</div>
+									</a>
 								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
+							);
+						})}
+					{loading && <p>Loading...</p>}
+					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
 			</div>
+			{/* {filteredPagination?.hasPreviousPage && (
+				<button onClick={handlePreviousPage}>Previous</button>
+			)}
+			{filteredPagination?.hasNextPage && (
+				<button onClick={handleNextPage}>Next</button>
+			)} */}
 		</section>
 	);
 }

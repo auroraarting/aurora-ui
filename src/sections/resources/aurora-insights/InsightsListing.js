@@ -11,6 +11,7 @@ import Button from "@/components/Buttons/Button";
 
 // UTILS //
 import formatDate, {
+	allCategories,
 	buildQueryFromContext,
 	filterBySearchQuery,
 	filterItems,
@@ -451,12 +452,12 @@ export default function InsightsListing({
 												className={`${styles.hoverBg} width_100 b_r_10`}
 												alt="img"
 											/>
-											{isCategory(optionsData.categoryType, item?.categories?.nodes) && (
+											{isCategory(allCategories, item?.categories?.nodes) && (
 												<p
 													className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 												>
 													{/* Press Release */}
-													{isCategory(optionsData.categoryType, item?.categories?.nodes)}
+													{isCategory(allCategories, item?.categories?.nodes)}
 												</p>
 											)}
 											<p

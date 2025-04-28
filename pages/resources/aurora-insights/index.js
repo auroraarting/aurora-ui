@@ -36,18 +36,6 @@ import {
 	getInsightsPath,
 } from "@/services/Insights.service";
 
-/** Fetch Paths  */
-// export async function getStaticPaths() {
-// 	const data = await getInsightsPath();
-
-// 	return {
-// 		paths: data?.data?.posts?.nodes?.map((item) => {
-// 			return { params: item?.slug };
-// 		}),
-// 		fallback: true, // false or "blocking"
-// 	};
-// }
-
 /** Fetch  */
 export async function getStaticProps() {
 	const [data, categoriesForSelect] = await Promise.all([

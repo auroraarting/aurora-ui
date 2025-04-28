@@ -368,11 +368,19 @@ export function buildQueryFromContext(context) {
 	return queryToUse;
 }
 
+export const allCategories = [
+	{ title: "Articles", alternate: "Commentary" },
+	{ title: "Case studies", alternate: "Case studies" },
+	{ title: "Market reports", alternate: "Market reports" },
+	{ title: "Public", alternate: "Public" },
+	{ title: "Subscriber", alternate: "Subscriber" },
+];
+
 /** findFunc  */
 export function isCategory(categoryList, dynamicWords) {
 	const titles2 = new Set(dynamicWords.map((item) => item.name));
 	let txt = "";
-	categoryList.filter((item) => {
+	categoryList?.filter((item) => {
 		if (titles2.has(item.alternate || item.title)) {
 			if (!txt) {
 				txt += item.title;

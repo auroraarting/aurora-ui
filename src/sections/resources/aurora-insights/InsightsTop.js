@@ -8,6 +8,7 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
+import formatDate, { allCategories, isCategory } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/aurora-insights/InsightsTop.module.scss";
@@ -17,7 +18,6 @@ import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
 import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import black_clock from "@/../public/img/icons/black_clock.svg";
-import formatDate, { isCategory } from "@/utils";
 
 // DATA //
 
@@ -64,7 +64,7 @@ export default function InsightsTop({ data }) {
 						<div
 							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 						>
-							Latest {isCategory(optionsData.categoryType, data?.categories?.nodes)}
+							Latest {isCategory(allCategories, data?.categories?.nodes)}
 						</div>
 						<h2 className="text_lg color_white text_uppercase f_w_m pt_30">
 							{data?.title}

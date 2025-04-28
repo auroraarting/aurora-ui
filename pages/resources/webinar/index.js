@@ -26,10 +26,52 @@ import styles from "@/styles/pages/resources/webinar/Webinar.module.scss";
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
+// SERVICES //
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+
 // DATA //
 
+/** Fetch  */
+export async function getStaticProps() {
+	const queryTxt =
+		// eslint-disable-next-line quotes
+		'first:9999, where: { categoryName: "public-webinar,webinar,webinar-recording" }';
+	const [data, categoriesForSelect] = await Promise.all([
+		getInsights(queryTxt),
+		getInsightsCategories(),
+	]);
+
+	return {
+		props: {
+			pagination: data.data?.posts?.pageInfo || {},
+			data: data?.data?.posts?.nodes || [],
+			tags: categoriesForSelect.data.tags.nodes,
+			categories: categoriesForSelect.data.categories.nodes,
+			countries: categoriesForSelect.data.countries.nodes,
+			products: categoriesForSelect.data.products.nodes,
+			softwares: categoriesForSelect.data.softwares.nodes,
+			services: categoriesForSelect.data.services.nodes,
+		},
+		revalidate: 10,
+	};
+}
+
 /** Webinar Page */
-export default function WebinarTalks() {
+export default function WebinarTalks({
+	pagination,
+	data,
+	tags,
+	categories,
+	countries,
+	products,
+	softwares,
+	services,
+}) {
+	const [original, setOriginal] = useState(data);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -48,7 +90,30 @@ export default function WebinarTalks() {
 					/>
 				</div>
 				<div>
-					<WebinarListing />
+					<WebinarListing
+						data={data?.slice(1, data.length)}
+						pagination={pagination}
+						countries={countries}
+						products={products}
+						softwares={softwares}
+						services={services}
+						setOriginal={setOriginal}
+						original={original}
+						productService={[
+							{
+								category: "Product",
+								options: products?.map((item) => item.title),
+							},
+							{
+								category: "Software",
+								options: softwares?.map((item) => item.title),
+							},
+							{
+								category: "Service",
+								options: services?.map((item) => item.title),
+							},
+						]}
+					/>
 				</div>
 				<div className="ptb_100">
 					<PastSpeakers />
