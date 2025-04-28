@@ -33,82 +33,117 @@ export default function Client({ data }) {
 			<div className={`${styles.whiteBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Client</h5>
-					<div className={`${styles.ClientFlex} f_r_a_center`}>
-						<div className={`${styles.ClientLogo}`}>
-							<img src={client_logo.src} alt="logo" />
-						</div>
-						<div className={`${styles.ClientDescription}`}>
-							<p className="text_xs font_primary">
-								Lorem ipsum dolor sit amet consectetur. Mattis id sagittis
-							</p>
-						</div>
-					</div>
+					{data?.postFields?.client.map((item, ind) => {
+						return (
+							<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
+								<div className={`${styles.ClientLogo}`}>
+									<img src={item?.image?.node?.sourceUrl} alt="logo" />
+								</div>
+								<div className={`${styles.ClientDescription}`}>
+									<p className="text_xs font_primary">{item?.title}</p>
+								</div>
+							</div>
+						);
+					})}
 				</div>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Author</h5>
-					<div className={`${styles.ClientFlex} f_r_a_center`}>
-						<div className={`${styles.ClientLogo}`}>
-							<img src={author_logo.src} alt="pic" />
-						</div>
-						<div className={`${styles.ClientDescription}`}>
-							<h5 className="text_reg font_primary color_gray f_w_m font_primary">
-								John Feddersen
-							</h5>
-							<p className="text_xs f_w_l">Founder and CEO</p>
-							<div className={`${styles.social}`}>
-								<img src={social_icon.src} alt="pic" />
+					{data?.postFields?.authors?.nodes?.map((item, ind) => {
+						return (
+							<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
+								<div className={`${styles.ClientLogo}`}>
+									<img
+										src={
+											item?.postAuthors?.thumbnail?.image?.node?.sourceUrl ||
+											author_logo.src
+										}
+										alt="pic"
+									/>
+								</div>
+								<div className={`${styles.ClientDescription}`}>
+									<h5 className="text_reg font_primary color_gray f_w_m font_primary">
+										{item?.title}
+									</h5>
+									<p className="text_xs f_w_l">
+										{item?.postAuthors?.thumbnail?.designation}
+									</p>
+									{item?.postAuthors?.thumbnail?.linkedinLink && (
+										<a
+											href={item?.postAuthors?.thumbnail?.linkedinLink}
+											target="_blank"
+											rel="noreferrer"
+											className={`${styles.social}`}
+										>
+											<img src={social_icon.src} alt="pic" />
+										</a>
+									)}
+								</div>
 							</div>
-						</div>
-					</div>
+						);
+					})}
 				</div>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
 					{/* <div className={`${styles.ClientFlex}`}>
 						<img src={origin.src} alt="origin" />
 					</div> */}
-					<div className={`${styles.poweredBy}`}>
-						<a href="">
-							<div className={`${styles.poweredLogo}`}>
-								<img
-									src={amun_hover_logo.src}
-									className={`${styles.amun_logo}`}
-									alt="amun_logo"
-								/>
-								{/* <img
-								src={amun_hover_logo.src}
-								className={`${styles.amun_hover_logo}`}
-								alt="amun_logo"
-							/> */}
+					{
+						// item?.softwares?.banner?.logo?.node?.sourceUrl
+					}
+					{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+						return (
+							<div className={`${styles.poweredBy}`} key={item?.title}>
+								<a
+									href={`/${item?.contentType?.node?.name}/${item?.slug}`}
+									target="_blank"
+									rel="noreferrer"
+								>
+									<div className={`${styles.poweredLogo}`}>
+										<img
+											src={item?.softwares?.banner?.logo?.node?.sourceUrl}
+											className={`${styles.amun_logo}`}
+											alt="amun_logo"
+										/>
+										{/* <img
+                                    src={amun_hover_logo.src}
+                                    className={`${styles.amun_hover_logo}`}
+                                    alt="amun_logo"
+                                /> */}
 
-								<span className="f_r_aj_between text_xxs text_uppercase">
-									Know More
-									<img src={white_arrow.src} className="" alt="amun_logo" />
-								</span>
+										<span className="f_r_aj_between text_xxs text_uppercase">
+											Know More
+											<img src={white_arrow.src} className="" alt="amun_logo" />
+										</span>
+									</div>
+								</a>
 							</div>
-						</a>
-					</div>
+						);
+					})}
 				</div>
 			</div>
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
 				<div className={`${styles.InsideItem}`}>
-					<div className={`${styles.itemBox}`}>
-						<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
-						<div className={`${styles.ClientFlex} f_w`}>
-							{data?.tags?.nodes?.map((item) => {
-								return (
-									<a
-										key={item?.title || item?.name || item}
-										className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-										href={`/resources/aurora-insights&search=${
-											item?.title || item?.name || item
-										}`}
-									>
-										{item?.title || item?.name || item}
-									</a>
-								);
-							})}
+					{data?.tags?.nodes?.length > 0 && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
+							<div className={`${styles.ClientFlex} f_w`}>
+								{data?.tags?.nodes?.map((item) => {
+									return (
+										<a
+											key={item?.title || item?.name || item}
+											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
+											href={`/resources/aurora-insights&search=${
+												item?.title || item?.name || item
+											}`}
+										>
+											{item?.title || item?.name || item}
+										</a>
+									);
+								})}
+							</div>
 						</div>
-					</div>
+					)}
+
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Share</h5>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>
@@ -121,12 +156,19 @@ export default function Client({ data }) {
 						</div>
 					</div>
 				</div>
-				<div className={`${styles.DownBtn} `}>
-					<a href="" className="text_sm f_w_m font_primary f_r_a_center">
-						<img src={tag_download_icon.src} alt="download" />
-						<span>Download</span>
-					</a>
-				</div>
+				{data?.postFields?.file?.node?.sourceUrl && (
+					<div className={`${styles.DownBtn} `}>
+						<a
+							href={data?.postFields?.file?.node?.sourceUrl}
+							target="_blank"
+							rel="noreferrer"
+							className="text_sm f_w_m font_primary f_r_a_center"
+						>
+							<img src={tag_download_icon.src} alt="download" />
+							<span>Download</span>
+						</a>
+					</div>
+				)}
 			</div>
 			<div className={`${styles.whiteBox}`}>
 				<div className={`${styles.itemBox}`}>

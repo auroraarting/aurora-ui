@@ -114,35 +114,192 @@ query GetInsightsDropDowns {
 export const getInsightsInside = async (slug) => {
 	const query = `
 query GetInsightsInside {
-  postBy(slug: "${slug}"){
-     title
-      slug
-      date
-      content
-      featuredImage {
+  postBy(slug: "${slug}") {
+    title
+    slug
+    date
+    content
+    featuredImage {
+      node {
+        altText
+        sourceUrl
+      }
+    }
+    categories(first: 9999) {
+      nodes {
+        slug
+        name
+      }
+    }
+    language {
+      id
+      code
+      language_code
+      native_name
+    }
+    tags(first: 9999) {
+      nodes {
+        name
+        slug
+      }
+    }
+    postFields {
+      appleLink
+      otherLink
+      registerLink
+      spotifyLink
+      time
+      youtubeLink
+      file {
         node {
           altText
           sourceUrl
         }
       }
-      categories(first: 9999) {
+      authors {
         nodes {
-          slug
-          name
+          ... on PostAuthor {
+            content
+            title
+            slug
+            postAuthors {
+              thumbnail {
+                linkedinLink
+                designation
+                image {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
         }
       }
-      language {
-        id
-        code
-        language_code
-        native_name
-      }
-      tags(first: 9999) {
+      speakers {
         nodes {
-          name
-          slug
+          ... on PostSpeaker {
+            postSpeakers {
+              thumbnail {
+                designation
+                linkedinLink
+                image {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
         }
       }
+      client {
+        title
+        image {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      podcast
+      poweredBy {
+        nodes {
+          ... on Product {
+            id
+            products {
+              map {
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+              banner {
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+            title
+            slug
+          }
+          contentType {
+            node {
+              id
+              label
+              name
+              uri
+            }
+          }
+          ... on Service {
+            id
+            title
+            slug
+            contentType {
+              node {
+                name
+                uri
+                label
+              }
+            }
+            services {
+              map {
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+              banner {
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+          ... on Software {
+            id
+            title
+            slug
+            contentType {
+              node {
+                label
+                name
+              }
+            }
+            softwares {
+              banner {
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+              map {
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
     `;

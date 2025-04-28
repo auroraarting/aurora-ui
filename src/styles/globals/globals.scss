@@ -201,3 +201,9 @@ section {
 	background-color: yellow;
 	padding: 0 2px;
 }
+
+#speechify-root {
+	opacity: 0 !important;
+	pointer-events: none !important;
+	display: none !important;
+}

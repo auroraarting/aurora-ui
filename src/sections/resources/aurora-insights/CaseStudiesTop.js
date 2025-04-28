@@ -1,4 +1,5 @@
 // MODULES //
+import { useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -26,6 +27,19 @@ import formatDate from "@/utils";
 
 /** CaseStudiesTop Section */
 export default function CaseStudiesTop({ data }) {
+	const [isPlaying, setIsPlaying] = useState(false);
+
+	/** Speechify  */
+	const Speechify = () => {
+		if (!isPlaying) {
+			window.speechifyPlay();
+			setIsPlaying(true);
+		} else {
+			window.speechifyPause();
+			setIsPlaying(false);
+		}
+	};
+
 	return (
 		<section className={`${styles.CaseStudiesTop} pt_100`}>
 			<div className="container">
@@ -54,13 +68,11 @@ export default function CaseStudiesTop({ data }) {
 							</p> */}
 						</div>
 					</div>
-					<div className={`${styles.imageWrapper}`}>
-						<img
-							src={data?.featuredImage?.node?.sourceUrl || plant_img.src}
-							className="width_100 b_r_20"
-							alt="img"
-						/>
-					</div>
+					{data?.featuredImage?.node?.sourceUrl && (
+						<div className={`${styles.imageWrapper}`}>
+							<img src={plant_img.src} className="width_100 b_r_20" alt="img" />
+						</div>
+					)}
 				</div>
 				<div className={`${styles.dateBox}`}>
 					{/* <ul>
@@ -70,13 +82,25 @@ export default function CaseStudiesTop({ data }) {
 					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
 						<div className={`${styles.downloadListen}`}>
 							<div className={`${styles.downloadBox} f_r_a_center`}>
-								<a href="" className="text_sm f_w_m font_primary f_r_a_center">
-									<img src={download.src} alt="download" />
-									<span>Download</span>
-								</a>
-								<a href="" className="text_sm f_w_m font_primary f_r_a_center">
+								{data?.postFields?.file?.node?.sourceUrl && (
+									<a
+										href={data?.postFields?.file?.node?.sourceUrl}
+										download
+										target="_blank"
+										rel="noreferrer"
+										className="text_sm f_w_m font_primary f_r_a_center"
+									>
+										<img src={download.src} alt="download" />
+										<span>Download</span>
+									</a>
+								)}
+
+								<a
+									onClick={Speechify}
+									className="text_sm f_w_m font_primary f_r_a_center speechify_wrap"
+								>
 									<img src={play.src} alt="play" />
-									<span>Listen</span>
+									<span>{isPlaying ? "Pause" : "Listen"}</span>
 								</a>
 							</div>
 						</div>

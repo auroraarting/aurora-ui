@@ -401,21 +401,21 @@ export default function WebinarListing({
 						list.map((item, ind) => {
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
-									<a href={`/resources/aurora-insights/${item?.slug}`}>
+									<a href={`/resources/webinar/${item?.slug}`}>
 										<div className={`${styles.hoverBox}`}>
 											<img
 												src={hoverBg.src}
 												className={`${styles.hoverBg} width_100 b_r_10`}
 												alt="img"
 											/>
-											{isCategory(allCategories, item?.categories?.nodes) && (
-												<p
-													className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-												>
-													{/* Press Release */}
-													{isCategory(allCategories, item?.categories?.nodes)}
-												</p>
-											)}
+											{/* {isCategory(allCategories, item?.categories?.nodes) && ( */}
+											<p
+												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
+											>
+												Webinar
+												{/* {isCategory(allCategories, item?.categories?.nodes)} */}
+											</p>
+											{/* )} */}
 											<p
 												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 											>

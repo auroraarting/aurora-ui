@@ -25,7 +25,7 @@ import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
 // DATA //
 
 /** EnergyMiddleRight Section */
-export default function EnergyMiddleRight() {
+export default function EnergyMiddleRight({ data }) {
 	return (
 		<div className={`${styles.EnergyMiddleRightBox}`}>
 			<div className={`${styles.whiteBox}`}>

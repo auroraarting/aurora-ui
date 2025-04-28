@@ -20,7 +20,7 @@ import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 // DATA //
 
 /** WebinarMiddleRight Section */
-export default function WebinarMiddleRight() {
+export default function WebinarMiddleRight({ data }) {
 	return (
 		<div className={`${styles.WebinarMiddleRightBox}`}>
 			<div className={`${styles.whiteBox}`}>
@@ -49,35 +49,26 @@ export default function WebinarMiddleRight() {
 			</div>
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
 				<div className={`${styles.InsideItem}`}>
-					<div className={`${styles.itemBox}`}>
-						<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
-						<div className={`${styles.ClientFlex} f_w`}>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								NET ZERO
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								WIND
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								United Kingdom
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								ADVISORY
-							</a>
+					{data?.tags?.nodes?.length > 0 && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
+							<div className={`${styles.ClientFlex} f_w`}>
+								{data?.tags?.nodes?.map((item) => {
+									return (
+										<a
+											key={item?.title || item?.name || item}
+											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
+											href={`/resources/aurora-insights&search=${
+												item?.title || item?.name || item
+											}`}
+										>
+											{item?.title || item?.name || item}
+										</a>
+									);
+								})}
+							</div>
 						</div>
-					</div>
+					)}
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Share</h5>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>

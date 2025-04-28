@@ -393,14 +393,14 @@ export default function EnergyListing({
 												className={`${styles.hoverBg} width_100 b_r_10`}
 												alt="img"
 											/>
-											{isCategory(allCategories, item?.categories?.nodes) && (
-												<p
-													className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-												>
-													{/* Press Release */}
-													{isCategory(allCategories, item?.categories?.nodes)}
-												</p>
-											)}
+											{/* {isCategory(allCategories, item?.categories?.nodes) && ( */}
+											<p
+												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
+											>
+												Energy Talks
+												{/* {isCategory(allCategories, item?.categories?.nodes)} */}
+											</p>
+											{/* )} */}
 											<p
 												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 											>
