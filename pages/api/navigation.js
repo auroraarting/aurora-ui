@@ -1,19 +1,17 @@
 /* eslint-disable require-jsdoc */
+import { fetchNavigationData } from "@/services/Navigation.service";
 import { searchData } from "@/services/Search.service";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
 export default async function handler(req, res) {
-	const { searchTerm } = JSON.parse(req.body);
-	console.log(searchTerm, "searchTerm");
 	try {
-		const response = await searchData(searchTerm);
+		const response = await fetchNavigationData();
 
 		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
+			throw new Error(`HTTP error! Status: ${response?.status}`);
 		}
 
-		const { data } = await response.json();
-		const results = [...data.projects.nodes, ...data.pages.nodes]; // Combine results
+		const results = response; // Combine results
 		res.status(200).json(results);
 	} catch (error) {
 		console.error("Error fetching search results:", error);

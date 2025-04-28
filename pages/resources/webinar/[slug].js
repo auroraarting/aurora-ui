@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,8 @@ import MetaTags from "@/components/MetaTags";
 import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
+import Script from "next/script";
 
 // SECTIONS //
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
@@ -30,28 +33,33 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // SERVICES //
 import {
+	getInsights,
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
-import ContentFromCms from "@/components/ContentFromCms";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, categoriesForSelect] = await Promise.all([
+	const [data, categoriesForSelect, list] = await Promise.all([
 		getInsightsInside(params.slug),
 		getInsightsCategories(),
+		getInsights(
+			'first: 3, where: {categoryName: "public-webinar,webinar,webinar-recording"}'
+		),
 	]);
+	const otherList = list?.data?.posts?.nodes;
 
 	return {
 		props: {
 			data: data.data.postBy,
 			countries: categoriesForSelect.data.countries.nodes,
+			otherList,
 		},
 	};
 }
 
 /** WebinarInside Page */
-export default function WebinarInside({ data, countries }) {
+export default function WebinarInside({ data, countries, otherList }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -91,6 +99,42 @@ export default function WebinarInside({ data, countries }) {
 				Url={`/webinar/${data?.slug}`}
 			/>
 
+			<Script id="show-banner" strategy="afterInteractive">
+				{`
+    let speechifyWidgetInstance;
+
+    import("https://storage.googleapis.com/speechify-api-cdn/speechifyapi.min.mjs")
+      .then(async (speechifyWidget) => {
+        const articleRootElement = document.querySelector(".dynamic_content");
+        const articleHeading = document.querySelector(".speechify_wrap");
+
+        const widget = speechifyWidget.makeSpeechifyExperience({
+          rootElement: articleRootElement,
+          inlinePlayerElement: articleHeading,
+          visibility: {
+            showWidget: false,
+            showWidgetOnPlay: false,
+          },
+        });
+
+        await widget.mount();
+        speechifyWidgetInstance = widget;
+      });
+
+    // Optional: Expose functions to window for easy button binding
+    window.speechifyPlay = function() {
+      if (speechifyWidgetInstance) {
+        speechifyWidgetInstance.play();
+      }
+    };
+    window.speechifyPause = function() {
+      if (speechifyWidgetInstance) {
+        speechifyWidgetInstance.pause();
+      }
+    };
+  `}
+			</Script>
+
 			{/* Header */}
 			{/* <Header /> */}
 
@@ -122,6 +166,8 @@ export default function WebinarInside({ data, countries }) {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						defaultList={otherList}
+						countries={countries}
 					/>
 				</div>
 			</main>

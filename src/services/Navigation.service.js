@@ -240,5 +240,13 @@ export async function fetchNavigationData() {
 	const whoareyous = data?.whoareyous.nodes;
 	const howWeHelps = data?.howWeHelps.nodes;
 
-	return { products, softwares, services, regions, whoareyous, howWeHelps };
+	return {
+		products,
+		softwares,
+		services,
+		regions,
+		whoareyous,
+		howWeHelps,
+		ok: true,
+	};
 }

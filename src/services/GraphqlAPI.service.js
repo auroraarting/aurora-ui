@@ -4,7 +4,7 @@ import { ClientHeaders, ServerHeaders } from "@/utils/RequestHeaders";
 export default async function GraphQLAPI(query, variables = {}) {
 	try {
 		const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
-			...ClientHeaders,
+			...ServerHeaders,
 			body: JSON.stringify({ query, variables }), // ✅ Send variables
 		});
 		const res = await req.json();

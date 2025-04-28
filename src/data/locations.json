@@ -9,21 +9,21 @@
 				"lng": 151.2093,
 				"name": "Sydney",
 				"icon": "/img/global-presence/serviceIcon.png",
-				"url": "/softwares/chronos"
+				"url": "/software/chronos"
 			},
 			{
 				"lat": -37.8136,
 				"lng": 144.9631,
 				"name": "Melbourne",
 				"icon": "/img/global-presence/serviceIcon.png",
-				"url": "/softwares/chronos"
+				"url": "/software/chronos"
 			},
 			{
 				"lat": -31.9505,
 				"lng": 115.8605,
 				"name": "Perth",
 				"icon": "/img/global-presence/serviceIcon.png",
-				"url": "/softwares/chronos"
+				"url": "/software/chronos"
 			}
 		]
 	},

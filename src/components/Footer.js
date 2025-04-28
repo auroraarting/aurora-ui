@@ -51,8 +51,9 @@ export default function Footer() {
 
 	/** fetchData  */
 	async function fetchData() {
-		const obj = await fetchNavigationData();
-		setData(obj);
+		const obj = await fetch("/api/navigation");
+		const json = await obj.json();
+		setData(json);
 	}
 
 	/** Open closePopup on click of hamburger */

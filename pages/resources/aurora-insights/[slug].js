@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useState } from "react";
 
@@ -30,22 +31,33 @@ import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scs
 // DATA //
 
 // SERVICES //
-import { getInsightsInside } from "@/services/Insights.service";
+import {
+	getInsights,
+	getInsightsCategories,
+	getInsightsInside,
+} from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data] = await Promise.all([getInsightsInside(params.slug)]);
+	const [data, list, categoriesForSelect] = await Promise.all([
+		getInsightsInside(params.slug),
+		getInsights('first: 3, where: {categoryName: "commentary"}'),
+		getInsightsCategories(),
+	]);
 
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
 	return {
 		props: {
 			data: data.data.postBy,
+			otherList,
+			countries,
 		},
 	};
 }
 
 /** Articles Page */
-export default function Articles({ data }) {
-	console.log(data);
+export default function Articles({ data, otherList, countries }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -153,6 +165,8 @@ export default function Articles({ data }) {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						defaultList={otherList}
+						countries={countries}
 					/>
 				</div>
 			</main>

@@ -87,7 +87,7 @@ export default function Advisory({ data, mapJson }) {
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/services/${data.slug}`}
+				Url={`/service/${data.slug}`}
 			/>
 
 			{/* Header */}

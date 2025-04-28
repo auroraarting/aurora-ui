@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
+import Script from "next/script";
 
 // SECTIONS //
 import EnergyInsideTopSection from "@/sections/resources/energy-talks/EnergyInsideTopSection";
@@ -27,20 +29,27 @@ import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.sc
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // SERVICES //
-import { getInsights, getInsightsInside } from "@/services/Insights.service";
+import {
+	getInsights,
+	getInsightsCategories,
+	getInsightsInside,
+} from "@/services/Insights.service";
 
 // DATA //
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, events] = await Promise.all([
+	const [data, events, categoriesForSelect, list] = await Promise.all([
 		getInsightsInside(params.slug),
 		getInsights(
-			// eslint-disable-next-line quotes
 			'first:2 ,where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }'
 		),
+		getInsightsCategories(),
+		getInsights(
+			'first: 3, where: {categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast"}'
+		),
 	]);
-
+	const otherList = list?.data?.posts?.nodes;
 	return {
 		props: {
 			data: data.data.postBy,
@@ -48,12 +57,14 @@ export async function getServerSideProps({ params }) {
 				events?.data?.posts?.nodes?.filter(
 					(item) => item?.slug !== data?.data?.postBy?.slug
 				) || [],
+			countries: categoriesForSelect.data.countries.nodes,
+			otherList,
 		},
 	};
 }
 
 /** EnergyInside Page */
-export default function EnergyInside({ data, events }) {
+export default function EnergyInside({ data, events, countries, otherList }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -84,7 +95,6 @@ export default function EnergyInside({ data, events }) {
 		</div>,
 	];
 
-	console.log(events);
 	return (
 		<div>
 			{/* Metatags */}
@@ -94,6 +104,42 @@ export default function EnergyInside({ data, events }) {
 				OgImg={""}
 				Url={`/energy-talks/${data?.slug}`}
 			/>
+
+			<Script id="show-banner" strategy="afterInteractive">
+				{`
+    let speechifyWidgetInstance;
+
+    import("https://storage.googleapis.com/speechify-api-cdn/speechifyapi.min.mjs")
+      .then(async (speechifyWidget) => {
+        const articleRootElement = document.querySelector(".dynamic_content");
+        const articleHeading = document.querySelector(".speechify_wrap");
+
+        const widget = speechifyWidget.makeSpeechifyExperience({
+          rootElement: articleRootElement,
+          inlinePlayerElement: articleHeading,
+          visibility: {
+            showWidget: false,
+            showWidgetOnPlay: false,
+          },
+        });
+
+        await widget.mount();
+        speechifyWidgetInstance = widget;
+      });
+
+    // Optional: Expose functions to window for easy button binding
+    window.speechifyPlay = function() {
+      if (speechifyWidgetInstance) {
+        speechifyWidgetInstance.play();
+      }
+    };
+    window.speechifyPause = function() {
+      if (speechifyWidgetInstance) {
+        speechifyWidgetInstance.pause();
+      }
+    };
+  `}
+			</Script>
 
 			{/* Header */}
 			{/* <Header /> */}
@@ -123,6 +169,8 @@ export default function EnergyInside({ data, events }) {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						defaultList={otherList}
+						countries={countries}
 					/>
 				</div>
 			</main>
