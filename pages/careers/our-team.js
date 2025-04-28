@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -31,6 +32,10 @@ import locationJson from "@/data/globalMap.json";
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
 import { getFetchJobData } from "@/services/JobOpenings.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
@@ -39,11 +44,17 @@ export async function getServerSideProps() {
 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
 	};
 	delete obj.data.lifeAtAurora;
-	return { props: { ...obj, jobs } };
+	const [categoriesForSelect, list] = await Promise.all([
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+	]);
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
+	return { props: { ...obj, jobs, otherList, countries } };
 }
 
 /** LifeAtAurora Page */
-export default function LifeAtAurora({ jobs }) {
+export default function LifeAtAurora({ jobs, otherList, countries }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -71,7 +82,11 @@ export default function LifeAtAurora({ jobs }) {
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							defaultList={otherList}
+							countries={countries}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">

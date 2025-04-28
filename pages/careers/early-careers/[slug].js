@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -41,6 +42,10 @@ import IconStrategy from "@/../public/img/softwares/Icon-Strategy.svg";
 
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
@@ -49,11 +54,17 @@ export async function getServerSideProps() {
 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
 	};
 	delete obj.data.lifeAtAurora;
-	return { props: { ...obj } };
+	const [categoriesForSelect, list] = await Promise.all([
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+	]);
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
+	return { props: { ...obj, otherList, countries } };
 }
 
 /** EarlyCareers Page */
-export default function EarlyCareers({ data }) {
+export default function EarlyCareers({ data, otherList, countries }) {
 	//console.log(data, " datadata");
 
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
@@ -172,7 +183,11 @@ export default function EarlyCareers({ data }) {
 				<div className={`${styles.EarlyMain} pt_100`}>
 					<div className={`${styles.containerCustom}`}>
 						<div className="container">
-							<Insights isPowerBgVisible={true} />
+							<Insights
+								isPowerBgVisible={true}
+								defaultList={otherList}
+								countries={countries}
+							/>
 						</div>
 					</div>
 					<div className="pt_100">

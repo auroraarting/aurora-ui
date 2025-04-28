@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -46,26 +47,43 @@ import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getEosPage } from "@/services/Eos.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data, regions, bundles] = await Promise.all([
+	const [data, regions, bundles, categoriesForSelect, list] = await Promise.all([
 		getEosPage(),
 		getRegions(),
 		getBundlesSection(),
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
+
 	return {
 		props: {
 			data: data.data.page.eos,
 			mapJson,
 			bundles: bundles.data.page.bundles,
+			otherList,
+			countries,
 		},
 	};
 }
 
 /** EOS Page */
-export default function EOSPage({ data, mapJson, bundles }) {
+export default function EOSPage({
+	data,
+	mapJson,
+	bundles,
+	otherList,
+	countries,
+}) {
 	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
@@ -159,6 +177,8 @@ export default function EOSPage({ data, mapJson, bundles }) {
 								setIsFormVisible={setIsFormVisible}
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
+								defaultList={otherList}
+								countries={countries}
 							/>
 						</div>
 					</div>

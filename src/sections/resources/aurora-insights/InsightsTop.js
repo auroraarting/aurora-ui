@@ -23,36 +23,6 @@ import black_clock from "@/../public/img/icons/black_clock.svg";
 
 /** InsightsTop Section */
 export default function InsightsTop({ data }) {
-	console.log(data);
-	const optionsData = {
-		categoryType: [
-			{ title: "Articles", alternate: "Commentary" },
-			{ title: "Case studies", alternate: "Case studies" },
-			{ title: "Market reports", alternate: "Market reports" },
-			{ title: "Press Release", alternate: "Press Release" },
-			{ title: "Past Webinars", alternate: "Webinar Recording" },
-			{ title: "Reports", alternate: "Reports" },
-			{ title: "Public", alternate: "Public" },
-		],
-		countryType: [
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-		],
-		offeringsType: [
-			{ title: "Offerings1" },
-			{ title: "Offerings2" },
-			{ title: "Offerings3" },
-			{ title: "Offerings4" },
-		],
-		yearsType: Array(new Date().getFullYear() - 2000)
-			.fill(null)
-			.map((item, ind) => {
-				return { title: 2001 + ind };
-			})
-			.reverse(),
-	};
 	return (
 		<section className={`${styles.InsightsTop}`}>
 			<div className="container">
@@ -89,13 +59,15 @@ export default function InsightsTop({ data }) {
 							</p> */}
 						</div>
 					</div>
-					<div className={`${styles.imageWrapper}`}>
-						<img
-							src={data?.featuredImage?.node?.sourceUrl || plant_img.src}
-							className="width_100 b_r_20"
-							alt="img"
-						/>
-					</div>
+					{data?.featuredImage?.node?.sourceUrl && (
+						<div className={`${styles.imageWrapper}`}>
+							<img
+								src={data?.featuredImage?.node?.sourceUrl}
+								className="width_100 b_r_20"
+								alt="img"
+							/>
+						</div>
+					)}
 				</a>
 			</div>
 		</section>

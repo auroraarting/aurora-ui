@@ -39,12 +39,14 @@ import {
 
 /** Fetch  */
 export async function getStaticProps() {
-	const [data, categoriesForSelect] = await Promise.all([
+	const [data, categoriesForSelect, list] = await Promise.all([
 		getInsights(
 			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
 	]);
+	const otherList = list?.data?.posts?.nodes;
 
 	return {
 		props: {
@@ -56,6 +58,7 @@ export async function getStaticProps() {
 			products: categoriesForSelect.data.products.nodes,
 			softwares: categoriesForSelect.data.softwares.nodes,
 			services: categoriesForSelect.data.services.nodes,
+			otherList,
 		},
 		revalidate: 10,
 	};
@@ -71,6 +74,7 @@ export default function AuroraInsights({
 	products,
 	softwares,
 	services,
+	otherList,
 }) {
 	const [original, setOriginal] = useState(data);
 	// console.log("data", {
@@ -135,7 +139,11 @@ export default function AuroraInsights({
 				</div>
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							defaultList={otherList}
+							countries={countries}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">

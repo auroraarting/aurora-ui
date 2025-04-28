@@ -72,6 +72,17 @@ export default function Insights({
 		return router.pathname;
 	};
 
+	/** fetchdata  */
+	const fetchdata = async () => {
+		const resdata = await fetch("/api/shortInsights");
+		const resjson = await resdata.json();
+		setData(resjson);
+	};
+
+	useEffect(() => {
+		fetchdata();
+	}, []);
+
 	return (
 		<section
 			className={`${styles.Insights} Insights`}
