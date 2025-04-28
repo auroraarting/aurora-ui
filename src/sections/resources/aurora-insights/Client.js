@@ -33,12 +33,14 @@ export default function Client({ data }) {
 			<div className={`${styles.whiteBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Client</h5>
-					{data?.postFields?.client.map((item, ind) => {
+					{data?.postFields?.client?.map((item, ind) => {
 						return (
 							<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-								<div className={`${styles.ClientLogo}`}>
-									<img src={item?.image?.node?.sourceUrl} alt="logo" />
-								</div>
+								{item?.image?.node?.sourceUrl && (
+									<div className={`${styles.ClientLogo}`}>
+										<img src={item?.image?.node?.sourceUrl} alt="logo" />
+									</div>
+								)}
 								<div className={`${styles.ClientDescription}`}>
 									<p className="text_xs font_primary">{item?.title}</p>
 								</div>
@@ -84,12 +86,6 @@ export default function Client({ data }) {
 				</div>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-					{/* <div className={`${styles.ClientFlex}`}>
-						<img src={origin.src} alt="origin" />
-					</div> */}
-					{
-						// item?.softwares?.banner?.logo?.node?.sourceUrl
-					}
 					{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
 						return (
 							<div className={`${styles.poweredBy}`} key={item?.title}>

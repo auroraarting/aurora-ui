@@ -27,7 +27,10 @@ export default function TopEnergy({ data }) {
 	return (
 		<section className={`${styles.TopEnergy}`}>
 			<div className="container">
-				<div className={`${styles.card} f_w_j`}>
+				<a
+					href={`/resources/energy-talks/${data?.slug}`}
+					className={`${styles.card} f_w_j`}
+				>
 					<div className={`${styles.content}`}>
 						<div
 							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
@@ -57,10 +60,16 @@ export default function TopEnergy({ data }) {
 							</p> */}
 						</div>
 					</div>
-					<div className={`${styles.imageWrapper}`}>
-						<img src={energy_logo.src} className="width_100 b_r_20" alt="img" />
-					</div>
-				</div>
+					{data?.featuredImage?.node?.sourceUrl && (
+						<div className={`${styles.imageWrapper}`}>
+							<img
+								src={data?.featuredImage?.node?.sourceUrl}
+								className="width_100 b_r_20"
+								alt="img"
+							/>
+						</div>
+					)}
+				</a>
 			</div>
 		</section>
 	);

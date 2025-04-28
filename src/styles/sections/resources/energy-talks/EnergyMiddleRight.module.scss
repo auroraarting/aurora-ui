@@ -17,11 +17,18 @@
 				}
 			}
 			.ClientFlex {
-				&.speakerFlex {
-					border-bottom: 1px solid var(--color_platinum_gray);
-					padding-bottom: 20px;
-					margin-bottom: 20px;
+				border-bottom: 1px solid var(--color_platinum_gray);
+				padding-bottom: 20px;
+				.ClientLogo {
+					margin-right: 10px;
+
+					img {
+						width: 60px;
+						border-radius: 50%;
+						object-fit: conver;
+					}
 				}
+
 				.ClientDescription {
 					width: 100%;
 					.social {

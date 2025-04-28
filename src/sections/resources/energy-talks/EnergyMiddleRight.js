@@ -21,54 +21,89 @@ import amun_hover_logo from "@/../public/img/energy_talks/amun_hover_logo.png";
 import spring_forum from "@/../public/img/events/spring_forum.png";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
 import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
+import formatDate from "@/utils";
 
 // DATA //
 
 /** EnergyMiddleRight Section */
-export default function EnergyMiddleRight({ data }) {
+export default function EnergyMiddleRight({ data, events }) {
 	return (
 		<div className={`${styles.EnergyMiddleRightBox}`}>
 			<div className={`${styles.whiteBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
-					<div className={`${styles.ClientFlex} ${styles.speakerFlex} f_r_a_center`}>
-						<div className={`${styles.ClientLogo}`}>
-							<img src={author_logo.src} alt="pic" />
-						</div>
-						<div className={`${styles.ClientDescription}`}>
-							<h5 className="text_reg font_primary color_gray f_w_m font_primary">
-								John Feddersen
-							</h5>
-							<p className="text_xs f_w_l">Founder and CEO</p>
-							<div className={`${styles.social}`}>
-								<img src={social_icon.src} alt="pic" />
+					{data?.postFields?.speakers?.nodes?.map((item, ind) => {
+						return (
+							<div
+								className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
+								key={item?.title}
+							>
+								<div className={`${styles.ClientLogo}`}>
+									<img
+										src={item?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
+										alt="pic"
+									/>
+								</div>
+								<div className={`${styles.ClientDescription}`}>
+									<h5 className="text_reg font_primary color_gray f_w_m font_primary">
+										{item?.title}
+									</h5>
+									<p className="text_xs f_w_l">
+										{item?.postSpeakers?.thumbnail?.designation}
+									</p>
+									{item?.postSpeakers?.thumbnail?.linkedinLink && (
+										<a
+											href={item?.postSpeakers?.thumbnail?.linkedinLink}
+											target="_blank"
+											rel="noreferrer"
+											className={`${styles.social}`}
+										>
+											<img src={social_icon.src} alt="pic" />
+										</a>
+									)}
+								</div>
 							</div>
-						</div>
-					</div>
+						);
+					})}
 				</div>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-					<div className={`${styles.poweredBy}`}>
-						<a href="">
-							<div className={`${styles.poweredLogo}`}>
-								<img
-									src={amun_hover_logo.src}
-									className={`${styles.amun_logo}`}
-									alt="amun_logo"
-								/>
-								{/* <img
-								src={amun_hover_logo.src}
-								className={`${styles.amun_hover_logo}`}
-								alt="amun_logo"
-							/> */}
+					{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+						/**keyModule  */
+						const keyModule = () => {
+							if (item?.contentType?.node?.name === "softwares") {
+								return "software";
+							}
+							return item?.contentType?.node?.name;
+						};
+						return (
+							<div className={`${styles.poweredBy}`} key={item?.title}>
+								<a
+									href={`/${keyModule()}/${item?.slug}`}
+									target="_blank"
+									rel="noreferrer"
+								>
+									<div className={`${styles.poweredLogo}`}>
+										<img
+											src={item?.softwares?.banner?.logo?.node?.sourceUrl}
+											className={`${styles.amun_logo}`}
+											alt="amun_logo"
+										/>
+										{/* <img
+                                    src={amun_hover_logo.src}
+                                    className={`${styles.amun_hover_logo}`}
+                                    alt="amun_logo"
+                                /> */}
 
-								<span className="f_r_aj_between text_xxs text_uppercase">
-									Know More
-									<img src={white_arrow.src} className="" alt="amun_logo" />
-								</span>
+										<span className="f_r_aj_between text_xxs text_uppercase">
+											Know More
+											<img src={white_arrow.src} className="" alt="amun_logo" />
+										</span>
+									</div>
+								</a>
 							</div>
-						</a>
-					</div>
+						);
+					})}
 				</div>
 			</div>
 			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
@@ -95,29 +130,40 @@ export default function EnergyMiddleRight({ data }) {
 					Upcoming Podcast
 				</h5>
 				<div className={`${styles.itemBox}`}>
-					<div className={`${styles.ClientFlex}`}>
-						<div className={`${styles.ClientLogo}`}>
-							<img src={spring_forum.src} alt="logo" />
-						</div>
-						<div className={`${styles.dateFlex} pt_10`}>
-							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center pb_10">
-								<img
-									src={grey_calendar.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>May 2025</span>
-							</p>
-							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-								<img
-									src={grey_clock.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>28 min 24 sec</span>
-							</p>
-						</div>
-					</div>
+					{events?.map((item, ind) => {
+						return (
+							<a
+								href={`/resources/energy-talks/${item.slug}`}
+								className={`${styles.ClientFlex}`}
+								key={item?.title}
+							>
+								<div className={`${styles.ClientLogo}`}>
+									{/* <img src={spring_forum.src} alt="logo" /> */}
+									<p>{item?.title}</p>
+								</div>
+								<div className={`${styles.dateFlex} pt_10`}>
+									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center pb_10">
+										<img
+											src={grey_calendar.src}
+											className={`${styles.calender}`}
+											alt="calender"
+										/>
+										<span>{formatDate(item?.date)}</span>
+									</p>
+									{item?.time && (
+										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+											<img
+												src={grey_clock.src}
+												className={`${styles.location}`}
+												alt="location"
+											/>
+											<span>{item?.time}</span>
+										</p>
+									)}
+								</div>
+							</a>
+						);
+					})}
 				</div>
 			</div>
 		</div>

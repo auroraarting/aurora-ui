@@ -14,6 +14,8 @@ import styles from "@/styles/sections/resources/energy-talks/EnergyInsideTopSect
 
 // IMAGES //
 import energy_logo from "@/../public/img/energy_talks/energy_logo.jpg";
+import other_logo from "@/../public/img/energy_talks/other.png";
+import googleVoice from "@/../public/img/energy_talks/google_voice.png";
 import spotify from "@/../public/img/energy_talks/spotify.svg";
 import apple from "@/../public/img/energy_talks/apple.svg";
 import google from "@/../public/img/energy_talks/google.svg";
@@ -43,14 +45,17 @@ export default function EnergyInsideTopSection({ data }) {
 								/>
 								<span>{formatDate(data?.date)}</span>
 							</p>
-							{/* <p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
 								<img
 									src={black_clock.src}
 									className={`${styles.calender}`}
 									alt="calender"
 								/>
-								<span>28 min 24 sec</span>
-							</p> */}
+								<span>
+									{/* 28 min 24 sec */}
+									{data?.postFields?.time}
+								</span>
+							</p>
 						</div>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
@@ -68,15 +73,31 @@ export default function EnergyInsideTopSection({ data }) {
 								<p className="text_xs f_w_m font_primary color_secondary text_uppercase">
 									Stream on
 								</p>
-								<a href="">
-									<img src={spotify.src} alt="spotify" />
-								</a>
-								<a href="">
-									<img src={apple.src} alt="apple" />
-								</a>
-								<a href="">
-									<img src={google.src} alt="google" />
-								</a>
+								{data?.postFields?.spotifyLink && (
+									<a href={data?.postFields?.spotifyLink}>
+										<img src={spotify.src} alt="spotify" />
+									</a>
+								)}
+								{data?.postFields?.appleLink && (
+									<a href={data?.postFields?.appleLink}>
+										<img src={apple.src} alt="apple" />
+									</a>
+								)}
+								{data?.postFields?.youtubeLink && (
+									<a href={data?.postFields?.youtubeLink}>
+										<img src={google.src} alt="google" />
+									</a>
+								)}
+								{data?.postFields?.googleLink && (
+									<a href={data?.postFields?.googleLink}>
+										<img src={googleVoice.src} alt="google" />
+									</a>
+								)}
+								{data?.postFields?.otherLink && (
+									<a href={data?.postFields?.otherLink}>
+										<img src={other_logo.src} alt="google" />
+									</a>
+								)}
 							</div>
 						</div>
 						<div className={`${styles.downloadListenShare} f_r_a_center`}>
