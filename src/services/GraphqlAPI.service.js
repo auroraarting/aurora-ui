@@ -1,4 +1,4 @@
-import { ClientHeaders, ServerHeaders } from "@/utils/RequestHeaders";
+import { ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI with support for variables */
 export default async function GraphQLAPI(query, variables = {}) {
