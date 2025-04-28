@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -7,6 +8,7 @@ import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import SoftwareCards from "@/components/SoftwareCards";
+import Insights from "@/components/Insights";
 
 // SECTIONS //
 
@@ -19,12 +21,35 @@ import styles from "@/styles/pages/careers/Careers.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "../../public/img/icons/dropdown_arrow.svg";
-import Insights from "@/components/Insights";
 
 // DATA //
 
+// SERVICES //
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+
+/** Fetch  */
+export async function getStaticProps() {
+	const [categoriesForSelect, list] = await Promise.all([
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+	]);
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
+
+	return {
+		props: {
+			countries: categoriesForSelect.data.countries.nodes,
+			otherList,
+		},
+		revalidate: 10,
+	};
+}
+
 /** Careers Page */
-export default function Careers() {
+export default function Careers({ otherList, countries }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -98,7 +123,11 @@ export default function Careers() {
 					</section>
 					<div className={`${styles.containerCustom} pb_100`}>
 						<div className="container">
-							<Insights isPowerBgVisible={true} />
+							<Insights
+								isPowerBgVisible={true}
+								defaultList={otherList}
+								countries={countries}
+							/>
 						</div>
 					</div>
 					<div className="pb_100">

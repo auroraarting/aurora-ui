@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -26,20 +27,32 @@ import styles from "@/styles/pages/careers/JoinUs.module.scss";
 
 // SERVICES //
 import { getFetchJobData } from "@/services/JobOpenings.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
 	const [jobs] = await Promise.all([getFetchJobData()]);
+	const [categoriesForSelect, list] = await Promise.all([
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+	]);
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
 
 	return {
 		props: {
 			jobs,
+			otherList,
+			countries,
 		},
 	};
 }
 
 /** JoinUs Page */
-export default function JoinUs({ jobs }) {
+export default function JoinUs({ jobs, otherList, countries }) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -61,7 +74,11 @@ export default function JoinUs({ jobs }) {
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							defaultList={otherList}
+							countries={countries}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">
