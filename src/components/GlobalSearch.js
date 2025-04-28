@@ -47,7 +47,9 @@ export default function GlobalSearch() {
 				method: "POST",
 				body: JSON.stringify({ searchTerm }),
 			});
-			setResults(data);
+			const json = await data.json();
+			console.log(json);
+			setResults(json);
 		} catch (error) {
 			console.error("Error during search:", error);
 		} finally {
