@@ -19,7 +19,7 @@ import accarrow from "../../public/img/icons/acc_arrow.svg";
 // DATA //
 
 /** SectionsHeader Component */
-export default function SectionsHeader({ data, customHtml }) {
+export default function SectionsHeader({ data, hideall, customHtml }) {
 	const [activeTab, setActiveTab] = useState(0);
 	const [sectionsList, setSectionsList] = useState([]);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,7 +47,12 @@ export default function SectionsHeader({ data, customHtml }) {
 			}
 		}
 
-		const list = sections ? sections : data;
+		let list = [];
+		if (hideall) {
+			list = customHtml ? ["", customHtml] : [];
+		} else {
+			list = sections ? sections : data;
+		}
 
 		setSectionsList(list);
 
@@ -69,6 +74,10 @@ export default function SectionsHeader({ data, customHtml }) {
 
 		/** handleScroll  */
 		const handleScroll = () => {
+			if (hideall) {
+				return;
+			}
+
 			let currentIndex = 0;
 
 			sectionElements.forEach((el, index) => {
@@ -92,8 +101,10 @@ export default function SectionsHeader({ data, customHtml }) {
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
 
-		// Run once on mount
-		handleScroll();
+		if (!hideall) {
+			// Run once on mount
+			handleScroll();
+		}
 
 		return () => {
 			window.removeEventListener("scroll", handleScroll);

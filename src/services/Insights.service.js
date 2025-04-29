@@ -147,7 +147,46 @@ query GetInsightsInside {
       appleLink
       otherLink
       googleLink
-      registerLink
+                topSectionButton {
+          iframe
+          buttonText
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+        middleSectionButton {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+        bottomSectionButton {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+        insightsSectionButton {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
       spotifyLink
       time
       youtubeLink
@@ -181,6 +220,8 @@ query GetInsightsInside {
       speakers {
         nodes {
           ... on PostSpeaker {
+          title
+            slug
             postSpeakers {
               thumbnail {
                 designation
@@ -211,6 +252,9 @@ query GetInsightsInside {
           ... on Product {
             id
             products {
+            thumbnail {
+          primaryColor
+        }
               map {
                 logo {
                   node {
@@ -251,6 +295,9 @@ query GetInsightsInside {
               }
             }
             services {
+            thumbnail {
+          primaryColor
+        }
               map {
                 logo {
                   node {
@@ -280,6 +327,9 @@ query GetInsightsInside {
               }
             }
             softwares {
+            thumbnail {
+          primaryColor
+        }
               banner {
                 logo {
                   node {

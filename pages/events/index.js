@@ -26,10 +26,47 @@ import styles from "@/styles/pages/events/events.module.scss";
 // IMAGES //
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
+// SERVICES //
+import {
+	getAllEventCategories,
+	getAllEventCountries,
+	getAllEvents,
+} from "@/services/Events.service";
+
 // DATA //
 
+/** Fetch */
+export async function getServerSideProps() {
+	const [data, categories, filters] = await Promise.all([
+		getAllEvents(),
+		getAllEventCategories(),
+		getAllEventCountries(),
+	]);
+
+	return {
+		props: {
+			data: data.data.events.nodes,
+			categories: categories.data.eventscategories.nodes?.map((item) => {
+				return { title: item.name };
+			}),
+			countries: filters.data.countries.nodes,
+			products: filters.data.products.nodes,
+			softwares: filters.data.softwares.nodes,
+			services: filters.data.services.nodes,
+		},
+	};
+}
+
 /** events Page */
-export default function events() {
+export default function Events({
+	data,
+	categories,
+	countries,
+	products,
+	softwares,
+	services,
+}) {
+	console.log({ data, categories, countries });
 	return (
 		<div>
 			{/* Metatags */}
@@ -51,7 +88,32 @@ export default function events() {
 					<TopEvents />
 				</div>
 				<div className="pt_60">
-					<EventsListing />
+					<EventsListing
+						// data={data?.slice(1, data.length)}
+						data={data}
+						categories={categories}
+						years={Array(new Date().getFullYear() - 2000)
+							.fill(null)
+							.map((item, ind) => {
+								return { title: 2001 + ind };
+							})
+							.reverse()}
+						productService={[
+							{
+								category: "Product",
+								options: products?.map((item) => item.title),
+							},
+							{
+								category: "Software",
+								options: softwares?.map((item) => item.title),
+							},
+							{
+								category: "Service",
+								options: services?.map((item) => item.title),
+							},
+						]}
+						countries={countries}
+					/>
 				</div>
 				<div className="ptb_100">
 					<Speakers />

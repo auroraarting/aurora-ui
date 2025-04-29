@@ -23,10 +23,10 @@ export default function Modal({ children, id }) {
 		<div className={`modal ${styles.modal}`} id={id ? id : "modal"}>
 			{/** Modal Backdrop */}
 			<div onClick={() => closeModal(id)} className={styles.overlay}></div>
-			<div className={styles.content}>
+			<div className={`${styles.content} content`}>
 				{/**  Close Icon */}
 				<div
-					className={`${styles.closeBtn} next_image`}
+					className={`${styles.closeBtn} closeBtn  next_image`}
 					onClick={() => closeModal(id)}
 				>
 					<Image width={20} height={20} src={CrossIcon} alt="X" />
@@ -43,6 +43,7 @@ export const openModal = (id) => {
 	const modalHtml = document.querySelector(id ? `#${id}` : ".modal");
 	modalHtml.style.opacity = "1";
 	modalHtml.style.pointerEvents = "all";
+	modalHtml.classList.add("open");
 	// Disable background scrolling
 	document.body.style.overflow = "hidden";
 };
@@ -52,6 +53,7 @@ export const closeModal = (id) => {
 	const modalHtml = document.querySelector(id ? `#${id}` : ".modal");
 	modalHtml.style.opacity = "0";
 	modalHtml.style.pointerEvents = "none";
+	modalHtml.classList.remove("open");
 	// Enable background scrolling when the modal is closed
 	document.body.style.overflow = "auto";
 };

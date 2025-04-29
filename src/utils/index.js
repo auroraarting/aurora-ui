@@ -1,3 +1,5 @@
+import { openModal } from "@/components/Modal";
+
 /** formatDate  */
 export default function formatDate(isoString) {
 	const date = new Date(isoString);
@@ -426,5 +428,57 @@ export const filterBySearchQuery = (items, searchQuery) => {
 	return items.filter((item) => {
 		const tagNames = item.tags?.nodes?.map((tag) => tag.name.toLowerCase()) || [];
 		return tagNames.some((tag) => tag.includes(lowerSearch));
+	});
+};
+
+/** OpenIframePopup  */
+export const OpenIframePopup = (modalClassName, iframeLink) => {
+	openModal(modalClassName);
+	const iframeHtml = document.querySelector(`#${modalClassName} iframe`);
+	iframeHtml.src = iframeLink;
+	console.log("iframeHtml", iframeHtml);
+};
+
+/** dynamicInsightsBtnProps  */
+export const dynamicInsightsBtnProps = (data, keyVal = "topSectionButton") => {
+	let obj = {};
+
+	if (data?.postFields?.[keyVal]?.file?.node?.sourceUrl) {
+		obj.href = data?.postFields?.[keyVal]?.file?.node?.sourceUrl;
+		obj.target = "_blank";
+		obj.rel = "noreferrer";
+	} else if (data?.postFields?.[keyVal]?.iframe) {
+		obj.onClick = () =>
+			OpenIframePopup("iframePopup", data?.postFields?.[keyVal]?.iframe);
+	}
+	if (data?.postFields?.[keyVal]?.buttonText) {
+		obj.btnText = data?.postFields?.[keyVal]?.buttonText;
+	}
+
+	return obj;
+};
+
+/** filterEvents  */
+export const filterEvents = (items, filterObj) => {
+	return items.filter((item) => {
+		const categoryNames =
+			item.categories?.nodes?.map((c) => c.name.toLowerCase()) || [];
+		const categorySlugs =
+			item.categories?.nodes?.map((c) => c.slug.toLowerCase()) || [];
+
+		const allCategoryValues = [...categoryNames, ...categorySlugs];
+
+		const matchKeys = ["category", "country", "software", "product", "service"];
+		const matchesCategoryFilters = matchKeys.every((key) => {
+			if (!filterObj[key]) return true; // skip if not filtering by this key
+			return allCategoryValues.includes(filterObj[key].toLowerCase());
+		});
+
+		const filterYear = filterObj.year;
+		const itemYear = new Date(item.date).getFullYear();
+
+		const matchesYear = filterYear ? itemYear === filterYear : true;
+
+		return matchesCategoryFilters && matchesYear;
 	});
 };

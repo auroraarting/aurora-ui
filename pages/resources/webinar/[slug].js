@@ -11,6 +11,7 @@ import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
+import Modal, { openModal } from "@/components/Modal";
 
 // SECTIONS //
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
@@ -22,6 +23,7 @@ import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
@@ -37,6 +39,7 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
@@ -61,6 +64,9 @@ export async function getServerSideProps({ params }) {
 /** WebinarInside Page */
 export default function WebinarInside({ data, countries, otherList }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const isUpcoming = !data?.categories?.nodes?.some(
+		(item) => item.slug === "webinar-recording"
+	);
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -78,17 +84,6 @@ export default function WebinarInside({ data, countries, otherList }) {
 		}, 500);
 	};
 
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
 	return (
 		<div>
 			{/* Metatags */}
@@ -141,18 +136,44 @@ export default function WebinarInside({ data, countries, otherList }) {
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
 				<div className={`${styles.topBg} pt_100 pb_60`}>
-					<WebinarInsideTopSection data={data} countries={countries} />
+					<WebinarInsideTopSection
+						data={data}
+						countries={countries}
+						isUpcoming={isUpcoming}
+					/>
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					hideall={true}
+					customHtml={
+						<div
+							key="btn"
+							to="Insights"
+							onClick={() => {
+								// scrollToSection("Insights");
+								if (isUpcoming) {
+									OpenIframePopup("iframePopup", data?.webinarIntelligenceDeck);
+								} else {
+									window.open(data?.registerLink, "_blank", "noopener,noreferrer");
+								}
+							}}
+						>
+							<Button color="primary" variant="filled" shape="rounded">
+								{isUpcoming ? "Register" : "Intelligence Deck"}
+							</Button>
+						</div>
+					}
+				/>
 				<section className={`${styles.mediaMiddle} pt_80`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{/* <WebinarMiddleDescription /> */}
 								<ContentFromCms>{data?.content}</ContentFromCms>
-								<div className="pt_60">
-									<WebinarRecording data={data} />
-								</div>
+								{!isUpcoming && (
+									<div className="pt_60">
+										<WebinarRecording data={data} />
+									</div>
+								)}
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
 								<WebinarMiddleRight data={data} />
@@ -162,14 +183,27 @@ export default function WebinarInside({ data, countries, otherList }) {
 				</section>
 				<div className="ptb_100">
 					<Insights
+						formSectionTitle="Lorem ipsum dolor sit amet consectetur."
+						formSectionDesc='Please contact Duncan Young <a href="mailto:duncan.young@auroraer.com">duncan.young@auroraer.com</a>  for any queries.'
+						formSectionBtnText={isUpcoming ? "Register" : "Intelligence Deck"}
+						insightsTitle="More from Aurora"
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
+						formdata={() => {
+							if (isUpcoming) {
+								OpenIframePopup("iframePopup", data?.webinarIntelligenceDeck);
+							} else {
+								window.open(data?.registerLink, "_blank", "noopener,noreferrer");
+							}
+						}}
 					/>
 				</div>
+
+				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
 
