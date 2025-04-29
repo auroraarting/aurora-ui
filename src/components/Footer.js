@@ -79,39 +79,43 @@ export default function Footer() {
 							<div className={`${styles.footerMenuItem_left}`}>
 								<div className={`${styles.footerLogo}`}>
 									<Link href="/">
-										<a>
-											<img src={footer_logo.src} alt="logo" />
-										</a>
+										<img src={footer_logo.src} alt="logo" />
 									</Link>
 								</div>
 								<div className={`${styles.social_media} pt_40`}>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="https://x.com/i/flow/login?redirect_after_login=%2Fauroraer_oxford">
-												<a target="_blank" rel="noreferrer">
-													<img src={x.src} alt="x" />
-												</a>
+											<Link
+												href="https://x.com/i/flow/login?redirect_after_login=%2Fauroraer_oxford"
+												target="_blank"
+												rel="noreferrer"
+											>
+												<img src={x.src} alt="x" />
 											</Link>
 										</li>
 										<li>
-											<Link href="https://www.linkedin.com/company/aurora-energy-research-limited">
-												<a target="_blank" rel="noreferrer">
-													<img src={footer_linkedin.src} alt="linkedin" />
-												</a>
+											<Link
+												href="https://www.linkedin.com/company/aurora-energy-research-limited"
+												target="_blank"
+												rel="noreferrer"
+											></Link>
+										</li>
+										<li>
+											<Link
+												href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ"
+												target="_blank"
+												rel="noreferrer"
+											>
+												<img src={footer_youtube.src} alt="youtube" />
 											</Link>
 										</li>
 										<li>
-											<Link href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ">
-												<a target="_blank" rel="noreferrer">
-													<img src={footer_youtube.src} alt="youtube" />
-												</a>
-											</Link>
-										</li>
-										<li>
-											<Link href="https://soundcloud.com/user-564729441">
-												<a target="_blank" rel="noreferrer">
-													<img src={soundcloud.src} alt="soundcloud" />
-												</a>
+											<Link
+												href="https://soundcloud.com/user-564729441"
+												target="_blank"
+												rel="noreferrer"
+											>
+												<img src={soundcloud.src} alt="soundcloud" />
 											</Link>
 										</li>
 									</ul>
