@@ -91,7 +91,7 @@ export default function WebinarTalks({
 				</div>
 				<div>
 					<WebinarListing
-						data={data?.slice(1, data.length)}
+						data={data}
 						pagination={pagination}
 						countries={countries}
 						products={products}

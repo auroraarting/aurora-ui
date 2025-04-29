@@ -21,13 +21,36 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import search from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
+import formatDate, {
+	filterBySearchQuery,
+	filterEvents,
+	filterItems,
+} from "@/utils";
+import { useRouter } from "next/router";
 
 // DATA //
 
 /** EventsListing Section */
-export default function EventsListing() {
+export default function EventsListing({
+	countries,
+	productService,
+	data,
+	years,
+	categories,
+}) {
+	const router = useRouter();
+	const [original, setOriginal] = useState(data);
+	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+	const [dropdowns, setDropdowns] = useState({
+		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
+		countryType: { isOpen: false, selected: { title: "Country" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
+		yearsType: { isOpen: false, selected: { title: "Year" } },
+	});
+	const [list, setList] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -44,14 +67,6 @@ export default function EventsListing() {
 		setSelected(option); // Only one selected option at a time
 	};
 
-	const [dropdowns, setDropdowns] = useState({
-		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
-		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
-		yearsType: { isOpen: false, selected: { title: "Year" } },
-	});
-
 	const dropdownRefs = {
 		eventNameType: useRef(null),
 		countryType: useRef(null),
@@ -61,36 +76,16 @@ export default function EventsListing() {
 	};
 
 	const optionsData = {
-		eventNameType: [
-			{ title: "Event Name1" },
-			{ title: "Event Name2" },
-			{ title: "Event Name3" },
-			{ title: "Event Name4" },
-		],
-		countryType: [
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-		],
+		eventNameType: categories,
+		countryType: countries,
 		offeringsType: [
 			{ title: "Offerings1" },
 			{ title: "Offerings2" },
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
 		],
-		eventStatusType: [
-			{ title: "Event Status" },
-			{ title: "Event Status" },
-			{ title: "Event Status" },
-			{ title: "Event Status" },
-		],
-		yearsType: [
-			{ title: "2025" },
-			{ title: "2024" },
-			{ title: "2023" },
-			{ title: "2022" },
-		],
+		eventStatusType: [{ title: "Upcoming" }, { title: "Past" }],
+		yearsType: years,
 	};
 
 	/** Toggle Dropdown */
@@ -107,6 +102,59 @@ export default function EventsListing() {
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
+		filter(option.title, key);
+	};
+
+	/** filter  */
+	const filter = async (catName, key) => {
+		let queryObj = { ...router.query };
+		let selectedObj = selected;
+		let arr = original;
+		setLoading(true);
+
+		if (key === "search") {
+			selectedObj.search = catName;
+			window.location.href = `/events?search=${catName}`;
+			return;
+		}
+		if (key === "eventType") {
+			selectedObj.type = catName;
+		}
+		if (key === "countryType") {
+			selectedObj.country = catName;
+		}
+		if (key === "yearsType") {
+			selectedObj.year = catName;
+		}
+		if (key === "Product") {
+			selectedObj.product = catName;
+		}
+		if (key === "Software") {
+			selectedObj.software = catName;
+		}
+		if (key === "Service") {
+			selectedObj.service = catName;
+		}
+		if (key === "eventStatusType") {
+			selectedObj.status = catName;
+		}
+		if (selectedObj.type) {
+			arr = arr.filter((item) => {
+				return item.eventscategories.nodes.some((item2) => item2.name === catName);
+			});
+		}
+		if (selectedObj.country) {
+			arr = arr.filter((item) => {
+				return item.events.thumbnail.country.nodes.some(
+					(item2) => item2.title === catName
+				);
+			});
+		}
+
+		setList(arr);
+		setSelected(selectedObj);
+		// const filteredArr = filterEvents(arr, queryObj);
+		// console.log(filteredArr, queryObj);
 	};
 
 	/** Close Dropdown on Click Outside */
@@ -129,25 +177,15 @@ export default function EventsListing() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
+	useEffect(() => {
+		if (router.query.search) {
+			const filtered = filterBySearchQuery(data, router.query.search);
+			setList(filtered);
+			setOriginal(filtered);
+		}
+	}, [router.query]);
+
+	console.log(selected, "selectedObj");
 
 	return (
 		<section className={styles.EventsListing}>
@@ -165,13 +203,13 @@ export default function EventsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.eventNameType.selected.title}
+										{selected?.type || "Event Name"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.eventNameType.isOpen && (
 									<ul className={styles.selectOptionBox}>
-										{optionsData.eventNameType.map((option) => (
+										{categories.map((option) => (
 											<li
 												key={option.title}
 												className={
@@ -179,7 +217,7 @@ export default function EventsListing() {
 														? "selected"
 														: ""
 												}
-												onClick={() => handleOptionClick("eventNameType", option)}
+												onClick={() => handleOptionClick("eventType", option)}
 											>
 												{option.title}
 											</li>
@@ -200,13 +238,13 @@ export default function EventsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.countryType.selected.title}
+										{selected?.country || "Country"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
-										{optionsData.countryType.map((option) => (
+										{countries.map((option) => (
 											<li
 												key={option.title}
 												className={
@@ -243,20 +281,26 @@ export default function EventsListing() {
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
 									>
-										{radioData.map((item, index) => (
+										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
 												<h4 className="text_sm color_dark_gray text_500">
 													{item.category}
 												</h4>
 												<div className={styles.checkBoxList}>
-													{item.options.map((option, idx) => (
-														<label key={idx} className={styles.checkboxLabel}>
+													{item?.options?.map((option, idx) => (
+														<label key={option} className={styles.checkboxLabel}>
 															<input
 																type="radio"
-																name="singleSelection" // Single name for all radio buttons
+																id={item.category}
+																name={item.category} // Single name for all radio buttons
 																className={styles.hiddenRadio}
-																checked={selected === option} // Ensure only one is selected overall
-																onChange={() => handleChange(option)}
+																defaultChecked={
+																	selected?.[item.category.toLowerCase()] === option
+																} // Ensure only one is selected overall
+																onChange={() => {
+																	// handleChange(option);
+																	filter(option, item.category);
+																}}
 															/>
 															<span className={styles.customRadio}></span>
 															{option}
@@ -281,7 +325,7 @@ export default function EventsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.eventStatusType.selected.title}
+										{selected?.status || "Event Status"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -319,13 +363,13 @@ export default function EventsListing() {
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{dropdowns.yearsType.selected.title}
+										{selected?.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.yearsType.isOpen && (
 									<ul className={styles.selectOptionBox}>
-										{optionsData.yearsType.map((option) => (
+										{years.map((option) => (
 											<li
 												key={option.title}
 												className={
@@ -358,7 +402,17 @@ export default function EventsListing() {
 						{/* Search Input - Show/Hide on Click */}
 						{isSearchVisible && (
 							<div className={`${styles.searchInput} f_r_aj_between`}>
-								<input type="text" placeholder="Search Events" />
+								<form
+									className="w-full"
+									onSubmit={(e) => {
+										e.preventDefault();
+										const val = e.target.search.value;
+										filter(val, "search");
+										console.log(val);
+									}}
+								>
+									<input name="search" type="text" placeholder="Search Events" />
+								</form>
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
@@ -373,231 +427,58 @@ export default function EventsListing() {
 			</div>
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<img
-									src={energy_transition.src}
-									className={`${styles.productLogo} `}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+					{list?.map((item, ind) => {
+						return (
+							<div className={`${styles.ItemBox}`} key={item?.title}>
+								<a href={`/events/${item?.slug}`}>
+									<div className={`${styles.hoverBox}`}>
 										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
+											src={hoverBg.src}
+											className={`${styles.hoverBg} width_100 b_r_10`}
+											alt="img"
 										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
 										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
+											src={item?.events?.thumbnail?.logo?.node?.sourceUrl}
+											className={`${styles.productLogo} `}
+											alt="img"
 										/>
-										<span>UK</span>
-									</p>
-								</div>
+										<p
+											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+										>
+											{item?.eventscategories?.nodes?.map((item2) => item2.name)}
+										</p>
+										<p
+											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+										>
+											{item?.title}
+										</p>
+										<div className={`${styles.dateFlex} f_j pt_30`}>
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+												<img
+													src={calender.src}
+													className={`${styles.calender}`}
+													alt="calender"
+												/>
+												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+											</p>
+											<p className="text_xs f_w_m color_medium_gray f_r_a_center">
+												<img
+													src={location.src}
+													className={`${styles.location}`}
+													alt="location"
+												/>
+												<span>
+													{item?.events?.thumbnail?.country?.nodes?.map(
+														(item2) => item2.title
+													)}
+												</span>
+											</p>
+										</div>
+									</div>
+								</a>
 							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<img
-									src={energy_transition.src}
-									className={`${styles.productLogo} `}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<img
-									src={energy_transition.src}
-									className={`${styles.productLogo} `}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<img
-									src={energy_transition.src}
-									className={`${styles.productLogo} `}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<img
-									src={energy_transition.src}
-									className={`${styles.productLogo} `}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
+						);
+					})}
 				</div>
 				{/* <div className={`${styles.insightsItemFlex} d_f m_t_20`}>
 					<div className={`${styles.ItemBox}`}>

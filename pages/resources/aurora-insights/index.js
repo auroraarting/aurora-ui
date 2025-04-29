@@ -76,6 +76,7 @@ export default function AuroraInsights({
 	services,
 	otherList,
 }) {
+	console.log(data, "data");
 	const [original, setOriginal] = useState(data);
 	// console.log("data", {
 	// 	pagination,

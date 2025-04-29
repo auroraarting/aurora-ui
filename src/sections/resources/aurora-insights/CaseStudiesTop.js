@@ -21,7 +21,7 @@ import share from "@/../public/img/resources/aurora_insights/share.svg";
 import copy from "@/../public/img/resources/aurora_insights/copy.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import black_clock from "@/../public/img/icons/black_clock.svg";
-import formatDate from "@/utils";
+import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 
 // DATA //
 
@@ -82,16 +82,15 @@ export default function CaseStudiesTop({ data }) {
 					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
 						<div className={`${styles.downloadListen}`}>
 							<div className={`${styles.downloadBox} f_r_a_center`}>
-								{data?.postFields?.file?.node?.sourceUrl && (
+								{dynamicInsightsBtnProps(data, "topSectionButton").btnText && (
 									<a
-										href={data?.postFields?.file?.node?.sourceUrl}
-										download
-										target="_blank"
-										rel="noreferrer"
+										{...dynamicInsightsBtnProps(data, "topSectionButton")}
 										className="text_sm f_w_m font_primary f_r_a_center"
 									>
 										<img src={download.src} alt="download" />
-										<span>Download</span>
+										<span>
+											{dynamicInsightsBtnProps(data, "topSectionButton").btnText}
+										</span>
 									</a>
 								)}
 

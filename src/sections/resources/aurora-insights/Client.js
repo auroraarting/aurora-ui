@@ -23,6 +23,7 @@ import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 import tag_download_icon from "@/../public/img/resources/aurora_insights/tag_download_icon.svg";
 import amun_hover_logo from "@/../public/img/energy_talks/amun_hover_logo.png";
 import white_arrow from "@/../public/img/energy_talks/white_arrow.svg";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
@@ -30,93 +31,112 @@ import white_arrow from "@/../public/img/energy_talks/white_arrow.svg";
 export default function Client({ data }) {
 	return (
 		<div className={`${styles.ClientBox}`}>
-			<div className={`${styles.whiteBox}`}>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Client</h5>
-					{data?.postFields?.client?.map((item, ind) => {
-						return (
-							<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-								{item?.image?.node?.sourceUrl && (
-									<div className={`${styles.ClientLogo}`}>
-										<img src={item?.image?.node?.sourceUrl} alt="logo" />
+			{(data?.postFields?.client ||
+				data?.postFields?.authors?.nodes ||
+				data?.postFields?.poweredBy?.nodes) && (
+				<div className={`${styles.whiteBox}`}>
+					{data?.postFields?.client && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Client</h5>
+							{data?.postFields?.client?.map((item, ind) => {
+								return (
+									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
+										{item?.image?.node?.sourceUrl && (
+											<div className={`${styles.ClientLogo}`}>
+												<img src={item?.image?.node?.sourceUrl} alt="logo" />
+											</div>
+										)}
+										<div className={`${styles.ClientDescription}`}>
+											<p className="text_xs font_primary">{item?.title}</p>
+										</div>
 									</div>
-								)}
-								<div className={`${styles.ClientDescription}`}>
-									<p className="text_xs font_primary">{item?.title}</p>
-								</div>
-							</div>
-						);
-					})}
-				</div>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Author</h5>
-					{data?.postFields?.authors?.nodes?.map((item, ind) => {
-						return (
-							<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-								<div className={`${styles.ClientLogo}`}>
-									<img
-										src={
-											item?.postAuthors?.thumbnail?.image?.node?.sourceUrl ||
-											author_logo.src
-										}
-										alt="pic"
-									/>
-								</div>
-								<div className={`${styles.ClientDescription}`}>
-									<h5 className="text_reg font_primary color_gray f_w_m font_primary">
-										{item?.title}
-									</h5>
-									<p className="text_xs f_w_l">
-										{item?.postAuthors?.thumbnail?.designation}
-									</p>
-									{item?.postAuthors?.thumbnail?.linkedinLink && (
+								);
+							})}
+						</div>
+					)}
+					{data?.postFields?.authors?.nodes && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Author</h5>
+							{data?.postFields?.authors?.nodes?.map((item, ind) => {
+								return (
+									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
+										<div className={`${styles.ClientLogo}`}>
+											<img
+												src={
+													item?.postAuthors?.thumbnail?.image?.node?.sourceUrl ||
+													author_logo.src
+												}
+												alt="pic"
+											/>
+										</div>
+										<div className={`${styles.ClientDescription}`}>
+											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
+												{item?.title}
+											</h5>
+											<p className="text_xs f_w_l">
+												{item?.postAuthors?.thumbnail?.designation}
+											</p>
+											{item?.postAuthors?.thumbnail?.linkedinLink && (
+												<a
+													href={item?.postAuthors?.thumbnail?.linkedinLink}
+													target="_blank"
+													rel="noreferrer"
+													className={`${styles.social}`}
+												>
+													<img src={social_icon.src} alt="pic" />
+												</a>
+											)}
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					)}
+					{data?.postFields?.poweredBy?.nodes && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
+							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+								return (
+									<div className={`${styles.poweredBy}`} key={item?.title}>
 										<a
-											href={item?.postAuthors?.thumbnail?.linkedinLink}
+											href={`/${item?.contentType?.node?.name}/${item?.slug}`}
 											target="_blank"
 											rel="noreferrer"
-											className={`${styles.social}`}
 										>
-											<img src={social_icon.src} alt="pic" />
-										</a>
-									)}
-								</div>
-							</div>
-						);
-					})}
-				</div>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-					{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
-						return (
-							<div className={`${styles.poweredBy}`} key={item?.title}>
-								<a
-									href={`/${item?.contentType?.node?.name}/${item?.slug}`}
-									target="_blank"
-									rel="noreferrer"
-								>
-									<div className={`${styles.poweredLogo}`}>
-										<img
-											src={item?.softwares?.banner?.logo?.node?.sourceUrl}
-											className={`${styles.amun_logo}`}
-											alt="amun_logo"
-										/>
-										{/* <img
+											<div
+												className={`${styles.poweredLogo}`}
+												style={{
+													background:
+														item?.[item?.contentType?.node?.name]?.thumbnail?.primaryColor,
+												}}
+											>
+												<img
+													src={
+														item?.[item?.contentType?.node?.name]?.banner?.logo?.node
+															?.sourceUrl
+													}
+													className={`${styles.amun_logo}`}
+													alt="amun_logo"
+												/>
+												{/* <img
                                     src={amun_hover_logo.src}
                                     className={`${styles.amun_hover_logo}`}
                                     alt="amun_logo"
                                 /> */}
 
-										<span className="f_r_aj_between text_xxs text_uppercase">
-											Know More
-											<img src={white_arrow.src} className="" alt="amun_logo" />
-										</span>
+												<span className="f_r_aj_between text_xxs text_uppercase">
+													Know More
+													<img src={white_arrow.src} className="" alt="amun_logo" />
+												</span>
+											</div>
+										</a>
 									</div>
-								</a>
-							</div>
-						);
-					})}
+								);
+							})}
+						</div>
+					)}
 				</div>
-			</div>
+			)}
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
 				<div className={`${styles.InsideItem}`}>
 					{data?.tags?.nodes?.length > 0 && (
@@ -152,16 +172,16 @@ export default function Client({ data }) {
 						</div>
 					</div>
 				</div>
-				{data?.postFields?.file?.node?.sourceUrl && (
+				{dynamicInsightsBtnProps(data, "bottomSectionButton").btnText && (
 					<div className={`${styles.DownBtn} `}>
 						<a
-							href={data?.postFields?.file?.node?.sourceUrl}
-							target="_blank"
-							rel="noreferrer"
+							{...dynamicInsightsBtnProps(data, "bottomSectionButton")}
 							className="text_sm f_w_m font_primary f_r_a_center"
 						>
 							<img src={tag_download_icon.src} alt="download" />
-							<span>Download</span>
+							<span>
+								{dynamicInsightsBtnProps(data, "bottomSectionButton").btnText}
+							</span>
 						</a>
 					</div>
 				)}

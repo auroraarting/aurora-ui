@@ -45,26 +45,30 @@ export default function EnergyInsideTopSection({ data }) {
 								/>
 								<span>{formatDate(data?.date)}</span>
 							</p>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={black_clock.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>
-									{/* 28 min 24 sec */}
-									{data?.postFields?.time}
-								</span>
-							</p>
+							{data?.postFields?.time && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={black_clock.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>
+										{/* 28 min 24 sec */}
+										{data?.postFields?.time}
+									</span>
+								</p>
+							)}
 						</div>
 					</div>
-					<div className={`${styles.imageWrapper}`}>
-						<img
-							src={data?.featuredImage?.node?.sourceUrl || energy_logo.src}
-							className="width_100 b_r_20"
-							alt="img"
-						/>
-					</div>
+					{data?.featuredImage?.node?.sourceUrl && (
+						<div className={`${styles.imageWrapper}`}>
+							<img
+								src={data?.featuredImage?.node?.sourceUrl}
+								className="width_100 b_r_20"
+								alt="img"
+							/>
+						</div>
+					)}
 				</div>
 				<div className={`${styles.dateBox}`}>
 					<div className={`${styles.downloadListenBox} f_w_j a_center`}>

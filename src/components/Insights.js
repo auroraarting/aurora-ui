@@ -32,6 +32,7 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import ContentFromCms from "./ContentFromCms";
 
 /** Insights Section */
 export default function Insights({
@@ -41,6 +42,11 @@ export default function Insights({
 	isInsightsBlogsVisible,
 	defaultList,
 	countries,
+	insightsTitle = "Insights",
+	formSectionTitle = "Let’s power the future, together",
+	formSectionDesc = "Our team is here to help you navigate the complexities of energy storage. Reach out to discover how Chronos can work for you.",
+	formSectionBtnText = "Speak To Our Experts",
+	formdata,
 }) {
 	const router = useRouter();
 	const [data, setData] = useState({ data: defaultList, countries });
@@ -76,13 +82,17 @@ export default function Insights({
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
 		const resjson = await resdata.json();
-		console.log(resjson);
 		setData(resjson);
 	};
 
 	useEffect(() => {
-		fetchdata();
+		if (!defaultList) {
+			console.log("yes");
+			fetchdata();
+		}
 	}, []);
+
+	console.log(formdata);
 
 	return (
 		<section
@@ -98,18 +108,21 @@ export default function Insights({
 								<div className={`${styles.contentFlex} f_j`}>
 									<div className={`${styles.title_wrap}`}>
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
-											Let’s power the future, together
+											{formSectionTitle}
 										</h2>
 										<p className="text_reg color_silver_gray">
-											Our team is here to help you navigate the complexities of energy
-											storage. Reach out to discover how Chronos can work for you.
+											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</p>
 									</div>
-									<div className={`${styles.bookBtn}`} onClick={handleOpenForm}>
+									<a
+										className={`${styles.bookBtn}`}
+										onClick={() => handleOpenForm()}
+										{...formdata}
+									>
 										<Button color="primary" variant="filled" shape="rounded" mode="dark">
-											Speak To Our Experts
+											{formSectionBtnText}
 										</Button>
-									</div>
+									</a>
 								</div>
 							)}
 							{isFormVisible && (
@@ -119,11 +132,10 @@ export default function Insights({
 									</div>
 									<div className={`${styles.form_title}`}>
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
-											Let’s power the future, together
+											{formSectionTitle}
 										</h2>
 										<p className="text_reg color_silver_gray">
-											Our team is here to help you navigate the complexities of energy
-											storage. Reach out to discover how Chronos can work for you.
+											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</p>
 									</div>
 									<div className={`${styles.formBox}`}>
@@ -146,7 +158,9 @@ export default function Insights({
 						<div className={`${styles.insightsItemBox} insightsItemBox`}>
 							<div className={`${styles.titleFlex} pb_20 f_j`}>
 								<div className={`${styles.title} `}>
-									<h2 className="text_xl font_primary f_w_s_b color_white ">Insights</h2>
+									<h2 className="text_xl font_primary f_w_s_b color_white ">
+										{insightsTitle}
+									</h2>
 								</div>
 								<a href={defaultPathname()} className={`${styles.bookBtn}`}>
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
@@ -158,7 +172,7 @@ export default function Insights({
 								{data?.data?.map((item, ind) => {
 									return (
 										<a
-											href={`/resources/aurora-insights/${item?.slug}`}
+											href={`${defaultPathname()}${item?.slug}`}
 											className={`${styles.ItemBox} boxH`}
 											key={item?.title}
 										>

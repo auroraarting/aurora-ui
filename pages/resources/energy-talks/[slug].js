@@ -149,7 +149,7 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 				<div className="pt_100 pb_40">
 					<EnergyInsideTopSection data={data} />
 				</div>
-				<SectionsHeader data={headerArray} />
+				{/* <SectionsHeader data={headerArray} /> */}
 				<section className={`${styles.mediaMiddle} pt_80`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>

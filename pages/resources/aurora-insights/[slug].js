@@ -12,6 +12,7 @@ import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
@@ -22,6 +23,7 @@ import Client from "@/sections/resources/aurora-insights/Client";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
@@ -59,6 +61,17 @@ export async function getServerSideProps({ params }) {
 /** Articles Page */
 export default function Articles({ data, otherList, countries }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const isArticle = data?.categories?.nodes?.some(
+		(item) => item.slug === "commentary"
+	);
+	const isCaseStudy = data?.categories?.nodes?.some(
+		(item) => item.slug === "case-study"
+	);
+	const isReports = data?.categories?.nodes?.some((item) =>
+		item.slug.includes("report")
+	);
+
+	console.log(data, "isArticle");
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -76,17 +89,54 @@ export default function Articles({ data, otherList, countries }) {
 		}, 500);
 	};
 
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
+	// const headerArray = [
+	// 	{ name: "Expertise", id: "#expertise" },
+	// 	{ name: "Available Regions", id: "#availableregions" },
+	// 	{ name: "Why Aurora", id: "#whyaurora" },
+	// 	{ name: "Clients", id: "#clients" },
+	// 	<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+	// 		<Button color="primary" variant="filled" shape="rounded">
+	// 			Get Started
+	// 		</Button>
+	// 	</div>,
+	// ];
+
+	/** headerArrayBtnFunc  */
+	const headerArrayBtnFunc = () => {
+		if (isArticle || isCaseStudy) {
+			OpenIframePopup("iframePopup", data?.postFields?.subscribeIframe);
+		} else if (isReports) {
+			OpenIframePopup("iframePopup", data?.postFields?.redactedReportIframe);
+		} else {
+			window.open(data?.postFields?.registerLink, "_blank", "noopener,noreferrer");
+		}
+	};
+
+	/** headerArrayBtn  */
+	const headerArrayBtn = () => {
+		if (isArticle || isCaseStudy) {
+			return (
+				<div
+					{...dynamicInsightsBtnProps(data, "middleSectionButton")}
+					key="btn"
+					to="Insights"
+					onClick={() => headerArrayBtnFunc()}
+				>
+					<Button color="primary" variant="filled" shape="rounded">
+						Subscribe
+					</Button>
+				</div>
+			);
+		} else if (isReports) {
+			return (
+				<div key="btn" to="Insights" onClick={() => headerArrayBtnFunc()}>
+					<Button color="primary" variant="filled" shape="rounded">
+						Redacted Report
+					</Button>
+				</div>
+			);
+		}
+	};
 
 	return (
 		<div>
@@ -140,9 +190,29 @@ export default function Articles({ data, otherList, countries }) {
 			{/* Page Content starts here */}
 			<main className={styles.articlesPage}>
 				<div className="pb_60">
-					<CaseStudiesTop data={data} />
+					<CaseStudiesTop
+						data={data}
+						isArticle={isArticle}
+						isCaseStudy={isCaseStudy}
+						isReports={isReports}
+					/>
 				</div>
-				{/* <SectionsHeader data={headerArray} /> */}
+				<SectionsHeader
+					hideall
+					customHtml={
+						dynamicInsightsBtnProps(data, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(data, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(data, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<section className={`${styles.CaseStudiesMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
@@ -167,8 +237,17 @@ export default function Articles({ data, otherList, countries }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
+						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
+						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+						formSectionBtnText={
+							dynamicInsightsBtnProps(data, "insightsSectionButton").btnText
+						}
+						insightsTitle="More from Aurora"
+						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 					/>
 				</div>
+
+				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
 

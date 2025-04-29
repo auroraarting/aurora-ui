@@ -29,83 +29,89 @@ import formatDate from "@/utils";
 export default function EnergyMiddleRight({ data, events }) {
 	return (
 		<div className={`${styles.EnergyMiddleRightBox}`}>
-			<div className={`${styles.whiteBox}`}>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
-					{data?.postFields?.speakers?.nodes?.map((item, ind) => {
-						return (
-							<div
-								className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
-								key={item?.title}
-							>
-								<div className={`${styles.ClientLogo}`}>
-									<img
-										src={item?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
-										alt="pic"
-									/>
-								</div>
-								<div className={`${styles.ClientDescription}`}>
-									<h5 className="text_reg font_primary color_gray f_w_m font_primary">
-										{item?.title}
-									</h5>
-									<p className="text_xs f_w_l">
-										{item?.postSpeakers?.thumbnail?.designation}
-									</p>
-									{item?.postSpeakers?.thumbnail?.linkedinLink && (
+			{(data?.postFields?.speakers || data?.postFields?.poweredBy?.nodes) && (
+				<div className={`${styles.whiteBox}`}>
+					{data?.postFields?.speakers?.nodes && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
+							{data?.postFields?.speakers?.nodes?.map((item, ind) => {
+								return (
+									<div
+										className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
+										key={item?.title}
+									>
+										<div className={`${styles.ClientLogo}`}>
+											<img
+												src={item?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
+												alt="pic"
+											/>
+										</div>
+										<div className={`${styles.ClientDescription}`}>
+											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
+												{item?.title}
+											</h5>
+											<p className="text_xs f_w_l">
+												{item?.postSpeakers?.thumbnail?.designation}
+											</p>
+											{item?.postSpeakers?.thumbnail?.linkedinLink && (
+												<a
+													href={item?.postSpeakers?.thumbnail?.linkedinLink}
+													target="_blank"
+													rel="noreferrer"
+													className={`${styles.social}`}
+												>
+													<img src={social_icon.src} alt="pic" />
+												</a>
+											)}
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					)}
+					{data?.postFields?.poweredBy?.nodes && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
+							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+								/**keyModule  */
+								const keyModule = () => {
+									if (item?.contentType?.node?.name === "softwares") {
+										return "software";
+									}
+									return item?.contentType?.node?.name;
+								};
+								return (
+									<div className={`${styles.poweredBy}`} key={item?.title}>
 										<a
-											href={item?.postSpeakers?.thumbnail?.linkedinLink}
+											href={`/${keyModule()}/${item?.slug}`}
 											target="_blank"
 											rel="noreferrer"
-											className={`${styles.social}`}
 										>
-											<img src={social_icon.src} alt="pic" />
-										</a>
-									)}
-								</div>
-							</div>
-						);
-					})}
-				</div>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-					{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
-						/**keyModule  */
-						const keyModule = () => {
-							if (item?.contentType?.node?.name === "softwares") {
-								return "software";
-							}
-							return item?.contentType?.node?.name;
-						};
-						return (
-							<div className={`${styles.poweredBy}`} key={item?.title}>
-								<a
-									href={`/${keyModule()}/${item?.slug}`}
-									target="_blank"
-									rel="noreferrer"
-								>
-									<div className={`${styles.poweredLogo}`}>
-										<img
-											src={item?.softwares?.banner?.logo?.node?.sourceUrl}
-											className={`${styles.amun_logo}`}
-											alt="amun_logo"
-										/>
-										{/* <img
+											<div className={`${styles.poweredLogo}`}>
+												<img
+													src={item?.softwares?.banner?.logo?.node?.sourceUrl}
+													className={`${styles.amun_logo}`}
+													alt="amun_logo"
+												/>
+												{/* <img
                                     src={amun_hover_logo.src}
                                     className={`${styles.amun_hover_logo}`}
                                     alt="amun_logo"
                                 /> */}
 
-										<span className="f_r_aj_between text_xxs text_uppercase">
-											Know More
-											<img src={white_arrow.src} className="" alt="amun_logo" />
-										</span>
+												<span className="f_r_aj_between text_xxs text_uppercase">
+													Know More
+													<img src={white_arrow.src} className="" alt="amun_logo" />
+												</span>
+											</div>
+										</a>
 									</div>
-								</a>
-							</div>
-						);
-					})}
+								);
+							})}
+						</div>
+					)}
 				</div>
-			</div>
+			)}
 			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_m pb_10">

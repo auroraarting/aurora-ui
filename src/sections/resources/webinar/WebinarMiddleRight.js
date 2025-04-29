@@ -23,30 +23,62 @@ import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 export default function WebinarMiddleRight({ data }) {
 	return (
 		<div className={`${styles.WebinarMiddleRightBox}`}>
-			<div className={`${styles.whiteBox}`}>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
-				</div>
-				<div className={`${styles.BoxName}`}>
-					<h5 className="text_reg color_gray f_w_m pb_10">John Feddersen</h5>
-				</div>
-				<div className={`${styles.BoxName}`}>
-					<h5 className="text_reg color_gray f_w_m pb_10">Duncan Young</h5>
-				</div>
-				<div className={`${styles.itemBox} pt_20`}>
-					<h5 className="text_reg color_gray f_w_b pb_10">Service</h5>
-					<div className={`${styles.ClientFlex} ${styles.speakerFlex} f_r_a_center`}>
-						<div className={`${styles.ClientLogo}`}>
-							<img src={author_logo.src} alt="pic" />
+			{(data?.postFields?.speakers?.nodes ||
+				data?.postFields?.speakers?.nodes ||
+				data?.postFields?.poweredBy?.nodes) && (
+				<div className={`${styles.whiteBox}`}>
+					{data?.postFields?.speakers?.nodes && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
 						</div>
-						<div className={`${styles.ClientDescription}`}>
-							<h5 className="text_xs font_primary color_gray f_w_b font_primary">
-								Power & Renewables Service
-							</h5>
+					)}
+					{data?.postFields?.speakers?.nodes?.map((item, ind) => {
+						return (
+							<div className={`${styles.BoxName}`} key={item?.title}>
+								<h5 className="text_reg color_gray f_w_m pb_10">{item?.title}</h5>
+							</div>
+						);
+					})}
+					{data?.postFields?.poweredBy?.nodes && (
+						<div className={`${styles.itemBox} pt_20`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Service</h5>
+							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+								/**keyModule  */
+								const keyModule = () => {
+									if (item?.contentType?.node?.name === "softwares") {
+										return "software";
+									}
+									return item?.contentType?.node?.name;
+								};
+								return (
+									<a
+										href={`/${keyModule()}/${item?.slug}`}
+										target="_blank"
+										rel="noreferrer"
+										key={item?.title}
+										className={`${styles.ClientFlex} ${styles.speakerFlex} f_r_a_center`}
+									>
+										<div className={`${styles.ClientLogo}`}>
+											<img
+												src={
+													item?.[item?.contentType?.node?.name]?.banner?.logo?.node
+														?.sourceUrl
+												}
+												alt="pic"
+											/>
+										</div>
+										{/* <div className={`${styles.ClientDescription}`}>
+									<h5 className="text_xs font_primary color_gray f_w_b font_primary">
+										Power & Renewables Service
+									</h5>
+								</div> */}
+									</a>
+								);
+							})}
 						</div>
-					</div>
+					)}
 				</div>
-			</div>
+			)}
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
 				<div className={`${styles.InsideItem}`}>
 					{data?.tags?.nodes?.length > 0 && (
