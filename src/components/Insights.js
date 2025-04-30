@@ -110,9 +110,9 @@ export default function Insights({
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
 											{formSectionTitle}
 										</h2>
-										<p className="text_reg color_silver_gray">
+										<div className="text_reg color_silver_gray">
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
-										</p>
+										</div>
 									</div>
 									<a
 										className={`${styles.bookBtn}`}
@@ -134,9 +134,9 @@ export default function Insights({
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
 											{formSectionTitle}
 										</h2>
-										<p className="text_reg color_silver_gray">
+										<div className="text_reg color_silver_gray">
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
-										</p>
+										</div>
 									</div>
 									<div className={`${styles.formBox}`}>
 										{/* <img
