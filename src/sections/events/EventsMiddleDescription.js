@@ -15,14 +15,17 @@ import styles from "@/styles/sections/events/EventsMiddleDescription.module.scss
 // IMAGES //
 import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
 import graph_img from "@/../public/img/resources/aurora_insights/graph_img.png";
+import ContentFromCms from "@/components/ContentFromCms";
+import { useState } from "react";
 
 // DATA //
 
 /** EventsMiddleDescription Section */
-export default function EventsMiddleDescription() {
+export default function EventsMiddleDescription({ data }) {
 	return (
 		<div className={`${styles.contentBox}`}>
-			<p>
+			<ContentFromCms>{data?.content}</ContentFromCms>
+			{/* <p>
 				As the European Union moves toward its 2050 Net Zero targets, Central and
 				Eastern Europe (CEE) is emerging as a key focus area for the energy
 				transition. Historically reliant on coal and natural gas, CEE’s energy
@@ -57,22 +60,56 @@ export default function EventsMiddleDescription() {
 			<h5>
 				This summit is your chance to stay at the forefront of the CEE energy
 				transition and contribute to shaping its future.
-			</h5>
+			</h5> */}
 
+			<WhyAttend data={data?.events?.whyAttend} />
+			<Hightlights data={data?.events?.hightlights} />
+		</div>
+	);
+}
+
+/** Hightlights  */
+const Hightlights = ({ data }) => {
+	const [endIndex, setEndIndex] = useState(3);
+	return (
+		<section id="hightlights" data-name="Hightlights">
+			<h2>Hightlights</h2>
+			<ul>
+				{data?.hightlights?.slice(0, endIndex)?.map((item) => {
+					return <li key={item?.text}>{item?.text}</li>;
+				})}
+			</ul>
+			<div
+				className={`${styles.btn_box}`}
+				onClick={() => setEndIndex(data?.agenda?.length)}
+			>
+				<Button color="secondary" variant="filled" shape="rounded">
+					View Full Hightlights
+				</Button>
+			</div>
+		</section>
+	);
+};
+
+/** WhyAttend  */
+const WhyAttend = ({ data }) => {
+	const [endIndex, setEndIndex] = useState(3);
+	return (
+		<section id="whyAttend" data-name="Why Attend" className="pb_50">
 			<h2>Why attend?</h2>
 			<ul>
-				<li>Be Part of a Landmark Event</li>
-				<li>Connect with Industry Leaders</li>
-				<li>Gain Expert Insights</li>
-				<li>Be Part of a Landmark Event</li>
-				<li>Be Part of a Landmark Event</li>
-				<li>Be Part of a Landmark Event</li>
+				{data?.agenda?.slice(0, endIndex)?.map((item) => {
+					return <li key={item?.text}>{item?.text}</li>;
+				})}
 			</ul>
-			<div className={styles.btn_box}>
+			<div
+				className={styles.btn_box}
+				onClick={() => setEndIndex(data?.agenda?.length)}
+			>
 				<Button color="secondary" variant="filled" shape="rounded">
 					View Full Agenda
 				</Button>
 			</div>
-		</div>
+		</section>
 	);
-}
+};

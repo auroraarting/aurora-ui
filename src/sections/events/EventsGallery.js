@@ -33,7 +33,7 @@ import gallery_seven_img from "@/../public/img/events/gallery_seven_img.jpg";
 // DATA //
 
 /** EventsGallery Section */
-export default function EventsGallery() {
+export default function EventsGallery({ data }) {
 	/** EventsGallery Section */
 	const onInit = () => {
 		// console.log("lightGallery has been initialized");
@@ -50,7 +50,23 @@ export default function EventsGallery() {
 						mode="lg-fade"
 						mobileSettings={{ closable: true }}
 					>
-						<a
+						{data?.events?.glimps?.gallery?.nodes?.map((item) => {
+							return (
+								<a
+									key={item?.sourceUrl}
+									href={item?.sourceUrl}
+									data-src={item?.sourceUrl}
+									className={`${styles.galleryItemOne}`}
+								>
+									<img
+										src={item?.sourceUrl}
+										className={`${styles.galleryImg} width_100 b_r_10`}
+										alt="Gallery 1"
+									/>
+								</a>
+							);
+						})}
+						{/* <a
 							href={gallery_img.src}
 							data-src={gallery_img.src}
 							className={`${styles.galleryItemOne}`}
@@ -126,7 +142,7 @@ export default function EventsGallery() {
 								className={`${styles.galleryImg} width_100 b_r_10`}
 								alt="Gallery"
 							/>
-						</a>
+						</a> */}
 					</LightGallery>
 				</div>
 			</div>

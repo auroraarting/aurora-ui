@@ -33,8 +33,62 @@ import DownloadList from "@/sections/events/DownloadList";
 
 // DATA //
 
+// SERVICES //
+import { getAllEvents, getEventsInside } from "@/services/Events.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { dynamicInsightsBtnProps } from "@/utils";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data, events, categoriesForSelect] = await Promise.all([
+		getEventsInside(params.slug),
+		getAllEvents("first:3"),
+		getInsightsCategories(),
+	]);
+
+	const countries = categoriesForSelect.data.countries.nodes;
+	const dataForBtn = { postFields: data.data.eventBy.events };
+
+	return {
+		props: {
+			data: data.data.eventBy,
+			dataForBtn,
+			countries,
+			events: events.data.events.nodes?.map((item) => {
+				return {
+					title: item?.title,
+					slug: item?.slug,
+					date: item?.events?.thumbnail?.date,
+					featuredImage: null,
+					categories: {
+						nodes: [
+							{
+								slug: "event",
+								name: "Event",
+							},
+						],
+					},
+					language: {
+						id: "1",
+						code: "en",
+						language_code: "en",
+						native_name: "English",
+					},
+					tags: {
+						nodes: [],
+					},
+				};
+			}),
+		},
+	};
+}
+
 /** EventsInside Page */
-export default function EventsInside() {
+export default function EventsInside({ data, events, countries, dataForBtn }) {
+	console.log("data", data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -64,14 +118,15 @@ export default function EventsInside() {
 			</Button>
 		</div>,
 	];
+
 	return (
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={"Events Inside"}
+				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={"/events-inside"}
+				Url={`/events/${data?.slug}`}
 			/>
 
 			{/* Header */}
@@ -80,22 +135,26 @@ export default function EventsInside() {
 			{/* Page Content starts here */}
 			<main className={styles.EventsInsidePage}>
 				<div className="pt_100">
-					<EventsInsideBanner />
+					<EventsInsideBanner data={data} />
 				</div>
 				<SectionsHeader data={headerArray} />
 				<section className={`${styles.eventsMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
-								<EventsMiddleDescription />
-								<EventsLocation />
-								<div className="pb_60">
-									<EventsGallery />
-								</div>
-								<Sponsors />
-								<div className="">
-									<EventInsideVideo />
-								</div>
+								<EventsMiddleDescription data={data} />
+								<EventsLocation data={data} />
+								{data?.events?.glimps?.gallery?.nodes && (
+									<div className="pb_60">
+										<EventsGallery data={data} />
+									</div>
+								)}
+								<Sponsors data={data} />
+								{data?.events?.glimps?.video && (
+									<div className="">
+										<EventInsideVideo data={data} />
+									</div>
+								)}
 							</div>
 							<div className={`${styles.eventsMiddleRight}`}>
 								<EventsMiddleRight />
@@ -104,19 +163,28 @@ export default function EventsInside() {
 					</div>
 				</section>
 				<div className="pb_100">
-					<AudienceBreakdown />
+					<AudienceBreakdown data={data} />
 				</div>
 				<div className="pb_40">
-					<Speakers />
+					<Speakers data={data} />
 				</div>
 				<div className="pb_60">
-					<DownloadList />
+					<DownloadList data={data} />
 				</div>
 				<div className="pb_100">
 					<Insights
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
 						isInsightsBlogsVisible={true}
+						defaultList={events}
+						countries={countries}
+						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
+						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+						insightsTitle="Previous Events from Aurora"
+						formSectionBtnText={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+						}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 			</main>
