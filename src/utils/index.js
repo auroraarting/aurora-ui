@@ -482,3 +482,68 @@ export const filterEvents = (items, filterObj) => {
 		return matchesCategoryFilters && matchesYear;
 	});
 };
+
+/** filterBySearchQuery */
+export const filterBySearchQueryEvents = (items, searchQuery) => {
+	if (!searchQuery) return items;
+
+	const lowerSearch = searchQuery.toLowerCase();
+
+	return items.filter((item) => {
+		const tagNames = item.title.toLowerCase();
+		return tagNames.includes(lowerSearch);
+	});
+};
+
+/** filterItemsBySelectedObj  */
+export function filterItemsBySelectedObj(arr, selectedObj) {
+	const filters = [
+		{
+			key: "type",
+			getNodes: (item) => item.eventscategories?.nodes,
+			match: (node, value) => node.name === value,
+		},
+		{
+			key: "country",
+			getNodes: (item) => item.events?.thumbnail?.country?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "year",
+			match: (item, value) =>
+				new Date(item.events?.thumbnail?.date).getFullYear() === value,
+		},
+		{
+			key: "product",
+			getNodes: (item) => item.events?.thumbnail?.category?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "software",
+			getNodes: (item) => item.events?.thumbnail?.category?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "service",
+			getNodes: (item) => item.events?.thumbnail?.category?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "status",
+			match: (item, value) => item.events?.thumbnail?.status === value,
+		},
+	];
+
+	return filters.reduce((filteredArr, { key, getNodes, match }) => {
+		const value = selectedObj[key];
+		if (!value) return filteredArr;
+
+		return filteredArr.filter((item) => {
+			if (getNodes) {
+				const nodes = getNodes(item) || [];
+				return nodes.some((node) => match(node, value));
+			}
+			return match(item, value);
+		});
+	}, arr);
+}

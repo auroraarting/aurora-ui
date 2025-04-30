@@ -9,6 +9,10 @@
 	}
 	.locationRight {
 		width: 60%;
+		iframe {
+			width: 100%;
+			height: 400px;
+		}
 		@media (max-width: 991px) {
 			width: 100%;
 		}
