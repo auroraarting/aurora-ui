@@ -31,7 +31,7 @@ import clock from "@/../public/img/icons/clock.svg";
 // DATA //
 
 /** PastSpeakers Section */
-export default function PastSpeakers() {
+export default function PastSpeakers({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 
@@ -56,52 +56,7 @@ export default function PastSpeakers() {
 		}
 	}, [slideNo]);
 
-	const eventSpeakersData = [
-		{
-			name: "Anna Clunes1",
-			designation: "British Ambassador, Poland1",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			sessions: [
-				{
-					time: "1:30 PM1",
-					topicName: "Welcome and Opening Remarks1",
-					timeDateSession: "1:30 PM - 1:40 PM CET1",
-					locationSession: "InterContinental Warsaw, Conference Room1",
-				},
-				{
-					time: "1:30 PM1",
-					topicName: "Welcome and Opening Remarks1",
-					timeDateSession: "1:30 PM - 1:40 PM CET1",
-					locationSession: "InterContinental Warsaw, Conference Room1",
-				},
-			],
-		},
-		{
-			name: "Anna Clunes2",
-			designation: "British Ambassador, Poland2",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			sessions: [
-				{
-					time: "1:30 PM2",
-					topicName: "Welcome and Opening Remarks2",
-					timeDateSession: "1:30 PM - 1:40 PM CET2",
-					locationSession: "InterContinental Warsaw, Conference Room2",
-				},
-			],
-		},
-		{
-			name: "Anna Clunes3",
-			designation: "British Ambassador, Poland3",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			sessions: [],
-		},
-	];
+	const eventSpeakersData = data;
 	// console.log(eventSpeakersData);
 	return (
 		<section className={`${styles.PastSpeakers}`}>

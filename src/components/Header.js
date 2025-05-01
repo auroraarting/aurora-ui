@@ -147,6 +147,8 @@ export default function Header() {
 		fetchData();
 	}, []);
 
+	if (!data) return <div className="stalePage"></div>;
+
 	return (
 		<>
 			<header className={`${styles.main_headerBox} main_headerBox`}>

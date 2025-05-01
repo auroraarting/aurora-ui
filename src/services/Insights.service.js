@@ -5,12 +5,6 @@ export const getInsights = async (filterString = "first:9999") => {
 	const query = `
 query GetInsights {
   posts(${filterString}) {
-  pageInfo {
-               endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-        }
     nodes {
       title
       slug
@@ -37,6 +31,36 @@ query GetInsights {
         nodes {
           name
           slug
+        }
+      }
+      postFields {
+        speakers {
+          nodes {
+            ... on PostSpeaker {
+              id
+              title
+              slug
+              postSpeakers {
+                sessions {
+                  address
+                  time
+                  timeSlot
+                  title
+                }
+                thumbnail {
+                  designation
+                  linkedinLink
+                  image {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+              content
+            }
+          }
         }
       }
     }
