@@ -303,6 +303,14 @@
 					}
 				}
 			}
+			.searchInput {
+				input {
+					outline: none;
+					border: none;
+					padding: 10px;
+					border-radius: 20px;
+				}
+			}
 		}
 	}
 	.title_wrap {
@@ -333,7 +341,8 @@
 
 				td {
 					opacity: 0.6;
-					&:nth-child(1) {
+					&:nth-child(1),
+					&:last-child {
 						opacity: 1;
 					}
 				}

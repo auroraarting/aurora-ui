@@ -45,6 +45,10 @@
 			transition: transform 0.5s ease-in-out;
 		}
 	}
+
+	&.mode_max {
+		width: max-content;
+	}
 }
 
 // Filled Button

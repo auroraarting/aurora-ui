@@ -41,7 +41,7 @@ export async function getServerSideProps() {
 
 	return {
 		props: {
-			countries: categoriesForSelect.data.countries.nodes,
+			countries: countries,
 			otherList,
 		},
 		revalidate: 10,

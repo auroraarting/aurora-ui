@@ -273,6 +273,14 @@ export default function InsightsListing({
 								</div>
 								{dropdowns.categoryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.categoryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("categoryType", "")}
+										>
+											All
+										</li>
 										{optionsData.categoryType.map((option) => (
 											<li
 												key={option.title}
@@ -303,6 +311,14 @@ export default function InsightsListing({
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
 										{countries?.map((option) => (
 											<li
 												key={option.title}
@@ -388,6 +404,14 @@ export default function InsightsListing({
 								</div>
 								{dropdowns.yearsType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.yearsType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("yearsType", "")}
+										>
+											All
+										</li>
 										{optionsData.yearsType.map((option) => (
 											<li
 												key={option.title}
@@ -399,6 +423,22 @@ export default function InsightsListing({
 										))}
 									</ul>
 								)}
+							</div>
+						</div>
+						{/* Reset */}
+						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} "activeDropDown"`}
+									onClick={() => {
+										setSelected({});
+										setList(data);
+									}}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										Reset
+									</div>
+								</div>
 							</div>
 						</div>
 						{/* search box */}

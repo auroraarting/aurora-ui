@@ -151,6 +151,14 @@ export default function JobOpenings({ data }) {
 											</div>
 											{dropdowns.eventNameType.isOpen && (
 												<ul className={styles.selectOptionBox}>
+													<li
+														className={
+															dropdowns.eventNameType.selected.title === "" ? "selected" : ""
+														}
+														onClick={() => handleOptionClick("eventNameType", "")}
+													>
+														All
+													</li>
 													{filters?.countries?.map((option) => (
 														<li
 															key={option.title}
@@ -186,6 +194,14 @@ export default function JobOpenings({ data }) {
 											</div>
 											{dropdowns.offeringsType.isOpen && (
 												<ul className={styles.selectOptionBox}>
+													<li
+														className={
+															dropdowns.offeringsType.selected.title === "" ? "selected" : ""
+														}
+														onClick={() => handleOptionClick("offeringsType", "")}
+													>
+														All
+													</li>
 													{filters?.departments?.map((option) => (
 														<li
 															key={option.title}
@@ -204,13 +220,13 @@ export default function JobOpenings({ data }) {
 										</div>
 									</div>
 								</div>
-								{/* <div>
+								<div className={`${styles.searchInput}`}>
 									<input
 										type="text"
-										placeholder="Serach"
+										placeholder="Serach..."
 										onChange={(e) => handleOptionClick("search", e.target.value)}
 									/>
-								</div> */}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -234,6 +250,15 @@ export default function JobOpenings({ data }) {
 									<td className="text_reg color_platinum_gray">
 										{/* Permanent - Full Time */}
 										{item?.employment_type_text}
+									</td>
+									<td className="text_reg color_platinum_gray">
+										{/* Permanent - Full Time */}
+										{/* {item?.employment_type_text} */}
+										<a href={item?.url} target="_blank" rel="noreferrer">
+											<Button color="primary" variant="filled" shape="rounded" mode="max">
+												Link to Job Post
+											</Button>
+										</a>
 									</td>
 								</tr>
 							);
