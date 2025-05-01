@@ -354,6 +354,13 @@ query GetInsightsInside {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+
+	let res = {};
+	try {
+		res = await GraphQLAPI(query);
+		return res;
+	} catch (error) {
+		console.log("error", error);
+	}
 	return res;
 };
