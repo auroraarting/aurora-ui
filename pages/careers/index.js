@@ -30,8 +30,8 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 
-/** Fetch  */
-export async function getStaticProps() {
+/** Fetch getStaticProps */
+export async function getServerSideProps() {
 	const [categoriesForSelect, list] = await Promise.all([
 		getInsightsCategories(),
 		getInsights('first: 3, where: {categoryName: ""}'),
