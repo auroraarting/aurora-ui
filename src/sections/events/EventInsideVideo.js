@@ -31,7 +31,7 @@ export default function EventInsideVideo({ data }) {
 	return (
 		<div className={`${styles.EventInsideVideo} `}>
 			<h2 className="text_lg color_secondary pb_10">
-				{/* {data?.events?.glimps?.sectionTitle} */}
+				{data?.events?.glimps?.sectionTitle}
 			</h2>
 			<div className={`${styles.videoThumb}`}>
 				<LightGallery

@@ -9,6 +9,8 @@ query GetEvents {
       title
       slug
       events {
+      interestedDesc
+      pricingDesc
         thumbnail {
           address
           date
@@ -166,6 +168,8 @@ query GetEventInside {
       }
     }
     events {
+    interestedDesc
+      pricingDesc
       thumbnail {
         address
         date
