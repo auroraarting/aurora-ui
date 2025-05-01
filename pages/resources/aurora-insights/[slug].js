@@ -71,8 +71,6 @@ export default function Articles({ data, otherList, countries }) {
 		item.slug.includes("report")
 	);
 
-	console.log(data, "isArticle");
-
 	/** scrollToSection */
 	const scrollToSection = (id) => {
 		scroller.scrollTo(id, {
