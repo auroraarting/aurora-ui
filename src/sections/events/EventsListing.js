@@ -191,6 +191,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.eventNameType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.eventNameType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventType", "")}
+										>
+											All
+										</li>
 										{categories.map((option) => (
 											<li
 												key={option.title}
@@ -226,6 +234,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
 										{countries.map((option) => (
 											<li
 												key={option.title}
@@ -313,6 +329,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.eventStatusType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.eventStatusType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventStatusType", "")}
+										>
+											All
+										</li>
 										{optionsData.eventStatusType.map((option) => (
 											<li
 												key={option.title}
@@ -351,6 +375,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.yearsType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.yearsType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("yearsType", "")}
+										>
+											All
+										</li>
 										{years.map((option) => (
 											<li
 												key={option.title}
@@ -368,7 +400,22 @@ export default function EventsListing({
 								)}
 							</div>
 						</div>
-
+						{/* Reset */}
+						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} "activeDropDown"`}
+									onClick={() => {
+										setSelected({});
+										setList(data);
+									}}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										Reset
+									</div>
+								</div>
+							</div>
+						</div>
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}

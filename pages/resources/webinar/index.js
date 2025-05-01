@@ -31,6 +31,7 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import { getWebinarPage } from "@/services/Webinar.service";
 
 // DATA //
 
@@ -39,10 +40,31 @@ export async function getServerSideProps() {
 	const queryTxt =
 		// eslint-disable-next-line quotes
 		'first:9999, where: { categoryName: "public-webinar,webinar,webinar-recording" }';
-	const [data, categoriesForSelect] = await Promise.all([
+	const [data, categoriesForSelect, webinarpage] = await Promise.all([
 		getInsights(queryTxt),
 		getInsightsCategories(),
+		getWebinarPage(),
 	]);
+	let pastSpeakers = [];
+
+	data?.data?.posts?.nodes?.map((item) => {
+		item?.postFields?.speakers?.nodes?.map((item2) => {
+			pastSpeakers.push({
+				name: item2?.title,
+				designation: item2?.postSpeakers?.thumbnail?.designation,
+				desc: item2?.content || "",
+				thumbnail: item2?.postSpeakers?.thumbnail?.image?.node?.sourceUrl,
+				sessions: item2?.postSpeakers?.sessions?.map((item3) => {
+					return {
+						time: item3?.time,
+						topicName: item3?.title,
+						timeDateSession: item3?.timeSlot,
+						locationSession: item3?.address,
+					};
+				}),
+			});
+		});
+	});
 
 	return {
 		props: {
@@ -54,6 +76,8 @@ export async function getServerSideProps() {
 			products: categoriesForSelect.data.products.nodes,
 			softwares: categoriesForSelect.data.softwares.nodes,
 			services: categoriesForSelect.data.services.nodes,
+			pastSpeakers,
+			webinarpage: webinarpage.data.page.webinarsListing,
 		},
 		// revalidate: 10,
 	};
@@ -69,7 +93,10 @@ export default function WebinarTalks({
 	products,
 	softwares,
 	services,
+	pastSpeakers,
+	webinarpage,
 }) {
+	console.log(webinarpage);
 	const [original, setOriginal] = useState(data);
 
 	return (
@@ -84,8 +111,8 @@ export default function WebinarTalks({
 			<main className={styles.WebinarPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
-						bannerTitle="Lorem ipsum dolor sit amet consectetur."
-						bannerDescription="Each year, our landmark events bring together international industry leaders, government officials and academics to engage in addressing the hottest energy topics."
+						bannerTitle={webinarpage?.banner?.title}
+						bannerDescription={webinarpage?.banner?.desc}
 						showContentOnly
 					/>
 				</div>
@@ -116,11 +143,19 @@ export default function WebinarTalks({
 					/>
 				</div>
 				<div className="ptb_100">
-					<PastSpeakers />
+					<PastSpeakers data={pastSpeakers} />
 				</div>
-				<div className="pb_100">
-					<AllVideos />
-				</div>
+				{webinarpage?.video?.sectionTitle && (
+					<div className="pb_100">
+						<AllVideos
+							title={webinarpage?.video?.sectionTitle}
+							desc={webinarpage?.video?.sectionDesc}
+							redirectLink={webinarpage?.video?.redirectLink}
+							videoLink={webinarpage?.video?.videoLink}
+							videoThumbnail={webinarpage?.video?.videoThumbnail?.node?.sourceUrl}
+						/>
+					</div>
+				)}
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
 						<Insights isPowerBgVisible={true} />

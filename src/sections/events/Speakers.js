@@ -90,7 +90,7 @@ export default function Speakers({ data }) {
 				</div>
 				<div className={`${styles.content_main_wrap} pt_40`}>
 					<div className={`${styles.box_wrap}`}>
-						{eventSpeakersData.map((item, ind) => {
+						{eventSpeakersData?.map((item, ind) => {
 							return (
 								<div
 									className={`${styles.box_item}`}
@@ -146,7 +146,7 @@ export default function Speakers({ data }) {
 										className={styles.slider}
 										ref={sliderRef}
 									>
-										{eventSpeakersData.map((item, ind) => (
+										{eventSpeakersData?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
 												<div className={`${styles.PopupItem}`}>
 													<div className={`${styles.BoxFlex} f_w`}>

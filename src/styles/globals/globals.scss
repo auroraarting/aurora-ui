@@ -207,3 +207,13 @@ section {
 	pointer-events: none !important;
 	display: none !important;
 }
+
+.stalePage {
+	background-color: var(--color_platinum_gray);
+	top: 0;
+	left: 0;
+	z-index: 999999;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}

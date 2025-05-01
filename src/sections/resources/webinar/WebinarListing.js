@@ -88,12 +88,12 @@ export default function WebinarListing({
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
 		],
-		yearsType: [
-			{ title: "2025" },
-			{ title: "2024" },
-			{ title: "2023" },
-			{ title: "2022" },
-		],
+		yearsType: Array(new Date().getFullYear() - 2000)
+			.fill(null)
+			.map((item, ind) => {
+				return { title: 2001 + ind };
+			})
+			.reverse(),
 	};
 
 	/** Toggle Dropdown */
@@ -104,32 +104,13 @@ export default function WebinarListing({
 		}));
 	};
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
-
 	/** Handle Option Click */
 	const handleOptionClick = (key, option) => {
 		setDropdowns((prev) => ({
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
+		console.log(option.title, key);
 		if (key === "categoryType") {
 			filter(option, key);
 		} else {
@@ -182,7 +163,7 @@ export default function WebinarListing({
 		setSelected(selectedObj);
 
 		const filteredArr = filterItems(arr, queryObj);
-		console.log(filteredArr, queryObj);
+		console.log(filteredArr, selectedObj);
 		setList(filteredArr);
 		setLoading(false);
 	};
@@ -229,6 +210,14 @@ export default function WebinarListing({
 								</div>
 								{dropdowns.categoryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.categoryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("categoryType", "")}
+										>
+											All
+										</li>
 										{optionsData.categoryType.map((option) => (
 											<li
 												key={option.title}
@@ -259,6 +248,14 @@ export default function WebinarListing({
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
 										{countries?.map((option) => (
 											<li
 												key={option.title}
@@ -344,11 +341,22 @@ export default function WebinarListing({
 								</div>
 								{dropdowns.yearsType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.yearsType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("yearsType", "")}
+										>
+											All
+										</li>
 										{optionsData.yearsType.map((option) => (
 											<li
 												key={option.title}
 												className={option.title === selected.year ? "selected" : ""}
-												onClick={() => handleOptionClick("yearsType", option)}
+												onClick={() => {
+													handleOptionClick("yearsType", option);
+													console.log("yearsType", option);
+												}}
 											>
 												{option.title}
 											</li>
@@ -357,6 +365,23 @@ export default function WebinarListing({
 								)}
 							</div>
 						</div>
+						{/* Reset */}
+						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} "activeDropDown"`}
+									onClick={() => {
+										setSelected({});
+										setList(data);
+									}}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										Reset
+									</div>
+								</div>
+							</div>
+						</div>
+
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}
