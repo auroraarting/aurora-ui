@@ -52,43 +52,57 @@ export async function getServerSideProps({ params }) {
 	const countries = categoriesForSelect.data.countries.nodes;
 	const dataForBtn = { postFields: data.data.eventBy.events };
 
+	const eventList = [];
+	events.data.events.nodes?.map((item) => {
+		const tempObj = {
+			title: item?.title,
+			slug: item?.slug,
+			date: item?.events?.thumbnail?.date,
+			featuredImage: null,
+			categories: {
+				nodes: [
+					{
+						slug: "event",
+						name: "Event",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+		};
+
+		if (item?.slug != params.slug) eventList.push(tempObj);
+	});
+
 	return {
 		props: {
 			data: data.data.eventBy,
-			dataForBtn,
 			countries,
-			events: events.data.events.nodes?.map((item) => {
-				return {
-					title: item?.title,
-					slug: item?.slug,
-					date: item?.events?.thumbnail?.date,
-					featuredImage: null,
-					categories: {
-						nodes: [
-							{
-								slug: "event",
-								name: "Event",
-							},
-						],
-					},
-					language: {
-						id: "1",
-						code: "en",
-						language_code: "en",
-						native_name: "English",
-					},
-					tags: {
-						nodes: [],
-					},
-				};
-			}),
+			dataForBtn,
+			events: eventList,
+			eventsOriginal: events.data.events.nodes.filter(
+				(item) => item.slug != params.slug
+			),
 		},
 	};
 }
 
 /** EventsInside Page */
-export default function EventsInside({ data, events, countries, dataForBtn }) {
-	console.log("data", data);
+export default function EventsInside({
+	data,
+	events,
+	countries,
+	dataForBtn,
+	eventsOriginal,
+}) {
+	console.log(eventsOriginal);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -137,7 +151,22 @@ export default function EventsInside({ data, events, countries, dataForBtn }) {
 				<div className="pt_100">
 					<EventsInsideBanner data={data} />
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					data={headerArray}
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<section className={`${styles.eventsMiddle} pb_80 pt_40`}>
 					<div className="container">
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
@@ -157,7 +186,7 @@ export default function EventsInside({ data, events, countries, dataForBtn }) {
 								)}
 							</div>
 							<div className={`${styles.eventsMiddleRight}`}>
-								<EventsMiddleRight />
+								<EventsMiddleRight data={data} events={eventsOriginal} />
 							</div>
 						</div>
 					</div>
