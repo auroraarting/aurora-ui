@@ -48,7 +48,7 @@ export async function getServerSideProps({ params }) {
 	]);
 
 	const otherList = list?.data?.posts?.nodes || [];
-	const countries = categoriesForSelect.data.countries.nodes || [];
+	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	return {
 		props: {
 			data: data?.data?.postBy || [],
