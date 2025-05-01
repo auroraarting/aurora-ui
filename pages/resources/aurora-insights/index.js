@@ -37,8 +37,8 @@ import {
 	getInsightsPath,
 } from "@/services/Insights.service";
 
-/** Fetch  */
-export async function getStaticProps() {
+/** Fetch  getStaticProps*/
+export async function getServerSideProps() {
 	const [data, categoriesForSelect, list] = await Promise.all([
 		getInsights(
 			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
@@ -60,7 +60,7 @@ export async function getStaticProps() {
 			services: categoriesForSelect?.data?.services?.nodes || [],
 			otherList,
 		},
-		revalidate: 10,
+		// revalidate: 10,
 	};
 }
 

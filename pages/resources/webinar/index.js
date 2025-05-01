@@ -34,8 +34,8 @@ import {
 
 // DATA //
 
-/** Fetch  */
-export async function getStaticProps() {
+/** Fetch  getStaticProps*/
+export async function getServerSideProps() {
 	const queryTxt =
 		// eslint-disable-next-line quotes
 		'first:9999, where: { categoryName: "public-webinar,webinar,webinar-recording" }';
@@ -55,7 +55,7 @@ export async function getStaticProps() {
 			softwares: categoriesForSelect.data.softwares.nodes,
 			services: categoriesForSelect.data.services.nodes,
 		},
-		revalidate: 10,
+		// revalidate: 10,
 	};
 }
 
