@@ -168,7 +168,7 @@ query GetEventInside {
       }
     }
     events {
-    interestedDesc
+      interestedDesc
       pricingDesc
       thumbnail {
         address
@@ -209,17 +209,26 @@ query GetEventInside {
       }
       downloads {
         link
-        text
-        icon {
+        file {
           node {
             altText
             sourceUrl
           }
         }
-        file {
-          node {
-            altText
-            sourceUrl
+        type {
+          nodes {
+            ... on Eventdownload {
+              id
+              name
+              eventDownloads {
+                icon {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -267,28 +276,30 @@ query GetEventInside {
         sectionDesc
         sectionTitle
         speakers {
-          nodes {
-            ... on PostSpeaker {
-              id
-              title
-              slug
-              content
-              postSpeakers {
-                thumbnail {
-                  designation
-                  image {
-                    node {
-                      altText
-                      sourceUrl
+          sessions {
+            address
+            time
+            timeSlot
+            title
+          }
+          speakers {
+            nodes {
+              ... on PostSpeaker {
+                id
+                content
+                title
+                slug
+                postSpeakers {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        sourceUrl
+                      }
                     }
                   }
-                  linkedinLink
-                }
-                sessions {
-                  address
-                  time
-                  timeSlot
-                  title
                 }
               }
             }
@@ -319,7 +330,31 @@ query GetEventInside {
       }
       whyAttend {
         agenda {
-          text
+          address
+          time
+          timeSlot
+          title
+          speaker {
+            nodes {
+              ... on PostSpeaker {
+                id
+                title
+                slug
+                postSpeakers {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
       banner {
@@ -330,6 +365,185 @@ query GetEventInside {
           }
         }
         mobile {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+}
+      `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** Fetch Page */
+export const getEventLandingPage = async () => {
+	const query = `
+query GetEventLanding {
+  page(id: "event-landing", idType: URI) {
+    title
+    slug
+    eventLanding {
+      banner {
+        desc
+        title
+      }
+      speakers {
+        sectionTitle
+        sectionDesc
+        speakers {
+          nodes {
+            ... on PostSpeaker {
+              id
+              content
+              title
+              postSpeakers {
+                thumbnail {
+                  designation
+                  linkedinLink
+                  image {
+                    node {
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      audienceSpeak {
+        sectionTitle
+        testimonials {
+          nodes {
+            ... on Testimonial {
+              id
+              content
+              title
+              testimonials {
+                designation
+              }
+            }
+          }
+        }
+      }
+      featured {
+        nodes {
+          ... on Event {
+            title
+            slug
+            events {
+              interestedDesc
+              pricingDesc
+              thumbnail {
+                address
+                date
+                status
+                time
+                logo {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+                country {
+                  nodes {
+                    ... on Country {
+                      id
+                      title
+                      slug
+                    }
+                  }
+                }
+                category(first: 999) {
+                  nodes {
+                    contentType {
+                      node {
+                        name
+                      }
+                    }
+                    ... on Service {
+                      id
+                      slug
+                      title
+                      content
+                      services {
+                        map {
+                          logo {
+                            node {
+                              altText
+                              sourceUrl
+                            }
+                          }
+                        }
+                      }
+                    }
+                    ... on Software {
+                      id
+                      title
+                      slug
+                      content
+                      softwares {
+                        map {
+                          logo {
+                            node {
+                              altText
+                              sourceUrl
+                            }
+                          }
+                        }
+                      }
+                    }
+                    ... on Product {
+                      id
+                      title
+                      slug
+                      content
+                      products {
+                        map {
+                          logo {
+                            node {
+                              altText
+                              sourceUrl
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              banner {
+                desktop {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+                mobile {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+            eventscategories {
+              nodes {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
           node {
             altText
             sourceUrl

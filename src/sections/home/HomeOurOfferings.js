@@ -1,6 +1,7 @@
 // MODULES //
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // COMPONENTS //
 
@@ -23,11 +24,22 @@ import styles from "@/styles/sections/home/HomeOurOfferings.module.scss";
 // IMAGES //
 import macEOS from "../../../public/img/home/mac-eos.png";
 import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
+import Ellipse from "../../../public/img/ellipse.png";
 
 // DATA //
 
 /** HomeOurOfferings Section */
 export default function HomeOurOfferings() {
+	const lottieAnimations = [
+		{ id: "1", src: "/img/home/lottie/SoftwareLottie.json" },
+	];
+	const lottieAnimations2 = [
+		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
+	];
+	const [svgHeight, setSvgHeight] = useState("347px");
+	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
+	const bgColors = ["#00be86", "#fc0", "#00b6ed", "#0069b4"];
+	const [bgIndex, setBgIndex] = useState(0);
 	// const anim1 = useRef();
 	// const anim2 = useRef();
 	// /** platLottie funnction */
@@ -79,10 +91,15 @@ export default function HomeOurOfferings() {
 	useEffect(() => {
 		// playLottie();
 		// platLottieResp();
-		// EqualHeight("cardHBg");
+		EqualHeight("cardHBg");
+		const interval = setInterval(() => {
+			setBgIndex((prev) => (prev + 1) % bgColors.length);
+		}, 1000); // Change every 1s (sync with Lottie)
+
+		return () => clearInterval(interval);
 	}, []);
 	return (
-		<section className={`${styles.HomeOurOfferings} pt_100`}>
+		<section className={`${styles.HomeOurOfferings}`}>
 			<h3 className="text_lg color_secondary text_center">
 				We provide our clients with data-driven intelligence for{" "}
 				<br className="visible_lg" /> strategy, portfolio management and investment
@@ -134,7 +151,10 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox} cardHBg`}>
+						<div
+							className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}
+							style={{ backgroundColor: bgColors[bgIndex] }}
+						>
 							<div className={`${styles.Content}`}>
 								<Link href="/software">
 									<img
@@ -149,11 +169,21 @@ export default function HomeOurOfferings() {
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
 							</div>
-							<img
+							<DotLottieReact
+								src={lottieAnimations[0].src}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								style={{ height: svgHeight }}
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
+							{/* <img
 								src={macEOS.src}
 								alt="mac eos"
 								className={`${styles.BoxImg} m_0_auto`}
-							/>
+							/> */}
 							{/* <div className={`${styles.softwareAnim}`} ref={animRefs[0]}></div> */}
 						</div>
 					</SwiperSlide>
@@ -171,11 +201,21 @@ export default function HomeOurOfferings() {
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
 							</div>
-							<img
+							<DotLottieReact
+								src={lottieAnimations2[0].src}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								style={{ height: svgHeight }}
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
+							{/* <img
 								src={macEOS.src}
 								alt="mac eos"
 								className={`${styles.BoxImg} m_0_auto`}
-							/>
+							/> */}
 							{/* <div className={`${styles.softwareAnim}`} ref={animRefs2[0]}></div> */}
 						</div>
 					</SwiperSlide>
@@ -204,6 +244,7 @@ export default function HomeOurOfferings() {
 					</SwiperSlide>
 				</Swiper>
 			</div>
+			<img src={Ellipse.src} alt="Ellipse" className={`${styles.Ellipse}`} />
 		</section>
 	);
 }

@@ -11,6 +11,7 @@ import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import EnergyInsideTopSection from "@/sections/resources/energy-talks/EnergyInsideTopSection";
@@ -21,6 +22,7 @@ import EnergyMiddleRight from "@/sections/resources/energy-talks/EnergyMiddleRig
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.scss";
@@ -34,7 +36,6 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
@@ -181,6 +182,7 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 					/>
 				</div>
+				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
 

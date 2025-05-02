@@ -136,6 +136,8 @@ export default function Articles({ data, otherList, countries }) {
 		}
 	};
 
+	console.log(data);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -225,7 +227,7 @@ export default function Articles({ data, otherList, countries }) {
 					</div>
 				</section>
 				<div className="pb_100">
-					<TestimonialFeedback />
+					<TestimonialFeedback data={data?.postFields} />
 				</div>
 				<div className="pb_100">
 					<Insights

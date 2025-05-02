@@ -1,4 +1,8 @@
 .HomeOurOfferings {
+	position: relative;
+	@media (max-width: 767px) {
+		padding-top: 30px;
+	}
 	h3 {
 		padding: 0 15px;
 	}
@@ -43,27 +47,27 @@
 					margin-bottom: 30px;
 				}
 			}
-			// &.LottieContent {
-			// 	background-color: var(--color_white);
-			// 	h4 {
-			// 		color: var(--color_secondary);
-			// 	}
-			// 	p {
-			// 		color: var(--color_secondary);
-			// 	}
-			// }
+			&.LottieContent {
+				background-color: var(--color_white);
+				h4 {
+					color: var(--color_secondary);
+				}
+				p {
+					color: var(--color_secondary);
+				}
+			}
 		}
-		// .softwareAnim {
-		// 	position: absolute;
-		// 	left: 0;
-		// 	top: 0px;
-		// 	width: 100%;
-		// 	border-radius: 20px;
-		// 	background-color: var(--color_white);
-		// 	svg {
-		// 		border-radius: 20px;
-		// 	}
-		// }
+		.softwareAnim {
+			position: absolute;
+			left: 0;
+			top: 0px;
+			width: 100%;
+			border-radius: 20px;
+			background-color: var(--color_white);
+			svg {
+				border-radius: 20px;
+			}
+		}
 
 		:global(.swiper-slide) {
 			position: relative;
@@ -104,6 +108,24 @@
 			width: 50px;
 			border-radius: 50px;
 			transition: 0.5s all;
+		}
+	}
+	.Ellipse {
+		position: absolute;
+		left: 0;
+		top: -96px;
+		width: 100%;
+		@media (min-width: 1200px) and (max-width: 1400px) {
+			top: -92px;
+		}
+		@media (min-width: 992px) and (max-width: 1199px) {
+			top: -65px;
+		}
+		@media (min-width: 768px) and (max-width: 991px) {
+			top: -50px;
+		}
+		@media (max-width: 767px) {
+			top: -25px;
 		}
 	}
 }

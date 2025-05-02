@@ -30,9 +30,9 @@ export default function IframeModal({
 						<h2 className="title text_lg f_w_s_b font_primary color_white">
 							<ContentFromCms>{sectionTitle}</ContentFromCms>
 						</h2>
-						<p className="desc text_reg font_secondary color_silver_gray">
+						<div className="desc text_reg font_secondary color_silver_gray">
 							<ContentFromCms>{sectionDesc}</ContentFromCms>
-						</p>
+						</div>
 					</div>
 					<div className="form">
 						<iframe src="" className="formImg" title="Form"></iframe>

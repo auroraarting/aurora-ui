@@ -8,6 +8,7 @@ import MetaTags from "@/components/MetaTags";
 import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
@@ -19,6 +20,7 @@ import Speakers from "@/sections/events/Speakers";
 import EventsMiddleRight from "@/sections/events/EventsMiddleRight";
 import EventsGallery from "@/sections/events/EventsGallery";
 import AudienceBreakdown from "@/sections/events/AudienceBreakdown";
+import DownloadList from "@/sections/events/DownloadList";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -27,7 +29,6 @@ import { Link, scroller } from "react-scroll";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
-import DownloadList from "@/sections/events/DownloadList";
 
 // IMAGES //
 
@@ -43,16 +44,21 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, events, categoriesForSelect] = await Promise.all([
+	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
 		getEventsInside(params.slug),
-		getAllEvents("first:3"),
+		// eslint-disable-next-line quotes
+		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
 		getInsightsCategories(),
+		// eslint-disable-next-line quotes
+		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
 	]);
 
-	const countries = categoriesForSelect.data.countries.nodes;
-	const dataForBtn = { postFields: data.data.eventBy.events };
+	const countries = categoriesForSelect?.data?.countries?.nodes;
+	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
 
 	const eventList = [];
+	const pastEventList = [];
+
 	events.data.events.nodes?.map((item) => {
 		const tempObj = {
 			title: item?.title,
@@ -80,13 +86,41 @@ export async function getServerSideProps({ params }) {
 
 		if (item?.slug != params.slug) eventList.push(tempObj);
 	});
+	pastEvents.data.events.nodes?.map((item) => {
+		const tempObj = {
+			title: item?.title,
+			slug: item?.slug,
+			date: item?.events?.thumbnail?.date,
+			featuredImage: null,
+			categories: {
+				nodes: [
+					{
+						slug: "event",
+						name: "Event",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+		};
+
+		if (item?.slug != params.slug) pastEventList.push(tempObj);
+	});
 
 	return {
 		props: {
-			data: data.data.eventBy,
+			data: data?.data?.eventBy || {},
 			countries,
 			dataForBtn,
 			events: eventList,
+			pastEvents: pastEventList,
 			eventsOriginal: events.data.events.nodes.filter(
 				(item) => item.slug != params.slug
 			),
@@ -101,8 +135,9 @@ export default function EventsInside({
 	countries,
 	dataForBtn,
 	eventsOriginal,
+	pastEvents,
 }) {
-	console.log(eventsOriginal);
+	console.log(pastEvents);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -191,31 +226,44 @@ export default function EventsInside({
 						</div>
 					</div>
 				</section>
-				<div className="pb_100">
-					<AudienceBreakdown data={data} />
-				</div>
-				<div className="pb_40">
-					<Speakers data={data} />
-				</div>
-				<div className="pb_60">
-					<DownloadList data={data} />
-				</div>
-				<div className="pb_100">
-					<Insights
-						isFormVisible={isFormVisible}
-						setIsFormVisible={setIsFormVisible}
-						isInsightsBlogsVisible={true}
-						defaultList={events}
-						countries={countries}
-						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
-						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
-						insightsTitle="Previous Events from Aurora"
-						formSectionBtnText={
-							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
-						}
-						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
-					/>
-				</div>
+				{data?.events?.breakdown?.sectionTitle && (
+					<div className="pb_100">
+						<AudienceBreakdown data={data} />
+					</div>
+				)}
+				{data?.events?.speakers?.speakers && (
+					<div className="pb_40">
+						<Speakers
+							data={data?.events?.speakers?.speakers}
+							title={data?.events?.speakers?.sectionTitle}
+							desc={data?.events?.speakers?.sectionDesc}
+						/>
+					</div>
+				)}
+				{data?.events?.downloads && (
+					<div className="pb_60">
+						<DownloadList data={data} />
+					</div>
+				)}
+				{pastEvents.length > 0 && (
+					<div className="pb_100">
+						<Insights
+							isFormVisible={isFormVisible}
+							setIsFormVisible={setIsFormVisible}
+							isInsightsBlogsVisible={true}
+							defaultList={pastEvents}
+							countries={countries}
+							formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
+							formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+							insightsTitle="Previous Events from Aurora"
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+							}
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						/>
+					</div>
+				)}
+				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
 
