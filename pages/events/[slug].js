@@ -8,6 +8,7 @@ import MetaTags from "@/components/MetaTags";
 import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
@@ -19,6 +20,7 @@ import Speakers from "@/sections/events/Speakers";
 import EventsMiddleRight from "@/sections/events/EventsMiddleRight";
 import EventsGallery from "@/sections/events/EventsGallery";
 import AudienceBreakdown from "@/sections/events/AudienceBreakdown";
+import DownloadList from "@/sections/events/DownloadList";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -27,7 +29,6 @@ import { Link, scroller } from "react-scroll";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
-import DownloadList from "@/sections/events/DownloadList";
 
 // IMAGES //
 
@@ -45,12 +46,13 @@ import { dynamicInsightsBtnProps } from "@/utils";
 export async function getServerSideProps({ params }) {
 	const [data, events, categoriesForSelect] = await Promise.all([
 		getEventsInside(params.slug),
-		getAllEvents("first:3"),
+		// eslint-disable-next-line quotes
+		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
 		getInsightsCategories(),
 	]);
 
-	const countries = categoriesForSelect.data.countries.nodes;
-	const dataForBtn = { postFields: data.data.eventBy.events };
+	const countries = categoriesForSelect?.data?.countries?.nodes;
+	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
 
 	const eventList = [];
 	events.data.events.nodes?.map((item) => {
@@ -83,7 +85,7 @@ export async function getServerSideProps({ params }) {
 
 	return {
 		props: {
-			data: data.data.eventBy,
+			data: data?.data?.eventBy || {},
 			countries,
 			dataForBtn,
 			events: eventList,
@@ -102,7 +104,7 @@ export default function EventsInside({
 	dataForBtn,
 	eventsOriginal,
 }) {
-	console.log(eventsOriginal);
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -132,6 +134,8 @@ export default function EventsInside({
 			</Button>
 		</div>,
 	];
+
+	console.log(data);
 
 	return (
 		<div>
@@ -191,15 +195,25 @@ export default function EventsInside({
 						</div>
 					</div>
 				</section>
-				<div className="pb_100">
-					<AudienceBreakdown data={data} />
-				</div>
-				<div className="pb_40">
-					<Speakers data={data} />
-				</div>
-				<div className="pb_60">
-					<DownloadList data={data} />
-				</div>
+				{data?.events?.breakdown?.sectionTitle && (
+					<div className="pb_100">
+						<AudienceBreakdown data={data} />
+					</div>
+				)}
+				{data?.events?.speakers?.speakers && (
+					<div className="pb_40">
+						<Speakers
+							data={data?.events?.speakers?.speakers}
+							title={data?.events?.speakers?.sectionTitle}
+							desc={data?.events?.speakers?.sectionDesc}
+						/>
+					</div>
+				)}
+				{data?.events?.downloads && (
+					<div className="pb_60">
+						<DownloadList data={data} />
+					</div>
+				)}
 				<div className="pb_100">
 					<Insights
 						isFormVisible={isFormVisible}
@@ -216,6 +230,7 @@ export default function EventsInside({
 						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
+				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
 

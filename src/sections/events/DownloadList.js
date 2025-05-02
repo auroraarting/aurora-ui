@@ -28,7 +28,10 @@ export default function DownloadList({ data }) {
 						<div className={`${styles.teamItem}`} key={item?.text}>
 							<div className={`${styles.teamFlex} f_r_a_center`}>
 								<div className={`${styles.teamLogo}`}>
-									<img src={item?.icon?.node?.sourceUrls} alt="logo" />
+									<img
+										src={item?.type?.nodes?.[0]?.eventDownloads?.icon?.node?.sourceUrl}
+										alt="logo"
+									/>
 								</div>
 								<div className={`${styles.teamDescription}`}>
 									<a
@@ -37,7 +40,7 @@ export default function DownloadList({ data }) {
 										href={item?.link || item?.file?.node?.sourceUrl}
 										className="text_reg f_w_m font_primary f_r_a_center"
 									>
-										<span>{item?.text}</span>
+										<span>{item?.type?.nodes?.[0]?.name}</span>
 										<img src={download.src} alt="download" />
 									</a>
 								</div>

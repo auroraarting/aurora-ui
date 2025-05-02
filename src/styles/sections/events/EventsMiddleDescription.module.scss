@@ -48,3 +48,135 @@
 		}
 	}
 }
+.agendaPopup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 9999;
+	overflow: auto;
+	overflow: hidden;
+	display: none;
+
+	.content {
+		margin-left: auto;
+		width: 80%;
+		height: 100vh;
+		background-color: var(--color_secondary);
+		padding: 60px;
+		position: relative;
+		transform: translateX(100%);
+		transition: all 0.4s ease-in-out;
+
+		.close {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		.sessionBox {
+			background-color: var(--color_gray);
+			border-radius: 12px;
+			padding: 20px 20px;
+			margin-top: 20px;
+			.sessionTime {
+				// width: 8%;
+				// flex: 1;
+				width: max-content;
+				@media (max-width: 991px) {
+					width: 12%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					margin-bottom: 10px;
+				}
+				.tag {
+					background-color: var(--color_blue);
+					padding: 12px 18px;
+					border-radius: 8px;
+					width: max-content;
+				}
+			}
+			.sessionDescription {
+				// width: 92%;
+				width: max-content;
+				flex: 1;
+				padding-left: 20px;
+				@media (max-width: 991px) {
+					width: 88%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					padding-left: 0px;
+				}
+				.dateFlex {
+					align-items: center;
+					@media (max-width: 767px) {
+						flex-wrap: wrap;
+					}
+					p {
+						margin-right: 40px;
+						@media (max-width: 767px) {
+							width: 100%;
+							margin-bottom: 10px;
+							margin-right: 0px;
+							align-items: flex-start;
+						}
+						img {
+							filter: invert(1);
+							object-fit: cover;
+							@media (max-width: 767px) {
+								width: 6%;
+								margin-top: 5px;
+							}
+						}
+						.clock {
+							filter: invert(0);
+						}
+						span {
+							margin-left: 5px;
+							margin-top: 2px;
+							@media (max-width: 767px) {
+								width: 90%;
+							}
+						}
+					}
+				}
+				.ClientFlex {
+					margin-top: 15px;
+					.ClientLogo {
+						// width: 5%;
+						@media (max-width: 991px) {
+							width: 8%;
+						}
+						@media (max-width: 767px) {
+							width: 16%;
+						}
+						img {
+							min-width: 40px;
+							height: 40px;
+							border-radius: 50%;
+							object-fit: cover;
+						}
+					}
+					.ClientDescription {
+						width: 90%;
+						padding-left: 10px;
+						@media (max-width: 767px) {
+							width: 82%;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.open {
+		display: block;
+		.content {
+			transform: translateX(0%);
+		}
+	}
+}

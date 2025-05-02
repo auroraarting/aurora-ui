@@ -23,6 +23,7 @@ import styles from "@/styles/sections/events/EventInsideVideo.module.scss";
 // IMAGES //
 import video_thumb from "@/../public/img/events/video_thumb.jpg";
 import video_play from "@/../public/img/icons/video_play.svg";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
@@ -34,7 +35,8 @@ export default function EventInsideVideo({ data }) {
 				{data?.events?.glimps?.sectionTitle}
 			</h2>
 			<div className={`${styles.videoThumb}`}>
-				<LightGallery
+				<ContentFromCms>{data?.events?.glimps?.video}</ContentFromCms>
+				{/* <LightGallery
 					speed={500}
 					plugins={[lgThumbnail, lgZoom, lgVideo]}
 					mobileSettings={{ closable: true }}
@@ -47,7 +49,7 @@ export default function EventInsideVideo({ data }) {
 						/>
 						<img src={video_play.src} className={`${styles.videoPlay}`} alt="play" />
 					</div>
-				</LightGallery>
+				</LightGallery> */}
 			</div>
 		</div>
 	);

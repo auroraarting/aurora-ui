@@ -1,7 +1,9 @@
 // MODULES //
+import { useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -13,102 +15,126 @@ import Button from "@/components/Buttons/Button";
 import styles from "@/styles/sections/events/EventsMiddleDescription.module.scss";
 
 // IMAGES //
-import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
-import graph_img from "@/../public/img/resources/aurora_insights/graph_img.png";
-import ContentFromCms from "@/components/ContentFromCms";
-import { useState } from "react";
+import plant_img from "/public/img/resources/aurora_insights/plant_img.jpg";
+import graph_img from "/public/img/resources/aurora_insights/graph_img.png";
+import popup_close from "/public/img/icons/popup_close.svg";
+import location from "/public/img/icons/location.svg";
+import clock from "/public/img/icons/clock.svg";
 
 // DATA //
 
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
 	return (
-		<div className={`${styles.contentBox}`}>
-			<ContentFromCms>{data?.content}</ContentFromCms>
-			{/* <p>
-				As the European Union moves toward its 2050 Net Zero targets, Central and
-				Eastern Europe (CEE) is emerging as a key focus area for the energy
-				transition. Historically reliant on coal and natural gas, CEE’s energy
-				landscape is undergoing a transformative shift, with dynamic growth, rising
-				energy demand, and untapped potential positioning it as a hotspot for
-				innovation and investment.
-			</p>
-			<p>
-				As the European Union moves toward its 2050 Net Zero targets, Central and
-				Eastern Europe (CEE) is emerging as a key focus area for the energy
-				transition. Historically reliant on coal and natural gas, CEE’s energy
-				landscape is undergoing a transformative shift, with dynamic growth, rising
-				energy demand, and untapped potential positioning it as a hotspot for
-				innovation and investment.
-			</p>
-			<p>
-				As the European Union moves toward its 2050 Net Zero targets, Central and
-				Eastern Europe (CEE) is emerging as a key focus area for the energy
-				transition. Historically reliant on coal and natural gas, CEE’s energy
-				landscape is undergoing a transformative shift, with dynamic growth, rising
-				energy demand, and untapped potential positioning it as a hotspot for
-				innovation and investment.
-			</p>
-			<p>
-				As the European Union moves toward its 2050 Net Zero targets, Central and
-				Eastern Europe (CEE) is emerging as a key focus area for the energy
-				transition. Historically reliant on coal and natural gas, CEE’s energy
-				landscape is undergoing a transformative shift, with dynamic growth, rising
-				energy demand, and untapped potential positioning it as a hotspot for
-				innovation and investment.
-			</p>
-			<h5>
-				This summit is your chance to stay at the forefront of the CEE energy
-				transition and contribute to shaping its future.
-			</h5> */}
-
-			<WhyAttend data={data?.events?.whyAttend} />
-			<Hightlights data={data?.events?.hightlights} />
-		</div>
+		<>
+			{data?.content && (
+				<div className={`${styles.contentBox}`}>
+					<ContentFromCms>{data?.content}</ContentFromCms>
+				</div>
+			)}
+			{data?.events?.whyAttend?.agenda && (
+				<WhyAttend data={data?.events?.whyAttend} />
+			)}
+			{data?.events?.hightlights?.hightlights && (
+				<Hightlights data={data?.events?.hightlights} />
+			)}
+		</>
 	);
 }
 
 /** Hightlights  */
 const Hightlights = ({ data }) => {
-	const [endIndex, setEndIndex] = useState(3);
 	return (
 		<section id="hightlights" data-name="Hightlights">
 			<h2>Hightlights</h2>
 			<ul>
-				{data?.hightlights?.slice(0, endIndex)?.map((item) => {
+				{data?.hightlights?.map((item) => {
 					return <li key={item?.text}>{item?.text}</li>;
 				})}
 			</ul>
-			<div
-				className={`${styles.btn_box}`}
-				onClick={() => setEndIndex(data?.agenda?.length)}
-			>
-				<Button color="secondary" variant="filled" shape="rounded">
-					View Full Hightlights
-				</Button>
-			</div>
 		</section>
 	);
 };
 
 /** WhyAttend  */
 const WhyAttend = ({ data }) => {
-	const [endIndex, setEndIndex] = useState(3);
+	const [open, setOpen] = useState(false);
 	return (
 		<section id="whyAttend" data-name="Why Attend" className="pb_50">
 			<h2>Why attend?</h2>
 			<ul>
-				{data?.agenda?.slice(0, endIndex)?.map((item) => {
-					return <li key={item?.text}>{item?.text}</li>;
+				{data?.agenda?.map((item) => {
+					return <li key={item?.title}>{item?.title}</li>;
 				})}
 			</ul>
-			<div
-				className={styles.btn_box}
-				onClick={() => setEndIndex(data?.agenda?.length)}
-			>
+			<div className={styles.btn_box} onClick={() => setOpen(!open)}>
 				<Button color="secondary" variant="filled" shape="rounded">
 					View Full Agenda
 				</Button>
+			</div>
+			<div className={`${styles.agendaPopup} ${open && styles.open}`}>
+				<div className={`${styles.content}`}>
+					<img
+						className={`${styles.close}`}
+						src={popup_close.src}
+						alt="close"
+						onClick={() => setOpen(!open)}
+					/>
+					<p className={`${styles.title} color_white f_w_s_b text_xl`}>Agenda</p>
+					{data?.agenda?.map((item, index) => (
+						<div className={`${styles.sessionBox} f_w`} key={index}>
+							<div className={`${styles.sessionTime}`}>
+								<p
+									className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+								>
+									{item?.time}
+								</p>
+							</div>
+							<div className={`${styles.sessionDescription}`}>
+								<h4 className="text_xs font_primary color_white f_w_s_b">
+									{item?.title}
+								</h4>
+								<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
+									<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
+										<img src={clock.src} className={`${styles.clock}`} alt="clock" />
+										<span>{item?.address}</span>
+									</p>
+									<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
+										<img
+											src={location.src}
+											className={`${styles.location}`}
+											alt="location"
+										/>
+										<span>{item?.timeSlot}</span>
+									</p>
+								</div>
+								{item?.speaker?.nodes?.map((item2) => {
+									return (
+										<div
+											className={`${styles.ClientFlex} f_r_a_center`}
+											key={item2?.title}
+										>
+											<div className={`${styles.ClientLogo}`}>
+												<img
+													src={item2?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
+													alt="pic"
+												/>
+											</div>
+											<div className={`${styles.ClientDescription}`}>
+												<h5 className="text_xs font_primary color_white f_w_m">
+													{item2?.title}
+												</h5>
+												<p className="text_xxs color_silver_gray f_w_l">
+													{item2?.postSpeakers?.thumbnail?.designation}
+												</p>
+											</div>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					))}
+				</div>
 			</div>
 		</section>
 	);

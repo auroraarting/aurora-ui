@@ -1,5 +1,6 @@
 @import "../../helpers/helpers.scss";
 .DownloadWrapper {
+	flex-wrap: wrap;
 	.teamItem {
 		background-color: var(--color_white);
 		padding: 15px 15px;

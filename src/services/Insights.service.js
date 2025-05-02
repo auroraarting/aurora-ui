@@ -171,55 +171,49 @@ query GetInsightsInside {
       appleLink
       otherLink
       googleLink
-                topSectionButton {
-          iframe
-          buttonText
-          file {
-            node {
-              altText
-              sourceUrl
-            }
+      topSectionButton {
+        iframe
+        buttonText
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
-        middleSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
-        bottomSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
+      }
+      bottomSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
-        insightsSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
+      }
       spotifyLink
       time
       youtubeLink
-      file {
-        node {
-          altText
-          sourceUrl
-        }
-      }
       authors {
         nodes {
           ... on PostAuthor {
@@ -244,7 +238,7 @@ query GetInsightsInside {
       speakers {
         nodes {
           ... on PostSpeaker {
-          title
+            title
             slug
             postSpeakers {
               thumbnail {
@@ -276,9 +270,9 @@ query GetInsightsInside {
           ... on Product {
             id
             products {
-            thumbnail {
-          primaryColor
-        }
+              thumbnail {
+                primaryColor
+              }
               map {
                 logo {
                   node {
@@ -319,9 +313,9 @@ query GetInsightsInside {
               }
             }
             services {
-            thumbnail {
-          primaryColor
-        }
+              thumbnail {
+                primaryColor
+              }
               map {
                 logo {
                   node {
@@ -351,9 +345,9 @@ query GetInsightsInside {
               }
             }
             softwares {
-            thumbnail {
-          primaryColor
-        }
+              thumbnail {
+                primaryColor
+              }
               banner {
                 logo {
                   node {
@@ -370,6 +364,19 @@ query GetInsightsInside {
                   }
                 }
               }
+            }
+          }
+        }
+      }
+      testimonials {
+        nodes {
+          ... on Testimonial {
+            id
+            content
+            title
+            slug
+            testimonials {
+              designation
             }
           }
         }
