@@ -396,6 +396,7 @@ export default function ContactPage({ regions }) {
 						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
 						showContentOnly
 					/>
+
 					<div className="container">
 						<div className={`${styles.formFlex} f_j`}>
 							<div className={`${styles.form_title}`}>

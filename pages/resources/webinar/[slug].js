@@ -23,7 +23,7 @@ import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { OpenIframePopup } from "@/utils";
+import { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
@@ -145,22 +145,17 @@ export default function WebinarInside({ data, countries, otherList }) {
 				<SectionsHeader
 					hideall={true}
 					customHtml={
-						<div
-							key="btn"
-							to="Insights"
-							onClick={() => {
-								// scrollToSection("Insights");
-								if (isUpcoming) {
-									OpenIframePopup("iframePopup", data?.webinarIntelligenceDeck);
-								} else {
-									window.open(data?.registerLink, "_blank", "noopener,noreferrer");
-								}
-							}}
-						>
-							<Button color="primary" variant="filled" shape="rounded">
-								{isUpcoming ? "Register" : "Intelligence Deck"}
-							</Button>
-						</div>
+						dynamicInsightsBtnProps(data, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(data, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(data, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
 					}
 				/>
 				<section className={`${styles.mediaMiddle} pt_80`}>
@@ -183,23 +178,19 @@ export default function WebinarInside({ data, countries, otherList }) {
 				</section>
 				<div className="ptb_100">
 					<Insights
-						formSectionTitle="Lorem ipsum dolor sit amet consectetur."
-						formSectionDesc='Please contact Duncan Young <a href="mailto:duncan.young@auroraer.com">duncan.young@auroraer.com</a>  for any queries.'
-						formSectionBtnText={isUpcoming ? "Register" : "Intelligence Deck"}
-						insightsTitle="More from Aurora"
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formdata={() => {
-							if (isUpcoming) {
-								OpenIframePopup("iframePopup", data?.webinarIntelligenceDeck);
-							} else {
-								window.open(data?.registerLink, "_blank", "noopener,noreferrer");
-							}
-						}}
+						formSectionTitle="Lorem ipsum dolor sit amet consectetur."
+						formSectionDesc='Please contact Duncan Young <a href="mailto:duncan.young@auroraer.com">duncan.young@auroraer.com</a>  for any queries.'
+						formSectionBtnText={
+							dynamicInsightsBtnProps(data, "insightsSectionButton").btnText
+						}
+						insightsTitle="More from Aurora"
+						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 					/>
 				</div>
 

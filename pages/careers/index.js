@@ -30,8 +30,8 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 
-/** Fetch  */
-export async function getStaticProps() {
+/** Fetch getStaticProps */
+export async function getServerSideProps() {
 	const [categoriesForSelect, list] = await Promise.all([
 		getInsightsCategories(),
 		getInsights('first: 3, where: {categoryName: ""}'),
@@ -41,7 +41,7 @@ export async function getStaticProps() {
 
 	return {
 		props: {
-			countries: categoriesForSelect.data.countries.nodes,
+			countries: countries,
 			otherList,
 		},
 		revalidate: 10,

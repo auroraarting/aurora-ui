@@ -36,15 +36,17 @@ import {
 	getInsightsCategories,
 	getInsightsPath,
 } from "@/services/Insights.service";
+import { getInsightsPage } from "@/services/InsightsListing.service";
 
-/** Fetch  */
-export async function getStaticProps() {
-	const [data, categoriesForSelect, list] = await Promise.all([
+/** Fetch  getStaticProps*/
+export async function getServerSideProps() {
+	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
 		getInsights(
 			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 		getInsightsCategories(),
 		getInsights('first: 3, where: {categoryName: ""}'),
+		getInsightsPage(),
 	]);
 	const otherList = list?.data?.posts?.nodes;
 
@@ -52,15 +54,16 @@ export async function getStaticProps() {
 		props: {
 			pagination: data.data?.posts?.pageInfo || {},
 			data: data?.data?.posts?.nodes || [],
-			tags: categoriesForSelect.data.tags.nodes,
-			categories: categoriesForSelect.data.categories.nodes,
-			countries: categoriesForSelect.data.countries.nodes,
-			products: categoriesForSelect.data.products.nodes,
-			softwares: categoriesForSelect.data.softwares.nodes,
-			services: categoriesForSelect.data.services.nodes,
+			tags: categoriesForSelect.data.tags?.nodes || [],
+			categories: categoriesForSelect?.data?.categories?.nodes || [],
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			products: categoriesForSelect?.data?.products?.nodes || [],
+			softwares: categoriesForSelect?.data?.softwares?.nodes || [],
+			services: categoriesForSelect?.data?.services?.nodes || [],
 			otherList,
+			insightsPage: insightsPage.data.page.insightsListing,
 		},
-		revalidate: 10,
+		// revalidate: 10,
 	};
 }
 
@@ -75,6 +78,7 @@ export default function AuroraInsights({
 	softwares,
 	services,
 	otherList,
+	insightsPage,
 }) {
 	console.log(data, "data");
 	const [original, setOriginal] = useState(data);
@@ -101,8 +105,8 @@ export default function AuroraInsights({
 			<main className={styles.AuroraInsightsPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
-						bannerTitle="Lorem ipsum dolor sit amet consectetur."
-						bannerDescription="Each year, our landmark events bring together international industry leaders, government officials and academics to engage in addressing the hottest energy topics."
+						bannerTitle={insightsPage?.banner?.title}
+						bannerDescription={insightsPage.banner?.desc}
 						showContentOnly
 					/>
 				</div>
@@ -135,9 +139,17 @@ export default function AuroraInsights({
 						]}
 					/>
 				</div>
-				<div className="pb_100">
-					<AllVideos />
-				</div>
+				{insightsPage?.video?.sectionTitle && (
+					<div className="pb_100">
+						<AllVideos
+							title={insightsPage?.video?.sectionTitle}
+							desc={insightsPage?.video?.sectionDesc}
+							redirectLink={insightsPage?.video?.redirectLink}
+							videoLink={insightsPage?.video?.videoLink}
+							videoThumbnail={insightsPage?.video?.videoThumbnail?.node?.sourceUrl}
+						/>
+					</div>
+				)}
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
 						<Insights

@@ -138,14 +138,21 @@ export default function Header() {
 
 	/** fetchData  */
 	async function fetchData() {
+		const localData = window.localStorage.getItem("navigation");
+		if (localData) {
+			setData(JSON.parse(localData));
+		}
 		const obj = await fetch("/api/navigation");
 		const json = await obj.json();
+		window.localStorage.setItem("navigation", JSON.stringify(json));
 		setData(json);
 	}
 
 	useEffect(() => {
 		fetchData();
 	}, []);
+
+	if (!data) return <div className="stalePage"></div>;
 
 	return (
 		<>

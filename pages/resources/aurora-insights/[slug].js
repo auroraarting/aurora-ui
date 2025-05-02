@@ -47,11 +47,11 @@ export async function getServerSideProps({ params }) {
 		getInsightsCategories(),
 	]);
 
-	const otherList = list?.data?.posts?.nodes;
-	const countries = categoriesForSelect.data.countries.nodes;
+	const otherList = list?.data?.posts?.nodes || [];
+	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	return {
 		props: {
-			data: data.data.postBy,
+			data: data?.data?.postBy || [],
 			otherList,
 			countries,
 		},
@@ -70,8 +70,6 @@ export default function Articles({ data, otherList, countries }) {
 	const isReports = data?.categories?.nodes?.some((item) =>
 		item.slug.includes("report")
 	);
-
-	console.log(data, "isArticle");
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {

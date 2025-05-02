@@ -33,15 +33,17 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
 
-/** Fetch  */
-export async function getStaticProps() {
+/** Fetch getStaticProps */
+export async function getServerSideProps() {
 	const queryTxt =
 		// eslint-disable-next-line quotes
 		'first:9999, where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }';
-	const [data, categoriesForSelect] = await Promise.all([
+	const [data, categoriesForSelect, energyTalksPage] = await Promise.all([
 		getInsights(queryTxt),
 		getInsightsCategories(),
+		getEnergyTalksPage(),
 	]);
 
 	return {
@@ -54,8 +56,9 @@ export async function getStaticProps() {
 			products: categoriesForSelect.data.products.nodes,
 			softwares: categoriesForSelect.data.softwares.nodes,
 			services: categoriesForSelect.data.services.nodes,
+			energyTalksPage: energyTalksPage.data.page.energyTalksListing,
 		},
-		revalidate: 10,
+		// revalidate: 10,
 	};
 }
 
@@ -69,6 +72,7 @@ export default function EnergyTalks({
 	products,
 	softwares,
 	services,
+	energyTalksPage,
 }) {
 	const [original, setOriginal] = useState(data);
 
@@ -89,8 +93,8 @@ export default function EnergyTalks({
 			<main className={styles.EnergyPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
-						bannerTitle="Lorem ipsum dolor sit amet consectetur."
-						bannerDescription="Each year, our landmark events bring together international industry leaders, government officials and academics to engage in addressing the hottest energy topics."
+						bannerTitle={energyTalksPage?.banner?.title}
+						bannerDescription={energyTalksPage.banner?.desc}
 						showContentOnly
 					/>
 				</div>
@@ -123,9 +127,17 @@ export default function EnergyTalks({
 						]}
 					/>
 				</div>
-				<div className="pb_100">
-					<AllVideos />
-				</div>
+				{energyTalksPage?.video?.sectionTitle && (
+					<div className="pb_100">
+						<AllVideos
+							title={energyTalksPage?.video?.sectionTitle}
+							desc={energyTalksPage?.video?.sectionDesc}
+							redirectLink={energyTalksPage?.video?.redirectLink}
+							videoLink={energyTalksPage?.video?.videoLink}
+							videoThumbnail={energyTalksPage?.video?.videoThumbnail?.node?.sourceUrl}
+						/>
+					</div>
+				)}
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
 						<Insights isPowerBgVisible={true} />

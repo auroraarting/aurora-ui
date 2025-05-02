@@ -34,6 +34,7 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
@@ -171,6 +172,13 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
+						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
+						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+						formSectionBtnText={
+							dynamicInsightsBtnProps(data, "insightsSectionButton").btnText
+						}
+						insightsTitle="More from Aurora"
+						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 					/>
 				</div>
 			</main>

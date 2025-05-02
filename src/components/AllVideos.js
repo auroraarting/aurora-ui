@@ -27,7 +27,14 @@ import video_play from "@/../public/img/icons/video_play.svg";
 // DATA //
 
 /** CareerSeries Section */
-export default function AllVideos() {
+export default function AllVideos({
+	title,
+	desc,
+	redirectLink,
+	videoLink,
+	videoThumbnail,
+}) {
+	if (!title) return <></>;
 	return (
 		<section className={`${styles.CareerSeries} CareerSeries`}>
 			<div className="container">
@@ -38,18 +45,18 @@ export default function AllVideos() {
 						>
 							Aurora’s career series
 						</h4>
-						<h2 className="text_xl font_primary f_w_m color_white pb_20">
-							Where talent meets purpose
-						</h2>
-						<p className="text_reg color_dark_gray pb_20">
-							Lorem ipsum dolor sit amet consectetur. Lectus aliquam lectus sed
-							ultrices tincidunt viverra integer vitae. Posuere mauris magna
-						</p>
-						<div className={`${styles.bookBtnOne} bookBtnOne`}>
+						<h2 className="text_xl font_primary f_w_m color_white pb_20">{title}</h2>
+						<p className="text_reg color_dark_gray pb_20">{desc}</p>
+						<a
+							href={redirectLink}
+							target="_blank"
+							rel="noreferrer"
+							className={`${styles.bookBtnOne} bookBtnOne`}
+						>
 							<Button color="secondary" variant="underline" mode="dark" size="xs">
 								Watch All Videos
 							</Button>
-						</div>
+						</a>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
 						<LightGallery
@@ -57,12 +64,9 @@ export default function AllVideos() {
 							plugins={[lgThumbnail, lgZoom, lgVideo]}
 							mobileSettings={{ closable: true }}
 						>
-							<a
-								href="https://youtu.be/mOFoh9FUR8w?si=z8BN9lfjW7trN0zy"
-								data-src="https://youtu.be/mOFoh9FUR8w?si=z8BN9lfjW7trN0zy"
-							>
+							<a href={videoLink} data-src={videoLink}>
 								<img
-									src={video_img.src}
+									src={videoThumbnail}
 									className={`${styles.videoThumbnail} img b_r_10`}
 									alt="video thumbnail"
 								/>

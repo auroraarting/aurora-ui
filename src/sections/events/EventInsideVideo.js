@@ -27,11 +27,11 @@ import video_play from "@/../public/img/icons/video_play.svg";
 // DATA //
 
 /** EventInsideVideo Section */
-export default function EventInsideVideo() {
+export default function EventInsideVideo({ data }) {
 	return (
 		<div className={`${styles.EventInsideVideo} `}>
 			<h2 className="text_lg color_secondary pb_10">
-				Get a glimpse of what makes our events one-of-a-kind!
+				{data?.events?.glimps?.sectionTitle}
 			</h2>
 			<div className={`${styles.videoThumb}`}>
 				<LightGallery
@@ -39,9 +39,9 @@ export default function EventInsideVideo() {
 					plugins={[lgThumbnail, lgZoom, lgVideo]}
 					mobileSettings={{ closable: true }}
 				>
-					<div data-src="https://youtu.be/mOFoh9FUR8w?si=54yfMP99uLklN2Zj">
+					<div data-src={data?.events?.glimps?.video}>
 						<img
-							src={video_thumb.src}
+							src={data?.events?.glimps?.videoThumbnail?.node?.sourceUrl}
 							className={`${styles.video_thumb} width_100 b_r_10`}
 							alt="img"
 						/>

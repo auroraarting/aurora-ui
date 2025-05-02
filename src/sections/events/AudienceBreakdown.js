@@ -18,23 +18,27 @@ import circle_graph from "@/../public/img/events/circle_graph.png";
 // DATA //
 
 /** AudienceBreakdown Section */
-export default function AudienceBreakdown() {
+export default function AudienceBreakdown({ data }) {
 	return (
 		<div className="container">
 			<div className={`${styles.titleWrapper}`}>
 				<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-					Audience Breakdown
+					{data?.events?.breakdown?.sectionTitle}
 				</h2>
 				<p className={`${styles.label} text_reg color_dark_gray`}>
-					Lorem ipsum dolor sit amet consectetur. Massa elementum elementum sed purus
-					pulvinar volutpat. Habitant nec in aliquam nisl ullamcorper. Aliquam
-					euismod fringilla pharetra turpis et.
+					{data?.events?.breakdown?.sectionDesc}
 				</p>
 			</div>
 			<div className={`${styles.circle_graph} pt_20`}>
 				<picture>
-					<source srcSet={circle_graph.src} media="(min-width:767px)" />
-					<img src={circle_graph.src} alt="circle graph" />
+					<source
+						srcSet={data?.events?.breakdown?.mobileImage?.node?.sourceUrl}
+						media="(min-width:767px)"
+					/>
+					<img
+						src={data?.events?.breakdown?.desktopImage?.node?.sourceUrl}
+						alt="circle graph"
+					/>
 				</picture>
 			</div>
 		</div>

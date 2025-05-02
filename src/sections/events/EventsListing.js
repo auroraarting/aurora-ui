@@ -3,12 +3,17 @@ import { useRef, useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import { useRouter } from "next/router";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
+import formatDate, {
+	filterBySearchQueryEvents,
+	filterItemsBySelectedObj,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsListing.module.scss";
@@ -21,12 +26,6 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import search from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
-import formatDate, {
-	filterBySearchQuery,
-	filterEvents,
-	filterItems,
-} from "@/utils";
-import { useRouter } from "next/router";
 
 // DATA //
 
@@ -107,7 +106,6 @@ export default function EventsListing({
 
 	/** filter  */
 	const filter = async (catName, key) => {
-		let queryObj = { ...router.query };
 		let selectedObj = selected;
 		let arr = original;
 		setLoading(true);
@@ -138,23 +136,9 @@ export default function EventsListing({
 		if (key === "eventStatusType") {
 			selectedObj.status = catName;
 		}
-		if (selectedObj.type) {
-			arr = arr.filter((item) => {
-				return item.eventscategories.nodes.some((item2) => item2.name === catName);
-			});
-		}
-		if (selectedObj.country) {
-			arr = arr.filter((item) => {
-				return item.events.thumbnail.country.nodes.some(
-					(item2) => item2.title === catName
-				);
-			});
-		}
-
-		setList(arr);
+		const filteredArr = filterItemsBySelectedObj(arr, selectedObj);
+		setList(filteredArr);
 		setSelected(selectedObj);
-		// const filteredArr = filterEvents(arr, queryObj);
-		// console.log(filteredArr, queryObj);
 	};
 
 	/** Close Dropdown on Click Outside */
@@ -179,13 +163,11 @@ export default function EventsListing({
 
 	useEffect(() => {
 		if (router.query.search) {
-			const filtered = filterBySearchQuery(data, router.query.search);
+			const filtered = filterBySearchQueryEvents(data, router.query.search);
 			setList(filtered);
 			setOriginal(filtered);
 		}
 	}, [router.query]);
-
-	console.log(selected, "selectedObj");
 
 	return (
 		<section className={styles.EventsListing}>
@@ -209,6 +191,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.eventNameType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.eventNameType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventType", "")}
+										>
+											All
+										</li>
 										{categories.map((option) => (
 											<li
 												key={option.title}
@@ -244,6 +234,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
 										{countries.map((option) => (
 											<li
 												key={option.title}
@@ -331,6 +329,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.eventStatusType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.eventStatusType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventStatusType", "")}
+										>
+											All
+										</li>
 										{optionsData.eventStatusType.map((option) => (
 											<li
 												key={option.title}
@@ -369,6 +375,14 @@ export default function EventsListing({
 								</div>
 								{dropdowns.yearsType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.yearsType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("yearsType", "")}
+										>
+											All
+										</li>
 										{years.map((option) => (
 											<li
 												key={option.title}
@@ -386,7 +400,22 @@ export default function EventsListing({
 								)}
 							</div>
 						</div>
-
+						{/* Reset */}
+						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} "activeDropDown"`}
+									onClick={() => {
+										setSelected({});
+										setList(data);
+									}}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										Reset
+									</div>
+								</div>
+							</div>
+						</div>
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}
