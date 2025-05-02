@@ -44,17 +44,21 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, events, categoriesForSelect] = await Promise.all([
+	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
 		getEventsInside(params.slug),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
+		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
 		getInsightsCategories(),
+		// eslint-disable-next-line quotes
+		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
 	]);
 
 	const countries = categoriesForSelect?.data?.countries?.nodes;
 	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
 
 	const eventList = [];
+	const pastEventList = [];
+
 	events.data.events.nodes?.map((item) => {
 		const tempObj = {
 			title: item?.title,
@@ -82,6 +86,33 @@ export async function getServerSideProps({ params }) {
 
 		if (item?.slug != params.slug) eventList.push(tempObj);
 	});
+	pastEvents.data.events.nodes?.map((item) => {
+		const tempObj = {
+			title: item?.title,
+			slug: item?.slug,
+			date: item?.events?.thumbnail?.date,
+			featuredImage: null,
+			categories: {
+				nodes: [
+					{
+						slug: "event",
+						name: "Event",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+		};
+
+		if (item?.slug != params.slug) pastEventList.push(tempObj);
+	});
 
 	return {
 		props: {
@@ -89,6 +120,7 @@ export async function getServerSideProps({ params }) {
 			countries,
 			dataForBtn,
 			events: eventList,
+			pastEvents: pastEventList,
 			eventsOriginal: events.data.events.nodes.filter(
 				(item) => item.slug != params.slug
 			),
@@ -103,8 +135,9 @@ export default function EventsInside({
 	countries,
 	dataForBtn,
 	eventsOriginal,
+	pastEvents,
 }) {
-	console.log(data);
+	console.log(pastEvents);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -134,8 +167,6 @@ export default function EventsInside({
 			</Button>
 		</div>,
 	];
-
-	console.log(data);
 
 	return (
 		<div>
@@ -214,22 +245,24 @@ export default function EventsInside({
 						<DownloadList data={data} />
 					</div>
 				)}
-				<div className="pb_100">
-					<Insights
-						isFormVisible={isFormVisible}
-						setIsFormVisible={setIsFormVisible}
-						isInsightsBlogsVisible={true}
-						defaultList={events}
-						countries={countries}
-						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
-						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
-						insightsTitle="Previous Events from Aurora"
-						formSectionBtnText={
-							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
-						}
-						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
-					/>
-				</div>
+				{pastEvents.length > 0 && (
+					<div className="pb_100">
+						<Insights
+							isFormVisible={isFormVisible}
+							setIsFormVisible={setIsFormVisible}
+							isInsightsBlogsVisible={true}
+							defaultList={pastEvents}
+							countries={countries}
+							formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
+							formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+							insightsTitle="Previous Events from Aurora"
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+							}
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						/>
+					</div>
+				)}
 				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
