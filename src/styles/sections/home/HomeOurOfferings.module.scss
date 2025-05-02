@@ -43,27 +43,47 @@
 					margin-bottom: 30px;
 				}
 			}
-			// &.LottieContent {
-			// 	background-color: var(--color_white);
-			// 	h4 {
-			// 		color: var(--color_secondary);
+			&.LottieContent {
+				background-color: var(--color_white);
+				h4 {
+					color: var(--color_secondary);
+				}
+				p {
+					color: var(--color_secondary);
+				}
+			}
+			// &.softwareAnim {
+			// 	animation: backgroundCycle 4s steps(4) infinite;
+			// }
+			// @keyframes backgroundCycle {
+			// 	0% {
+			// 		background-color: #00be86;
 			// 	}
-			// 	p {
-			// 		color: var(--color_secondary);
+			// 	25% {
+			// 		background-color: #fc0;
+			// 	}
+			// 	50% {
+			// 		background-color: #00b6ed;
+			// 	}
+			// 	75% {
+			// 		background-color: #0069b4;
+			// 	}
+			// 	100% {
+			// 		background-color: #00be86;
 			// 	}
 			// }
 		}
-		// .softwareAnim {
-		// 	position: absolute;
-		// 	left: 0;
-		// 	top: 0px;
-		// 	width: 100%;
-		// 	border-radius: 20px;
-		// 	background-color: var(--color_white);
-		// 	svg {
-		// 		border-radius: 20px;
-		// 	}
-		// }
+		.softwareAnim {
+			position: absolute;
+			left: 0;
+			top: 0px;
+			width: 100%;
+			border-radius: 20px;
+			background-color: var(--color_white);
+			svg {
+				border-radius: 20px;
+			}
+		}
 
 		:global(.swiper-slide) {
 			position: relative;

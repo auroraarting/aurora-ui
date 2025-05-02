@@ -1,6 +1,7 @@
 // MODULES //
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // COMPONENTS //
 
@@ -28,6 +29,14 @@ import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
 
 /** HomeOurOfferings Section */
 export default function HomeOurOfferings() {
+	const lottieAnimations = [
+		{ id: "1", src: "/img/home/lottie/SoftwareLottie.json" },
+	];
+	const lottieAnimations2 = [
+		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
+	];
+	const [svgHeight, setSvgHeight] = useState("347px");
+	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
 	// const anim1 = useRef();
 	// const anim2 = useRef();
 	// /** platLottie funnction */
@@ -79,7 +88,7 @@ export default function HomeOurOfferings() {
 	useEffect(() => {
 		// playLottie();
 		// platLottieResp();
-		// EqualHeight("cardHBg");
+		EqualHeight("cardHBg");
 	}, []);
 	return (
 		<section className={`${styles.HomeOurOfferings} pt_100`}>
@@ -134,7 +143,7 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox} cardHBg`}>
+						<div className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}>
 							<div className={`${styles.Content}`}>
 								<Link href="/software">
 									<img
@@ -149,11 +158,21 @@ export default function HomeOurOfferings() {
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
 							</div>
-							<img
+							<DotLottieReact
+								src={lottieAnimations[0].src}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								style={{ height: svgHeight }}
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
+							{/* <img
 								src={macEOS.src}
 								alt="mac eos"
 								className={`${styles.BoxImg} m_0_auto`}
-							/>
+							/> */}
 							{/* <div className={`${styles.softwareAnim}`} ref={animRefs[0]}></div> */}
 						</div>
 					</SwiperSlide>
@@ -171,11 +190,21 @@ export default function HomeOurOfferings() {
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
 							</div>
-							<img
+							<DotLottieReact
+								src={lottieAnimations2[0].src}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								style={{ height: svgHeight }}
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
+							{/* <img
 								src={macEOS.src}
 								alt="mac eos"
 								className={`${styles.BoxImg} m_0_auto`}
-							/>
+							/> */}
 							{/* <div className={`${styles.softwareAnim}`} ref={animRefs2[0]}></div> */}
 						</div>
 					</SwiperSlide>

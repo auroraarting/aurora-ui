@@ -1,5 +1,6 @@
 // MODULES //
 import { useEffect, useRef } from "react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -21,6 +22,9 @@ import bannerGraph from "../../../public/img/home/banner-graph.png";
 
 /** HomeBanner Section */
 export default function HomeBanner() {
+	const lottieAnimations = [
+		{ id: "1", src: "/img/home/lottie/bannerRightSide.json" },
+	];
 	// const bannerAni = useRef();
 	// /** platLottie funnction */
 	// function playLottie() {
@@ -79,12 +83,21 @@ export default function HomeBanner() {
 							</div>
 						</div>
 						<div className={`${styles.BannerImg}`}>
-							<img
+							{/* <img
 								src={bannerGraph.src}
 								className={`${styles.BannerGraph} width_100`}
 								alt="Banner Graph"
-							/>
+							/> */}
 							{/* <div className="bannerAni" ref={bannerAniRefs[0]}></div> */}
+							<DotLottieReact
+								src={lottieAnimations[0].src}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
 						</div>
 					</div>
 				</div>
