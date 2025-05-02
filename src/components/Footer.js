@@ -54,7 +54,6 @@ export default function Footer() {
 		const localData = window.localStorage.getItem("navigation");
 		if (localData) {
 			setData(JSON.parse(localData));
-			return;
 		}
 		const obj = await fetch("/api/navigation");
 		const json = await obj.json();
