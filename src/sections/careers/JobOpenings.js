@@ -57,8 +57,18 @@ export default function JobOpenings({ data }) {
 			);
 		}
 		if (dropdownObj.search.selected.title) {
-			arr = arr.filter((item) =>
-				item?.title?.toLowerCase()?.includes(dropdownObj.search.selected.title)
+			arr = arr.filter(
+				(item) =>
+					item?.title?.toLowerCase()?.includes(dropdownObj.search.selected.title) ||
+					item?.location?.province
+						?.toLowerCase()
+						?.includes(dropdownObj.search.selected.title) ||
+					item?.job?.department?.name
+						?.toLowerCase()
+						?.includes(dropdownObj.search.selected.title) ||
+					item?.employment_type_text
+						?.toLowerCase()
+						?.includes(dropdownObj.search.selected.title)
 			);
 		}
 		console.log(dropdownObj, "arr");
@@ -224,7 +234,9 @@ export default function JobOpenings({ data }) {
 									<input
 										type="text"
 										placeholder="Serach..."
-										onChange={(e) => handleOptionClick("search", e.target.value)}
+										onChange={(e) =>
+											handleOptionClick("search", e.target.value.toLowerCase())
+										}
 									/>
 								</div>
 							</div>
