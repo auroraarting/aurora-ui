@@ -37,6 +37,8 @@ export default function HomeOurOfferings() {
 	];
 	const [svgHeight, setSvgHeight] = useState("347px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
+	const bgColors = ["#00be86", "#fc0", "#00b6ed", "#0069b4"];
+	const [bgIndex, setBgIndex] = useState(0);
 	// const anim1 = useRef();
 	// const anim2 = useRef();
 	// /** platLottie funnction */
@@ -89,6 +91,11 @@ export default function HomeOurOfferings() {
 		// playLottie();
 		// platLottieResp();
 		EqualHeight("cardHBg");
+		const interval = setInterval(() => {
+			setBgIndex((prev) => (prev + 1) % bgColors.length);
+		}, 1000); // Change every 1s (sync with Lottie)
+
+		return () => clearInterval(interval);
 	}, []);
 	return (
 		<section className={`${styles.HomeOurOfferings} pt_100`}>
@@ -143,7 +150,10 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}>
+						<div
+							className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}
+							style={{ backgroundColor: bgColors[bgIndex] }}
+						>
 							<div className={`${styles.Content}`}>
 								<Link href="/software">
 									<img
