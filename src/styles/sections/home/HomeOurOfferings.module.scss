@@ -1,4 +1,8 @@
 .HomeOurOfferings {
+	position: relative;
+	@media (max-width: 767px) {
+		padding-top: 30px;
+	}
 	h3 {
 		padding: 0 15px;
 	}
@@ -104,6 +108,24 @@
 			width: 50px;
 			border-radius: 50px;
 			transition: 0.5s all;
+		}
+	}
+	.Ellipse {
+		position: absolute;
+		left: 0;
+		top: -96px;
+		width: 100%;
+		@media (min-width: 1200px) and (max-width: 1400px) {
+			top: -92px;
+		}
+		@media (min-width: 992px) and (max-width: 1199px) {
+			top: -65px;
+		}
+		@media (min-width: 768px) and (max-width: 991px) {
+			top: -50px;
+		}
+		@media (max-width: 767px) {
+			top: -25px;
 		}
 	}
 }

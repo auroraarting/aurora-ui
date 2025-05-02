@@ -24,6 +24,7 @@ import styles from "@/styles/sections/home/HomeOurOfferings.module.scss";
 // IMAGES //
 import macEOS from "../../../public/img/home/mac-eos.png";
 import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
+import Ellipse from "../../../public/img/ellipse.png";
 
 // DATA //
 
@@ -98,7 +99,7 @@ export default function HomeOurOfferings() {
 		return () => clearInterval(interval);
 	}, []);
 	return (
-		<section className={`${styles.HomeOurOfferings} pt_100`}>
+		<section className={`${styles.HomeOurOfferings}`}>
 			<h3 className="text_lg color_secondary text_center">
 				We provide our clients with data-driven intelligence for{" "}
 				<br className="visible_lg" /> strategy, portfolio management and investment
@@ -243,6 +244,7 @@ export default function HomeOurOfferings() {
 					</SwiperSlide>
 				</Swiper>
 			</div>
+			<img src={Ellipse.src} alt="Ellipse" className={`${styles.Ellipse}`} />
 		</section>
 	);
 }
