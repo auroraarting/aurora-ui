@@ -38,6 +38,7 @@ import Close from "@/../public/img/icons/close.svg";
 
 // SERVICES //
 import { fetchNavigationData } from "@/services/Navigation.service";
+import formatDate from "@/utils";
 
 // DATA //
 
@@ -154,6 +155,7 @@ export default function Header() {
 
 	if (!data) return <div className="stalePage"></div>;
 
+	console.log(data);
 	return (
 		<>
 			<header className={`${styles.main_headerBox} main_headerBox`}>
@@ -289,55 +291,70 @@ export default function Header() {
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
-												<div className={`${styles.ItemBox}`}>
-													<a href="">
-														<div className={`${styles.hoverBox}`}>
-															<div className={`${styles.eventImgBox}`}>
-																<img
-																	src={event_img.src}
-																	className={`${styles.eventImg}`}
-																	alt="img"
-																/>
-																<img
-																	src={event_logo.src}
-																	className={`${styles.eventLogo}`}
-																	alt="event logo"
-																/>
-															</div>
-															<div className={`${styles.eventContentBox}`}>
-																<div
-																	className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-																>
-																	Upcoming Event
-																</div>
-																<h4
-																	className={`${styles.descTxt} text_reg font_primary color_secondary `}
-																>
-																	Aurora Energy Transition Summit Warsaw 2025 Aurora Energy
-																	Transition Summit Warsaw 2025
-																</h4>
-																<div className={`${styles.dateFlex} f_j pt_30`}>
-																	<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+												{data?.events?.map((item, ind) => {
+													return (
+														<div className={`${styles.ItemBox}`} key={item?.title}>
+															<a href={`/events/${item?.slug}`}>
+																<div className={`${styles.hoverBox}`}>
+																	<div className={`${styles.eventImgBox}`}>
 																		<img
-																			src={calender.src}
-																			className={`${styles.calender}`}
-																			alt="calender"
+																			src={
+																				item?.events?.banner?.node?.sourceUrl ||
+																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																			}
+																			className={`${styles.eventImg}`}
+																			alt="img"
 																		/>
-																		<span>Feb 26, 2025</span>
-																	</p>
-																	<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
-																		<img
-																			src={location.src}
-																			className={`${styles.location}`}
-																			alt="location"
-																		/>
-																		<span>UK</span>
-																	</p>
+																		{item?.events?.banner?.node?.sourceUrl && (
+																			<img
+																				src={
+																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
+																					item?.events?.banner?.node?.sourceUrl
+																				}
+																				className={`${styles.eventLogo}`}
+																				alt="event logo"
+																			/>
+																		)}
+																	</div>
+																	<div className={`${styles.eventContentBox}`}>
+																		<div
+																			className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+																		>
+																			{item?.events?.thumbnail?.status} Event
+																		</div>
+																		<h4
+																			className={`${styles.descTxt} text_reg font_primary color_secondary `}
+																		>
+																			{item?.title}
+																		</h4>
+																		<div className={`${styles.dateFlex} f_j pt_30`}>
+																			<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+																				<img
+																					src={calender.src}
+																					className={`${styles.calender}`}
+																					alt="calender"
+																				/>
+																				<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+																			</p>
+																			<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
+																				<img
+																					src={location.src}
+																					className={`${styles.location}`}
+																					alt="location"
+																				/>
+																				<span>
+																					{item?.events?.thumbnail?.country?.nodes?.map(
+																						(item2) => item2.title
+																					)}
+																				</span>
+																			</p>
+																		</div>
+																	</div>
 																</div>
-															</div>
+															</a>
 														</div>
-													</a>
-												</div>
+													);
+												})}
 											</div>
 										</div>
 									</div>
@@ -432,55 +449,70 @@ export default function Header() {
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
-												<div className={`${styles.ItemBox}`}>
-													<a href="">
-														<div className={`${styles.hoverBox}`}>
-															<div className={`${styles.eventImgBox}`}>
-																<img
-																	src={event_img.src}
-																	className={`${styles.eventImg}`}
-																	alt="img"
-																/>
-																<img
-																	src={event_logo.src}
-																	className={`${styles.eventLogo}`}
-																	alt="event logo"
-																/>
-															</div>
-															<div className={`${styles.eventContentBox}`}>
-																<div
-																	className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-																>
-																	Upcoming Event
-																</div>
-																<h4
-																	className={`${styles.descTxt} text_reg font_primary color_secondary `}
-																>
-																	Aurora Energy Transition Summit Warsaw 2025 Aurora Energy
-																	Transition Summit Warsaw 2025
-																</h4>
-																<div className={`${styles.dateFlex} f_j pt_30`}>
-																	<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+												{data?.events?.map((item, ind) => {
+													return (
+														<div className={`${styles.ItemBox}`} key={item?.title}>
+															<a href={`/events/${item?.slug}`}>
+																<div className={`${styles.hoverBox}`}>
+																	<div className={`${styles.eventImgBox}`}>
 																		<img
-																			src={calender.src}
-																			className={`${styles.calender}`}
-																			alt="calender"
+																			src={
+																				item?.events?.banner?.node?.sourceUrl ||
+																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																			}
+																			className={`${styles.eventImg}`}
+																			alt="img"
 																		/>
-																		<span>Feb 26, 2025</span>
-																	</p>
-																	<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
-																		<img
-																			src={location.src}
-																			className={`${styles.location}`}
-																			alt="location"
-																		/>
-																		<span>UK</span>
-																	</p>
+																		{item?.events?.banner?.node?.sourceUrl && (
+																			<img
+																				src={
+																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
+																					item?.events?.banner?.node?.sourceUrl
+																				}
+																				className={`${styles.eventLogo}`}
+																				alt="event logo"
+																			/>
+																		)}
+																	</div>
+																	<div className={`${styles.eventContentBox}`}>
+																		<div
+																			className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+																		>
+																			{item?.events?.thumbnail?.status} Event
+																		</div>
+																		<h4
+																			className={`${styles.descTxt} text_reg font_primary color_secondary `}
+																		>
+																			{item?.title}
+																		</h4>
+																		<div className={`${styles.dateFlex} f_j pt_30`}>
+																			<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+																				<img
+																					src={calender.src}
+																					className={`${styles.calender}`}
+																					alt="calender"
+																				/>
+																				<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+																			</p>
+																			<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
+																				<img
+																					src={location.src}
+																					className={`${styles.location}`}
+																					alt="location"
+																				/>
+																				<span>
+																					{item?.events?.thumbnail?.country?.nodes?.map(
+																						(item2) => item2.title
+																					)}
+																				</span>
+																			</p>
+																		</div>
+																	</div>
 																</div>
-															</div>
+															</a>
 														</div>
-													</a>
-												</div>
+													);
+												})}
 											</div>
 										</div>
 									</div>
@@ -581,55 +613,70 @@ export default function Header() {
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
-												<div className={`${styles.ItemBox}`}>
-													<a href="">
-														<div className={`${styles.hoverBox}`}>
-															<div className={`${styles.eventImgBox}`}>
-																<img
-																	src={event_img.src}
-																	className={`${styles.eventImg}`}
-																	alt="img"
-																/>
-																<img
-																	src={event_logo.src}
-																	className={`${styles.eventLogo}`}
-																	alt="event logo"
-																/>
-															</div>
-															<div className={`${styles.eventContentBox}`}>
-																<div
-																	className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-																>
-																	Upcoming Event
-																</div>
-																<h4
-																	className={`${styles.descTxt} text_reg font_primary color_secondary `}
-																>
-																	Aurora Energy Transition Summit Warsaw 2025 Aurora Energy
-																	Transition Summit Warsaw 2025
-																</h4>
-																<div className={`${styles.dateFlex} f_j pt_30`}>
-																	<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+												{data?.events?.map((item, ind) => {
+													return (
+														<div className={`${styles.ItemBox}`} key={item?.title}>
+															<a href={`/events/${item?.slug}`}>
+																<div className={`${styles.hoverBox}`}>
+																	<div className={`${styles.eventImgBox}`}>
 																		<img
-																			src={calender.src}
-																			className={`${styles.calender}`}
-																			alt="calender"
+																			src={
+																				item?.events?.banner?.node?.sourceUrl ||
+																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																			}
+																			className={`${styles.eventImg}`}
+																			alt="img"
 																		/>
-																		<span>Feb 26, 2025</span>
-																	</p>
-																	<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
-																		<img
-																			src={location.src}
-																			className={`${styles.location}`}
-																			alt="location"
-																		/>
-																		<span>UK</span>
-																	</p>
+																		{item?.events?.banner?.node?.sourceUrl && (
+																			<img
+																				src={
+																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
+																					item?.events?.banner?.node?.sourceUrl
+																				}
+																				className={`${styles.eventLogo}`}
+																				alt="event logo"
+																			/>
+																		)}
+																	</div>
+																	<div className={`${styles.eventContentBox}`}>
+																		<div
+																			className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+																		>
+																			{item?.events?.thumbnail?.status} Event
+																		</div>
+																		<h4
+																			className={`${styles.descTxt} text_reg font_primary color_secondary `}
+																		>
+																			{item?.title}
+																		</h4>
+																		<div className={`${styles.dateFlex} f_j pt_30`}>
+																			<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+																				<img
+																					src={calender.src}
+																					className={`${styles.calender}`}
+																					alt="calender"
+																				/>
+																				<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+																			</p>
+																			<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
+																				<img
+																					src={location.src}
+																					className={`${styles.location}`}
+																					alt="location"
+																				/>
+																				<span>
+																					{item?.events?.thumbnail?.country?.nodes?.map(
+																						(item2) => item2.title
+																					)}
+																				</span>
+																			</p>
+																		</div>
+																	</div>
 																</div>
-															</div>
+															</a>
 														</div>
-													</a>
-												</div>
+													);
+												})}
 											</div>
 										</div>
 									</div>
@@ -873,55 +920,70 @@ export default function Header() {
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
-												<div className={`${styles.ItemBox}`}>
-													<a href="">
-														<div className={`${styles.hoverBox}`}>
-															<div className={`${styles.eventImgBox}`}>
-																<img
-																	src={event_img.src}
-																	className={`${styles.eventImg}`}
-																	alt="img"
-																/>
-																<img
-																	src={event_logo.src}
-																	className={`${styles.eventLogo}`}
-																	alt="event logo"
-																/>
-															</div>
-															<div className={`${styles.eventContentBox}`}>
-																<div
-																	className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-																>
-																	Upcoming Event
-																</div>
-																<h4
-																	className={`${styles.descTxt} text_reg font_primary color_secondary `}
-																>
-																	Aurora Energy Transition Summit Warsaw 2025 Aurora Energy
-																	Transition Summit Warsaw 2025
-																</h4>
-																<div className={`${styles.dateFlex} f_j pt_30`}>
-																	<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+												{data?.events?.map((item, ind) => {
+													return (
+														<div className={`${styles.ItemBox}`} key={item?.title}>
+															<a href={`/events/${item?.slug}`}>
+																<div className={`${styles.hoverBox}`}>
+																	<div className={`${styles.eventImgBox}`}>
 																		<img
-																			src={calender.src}
-																			className={`${styles.calender}`}
-																			alt="calender"
+																			src={
+																				item?.events?.banner?.node?.sourceUrl ||
+																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																			}
+																			className={`${styles.eventImg}`}
+																			alt="img"
 																		/>
-																		<span>Feb 26, 2025</span>
-																	</p>
-																	<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
-																		<img
-																			src={location.src}
-																			className={`${styles.location}`}
-																			alt="location"
-																		/>
-																		<span>UK</span>
-																	</p>
+																		{item?.events?.banner?.node?.sourceUrl && (
+																			<img
+																				src={
+																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
+																					item?.events?.banner?.node?.sourceUrl
+																				}
+																				className={`${styles.eventLogo}`}
+																				alt="event logo"
+																			/>
+																		)}
+																	</div>
+																	<div className={`${styles.eventContentBox}`}>
+																		<div
+																			className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+																		>
+																			{item?.events?.thumbnail?.status} Event
+																		</div>
+																		<h4
+																			className={`${styles.descTxt} text_reg font_primary color_secondary `}
+																		>
+																			{item?.title}
+																		</h4>
+																		<div className={`${styles.dateFlex} f_j pt_30`}>
+																			<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+																				<img
+																					src={calender.src}
+																					className={`${styles.calender}`}
+																					alt="calender"
+																				/>
+																				<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+																			</p>
+																			<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
+																				<img
+																					src={location.src}
+																					className={`${styles.location}`}
+																					alt="location"
+																				/>
+																				<span>
+																					{item?.events?.thumbnail?.country?.nodes?.map(
+																						(item2) => item2.title
+																					)}
+																				</span>
+																			</p>
+																		</div>
+																	</div>
 																</div>
-															</div>
+															</a>
 														</div>
-													</a>
-												</div>
+													);
+												})}
 											</div>
 										</div>
 									</div>
@@ -1020,55 +1082,70 @@ export default function Header() {
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
-												<div className={`${styles.ItemBox}`}>
-													<a href="">
-														<div className={`${styles.hoverBox}`}>
-															<div className={`${styles.eventImgBox}`}>
-																<img
-																	src={event_img.src}
-																	className={`${styles.eventImg}`}
-																	alt="img"
-																/>
-																<img
-																	src={event_logo.src}
-																	className={`${styles.eventLogo}`}
-																	alt="event logo"
-																/>
-															</div>
-															<div className={`${styles.eventContentBox}`}>
-																<div
-																	className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
-																>
-																	Upcoming Event
-																</div>
-																<h4
-																	className={`${styles.descTxt} text_reg font_primary color_secondary `}
-																>
-																	Aurora Energy Transition Summit Warsaw 2025 Aurora Energy
-																	Transition Summit Warsaw 2025
-																</h4>
-																<div className={`${styles.dateFlex} f_j pt_30`}>
-																	<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+												{data?.events?.map((item, ind) => {
+													return (
+														<div className={`${styles.ItemBox}`} key={item?.title}>
+															<a href={`/events/${item?.slug}`}>
+																<div className={`${styles.hoverBox}`}>
+																	<div className={`${styles.eventImgBox}`}>
 																		<img
-																			src={calender.src}
-																			className={`${styles.calender}`}
-																			alt="calender"
+																			src={
+																				item?.events?.banner?.node?.sourceUrl ||
+																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																			}
+																			className={`${styles.eventImg}`}
+																			alt="img"
 																		/>
-																		<span>Feb 26, 2025</span>
-																	</p>
-																	<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
-																		<img
-																			src={location.src}
-																			className={`${styles.location}`}
-																			alt="location"
-																		/>
-																		<span>UK</span>
-																	</p>
+																		{item?.events?.banner?.node?.sourceUrl && (
+																			<img
+																				src={
+																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
+																					item?.events?.banner?.node?.sourceUrl
+																				}
+																				className={`${styles.eventLogo}`}
+																				alt="event logo"
+																			/>
+																		)}
+																	</div>
+																	<div className={`${styles.eventContentBox}`}>
+																		<div
+																			className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+																		>
+																			{item?.events?.thumbnail?.status} Event
+																		</div>
+																		<h4
+																			className={`${styles.descTxt} text_reg font_primary color_secondary `}
+																		>
+																			{item?.title}
+																		</h4>
+																		<div className={`${styles.dateFlex} f_j pt_30`}>
+																			<p className="text_xxs f_w_m color_light_gray text_uppercase f_r_a_center">
+																				<img
+																					src={calender.src}
+																					className={`${styles.calender}`}
+																					alt="calender"
+																				/>
+																				<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+																			</p>
+																			<p className="text_xxs f_w_m color_medium_gray f_r_a_center">
+																				<img
+																					src={location.src}
+																					className={`${styles.location}`}
+																					alt="location"
+																				/>
+																				<span>
+																					{item?.events?.thumbnail?.country?.nodes?.map(
+																						(item2) => item2.title
+																					)}
+																				</span>
+																			</p>
+																		</div>
+																	</div>
 																</div>
-															</div>
+															</a>
 														</div>
-													</a>
-												</div>
+													);
+												})}
 											</div>
 										</div>
 									</div>

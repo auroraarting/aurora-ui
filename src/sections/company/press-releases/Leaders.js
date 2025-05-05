@@ -34,12 +34,13 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 // DATA //
 
 /** Leaders Section */
-export default function Leaders() {
+export default function Leaders({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index) => {
 		e.preventDefault();
@@ -53,118 +54,43 @@ export default function Leaders() {
 		setIsPopupOpen(false);
 		setSlideNo(0);
 	};
+
 	useEffect(() => {
 		if (sliderRef.current?.swiper) {
 			sliderRef.current.swiper.slideTo(slideNo);
 		}
 	}, [slideNo]);
 
-	const mediaLeadersData = [
-		{
-			name: "Anna Clunes1",
-			designation: "British Ambassador, Poland1",
-			linkedinUrl: "http:linkedin/test",
-			downloadProfileUrl: "http:testdownloadProfile",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
+	const mediaLeadersData = data?.leaders?.leaders?.nodes?.map((item) => {
+		return {
+			name: item?.title,
+			designation: item?.teams?.thumbnail?.designation,
+			linkedinUrl: item?.teams?.thumbnail?.linkedinLink,
+			downloadProfileUrl: item?.teams?.file?.node?.sourceUrl,
+			desc: item?.content,
+			thumbnail: item?.teams?.thumbnail?.image?.node?.sourceUrl,
 			leaderBlogHeading: "Latest Articles by John Feddersen1",
-			blogData: [
-				{
+			blogData: item?.teams?.articles?.articlesby?.nodes?.map((item2) => {
+				let location = "";
+
+				item2?.caseStudies?.selectLocation?.nodes?.map((item3, ind) => {
+					if (ind == 0) {
+						location = item3.title;
+					} else {
+						location += `, ${item3.title}`;
+					}
+				});
+				return {
 					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-				{
-					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-				{
-					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-				{
-					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-				{
-					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-			],
-		},
-		{
-			name: "Anna Clunes2",
-			designation: "British Ambassador, Poland2",
-			linkedinUrl: "http:linkedin/test",
-			downloadProfileUrl: "http:testdownloadProfile",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			leaderBlogHeading: "Latest Articles by John Feddersen2",
-			blogData: [
-				{
-					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-				{
-					tags: "Case Study",
-					blogDesc:
-						"Energy Transition in Central and Eastern Europe: Challenges and Investment Opportunities",
-					blogDate: "Feb 20, 2025",
-					blogLocation: "Australia",
-				},
-			],
-		},
-		{
-			name: "Anna Clunes3",
-			designation: "British Ambassador, Poland3",
-			linkedinUrl: "http:linkedin/test",
-			downloadProfileUrl: "http:testdownloadProfile",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			// leaderBlogHeading: [],
-			blogData: [],
-		},
-		{
-			name: "Anna Clunes3",
-			designation: "British Ambassador, Poland3",
-			linkedinUrl: "http:linkedin/test",
-			downloadProfileUrl: "http:testdownloadProfile",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			blogData: [],
-		},
-		{
-			name: "Anna Clunes3",
-			designation: "British Ambassador, Poland3",
-			linkedinUrl: "http:linkedin/test",
-			downloadProfileUrl: "http:testdownloadProfile",
-			desc:
-				"Anna Clunes has served as His Majesty’s Ambassador to Poland since September 2020, bringing decades of diplomatic and leadership experience to the role.  Before her appointment, Anna held several senior positions in the UK government, including Acting Director General and Director at the Department for Exiting the European Union (2017–2020). Her expertise in economic diplomacy was honed as Director of Economic Diplomacy at the Foreign & Commonwealth Office (FCO) from 2015 to 2017.  Anna has also led strategic and protocol-focused departments, serving as Director of Protocol (2012–2014) and Head of Communications and Engagement (2010–2012) at the FCO, where she co-headed the Communications Directorate. <br /> Her experience extends to the Cabinet Office, where she was Deputy Director of the European and Global Issues Secretariat (2007–2009) and Private Secretary to the Prime Minister for Africa and Development at No. 10 Downing Street (2006–2007).  Her international assignments have included roles as Counsellor for External Relations at the UK Permanent Representation to the EU in Brussels (2003–2005), First Secretary for Counter-Terrorism at the UK Mission to the United Nations in New York (2000–2003), and Second Secretary for Development Assistance and Economic affairs at the Department for International Development in Warsaw (1996–2000).",
-			thumbnail: management_img.src,
-			blogData: [],
-		},
-	];
+					blogDesc: item2?.title,
+					blogDate: item2?.caseStudies?.date,
+					blogLocation: location,
+				};
+			}),
+		};
+	});
+	console.log(mediaLeadersData, "mediaLeadersData");
+
 	return (
 		<section className={`${styles.Leaders}`}>
 			<div className="container">
@@ -314,7 +240,7 @@ export default function Leaders() {
 															</p>
 														</div>
 													</div>
-													{item.blogData.length > 0 && (
+													{item?.blogData?.length > 0 && (
 														<div className={`${styles.blogWapper}`}>
 															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
@@ -335,7 +261,7 @@ export default function Leaders() {
 																	}}
 																	className={styles.sliderLeaders}
 																>
-																	{item.blogData.map((blogData, index) => (
+																	{item?.blogData?.map((blogData, index) => (
 																		<SwiperSlide key={index}>
 																			<div className={`${styles.ItemBox} `}>
 																				<div className={`${styles.hoverBox}`}>
