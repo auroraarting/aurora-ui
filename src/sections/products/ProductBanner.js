@@ -21,6 +21,7 @@ import frame_video from "../../../public/img/softwares/frame_video.png";
 import pause_button from "../../../public/img/icons/pause_button.svg";
 import play_button from "../../../public/img/icons/video_play.svg";
 import ContentFromCms from "@/components/ContentFromCms";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
@@ -36,6 +37,7 @@ export default function ProductBanner({
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
 	logo,
+	dynamicBtn,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -78,11 +80,20 @@ export default function ProductBanner({
 						<div className={`${styles.label} text_reg color_dark_gray`}>
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
-						<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								{btnTxt}
-							</Button>
-						</a>
+						{btnTxt && (
+							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
+								<Button color="primary" variant="filled" shape="rounded">
+									{btnTxt}
+								</Button>
+							</a>
+						)}
+						{dynamicBtn?.btnText && (
+							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicBtn?.btnText}
+								</Button>
+							</a>
+						)}
 					</div>
 				</div>
 				{vimeoid ? (

@@ -51,6 +51,7 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch  */
 export async function getServerSideProps() {
@@ -190,6 +191,7 @@ export default function EOSPage({
 					<SoftwareCards />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page eos ends here */}
 
 			{/* Footer */}

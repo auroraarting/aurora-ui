@@ -26,7 +26,11 @@ import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	filterMarkersBySlug,
+	getMapJsonForProducts,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/product/ProductInside.module.scss";
@@ -62,6 +66,7 @@ export async function getServerSideProps({ params }) {
 /** ProductInside Page */
 export default function ProductInside({ data, mapJson }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data?.products || {} };
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -91,6 +96,8 @@ export default function ProductInside({ data, mapJson }) {
 		</div>,
 	];
 
+	console.log("asdas", data?.products);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -111,23 +118,30 @@ export default function ProductInside({ data, mapJson }) {
 						data={data?.products}
 						bannerTitle={data?.products?.banner?.title}
 						bannerDescription={data?.products?.banner?.description}
-						btnTxt={data?.products?.banner?.buttonText}
+						// btnTxt={data?.products?.banner?.buttonText}
 						btnLink={data?.products?.banner?.buttonLink}
 						desktopImage={data?.products?.banner?.desktopThumbnail?.node?.sourceUrl}
 						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.sourceUrl}
 						videoSrc={data?.products?.banner?.vimeoLink}
 						vimeoid={data?.products?.banner?.vimeoLink}
 						logo={data?.products?.banner?.logo?.node?.sourceUrl}
+						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
 				</div>
 				<SectionsHeader
 					data={headerArray}
 					customHtml={
-						<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-							<Button color="primary" variant="filled" shape="rounded">
-								Book a Demo
-							</Button>
-						</div>
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
 					}
 				/>
 				{data?.products?.introduction?.title && (
