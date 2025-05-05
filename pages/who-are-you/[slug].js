@@ -112,7 +112,7 @@ export default function Advisory({ data, services, mapJson, regions }) {
 						mobileImage={data?.whoAreYous?.banner?.mobileThumbnail?.node?.sourceUrl}
 						vimeoid={data?.whoAreYous?.banner?.videoLink}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-						btnTxt="Connect Now"
+						// btnTxt="Connect Now"
 					/>
 				</div>
 				<SectionsHeader
