@@ -35,7 +35,7 @@ import styles from "@/styles/pages/company/press-releases/PressInside.module.scs
 import { getPressesCards, getSinglePress } from "@/services/Press.service";
 
 /** Fetch  */
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
 	const [data, moreRelated] = await Promise.all([
 		getSinglePress(params.slug),
 		getPressesCards("first:4"),
@@ -48,6 +48,7 @@ export async function getServerSideProps({ params }) {
 			moreRelated: moreRelated.data.presses.nodes,
 			dataForBtn,
 		},
+		revalidate: 10000,
 	};
 }
 
