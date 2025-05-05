@@ -67,7 +67,7 @@ export default function Team({ data }) {
 					/>
 				</div>
 				<section className={`${styles.tabMain} pt_60`}>
-					<div className={`${styles.category}`}>
+					{/* <div className={`${styles.category}`}>
 						<div className={`${styles.switchBox}`}>
 							{data?.map((item, ind) => {
 								return (
@@ -83,7 +83,7 @@ export default function Team({ data }) {
 								);
 							})}
 						</div>
-					</div>
+					</div> */}
 					{teams && (
 						<div className={`${styles.categoryContent} `}>
 							<div className="pb_100">
