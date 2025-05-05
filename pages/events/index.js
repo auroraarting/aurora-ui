@@ -40,27 +40,34 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Fetch */
 export async function getStaticProps() {
-	const [data, categories, filters, page] = await Promise.all([
-		getAllEvents(),
-		getAllEventCategories(),
-		getAllEventCountries(),
-		getEventLandingPage(),
-	]);
+	try {
+		const [data, categories, filters, page] = await Promise.all([
+			getAllEvents(),
+			getAllEventCategories(),
+			getAllEventCountries(),
+			getEventLandingPage(),
+		]);
 
-	return {
-		props: {
-			data: data.data.events.nodes,
-			categories: categories.data.eventscategories.nodes?.map((item) => {
-				return { title: item.name };
-			}),
-			countries: filters.data.countries.nodes,
-			products: filters.data.products.nodes,
-			softwares: filters.data.softwares.nodes,
-			services: filters.data.services.nodes,
-			page: page.data.page.eventLanding,
-		},
-		revalidate: 10000,
-	};
+		return {
+			props: {
+				data: data.data.events.nodes,
+				categories: categories.data.eventscategories.nodes?.map((item) => {
+					return { title: item.name };
+				}),
+				countries: filters.data.countries.nodes,
+				products: filters.data.products.nodes,
+				softwares: filters.data.softwares.nodes,
+				services: filters.data.services.nodes,
+				page: page.data.page.eventLanding,
+			},
+			revalidate: 10000,
+		};
+	} catch (error) {
+		console.error("Error fetching WordPress data:", error);
+		return {
+			notFound: true,
+		};
+	}
 }
 
 /** events Page */
