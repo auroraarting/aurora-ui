@@ -30,8 +30,44 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // DATA //
 
+// SERVICES //
+import {
+	getPresses,
+	getPressesCards,
+	getPressesLanguages,
+} from "@/services/Press.service";
+import { getAllEventCountries } from "@/services/Events.service";
+
+/** Fetch */
+export async function getServerSideProps() {
+	const [data, filters, languages] = await Promise.all([
+		getPressesCards(),
+		getAllEventCountries(),
+		getPressesLanguages(),
+	]);
+
+	return {
+		props: {
+			data: data.data.presses.nodes,
+			countries: filters.data.countries.nodes,
+			products: filters.data.products.nodes,
+			softwares: filters.data.softwares.nodes,
+			services: filters.data.services.nodes,
+			languages: languages.data.languages,
+		},
+	};
+}
+
 /** Press Releases Page */
-export default function PressReleases() {
+export default function PressReleases({
+	data,
+	countries,
+	products,
+	softwares,
+	services,
+	languages,
+}) {
+	console.log("Press Releases Page", data);
 	const [activeTab, setActiveTab] = useState("PressRoom");
 
 	/** */
@@ -87,7 +123,30 @@ export default function PressReleases() {
 								<TopMedia />
 							</div>
 							<div className="pb_100">
-								<MediaListing />
+								<MediaListing
+									data={data}
+									years={Array(new Date().getFullYear() - 2000)
+										.fill(null)
+										.map((item, ind) => {
+											return { title: 2001 + ind };
+										})
+										.reverse()}
+									productService={[
+										{
+											category: "Product",
+											options: products?.map((item) => item.title),
+										},
+										{
+											category: "Software",
+											options: softwares?.map((item) => item.title),
+										},
+										{
+											category: "Service",
+											options: services?.map((item) => item.title),
+										},
+									]}
+									languages={languages}
+								/>
 							</div>
 						</div>
 					)}

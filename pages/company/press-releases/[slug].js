@@ -21,6 +21,7 @@ import MediaMiddleRight from "@/sections/company/press-releases/MediaMiddleRight
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/company/press-releases/PressInside.module.scss";
@@ -29,8 +30,29 @@ import styles from "@/styles/pages/company/press-releases/PressInside.module.scs
 
 // DATA //
 
+// SERVICES //
+import { getPressesCards, getSinglePress } from "@/services/Press.service";
+
+/** Fetch  */
+export async function getServerSideProps({ params }) {
+	const [data, moreRelated] = await Promise.all([
+		getSinglePress(params.slug),
+		getPressesCards("first:4"),
+	]);
+	const dataForBtn = { postFields: data?.data?.pressBy?.presses || {} };
+
+	return {
+		props: {
+			data: data?.data?.pressBy || {},
+			moreRelated: moreRelated.data.presses.nodes,
+			dataForBtn,
+		},
+	};
+}
+
 /** PressInside Page */
-export default function PressInside() {
+export default function PressInside({ data, dataForBtn, moreRelated }) {
+	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -64,10 +86,10 @@ export default function PressInside() {
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={"Press Inside"}
+				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={"/press-inside"}
+				Url={`/company/press-releases/${data?.slug}`}
 			/>
 
 			{/* Header */}
@@ -76,26 +98,50 @@ export default function PressInside() {
 			{/* Page Content starts here */}
 			<main className={styles.mediaInsidePage}>
 				<div className="pt_100 pb_40">
-					<InsideTopSection />
+					<InsideTopSection
+						title={data?.title}
+						date={data?.presses?.banner?.date}
+						time={data?.presses?.banner?.time}
+						featuredImage={data?.featuredImage?.node?.sourceUrl}
+						data={data}
+						dataForBtn={dataForBtn}
+					/>
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					data={headerArray}
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<section className={`${styles.mediaMiddle} pt_80`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
-								<MediaMiddleDescription />
+								<MediaMiddleDescription data={data} />
 								<div className={`${styles.mediaFeedback} pt_40 pb_60`}>
-									<TestimonialFeedback />
+									<TestimonialFeedback
+										data={{ testimonials: { nodes: [...data.presses.highlights] } }}
+									/>
 								</div>
 								<div className={`${styles.mediaFeedback} pb_40`}>
-									<InsideMediaContact />
+									<InsideMediaContact data={data} />
 								</div>
 								<div className={`${styles.mediaFeedback} pt_60`}>
-									<MediaAbout />
+									<MediaAbout data={data} />
 								</div>
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
-								<MediaMiddleRight />
+								<MediaMiddleRight data={data} dataForBtn={dataForBtn} />
 							</div>
 						</div>
 					</div>
@@ -107,6 +153,11 @@ export default function PressInside() {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						defaultList={moreRelated}
+						formSectionTitle={data?.presses?.insights?.sectionTitle}
+						formSectionDesc={data?.presses?.insights?.sectionDesc}
+						insightsTitle={data?.presses?.insights?.insightsTitle}
+						formSectionBtnText="View All"
 					/>
 				</div>
 			</main>

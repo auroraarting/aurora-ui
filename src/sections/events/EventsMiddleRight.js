@@ -2,12 +2,14 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
+import formatDate from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsMiddleRight.module.scss";
@@ -20,8 +22,6 @@ import grey_calendar from "../../../public/img/icons/grey_calendar.svg";
 import author_logo from "@/../public/img/resources/aurora_insights/author_logo.png";
 import social_icon from "@/../public/img/resources/aurora_insights/social_icon.svg";
 import origin from "@/../public/img/resources/aurora_insights/origin.png";
-import ContentFromCms from "@/components/ContentFromCms";
-import formatDate from "@/utils";
 
 // DATA //
 

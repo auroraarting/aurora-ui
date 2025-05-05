@@ -1,6 +1,7 @@
 // MODULES //
 
 // COMPONENTS //
+import ContentFromCms from "@/components/ContentFromCms";
 import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
@@ -19,10 +20,11 @@ import graph_img from "@/../public/img/resources/aurora_insights/graph_img.png";
 // DATA //
 
 /** MediaMiddleDescription Section */
-export default function MediaMiddleDescription() {
+export default function MediaMiddleDescription({ data }) {
 	return (
 		<div className={`${styles.contentBox}`}>
-			<h2>
+			<ContentFromCms>{data?.content}</ContentFromCms>
+			{/* <h2>
 				Battery operators could see major profitability boosts in 2025, thanks to
 				shifting grid incentives.
 			</h2>
@@ -55,7 +57,7 @@ export default function MediaMiddleDescription() {
 				2028. TURPE is the fee charged in France for utilising the electricity grid,
 				and the new version introduces an optional tariff “injection soutirage”
 				designed to incentivize standalone storage assets, such as batteries.
-			</p>
+			</p> */}
 		</div>
 	);
 }

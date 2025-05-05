@@ -109,7 +109,7 @@ export default function TestimonialFeedback({ data }) {
 													{item?.title}
 												</h5>
 												<p className="text_xs color_dark_gray f_w_m pt_10">
-													{item?.testimonials?.designation}
+													{item?.testimonials?.designation || item?.designation}
 												</p>
 											</div>
 										</div>
