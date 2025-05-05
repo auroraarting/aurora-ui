@@ -296,6 +296,30 @@ export default function MediaListing({
 							</div>
 						</div>
 
+						{/* Reset */}
+						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} "activeDropDown"`}
+									onClick={() => {
+										setSelected({});
+										setList(data);
+										setDropdowns({
+											languageType: { isOpen: false, selected: { title: "Language" } },
+											offeringsType: {
+												isOpen: false,
+												selected: { title: "Products & Services" },
+											},
+											yearsType: { isOpen: false, selected: { title: "Year" } },
+										});
+									}}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										Reset
+									</div>
+								</div>
+							</div>
+						</div>
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}
@@ -372,6 +396,7 @@ export default function MediaListing({
 							</div>
 						);
 					})}
+					{list.length === 0 && <p>No Data Found!</p>}
 					{/* <div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>

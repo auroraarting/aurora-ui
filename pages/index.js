@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 
 // COMPONENTS //
@@ -33,22 +34,45 @@ import styles from "@/styles/pages/Home.module.scss";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getHomePage } from "@/services/Home.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getAllEvents } from "@/services/Events.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [regions, data] = await Promise.all([getRegions(), getHomePage()]);
+	const [regions, data, insights, eventsdata] = await Promise.all([
+		getRegions(),
+		getHomePage(),
+		getInsights(
+			'first: 6, where: {categoryName: "commentary,renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast,public-webinar,webinar,webinar-recording"}'
+		),
+		// eslint-disable-next-line quotes
+		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+	]);
 	const mapJson = getMapJsonForAllRegions(regions);
+
 	return {
 		props: {
 			data: data.data.page.homepage,
 			countries: data.data.countries.nodes,
 			mapJson,
+			insights: insights.data.posts.nodes,
+			events: eventsdata.data.events.nodes,
 		},
 	};
 }
 
 /** Home Page */
-export default function HomePage({ mapJson, data, countries }) {
+export default function HomePage({
+	mapJson,
+	data,
+	countries,
+	insights,
+	events,
+}) {
+	console.log("insights", events);
 	return (
 		<div>
 			{/* Metatags */}
@@ -81,10 +105,10 @@ export default function HomePage({ mapJson, data, countries }) {
 				)}
 				<HomeWhoWeAre />
 				<div className="ptb_100">
-					<HomeResources />
+					<HomeResources data={insights} countries={countries} />
 				</div>
 				<div className="pb_100">
-					<HomeEvents />
+					<HomeEvents data={events} />
 				</div>
 				<div className="">
 					<HomeTalentMeets />

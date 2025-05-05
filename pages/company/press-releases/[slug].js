@@ -109,7 +109,6 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 					/>
 				</div>
 				<SectionsHeader
-					data={headerArray}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
 							<div
