@@ -45,7 +45,7 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const [data, regions] = await Promise.all([getProductPage(), getRegions()]);
 	const products = data.data.products;
 	const mapJson = getMapJsonForProducts(regions);
@@ -92,7 +92,6 @@ export async function getStaticProps() {
 			regions,
 			mapJson,
 		},
-		revalidate: 10000,
 	};
 }
 

@@ -54,7 +54,7 @@ import {
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch  */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const [data, regions, bundles, categoriesForSelect, list] = await Promise.all([
 		getEosPage(),
 		getRegions(),
@@ -74,7 +74,6 @@ export async function getStaticProps() {
 			otherList,
 			countries,
 		},
-		revalidate: 10000,
 	};
 }
 
