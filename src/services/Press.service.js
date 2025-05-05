@@ -315,3 +315,106 @@ query GetPressesLanguages {
 	const res = await GraphQLAPI(query);
 	return res;
 };
+
+/** Fetch Page */
+export const getPressPage = async () => {
+	const query = `
+query GetPressMediaKit {
+  page(id: "press-landing", idType: URI) {
+    pressLanding {
+      banner {
+        desc
+        title
+      }
+      mediaKit {
+        desc
+        title
+        logos {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        brief {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        thumbnail {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      leaders {
+        sectionTitle
+        sectionDesc
+        leaders {
+          nodes {
+            ... on Team {
+              id
+              content
+              title
+              slug
+              teams {
+                thumbnail {
+                  designation
+                  linkedinLink
+                  image {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                }
+                articles {
+                  articlesby {
+                    nodes {
+                      ... on CaseStudy {
+                        id
+                        content
+                        title
+                        slug
+                        date
+                        featuredImage {
+                          node {
+                            altText
+                            sourceUrl
+                          }
+                        }
+                        caseStudies {
+                          readTime
+                          selectLocation {
+                            nodes {
+                              ... on Country {
+                                id
+                                title
+                                slug
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                file {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+      `;
+	const res = await GraphQLAPI(query);
+	return res;
+};

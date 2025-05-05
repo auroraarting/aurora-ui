@@ -132,7 +132,12 @@ export default function JobOpenings({ data }) {
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
 						Job Openings
 					</h2>
-					<a href="/careers/join-us" className={`${styles.bookBtn}`}>
+					<a
+						href="https://careers.auroraer.com/"
+						target="_blank"
+						rel="noreferrer"
+						className={`${styles.bookBtn}`}
+					>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Join Us
 						</Button>

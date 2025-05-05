@@ -35,15 +35,17 @@ import {
 	getPresses,
 	getPressesCards,
 	getPressesLanguages,
+	getPressPage,
 } from "@/services/Press.service";
 import { getAllEventCountries } from "@/services/Events.service";
 
 /** Fetch */
 export async function getServerSideProps() {
-	const [data, filters, languages] = await Promise.all([
+	const [data, filters, languages, page] = await Promise.all([
 		getPressesCards(),
 		getAllEventCountries(),
 		getPressesLanguages(),
+		getPressPage(),
 	]);
 
 	return {
@@ -54,6 +56,7 @@ export async function getServerSideProps() {
 			softwares: filters.data.softwares.nodes,
 			services: filters.data.services.nodes,
 			languages: languages.data.languages,
+			page: page?.data?.page?.pressLanding,
 		},
 	};
 }
@@ -66,8 +69,9 @@ export default function PressReleases({
 	softwares,
 	services,
 	languages,
+	page,
 }) {
-	console.log("Press Releases Page", data);
+	console.log("Press Releases Page", page);
 	const [activeTab, setActiveTab] = useState("PressRoom");
 
 	/** */
@@ -91,8 +95,8 @@ export default function PressReleases({
 			<main className={styles.MediaCenterPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
-						bannerTitle="latest press releases & media contacts"
-						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
+						bannerTitle={page?.banner?.title}
+						bannerDescription={page?.banner?.desc}
 						showContentOnly
 					/>
 				</div>
@@ -153,10 +157,10 @@ export default function PressReleases({
 					{activeTab === "MediaKit" && (
 						<div className={`${styles.categoryContent} pt_60`}>
 							<div className="pb_100">
-								<MediaKitInfo />
+								<MediaKitInfo data={page} />
 							</div>
 							<div className="pb_100">
-								<Leaders />
+								<Leaders data={page} />
 							</div>
 						</div>
 					)}

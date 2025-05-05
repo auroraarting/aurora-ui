@@ -19,35 +19,35 @@ import white_down_arrow from "@/../public/img/icons/white_down_arrow.svg";
 // DATA //
 
 /** MediaKitInfo Section */
-export default function MediaKitInfo() {
+export default function MediaKitInfo({ data }) {
 	return (
 		<section className={`${styles.MediaKitInfo}`}>
 			<div className="container">
 				<div className={`${styles.InfoBoxFlex} f_w_j`}>
 					<div className={`${styles.infoContent}`}>
-						<h2 className="text_xl color_secondary pb_10">
-							Lorem ipsum dolor sit amet consectetur
-						</h2>
-						<p className="text_reg color_dark_gray">
-							Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada.
-							Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam
-							ut a mattis. Aliquam faucibus bibendum bibendum purus a commodo diam
-							tortor ac. Pellentesque in consectetur lobortis viverra integer sed sed.
-						</p>
+						<h2 className="text_xl color_secondary pb_10">{data?.mediaKit?.title}</h2>
+						<p className="text_reg color_dark_gray">{data?.mediaKit?.desc}</p>
 						<div className={`${styles.downloadBtn} pt_30`}>
-							<a href="" className="d_f">
-								<img src={white_down_arrow.src} alt="icon" />
-								Download Logos
-							</a>
-							<a href="" className="d_f">
-								<img src={white_down_arrow.src} alt="icon" />
-								Media brief (PDF)
-							</a>
+							{data?.mediaKit?.logos?.node?.sourceUrl && (
+								<a href={data?.mediaKit?.logos?.node?.sourceUrl} className="d_f">
+									<img src={white_down_arrow.src} alt="icon" />
+									Download Logos
+								</a>
+							)}
+							{data?.mediaKit?.brief?.node?.sourceUrl && (
+								<a href={data?.mediaKit?.brief?.node?.sourceUrl} className="d_f">
+									<img src={white_down_arrow.src} alt="icon" />
+									Media brief (PDF)
+								</a>
+							)}
 						</div>
 					</div>
 					<div className={`${styles.infoLogo}`}>
 						<div className={`${styles.whiteBox}`}>
-							<img src={Aurora_Logo.src} alt="logo" />
+							<img
+								src={data?.mediaKit?.thumbnail?.node?.sourceUrl || Aurora_Logo.src}
+								alt="logo"
+							/>
 						</div>
 					</div>
 				</div>

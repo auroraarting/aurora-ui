@@ -1,3 +1,4 @@
+import { getAllEvents } from "./Events.service";
 import GraphQLAPI from "./Graphql.service";
 
 /** Softwares */
@@ -174,7 +175,7 @@ export async function fetchNavigationData() {
     nodes {
       name
       slug
-      regionsFields{
+      regionsFields {
         sequence
       }
       countries(first: 9999) {
@@ -197,9 +198,47 @@ export async function fetchNavigationData() {
       slug
     }
   }
+  events(first: 1) {
+    nodes {
+      title
+      slug
+      featuredImage {
+        node {
+          altText
+          sourceUrl
+        }
+      }
+      events {
+        thumbnail {
+          date
+          status
+          time
+          logo {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+        banner {
+          desktop {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
+  }
 }
     `;
-	const { data } = await GraphQLAPI(combinedQuery);
+	const [navdata, eventsdata] = await Promise.all([
+		GraphQLAPI(combinedQuery),
+		getAllEvents("first: 1"),
+	]);
+
+	const data = navdata?.data;
 
 	const softwares = data?.softwares?.nodes?.map((item) => {
 		return {
@@ -237,6 +276,7 @@ export async function fetchNavigationData() {
 			parseFloat(a.regionsFields?.sequence || 0) -
 			parseFloat(b.regionsFields?.sequence || 0)
 	);
+	const events = data?.events?.nodes;
 	const whoareyous = data?.whoareyous.nodes;
 	const howWeHelps = data?.howWeHelps.nodes;
 
@@ -247,6 +287,7 @@ export async function fetchNavigationData() {
 		regions,
 		whoareyous,
 		howWeHelps,
+		events,
 		ok: true,
 	};
 }
