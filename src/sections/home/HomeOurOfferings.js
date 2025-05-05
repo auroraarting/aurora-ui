@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import dynamic from "next/dynamic";
 
 // COMPONENTS //
 
@@ -14,6 +15,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 // import Lottie from "lottie-web";
+import { useInView } from "react-intersection-observer";
 
 // UTILS //
 import EqualHeight from "../../utils/EqualHeight";
@@ -36,6 +38,7 @@ export default function HomeOurOfferings() {
 	const lottieAnimations2 = [
 		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
 	];
+
 	const [svgHeight, setSvgHeight] = useState("347px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
 	const bgColors = ["#00be86", "#fc0", "#00b6ed", "#0069b4"];
@@ -130,13 +133,13 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<Link href="/eos">
+								<a href="/eos">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
-								</Link>
+								</a>
 								<h4 className="text_md f_w_m color_white ">EOS Platform</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
@@ -156,13 +159,13 @@ export default function HomeOurOfferings() {
 							style={{ backgroundColor: bgColors[bgIndex] }}
 						>
 							<div className={`${styles.Content}`}>
-								<Link href="/software">
+								<a href="/software">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
-								</Link>
+								</a>
 								<h4 className="text_md f_w_m color_white ">Software</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
@@ -190,11 +193,13 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} ${styles.LottieContent} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<img
-									src={menu_hover_arrow.src}
-									alt="icon"
-									className={`${styles.Icon_arrow}`}
-								/>
+								<a href="/products">
+									<img
+										src={menu_hover_arrow.src}
+										alt="icon"
+										className={`${styles.Icon_arrow}`}
+									/>
+								</a>
 								<h4 className="text_md f_w_m color_white ">Subscription Analytics</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
@@ -222,13 +227,13 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<Link href="/service/advisory">
+								<a href="/service/advisory">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
-								</Link>
+								</a>
 								<h4 className="text_md f_w_m color_white ">Advisory</h4>
 								<p className="text_reg color_silver_gray ">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,

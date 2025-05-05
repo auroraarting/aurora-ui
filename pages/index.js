@@ -42,34 +42,27 @@ import { getAllEvents } from "@/services/Events.service";
 
 /** Fetch  */
 export async function getStaticProps() {
-	try {
-		const [regions, data, insights, eventsdata] = await Promise.all([
-			getRegions(),
-			getHomePage(),
-			getInsights(
-				'first: 6, where: {categoryName: "commentary,renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast,public-webinar,webinar,webinar-recording"}'
-			),
-			// eslint-disable-next-line quotes
-			getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-		]);
-		const mapJson = getMapJsonForAllRegions(regions);
+	const [regions, data, insights, eventsdata] = await Promise.all([
+		getRegions(),
+		getHomePage(),
+		getInsights(
+			'first: 6, where: {categoryName: "commentary,renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast,public-webinar,webinar,webinar-recording"}'
+		),
+		// eslint-disable-next-line quotes
+		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+	]);
+	const mapJson = getMapJsonForAllRegions(regions);
 
-		return {
-			props: {
-				data: data.data.page.homepage,
-				countries: data.data.countries.nodes,
-				mapJson,
-				insights: insights.data.posts.nodes,
-				events: eventsdata.data.events.nodes,
-			},
-			revalidate: 10000,
-		};
-	} catch (error) {
-		console.error("Error fetching WordPress data:", error);
-		return {
-			notFound: true,
-		};
-	}
+	return {
+		props: {
+			data: data.data.page.homepage,
+			countries: data.data.countries.nodes,
+			mapJson,
+			insights: insights.data.posts.nodes,
+			events: eventsdata.data.events.nodes,
+		},
+		revalidate: 10000,
+	};
 }
 
 /** Home Page */

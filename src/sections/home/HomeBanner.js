@@ -1,6 +1,5 @@
 // MODULES //
 import { useEffect, useRef } from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -9,6 +8,8 @@ import Button from "@/components/Buttons/Button";
 
 // PLUGINS //
 // import Lottie from "lottie-web";
+import { useInView } from "react-intersection-observer";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // UTILS //
 import { dynamicInsightsBtnProps } from "@/utils";
@@ -26,43 +27,8 @@ export default function HomeBanner() {
 	const lottieAnimations = [
 		{ id: "1", src: "/img/home/lottie/bannerRightSide.json" },
 	];
-	// const bannerAni = useRef();
-	// /** platLottie funnction */
-	// function playLottie() {
-	// 	Lottie.loadAnimation({
-	// 		container: bannerAni.current,
-	// 		renderer: "svg",
-	// 		loop: true,
-	// 		autoplay: true,
-	// 		animationData: require("../../../public/img/home/lottie/bannerRightSide.json"),
-	// 	});
-	// }
-	// const bannerAniRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	// /** platLottie funnction */
-	// function platLottieResp() {
-	// 	/** platLottie funnction */
-	// 	const loadLottieAnimation = (ref, animationData) => {
-	// 		if (ref.current) {
-	// 			Lottie.loadAnimation({
-	// 				container: ref.current,
-	// 				renderer: "svg",
-	// 				loop: true,
-	// 				autoplay: true,
-	// 				animationData: animationData,
-	// 			});
-	// 		}
-	// 	};
-	// 	const animationDataArray = [
-	// 		require("../../../public/img/home/lottie/bannerRightSide.json"),
-	// 	];
-	// 	bannerAniRefs.forEach((ref, index) => {
-	// 		loadLottieAnimation(ref, animationDataArray[index]);
-	// 	});
-	// }
-	// useEffect(() => {
-	// 	playLottie();
-	// 	platLottieResp();
-	// }, []);
+	const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
+
 	return (
 		<div className={styles.HomeBanner}>
 			<div className={`${styles.BannerContentSection}`}>
@@ -86,22 +52,24 @@ export default function HomeBanner() {
 								</Button>
 							</div>
 						</div>
-						<div className={`${styles.BannerImg}`}>
+						<div className={`${styles.BannerImg}`} ref={ref}>
 							{/* <img
 								src={bannerGraph.src}
 								className={`${styles.BannerGraph} width_100`}
 								alt="Banner Graph"
 							/> */}
 							{/* <div className="bannerAni" ref={bannerAniRefs[0]}></div> */}
-							<DotLottieReact
-								src={lottieAnimations[0].src}
-								autoplay={true}
-								loop={true}
-								renderer="svg"
-								renderersettings={{
-									preserveAspectRatio: "xMidYMid meet",
-								}}
-							/>
+							{inView && (
+								<DotLottieReact
+									src={lottieAnimations[0].src}
+									autoplay={true}
+									loop={true}
+									renderer="svg"
+									renderersettings={{
+										preserveAspectRatio: "xMidYMid meet",
+									}}
+								/>
+							)}
 						</div>
 					</div>
 				</div>

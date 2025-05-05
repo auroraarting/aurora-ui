@@ -30,6 +30,435 @@ import popup_close from "/public/img/icons/popup_close.svg";
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
+const defaultNavigation = {
+	products: [
+		{
+			title: "Grid Add-On",
+			slug: "grid-add-on",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Grid-Add-On.svg",
+				altText: "",
+			},
+		},
+		{
+			title: "Hydrogen Service",
+			slug: "hydrogen-service",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Hydrogen-Service.svg",
+				altText: "",
+			},
+		},
+		{
+			title: "Flexible Energy Service",
+			slug: "flexible-energy-service",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-Service.svg",
+				altText: "",
+			},
+		},
+		{
+			title: "Power & Renewables Service",
+			slug: "power-renewables-service",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Power-Renewables-Service-1.svg",
+				altText: "",
+			},
+		},
+	],
+	softwares: [
+		{
+			title: "Lumus",
+			slug: "lumus",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.svg",
+				altText: "",
+			},
+		},
+		{
+			title: "Origin",
+			slug: "origin",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Origin-1.svg",
+				altText: "",
+			},
+		},
+		{
+			title: "Amun",
+			slug: "amun",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun-1.svg",
+				altText: "",
+			},
+		},
+		{
+			title: "Chronos",
+			slug: "chronos",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/04/Chronos.svg",
+				altText: "",
+			},
+		},
+	],
+	services: [
+		{
+			title: "Advisory",
+			slug: "advisory",
+			content: "<p>Aurora empowers smarter energy decisions.</p>\n",
+			logo: {
+				logo:
+					"https://cms-production.auroraer.com/wp-content/uploads/2025/03/Advisory.svg",
+				altText: "",
+			},
+		},
+	],
+	regions: [
+		{
+			name: "Europe",
+			slug: "europe",
+			regionsFields: {
+				sequence: 1,
+			},
+			countries: {
+				nodes: [
+					{
+						slug: "netherlands",
+						title: "Netherland",
+					},
+					{
+						slug: "switzerland",
+						title: "Switzerland",
+					},
+					{
+						slug: "slovakia",
+						title: "Slovakia",
+					},
+					{
+						slug: "serbia",
+						title: "Serbia",
+					},
+					{
+						slug: "romania",
+						title: "Romania",
+					},
+					{
+						slug: "nordics",
+						title: "Nordics",
+					},
+					{
+						slug: "poland",
+						title: "Poland",
+					},
+					{
+						slug: "italy",
+						title: "Italy",
+					},
+					{
+						slug: "iberia",
+						title: "Iberia",
+					},
+					{
+						slug: "slovenia",
+						title: "Slovenia",
+					},
+					{
+						slug: "hungary",
+						title: "Hungary",
+					},
+					{
+						slug: "greece",
+						title: "Greece",
+					},
+					{
+						slug: "germany",
+						title: "Germany",
+					},
+					{
+						slug: "france",
+						title: "France",
+					},
+					{
+						slug: "czechia",
+						title: "Czechia",
+					},
+					{
+						slug: "croatia",
+						title: "Croatia",
+					},
+					{
+						slug: "bulgaria",
+						title: "Bulgaria",
+					},
+					{
+						slug: "ireland",
+						title: "Ireland",
+					},
+					{
+						slug: "great-britain",
+						title: "Great Britain",
+					},
+					{
+						slug: "baltics",
+						title: "Baltics",
+					},
+					{
+						slug: "austria",
+						title: "Austria",
+					},
+					{
+						slug: "belgium",
+						title: "Belgium",
+					},
+				],
+			},
+		},
+		{
+			name: "Asia",
+			slug: "asia",
+			regionsFields: {
+				sequence: 2,
+			},
+			countries: {
+				nodes: [
+					{
+						slug: "singapore",
+						title: "Singapore",
+					},
+					{
+						slug: "philippines",
+						title: "Philippines",
+					},
+					{
+						slug: "malaysia",
+						title: "Malaysia",
+					},
+					{
+						slug: "korea",
+						title: "Korea",
+					},
+					{
+						slug: "india",
+						title: "India",
+					},
+					{
+						slug: "japan",
+						title: "Japan",
+					},
+				],
+			},
+		},
+		{
+			name: "Australia",
+			slug: "australia",
+			regionsFields: {
+				sequence: 3,
+			},
+			countries: {
+				nodes: [
+					{
+						slug: "australia",
+						title: "Australia",
+					},
+				],
+			},
+		},
+		{
+			name: "North America",
+			slug: "north-america",
+			regionsFields: {
+				sequence: 4,
+			},
+			countries: {
+				nodes: [
+					{
+						slug: "noram",
+						title: "Noram",
+					},
+				],
+			},
+		},
+		{
+			name: "South America",
+			slug: "south-america",
+			regionsFields: {
+				sequence: 5,
+			},
+			countries: {
+				nodes: [
+					{
+						slug: "chile",
+						title: "Chile",
+					},
+					{
+						slug: "brazil",
+						title: "Brazil",
+					},
+				],
+			},
+		},
+	],
+	whoareyous: [
+		{
+			title: "Developer",
+			slug: "developer",
+		},
+		{
+			title: "Utilities",
+			slug: "utilities",
+		},
+		{
+			title: "Energy Consumer",
+			slug: "energy-consumer",
+		},
+		{
+			title: "Financial Sector",
+			slug: "financial-sector",
+		},
+	],
+	howWeHelps: [
+		{
+			title: "PPAs",
+			slug: "ppas",
+		},
+		{
+			title: "Strategy Us",
+			slug: "strategy-us",
+		},
+		{
+			title: "Asset Citing & Optimisation",
+			slug: "asset-citing-optimisation",
+		},
+		{
+			title: "Portfolio Valuation",
+			slug: "portfolio-valuation",
+		},
+		{
+			title: "Transaction Support",
+			slug: "transactions-support",
+		},
+	],
+	events: [
+		{
+			title: "Aurora Energy Transition Summit Warsaw 2025-2",
+			slug: "aurora-energy-transition-summit-warsaw-2025-2",
+			featuredImage: {
+				node: {
+					altText: "",
+					sourceUrl:
+						"https://cms-production.auroraer.com/wp-content/uploads/2025/04/event_inside_banner.5c571806.jpg",
+				},
+			},
+			events: {
+				thumbnail: {
+					date: "2025-04-30T00:00:00+00:00",
+					status: "Upcoming",
+					time: "Doors open at 12:30 CET",
+					logo: {
+						node: {
+							altText: "",
+							sourceUrl:
+								"https://cms-production.auroraer.com/wp-content/uploads/2025/04/energy_transition.cbbdc6fc.png",
+						},
+					},
+				},
+				banner: {
+					desktop: {
+						node: {
+							altText: "",
+							sourceUrl:
+								"https://cms-production.auroraer.com/wp-content/uploads/2023/07/Wind-original-1449359885-scaled-1-1024x689.jpg",
+						},
+					},
+				},
+			},
+		},
+	],
+	webinar: [
+		{
+			title:
+				"Powering Through Change: The Highs and Lows of ERCOT’s Battery Market",
+			slug: "powering-through-change-the-highs-and-lows-of-ercots-battery-market",
+			date: "2025-03-18T21:52:56",
+			featuredImage: {
+				node: {
+					altText: "",
+					sourceUrl:
+						"https://cms-production.auroraer.com/wp-content/uploads/2025/03/Screenshot-2025-03-18-164856.png",
+				},
+			},
+			categories: {
+				nodes: [
+					{
+						slug: "ercot",
+						name: "ERCOT",
+					},
+					{
+						slug: "north-america",
+						name: "North America",
+					},
+					{
+						slug: "public-webinar",
+						name: "Public",
+					},
+					{
+						slug: "webinar",
+						name: "Webinar",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+			postFields: {
+				speakers: {
+					nodes: [
+						{
+							id: "cG9zdDozOTAwNw==",
+							title: "John Feddersen",
+							slug: "john-feddersen",
+							postSpeakers: {
+								sessions: [
+									{
+										address: "InterContinental Warsaw, Conference Room1",
+										time: "1:30 PM1",
+										timeSlot: "1:30 PM - 1:40 PM CET1",
+										title: "Welcome and Opening Remarks1",
+									},
+								],
+								thumbnail: {
+									designation: "Founder and CEO",
+									linkedinLink: "/",
+									image: {
+										node: {
+											altText: "",
+											sourceUrl:
+												"https://cms-production.auroraer.com/wp-content/uploads/2025/04/profile.png",
+										},
+									},
+								},
+							},
+							content: null,
+						},
+					],
+				},
+			},
+		},
+	],
+	ok: true,
+};
 
 // SERVICES //
 import { fetchNavigationData } from "@/services/Navigation.service";
@@ -38,7 +467,7 @@ import { fetchNavigationData } from "@/services/Navigation.service";
 export default function Footer() {
 	const currentYear = new Date().getFullYear();
 	const [toggleState, settoggleState] = useState(0);
-	const [data, setData] = useState();
+	const [data, setData] = useState(defaultNavigation);
 	const [isPopupActive, setIsPopupActive] = useState(false);
 
 	/** toggleTab */
