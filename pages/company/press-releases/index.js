@@ -41,7 +41,7 @@ import {
 import { getAllEventCountries } from "@/services/Events.service";
 
 /** Fetch */
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const [data, filters, languages, page] = await Promise.all([
 		getPressesCards(),
 		getAllEventCountries(),
@@ -59,6 +59,7 @@ export async function getServerSideProps() {
 			languages: languages.data.languages,
 			page: page?.data?.page?.pressLanding,
 		},
+		revalidate: 10000,
 	};
 }
 
