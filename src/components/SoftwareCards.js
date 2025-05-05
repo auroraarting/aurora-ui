@@ -36,11 +36,9 @@ export default function SoftwareCards() {
 								Unlock powerful tools for energy analysis.
 							</h2>
 							<div className={styles.btn_box}>
-								<a>
-									<Button color="primary" variant="filled" shape="rounded" mode="dark">
-										Explore Software
-									</Button>
-								</a>
+								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+									Explore Software
+								</Button>
 							</div>
 						</div>
 					</a>
