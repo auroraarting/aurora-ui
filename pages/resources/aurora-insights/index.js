@@ -41,37 +41,30 @@ import IframeModal from "@/components/IframeModal";
 
 /** Fetch  getStaticProps*/
 export async function getServerSideProps() {
-	try {
-		const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
-			getInsights(
-				'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
-			),
-			getInsightsCategories(),
-			getInsights('first: 3, where: {categoryName: ""}'),
-			getInsightsPage(),
-		]);
-		const otherList = list?.data?.posts?.nodes;
+	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
+		getInsights(
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+		getInsightsPage(),
+	]);
+	const otherList = list?.data?.posts?.nodes;
 
-		return {
-			props: {
-				pagination: data.data?.posts?.pageInfo || {},
-				data: data?.data?.posts?.nodes || [],
-				tags: categoriesForSelect.data.tags?.nodes || [],
-				categories: categoriesForSelect?.data?.categories?.nodes || [],
-				countries: categoriesForSelect?.data?.countries?.nodes || [],
-				products: categoriesForSelect?.data?.products?.nodes || [],
-				softwares: categoriesForSelect?.data?.softwares?.nodes || [],
-				services: categoriesForSelect?.data?.services?.nodes || [],
-				otherList,
-				insightsPage: insightsPage.data.page.insightsListing,
-			},
-		};
-	} catch (error) {
-		console.error("Error fetching WordPress data:", error);
-		return {
-			notFound: true,
-		};
-	}
+	return {
+		props: {
+			pagination: data.data?.posts?.pageInfo || {},
+			data: data?.data?.posts?.nodes || [],
+			tags: categoriesForSelect.data.tags?.nodes || [],
+			categories: categoriesForSelect?.data?.categories?.nodes || [],
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			products: categoriesForSelect?.data?.products?.nodes || [],
+			softwares: categoriesForSelect?.data?.softwares?.nodes || [],
+			services: categoriesForSelect?.data?.services?.nodes || [],
+			otherList,
+			insightsPage: insightsPage.data.page.insightsListing,
+		},
+	};
 }
 
 /** AuroraInsights Page */
