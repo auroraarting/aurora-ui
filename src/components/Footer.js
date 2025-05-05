@@ -75,7 +75,7 @@ export default function Footer() {
 		fetchData();
 	}, []);
 
-	if (!data) return <div className="stalePage"></div>;
+	// if (!data) return <div className="stalePage"></div>;
 
 	return (
 		<footer className={`${styles.main_footer}`}>
