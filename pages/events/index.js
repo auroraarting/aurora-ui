@@ -39,7 +39,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 /** Fetch */
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const [data, categories, filters, page] = await Promise.all([
 		getAllEvents(),
 		getAllEventCategories(),
@@ -59,6 +59,7 @@ export async function getServerSideProps() {
 			services: filters.data.services.nodes,
 			page: page.data.page.eventLanding,
 		},
+		revalidate: 10000,
 	};
 }
 

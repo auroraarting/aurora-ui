@@ -37,7 +37,7 @@ import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch getStaticProps */
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const queryTxt =
 		// eslint-disable-next-line quotes
 		'first:9999, where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }';
@@ -59,7 +59,7 @@ export async function getServerSideProps() {
 			services: categoriesForSelect.data.services.nodes,
 			energyTalksPage: energyTalksPage.data.page.energyTalksListing,
 		},
-		// revalidate: 10,
+		revalidate: 10000,
 	};
 }
 

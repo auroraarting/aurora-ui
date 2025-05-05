@@ -40,7 +40,7 @@ import { getInsightsPage } from "@/services/InsightsListing.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch  getStaticProps*/
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
 		getInsights(
 			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
@@ -64,7 +64,7 @@ export async function getServerSideProps() {
 			otherList,
 			insightsPage: insightsPage.data.page.insightsListing,
 		},
-		// revalidate: 10,
+		revalidate: 10000,
 	};
 }
 

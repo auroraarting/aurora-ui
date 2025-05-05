@@ -80,7 +80,7 @@ export async function getServerSideProps() {
 			pastSpeakers,
 			webinarpage: webinarpage.data.page.webinarsListing,
 		},
-		// revalidate: 10,
+		revalidate: 10000,
 	};
 }
 

@@ -42,7 +42,7 @@ import { getSoftwarePage } from "@/services/Softwares.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
 	const softwares = data.data.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
@@ -87,6 +87,7 @@ export async function getServerSideProps() {
 			regions,
 			mapJson,
 		},
+		revalidate: 10000,
 	};
 }
 
