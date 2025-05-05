@@ -15,23 +15,10 @@ import SmoothScrolling from "@/utils/SmoothScrolling";
 
 // STYLES //
 import "@/styles/globals/globals.scss";
-import { getEosPage } from "@/services/Eos.service";
-import { fetchNavigationData } from "@/services/Navigation.service";
 
 // IMAGES //
 
 // DATA //
-
-/** Fetch  */
-export async function getServerSideProps() {
-	const [data] = await Promise.all([fetchNavigationData()]);
-
-	return {
-		props: {
-			data,
-		},
-	};
-}
 
 /** App Page */
 export default function MyApp({ Component, pageProps, data }) {
