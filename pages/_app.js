@@ -15,13 +15,26 @@ import SmoothScrolling from "@/utils/SmoothScrolling";
 
 // STYLES //
 import "@/styles/globals/globals.scss";
+import { getEosPage } from "@/services/Eos.service";
+import { fetchNavigationData } from "@/services/Navigation.service";
 
 // IMAGES //
 
 // DATA //
 
+/** Fetch  */
+export async function getServerSideProps() {
+	const [data] = await Promise.all([fetchNavigationData()]);
+
+	return {
+		props: {
+			data,
+		},
+	};
+}
+
 /** App Page */
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, data }) {
 	const router = useRouter();
 	const { search } = router.query;
 
@@ -93,6 +106,8 @@ export default function MyApp({ Component, pageProps }) {
 			highlightMatches(document.body, search.toLowerCase());
 		}
 	}, [search]);
+
+	console.log("data", data);
 
 	return (
 		<>

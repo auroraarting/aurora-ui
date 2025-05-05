@@ -80,7 +80,6 @@ export default function Events({
 	services,
 	page,
 }) {
-	console.log(page);
 	return (
 		<div>
 			{/* Metatags */}

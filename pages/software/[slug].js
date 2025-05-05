@@ -59,7 +59,6 @@ export async function getServerSideProps({ params }) {
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug)
 	);
-	console.log(data, "data");
 	return {
 		props: {
 			data: data?.data?.softwareBy?.softwares || {},

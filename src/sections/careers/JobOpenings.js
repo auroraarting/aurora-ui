@@ -71,18 +71,12 @@ export default function JobOpenings({ data }) {
 						?.includes(dropdownObj.search.selected.title)
 			);
 		}
-		console.log(dropdownObj, "arr");
 		setFilterdJob(arr);
 
 		setDropdowns((prev) => ({
 			...prev,
 			[key]: { isOpen: false, selected: { title: option } },
 		}));
-	};
-
-	/** search  */
-	const search = (val) => {
-		console.log(val);
 	};
 
 	/** Toggle Dropdown */
@@ -115,7 +109,6 @@ export default function JobOpenings({ data }) {
 			setFilters({ countries: tempCountries, departments: tempDepartments });
 			setJobs(json.data);
 			setFilterdJob(json.data);
-			console.log(json.data);
 		} catch (error) {
 			console.log(error, "json");
 		}

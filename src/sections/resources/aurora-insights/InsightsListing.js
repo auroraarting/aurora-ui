@@ -218,7 +218,6 @@ export default function InsightsListing({
 		setSelected(selectedObj);
 
 		const filteredArr = filterItems(arr, queryObj);
-		console.log(filteredArr, queryObj);
 		setList(filteredArr);
 		setLoading(false);
 	};
@@ -462,7 +461,6 @@ export default function InsightsListing({
 										e.preventDefault();
 										const val = e.target.search.value;
 										filter(val, "search");
-										console.log(val);
 									}}
 								>
 									<input name="search" type="text" placeholder="Search Events" />

@@ -76,8 +76,6 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		fetchdata();
 	}, []);
 
-	console.log(data, module);
-
 	return (
 		<section className={`${styles.IntegratedSystem}`}>
 			<div className="container">

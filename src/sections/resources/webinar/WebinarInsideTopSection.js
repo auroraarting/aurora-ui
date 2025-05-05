@@ -26,7 +26,6 @@ export default function WebinarInsideTopSection({
 	countries,
 	isUpcoming,
 }) {
-	console.log("data", data);
 	return (
 		<section className={`${styles.WebinarInsideTopSection} `}>
 			<div className="container">

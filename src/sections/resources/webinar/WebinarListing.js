@@ -110,7 +110,6 @@ export default function WebinarListing({
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
-		console.log(option.title, key);
 		if (key === "categoryType") {
 			filter(option, key);
 		} else {
@@ -163,7 +162,6 @@ export default function WebinarListing({
 		setSelected(selectedObj);
 
 		const filteredArr = filterItems(arr, queryObj);
-		console.log(filteredArr, selectedObj);
 		setList(filteredArr);
 		setLoading(false);
 	};
@@ -355,7 +353,6 @@ export default function WebinarListing({
 												className={option.title === selected.year ? "selected" : ""}
 												onClick={() => {
 													handleOptionClick("yearsType", option);
-													console.log("yearsType", option);
 												}}
 											>
 												{option.title}
@@ -403,7 +400,6 @@ export default function WebinarListing({
 										e.preventDefault();
 										const val = e.target.search.value;
 										filter(val, "search");
-										console.log(val);
 									}}
 								>
 									<input name="search" type="text" placeholder="Search Events" />

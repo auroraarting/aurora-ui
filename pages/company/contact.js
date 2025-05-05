@@ -56,7 +56,6 @@ export default function ContactPage({ regions }) {
 		const regionsArr = regions?.map((item) => {
 			let obj = {};
 			obj.title = item?.name;
-			console.log("asd", item?.countries);
 			if (item?.countries?.nodes?.length > 0) {
 				obj.children = (
 					<div className={`${styles.CountryWrapper}`}>

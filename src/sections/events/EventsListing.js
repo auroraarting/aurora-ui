@@ -437,7 +437,6 @@ export default function EventsListing({
 										e.preventDefault();
 										const val = e.target.search.value;
 										filter(val, "search");
-										console.log(val);
 									}}
 								>
 									<input name="search" type="text" placeholder="Search Events" />

@@ -176,8 +176,6 @@ export default function AdvisoryLeadership({ data }) {
 		},
 	];
 
-	console.log(data, "data");
-
 	return (
 		<section className={`${styles.AdvisoryLeadership}`}>
 			<div className="container">

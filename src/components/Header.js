@@ -153,7 +153,7 @@ export default function Header() {
 		fetchData();
 	}, []);
 
-	if (!data) return <div className="stalePage"></div>;
+	// if (!data) return <div className="stalePage"></div>;
 
 	return (
 		<>

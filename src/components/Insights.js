@@ -53,7 +53,6 @@ export default function Insights({
 	formdata,
 	insightsLink = "/resources/aurora-insights/",
 }) {
-	console.log("defaultList", defaultList);
 	const router = useRouter();
 	const [data, setData] = useState({ data: defaultList, countries });
 	// useEffect(() => {
@@ -108,7 +107,6 @@ export default function Insights({
 
 	useEffect(() => {
 		if (!defaultList) {
-			console.log("yes");
 			fetchdata();
 		}
 	}, []);

@@ -90,7 +90,6 @@ export default function Bundles({ data }) {
 										(item) => item.tabName === e.value
 									);
 									handleTabChange(filter[0]);
-									console.log(e);
 								}}
 							/>
 						</div>

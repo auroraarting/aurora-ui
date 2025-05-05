@@ -9,7 +9,6 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 export default async function handler(req, res) {
 	try {
 		const response = await getSoftwares();
-		console.log(response, "response");
 
 		const results = response; // Combine results
 		res.status(200).json(results);

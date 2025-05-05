@@ -189,7 +189,6 @@ export default function EnergyListing({
 		setSelected(selectedObj);
 
 		const filteredArr = filterItems(arr, queryObj);
-		console.log(filteredArr, queryObj);
 		setList(filteredArr);
 		setLoading(false);
 	};

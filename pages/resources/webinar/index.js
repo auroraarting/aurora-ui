@@ -103,7 +103,6 @@ export default function WebinarTalks({
 	pastSpeakers,
 	webinarpage,
 }) {
-	console.log(webinarpage);
 	const [original, setOriginal] = useState(data);
 
 	return (

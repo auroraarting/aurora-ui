@@ -53,7 +53,6 @@ export async function getServerSideProps({ params }) {
 
 /** PressInside Page */
 export default function PressInside({ data, dataForBtn, moreRelated }) {
-	console.log(dataForBtn, "dataForBtn");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */

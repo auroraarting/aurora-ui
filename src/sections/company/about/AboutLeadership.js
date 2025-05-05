@@ -42,8 +42,6 @@ export default function AboutLeadership({ data }) {
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
 
-	console.log(data, "data");
-
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index, data) => {
 		e.preventDefault();
