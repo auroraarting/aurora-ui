@@ -35,7 +35,7 @@ import { getLifeAtAurora } from "@/services/Careers.service";
 import { getAboutPage } from "@/services/About.service";
 
 /** Fetch  */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const [data] = await Promise.all([getAboutPage()]);
 	let obj = {
 		data: { ...data.data.page.about, offices: data.data.offices.nodes },
@@ -65,7 +65,7 @@ export async function getStaticProps() {
 
 		tempMapJson.markers.push(obj);
 	});
-	return { props: { ...obj, mapJson: tempMapJson }, revalidate: 10000 };
+	return { props: { ...obj, mapJson: tempMapJson } };
 }
 
 /** About Page */
