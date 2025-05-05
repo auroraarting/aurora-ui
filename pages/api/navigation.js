@@ -12,6 +12,7 @@ export default async function handler(req, res) {
 		}
 
 		const results = response; // Combine results
+		console.log(results, "results");
 		res.status(200).json(results);
 	} catch (error) {
 		console.error("Error fetching search results:", error);
