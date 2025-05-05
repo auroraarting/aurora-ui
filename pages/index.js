@@ -41,7 +41,7 @@ import {
 import { getAllEvents } from "@/services/Events.service";
 
 /** Fetch  */
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const [regions, data, insights, eventsdata] = await Promise.all([
 		getRegions(),
 		getHomePage(),
@@ -61,6 +61,7 @@ export async function getServerSideProps() {
 			insights: insights.data.posts.nodes,
 			events: eventsdata.data.events.nodes,
 		},
+		revalidate: 10000,
 	};
 }
 
