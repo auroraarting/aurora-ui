@@ -35,6 +35,7 @@ import desktop_banner from "@/../public/img/services/advisory/desktop_banner.jpg
 import { getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
@@ -137,6 +138,7 @@ export default function Advisory({ data, mapJson }) {
 					<IntegratedSystem />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

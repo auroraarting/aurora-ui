@@ -462,7 +462,11 @@ export const dynamicInsightsBtnProps = (
 		obj.rel = "noreferrer";
 	} else if (data?.postFields?.[keyVal]?.iframe) {
 		obj.onClick = () =>
-			OpenIframePopup("iframePopup", data?.postFields?.[keyVal]?.iframe);
+			OpenIframePopup(
+				"iframePopup",
+				data?.postFields?.[keyVal]?.iframe ||
+					"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+			);
 	}
 	if (data?.postFields?.[keyVal]?.buttonText) {
 		obj.btnText = data?.postFields?.[keyVal]?.buttonText;

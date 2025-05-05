@@ -23,6 +23,7 @@ import pause_button from "../../../public/img/icons/pause_button.svg";
 import play_button from "../../../public/img/icons/video_play.svg";
 import DefaultBanner from "/public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "/public/img/banner/defaultMobileBanner.jpg";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
@@ -75,9 +76,11 @@ export default function EosBanner({
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Book a Demo
-							</Button>
+							<a {...dynamicInsightsBtnProps()}>
+								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+									Book a Demo
+								</Button>
+							</a>
 							<Button color="secondary" variant="filled" shape="rounded" mode="dark">
 								EOS Sign in
 							</Button>

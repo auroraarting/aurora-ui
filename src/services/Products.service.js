@@ -149,12 +149,12 @@ query GetProductBySlug {
         tabTitle
       }
       banner {
-      logo{
-      node {
+        logo {
+          node {
             altText
             sourceUrl
           }
-      }
+        }
         buttonText
         buttonLink
         description
@@ -173,10 +173,40 @@ query GetProductBySlug {
           }
         }
       }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
       caseStudy {
         tabTitle
         title
-                selectCaseStudies {
+        selectCaseStudies {
           nodes {
             ... on CaseStudy {
               id
@@ -185,7 +215,6 @@ query GetProductBySlug {
               slug
               date
               caseStudies {
-
                 selectLocation {
                   nodes {
                     ... on Country {
@@ -257,7 +286,7 @@ query GetProductBySlug {
         desciption
         tabTitle
         title
-                buttonLink
+        buttonLink
         buttonText
         advantages {
           advantagesTitle
@@ -274,16 +303,16 @@ query GetProductBySlug {
         marquee
       }
       whyAurora {
-         title
+        title
         description
         startText
         endText
         endPoint
-        list{
-             title
-             description
-             caption
-             value
+        list {
+          title
+          description
+          caption
+          value
         }
       }
       fourStepProcess {
