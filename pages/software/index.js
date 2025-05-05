@@ -43,52 +43,59 @@ import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
 export async function getStaticProps() {
-	const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
-	const softwares = data.data.softwares;
-	const mapJson = getMapJsonForSoftware(regions);
+	try {
+		const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
+		const softwares = data.data.softwares;
+		const mapJson = getMapJsonForSoftware(regions);
 
-	let testimonials = {
-		testimonials: {
-			nodes: [],
-		},
-	};
-	let clientLogos = {
-		selectLogos: {
-			nodes: [],
-		},
-	};
-
-	softwares.nodes.map((item) => {
-		// testimonials
-		testimonials.testimonials.nodes = removeDuplicatesByKeys(
-			[
-				...testimonials.testimonials.nodes,
-				...item.softwares.ourClient.testimonials.nodes,
-			],
-			["id"]
-		);
-		clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
-			[
-				...clientLogos.selectLogos.nodes,
-				...item.softwares.ourClient.selectLogos.nodes,
-			],
-			["id"]
-		);
-	});
-
-	return {
-		props: {
-			data: {
-				...data.data.page.softwareLanding,
+		let testimonials = {
+			testimonials: {
+				nodes: [],
 			},
-			softwares,
-			testimonials,
-			clientLogos,
-			regions,
-			mapJson,
-		},
-		revalidate: 10000,
-	};
+		};
+		let clientLogos = {
+			selectLogos: {
+				nodes: [],
+			},
+		};
+
+		softwares.nodes.map((item) => {
+			// testimonials
+			testimonials.testimonials.nodes = removeDuplicatesByKeys(
+				[
+					...testimonials.testimonials.nodes,
+					...item.softwares.ourClient.testimonials.nodes,
+				],
+				["id"]
+			);
+			clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
+				[
+					...clientLogos.selectLogos.nodes,
+					...item.softwares.ourClient.selectLogos.nodes,
+				],
+				["id"]
+			);
+		});
+
+		return {
+			props: {
+				data: {
+					...data.data.page.softwareLanding,
+				},
+				softwares,
+				testimonials,
+				clientLogos,
+				regions,
+				mapJson,
+			},
+			revalidate: 10000,
+		};
+	} catch (error) {
+		console.error("Error fetching WordPress data:", error);
+		return {
+			notFound: true,
+		};
+	}
 }
 
 /** Chronos Page */
