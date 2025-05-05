@@ -155,7 +155,6 @@ export default function Header() {
 
 	if (!data) return <div className="stalePage"></div>;
 
-	console.log("headers", data);
 	return (
 		<>
 			<header className={`${styles.main_headerBox} main_headerBox`}>

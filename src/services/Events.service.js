@@ -9,8 +9,8 @@ query GetEvents {
       title
       slug
       events {
-      interestedDesc
-      pricingDesc
+        interestedDesc
+        pricingDesc
         thumbnail {
           address
           date
@@ -86,8 +86,22 @@ query GetEvents {
                   }
                 }
               }
+            }
+          }
         }
-      }
+        banner {
+          desktop {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+          mobile {
+            node {
+              altText
+              sourceUrl
+            }
+          }
         }
       }
       eventscategories {

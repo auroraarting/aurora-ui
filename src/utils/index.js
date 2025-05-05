@@ -376,14 +376,23 @@ export const allCategories = [
 	{ title: "Market reports", alternate: "Market reports" },
 	{ title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
+	{ title: "Energy Talks", alternate: "Energy Talks" },
 ];
 
 /** findFunc  */
 export function isCategory(categoryList, dynamicWords) {
-	const titles2 = new Set(dynamicWords?.map((item) => item.name));
+	const words = dynamicWords
+		?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
+		.map((word) => word.trim())
+		.filter(Boolean); // remove empty strings
+
 	let txt = "";
-	categoryList?.filter((item) => {
-		if (titles2.has(item.alternate || item.title)) {
+
+	categoryList?.forEach((item) => {
+		const target = (item.alternate || item.title).toLowerCase();
+		const match = words.some((word) => target.includes(word));
+
+		if (match) {
 			if (!txt) {
 				txt += item.title;
 			} else {
@@ -391,6 +400,7 @@ export function isCategory(categoryList, dynamicWords) {
 			}
 		}
 	});
+
 	return txt;
 }
 
