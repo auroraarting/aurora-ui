@@ -105,7 +105,9 @@ export default function Footer() {
 												href="https://www.linkedin.com/company/aurora-energy-research-limited"
 												target="_blank"
 												rel="noreferrer"
-											></Link>
+											>
+												<img src={footer_linkedin.src} alt="x" />
+											</Link>
 										</li>
 										<li>
 											<Link

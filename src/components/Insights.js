@@ -12,7 +12,11 @@ import Button from "@/components/Buttons/Button";
 
 // UTILS //
 import EqualHeight from "../utils/EqualHeight";
-import formatDate, { allCategories, isCategory } from "@/utils";
+import formatDate, {
+	allCategories,
+	dynamicInsightsBtnProps,
+	isCategory,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/Insights.module.scss";
@@ -44,9 +48,10 @@ export default function Insights({
 	countries,
 	insightsTitle = "Insights",
 	formSectionTitle = "Let’s power the future, together",
-	formSectionDesc = "Our team is here to help you navigate the complexities of energy storage. Reach out to discover how Chronos can work for you.",
+	formSectionDesc = "",
 	formSectionBtnText = "Speak To Our Experts",
 	formdata,
+	insightsLink = "/resources/aurora-insights/",
 }) {
 	console.log("defaultList", defaultList);
 	const router = useRouter();
@@ -73,6 +78,9 @@ export default function Insights({
 
 	/** defaultPathname  */
 	const defaultPathname = () => {
+		if (insightsLink) {
+			return insightsLink;
+		}
 		if (router.pathname?.split("[slug]")?.length > 1) {
 			return router.pathname?.split("[slug]")[0];
 		}
@@ -85,6 +93,18 @@ export default function Insights({
 		const resjson = await resdata.json();
 		setData(resjson);
 	};
+
+	/** BtnProps  */
+	function BtnProps() {
+		if (formdata) {
+			return {
+				...formdata,
+				href: defaultPathname(),
+			};
+		} else {
+			return dynamicInsightsBtnProps();
+		}
+	}
 
 	useEffect(() => {
 		if (!defaultList) {
@@ -117,7 +137,8 @@ export default function Insights({
 										className={`${styles.bookBtn}`}
 										onClick={() => handleOpenForm()}
 										// {...formdata}
-										href={defaultPathname()}
+										// href={defaultPathname()}
+										{...BtnProps()}
 									>
 										<Button color="primary" variant="filled" shape="rounded" mode="dark">
 											{formSectionBtnText}
@@ -163,13 +184,14 @@ export default function Insights({
 									</h2>
 								</div>
 								<a
-									onClick={() => handleOpenForm()}
+									// onClick={() => handleOpenForm()}
 									// {...formdata}
 									href={defaultPathname()}
+									// {...BtnProps()}
 									className={`${styles.bookBtn}`}
 								>
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
-										{formSectionBtnText}
+										View All
 									</Button>
 								</a>
 							</div>

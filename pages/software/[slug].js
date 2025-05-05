@@ -48,6 +48,7 @@ import locationJson from "@/data/globalMap.json";
 // SERVICES //
 import { getSingleSoftware } from "@/services/Softwares.service";
 import { getRegions } from "@/services/GlobalPresence.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
@@ -190,6 +191,7 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 					<IntegratedSystem module="products" />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

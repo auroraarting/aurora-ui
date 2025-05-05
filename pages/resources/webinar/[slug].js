@@ -196,6 +196,7 @@ export default function WebinarInside({ data, countries, otherList }) {
 
 				<IframeModal />
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

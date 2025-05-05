@@ -8,6 +8,7 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/EosIntegratedSystem.module.scss";
@@ -37,7 +38,10 @@ export default function EosIntegratedSystem() {
 							support, and webinars on forecasts, policy changes, and market
 							opportunities.
 						</p>
-						<div className={`${styles.bookBtnOne} pt_20`}>
+						<div
+							{...dynamicInsightsBtnProps()}
+							className={`${styles.bookBtnOne} pt_20`}
+						>
 							<Button color="primary" variant="filled" shape="rounded" mode="dark">
 								Subscribe Now
 							</Button>

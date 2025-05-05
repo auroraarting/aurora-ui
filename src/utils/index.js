@@ -439,8 +439,21 @@ export const OpenIframePopup = (modalClassName, iframeLink) => {
 	console.log("iframeHtml", iframeHtml);
 };
 
+const defaultBtnProps = {
+	postFields: {
+		topSectionButton: {
+			iframe: "https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
+			buttonText: "Subscribe",
+			file: null,
+		},
+	},
+};
+
 /** dynamicInsightsBtnProps  */
-export const dynamicInsightsBtnProps = (data, keyVal = "topSectionButton") => {
+export const dynamicInsightsBtnProps = (
+	data = defaultBtnProps,
+	keyVal = "topSectionButton"
+) => {
 	let obj = {};
 
 	if (data?.postFields?.[keyVal]?.file?.node?.sourceUrl) {

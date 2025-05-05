@@ -20,6 +20,7 @@ import styles from "@/styles/pages/how-we-help/HowWeHelp.module.scss";
 // IMAGES //
 import dropdown_arrow from "../../public/img/icons/dropdown_arrow.svg";
 import Insights from "@/components/Insights";
+import IframeModal from "@/components/IframeModal";
 
 // DATA //
 
@@ -106,6 +107,7 @@ export default function HowWeHelp() {
 					</div>
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

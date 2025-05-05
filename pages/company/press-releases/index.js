@@ -10,6 +10,7 @@ import Insights from "@/components/Insights";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import SoftwareCards from "@/components/SoftwareCards";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import TopMedia from "@/sections/company/press-releases/TopMedia";
@@ -181,6 +182,8 @@ export default function PressReleases({
 					<SoftwareCards />
 				</div>
 			</main>
+			<IframeModal />
+
 			{/* Page Content ends here */}
 
 			{/* Footer */}

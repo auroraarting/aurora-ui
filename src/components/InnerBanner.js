@@ -30,6 +30,7 @@ function InnerBanner({
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
 	logo,
+	dynamicBtn,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -42,6 +43,7 @@ function InnerBanner({
 	};
 	const [isPlaying, setIsPlaying] = useState(true);
 	const vimeoRef = useRef(null);
+	console.log(dynamicBtn, "dynamicBtn");
 
 	/** togglePlayPause */
 	const togglePlayPause = () => {
@@ -71,9 +73,9 @@ function InnerBanner({
 							)}
 						</div>
 						{btnTxt && (
-							<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
+							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
-									{btnTxt}
+									{dynamicBtn ? dynamicBtn?.btnText : btnTxt}
 								</Button>
 							</a>
 						)}

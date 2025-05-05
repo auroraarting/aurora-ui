@@ -25,6 +25,7 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // SECTORS //
 import { getTeamSectors } from "@/services/Teams.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
 export async function getServerSideProps() {
@@ -92,6 +93,7 @@ export default function Team({ data }) {
 					)}
 				</section>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

@@ -87,6 +87,36 @@ export const getSingleWhoAreYou = async (slug) => {
           }
         }
       }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
     }
   }
 }

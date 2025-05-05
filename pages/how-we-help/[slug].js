@@ -15,6 +15,7 @@ import SolutionsChallenge from "@/components/SolutionsChallenge";
 import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import Bundles from "@/components/Bundles";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
@@ -26,6 +27,7 @@ import { Link, scroller } from "react-scroll";
 
 // UTILS //
 import {
+	dynamicInsightsBtnProps,
 	getMapJsonForAllRegions,
 	getMapJsonForCountries,
 	getMapJsonForProducts,
@@ -71,6 +73,7 @@ export async function getServerSideProps({ params }) {
 /** Transactions Page */
 export default function Transactions({ data, services, mapJson, bundles }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data?.howWeHelpInside || {} };
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -103,14 +106,31 @@ export default function Transactions({ data, services, mapJson, bundles }) {
 
 			{/* Page Content starts here */}
 			<main className={styles.TransactionsPage}>
-				<TransactionsBanner data={data?.howWeHelpInside?.banner} />
+				<TransactionsBanner
+					data={data?.howWeHelpInside?.banner}
+					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+					btnTxt="Get Started"
+				/>
 				<SectionsHeader
+					// customHtml={
+					// 	<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
+					// 		<Button color="primary" variant="filled" shape="rounded">
+					// 			Get Transaction Support
+					// 		</Button>
+					// 	</div>
+					// }
 					customHtml={
-						<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-							<Button color="primary" variant="filled" shape="rounded">
-								Get Transaction Support
-							</Button>
-						</div>
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
 					}
 				/>
 				<div>
@@ -161,12 +181,17 @@ export default function Transactions({ data, services, mapJson, bundles }) {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						formSectionTitle={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+						}
+						formSectionDesc=""
 					/>
 				</div>
 				<div className="pb_100">
 					<SolutionsChallenge />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

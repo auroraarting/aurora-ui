@@ -19,7 +19,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // DATA //
 
 /** TransactionsBanner Section */
-export default function TransactionsBanner({ data }) {
+export default function TransactionsBanner({ data, dynamicBtn, btnTxt }) {
 	if (!data) return <></>;
 	return (
 		<section className={`${styles.TransactionsBanner}`}>
@@ -35,9 +35,9 @@ export default function TransactionsBanner({ data }) {
 						<div className={`${styles.label} text_reg color_white`}>
 							<ContentFromCms>{data?.description}</ContentFromCms>
 						</div>
-						<div className={`${styles.bookBtn} pt_30`}>
+						<div {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Get Started
+								{btnTxt}
 							</Button>
 						</div>
 					</div>

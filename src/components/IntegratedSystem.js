@@ -38,6 +38,7 @@ const placeholders = [system_one.src, turbine_img.src, solar_img.src];
 /** IntegratedSystem Section */
 export default function IntegratedSystem({ module = "softwares" }) {
 	const [data, setData] = useState();
+	const link = module === "softwares" ? "/software" : "/products";
 
 	/** keyModule  */
 	const keyModule = () => {
@@ -54,9 +55,11 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		let res;
 
 		if (module === "softwares") {
-			res = await getSoftwares();
+			let resdata = await fetch("/api/softwares");
+			res = await resdata.json();
 		} else {
-			res = await getProducts();
+			let resdata = await fetch("/api/products");
+			res = await resdata.json();
 		}
 		let arr = res?.data?.[module]?.nodes?.map((item) => {
 			if (count > 2) {
@@ -89,9 +92,11 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							advisory services, we’re your partner in progress.
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<Button color="secondary" variant="filled" shape="rounded">
-								Explore More
-							</Button>
+							<a href={link}>
+								<Button color="secondary" variant="filled" shape="rounded">
+									Explore More
+								</Button>
+							</a>
 						</div>
 					</div>
 					<div className={`${styles.integratedImgMain}`}>

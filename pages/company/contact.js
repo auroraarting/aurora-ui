@@ -32,6 +32,7 @@ import {
 	getRegions,
 } from "@/services/GlobalPresence.service";
 import { getOfficesByRegions } from "@/services/Offices.service";
+import IframeModal from "@/components/IframeModal";
 
 // DATA //
 const tempArr = [
@@ -409,7 +410,8 @@ export default function ContactPage({ regions }) {
 							</div>
 							<div className={`${styles.formBox}`}>
 								<iframe
-									src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
+									// src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
+									src="https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 									className={`${styles.form_img}`}
 									title="Form"
 								></iframe>
@@ -439,6 +441,7 @@ export default function ContactPage({ regions }) {
 					<SoftwareCards />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

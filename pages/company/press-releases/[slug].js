@@ -9,6 +9,7 @@ import SectionsHeader from "@/components/SectionsHeader";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import InsideTopSection from "@/sections/company/press-releases/InsideTopSection";
@@ -52,7 +53,7 @@ export async function getServerSideProps({ params }) {
 
 /** PressInside Page */
 export default function PressInside({ data, dataForBtn, moreRelated }) {
-	console.log(data);
+	console.log(dataForBtn, "dataForBtn");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */
@@ -161,6 +162,7 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 					/>
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

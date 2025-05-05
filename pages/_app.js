@@ -56,9 +56,8 @@ export default function MyApp({ Component, pageProps }) {
 		}
 	}
 
-	useEffect(() => {
-		SmoothScrolling();
-
+	/** addCssVariables  */
+	const addCssVariables = () => {
 		// Change Global Css Variables
 		const header = document
 			?.querySelector(".main_headerBox")
@@ -79,6 +78,14 @@ export default function MyApp({ Component, pageProps }) {
 				`${sectionHeader.height}px`
 			);
 		}
+	};
+
+	useEffect(() => {
+		SmoothScrolling();
+		addCssVariables();
+		setTimeout(() => {
+			addCssVariables();
+		}, 1000);
 	}, []);
 
 	useEffect(() => {

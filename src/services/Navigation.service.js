@@ -1,5 +1,6 @@
 import { getAllEvents } from "./Events.service";
 import GraphQLAPI from "./Graphql.service";
+import { getInsights } from "./Insights.service";
 
 /** Softwares */
 export const getSoftwares = async () => {
@@ -233,12 +234,17 @@ export async function fetchNavigationData() {
   }
 }
     `;
-	const [navdata, eventsdata] = await Promise.all([
+
+	const [navdata, webinardata] = await Promise.all([
 		GraphQLAPI(combinedQuery),
-		getAllEvents("first: 1"),
+		getInsights(
+			// eslint-disable-next-line quotes
+			'first:1, where: { categoryName: "public-webinar,webinar,webinar-recording" }'
+		),
 	]);
 
 	const data = navdata?.data;
+	const webinar = webinardata.data.posts?.nodes;
 
 	const softwares = data?.softwares?.nodes?.map((item) => {
 		return {
@@ -288,6 +294,7 @@ export async function fetchNavigationData() {
 		whoareyous,
 		howWeHelps,
 		events,
+		webinar,
 		ok: true,
 	};
 }

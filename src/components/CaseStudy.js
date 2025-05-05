@@ -44,9 +44,9 @@ export default function CaseStudy({ data }) {
 							<h3 className={`${styles.descTxt} text_xl color_secondary pt_10`}>
 								{first?.[0]?.title}
 							</h3>
-							<p className="text_reg color_dark_gray font_secondary pt_10">
+							<div className="text_reg color_dark_gray font_secondary pt_10">
 								<ContentFromCms>{first?.[0]?.content}</ContentFromCms>
-							</p>
+							</div>
 							<div className={`${styles.dateFlex} f_j pt_30`}>
 								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img

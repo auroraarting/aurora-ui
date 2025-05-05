@@ -37,6 +37,7 @@ import {
 	getInsightsPath,
 } from "@/services/Insights.service";
 import { getInsightsPage } from "@/services/InsightsListing.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch  getStaticProps*/
 export async function getServerSideProps() {
@@ -163,6 +164,7 @@ export default function AuroraInsights({
 					<SoftwareCards />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
