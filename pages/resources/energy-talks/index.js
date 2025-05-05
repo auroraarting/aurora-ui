@@ -37,7 +37,7 @@ import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch getStaticProps */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	try {
 		const queryTxt =
 			// eslint-disable-next-line quotes
@@ -60,7 +60,6 @@ export async function getStaticProps() {
 				services: categoriesForSelect.data.services.nodes,
 				energyTalksPage: energyTalksPage.data.page.energyTalksListing,
 			},
-			revalidate: 10000,
 		};
 	} catch (error) {
 		console.error("Error fetching WordPress data:", error);

@@ -39,7 +39,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 /** Fetch */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	try {
 		const [data, categories, filters, page] = await Promise.all([
 			getAllEvents(),

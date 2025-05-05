@@ -40,7 +40,7 @@ import { getInsightsPage } from "@/services/InsightsListing.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch  getStaticProps*/
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	try {
 		const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
 			getInsights(
@@ -65,7 +65,6 @@ export async function getStaticProps() {
 				otherList,
 				insightsPage: insightsPage.data.page.insightsListing,
 			},
-			revalidate: 10000,
 		};
 	} catch (error) {
 		console.error("Error fetching WordPress data:", error);

@@ -28,14 +28,13 @@ import { getTeamSectors } from "@/services/Teams.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const [data] = await Promise.all([getTeamSectors()]);
 
 	return {
 		props: {
 			data: data.data.teamsectors.nodes,
 		},
-		revalidate: 10000,
 	};
 }
 

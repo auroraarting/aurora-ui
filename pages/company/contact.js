@@ -37,14 +37,14 @@ import IframeModal from "@/components/IframeModal";
 // DATA //
 
 /** Fetch  */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const [regions, page] = await Promise.all([
 		getOfficesByRegions(),
 		getGlobalPresencePage(),
 	]);
 
 	return {
-		props: { regions: regions.data.regions.nodes, revalidate: 10000 },
+		props: { regions: regions.data.regions.nodes },
 	};
 }
 

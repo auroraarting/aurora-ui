@@ -42,7 +42,7 @@ import { getSoftwarePage } from "@/services/Softwares.service";
 import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	try {
 		const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
 		const softwares = data.data.softwares;
@@ -88,7 +88,6 @@ export async function getStaticProps() {
 				regions,
 				mapJson,
 			},
-			revalidate: 10000,
 		};
 	} catch (error) {
 		console.error("Error fetching WordPress data:", error);

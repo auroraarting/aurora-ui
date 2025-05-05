@@ -81,7 +81,6 @@ export async function getServerSideProps() {
 				pastSpeakers,
 				webinarpage: webinarpage.data.page.webinarsListing,
 			},
-			revalidate: 10000,
 		};
 	} catch (error) {
 		console.error("Error fetching WordPress data:", error);
