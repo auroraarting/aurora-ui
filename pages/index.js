@@ -7,6 +7,7 @@ import MetaTags from "@/components/MetaTags";
 import GlobalMap from "@/components/GlobalMap";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import HomeBanner from "@/sections/home/HomeBanner";
@@ -89,6 +90,7 @@ export default function HomePage({ mapJson, data, countries }) {
 					<HomeTalentMeets />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

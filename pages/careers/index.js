@@ -29,6 +29,7 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch getStaticProps */
 export async function getServerSideProps() {
@@ -135,6 +136,7 @@ export default function Careers({ otherList, countries }) {
 					</div>
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

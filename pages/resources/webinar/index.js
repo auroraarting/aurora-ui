@@ -32,6 +32,7 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getWebinarPage } from "@/services/Webinar.service";
+import IframeModal from "@/components/IframeModal";
 
 // DATA //
 
@@ -165,6 +166,7 @@ export default function WebinarTalks({
 					<SoftwareCards />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

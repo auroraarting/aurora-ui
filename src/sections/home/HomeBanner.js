@@ -11,6 +11,7 @@ import Button from "@/components/Buttons/Button";
 // import Lottie from "lottie-web";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/home/HomeBanner.module.scss";
@@ -76,7 +77,10 @@ export default function HomeBanner() {
 								Aurora equips you with the insight and tools to make smarter energy
 								decisions across every stage of the asset lifecycle.
 							</p>
-							<div className={`${styles.bookBtnOne} pt_40`}>
+							<div
+								{...dynamicInsightsBtnProps()}
+								className={`${styles.bookBtnOne} pt_40`}
+							>
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
 									Book a Demo
 								</Button>

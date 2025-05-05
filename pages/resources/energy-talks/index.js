@@ -34,6 +34,7 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
+import IframeModal from "@/components/IframeModal";
 
 /** Fetch getStaticProps */
 export async function getServerSideProps() {
@@ -147,6 +148,7 @@ export default function EnergyTalks({
 					<SoftwareCards />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

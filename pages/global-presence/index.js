@@ -11,6 +11,7 @@ import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import GlobalMap from "@/components/GlobalMap";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import Map from "@/components/MapContainer";
@@ -150,6 +151,7 @@ export default function GlobalPresence({ regions, page, mapJson }) {
 					</div>
 				</main>
 			)}
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

@@ -4,11 +4,11 @@ import GraphQLAPI from "./Graphql.service";
 export const getTeamSectors = async () => {
 	const query = `
 query GetTeamSectors {
-  teamsectors {
+  teamsectors(first: 9999) {
     nodes {
       name
       slug
-      teams {
+      teams(first: 9999) {
         nodes {
           title
           slug

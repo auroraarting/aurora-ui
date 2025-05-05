@@ -59,9 +59,11 @@ export default function InsideTopSection({
 							</p>
 						</div>
 					</div>
-					<div className={`${styles.imageWrapper}`}>
-						<img src={featuredImage} className="width_100 b_r_20" alt="img" />
-					</div>
+					{featuredImage && (
+						<div className={`${styles.imageWrapper}`}>
+							<img src={featuredImage} className="width_100 b_r_20" alt="img" />
+						</div>
+					)}
 				</div>
 				<div className={`${styles.dateBox}`}>
 					<div className={`${styles.downloadListenBox} f_w_j a_center`}>

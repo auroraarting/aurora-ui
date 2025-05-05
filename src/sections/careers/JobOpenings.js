@@ -132,12 +132,7 @@ export default function JobOpenings({ data }) {
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
 						Job Openings
 					</h2>
-					<a
-						href="https://careers.auroraer.com/"
-						target="_blank"
-						rel="noreferrer"
-						className={`${styles.bookBtn}`}
-					>
+					<a href="/careers/join-us" className={`${styles.bookBtn}`}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Join Us
 						</Button>
@@ -250,50 +245,52 @@ export default function JobOpenings({ data }) {
 				</div>
 				<div className={`${styles.tableBox}`}>
 					<table>
-						{filterdJob?.map((item, ind) => {
-							return (
-								<tr key={item?.title + ind}>
-									<td className="text_md font_primary color_white f_w_m">
-										{item?.title}
-									</td>
-									<td className="text_reg color_platinum_gray">
-										{/* Singapore */}
-										{item?.location?.province}
-									</td>
-									<td className="text_reg color_platinum_gray">
-										{/* Advisory */}
-										{item?.job?.department?.name}
-									</td>
+						<tbody>
+							{filterdJob?.map((item, ind) => {
+								return (
+									<tr key={item?.title + ind}>
+										<td className="text_md font_primary color_white f_w_m">
+											{item?.title}
+										</td>
+										<td className="text_reg color_platinum_gray">
+											{/* Singapore */}
+											{item?.location?.province}
+										</td>
+										<td className="text_reg color_platinum_gray">
+											{/* Advisory */}
+											{item?.job?.department?.name}
+										</td>
+										<td className="text_reg color_platinum_gray">
+											{/* Permanent - Full Time */}
+											{item?.employment_type_text}
+										</td>
+										<td className="text_reg color_platinum_gray">
+											{/* Permanent - Full Time */}
+											{/* {item?.employment_type_text} */}
+											<a href={item?.url} target="_blank" rel="noreferrer">
+												<Button color="primary" variant="filled" shape="rounded" mode="max">
+													View Job
+												</Button>
+											</a>
+										</td>
+									</tr>
+								);
+							})}
+							{filterdJob?.length === 0 && (
+								<tr>
+									<td className="text_md font_primary color_white f_w_m">No Openings</td>
+									<td className="text_reg color_platinum_gray">{/* Singapore */}</td>
+									<td className="text_reg color_platinum_gray">{/* Advisory */}</td>
 									<td className="text_reg color_platinum_gray">
 										{/* Permanent - Full Time */}
-										{item?.employment_type_text}
 									</td>
 									<td className="text_reg color_platinum_gray">
 										{/* Permanent - Full Time */}
 										{/* {item?.employment_type_text} */}
-										<a href={item?.url} target="_blank" rel="noreferrer">
-											<Button color="primary" variant="filled" shape="rounded" mode="max">
-												View Job
-											</Button>
-										</a>
 									</td>
 								</tr>
-							);
-						})}
-						{filterdJob?.length === 0 && (
-							<tr>
-								<td className="text_md font_primary color_white f_w_m">No Openings</td>
-								<td className="text_reg color_platinum_gray">{/* Singapore */}</td>
-								<td className="text_reg color_platinum_gray">{/* Advisory */}</td>
-								<td className="text_reg color_platinum_gray">
-									{/* Permanent - Full Time */}
-								</td>
-								<td className="text_reg color_platinum_gray">
-									{/* Permanent - Full Time */}
-									{/* {item?.employment_type_text} */}
-								</td>
-							</tr>
-						)}
+							)}
+						</tbody>
 						{/* <tr>
 							<td className="text_md font_primary color_white f_w_m">
 								Senior Associate

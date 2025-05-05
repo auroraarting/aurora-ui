@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/about/Commitment.module.scss";
@@ -48,7 +49,7 @@ export default function Commitment() {
 							transition through rigorous quantitative analysis, providing the insights
 							and tools necessary for informed decision-making.
 						</p>
-						<div className={`${styles.btn_box}`}>
+						<div className={`${styles.btn_box}`} {...dynamicInsightsBtnProps()}>
 							<span>
 								<img src={dropdown_arrow.src} alt="icon" />
 							</span>

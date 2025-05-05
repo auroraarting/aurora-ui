@@ -15,6 +15,7 @@ import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
@@ -24,7 +25,7 @@ import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsig
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { getMapJsonForAllRegions } from "@/utils";
+import { dynamicInsightsBtnProps, getMapJsonForAllRegions } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/who-are-you/FinancialSector.module.scss";
@@ -64,6 +65,7 @@ export async function getServerSideProps({ params }) {
 /** FinancialSector Page */
 export default function Advisory({ data, services, mapJson, regions }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data?.whoAreYous || {} };
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -80,18 +82,6 @@ export default function Advisory({ data, services, mapJson, regions }) {
 			console.log("Scrolling finished!");
 		}, 500);
 	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
 
 	return (
 		<div>
@@ -121,10 +111,25 @@ export default function Advisory({ data, services, mapJson, regions }) {
 						desktopImage={data?.whoAreYous?.banner?.desktopThumbnail?.node?.sourceUrl}
 						mobileImage={data?.whoAreYous?.banner?.mobileThumbnail?.node?.sourceUrl}
 						vimeoid={data?.whoAreYous?.banner?.videoLink}
+						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 						btnTxt="Connect Now"
 					/>
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<SmarterEnergy data={data?.whoAreYous?.expertise} />
 				<div>
 					<GlobalMap
@@ -156,12 +161,14 @@ export default function Advisory({ data, services, mapJson, regions }) {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						formSectionBtnText="Start the Conversation"
 					/>
 				</div>
 				<div className="pb_100">
 					<IntegratedSystem />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

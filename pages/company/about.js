@@ -10,6 +10,7 @@ import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import SoftwareCards from "@/components/SoftwareCards";
 import Insights from "@/components/Insights";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import OurHistory from "@/sections/company/about/OurHistory";
@@ -129,6 +130,7 @@ export default function About({ data, mapJson }) {
 					<Commitment />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

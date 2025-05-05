@@ -60,15 +60,14 @@ export default function Client({ data }) {
 							{data?.postFields?.authors?.nodes?.map((item, ind) => {
 								return (
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-										<div className={`${styles.ClientLogo}`}>
-											<img
-												src={
-													item?.postAuthors?.thumbnail?.image?.node?.sourceUrl ||
-													author_logo.src
-												}
-												alt="pic"
-											/>
-										</div>
+										{item?.postAuthors?.thumbnail?.image?.node?.sourceUrl && (
+											<div className={`${styles.ClientLogo}`}>
+												<img
+													src={item?.postAuthors?.thumbnail?.image?.node?.sourceUrl}
+													alt="pic"
+												/>
+											</div>
+										)}
 										<div className={`${styles.ClientDescription}`}>
 											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
 												{item?.title}

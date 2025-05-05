@@ -100,6 +100,36 @@ query GetSingleHowWeHelp {
           value
         }
       }
+        middleSectionButton {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+        topSectionButton {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
+        insightsSectionButton {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
     }
   }
 }

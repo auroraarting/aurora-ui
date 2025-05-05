@@ -28,7 +28,7 @@ import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import menu_hover_arrow from "@/../public/img/icons/menu_hover_arrow.svg";
-import header_img from "@/../public/img/header/header_img.jpg";
+import header_img from "@/../public/img/header/eos.png";
 import event_img from "@/../public/img/header/event_img.jpg";
 import event_logo from "@/../public/img/header/event_logo.png";
 import mac_img from "@/../public/img/header/mac_img.png";
@@ -155,7 +155,7 @@ export default function Header() {
 
 	if (!data) return <div className="stalePage"></div>;
 
-	console.log(data);
+	console.log("headers", data);
 	return (
 		<>
 			<header className={`${styles.main_headerBox} main_headerBox`}>
@@ -277,8 +277,9 @@ export default function Header() {
 															EOS Platform
 														</h4>
 														<p className="text_xs color_light_gray">
-															Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
-															sodales mperdiet volutpat dui ipsum massa.
+															EOS centralises Aurora&apos;s comprehensive data, sophisticated
+															software, and precise forecasts, enabling energy professionals to
+															make data-driven decisions.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
 															<a href="/eos">
@@ -395,58 +396,33 @@ export default function Header() {
 															</a>
 														);
 													})}
-													{/* <a
-														href="/who-are-you/financial-sector"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Financial Sector</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/who-are-you/energy-consumer"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Energy Consumer</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/who-are-you/utilities"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Utilities</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/who-are-you/developer"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Developer</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a> */}
 												</div>
-												<div className={`${styles.weAreHiring} f_w_j`}>
-													<div className={`${styles.imgBox}`}>
-														<img
-															src={header_img.src}
-															className="width_100 b_r_10"
-															alt="img"
-														/>
-													</div>
-													<div className={`${styles.contentBox}`}>
-														<h4 className="text_reg font_primary color_secondary">
-															Latest Webinar
-														</h4>
-														<p className="text_xs color_light_gray">
-															Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
-															sodales mperdiet volutpat dui ipsum massa.
-														</p>
-														<div className={`${styles.btn_box} pt_20`}>
-															<Button color="primary" variant="filled" shape="rounded">
-																View All
-															</Button>
+												{data?.webinar?.map((item) => {
+													return (
+														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
+															<div className={`${styles.imgBox}`}>
+																<img
+																	src={item?.featuredImage?.node?.sourceUrl || header_img.src}
+																	className="width_100 b_r_10"
+																	alt="img"
+																/>
+															</div>
+															<div className={`${styles.contentBox}`}>
+																<h4 className="text_reg font_primary color_secondary">
+																	Latest Webinar
+																</h4>
+																<p className="text_xs color_light_gray">{item?.title}</p>
+																<div className={`${styles.btn_box} pt_20`}>
+																	<a href={`/resources/webinar/${item?.slug}`}>
+																		<Button color="primary" variant="filled" shape="rounded">
+																			View All
+																		</Button>
+																	</a>
+																</div>
+															</div>
 														</div>
-													</div>
-												</div>
+													);
+												})}
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
@@ -605,9 +581,11 @@ export default function Header() {
 															sodales mperdiet volutpat dui ipsum massa.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<Button color="primary" variant="filled" shape="rounded">
-																View All
-															</Button>
+															<a href="/careers/life-at-aurora">
+																<Button color="primary" variant="filled" shape="rounded">
+																	View All
+																</Button>
+															</a>
 														</div>
 													</div>
 												</div>
@@ -905,16 +883,19 @@ export default function Header() {
 													</div>
 													<div className={`${styles.contentBox}`}>
 														<h4 className="text_reg font_primary color_secondary">
-															We are hiring!
+															EOS Platform
 														</h4>
 														<p className="text_xs color_light_gray">
-															Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
-															sodales mperdiet volutpat dui ipsum massa.
+															EOS centralises Aurora&apos;s comprehensive data, sophisticated
+															software, and precise forecasts, enabling energy professionals to
+															make data-driven decisions.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<Button color="primary" variant="filled" shape="rounded">
-																See Open Positions
-															</Button>
+															<a href="/eos">
+																<Button color="primary" variant="filled" shape="rounded">
+																	Know More
+																</Button>
+															</a>
 														</div>
 													</div>
 												</div>
@@ -1074,9 +1055,11 @@ export default function Header() {
 															sodales mperdiet volutpat dui ipsum massa.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<Button color="primary" variant="filled" shape="rounded">
-																See Open Positions
-															</Button>
+															<a href="/careers/join-us">
+																<Button color="primary" variant="filled" shape="rounded">
+																	See Open Positions
+																</Button>
+															</a>
 														</div>
 													</div>
 												</div>
