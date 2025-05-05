@@ -48,7 +48,6 @@ export default function GlobalSearch() {
 				body: JSON.stringify({ searchTerm }),
 			});
 			const json = await data.json();
-			console.log(json);
 			setResults(json);
 		} catch (error) {
 			console.error("Error during search:", error);

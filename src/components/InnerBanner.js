@@ -43,7 +43,6 @@ function InnerBanner({
 	};
 	const [isPlaying, setIsPlaying] = useState(true);
 	const vimeoRef = useRef(null);
-	console.log(dynamicBtn, "dynamicBtn");
 
 	/** togglePlayPause */
 	const togglePlayPause = () => {

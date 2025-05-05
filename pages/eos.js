@@ -85,7 +85,6 @@ export default function EOSPage({
 	otherList,
 	countries,
 }) {
-	console.log(data);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */

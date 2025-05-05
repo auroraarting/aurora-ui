@@ -4,10 +4,8 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 
 export default async function handler(req, res) {
 	const { searchTerm } = JSON.parse(req.body);
-	console.log(searchTerm, "searchTerm");
 	try {
 		const response = await searchData(searchTerm);
-		console.log(response);
 
 		// if (!response.ok) {
 		// 	throw new Error(`HTTP error! Status: ${response.status}`);

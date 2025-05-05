@@ -105,7 +105,6 @@ export default function MediaListing({
 		let selectedObj = selected;
 		let arr = original;
 		setLoading(true);
-		console.log(catName, key);
 
 		if (key === "search") {
 			selectedObj.search = catName;
@@ -133,7 +132,6 @@ export default function MediaListing({
 		if (key === "languageType") {
 			selectedObj.language = catName;
 		}
-		console.log(selectedObj);
 		const filteredArr = filterItemsBySelectedObjForPress(arr, selectedObj);
 		setList(filteredArr);
 		setSelected(selectedObj);
@@ -341,7 +339,6 @@ export default function MediaListing({
 										e.preventDefault();
 										const val = e.target.search.value;
 										filter(val, "search");
-										console.log(val);
 									}}
 								>
 									<input name="search" type="text" placeholder="Search Events" />

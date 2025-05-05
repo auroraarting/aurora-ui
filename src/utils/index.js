@@ -446,7 +446,6 @@ export const OpenIframePopup = (modalClassName, iframeLink) => {
 	openModal(modalClassName);
 	const iframeHtml = document.querySelector(`#${modalClassName} iframe`);
 	iframeHtml.src = iframeLink;
-	console.log("iframeHtml", iframeHtml);
 };
 
 const defaultBtnProps = {
@@ -577,7 +576,6 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 
 /** filterItemsBySelectedObj  */
 export function filterItemsBySelectedObjForPress(arr, selectedObj) {
-	console.log(arr, selectedObj);
 	const filters = [
 		{
 			key: "year",
@@ -617,7 +615,6 @@ export function filterItemsBySelectedObjForPress(arr, selectedObj) {
 		return filteredArr.filter((item) => {
 			if (getNodes) {
 				const nodes = getNodes(item) || [];
-				console.log("nodes", nodes);
 				return nodes?.some((node) => match(node, value));
 			}
 			return match(item, value);

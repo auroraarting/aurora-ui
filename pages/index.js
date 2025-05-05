@@ -80,7 +80,6 @@ export default function HomePage({
 	insights,
 	events,
 }) {
-	console.log("insights", events);
 	return (
 		<div>
 			{/* Metatags */}

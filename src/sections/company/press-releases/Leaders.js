@@ -89,7 +89,6 @@ export default function Leaders({ data }) {
 			}),
 		};
 	});
-	console.log(mediaLeadersData, "mediaLeadersData");
 
 	return (
 		<section className={`${styles.Leaders}`}>
