@@ -233,7 +233,7 @@ export default function JobOpenings({ data }) {
 								<div className={`${styles.searchInput}`}>
 									<input
 										type="text"
-										placeholder="Serach..."
+										placeholder="Search..."
 										onChange={(e) =>
 											handleOptionClick("search", e.target.value.toLowerCase())
 										}
@@ -268,13 +268,27 @@ export default function JobOpenings({ data }) {
 										{/* {item?.employment_type_text} */}
 										<a href={item?.url} target="_blank" rel="noreferrer">
 											<Button color="primary" variant="filled" shape="rounded" mode="max">
-												Link to Job Post
+												View Job
 											</Button>
 										</a>
 									</td>
 								</tr>
 							);
 						})}
+						{filterdJob?.length === 0 && (
+							<tr>
+								<td className="text_md font_primary color_white f_w_m">No Openings</td>
+								<td className="text_reg color_platinum_gray">{/* Singapore */}</td>
+								<td className="text_reg color_platinum_gray">{/* Advisory */}</td>
+								<td className="text_reg color_platinum_gray">
+									{/* Permanent - Full Time */}
+								</td>
+								<td className="text_reg color_platinum_gray">
+									{/* Permanent - Full Time */}
+									{/* {item?.employment_type_text} */}
+								</td>
+							</tr>
+						)}
 						{/* <tr>
 							<td className="text_md font_primary color_white f_w_m">
 								Senior Associate
