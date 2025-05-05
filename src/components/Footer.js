@@ -143,7 +143,9 @@ export default function Footer() {
 											onClick={() => toggleTab(1)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="">Who Are You</a>
+												<a href="/who-are-you" className="">
+													Who Are You
+												</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -179,7 +181,9 @@ export default function Footer() {
 											onClick={() => toggleTab(2)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="">How We Help</a>
+												<a href="/how-we-help" className="">
+													How We Help
+												</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -215,7 +219,7 @@ export default function Footer() {
 											onClick={() => toggleTab(3)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="/careers">Careers</a>
+												<a href="/careers">Careers</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -292,7 +296,7 @@ export default function Footer() {
 											onClick={() => toggleTab(4)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="/software">Software</a>
+												<a href="/software">Software</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -358,7 +362,7 @@ export default function Footer() {
 											onClick={() => toggleTab(5)}
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a className="/products">Subscription Analytics</a>
+												<a href="/products">Subscription Analytics</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
