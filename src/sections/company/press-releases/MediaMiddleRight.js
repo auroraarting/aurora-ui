@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 
 // COMPONENTS //
@@ -20,11 +21,12 @@ import origin from "@/../public/img/resources/aurora_insights/origin.png";
 import linkedin from "@/../public/img/resources/aurora_insights/linkedin.svg";
 import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 import tag_download_icon from "@/../public/img/resources/aurora_insights/tag_download_icon.svg";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
 /** MediaMiddleRight Section */
-export default function MediaMiddleRight() {
+export default function MediaMiddleRight({ data, dataForBtn }) {
 	return (
 		<div className={`${styles.MediaMiddleRight}`}>
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
@@ -32,30 +34,17 @@ export default function MediaMiddleRight() {
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
 						<div className={`${styles.ClientFlex} f_w`}>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								NET ZERO
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								WIND
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								United Kingdom
-							</a>
-							<a
-								className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-								href=""
-							>
-								ADVISORY
-							</a>
+							{data?.presses?.tags?.map((item, index) => {
+								return (
+									<a
+										key={item?.text}
+										className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
+										href={`/company/press-releases?search=${item?.text}`}
+									>
+										{item?.text}
+									</a>
+								);
+							})}
 						</div>
 					</div>
 					<div className={`${styles.itemBox}`}>
@@ -70,12 +59,19 @@ export default function MediaMiddleRight() {
 						</div>
 					</div>
 				</div>
-				<div className={`${styles.DownBtn} `}>
-					<a href="" className="text_sm f_w_m font_primary f_r_a_center">
-						<img src={tag_download_icon.src} alt="download" />
-						<span>Download</span>
-					</a>
-				</div>
+				{dynamicInsightsBtnProps(dataForBtn, "downSectionButton").btnText && (
+					<div className={`${styles.DownBtn} `}>
+						<a
+							{...dynamicInsightsBtnProps(dataForBtn, "downSectionButton")}
+							className="text_sm f_w_m font_primary f_r_a_center"
+						>
+							<img src={tag_download_icon.src} alt="download" />
+							<span>
+								{dynamicInsightsBtnProps(dataForBtn, "downSectionButton").btnText}
+							</span>
+						</a>
+					</div>
+				)}
 			</div>
 			<div className={`${styles.whiteBox}`}>
 				<div className={`${styles.itemBox}`}>
@@ -85,11 +81,11 @@ export default function MediaMiddleRight() {
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
-							<div className={`${styles.btn_box} `}>
+							<a href="/resources/webinar" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
 									View Webinar
 								</Button>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -102,11 +98,11 @@ export default function MediaMiddleRight() {
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>
-							<div className={`${styles.btn_box} `}>
+							<a href="/resources/energy-talks" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
 									View All Podcast
 								</Button>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>

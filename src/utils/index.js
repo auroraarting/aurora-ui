@@ -380,7 +380,7 @@ export const allCategories = [
 
 /** findFunc  */
 export function isCategory(categoryList, dynamicWords) {
-	const titles2 = new Set(dynamicWords.map((item) => item.name));
+	const titles2 = new Set(dynamicWords?.map((item) => item.name));
 	let txt = "";
 	categoryList?.filter((item) => {
 		if (titles2.has(item.alternate || item.title)) {
@@ -542,6 +542,56 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 			if (getNodes) {
 				const nodes = getNodes(item) || [];
 				return nodes.some((node) => match(node, value));
+			}
+			return match(item, value);
+		});
+	}, arr);
+}
+
+/** filterItemsBySelectedObj  */
+export function filterItemsBySelectedObjForPress(arr, selectedObj) {
+	console.log(arr, selectedObj);
+	const filters = [
+		{
+			key: "year",
+			match: (item, value) =>
+				new Date(item?.presses?.banner?.date).getFullYear() === value,
+		},
+		{
+			key: "product",
+			getNodes: (item) => item.presses?.thumbnail?.category?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "software",
+			getNodes: (item) => item.presses?.thumbnail?.category?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "service",
+			getNodes: (item) => item.presses?.thumbnail?.category?.nodes,
+			match: (node, value) => node.title === value,
+		},
+		{
+			key: "search",
+			getNodes: (item) => item.presses?.tags,
+			match: (node, value) => node.text === value,
+		},
+		{
+			key: "language",
+			match: (item, value) => item.language?.native_name === value,
+		},
+	];
+
+	return filters.reduce((filteredArr, { key, getNodes, match }) => {
+		const value = selectedObj[key];
+		if (!value) return filteredArr;
+
+		return filteredArr.filter((item) => {
+			if (getNodes) {
+				const nodes = getNodes(item) || [];
+				console.log("nodes", nodes);
+				return nodes?.some((node) => match(node, value));
 			}
 			return match(item, value);
 		});

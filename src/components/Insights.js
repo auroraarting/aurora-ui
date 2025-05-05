@@ -48,6 +48,7 @@ export default function Insights({
 	formSectionBtnText = "Speak To Our Experts",
 	formdata,
 }) {
+	console.log("defaultList", defaultList);
 	const router = useRouter();
 	const [data, setData] = useState({ data: defaultList, countries });
 	// useEffect(() => {
@@ -115,7 +116,8 @@ export default function Insights({
 									<a
 										className={`${styles.bookBtn}`}
 										onClick={() => handleOpenForm()}
-										{...formdata}
+										// {...formdata}
+										href={defaultPathname()}
 									>
 										<Button color="primary" variant="filled" shape="rounded" mode="dark">
 											{formSectionBtnText}
@@ -162,7 +164,8 @@ export default function Insights({
 								</div>
 								<a
 									onClick={() => handleOpenForm()}
-									{...formdata}
+									// {...formdata}
+									href={defaultPathname()}
 									className={`${styles.bookBtn}`}
 								>
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
@@ -199,7 +202,9 @@ export default function Insights({
 												<div className={`${styles.dateFlex} f_j pt_30`}>
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
 														<img src={white_calendar.src} alt="calendar" />
-														<span>{formatDate(item?.date)}</span>
+														<span>
+															{formatDate(item?.date || item?.presses?.banner?.date)}
+														</span>
 													</p>
 													{isCategory(data?.countries, item?.categories?.nodes) && (
 														<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">

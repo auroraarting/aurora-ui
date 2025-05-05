@@ -187,7 +187,6 @@ export default function EventsInside({
 					<EventsInsideBanner data={data} />
 				</div>
 				<SectionsHeader
-					data={headerArray}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText && (
 							<div

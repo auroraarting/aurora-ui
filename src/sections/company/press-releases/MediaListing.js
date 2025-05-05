@@ -21,13 +21,33 @@ import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import search from "@/../public/img/icons/search.svg";
 import popup_close from "@/../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
+import { useRouter } from "next/router";
+import formatDate, {
+	filterBySearchQueryEvents,
+	filterItemsBySelectedObj,
+	filterItemsBySelectedObjForPress,
+} from "@/utils";
 
 // DATA //
 
 /** MediaListing Section */
-export default function MediaListing() {
+export default function MediaListing({
+	data,
+	years,
+	productService,
+	languages,
+}) {
+	const router = useRouter();
+	const [original, setOriginal] = useState(data);
+	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+	const [dropdowns, setDropdowns] = useState({
+		languageType: { isOpen: false, selected: { title: "Language" } },
+		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		yearsType: { isOpen: false, selected: { title: "Year" } },
+	});
+	const [list, setList] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -44,12 +64,6 @@ export default function MediaListing() {
 		setSelected(option); // Only one selected option at a time
 	};
 
-	const [dropdowns, setDropdowns] = useState({
-		languageType: { isOpen: false, selected: { title: "Language" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
-		yearsType: { isOpen: false, selected: { title: "Year" } },
-	});
-
 	const dropdownRefs = {
 		languageType: useRef(null),
 		offeringsType: useRef(null),
@@ -57,24 +71,16 @@ export default function MediaListing() {
 	};
 
 	const optionsData = {
-		languageType: [
-			{ title: "English" },
-			{ title: "English" },
-			{ title: "English" },
-			{ title: "English" },
-		],
+		languageType: languages?.map((item) => {
+			return { title: item?.native_name };
+		}),
 		offeringsType: [
 			{ title: "Offerings1" },
 			{ title: "Offerings2" },
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
 		],
-		yearsType: [
-			{ title: "2025" },
-			{ title: "2024" },
-			{ title: "2023" },
-			{ title: "2022" },
-		],
+		yearsType: years,
 	};
 
 	/** Toggle Dropdown */
@@ -91,6 +97,46 @@ export default function MediaListing() {
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
+		filter(option.title, key);
+	};
+
+	/** filter  */
+	const filter = async (catName, key) => {
+		let selectedObj = selected;
+		let arr = original;
+		setLoading(true);
+		console.log(catName, key);
+
+		if (key === "search") {
+			selectedObj.search = catName;
+			window.location.href = `/company/press-releases?search=${catName}`;
+			return;
+		}
+		if (key === "eventType") {
+			selectedObj.type = catName;
+		}
+		if (key === "countryType") {
+			selectedObj.country = catName;
+		}
+		if (key === "yearsType") {
+			selectedObj.year = catName;
+		}
+		if (key === "Product") {
+			selectedObj.product = catName;
+		}
+		if (key === "Software") {
+			selectedObj.software = catName;
+		}
+		if (key === "Service") {
+			selectedObj.service = catName;
+		}
+		if (key === "languageType") {
+			selectedObj.language = catName;
+		}
+		console.log(selectedObj);
+		const filteredArr = filterItemsBySelectedObjForPress(arr, selectedObj);
+		setList(filteredArr);
+		setSelected(selectedObj);
 	};
 
 	/** Close Dropdown on Click Outside */
@@ -113,25 +159,13 @@ export default function MediaListing() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
+	useEffect(() => {
+		if (router.query.search) {
+			const filtered = filterItemsBySelectedObjForPress(data, router.query);
+			setList(filtered);
+			setOriginal(filtered);
+		}
+	}, [router.query]);
 
 	return (
 		<section className={styles.MediaListing}>
@@ -157,20 +191,26 @@ export default function MediaListing() {
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
 									>
-										{radioData.map((item, index) => (
+										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
 												<h4 className="text_sm color_dark_gray text_500">
 													{item.category}
 												</h4>
 												<div className={styles.checkBoxList}>
-													{item.options.map((option, idx) => (
-														<label key={idx} className={styles.checkboxLabel}>
+													{item?.options?.map((option, idx) => (
+														<label key={option} className={styles.checkboxLabel}>
 															<input
 																type="radio"
-																name="singleSelection" // Single name for all radio buttons
+																id={item.category}
+																name={item.category} // Single name for all radio buttons
 																className={styles.hiddenRadio}
-																checked={selected === option} // Ensure only one is selected overall
-																onChange={() => handleChange(option)}
+																defaultChecked={
+																	selected?.[item.category.toLowerCase()] === option
+																} // Ensure only one is selected overall
+																onChange={() => {
+																	// handleChange(option);
+																	filter(option, item.category);
+																}}
 															/>
 															<span className={styles.customRadio}></span>
 															{option}
@@ -271,7 +311,17 @@ export default function MediaListing() {
 						{/* Search Input - Show/Hide on Click */}
 						{isSearchVisible && (
 							<div className={`${styles.searchInput} f_r_aj_between`}>
-								<input type="text" placeholder="Search Events" />
+								<form
+									className="w-full"
+									onSubmit={(e) => {
+										e.preventDefault();
+										const val = e.target.search.value;
+										filter(val, "search");
+										console.log(val);
+									}}
+								>
+									<input name="search" type="text" placeholder="Search Events" />
+								</form>
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
@@ -286,7 +336,43 @@ export default function MediaListing() {
 			</div>
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					<div className={`${styles.ItemBox}`}>
+					{list?.map((item, ind) => {
+						return (
+							<div className={`${styles.ItemBox}`} key={item?.title}>
+								<a href={`/company/press-releases/${item?.slug}`}>
+									<div className={`${styles.hoverBox}`}>
+										<img
+											src={hoverBg.src}
+											className={`${styles.hoverBg} width_100 b_r_10`}
+											alt="img"
+										/>
+
+										<p
+											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+										>
+											Press Release
+										</p>
+										<p
+											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+										>
+											{item?.title}
+										</p>
+										<div className={`${styles.dateFlex} f_j pt_30`}>
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+												<img
+													src={calender.src}
+													className={`${styles.calender}`}
+													alt="calender"
+												/>
+												<span>{formatDate(item?.presses?.banner?.date)}</span>
+											</p>
+										</div>
+									</div>
+								</a>
+							</div>
+						);
+					})}
+					{/* <div className={`${styles.ItemBox}`}>
 						<a href="">
 							<div className={`${styles.hoverBox}`}>
 								<img
@@ -324,163 +410,7 @@ export default function MediaListing() {
 								</div>
 							</div>
 						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img
-									src={hoverBg.src}
-									className={`${styles.hoverBg} width_100 b_r_10`}
-									alt="img"
-								/>
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-								>
-									Press Release
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Spain doubles its renewable capacity amidst grid limitations
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</section>
