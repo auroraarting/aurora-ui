@@ -220,6 +220,8 @@ export default function HomeResources({ data, countries }) {
 										<a href={href()} key={item?.title}>
 											<div className={`${styles.contentBox}`}>
 												<img
+													height="172"
+													width="472"
 													src={hoverBg.src}
 													className={`${styles.hoverBg} width_100 b_r_10`}
 													alt="img"
@@ -260,111 +262,6 @@ export default function HomeResources({ data, countries }) {
 										</a>
 									);
 								})}
-								{/* <div className={`${styles.contentBox}`}>
-									<img
-										src={hoverBg.src}
-										className={`${styles.hoverBg} width_100 b_r_10`}
-										alt="img"
-									/>
-									<p
-										className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
-									>
-										Public Webinar
-									</p>
-									<h4
-										className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-									>
-										Power Play: Unlocking Battery Storage Potential in NYISO
-									</h4>
-									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											<span>Feb 20, 2025</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											<span>WECC</span>
-										</p>
-									</div>
-								</div>
-								<div className={`${styles.contentBox}`}>
-									<img
-										src={hoverBg.src}
-										className={`${styles.hoverBg} width_100 b_r_10`}
-										alt="img"
-									/>
-									<p
-										className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
-									>
-										Public Webinar
-									</p>
-									<h4
-										className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-									>
-										A Deep Dive into CAISO Load Growth
-									</h4>
-									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											<span>Feb 20, 2025</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											<span>WECC</span>
-										</p>
-									</div>
-								</div>
-								<div className={`${styles.contentBox}`}>
-									<img
-										src={hoverBg.src}
-										className={`${styles.hoverBg} width_100 b_r_10`}
-										alt="img"
-									/>
-									<p
-										className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
-									>
-										Public Webinar
-									</p>
-									<h4
-										className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-									>
-										A Deep Dive into CAISO Load Growth
-									</h4>
-									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											<span>Feb 20, 2025</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											<span>WECC</span>
-										</p>
-									</div>
-								</div> */}
 							</div>
 						</div>
 					</div>

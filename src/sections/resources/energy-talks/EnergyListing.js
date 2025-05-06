@@ -421,6 +421,8 @@ export default function EnergyListing({
 										<div className={`${styles.hoverBox}`}>
 											<img
 												src={hoverBg.src}
+												height="172"
+												width="472"
 												className={`${styles.hoverBg} width_100 b_r_10`}
 												alt="img"
 											/>

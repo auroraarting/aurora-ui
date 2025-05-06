@@ -250,7 +250,12 @@ export default function HomeOurOfferings() {
 					</SwiperSlide>
 				</Swiper>
 			</div>
-			<img src={Ellipse.src} alt="Ellipse" className={`${styles.Ellipse}`} />
+			<img
+				src={Ellipse.src}
+				srcSet={Ellipse.src}
+				alt="Ellipse"
+				className={`${styles.Ellipse}`}
+			/>
 		</section>
 	);
 }
