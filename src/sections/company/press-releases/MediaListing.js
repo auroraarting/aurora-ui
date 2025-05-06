@@ -363,6 +363,8 @@ export default function MediaListing({
 								<a href={`/company/press-releases/${item?.slug}`}>
 									<div className={`${styles.hoverBox}`}>
 										<img
+											height={179}
+											width={446}
 											src={hoverBg.src}
 											className={`${styles.hoverBg} width_100 b_r_10`}
 											alt="img"

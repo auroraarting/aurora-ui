@@ -220,8 +220,8 @@ export default function HomeResources({ data, countries }) {
 										<a href={href()} key={item?.title}>
 											<div className={`${styles.contentBox}`}>
 												<img
-													height="172"
-													width="472"
+													height={179}
+													width={446}
 													src={hoverBg.src}
 													className={`${styles.hoverBg} width_100 b_r_10`}
 													alt="img"

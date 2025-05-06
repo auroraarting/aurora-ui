@@ -372,8 +372,8 @@ export default function AboutLeadership({ data }) {
 																					<div className={`${styles.hoverBox}`}>
 																						<img
 																							src={hoverBg.src}
-																							height="172"
-																							width="472"
+																							height={179}
+																							width={446}
 																							className={`${styles.hoverBg} width_100 b_r_10`}
 																							alt="img"
 																						/>

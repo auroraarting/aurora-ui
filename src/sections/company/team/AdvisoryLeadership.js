@@ -324,6 +324,8 @@ export default function AdvisoryLeadership({ data }) {
 																				<div className={`${styles.ItemBox} `}>
 																					<div className={`${styles.hoverBox}`}>
 																						<img
+																							height={179}
+																							width={446}
 																							src={hoverBg.src}
 																							className={`${styles.hoverBg} width_100 b_r_10`}
 																							alt="img"
