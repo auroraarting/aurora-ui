@@ -115,8 +115,8 @@ export default function HomePage({
 						<TestimonialFeedback data={data.ourClient} />
 					</div>
 				)}
-				<GlobalMap locationJson={mapJson} />
-				{data.stats && (
+				{mapJson && <GlobalMap locationJson={mapJson} />}
+				{data?.stats && (
 					<div>
 						<Counter
 							data={{ stats: { ...data.stats, countries: countries.length } }}
