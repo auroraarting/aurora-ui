@@ -13,6 +13,7 @@ import TrustedLeaders from "@/components/TrustedLeaders";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import ServicesCircle from "@/components/ServicesCircle";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import ProductSlider from "@/sections/global-presence/ProductSlider";
@@ -173,6 +174,7 @@ export default function Australia({ data, mapJson }) {
 					<EosIntegratedSystem />
 				</div>
 			</main>
+			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

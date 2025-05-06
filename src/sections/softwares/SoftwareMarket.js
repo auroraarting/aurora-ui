@@ -12,7 +12,11 @@ import AccordianCommon from "@/components/AccordianCommon";
 // PLUGINS //
 
 // UTILS //
-import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	filterMarkersBySlug,
+	getMapJsonForProducts,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/softwares/SoftwareMarket.module.scss";
@@ -117,9 +121,11 @@ export default function SoftwareMarket({
 								]}
 							/> */}
 						</div>
-						<Button color="primary" variant="filled" shape="rounded">
-							Get in Touch
-						</Button>
+						<div {...dynamicInsightsBtnProps()}>
+							<Button color="primary" variant="filled" shape="rounded">
+								Get in Touch
+							</Button>
+						</div>
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
