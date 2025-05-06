@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 
 // COMPONENTS //
@@ -62,9 +63,11 @@ export default function PublicWebinar() {
 							</div>
 						</div>
 						<div className={`${styles.bookBtnOne} pt_40`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								View All Events
-							</Button>
+							<a href="/events">
+								<Button color="primary" variant="filled" shape="rounded">
+									View All Events
+								</Button>
+							</a>
 						</div>
 					</div>
 					<div className={`${styles.publicleft}`}>
@@ -163,9 +166,11 @@ export default function PublicWebinar() {
 							</div>
 						</div>
 						<div className={`${styles.bookBtnOne} pt_40`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								View All Webinars
-							</Button>
+							<a href="/resources/webinar">
+								<Button color="primary" variant="filled" shape="rounded">
+									View All Webinars
+								</Button>
+							</a>
 						</div>
 					</div>
 				</div>

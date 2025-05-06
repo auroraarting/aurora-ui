@@ -16,6 +16,7 @@ import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "@/../public/img/banner/defaultMobileBanner.jpg";
 import pause_button from "../../public/img/icons/pause_button.svg";
 import video_play from "../../public/img/icons/video_play.svg";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // UTILS //
 
@@ -72,7 +73,11 @@ function InnerBanner({
 							)}
 						</div>
 						{btnTxt && (
-							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
+							<a
+								href={btnLink}
+								{...dynamicInsightsBtnProps()}
+								className={`${styles.bookBtn} pt_30`}
+							>
 								<Button color="primary" variant="filled" shape="rounded">
 									{btnTxt}
 								</Button>
