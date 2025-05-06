@@ -1594,7 +1594,11 @@ export default function Header() {
 				>
 					<div className="container">
 						<div className={`${styles.globalListMain}`}>
-							<button className={styles.close_btn} onClick={closePopup}>
+							<button
+								aria-label="Close menu"
+								className={styles.close_btn}
+								onClick={closePopup}
+							>
 								<img src={popup_close.src} alt="" />
 							</button>
 							<div className={`${styles.listFlex} f_w`}>

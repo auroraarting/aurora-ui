@@ -203,6 +203,8 @@ export default function Insights({
 										>
 											<div className={`${styles.hoverBox}`}>
 												<img
+													height="172"
+													width="472"
 													src={hoverBg.src}
 													className={`${styles.hoverBg} width_100 b_r_10`}
 													alt="img"
@@ -239,90 +241,6 @@ export default function Insights({
 										</a>
 									);
 								})}
-								{/* <div className={`${styles.ItemBox} boxH`}>
-									<div className={`${styles.hoverBox}`}>
-										<img
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										<p
-											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-										>
-											Case Study
-										</p>
-										<p className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}>
-											Analysing the financial roadmap to Net Zero by 2035. Analysing the
-											financial roadmap to Net Zero by 2035
-										</p>
-										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-												<img src={white_calendar.src} alt="calendar" />
-												<span>November 2024</span>
-											</p>
-											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-												<img src={white_location.src} alt="location" />
-												<span>India</span>
-											</p>
-										</div>
-									</div>
-								</div>
-								<div className={`${styles.ItemBox} boxH`}>
-									<div className={`${styles.hoverBox}`}>
-										<img
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										<p
-											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-										>
-											Case Study
-										</p>
-										<p className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}>
-											Analysing the financial roadmap to Net Zero by 2035. Analysing the
-											financial roadmap to Net Zero by 2035
-										</p>
-										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-												<img src={white_calendar.src} alt="calendar" />
-												<span>November 2024</span>
-											</p>
-											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-												<img src={white_location.src} alt="location" />
-												<span>India</span>
-											</p>
-										</div>
-									</div>
-								</div>
-								<div className={`${styles.ItemBox} boxH`}>
-									<div className={`${styles.hoverBox}`}>
-										<img
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										<p
-											className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-										>
-											Case Study
-										</p>
-										<p className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}>
-											Analysing the financial roadmap to Net Zero by 2035. Analysing the
-											financial roadmap to Net Zero by 2035
-										</p>
-										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-												<img src={white_calendar.src} alt="calendar" />
-												<span>November 2024</span>
-											</p>
-											<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-												<img src={white_location.src} alt="location" />
-												<span>India</span>
-											</p>
-										</div>
-									</div>
-								</div> */}
 							</div>
 						</div>
 					)}
