@@ -1,23 +1,46 @@
 /* eslint-disable quotes */
 // MODULES //
+import dynamic from "next/dynamic";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
-import GlobalMap from "@/components/GlobalMap";
+const GlobalMap = dynamic(() => import("@/components/GlobalMap"), {
+	ssr: false,
+});
+// import GlobalMap from "@/components/GlobalMap";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import TestimonialFeedback from "@/components/TestimonialFeedback";
 import IframeModal from "@/components/IframeModal";
+import Counter from "@/sections/careers/Counter";
 
 // SECTIONS //
 import HomeBanner from "@/sections/home/HomeBanner";
-import HomeOurOfferings from "@/sections/home/HomeOurOfferings";
-import HomeWhoWeAre from "@/sections/home/HomeWhoWeAre";
-import HomeResources from "@/sections/home/HomeResources";
-import HomeEvents from "@/sections/home/HomeEvents";
-import HomeTalentMeets from "@/sections/home/HomeTalentMeets";
-import Counter from "@/sections/careers/Counter";
+const HomeOurOfferings = dynamic(
+	() => import("@/sections/home/HomeOurOfferings"),
+	{ ssr: false }
+);
+const HomeWhoWeAre = dynamic(() => import("@/sections/home/HomeWhoWeAre"), {
+	ssr: false,
+});
+const HomeResources = dynamic(() => import("@/sections/home/HomeResources"), {
+	ssr: false,
+});
+const HomeEvents = dynamic(() => import("@/sections/home/HomeEvents"), {
+	ssr: false,
+});
+const HomeTalentMeets = dynamic(
+	() => import("@/sections/home/HomeTalentMeets"),
+	{
+		ssr: false,
+	}
+);
+// import HomeOurOfferings from "@/sections/home/HomeOurOfferings";
+// import HomeWhoWeAre from "@/sections/home/HomeWhoWeAre";
+// import HomeResources from "@/sections/home/HomeResources";
+// import HomeEvents from "@/sections/home/HomeEvents";
+// import HomeTalentMeets from "@/sections/home/HomeTalentMeets";
 
 // PLUGINS //
 
