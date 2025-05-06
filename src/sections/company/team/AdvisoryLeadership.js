@@ -288,9 +288,11 @@ export default function AdvisoryLeadership({ data }) {
 																	</div>
 																)}
 															</div>
-															<p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
+															<div
+																className={`${styles.Desc} text_xs color_silver_gray l_h_6`}
+															>
 																{parse(item?.content || "")}
-															</p>
+															</div>
 														</div>
 													</div>
 													{item?.teams?.articles?.articlesby?.nodes?.length > 0 && (

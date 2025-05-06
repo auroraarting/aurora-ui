@@ -1143,9 +1143,9 @@ export default function Header() {
 																	<span>{item?.title}</span>{" "}
 																	<img src={menu_hover_arrow.src} alt="arrow" />
 																</a>
-																<p className="text_xs color_light_gray ">
+																<div className="text_xs color_light_gray ">
 																	{parse(item?.content || "")}
-																</p>
+																</div>
 															</div>
 														);
 													})}
