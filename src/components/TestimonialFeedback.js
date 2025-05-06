@@ -2,6 +2,7 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "./ContentFromCms";
 
 // SECTIONS //
 
@@ -20,7 +21,6 @@ import styles from "@/styles/components/TestimonialFeedback.module.scss";
 // IMAGES //
 import quate from "../../public/img/icons/quate.svg";
 import slider_arrow from "../../public/img/icons/slider_arrow.svg";
-import ContentFromCms from "./ContentFromCms";
 
 // DATA //
 

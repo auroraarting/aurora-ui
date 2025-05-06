@@ -34,10 +34,7 @@ import styles from "@/styles/pages/Home.module.scss";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getHomePage } from "@/services/Home.service";
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
+import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 
 /** Fetch  */
