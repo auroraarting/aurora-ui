@@ -65,8 +65,8 @@ export default function ContactPage({ regions }) {
 									return (
 										<div className={`${styles.CountryItem}`} key={item2?.title}>
 											<img
-												height="172"
-												width="472"
+												height={179}
+												width={446}
 												src={hoverBg.src}
 												className={`${styles.hoverBg} width_100 b_r_10`}
 												alt="img"
