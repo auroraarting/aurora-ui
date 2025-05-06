@@ -20,6 +20,7 @@ import case_img from "../../../public/img/home/case_img.jpg";
 import podcast_img from "../../../public/img/home/podcast_img.jpg";
 import hoverBg from "../../../public/img/home/hoverBg.png";
 import formatDate, { allCategories, isCategory } from "@/utils";
+import Image from "next/image";
 
 // DATA //
 
@@ -50,10 +51,12 @@ export default function HomeResources({ data, countries }) {
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title}>
 									<a href={href()} className={`${styles.insideBox}`}>
-										<img
+										<Image
 											src={item?.featuredImage?.node?.sourceUrl}
 											className={`${styles.case_img} width_100 b_r_10`}
 											alt="case img"
+											height={360}
+											width={640}
 										/>
 										{isCategory(allCategories, item?.categories?.nodes) && (
 											<div
