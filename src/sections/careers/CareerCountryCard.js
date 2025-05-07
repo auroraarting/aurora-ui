@@ -53,7 +53,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 	};
 
 	const [dropdowns, setDropdowns] = useState({
-		countryType: { isOpen: false, selected: { title: "India" } },
+		countryType: { isOpen: false, selected: { title: "Country" } },
 		programsType: { isOpen: false, selected: { title: "Program" } },
 	});
 
@@ -232,7 +232,17 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 						{/* Search Input - Show/Hide on Click */}
 						{isSearchVisible && (
 							<div className={`${styles.searchInput} f_r_aj_between`}>
-								<input type="text" placeholder="Search Events" />
+								<form
+									className="w-full"
+									onSubmit={(e) => {
+										e.preventDefault();
+										const val = e.target.search.value;
+										filter(val, "search");
+									}}
+								>
+									<input name="search" type="text" placeholder="Search Program" />
+								</form>
+
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}

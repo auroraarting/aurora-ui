@@ -632,7 +632,7 @@ export function filterItemsBySelectedObjForCareers(arr, selectedObj) {
 		},
 		{
 			key: "country",
-			getNodes: (item) => item.earlyCareers?.thumbnail?.country?.nodes,
+			getNodes: (item) => [item.earlyCareers.thumbnail.country.node],
 			match: (node, value) => node.title === value,
 		},
 	];

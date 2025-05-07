@@ -104,7 +104,7 @@ query GetInsightsDropDowns {
       slug
     }
   }
-  countries(first: 9999) {
+ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug
@@ -378,6 +378,16 @@ query GetInsightsInside {
             testimonials {
               designation
             }
+          }
+        }
+      }
+      recordingSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
       }
