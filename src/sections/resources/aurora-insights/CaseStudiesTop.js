@@ -70,7 +70,11 @@ export default function CaseStudiesTop({ data }) {
 					</div>
 					{data?.featuredImage?.node?.sourceUrl && (
 						<div className={`${styles.imageWrapper}`}>
-							<img src={plant_img.src} className="width_100 b_r_20" alt="img" />
+							<img
+								src={data?.featuredImage?.node?.sourceUrl}
+								className="width_100 b_r_20"
+								alt="img"
+							/>
 						</div>
 					)}
 				</div>
