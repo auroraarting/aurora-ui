@@ -68,21 +68,7 @@ export default function WebinarInside({ data, countries, otherList }) {
 		(item) => item.slug === "webinar-recording"
 	);
 
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
+	console.log(data, "data");
 
 	return (
 		<div>
