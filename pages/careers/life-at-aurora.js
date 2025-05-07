@@ -164,14 +164,14 @@ export default function LifeAtAurora({ data, jobs, otherList, countries }) {
 				<div className="pt_60">
 					<TeamAurora />
 				</div>
-				<div className="dark_bg">
-					{mapJson && (
+				{mapJson && (
+					<div className="dark_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.globalMap?.marqueetext}
 						/>
-					)}
-				</div>
+					</div>
+				)}
 				<div className="black_bg pb_80">
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}

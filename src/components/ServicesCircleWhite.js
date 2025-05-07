@@ -36,17 +36,21 @@ export default function ServicesCircleWhite({ data }) {
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
-						<h3 className="text_xl  pb_20">{data?.sectionTitle}</h3>
+						<h3 className="text_xl  pb_20">{data?.sectionTitle || data?.title}</h3>
 						<div className="text_reg color_dark_gray">
-							<ContentFromCms>{data?.descripition}</ContentFromCms>
+							<ContentFromCms>
+								{data?.descripition || data?.desciption || data?.description}
+							</ContentFromCms>
 						</div>
-						<div className="pt_40">
-							<a href={data?.buttonLink}>
-								<Button color="primary" variant="filled" shape="rounded" mode="light">
-									{data?.buttonText}
-								</Button>
-							</a>
-						</div>
+						{data?.buttonText && (
+							<div className="pt_40">
+								<a href={data?.buttonLink}>
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+										{data?.buttonText}
+									</Button>
+								</a>
+							</div>
+						)}
 					</div>
 
 					<div>

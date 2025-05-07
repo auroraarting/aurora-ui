@@ -69,7 +69,37 @@ export async function getServerSideProps() {
 }
 
 /** About Page */
-export default function About({ data, mapJson }) {
+export default function About({ data }) {
+	const [mapJson, setMapJson] = useState();
+
+	useEffect(() => {
+		let tempMapJson = {
+			zoom: 9,
+			name: "Global",
+			centerOfCountry: {
+				lat: 18.1307561,
+				lng: 23.554042,
+			},
+			markers: [],
+		};
+
+		data.offices?.map((item) => {
+			let obj = {
+				name: item.title,
+				lat: item.offices.map.lat,
+				lng: item.offices.map.lng,
+				url: "/company/about",
+				hoverImg: item.offices.thumbnail.node.sourceUrl,
+				// icon:
+				// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
+			};
+
+			tempMapJson.markers.push(obj);
+		});
+
+		setMapJson(tempMapJson);
+	}, []);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -99,14 +129,14 @@ export default function About({ data, mapJson }) {
 						<OurEdge data={data?.ourEdge} />
 					</div>
 				)}
-				<div className="dark_bg">
-					{mapJson && (
+				{mapJson && (
+					<div className="dark_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 						/>
-					)}
-				</div>
+					</div>
+				)}
 				<div>
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}

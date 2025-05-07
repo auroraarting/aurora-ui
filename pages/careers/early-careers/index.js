@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,9 @@ import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
 import SectionsHeader from "@/components/SectionsHeader";
 import SmarterEnergy from "@/components/SmarterEnergy";
+import ServicesCircle from "@/components/ServicesCircle";
+import IframeModal from "@/components/IframeModal";
+import ServicesCircleWhite from "@/components/ServicesCircleWhite";
 
 // SECTIONS //
 import CareerCountryCard from "@/sections/careers/CareerCountryCard";
@@ -33,49 +37,34 @@ import desktop_banner from "@/../public/img/careers/early_careers/desktop_banner
 
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
-import IframeModal from "@/components/IframeModal";
+import {
+	getEarlyCareersListing,
+	getEarlyCareersPage,
+} from "@/services/EarlyCareers.service";
+import { getInsightsCategories } from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data] = await Promise.all([getLifeAtAurora()]);
-	let obj = {
-		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+	const [data, page, categoriesForSelect] = await Promise.all([
+		getEarlyCareersListing(),
+		getEarlyCareersPage(),
+		getInsightsCategories(),
+	]);
+
+	return {
+		props: {
+			data: data.data.earlyCareers.nodes,
+			page: page.data.page.earlyCareersLanding,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			programs: page.data.programs.nodes,
+		},
 	};
-	delete obj.data.lifeAtAurora;
-	return { props: { ...obj } };
 }
 
 /** EarlyCareers Page */
-export default function EarlyCareers({ data }) {
-	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+export default function EarlyCareers({ data, page, countries, programs }) {
+	console.log(data, "page");
 
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
 	return (
 		<div>
 			{/* Metatags */}
@@ -92,22 +81,43 @@ export default function EarlyCareers({ data }) {
 			{/* Page Content starts here */}
 			<main className={styles.EarlyCareers}>
 				<InnerBanner
-					bannerTitle="Launch your career at aurora"
-					bannerDescription="Join our vibrant, respected, and transformative organisation to play an active role in the global energy transition."
-					desktopImage={desktop_banner.src}
-					mobileImage={desktop_banner.src}
+					bannerTitle={page?.banner?.title}
+					bannerDescription={page?.banner?.desc}
+					desktopImage={page?.banner?.desktop?.node?.sourceUrl}
+					mobileImage={page?.banner?.mobile?.node?.sourceUrl}
 				/>
 				<div className="pt_60">
-					<SectionsHeader data={headerArray} />
+					<SectionsHeader
+						customHtml={
+							<div key="btn" to="Insights">
+								<a href="/careers/join-us">
+									<Button color="primary" variant="filled" shape="rounded">
+										Join Us
+									</Button>
+								</a>
+							</div>
+						}
+					/>
 				</div>
 				<div className="pt_60">
-					<CareerCountryCard />
+					<CareerCountryCard
+						page={page}
+						data={data}
+						countries={countries}
+						programs={programs}
+					/>
 				</div>
 				<div>
-					<SmarterEnergy data={data.keyAdvantages} />
+					<SmarterEnergy data={page.expertise} />
 				</div>
+				<ServicesCircleWhite data={page.keyAdvantages} />
 				<div className="ptb_100 dark_bg">
-					<AllVideos />
+					<AllVideos
+						title={page?.careerSeries?.title}
+						desc={page?.careerSeries?.sectionDesc}
+						redirectLink={page?.careerSeries?.buttonLink}
+						iframe={page?.careerSeries?.iframe}
+					/>
 				</div>
 				<div className="pt_80">
 					<TeamAurora />

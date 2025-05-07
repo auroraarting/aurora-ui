@@ -28,9 +28,10 @@ import search from "../../../public/img/icons/search.svg";
 // DATA //
 
 /** CareerCountryCard Section */
-export default function CareerCountryCard() {
+export default function CareerCountryCard({ page, data, programs, countries }) {
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+	const [filteredData, setFilteredData] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -53,16 +54,10 @@ export default function CareerCountryCard() {
 	};
 
 	const optionsData = {
-		countryType: [
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-			{ title: "India" },
-		],
-		programsType: [
-			{ title: "Graduate Analyst" },
-			{ title: "Graduate Modelling" },
-		],
+		countryType: countries,
+		programsType: programs?.map((item) => {
+			return { title: item?.name };
+		}),
 	};
 
 	/** Toggle Dropdown */
@@ -105,7 +100,7 @@ export default function CareerCountryCard() {
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
-						Lorem ipsum dolor sit amet
+						{page?.listing?.title}
 					</h2>
 				</div>
 				<div className={styles.filterMain}>
@@ -210,7 +205,39 @@ export default function CareerCountryCard() {
 				</div>
 
 				<div className={`${styles.SliderMain} pt_20`}>
-					<div className={`${styles.cardItem}`}>
+					{filteredData?.map((item) => {
+						return (
+							<div className={`${styles.cardItem}`} key={item?.slug}>
+								<div className={`${styles.cardImg}`}>
+									<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
+									<p
+										className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
+									>
+										Live
+									</p>
+								</div>
+								<div className={`${styles.cardDesc} pt_20`}>
+									<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
+										<img
+											src={location.src}
+											className={`${styles.location}`}
+											alt="location"
+										/>
+										<span>Austin</span>
+									</p>
+									<h4 className="text_md color_white f_w_m font_primary pt_10">
+										Graduate Analyst
+									</h4>
+									<div className={`${styles.btn_box} pt_20`}>
+										<Button color="secondary" variant="underline" mode="dark">
+											Read More
+										</Button>
+									</div>
+								</div>
+							</div>
+						);
+					})}
+					{/* <div className={`${styles.cardItem}`}>
 						<div className={`${styles.cardImg}`}>
 							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
 							<p
@@ -377,7 +404,7 @@ export default function CareerCountryCard() {
 								</Button>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</section>
