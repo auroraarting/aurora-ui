@@ -7,6 +7,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // SECTIONS //
 
 // PLUGINS //
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // UTILS //
 
@@ -39,11 +40,25 @@ export default function MarketIntelligence({ data }) {
 						</div>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<img
-							src={data?.image?.node?.sourceUrl}
-							className={`${styles.redefining} img`}
-							alt="redefining"
-						/>
+						{data?.image?.node?.sourceUrl && (
+							<img
+								src={data?.image?.node?.sourceUrl}
+								className={`${styles.redefining} img`}
+								alt="redefining"
+							/>
+						)}
+						{/* data?.lottie?.node?.sourceUrl */}
+						{data?.lottie?.node?.sourceUrl && (
+							<DotLottieReact
+								src={data?.lottie?.node?.sourceUrl}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
+						)}
 					</div>
 				</div>
 			</div>

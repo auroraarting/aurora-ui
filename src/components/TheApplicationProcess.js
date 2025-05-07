@@ -11,7 +11,7 @@ import AccordianCommon from "@/components/AccordianCommon";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/components/SmarterEnergy.module.scss";
+import styles from "@/styles/components/TheApplicationProcess.module.scss";
 
 // IMAGES //
 import transaction from "../../public/img/softwares/transaction.svg";
@@ -21,8 +21,8 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 // DATA //
 
-/** SmarterEnergy Section */
-export default function SmarterEnergy({ data }) {
+/** TheApplicationProcess Section */
+export default function TheApplicationProcess({ data }) {
 	if (!data?.title) return <></>;
 
 	const tempAccordian = [
@@ -150,6 +150,11 @@ export default function SmarterEnergy({ data }) {
 							{data?.title}
 						</h2>
 						<p className="text_reg color_dark_gray">{data?.description}</p>
+						<div className="m_t_20">
+							<Button color="primary" variant="filled" shape="rounded">
+								Application Tips
+							</Button>
+						</div>
 					</div>
 					<div className={`${styles.common_queries_faq}`}>
 						<div className={`${styles.accordian_main}`}>

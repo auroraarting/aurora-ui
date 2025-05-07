@@ -156,6 +156,12 @@ query GetProductBySlug {
             sourceUrl
           }
         }
+        lottie{
+          node {
+            altText
+            sourceUrl
+          }
+        }
       }
       keyAdvantages {
         desciption
