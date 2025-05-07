@@ -67,7 +67,7 @@ export default function AboutCountries({ data }) {
 								<SwiperSlide key={item?.name + ind}>
 									<div
 										className={`${styles.cardItem} f_r_aj_between`}
-										style={{ backgroundColor: item.bgColor }}
+										style={{ backgroundColor: item.bgcolor }}
 									>
 										<div className={`${styles.cardDesc}`}>
 											{item.icon.node.sourceUrl && (

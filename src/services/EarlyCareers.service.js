@@ -162,12 +162,14 @@ query GetCareers {
         sectionTitle
         list {
           desc
+          bgcolor
           featuredImg {
             node {
               altText
               sourceUrl
             }
           }
+
           icon {
             node {
               altText

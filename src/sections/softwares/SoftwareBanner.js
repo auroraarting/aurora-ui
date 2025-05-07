@@ -105,11 +105,14 @@ export default function SoftwareBanner({
 						<div className={`${styles.label} text_reg color_dark_gray`}>
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
-						<a href={btnLink} className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded">
-								{btnText}
-							</Button>
-						</a>
+
+						<div className={`${styles.bookBtn} ptb_30`}>
+							<a href={btnLink}>
+								<Button color="primary" variant="filled" shape="rounded">
+									{btnText}
+								</Button>{" "}
+							</a>
+						</div>
 					</div>
 				</div>
 				{vimeoid ? (

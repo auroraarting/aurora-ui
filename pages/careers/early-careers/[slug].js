@@ -90,10 +90,10 @@ export default function EarlyCareers({ data, otherList, countries }) {
 		<div>
 			{/* Metatags */}
 			<MetaTags
-				Title={"Early Careers"}
+				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={"/careers/early-careers"}
+				Url={`/careers/early-careers/${data?.slug}`}
 			/>
 
 			{/* Header */}
