@@ -35,7 +35,7 @@ export default function IframeModal({
 						</div>
 					</div>
 					<div className="form">
-						<iframe src="" className="formImg" title="Form"></iframe>
+						<iframe className="formImg" title="Form"></iframe>
 					</div>
 				</div>
 			</Modal>

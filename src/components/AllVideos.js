@@ -23,6 +23,7 @@ import styles from "@/styles/components/AllVideos.module.scss";
 // IMAGES //
 import video_img from "@/../public/img/careers/early_careers/video_img.jpg";
 import video_play from "@/../public/img/icons/video_play.svg";
+import ContentFromCms from "./ContentFromCms";
 
 // DATA //
 
@@ -33,6 +34,7 @@ export default function AllVideos({
 	redirectLink,
 	videoLink,
 	videoThumbnail,
+	iframe,
 }) {
 	if (!title) return <></>;
 	return (
@@ -59,24 +61,27 @@ export default function AllVideos({
 						</a>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
-						<LightGallery
-							speed={500}
-							plugins={[lgThumbnail, lgZoom, lgVideo]}
-							mobileSettings={{ closable: true }}
-						>
-							<a href={videoLink} data-src={videoLink}>
-								<img
-									src={videoThumbnail}
-									className={`${styles.videoThumbnail} img b_r_10`}
-									alt="video thumbnail"
-								/>
-								<img
-									src={video_play.src}
-									className={`${styles.playIcon} `}
-									alt="play"
-								/>
-							</a>
-						</LightGallery>
+						{!iframe && (
+							<LightGallery
+								speed={500}
+								plugins={[lgThumbnail, lgZoom, lgVideo]}
+								mobileSettings={{ closable: true }}
+							>
+								<a href={videoLink} data-src={videoLink}>
+									<img
+										src={videoThumbnail}
+										className={`${styles.videoThumbnail} img b_r_10`}
+										alt="video thumbnail"
+									/>
+									<img
+										src={video_play.src}
+										className={`${styles.playIcon} `}
+										alt="play"
+									/>
+								</a>
+							</LightGallery>
+						)}
+						{iframe && <ContentFromCms>{iframe}</ContentFromCms>}
 					</div>
 				</div>
 			</div>

@@ -43,58 +43,51 @@ import IframeModal from "@/components/IframeModal";
 
 /** Fetch */
 export async function getServerSideProps() {
-	try {
-		const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
-		const softwares = data.data.softwares;
-		const mapJson = getMapJsonForSoftware(regions);
+	const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
+	const softwares = data.data.softwares;
+	const mapJson = getMapJsonForSoftware(regions);
 
-		let testimonials = {
-			testimonials: {
-				nodes: [],
-			},
-		};
-		let clientLogos = {
-			selectLogos: {
-				nodes: [],
-			},
-		};
+	let testimonials = {
+		testimonials: {
+			nodes: [],
+		},
+	};
+	let clientLogos = {
+		selectLogos: {
+			nodes: [],
+		},
+	};
 
-		softwares.nodes.map((item) => {
-			// testimonials
-			testimonials.testimonials.nodes = removeDuplicatesByKeys(
-				[
-					...testimonials.testimonials.nodes,
-					...item.softwares.ourClient.testimonials.nodes,
-				],
-				["id"]
-			);
-			clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
-				[
-					...clientLogos.selectLogos.nodes,
-					...item.softwares.ourClient.selectLogos.nodes,
-				],
-				["id"]
-			);
-		});
+	softwares.nodes.map((item) => {
+		// testimonials
+		testimonials.testimonials.nodes = removeDuplicatesByKeys(
+			[
+				...testimonials.testimonials.nodes,
+				...(item.softwares.ourClient.testimonials?.nodes || []),
+			],
+			["id"]
+		);
+		clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
+			[
+				...clientLogos.selectLogos.nodes,
+				...(item.softwares.ourClient.selectLogos?.nodes || []),
+			],
+			["id"]
+		);
+	});
 
-		return {
-			props: {
-				data: {
-					...data.data.page.softwareLanding,
-				},
-				softwares,
-				testimonials,
-				clientLogos,
-				regions,
-				mapJson,
+	return {
+		props: {
+			data: {
+				...data.data.page.softwareLanding,
 			},
-		};
-	} catch (error) {
-		console.error("Error fetching WordPress data:", error);
-		return {
-			notFound: true,
-		};
-	}
+			softwares,
+			testimonials,
+			clientLogos,
+			regions,
+			mapJson,
+		},
+	};
 }
 
 /** Chronos Page */
