@@ -17,14 +17,14 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import linKed from "../../../public/img/icons/linkedin.svg";
 import advisoryMain from "../../../public/img/careers/advisoryMain.jpg";
 import Insights from "@/components/Insights";
+import ContentFromCms from "@/components/ContentFromCms";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
 /** DepartmentList Section */
-export default function DepartmentList({ data }) {
-	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+export default function DepartmentList({ data, jobs, productService }) {
 	const [showAll, setShowAll] = useState(false);
-
 	const [selected, setSelected] = useState({});
 	const dropdownRefs = {
 		eventNameType: useRef(null),
@@ -34,56 +34,16 @@ export default function DepartmentList({ data }) {
 		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
 		offeringsType: { isOpen: false, selected: { title: "Advisory" } },
 	});
-	const optionsData = {
-		eventNameType: [
-			{ title: "Event Name1" },
-			{ title: "Event Name2" },
-			{ title: "Event Name3" },
-			{ title: "Event Name4" },
-		],
-		offeringsType: [
-			{ title: "Offerings1" },
-			{ title: "Offerings2" },
-			{ title: "Offerings3" },
-			{ title: "Offerings4" },
-		],
-	};
+	const [selectedDepartment, setSelectedDepartment] = useState(0);
+	const dataForBtn = { postFields: data || {} };
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-		{
-			category: "Software1",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Software21",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Software2",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-	];
+	const radioData = productService;
+
 	/** radio Input */
 	const handleChange = (option) => {
 		setSelected(option); // Only one selected option at a time
 	};
+
 	/** Toggle Dropdown */
 	const toggleDropdown = (key) => {
 		setDropdowns((prev) => ({
@@ -91,6 +51,7 @@ export default function DepartmentList({ data }) {
 			[key]: { ...prev[key], isOpen: !prev[key].isOpen },
 		}));
 	};
+
 	/** Handle Option Click */
 	const handleOptionClick = (key, option) => {
 		setDropdowns((prev) => ({
@@ -98,6 +59,7 @@ export default function DepartmentList({ data }) {
 			[key]: { isOpen: false, selected: option },
 		}));
 	};
+
 	const infoData = [
 		{
 			title: "Describe your key responsibilities.",
@@ -132,6 +94,19 @@ export default function DepartmentList({ data }) {
 		},
 	];
 
+	/** handleSelect  */
+	const handleSelect = (option) => {
+		setDropdowns({
+			eventNameType: { isOpen: false, selected: { title: "Event Name" } },
+			offeringsType: { isOpen: false, selected: { title: option } },
+		});
+		const selectedOption = data?.categories?.findIndex(
+			(item) => item.category.node.title === option
+		);
+		setSelectedDepartment(selectedOption);
+		console.log(selectedOption, data, "selectedOption");
+	};
+
 	return (
 		<section className={`${styles.DepartmentList}`}>
 			<div className={`${styles.topNav}`}>
@@ -161,8 +136,12 @@ export default function DepartmentList({ data }) {
 														{item.category}
 													</h4>
 													<div className={styles.checkBoxList}>
-														{item.options?.map((option, idx) => (
-															<h4 key={idx} className="text_sm color_dark_gray text_500">
+														{item?.options?.map((option, idx) => (
+															<h4
+																key={idx}
+																className="text_sm color_dark_gray text_500"
+																onClick={() => handleSelect(option)}
+															>
 																{option}
 															</h4>
 														))}
@@ -174,9 +153,10 @@ export default function DepartmentList({ data }) {
 								</div>
 							</div>
 						</div>
-						<div>
+
+						<div {...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}>
 							<Button color="primary" variant="filled" shape="rounded">
-								Read More
+								{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText}
 							</Button>
 						</div>
 					</div>
@@ -188,72 +168,89 @@ export default function DepartmentList({ data }) {
 						<div className="container">
 							<div className={`${styles.teamDetailsFlex} f_w_j ptb_50`}>
 								<div className={`${styles.teamDetailsItem}`}>
-									<h2 className="text_xl">Advisory</h2>
+									<h2 className="text_xl">
+										{data?.categories?.[selectedDepartment]?.category?.node?.title}
+										{selectedDepartment < 0 && "No Data"}
+									</h2>
 								</div>
-								<div className={`${styles.teamDetailsItem}`}>
-									<p className="text_reg m_b_20 color_dark_gray">
-										As the “ear to the market,” our Advisory team supports our clients’
-										decision-making with bespoke analyses, modelling, and advice to help
-										them solve some of their toughest analytical challenges, from building
-										business cases for the financing of renewables and batteries to
-										quantifying the impact of novel technologies on the energy transition.
-										Working with Power BI, Sourcetree, and PowerPoint are integral to our
-										efforts on client-commissioned projects.
-									</p>
-									<p className="text_reg color_dark_gray">
-										While most new joiners typically start with a regional focus,
-										depending on a person’s interest and capabilities, Advisory Analysts
-										can take on a regional or topic focus. Working in Advisory is great
-										for anyone who thrives with close client interaction and would like to
-										directly inform decisions of major investors, utilities, and
-										policymakers with bespoke analysis and advice, and get exposure to a
-										broad range of energy topics. If you are eager to develop or further
-										strengthen your stakeholder management, presenting, or business case
-										evaluation skills, Advisory would be the right team for you!
-									</p>
+								<div
+									className={`${styles.teamDetailsItem} text_reg m_b_20 color_dark_gray`}
+								>
+									<ContentFromCms>
+										{data?.categories?.[selectedDepartment]?.desc}
+									</ContentFromCms>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className={`${styles.leadDetails} pb_50`}>
-						<div className="containerLarge">
-							<div className={`${styles.leadDetailsFlex} f_w_j ptb_50 dark_bg b_r_20`}>
-								<div className={`${styles.leadDetailsItem}`}>
-									<img src={advisoryMain.src} className="b_r_20" alt="" />
-								</div>
-								<div className={`${styles.leadDetailsItem}`}>
-									<div className={`${styles.leadDetailsContent}`}>
-										<h3 className="text_lg color_white ">Kento Yoshimura</h3>
-										<p className="text_xs color_platinum_gray">
-											Japan Market Lead, Tokyo
-										</p>
+					{data?.categories?.[selectedDepartment]?.leader?.node?.teams?.thumbnail
+						?.image?.node?.sourceUrl && (
+						<div className={`${styles.leadDetails} pb_50`}>
+							<div className="containerLarge">
+								<div
+									className={`${styles.leadDetailsFlex} f_w_j ptb_50 dark_bg b_r_20`}
+								>
+									<div className={`${styles.leadDetailsItem}`}>
+										<img
+											src={
+												data?.categories?.[selectedDepartment]?.leader?.node?.teams
+													?.thumbnail?.image?.node?.sourceUrl
+											}
+											className="b_r_20"
+											alt=""
+										/>
 									</div>
-									<div className={`${styles.leadDetailsContentSocial}`}>
-										<a href="">
-											<img src={linKed.src} alt="" />
-										</a>
-									</div>
-									<div className={`${styles.leadDetailsInfo} pt_30`}>
-										{infoData.slice(0, showAll ? infoData.length : 2).map((item, idx) => (
-											<div key={idx} className={`${styles.leadDetailsInfoInner} pb_20`}>
-												<h5 className={`${styles.headTxt} text_reg color_white f_w_b`}>
-													{item.title}
-												</h5>
-												<p className="text_xs color_platinum_gray">{item.desc}</p>
+									<div className={`${styles.leadDetailsItem}`}>
+										<div className={`${styles.leadDetailsContent}`}>
+											<h3 className="text_lg color_white ">
+												{data?.categories?.[selectedDepartment]?.leader?.node?.title}
+											</h3>
+											<p className="text_xs color_platinum_gray">
+												{
+													data?.categories?.[selectedDepartment]?.leader?.node?.teams
+														?.thumbnail?.designation
+												}
+											</p>
+										</div>
+										{data?.categories?.[selectedDepartment]?.leader?.node?.teams
+											?.thumbnail?.linkedinLink && (
+											<div className={`${styles.leadDetailsContentSocial}`}>
+												<a
+													href={
+														data?.categories?.[selectedDepartment]?.leader?.node?.teams
+															?.thumbnail?.linkedinLink
+													}
+												>
+													<img src={linKed.src} alt="" />
+												</a>
 											</div>
-										))}
-									</div>
-									<div onClick={() => setShowAll(!showAll)}>
-										<Button color="secondary" variant="underline" mode="dark">
-											{showAll ? "Read Less" : "Read More"}
-										</Button>
+										)}
+										<div className={`${styles.leadDetailsInfo} pt_30`}>
+											{data?.categories?.[selectedDepartment]?.leaderDesc
+												.slice(0, showAll ? infoData.length : 2)
+												.map((item, idx) => (
+													<div key={idx} className={`${styles.leadDetailsInfoInner} pb_20`}>
+														<h5 className={`${styles.headTxt} text_reg color_white f_w_b`}>
+															{item.title}
+														</h5>
+														<p className="text_xs color_platinum_gray">{item.desc}</p>
+													</div>
+												))}
+										</div>
+										{data?.categories?.[selectedDepartment]?.leaderDesc.length > 2 && (
+											<div onClick={() => setShowAll(!showAll)}>
+												<Button color="secondary" variant="underline" mode="dark">
+													{showAll ? "Read Less" : "Read More"}
+												</Button>
+											</div>
+										)}
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					)}
 					<div>
-						<JobOpenings data={data} />
+						<JobOpenings data={jobs} />
 					</div>
 				</div>
 			</div>

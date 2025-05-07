@@ -2,6 +2,26 @@
 
 .EOSPage {
 	background-color: var(--color_silver);
+	.bundlesHeader {
+		@include sm-down {
+			flex-direction: column;
+		}
+		p {
+			&:nth-child(1) {
+				width: 30%;
+				@include sm-down {
+					width: 100%;
+					padding-bottom: 20px;
+				}
+			}
+			&:nth-child(2) {
+				width: 50%;
+				@include sm-down {
+					width: 100%;
+				}
+			}
+		}
+	}
 	.insightBg {
 		background-color: var(--color_secondary);
 		.boxBg {

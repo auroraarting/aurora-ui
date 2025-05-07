@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useRef, useEffect, useState } from "react";
+
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
@@ -15,10 +17,15 @@ import styles from "@/styles/sections/careers/JobOpenings.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
+
 // DATA //
 
 /** JobOpenings Section */
-export default function JobOpenings({ data }) {
+export default function JobOpenings({
+	data,
+	hideFilters = true,
+	hideRedirect = false,
+}) {
 	const [jobs, setJobs] = useState(data.jobs.data);
 	const [filterdJob, setFilterdJob] = useState(data.jobs.data);
 	const [filters, setFilters] = useState({
@@ -30,6 +37,8 @@ export default function JobOpenings({ data }) {
 		offeringsType: { isOpen: false, selected: { title: "" } },
 		search: { isOpen: false, selected: { title: "" } },
 	});
+	const [paginationArr, setPaginationArr] = useState(data.jobs.data);
+
 	const dropdownRefs = {
 		eventNameType: useRef(null),
 		offeringsType: useRef(null),
@@ -72,6 +81,7 @@ export default function JobOpenings({ data }) {
 			);
 		}
 		setFilterdJob(arr);
+		setPaginationArr(arr);
 
 		setDropdowns((prev) => ({
 			...prev,
@@ -109,14 +119,11 @@ export default function JobOpenings({ data }) {
 			setFilters({ countries: tempCountries, departments: tempDepartments });
 			setJobs(json.data);
 			setFilterdJob(json.data);
+			setPaginationArr(json.data);
 		} catch (error) {
 			console.log(error, "json");
 		}
 	}
-
-	useEffect(() => {
-		// FetchJobData();
-	}, []);
 
 	return (
 		<section className={`${styles.JobOpenings} dark_bg ptb_100`}>
@@ -125,120 +132,150 @@ export default function JobOpenings({ data }) {
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
 						Job Openings
 					</h2>
-					<a href="/careers/join-us" className={`${styles.bookBtn}`}>
-						<Button color="primary" variant="filled" shape="rounded" mode="dark">
-							Join Us
-						</Button>
-					</a>
+					{!hideRedirect && (
+						<a href="/careers/join-us" className={`${styles.bookBtn}`}>
+							<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								Explore All Roles
+							</Button>
+						</a>
+					)}
 				</div>
-				<div className={`${styles.filterBox}`}>
-					<div className={`${styles.topNav}`}>
-						<div className="">
-							<div className={`${styles.filterflexMain} f_r_aj_between`}>
-								<div className={`${styles.filterflex} `}>
-									<div className={styles.selectBox} ref={dropdownRefs.eventNameType}>
-										<div className={styles.custom_select}>
-											<div
-												className={`${styles.select_header_wapper} ${
-													dropdowns.eventNameType.isOpen ? "activeDropDown" : ""
-												}`}
-												onClick={() => toggleDropdown("eventNameType")}
-												tabIndex={0}
-											>
+				{!hideFilters && (
+					<div className={`${styles.filterBox}`}>
+						<div className={`${styles.topNav}`}>
+							<div className="">
+								<div className={`${styles.filterflexMain} f_r_aj_between`}>
+									<div className={`${styles.filterflex} `}>
+										<div className={styles.selectBox} ref={dropdownRefs.eventNameType}>
+											<div className={styles.custom_select}>
 												<div
-													className={`${styles.select_header} select_bg text_sm text_500`}
+													className={`${styles.select_header_wapper} ${
+														dropdowns.eventNameType.isOpen ? "activeDropDown" : ""
+													}`}
+													onClick={() => toggleDropdown("eventNameType")}
+													tabIndex={0}
 												>
-													{dropdowns.eventNameType.selected.title || "Country"}
-													<img src={dropdown_arrow.src} alt="icon" />
-												</div>
-											</div>
-											{dropdowns.eventNameType.isOpen && (
-												<ul className={styles.selectOptionBox}>
-													<li
-														className={
-															dropdowns.eventNameType.selected.title === "" ? "selected" : ""
-														}
-														onClick={() => handleOptionClick("eventNameType", "")}
+													<div
+														className={`${styles.select_header} select_bg text_sm text_500`}
 													>
-														All
-													</li>
-													{filters?.countries?.map((option) => (
+														{dropdowns.eventNameType.selected.title || "Country"}
+														<img src={dropdown_arrow.src} alt="icon" />
+													</div>
+												</div>
+												{dropdowns.eventNameType.isOpen && (
+													<ul className={styles.selectOptionBox}>
 														<li
-															key={option.title}
 															className={
-																option === dropdowns.eventNameType.selected.title
-																	? "selected"
-																	: ""
+																dropdowns.eventNameType.selected.title === "" ? "selected" : ""
 															}
-															onClick={() => handleOptionClick("eventNameType", option)}
+															onClick={() => handleOptionClick("eventNameType", "")}
 														>
-															{option}
+															All
 														</li>
-													))}
-												</ul>
-											)}
+														{filters?.countries?.map((option) => (
+															<li
+																key={option.title}
+																className={
+																	option === dropdowns.eventNameType.selected.title
+																		? "selected"
+																		: ""
+																}
+																onClick={() => handleOptionClick("eventNameType", option)}
+															>
+																{option}
+															</li>
+														))}
+													</ul>
+												)}
+											</div>
+										</div>
+										<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+											<div className={styles.custom_select}>
+												<div
+													className={`${styles.select_header_wapper} ${
+														dropdowns.offeringsType.isOpen ? "activeDropDown" : ""
+													}`}
+													onClick={() => toggleDropdown("offeringsType")}
+													tabIndex={0}
+												>
+													<div
+														className={`${styles.select_header} select_bg text_sm text_500`}
+													>
+														{dropdowns.offeringsType.selected.title || "Department"}
+														<img src={dropdown_arrow.src} alt="icon" />
+													</div>
+												</div>
+												{dropdowns.offeringsType.isOpen && (
+													<ul className={styles.selectOptionBox}>
+														<li
+															className={
+																dropdowns.offeringsType.selected.title === "" ? "selected" : ""
+															}
+															onClick={() => handleOptionClick("offeringsType", "")}
+														>
+															All
+														</li>
+														{filters?.departments?.map((option) => (
+															<li
+																key={option.title}
+																className={
+																	option === dropdowns.offeringsType.selected.title
+																		? "selected"
+																		: ""
+																}
+																onClick={() => handleOptionClick("offeringsType", option)}
+															>
+																{option}
+															</li>
+														))}
+													</ul>
+												)}
+											</div>
 										</div>
 									</div>
-									<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
-										<div className={styles.custom_select}>
-											<div
-												className={`${styles.select_header_wapper} ${
-													dropdowns.offeringsType.isOpen ? "activeDropDown" : ""
-												}`}
-												onClick={() => toggleDropdown("offeringsType")}
-												tabIndex={0}
-											>
-												<div
-													className={`${styles.select_header} select_bg text_sm text_500`}
-												>
-													{dropdowns.offeringsType.selected.title || "Department"}
-													<img src={dropdown_arrow.src} alt="icon" />
-												</div>
-											</div>
-											{dropdowns.offeringsType.isOpen && (
-												<ul className={styles.selectOptionBox}>
-													<li
-														className={
-															dropdowns.offeringsType.selected.title === "" ? "selected" : ""
-														}
-														onClick={() => handleOptionClick("offeringsType", "")}
-													>
-														All
-													</li>
-													{filters?.departments?.map((option) => (
-														<li
-															key={option.title}
-															className={
-																option === dropdowns.offeringsType.selected.title
-																	? "selected"
-																	: ""
-															}
-															onClick={() => handleOptionClick("offeringsType", option)}
-														>
-															{option}
-														</li>
-													))}
-												</ul>
-											)}
-										</div>
+									<div className={`${styles.searchInput}`}>
+										<input
+											type="text"
+											placeholder="Search..."
+											onChange={(e) =>
+												handleOptionClick("search", e.target.value.toLowerCase())
+											}
+										/>
 									</div>
-								</div>
-								<div className={`${styles.searchInput}`}>
-									<input
-										type="text"
-										placeholder="Search..."
-										onChange={(e) =>
-											handleOptionClick("search", e.target.value.toLowerCase())
-										}
-									/>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				)}
 				<div className={`${styles.tableBox}`}>
-					<table>
+					<table className={`${hideFilters && styles.borderHide}`}>
 						<tbody>
+							<tr>
+								<td className="text_xxs font_primary color_light_gray f_w_m text_uppercase">
+									Position
+								</td>
+								<td className="text_xxs color_light_gray text_uppercase">
+									{/* Singapore */}
+									Country
+								</td>
+								<td className="text_xxs color_light_gray text_uppercase">
+									{/* Advisory */}
+									Department
+								</td>
+								<td className="text_xxs color_light_gray text_uppercase">
+									{/* Permanent - Full Time */}
+									Employment Type
+								</td>
+								<td className="text_xxs color_light_gray text_uppercase">
+									{/* Permanent - Full Time */}
+									{/* {item?.employment_type_text} */}
+									{/* <a href={item?.url} target="_blank" rel="noreferrer">
+										<Button color="primary" variant="filled" shape="rounded" mode="max">
+											View Job
+										</Button>
+									</a> */}
+								</td>
+							</tr>
 							{filterdJob?.map((item, ind) => {
 								return (
 									<tr key={item?.title + ind}>
@@ -322,6 +359,12 @@ export default function JobOpenings({ data }) {
 						</tr> */}
 					</table>
 				</div>
+				<Pagination
+					data={filterdJob}
+					paginationArr={paginationArr}
+					itemsPerPage={5}
+					setCurrentItems={setFilterdJob}
+				/>
 			</div>
 		</section>
 	);

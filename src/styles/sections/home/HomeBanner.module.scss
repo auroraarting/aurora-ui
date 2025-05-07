@@ -19,13 +19,12 @@
 				}
 			}
 			.BannerImg {
-				min-height: 300px;
-				width: 35%;
+				height: 350px;
+				width: 400px;
 				padding-top: 30px;
 				@media (max-width: 767px) {
-					width: 100%;
+					width: 350px;
 					padding-top: 0;
-					min-height: 200px;
 				}
 			}
 		}

@@ -74,8 +74,8 @@ function InnerBanner({
 						</div>
 						{btnTxt && (
 							<a
+								// {...dynamicInsightsBtnProps()}
 								href={btnLink}
-								{...dynamicInsightsBtnProps()}
 								className={`${styles.bookBtn} pt_30`}
 							>
 								<Button color="primary" variant="filled" shape="rounded">
@@ -84,7 +84,7 @@ function InnerBanner({
 							</a>
 						)}
 						{dynamicBtn?.btnText && (
-							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
+							<a {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
 									{dynamicBtn?.btnText}
 								</Button>

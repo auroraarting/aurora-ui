@@ -28,6 +28,7 @@ import { Link, scroller } from "react-scroll";
 
 // UTILS //
 import {
+	dynamicInsightsBtnProps,
 	filterMarkersBySlug,
 	getMapJsonForAllRegions,
 	getMapJsonForCountries,
@@ -86,6 +87,7 @@ export default function EOSPage({
 	countries,
 }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data || {} };
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -102,18 +104,6 @@ export default function EOSPage({
 			console.log("Scrolling finished!");
 		}, 500);
 	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Book a Demo
-			</Button>
-		</div>,
-	];
 
 	return (
 		<div>
@@ -136,22 +126,40 @@ export default function EOSPage({
 						videoSrc={data?.banner?.vimeoLink}
 						vimeoid={data?.banner?.vimeoLink}
 						logo={data?.banner?.logo?.node?.sourceUrl}
+						dataForBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
 				</div>
-				<SectionsHeader data={headerArray} />
-				<GlobalMap locationJson={mapJson} />
-				{/* <div className="ptb_100">
-					<SoftwareMarket />
-				</div> */}
-				<div>
-					<SmarterEnergy data={data.expertise} />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
+				<div className="ptb_100 ">
+					<div className="container">
+						<div className={`f_j ${styles.bundlesHeader} pb_40`}>
+							<p className="text_xl f_w_s_b font_primary">{data?.bundles?.title}</p>
+							<p className="font_secondary">{data?.bundles?.desc}</p>
+						</div>
+					</div>
+					<Bundles data={bundles} />
 				</div>
-				<ServicesCircle data={data.keyAdvantages} />
+				<GlobalMap locationJson={mapJson} />
 				{data.trustedModels.sectionTitle && (
-					<div className="pt_100">
+					<div className="ptb_100">
 						<CuttingEdgeModels data={data.trustedModels} />
 					</div>
 				)}
+				<ServicesCircle data={data.keyAdvantages} />
 				{data.ourClient.selectLogos && (
 					<div className="ptb_100">
 						<TrustedLeaders data={data.ourClient} />
@@ -162,12 +170,15 @@ export default function EOSPage({
 						<TestimonialFeedback data={data.ourClient} />
 					</div>
 				)}
-				<div className="ptb_100 dark_bg">
+				<div>
+					<SmarterEnergy data={data.expertise} />
+				</div>
+				{/* <div className="ptb_100 dark_bg">
 					<div className="pb_100">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />
-				</div>
+				</div> */}
 
 				<div className={`${styles.insightBg} pt_30`}>
 					<div>
@@ -179,6 +190,12 @@ export default function EOSPage({
 								isInsightsBlogsVisible={true}
 								defaultList={otherList}
 								countries={countries}
+								formSectionTitle="Expertise that powers progress"
+								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with Chronos specialists. Stay ahead with exclusive access to online and in-person community events."
+								formSectionBtnText={
+									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+								}
+								formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 							/>
 						</div>
 					</div>
