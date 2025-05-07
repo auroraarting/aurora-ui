@@ -582,8 +582,6 @@ export default function Header() {
 		fetchData();
 	}, []);
 
-	console.log(data, "data");
-
 	// if (!data) return <div className="stalePage"></div>;
 
 	return (

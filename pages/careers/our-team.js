@@ -37,25 +37,50 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import IframeModal from "@/components/IframeModal";
+import { getOurTeamsPage } from "@/services/OurTeams.service";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data, jobs] = await Promise.all([getLifeAtAurora(), getFetchJobData()]);
+	const [data, jobs, page, categoriesForSelect, list] = await Promise.all([
+		getLifeAtAurora(),
+		getFetchJobData(),
+		getOurTeamsPage(),
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+	]);
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
 	};
 	delete obj.data.lifeAtAurora;
-	const [categoriesForSelect, list] = await Promise.all([
-		getInsightsCategories(),
-		getInsights('first: 3, where: {categoryName: ""}'),
-	]);
+
 	const otherList = list?.data?.posts?.nodes;
 	const countries = categoriesForSelect.data.countries.nodes;
-	return { props: { ...obj, jobs, otherList, countries } };
+	return {
+		props: {
+			...obj,
+			jobs,
+			otherList,
+			countries,
+			data: page.data.page.ourTeams,
+			products: categoriesForSelect.data.products.nodes,
+			softwares: categoriesForSelect.data.softwares.nodes,
+			services: categoriesForSelect.data.services.nodes,
+		},
+	};
 }
 
 /** LifeAtAurora Page */
-export default function LifeAtAurora({ jobs, otherList, countries }) {
+export default function LifeAtAurora({
+	data,
+	jobs,
+	otherList,
+	countries,
+	products,
+	softwares,
+	services,
+}) {
+	const dataForBtn = { postFields: data.insights || {} };
 	return (
 		<div>
 			{/* Metatags */}
@@ -72,14 +97,29 @@ export default function LifeAtAurora({ jobs, otherList, countries }) {
 			{/* Page Content starts here */}
 			<main className={styles.ourTeamPage}>
 				<InnerBanner
-					bannerTitle={"Lorem ipsum dolor sit amet consectetur."}
-					bannerDescription={
-						"Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					}
+					bannerTitle={data?.banner?.title}
+					bannerDescription={data?.banner?.desc}
 					showContentOnly
 				/>
 				<div>
-					<DepartmentList data={jobs} />
+					<DepartmentList
+						jobs={jobs}
+						data={data}
+						productService={[
+							{
+								category: "Product",
+								options: products?.map((item) => item.title),
+							},
+							{
+								category: "Software",
+								options: softwares?.map((item) => item.title),
+							},
+							{
+								category: "Service",
+								options: services?.map((item) => item.title),
+							},
+						]}
+					/>
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
@@ -87,6 +127,12 @@ export default function LifeAtAurora({ jobs, otherList, countries }) {
 							isPowerBgVisible={true}
 							defaultList={otherList}
 							countries={countries}
+							formSectionTitle={data?.insights?.sectionTitle}
+							formSectionDesc={data?.insights?.sectionDesc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+							}
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						/>
 					</div>
 				</div>

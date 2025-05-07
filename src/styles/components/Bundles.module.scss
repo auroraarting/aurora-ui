@@ -1,11 +1,36 @@
 @import "../helpers/helpers.scss";
 
 .Bundles {
+	position: relative;
+
+	.bg {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 90%;
+		height: 100%;
+		transform: translateX(-50%);
+		border-radius: 40px;
+		overflow: hidden;
+		display: flex;
+		align-items: end;
+
+		img {
+			width: 100%;
+			opacity: 0.2;
+		}
+
+		@include sm-down {
+			width: 100%;
+			border-radius: 0px;
+		}
+	}
 	.table_wrap {
 		// padding: 0 50px;
 		.tab_wrap {
 			display: flex;
 			justify-content: space-between;
+			flex-wrap: wrap-reverse;
 
 			.tabs {
 				display: flex;

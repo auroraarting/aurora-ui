@@ -38,6 +38,7 @@ export default function EosBanner({
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
 	logo,
+	dataForBtn,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -76,14 +77,18 @@ export default function EosBanner({
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<a {...dynamicInsightsBtnProps()}>
+							<a {...dataForBtn}>
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									Book a Demo
+									{dataForBtn?.btnText}
 								</Button>
 							</a>
-							<Button color="secondary" variant="filled" shape="rounded" mode="dark">
-								EOS Sign in
-							</Button>
+							{btnTxt && (
+								<a href={btnLink}>
+									<Button color="secondary" variant="filled" shape="rounded" mode="dark">
+										{btnTxt}
+									</Button>
+								</a>
+							)}
 						</div>
 					</div>
 				</div>

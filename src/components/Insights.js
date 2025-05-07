@@ -98,7 +98,7 @@ export default function Insights({
 		if (formdata) {
 			return {
 				...formdata,
-				href: defaultPathname(),
+				// href: defaultPathname(),
 			};
 		} else {
 			return dynamicInsightsBtnProps();

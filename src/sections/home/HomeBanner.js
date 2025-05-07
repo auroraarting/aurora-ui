@@ -1,5 +1,5 @@
 // MODULES //
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -27,7 +27,6 @@ export default function HomeBanner() {
 	const lottieAnimations = [
 		{ id: "1", src: "/img/home/lottie/bannerRightSide.json" },
 	];
-	const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
 	return (
 		<div className={styles.HomeBanner}>
@@ -52,24 +51,21 @@ export default function HomeBanner() {
 								</Button>
 							</div>
 						</div>
-						<div className={`${styles.BannerImg}`} ref={ref}>
+						<div className={`${styles.BannerImg}`}>
 							{/* <img
 								src={bannerGraph.src}
 								className={`${styles.BannerGraph} width_100`}
 								alt="Banner Graph"
 							/> */}
-							{/* <div className="bannerAni" ref={bannerAniRefs[0]}></div> */}
-							{inView && (
-								<DotLottieReact
-									src={lottieAnimations[0].src}
-									autoplay={true}
-									loop={true}
-									renderer="svg"
-									renderersettings={{
-										preserveAspectRatio: "xMidYMid meet",
-									}}
-								/>
-							)}
+							<DotLottieReact
+								src={lottieAnimations[0].src}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
 						</div>
 					</div>
 				</div>

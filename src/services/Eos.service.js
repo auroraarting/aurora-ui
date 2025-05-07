@@ -158,6 +158,40 @@ query EOSPage {
           }
         }
       }
+      bundles {
+        desc
+        title
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
     }
   }
 }

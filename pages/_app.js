@@ -21,7 +21,7 @@ import "@/styles/globals/globals.scss";
 // DATA //
 
 /** App Page */
-export default function MyApp({ Component, pageProps, data }) {
+export default function MyApp({ Component, pageProps }) {
 	const router = useRouter();
 	const { search } = router.query;
 
@@ -93,8 +93,6 @@ export default function MyApp({ Component, pageProps, data }) {
 			highlightMatches(document.body, search.toLowerCase());
 		}
 	}, [search]);
-
-	console.log("data", data);
 
 	return (
 		<>

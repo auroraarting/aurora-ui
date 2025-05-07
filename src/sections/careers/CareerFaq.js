@@ -12,13 +12,14 @@ import AccordianCommon from "@/components/AccordianCommon";
 
 // STYLES //
 import styles from "@/styles/sections/careers/CareerFaq.module.scss";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // IMAGES //
 
 // DATA //
 
 /** CareerFaq Section */
-export default function CareerFaq() {
+export default function CareerFaq({ data }) {
 	return (
 		<div className={`${styles.accordian_main}`}>
 			<AccordianCommon
@@ -26,63 +27,18 @@ export default function CareerFaq() {
 				fontWeight={"f_w_s_b"}
 				fontFamily={"font_primary"}
 				fontColor={"color_light_gray"}
-				items={[
-					{
-						title:
-							"What is the typical recruitment process for applicants at Aurora Energy Research?",
+				items={data?.map((item) => {
+					return {
+						title: item.title,
 						children: (
 							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
-									Our recruitment process typically begins with an initial application
-									review, followed by interviews to assess your technical ability and
-									your overall competency. Depending on the role, candidates may also be
-									asked to complete assessments or case studies.
-								</p>
+								<div className="text_reg color_dark_gray">
+									<ContentFromCms>{item.desc}</ContentFromCms>
+								</div>
 							</div>
 						),
-					},
-					{
-						title:
-							"What is the typical recruitment process for applicants at Aurora Energy Research?",
-						children: (
-							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
-									Our recruitment process typically begins with an initial application
-									review, followed by interviews to assess your technical ability and
-									your overall competency. Depending on the role, candidates may also be
-									asked to complete assessments or case studies.
-								</p>
-							</div>
-						),
-					},
-					{
-						title:
-							"I have received a request for an interview or an offer from Aurora, but I am unsure if this person is an employee or affiliate of Aurora. How can I confirm?",
-						children: (
-							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
-									Our recruitment process typically begins with an initial application
-									review, followed by interviews to assess your technical ability and
-									your overall competency. Depending on the role, candidates may also be
-									asked to complete assessments or case studies.
-								</p>
-							</div>
-						),
-					},
-					{
-						title: "How do I prepare for my interview?",
-						children: (
-							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
-									Our recruitment process typically begins with an initial application
-									review, followed by interviews to assess your technical ability and
-									your overall competency. Depending on the role, candidates may also be
-									asked to complete assessments or case studies.
-								</p>
-							</div>
-						),
-					},
-				]}
+					};
+				})}
 			/>
 		</div>
 	);

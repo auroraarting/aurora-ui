@@ -19,6 +19,7 @@ import { Link, scroller } from "react-scroll";
 
 // STYLES //
 import styles from "@/styles/pages/careers/Faq.module.scss";
+import { getFaqPage } from "@/services/Faq.service";
 
 // IMAGES //
 
@@ -26,10 +27,22 @@ import styles from "@/styles/pages/careers/Faq.module.scss";
 
 // SERVICES //
 
-/** Faq Page */
-export default function Faq() {
-	const [activeTab, setActiveTab] = useState("careers");
+/** Fetch  */
+export async function getServerSideProps() {
+	//
+	const [page] = await Promise.all([getFaqPage()]);
 
+	return {
+		props: {
+			page: page.data.page.faq,
+		},
+	};
+}
+
+/** Faq Page */
+export default function Faq({ page }) {
+	const [activeTab, setActiveTab] = useState(0);
+	console.log(page, "page");
 	/** */
 	const handleTabClick = (tab) => {
 		setActiveTab(tab);
@@ -45,8 +58,8 @@ export default function Faq() {
 			{/* Page Content starts here */}
 			<main className={styles.Faq}>
 				<InnerBanner
-					bannerTitle="WE'RE HAPPY TO ANSWER YOUR QUESTIONS"
-					bannerDescription="Find below answers to the most frequently asked questions. This may help you decide if Aurora is the right place for you and clarify any doubts you may have during your journey."
+					bannerTitle={page?.banner?.title}
+					bannerDescription={page?.banner?.desc}
 					showContentOnly
 				/>
 
@@ -55,37 +68,25 @@ export default function Faq() {
 						<div className={`${styles.tabFlex} f_w_j`}>
 							<div className={`${styles.category}`}>
 								<div className={`${styles.switchBox}`}>
-									<div
-										className={`${styles.listTxt} ${
-											activeTab === "careers" ? styles.active : ""
-										}`}
-										onClick={() => handleTabClick("careers")}
-									>
-										<p className="text_xs f_w_m font_primary ">Careers</p>
-									</div>
-									<div
-										className={`${styles.listTxt} ${
-											activeTab === "GraduatePrograms" ? styles.active : ""
-										}`}
-										onClick={() => handleTabClick("GraduatePrograms")}
-									>
-										<p className="text_xs f_w_m font_primary ">Graduate Programs</p>
-									</div>
+									{page?.categories?.map((item, ind) => {
+										return (
+											<div
+												key={item.title}
+												className={`${styles.listTxt} ${
+													activeTab === ind ? styles.active : ""
+												}`}
+												onClick={() => handleTabClick(ind)}
+											>
+												<p className="text_xs f_w_m font_primary ">{item.title}</p>
+											</div>
+										);
+									})}
 								</div>
 							</div>
 							<div className={`${styles.tabContent}`}>
-								{activeTab === "careers" && (
-									<div className={`${styles.categoryContent} `}>
-										<CareerFaq />
-									</div>
-								)}
-								{activeTab === "GraduatePrograms" && (
-									<div className={`${styles.categoryContent} `}>
-										<div className="pb_100">
-											<GraduateProgramsFaq />
-										</div>
-									</div>
-								)}
+								<div className={`${styles.categoryContent} `}>
+									<CareerFaq data={page?.categories?.[activeTab]?.faq} />
+								</div>
 							</div>
 						</div>
 					</div>

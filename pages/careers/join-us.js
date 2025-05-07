@@ -9,6 +9,7 @@ import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import Insights from "@/components/Insights";
 import IntegratedSystem from "@/components/IntegratedSystem";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import JobOpenings from "@/sections/careers/JobOpenings";
@@ -17,6 +18,7 @@ import JobOpenings from "@/sections/careers/JobOpenings";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/careers/JoinUs.module.scss";
@@ -31,15 +33,18 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import IframeModal from "@/components/IframeModal";
+import { getJoinUsPage } from "@/services/JoinUs.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [jobs] = await Promise.all([getFetchJobData()]);
-	const [categoriesForSelect, list] = await Promise.all([
+	//
+	const [jobs, categoriesForSelect, list, page] = await Promise.all([
+		getFetchJobData(),
 		getInsightsCategories(),
 		getInsights('first: 3, where: {categoryName: ""}'),
+		getJoinUsPage(),
 	]);
+
 	const otherList = list?.data?.posts?.nodes;
 	const countries = categoriesForSelect.data.countries.nodes;
 
@@ -48,12 +53,16 @@ export async function getServerSideProps() {
 			jobs,
 			otherList,
 			countries,
+			page: page.data.page.joinUs,
 		},
 	};
 }
 
 /** JoinUs Page */
-export default function JoinUs({ jobs, otherList, countries }) {
+export default function JoinUs({ jobs, otherList, countries, page }) {
+	console.log("page", page);
+	const dataForBtn = { postFields: page.insights || {} };
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -65,13 +74,14 @@ export default function JoinUs({ jobs, otherList, countries }) {
 			{/* Page Content starts here */}
 			<main className={styles.JoinUs}>
 				<InnerBanner
-					bannerTitle="Lorem ipsum dolor sit amet consectetur."
-					bannerDescription="Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec sodales mi. Tellus imperdiet volutpat dui ipsum massa. In tincidunt tortor elit suspendisse arcu massa fusce. Urna lectus ullamcorper est eu quis lectus tortor nam."
-					btnTxt="FAQs"
+					bannerTitle={page?.banner?.title}
+					bannerDescription={page?.banner?.desc}
+					btnTxt={page?.banner?.buttonText}
+					btnLink={page?.banner?.buttonLink}
 					showContentOnly
 				/>
 				<div>
-					<JobOpenings data={jobs} />
+					<JobOpenings data={jobs} hideFilters={false} hideRedirect={true} />
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
@@ -79,6 +89,12 @@ export default function JoinUs({ jobs, otherList, countries }) {
 							isPowerBgVisible={true}
 							defaultList={otherList}
 							countries={countries}
+							formSectionTitle={page?.insights?.sectionTitle}
+							formSectionDesc={page?.insights?.sectionTitle}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+							}
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						/>
 					</div>
 				</div>
