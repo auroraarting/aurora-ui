@@ -40,6 +40,7 @@ export default function SoftwareBanner({
 }) {
 	/** Function to generate the correct video URL  */
 	const getVimeoUrl = (vimeoid) => {
+		if (!vimeoid) return null;
 		if (vimeoid.includes("/")) {
 			// If the vimeoid has the format "id/hash", construct the embed URL
 			const [id, hash] = vimeoid.split("/");

@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import { useRouter } from "next/router";
 
 // SECTIONS //
 
@@ -14,6 +15,11 @@ import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 // UTILS //
+import {
+	filterBySearchQueryEvents,
+	filterItemsBySelectedObjForCareers,
+	filterItemsBySelectedObjForPress,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/careers/CareerCountryCard.module.scss";
@@ -29,9 +35,12 @@ import search from "../../../public/img/icons/search.svg";
 
 /** CareerCountryCard Section */
 export default function CareerCountryCard({ page, data, programs, countries }) {
+	const router = useRouter();
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [filteredData, setFilteredData] = useState(data);
+	const [loading, setLoading] = useState(false);
+	const [original, setOriginal] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -74,6 +83,29 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 			...prev,
 			[key]: { isOpen: false, selected: option },
 		}));
+		filter(option.title, key);
+	};
+
+	/** filter  */
+	const filter = async (catName, key) => {
+		let selectedObj = selected;
+		let arr = original;
+		setLoading(true);
+
+		if (key === "search") {
+			selectedObj.search = catName;
+			window.location.href = `/careers/early-careers?search=${catName}`;
+			return;
+		}
+		if (key === "programsType") {
+			selectedObj.program = catName;
+		}
+		if (key === "countryType") {
+			selectedObj.country = catName;
+		}
+		const filteredArr = filterItemsBySelectedObjForCareers(arr, selectedObj);
+		setFilteredData(filteredArr);
+		setSelected(selectedObj);
 	};
 
 	/** Close Dropdown on Click Outside */
@@ -95,6 +127,15 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
+
+	useEffect(() => {
+		if (router.query.search) {
+			const filtered = filterBySearchQueryEvents(data, router.query.search);
+			setFilteredData(filtered);
+			setOriginal(filtered);
+		}
+	}, [router.query]);
+
 	return (
 		<section className={`${styles.CareerCountryCard} CareerCountryCard ptb_100`}>
 			<div className="container">
@@ -105,7 +146,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				</div>
 				<div className={styles.filterMain}>
 					<div className={styles.filterflex}>
-						{/* years Type Dropdown */}
+						{/* Programs Type Dropdown */}
 						<div className={`${styles.selectBox}`} ref={dropdownRefs.programsType}>
 							<div className={styles.custom_select}>
 								<div
@@ -209,12 +250,17 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 						return (
 							<div className={`${styles.cardItem}`} key={item?.slug}>
 								<div className={`${styles.cardImg}`}>
-									<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-									<p
-										className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-									>
-										Live
-									</p>
+									<img
+										src={item?.earlyCareers?.thumbnail?.thumb?.node?.sourceUrl}
+										className={`${styles.countryImg} b_r_10`}
+									/>
+									{item?.earlyCareers?.thumbnail?.islive && (
+										<p
+											className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
+										>
+											Live
+										</p>
+									)}
 								</div>
 								<div className={`${styles.cardDesc} pt_20`}>
 									<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
@@ -223,15 +269,17 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 											className={`${styles.location}`}
 											alt="location"
 										/>
-										<span>Austin</span>
+										<span>{item?.earlyCareers?.thumbnail?.country?.node?.title}</span>
 									</p>
 									<h4 className="text_md color_white f_w_m font_primary pt_10">
-										Graduate Analyst
+										{item?.title}
 									</h4>
 									<div className={`${styles.btn_box} pt_20`}>
-										<Button color="secondary" variant="underline" mode="dark">
-											Read More
-										</Button>
+										<a href={`/careers/early-careers/${item?.slug}`}>
+											<Button color="secondary" variant="underline" mode="dark">
+												Read More
+											</Button>
+										</a>
 									</div>
 								</div>
 							</div>

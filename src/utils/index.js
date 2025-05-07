@@ -621,3 +621,32 @@ export function filterItemsBySelectedObjForPress(arr, selectedObj) {
 		});
 	}, arr);
 }
+
+/** filterItemsBySelectedObj  */
+export function filterItemsBySelectedObjForCareers(arr, selectedObj) {
+	const filters = [
+		{
+			key: "program",
+			getNodes: (item) => item.programs?.nodes,
+			match: (node, value) => node.name === value,
+		},
+		{
+			key: "country",
+			getNodes: (item) => item.earlyCareers?.thumbnail?.country?.nodes,
+			match: (node, value) => node.title === value,
+		},
+	];
+
+	return filters.reduce((filteredArr, { key, getNodes, match }) => {
+		const value = selectedObj[key];
+		if (!value) return filteredArr;
+
+		return filteredArr.filter((item) => {
+			if (getNodes) {
+				const nodes = getNodes(item) || [];
+				return nodes?.some((node) => match(node, value));
+			}
+			return match(item, value);
+		});
+	}, arr);
+}
