@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 
 // COMPONENTS //
@@ -25,7 +26,7 @@ import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg
 // DATA //
 
 /** EarlyCareers Section */
-export default function EarlyCareersInside() {
+export default function EarlyCareersInside({ data }) {
 	return (
 		<section className={`${styles.EarlyCareers} pb_50`}>
 			<div className="container">
@@ -33,11 +34,11 @@ export default function EarlyCareersInside() {
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
 						Early Careers
 					</h2>
-					<div className={`${styles.bookBtn}`}>
+					<a href="/careers/early-careers" className={`${styles.bookBtn}`}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Explore
 						</Button>
-					</div>
+					</a>
 				</div>
 				<div className={`${styles.arrowSection} f_w_a_j_center`}>
 					<button className={`${styles.customPrev}`} id="customPrev">
@@ -81,160 +82,51 @@ export default function EarlyCareersInside() {
 					}}
 					className={styles.slider}
 				>
-					<SwiperSlide>
-						<div className={`${styles.cardItem}`}>
-							<div className={`${styles.cardImg}`}>
-								<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-								<p
-									className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-								>
-									Live
-								</p>
-							</div>
-							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-									<img
-										src={location.src}
-										className={`${styles.location}`}
-										alt="location"
-									/>
-									<span>Austin</span>
-								</p>
-								<h4 className="text_md color_white f_w_m font_primary pt_10">
-									Graduate Analyst
-								</h4>
-								<div className={`${styles.btn_box} pt_20`}>
-									<Button color="secondary" variant="underline" mode="dark">
-										Read More
-									</Button>
+					{data?.map((item) => {
+						return (
+							<SwiperSlide key={item?.title}>
+								<div className={`${styles.cardItem}`} key={item?.slug}>
+									<div className={`${styles.cardImg}`}>
+										<img
+											src={item?.earlyCareers?.thumbnail?.thumb?.node?.sourceUrl}
+											className={`${styles.countryImg} b_r_10`}
+										/>
+										{item?.earlyCareers?.thumbnail?.islive && (
+											<p
+												className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
+											>
+												Live
+											</p>
+										)}
+									</div>
+									<div className={`${styles.cardDesc} pt_20`}>
+										<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
+											<img
+												src={location.src}
+												className={`${styles.location}`}
+												alt="location"
+											/>
+											<span>{item?.earlyCareers?.thumbnail?.country?.node?.title}</span>
+										</p>
+										<h4 className="text_md color_white f_w_m font_primary pt_10">
+											{item?.title}
+										</h4>
+										<div className={`${styles.btn_box} pt_20`}>
+											<a href={`/careers/early-careers/${item?.slug}`}>
+												<Button color="secondary" variant="underline" mode="dark">
+													Read More
+												</Button>
+											</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</SwiperSlide>
-					<SwiperSlide>
-						<div className={`${styles.cardItem}`}>
-							<div className={`${styles.cardImg}`}>
-								<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-								<p
-									className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-								>
-									Live
-								</p>
-							</div>
-							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-									<img
-										src={location.src}
-										className={`${styles.location}`}
-										alt="location"
-									/>
-									<span>Austin</span>
-								</p>
-								<h4 className="text_md color_white f_w_m font_primary pt_10">
-									Graduate Analyst
-								</h4>
-								<div className={`${styles.btn_box} pt_20`}>
-									<Button color="secondary" variant="underline" mode="dark">
-										Read More
-									</Button>
-								</div>
-							</div>
-						</div>
-					</SwiperSlide>
-					<SwiperSlide>
-						<div className={`${styles.cardItem}`}>
-							<div className={`${styles.cardImg}`}>
-								<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-								<p
-									className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-								>
-									Live
-								</p>
-							</div>
-							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-									<img
-										src={location.src}
-										className={`${styles.location}`}
-										alt="location"
-									/>
-									<span>Austin</span>
-								</p>
-								<h4 className="text_md color_white f_w_m font_primary pt_10">
-									Graduate Analyst
-								</h4>
-								<div className={`${styles.btn_box} pt_20`}>
-									<Button color="secondary" variant="underline" mode="dark">
-										Read More
-									</Button>
-								</div>
-							</div>
-						</div>
-					</SwiperSlide>
-					<SwiperSlide>
-						<div className={`${styles.cardItem}`}>
-							<div className={`${styles.cardImg}`}>
-								<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-								<p
-									className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-								>
-									Live
-								</p>
-							</div>
-							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-									<img
-										src={location.src}
-										className={`${styles.location}`}
-										alt="location"
-									/>
-									<span>Austin</span>
-								</p>
-								<h4 className="text_md color_white f_w_m font_primary pt_10">
-									Graduate Analyst
-								</h4>
-								<div className={`${styles.btn_box} pt_20`}>
-									<Button color="secondary" variant="underline" mode="dark">
-										Read More
-									</Button>
-								</div>
-							</div>
-						</div>
-					</SwiperSlide>
-					<SwiperSlide>
-						<div className={`${styles.cardItem}`}>
-							<div className={`${styles.cardImg}`}>
-								<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-								<p
-									className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-								>
-									Live
-								</p>
-							</div>
-							<div className={`${styles.cardDesc} pt_20`}>
-								<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-									<img
-										src={location.src}
-										className={`${styles.location}`}
-										alt="location"
-									/>
-									<span>Austin</span>
-								</p>
-								<h4 className="text_md color_white f_w_m font_primary pt_10">
-									Graduate Analyst
-								</h4>
-								<div className={`${styles.btn_box} pt_20`}>
-									<Button color="secondary" variant="underline" mode="dark">
-										Read More
-									</Button>
-								</div>
-							</div>
-						</div>
-					</SwiperSlide>
+							</SwiperSlide>
+						);
+					})}
 				</Swiper>
 			</div>
 			{/* <div className="container">
-				
+
 			</div> */}
 		</section>
 	);

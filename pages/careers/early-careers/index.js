@@ -46,7 +46,7 @@ import { getInsightsCategories } from "@/services/Insights.service";
 /** Fetch  */
 export async function getServerSideProps() {
 	const [data, page, categoriesForSelect] = await Promise.all([
-		getEarlyCareersListing(),
+		getEarlyCareersListing("first: 99999"),
 		getEarlyCareersPage(),
 		getInsightsCategories(),
 	]);

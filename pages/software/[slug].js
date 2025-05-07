@@ -141,6 +141,7 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 							title={data?.introduction?.title}
 							description={data?.introduction?.description}
 							image={data?.introduction?.image?.node?.sourceUrl}
+							lottie={data?.introduction?.lottie?.node?.sourceUrl}
 						/>
 					</div>
 				)}
