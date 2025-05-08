@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useState } from "react";
 
@@ -33,19 +34,20 @@ import styles from "@/styles/pages/company/press-releases/PressInside.module.scs
 
 // SERVICES //
 import { getPressesCards, getSinglePress } from "@/services/Press.service";
+import { getInsights, getInsightsInside } from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
 	const [data, moreRelated] = await Promise.all([
-		getSinglePress(params.slug),
-		getPressesCards("first:4"),
+		getInsightsInside(params.slug),
+		getInsights('first: 3, where: {categoryName: "commentary"}'),
 	]);
-	const dataForBtn = { postFields: data?.data?.pressBy?.presses || {} };
+	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {
 		props: {
-			data: data?.data?.pressBy || {},
-			moreRelated: moreRelated.data.presses.nodes,
+			data: data?.data?.postBy || {},
+			moreRelated: moreRelated?.data?.posts?.nodes,
 			dataForBtn,
 		},
 	};
@@ -53,35 +55,9 @@ export async function getServerSideProps({ params }) {
 
 /** PressInside Page */
 export default function PressInside({ data, dataForBtn, moreRelated }) {
+	console.log(data, "data");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
 	return (
 		<div>
 			{/* Metatags */}
@@ -100,8 +76,8 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 				<div className="pt_100 pb_40">
 					<InsideTopSection
 						title={data?.title}
-						date={data?.presses?.banner?.date}
-						time={data?.presses?.banner?.time}
+						date={data?.date}
+						time={data?.postFields?.time}
 						featuredImage={data?.featuredImage?.node?.sourceUrl}
 						data={data}
 						dataForBtn={dataForBtn}
@@ -128,16 +104,18 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 							<div className={`${styles.mediaMiddleLeft}`}>
 								<MediaMiddleDescription data={data} />
 								<div className={`${styles.mediaFeedback} pt_40 pb_60`}>
-									<TestimonialFeedback
-										data={{ testimonials: { nodes: [...data.presses.highlights] } }}
-									/>
+									<TestimonialFeedback data={data?.postFields} />
 								</div>
-								<div className={`${styles.mediaFeedback} pb_40`}>
-									<InsideMediaContact data={data} />
-								</div>
-								<div className={`${styles.mediaFeedback} pt_60`}>
-									<MediaAbout data={data} />
-								</div>
+								{data?.postFields?.mediaContact?.name && (
+									<div className={`${styles.mediaFeedback} pb_40`}>
+										<InsideMediaContact data={data} />
+									</div>
+								)}
+								{data?.postFields?.about?.sectionTitle && (
+									<div className={`${styles.mediaFeedback} pt_60`}>
+										<MediaAbout data={data} />
+									</div>
+								)}
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
 								<MediaMiddleRight data={data} dataForBtn={dataForBtn} />
@@ -153,10 +131,15 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={moreRelated}
-						formSectionTitle={data?.presses?.insights?.sectionTitle}
-						formSectionDesc={data?.presses?.insights?.sectionDesc}
-						insightsTitle={data?.presses?.insights?.insightsTitle}
-						formSectionBtnText="View All"
+						formSectionTitle="Sign up to our press list"
+						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+						// insightsTitle={data?.presses?.insights?.insightsTitle}
+						// formSectionBtnText="View All"
+						formSectionBtnText={
+							dynamicInsightsBtnProps(data, "insightsSectionButton").btnText
+						}
+						insightsTitle="More from Aurora"
+						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 					/>
 				</div>
 			</main>

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -39,11 +40,12 @@ import {
 	getPressPage,
 } from "@/services/Press.service";
 import { getAllEventCountries } from "@/services/Events.service";
+import { getInsights } from "@/services/Insights.service";
 
 /** Fetch */
 export async function getServerSideProps() {
 	const [data, filters, languages, page] = await Promise.all([
-		getPressesCards(),
+		getInsights('first: 9999, where: {categoryName: "media"}'),
 		getAllEventCountries(),
 		getPressesLanguages(),
 		getPressPage(),
@@ -51,7 +53,7 @@ export async function getServerSideProps() {
 
 	return {
 		props: {
-			data: data.data.presses.nodes,
+			data: data.data.posts.nodes,
 			countries: filters.data.countries.nodes,
 			products: filters.data.products.nodes,
 			softwares: filters.data.softwares.nodes,
