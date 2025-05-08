@@ -52,6 +52,7 @@ export default function Insights({
 	formSectionBtnText = "Speak To Our Experts",
 	formdata,
 	insightsLink = "/resources/aurora-insights/",
+	customHtml,
 }) {
 	const router = useRouter();
 	const [data, setData] = useState({ data: defaultList, countries });
@@ -131,17 +132,20 @@ export default function Insights({
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</div>
 									</div>
-									<a
-										className={`${styles.bookBtn}`}
-										onClick={() => handleOpenForm()}
-										// {...formdata}
-										// href={defaultPathname()}
-										{...BtnProps()}
-									>
-										<Button color="primary" variant="filled" shape="rounded" mode="dark">
-											{formSectionBtnText}
-										</Button>
-									</a>
+									{customHtml && customHtml}
+									{!customHtml && (
+										<a
+											className={`${styles.bookBtn}`}
+											onClick={() => handleOpenForm()}
+											// {...formdata}
+											// href={defaultPathname()}
+											{...BtnProps()}
+										>
+											<Button color="primary" variant="filled" shape="rounded" mode="dark">
+												{formSectionBtnText}
+											</Button>
+										</a>
+									)}
 								</div>
 							)}
 							{isFormVisible && (

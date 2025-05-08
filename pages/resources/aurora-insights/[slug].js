@@ -218,9 +218,11 @@ export default function Articles({ data, otherList, countries }) {
 						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
 							<div className={`${styles.CaseStudiesMiddleLeft} dynamic_content`}>
 								{/* <CaseStudiesMiddleDescription /> */}
-								<section id="overview" data-name="Overview">
-									<ContentFromCms>{data?.content}</ContentFromCms>
-								</section>
+								{data?.content && (
+									<section id="overview" data-name="Overview">
+										<ContentFromCms>{data?.content}</ContentFromCms>
+									</section>
+								)}
 								{data?.postFields?.sections?.map((item) => {
 									return (
 										<section

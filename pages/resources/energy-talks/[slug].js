@@ -28,7 +28,13 @@ import { dynamicInsightsBtnProps, slugify } from "@/utils";
 import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.scss";
 
 // IMAGES //
-import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
+import country_thumb from "/public/img/global-presence/country_thumb.jpg";
+import other_logo from "/public/img/energy_talks/other.png";
+import googleVoice from "/public/img/energy_talks/google_voice.png";
+import spotify from "/public/img/energy_talks/spotify.svg";
+import apple from "/public/img/energy_talks/apple.svg";
+import google from "/public/img/energy_talks/google.svg";
+import calender from "/public/img/icons/calender.svg";
 
 // SERVICES //
 import {
@@ -36,28 +42,25 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
+import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 
 // DATA //
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
 	const [data, events, categoriesForSelect, list] = await Promise.all([
-		getInsightsInside(params.slug),
-		getInsights(
-			'first:2 ,where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }'
-		),
+		getPodcastInside(params.slug),
+		getPodcasts("first: 1"),
 		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast"}'
-		),
+		getPodcasts("first: 5"),
 	]);
-	const otherList = list?.data?.posts?.nodes;
+	const otherList = list?.data?.podcasts?.nodes;
 	return {
 		props: {
-			data: data.data.postBy,
+			data: data.data.podcastBy,
 			events:
-				events?.data?.posts?.nodes?.filter(
-					(item) => item?.slug !== data?.data?.postBy?.slug
+				events?.data?.podcasts?.nodes?.filter(
+					(item) => item?.slug !== data?.data?.podcastBy?.slug
 				) || [],
 			countries: categoriesForSelect.data.countries.nodes,
 			otherList,
@@ -69,34 +72,7 @@ export async function getServerSideProps({ params }) {
 export default function EnergyInside({ data, events, countries, otherList }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
-
+	console.log(otherList);
 	return (
 		<div>
 			{/* Metatags */}
@@ -157,10 +133,12 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{/* <EnergyMiddleDescription /> */}
-								<section id="overview" data-name="Overview">
-									<ContentFromCms>{data?.content}</ContentFromCms>
-								</section>
-								{data?.postFields?.sections?.map((item) => {
+								{data?.content && (
+									<section id="overview" data-name="Overview">
+										<ContentFromCms>{data?.content}</ContentFromCms>
+									</section>
+								)}
+								{data?.podcastFields?.sections?.map((item) => {
 									return (
 										<section
 											key={item?.sectionTitle}
@@ -186,13 +164,41 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
-						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
-						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btnText
-						}
-						insightsTitle="More from Aurora"
+						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
+						insightsTitle="Previous Podcast"
+						insightsLink="/resources/energy-talks/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						customHtml={
+							<div className={`${styles.downloadListen}`}>
+								<div className={`${styles.downloadBox} f_r_a_center`}>
+									{data?.podcastFields?.spotifyLink && (
+										<a href={data?.podcastFields?.spotifyLink}>
+											<img src={spotify.src} alt="spotify" />
+										</a>
+									)}
+									{data?.podcastFields?.appleLink && (
+										<a href={data?.podcastFields?.appleLink}>
+											<img src={apple.src} alt="apple" />
+										</a>
+									)}
+									{data?.podcastFields?.youtubeLink && (
+										<a href={data?.podcastFields?.youtubeLink}>
+											<img src={google.src} alt="google" />
+										</a>
+									)}
+									{data?.podcastFields?.googleLink && (
+										<a href={data?.podcastFields?.googleLink}>
+											<img src={googleVoice.src} alt="google" />
+										</a>
+									)}
+									{data?.podcastFields?.otherLink && (
+										<a href={data?.podcastFields?.otherLink}>
+											<img src={other_logo.src} alt="google" />
+										</a>
+									)}
+								</div>
+							</div>
+						}
 					/>
 				</div>
 				<IframeModal />

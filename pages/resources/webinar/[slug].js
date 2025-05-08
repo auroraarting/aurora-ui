@@ -147,9 +147,11 @@ export default function WebinarInside({ data, countries, otherList }) {
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{/* <WebinarMiddleDescription /> */}
-								<section id="overview" data-name="Overview">
-									<ContentFromCms>{data?.content}</ContentFromCms>
-								</section>
+								{data?.content && (
+									<section id="overview" data-name="Overview">
+										<ContentFromCms>{data?.content}</ContentFromCms>
+									</section>
+								)}
 								{data?.postFields?.sections?.map((item) => {
 									return (
 										<section
