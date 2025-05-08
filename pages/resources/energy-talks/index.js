@@ -35,14 +35,12 @@ import {
 } from "@/services/Insights.service";
 import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
 import IframeModal from "@/components/IframeModal";
+import { getPodcasts } from "@/services/Podcast.service";
 
 /** Fetch getStaticProps */
 export async function getServerSideProps() {
-	const queryTxt =
-		// eslint-disable-next-line quotes
-		'first:9999, where: { categoryName: "renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast" }';
 	const [data, categoriesForSelect, energyTalksPage] = await Promise.all([
-		getInsights(queryTxt),
+		getPodcasts(),
 		getInsightsCategories(),
 		getEnergyTalksPage(),
 	]);
@@ -50,7 +48,7 @@ export async function getServerSideProps() {
 	return {
 		props: {
 			pagination: data.data?.posts?.pageInfo || {},
-			data: data?.data?.posts?.nodes || [],
+			data: data?.data?.podcasts?.nodes || [],
 			tags: categoriesForSelect.data.tags.nodes,
 			categories: categoriesForSelect.data.categories.nodes,
 			countries: categoriesForSelect.data.countries.nodes,

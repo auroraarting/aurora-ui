@@ -84,7 +84,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 				if (!el) return;
 				const rect = el.getBoundingClientRect();
 				// Choose the section whose top is closest to 0 but still <= 0 (in view)
-				if (rect.top <= window.innerHeight * 0.3) {
+				if (rect.top <= window.innerHeight * 0.7) {
 					currentIndex = index;
 				}
 			});
