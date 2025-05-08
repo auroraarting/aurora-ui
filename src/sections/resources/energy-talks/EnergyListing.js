@@ -394,7 +394,6 @@ export default function EnergyListing({
 										e.preventDefault();
 										const val = e.target.search.value;
 										filter(val, "search");
-										console.log(val);
 									}}
 								>
 									<input name="search" type="text" placeholder="Search Events" />

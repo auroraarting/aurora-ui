@@ -42,7 +42,6 @@ export async function getServerSideProps() {
 /** Faq Page */
 export default function Faq({ page }) {
 	const [activeTab, setActiveTab] = useState(0);
-	console.log(page, "page");
 	/** */
 	const handleTabClick = (tab) => {
 		setActiveTab(tab);

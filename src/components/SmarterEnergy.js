@@ -203,8 +203,6 @@ export default function SmarterEnergy({ data }) {
 		return tempAccordian;
 	};
 
-	console.log(data, "data");
-
 	return (
 		<section
 			className={`${styles.SmarterEnergy} ptb_100`}

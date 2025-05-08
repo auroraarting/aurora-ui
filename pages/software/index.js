@@ -98,7 +98,6 @@ export default function Softwares({
 	testimonials,
 	softwares,
 }) {
-	console.log(softwares, "data");
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	return (

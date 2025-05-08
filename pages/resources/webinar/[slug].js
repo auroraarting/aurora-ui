@@ -68,8 +68,6 @@ export default function WebinarInside({ data, countries, otherList }) {
 		(item) => item.slug === "webinar-recording"
 	);
 
-	console.log(data, "data");
-
 	return (
 		<div>
 			{/* Metatags */}

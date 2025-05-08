@@ -60,7 +60,6 @@ export async function getServerSideProps() {
 
 /** JoinUs Page */
 export default function JoinUs({ jobs, otherList, countries, page }) {
-	console.log("page", page);
 	const dataForBtn = { postFields: page.insights || {} };
 
 	return (
