@@ -391,6 +391,10 @@ query GetInsightsInside {
           }
         }
       }
+      sections {
+        content
+        sectionTitle
+      }
     }
   }
 }

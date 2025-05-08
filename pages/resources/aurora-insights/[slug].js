@@ -23,7 +23,7 @@ import Client from "@/sections/resources/aurora-insights/Client";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
+import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
@@ -136,6 +136,8 @@ export default function Articles({ data, otherList, countries }) {
 		}
 	};
 
+	console.log(data, "data");
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -196,7 +198,7 @@ export default function Articles({ data, otherList, countries }) {
 					/>
 				</div>
 				<SectionsHeader
-					hideall
+					// hideall
 					customHtml={
 						dynamicInsightsBtnProps(data, "middleSectionButton").btnText && (
 							<div
@@ -216,7 +218,20 @@ export default function Articles({ data, otherList, countries }) {
 						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
 							<div className={`${styles.CaseStudiesMiddleLeft} dynamic_content`}>
 								{/* <CaseStudiesMiddleDescription /> */}
-								<ContentFromCms>{data?.content}</ContentFromCms>
+								<section id="overview" data-name="Overview">
+									<ContentFromCms>{data?.content}</ContentFromCms>
+								</section>
+								{data?.postFields?.sections?.map((item) => {
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+										>
+											<ContentFromCms>{item?.content}</ContentFromCms>
+										</section>
+									);
+								})}
 							</div>
 							<div className={`${styles.CaseStudiesMiddleRight}`}>
 								<Client data={data} />
