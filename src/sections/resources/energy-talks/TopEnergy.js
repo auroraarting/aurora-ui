@@ -23,7 +23,6 @@ import black_clock from "@/../public/img/icons/black_clock.svg";
 
 /** TopEnergy Section */
 export default function TopEnergy({ data }) {
-	console.log("data", data);
 	if (!data) return <></>;
 	return (
 		<section className={`${styles.TopEnergy}`}>

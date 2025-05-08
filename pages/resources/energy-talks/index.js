@@ -73,7 +73,7 @@ export default function EnergyTalks({
 	energyTalksPage,
 }) {
 	const [original, setOriginal] = useState(data);
-
+	console.log("data", energyTalksPage);
 	return (
 		<div>
 			{/* Metatags */}
@@ -97,11 +97,11 @@ export default function EnergyTalks({
 					/>
 				</div>
 				<div>
-					<TopEnergy data={data?.[0]} />
+					<TopEnergy data={energyTalksPage?.featured?.nodes?.[0]} />
 				</div>
 				<div className="pt_60 pb_100">
 					<EnergyListing
-						data={data?.slice(1, data.length)}
+						data={data}
 						pagination={pagination}
 						countries={countries}
 						products={products}
@@ -133,6 +133,7 @@ export default function EnergyTalks({
 							redirectLink={energyTalksPage?.video?.redirectLink}
 							videoLink={energyTalksPage?.video?.videoLink}
 							videoThumbnail={energyTalksPage?.video?.videoThumbnail?.node?.sourceUrl}
+							iframe={energyTalksPage?.video?.iframe}
 						/>
 					</div>
 				)}
