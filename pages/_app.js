@@ -66,7 +66,6 @@ export default function MyApp({ Component, pageProps }) {
 			?.querySelector(".SectionsHeader")
 			?.getBoundingClientRect();
 
-		console.log(header, "header");
 		if (header) {
 			document.documentElement.style.setProperty(
 				"--header_height",
