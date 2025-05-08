@@ -31,6 +31,7 @@ import grey_clock from "/public/img/icons/grey_clock.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
+	console.log(data, "data");
 	if (!data?.title) return <></>;
 
 	const tempAccordian = [
@@ -110,13 +111,15 @@ export default function SmarterEnergy({ data }) {
 		if (data?.[keyVal()])
 			return data?.[keyVal()]?.map((item, ind) => {
 				return {
-					title: item?.accordionTitle,
+					title: item?.accordionTitle || item?.title,
 					imgIcons: item?.icon?.node?.sourceUrl,
 					children: (
 						<>
 							<div className={`${styles.content_wrap}`}>
 								<p className="text_reg color_dark_gray">
-									{item?.accordionDescription || item?.accordionDesc}
+									{item?.accordionDescription ||
+										item?.accordionDesc ||
+										item?.description}
 								</p>
 								{item?.buttonLink && (
 									<a href={item?.buttonLink} className={`${styles.bookBtn} pt_30`}>
