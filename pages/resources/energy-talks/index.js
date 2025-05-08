@@ -73,7 +73,6 @@ export default function EnergyTalks({
 	energyTalksPage,
 }) {
 	const [original, setOriginal] = useState(data);
-	console.log("data", energyTalksPage);
 	return (
 		<div>
 			{/* Metatags */}
