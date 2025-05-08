@@ -51,6 +51,10 @@ query GetEarlyCareersLanding {
               date
               time
             }
+            list2 {
+              desc
+              title
+            }
           }
         }
       }

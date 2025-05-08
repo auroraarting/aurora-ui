@@ -83,7 +83,6 @@ export async function getServerSideProps({ params }) {
 
 /** EarlyCareers Page */
 export default function EarlyCareers({ data, otherList, countries }) {
-	console.log(data, " datadata");
 	const dataForBtn = { postFields: data?.earlyCareers?.insights || {} };
 
 	return (
