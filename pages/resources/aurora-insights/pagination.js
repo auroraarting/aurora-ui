@@ -61,7 +61,6 @@ export async function getServerSideProps(context) {
 
 /** AuroraInsights Page */
 export default function AuroraInsights({ posts, currentPage, hasNextPage }) {
-	console.log("posts", posts);
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 

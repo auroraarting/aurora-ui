@@ -137,7 +137,6 @@ export default function EventsInside({
 	eventsOriginal,
 	pastEvents,
 }) {
-	console.log(pastEvents);
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
 	/** scrollToSection */

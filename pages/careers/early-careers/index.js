@@ -63,8 +63,6 @@ export async function getServerSideProps() {
 
 /** EarlyCareers Page */
 export default function EarlyCareers({ data, page, countries, programs }) {
-	console.log(data, "page");
-
 	return (
 		<div>
 			{/* Metatags */}

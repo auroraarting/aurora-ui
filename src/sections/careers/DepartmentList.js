@@ -104,7 +104,6 @@ export default function DepartmentList({ data, jobs, productService }) {
 			(item) => item.category.node.title === option
 		);
 		setSelectedDepartment(selectedOption);
-		console.log(selectedOption, data, "selectedOption");
 	};
 
 	return (

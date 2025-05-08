@@ -80,18 +80,7 @@ export default function AuroraInsights({
 	otherList,
 	insightsPage,
 }) {
-	console.log(data, "data");
 	const [original, setOriginal] = useState(data);
-	// console.log("data", {
-	// 	pagination,
-	// 	data,
-	// 	tags,
-	// 	categories,
-	// 	countries,
-	// 	products,
-	// 	softwares,
-	// 	services,
-	// });
 
 	return (
 		<div>

@@ -96,8 +96,6 @@ export default function ProductInside({ data, mapJson }) {
 		</div>,
 	];
 
-	console.log("asdas", data?.products);
-
 	return (
 		<div>
 			{/* Metatags */}

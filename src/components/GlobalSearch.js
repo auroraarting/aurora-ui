@@ -90,6 +90,50 @@ export default function GlobalSearch() {
 
 	/** Generate link and title based on content key */
 	const getLinkAndTitle = (key, item = {}) => {
+		/** slug  */
+		function Slug(pageSlug) {
+			switch (pageSlug) {
+				case "early-careers-landing":
+					return "/careers/early-careers";
+				case "faq":
+					return "/careers/faq";
+				case "join-us":
+					return "/careers/join-us";
+				case "our-team":
+					return "/careers/our-team";
+				case "life-at-aurora":
+					return "/careers/life-at-aurora";
+				case "press-landing":
+					return "/comapny/press-landing";
+				case "about":
+					return "/comapny/about";
+				case "global-presence":
+					return "/comapny/global-presence";
+				case "contact":
+					return "/comapny/contact";
+				case "event-landing":
+					return "/events";
+				case "energy-talks-listing":
+					return "/resources/energy-talks";
+				case "insight-listing":
+					return "/resources/aurora-insights";
+				case "webinar-listing":
+					return "/resources/webinar";
+				case "eos":
+					return "/eos";
+				case "product":
+					return "/products";
+				case "software":
+					return "/software";
+				case "homepage":
+					return "/";
+				case "bundles":
+					return "/careers/life-at-aurora";
+				default:
+					return "/";
+			}
+		}
+
 		switch (key) {
 			case "about":
 				return {
@@ -148,8 +192,26 @@ export default function GlobalSearch() {
 					link: `/how-we-help/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
 					title: item.title,
 				};
+			case "posts":
+				return {
+					link: `${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
+			case "events":
+				return {
+					link: `/events/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
+			case "pages":
+				return {
+					link: `${Slug(item?.slug)}?search=${encodeURIComponent(searchTerm)}`,
+					title: item.title,
+				};
 			default:
-				return { link: "#", title: item.title || "PPAs" };
+				return {
+					link: `/?search=${encodeURIComponent(searchTerm)}`,
+					title: "Home",
+				};
 		}
 	};
 

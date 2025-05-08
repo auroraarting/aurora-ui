@@ -1,3 +1,4 @@
+import { allCategories, isCategory } from "@/utils";
 import GraphQLAPI from "./Graphql.service";
 
 /** Search Data  */
@@ -77,7 +78,7 @@ export async function searchData(searchTerm) {
       slug
     }
   }
-  offices(first: 999, where: { search: "${searchTerm}" }) {
+  offices(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       offices {
         contact {
@@ -89,57 +90,59 @@ export async function searchData(searchTerm) {
       slug
     }
   }
-  pages(first: 999, where: { search: "${searchTerm}" }) {
+  pages(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
-      about {
-        banner {
-          buttonLink
-          description
-          title
-        }
-      }
-      eos {
-        banner {
-          buttonLink
-          buttonText
-          title
-        }
-      }
-      globalPresence {
-        mapMarquee
-        title
-      }
-      homepage {
-        title
-      }
-      lifeAtAurora {
-        banner {
-          description
-          title
-        }
-      }
+      slug
+      title
     }
   }
-  teamsectors(first: 999, where: { search: "${searchTerm}" }) {
+  teamsectors(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       name
       slug
     }
   }
-    teams(first: 999, where: { search: "${searchTerm}" }) {
-        nodes {
-          content
-          slug
-          title
-        }
-      }
-  testimonials(first: 999, where: { search: "${searchTerm}" }) {
+  teams(first: 999, where: {search: "${searchTerm}"}) {
+    nodes {
+      content
+      slug
+      title
+    }
+  }
+  testimonials(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       content
       title
       testimonials {
         designation
       }
+    }
+  }
+  posts(
+    first: 9999
+    where: {search: "${searchTerm}", categoryName: "commentary,renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast,public-webinar,webinar,webinar-recording"}
+  ) {
+    nodes {
+      title
+      slug
+      categories(first: 9999) {
+        nodes {
+          slug
+          name
+        }
+      }
+    }
+  }
+  events(first: 9999, where: {search: ""}) {
+    nodes {
+      title
+      slug
+    }
+  }
+  earlyCareers(first: 9999, where: {search: ""}) {
+    nodes {
+      title
+      slug
     }
   }
 }
@@ -220,14 +223,30 @@ export async function searchData(searchTerm) {
 			},
 		};
 	});
+	const posts = data?.posts?.nodes?.map((item) => {
+		/** href  */
+		const href = () => {
+			let cat = isCategory(allCategories, item?.categories?.nodes);
+			if (cat.includes("Articles")) {
+				return `/resources/aurora-insights/${item?.slug}`;
+			} else if (cat.includes("Energy Talks")) {
+				return `/resources/energy-talks/${item?.slug}`;
+			} else {
+				return `/resources/webinar/${item?.slug}`;
+			}
+		};
+		return { ...item, slug: href() };
+	});
+	const pages = data?.pages?.nodes;
+	const events = data?.events?.nodes;
 	const regions = data?.regions.nodes;
 	const whoareyous = data?.whoareyous.nodes;
 	const offices = data?.offices?.nodes;
-	const about = data?.pages?.nodes?.[0]?.about;
-	const eos = data?.pages?.nodes?.[0]?.eos;
-	const globalPresence = data?.pages?.nodes?.[0]?.globalPresence;
-	const homepage = data?.pages?.nodes?.[0]?.homepage;
-	const lifeAtAurora = data?.pages?.nodes?.[0]?.lifeAtAurora;
+	// const about = data?.pages?.nodes?.[0]?.about;
+	// const eos = data?.pages?.nodes?.[0]?.eos;
+	// const globalPresence = data?.pages?.nodes?.[0]?.globalPresence;
+	// const homepage = data?.pages?.nodes?.[0]?.homepage;
+	// const lifeAtAurora = data?.pages?.nodes?.[0]?.lifeAtAurora;
 
 	return {
 		products,
@@ -240,10 +259,13 @@ export async function searchData(searchTerm) {
 		teams,
 		testimonials,
 		offices,
-		about,
-		eos,
-		globalPresence,
-		homepage,
-		lifeAtAurora,
+		// about,
+		// eos,
+		// globalPresence,
+		// homepage,
+		// lifeAtAurora,
+		posts,
+		events,
+		pages,
 	};
 }
