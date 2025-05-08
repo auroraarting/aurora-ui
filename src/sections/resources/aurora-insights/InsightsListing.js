@@ -31,6 +31,7 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // SERVICES //
 import { getInsights } from "@/services/Insights.service";
+import Pagination from "@/components/Pagination";
 
 // DATA //
 
@@ -58,6 +59,7 @@ export default function InsightsListing({
 		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
+	const [paginationArr, setPaginationArr] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -124,26 +126,6 @@ export default function InsightsListing({
 		}
 	};
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
-
 	/** handleNextPage  */
 	const handleNextPage = async () => {
 		setLoading(true);
@@ -166,6 +148,7 @@ export default function InsightsListing({
 		const filteredData = await getInsights(queryToUse);
 		setLoading(false);
 		setList(filteredData.data.posts.nodes);
+		setPaginationArr(filteredData.data.posts.nodes);
 		setFilteredPagination(filteredData.data?.posts?.pageInfo);
 	};
 
@@ -220,6 +203,7 @@ export default function InsightsListing({
 
 		const filteredArr = filterItems(arr, queryObj);
 		setList(filteredArr);
+		setPaginationArr(filteredArr);
 		setLoading(false);
 	};
 
@@ -247,6 +231,7 @@ export default function InsightsListing({
 		if (router.query.search) {
 			const filtered = filterBySearchQuery(data, router.query.search);
 			setList(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [router.query]);
@@ -433,6 +418,7 @@ export default function InsightsListing({
 									onClick={() => {
 										setSelected({});
 										setList(data);
+										setPaginationArr(data);
 									}}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
@@ -535,6 +521,12 @@ export default function InsightsListing({
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
+				<Pagination
+					data={list}
+					paginationArr={paginationArr}
+					setCurrentItems={setList}
+					isDark={true}
+				/>
 			</div>
 			{/* {filteredPagination?.hasPreviousPage && (
 				<button onClick={handlePreviousPage}>Previous</button>

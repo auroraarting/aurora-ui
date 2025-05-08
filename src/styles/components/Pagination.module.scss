@@ -33,4 +33,16 @@
 			color: var(--color_secondary);
 		}
 	}
+
+	&.dark {
+		img {
+			filter: invert(1);
+		}
+		.page_number {
+			&.active {
+				background-color: var(--color_black);
+				color: var(--color_white);
+			}
+		}
+	}
 }

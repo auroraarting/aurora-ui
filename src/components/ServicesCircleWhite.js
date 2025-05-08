@@ -29,10 +29,14 @@ const services = [
 ];
 
 /** ServicesCircle Component */
-export default function ServicesCircleWhite({ data }) {
+export default function ServicesCircleWhite({ data, sectionName }) {
 	if (data.advantages?.length === 0) return <></>;
 	return (
-		<div className={`${styles.ServicesCircleSection} white_bg `}>
+		<section
+			className={`${styles.ServicesCircleSection} white_bg `}
+			id={sectionName}
+			data-name={sectionName}
+		>
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
@@ -64,6 +68,6 @@ export default function ServicesCircleWhite({ data }) {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 }

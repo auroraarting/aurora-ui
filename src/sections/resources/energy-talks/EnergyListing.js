@@ -26,6 +26,7 @@ import calender from "@/../public/img/icons/calender.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import search from "@/../public/img/icons/search.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
+import Pagination from "@/components/Pagination";
 
 // DATA //
 
@@ -53,6 +54,7 @@ export default function EnergyListing({
 		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
+	const [paginationArr, setPaginationArr] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -190,6 +192,7 @@ export default function EnergyListing({
 
 		const filteredArr = filterItems(arr, queryObj);
 		setList(filteredArr);
+		setPaginationArr(filteredArr);
 		setLoading(false);
 	};
 
@@ -217,6 +220,7 @@ export default function EnergyListing({
 		if (router.query.search) {
 			const filtered = filterBySearchQuery(data, router.query.search);
 			setList(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [router.query]);
@@ -365,6 +369,7 @@ export default function EnergyListing({
 									onClick={() => {
 										setSelected({});
 										setList(data);
+										setPaginationArr(data);
 									}}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
@@ -467,6 +472,12 @@ export default function EnergyListing({
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
+				<Pagination
+					data={list}
+					paginationArr={paginationArr}
+					setCurrentItems={setList}
+					isDark={true}
+				/>
 			</div>
 			{/* {filteredPagination?.hasPreviousPage && (
 				<button onClick={handlePreviousPage}>Previous</button>

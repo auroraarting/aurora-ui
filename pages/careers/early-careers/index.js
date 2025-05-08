@@ -84,20 +84,20 @@ export default function EarlyCareers({ data, page, countries, programs }) {
 					desktopImage={page?.banner?.desktop?.node?.sourceUrl}
 					mobileImage={page?.banner?.mobile?.node?.sourceUrl}
 				/>
-				<div className="pt_60">
-					<SectionsHeader
-						customHtml={
-							<div key="btn" to="Insights">
-								<a href="/careers/join-us">
-									<Button color="primary" variant="filled" shape="rounded">
-										Join Us
-									</Button>
-								</a>
-							</div>
-						}
-					/>
-				</div>
-				<div className="pt_60">
+				{/* <div className="pt_60"> */}
+				<SectionsHeader
+					customHtml={
+						<div key="btn" to="Insights">
+							<a href="/careers/join-us">
+								<Button color="primary" variant="filled" shape="rounded">
+									Join Us
+								</Button>
+							</a>
+						</div>
+					}
+				/>
+				{/* </div> */}
+				<div className="">
 					<CareerCountryCard
 						page={page}
 						data={data}
@@ -108,13 +108,17 @@ export default function EarlyCareers({ data, page, countries, programs }) {
 				<div>
 					<SmarterEnergy data={page.expertise} />
 				</div>
-				<ServicesCircleWhite data={page.keyAdvantages} />
+				<ServicesCircleWhite
+					data={page.keyAdvantages}
+					sectionName="Opportunities"
+				/>
 				<div className="ptb_100 dark_bg">
 					<AllVideos
 						title={page?.careerSeries?.title}
 						desc={page?.careerSeries?.sectionDesc}
 						redirectLink={page?.careerSeries?.buttonLink}
 						iframe={page?.careerSeries?.iframe}
+						sectionName="Aurora’s career series"
 					/>
 				</div>
 				<div className="pt_80">

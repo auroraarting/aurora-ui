@@ -35,10 +35,16 @@ export default function AllVideos({
 	videoLink,
 	videoThumbnail,
 	iframe,
+	sectionName = "Aurora’s career series",
+	id = "Auroras-career-series",
 }) {
 	if (!title) return <></>;
 	return (
-		<section className={`${styles.CareerSeries} CareerSeries`}>
+		<section
+			className={`${styles.CareerSeries} CareerSeries`}
+			id={id}
+			data-name={sectionName}
+		>
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.content}`}>
