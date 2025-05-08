@@ -23,7 +23,7 @@ import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
+import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
@@ -147,7 +147,20 @@ export default function WebinarInside({ data, countries, otherList }) {
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{/* <WebinarMiddleDescription /> */}
-								<ContentFromCms>{data?.content}</ContentFromCms>
+								<section id="overview" data-name="Overview">
+									<ContentFromCms>{data?.content}</ContentFromCms>
+								</section>
+								{data?.postFields?.sections?.map((item) => {
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+										>
+											<ContentFromCms>{item?.content}</ContentFromCms>
+										</section>
+									);
+								})}
 								{!isUpcoming && (
 									<div className="pt_60">
 										<WebinarRecording data={data} />

@@ -31,7 +31,6 @@ import grey_clock from "/public/img/icons/grey_clock.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data }) {
-	console.log(data, "data");
 	if (!data?.title) return <></>;
 
 	const tempAccordian = [

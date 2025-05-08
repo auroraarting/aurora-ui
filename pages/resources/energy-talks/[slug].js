@@ -22,7 +22,7 @@ import EnergyMiddleRight from "@/sections/resources/energy-talks/EnergyMiddleRig
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { dynamicInsightsBtnProps } from "@/utils";
+import { dynamicInsightsBtnProps, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.scss";
@@ -151,13 +151,26 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 				<div className="pt_100 pb_40">
 					<EnergyInsideTopSection data={data} />
 				</div>
-				{/* <SectionsHeader data={headerArray} /> */}
+				<SectionsHeader />
 				<section className={`${styles.mediaMiddle} pt_80`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{/* <EnergyMiddleDescription /> */}
-								<ContentFromCms>{data?.content}</ContentFromCms>
+								<section id="overview" data-name="Overview">
+									<ContentFromCms>{data?.content}</ContentFromCms>
+								</section>
+								{data?.postFields?.sections?.map((item) => {
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+										>
+											<ContentFromCms>{item?.content}</ContentFromCms>
+										</section>
+									);
+								})}
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
 								<EnergyMiddleRight data={data} events={events} />
