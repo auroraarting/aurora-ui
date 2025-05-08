@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 // UTILS //
 import {
@@ -30,6 +30,7 @@ import location from "../../../public/img/icons/location.svg";
 import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import search from "../../../public/img/icons/search.svg";
+import Pagination from "@/components/Pagination";
 
 // DATA //
 
@@ -41,6 +42,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 	const [filteredData, setFilteredData] = useState(data);
 	const [loading, setLoading] = useState(false);
 	const [original, setOriginal] = useState(data);
+	const [paginationArr, setPaginationArr] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -105,6 +107,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		}
 		const filteredArr = filterItemsBySelectedObjForCareers(arr, selectedObj);
 		setFilteredData(filteredArr);
+		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
 	};
 
@@ -132,12 +135,17 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		if (router.query.search) {
 			const filtered = filterBySearchQueryEvents(data, router.query.search);
 			setFilteredData(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [router.query]);
 
 	return (
-		<section className={`${styles.CareerCountryCard} CareerCountryCard ptb_100`}>
+		<section
+			className={`${styles.CareerCountryCard} CareerCountryCard ptb_100`}
+			id="Programs"
+			data-name="Programs"
+		>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
@@ -295,175 +303,15 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 							</div>
 						);
 					})}
-					{/* <div className={`${styles.cardItem}`}>
-						<div className={`${styles.cardImg}`}>
-							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-							<p
-								className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-							>
-								Live
-							</p>
-						</div>
-						<div className={`${styles.cardDesc} pt_20`}>
-							<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>Austin</span>
-							</p>
-							<h4 className="text_md color_white f_w_m font_primary pt_10">
-								Graduate Analyst
-							</h4>
-							<div className={`${styles.btn_box} pt_20`}>
-								<Button color="secondary" variant="underline" mode="dark">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.cardItem}`}>
-						<div className={`${styles.cardImg}`}>
-							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-							<p
-								className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-							>
-								Live
-							</p>
-						</div>
-						<div className={`${styles.cardDesc} pt_20`}>
-							<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>Austin</span>
-							</p>
-							<h4 className="text_md color_white f_w_m font_primary pt_10">
-								Graduate Analyst
-							</h4>
-							<div className={`${styles.btn_box} pt_20`}>
-								<Button color="secondary" variant="underline" mode="dark">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.cardItem}`}>
-						<div className={`${styles.cardImg}`}>
-							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-							<p
-								className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-							>
-								Live
-							</p>
-						</div>
-						<div className={`${styles.cardDesc} pt_20`}>
-							<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>Austin</span>
-							</p>
-							<h4 className="text_md color_white f_w_m font_primary pt_10">
-								Graduate Analyst
-							</h4>
-							<div className={`${styles.btn_box} pt_20`}>
-								<Button color="secondary" variant="underline" mode="dark">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.cardItem}`}>
-						<div className={`${styles.cardImg}`}>
-							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-							<p
-								className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-							>
-								Live
-							</p>
-						</div>
-						<div className={`${styles.cardDesc} pt_20`}>
-							<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>Austin</span>
-							</p>
-							<h4 className="text_md color_white f_w_m font_primary pt_10">
-								Graduate Analyst
-							</h4>
-							<div className={`${styles.btn_box} pt_20`}>
-								<Button color="secondary" variant="underline" mode="dark">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.cardItem}`}>
-						<div className={`${styles.cardImg}`}>
-							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-							<p
-								className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-							>
-								Live
-							</p>
-						</div>
-						<div className={`${styles.cardDesc} pt_20`}>
-							<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>Austin</span>
-							</p>
-							<h4 className="text_md color_white f_w_m font_primary pt_10">
-								Graduate Analyst
-							</h4>
-							<div className={`${styles.btn_box} pt_20`}>
-								<Button color="secondary" variant="underline" mode="dark">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.cardItem}`}>
-						<div className={`${styles.cardImg}`}>
-							<img src={country_img.src} className={`${styles.countryImg} b_r_10`} />
-							<p
-								className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-							>
-								Live
-							</p>
-						</div>
-						<div className={`${styles.cardDesc} pt_20`}>
-							<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>Austin</span>
-							</p>
-							<h4 className="text_md color_white f_w_m font_primary pt_10">
-								Graduate Analyst
-							</h4>
-							<div className={`${styles.btn_box} pt_20`}>
-								<Button color="secondary" variant="underline" mode="dark">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div> */}
 				</div>
+				{filteredData.length === 0 && <p className="color_white">No Programs</p>}
+
+				<Pagination
+					data={filteredData}
+					paginationArr={paginationArr}
+					itemsPerPage={5}
+					setCurrentItems={setFilteredData}
+				/>
 			</div>
 		</section>
 	);

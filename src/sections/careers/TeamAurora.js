@@ -20,9 +20,16 @@ import quate from "../../../public/img/careers/quate.svg";
 // DATA //
 
 /** TeamAurora Section */
-export default function TeamAurora() {
+export default function TeamAurora({
+	sectionName = "Graduate Experiences",
+	id = "Graduate-Experiences",
+}) {
 	return (
-		<section className={`${styles.TeamAurora} pb_50`}>
+		<section
+			className={`${styles.TeamAurora} pb_50`}
+			id={id}
+			data-name={sectionName}
+		>
 			<div className="containerLarge">
 				<div className={`${styles.title_wrap}`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
