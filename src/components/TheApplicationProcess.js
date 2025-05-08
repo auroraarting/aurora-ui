@@ -3,6 +3,8 @@
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
+import ContentFromCms from "./ContentFromCms";
+import Modal, { openModal } from "./Modal";
 
 // SECTIONS //
 
@@ -137,6 +139,23 @@ export default function TheApplicationProcess({ data }) {
 		return tempAccordian;
 	};
 
+	/** accordianData  */
+	const accordianData2 = () => {
+		return data?.applicationTips?.list?.map((item, ind) => {
+			return {
+				title: item?.title,
+				// imgIcons: item?.icon?.node?.sourceUrl,
+				children: (
+					<div className={`${styles.content_wrap}`}>
+						<div className="text_reg color_white">
+							<ContentFromCms>{item?.desc}</ContentFromCms>
+						</div>
+					</div>
+				),
+			};
+		});
+	};
+
 	return (
 		<section
 			className={`${styles.SmarterEnergy} ptb_100`}
@@ -150,7 +169,7 @@ export default function TheApplicationProcess({ data }) {
 							{data?.title}
 						</h2>
 						<p className="text_reg color_dark_gray">{data?.description}</p>
-						<div className="m_t_20">
+						<div onClick={() => openModal("application-tips")} className="m_t_20">
 							<Button color="primary" variant="filled" shape="rounded">
 								Application Tips
 							</Button>
@@ -163,78 +182,34 @@ export default function TheApplicationProcess({ data }) {
 								fontWeight={"f_w_m"}
 								fontFamily={"font_primary"}
 								fontColor={"color_secondary"}
-								// items={[
-								// 	{
-								// 		title: "Transaction Support",
-								// 		imgIcons: transaction.src,
-								// 		children: (
-								// 			<div className={`${styles.content_wrap}`}>
-								// 				<p className="text_reg color_dark_gray">
-								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-								// 				</p>
-								// 				<div className={`${styles.bookBtn} pt_30`}>
-								// 					<Button color="secondary" variant="underline">
-								// 						Know more
-								// 					</Button>
-								// 				</div>
-								// 			</div>
-								// 		),
-								// 	},
-								// 	{
-								// 		title: "Portfolio Valuation",
-								// 		imgIcons: portfolio.src,
-								// 		children: (
-								// 			<div className={`${styles.content_wrap}`}>
-								// 				<p className="text_reg color_dark_gray">
-								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-								// 				</p>
-								// 				<div className={`${styles.bookBtn} pt_30`}>
-								// 					<Button color="secondary" variant="underline">
-								// 						Know more
-								// 					</Button>
-								// 				</div>
-								// 			</div>
-								// 		),
-								// 	},
-								// 	{
-								// 		title: "Asset Citing & Optimisation",
-								// 		imgIcons: asset.src,
-								// 		children: (
-								// 			<div className={`${styles.content_wrap}`}>
-								// 				<p className="text_reg color_dark_gray">
-								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-								// 				</p>
-								// 				<div className={`${styles.bookBtn} pt_30`}>
-								// 					<Button color="secondary" variant="underline">
-								// 						Know more
-								// 					</Button>
-								// 				</div>
-								// 			</div>
-								// 		),
-								// 	},
-								// 	{
-								// 		title: "Strategy",
-								// 		imgIcons: strategy.src,
-								// 		children: (
-								// 			<div className={`${styles.content_wrap}`}>
-								// 				<p className="text_reg color_dark_gray">
-								// 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-								// 				</p>
-								// 				<div className={`${styles.bookBtn} pt_30`}>
-								// 					<Button color="secondary" variant="underline">
-								// 						Know more
-								// 					</Button>
-								// 				</div>
-								// 			</div>
-								// 		),
-								// 	},
-								// ]}
 								items={accordianData()}
 							/>
 						</div>
 					</div>
 				</div>
 			</div>
+			<Modal id="application-tips">
+				<div className={`${styles.popup} color_white`}>
+					<p className={`${styles.title} color_white text_lg f_w_s_b font_primary`}>
+						Application Tips
+					</p>
+					<div
+						className={`${styles.desc} color_white font_secondary text_reg pt_30`}
+					>
+						<ContentFromCms>{data?.applicationTips?.desc}</ContentFromCms>
+					</div>
+					<div className={`${styles.accordian_main}`}>
+						<AccordianCommon
+							fontStyle={"text_md color_white"}
+							fontWeight={"f_w_m"}
+							fontFamily={"font_primary"}
+							fontColor={"color_white"}
+							fontContentColor={"color_white"}
+							items={accordianData2()}
+						/>
+					</div>
+				</div>
+			</Modal>
 		</section>
 	);
 }

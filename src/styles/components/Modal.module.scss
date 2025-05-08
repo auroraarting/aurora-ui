@@ -30,7 +30,7 @@
 		min-height: 200px;
 		z-index: 999;
 		@extend %relative_box;
-		background-color: var(--color_white);
+		background-color: var(--color_secondary);
 		padding: 20px;
 
 		@include md-down {
@@ -47,5 +47,7 @@
 		padding: 5px;
 		border-radius: 20px;
 		cursor: pointer;
+
+		filter: invert(2);
 	}
 }

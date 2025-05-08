@@ -16,9 +16,9 @@ import share from "@/../public/img/resources/aurora_insights/share.svg";
 import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
 import grey_location from "@/../public/img/icons/grey_location.svg";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
-import formatDate from "@/utils";
 
 // UTILS //
+import formatDate from "@/utils";
 
 /** Events Inside Banner component */
 function CareersInsideBanner({ data }) {
