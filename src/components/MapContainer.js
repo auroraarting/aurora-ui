@@ -401,7 +401,7 @@ export default function Map({
 							return "/contact";
 						};
 
-						const uniqueName = marker.unique;
+						const uniqueName = marker.unique || marker.name;
 						return (
 							<div key={index}>
 								<Marker

@@ -90,6 +90,7 @@ export default function About({ data }) {
 				lng: item.offices.map.lng,
 				url: "/company/about",
 				hoverImg: item.offices.thumbnail.node.sourceUrl,
+				unique: Math.random(),
 				// icon:
 				// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
 			};
@@ -99,6 +100,8 @@ export default function About({ data }) {
 
 		setMapJson(tempMapJson);
 	}, []);
+
+	console.log(mapJson, "mapJson");
 
 	return (
 		<div>

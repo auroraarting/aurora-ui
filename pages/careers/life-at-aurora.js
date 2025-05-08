@@ -121,6 +121,7 @@ export default function LifeAtAurora({ data, jobs, otherList, countries }) {
 				lng: item.offices.map.lng,
 				url: "/careers/life-at-aurora",
 				hoverImg: item.offices.thumbnail.node.sourceUrl,
+				unique: Math.random(),
 				// icon:
 				// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
 			};
