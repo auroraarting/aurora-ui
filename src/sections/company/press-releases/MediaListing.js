@@ -23,10 +23,13 @@ import popup_close from "@/../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
 import { useRouter } from "next/router";
 import formatDate, {
+	filterBySearchQuery,
 	filterBySearchQueryEvents,
+	filterItems,
 	filterItemsBySelectedObj,
 	filterItemsBySelectedObjForPress,
 } from "@/utils";
+import Pagination from "@/components/Pagination";
 
 // DATA //
 
@@ -48,6 +51,7 @@ export default function MediaListing({
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
+	const [paginationArr, setPaginationArr] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -132,8 +136,9 @@ export default function MediaListing({
 		if (key === "languageType") {
 			selectedObj.language = catName;
 		}
-		const filteredArr = filterItemsBySelectedObjForPress(arr, selectedObj);
+		const filteredArr = filterItems(arr, selectedObj);
 		setList(filteredArr);
+		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
 	};
 
@@ -159,8 +164,9 @@ export default function MediaListing({
 
 	useEffect(() => {
 		if (router.query.search) {
-			const filtered = filterItemsBySelectedObjForPress(data, router.query);
+			const filtered = filterBySearchQuery(data, router.query);
 			setList(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [router.query]);
@@ -302,6 +308,7 @@ export default function MediaListing({
 									onClick={() => {
 										setSelected({});
 										setList(data);
+										setPaginationArr(data);
 										setDropdowns({
 											languageType: { isOpen: false, selected: { title: "Language" } },
 											offeringsType: {
@@ -387,7 +394,7 @@ export default function MediaListing({
 													className={`${styles.calender}`}
 													alt="calender"
 												/>
-												<span>{formatDate(item?.presses?.banner?.date)}</span>
+												<span>{formatDate(item?.date)}</span>
 											</p>
 										</div>
 									</div>
@@ -436,6 +443,12 @@ export default function MediaListing({
 						</a>
 					</div> */}
 				</div>
+				<Pagination
+					data={list}
+					paginationArr={paginationArr}
+					setCurrentItems={setList}
+					isDark={true}
+				/>
 			</div>
 		</section>
 	);

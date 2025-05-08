@@ -404,7 +404,7 @@ export function isCategory(categoryList, dynamicWords) {
 	return txt;
 }
 
-/** filterItems  */
+/** filterItems for resources */
 export const filterItems = (items, filterObj) => {
 	return items.filter((item) => {
 		const categoryNames =
@@ -422,10 +422,15 @@ export const filterItems = (items, filterObj) => {
 
 		const filterYear = filterObj.year;
 		const itemYear = new Date(item.date).getFullYear();
-
 		const matchesYear = filterYear ? itemYear === filterYear : true;
 
-		return matchesCategoryFilters && matchesYear;
+		const filterLanguage = filterObj.language;
+		const itemLanguage = item.language?.native_name?.toLowerCase();
+		const matchesLanguage = filterLanguage
+			? itemLanguage === filterLanguage.toLowerCase()
+			: true;
+
+		return matchesCategoryFilters && matchesYear && matchesLanguage;
 	});
 };
 
