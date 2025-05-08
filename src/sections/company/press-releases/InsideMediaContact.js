@@ -26,21 +26,21 @@ export default function InsideMediaContact({ data }) {
 				Media Contact
 			</h3>
 			<h4 className="text_reg color_white f_w_m font_primary ">
-				{data?.presses?.mediaContact?.name}
+				{data?.postFields?.mediaContact?.name}
 			</h4>
 			<p className="text_xs color_platinum_gray pb_20">
-				{data?.presses?.mediaContact?.designation}
+				{data?.postFields?.mediaContact?.designation}
 			</p>
 			<p className={`${styles.labelTxt} text_reg color_white f_r_a_center pb_10`}>
 				<img src={mail.src} alt="icon" />
-				<a href={`mailTo:${data?.presses?.mediaContact?.email}`}>
-					{data?.presses?.mediaContact?.email}
+				<a href={`mailTo:${data?.postFields?.mediaContact?.email}`}>
+					{data?.postFields?.mediaContact?.email}
 				</a>
 			</p>
 			<p className={`${styles.labelTxt} text_reg color_white f_r_a_center`}>
 				<img src={tel_icon.src} alt="icon" />
-				<a href={`tel:${data?.presses?.mediaContact?.email}`}>
-					{data?.presses?.mediaContact?.phone}
+				<a href={`tel:${data?.postFields?.mediaContact?.email}`}>
+					{data?.postFields?.mediaContact?.phone}
 				</a>
 			</p>
 		</div>

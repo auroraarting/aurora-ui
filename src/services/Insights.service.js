@@ -395,6 +395,16 @@ query GetInsightsInside {
         content
         sectionTitle
       }
+      mediaContact {
+        designation
+        email
+        name
+        phone
+      }
+      about {
+        content
+        sectionTitle
+      }
     }
   }
 }

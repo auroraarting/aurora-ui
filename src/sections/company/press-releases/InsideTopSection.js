@@ -41,22 +41,26 @@ export default function InsideTopSection({
 							{title}
 						</h2>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={calender.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>{formatDate(date)}</span>
-							</p>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={grey_clock.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>{time}</span>
-							</p>
+							{date && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={calender.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>{formatDate(date)}</span>
+								</p>
+							)}
+							{time && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={grey_clock.src}
+										className={`${styles.location}`}
+										alt="location"
+									/>
+									<span>{time}</span>
+								</p>
+							)}
 						</div>
 					</div>
 					{featuredImage && (
