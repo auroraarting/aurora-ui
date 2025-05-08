@@ -103,9 +103,11 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								<MediaMiddleDescription data={data} />
-								<div className={`${styles.mediaFeedback} pt_40 pb_60`}>
-									<TestimonialFeedback data={data?.postFields} />
-								</div>
+								{data?.postFields?.testimonials?.nodes?.length > 0 && (
+									<div className={`${styles.mediaFeedback} pt_40 pb_60`}>
+										<TestimonialFeedback data={data?.postFields} />
+									</div>
+								)}
 								{data?.postFields?.mediaContact?.name && (
 									<div className={`${styles.mediaFeedback} pb_40`}>
 										<InsideMediaContact data={data} />
