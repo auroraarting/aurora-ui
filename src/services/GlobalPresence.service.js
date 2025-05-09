@@ -323,6 +323,56 @@ query GetCountryInside {
           sourceUrl
         }
       }
+      topSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      middleSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      keyAdvantageSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      availableRegionsSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
     }
     featuredImage {
       node {
