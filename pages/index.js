@@ -66,7 +66,7 @@ export async function getStaticProps() {
 		getRegions(),
 		getHomePage(),
 		getInsights(
-			'first: 6, where: {categoryName: "commentary,renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast,public-webinar,webinar,webinar-recording"}'
+			'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
 		),
 		// eslint-disable-next-line quotes
 		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),

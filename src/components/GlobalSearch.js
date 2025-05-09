@@ -104,13 +104,13 @@ export default function GlobalSearch() {
 				case "life-at-aurora":
 					return "/careers/life-at-aurora";
 				case "press-landing":
-					return "/comapny/press-landing";
+					return "/company/press-landing";
 				case "about":
-					return "/comapny/about";
+					return "/company/about";
 				case "global-presence":
-					return "/comapny/global-presence";
+					return "/company/global-presence";
 				case "contact":
-					return "/comapny/contact";
+					return "/company/contact";
 				case "event-landing":
 					return "/events";
 				case "energy-talks-listing":
@@ -248,7 +248,7 @@ export default function GlobalSearch() {
 						if (!value || (Array.isArray(value) && value.length === 0)) return null;
 
 						const items = Array.isArray(value) ? value : [value];
-
+						console.log(items, "items");
 						return items.map((item, idx) => {
 							const { link, title } = getLinkAndTitle(key, item);
 							return (
