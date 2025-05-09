@@ -288,7 +288,7 @@ export default function GlobalSearch() {
 			)}
 
 			{/* No Results */}
-			{noResults && isTyping && (
+			{noResults && results != null && (
 				<div className={styles.results} data-lenis-prevent>
 					<div className={styles.title_link}>
 						<p className="no-data-text">
