@@ -71,6 +71,9 @@ export async function getServerSideProps({ params }) {
 /** EnergyInside Page */
 export default function EnergyInside({ data, events, countries, otherList }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data || {} };
+
+	console.log("data", data);
 
 	return (
 		<div>
@@ -126,11 +129,28 @@ export default function EnergyInside({ data, events, countries, otherList }) {
 				<div className="pt_100 pb_40">
 					<EnergyInsideTopSection data={data} />
 				</div>
-				<SectionsHeader />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<section className={`${styles.mediaMiddle} pt_80`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
+								{data?.podcastFields?.podcast && (
+									<ContentFromCms>{data?.podcastFields?.podcast}</ContentFromCms>
+								)}
 								{/* <EnergyMiddleDescription /> */}
 								{data?.content && (
 									<section id="overview" data-name="Overview">
