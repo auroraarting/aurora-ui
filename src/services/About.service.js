@@ -58,29 +58,31 @@ query GetAbout {
                 articles {
                   articlesby {
                     nodes {
-                      ... on CaseStudy {
+                      ... on Post {
                         id
-                        content
                         title
                         slug
-                        date
                         featuredImage {
                           node {
                             altText
                             sourceUrl
                           }
                         }
-                        caseStudies {
-                          readTime
-                          selectLocation {
-                            nodes {
-                              ... on Country {
-                                id
-                                title
-                                slug
-                              }
-                            }
+                        postFields {
+                          time
+                        }
+                        date
+                        categories(first: 9999) {
+                          nodes {
+                            name
+                            slug
                           }
+                        }
+                      }
+                      slug
+                      contentType {
+                        node {
+                          name
                         }
                       }
                     }

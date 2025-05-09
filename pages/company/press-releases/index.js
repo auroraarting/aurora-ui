@@ -74,7 +74,6 @@ export default function PressReleases({
 	languages,
 	page,
 }) {
-	console.log("data", page);
 	const [activeTab, setActiveTab] = useState("PressRoom");
 
 	/** */
