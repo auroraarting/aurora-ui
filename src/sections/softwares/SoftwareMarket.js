@@ -38,6 +38,7 @@ import locationJson from "@/data/locations.json";
 export default function SoftwareMarket({
 	sectionTitle = "From your market to the world",
 	mapJson,
+	customHtml,
 }) {
 	/** centerOfCountry  */
 	let centerOfCountry = () => {
@@ -121,11 +122,15 @@ export default function SoftwareMarket({
 								]}
 							/> */}
 						</div>
-						<div {...dynamicInsightsBtnProps()}>
-							<Button color="primary" variant="filled" shape="rounded">
-								Get in Touch
-							</Button>
-						</div>
+						{customHtml ? (
+							customHtml
+						) : (
+							<div {...dynamicInsightsBtnProps()}>
+								<Button color="primary" variant="filled" shape="rounded">
+									Get in Touch
+								</Button>
+							</div>
+						)}
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}

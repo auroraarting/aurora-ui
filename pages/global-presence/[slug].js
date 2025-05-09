@@ -26,7 +26,11 @@ import SoftwareMarket from "@/sections/softwares/SoftwareMarket";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
-import { getMapJsonForCountries, getMapJsonForProducts } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	getMapJsonForCountries,
+	getMapJsonForProducts,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/global-presence/Australia.module.scss";
@@ -82,34 +86,9 @@ export async function getServerSideProps({ params, query }) {
 /** Australia Page */
 export default function Australia({ data, mapJson }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data?.countries || {} };
 
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Book a Demo
-			</Button>
-		</div>,
-	];
+	console.log("data", dataForBtn);
 
 	return (
 		<div>
@@ -130,24 +109,69 @@ export default function Australia({ data, mapJson }) {
 					<InnerBanner
 						bannerTitle={data.countries.bannerSection.title}
 						bannerDescription={data.countries.bannerSection.description}
-						btnTxt="Get in Touch"
+						// btnTxt="Get in Touch"
 						desktopImage={data.countries.bannerSection?.image?.node?.sourceUrl}
 						mobileImage={data.countries.bannerSection.mobileImage?.node?.sourceUrl}
+						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionsButton")}
 					/>
 				</div>
 				<div className="pb_40">
 					<ProductSlider data={data.countries.announcement.slide} />
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton").btnText && (
+							<div {...dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")}>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<Introduction data={data.countries.introduction} />
 				<div className="pb_100">
 					<WhichProducts data={data.countries.map} />
 				</div>
-				<ServicesCircle data={data.countries.keyAdvantages} />
+				<ServicesCircle
+					data={data.countries.keyAdvantages}
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
+							.btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
+								className="pt_40"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{
+										dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
+											.btnText
+									}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<div className="ptb_100">
 					<SoftwareMarket
 						sectionTitle="Energy intelligence across every key market"
 						mapJson={mapJson}
+						customHtml={
+							dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
+								.btnText && (
+								<div
+									{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
+									className=""
+								>
+									<Button color="primary" variant="filled" shape="rounded">
+										{
+											dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
+												.btnText
+										}
+									</Button>
+								</div>
+							)
+						}
 					/>
 				</div>
 				<div className="pb_100">
@@ -168,6 +192,10 @@ export default function Australia({ data, mapJson }) {
 								setIsFormVisible={setIsFormVisible}
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
+								formSectionBtnText={
+									dynamicInsightsBtnProps(dataForBtn, "insightsSectionsButton").btnText
+								}
+								formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionsButton")}
 							/>
 						</div>
 					</div>
