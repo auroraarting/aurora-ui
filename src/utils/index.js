@@ -377,6 +377,7 @@ export const allCategories = [
 	{ title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
 	{ title: "Energy Talks", alternate: "Energy Talks" },
+	{ title: "Media", alternate: "Media" },
 ];
 
 /** findFunc  */

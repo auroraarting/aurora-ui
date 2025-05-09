@@ -120,7 +120,7 @@ export async function searchData(searchTerm) {
   }
   posts(
     first: 9999
-    where: {search: "${searchTerm}", categoryName: "commentary,renewable-energy,flexible-energy-storage,gb-flex-pu,global-energy-forecast,public-webinar,webinar,webinar-recording"}
+    where: {search: "${searchTerm}", categoryName: "commentary,public-webinar,webinar,webinar-recording,media"}
   ) {
     nodes {
       title
@@ -229,8 +229,8 @@ export async function searchData(searchTerm) {
 			let cat = isCategory(allCategories, item?.categories?.nodes);
 			if (cat.includes("Articles")) {
 				return `/resources/aurora-insights/${item?.slug}`;
-			} else if (cat.includes("Energy Talks")) {
-				return `/resources/energy-talks/${item?.slug}`;
+			} else if (cat.includes("Media")) {
+				return `/company/press-releases/${item?.slug}`;
 			} else {
 				return `/resources/webinar/${item?.slug}`;
 			}

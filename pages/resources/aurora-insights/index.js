@@ -43,7 +43,7 @@ import IframeModal from "@/components/IframeModal";
 export async function getServerSideProps() {
 	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
 		getInsights(
-			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,reports,public"}'
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,public"}'
 		),
 		getInsightsCategories(),
 		getInsights('first: 3, where: {categoryName: ""}'),
