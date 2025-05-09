@@ -133,13 +133,19 @@ export async function searchData(searchTerm) {
       }
     }
   }
-  events(first: 9999, where: {search: ""}) {
+  events(first: 9999, where: {search: "${searchTerm}"}) {
     nodes {
       title
       slug
     }
   }
-  earlyCareers(first: 9999, where: {search: ""}) {
+  earlyCareers(first: 9999, where: {search: "${searchTerm}"}) {
+    nodes {
+      title
+      slug
+    }
+  }
+  podcasts(first: 9999, where: {search: "${searchTerm}"}) {
     nodes {
       title
       slug
@@ -242,6 +248,8 @@ export async function searchData(searchTerm) {
 	const regions = data?.regions.nodes;
 	const whoareyous = data?.whoareyous.nodes;
 	const offices = data?.offices?.nodes;
+	const podcasts = data?.podcasts?.nodes;
+
 	// const about = data?.pages?.nodes?.[0]?.about;
 	// const eos = data?.pages?.nodes?.[0]?.eos;
 	// const globalPresence = data?.pages?.nodes?.[0]?.globalPresence;
@@ -267,5 +275,6 @@ export async function searchData(searchTerm) {
 		posts,
 		events,
 		pages,
+		podcasts,
 	};
 }

@@ -207,6 +207,14 @@ export default function GlobalSearch() {
 					link: `${Slug(item?.slug)}?search=${encodeURIComponent(searchTerm)}`,
 					title: item.title,
 				};
+			case "podcasts":
+				return {
+					link: `/resources/energy-talks/${item?.slug}?search=${encodeURIComponent(
+						searchTerm
+					)}`,
+					title: item.title,
+				};
+
 			default:
 				return {
 					link: `/?search=${encodeURIComponent(searchTerm)}`,

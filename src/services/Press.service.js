@@ -411,6 +411,25 @@ query GetPressMediaKit {
           }
         }
       }
+      featured {
+        node {
+          ... on Post {
+            id
+            title
+            slug
+            postFields {
+              time
+            }
+            date
+            featuredImage {
+              node {
+                altText
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

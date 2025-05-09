@@ -74,6 +74,7 @@ export default function PressReleases({
 	languages,
 	page,
 }) {
+	console.log("data", page);
 	const [activeTab, setActiveTab] = useState("PressRoom");
 
 	/** */
@@ -126,7 +127,7 @@ export default function PressReleases({
 					{activeTab === "PressRoom" && (
 						<div className={`${styles.categoryContent} pt_60`}>
 							<div className="pb_40">
-								<TopMedia />
+								<TopMedia data={page?.featured?.node} />
 							</div>
 							<div className="pb_100">
 								<MediaListing
