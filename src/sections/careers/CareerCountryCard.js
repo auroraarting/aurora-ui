@@ -254,9 +254,9 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
-									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
-										x
-									</span>
+									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										<span className="text_xs">X</span>
+									</div>
 								</span>
 							</div>
 						)}

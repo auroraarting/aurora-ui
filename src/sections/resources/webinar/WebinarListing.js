@@ -382,7 +382,6 @@ export default function WebinarListing({
 								</div>
 							</div>
 						</div>
-
 						{/* search box */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom} f_r_aj_between`}
@@ -411,9 +410,9 @@ export default function WebinarListing({
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
-									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
-										x
-									</span>
+									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										<span className="text_xs">X</span>
+									</div>
 								</span>
 							</div>
 						)}

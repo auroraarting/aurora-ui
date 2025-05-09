@@ -1,10 +1,11 @@
 // MODULES //
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Loader from "@/components/Loader";
 
 // SECTIONS //
 
@@ -24,6 +25,7 @@ import "@/styles/globals/globals.scss";
 export default function MyApp({ Component, pageProps }) {
 	const router = useRouter();
 	const { search } = router.query;
+	const [loading, setLoading] = useState(false);
 
 	/** highlightMatches  */
 	function highlightMatches(node, term) {
@@ -94,10 +96,30 @@ export default function MyApp({ Component, pageProps }) {
 		}
 	}, [search]);
 
+	useEffect(() => {
+		/** handleStart  */
+		const handleStart = () => setLoading(true);
+		/** handleComplete  */
+		const handleComplete = () => setLoading(false);
+
+		router.events.on("routeChangeStart", handleStart);
+		router.events.on("routeChangeComplete", handleComplete);
+		router.events.on("routeChangeError", handleComplete);
+
+		return () => {
+			router.events.off("routeChangeStart", handleStart);
+			router.events.off("routeChangeComplete", handleComplete);
+			router.events.off("routeChangeError", handleComplete);
+		};
+	}, [router]);
+
+	console.log(loading, "loading");
+
 	return (
 		<>
 			{/* Header */}
 			<Header />
+			{loading && <Loader />}
 			<Component {...pageProps} />
 			{/* Footer */}
 			<Footer />
