@@ -118,13 +118,20 @@ export function getMapJsonForProducts(regions) {
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
+							/** keyModule  */
+							const keyModule = () => {
+								if (node?.contentType?.node?.name === "softwares") {
+									return "software";
+								}
+								return node?.contentType?.node?.name;
+							};
 							if (node?.contentType?.node?.name != "products") {
 								return;
 							}
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${node?.contentType?.node?.name}/${node?.slug}`;
+							obj2.url = `/${keyModule()}/${node?.slug}`;
 						}
 
 						return obj2;
@@ -173,13 +180,20 @@ export function getMapJsonForSoftware(regions) {
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
+							/**keyModule  */
+							const keyModule = () => {
+								if (node?.contentType?.node?.name === "softwares") {
+									return "software";
+								}
+								return node?.contentType?.node?.name;
+							};
 							if (node?.contentType?.node?.name != "softwares") {
 								return;
 							}
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${node?.contentType?.node?.name}/${node?.slug}`;
+							obj2.url = `/${keyModule()}/${node?.slug}`;
 						}
 
 						return obj2;
@@ -243,10 +257,17 @@ export function getMapJsonForAllRegions(regions) {
 					}
 
 					if (item3?.category?.nodes?.length > 0) {
+						/** keyModule  */
+						const keyModule = () => {
+							if (node.contentType?.node?.name === "softwares") {
+								return "software";
+							}
+							return node.contentType?.node?.name;
+						};
 						obj2.name = node?.title;
 						obj2.lat = parseFloat(item3?.coordinates?.lat);
 						obj2.lng = parseFloat(item3?.coordinates?.lng);
-						obj2.url = `/${node.contentType?.node?.name}/${node?.slug}`;
+						obj2.url = `/${keyModule()}/${node?.slug}`;
 					}
 
 					return obj2;
