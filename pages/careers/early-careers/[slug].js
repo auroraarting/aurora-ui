@@ -57,15 +57,17 @@ import {
 	getEarlyCareersInside,
 	getEarlyCareersListing,
 } from "@/services/EarlyCareers.service";
+import { getOffices } from "@/services/Offices.service";
 
 // DATA //
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, categoriesForSelect, list] = await Promise.all([
+	const [data, categoriesForSelect, list, offices] = await Promise.all([
 		getEarlyCareersInside(params.slug),
 		getInsightsCategories(),
 		getEarlyCareersListing("first: 10"),
+		getOffices(),
 	]);
 
 	const countries = categoriesForSelect.data.countries.nodes;
@@ -77,12 +79,13 @@ export async function getServerSideProps({ params }) {
 				(item) => item.slug !== params.slug
 			),
 			countries,
+			offices: offices.data.offices.nodes,
 		},
 	};
 }
 
 /** EarlyCareers Page */
-export default function EarlyCareers({ data, otherList, countries }) {
+export default function EarlyCareers({ data, otherList, countries, offices }) {
 	const dataForBtn = { postFields: data?.earlyCareers?.insights || {} };
 
 	return (
@@ -153,7 +156,7 @@ export default function EarlyCareers({ data, otherList, countries }) {
 					</div>
 				</div>
 				<div className="pt_100">
-					<ConnectWithUs />
+					<ConnectWithUs data={offices} />
 				</div>
 				<div className="pb_100">
 					<IntegratedSystem />

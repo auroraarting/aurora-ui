@@ -45,10 +45,15 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import IframeModal from "@/components/IframeModal";
+import { getOffices } from "@/services/Offices.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data, jobs] = await Promise.all([getLifeAtAurora(), getFetchJobData()]);
+	const [data, jobs, offices] = await Promise.all([
+		getLifeAtAurora(),
+		getFetchJobData(),
+		getOffices(),
+	]);
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
 	};
@@ -66,12 +71,19 @@ export async function getServerSideProps() {
 			jobs,
 			otherList,
 			countries,
+			offices: offices.data.offices.nodes,
 		},
 	};
 }
 
 /** LifeAtAurora Page */
-export default function LifeAtAurora({ data, jobs, otherList, countries }) {
+export default function LifeAtAurora({
+	data,
+	jobs,
+	otherList,
+	countries,
+	offices,
+}) {
 	const [mapJson, setMapJson] = useState();
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
@@ -132,6 +144,8 @@ export default function LifeAtAurora({ data, jobs, otherList, countries }) {
 		setMapJson(tempMapJson);
 	}, []);
 
+	console.log(offices);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -191,7 +205,7 @@ export default function LifeAtAurora({ data, jobs, otherList, countries }) {
 				</div>
 
 				<div className="pt_100">
-					<ConnectWithUs />
+					<ConnectWithUs data={offices} />
 				</div>
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">

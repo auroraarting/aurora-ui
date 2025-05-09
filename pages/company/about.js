@@ -33,10 +33,14 @@ import styles from "@/styles/pages/company/About.module.scss";
 // SERVICES //
 import { getLifeAtAurora } from "@/services/Careers.service";
 import { getAboutPage } from "@/services/About.service";
+import { getInsightsCategories } from "@/services/Insights.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data] = await Promise.all([getAboutPage()]);
+	const [data, categoriesForSelect] = await Promise.all([
+		getAboutPage(),
+		getInsightsCategories(),
+	]);
 	let obj = {
 		data: { ...data.data.page.about, offices: data.data.offices.nodes },
 	};
@@ -65,11 +69,17 @@ export async function getServerSideProps() {
 
 		tempMapJson.markers.push(obj);
 	});
-	return { props: { ...obj, mapJson: tempMapJson } };
+	return {
+		props: {
+			...obj,
+			mapJson: tempMapJson,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+		},
+	};
 }
 
 /** About Page */
-export default function About({ data }) {
+export default function About({ data, countries }) {
 	const [mapJson, setMapJson] = useState();
 
 	useEffect(() => {
@@ -100,8 +110,6 @@ export default function About({ data }) {
 
 		setMapJson(tempMapJson);
 	}, []);
-
-	console.log(mapJson, "mapJson");
 
 	return (
 		<div>
@@ -153,7 +161,7 @@ export default function About({ data }) {
 				</div>
 				{data?.leaders?.sectionTitle && (
 					<div className="pb_100">
-						<AboutLeadership data={data?.leaders} />
+						<AboutLeadership data={data?.leaders} countries={countries} />
 					</div>
 				)}
 				<div className="pb_100">

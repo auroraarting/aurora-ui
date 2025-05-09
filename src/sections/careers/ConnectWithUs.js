@@ -24,7 +24,7 @@ import location from "../../../public/img/icons/location.svg";
 // DATA //
 
 /** ConnectWithUs Section */
-export default function ConnectWithUs() {
+export default function ConnectWithUs({ data }) {
 	return (
 		<section className={`${styles.ConnectWithUs}`}>
 			<div className="container">
@@ -72,7 +72,28 @@ export default function ConnectWithUs() {
 					}}
 					className={styles.slider}
 				>
-					<SwiperSlide>
+					{data?.map((item, ind) => {
+						return (
+							<SwiperSlide key={ind}>
+								<div className={`${styles.cardItem}`}>
+									{item?.offices?.thumbnail?.node?.sourceUrl && (
+										<div className={`${styles.cardImg}`}>
+											<img
+												src={item?.offices?.thumbnail?.node?.sourceUrl}
+												className={`${styles.connectImg} b_r_10`}
+											/>
+										</div>
+									)}
+									<div className={`${styles.cardDesc} pt_20`}>
+										<h4 className="text_reg color_secondary f_w_m font_primary">
+											{item?.title}
+										</h4>
+									</div>
+								</div>
+							</SwiperSlide>
+						);
+					})}
+					{/* <SwiperSlide>
 						<div className={`${styles.cardItem}`}>
 							<div className={`${styles.cardImg}`}>
 								<img src={connect_img.src} className={`${styles.connectImg} b_r_10`} />
@@ -121,11 +142,11 @@ export default function ConnectWithUs() {
 								<h4 className="text_reg color_secondary f_w_m font_primary">Athens</h4>
 							</div>
 						</div>
-					</SwiperSlide>
+					</SwiperSlide> */}
 				</Swiper>
 			</div>
 			{/* <div className="container">
-				
+
 			</div> */}
 		</section>
 	);

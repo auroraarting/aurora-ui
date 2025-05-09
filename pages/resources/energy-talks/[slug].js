@@ -72,7 +72,6 @@ export async function getServerSideProps({ params }) {
 export default function EnergyInside({ data, events, countries, otherList }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
 
-	console.log(otherList);
 	return (
 		<div>
 			{/* Metatags */}

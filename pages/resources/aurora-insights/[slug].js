@@ -136,8 +136,6 @@ export default function Articles({ data, otherList, countries }) {
 		}
 	};
 
-	console.log(data, "data");
-
 	return (
 		<div>
 			{/* Metatags */}
