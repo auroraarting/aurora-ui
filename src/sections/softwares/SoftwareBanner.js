@@ -37,6 +37,7 @@ export default function SoftwareBanner({
 	btnText,
 	btnLink,
 	logo,
+	dynamicBtn,
 }) {
 	/** Function to generate the correct video URL  */
 	const getVimeoUrl = (vimeoid) => {
@@ -83,6 +84,8 @@ export default function SoftwareBanner({
 		setIsPlaying(!isPlaying);
 	};
 
+	console.log(dynamicBtn);
+
 	return (
 		<section className={`${styles.SoftwareBanner} ptb_100`}>
 			<div className="container">
@@ -106,13 +109,21 @@ export default function SoftwareBanner({
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
 
-						<div className={`${styles.bookBtn} ptb_30`}>
-							<a href={btnLink}>
+						{btnText ? (
+							<div className={`${styles.bookBtn} ptb_30`}>
+								<a href={btnLink}>
+									<Button color="primary" variant="filled" shape="rounded">
+										{btnText}
+									</Button>{" "}
+								</a>
+							</div>
+						) : (
+							<div {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
-									{btnText}
-								</Button>{" "}
-							</a>
-						</div>
+									{dynamicBtn.btnText}
+								</Button>
+							</div>
+						)}
 					</div>
 				</div>
 				{vimeoid ? (

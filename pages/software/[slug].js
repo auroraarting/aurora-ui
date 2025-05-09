@@ -30,6 +30,7 @@ import { Link, scroller } from "react-scroll";
 
 // UTILS //
 import {
+	dynamicInsightsBtnProps,
 	filterMarkersBySlug,
 	getMapJsonForProducts,
 	getMapJsonForSoftware,
@@ -72,6 +73,7 @@ export async function getServerSideProps({ params }) {
 /** Chronos Page */
 export default function SoftwarePage({ data, mapJson, regions, meta }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
+	const dataForBtn = { postFields: data || {} };
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
@@ -133,8 +135,23 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 					btnText={data?.banner?.buttonText}
 					btnLink={data?.banner?.buttonLink}
 					logo={data?.banner?.logo?.node?.sourceUrl}
+					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 				/>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				{data?.introduction?.title && (
 					<div className="ptb_100">
 						<Redefining
@@ -171,7 +188,21 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 						isMultiple={data?.whyAurora?.list?.length > 1}
 					/>
 				</div>
-				<IntuitiveStepProcess data={data?.fourStepProcess} />
+				<IntuitiveStepProcess
+					data={data?.fourStepProcess}
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btnText && (
+							<div
+								className={`${styles.bookBtn} pt_50`}
+								{...dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton")}
+							>
+								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+									{dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<SmarterEnergy data={data?.expertise} />
 				{data?.expertSupport?.list?.length > 0 && (
 					<div className="ptb_100">
@@ -185,6 +216,10 @@ export default function SoftwarePage({ data, mapJson, regions, meta }) {
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						formSectionBtnText={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+						}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 				<div className="pb_100">

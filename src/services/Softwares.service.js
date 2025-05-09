@@ -116,25 +116,25 @@ query GetProductBySlug {
           }
         }
       }
-                expertSupport {
-          sectionTitle
-          image {
+      expertSupport {
+        sectionTitle
+        image {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        list {
+          title
+          description
+          logo {
             node {
               altText
               sourceUrl
             }
           }
-          list {
-            title
-            description
-            logo {
-              node {
-                altText
-                sourceUrl
-              }
-            }
-          }
         }
+      }
       expertise {
         description
         tabTitle
@@ -161,7 +161,7 @@ query GetProductBySlug {
             sourceUrl
           }
         }
-        lottie{
+        lottie {
           node {
             altText
             sourceUrl
@@ -215,6 +215,46 @@ query GetProductBySlug {
           }
           processDetails {
             description
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      stepsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
       }

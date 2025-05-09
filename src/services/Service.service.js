@@ -156,7 +156,7 @@ query GetProductBySlug {
             sourceUrl
           }
         }
-        lottie{
+        lottie {
           node {
             altText
             sourceUrl
@@ -209,6 +209,46 @@ query GetProductBySlug {
           }
           processDetails {
             description
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      subscribeSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
           }
         }
       }
