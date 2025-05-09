@@ -395,7 +395,17 @@ export default function Map({
 								marker?.category?.nodes?.[0]?.contentType?.node?.name &&
 								marker?.category?.nodes?.[0]?.slug
 							) {
-								return `/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`;
+								/** keyModule  */
+								const keyModule = () => {
+									if (
+										marker?.category?.nodes?.[0]?.contentType?.node?.name === "softwares"
+									) {
+										return "software";
+									}
+									return marker?.category?.nodes?.[0]?.contentType?.node?.name;
+								};
+
+								return `/${keyModule()}/${marker?.category?.nodes?.[0]?.slug}`;
 							}
 
 							return "/contact";
@@ -413,7 +423,7 @@ export default function Map({
 										url:
 											marker?.icon?.node?.sourceUrl ||
 											marker?.icon ||
-											"/img/softwares/mapMarker.svg",
+											"/img/software/mapMarker.svg",
 										// scaledSize: new window.google.maps.Size(10, 10),
 										// origin: new window.google.maps.Point(0, 0),
 										// anchor: new window.google.maps.Point(25, 50),

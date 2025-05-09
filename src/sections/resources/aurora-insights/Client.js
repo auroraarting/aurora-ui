@@ -95,10 +95,17 @@ export default function Client({ data }) {
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
 							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+								/**keyModule  */
+								const keyModule = () => {
+									if (item?.contentType?.node?.name === "softwares") {
+										return "software";
+									}
+									return item?.contentType?.node?.name;
+								};
 								return (
 									<div className={`${styles.poweredBy}`} key={item?.title}>
 										<a
-											href={`/${item?.contentType?.node?.name}/${item?.slug}`}
+											href={`/${keyModule()}/${item?.slug}`}
 											target="_blank"
 											rel="noreferrer"
 										>
@@ -147,7 +154,7 @@ export default function Client({ data }) {
 										<a
 											key={item?.title || item?.name || item}
 											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-											href={`/resources/aurora-insights&search=${
+											href={`/resources/aurora-insights?search=${
 												item?.title || item?.name || item
 											}`}
 										>
