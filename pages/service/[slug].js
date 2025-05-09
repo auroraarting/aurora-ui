@@ -34,52 +34,39 @@ import desktop_banner from "@/../public/img/services/advisory/desktop_banner.jpg
 // SERVICES //
 import { getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
-import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	filterMarkersBySlug,
+	getMapJsonForProducts,
+} from "@/utils";
 import IframeModal from "@/components/IframeModal";
+import Bundles from "@/components/Bundles";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import { getBundlesSection } from "@/services/Bundles.service";
 
 /** Fetch  */
 export async function getServerSideProps({ params }) {
-	const [data, regions] = await Promise.all([
+	const [data, regions, bundles] = await Promise.all([
 		getServiceData(params.slug),
 		getRegions(),
+		getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForProducts(
 		filterMarkersBySlug(regions, data.data.serviceBy.slug)
 	);
-	return { props: { data: data.data.serviceBy, mapJson } };
+	return {
+		props: {
+			data: data.data.serviceBy,
+			mapJson,
+			bundles: bundles.data.page.bundles,
+		},
+	};
 }
 
 /** Advisory Page */
-export default function Advisory({ data, mapJson }) {
+export default function Advisory({ data, mapJson, bundles }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
+	const dataForBtn = { postFields: data || {} };
 
 	return (
 		<div>
@@ -106,9 +93,24 @@ export default function Advisory({ data, mapJson }) {
 						mobileImage={data?.services?.banner?.mobileThumbnail?.node?.sourceUrl}
 						videoSrc={data?.services?.banner?.vimeoLink}
 						logo={data?.services?.banner?.logo?.node?.sourceUrl}
+						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
 				</div>
-				<SectionsHeader data={headerArray} />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				<SmarterEnergy data={data?.services?.expertise} />
 				<ServicesCircle data={data?.services?.keyAdvantages} />
 				{data?.services?.caseStudy?.title && (
@@ -126,12 +128,22 @@ export default function Advisory({ data, mapJson }) {
 						<TestimonialFeedback data={data?.services?.ourClient} />
 					</div>
 				)}
+				<div className="ptb_100 dark_bg">
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
+				</div>
 				<div className="pb_100">
 					<Insights
 						isFormVisible={isFormVisible}
 						setIsFormVisible={setIsFormVisible}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						formSectionBtnText={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btnText
+						}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 				<div className="pb_100">

@@ -3,7 +3,7 @@
 /** GlobalSearch Component */
 
 // MODULES //
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // COMPONENTS //
 
@@ -33,6 +33,7 @@ export default function GlobalSearch() {
 	const [isTyping, setIsTyping] = useState(false);
 	const [noResults, setNoResults] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
+	const abortControllerRef = useRef(null);
 
 	/** Fetch search results */
 	const fetchSearchResults = async () => {
@@ -41,11 +42,20 @@ export default function GlobalSearch() {
 			setIsLoading(false);
 			return;
 		}
+		// Cancel the previous request if it exists
+		if (abortControllerRef.current) {
+			abortControllerRef.current.abort("New search started");
+		}
 		setIsLoading(true);
+		// Create a new AbortController for the current request
+		const controller = new AbortController();
+		abortControllerRef.current = controller;
+
 		try {
 			const data = await fetch("/api/search", {
 				method: "POST",
 				body: JSON.stringify({ searchTerm }),
+				signal: controller.signal, // Attach the abort signal
 			});
 			const json = await data.json();
 			setResults(json);
@@ -256,7 +266,6 @@ export default function GlobalSearch() {
 						if (!value || (Array.isArray(value) && value.length === 0)) return null;
 
 						const items = Array.isArray(value) ? value : [value];
-						console.log(items, "items");
 						return items.map((item, idx) => {
 							const { link, title } = getLinkAndTitle(key, item);
 							return (
@@ -279,7 +288,7 @@ export default function GlobalSearch() {
 			)}
 
 			{/* No Results */}
-			{noResults && !isTyping && (
+			{noResults && isTyping && (
 				<div className={styles.results} data-lenis-prevent>
 					<div className={styles.title_link}>
 						<p className="no-data-text">
