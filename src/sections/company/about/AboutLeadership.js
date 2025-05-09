@@ -62,8 +62,6 @@ export default function AboutLeadership({ data, countries }) {
 		}
 	}, [slideNo]);
 
-	console.log("data?.leaders?.nodes", data?.leaders?.nodes);
-
 	return (
 		<section className={`${styles.AboutLeadership}`}>
 			<div className="container">

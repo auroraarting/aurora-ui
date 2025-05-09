@@ -42,13 +42,15 @@ import {
 	getEarlyCareersPage,
 } from "@/services/EarlyCareers.service";
 import { getInsightsCategories } from "@/services/Insights.service";
+import { getOffices } from "@/services/Offices.service";
 
 /** Fetch  */
 export async function getServerSideProps() {
-	const [data, page, categoriesForSelect] = await Promise.all([
+	const [data, page, categoriesForSelect, offices] = await Promise.all([
 		getEarlyCareersListing("first: 99999"),
 		getEarlyCareersPage(),
 		getInsightsCategories(),
+		getOffices(),
 	]);
 
 	return {
@@ -57,12 +59,19 @@ export async function getServerSideProps() {
 			page: page.data.page.earlyCareersLanding,
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
 			programs: page.data.programs.nodes,
+			offices: offices.data.offices.nodes,
 		},
 	};
 }
 
 /** EarlyCareers Page */
-export default function EarlyCareers({ data, page, countries, programs }) {
+export default function EarlyCareers({
+	data,
+	page,
+	countries,
+	programs,
+	offices,
+}) {
 	return (
 		<div>
 			{/* Metatags */}
@@ -125,7 +134,7 @@ export default function EarlyCareers({ data, page, countries, programs }) {
 					<TeamAurora />
 				</div>
 				<div className="">
-					<ConnectWithUs />
+					<ConnectWithUs data={offices} />
 				</div>
 				<div className="pb_100">
 					<IntegratedSystem />
