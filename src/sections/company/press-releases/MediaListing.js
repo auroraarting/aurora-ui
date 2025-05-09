@@ -299,9 +299,8 @@ export default function MediaListing({
 								)}
 							</div>
 						</div>
-
 						{/* Reset */}
-						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} "activeDropDown"`}
@@ -353,9 +352,9 @@ export default function MediaListing({
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
-									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
-										x
-									</span>
+									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										<span className="text_xs">X</span>
+									</div>
 								</span>
 							</div>
 						)}
