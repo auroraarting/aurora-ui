@@ -44,10 +44,10 @@ export default function InsideMediaContact({ data }) {
 								<a href={`mailTo:${item?.email}`}>{item?.email}</a>
 							</p>
 						)}
-						{item?.email && (
+						{item?.phone && (
 							<p className={`${styles.labelTxt} text_reg color_white f_r_a_center`}>
 								<img src={tel_icon.src} alt="icon" />
-								<a href={`tel:${item?.email}`}>{item?.phone}</a>
+								<a href={`tel:${item?.phone}`}>{item?.phone}</a>
 							</p>
 						)}
 					</>
