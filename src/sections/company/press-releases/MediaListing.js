@@ -164,7 +164,7 @@ export default function MediaListing({
 
 	useEffect(() => {
 		if (router.query.search) {
-			const filtered = filterBySearchQuery(data, router.query);
+			const filtered = filterBySearchQuery(data, router.query.search);
 			setList(filtered);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
