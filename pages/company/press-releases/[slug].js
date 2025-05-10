@@ -56,7 +56,7 @@ export async function getServerSideProps({ params }) {
 /** PressInside Page */
 export default function PressInside({ data, dataForBtn, moreRelated }) {
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-
+	console.log(data);
 	return (
 		<div>
 			{/* Metatags */}
@@ -107,7 +107,7 @@ export default function PressInside({ data, dataForBtn, moreRelated }) {
 										<TestimonialFeedback data={data?.postFields} />
 									</div>
 								)}
-								{data?.postFields?.mediaContact?.name && (
+								{data?.postFields?.mediaContact && (
 									<div className={`${styles.mediaFeedback} pb_40`}>
 										<InsideMediaContact data={data} />
 									</div>
