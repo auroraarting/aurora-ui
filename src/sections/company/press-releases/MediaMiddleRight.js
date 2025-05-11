@@ -61,7 +61,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 						</div>
 					</div>
 				</div>
-				{dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton").btnText && (
+				{dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton").btntext && (
 					<div className={`${styles.DownBtn} `}>
 						<a
 							{...dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton")}
@@ -69,7 +69,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 						>
 							<img src={tag_download_icon.src} alt="download" />
 							<span>
-								{dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton").btnText}
+								{dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton").btntext}
 							</span>
 						</a>
 					</div>

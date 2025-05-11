@@ -205,7 +205,7 @@ query GetCountryInside {
       ourClients {
         sectionTitle
         tabTitle
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -218,7 +218,7 @@ query GetCountryInside {
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -255,19 +255,13 @@ query GetCountryInside {
           lng
         }
         markers {
-          icon {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
           mapThumbnail {
             node {
               altText
               sourceUrl(size: LARGE)
             }
           }
-          category {
+          category(first: 999) {
             nodes {
               contentType {
                 node {
@@ -279,18 +273,48 @@ query GetCountryInside {
                 slug
                 title
                 content
+                services {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
               }
               ... on Software {
                 id
                 title
                 slug
                 content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
               }
               ... on Product {
                 id
                 title
                 slug
                 content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        sourceUrl
+                      }
+                    }
+                  }
+                }
               }
               slug
             }
@@ -302,10 +326,60 @@ query GetCountryInside {
           locationtitle
         }
       }
-              mapThumb {
+      mapThumb {
         node {
           altText
           sourceUrl
+        }
+      }
+      topSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      middleSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      keyAdvantageSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      availableRegionsSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
         }
       }
     }

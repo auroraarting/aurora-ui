@@ -1,5 +1,5 @@
+"use client";
 // MODULES //
-import { useEffect } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -12,7 +12,7 @@ import Modal, { openModal } from "./Modal";
 // PLUGINS //
 
 // UTILS //
-import formatDate from "@/utils";
+import formatDate, { slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/SmarterEnergy.module.scss";
@@ -30,7 +30,7 @@ import grey_clock from "/public/img/icons/grey_clock.svg";
 // DATA //
 
 /** SmarterEnergy Section */
-export default function SmarterEnergy({ data }) {
+export default function SmarterEnergy({ data, sectionName }) {
 	if (!data?.title) return <></>;
 
 	const tempAccordian = [
@@ -208,8 +208,8 @@ export default function SmarterEnergy({ data }) {
 	return (
 		<section
 			className={`${styles.SmarterEnergy} ptb_100`}
-			id="expertise"
-			data-name="Expertise"
+			id={sectionName ? slugify(sectionName) : "expertise"}
+			data-name={sectionName || "Expertise"}
 		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>

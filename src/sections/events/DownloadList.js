@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -23,9 +24,9 @@ export default function DownloadList({ data }) {
 	return (
 		<div className="container">
 			<div className={`${styles.DownloadWrapper} f_r_a_center`}>
-				{data?.events?.downloads?.map((item) => {
+				{data?.events?.downloads?.map((item, ind) => {
 					return (
-						<div className={`${styles.teamItem}`} key={item?.text}>
+						<div className={`${styles.teamItem}`} key={(item?.text || "") + ind}>
 							<div className={`${styles.teamFlex} f_r_a_center`}>
 								<div className={`${styles.teamLogo}`}>
 									<img

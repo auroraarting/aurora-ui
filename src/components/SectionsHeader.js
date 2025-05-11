@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -6,16 +7,15 @@ import { useEffect, useState } from "react";
 // SECTIONS //
 
 // PLUGINS //
-import { useInView } from "react-intersection-observer";
 
 // UTILS //
 
 // STYLES //
 import styles from "@/styles/components/SectionsHeader.module.scss";
-import Button from "./Buttons/Button";
 
 // IMAGES //
 import accarrow from "../../public/img/icons/acc_arrow.svg";
+
 // DATA //
 
 /** SectionsHeader Component */

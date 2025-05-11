@@ -1,3 +1,5 @@
+"use client";
+
 // MODULES //
 import Link from "next/link";
 

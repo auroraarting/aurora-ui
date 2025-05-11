@@ -1,9 +1,9 @@
 // MODULES //
 import { useRef, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 // COMPONENTS //
-import Button from "@/components/Buttons/Button";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
@@ -12,26 +12,23 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 import formatDate, {
 	allCategories,
-	buildQueryFromContext,
 	filterBySearchQuery,
 	filterItems,
 	isCategory,
-	objectToGraphQLArgs,
 } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/aurora-insights/InsightsListing.module.scss";
 
 // IMAGES //
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
-import search from "@/../public/img/icons/search.svg";
-import hoverBg from "@/../public/img/home/hoverBg.png";
+import location from "/public/img/icons/location.svg";
+import calender from "/public/img/icons/calender.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
+import searchImg from "/public/img/icons/search.svg";
+import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
 import { getInsights } from "@/services/Insights.service";
-import Pagination from "@/components/Pagination";
 
 // DATA //
 
@@ -47,7 +44,8 @@ export default function InsightsListing({
 	original,
 	setOriginal,
 }) {
-	const router = useRouter();
+	const searchParams = useSearchParams();
+	const search = searchParams.get("search");
 	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
 	const [filteredPagination, setFilteredPagination] = useState(pagination);
@@ -126,40 +124,9 @@ export default function InsightsListing({
 		}
 	};
 
-	/** handleNextPage  */
-	const handleNextPage = async () => {
-		setLoading(true);
-		// Build your query with the new `after` cursor
-		const newQuery = {
-			...router.query,
-			after: filteredPagination.endCursor,
-		};
-
-		router.push(
-			{
-				pathname: router.pathname,
-				query: newQuery,
-			},
-			undefined,
-			{ shallow: true }
-		);
-
-		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(newQuery));
-		const filteredData = await getInsights(queryToUse);
-		setLoading(false);
-		setList(filteredData.data.posts.nodes);
-		setPaginationArr(filteredData.data.posts.nodes);
-		setFilteredPagination(filteredData.data?.posts?.pageInfo);
-	};
-
-	/** handleNextPage  */
-	const handlePreviousPage = async () => {
-		window.history.back();
-	};
-
 	/** filter  */
 	const filter = async (catName, key) => {
-		let queryObj = { ...router.query };
+		let queryObj = {};
 		let selectedObj = selected;
 		let arr = original;
 		setLoading(true);
@@ -228,13 +195,13 @@ export default function InsightsListing({
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterBySearchQuery(data, router.query.search);
+		if (search) {
+			const filtered = filterBySearchQuery(data, search);
 			setList(filtered);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section className={styles.InsightsListing}>
@@ -435,7 +402,7 @@ export default function InsightsListing({
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>
@@ -453,7 +420,7 @@ export default function InsightsListing({
 									<input name="search" type="text" placeholder="Search Events" />
 								</form>
 								<span className="d_f">
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>

@@ -1,3 +1,5 @@
+"use client";
+
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -79,7 +81,7 @@ export default function EosBanner({
 						<div className={`${styles.bookBtn} pt_30`}>
 							<a {...dataForBtn}>
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									{dataForBtn?.btnText}
+									{dataForBtn?.btntext}
 								</Button>
 							</a>
 							{btnTxt && (

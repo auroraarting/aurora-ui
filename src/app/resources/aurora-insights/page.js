@@ -1,0 +1,78 @@
+// Force SSR (like getServerSideProps)
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const fetchCache = "force-no-store"; // Optional: disables fetch caching
+
+/* eslint-disable quotes */
+// MODULES //
+
+// COMPONENTS //
+
+// SECTIONS //
+import AuroraInsightsWrap from "@/sections/resources/aurora-insights/AuroraInsightsWrap";
+
+// PLUGINS //
+
+// UTILS //
+
+// STYLES //
+
+// IMAGES //
+
+// DATA //
+
+// SERVICES //
+import {
+	getInsights,
+	getInsightsCategories,
+	getInsightsPath,
+} from "@/services/Insights.service";
+import { getInsightsPage } from "@/services/InsightsListing.service";
+
+/** Fetch  getStaticProps*/
+async function getData() {
+	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
+		getInsights(
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,public"}'
+		),
+		getInsightsCategories(),
+		getInsights('first: 3, where: {categoryName: ""}'),
+		getInsightsPage(),
+	]);
+	const otherList = list?.data?.posts?.nodes;
+
+	return {
+		props: {
+			pagination: data.data?.posts?.pageInfo || {},
+			data: data?.data?.posts?.nodes || [],
+			tags: categoriesForSelect.data.tags?.nodes || [],
+			categories: categoriesForSelect?.data?.categories?.nodes || [],
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			products: categoriesForSelect?.data?.products?.nodes || [],
+			softwares: categoriesForSelect?.data?.softwares?.nodes || [],
+			services: categoriesForSelect?.data?.services?.nodes || [],
+			otherList,
+			insightsPage: insightsPage.data.page.insightsListing,
+		},
+	};
+}
+
+/** AuroraInsights Page */
+export default async function AuroraInsights() {
+	const { props } = await getData();
+	return (
+		<div>
+			{/* Metatags */}
+			{/* <MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} /> */}
+
+			{/* Header */}
+			{/* <Header /> */}
+
+			{/* Page Content starts here */}
+			<AuroraInsightsWrap {...props} />
+			{/* Page Content ends here */}
+
+			{/* Footer */}
+			{/* <Footer /> */}
+		</div>
+	);
+}

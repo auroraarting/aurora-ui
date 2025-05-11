@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useState } from "react";
 

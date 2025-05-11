@@ -290,6 +290,9 @@
 				border-radius: 50px;
 				padding: 10px 20px;
 				transition: 0.5s all;
+				form {
+					width: 100%;
+				}
 				@media screen and (max-width: 767px) {
 					top: inherit;
 					bottom: 0px;
@@ -312,7 +315,7 @@
 				}
 				span {
 					cursor: pointer;
-					width: 64px;
+					// width: 64px;
 
 					img {
 						margin-right: 10px;

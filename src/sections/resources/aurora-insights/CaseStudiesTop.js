@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useState } from "react";
 
@@ -9,19 +10,19 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
+import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/aurora-insights/CaseStudiesTop.module.scss";
 
 // IMAGES //
-import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
-import download from "@/../public/img/resources/aurora_insights/download.svg";
-import play from "@/../public/img/resources/aurora_insights/play.svg";
-import share from "@/../public/img/resources/aurora_insights/share.svg";
-import copy from "@/../public/img/resources/aurora_insights/copy.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import black_clock from "@/../public/img/icons/black_clock.svg";
-import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
+import plant_img from "/public/img/resources/aurora_insights/plant_img.jpg";
+import download from "/public/img/resources/aurora_insights/download.svg";
+import play from "/public/img/resources/aurora_insights/play.svg";
+import share from "/public/img/resources/aurora_insights/share.svg";
+import copy from "/public/img/resources/aurora_insights/copy.svg";
+import calender from "/public/img/icons/calender.svg";
+import black_clock from "/public/img/icons/black_clock.svg";
 
 // DATA //
 
@@ -86,14 +87,14 @@ export default function CaseStudiesTop({ data }) {
 					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
 						<div className={`${styles.downloadListen}`}>
 							<div className={`${styles.downloadBox} f_r_a_center`}>
-								{dynamicInsightsBtnProps(data, "topSectionButton").btnText && (
+								{dynamicInsightsBtnProps(data, "topSectionButton").btntext && (
 									<a
 										{...dynamicInsightsBtnProps(data, "topSectionButton")}
 										className="text_sm f_w_m font_primary f_r_a_center"
 									>
 										<img src={download.src} alt="download" />
 										<span>
-											{dynamicInsightsBtnProps(data, "topSectionButton").btnText}
+											{dynamicInsightsBtnProps(data, "topSectionButton").btntext}
 										</span>
 									</a>
 								)}

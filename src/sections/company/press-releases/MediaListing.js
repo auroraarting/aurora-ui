@@ -1,27 +1,16 @@
 // MODULES //
 import { useRef, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
-
-// STYLES //
-import styles from "@/styles/sections/company/press-releases/MediaListing.module.scss";
-
-// IMAGES //
-import energy_transition from "@/../public/img/events/energy_transition.png";
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
-import search from "@/../public/img/icons/search.svg";
-import popup_close from "@/../public/img/icons/popup_close.svg";
-import hoverBg from "@/../public/img/home/hoverBg.png";
-import { useRouter } from "next/router";
 import formatDate, {
 	filterBySearchQuery,
 	filterBySearchQueryEvents,
@@ -29,7 +18,18 @@ import formatDate, {
 	filterItemsBySelectedObj,
 	filterItemsBySelectedObjForPress,
 } from "@/utils";
-import Pagination from "@/components/Pagination";
+
+// STYLES //
+import styles from "@/styles/sections/company/press-releases/MediaListing.module.scss";
+
+// IMAGES //
+import energy_transition from "/public/img/events/energy_transition.png";
+import location from "/public/img/icons/location.svg";
+import calender from "/public/img/icons/calender.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
+import searchImg from "/public/img/icons/search.svg";
+import popup_close from "/public/img/icons/popup_close.svg";
+import hoverBg from "/public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -40,7 +40,8 @@ export default function MediaListing({
 	productService,
 	languages,
 }) {
-	const router = useRouter();
+	const searchParams = useSearchParams();
+	const search = searchParams.get("search");
 	const [original, setOriginal] = useState(data);
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
@@ -163,13 +164,13 @@ export default function MediaListing({
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterBySearchQuery(data, router.query.search);
+		if (search) {
+			const filtered = filterBySearchQuery(data, search);
 			setList(filtered);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section className={styles.MediaListing}>
@@ -332,7 +333,7 @@ export default function MediaListing({
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>

@@ -1,7 +1,8 @@
+"use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 // COMPONENTS //
 import Image from "next/image";
@@ -480,7 +481,8 @@ export default function Header() {
 	const footerHeight = useRef(null);
 	const [toggleState, settoggleState] = useState(null);
 	const [showSearch, setShowSearch] = useState(false);
-	const router = useRouter();
+	const searchParams = useSearchParams();
+	const searchQuery = searchParams.get("search");
 
 	/** toggle */
 	const toggleTab = (index) => {
@@ -571,12 +573,11 @@ export default function Header() {
 	}
 
 	useEffect(() => {
-		const { search } = router.query;
-		if (search) {
-			const decodedSearchTerm = decodeURIComponent(search);
+		if (searchQuery) {
+			const decodedSearchTerm = decodeURIComponent(searchQuery);
 			highlightSearchTerm(decodedSearchTerm);
 		}
-	}, [router.query]);
+	}, [searchQuery]);
 
 	useEffect(() => {
 		fetchData();

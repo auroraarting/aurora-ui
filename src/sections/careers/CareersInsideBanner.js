@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -27,14 +28,16 @@ function CareersInsideBanner({ data }) {
 			<div className="container">
 				{/* Banner Content */}
 				<div className={`f_w ${styles.country}`}>
-					<div
-						className={`${styles.tag} text_xxs font_primary text_uppercase color_white pb_30`}
-					>
-						{data?.earlyCareers?.thumbnail?.country?.node?.title}
-					</div>
+					{data?.earlyCareers?.thumbnail?.country?.node?.title && (
+						<div
+							className={`${styles.tag} text_xxs font_primary text_uppercase color_white pb_30`}
+						>
+							{data?.earlyCareers?.thumbnail?.country?.node?.title}
+						</div>
+					)}
 					{data?.earlyCareers?.thumbnail?.islive && (
 						<div
-							className={`${styles.tag} text_xxs font_primary text_uppercase f_w_s_b pb_30`}
+							className={`${styles.tag} ${styles.isLive} text_xxs font_primary text_uppercase f_w_s_b pb_30`}
 						>
 							Live
 						</div>
