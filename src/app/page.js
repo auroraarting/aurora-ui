@@ -41,6 +41,8 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Home Page */
 export default async function HomePage() {
 	const [regions, dataFetch, insightsFetch, eventsdata] = await Promise.all([
