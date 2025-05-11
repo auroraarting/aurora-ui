@@ -178,7 +178,7 @@ export default function Client({ data }) {
 						</div>
 					</div>
 				</div>
-				{dynamicInsightsBtnProps(data, "bottomSectionButton").btnText && (
+				{dynamicInsightsBtnProps(data, "bottomSectionButton").btntext && (
 					<div className={`${styles.DownBtn} `}>
 						<a
 							{...dynamicInsightsBtnProps(data, "bottomSectionButton")}
@@ -186,7 +186,7 @@ export default function Client({ data }) {
 						>
 							<img src={tag_download_icon.src} alt="download" />
 							<span>
-								{dynamicInsightsBtnProps(data, "bottomSectionButton").btnText}
+								{dynamicInsightsBtnProps(data, "bottomSectionButton").btntext}
 							</span>
 						</a>
 					</div>

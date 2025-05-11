@@ -1,5 +1,5 @@
+"use client";
 // MODULES //
-import { useState } from "react";
 
 // COMPONENTS //
 import CircularMenu from "./CircularMenu";

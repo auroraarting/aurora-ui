@@ -1,4 +1,5 @@
 import { openModal } from "@/components/Modal";
+// import { Link, scroller } from "react-scroll";
 
 /** formatDate  */
 export default function formatDate(isoString) {
@@ -397,7 +398,7 @@ export const allCategories = [
 	{ title: "Market reports", alternate: "Market reports" },
 	{ title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
-	{ title: "Energy Talks", alternate: "Energy Talks" },
+	// { title: "Energy Talks", alternate: "Energy Talks" },
 	{ title: "Media", alternate: "Media" },
 ];
 
@@ -505,7 +506,7 @@ export const dynamicInsightsBtnProps = (
 			);
 	}
 	if (data?.postFields?.[keyVal]?.buttonText) {
-		obj.btnText = data?.postFields?.[keyVal]?.buttonText;
+		obj.btntext = data?.postFields?.[keyVal]?.buttonText;
 	}
 
 	return obj;
@@ -687,3 +688,49 @@ export function slugify(str) {
 		.replace(/\s+/g, "-") // replace spaces with hyphens
 		.replace(/-+/g, "-"); // remove multiple hyphens
 }
+
+/** highlightMatches  */
+export function highlightMatches(node, term) {
+	if (!term || !node || node.nodeType !== 1) return;
+
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	const TEXT_NODE = 3;
+
+	for (let child of Array.from(node.childNodes)) {
+		if (child.nodeType === TEXT_NODE) {
+			const val = child.nodeValue;
+			const idx = val.toLowerCase().indexOf(term);
+
+			if (idx !== -1) {
+				const span = document.createElement("span");
+				span.className = "highlight";
+				span.textContent = val.slice(idx, idx + term.length);
+
+				const after = document.createTextNode(val.slice(idx + term.length));
+				const before = document.createTextNode(val.slice(0, idx));
+
+				const parent = child.parentNode;
+				parent.replaceChild(after, child);
+				parent.insertBefore(span, after);
+				parent.insertBefore(before, span);
+			}
+		} else if (child.nodeType === 1) {
+			highlightMatches(child, term);
+		}
+	}
+}
+
+/** scrollToSection */
+// export const scrollToSection = (id) => {
+// 	scroller.scrollTo(id, {
+// 		duration: 500,
+// 		smooth: true,
+// 		offset: -100,
+// 		spy: true,
+// 		onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+// 	});
+
+// 	setTimeout(() => {
+// 		console.log("Scrolling finished!");
+// 	}, 500);
+// };

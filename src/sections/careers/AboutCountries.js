@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useRef, useEffect, useState } from "react";
 // COMPONENTS //
@@ -64,7 +65,7 @@ export default function AboutCountries({ data }) {
 							className={styles.slider}
 						>
 							{data?.earlyCareers?.collaborationSupport?.list.map((item, ind) => (
-								<SwiperSlide key={item?.name + ind}>
+								<SwiperSlide key={(item?.name || "") + ind}>
 									<div
 										className={`${styles.cardItem} f_r_aj_between`}
 										style={{ backgroundColor: item.bgcolor }}

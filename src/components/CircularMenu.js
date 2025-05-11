@@ -20,7 +20,7 @@ import styles from "@/styles/components/CircularMenu.module.scss";
 /** CircularMenu Component */
 export default function CircularMenu({ items, iconDefault, mode }) {
 	const containerRef = useRef(null);
-	const [selectedService, setselectedServices] = useState(null);
+	const [selectedService, setselectedServices] = useState(0);
 	const [size, setSize] = useState(450); // Default size
 	const [isReady, setIsReady] = useState(false);
 

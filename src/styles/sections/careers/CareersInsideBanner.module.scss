@@ -10,7 +10,7 @@
 		width: max-content;
 		margin-bottom: 30px;
 
-		&:nth-child(2) {
+		&.isLive {
 			background-color: var(--color_primary);
 		}
 	}

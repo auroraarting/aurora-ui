@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -87,10 +88,10 @@ export default function ProductBanner({
 								</Button>
 							</a>
 						)}
-						{dynamicBtn?.btnText && (
+						{dynamicBtn?.btntext && (
 							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicBtn?.btnText}
+									{dynamicBtn?.btntext}
 								</Button>
 							</a>
 						)}

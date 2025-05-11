@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 // MODULES //
 import { useEffect, useState } from "react";
@@ -30,7 +32,6 @@ import lumus_logo from "../../public/img/softwares/lumus_logo.png";
 import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 
 // SERVICES //
-import { getProducts, getSoftwares } from "@/services/Navigation.service";
 
 // DATA //
 const placeholders = [system_one.src, turbine_img.src, solar_img.src];
@@ -155,13 +156,13 @@ export default function IntegratedSystem({ module = "softwares" }) {
 														<p className="color_white text_xxs f_w_b pt_10">{item?.title}</p>
 													</div>
 													<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
-														<a
-															href={`/${module}/${item?.slug}`}
+														<div
+															// href={`/${module}/${item?.slug}`}
 															className="text_xs text_uppercase f_w_m"
 														>
 															Know More
 															<img src={hover_arrow.src} className="" alt="img" />
-														</a>
+														</div>
 													</div>
 												</div>
 											</a>

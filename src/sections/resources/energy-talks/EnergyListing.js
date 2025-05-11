@@ -3,7 +3,8 @@ import { useRef, useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
-import { useRouter } from "next/router";
+import { useContextProvider } from "@/context/GlobalContext";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
@@ -21,12 +22,11 @@ import formatDate, {
 import styles from "@/styles/sections/resources/energy-talks/EnergyListing.module.scss";
 
 // IMAGES //
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
-import search from "@/../public/img/icons/search.svg";
-import hoverBg from "@/../public/img/home/hoverBg.png";
-import Pagination from "@/components/Pagination";
+import location from "/public/img/icons/location.svg";
+import calender from "/public/img/icons/calender.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
+import searchImg from "/public/img/icons/search.svg";
+import hoverBg from "/public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -42,7 +42,7 @@ export default function EnergyListing({
 	original,
 	setOriginal,
 }) {
-	const router = useRouter();
+	const { search } = useContextProvider();
 	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
 	const [filteredPagination, setFilteredPagination] = useState(pagination);
@@ -148,7 +148,7 @@ export default function EnergyListing({
 
 	/** filter  */
 	const filter = async (catName, key) => {
-		let queryObj = { ...router.query };
+		let queryObj = {};
 		let selectedObj = selected;
 		let arr = original;
 		setLoading(true);
@@ -217,13 +217,13 @@ export default function EnergyListing({
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterBySearchQuery(data, router.query.search);
+		if (search) {
+			const filtered = filterBySearchQuery(data, search);
 			setList(filtered);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section className={styles.EnergyListing}>
@@ -386,7 +386,7 @@ export default function EnergyListing({
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>
@@ -404,7 +404,7 @@ export default function EnergyListing({
 									<input name="search" type="text" placeholder="Search Events" />
 								</form>
 								<span className="d_f">
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>

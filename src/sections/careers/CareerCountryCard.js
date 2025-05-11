@@ -1,9 +1,11 @@
+"use client";
 // MODULES //
 import { useRef, useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import { useRouter } from "next/router";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
@@ -29,20 +31,24 @@ import country_img from "../../../public/img/careers/country_img.png";
 import location from "../../../public/img/icons/location.svg";
 import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
-import search from "../../../public/img/icons/search.svg";
-import Pagination from "@/components/Pagination";
+import searchImg from "../../../public/img/icons/search.svg";
+import { GlobalContext, useContextProvider } from "@/context/GlobalContext";
 
 // DATA //
 
 /** CareerCountryCard Section */
 export default function CareerCountryCard({ page, data, programs, countries }) {
-	const router = useRouter();
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [filteredData, setFilteredData] = useState(data);
 	const [loading, setLoading] = useState(false);
 	const [original, setOriginal] = useState(data);
 	const [paginationArr, setPaginationArr] = useState(data);
+	const { search } = useContextProvider();
+	const [dropdowns, setDropdowns] = useState({
+		countryType: { isOpen: false, selected: { title: "Country" } },
+		programsType: { isOpen: false, selected: { title: "Program" } },
+	});
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -53,11 +59,6 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 	const closeSearchInput = () => {
 		setIsSearchVisible(false);
 	};
-
-	const [dropdowns, setDropdowns] = useState({
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		programsType: { isOpen: false, selected: { title: "Program" } },
-	});
 
 	const dropdownRefs = {
 		countryType: useRef(null),
@@ -132,13 +133,13 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterBySearchQueryEvents(data, router.query.search);
+		if (search) {
+			const filtered = filterBySearchQueryEvents(data, search);
 			setFilteredData(filtered);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section
@@ -228,12 +229,37 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 							</div>
 						</div>
 
+						{/* Reset */}
+						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} "activeDropDown"`}
+									onClick={() => {
+										setSelected({});
+										setFilteredData(data);
+										setPaginationArr(data);
+										setDropdowns({
+											countryType: { isOpen: false, selected: { title: "Country" } },
+											programsType: { isOpen: false, selected: { title: "Program" } },
+										});
+									}}
+								>
+									<div
+										className={`${styles.select_header} select_bg text_sm text_500 color_white
+                                            `}
+									>
+										Reset
+									</div>
+								</div>
+							</div>
+						</div>
+
 						{/* search box */}
 						<div className={`${styles.selectBox} ${styles.widthCustomSearch} `}>
 							<div className={`${styles.searchBox}`} onClick={toggleSearchInput}>
 								<p className="text_sm color_silver_gray text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>
@@ -252,7 +278,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 								</form>
 
 								<span className="d_f">
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>
@@ -281,14 +307,16 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									)}
 								</div>
 								<div className={`${styles.cardDesc} pt_20`}>
-									<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>{item?.earlyCareers?.thumbnail?.country?.node?.title}</span>
-									</p>
+									{item?.earlyCareers?.thumbnail?.country?.node?.title && (
+										<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
+											<img
+												src={location.src}
+												className={`${styles.location}`}
+												alt="location"
+											/>
+											<span>{item?.earlyCareers?.thumbnail?.country?.node?.title}</span>
+										</p>
+									)}
 									<h4 className="text_md color_white f_w_m font_primary pt_10">
 										{item?.title}
 									</h4>

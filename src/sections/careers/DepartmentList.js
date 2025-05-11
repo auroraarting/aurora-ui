@@ -155,7 +155,7 @@ export default function DepartmentList({ data, jobs, productService }) {
 
 						<div {...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}>
 							<Button color="primary" variant="filled" shape="rounded">
-								{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText}
+								{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 							</Button>
 						</div>
 					</div>

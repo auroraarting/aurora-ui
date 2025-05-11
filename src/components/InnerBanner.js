@@ -1,5 +1,7 @@
+"use client";
+
 // MODULES //
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -16,9 +18,9 @@ import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
 import DefaultBannerMob from "@/../public/img/banner/defaultMobileBanner.jpg";
 import pause_button from "../../public/img/icons/pause_button.svg";
 import video_play from "../../public/img/icons/video_play.svg";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Inner Banner component */
 function InnerBanner({
@@ -83,10 +85,10 @@ function InnerBanner({
 								</Button>
 							</a>
 						)}
-						{dynamicBtn?.btnText && (
+						{dynamicBtn?.btntext && (
 							<a {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicBtn?.btnText}
+									{dynamicBtn?.btntext}
 								</Button>
 							</a>
 						)}

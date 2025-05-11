@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useRef, useEffect, useState } from "react";
@@ -16,7 +18,7 @@ import Pagination from "@/components/Pagination";
 import styles from "@/styles/sections/careers/JobOpenings.module.scss";
 
 // IMAGES //
-import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 

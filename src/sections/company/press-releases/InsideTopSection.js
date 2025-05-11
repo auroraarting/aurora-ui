@@ -73,14 +73,14 @@ export default function InsideTopSection({
 					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
 						<div className={`${styles.downloadListen}`}>
 							<div className={`${styles.downloadBox} f_r_a_center`}>
-								{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText && (
+								{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
 									<a
 										{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 										className="text_sm f_w_m font_primary f_r_a_center"
 									>
 										<img src={download.src} alt="download" />
 										<span>
-											{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btnText}
+											{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 										</span>
 									</a>
 								)}

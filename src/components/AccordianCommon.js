@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import React, { useState, useRef, useEffect } from "react";
 // COMPONENTS //

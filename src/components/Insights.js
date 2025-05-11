@@ -1,10 +1,13 @@
+"use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "./ContentFromCms";
 
 // SECTIONS //
 
@@ -36,7 +39,6 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import ContentFromCms from "./ContentFromCms";
 
 /** Insights Section */
 export default function Insights({
@@ -54,15 +56,8 @@ export default function Insights({
 	insightsLink = "/resources/aurora-insights/",
 	customHtml,
 }) {
-	const router = useRouter();
+	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
-	// useEffect(() => {
-	// 	setInterval(() => {
-	// 		EqualHeight("boxH");
-	// 	}, 500);
-	// }, []);
-	// const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-	// const [isTitleVisible, setIsTitleVisible] = useState(true); // Title visible by default
 
 	/** handleOpenForm Section */
 	const handleOpenForm = () => {
@@ -81,10 +76,10 @@ export default function Insights({
 		if (insightsLink) {
 			return insightsLink;
 		}
-		if (router.pathname?.split("[slug]")?.length > 1) {
-			return router.pathname?.split("[slug]")[0];
+		if (pathname?.split("[slug]")?.length > 1) {
+			return pathname?.split("[slug]")[0];
 		}
-		return router.pathname;
+		return pathname;
 	};
 
 	/** fetchdata  */

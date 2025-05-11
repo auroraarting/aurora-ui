@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 
@@ -82,9 +83,9 @@ export default function EarlyCareersInside({ data }) {
 					}}
 					className={styles.slider}
 				>
-					{data?.map((item) => {
+					{data?.map((item, ind) => {
 						return (
-							<SwiperSlide key={item?.title}>
+							<SwiperSlide key={item?.title + ind}>
 								<div className={`${styles.cardItem}`} key={item?.slug}>
 									<div className={`${styles.cardImg}`}>
 										<img
