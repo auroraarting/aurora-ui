@@ -2,13 +2,14 @@
 
 import { createContext, useContext, Suspense } from "react";
 import InnerGlobalContext from "./InnerGlobalContext"; // we'll move logic here
+import Loader from "@/components/Loader";
 
 const BookmarkContext = createContext();
 
 /** GlobalContext  */
 export const GlobalContext = ({ children }) => {
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={<Loader />}>
 			<InnerGlobalContext>{children}</InnerGlobalContext>
 		</Suspense>
 	);
