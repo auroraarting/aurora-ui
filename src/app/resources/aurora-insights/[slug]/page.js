@@ -1,3 +1,7 @@
+// Force SSR (like getServerSideProps)
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const fetchCache = "force-no-store"; // Optional: disables fetch caching
+
 /* eslint-disable quotes */
 // MODULES //
 
