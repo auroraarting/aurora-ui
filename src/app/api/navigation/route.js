@@ -3,9 +3,6 @@ import { fetchNavigationData } from "@/services/Navigation.service";
 import { searchData } from "@/services/Search.service";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
-export const dynamic = "force-static";
-export const revalidate = 1000;
-
 export async function GET(req, res) {
 	try {
 		const response = await fetchNavigationData();
