@@ -30,6 +30,12 @@ import {
 import { getOffices } from "@/services/Offices.service";
 import { getEarlyCareersListing } from "@/services/EarlyCareers.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Life at Aurora | Aurora",
+	description: "Aurora",
+};
+
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
 	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =

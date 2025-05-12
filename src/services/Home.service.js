@@ -41,7 +41,7 @@ query NewQuery {
       }
     }
   }
-  countries(first: 999) {
+countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug

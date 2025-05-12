@@ -20,6 +20,7 @@ import MediaListing from "@/sections/company/press-releases/MediaListing";
 import MediaTeam from "@/sections/company/press-releases/MediaTeam";
 import MediaKitInfo from "@/sections/company/press-releases/MediaKitInfo";
 import Leaders from "@/sections/company/press-releases/Leaders";
+import PressCoverage from "@/sections/company/press-releases/PressCoverage";
 
 // PLUGINS //
 
@@ -42,6 +43,7 @@ import {
 } from "@/services/Press.service";
 import { getAllEventCountries } from "@/services/Events.service";
 import { getInsights } from "@/services/Insights.service";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Press Releases Page */
 export default function PressReleasesWrap({
@@ -52,9 +54,19 @@ export default function PressReleasesWrap({
 	services,
 	languages,
 	page,
+	pressCoverage,
 }) {
-	console.log(page, "page");
 	const [activeTab, setActiveTab] = useState("PressRoom");
+	const dataForBtn = {
+		postFields:
+			{
+				insightsSectionButton: {
+					buttonText: "Subscribe",
+					iframe: "https://go.auroraer.com/mailinglist",
+					file: null,
+				},
+			} || {},
+	};
 
 	/** */
 	const handleTabClick = (tab) => {
@@ -131,6 +143,7 @@ export default function PressReleasesWrap({
 											options: services?.map((item) => item.title),
 										},
 									]}
+									countries={countries}
 									languages={languages}
 								/>
 							</div>
@@ -154,9 +167,19 @@ export default function PressReleasesWrap({
 					<Insights isPowerBgVisible={true} />
 					<EventSmarterEnergy />
 				</div> */}
+				<PressCoverage data={page.pressCoverage} />
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							formSectionTitle="Sign up to our press list"
+							formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+							}
+							insightsTitle="More from Aurora"
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">

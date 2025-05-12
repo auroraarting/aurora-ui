@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getTeamSectors = async () => {
 	const query = `
 query GetTeamSectors {
-  countries(first: 999) {
+countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug

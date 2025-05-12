@@ -90,6 +90,12 @@ async function getData() {
 	};
 }
 
+/** Meta Data */
+export const metadata = {
+	title: "Software | Aurora",
+	description: "Aurora",
+};
+
 /** Chronos Page */
 export default async function Softwares() {
 	const { props } = await getData();

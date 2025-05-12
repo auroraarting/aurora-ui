@@ -32,6 +32,12 @@ import {
 import { getAllEventCountries } from "@/services/Events.service";
 import { getInsights } from "@/services/Insights.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Press Releases | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch */
 async function getData() {
 	const [data, filters, languages, page] = await Promise.all([

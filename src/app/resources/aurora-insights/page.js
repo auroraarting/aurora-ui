@@ -28,6 +28,12 @@ import {
 } from "@/services/Insights.service";
 import { getInsightsPage } from "@/services/InsightsListing.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Aurora Insights | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch  getStaticProps*/
 async function getData() {
 	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([

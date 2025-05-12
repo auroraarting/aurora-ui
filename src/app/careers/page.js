@@ -31,6 +31,12 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Careers | Aurora",
+	description: "Aurora",
+};
+
 /** Careers Page */
 export default async function Careers() {
 	const [categoriesForSelect, list] = await Promise.all([

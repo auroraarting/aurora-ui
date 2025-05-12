@@ -23,6 +23,12 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Cookies | Aurora",
+	description: "Aurora",
+};
+
 /** Cookies Page */
 export default function Cookies() {
 	return (

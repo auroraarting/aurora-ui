@@ -18,6 +18,12 @@ import styles from "@/styles/pages/404.module.scss";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "404 | Aurora",
+	description: "Aurora",
+};
+
 /** 404 Page */
 export default function NotFoundPage() {
 	return (

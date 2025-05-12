@@ -22,6 +22,12 @@ import TeamWrap from "@/sections/company/team/TeamWrap";
 // SECTORS //
 import { getTeamSectors } from "@/services/Teams.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Team | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch */
 async function getData() {
 	const [data] = await Promise.all([getTeamSectors()]);

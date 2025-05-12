@@ -24,6 +24,12 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "How We Help | Aurora",
+	description: "Aurora",
+};
+
 /** HowWeHelp Page */
 export default function HowWeHelp() {
 	return (

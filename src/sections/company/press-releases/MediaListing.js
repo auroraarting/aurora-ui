@@ -39,6 +39,7 @@ export default function MediaListing({
 	years,
 	productService,
 	languages,
+	countries,
 }) {
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
@@ -50,6 +51,7 @@ export default function MediaListing({
 		languageType: { isOpen: false, selected: { title: "Language" } },
 		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
+		countryType: { isOpen: false, selected: { title: "Country" } },
 	});
 	const [list, setList] = useState(data);
 	const [paginationArr, setPaginationArr] = useState(data);
@@ -86,6 +88,7 @@ export default function MediaListing({
 			{ title: "Offerings4" },
 		],
 		yearsType: years,
+		countryType: countries,
 	};
 
 	/** Toggle Dropdown */
@@ -177,6 +180,44 @@ export default function MediaListing({
 			<div className={styles.filterMain}>
 				<div className="container">
 					<div className={styles.filterflex}>
+						{/* Country Dropdown */}
+						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.countryType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("countryType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{selected.country || "Country"}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.countryType.isOpen && (
+									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
+										{countries?.map((option) => (
+											<li
+												key={option.title}
+												className={option.title === selected.country ? "selected" : ""}
+												onClick={() => handleOptionClick("countryType", option)}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div>
 						{/* Offerings Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
@@ -316,6 +357,7 @@ export default function MediaListing({
 												selected: { title: "Products & Services" },
 											},
 											yearsType: { isOpen: false, selected: { title: "Year" } },
+											countryType: { isOpen: false, selected: { title: "Country" } },
 										});
 									}}
 								>
@@ -351,7 +393,7 @@ export default function MediaListing({
 									<input name="search" type="text" placeholder="Search Events" />
 								</form>
 								<span className="d_f">
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>
