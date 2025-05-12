@@ -131,6 +131,17 @@
 				}
 			}
 		}
+		&.mode_black {
+			background-color: var(--color_white);
+			color: var(--color_black);
+
+			&:hover {
+				.animatedText2 {
+					background-color: var(--color_black);
+					color: var(--color_white) !important;
+				}
+			}
+		}
 	}
 
 	// Filled Squared Button

@@ -32,7 +32,12 @@ export default function HomeTalentMeets() {
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.imageWrapper}`}>
-						<img src={meet_img.src} className="width_100 b_r_20" alt="meet img" />
+						<img
+							src={meet_img.src}
+							className="width_100 b_r_20"
+							alt="meet img"
+							loading="lazy"
+						/>
 					</div>
 					<div className={`${styles.content}`}>
 						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
@@ -45,7 +50,12 @@ export default function HomeTalentMeets() {
 						</p>
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<Link href="/careers/life-at-aurora">
-								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								<Button
+									color="primary"
+									variant="filled"
+									shape="rounded"
+									mode="mode_black"
+								>
 									Life at Aurora
 								</Button>
 							</Link>
