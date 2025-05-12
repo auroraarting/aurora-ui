@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HighlightSearched from "@/components/HighlightSearched";
 import "@/styles/globals/globals.scss";
+import { fetchNavigationData } from "@/services/Navigation.service";
 
 /** Meta Data */
 export const metadata = {
@@ -17,19 +18,19 @@ export const metadata = {
 
 /** layout page */
 export default async function RootLayout({ children }) {
-	// const headerData = await GetHeadersData();
-	// const footerData = await getFooterData();
+	const navigation = await fetchNavigationData();
+	console.log(navigation, "navigation");
 
 	return (
 		<html lang="en">
 			<body>
 				<GlobalContext>
 					{/* Header */}
-					<Header />
+					<Header defaultNavigation={navigation} />
 					<HighlightSearched />
 					{children}
 					{/* Footer */}
-					<Footer />
+					<Footer defaultNavigation={navigation} />
 				</GlobalContext>
 			</body>
 		</html>
