@@ -94,7 +94,7 @@ query GetPageProduct {
 export const getProductBySlug = async (slug) => {
 	const query = `
 query GetProductBySlug {
-  productBy(slug: "power-renewables") {
+  productBy(slug: "${slug}") {
     title
     slug
     products {
