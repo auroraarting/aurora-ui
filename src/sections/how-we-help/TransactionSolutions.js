@@ -37,6 +37,7 @@ export default function TransactionSolutions({
 	slugPage = "products",
 	keyValue = "products",
 }) {
+	console.log(data);
 	const animTimeline = gsap.timeline({});
 
 	useEffect(() => {
@@ -97,13 +98,18 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	if (data.length === 0) return <></>;
+	if (data?.length === 0 || !data) return <></>;
 
 	return (
 		<section className={`${styles.TransactionSolutions}`}>
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
 					{data?.map((item, ind) => {
+						let contentType = keyValue;
+
+						if (item?.contentType?.node?.name)
+							contentType = item?.contentType?.node?.name;
+
 						return (
 							<div
 								className={`${styles.SpaceLeft}`}
@@ -114,17 +120,17 @@ export default function TransactionSolutions({
 							>
 								<div className={`${styles.spaceInner}`}>
 									<img
-										src={item?.[keyValue]?.thumbnail?.logo?.node?.sourceUrl}
+										src={item?.[contentType]?.thumbnail?.logo?.node?.sourceUrl}
 										alt="solar plant"
 									/>
 									<h2 className="text_xl font_primary f_w_m color_white pt_40">
 										{item?.title}
 									</h2>
 									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										{item?.[keyValue]?.thumbnail?.shortDescription}
+										{item?.[contentType]?.thumbnail?.shortDescription}
 									</p>
 									<div className={`${styles.bookBtn} pt_30`}>
-										<a href={`/${slugPage}/${item?.slug}`}>
+										<a href={item?.link || `/${slugPage}/${item?.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
 												Know more
 											</Button>
@@ -137,10 +143,14 @@ export default function TransactionSolutions({
 				</div>
 				<div className={`${styles.flexItemTwo}`}>
 					{data?.map((item, ind) => {
+						let contentType = keyValue;
+
+						if (item?.contentType?.node?.name)
+							contentType = item?.contentType?.node?.name;
 						return (
 							<img
 								key={ind}
-								src={item?.[keyValue]?.thumbnail?.banner?.node?.sourceUrl}
+								src={item?.[contentType]?.thumbnail?.banner?.node?.sourceUrl}
 								alt="solar plant"
 							/>
 						);

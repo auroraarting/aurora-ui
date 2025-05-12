@@ -14,6 +14,7 @@ import HowWeHelpInside from "@/sections/how-we-help/HowWeHelpInside";
 // UTILS //
 import {
 	dynamicInsightsBtnProps,
+	getLinkAndTitle,
 	getMapJsonForAllRegions,
 	getMapJsonForCountries,
 	getMapJsonForProducts,
@@ -57,7 +58,13 @@ async function getData({ params }) {
 /** Transactions Page */
 export default async function Transactions({ params }) {
 	const { props } = await getData({ params });
+	const services =
+		props?.data?.howWeHelpInside?.spotlights?.selected?.nodes?.map((item) => {
+			const { link, title } = getLinkAndTitle(item.contentType.node.name, item);
+			return { ...item, link };
+		});
 
+	// const { link, title } = getLinkAndTitle(key, item);
 	return (
 		<div>
 			{/* Metatags */}
@@ -72,7 +79,7 @@ export default async function Transactions({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<HowWeHelpInside {...props} />
+			<HowWeHelpInside {...props} services={services} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

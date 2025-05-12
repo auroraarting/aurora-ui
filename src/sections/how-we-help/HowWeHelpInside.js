@@ -43,13 +43,9 @@ import desktop_banner from "/public/img/financial-sector/desktop_banner.jpg";
 // DATA //
 
 /** Transactions Page */
-export default async function HowWeHelpInside({
-	data,
-	services,
-	mapJson,
-	bundles,
-}) {
+export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 	const dataForBtn = { postFields: data?.howWeHelpInside || {} };
+	console.log(data, "data");
 
 	return (
 		<div>
@@ -126,6 +122,7 @@ export default async function HowWeHelpInside({
 					<TransactionSolutions
 						slugPage="how-we-help"
 						data={services}
+						// data={data?.howWeHelpInside?.spotlights?.selected?.nodes}
 						keyValue="howWeHelpInside"
 					/>
 				</div>

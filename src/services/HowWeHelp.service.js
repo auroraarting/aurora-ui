@@ -10,7 +10,6 @@ query GetSingleHowWeHelp {
     howWeHelpInside {
       banner {
         title
-        fieldGroupName
         description
       }
       thumbnail {
@@ -100,36 +99,156 @@ query GetSingleHowWeHelp {
           value
         }
       }
-        middleSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+      }
+      spotlights {
+        selected(first: 9999) {
+          nodes {
+            ... on Howwehelp {
+              id
+              title
+              slug
+              howWeHelpInside {
+                thumbnail {
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+            }
+            ... on Product {
+              id
+              slug
+              title
+              products {
+                thumbnail {
+                  primaryColor
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+            }
+            ... on Service {
+              id
+              title
+              slug
+              services {
+                thumbnail {
+                  primaryColor
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+            }
+            ... on Software {
+              id
+              title
+              slug
+              softwares {
+                thumbnail {
+                  primaryColor
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+            }
+            contentType {
+              node {
+                name
+                showUi
+                uri
+              }
             }
           }
         }
-        topSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
-          }
-        }
-        insightsSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
-          }
-        }
+      }
     }
   }
 }
