@@ -682,7 +682,7 @@ export function filterItemsBySelectedObjForCareers(arr, selectedObj) {
 /** slugify  */
 export function slugify(str) {
 	return str
-		.toLowerCase()
+		?.toLowerCase()
 		.trim()
 		.replace(/[^a-z0-9\s-]/g, "") // remove non-alphanumeric characters
 		.replace(/\s+/g, "-") // replace spaces with hyphens
