@@ -27,6 +27,12 @@ import {
 import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
 import { getPodcasts } from "@/services/Podcast.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Energy Talks | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch getStaticProps */
 async function getData() {
 	const [data, categoriesForSelect, energyTalksPage] = await Promise.all([

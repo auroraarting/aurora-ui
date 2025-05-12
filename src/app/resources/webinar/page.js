@@ -28,6 +28,12 @@ import { getWebinarPage } from "@/services/Webinar.service";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Webinar | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch  getStaticProps*/
 async function getData() {
 	const queryTxt =

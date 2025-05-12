@@ -37,6 +37,12 @@ import { getAboutPage } from "@/services/About.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "About | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch  */
 async function getData() {
 	const [data, categoriesForSelect, officesFetch] = await Promise.all([

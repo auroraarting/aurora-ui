@@ -38,6 +38,12 @@ import {
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Early Careers | Aurora",
+	description: "Aurora",
+};
+
 /** EarlyCareers Page */
 export default async function EarlyCareers() {
 	const [dataFetch, pageFetch, categoriesForSelect, officesFetch] =

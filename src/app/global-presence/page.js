@@ -28,6 +28,12 @@ import {
 	getRegions,
 } from "@/services/GlobalPresence.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Global Presence | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch  */
 async function getData() {
 	// const regions = await getRegions();

@@ -32,6 +32,12 @@ import {
 import { getOurTeamsPage } from "@/services/OurTeams.service";
 import { getOffices } from "@/services/Offices.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Our Team | Aurora",
+	description: "Aurora",
+};
+
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
 	const [dataFetch, jobs, page, categoriesForSelect, list, offices] =

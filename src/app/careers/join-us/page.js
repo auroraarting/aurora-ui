@@ -28,6 +28,12 @@ import {
 } from "@/services/Insights.service";
 import { getJoinUsPage } from "@/services/JoinUs.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Join Us | Aurora",
+	description: "Aurora",
+};
+
 /** JoinUs Page */
 export default async function JoinUs() {
 	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([

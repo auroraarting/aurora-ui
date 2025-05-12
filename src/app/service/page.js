@@ -26,6 +26,12 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Service | Aurora",
+	description: "Aurora",
+};
+
 /** Services Page */
 export default function Services() {
 	return (

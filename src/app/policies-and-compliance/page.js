@@ -20,6 +20,12 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Policies and Compliance | Aurora",
+	description: "Aurora",
+};
+
 /** Policies and compliance Page */
 export default function PoliciesAndCompliance() {
 	return (

@@ -30,6 +30,12 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Eos | Aurora",
+	description: "Aurora",
+};
+
 /** EOS Page */
 export default async function EOSPage() {
 	const [dataFetch, regions, bundlesFetch, categoriesForSelect, list] =
