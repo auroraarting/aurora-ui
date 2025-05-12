@@ -159,6 +159,7 @@ query EOSPage {
         }
       }
       bundles {
+      sectionTitle
         desc
         title
       }

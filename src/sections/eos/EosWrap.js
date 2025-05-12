@@ -89,7 +89,7 @@ export default function EOSPageWrap({
 							<p className="font_secondary">{data?.bundles?.desc}</p>
 						</div>
 					</div>
-					<Bundles data={bundles} />
+					<Bundles data={bundles} name={data?.bundles?.sectionTitle} />
 				</div>
 				<GlobalMap locationJson={mapJson} />
 				{data.trustedModels.sectionTitle && (

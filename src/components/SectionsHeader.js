@@ -121,7 +121,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 								key={ind}
 								className={`${styles.box} ${styles.onlyText} ${
 									activeTab >= ind ? "" : "color_medium_gray"
-								} `}
+								} text_xs text_uppercase`}
 							>
 								{typeof item.name === "string" ? item.name : item}
 							</div>

@@ -35,7 +35,9 @@ import { getInsights } from "@/services/Insights.service";
 /** Fetch */
 async function getData() {
 	const [data, filters, languages, page] = await Promise.all([
-		getInsights('first: 9999, where: {categoryName: "media"}'),
+		getInsights(
+			'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+		),
 		getAllEventCountries(),
 		getPressesLanguages(),
 		getPressPage(),

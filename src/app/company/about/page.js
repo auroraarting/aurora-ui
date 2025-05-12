@@ -88,6 +88,8 @@ export default async function About() {
 	const { props } = await getData();
 	const { data, countries, mapJson } = props;
 
+	console.log(data, "data");
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -104,7 +106,7 @@ export default async function About() {
 						bannerDescription={data?.banner?.description}
 						desktopImage={data?.banner?.dekstopimage?.node?.mediaItemUrl}
 						mobileImage={data?.banner?.mobileimage?.node?.mediaItemUrl}
-						vimeoid={data?.banner?.videoLink}
+						vimeoid={data?.banner?.vimeoLink}
 					/>
 				</div>
 				{data?.history?.sectionTitle && (

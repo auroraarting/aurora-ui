@@ -78,6 +78,11 @@ export default function AccordianCommon({
 									alt=""
 								/>
 							)}
+							{item?.tag && (
+								<p className="text_xs text_uppercase color_light_gray m_b_30">
+									{item?.tag}
+								</p>
+							)}
 							<div>
 								{item.title}
 								{item.locationData && (

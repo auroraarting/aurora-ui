@@ -53,6 +53,7 @@ export default function PressReleasesWrap({
 	languages,
 	page,
 }) {
+	console.log(page, "page");
 	const [activeTab, setActiveTab] = useState("PressRoom");
 
 	/** */
@@ -105,15 +106,15 @@ export default function PressReleasesWrap({
 					{activeTab === "PressRoom" && (
 						<div className={`${styles.categoryContent} pt_60`}>
 							<div className="pb_40">
-								<TopMedia data={page?.featured?.node} />
+								<TopMedia data={page?.featured?.nodes} />
 							</div>
 							<div className="pb_100">
 								<MediaListing
 									data={data}
-									years={Array(new Date().getFullYear() - 2000)
+									years={Array(new Date().getFullYear() - 2023)
 										.fill(null)
 										.map((item, ind) => {
-											return { title: 2001 + ind };
+											return { title: 2024 + ind };
 										})
 										.reverse()}
 									productService={[

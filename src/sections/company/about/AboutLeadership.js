@@ -222,10 +222,12 @@ export default function AboutLeadership({ data, countries }) {
 																	</div>
 																)}
 															</div>
-															<div
-																className={`${styles.Desc} text_xs color_silver_gray l_h_6`}
-															>
-																{parse(item?.content || "")}
+															<div className={`${styles.DescWrap}`}>
+																<div
+																	className={`${styles.Desc} text_xs color_silver_gray l_h_6`}
+																>
+																	{parse(item?.content || "")}
+																</div>
 															</div>
 														</div>
 													</div>

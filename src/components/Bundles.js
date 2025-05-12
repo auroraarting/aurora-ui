@@ -11,7 +11,7 @@ import CustomSelect from "./CustomSelect";
 // PLUGINS //
 
 // UTILS //
-import EqualHeight from "../utils/EqualHeight";
+import EqualHeight from "@/utils/EqualHeight";
 import { dispatchCustomEvent } from "@/utils/CustomEvent";
 
 // STYLES //
@@ -21,11 +21,12 @@ import styles from "@/styles/components/Bundles.module.scss";
 import Icon from "/public/img/table-icon.png";
 import Checkmark from "/public/img/checkmark.png";
 import hoverBg from "/public/img/hoverBundles.png";
+import { slugify } from "@/utils";
 
 // DATA //
 
 /** Bundles Section */
-export default function Bundles({ data }) {
+export default function Bundles({ data, name }) {
 	const [list, setList] = useState(data?.tabs?.[0]);
 	const [selectVal, setSelectVal] = useState();
 
@@ -35,7 +36,11 @@ export default function Bundles({ data }) {
 	};
 
 	return (
-		<section className={`${styles.Bundles} Bundles `} id="eos" data-name="Eos">
+		<section
+			className={`${styles.Bundles} Bundles `}
+			id={name ? slugify(name) : "eos"}
+			data-name={name || "Eos"}
+		>
 			<div className={`${styles.bg} dark_bg`}>
 				<img src={hoverBg.src} />
 			</div>
