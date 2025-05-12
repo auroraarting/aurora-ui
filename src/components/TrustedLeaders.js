@@ -143,6 +143,7 @@ export default function TrustedLeaders({
 												src={item?.featuredImage?.node?.sourceUrl}
 												className="b_r_10"
 												alt="story img"
+												loading="lazy"
 											/>
 										)}
 									</div>

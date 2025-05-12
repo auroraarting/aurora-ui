@@ -57,6 +57,7 @@ export default function HomeResources({ data, countries }) {
 											alt="case img"
 											height={360}
 											width={640}
+											loading="lazy"
 										/>
 										{isCategory(allCategories, item?.categories?.nodes) && (
 											<div
@@ -77,6 +78,7 @@ export default function HomeResources({ data, countries }) {
 													src={calender.src}
 													className={`${styles.calender}`}
 													alt="calender"
+													loading="lazy"
 												/>
 												<span>{formatDate(item?.date)}</span>
 											</p>
@@ -85,6 +87,7 @@ export default function HomeResources({ data, countries }) {
 													src={location.src}
 													className={`${styles.location}`}
 													alt="location"
+													loading="lazy"
 												/>
 												<span>{isCategory(countries, item?.categories?.nodes)}</span>
 											</p>
@@ -225,6 +228,7 @@ export default function HomeResources({ data, countries }) {
 													src={hoverBg.src}
 													className={`${styles.hoverBg} width_100 b_r_10`}
 													alt="img"
+													loading="lazy"
 												/>
 												{isCategory(allCategories, item?.categories?.nodes) && (
 													<p
@@ -244,6 +248,7 @@ export default function HomeResources({ data, countries }) {
 															src={calender.src}
 															className={`${styles.calender}`}
 															alt="calender"
+															loading="lazy"
 														/>
 														<span>{formatDate(item?.date)}</span>
 													</p>
@@ -253,6 +258,7 @@ export default function HomeResources({ data, countries }) {
 																src={location.src}
 																className={`${styles.location}`}
 																alt="location"
+																loading="lazy"
 															/>
 															<span>{isCategory(countries, item?.categories?.nodes)}</span>
 														</p>

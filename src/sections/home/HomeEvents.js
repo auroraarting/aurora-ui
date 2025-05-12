@@ -62,6 +62,7 @@ export default function HomeEvents({ data }) {
 												src={item?.events?.thumbnail?.logo?.node?.sourceUrl}
 												className=""
 												alt="img"
+												loading="lazy"
 											/>
 											<div
 												className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
@@ -77,6 +78,7 @@ export default function HomeEvents({ data }) {
 														src={calender.src}
 														className={`${styles.calender}`}
 														alt="calender"
+														loading="lazy"
 													/>
 													<span>{formatDate(item?.events?.thumbnail?.date)}</span>
 												</p>
@@ -85,6 +87,7 @@ export default function HomeEvents({ data }) {
 														src={location.src}
 														className={`${styles.location}`}
 														alt="location"
+														loading="lazy"
 													/>
 													<span>
 														{item?.events?.thumbnail?.country?.nodes?.map(
@@ -100,6 +103,7 @@ export default function HomeEvents({ data }) {
 													src={item?.events?.banner?.desktop?.node?.sourceUrl}
 													className="width_100 b_r_20"
 													alt="img"
+													loading="lazy"
 												/>
 											</div>
 										)}
@@ -111,10 +115,10 @@ export default function HomeEvents({ data }) {
 					{data?.length > 1 && (
 						<div className={`${styles.arrowSection} f_w_a_j_center`}>
 							<button className={`${styles.customPrev}`} id="customPrev">
-								<img src={slider_arrow.src} alt="icon" />
+								<img src={slider_arrow.src} alt="icon" loading="lazy" />
 							</button>
 							<button className={styles.customNext} id="customNext">
-								<img src={slider_arrow.src} alt="icon" />
+								<img src={slider_arrow.src} alt="icon" loading="lazy" />
 							</button>
 						</div>
 					)}

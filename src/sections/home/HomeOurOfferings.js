@@ -255,6 +255,7 @@ export default function HomeOurOfferings() {
 				srcSet={Ellipse.src}
 				alt="Ellipse"
 				className={`${styles.Ellipse}`}
+				loading="lazy"
 			/>
 		</section>
 	);
