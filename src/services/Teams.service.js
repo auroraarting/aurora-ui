@@ -4,6 +4,12 @@ import GraphQLAPI from "./Graphql.service";
 export const getTeamSectors = async () => {
 	const query = `
 query GetTeamSectors {
+  countries(first: 999) {
+    nodes {
+      title
+      slug
+    }
+  }
   teamsectors(first: 9999) {
     nodes {
       name
@@ -27,31 +33,28 @@ query GetTeamSectors {
                 articles {
                   articlesby {
                     nodes {
-                      ... on CaseStudy {
-                        id
-                        content
-                        title
-                        slug
-                        date
-                        featuredImage {
-                          node {
-                            altText
-                            mediaItemUrl
-                          }
-                        }
-                        caseStudies {
-                          readTime
-                          selectLocation {
-                            nodes {
-                              ... on Country {
-                                id
-                                title
-                                slug
-                              }
-                            }
-                          }
-                        }
-                      }
+                              ... on Post {
+              id
+              title
+              slug
+              content
+              date
+              categories(first: 9999) {
+                nodes {
+                  slug
+                  name
+                }
+              }
+              postFields {
+                time
+              }
+              featuredImage {
+                node {
+                  altText
+                  mediaItemUrl
+                }
+              }
+            }
                     }
                   }
                 }

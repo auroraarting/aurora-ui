@@ -29,7 +29,7 @@ import country_thumb from "/public/img/global-presence/country_thumb.jpg";
 import { getTeamSectors } from "@/services/Teams.service";
 
 /** Team Page */
-export default function TeamWrap({ data }) {
+export default function TeamWrap({ data, countries }) {
 	const [activeTab, setActiveTab] = useState("advisory-leadership");
 	const [teams, setTeams] = useState(data?.[0]?.teams?.nodes);
 
@@ -77,7 +77,7 @@ export default function TeamWrap({ data }) {
 					{teams && (
 						<div className={`${styles.categoryContent} `}>
 							<div className="pb_100">
-								<AdvisoryLeadership data={teams} />
+								<AdvisoryLeadership data={teams} countries={countries} />
 							</div>
 						</div>
 					)}

@@ -25,10 +25,12 @@ import { getTeamSectors } from "@/services/Teams.service";
 /** Fetch */
 async function getData() {
 	const [data] = await Promise.all([getTeamSectors()]);
+	const countries = data.data.countries.nodes;
 
 	return {
 		props: {
 			data: data.data.teamsectors.nodes,
+			countries,
 		},
 	};
 }
@@ -36,7 +38,7 @@ async function getData() {
 /** Team Page */
 export default async function Team() {
 	const { props } = await getData();
-	const { data } = props;
+	const { data, countries } = props;
 
 	return (
 		<div>
@@ -47,7 +49,7 @@ export default async function Team() {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<TeamWrap data={data} />
+			<TeamWrap data={data} countries={countries} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

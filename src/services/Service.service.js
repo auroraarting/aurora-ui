@@ -4,6 +4,12 @@ import GraphQLAPI from "./Graphql.service";
 export const getServiceData = async (slug) => {
 	const query = `
 query GetProductBySlug {
+  countries(first: 999) {
+    nodes {
+      title
+      slug
+    }
+  }
   serviceBy(slug: "${slug}") {
     title
     slug
@@ -86,25 +92,22 @@ query GetProductBySlug {
       caseStudy {
         tabTitle
         title
-        selectCaseStudies(first: 999) {
+                selectCaseStudies {
           nodes {
-            ... on CaseStudy {
+            ... on Post {
               id
-              content
               title
               slug
+              content
               date
-              caseStudies {
-                selectLocation(first: 999) {
-                  nodes {
-                    ... on Country {
-                      id
-                      title
-                      slug
-                    }
-                  }
+              categories(first: 9999) {
+                nodes {
+                  slug
+                  name
                 }
-                readTime
+              }
+              postFields {
+                time
               }
               featuredImage {
                 node {
