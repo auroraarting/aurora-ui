@@ -20,12 +20,12 @@ import plant_img from "../../public/img/services/advisory/plant_img.jpg";
 import clock from "../../public/img/icons/clock.svg";
 import location from "../../public/img/icons/location.svg";
 import calender from "../../public/img/icons/calender.svg";
-import formatDate from "@/utils";
+import formatDate, { allCategories, isCategory } from "@/utils";
 
 // DATA //
 
 /** CaseStudy Section */
-export default function CaseStudy({ data }) {
+export default function CaseStudy({ data, countries = [] }) {
 	// if (!data || !data?.title) return <></>;
 
 	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
@@ -46,7 +46,7 @@ export default function CaseStudy({ data }) {
 								{first?.[0]?.title}
 							</h3>
 							<div className="text_reg color_dark_gray font_secondary pt_10">
-								<ContentFromCms>{first?.[0]?.content}</ContentFromCms>
+								{/* <ContentFromCms>{first?.[0]?.content}</ContentFromCms> */}
 							</div>
 							<div className={`${styles.dateFlex} f_j pt_30`}>
 								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -57,10 +57,12 @@ export default function CaseStudy({ data }) {
 									/>
 									<span>{formatDate(first?.[0]?.date)}</span>
 								</p>
-								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-									<img src={clock.src} className={`${styles.clock}`} alt="location" />
-									<span>{first?.[0]?.caseStudies?.readTime}</span>
-								</p>
+								{first?.[0]?.postFields?.time && (
+									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+										<img src={clock.src} className={`${styles.clock}`} alt="location" />
+										<span>{first?.[0]?.postFields?.time}</span>
+									</p>
+								)}
 							</div>
 						</div>
 					</div>
@@ -104,9 +106,7 @@ export default function CaseStudy({ data }) {
 												alt="location"
 											/>
 											{/* <span>WECC</span> */}
-											{item?.caseStudies?.selectLocation?.nodes?.map((item2, ind2) => {
-												return <span key={item2?.title}>{item2?.title}</span>;
-											})}
+											{isCategory(countries, item?.categories?.nodes)}
 										</p>
 									</div>
 								</div>
