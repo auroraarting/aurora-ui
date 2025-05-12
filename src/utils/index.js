@@ -791,7 +791,7 @@ export function highlightMatches(node, term) {
 // 		offset: -100,
 // 		spy: true,
 // 		onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-// 	});
+// 	})};
 
 // 	setTimeout(() => {
 // 		console.log("Scrolling finished!");
