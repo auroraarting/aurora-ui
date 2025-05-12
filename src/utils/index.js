@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { openModal } from "@/components/Modal";
 // import { Link, scroller } from "react-scroll";
 
@@ -734,3 +735,150 @@ export function highlightMatches(node, term) {
 // 		console.log("Scrolling finished!");
 // 	}, 500);
 // };
+
+/** Generate link and title based on content key */
+export const getLinkAndTitle = (key, item = {}, searchTerm) => {
+	const searchQuery = searchTerm
+		? `?search=${encodeURIComponent(searchTerm)}`
+		: "";
+
+	/** slug  */
+	function Slug(pageSlug) {
+		switch (pageSlug) {
+			case "early-careers-landing":
+				return "/careers/early-careers";
+			case "faq":
+				return "/careers/faq";
+			case "join-us":
+				return "/careers/join-us";
+			case "our-team":
+				return "/careers/our-team";
+			case "life-at-aurora":
+				return "/careers/life-at-aurora";
+			case "press-landing":
+				return "/company/press-landing";
+			case "about":
+				return "/company/about";
+			case "global-presence":
+				return "/company/global-presence";
+			case "contact":
+				return "/company/contact";
+			case "event-landing":
+				return "/events";
+			case "energy-talks-listing":
+				return "/resources/energy-talks";
+			case "insight-listing":
+				return "/resources/aurora-insights";
+			case "webinar-listing":
+				return "/resources/webinar";
+			case "eos":
+				return "/eos";
+			case "product":
+				return "/products";
+			case "software":
+				return "/software";
+			case "homepage":
+				return "/";
+			case "bundles":
+				return "/careers/life-at-aurora";
+			default:
+				return "/";
+		}
+	}
+
+	switch (key) {
+		case "about":
+			return {
+				link: `/company/about${searchQuery}`,
+				title: "About",
+			};
+		case "eos":
+			return {
+				link: `/eos${searchQuery}`,
+				title: "Eos",
+			};
+		case "globalPresence":
+			return {
+				link: `/global-presence${searchQuery}`,
+				title: "Global Presence",
+			};
+		case "homepage":
+			return {
+				link: `/${searchQuery}`,
+				title: "Home",
+			};
+		case "lifeAtAurora":
+		case "offices":
+			return {
+				link: `/careers/life-at-aurora${searchQuery}`,
+				title: "Life At Aurora",
+			};
+		case "softwares":
+			return {
+				link: `/software/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "products":
+			return {
+				link: `/products/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "services":
+			return {
+				link: `/service/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "teams":
+		case "teamsectors":
+			return {
+				link: `/company/team${searchQuery}`,
+				title: item.title,
+			};
+		case "whoareyous":
+			return {
+				link: `/who-are-you/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "howWeHelps":
+			return {
+				link: `/how-we-help/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "posts":
+			return {
+				link: `${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "events":
+			return {
+				link: `/events/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "pages":
+			return {
+				link: `${Slug(item?.slug)}${searchQuery}`,
+				title: item.title,
+			};
+		case "podcasts":
+			return {
+				link: `/resources/energy-talks/${item?.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "howwehelp":
+			return {
+				link: `/how-we-help/${item?.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "whoareyou":
+			return {
+				link: `/who-are-you/${item?.slug}${searchQuery}`,
+				title: item.title,
+			};
+
+		default:
+			return {
+				link: `/${searchQuery}`,
+				title: "Home",
+			};
+	}
+};
