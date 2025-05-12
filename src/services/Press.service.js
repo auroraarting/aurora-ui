@@ -432,6 +432,21 @@ query GetPressMediaKit {
           }
         }
       }
+      pressCoverage {
+        sectionTitle
+        sectionDesc
+        list {
+          name
+          designation
+          title
+          emails {
+            text
+          }
+          phone {
+            text
+          }
+        }
+      }
     }
   }
 }

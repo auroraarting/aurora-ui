@@ -9,7 +9,7 @@ export const getRegions = async () => {
     nodes {
       name
       slug
-      countries(first: 999) {
+      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           content
           slug

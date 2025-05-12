@@ -30,6 +30,32 @@ import { getOffices } from "@/services/Offices.service";
 
 // DATA //
 
+/** Fetch Meta Data */
+export async function generateMetadata({ params }) {
+	const data = await getEarlyCareersInside(params.slug);
+	const post = data?.data?.earlyCareerBy;
+
+	return {
+		title: post?.title || "Default Title",
+		description: post?.excerpt || "Default description",
+		openGraph: {
+			title: post?.title,
+			// description: post?.excerpt,
+			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
+			images: [
+				{
+					url:
+						post?.featuredImage?.node?.mediaItemUrl ||
+						"https://www-production.auroraer.com/img/og-image.jpg",
+					width: 1200,
+					height: 630,
+					alt: post?.title,
+				},
+			],
+		},
+	};
+}
+
 /** EarlyCareers Page */
 export default async function EarlyCareers({ params }) {
 	const [dataFetch, categoriesForSelect, list, officesFetch] = await Promise.all(
@@ -48,6 +74,7 @@ export default async function EarlyCareers({ params }) {
 	);
 	const offices = officesFetch.data.offices.nodes;
 	const dataForBtn = { postFields: data?.earlyCareers?.insights || {} };
+	console.log(dataForBtn, "dataForBtn");
 
 	return (
 		<div>

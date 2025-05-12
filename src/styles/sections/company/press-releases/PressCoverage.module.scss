@@ -1,0 +1,36 @@
+@import "../../../helpers/helpers.scss";
+.PressCoverage {
+	.desc {
+		width: 50%;
+		@include sm-down {
+			width: 100%;
+		}
+	}
+	.cardsWrap {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+		margin-top: 40px;
+
+		@include sm-down {
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
+	.mediaTeamBoxItem {
+		background-color: var(--color_gray);
+		padding: 40px 20px;
+		border-radius: 12px;
+		width: 100%;
+		@media (max-width: 1199px) {
+			width: 100%;
+		}
+		.labelTxt {
+			img {
+				width: 17px;
+			}
+			a {
+				margin-left: 10px;
+			}
+		}
+	}
+}

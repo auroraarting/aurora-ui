@@ -23,7 +23,7 @@ import styles from "@/styles/components/Header.module.scss";
 // IMAGES //
 import Arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import logo from "@/../public/img/logo.svg";
-import search from "@/../public/img/icons/search.svg";
+import searchImg from "@/../public/img/icons/search.svg";
 import login_icon from "@/../public/img/icons/login_icon.svg";
 import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
@@ -157,7 +157,7 @@ export default function Header({ defaultNavigation }) {
 							onClick={handleSearchClick}
 							className={`${styles.searchFlex} text_sm f_w_m color_dark_gray font_primary f_r_a_center`}
 						>
-							<img src={search.src} alt="search" />
+							<img src={searchImg.src} alt="search" />
 							<span>Search</span>
 						</button>
 					</div>

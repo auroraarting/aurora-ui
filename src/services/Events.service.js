@@ -138,7 +138,7 @@ query GetEventCategories {
 export const getAllEventCountries = async () => {
 	const query = `
 query GetEventInside {
-  countries(first: 9999) {
+  countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug

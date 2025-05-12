@@ -38,6 +38,32 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 
+/** Fetch Meta Data */
+export async function generateMetadata({ params }) {
+	const data = await getInsightsInside(params.slug);
+	const post = data?.data?.postBy;
+
+	return {
+		title: post?.title || "Default Title",
+		description: post?.excerpt || "Default description",
+		openGraph: {
+			title: post?.title,
+			// description: post?.excerpt,
+			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
+			images: [
+				{
+					url:
+						post?.featuredImage?.node?.mediaItemUrl ||
+						"https://www-production.auroraer.com/img/og-image.jpg",
+					width: 1200,
+					height: 630,
+					alt: post?.title,
+				},
+			],
+		},
+	};
+}
+
 /** Fetch  */
 async function getData({ params }) {
 	const [data, categoriesForSelect, list] = await Promise.all([

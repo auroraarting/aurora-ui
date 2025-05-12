@@ -25,6 +25,32 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 
+/** Fetch Meta Data */
+export async function generateMetadata({ params }) {
+	const data = await getEventsInside(params.slug);
+	const post = data?.data?.eventBy;
+
+	return {
+		title: post?.title || "Default Title",
+		description: post?.excerpt || "Default description",
+		openGraph: {
+			title: post?.title,
+			// description: post?.excerpt,
+			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
+			images: [
+				{
+					url:
+						post?.featuredImage?.node?.mediaItemUrl ||
+						"https://www-production.auroraer.com/img/og-image.jpg",
+					width: 1200,
+					height: 630,
+					alt: post?.title,
+				},
+			],
+		},
+	};
+}
+
 /** Fetch  */
 async function getData({ params }) {
 	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([

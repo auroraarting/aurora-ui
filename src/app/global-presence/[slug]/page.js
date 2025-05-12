@@ -24,6 +24,32 @@ import { getMapJsonForCountries } from "@/utils";
 import { getCountryInside } from "@/services/GlobalPresence.service";
 import { getCountryInside as getCountryInsideWithLanguages } from "@/services/GlobalPresenceLanguages.service";
 
+/** Fetch Meta Data */
+export async function generateMetadata({ params }) {
+	const data = await getCountryInside(params.slug);
+	const post = data?.data?.countryBy;
+
+	return {
+		title: post?.title || "Default Title",
+		description: post?.excerpt || "Default description",
+		openGraph: {
+			title: post?.title,
+			// description: post?.excerpt,
+			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
+			images: [
+				{
+					url:
+						post?.featuredImage?.node?.mediaItemUrl ||
+						"https://www-production.auroraer.com/img/og-image.jpg",
+					width: 1200,
+					height: 630,
+					alt: post?.title,
+				},
+			],
+		},
+	};
+}
+
 /** Fetch  */
 async function getData({ params, query }) {
 	const language = query.language;
