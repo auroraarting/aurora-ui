@@ -34,12 +34,15 @@ async function getData({ params }) {
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug)
 	);
+	const countries = data.data.countries.nodes;
+
 	return {
 		props: {
 			data: data?.data?.softwareBy?.softwares || {},
 			mapJson,
 			regions,
 			meta: data.data.softwareBy,
+			countries,
 		},
 	};
 }

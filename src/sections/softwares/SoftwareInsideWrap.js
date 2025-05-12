@@ -40,7 +40,13 @@ import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
 // SERVICES //
 
 /** Chronos Page */
-export default function SoftwareInsideWrap({ data, mapJson, regions, meta }) {
+export default function SoftwareInsideWrap({
+	data,
+	mapJson,
+	regions,
+	meta,
+	countries,
+}) {
 	const dataForBtn = { postFields: data || {} };
 	console.log(data);
 
@@ -106,7 +112,7 @@ export default function SoftwareInsideWrap({ data, mapJson, regions, meta }) {
 				<GlobalMap locationJson={mapJson} />
 				{data?.caseStudy?.title && (
 					<div className="pt_100">
-						<CaseStudy data={data?.caseStudy} />
+						<CaseStudy data={data?.caseStudy} countries={countries} />
 					</div>
 				)}
 				{/* <div className="pb_100">
