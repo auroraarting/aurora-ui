@@ -43,6 +43,7 @@ export default function LifeAtAuroraWrap({
 	otherList,
 	countries,
 	offices,
+	careersList,
 }) {
 	const [mapJson, setMapJson] = useState();
 	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
@@ -87,7 +88,7 @@ export default function LifeAtAuroraWrap({
 			markers: [],
 		};
 
-		data.offices?.map((item) => {
+		offices?.map((item) => {
 			let obj = {
 				name: item.title,
 				lat: item.offices.map.lat,
@@ -154,7 +155,7 @@ export default function LifeAtAuroraWrap({
 					/>
 				</div>
 				<div className={`${styles.EarlyMain}`}>
-					<EarlyCareersInside />
+					<EarlyCareersInside data={careersList} />
 				</div>
 				{data?.collaborationSupport?.list?.length > 0 && (
 					<div>

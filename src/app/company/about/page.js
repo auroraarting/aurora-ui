@@ -5,8 +5,6 @@ export const fetchCache = "force-no-store"; // Optional: disables fetch caching
 // MODULES //
 
 // COMPONENTS //
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import GlobalMap from "@/components/GlobalMap";
@@ -37,15 +35,17 @@ import styles from "@/styles/pages/company/About.module.scss";
 import { getLifeAtAurora } from "@/services/Careers.service";
 import { getAboutPage } from "@/services/About.service";
 import { getInsightsCategories } from "@/services/Insights.service";
+import { getOffices } from "@/services/Offices.service";
 
 /** Fetch  */
 async function getData() {
-	const [data, categoriesForSelect] = await Promise.all([
+	const [data, categoriesForSelect, officesFetch] = await Promise.all([
 		getAboutPage(),
 		getInsightsCategories(),
+		getOffices(),
 	]);
 	let obj = {
-		data: { ...data.data.page.about, offices: data.data.offices.nodes },
+		data: { ...data.data.page.about, offices: officesFetch.data.offices.nodes },
 	};
 	delete obj.data.about;
 
@@ -59,13 +59,14 @@ async function getData() {
 		markers: [],
 	};
 
-	data.offices?.map((item) => {
+	officesFetch.data.offices.nodes?.slice(0, 17).map((item) => {
 		let obj = {
 			name: item.title,
 			lat: item.offices.map.lat,
 			lng: item.offices.map.lng,
 			url: "/careers/life-at-aurora",
 			hoverImg: item.offices.thumbnail.node.sourceUrl,
+			unique: Math.random(),
 			// icon:
 			// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
 		};
