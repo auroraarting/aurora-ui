@@ -42,6 +42,7 @@ export default function GlobalSearch() {
 			setIsLoading(false);
 			return;
 		}
+
 		// Cancel the previous request if it exists
 		if (abortControllerRef.current) {
 			abortControllerRef.current.abort("New search started");
@@ -288,12 +289,17 @@ export default function GlobalSearch() {
 			)}
 
 			{/* No Results */}
-			{noResults && results != null && (
+			{searchTerm.trim() && !isLoading && results && noResults && (
 				<div className={styles.results} data-lenis-prevent>
 					<div className={styles.title_link}>
-						<p className="no-data-text">
-							{!isLoading ? "No data found" : "Loading..."}
-						</p>
+						<p className="no-data-text">No data found</p>
+					</div>
+				</div>
+			)}
+			{isLoading && (
+				<div className={styles.results} data-lenis-prevent>
+					<div className={styles.title_link}>
+						<p className="no-data-text">{"Loading..."}</p>
 					</div>
 				</div>
 			)}
