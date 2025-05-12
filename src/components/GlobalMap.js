@@ -25,7 +25,6 @@ export default function GlobalMap({
 	marqueeText = " Energy intelligence across every key market",
 	className,
 }) {
-	console.log(locationJson);
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 	const [map, setMap] = useState(null);
