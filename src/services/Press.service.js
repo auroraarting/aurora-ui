@@ -414,7 +414,7 @@ query GetPressMediaKit {
         }
       }
       featured {
-        node {
+        nodes {
           ... on Post {
             id
             title

@@ -59,4 +59,25 @@
 			}
 		}
 	}
+	.arrowSection {
+		position: absolute;
+		left: 40px;
+		bottom: 50px;
+		z-index: 1;
+
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
 }

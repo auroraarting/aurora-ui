@@ -197,8 +197,14 @@
 		}
 		.BoxFlex {
 			align-items: flex-start;
+			overflow: hidden;
+			overflow-y: auto;
+			position: relative;
+
 			.Imgthumbnail {
-				position: relative;
+				position: sticky;
+				top: 0;
+				left: 0;
 				width: 25%;
 				@media (max-width: 767px) {
 					width: 100%;
@@ -247,6 +253,14 @@
 					align-items: center;
 					@media (max-width: 767px) {
 						margin-top: 20px;
+					}
+				}
+				.DescWrap {
+					position: relative;
+
+					.Desc {
+						position: absolute;
+						top: 0;
 					}
 				}
 			}

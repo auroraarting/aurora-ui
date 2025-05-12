@@ -37,7 +37,9 @@ export default function OurHistory({ data }) {
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 							{data?.sectionTitle}
 						</h2>
-						<ContentFromCms>{data?.description}</ContentFromCms>
+						<div className="text_reg color_dark_gray pb_20">
+							<ContentFromCms>{data?.description}</ContentFromCms>
+						</div>
 						{/* <p className="text_reg color_dark_gray pb_20">
 							Founded by University of Oxford professors and economists who saw the
 							need for a deeper focus on quality analysis, Aurora has grown to become
@@ -84,7 +86,7 @@ export default function OurHistory({ data }) {
 										</SwiperSlide>
 									);
 								})}
-								<SwiperSlide>
+								{/* <SwiperSlide>
 									<div className={`${styles.itemBox}`}>
 										<img
 											src={history_img.src}
@@ -92,7 +94,7 @@ export default function OurHistory({ data }) {
 											alt="img"
 										/>
 									</div>
-								</SwiperSlide>
+								</SwiperSlide> */}
 								{/*<SwiperSlide>
 									<div className={`${styles.itemBox}`}>
 										<img

@@ -35,7 +35,6 @@ import styles from "@/styles/pages/company/press-releases/PressInside.module.scs
 // DATA //
 
 // SERVICES //
-import { getPressesCards, getSinglePress } from "@/services/Press.service";
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
 
 /** Fetch  */

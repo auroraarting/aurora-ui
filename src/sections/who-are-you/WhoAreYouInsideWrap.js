@@ -101,7 +101,10 @@ export default function WhoAreYouInsideWrap({
 					/>
 				</div>
 				<div>
-					<GloballyBankableInsights isMultiple={true} />
+					<GloballyBankableInsights
+						isMultiple={data?.whoAreYous?.whyAurora?.list.length > 1}
+						data={data?.whoAreYous?.whyAurora}
+					/>
 				</div>
 
 				{data?.services?.ourClient?.selectLogos && (

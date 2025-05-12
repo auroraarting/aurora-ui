@@ -21,8 +21,8 @@ import { Navigation, Autoplay } from "swiper/modules";
 import styles from "@/styles/components/TestimonialFeedback.module.scss";
 
 // IMAGES //
-import quate from "../../public/img/icons/quate.svg";
-import slider_arrow from "../../public/img/icons/slider_arrow.svg";
+import quate from "/public/img/icons/quate.svg";
+import slider_arrow from "/public/img/icons/slider_arrow.svg";
 
 // DATA //
 
