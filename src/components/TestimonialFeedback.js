@@ -102,7 +102,12 @@ export default function TestimonialFeedback({ data }) {
 										<div className={`${styles.testimonialItem}`}>
 											<div className={`${styles.testimonialTxt}`}>
 												<div className="text_md color_dark_gray f_w_i font_primary d_f">
-													<img src={quate.src} className={`${styles.quate}`} alt="quate" />
+													<img
+														src={quate.src}
+														className={`${styles.quate}`}
+														alt="quate"
+														loading="lazy"
+													/>
 													<ContentFromCms>{item?.content}</ContentFromCms>
 												</div>
 											</div>
@@ -122,10 +127,10 @@ export default function TestimonialFeedback({ data }) {
 						{data?.testimonials?.nodes?.length > 1 && (
 							<div className={`${styles.arrowSection} f_w_a_j_center`}>
 								<button className={`${styles.customPrev}`} id="customPrev">
-									<img src={slider_arrow.src} alt="icon" />
+									<img src={slider_arrow.src} alt="icon" loading="lazy" />
 								</button>
 								<button className={styles.customNext} id="customNext">
-									<img src={slider_arrow.src} alt="icon" />
+									<img src={slider_arrow.src} alt="icon" loading="lazy" />
 								</button>
 							</div>
 						)}
