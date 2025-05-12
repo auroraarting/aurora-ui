@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 // SECTIONS //
 
 // PLUGINS //
+import { Link, scroller } from "react-scroll";
 
 // UTILS //
 
@@ -23,6 +24,20 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	const [activeTab, setActiveTab] = useState(0);
 	const [sectionsList, setSectionsList] = useState([]);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
+
+	/** scrollToSection */
+	const scrollToSection = (id) => {
+		function removeStartingHash(str) {
+			return str.startsWith("#") ? str.slice(1) : str;
+		}
+		scroller.scrollTo(removeStartingHash(id), {
+			duration: 500,
+			smooth: true,
+			offset: -200,
+			spy: true,
+			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+		});
+	};
 
 	/**  */
 	const handleItemClick = (item) => {
@@ -111,6 +126,8 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		};
 	}, []);
 
+	console.log(sectionsList, "sectionsList");
+
 	return (
 		<>
 			<div className={`${styles.SectionsHeader} SectionsHeader`}>
@@ -122,6 +139,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 								className={`${styles.box} ${styles.onlyText} ${
 									activeTab >= ind ? "" : "color_medium_gray"
 								} text_xs text_uppercase`}
+								onClick={() => scrollToSection(item?.id)}
 							>
 								{typeof item.name === "string" ? item.name : item}
 							</div>

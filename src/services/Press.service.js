@@ -150,10 +150,14 @@ query GetPresses {
           content
         }
         mediaContact {
-          email
           designation
           name
-          phone
+         email {
+            text
+          }
+          phone {
+            text
+          }
         }
         about {
           content

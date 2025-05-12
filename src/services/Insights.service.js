@@ -397,9 +397,13 @@ query GetInsightsInside {
       }
       mediaContact {
         designation
-        email
         name
-        phone
+                 email {
+            text
+          }
+          phone {
+            text
+          }
       }
       about {
         content
