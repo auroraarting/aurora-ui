@@ -69,6 +69,7 @@ async function getData({ params }) {
 		getInsightsInside(params.slug),
 		getInsights('first: 3, where: {categoryName: "commentary"}'),
 	]);
+	console.log(data, "data");
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {

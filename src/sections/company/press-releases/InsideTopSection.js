@@ -69,34 +69,36 @@ export default function InsideTopSection({
 						</div>
 					)}
 				</div>
-				<div className={`${styles.dateBox}`}>
-					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
-						<div className={`${styles.downloadListen}`}>
-							<div className={`${styles.downloadBox} f_r_a_center`}>
-								{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
-									<a
-										{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-										className="text_sm f_w_m font_primary f_r_a_center"
-									>
-										<img src={download.src} alt="download" />
-										<span>
-											{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
-										</span>
-									</a>
-								)}
+				{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
+					<div className={`${styles.dateBox}`}>
+						<div className={`${styles.downloadListenBox} f_w_j a_center`}>
+							<div className={`${styles.downloadListen}`}>
+								<div className={`${styles.downloadBox} f_r_a_center ptb_10`}>
+									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
+										<a
+											{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+											className="text_sm f_w_m font_primary f_r_a_center"
+										>
+											<img src={download.src} alt="download" />
+											<span>
+												{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
+											</span>
+										</a>
+									)}
+								</div>
 							</div>
-						</div>
 
-						<div className={`${styles.downloadListenShare} f_r_a_center`}>
+							{/* <div className={`${styles.downloadListenShare} f_r_a_center`}>
 							<a href="" className="text_sm f_w_m font_primary f_r_a_center">
 								<img src={share.src} alt="share" />
 							</a>
 							<a href="" className="text_sm f_w_m font_primary f_r_a_center">
 								<img src={copy.src} alt="copy" />
 							</a>
+						</div> */}
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</section>
 	);
