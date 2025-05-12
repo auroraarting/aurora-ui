@@ -34,6 +34,12 @@ import GlobalMap from "@/components/GlobalMap";
 import { getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "Products | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch */
 async function getData() {
 	const [data, regions] = await Promise.all([getProductPage(), getRegions()]);

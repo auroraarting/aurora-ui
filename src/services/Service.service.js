@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getServiceData = async (slug) => {
 	const query = `
 query GetProductBySlug {
-  countries(first: 999) {
+countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug

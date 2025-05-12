@@ -27,6 +27,12 @@ import {
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Events | Aurora",
+	description: "Aurora",
+};
+
 /** events Page */
 export default async function Events() {
 	const [dataFetch, categoriesFetch, filters, pageFetch] = await Promise.all([

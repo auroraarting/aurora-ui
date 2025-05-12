@@ -39,6 +39,12 @@ import IframeModal from "@/components/IframeModal";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Contact | Aurora",
+	description: "Aurora",
+};
+
 /** Fetch  */
 async function getData() {
 	const [regions, page] = await Promise.all([

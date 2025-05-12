@@ -22,6 +22,12 @@ import FaqWrap from "@/sections/careers/FaqWrap";
 // SERVICES //
 import { getFaqPage } from "@/services/Faq.service";
 
+/** Meta Data */
+export const metadata = {
+	title: "FAQ | Aurora",
+	description: "Aurora",
+};
+
 /** Faq Page */
 export default async function Faq() {
 	const [pageFetch] = await Promise.all([getFaqPage()]);

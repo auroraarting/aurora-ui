@@ -23,6 +23,12 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+/** Meta Data */
+export const metadata = {
+	title: "Who Are You | Aurora",
+	description: "Aurora",
+};
+
 /** WhoAreYou Page */
 export default function WhoAreYou() {
 	return (
