@@ -44,7 +44,7 @@ export default function EventInsideVideo({ data }) {
 				>
 					<div data-src={data?.events?.glimps?.video}>
 						<img
-							src={data?.events?.glimps?.videoThumbnail?.node?.sourceUrl}
+							src={data?.events?.glimps?.videoThumbnail?.node?.mediaItemUrl}
 							className={`${styles.video_thumb} width_100 b_r_10`}
 							alt="img"
 						/>

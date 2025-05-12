@@ -31,7 +31,7 @@ export default function TopEvents({ data }) {
 				<a href={`/events/${data?.slug}`} className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
 						<img
-							src={data?.events?.thumbnail?.logo?.node?.sourceUrl}
+							src={data?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 							className=""
 							alt="img"
 						/>
@@ -70,7 +70,7 @@ export default function TopEvents({ data }) {
 					</div>
 					<div className={`${styles.imageWrapper}`}>
 						<img
-							src={data?.events?.banner?.desktop?.node?.sourceUrl}
+							src={data?.events?.banner?.desktop?.node?.mediaItemUrl}
 							className="width_100 b_r_20"
 							alt="img"
 						/>

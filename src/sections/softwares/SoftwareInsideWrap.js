@@ -42,6 +42,7 @@ import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
 /** Chronos Page */
 export default function SoftwareInsideWrap({ data, mapJson, regions, meta }) {
 	const dataForBtn = { postFields: data || {} };
+	console.log(data);
 
 	return (
 		<div>
@@ -69,12 +70,12 @@ export default function SoftwareInsideWrap({ data, mapJson, regions, meta }) {
 				<SoftwareBanner
 					bannerTitle={data?.banner?.title}
 					bannerDescription={data?.banner?.description}
-					desktopImage={data?.banner?.desktopThumbnail?.node?.sourceUrl}
-					mobileImage={data?.banner?.mobileThumbnail?.node?.sourceUrl}
+					desktopImage={data?.banner?.desktopThumbnail?.node?.mediaItemUrl}
+					mobileImage={data?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 					vimeoid={data?.banner?.vimeoLink}
 					btnText={data?.banner?.buttonText}
 					btnLink={data?.banner?.buttonLink}
-					logo={data?.banner?.logo?.node?.sourceUrl}
+					logo={data?.banner?.logo?.node?.mediaItemUrl}
 					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 				/>
 				<SectionsHeader
@@ -97,8 +98,8 @@ export default function SoftwareInsideWrap({ data, mapJson, regions, meta }) {
 						<Redefining
 							title={data?.introduction?.title}
 							description={data?.introduction?.description}
-							image={data?.introduction?.image?.node?.sourceUrl}
-							lottie={data?.introduction?.lottie?.node?.sourceUrl}
+							image={data?.introduction?.image?.node?.mediaItemUrl}
+							lottie={data?.introduction?.lottie?.node?.mediaItemUrl}
 						/>
 					</div>
 				)}

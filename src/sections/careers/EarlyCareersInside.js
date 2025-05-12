@@ -89,7 +89,7 @@ export default function EarlyCareersInside({ data }) {
 								<div className={`${styles.cardItem}`} key={item?.slug}>
 									<div className={`${styles.cardImg}`}>
 										<img
-											src={item?.earlyCareers?.thumbnail?.thumb?.node?.sourceUrl}
+											src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
 											className={`${styles.countryImg} b_r_10`}
 										/>
 										{item?.earlyCareers?.thumbnail?.islive && (

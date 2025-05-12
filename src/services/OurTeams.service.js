@@ -19,7 +19,7 @@ query OurTeamPage {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -59,7 +59,7 @@ query OurTeamPage {
                   image {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -78,7 +78,7 @@ query OurTeamPage {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }

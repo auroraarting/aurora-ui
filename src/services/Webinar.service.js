@@ -18,7 +18,7 @@ query GetWebinarListing {
         videoThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }

@@ -59,11 +59,11 @@ export default function EOSPageWrap({
 						bannerDescription={data?.banner?.description}
 						btnTxt={data?.banner?.buttonText}
 						btnLink={data?.banner?.buttonLink}
-						desktopImage={data?.banner?.desktopThumbnail?.node?.sourceUrl}
-						mobileImage={data?.banner?.mobileThumbnail?.node?.sourceUrl}
+						desktopImage={data?.banner?.desktopThumbnail?.node?.mediaItemUrl}
+						mobileImage={data?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 						videoSrc={data?.banner?.vimeoLink}
 						vimeoid={data?.banner?.vimeoLink}
-						logo={data?.banner?.logo?.node?.sourceUrl}
+						logo={data?.banner?.logo?.node?.mediaItemUrl}
 						dataForBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
 				</div>

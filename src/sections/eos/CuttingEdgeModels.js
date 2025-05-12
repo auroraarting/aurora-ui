@@ -171,7 +171,7 @@ export default function CuttingEdgeModels({ data }) {
 											const relatedLogo =
 												item?.category?.nodes?.[0]?.[
 													item?.category?.nodes?.[0].contentType?.node?.name
-												]?.map?.logo?.node?.sourceUrl;
+												]?.map?.logo?.node?.mediaItemUrl;
 
 											return (
 												<SwiperSlide className={`${styles.item}`} key={ind}>

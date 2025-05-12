@@ -468,7 +468,7 @@ export default function EventsListing({
 											alt="img"
 										/>
 										<img
-											src={item?.events?.thumbnail?.logo?.node?.sourceUrl}
+											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 											className={`${styles.productLogo} `}
 											alt="img"
 										/>

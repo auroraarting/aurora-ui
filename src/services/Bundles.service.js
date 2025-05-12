@@ -21,7 +21,7 @@ query BundlesPage {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -41,7 +41,7 @@ query BundlesPage {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }

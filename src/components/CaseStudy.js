@@ -26,7 +26,7 @@ import formatDate from "@/utils";
 
 /** CaseStudy Section */
 export default function CaseStudy({ data }) {
-	if (!data || !data?.title) return <></>;
+	// if (!data || !data?.title) return <></>;
 
 	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
 	const restArr = data?.selectCaseStudies?.nodes?.slice(1, data.length);
@@ -66,7 +66,7 @@ export default function CaseStudy({ data }) {
 					</div>
 					<div className={`${styles.ImgBox}`}>
 						<img
-							src={first?.[0]?.featuredImage?.node?.sourceUrl}
+							src={first?.[0]?.featuredImage?.node?.mediaItemUrl}
 							className={`${styles.plant_img} img width_100`}
 							alt="plant_img"
 						/>

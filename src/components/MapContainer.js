@@ -421,7 +421,7 @@ export default function Map({
 									}}
 									icon={{
 										url:
-											marker?.icon?.node?.sourceUrl ||
+											marker?.icon?.node?.mediaItemUrl ||
 											marker?.icon ||
 											"/img/softwares/mapMarker.svg",
 										// scaledSize: new window.google.maps.Size(10, 10),

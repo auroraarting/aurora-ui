@@ -183,7 +183,7 @@ export default function DepartmentList({ data, jobs, productService }) {
 						</div>
 					</div>
 					{data?.categories?.[selectedDepartment]?.leader?.node?.teams?.thumbnail
-						?.image?.node?.sourceUrl && (
+						?.image?.node?.mediaItemUrl && (
 						<div className={`${styles.leadDetails} pb_50`}>
 							<div className="containerLarge">
 								<div
@@ -193,7 +193,7 @@ export default function DepartmentList({ data, jobs, productService }) {
 										<img
 											src={
 												data?.categories?.[selectedDepartment]?.leader?.node?.teams
-													?.thumbnail?.image?.node?.sourceUrl
+													?.thumbnail?.image?.node?.mediaItemUrl
 											}
 											className="b_r_20"
 											alt=""

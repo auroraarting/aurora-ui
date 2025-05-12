@@ -124,6 +124,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 						data={services}
 						// data={data?.howWeHelpInside?.spotlights?.selected?.nodes}
 						keyValue="howWeHelpInside"
+						// isSlider={true}
 					/>
 				</div>
 				<div className="ptb_100 dark_bg">

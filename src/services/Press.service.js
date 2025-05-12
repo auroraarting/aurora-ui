@@ -15,7 +15,7 @@ query GetPresses {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -25,7 +25,7 @@ query GetPresses {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -35,7 +35,7 @@ query GetPresses {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -63,7 +63,7 @@ query GetPresses {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -73,7 +73,7 @@ query GetPresses {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -91,7 +91,7 @@ query GetPresses {
     featuredImage {
       node {
         altText
-        sourceUrl
+        mediaItemUrl
       }
     }
   }
@@ -117,7 +117,7 @@ query GetPresses {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -127,7 +127,7 @@ query GetPresses {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -137,7 +137,7 @@ query GetPresses {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -165,7 +165,7 @@ query GetPresses {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -175,7 +175,7 @@ query GetPresses {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -188,7 +188,7 @@ query GetPresses {
       featuredImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
     }
@@ -214,7 +214,7 @@ query GetPressesCards {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -239,7 +239,7 @@ query GetPressesCards {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -255,7 +255,7 @@ query GetPressesCards {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -271,7 +271,7 @@ query GetPressesCards {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -289,7 +289,7 @@ query GetPressesCards {
       featuredImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
     }
@@ -332,19 +332,19 @@ query GetPressMediaKit {
         logos {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         brief {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         thumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -365,7 +365,7 @@ query GetPressMediaKit {
                   image {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -379,7 +379,7 @@ query GetPressMediaKit {
                         featuredImage {
                           node {
                             altText
-                            sourceUrl
+                            mediaItemUrl
                           }
                         }
                         postFields {
@@ -404,7 +404,7 @@ query GetPressMediaKit {
                 }
                 file {
                   node {
-                    sourceUrl
+                    mediaItemUrl
                     altText
                   }
                 }
@@ -426,7 +426,7 @@ query GetPressMediaKit {
             featuredImage {
               node {
                 altText
-                sourceUrl
+                mediaItemUrl
               }
             }
           }

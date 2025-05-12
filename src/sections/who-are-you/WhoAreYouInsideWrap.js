@@ -66,8 +66,12 @@ export default function WhoAreYouInsideWrap({
 
 						bannerTitle={data?.whoAreYous?.banner?.title}
 						bannerDescription={data?.whoAreYous?.banner?.description}
-						desktopImage={data?.whoAreYous?.banner?.desktopThumbnail?.node?.sourceUrl}
-						mobileImage={data?.whoAreYous?.banner?.mobileThumbnail?.node?.sourceUrl}
+						desktopImage={
+							data?.whoAreYous?.banner?.desktopThumbnail?.node?.mediaItemUrl
+						}
+						mobileImage={
+							data?.whoAreYous?.banner?.mobileThumbnail?.node?.mediaItemUrl
+						}
 						vimeoid={data?.whoAreYous?.banner?.videoLink}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 						// btnTxt="Connect Now"

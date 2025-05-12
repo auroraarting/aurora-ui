@@ -52,7 +52,7 @@ async function getData() {
 								<div className={`${styles.CountryItem}`} key={item2.slug}>
 									<a href={`/global-presence/${item2.slug}`}>
 										<img
-											src={item2?.featuredImage?.node?.sourceUrl}
+											src={item2?.featuredImage?.node?.mediaItemUrl}
 											className="width_100 b_r_10"
 											alt="img"
 										/>

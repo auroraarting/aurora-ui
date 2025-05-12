@@ -65,18 +65,18 @@ export function getMapJsonForCountries(data) {
 					lng: parseFloat(markerItem?.coordinates?.lng),
 					url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
 					icon:
-						node?.service?.map?.logo?.node?.sourceUrl ||
-						node?.products?.map?.logo?.node?.sourceUrl ||
-						node?.softwares?.map?.logo?.node?.sourceUrl ||
-						markerItem?.icon?.node?.sourceUrl ||
+						node?.service?.map?.logo?.node?.mediaItemUrl ||
+						node?.products?.map?.logo?.node?.mediaItemUrl ||
+						node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+						markerItem?.icon?.node?.mediaItemUrl ||
 						"",
 				};
 
 				if (markerItem?.mapThumbnail) {
-					obj.hoverImg = markerItem.mapThumbnail.node.sourceUrl;
+					obj.hoverImg = markerItem.mapThumbnail.node.mediaItemUrl;
 				}
-				if (markerItem?.icon?.node?.sourceUrl) {
-					obj.icon = markerItem.icon.node.sourceUrl;
+				if (markerItem?.icon?.node?.mediaItemUrl) {
+					obj.icon = markerItem.icon.node.mediaItemUrl;
 				}
 
 				return obj;
@@ -105,18 +105,18 @@ export function getMapJsonForProducts(regions) {
 							lng: "",
 							url: "",
 							hoverImg: "",
-							// icon: item3?.icon?.node?.sourceUrl,
+							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.sourceUrl ||
-								node?.products?.map?.logo?.node?.sourceUrl ||
-								node?.softwares?.map?.logo?.node?.sourceUrl ||
-								item3?.icon?.node?.sourceUrl ||
+								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.products?.map?.logo?.node?.mediaItemUrl ||
+								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+								item3?.icon?.node?.mediaItemUrl ||
 								"",
 							unique: Math.random(),
 						};
 
-						if (item3?.mapThumbnail?.node?.sourceUrl) {
-							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+						if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
@@ -128,6 +128,68 @@ export function getMapJsonForProducts(regions) {
 								return node?.contentType?.node?.name;
 							};
 							if (node?.contentType?.node?.name != "products") {
+								return;
+							}
+							obj2.name = node?.title;
+							obj2.lat = parseFloat(item3?.coordinates?.lat);
+							obj2.lng = parseFloat(item3?.coordinates?.lng);
+							obj2.url = `/${keyModule()}/${node?.slug}`;
+						}
+
+						return obj2;
+					})
+					.filter((item) => item),
+				zoom: item2?.countries?.map?.zoom,
+				name: item2?.title,
+			};
+
+			obj && mapJson.push(obj);
+		});
+	});
+
+	return mapJson;
+}
+
+/** getMapJsonForService  */
+export function getMapJsonForService(regions) {
+	const mapJson = [];
+	regions?.data?.regions?.nodes?.map((item) => {
+		item?.countries?.nodes?.map((item2) => {
+			let obj = {
+				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
+				markers: item2.countries?.map?.markers
+					?.map((item3) => {
+						let node = item3?.category?.nodes?.[0];
+
+						let obj2 = {
+							name: "",
+							lat: "",
+							lng: "",
+							url: "",
+							hoverImg: "",
+							// icon: item3?.icon?.node?.mediaItemUrl,
+							icon:
+								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.products?.map?.logo?.node?.mediaItemUrl ||
+								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+								item3?.icon?.node?.mediaItemUrl ||
+								"",
+							unique: Math.random(),
+						};
+
+						if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
+						}
+
+						if (item3?.category?.nodes?.length > 0) {
+							/** keyModule  */
+							const keyModule = () => {
+								if (node?.contentType?.node?.name === "softwares") {
+									return "software";
+								}
+								return node?.contentType?.node?.name;
+							};
+							if (node?.contentType?.node?.name != "services") {
 								return;
 							}
 							obj2.name = node?.title;
@@ -167,18 +229,18 @@ export function getMapJsonForSoftware(regions) {
 							lng: "",
 							url: "",
 							hoverImg: "",
-							// icon: item3?.icon?.node?.sourceUrl,
+							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.sourceUrl ||
-								node?.products?.map?.logo?.node?.sourceUrl ||
-								node?.softwares?.map?.logo?.node?.sourceUrl ||
-								item3?.icon?.node?.sourceUrl ||
+								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.products?.map?.logo?.node?.mediaItemUrl ||
+								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+								item3?.icon?.node?.mediaItemUrl ||
 								"",
 							unique: Math.random(),
 						};
 
-						if (item3?.mapThumbnail?.node?.sourceUrl) {
-							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+						if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
@@ -213,7 +275,7 @@ export function getMapJsonForSoftware(regions) {
 
 /** filterMarkersBySlug  */
 export function filterMarkersBySlug(data, slug) {
-	data.regions?.nodes.forEach((region) => {
+	data.data.regions?.nodes.forEach((region) => {
 		region.countries?.nodes.forEach((country) => {
 			const markers = country.countries?.map?.markers || [];
 
@@ -247,15 +309,15 @@ export function getMapJsonForAllRegions(regions) {
 						url: "",
 						hoverImg: "",
 						icon:
-							node?.service?.map?.logo?.node?.sourceUrl ||
-							node?.products?.map?.logo?.node?.sourceUrl ||
-							node?.softwares?.map?.logo?.node?.sourceUrl ||
-							item3?.icon?.node?.sourceUrl,
+							node?.service?.map?.logo?.node?.mediaItemUrl ||
+							node?.products?.map?.logo?.node?.mediaItemUrl ||
+							node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+							item3?.icon?.node?.mediaItemUrl,
 						unique: Math.random(),
 					};
 
-					if (item3?.mapThumbnail?.node?.sourceUrl) {
-						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+					if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+						obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
 					}
 
 					if (item3?.category?.nodes?.length > 0) {
@@ -494,8 +556,8 @@ export const dynamicInsightsBtnProps = (
 ) => {
 	let obj = {};
 
-	if (data?.postFields?.[keyVal]?.file?.node?.sourceUrl) {
-		obj.href = data?.postFields?.[keyVal]?.file?.node?.sourceUrl;
+	if (data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl) {
+		obj.href = data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl;
 		obj.target = "_blank";
 		obj.rel = "noreferrer";
 	} else if (data?.postFields?.[keyVal]?.iframe) {

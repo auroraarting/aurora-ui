@@ -35,6 +35,8 @@ async function getData({ params }) {
 		filterMarkersBySlug(regions, params.slug)
 	);
 
+	console.log(regions.data, "regions");
+
 	return {
 		props: {
 			data: data.data.productBy,

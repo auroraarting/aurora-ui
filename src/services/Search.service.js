@@ -14,7 +14,7 @@ export async function searchData(searchTerm) {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -30,7 +30,7 @@ export async function searchData(searchTerm) {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -47,7 +47,7 @@ export async function searchData(searchTerm) {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -160,7 +160,7 @@ export async function searchData(searchTerm) {
 			title: item?.title,
 			slug: item?.slug,
 			logo: {
-				logo: item?.softwares?.map?.logo?.node?.sourceUrl,
+				logo: item?.softwares?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.softwares?.map?.logo?.node?.altText,
 			},
 		};
@@ -170,7 +170,7 @@ export async function searchData(searchTerm) {
 			title: item?.title,
 			slug: item?.slug,
 			logo: {
-				logo: item?.products?.map?.logo?.node?.sourceUrl,
+				logo: item?.products?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.products?.map?.logo?.node?.altText,
 			},
 		};
@@ -181,7 +181,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -191,7 +191,7 @@ export async function searchData(searchTerm) {
 			title: item?.name,
 			slug: item?.slug,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -202,7 +202,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -213,7 +213,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -224,7 +224,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};

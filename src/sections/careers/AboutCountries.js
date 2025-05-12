@@ -71,10 +71,10 @@ export default function AboutCountries({ data }) {
 										style={{ backgroundColor: item.bgcolor }}
 									>
 										<div className={`${styles.cardDesc}`}>
-											{item.icon.node.sourceUrl && (
+											{item.icon.node.mediaItemUrl && (
 												<h4 className="text_md color_secondary f_w_m font_primary pt_10 f_r_a_center">
 													<img
-														src={item.icon.node.sourceUrl}
+														src={item.icon.node.mediaItemUrl}
 														className={`${styles.strategy_icon}`}
 														alt="strategy icon"
 													/>
@@ -87,10 +87,10 @@ export default function AboutCountries({ data }) {
 												</div>
 											</div>
 										</div>
-										{item?.featuredImg?.node?.sourceUrl && (
+										{item?.featuredImg?.node?.mediaItemUrl && (
 											<div className={`${styles.cardImg}`}>
 												<img
-													src={item?.featuredImg?.node?.sourceUrl}
+													src={item?.featuredImg?.node?.mediaItemUrl}
 													className={`${styles.countryImg} width_100`}
 												/>
 											</div>

@@ -40,17 +40,17 @@ export default function MarketIntelligence({ data }) {
 						</div>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						{data?.image?.node?.sourceUrl && (
+						{data?.image?.node?.mediaItemUrl && (
 							<img
-								src={data?.image?.node?.sourceUrl}
+								src={data?.image?.node?.mediaItemUrl}
 								className={`${styles.redefining} img`}
 								alt="redefining"
 							/>
 						)}
-						{/* data?.lottie?.node?.sourceUrl */}
-						{data?.lottie?.node?.sourceUrl && (
+						{/* data?.lottie?.node?.mediaItemUrl */}
+						{data?.lottie?.node?.mediaItemUrl && (
 							<DotLottieReact
-								src={data?.lottie?.node?.sourceUrl}
+								src={data?.lottie?.node?.mediaItemUrl}
 								autoplay={true}
 								loop={true}
 								renderer="svg"

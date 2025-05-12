@@ -80,7 +80,7 @@ export default async function PressInside({ params }) {
 						title={data?.title}
 						date={data?.date}
 						time={data?.postFields?.time}
-						featuredImage={data?.featuredImage?.node?.sourceUrl}
+						featuredImage={data?.featuredImage?.node?.mediaItemUrl}
 						data={data}
 						dataForBtn={dataForBtn}
 					/>

@@ -15,7 +15,7 @@ query GetSoftwares {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -23,7 +23,7 @@ query GetSoftwares {
           banner {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -49,7 +49,7 @@ query GetProducts {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -57,7 +57,7 @@ query GetProducts {
           banner {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -84,7 +84,7 @@ query GetServices {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -132,7 +132,7 @@ export async function fetchNavigationData() {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -148,7 +148,7 @@ export async function fetchNavigationData() {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -165,7 +165,7 @@ export async function fetchNavigationData() {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -206,7 +206,7 @@ export async function fetchNavigationData() {
       featuredImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
       events {
@@ -217,7 +217,7 @@ export async function fetchNavigationData() {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -225,7 +225,7 @@ export async function fetchNavigationData() {
           desktop {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -251,7 +251,7 @@ export async function fetchNavigationData() {
 			title: item?.title,
 			slug: item?.slug,
 			logo: {
-				logo: item?.softwares?.map?.logo?.node?.sourceUrl,
+				logo: item?.softwares?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.softwares?.map?.logo?.node?.altText,
 			},
 		};
@@ -261,7 +261,7 @@ export async function fetchNavigationData() {
 			title: item?.title,
 			slug: item?.slug,
 			logo: {
-				logo: item?.products?.map?.logo?.node?.sourceUrl,
+				logo: item?.products?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.products?.map?.logo?.node?.altText,
 			},
 		};
@@ -272,7 +272,7 @@ export async function fetchNavigationData() {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};

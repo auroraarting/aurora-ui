@@ -33,11 +33,11 @@ export default function AudienceBreakdown({ data }) {
 			<div className={`${styles.circle_graph} pt_20`}>
 				<picture>
 					<source
-						srcSet={data?.events?.breakdown?.mobileImage?.node?.sourceUrl}
+						srcSet={data?.events?.breakdown?.mobileImage?.node?.mediaItemUrl}
 						media="(min-width:767px)"
 					/>
 					<img
-						src={data?.events?.breakdown?.desktopImage?.node?.sourceUrl}
+						src={data?.events?.breakdown?.desktopImage?.node?.mediaItemUrl}
 						alt="circle graph"
 					/>
 				</picture>

@@ -101,7 +101,7 @@ export default function TheApplicationProcess({ data }) {
 			return data?.accordian?.map((item, ind) => {
 				return {
 					title: item?.title,
-					imgIcons: item?.icon?.node?.sourceUrl,
+					imgIcons: item?.icon?.node?.mediaItemUrl,
 					children: (
 						<div className={`${styles.content_wrap}`}>
 							<p className="text_reg color_dark_gray">{item?.description}</p>
@@ -120,7 +120,7 @@ export default function TheApplicationProcess({ data }) {
 			return data?.expertiseAccordion?.map((item, ind) => {
 				return {
 					title: item?.accordionTitle,
-					imgIcons: item?.icon?.node?.sourceUrl,
+					imgIcons: item?.icon?.node?.mediaItemUrl,
 					children: (
 						<div className={`${styles.content_wrap}`}>
 							<p className="text_reg color_dark_gray">
@@ -145,7 +145,7 @@ export default function TheApplicationProcess({ data }) {
 		return data?.applicationTips?.list?.map((item, ind) => {
 			return {
 				title: item?.title,
-				// imgIcons: item?.icon?.node?.sourceUrl,
+				// imgIcons: item?.icon?.node?.mediaItemUrl,
 				children: (
 					<div className={`${styles.content_wrap}`}>
 						<div className="text_reg color_white">

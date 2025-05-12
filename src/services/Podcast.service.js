@@ -26,7 +26,7 @@ query GetPodcasts {
       featuredImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
     }
@@ -48,7 +48,7 @@ query GetPodcastBy {
     featuredImage {
       node {
         altText
-        sourceUrl
+        mediaItemUrl
       }
     }
     podcastFields {
@@ -62,7 +62,7 @@ query GetPodcastBy {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -81,7 +81,7 @@ query GetPodcastBy {
                 image {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -102,7 +102,7 @@ query GetPodcastBy {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -110,7 +110,7 @@ query GetPodcastBy {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -145,7 +145,7 @@ query GetPodcastBy {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -153,7 +153,7 @@ query GetPodcastBy {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -177,7 +177,7 @@ query GetPodcastBy {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -185,7 +185,7 @@ query GetPodcastBy {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }

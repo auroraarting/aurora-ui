@@ -62,7 +62,7 @@ export default function WebinarMiddleRight({ data }) {
 											<img
 												src={
 													item?.[item?.contentType?.node?.name]?.banner?.logo?.node
-														?.sourceUrl
+														?.mediaItemUrl
 												}
 												alt="pic"
 											/>

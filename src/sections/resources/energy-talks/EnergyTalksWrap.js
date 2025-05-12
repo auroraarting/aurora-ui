@@ -103,7 +103,9 @@ export default function EnergyTalksWrap({
 							desc={energyTalksPage?.video?.sectionDesc}
 							redirectLink={energyTalksPage?.video?.redirectLink}
 							videoLink={energyTalksPage?.video?.videoLink}
-							videoThumbnail={energyTalksPage?.video?.videoThumbnail?.node?.sourceUrl}
+							videoThumbnail={
+								energyTalksPage?.video?.videoThumbnail?.node?.mediaItemUrl
+							}
 							iframe={energyTalksPage?.video?.iframe}
 						/>
 					</div>

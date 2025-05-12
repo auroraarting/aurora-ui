@@ -72,8 +72,8 @@ export default async function EarlyCareers() {
 				<InnerBanner
 					bannerTitle={page?.banner?.title}
 					bannerDescription={page?.banner?.desc}
-					desktopImage={page?.banner?.desktop?.node?.sourceUrl}
-					mobileImage={page?.banner?.mobile?.node?.sourceUrl}
+					desktopImage={page?.banner?.desktop?.node?.mediaItemUrl}
+					mobileImage={page?.banner?.mobile?.node?.mediaItemUrl}
 				/>
 				{/* <div className="pt_60"> */}
 				<SectionsHeader

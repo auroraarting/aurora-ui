@@ -65,7 +65,7 @@ async function getData() {
 			lat: item.offices.map.lat,
 			lng: item.offices.map.lng,
 			url: "/careers/life-at-aurora",
-			hoverImg: item.offices.thumbnail.node.sourceUrl,
+			hoverImg: item.offices.thumbnail.node.mediaItemUrl,
 			unique: Math.random(),
 			// icon:
 			// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
@@ -102,8 +102,8 @@ export default async function About() {
 					<InnerBanner
 						bannerTitle={data?.banner?.title}
 						bannerDescription={data?.banner?.description}
-						desktopImage={data?.banner?.dekstopimage?.node?.sourceUrl}
-						mobileImage={data?.banner?.mobileimage?.node?.sourceUrl}
+						desktopImage={data?.banner?.dekstopimage?.node?.mediaItemUrl}
+						mobileImage={data?.banner?.mobileimage?.node?.mediaItemUrl}
 						vimeoid={data?.banner?.videoLink}
 					/>
 				</div>

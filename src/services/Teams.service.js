@@ -20,7 +20,7 @@ query GetTeamSectors {
               image {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -36,7 +36,7 @@ query GetTeamSectors {
                         featuredImage {
                           node {
                             altText
-                            sourceUrl
+                            mediaItemUrl
                           }
                         }
                         caseStudies {

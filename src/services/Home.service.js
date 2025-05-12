@@ -19,7 +19,7 @@ query NewQuery {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }

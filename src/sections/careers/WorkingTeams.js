@@ -47,7 +47,7 @@ export default function WorkingTeams({ data }) {
 					{data?.earlyCareers?.workingWithOurTeams?.list?.map((item) => {
 						return (
 							<div className={`${styles.workingTeamsItem}`} key={item?.title}>
-								<img src={item?.icon?.node?.sourceUrl} alt="" />
+								<img src={item?.icon?.node?.mediaItemUrl} alt="" />
 								<h4 className="font_primary f_w_m text_reg color_secondary pt_10 ">
 									{item?.title}
 								</h4>

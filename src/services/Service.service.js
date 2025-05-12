@@ -12,12 +12,12 @@ query GetProductBySlug {
         banner {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         logo {
           node {
-            sourceUrl
+            mediaItemUrl
             altText
           }
         }
@@ -35,7 +35,7 @@ query GetProductBySlug {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -62,7 +62,7 @@ query GetProductBySlug {
         logo {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         buttonText
@@ -73,13 +73,13 @@ query GetProductBySlug {
         desktopThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -109,7 +109,7 @@ query GetProductBySlug {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -125,7 +125,7 @@ query GetProductBySlug {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -141,7 +141,7 @@ query GetProductBySlug {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -153,13 +153,13 @@ query GetProductBySlug {
         image {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         lottie {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -175,7 +175,7 @@ query GetProductBySlug {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -204,7 +204,7 @@ query GetProductBySlug {
           image {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           processDetails {
@@ -218,7 +218,7 @@ query GetProductBySlug {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -228,7 +228,7 @@ query GetProductBySlug {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -238,7 +238,7 @@ query GetProductBySlug {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -248,7 +248,7 @@ query GetProductBySlug {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }

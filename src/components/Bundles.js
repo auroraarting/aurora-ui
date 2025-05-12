@@ -120,7 +120,7 @@ export default function Bundles({ data }) {
 									return (
 										<tr key={ind}>
 											<td className={`${styles.logo}`}>
-												<img className={styles.img} src={item?.logo?.node?.sourceUrl} />
+												<img className={styles.img} src={item?.logo?.node?.mediaItemUrl} />
 												<div
 													className={`${styles.text} text_xs color_black`}
 													style={{ background: item?.bgColor }}
