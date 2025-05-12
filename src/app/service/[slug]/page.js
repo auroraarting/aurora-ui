@@ -58,13 +58,14 @@ async function getData({ params }) {
 	const mapJson = getMapJsonForService(
 		filterMarkersBySlug(regions, params.slug)
 	);
+	const countries = data.data.countries.nodes;
 
-	console.log(regions);
 	return {
 		props: {
 			data: data.data.serviceBy,
 			mapJson,
 			bundles: bundles.data.page.bundles,
+			countries,
 		},
 	};
 }
@@ -72,7 +73,7 @@ async function getData({ params }) {
 /** Advisory Page */
 export default async function Advisory({ params }) {
 	const { props } = await getData({ params });
-	const { data, mapJson, bundles } = props;
+	const { data, mapJson, bundles, countries } = props;
 	const dataForBtn = { postFields: data || {} };
 
 	return (
@@ -123,8 +124,8 @@ export default async function Advisory({ params }) {
 				<SmarterEnergy data={data?.services?.expertise} />
 				<ServicesCircle data={data?.services?.keyAdvantages} />
 				{data?.services?.caseStudy?.title && (
-					<div className="pt_100">
-						<CaseStudy data={data?.services?.caseStudy} />
+					<div className="ptb_100">
+						<CaseStudy data={data?.services?.caseStudy} countries={countries} />
 					</div>
 				)}
 				{mapJson.length > 0 && (
