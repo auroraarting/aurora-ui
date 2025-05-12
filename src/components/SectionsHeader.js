@@ -27,6 +27,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
+		/** removeStartingHash  */
 		function removeStartingHash(str) {
 			return str.startsWith("#") ? str.slice(1) : str;
 		}
