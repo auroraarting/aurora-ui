@@ -20,7 +20,7 @@ const nextConfig = {
 				img-src 'self' data: https://www.google.co.in/ https://www.googletagmanager.com/  https://cms-production.auroraer.com/  https://img.youtube.com https://i.ytimg.com https://maps.googleapis.com https://maps.gstatic.com https://*.google.com https://*.ggpht.com;
 				font-src 'self' https://fonts.gstatic.com https://maps.gstatic.com;
 				connect-src 'self' https://vimeo.com/ https://cdn.jsdelivr.net/ https://auroraer.pinpointhq.com/ https://f.clarity.ms/  https://cms-production.auroraer.com/  https://analytics.google.com/ https://www.youtube.com https://maps.googleapis.com https://www.google.com/;
-				frame-src https://www.googletagmanager.com/ https://go.auroraer.com/ https://www-production.auroraer.com https://www.youtube.com https://www.youtube-nocookie.com/ https://player.vimeo.com/ https://www.google.com https://maps.google.com https://www.google.com/maps;
+				frame-src https://www.googletagmanager.com/ https://go.auroraer.com/ https://www-production.auroraer.com https://www.youtube.com https://www.youtube-nocookie.com/ https://player.vimeo.com/ https://www.google.com https://maps.google.com https://www.google.com/maps https://www.podbean.com/ https://embed.podcasts.apple.com/;
 				object-src 'none';
 				base-uri 'self';
 				form-action 'self';

@@ -41,9 +41,9 @@ export default function Client({ data }) {
 							{data?.postFields?.client?.map((item, ind) => {
 								return (
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-										{item?.image?.node?.sourceUrl && (
+										{item?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
-												<img src={item?.image?.node?.sourceUrl} alt="logo" />
+												<img src={item?.image?.node?.mediaItemUrl} alt="logo" />
 											</div>
 										)}
 										<div className={`${styles.ClientDescription}`}>
@@ -60,10 +60,10 @@ export default function Client({ data }) {
 							{data?.postFields?.authors?.nodes?.map((item, ind) => {
 								return (
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-										{item?.postAuthors?.thumbnail?.image?.node?.sourceUrl && (
+										{item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
 												<img
-													src={item?.postAuthors?.thumbnail?.image?.node?.sourceUrl}
+													src={item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl}
 													alt="pic"
 												/>
 											</div>
@@ -95,10 +95,17 @@ export default function Client({ data }) {
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
 							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+								/**keyModule  */
+								const keyModule = () => {
+									if (item?.contentType?.node?.name === "softwares") {
+										return "software";
+									}
+									return item?.contentType?.node?.name;
+								};
 								return (
 									<div className={`${styles.poweredBy}`} key={item?.title}>
 										<a
-											href={`/${item?.contentType?.node?.name}/${item?.slug}`}
+											href={`/${keyModule()}/${item?.slug}`}
 											target="_blank"
 											rel="noreferrer"
 										>
@@ -112,7 +119,7 @@ export default function Client({ data }) {
 												<img
 													src={
 														item?.[item?.contentType?.node?.name]?.banner?.logo?.node
-															?.sourceUrl
+															?.mediaItemUrl
 													}
 													className={`${styles.amun_logo}`}
 													alt="amun_logo"
@@ -147,7 +154,7 @@ export default function Client({ data }) {
 										<a
 											key={item?.title || item?.name || item}
 											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-											href={`/resources/aurora-insights&search=${
+											href={`/resources/aurora-insights?search=${
 												item?.title || item?.name || item
 											}`}
 										>
@@ -171,7 +178,7 @@ export default function Client({ data }) {
 						</div>
 					</div>
 				</div>
-				{dynamicInsightsBtnProps(data, "bottomSectionButton").btnText && (
+				{dynamicInsightsBtnProps(data, "bottomSectionButton").btntext && (
 					<div className={`${styles.DownBtn} `}>
 						<a
 							{...dynamicInsightsBtnProps(data, "bottomSectionButton")}
@@ -179,7 +186,7 @@ export default function Client({ data }) {
 						>
 							<img src={tag_download_icon.src} alt="download" />
 							<span>
-								{dynamicInsightsBtnProps(data, "bottomSectionButton").btnText}
+								{dynamicInsightsBtnProps(data, "bottomSectionButton").btntext}
 							</span>
 						</a>
 					</div>

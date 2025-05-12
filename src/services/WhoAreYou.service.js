@@ -16,13 +16,13 @@ export const getSingleWhoAreYou = async (slug) => {
         desktopThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -37,7 +37,7 @@ export const getSingleWhoAreYou = async (slug) => {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -68,7 +68,7 @@ export const getSingleWhoAreYou = async (slug) => {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -93,7 +93,7 @@ export const getSingleWhoAreYou = async (slug) => {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -103,7 +103,7 @@ export const getSingleWhoAreYou = async (slug) => {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -113,7 +113,7 @@ export const getSingleWhoAreYou = async (slug) => {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -144,7 +144,7 @@ query GetAllHowWeHelps {
           banner {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           gradient {
@@ -154,7 +154,7 @@ query GetAllHowWeHelps {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -168,7 +168,7 @@ query GetAllHowWeHelps {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -186,7 +186,7 @@ query GetAllHowWeHelps {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -205,7 +205,7 @@ query GetAllHowWeHelps {
             icon {
               node {
                 altText
-                sourceUrl
+                mediaItemUrl
               }
             }
           }

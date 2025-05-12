@@ -23,8 +23,9 @@ import IconArrRight from "/public/img/icons/pagination-right.png";
 export default function Pagination({
 	data = [],
 	paginationArr = [],
-	itemsPerPage = 10,
+	itemsPerPage = 6,
 	setCurrentItems,
+	isDark,
 }) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
@@ -77,8 +78,10 @@ export default function Pagination({
 		return pageNumbers;
 	};
 
+	if (totalPages <= 1) return null;
+
 	return (
-		<div className={styles.pagination}>
+		<div className={`${styles.pagination} ${isDark ? styles.dark : ""}`}>
 			{/* Previous button */}
 			<img
 				src={IconArrLeft.src}

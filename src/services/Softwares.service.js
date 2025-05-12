@@ -4,6 +4,12 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleSoftware = async (slug) => {
 	const query = `
 query GetProductBySlug {
+  countries(first: 999) {
+    nodes {
+      title
+      slug
+    }
+  }
   softwareBy(slug: "${slug}") {
     title
     slug
@@ -12,12 +18,12 @@ query GetProductBySlug {
         banner {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         logo {
           node {
-            sourceUrl
+            mediaItemUrl
             altText
           }
         }
@@ -35,7 +41,7 @@ query GetProductBySlug {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -62,7 +68,7 @@ query GetProductBySlug {
         logo {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         buttonText
@@ -73,68 +79,67 @@ query GetProductBySlug {
         desktopThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
+            mediaItemUrl
           }
         }
         mobileThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
+            mediaItemUrl
           }
         }
       }
       caseStudy {
         tabTitle
         title
-        selectCaseStudies(first: 999) {
+        selectCaseStudies {
           nodes {
-            ... on CaseStudy {
+            ... on Post {
               id
-              content
               title
               slug
+              content
               date
-              caseStudies {
-                selectLocation(first: 999) {
-                  nodes {
-                    ... on Country {
-                      id
-                      title
-                      slug
-                    }
-                  }
+              categories(first: 9999) {
+                nodes {
+                  slug
+                  name
                 }
-                readTime
+              }
+              postFields {
+                time
               }
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
           }
         }
       }
-                expertSupport {
-          sectionTitle
-          image {
+      expertSupport {
+        sectionTitle
+        image {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        list {
+          title
+          description
+          logo {
             node {
               altText
-              sourceUrl
-            }
-          }
-          list {
-            title
-            description
-            logo {
-              node {
-                altText
-                sourceUrl
-              }
+              mediaItemUrl
             }
           }
         }
+      }
       expertise {
         description
         tabTitle
@@ -146,7 +151,7 @@ query GetProductBySlug {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -158,7 +163,15 @@ query GetProductBySlug {
         image {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
+            mediaItemUrl
+          }
+        }
+        lottie {
+          node {
+            altText
+            mediaItemUrl
+            mediaItemUrl
           }
         }
       }
@@ -174,7 +187,7 @@ query GetProductBySlug {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -204,11 +217,51 @@ query GetProductBySlug {
           image {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           processDetails {
             description
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      stepsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
           }
         }
       }
@@ -245,7 +298,7 @@ query GetPageSoftwares {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -261,12 +314,12 @@ query GetPageSoftwares {
           banner {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           logo {
             node {
-              sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -284,7 +337,7 @@ query GetPageSoftwares {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }

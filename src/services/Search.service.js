@@ -1,3 +1,4 @@
+import { allCategories, isCategory } from "@/utils";
 import GraphQLAPI from "./Graphql.service";
 
 /** Search Data  */
@@ -13,7 +14,7 @@ export async function searchData(searchTerm) {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -29,7 +30,7 @@ export async function searchData(searchTerm) {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -46,7 +47,7 @@ export async function searchData(searchTerm) {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -77,7 +78,7 @@ export async function searchData(searchTerm) {
       slug
     }
   }
-  offices(first: 999, where: { search: "${searchTerm}" }) {
+  offices(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       offices {
         contact {
@@ -89,57 +90,65 @@ export async function searchData(searchTerm) {
       slug
     }
   }
-  pages(first: 999, where: { search: "${searchTerm}" }) {
+  pages(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
-      about {
-        banner {
-          buttonLink
-          description
-          title
-        }
-      }
-      eos {
-        banner {
-          buttonLink
-          buttonText
-          title
-        }
-      }
-      globalPresence {
-        mapMarquee
-        title
-      }
-      homepage {
-        title
-      }
-      lifeAtAurora {
-        banner {
-          description
-          title
-        }
-      }
+      slug
+      title
     }
   }
-  teamsectors(first: 999, where: { search: "${searchTerm}" }) {
+  teamsectors(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       name
       slug
     }
   }
-    teams(first: 999, where: { search: "${searchTerm}" }) {
-        nodes {
-          content
-          slug
-          title
-        }
-      }
-  testimonials(first: 999, where: { search: "${searchTerm}" }) {
+  teams(first: 999, where: {search: "${searchTerm}"}) {
+    nodes {
+      content
+      slug
+      title
+    }
+  }
+  testimonials(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       content
       title
       testimonials {
         designation
       }
+    }
+  }
+  posts(
+    first: 9999
+    where: {search: "${searchTerm}", categoryName: "commentary,public-webinar,webinar,webinar-recording,media"}
+  ) {
+    nodes {
+      title
+      slug
+      categories(first: 9999) {
+        nodes {
+          slug
+          name
+        }
+      }
+    }
+  }
+  events(first: 9999, where: {search: "${searchTerm}"}) {
+    nodes {
+      title
+      slug
+    }
+  }
+  earlyCareers(first: 9999, where: {search: "${searchTerm}"}) {
+    nodes {
+      title
+      slug
+    }
+  }
+  podcasts(first: 9999, where: {search: "${searchTerm}"}) {
+    nodes {
+      title
+      slug
     }
   }
 }
@@ -151,7 +160,7 @@ export async function searchData(searchTerm) {
 			title: item?.title,
 			slug: item?.slug,
 			logo: {
-				logo: item?.softwares?.map?.logo?.node?.sourceUrl,
+				logo: item?.softwares?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.softwares?.map?.logo?.node?.altText,
 			},
 		};
@@ -161,7 +170,7 @@ export async function searchData(searchTerm) {
 			title: item?.title,
 			slug: item?.slug,
 			logo: {
-				logo: item?.products?.map?.logo?.node?.sourceUrl,
+				logo: item?.products?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.products?.map?.logo?.node?.altText,
 			},
 		};
@@ -172,7 +181,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -182,7 +191,7 @@ export async function searchData(searchTerm) {
 			title: item?.name,
 			slug: item?.slug,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -193,7 +202,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -204,7 +213,7 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
@@ -215,19 +224,37 @@ export async function searchData(searchTerm) {
 			slug: item?.slug,
 			content: item?.content,
 			logo: {
-				logo: item?.services?.map?.logo?.node?.sourceUrl,
+				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
 				altText: item?.services?.map?.logo?.node?.altText,
 			},
 		};
 	});
+	const posts = data?.posts?.nodes?.map((item) => {
+		/** href  */
+		const href = () => {
+			let cat = isCategory(allCategories, item?.categories?.nodes);
+			if (cat.includes("Articles")) {
+				return `/resources/aurora-insights/${item?.slug}`;
+			} else if (cat.includes("Media")) {
+				return `/company/press-releases/${item?.slug}`;
+			} else {
+				return `/resources/webinar/${item?.slug}`;
+			}
+		};
+		return { ...item, slug: href() };
+	});
+	const pages = data?.pages?.nodes;
+	const events = data?.events?.nodes;
 	const regions = data?.regions.nodes;
 	const whoareyous = data?.whoareyous.nodes;
 	const offices = data?.offices?.nodes;
-	const about = data?.pages?.nodes?.[0]?.about;
-	const eos = data?.pages?.nodes?.[0]?.eos;
-	const globalPresence = data?.pages?.nodes?.[0]?.globalPresence;
-	const homepage = data?.pages?.nodes?.[0]?.homepage;
-	const lifeAtAurora = data?.pages?.nodes?.[0]?.lifeAtAurora;
+	const podcasts = data?.podcasts?.nodes;
+
+	// const about = data?.pages?.nodes?.[0]?.about;
+	// const eos = data?.pages?.nodes?.[0]?.eos;
+	// const globalPresence = data?.pages?.nodes?.[0]?.globalPresence;
+	// const homepage = data?.pages?.nodes?.[0]?.homepage;
+	// const lifeAtAurora = data?.pages?.nodes?.[0]?.lifeAtAurora;
 
 	return {
 		products,
@@ -240,10 +267,14 @@ export async function searchData(searchTerm) {
 		teams,
 		testimonials,
 		offices,
-		about,
-		eos,
-		globalPresence,
-		homepage,
-		lifeAtAurora,
+		// about,
+		// eos,
+		// globalPresence,
+		// homepage,
+		// lifeAtAurora,
+		posts,
+		events,
+		pages,
+		podcasts,
 	};
 }

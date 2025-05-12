@@ -22,6 +22,7 @@ import spring_forum from "@/../public/img/events/spring_forum.png";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
 import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
 import formatDate from "@/utils";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
@@ -29,12 +30,13 @@ import formatDate from "@/utils";
 export default function EnergyMiddleRight({ data, events }) {
 	return (
 		<div className={`${styles.EnergyMiddleRightBox}`}>
-			{(data?.postFields?.speakers || data?.postFields?.poweredBy?.nodes) && (
+			{(data?.podcastFields?.speakers ||
+				data?.podcastFields?.poweredBy?.nodes) && (
 				<div className={`${styles.whiteBox}`}>
-					{data?.postFields?.speakers?.nodes && (
+					{data?.podcastFields?.speakers?.nodes && (
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
-							{data?.postFields?.speakers?.nodes?.map((item, ind) => {
+							{data?.podcastFields?.speakers?.nodes?.map((item, ind) => {
 								return (
 									<div
 										className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
@@ -42,7 +44,7 @@ export default function EnergyMiddleRight({ data, events }) {
 									>
 										<div className={`${styles.ClientLogo}`}>
 											<img
-												src={item?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
+												src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
 												alt="pic"
 											/>
 										</div>
@@ -69,10 +71,10 @@ export default function EnergyMiddleRight({ data, events }) {
 							})}
 						</div>
 					)}
-					{data?.postFields?.poweredBy?.nodes && (
+					{data?.podcastFields?.poweredBy?.nodes && (
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+							{data?.podcastFields?.poweredBy?.nodes?.map((item, ind) => {
 								/**keyModule  */
 								const keyModule = () => {
 									if (item?.contentType?.node?.name === "softwares") {
@@ -89,7 +91,7 @@ export default function EnergyMiddleRight({ data, events }) {
 										>
 											<div className={`${styles.poweredLogo}`}>
 												<img
-													src={item?.softwares?.banner?.logo?.node?.sourceUrl}
+													src={item?.softwares?.banner?.logo?.node?.mediaItemUrl}
 													className={`${styles.amun_logo}`}
 													alt="amun_logo"
 												/>
@@ -119,59 +121,65 @@ export default function EnergyMiddleRight({ data, events }) {
 					</h5>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientDescription}`}>
-							<p className="text_xs color_dark_gray font_primary">
-								We&apos;re always looking for new and exciting opportunities to
-								collaborate. For partnership enquiries, please contact{" "}
-								<span className="f_w_b">
-									<u>Priscilla Castro</u>
-								</span>
-							</p>
+							<div className="text_xs color_dark_gray font_primary">
+								<ContentFromCms>
+									{data?.podcastFields?.interested
+										? data?.podcastFields?.interested
+										: `We&apos;re always looking for new and exciting opportunities to
+									collaborate. For partnership enquiries, please contact
+									<span className="f_w_b">
+										<u>Priscilla Castro</u>
+									</span>`}
+								</ContentFromCms>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div className={`${styles.whiteBox}`}>
-				<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
-					Upcoming Podcast
-				</h5>
-				<div className={`${styles.itemBox}`}>
-					{events?.map((item, ind) => {
-						return (
-							<a
-								href={`/resources/energy-talks/${item.slug}`}
-								className={`${styles.ClientFlex}`}
-								key={item?.title}
-							>
-								<div className={`${styles.ClientLogo}`}>
-									{/* <img src={spring_forum.src} alt="logo" /> */}
-									<p>{item?.title}</p>
-								</div>
-								<div className={`${styles.dateFlex} pt_10`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center pb_10">
-										<img
-											src={grey_calendar.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>{formatDate(item?.date)}</span>
-									</p>
-									{item?.time && (
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+			{events.length > 0 && (
+				<div className={`${styles.whiteBox}`}>
+					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
+						Upcoming Podcast
+					</h5>
+					<div className={`${styles.itemBox}`}>
+						{events?.map((item, ind) => {
+							return (
+								<a
+									href={`/resources/energy-talks/${item.slug}`}
+									className={`${styles.ClientFlex}`}
+									key={item?.title}
+								>
+									<div className={`${styles.ClientLogo}`}>
+										{/* <img src={spring_forum.src} alt="logo" /> */}
+										<p>{item?.title}</p>
+									</div>
+									<div className={`${styles.dateFlex} pt_10`}>
+										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center pb_10">
 											<img
-												src={grey_clock.src}
-												className={`${styles.location}`}
-												alt="location"
+												src={grey_calendar.src}
+												className={`${styles.calender}`}
+												alt="calender"
 											/>
-											<span>{item?.time}</span>
+											<span>{formatDate(item?.date)}</span>
 										</p>
-									)}
-								</div>
-							</a>
-						);
-					})}
+										{item?.time && (
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+												<img
+													src={grey_clock.src}
+													className={`${styles.location}`}
+													alt="location"
+												/>
+												<span>{item?.time}</span>
+											</p>
+										)}
+									</div>
+								</a>
+							);
+						})}
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 }

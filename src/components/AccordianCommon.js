@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import React, { useState, useRef, useEffect } from "react";
 // COMPONENTS //
@@ -70,12 +71,18 @@ export default function AccordianCommon({
 						<div
 							className={`${fontStyle} ${fontWeight} ${fontFamily} ${fontColor} ${fontColor} headerF`}
 						>
-							<img
-								src={item.imgIcons}
-								className={`${styles.imgIcons} imgIcons`}
-								alt=""
-							/>
-
+							{item.imgIcons && (
+								<img
+									src={item.imgIcons}
+									className={`${styles.imgIcons} imgIcons`}
+									alt=""
+								/>
+							)}
+							{item?.tag && (
+								<p className="text_xs text_uppercase color_light_gray m_b_30">
+									{item?.tag}
+								</p>
+							)}
 							<div>
 								{item.title}
 								{item.locationData && (
@@ -90,11 +97,19 @@ export default function AccordianCommon({
 								)}
 							</div>
 						</div>
-						<span>
+						<span className="icon">
 							{activeIndex === index ? (
-								<img src={minus_icon.src} className={`${styles.AccImgMinus}`} alt="" />
+								<img
+									src={minus_icon.src}
+									className={`${styles.AccImgMinus} AccImgMinus`}
+									alt=""
+								/>
 							) : (
-								<img src={plus_arrow.src} className={`${styles.AccImg} `} alt="" />
+								<img
+									src={plus_arrow.src}
+									className={`${styles.AccImg} AccImgMinus `}
+									alt=""
+								/>
 							)}
 						</span>
 					</div>

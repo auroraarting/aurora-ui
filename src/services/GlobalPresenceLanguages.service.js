@@ -25,13 +25,13 @@ export const getRegions = async () => {
                 icon {
                   node {
                     altText
-                    sourceUrl(size: LARGE)
+                    mediaItemUrl
                   }
                 }
                 mapThumbnail {
                   node {
                     altText
-                    sourceUrl(size: LARGE)
+                    mediaItemUrl
                   }
                 }
                 category {
@@ -52,7 +52,7 @@ export const getRegions = async () => {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -68,7 +68,7 @@ export const getRegions = async () => {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -84,7 +84,7 @@ export const getRegions = async () => {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -102,7 +102,7 @@ export const getRegions = async () => {
           featuredImage {
             node {
               altText
-              sourceUrl(size: LARGE)
+              mediaItemUrl
             }
           }
         }
@@ -149,13 +149,13 @@ query GetCountryInside {
         image {
           node {
             altText
-            sourceUrl(size: LARGE)
+            mediaItemUrl
           }
         }
         mobileImage {
           node {
             altText
-            sourceUrl(size: LARGE)
+            mediaItemUrl
           }
         }
       }
@@ -164,7 +164,7 @@ query GetCountryInside {
           thumbnailImage {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           videoLink
@@ -191,7 +191,7 @@ query GetCountryInside {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           advantagesTitle
@@ -205,20 +205,20 @@ query GetCountryInside {
       ourClients {
         sectionTitle
         tabTitle
-        selectLogos {
+        selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
           }
         }
-        testimonials {
+        testimonials(first: 999) {
           nodes {
             ... on Testimonial {
               id
@@ -244,7 +244,7 @@ query GetCountryInside {
         image {
           node {
             altText
-            sourceUrl(size: LARGE)
+            mediaItemUrl
           }
         }
       }
@@ -255,19 +255,13 @@ query GetCountryInside {
           lng
         }
         markers {
-          icon {
-            node {
-              altText
-              sourceUrl(size: LARGE)
-            }
-          }
           mapThumbnail {
             node {
               altText
-              sourceUrl(size: LARGE)
+              mediaItemUrl
             }
           }
-          category {
+          category(first: 999) {
             nodes {
               contentType {
                 node {
@@ -279,18 +273,48 @@ query GetCountryInside {
                 slug
                 title
                 content
+                services {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
               }
               ... on Software {
                 id
                 title
                 slug
                 content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
               }
               ... on Product {
                 id
                 title
                 slug
                 content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
               }
               slug
             }
@@ -302,17 +326,67 @@ query GetCountryInside {
           locationtitle
         }
       }
-              mapThumb {
+      mapThumb {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
+        }
+      }
+      topSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      middleSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      keyAdvantageSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      availableRegionsSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      insightsSectionsButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
         }
       }
     }
     featuredImage {
       node {
         altText
-        sourceUrl(size: LARGE)
+        mediaItemUrl
       }
     }
     }

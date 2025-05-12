@@ -1,9 +1,9 @@
 // MODULES //
 import { useRef, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 // COMPONENTS //
-import Button from "@/components/Buttons/Button";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
@@ -12,22 +12,20 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 import formatDate, {
 	allCategories,
-	buildQueryFromContext,
 	filterBySearchQuery,
 	filterItems,
 	isCategory,
-	objectToGraphQLArgs,
 } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/aurora-insights/InsightsListing.module.scss";
 
 // IMAGES //
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
-import search from "@/../public/img/icons/search.svg";
-import hoverBg from "@/../public/img/home/hoverBg.png";
+import location from "/public/img/icons/location.svg";
+import calender from "/public/img/icons/calender.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
+import searchImg from "/public/img/icons/search.svg";
+import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
 import { getInsights } from "@/services/Insights.service";
@@ -46,7 +44,8 @@ export default function InsightsListing({
 	original,
 	setOriginal,
 }) {
-	const router = useRouter();
+	const searchParams = useSearchParams();
+	const search = searchParams.get("search");
 	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
 	const [filteredPagination, setFilteredPagination] = useState(pagination);
@@ -58,6 +57,7 @@ export default function InsightsListing({
 		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
+	const [paginationArr, setPaginationArr] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -124,59 +124,9 @@ export default function InsightsListing({
 		}
 	};
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
-
-	/** handleNextPage  */
-	const handleNextPage = async () => {
-		setLoading(true);
-		// Build your query with the new `after` cursor
-		const newQuery = {
-			...router.query,
-			after: filteredPagination.endCursor,
-		};
-
-		router.push(
-			{
-				pathname: router.pathname,
-				query: newQuery,
-			},
-			undefined,
-			{ shallow: true }
-		);
-
-		const queryToUse = objectToGraphQLArgs(buildQueryFromContext(newQuery));
-		const filteredData = await getInsights(queryToUse);
-		setLoading(false);
-		setList(filteredData.data.posts.nodes);
-		setFilteredPagination(filteredData.data?.posts?.pageInfo);
-	};
-
-	/** handleNextPage  */
-	const handlePreviousPage = async () => {
-		window.history.back();
-	};
-
 	/** filter  */
 	const filter = async (catName, key) => {
-		let queryObj = { ...router.query };
+		let queryObj = {};
 		let selectedObj = selected;
 		let arr = original;
 		setLoading(true);
@@ -220,6 +170,7 @@ export default function InsightsListing({
 
 		const filteredArr = filterItems(arr, queryObj);
 		setList(filteredArr);
+		setPaginationArr(filteredArr);
 		setLoading(false);
 	};
 
@@ -244,12 +195,13 @@ export default function InsightsListing({
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterBySearchQuery(data, router.query.search);
+		if (search) {
+			const filtered = filterBySearchQuery(data, search);
 			setList(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section className={styles.InsightsListing}>
@@ -426,13 +378,14 @@ export default function InsightsListing({
 							</div>
 						</div>
 						{/* Reset */}
-						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} "activeDropDown"`}
 									onClick={() => {
 										setSelected({});
 										setList(data);
+										setPaginationArr(data);
 									}}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
@@ -449,7 +402,7 @@ export default function InsightsListing({
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>
@@ -467,11 +420,11 @@ export default function InsightsListing({
 									<input name="search" type="text" placeholder="Search Events" />
 								</form>
 								<span className="d_f">
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 									{/* Close Button */}
-									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
-										x
-									</span>
+									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										<span className="text_xs">X</span>
+									</div>
 								</span>
 							</div>
 						)}
@@ -509,7 +462,7 @@ export default function InsightsListing({
 											<div className={`${styles.dateFlex} f_j pt_30`}>
 												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 													<img
-														src={data?.featuredImage?.node?.sourceUrl || calender.src}
+														src={data?.featuredImage?.node?.mediaItemUrl || calender.src}
 														className={`${styles.calender}`}
 														alt="calender"
 													/>
@@ -535,6 +488,12 @@ export default function InsightsListing({
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && <p>No Data</p>}
 				</div>
+				<Pagination
+					data={list}
+					paginationArr={paginationArr}
+					setCurrentItems={setList}
+					isDark={true}
+				/>
 			</div>
 			{/* {filteredPagination?.hasPreviousPage && (
 				<button onClick={handlePreviousPage}>Previous</button>

@@ -1,3 +1,5 @@
+"use client";
+
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -52,7 +54,7 @@ export default function HomeResources({ data, countries }) {
 								<div className={`${styles.ItemBox}`} key={item?.title}>
 									<a href={href()} className={`${styles.insideBox}`}>
 										<Image
-											src={item?.featuredImage?.node?.sourceUrl}
+											src={item?.featuredImage?.node?.mediaItemUrl}
 											className={`${styles.case_img} width_100 b_r_10`}
 											alt="case img"
 											height={360}

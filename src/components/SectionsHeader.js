@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -6,16 +7,15 @@ import { useEffect, useState } from "react";
 // SECTIONS //
 
 // PLUGINS //
-import { useInView } from "react-intersection-observer";
 
 // UTILS //
 
 // STYLES //
 import styles from "@/styles/components/SectionsHeader.module.scss";
-import Button from "./Buttons/Button";
 
 // IMAGES //
 import accarrow from "../../public/img/icons/acc_arrow.svg";
+
 // DATA //
 
 /** SectionsHeader Component */
@@ -84,7 +84,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 				if (!el) return;
 				const rect = el.getBoundingClientRect();
 				// Choose the section whose top is closest to 0 but still <= 0 (in view)
-				if (rect.top <= window.innerHeight * 0.3) {
+				if (rect.top <= window.innerHeight * 0.7) {
 					currentIndex = index;
 				}
 			});
@@ -121,7 +121,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 								key={ind}
 								className={`${styles.box} ${styles.onlyText} ${
 									activeTab >= ind ? "" : "color_medium_gray"
-								} `}
+								} text_xs text_uppercase`}
 							>
 								{typeof item.name === "string" ? item.name : item}
 							</div>

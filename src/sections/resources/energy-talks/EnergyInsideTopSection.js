@@ -43,9 +43,9 @@ export default function EnergyInsideTopSection({ data }) {
 									className={`${styles.calender}`}
 									alt="calender"
 								/>
-								<span>{formatDate(data?.date)}</span>
+								<span>{formatDate(data?.podcastFields?.date)}</span>
 							</p>
-							{data?.postFields?.time && (
+							{data?.podcastFields?.time && (
 								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
 									<img
 										src={black_clock.src}
@@ -54,16 +54,16 @@ export default function EnergyInsideTopSection({ data }) {
 									/>
 									<span>
 										{/* 28 min 24 sec */}
-										{data?.postFields?.time}
+										{data?.podcastFields?.time}
 									</span>
 								</p>
 							)}
 						</div>
 					</div>
-					{data?.featuredImage?.node?.sourceUrl && (
+					{data?.featuredImage?.node?.mediaItemUrl && (
 						<div className={`${styles.imageWrapper}`}>
 							<img
-								src={data?.featuredImage?.node?.sourceUrl}
+								src={data?.featuredImage?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
 								alt="img"
 							/>
@@ -77,28 +77,28 @@ export default function EnergyInsideTopSection({ data }) {
 								<p className="text_xs f_w_m font_primary color_secondary text_uppercase">
 									Stream on
 								</p>
-								{data?.postFields?.spotifyLink && (
-									<a href={data?.postFields?.spotifyLink}>
+								{data?.podcastFields?.spotifyLink && (
+									<a href={data?.podcastFields?.spotifyLink}>
 										<img src={spotify.src} alt="spotify" />
 									</a>
 								)}
-								{data?.postFields?.appleLink && (
-									<a href={data?.postFields?.appleLink}>
+								{data?.podcastFields?.appleLink && (
+									<a href={data?.podcastFields?.appleLink}>
 										<img src={apple.src} alt="apple" />
 									</a>
 								)}
-								{data?.postFields?.youtubeLink && (
-									<a href={data?.postFields?.youtubeLink}>
+								{data?.podcastFields?.youtubeLink && (
+									<a href={data?.podcastFields?.youtubeLink}>
 										<img src={google.src} alt="google" />
 									</a>
 								)}
-								{data?.postFields?.googleLink && (
-									<a href={data?.postFields?.googleLink}>
+								{data?.podcastFields?.googleLink && (
+									<a href={data?.podcastFields?.googleLink}>
 										<img src={googleVoice.src} alt="google" />
 									</a>
 								)}
-								{data?.postFields?.otherLink && (
-									<a href={data?.postFields?.otherLink}>
+								{data?.podcastFields?.otherLink && (
+									<a href={data?.podcastFields?.otherLink}>
 										<img src={other_logo.src} alt="google" />
 									</a>
 								)}

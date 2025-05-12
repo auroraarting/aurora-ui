@@ -21,7 +21,7 @@ query OurJoinPage {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }

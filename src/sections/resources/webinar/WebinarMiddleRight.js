@@ -62,7 +62,7 @@ export default function WebinarMiddleRight({ data }) {
 											<img
 												src={
 													item?.[item?.contentType?.node?.name]?.banner?.logo?.node
-														?.sourceUrl
+														?.mediaItemUrl
 												}
 												alt="pic"
 											/>
@@ -90,7 +90,7 @@ export default function WebinarMiddleRight({ data }) {
 										<a
 											key={item?.title || item?.name || item}
 											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-											href={`/resources/aurora-insights&search=${
+											href={`/resources/aurora-insights?search=${
 												item?.title || item?.name || item
 											}`}
 										>

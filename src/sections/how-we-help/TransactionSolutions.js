@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -9,6 +10,11 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Pagination, Navigation, Autoplay, Controller } from "swiper/modules";
 
 // UTILS //
 
@@ -35,11 +41,15 @@ export default function TransactionSolutions({
 	data,
 	slugPage = "products",
 	keyValue = "products",
+	isSlider,
 }) {
+	console.log(data);
 	const animTimeline = gsap.timeline({});
+	const [swiperOne, setSwiperOne] = useState(null);
+	const [swiperTwo, setSwiperTwo] = useState(null);
 
 	useEffect(() => {
-		if (data?.length === 0 || !data) return null;
+		if (data?.length === 0 || !data || isSlider) return null;
 
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
@@ -96,54 +106,178 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	if (data.length === 0) return <></>;
+	if (data?.length === 0 || !data) return <></>;
 
 	return (
-		<section className={`${styles.TransactionSolutions}`}>
+		<section
+			className={`${styles.TransactionSolutions} ${isSlider && styles.isSlider}`}
+		>
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
-					{data?.map((item, ind) => {
-						return (
-							<div
-								className={`${styles.SpaceLeft}`}
-								key={ind}
-								style={{
-									background: `linear-gradient(180deg,${item?.[keyValue]?.thumbnail?.gradient?.from} 0%,${item?.[keyValue]?.thumbnail?.gradient?.to} 100%)`,
-								}}
-							>
-								<div className={`${styles.spaceInner}`}>
-									<img
-										src={item?.[keyValue]?.thumbnail?.logo?.node?.sourceUrl}
-										alt="solar plant"
-									/>
-									<h2 className="text_xl font_primary f_w_m color_white pt_40">
-										{item?.title}
-									</h2>
-									<p className={`${styles.label} text_reg color_platinum_gray`}>
-										{item?.[keyValue]?.thumbnail?.shortDescription}
-									</p>
-									<div className={`${styles.bookBtn} pt_30`}>
-										<a href={`/${slugPage}/${item?.slug}`}>
-											<Button color="secondary" variant="underline" mode="dark">
-												Know more
-											</Button>
-										</a>
+					{isSlider ? (
+						<Swiper
+							modules={[Navigation, Autoplay, Controller]}
+							slidesPerView={1}
+							spaceBetween={0}
+							grabCursor={true}
+							speed={500}
+							loop={true}
+							navigation={{
+								prevEl: "#customPrev",
+								nextEl: "#customNext",
+							}}
+							// autoplay={{
+							// 	delay: 3000,
+							// 	disableOnInteraction: false,
+							// }}
+							onSwiper={setSwiperOne}
+							controller={{ control: swiperTwo }}
+							className={styles.slider}
+						>
+							{data?.map((item, ind) => {
+								let contentType = keyValue;
+
+								if (item?.contentType?.node?.name)
+									contentType = item?.contentType?.node?.name;
+
+								return (
+									<SwiperSlide key={ind}>
+										<div
+											className={`${styles.SpaceLeft}`}
+											key={ind}
+											style={{
+												background: `linear-gradient(180deg,${item?.[contentType]?.thumbnail?.gradient?.from} 0%,${item?.[contentType]?.thumbnail?.gradient?.to} 100%)`,
+											}}
+										>
+											<div className={`${styles.spaceInner}`}>
+												{item?.[contentType]?.thumbnail?.logo?.node?.mediaItemUrl && (
+													<img
+														src={item?.[contentType]?.thumbnail?.logo?.node?.mediaItemUrl}
+														alt="solar plant"
+													/>
+												)}
+												<h2 className="text_xl font_primary f_w_m color_white pt_40">
+													{item?.title}
+												</h2>
+												<p className={`${styles.label} text_reg color_platinum_gray`}>
+													{item?.[contentType]?.thumbnail?.shortDescription}
+												</p>
+												<div className={`${styles.bookBtn} pt_30`}>
+													<a href={item?.link || `/${slugPage}/${item?.slug}`}>
+														<Button color="secondary" variant="underline" mode="dark">
+															Know more
+														</Button>
+													</a>
+												</div>
+											</div>
+										</div>
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					) : (
+						data?.map((item, ind) => {
+							let contentType = keyValue;
+
+							if (item?.contentType?.node?.name)
+								contentType = item?.contentType?.node?.name;
+
+							return (
+								<div
+									className={`${styles.SpaceLeft}`}
+									key={ind}
+									style={{
+										background: `linear-gradient(180deg,${item?.[contentType]?.thumbnail?.gradient?.from} 0%,${item?.[contentType]?.thumbnail?.gradient?.to} 100%)`,
+									}}
+								>
+									<div className={`${styles.spaceInner}`}>
+										{item?.[contentType]?.thumbnail?.logo?.node?.mediaItemUrl && (
+											<img
+												src={item?.[contentType]?.thumbnail?.logo?.node?.mediaItemUrl}
+												alt="solar plant"
+											/>
+										)}
+										<h2 className="text_xl font_primary f_w_m color_white pt_40">
+											{item?.title}
+										</h2>
+										<p className={`${styles.label} text_reg color_platinum_gray`}>
+											{item?.[contentType]?.thumbnail?.shortDescription}
+										</p>
+										<div className={`${styles.bookBtn} pt_30`}>
+											<a href={item?.link || `/${slugPage}/${item?.slug}`}>
+												<Button color="secondary" variant="underline" mode="dark">
+													Know more
+												</Button>
+											</a>
+										</div>
 									</div>
 								</div>
-							</div>
-						);
-					})}
+							);
+						})
+					)}
+					{isSlider && (
+						<div className={`${styles.arrowSection} f_w_a_j_center`}>
+							<button className={`${styles.customPrev}`} id="customPrev">
+								<img src="/img/icons/howwehelpSwiperRight.svg" alt="icon" />
+							</button>
+							<button className={styles.customNext} id="customNext">
+								<img src="/img/icons/howwehelpSwiperRight.svg" alt="icon" />
+							</button>
+						</div>
+					)}
 				</div>
 				<div className={`${styles.flexItemTwo}`}>
-					{data?.map((item, ind) => {
-						return (
-							<img
-								key={ind}
-								src={item?.[keyValue]?.thumbnail?.banner?.node?.sourceUrl}
-								alt="solar plant"
-							/>
-						);
-					})}
+					{isSlider ? (
+						<Swiper
+							modules={[Navigation, Autoplay, Controller]}
+							slidesPerView={1}
+							spaceBetween={0}
+							grabCursor={true}
+							speed={500}
+							loop={true}
+							// navigation={{
+							// 	prevEl: "#customPrev",
+							// 	nextEl: "#customNext",
+							// }}
+							// autoplay={{
+							// 	delay: 3000,
+							// 	disableOnInteraction: false,
+							// }}
+							onSwiper={setSwiperTwo}
+							controller={{ control: swiperOne }}
+							className={styles.slider}
+						>
+							{data?.map((item, ind) => {
+								let contentType = keyValue;
+
+								if (item?.contentType?.node?.name)
+									contentType = item?.contentType?.node?.name;
+								return (
+									<SwiperSlide key={ind}>
+										<img
+											key={ind}
+											src={item?.[contentType]?.thumbnail?.banner?.node?.mediaItemUrl}
+											alt="solar plant"
+										/>
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					) : (
+						data?.map((item, ind) => {
+							let contentType = keyValue;
+
+							if (item?.contentType?.node?.name)
+								contentType = item?.contentType?.node?.name;
+							return (
+								<img
+									key={ind}
+									src={item?.[contentType]?.thumbnail?.banner?.node?.mediaItemUrl}
+									alt="solar plant"
+								/>
+							);
+						})
+					)}
 				</div>
 			</div>
 		</section>

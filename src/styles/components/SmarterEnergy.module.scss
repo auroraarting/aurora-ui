@@ -1,7 +1,7 @@
 @import "../helpers/helpers.scss";
 
 .SmarterEnergy {
-  background-image: url("../../../public/img/softwares/energy_bg.png");
+	background-image: url("../../../public/img/softwares/energy_bg.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: bottom center;
@@ -18,15 +18,64 @@
 			@media (max-width: 991px) {
 				width: 100%;
 			}
-      .content_wrap{
-        padding-left: 55px;
-      }
+			.content_wrap {
+				padding-left: 55px;
+			}
 		}
 	}
-  :global(.headerF) {
-    display: flex;
-  }
-  :global(.imgIcons) {
-    margin-right: 10px;
-  }
+	:global(.headerF) {
+		display: flex;
+	}
+	:global(.imgIcons) {
+		margin-right: 10px;
+	}
+
+	:global {
+		.modal {
+			.content {
+				width: 80%;
+			}
+		}
+	}
+
+	.popup {
+		padding: 50px;
+
+		:global {
+			.icon {
+				img {
+					filter: invert(1);
+				}
+			}
+			.accordionItem {
+				border-color: #2c2c2c;
+			}
+		}
+		.accordian_main {
+			border-top: 1px solid #2c2c2c;
+			padding-top: 40px;
+			margin-top: 50px;
+
+			.listItem {
+				background-color: var(--color_gray);
+				display: flex;
+				border-radius: 12px;
+				padding: 8px;
+				gap: 20px;
+				flex-wrap: wrap;
+
+				.category {
+					background-color: var(--color_blue);
+					border-radius: 12px;
+					padding: 12px;
+				}
+
+				> div {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+				}
+			}
+		}
+	}
 }

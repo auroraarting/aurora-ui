@@ -1,4 +1,6 @@
+/* eslint-disable indent */
 import { openModal } from "@/components/Modal";
+// import { Link, scroller } from "react-scroll";
 
 /** formatDate  */
 export default function formatDate(isoString) {
@@ -63,18 +65,18 @@ export function getMapJsonForCountries(data) {
 					lng: parseFloat(markerItem?.coordinates?.lng),
 					url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
 					icon:
-						node?.service?.map?.logo?.node?.sourceUrl ||
-						node?.products?.map?.logo?.node?.sourceUrl ||
-						node?.softwares?.map?.logo?.node?.sourceUrl ||
-						markerItem?.icon?.node?.sourceUrl ||
+						node?.service?.map?.logo?.node?.mediaItemUrl ||
+						node?.products?.map?.logo?.node?.mediaItemUrl ||
+						node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+						markerItem?.icon?.node?.mediaItemUrl ||
 						"",
 				};
 
 				if (markerItem?.mapThumbnail) {
-					obj.hoverImg = markerItem.mapThumbnail.node.sourceUrl;
+					obj.hoverImg = markerItem.mapThumbnail.node.mediaItemUrl;
 				}
-				if (markerItem?.icon?.node?.sourceUrl) {
-					obj.icon = markerItem.icon.node.sourceUrl;
+				if (markerItem?.icon?.node?.mediaItemUrl) {
+					obj.icon = markerItem.icon.node.mediaItemUrl;
 				}
 
 				return obj;
@@ -103,28 +105,97 @@ export function getMapJsonForProducts(regions) {
 							lng: "",
 							url: "",
 							hoverImg: "",
-							// icon: item3?.icon?.node?.sourceUrl,
+							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.sourceUrl ||
-								node?.products?.map?.logo?.node?.sourceUrl ||
-								node?.softwares?.map?.logo?.node?.sourceUrl ||
-								item3?.icon?.node?.sourceUrl ||
+								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.products?.map?.logo?.node?.mediaItemUrl ||
+								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+								item3?.icon?.node?.mediaItemUrl ||
 								"",
 							unique: Math.random(),
 						};
 
-						if (item3?.mapThumbnail?.node?.sourceUrl) {
-							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+						if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
+							/** keyModule  */
+							const keyModule = () => {
+								if (node?.contentType?.node?.name === "softwares") {
+									return "software";
+								}
+								return node?.contentType?.node?.name;
+							};
 							if (node?.contentType?.node?.name != "products") {
 								return;
 							}
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${node?.contentType?.node?.name}/${node?.slug}`;
+							obj2.url = `/${keyModule()}/${node?.slug}`;
+						}
+
+						return obj2;
+					})
+					.filter((item) => item),
+				zoom: item2?.countries?.map?.zoom,
+				name: item2?.title,
+			};
+
+			obj && mapJson.push(obj);
+		});
+	});
+
+	return mapJson;
+}
+
+/** getMapJsonForService  */
+export function getMapJsonForService(regions) {
+	const mapJson = [];
+	regions?.data?.regions?.nodes?.map((item) => {
+		item?.countries?.nodes?.map((item2) => {
+			let obj = {
+				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
+				markers: item2.countries?.map?.markers
+					?.map((item3) => {
+						let node = item3?.category?.nodes?.[0];
+
+						let obj2 = {
+							name: "",
+							lat: "",
+							lng: "",
+							url: "",
+							hoverImg: "",
+							// icon: item3?.icon?.node?.mediaItemUrl,
+							icon:
+								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.products?.map?.logo?.node?.mediaItemUrl ||
+								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+								item3?.icon?.node?.mediaItemUrl ||
+								"",
+							unique: Math.random(),
+						};
+
+						if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
+						}
+
+						if (item3?.category?.nodes?.length > 0) {
+							/** keyModule  */
+							const keyModule = () => {
+								if (node?.contentType?.node?.name === "softwares") {
+									return "software";
+								}
+								return node?.contentType?.node?.name;
+							};
+							if (node?.contentType?.node?.name != "services") {
+								return;
+							}
+							obj2.name = node?.title;
+							obj2.lat = parseFloat(item3?.coordinates?.lat);
+							obj2.lng = parseFloat(item3?.coordinates?.lng);
+							obj2.url = `/${keyModule()}/${node?.slug}`;
 						}
 
 						return obj2;
@@ -158,28 +229,35 @@ export function getMapJsonForSoftware(regions) {
 							lng: "",
 							url: "",
 							hoverImg: "",
-							// icon: item3?.icon?.node?.sourceUrl,
+							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.sourceUrl ||
-								node?.products?.map?.logo?.node?.sourceUrl ||
-								node?.softwares?.map?.logo?.node?.sourceUrl ||
-								item3?.icon?.node?.sourceUrl ||
+								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.products?.map?.logo?.node?.mediaItemUrl ||
+								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+								item3?.icon?.node?.mediaItemUrl ||
 								"",
 							unique: Math.random(),
 						};
 
-						if (item3?.mapThumbnail?.node?.sourceUrl) {
-							obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+						if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+							obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
 						}
 
 						if (item3?.category?.nodes?.length > 0) {
+							/**keyModule  */
+							const keyModule = () => {
+								if (node?.contentType?.node?.name === "softwares") {
+									return "software";
+								}
+								return node?.contentType?.node?.name;
+							};
 							if (node?.contentType?.node?.name != "softwares") {
 								return;
 							}
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${node?.contentType?.node?.name}/${node?.slug}`;
+							obj2.url = `/${keyModule()}/${node?.slug}`;
 						}
 
 						return obj2;
@@ -197,7 +275,7 @@ export function getMapJsonForSoftware(regions) {
 
 /** filterMarkersBySlug  */
 export function filterMarkersBySlug(data, slug) {
-	data.regions?.nodes.forEach((region) => {
+	data.data.regions?.nodes.forEach((region) => {
 		region.countries?.nodes.forEach((country) => {
 			const markers = country.countries?.map?.markers || [];
 
@@ -231,22 +309,29 @@ export function getMapJsonForAllRegions(regions) {
 						url: "",
 						hoverImg: "",
 						icon:
-							node?.service?.map?.logo?.node?.sourceUrl ||
-							node?.products?.map?.logo?.node?.sourceUrl ||
-							node?.softwares?.map?.logo?.node?.sourceUrl ||
-							item3?.icon?.node?.sourceUrl,
+							node?.service?.map?.logo?.node?.mediaItemUrl ||
+							node?.products?.map?.logo?.node?.mediaItemUrl ||
+							node?.softwares?.map?.logo?.node?.mediaItemUrl ||
+							item3?.icon?.node?.mediaItemUrl,
 						unique: Math.random(),
 					};
 
-					if (item3?.mapThumbnail?.node?.sourceUrl) {
-						obj2.hoverImg = item3.mapThumbnail.node.sourceUrl;
+					if (item3?.mapThumbnail?.node?.mediaItemUrl) {
+						obj2.hoverImg = item3.mapThumbnail.node.mediaItemUrl;
 					}
 
 					if (item3?.category?.nodes?.length > 0) {
+						/** keyModule  */
+						const keyModule = () => {
+							if (node.contentType?.node?.name === "softwares") {
+								return "software";
+							}
+							return node.contentType?.node?.name;
+						};
 						obj2.name = node?.title;
 						obj2.lat = parseFloat(item3?.coordinates?.lat);
 						obj2.lng = parseFloat(item3?.coordinates?.lng);
-						obj2.url = `/${node.contentType?.node?.name}/${node?.slug}`;
+						obj2.url = `/${keyModule()}/${node?.slug}`;
 					}
 
 					return obj2;
@@ -376,21 +461,22 @@ export const allCategories = [
 	{ title: "Market reports", alternate: "Market reports" },
 	{ title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
-	{ title: "Energy Talks", alternate: "Energy Talks" },
+	// { title: "Energy Talks", alternate: "Energy Talks" },
+	{ title: "Media", alternate: "Media" },
 ];
 
 /** findFunc  */
 export function isCategory(categoryList, dynamicWords) {
 	const words = dynamicWords
 		?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
-		.map((word) => word.trim())
+		.map((word) => word?.trim())
 		.filter(Boolean); // remove empty strings
 
 	let txt = "";
 
 	categoryList?.forEach((item) => {
 		const target = (item.alternate || item.title).toLowerCase();
-		const match = words.some((word) => target.includes(word));
+		const match = words?.some((word) => target.includes(word));
 
 		if (match) {
 			if (!txt) {
@@ -404,7 +490,7 @@ export function isCategory(categoryList, dynamicWords) {
 	return txt;
 }
 
-/** filterItems  */
+/** filterItems for resources */
 export const filterItems = (items, filterObj) => {
 	return items.filter((item) => {
 		const categoryNames =
@@ -422,10 +508,15 @@ export const filterItems = (items, filterObj) => {
 
 		const filterYear = filterObj.year;
 		const itemYear = new Date(item.date).getFullYear();
-
 		const matchesYear = filterYear ? itemYear === filterYear : true;
 
-		return matchesCategoryFilters && matchesYear;
+		const filterLanguage = filterObj.language;
+		const itemLanguage = item.language?.native_name?.toLowerCase();
+		const matchesLanguage = filterLanguage
+			? itemLanguage === filterLanguage.toLowerCase()
+			: true;
+
+		return matchesCategoryFilters && matchesYear && matchesLanguage;
 	});
 };
 
@@ -465,8 +556,8 @@ export const dynamicInsightsBtnProps = (
 ) => {
 	let obj = {};
 
-	if (data?.postFields?.[keyVal]?.file?.node?.sourceUrl) {
-		obj.href = data?.postFields?.[keyVal]?.file?.node?.sourceUrl;
+	if (data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl) {
+		obj.href = data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl;
 		obj.target = "_blank";
 		obj.rel = "noreferrer";
 	} else if (data?.postFields?.[keyVal]?.iframe) {
@@ -478,7 +569,7 @@ export const dynamicInsightsBtnProps = (
 			);
 	}
 	if (data?.postFields?.[keyVal]?.buttonText) {
-		obj.btnText = data?.postFields?.[keyVal]?.buttonText;
+		obj.btntext = data?.postFields?.[keyVal]?.buttonText;
 	}
 
 	return obj;
@@ -621,3 +712,235 @@ export function filterItemsBySelectedObjForPress(arr, selectedObj) {
 		});
 	}, arr);
 }
+
+/** filterItemsBySelectedObj  */
+export function filterItemsBySelectedObjForCareers(arr, selectedObj) {
+	const filters = [
+		{
+			key: "program",
+			getNodes: (item) => item.programs?.nodes,
+			match: (node, value) => node.name === value,
+		},
+		{
+			key: "country",
+			getNodes: (item) => [item.earlyCareers.thumbnail.country.node],
+			match: (node, value) => node.title === value,
+		},
+	];
+
+	return filters.reduce((filteredArr, { key, getNodes, match }) => {
+		const value = selectedObj[key];
+		if (!value) return filteredArr;
+
+		return filteredArr.filter((item) => {
+			if (getNodes) {
+				const nodes = getNodes(item) || [];
+				return nodes?.some((node) => match(node, value));
+			}
+			return match(item, value);
+		});
+	}, arr);
+}
+
+/** slugify  */
+export function slugify(str) {
+	return str
+		?.toLowerCase()
+		.trim()
+		.replace(/[^a-z0-9\s-]/g, "") // remove non-alphanumeric characters
+		.replace(/\s+/g, "-") // replace spaces with hyphens
+		.replace(/-+/g, "-"); // remove multiple hyphens
+}
+
+/** highlightMatches  */
+export function highlightMatches(node, term) {
+	if (!term || !node || node.nodeType !== 1) return;
+
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	const TEXT_NODE = 3;
+
+	for (let child of Array.from(node.childNodes)) {
+		if (child.nodeType === TEXT_NODE) {
+			const val = child.nodeValue;
+			const idx = val.toLowerCase().indexOf(term);
+
+			if (idx !== -1) {
+				const span = document.createElement("span");
+				span.className = "highlight";
+				span.textContent = val.slice(idx, idx + term.length);
+
+				const after = document.createTextNode(val.slice(idx + term.length));
+				const before = document.createTextNode(val.slice(0, idx));
+
+				const parent = child.parentNode;
+				parent.replaceChild(after, child);
+				parent.insertBefore(span, after);
+				parent.insertBefore(before, span);
+			}
+		} else if (child.nodeType === 1) {
+			highlightMatches(child, term);
+		}
+	}
+}
+
+/** scrollToSection */
+// export const scrollToSection = (id) => {
+// 	scroller.scrollTo(id, {
+// 		duration: 500,
+// 		smooth: true,
+// 		offset: -100,
+// 		spy: true,
+// 		onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+// 	});
+
+// 	setTimeout(() => {
+// 		console.log("Scrolling finished!");
+// 	}, 500);
+// };
+
+/** Generate link and title based on content key */
+export const getLinkAndTitle = (key, item = {}, searchTerm) => {
+	const searchQuery = searchTerm
+		? `?search=${encodeURIComponent(searchTerm)}`
+		: "";
+
+	/** slug  */
+	function Slug(pageSlug) {
+		switch (pageSlug) {
+			case "early-careers-landing":
+				return "/careers/early-careers";
+			case "faq":
+				return "/careers/faq";
+			case "join-us":
+				return "/careers/join-us";
+			case "our-team":
+				return "/careers/our-team";
+			case "life-at-aurora":
+				return "/careers/life-at-aurora";
+			case "press-landing":
+				return "/company/press-landing";
+			case "about":
+				return "/company/about";
+			case "global-presence":
+				return "/company/global-presence";
+			case "contact":
+				return "/company/contact";
+			case "event-landing":
+				return "/events";
+			case "energy-talks-listing":
+				return "/resources/energy-talks";
+			case "insight-listing":
+				return "/resources/aurora-insights";
+			case "webinar-listing":
+				return "/resources/webinar";
+			case "eos":
+				return "/eos";
+			case "product":
+				return "/products";
+			case "software":
+				return "/software";
+			case "homepage":
+				return "/";
+			case "bundles":
+				return "/careers/life-at-aurora";
+			default:
+				return "/";
+		}
+	}
+
+	switch (key) {
+		case "about":
+			return {
+				link: `/company/about${searchQuery}`,
+				title: "About",
+			};
+		case "eos":
+			return {
+				link: `/eos${searchQuery}`,
+				title: "Eos",
+			};
+		case "globalPresence":
+			return {
+				link: `/global-presence${searchQuery}`,
+				title: "Global Presence",
+			};
+		case "homepage":
+			return {
+				link: `/${searchQuery}`,
+				title: "Home",
+			};
+		case "lifeAtAurora":
+		case "offices":
+			return {
+				link: `/careers/life-at-aurora${searchQuery}`,
+				title: "Life At Aurora",
+			};
+		case "softwares":
+			return {
+				link: `/software/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "products":
+			return {
+				link: `/products/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "services":
+			return {
+				link: `/service/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "teams":
+		case "teamsectors":
+			return {
+				link: `/company/team${searchQuery}`,
+				title: item.title,
+			};
+		case "whoareyous":
+			return {
+				link: `/who-are-you/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "howWeHelps":
+			return {
+				link: `/how-we-help/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "posts":
+			return {
+				link: `${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "events":
+			return {
+				link: `/events/${item.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "pages":
+			return {
+				link: `${Slug(item?.slug)}${searchQuery}`,
+				title: item.title,
+			};
+		case "podcasts":
+			return {
+				link: `/resources/energy-talks/${item?.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "howwehelp":
+			return {
+				link: `/how-we-help/${item?.slug}${searchQuery}`,
+				title: item.title,
+			};
+		case "whoareyou":
+			return {
+				link: `/who-are-you/${item?.slug}${searchQuery}`,
+				title: item.title,
+			};
+
+		default:
+			return {
+				link: `/${searchQuery}`,
+				title: "Home",
+			};
+	}
+};

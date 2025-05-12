@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useRef, useEffect, useState } from "react";
 
@@ -8,6 +9,7 @@ import { useRouter } from "next/router";
 // SECTIONS //
 
 // PLUGINS //
+import { useContextProvider } from "@/context/GlobalContext";
 
 // UTILS //
 import formatDate, {
@@ -23,7 +25,7 @@ import energy_transition from "../../../public/img/events/energy_transition.png"
 import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
-import search from "../../../public/img/icons/search.svg";
+import searchImg from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
 
@@ -37,7 +39,7 @@ export default function EventsListing({
 	years,
 	categories,
 }) {
-	const router = useRouter();
+	const { search } = useContextProvider();
 	const [original, setOriginal] = useState(data);
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
@@ -162,12 +164,12 @@ export default function EventsListing({
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterBySearchQueryEvents(data, router.query.search);
+		if (search) {
+			const filtered = filterBySearchQueryEvents(data, search);
 			setList(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section className={styles.EventsListing}>
@@ -424,7 +426,7 @@ export default function EventsListing({
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>
@@ -442,11 +444,11 @@ export default function EventsListing({
 									<input name="search" type="text" placeholder="Search Events" />
 								</form>
 								<span className="d_f">
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 									{/* Close Button */}
-									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
-										x
-									</span>
+									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										<span className="text_xs">X</span>
+									</div>
 								</span>
 							</div>
 						)}
@@ -466,7 +468,7 @@ export default function EventsListing({
 											alt="img"
 										/>
 										<img
-											src={item?.events?.thumbnail?.logo?.node?.sourceUrl}
+											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 											className={`${styles.productLogo} `}
 											alt="img"
 										/>

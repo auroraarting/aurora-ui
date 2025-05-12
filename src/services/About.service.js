@@ -15,13 +15,13 @@ query GetAbout {
         desktopThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -31,7 +31,7 @@ query GetAbout {
         gallery {
           nodes {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -50,7 +50,7 @@ query GetAbout {
                   image {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                   linkedinLink
@@ -58,29 +58,31 @@ query GetAbout {
                 articles {
                   articlesby {
                     nodes {
-                      ... on CaseStudy {
+                      ... on Post {
                         id
-                        content
                         title
                         slug
-                        date
                         featuredImage {
                           node {
                             altText
-                            sourceUrl
+                            mediaItemUrl
                           }
                         }
-                        caseStudies {
-                          readTime
-                          selectLocation {
-                            nodes {
-                              ... on Country {
-                                id
-                                title
-                                slug
-                              }
-                            }
+                        postFields {
+                          time
+                        }
+                        date
+                        categories(first: 9999) {
+                          nodes {
+                            name
+                            slug
                           }
+                        }
+                      }
+                      slug
+                      contentType {
+                        node {
+                          name
                         }
                       }
                     }
@@ -105,7 +107,7 @@ query GetAbout {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -120,7 +122,7 @@ query GetAbout {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -136,7 +138,7 @@ query GetAbout {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -153,7 +155,7 @@ query GetAbout {
         thumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         map {

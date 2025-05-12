@@ -30,6 +30,7 @@ import calender from "@/../public/img/icons/calender.svg";
 import black_down_arrow from "@/../public/img/icons/black_down_arrow.svg";
 import linkedin from "@/../public/img/icons/linkedin.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
+import formatDate from "@/utils";
 
 // DATA //
 
@@ -66,9 +67,9 @@ export default function Leaders({ data }) {
 			name: item?.title,
 			designation: item?.teams?.thumbnail?.designation,
 			linkedinUrl: item?.teams?.thumbnail?.linkedinLink,
-			downloadProfileUrl: item?.teams?.file?.node?.sourceUrl,
+			downloadProfileUrl: item?.teams?.file?.node?.mediaItemUrl,
 			desc: item?.content,
-			thumbnail: item?.teams?.thumbnail?.image?.node?.sourceUrl,
+			thumbnail: item?.teams?.thumbnail?.image?.node?.mediaItemUrl,
 			leaderBlogHeading: "Latest Articles by John Feddersen1",
 			blogData: item?.teams?.articles?.articlesby?.nodes?.map((item2) => {
 				let location = "";
@@ -82,8 +83,9 @@ export default function Leaders({ data }) {
 				});
 				return {
 					tags: "Case Study",
+					blogSlug: `/resources/aurora-insights/${item2?.slug}`,
 					blogDesc: item2?.title,
-					blogDate: item2?.caseStudies?.date,
+					blogDate: formatDate(item2?.date),
 					blogLocation: location,
 				};
 			}),
@@ -263,7 +265,10 @@ export default function Leaders({ data }) {
 																	{item?.blogData?.map((blogData, index) => (
 																		<SwiperSlide key={index}>
 																			<div className={`${styles.ItemBox} `}>
-																				<div className={`${styles.hoverBox}`}>
+																				<a
+																					href={blogData?.blogSlug}
+																					className={`${styles.hoverBox}`}
+																				>
 																					<img
 																						height={179}
 																						width={446}
@@ -299,7 +304,7 @@ export default function Leaders({ data }) {
 																							<span>{blogData.blogLocation}</span>
 																						</p>
 																					</div>
-																				</div>
+																				</a>
 																			</div>
 																		</SwiperSlide>
 																	))}

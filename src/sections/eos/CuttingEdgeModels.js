@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -21,12 +22,13 @@ import parse from "html-react-parser";
 import styles from "@/styles/sections/eos/CuttingEdgeModels.module.scss";
 
 // IMAGES //
-import management_img from "../../../public/img/events/management_img.jpg";
-import slider_arrow from "../../../public/img/icons/slider_arrow.svg";
-import popup_close from "../../../public/img/icons/popup_close.svg";
-import black_right from "../../../public/img/icons/black_right.svg";
-import hoverEffect from "../../../public/img/eos/hoverEffect.png";
-import origin_logo from "../../../public/img/eos/origin_logo.png";
+import management_img from "/public/img/events/management_img.jpg";
+import slider_arrow from "/public/img/icons/slider_arrow.svg";
+import popup_close from "/public/img/icons/popup_close.svg";
+import black_right from "/public/img/icons/black_right.svg";
+import hoverEffect from "/public/img/eos/hoverEffect.png";
+import origin_logo from "/public/img/eos/origin_logo.png";
+import AccordianCommon from "@/components/AccordianCommon";
 
 // DATA //
 
@@ -56,6 +58,23 @@ export default function CuttingEdgeModels({ data }) {
 			sliderRef.current.swiper.slideTo(slideNo);
 		}
 	}, [slideNo]);
+
+	const eventSpeakersData2 = data?.list?.map((item) => {
+		let obj = {};
+		const related = item?.category?.nodes?.[0];
+		obj.tag = related?.title;
+		obj.title = item?.title;
+		// if (item?.countries?.nodes?.length > 0) {
+		obj.children = (
+			<>
+				<p className={`${styles.Desc} text_reg  pb_20`}>
+					{parse(item.description)}
+				</p>
+			</>
+		);
+		// }
+		return obj;
+	});
 
 	const eventSpeakersData = [
 		{
@@ -88,6 +107,8 @@ export default function CuttingEdgeModels({ data }) {
 		},
 	];
 
+	console.log(eventSpeakersData2, " data?.list");
+
 	if (!data || !data.sectionTitle) return <></>;
 
 	// console.log(eventSpeakersData);
@@ -103,7 +124,7 @@ export default function CuttingEdgeModels({ data }) {
 					</div>
 				</div>
 				<div className={`${styles.content_main_wrap} pt_40`}>
-					<div className={`${styles.box_wrap}`}>
+					{/* <div className={`${styles.box_wrap}`}>
 						{data?.list?.map((item, ind) => {
 							const related = item?.category?.nodes?.[0];
 
@@ -133,7 +154,16 @@ export default function CuttingEdgeModels({ data }) {
 								</div>
 							);
 						})}
-					</div>
+					</div> */}
+					{data?.list.length > 0 && (
+						<AccordianCommon
+							fontStyle={"text_lg"}
+							fontWeight={"f_w_s_b"}
+							fontFamily={"font_primary"}
+							fontColor={"color_secondary"}
+							items={eventSpeakersData2}
+						/>
+					)}
 					{/*  */}
 				</div>
 			</div>
@@ -170,7 +200,7 @@ export default function CuttingEdgeModels({ data }) {
 											const relatedLogo =
 												item?.category?.nodes?.[0]?.[
 													item?.category?.nodes?.[0].contentType?.node?.name
-												]?.map?.logo?.node?.sourceUrl;
+												]?.map?.logo?.node?.mediaItemUrl;
 
 											return (
 												<SwiperSlide className={`${styles.item}`} key={ind}>

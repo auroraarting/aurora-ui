@@ -16,7 +16,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
-import formatDate from "@/utils";
+import formatDate, { isCategory } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/team/AdvisoryLeadership.module.scss";
@@ -36,11 +36,13 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 // DATA //
 
 /** AdvisoryLeadership Section */
-export default function AdvisoryLeadership({ data }) {
+export default function AdvisoryLeadership({ data, countries }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+
+	console.log(data, "data");
 
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index, data) => {
@@ -191,7 +193,7 @@ export default function AdvisoryLeadership({ data }) {
 								>
 									<div className={`${styles.thumbnailImg}`}>
 										<img
-											src={item?.teams?.thumbnail?.image?.node?.sourceUrl}
+											src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 											className="b_r_20"
 											alt="story img"
 										/>
@@ -248,7 +250,7 @@ export default function AdvisoryLeadership({ data }) {
 													<div className={`${styles.BoxFlex} f_w`}>
 														<div className={styles.Imgthumbnail}>
 															<img
-																src={item?.teams?.thumbnail?.image?.node?.sourceUrl}
+																src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 																className="b_r_20"
 																alt="story img"
 															/>
@@ -350,18 +352,18 @@ export default function AdvisoryLeadership({ data }) {
 																								/>
 																								<span>{formatDate(blogData?.date)}</span>
 																							</p>
-																							<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
-																								<img
-																									src={location.src}
-																									className={`${styles.clock}`}
-																									alt="clock"
-																								/>
-																								<span>
-																									{blogData?.caseStudies?.selectLocation?.nodes?.map(
-																										(item2) => `${item2?.title} `
-																									)}
-																								</span>
-																							</p>
+																							{isCategory(countries, blogData?.categories?.nodes) && (
+																								<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
+																									<img
+																										src={location.src}
+																										className={`${styles.clock}`}
+																										alt="clock"
+																									/>
+																									<span>
+																										{isCategory(countries, blogData?.categories?.nodes)}
+																									</span>
+																								</p>
+																							)}
 																						</div>
 																					</div>
 																				</div>

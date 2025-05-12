@@ -8,6 +8,7 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/webinar/WebinarRecording.module.scss";
@@ -18,7 +19,9 @@ import recording_img from "@/../public/img/resources/webinar/recording_img.jpg";
 // DATA //
 
 /** WebinarRecording Section */
-export default function WebinarRecording() {
+export default function WebinarRecording({ data }) {
+	const dataForBtn = { postFields: data.postFields || {} };
+
 	return (
 		<div className={`${styles.WebinarRecordingBox}`}>
 			<img src={recording_img.src} className="width_100 b_r_20" alt="img" />
@@ -27,7 +30,10 @@ export default function WebinarRecording() {
 					To view the webinar recording <br className="hidden_xs" />
 					please fill the form
 				</h5>
-				<div className={`${styles.btnBox}`}>
+				<div
+					className={`${styles.btnBox}`}
+					{...dynamicInsightsBtnProps(dataForBtn, "recordingSectionButton")}
+				>
 					<Button color="primary" variant="filled" shape="rounded" mode="dark">
 						Access Recording
 					</Button>

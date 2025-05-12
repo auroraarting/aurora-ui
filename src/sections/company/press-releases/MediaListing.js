@@ -1,32 +1,35 @@
 // MODULES //
 import { useRef, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
+import formatDate, {
+	filterBySearchQuery,
+	filterBySearchQueryEvents,
+	filterItems,
+	filterItemsBySelectedObj,
+	filterItemsBySelectedObjForPress,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/press-releases/MediaListing.module.scss";
 
 // IMAGES //
-import energy_transition from "@/../public/img/events/energy_transition.png";
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
-import search from "@/../public/img/icons/search.svg";
-import popup_close from "@/../public/img/icons/popup_close.svg";
-import hoverBg from "@/../public/img/home/hoverBg.png";
-import { useRouter } from "next/router";
-import formatDate, {
-	filterBySearchQueryEvents,
-	filterItemsBySelectedObj,
-	filterItemsBySelectedObjForPress,
-} from "@/utils";
+import energy_transition from "/public/img/events/energy_transition.png";
+import location from "/public/img/icons/location.svg";
+import calender from "/public/img/icons/calender.svg";
+import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
+import searchImg from "/public/img/icons/search.svg";
+import popup_close from "/public/img/icons/popup_close.svg";
+import hoverBg from "/public/img/home/hoverBg.png";
 
 // DATA //
 
@@ -37,7 +40,8 @@ export default function MediaListing({
 	productService,
 	languages,
 }) {
-	const router = useRouter();
+	const searchParams = useSearchParams();
+	const search = searchParams.get("search");
 	const [original, setOriginal] = useState(data);
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
@@ -48,6 +52,7 @@ export default function MediaListing({
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
+	const [paginationArr, setPaginationArr] = useState(data);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -132,8 +137,9 @@ export default function MediaListing({
 		if (key === "languageType") {
 			selectedObj.language = catName;
 		}
-		const filteredArr = filterItemsBySelectedObjForPress(arr, selectedObj);
+		const filteredArr = filterItems(arr, selectedObj);
 		setList(filteredArr);
+		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
 	};
 
@@ -158,12 +164,13 @@ export default function MediaListing({
 	}, []);
 
 	useEffect(() => {
-		if (router.query.search) {
-			const filtered = filterItemsBySelectedObjForPress(data, router.query);
+		if (search) {
+			const filtered = filterBySearchQuery(data, search);
 			setList(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
-	}, [router.query]);
+	}, [search]);
 
 	return (
 		<section className={styles.MediaListing}>
@@ -293,15 +300,15 @@ export default function MediaListing({
 								)}
 							</div>
 						</div>
-
 						{/* Reset */}
-						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} "activeDropDown"`}
 									onClick={() => {
 										setSelected({});
 										setList(data);
+										setPaginationArr(data);
 										setDropdowns({
 											languageType: { isOpen: false, selected: { title: "Language" } },
 											offeringsType: {
@@ -326,7 +333,7 @@ export default function MediaListing({
 							<div className={`${styles.searchBox} f_r_aj_between`}>
 								<p className="text_sm text_500">Search</p>
 								<span>
-									<img src={search.src} alt="icon" />
+									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
 						</div>
@@ -346,9 +353,9 @@ export default function MediaListing({
 								<span className="d_f">
 									<img src={search.src} alt="icon" />
 									{/* Close Button */}
-									<span className={`${styles.closeBox}`} onClick={closeSearchInput}>
-										x
-									</span>
+									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+										<span className="text_xs">X</span>
+									</div>
 								</span>
 							</div>
 						)}
@@ -387,7 +394,7 @@ export default function MediaListing({
 													className={`${styles.calender}`}
 													alt="calender"
 												/>
-												<span>{formatDate(item?.presses?.banner?.date)}</span>
+												<span>{formatDate(item?.date)}</span>
 											</p>
 										</div>
 									</div>
@@ -436,6 +443,13 @@ export default function MediaListing({
 						</a>
 					</div> */}
 				</div>
+				<Pagination
+					data={list}
+					paginationArr={paginationArr}
+					setCurrentItems={setList}
+					isDark={true}
+					itemsPerPage={12}
+				/>
 			</div>
 		</section>
 	);

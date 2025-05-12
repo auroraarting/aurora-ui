@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -19,13 +20,13 @@ import plant_img from "../../public/img/services/advisory/plant_img.jpg";
 import clock from "../../public/img/icons/clock.svg";
 import location from "../../public/img/icons/location.svg";
 import calender from "../../public/img/icons/calender.svg";
-import formatDate from "@/utils";
+import formatDate, { allCategories, isCategory } from "@/utils";
 
 // DATA //
 
 /** CaseStudy Section */
-export default function CaseStudy({ data }) {
-	if (!data || !data?.title) return <></>;
+export default function CaseStudy({ data, countries = [] }) {
+	// if (!data || !data?.title) return <></>;
 
 	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
 	const restArr = data?.selectCaseStudies?.nodes?.slice(1, data.length);
@@ -35,7 +36,10 @@ export default function CaseStudy({ data }) {
 			<div className="container">
 				<div className={`${styles.contentImgFlex} f_w_j`}>
 					<div className={`${styles.contentBox}`}>
-						<div className={`${styles.hoverBox}`}>
+						<a
+							href={`/resources/aurora-insights/${first?.[0]?.slug}`}
+							className={`${styles.hoverBox}`}
+						>
 							<p
 								className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 							>
@@ -45,27 +49,31 @@ export default function CaseStudy({ data }) {
 								{first?.[0]?.title}
 							</h3>
 							<div className="text_reg color_dark_gray font_secondary pt_10">
-								<ContentFromCms>{first?.[0]?.content}</ContentFromCms>
+								{/* <ContentFromCms>{first?.[0]?.content}</ContentFromCms> */}
 							</div>
 							<div className={`${styles.dateFlex} f_j pt_30`}>
-								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-									<img
-										src={location.src}
-										className={`${styles.location}`}
-										alt="location"
-									/>
-									<span>{formatDate(first?.[0]?.date)}</span>
-								</p>
-								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-									<img src={clock.src} className={`${styles.clock}`} alt="location" />
-									<span>{first?.[0]?.caseStudies?.readTime}</span>
-								</p>
+								{first?.[0]?.date && (
+									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+										<img
+											src={calender.src}
+											className={`${styles.location}`}
+											alt="location"
+										/>
+										<span>{formatDate(first?.[0]?.date)}</span>
+									</p>
+								)}
+								{first?.[0]?.postFields?.time && (
+									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+										<img src={clock.src} className={`${styles.clock}`} alt="location" />
+										<span>{first?.[0]?.postFields?.time}</span>
+									</p>
+								)}
 							</div>
-						</div>
+						</a>
 					</div>
 					<div className={`${styles.ImgBox}`}>
 						<img
-							src={first?.[0]?.featuredImage?.node?.sourceUrl}
+							src={first?.[0]?.featuredImage?.node?.mediaItemUrl}
 							className={`${styles.plant_img} img width_100`}
 							alt="plant_img"
 						/>
@@ -75,7 +83,10 @@ export default function CaseStudy({ data }) {
 					{restArr?.map((item, ind) => {
 						return (
 							<div className={`${styles.ItemBox} boxH`} key={ind}>
-								<div className={`${styles.hoverBox}`}>
+								<a
+									href={`/resources/aurora-insights/${item?.slug}`}
+									className={`${styles.hoverBox}`}
+								>
 									<p
 										className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 									>
@@ -87,28 +98,30 @@ export default function CaseStudy({ data }) {
 										{item?.title}
 									</p>
 									<div className={`${styles.dateFlex} f_j pt_30`}>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={calender?.src}
-												className={`${styles.calender}`}
-												alt="calender"
-											/>
-											{/* <span>Feb 26, 2025</span> */}
-											<span>{item?.date && formatDate(item?.date)}</span>
-										</p>
-										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
-											/>
-											{/* <span>WECC</span> */}
-											{item?.caseStudies?.selectLocation?.nodes?.map((item2, ind2) => {
-												return <span key={item2?.title}>{item2?.title}</span>;
-											})}
-										</p>
+										{item?.date && (
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+												<img
+													src={calender?.src}
+													className={`${styles.calender}`}
+													alt="calender"
+												/>
+												{/* <span>Feb 26, 2025</span> */}
+												<span>{item?.date && formatDate(item?.date)}</span>
+											</p>
+										)}
+										{isCategory(countries, item?.categories?.nodes) && (
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+												<img
+													src={location.src}
+													className={`${styles.location}`}
+													alt="location"
+												/>
+												{/* <span>WECC</span> */}
+												{isCategory(countries, item?.categories?.nodes)}
+											</p>
+										)}
 									</div>
-								</div>
+								</a>
 							</div>
 						);
 					})}

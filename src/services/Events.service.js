@@ -19,7 +19,7 @@ query GetEvents {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           country {
@@ -48,7 +48,7 @@ query GetEvents {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -64,7 +64,7 @@ query GetEvents {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -80,7 +80,7 @@ query GetEvents {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -93,13 +93,13 @@ query GetEvents {
           desktop {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           mobile {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -178,7 +178,7 @@ query GetEventInside {
     featuredImage {
       node {
         altText
-        sourceUrl
+        mediaItemUrl
       }
     }
     events {
@@ -192,7 +192,7 @@ query GetEventInside {
         logo {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         country {
@@ -211,13 +211,13 @@ query GetEventInside {
         desktopImage {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileImage {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -226,7 +226,7 @@ query GetEventInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         type {
@@ -238,7 +238,7 @@ query GetEventInside {
                 icon {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -251,14 +251,14 @@ query GetEventInside {
         gallery {
           nodes {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         video
         videoThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -278,7 +278,7 @@ query GetEventInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -310,7 +310,7 @@ query GetEventInside {
                     image {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -327,7 +327,7 @@ query GetEventInside {
           gallery {
             nodes {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -338,7 +338,7 @@ query GetEventInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -361,7 +361,7 @@ query GetEventInside {
                     image {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -375,13 +375,13 @@ query GetEventInside {
         desktop {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobile {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -420,7 +420,7 @@ query GetEventLanding {
                   linkedinLink
                   image {
                     node {
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -460,7 +460,7 @@ query GetEventLanding {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
                 country {
@@ -489,7 +489,7 @@ query GetEventLanding {
                           logo {
                             node {
                               altText
-                              sourceUrl
+                              mediaItemUrl
                             }
                           }
                         }
@@ -505,7 +505,7 @@ query GetEventLanding {
                           logo {
                             node {
                               altText
-                              sourceUrl
+                              mediaItemUrl
                             }
                           }
                         }
@@ -521,7 +521,7 @@ query GetEventLanding {
                           logo {
                             node {
                               altText
-                              sourceUrl
+                              mediaItemUrl
                             }
                           }
                         }
@@ -534,13 +534,13 @@ query GetEventLanding {
                 desktop {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
                 mobile {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -560,7 +560,7 @@ query GetEventLanding {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }

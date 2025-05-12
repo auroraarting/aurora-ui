@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -32,8 +33,8 @@ export default function Sponsors({ data }) {
 						</div>
 						{item?.gallery?.nodes?.map((item2) => {
 							return (
-								<div className={`${styles.SponsorsItem}`} key={item2?.sourceUrl}>
-									<img src={item2?.sourceUrl} alt="map" />
+								<div className={`${styles.SponsorsItem}`} key={item2?.mediaItemUrl}>
+									<img src={item2?.mediaItemUrl} alt="map" />
 								</div>
 							);
 						})}

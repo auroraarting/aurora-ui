@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -48,7 +49,7 @@ export default function OurEdge({ data }) {
 										<div className={`${styles.iconBox}`}>
 											<span className="f_r_aj_center">
 												<img
-													src={item?.logo?.node?.sourceUrl}
+													src={item?.logo?.node?.mediaItemUrl}
 													className={`${styles.icons} `}
 													alt="icon"
 												/>

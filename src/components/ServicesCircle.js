@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -28,7 +29,7 @@ const services = [
 ];
 
 /** ServicesCircle Component */
-export default function ServicesCircle({ data }) {
+export default function ServicesCircle({ data, customHtml }) {
 	if (!data?.advantages || !data) return <></>;
 	return (
 		<section
@@ -56,6 +57,7 @@ export default function ServicesCircle({ data }) {
 								</a>
 							</div>
 						)}
+						{customHtml}
 					</div>
 					<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
 						{data?.advantages?.length > 0 && (

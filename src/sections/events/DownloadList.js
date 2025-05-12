@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -23,13 +24,13 @@ export default function DownloadList({ data }) {
 	return (
 		<div className="container">
 			<div className={`${styles.DownloadWrapper} f_r_a_center`}>
-				{data?.events?.downloads?.map((item) => {
+				{data?.events?.downloads?.map((item, ind) => {
 					return (
-						<div className={`${styles.teamItem}`} key={item?.text}>
+						<div className={`${styles.teamItem}`} key={(item?.text || "") + ind}>
 							<div className={`${styles.teamFlex} f_r_a_center`}>
 								<div className={`${styles.teamLogo}`}>
 									<img
-										src={item?.type?.nodes?.[0]?.eventDownloads?.icon?.node?.sourceUrl}
+										src={item?.type?.nodes?.[0]?.eventDownloads?.icon?.node?.mediaItemUrl}
 										alt="logo"
 									/>
 								</div>
@@ -37,7 +38,7 @@ export default function DownloadList({ data }) {
 									<a
 										target="_blank"
 										rel="noreferrer"
-										href={item?.link || item?.file?.node?.sourceUrl}
+										href={item?.link || item?.file?.node?.mediaItemUrl}
 										className="text_reg f_w_m font_primary f_r_a_center"
 									>
 										<span>{item?.type?.nodes?.[0]?.name}</span>

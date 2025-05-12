@@ -20,7 +20,7 @@ import styles from "@/styles/components/CircularMenu.module.scss";
 /** CircularMenu Component */
 export default function CircularMenu({ items, iconDefault, mode }) {
 	const containerRef = useRef(null);
-	const [selectedService, setselectedServices] = useState(null);
+	const [selectedService, setselectedServices] = useState(0);
 	const [size, setSize] = useState(450); // Default size
 	const [isReady, setIsReady] = useState(false);
 
@@ -177,7 +177,9 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 											// whileFocus={{ fill: "#FFCC00" }}
 										/>
 										<image
-											href={item?.image?.node?.sourceUrl || item?.icon?.node?.sourceUrl}
+											href={
+												item?.image?.node?.mediaItemUrl || item?.icon?.node?.mediaItemUrl
+											}
 											// width={iconDefault.width}
 											// height={iconDefault.height}
 											width={40}

@@ -24,7 +24,7 @@ query GetOffices {
                       thumbnail {
                         node {
                           altText
-                          sourceUrl
+                          mediaItemUrl
                         }
                       }
                       map {
@@ -43,6 +43,34 @@ query GetOffices {
           }
         }
       }
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** Get Offices By Regions Page */
+export const getOffices = async () => {
+	const query = `
+query GetOffices {
+  offices(first: 999999) {
+    nodes {
+      offices {
+        thumbnail {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        map {
+          lat
+          lng
+        }
+      }
+      title
+      slug
     }
   }
 }

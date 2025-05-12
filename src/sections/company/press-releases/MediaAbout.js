@@ -24,10 +24,10 @@ export default function MediaAbout({ data }) {
 	return (
 		<div className={`${styles.infoContent}`}>
 			<h2 className="text_lg color_secondary pb_20">
-				{data?.presses?.about?.sectionTitle}
+				{data?.postFields?.about?.sectionTitle}
 			</h2>
 			<div className="text_reg color_dark_gray">
-				<ContentFromCms>{data?.presses?.about?.content}</ContentFromCms>
+				<ContentFromCms>{data?.postFields?.about?.content}</ContentFromCms>
 			</div>
 		</div>
 	);

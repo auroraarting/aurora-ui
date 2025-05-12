@@ -1,0 +1,60 @@
+@import "../helpers/helpers.scss";
+
+.SmarterEnergy {
+	background-image: url("../../../public/img/softwares/energy_bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom center;
+	.common_queries_flex {
+		.title_wrap {
+			width: 40%;
+			@media (max-width: 991px) {
+				width: 100%;
+				margin-bottom: 40px;
+			}
+		}
+		.common_queries_faq {
+			width: 50%;
+			@media (max-width: 991px) {
+				width: 100%;
+			}
+			.content_wrap {
+				padding-left: 55px;
+			}
+		}
+	}
+	:global(.headerF) {
+		display: flex;
+	}
+	:global(.imgIcons) {
+		margin-right: 10px;
+	}
+
+	:global {
+		.modal {
+			.content {
+				width: 80%;
+			}
+		}
+	}
+
+	.popup {
+		padding: 50px;
+
+		:global {
+			.icon {
+				img {
+					filter: invert(1);
+				}
+			}
+			.accordionItem {
+				border-color: #2c2c2c;
+			}
+		}
+		.accordian_main {
+			border-top: 1px solid #2c2c2c;
+			padding-top: 40px;
+			margin-top: 50px;
+		}
+	}
+}

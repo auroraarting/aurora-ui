@@ -10,7 +10,6 @@ query GetSingleHowWeHelp {
     howWeHelpInside {
       banner {
         title
-        fieldGroupName
         description
       }
       thumbnail {
@@ -18,7 +17,7 @@ query GetSingleHowWeHelp {
         banner {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         gradient {
@@ -28,7 +27,7 @@ query GetSingleHowWeHelp {
         logo {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -42,7 +41,7 @@ query GetSingleHowWeHelp {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -60,7 +59,7 @@ query GetSingleHowWeHelp {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -79,7 +78,7 @@ query GetSingleHowWeHelp {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -100,36 +99,156 @@ query GetSingleHowWeHelp {
           value
         }
       }
-        middleSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      spotlights {
+        selected(first: 9999) {
+          nodes {
+            ... on Howwehelp {
+              id
+              title
+              slug
+              howWeHelpInside {
+                thumbnail {
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+            }
+            ... on Product {
+              id
+              slug
+              title
+              products {
+                thumbnail {
+                  primaryColor
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+            }
+            ... on Service {
+              id
+              title
+              slug
+              services {
+                thumbnail {
+                  primaryColor
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+            }
+            ... on Software {
+              id
+              title
+              slug
+              softwares {
+                thumbnail {
+                  primaryColor
+                  shortDescription
+                  banner {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                  gradient {
+                    from
+                    to
+                  }
+                  logo {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+            }
+            contentType {
+              node {
+                name
+                showUi
+                uri
+              }
             }
           }
         }
-        topSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
-          }
-        }
-        insightsSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              sourceUrl
-            }
-          }
-        }
+      }
     }
   }
 }
@@ -156,7 +275,7 @@ query GetAllHowWeHelps {
           banner {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           gradient {
@@ -166,7 +285,7 @@ query GetAllHowWeHelps {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -180,7 +299,7 @@ query GetAllHowWeHelps {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -198,7 +317,7 @@ query GetAllHowWeHelps {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -217,7 +336,7 @@ query GetAllHowWeHelps {
             icon {
               node {
                 altText
-                sourceUrl
+                mediaItemUrl
               }
             }
           }

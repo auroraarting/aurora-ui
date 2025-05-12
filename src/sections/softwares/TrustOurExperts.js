@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -37,7 +38,7 @@ export default function TrustOurExperts({ data }) {
 						{data?.list?.map((item, ind) => {
 							return (
 								<div className={`${styles.trustOurItemOne}`} key={ind}>
-									<img src={item?.logo?.node?.sourceUrl} alt="icon" />
+									<img src={item?.logo?.node?.mediaItemUrl} alt="icon" />
 									<div>
 										<h5 className="text_reg font_primary f_w_m color_secondary">
 											{item?.title}
@@ -49,7 +50,7 @@ export default function TrustOurExperts({ data }) {
 						})}
 					</div>
 					<div className={`${styles.placeholderImg} pt_40`}>
-						<img src={data?.image?.node?.sourceUrl} className={`${styles.img}`} />
+						<img src={data?.image?.node?.mediaItemUrl} className={`${styles.img}`} />
 					</div>
 				</div>
 			</div>

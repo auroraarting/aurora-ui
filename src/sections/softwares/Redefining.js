@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -6,6 +7,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 
 // PLUGINS //
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // UTILS //
 
@@ -19,7 +21,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // DATA //
 
 /** redefining Section */
-export default function Redefining({ title, description, image }) {
+export default function Redefining({ title, description, image, lottie }) {
 	return (
 		<section className={`${styles.redefining}`} id="expertise">
 			<div className="container">
@@ -34,6 +36,17 @@ export default function Redefining({ title, description, image }) {
 					<div className={`${styles.flexItemTwo}`}>
 						{image && (
 							<img src={image} className={`${styles.redefining}`} alt="redefining" />
+						)}
+						{lottie && (
+							<DotLottieReact
+								src={lottie}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
 						)}
 					</div>
 				</div>

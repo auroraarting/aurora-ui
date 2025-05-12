@@ -1,3 +1,5 @@
+"use client";
+
 // MODULES //
 
 // COMPONENTS //
@@ -29,7 +31,7 @@ export default function TopEvents({ data }) {
 				<a href={`/events/${data?.slug}`} className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
 						<img
-							src={data?.events?.thumbnail?.logo?.node?.sourceUrl}
+							src={data?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 							className=""
 							alt="img"
 						/>
@@ -38,30 +40,37 @@ export default function TopEvents({ data }) {
 						>
 							{data?.events?.thumbnail?.status} Event
 						</div>
+						<p className="color_white text_lg text_uppercase m_t_30 font_primary f_w_m">
+							{data?.title}
+						</p>
 						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={calender.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>{formatDate(data?.events?.thumbnail?.date)}</span>
-							</p>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={location.src}
-									className={`${styles.location}`}
-									alt="location"
-								/>
-								<span>
-									{data?.events?.thumbnail?.country?.nodes?.map((item) => item.title)}
-								</span>
-							</p>
+							{data?.events?.thumbnail?.date && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={calender.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>{formatDate(data?.events?.thumbnail?.date)}</span>
+								</p>
+							)}
+							{data?.events?.thumbnail?.country?.nodes && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={location.src}
+										className={`${styles.location}`}
+										alt="location"
+									/>
+									<span>
+										{data?.events?.thumbnail?.country?.nodes?.map((item) => item.title)}
+									</span>
+								</p>
+							)}
 						</div>
 					</div>
 					<div className={`${styles.imageWrapper}`}>
 						<img
-							src={data?.events?.banner?.desktop?.node?.sourceUrl}
+							src={data?.events?.banner?.desktop?.node?.mediaItemUrl}
 							className="width_100 b_r_20"
 							alt="img"
 						/>

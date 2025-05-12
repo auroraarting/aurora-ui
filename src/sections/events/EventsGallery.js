@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -53,13 +54,13 @@ export default function EventsGallery({ data }) {
 						{data?.events?.glimps?.gallery?.nodes?.map((item) => {
 							return (
 								<a
-									key={item?.sourceUrl}
-									href={item?.sourceUrl}
-									data-src={item?.sourceUrl}
+									key={item?.mediaItemUrl}
+									href={item?.mediaItemUrl}
+									data-src={item?.mediaItemUrl}
 									className={`${styles.galleryItemOne}`}
 								>
 									<img
-										src={item?.sourceUrl}
+										src={item?.mediaItemUrl}
 										className={`${styles.galleryImg} width_100 b_r_10`}
 										alt="Gallery 1"
 									/>

@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -23,7 +24,7 @@ import steps_img from "../../../public/img/softwares/steps_img.jpg";
 // DATA //
 
 /** IntuitiveStepProcess Section */
-export default function IntuitiveStepProcess({ data }) {
+export default function IntuitiveStepProcess({ data, customHtml }) {
 	if (data.process.length === 0) return <></>;
 
 	/** pagination */
@@ -39,11 +40,15 @@ export default function IntuitiveStepProcess({ data }) {
 			<div className="container">
 				<div className={`${styles.StepProcessTxt} `}>
 					<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
-					<div className={`${styles.bookBtn} pt_50`}>
-						<Button color="primary" variant="filled" shape="rounded" mode="dark">
-							Book a Demo
-						</Button>
-					</div>
+					{customHtml ? (
+						customHtml
+					) : (
+						<div className={`${styles.bookBtn} pt_50`}>
+							<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								Book a Demo
+							</Button>
+						</div>
+					)}
 				</div>
 				<div className={`${styles.stepsTxt} pt_80`}>
 					<h2 className="text_xl font_primary f_w_s_b text_center color_white ">
@@ -68,7 +73,7 @@ export default function IntuitiveStepProcess({ data }) {
 								<div className={`${styles.SliderItem} f_w_j a_center`}>
 									<div className={`${styles.imgVideo}`}>
 										<img
-											src={item?.image?.node?.sourceUrl}
+											src={item?.image?.node?.mediaItemUrl}
 											className={`${styles.steps_img}`}
 											alt="steps img"
 										/>

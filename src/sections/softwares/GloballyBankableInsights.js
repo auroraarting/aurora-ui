@@ -1,9 +1,11 @@
+"use client";
 // MODULES //
 import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import Speedometer from "@/components/Speedometer";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -158,7 +160,9 @@ const MultipleInsights = ({
 							className={`${styles.row} text_xs f_w_s_b text_uppercase`}
 							key={item.title || ind} // Use index only if title is not unique
 						>
-							<span className={`${styles.text} `}>{item.title}</span>
+							<span className={`${styles.text} `}>
+								<ContentFromCms>{item.title}</ContentFromCms>
+							</span>
 							<span className={`${styles.value} text_xl`}>{item.value}%</span>
 						</div>
 					);

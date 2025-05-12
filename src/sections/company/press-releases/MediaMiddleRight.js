@@ -31,22 +31,24 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 		<div className={`${styles.MediaMiddleRight}`}>
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
 				<div className={`${styles.InsideItem}`}>
-					<div className={`${styles.itemBox}`}>
-						<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
-						<div className={`${styles.ClientFlex} f_w`}>
-							{data?.presses?.tags?.map((item, index) => {
-								return (
-									<a
-										key={item?.text}
-										className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-										href={`/company/press-releases?search=${item?.text}`}
-									>
-										{item?.text}
-									</a>
-								);
-							})}
+					{data?.tags?.nodes.length > 0 && (
+						<div className={`${styles.itemBox}`}>
+							<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
+							<div className={`${styles.ClientFlex} f_w`}>
+								{data?.tags?.nodes?.map((item, index) => {
+									return (
+										<a
+											key={item?.text}
+											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
+											href={`/company/press-releases?search=${item?.text || item?.name}`}
+										>
+											{item?.text || item?.name}
+										</a>
+									);
+								})}
+							</div>
 						</div>
-					</div>
+					)}
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Share</h5>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>
@@ -59,15 +61,15 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 						</div>
 					</div>
 				</div>
-				{dynamicInsightsBtnProps(dataForBtn, "downSectionButton").btnText && (
+				{dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton").btntext && (
 					<div className={`${styles.DownBtn} `}>
 						<a
-							{...dynamicInsightsBtnProps(dataForBtn, "downSectionButton")}
+							{...dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton")}
 							className="text_sm f_w_m font_primary f_r_a_center"
 						>
 							<img src={tag_download_icon.src} alt="download" />
 							<span>
-								{dynamicInsightsBtnProps(dataForBtn, "downSectionButton").btnText}
+								{dynamicInsightsBtnProps(dataForBtn, "bottomSectionButton").btntext}
 							</span>
 						</a>
 					</div>

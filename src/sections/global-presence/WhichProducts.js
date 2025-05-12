@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState } from "react";
 
@@ -45,7 +46,7 @@ export default function WhichProducts({ data }) {
 						imgIcons:
 							marker?.category?.nodes?.[0]?.[
 								marker?.category?.nodes?.[0].contentType?.node?.name
-							]?.map?.logo?.node?.sourceUrl,
+							]?.map?.logo?.node?.mediaItemUrl,
 						children: (
 							<div className={`${styles.content_wrap}`}>
 								<div className="text_reg color_dark_gray">

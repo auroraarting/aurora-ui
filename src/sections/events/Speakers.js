@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 import { useEffect, useState, useRef } from "react";
 
@@ -63,7 +64,7 @@ export default function Speakers({ data, title, desc }) {
 				name: item2?.title,
 				designation: item2?.postSpeakers?.thumbnail?.designation,
 				desc: item2?.content || "",
-				thumbnail: item2?.postSpeakers?.thumbnail?.image?.node?.sourceUrl,
+				thumbnail: item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl,
 				sessions: item?.sessions?.map((item3) => {
 					return {
 						time: item3?.time,

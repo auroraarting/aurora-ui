@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 // MODULES //
 
@@ -84,7 +85,7 @@ export default function ProductSlider({ data }) {
 										{!slide.videoLink ? (
 											<div className={`${styles.LogoBox}`}>
 												<img
-													src={slide?.thumbnailImage?.node?.sourceUrl}
+													src={slide?.thumbnailImage?.node?.mediaItemUrl}
 													className="img b_r_10"
 													alt="logo"
 												/>
@@ -94,7 +95,7 @@ export default function ProductSlider({ data }) {
 												<LightGallery speed={500} plugins={[lgThumbnail, lgZoom, lgVideo]}>
 													<div data-src={slide.videoLink}>
 														<img
-															src={slide?.thumbnailImage?.node?.sourceUrl}
+															src={slide?.thumbnailImage?.node?.mediaItemUrl}
 															className={`${styles.videoThumbnail} img b_r_10`}
 															alt="video thumbnail"
 														/>

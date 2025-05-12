@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -74,7 +75,7 @@ export default function EventsMiddleRight({ data, events }) {
 				</div>
 			)}
 
-			{events.length > 0 && (
+			{events?.length > 0 && (
 				<div className={`${styles.whiteBox}`}>
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						Upcoming Events
@@ -89,7 +90,7 @@ export default function EventsMiddleRight({ data, events }) {
 								<div className={`${styles.ClientFlex}`}>
 									<div className={`${styles.ClientLogo}`}>
 										<img
-											src={item?.events?.thumbnail?.logo?.node?.sourceUrl}
+											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 											alt="logo"
 										/>
 									</div>
