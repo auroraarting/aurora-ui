@@ -28,22 +28,26 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
+import { getEarlyCareersListing } from "@/services/EarlyCareers.service";
 
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
-	const [data, jobs, offices, categoriesForSelect, list] = await Promise.all([
-		getLifeAtAurora(),
-		getFetchJobData(),
-		getOffices(),
-		getInsightsCategories(),
-		getInsights('first: 3, where: {categoryName: ""}'),
-	]);
+	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =
+		await Promise.all([
+			getLifeAtAurora(),
+			getFetchJobData(),
+			getOffices(),
+			getInsightsCategories(),
+			getInsights('first: 3, where: {categoryName: ""}'),
+			getEarlyCareersListing("first: 10"),
+		]);
 	let obj = {
-		data: { ...data.data.page.lifeAtAurora, offices: data.data.offices.nodes },
+		data: { ...data.data.page.lifeAtAurora, offices: offices.data.offices.nodes },
 	};
 	delete obj.data.lifeAtAurora;
 	const otherList = list?.data?.posts?.nodes;
 	const countries = categoriesForSelect.data.countries.nodes;
+	const careersList = careersListFetch.data.earlyCareers.nodes;
 
 	return (
 		<div>
@@ -65,6 +69,7 @@ export default async function LifeAtAurora() {
 				otherList={otherList}
 				countries={countries}
 				jobs={jobs}
+				careersList={careersList}
 			/>
 			{/* Page Content ends here */}
 
