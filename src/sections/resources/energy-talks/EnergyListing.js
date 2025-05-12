@@ -446,7 +446,7 @@ export default function EnergyListing({
 											<div className={`${styles.dateFlex} f_j pt_30`}>
 												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 													<img
-														src={data?.featuredImage?.node?.sourceUrl || calender.src}
+														src={data?.featuredImage?.node?.mediaItemUrl || calender.src}
 														className={`${styles.calender}`}
 														alt="calender"
 													/>

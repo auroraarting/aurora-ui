@@ -117,7 +117,7 @@ const WhyAttend = ({ data }) => {
 										>
 											<div className={`${styles.ClientLogo}`}>
 												<img
-													src={item2?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
+													src={item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
 													alt="pic"
 												/>
 											</div>

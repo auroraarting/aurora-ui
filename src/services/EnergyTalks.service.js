@@ -19,7 +19,7 @@ query GetWebinarListing {
         videoThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -46,7 +46,7 @@ query GetWebinarListing {
       featuredImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
           }

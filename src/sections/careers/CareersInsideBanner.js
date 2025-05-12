@@ -80,11 +80,11 @@ function CareersInsideBanner({ data }) {
 					<div className={`${styles.banner_image}`}>
 						<picture>
 							<source
-								srcSet={data?.earlyCareers?.banner?.mobile?.node?.sourceUrl}
+								srcSet={data?.earlyCareers?.banner?.mobile?.node?.mediaItemUrl}
 								media="(min-width:767px)"
 							/>
 							<img
-								src={data?.earlyCareers?.banner?.desktop?.node?.sourceUrl}
+								src={data?.earlyCareers?.banner?.desktop?.node?.mediaItemUrl}
 								alt="Banner Image"
 							/>
 						</picture>

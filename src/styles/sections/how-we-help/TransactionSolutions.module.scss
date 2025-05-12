@@ -109,4 +109,27 @@
 			}
 		}
 	}
+
+	&.isSlider {
+		height: auto;
+		.flexBox {
+			.flexItemOne {
+				.SpaceLeft {
+					&:not(&:nth-child(1)) {
+						position: relative;
+						transform: translateY(0%);
+					}
+				}
+			}
+			.flexItemTwo {
+				img {
+					&:not(&:nth-child(1)) {
+						position: relative;
+						transform: translateY(0%);
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
 }

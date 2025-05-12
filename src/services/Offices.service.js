@@ -24,7 +24,7 @@ query GetOffices {
                       thumbnail {
                         node {
                           altText
-                          sourceUrl
+                          mediaItemUrl
                         }
                       }
                       map {
@@ -61,7 +61,7 @@ query GetOffices {
         thumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         map {

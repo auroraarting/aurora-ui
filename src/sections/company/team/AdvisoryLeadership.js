@@ -191,7 +191,7 @@ export default function AdvisoryLeadership({ data }) {
 								>
 									<div className={`${styles.thumbnailImg}`}>
 										<img
-											src={item?.teams?.thumbnail?.image?.node?.sourceUrl}
+											src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 											className="b_r_20"
 											alt="story img"
 										/>
@@ -248,7 +248,7 @@ export default function AdvisoryLeadership({ data }) {
 													<div className={`${styles.BoxFlex} f_w`}>
 														<div className={styles.Imgthumbnail}>
 															<img
-																src={item?.teams?.thumbnail?.image?.node?.sourceUrl}
+																src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 																className="b_r_20"
 																alt="story img"
 															/>

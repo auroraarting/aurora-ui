@@ -13,13 +13,13 @@ query GetEarlyCareersLanding {
         desktop {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobile {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -39,7 +39,7 @@ query GetEarlyCareersLanding {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           popup {
@@ -67,7 +67,7 @@ query GetEarlyCareersLanding {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -112,7 +112,7 @@ query GetEarlyCareersListing {
           thumb {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -146,13 +146,13 @@ query GetCareers {
         desktop {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobile {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -170,14 +170,14 @@ query GetCareers {
           featuredImg {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
 
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -199,7 +199,7 @@ query GetCareers {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           popup {
@@ -223,7 +223,7 @@ query GetCareers {
           file {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -238,7 +238,7 @@ query GetCareers {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -249,7 +249,7 @@ query GetCareers {
         thumb {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         country {
@@ -268,7 +268,7 @@ query GetCareers {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -283,7 +283,7 @@ query GetCareers {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -304,7 +304,7 @@ query GetCareers {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }

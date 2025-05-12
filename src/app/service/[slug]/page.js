@@ -31,6 +31,7 @@ import {
 	dynamicInsightsBtnProps,
 	filterMarkersBySlug,
 	getMapJsonForProducts,
+	getMapJsonForService,
 } from "@/utils";
 
 // STYLES //
@@ -45,6 +46,7 @@ import desktop_banner from "/public/img/services/advisory/desktop_banner.jpg";
 import { getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import GlobalMap from "@/components/GlobalMap";
 
 /** Fetch  */
 async function getData({ params }) {
@@ -53,9 +55,11 @@ async function getData({ params }) {
 		getRegions(),
 		getBundlesSection(),
 	]);
-	const mapJson = getMapJsonForProducts(
-		filterMarkersBySlug(regions, data.data.serviceBy.slug)
+	const mapJson = getMapJsonForService(
+		filterMarkersBySlug(regions, params.slug)
 	);
+
+	console.log(regions);
 	return {
 		props: {
 			data: data.data.serviceBy,
@@ -92,10 +96,12 @@ export default async function Advisory({ params }) {
 						bannerDescription={data?.services?.banner?.description}
 						btnLink={data?.services?.banner?.buttonLink}
 						btnTxt={data?.services?.banner?.buttonText}
-						desktopImage={data?.services?.banner?.desktopThumbnail?.node?.sourceUrl}
-						mobileImage={data?.services?.banner?.mobileThumbnail?.node?.sourceUrl}
+						desktopImage={
+							data?.services?.banner?.desktopThumbnail?.node?.mediaItemUrl
+						}
+						mobileImage={data?.services?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 						videoSrc={data?.services?.banner?.vimeoLink}
-						logo={data?.services?.banner?.logo?.node?.sourceUrl}
+						logo={data?.services?.banner?.logo?.node?.mediaItemUrl}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
 				</div>
@@ -120,6 +126,12 @@ export default async function Advisory({ params }) {
 					<div className="pt_100">
 						<CaseStudy data={data?.services?.caseStudy} />
 					</div>
+				)}
+				{mapJson.length > 0 && (
+					<GlobalMap
+						locationJson={mapJson}
+						marqueeText={data?.products?.map?.marquee}
+					/>
 				)}
 				{data?.services?.ourClient?.selectLogos && (
 					<div className="ptb_100">

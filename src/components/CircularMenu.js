@@ -177,7 +177,9 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 											// whileFocus={{ fill: "#FFCC00" }}
 										/>
 										<image
-											href={item?.image?.node?.sourceUrl || item?.icon?.node?.sourceUrl}
+											href={
+												item?.image?.node?.mediaItemUrl || item?.icon?.node?.mediaItemUrl
+											}
 											// width={iconDefault.width}
 											// height={iconDefault.height}
 											width={40}

@@ -13,13 +13,13 @@ query MyQuery {
         dekstopimage {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileimage {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -36,7 +36,7 @@ query MyQuery {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -55,13 +55,13 @@ query MyQuery {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           image {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -75,7 +75,7 @@ query MyQuery {
         thumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         map {

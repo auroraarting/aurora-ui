@@ -41,9 +41,9 @@ export default function Client({ data }) {
 							{data?.postFields?.client?.map((item, ind) => {
 								return (
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-										{item?.image?.node?.sourceUrl && (
+										{item?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
-												<img src={item?.image?.node?.sourceUrl} alt="logo" />
+												<img src={item?.image?.node?.mediaItemUrl} alt="logo" />
 											</div>
 										)}
 										<div className={`${styles.ClientDescription}`}>
@@ -60,10 +60,10 @@ export default function Client({ data }) {
 							{data?.postFields?.authors?.nodes?.map((item, ind) => {
 								return (
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
-										{item?.postAuthors?.thumbnail?.image?.node?.sourceUrl && (
+										{item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
 												<img
-													src={item?.postAuthors?.thumbnail?.image?.node?.sourceUrl}
+													src={item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl}
 													alt="pic"
 												/>
 											</div>
@@ -119,7 +119,7 @@ export default function Client({ data }) {
 												<img
 													src={
 														item?.[item?.contentType?.node?.name]?.banner?.logo?.node
-															?.sourceUrl
+															?.mediaItemUrl
 													}
 													className={`${styles.amun_logo}`}
 													alt="amun_logo"

@@ -76,7 +76,7 @@ export default function OurHistory({ data }) {
 										<SwiperSlide key={ind}>
 											<div className={`${styles.itemBox}`}>
 												<img
-													src={item?.sourceUrl}
+													src={item?.mediaItemUrl}
 													className={`${styles.imgOne} widht_100 b_r_20`}
 													alt="img"
 												/>

@@ -25,7 +25,7 @@ export const getRegions = async () => {
                 mapThumbnail {
                   node {
                     altText
-                    sourceUrl(size: LARGE)
+                    mediaItemUrl
                   }
                 }
                 category(first: 999) {
@@ -45,7 +45,7 @@ export const getRegions = async () => {
                           logo {
                             node {
                               altText
-                              sourceUrl
+                              mediaItemUrl
                             }
                           }
                         }
@@ -61,7 +61,7 @@ export const getRegions = async () => {
                           logo {
                             node {
                               altText
-                              sourceUrl
+                              mediaItemUrl
                             }
                           }
                         }
@@ -77,7 +77,7 @@ export const getRegions = async () => {
                           logo {
                             node {
                               altText
-                              sourceUrl
+                              mediaItemUrl
                             }
                           }
                         }
@@ -95,7 +95,7 @@ export const getRegions = async () => {
           featuredImage {
             node {
               altText
-              sourceUrl(size: LARGE)
+              mediaItemUrl
             }
           }
         }
@@ -140,13 +140,13 @@ query GetCountryInside {
         image {
           node {
             altText
-            sourceUrl(size: LARGE)
+            mediaItemUrl
           }
         }
         mobileImage {
           node {
             altText
-            sourceUrl(size: LARGE)
+            mediaItemUrl
           }
         }
       }
@@ -155,7 +155,7 @@ query GetCountryInside {
           thumbnailImage {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           videoLink
@@ -182,7 +182,7 @@ query GetCountryInside {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           advantagesTitle
@@ -203,7 +203,7 @@ query GetCountryInside {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -235,7 +235,7 @@ query GetCountryInside {
         image {
           node {
             altText
-            sourceUrl(size: LARGE)
+            mediaItemUrl
           }
         }
       }
@@ -249,7 +249,7 @@ query GetCountryInside {
           mapThumbnail {
             node {
               altText
-              sourceUrl(size: LARGE)
+              mediaItemUrl
             }
           }
           category(first: 999) {
@@ -269,7 +269,7 @@ query GetCountryInside {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -285,7 +285,7 @@ query GetCountryInside {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -301,7 +301,7 @@ query GetCountryInside {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -320,7 +320,7 @@ query GetCountryInside {
       mapThumb {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
       topSectionsButton {
@@ -329,7 +329,7 @@ query GetCountryInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -339,7 +339,7 @@ query GetCountryInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -349,7 +349,7 @@ query GetCountryInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -359,7 +359,7 @@ query GetCountryInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -369,7 +369,7 @@ query GetCountryInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -377,7 +377,7 @@ query GetCountryInside {
     featuredImage {
       node {
         altText
-        sourceUrl(size: LARGE)
+        mediaItemUrl
       }
     }
   }

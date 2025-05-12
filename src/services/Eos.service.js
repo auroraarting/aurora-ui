@@ -15,19 +15,19 @@ query EOSPage {
         desktopThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         logo {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -41,7 +41,7 @@ query EOSPage {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -57,7 +57,7 @@ query EOSPage {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -74,7 +74,7 @@ query EOSPage {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -116,7 +116,7 @@ query EOSPage {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -132,7 +132,7 @@ query EOSPage {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -148,7 +148,7 @@ query EOSPage {
                     logo {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                       }
                     }
                   }
@@ -168,7 +168,7 @@ query EOSPage {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -178,7 +178,7 @@ query EOSPage {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -188,7 +188,7 @@ query EOSPage {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }

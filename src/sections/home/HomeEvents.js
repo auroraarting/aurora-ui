@@ -61,7 +61,7 @@ export default function HomeEvents({ data }) {
 									<a href={`/events/${item?.slug}`} className={`${styles.card} f_w_j`}>
 										<div className={`${styles.content}`}>
 											<img
-												src={item?.events?.thumbnail?.logo?.node?.sourceUrl}
+												src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 												className=""
 												alt="img"
 											/>
@@ -96,10 +96,10 @@ export default function HomeEvents({ data }) {
 												</p>
 											</div>
 										</div>
-										{item?.events?.banner?.desktop?.node?.sourceUrl && (
+										{item?.events?.banner?.desktop?.node?.mediaItemUrl && (
 											<div className={`${styles.imageWrapper}`}>
 												<img
-													src={item?.events?.banner?.desktop?.node?.sourceUrl}
+													src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
 													className="width_100 b_r_20"
 													alt="img"
 												/>

@@ -363,7 +363,7 @@ const defaultNavigation = {
 			featuredImage: {
 				node: {
 					altText: "",
-					sourceUrl:
+					mediaItemUrl:
 						"https://cms-production.auroraer.com/wp-content/uploads/2025/04/event_inside_banner.5c571806.jpg",
 				},
 			},
@@ -375,7 +375,7 @@ const defaultNavigation = {
 					logo: {
 						node: {
 							altText: "",
-							sourceUrl:
+							mediaItemUrl:
 								"https://cms-production.auroraer.com/wp-content/uploads/2025/04/energy_transition.cbbdc6fc.png",
 						},
 					},
@@ -384,7 +384,7 @@ const defaultNavigation = {
 					desktop: {
 						node: {
 							altText: "",
-							sourceUrl:
+							mediaItemUrl:
 								"https://cms-production.auroraer.com/wp-content/uploads/2023/07/Wind-original-1449359885-scaled-1-1024x689.jpg",
 						},
 					},
@@ -401,7 +401,7 @@ const defaultNavigation = {
 			featuredImage: {
 				node: {
 					altText: "",
-					sourceUrl:
+					mediaItemUrl:
 						"https://cms-production.auroraer.com/wp-content/uploads/2025/03/Screenshot-2025-03-18-164856.png",
 				},
 			},
@@ -456,7 +456,7 @@ const defaultNavigation = {
 									image: {
 										node: {
 											altText: "",
-											sourceUrl:
+											mediaItemUrl:
 												"https://cms-production.auroraer.com/wp-content/uploads/2025/04/profile.png",
 										},
 									},
@@ -729,17 +729,17 @@ export default function Header() {
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
 																			src={
-																				item?.events?.banner?.node?.sourceUrl ||
-																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																				item?.events?.banner?.node?.mediaItemUrl ||
+																				item?.events?.thumbnail?.logo?.node?.mediaItemUrl
 																			}
 																			className={`${styles.eventImg}`}
 																			alt="img"
 																		/>
-																		{item?.events?.banner?.node?.sourceUrl && (
+																		{item?.events?.banner?.node?.mediaItemUrl && (
 																			<img
 																				src={
-																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
-																					item?.events?.banner?.node?.sourceUrl
+																					item?.events?.thumbnail?.logo?.node?.mediaItemUrl ||
+																					item?.events?.banner?.node?.mediaItemUrl
 																				}
 																				className={`${styles.eventLogo}`}
 																				alt="event logo"
@@ -833,7 +833,7 @@ export default function Header() {
 														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
 															<div className={`${styles.imgBox}`}>
 																<img
-																	src={item?.featuredImage?.node?.sourceUrl || header_img.src}
+																	src={item?.featuredImage?.node?.mediaItemUrl || header_img.src}
 																	className="width_100 b_r_10"
 																	alt="img"
 																/>
@@ -864,17 +864,17 @@ export default function Header() {
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
 																			src={
-																				item?.events?.banner?.node?.sourceUrl ||
-																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																				item?.events?.banner?.node?.mediaItemUrl ||
+																				item?.events?.thumbnail?.logo?.node?.mediaItemUrl
 																			}
 																			className={`${styles.eventImg}`}
 																			alt="img"
 																		/>
-																		{item?.events?.banner?.node?.sourceUrl && (
+																		{item?.events?.banner?.node?.mediaItemUrl && (
 																			<img
 																				src={
-																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
-																					item?.events?.banner?.node?.sourceUrl
+																					item?.events?.thumbnail?.logo?.node?.mediaItemUrl ||
+																					item?.events?.banner?.node?.mediaItemUrl
 																				}
 																				className={`${styles.eventLogo}`}
 																				alt="event logo"
@@ -1032,17 +1032,17 @@ export default function Header() {
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
 																			src={
-																				item?.events?.banner?.node?.sourceUrl ||
-																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																				item?.events?.banner?.node?.mediaItemUrl ||
+																				item?.events?.thumbnail?.logo?.node?.mediaItemUrl
 																			}
 																			className={`${styles.eventImg}`}
 																			alt="img"
 																		/>
-																		{item?.events?.banner?.node?.sourceUrl && (
+																		{item?.events?.banner?.node?.mediaItemUrl && (
 																			<img
 																				src={
-																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
-																					item?.events?.banner?.node?.sourceUrl
+																					item?.events?.thumbnail?.logo?.node?.mediaItemUrl ||
+																					item?.events?.banner?.node?.mediaItemUrl
 																				}
 																				className={`${styles.eventLogo}`}
 																				alt="event logo"
@@ -1344,17 +1344,17 @@ export default function Header() {
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
 																			src={
-																				item?.events?.banner?.node?.sourceUrl ||
-																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																				item?.events?.banner?.node?.mediaItemUrl ||
+																				item?.events?.thumbnail?.logo?.node?.mediaItemUrl
 																			}
 																			className={`${styles.eventImg}`}
 																			alt="img"
 																		/>
-																		{item?.events?.banner?.node?.sourceUrl && (
+																		{item?.events?.banner?.node?.mediaItemUrl && (
 																			<img
 																				src={
-																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
-																					item?.events?.banner?.node?.sourceUrl
+																					item?.events?.thumbnail?.logo?.node?.mediaItemUrl ||
+																					item?.events?.banner?.node?.mediaItemUrl
 																				}
 																				className={`${styles.eventLogo}`}
 																				alt="event logo"
@@ -1510,17 +1510,17 @@ export default function Header() {
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
 																			src={
-																				item?.events?.banner?.node?.sourceUrl ||
-																				item?.events?.thumbnail?.logo?.node?.sourceUrl
+																				item?.events?.banner?.node?.mediaItemUrl ||
+																				item?.events?.thumbnail?.logo?.node?.mediaItemUrl
 																			}
 																			className={`${styles.eventImg}`}
 																			alt="img"
 																		/>
-																		{item?.events?.banner?.node?.sourceUrl && (
+																		{item?.events?.banner?.node?.mediaItemUrl && (
 																			<img
 																				src={
-																					item?.events?.thumbnail?.logo?.node?.sourceUrl ||
-																					item?.events?.banner?.node?.sourceUrl
+																					item?.events?.thumbnail?.logo?.node?.mediaItemUrl ||
+																					item?.events?.banner?.node?.mediaItemUrl
 																				}
 																				className={`${styles.eventLogo}`}
 																				alt="event logo"

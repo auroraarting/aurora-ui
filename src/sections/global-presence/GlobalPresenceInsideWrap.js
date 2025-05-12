@@ -57,8 +57,8 @@ export default function GlobalPresenceInsideWrap({ data, mapJson }) {
 						bannerTitle={data.countries.bannerSection.title}
 						bannerDescription={data.countries.bannerSection.description}
 						// btnTxt="Get in Touch"
-						desktopImage={data.countries.bannerSection?.image?.node?.sourceUrl}
-						mobileImage={data.countries.bannerSection.mobileImage?.node?.sourceUrl}
+						desktopImage={data.countries.bannerSection?.image?.node?.mediaItemUrl}
+						mobileImage={data.countries.bannerSection.mobileImage?.node?.mediaItemUrl}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionsButton")}
 					/>
 				</div>

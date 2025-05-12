@@ -15,13 +15,13 @@ query GetAbout {
         desktopThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         mobileThumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -31,7 +31,7 @@ query GetAbout {
         gallery {
           nodes {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -50,7 +50,7 @@ query GetAbout {
                   image {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                   linkedinLink
@@ -65,7 +65,7 @@ query GetAbout {
                         featuredImage {
                           node {
                             altText
-                            sourceUrl
+                            mediaItemUrl
                           }
                         }
                         postFields {
@@ -107,7 +107,7 @@ query GetAbout {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -122,7 +122,7 @@ query GetAbout {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -138,7 +138,7 @@ query GetAbout {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -155,7 +155,7 @@ query GetAbout {
         thumbnail {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         map {

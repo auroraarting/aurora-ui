@@ -74,7 +74,7 @@ export default function CollaborationSupport({ data }) {
 									<div className={`${styles.cardDesc}`}>
 										<h4 className="text_md color_secondary f_w_m font_primary pt_10 f_r_a_center">
 											<img
-												src={item?.icon?.node?.sourceUrl}
+												src={item?.icon?.node?.mediaItemUrl}
 												className={`${styles.strategy_icon}`}
 												alt="strategy icon"
 											/>
@@ -86,7 +86,7 @@ export default function CollaborationSupport({ data }) {
 									</div>
 									<div className={`${styles.cardImg}`}>
 										<img
-											src={item?.image?.node?.sourceUrl}
+											src={item?.image?.node?.mediaItemUrl}
 											className={`${styles.countryImg} width_100`}
 										/>
 									</div>

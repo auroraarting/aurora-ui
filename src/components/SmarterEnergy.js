@@ -111,7 +111,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 			return data?.[keyVal()]?.map((item, ind) => {
 				return {
 					title: item?.accordionTitle || item?.title,
-					imgIcons: item?.icon?.node?.sourceUrl,
+					imgIcons: item?.icon?.node?.mediaItemUrl,
 					children: (
 						<>
 							<div className={`${styles.content_wrap}`}>
@@ -182,7 +182,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 													items={item?.popup?.list2?.map((item2, ind2) => {
 														return {
 															title: item2?.title,
-															// imgIcons: item?.icon?.node?.sourceUrl,
+															// imgIcons: item?.icon?.node?.mediaItemUrl,
 															children: (
 																<div className={`${styles.content_wrap2}`}>
 																	<div className="text_reg color_white">

@@ -67,9 +67,9 @@ export default function Leaders({ data }) {
 			name: item?.title,
 			designation: item?.teams?.thumbnail?.designation,
 			linkedinUrl: item?.teams?.thumbnail?.linkedinLink,
-			downloadProfileUrl: item?.teams?.file?.node?.sourceUrl,
+			downloadProfileUrl: item?.teams?.file?.node?.mediaItemUrl,
 			desc: item?.content,
-			thumbnail: item?.teams?.thumbnail?.image?.node?.sourceUrl,
+			thumbnail: item?.teams?.thumbnail?.image?.node?.mediaItemUrl,
 			leaderBlogHeading: "Latest Articles by John Feddersen1",
 			blogData: item?.teams?.articles?.articlesby?.nodes?.map((item2) => {
 				let location = "";

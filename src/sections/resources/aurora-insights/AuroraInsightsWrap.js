@@ -101,7 +101,7 @@ export default function AuroraInsightsWrap({
 							desc={insightsPage?.video?.sectionDesc}
 							redirectLink={insightsPage?.video?.redirectLink}
 							videoLink={insightsPage?.video?.videoLink}
-							videoThumbnail={insightsPage?.video?.videoThumbnail?.node?.sourceUrl}
+							videoThumbnail={insightsPage?.video?.videoThumbnail?.node?.mediaItemUrl}
 						/>
 					</div>
 				)}

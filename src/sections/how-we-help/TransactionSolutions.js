@@ -36,12 +36,13 @@ export default function TransactionSolutions({
 	data,
 	slugPage = "products",
 	keyValue = "products",
+	isSlider,
 }) {
 	console.log(data);
 	const animTimeline = gsap.timeline({});
 
 	useEffect(() => {
-		if (data?.length === 0 || !data) return null;
+		if (data?.length === 0 || !data || isSlider) return null;
 
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
@@ -101,7 +102,9 @@ export default function TransactionSolutions({
 	if (data?.length === 0 || !data) return <></>;
 
 	return (
-		<section className={`${styles.TransactionSolutions}`}>
+		<section
+			className={`${styles.TransactionSolutions} ${isSlider && styles.isSlider}`}
+		>
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
 					{data?.map((item, ind) => {
@@ -120,7 +123,7 @@ export default function TransactionSolutions({
 							>
 								<div className={`${styles.spaceInner}`}>
 									<img
-										src={item?.[contentType]?.thumbnail?.logo?.node?.sourceUrl}
+										src={item?.[contentType]?.thumbnail?.logo?.node?.mediaItemUrl}
 										alt="solar plant"
 									/>
 									<h2 className="text_xl font_primary f_w_m color_white pt_40">
@@ -150,7 +153,7 @@ export default function TransactionSolutions({
 						return (
 							<img
 								key={ind}
-								src={item?.[contentType]?.thumbnail?.banner?.node?.sourceUrl}
+								src={item?.[contentType]?.thumbnail?.banner?.node?.mediaItemUrl}
 								alt="solar plant"
 							/>
 						);

@@ -352,7 +352,7 @@ const defaultNavigation = {
 			featuredImage: {
 				node: {
 					altText: "",
-					sourceUrl:
+					mediaItemUrl:
 						"https://cms-production.auroraer.com/wp-content/uploads/2025/04/event_inside_banner.5c571806.jpg",
 				},
 			},
@@ -364,7 +364,7 @@ const defaultNavigation = {
 					logo: {
 						node: {
 							altText: "",
-							sourceUrl:
+							mediaItemUrl:
 								"https://cms-production.auroraer.com/wp-content/uploads/2025/04/energy_transition.cbbdc6fc.png",
 						},
 					},
@@ -373,7 +373,7 @@ const defaultNavigation = {
 					desktop: {
 						node: {
 							altText: "",
-							sourceUrl:
+							mediaItemUrl:
 								"https://cms-production.auroraer.com/wp-content/uploads/2023/07/Wind-original-1449359885-scaled-1-1024x689.jpg",
 						},
 					},
@@ -390,7 +390,7 @@ const defaultNavigation = {
 			featuredImage: {
 				node: {
 					altText: "",
-					sourceUrl:
+					mediaItemUrl:
 						"https://cms-production.auroraer.com/wp-content/uploads/2025/03/Screenshot-2025-03-18-164856.png",
 				},
 			},
@@ -445,7 +445,7 @@ const defaultNavigation = {
 									image: {
 										node: {
 											altText: "",
-											sourceUrl:
+											mediaItemUrl:
 												"https://cms-production.auroraer.com/wp-content/uploads/2025/04/profile.png",
 										},
 									},

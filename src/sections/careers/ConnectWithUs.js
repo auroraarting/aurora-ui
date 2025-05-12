@@ -77,10 +77,10 @@ export default function ConnectWithUs({ data }) {
 						return (
 							<SwiperSlide key={ind}>
 								<div className={`${styles.cardItem}`}>
-									{item?.offices?.thumbnail?.node?.sourceUrl && (
+									{item?.offices?.thumbnail?.node?.mediaItemUrl && (
 										<div className={`${styles.cardImg}`}>
 											<img
-												src={item?.offices?.thumbnail?.node?.sourceUrl}
+												src={item?.offices?.thumbnail?.node?.mediaItemUrl}
 												className={`${styles.connectImg} b_r_10`}
 											/>
 										</div>

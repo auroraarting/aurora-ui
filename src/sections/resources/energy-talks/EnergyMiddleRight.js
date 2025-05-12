@@ -44,7 +44,7 @@ export default function EnergyMiddleRight({ data, events }) {
 									>
 										<div className={`${styles.ClientLogo}`}>
 											<img
-												src={item?.postSpeakers?.thumbnail?.image?.node?.sourceUrl}
+												src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
 												alt="pic"
 											/>
 										</div>
@@ -91,7 +91,7 @@ export default function EnergyMiddleRight({ data, events }) {
 										>
 											<div className={`${styles.poweredLogo}`}>
 												<img
-													src={item?.softwares?.banner?.logo?.node?.sourceUrl}
+													src={item?.softwares?.banner?.logo?.node?.mediaItemUrl}
 													className={`${styles.amun_logo}`}
 													alt="amun_logo"
 												/>

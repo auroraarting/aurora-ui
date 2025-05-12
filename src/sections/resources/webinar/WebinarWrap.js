@@ -105,7 +105,7 @@ export default function WebinarTalksWrap({
 							desc={webinarpage?.video?.sectionDesc}
 							redirectLink={webinarpage?.video?.redirectLink}
 							videoLink={webinarpage?.video?.videoLink}
-							videoThumbnail={webinarpage?.video?.videoThumbnail?.node?.sourceUrl}
+							videoThumbnail={webinarpage?.video?.videoThumbnail?.node?.mediaItemUrl}
 						/>
 					</div>
 				)}

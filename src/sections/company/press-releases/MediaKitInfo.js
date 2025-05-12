@@ -28,14 +28,14 @@ export default function MediaKitInfo({ data }) {
 						<h2 className="text_xl color_secondary pb_10">{data?.mediaKit?.title}</h2>
 						<p className="text_reg color_dark_gray">{data?.mediaKit?.desc}</p>
 						<div className={`${styles.downloadBtn} pt_30`}>
-							{data?.mediaKit?.logos?.node?.sourceUrl && (
-								<a href={data?.mediaKit?.logos?.node?.sourceUrl} className="d_f">
+							{data?.mediaKit?.logos?.node?.mediaItemUrl && (
+								<a href={data?.mediaKit?.logos?.node?.mediaItemUrl} className="d_f">
 									<img src={white_down_arrow.src} alt="icon" />
 									Download Logos
 								</a>
 							)}
-							{data?.mediaKit?.brief?.node?.sourceUrl && (
-								<a href={data?.mediaKit?.brief?.node?.sourceUrl} className="d_f">
+							{data?.mediaKit?.brief?.node?.mediaItemUrl && (
+								<a href={data?.mediaKit?.brief?.node?.mediaItemUrl} className="d_f">
 									<img src={white_down_arrow.src} alt="icon" />
 									Media brief (PDF)
 								</a>
@@ -45,7 +45,7 @@ export default function MediaKitInfo({ data }) {
 					<div className={`${styles.infoLogo}`}>
 						<div className={`${styles.whiteBox}`}>
 							<img
-								src={data?.mediaKit?.thumbnail?.node?.sourceUrl || Aurora_Logo.src}
+								src={data?.mediaKit?.thumbnail?.node?.mediaItemUrl || Aurora_Logo.src}
 								alt="logo"
 							/>
 						</div>

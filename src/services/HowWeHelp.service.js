@@ -17,7 +17,7 @@ query GetSingleHowWeHelp {
         banner {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
         gradient {
@@ -27,7 +27,7 @@ query GetSingleHowWeHelp {
         logo {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -41,7 +41,7 @@ query GetSingleHowWeHelp {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -59,7 +59,7 @@ query GetSingleHowWeHelp {
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
             }
@@ -78,7 +78,7 @@ query GetSingleHowWeHelp {
           icon {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -105,7 +105,7 @@ query GetSingleHowWeHelp {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -115,7 +115,7 @@ query GetSingleHowWeHelp {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -125,7 +125,7 @@ query GetSingleHowWeHelp {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -142,7 +142,7 @@ query GetSingleHowWeHelp {
                   banner {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                   gradient {
@@ -152,7 +152,7 @@ query GetSingleHowWeHelp {
                   logo {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -169,7 +169,7 @@ query GetSingleHowWeHelp {
                   banner {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                   gradient {
@@ -179,7 +179,7 @@ query GetSingleHowWeHelp {
                   logo {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -196,7 +196,7 @@ query GetSingleHowWeHelp {
                   banner {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                   gradient {
@@ -206,7 +206,7 @@ query GetSingleHowWeHelp {
                   logo {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -223,7 +223,7 @@ query GetSingleHowWeHelp {
                   banner {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                   gradient {
@@ -233,7 +233,7 @@ query GetSingleHowWeHelp {
                   logo {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -275,7 +275,7 @@ query GetAllHowWeHelps {
           banner {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           gradient {
@@ -285,7 +285,7 @@ query GetAllHowWeHelps {
           logo {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }
@@ -299,7 +299,7 @@ query GetAllHowWeHelps {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -317,7 +317,7 @@ query GetAllHowWeHelps {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -336,7 +336,7 @@ query GetAllHowWeHelps {
             icon {
               node {
                 altText
-                sourceUrl
+                mediaItemUrl
               }
             }
           }

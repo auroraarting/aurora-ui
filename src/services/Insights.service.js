@@ -12,7 +12,7 @@ query GetInsights {
       featuredImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
         }
       }
       categories(first: 9999) {
@@ -53,7 +53,7 @@ query GetInsights {
                   image {
                     node {
                       altText
-                      sourceUrl
+                      mediaItemUrl
                     }
                   }
                 }
@@ -146,7 +146,7 @@ query GetInsightsInside {
     featuredImage {
       node {
         altText
-        sourceUrl
+        mediaItemUrl
       }
     }
     categories(first: 9999) {
@@ -177,7 +177,7 @@ query GetInsightsInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -187,7 +187,7 @@ query GetInsightsInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -197,7 +197,7 @@ query GetInsightsInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -207,7 +207,7 @@ query GetInsightsInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -227,7 +227,7 @@ query GetInsightsInside {
                 image {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -247,7 +247,7 @@ query GetInsightsInside {
                 image {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -260,7 +260,7 @@ query GetInsightsInside {
         image {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }
@@ -277,7 +277,7 @@ query GetInsightsInside {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -285,7 +285,7 @@ query GetInsightsInside {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -320,7 +320,7 @@ query GetInsightsInside {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -328,7 +328,7 @@ query GetInsightsInside {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -352,7 +352,7 @@ query GetInsightsInside {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -360,7 +360,7 @@ query GetInsightsInside {
                 logo {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }
@@ -387,7 +387,7 @@ query GetInsightsInside {
         file {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
           }
         }
       }

@@ -28,6 +28,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/product/ProductInside.module.scss";
+import CaseStudy from "@/components/CaseStudy";
 
 // IMAGES //
 
@@ -38,6 +39,7 @@ import styles from "@/styles/pages/product/ProductInside.module.scss";
 /** ProductInside Page */
 export default function ProductInsideWrap({ data, mapJson }) {
 	const dataForBtn = { postFields: data?.products || {} };
+	console.log(mapJson);
 
 	return (
 		<div>
@@ -61,11 +63,13 @@ export default function ProductInsideWrap({ data, mapJson }) {
 						bannerDescription={data?.products?.banner?.description}
 						// btnTxt={data?.products?.banner?.buttonText}
 						btnLink={data?.products?.banner?.buttonLink}
-						desktopImage={data?.products?.banner?.desktopThumbnail?.node?.sourceUrl}
-						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.sourceUrl}
+						desktopImage={
+							data?.products?.banner?.desktopThumbnail?.node?.mediaItemUrl
+						}
+						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 						videoSrc={data?.products?.banner?.vimeoLink}
 						vimeoid={data?.products?.banner?.vimeoLink}
-						logo={data?.products?.banner?.logo?.node?.sourceUrl}
+						logo={data?.products?.banner?.logo?.node?.mediaItemUrl}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
 				</div>
@@ -93,9 +97,11 @@ export default function ProductInsideWrap({ data, mapJson }) {
 					locationJson={mapJson}
 					marqueeText={data?.products?.map?.marquee}
 				/>
-				{/* <div className="ptb_100">
-					<SoftwareMarket />
-				</div> */}
+				{data?.products?.caseStudy?.selectCaseStudies?.nodes && (
+					<div className="ptb_100">
+						<CaseStudy data={data?.products?.caseStudy?.selectCaseStudies?.nodes} />
+					</div>
+				)}
 				{data?.products?.ourClient?.selectLogos && (
 					<div className="ptb_100">
 						<TrustedLeaders data={data?.products?.ourClient} />
