@@ -56,14 +56,29 @@ export default function TopEnergy({ data }) {
 								{/* <span>mar 2025</span> */}
 								<span>{formatDate(data?.podcastFields?.date)}</span>
 							</p>
-							{/* <p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={black_clock.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>28 min 24 sec</span>
-							</p> */}
+							{data?.podcastFields?.time && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={black_clock.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>{data?.podcastFields?.time}</span>
+								</p>
+							)}
+							{data?.podcastFields?.country?.nodes.length > 0 && (
+								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+									<img
+										src={location.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>
+										{data?.podcastFields?.country?.nodes?.map((item) => item?.title)}
+										{/* {isCategory(countries, item?.podcastFields?.country?.nodes)} */}
+									</span>
+								</p>
+							)}
 						</div>
 					</div>
 					{data?.featuredImage?.node?.mediaItemUrl && (
