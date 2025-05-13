@@ -55,6 +55,7 @@ export default function Insights({
 	formdata,
 	insightsLink = "/resources/aurora-insights/",
 	customHtml,
+	hideall,
 }) {
 	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
@@ -107,12 +108,14 @@ export default function Insights({
 		}
 	}, []);
 
+	let sectionId = {};
+	if (!hideall) {
+		sectionId.id = "insights";
+		sectionId["data-name"] = "Insights";
+	}
+
 	return (
-		<section
-			className={`${styles.Insights} Insights`}
-			id="insights"
-			data-name="Insights"
-		>
+		<section className={`${styles.Insights} Insights`} {...sectionId}>
 			<div className="containerLarge">
 				<div className={`${styles.insightsBg} insightsBg dark_bg`}>
 					{isPowerBgVisible && (

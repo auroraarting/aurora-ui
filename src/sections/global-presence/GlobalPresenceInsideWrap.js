@@ -81,6 +81,7 @@ export default function GlobalPresenceInsideWrap({ data, mapJson }) {
 					<WhichProducts data={data.countries.map} />
 				</div>
 				<ServicesCircle
+					hideId
 					data={data.countries.keyAdvantages}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
@@ -125,7 +126,7 @@ export default function GlobalPresenceInsideWrap({ data, mapJson }) {
 					<TrustedLeaders data={data.countries.ourClients} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback data={data.countries.ourClients} />
+					<TestimonialFeedback hideId data={data.countries.ourClients} />
 				</div>
 				<div className="pb_100">
 					<PublicWebinar />
@@ -135,6 +136,7 @@ export default function GlobalPresenceInsideWrap({ data, mapJson }) {
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
 							<Insights
+								hideall
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
 								formSectionBtnText={
@@ -147,7 +149,7 @@ export default function GlobalPresenceInsideWrap({ data, mapJson }) {
 					<EosIntegratedSystem />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

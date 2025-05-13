@@ -85,7 +85,7 @@ export default function GlobalPresenceWrap({
 					</div>
 				</main>
 			)}
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

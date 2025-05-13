@@ -22,7 +22,11 @@ import styles from "@/styles/sections/global-presence/Introduction.module.scss";
 export default function Introduction({ data }) {
 	if (!data) return <></>;
 	return (
-		<section className={`${styles.Introduction}`}>
+		<section
+			className={`${styles.Introduction}`}
+			id="introduction"
+			data-name="Introduction"
+		>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
