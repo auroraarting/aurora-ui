@@ -81,7 +81,7 @@ export default function InsightsListing({
 			{ title: "Articles", alternate: "Commentary" },
 			{ title: "Case studies", alternate: "Case studies" },
 			{ title: "Market reports", alternate: "Market reports" },
-			{ title: "Public", alternate: "Public" },
+			// { title: "Public", alternate: "Public" },
 		],
 		countryType: [
 			{ title: "India" },
@@ -208,7 +208,7 @@ export default function InsightsListing({
 	/** selectedCategory  */
 	const selectedCategory = () => {
 		if (!selected.category) return "Category";
-		if (selected.category === "Articles") return "Commentary";
+		if (selected.category === "Commentary") return "Articles";
 		return selected.category;
 	};
 
