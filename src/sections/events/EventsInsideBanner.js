@@ -66,11 +66,11 @@ function EventsInsideBanner({ data }) {
 					<div className={`${styles.banner_image}`}>
 						<picture>
 							<source
-								srcSet={data?.events?.banner?.mobile?.node?.mediaItemUrl}
+								srcSet={data?.events?.banner?.desktop?.node?.mediaItemUrl}
 								media="(min-width:767px)"
 							/>
 							<img
-								src={data?.events?.banner?.desktop?.node?.mediaItemUrl}
+								src={data?.events?.banner?.mobile?.node?.mediaItemUrl}
 								alt="Banner Image"
 							/>
 						</picture>

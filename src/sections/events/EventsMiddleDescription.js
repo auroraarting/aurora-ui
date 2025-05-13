@@ -26,6 +26,7 @@ import clock from "/public/img/icons/clock.svg";
 
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
+	console.log(data, "data");
 	return (
 		<>
 			{data?.content && (
@@ -49,8 +50,8 @@ const Hightlights = ({ data }) => {
 		<section id="hightlights" data-name="Hightlights">
 			<h2>Hightlights</h2>
 			<ul>
-				{data?.hightlights?.map((item) => {
-					return <li key={item?.text}>{item?.text}</li>;
+				{data?.hightlights?.map((item, ind) => {
+					return <li key={(item?.text || "") + ind}>{item?.text}</li>;
 				})}
 			</ul>
 		</section>
@@ -63,6 +64,7 @@ const WhyAttend = ({ data }) => {
 	return (
 		<section id="whyAttend" data-name="Why Attend" className="pb_50">
 			<h2>Why attend?</h2>
+			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
 			<ul>
 				{data?.agenda?.map((item) => {
 					return <li key={item?.title}>{item?.title}</li>;

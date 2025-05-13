@@ -175,6 +175,7 @@ query GetEventInside {
   eventBy(slug: "${slug}") {
     title
     slug
+    content
     featuredImage {
       node {
         altText
@@ -343,6 +344,7 @@ query GetEventInside {
         }
       }
       whyAttend {
+      desc
         agenda {
           address
           time
