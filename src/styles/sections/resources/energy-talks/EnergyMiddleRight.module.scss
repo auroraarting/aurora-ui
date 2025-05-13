@@ -9,15 +9,17 @@
 		margin-bottom: 20px;
 		.subTxt {
 			border-bottom: 1px solid var(--color_platinum_gray);
+			padding-bottom: 24px;
 		}
 		.itemBox {
+			margin-top: 24px;
 			&:last-child {
 				.dateFlex {
 					margin-bottom: 0px;
 				}
 			}
 			.ClientFlex {
-				border-bottom: 1px solid var(--color_platinum_gray);
+				// border-bottom: 1px solid var(--color_platinum_gray);
 				padding-bottom: 20px;
 				.ClientLogo {
 					margin-right: 10px;
@@ -93,7 +95,7 @@
 				// }
 			}
 			.dateFlex {
-				border-bottom: 1px solid var(--color_platinum_gray);
+				// border-bottom: 1px solid var(--color_platinum_gray);
 				padding-bottom: 15px;
 				margin-bottom: 15px;
 				p {

@@ -239,3 +239,14 @@ section {
 .ep-label {
 	color: var(--color_blue);
 }
+
+.downloadListen {
+	.downloadBox {
+		@media (max-width: 767px) {
+			padding: 15px 0px;
+		}
+		a {
+			margin-left: 15px;
+		}
+	}
+}

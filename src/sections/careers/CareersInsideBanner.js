@@ -35,6 +35,13 @@ function CareersInsideBanner({ data }) {
 							{data?.earlyCareers?.thumbnail?.country?.node?.title}
 						</div>
 					)}
+					{data?.earlyCareers?.banner?.city && (
+						<div
+							className={`${styles.tag} text_xxs font_primary text_uppercase color_white pb_30`}
+						>
+							{data?.earlyCareers?.banner?.city}
+						</div>
+					)}
 					{data?.earlyCareers?.thumbnail?.islive && (
 						<div
 							className={`${styles.tag} ${styles.isLive} text_xxs font_primary text_uppercase f_w_s_b pb_30`}

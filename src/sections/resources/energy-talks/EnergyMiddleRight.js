@@ -21,7 +21,7 @@ import amun_hover_logo from "@/../public/img/energy_talks/amun_hover_logo.png";
 import spring_forum from "@/../public/img/events/spring_forum.png";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
 import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
-import formatDate from "@/utils";
+import formatDate, { formatTitleForEpisode } from "@/utils";
 import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
@@ -164,7 +164,8 @@ export default function EnergyMiddleRight({ data, events }) {
 								>
 									<div className={`${styles.ClientLogo}`}>
 										{/* <img src={spring_forum.src} alt="logo" /> */}
-										<p>{item?.title}</p>
+										{/* <p>{item?.title}</p> */}
+										<ContentFromCms>{formatTitleForEpisode(item?.title)}</ContentFromCms>
 									</div>
 									<div className={`${styles.dateFlex} pt_10`}>
 										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center pb_10">
@@ -173,16 +174,16 @@ export default function EnergyMiddleRight({ data, events }) {
 												className={`${styles.calender}`}
 												alt="calender"
 											/>
-											<span>{formatDate(item?.date)}</span>
+											<span>{formatDate(item?.podcastFields?.date)}</span>
 										</p>
-										{item?.time && (
+										{item?.podcastFields?.time && (
 											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={grey_clock.src}
 													className={`${styles.location}`}
 													alt="location"
 												/>
-												<span>{item?.time}</span>
+												<span>{item?.podcastFields?.time}</span>
 											</p>
 										)}
 									</div>

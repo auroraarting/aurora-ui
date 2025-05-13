@@ -14,7 +14,9 @@ import Button from "@/components/Buttons/Button";
 import styles from "@/styles/sections/resources/aurora-insights/Client.module.scss";
 
 // IMAGES //
-import client_logo from "@/../public/img/resources/aurora_insights/client_logo.svg";
+import webinar_logo from "@/../public/img/icons/webinarIcon.png";
+import podcast_logo from "@/../public/img/icons/podcastIcon.png";
+
 import author_logo from "@/../public/img/resources/aurora_insights/author_logo.png";
 import social_icon from "@/../public/img/resources/aurora_insights/social_icon.svg";
 import origin from "@/../public/img/resources/aurora_insights/origin.png";
@@ -196,7 +198,7 @@ export default function Client({ data }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={client_logo.src} alt="logo" />
+							<img src={webinar_logo.src} alt="logo" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
@@ -213,7 +215,7 @@ export default function Client({ data }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={client_logo.src} alt="logo" />
+							<img src={podcast_logo.src} alt="logo" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>

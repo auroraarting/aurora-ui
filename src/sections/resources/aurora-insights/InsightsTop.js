@@ -49,14 +49,16 @@ export default function InsightsTop({ data }) {
 								{/* <span>mar 2025</span> */}
 								<span>{formatDate(data?.date)}</span>
 							</p>
-							{/* <p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
-								<img
-									src={black_clock.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>28 min 24 sec</span>
-							</p> */}
+							{data?.postFields?.time && (
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+									<img
+										src={black_clock.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>{data?.postFields?.time}</span>
+								</p>
+							)}
 						</div>
 					</div>
 					{data?.featuredImage?.node?.mediaItemUrl && (

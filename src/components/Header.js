@@ -16,6 +16,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 import parse from "html-react-parser";
 
 // UTILS //
+import formatDate from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/Header.module.scss";
@@ -35,11 +36,11 @@ import event_logo from "@/../public/img/header/event_logo.png";
 import mac_img from "@/../public/img/header/mac_img.png";
 import amun_logo from "@/../public/img/header/amun_logo.svg";
 import popup_close from "@/../public/img/icons/popup_close.svg";
+import white_close from "@/../public/img/icons/white_close.svg";
 import Close from "@/../public/img/icons/close.svg";
 
 // SERVICES //
 import { fetchNavigationData } from "@/services/Navigation.service";
-import formatDate from "@/utils";
 
 // DATA //
 
@@ -1205,7 +1206,7 @@ export default function Header({ defaultNavigation }) {
 					<div className={styles.searchBar}>
 						<div className={styles.searchArea}>
 							<button className={`${styles.Close}`} onClick={handleCloseClick}>
-								<img src={popup_close.src} alt="search" />
+								<img src={white_close.src} alt="search" />
 							</button>
 						</div>
 						<GlobalSearch />

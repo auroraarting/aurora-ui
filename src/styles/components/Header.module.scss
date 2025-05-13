@@ -22,7 +22,7 @@
 		}
 		.searchRight {
 			width: 85%;
-			padding: 7px 20px 7px 0px;
+			//padding: 7px 20px 7px 0px;
 			border-right: 1px solid rgba(44, 44, 44, 0.2);
 			display: flex;
 			align-items: center;
@@ -32,13 +32,17 @@
 			}
 			@media (max-width: 767px) {
 				width: 50px;
-				padding: 6px 10px;
+				//padding: 6px 10px;
 			}
 			.searchFlex {
 				background-color: transparent;
 				outline: none;
 				border: none;
 				cursor: pointer;
+				padding: 7px 20px 7px 20px;
+				@media (max-width: 767px) {
+					padding: 6px 10px;
+				}
 				span {
 					padding-left: 15px;
 					@media (max-width: 767px) {
@@ -46,6 +50,13 @@
 					}
 				}
 			}
+			// .activeSearch{
+			// 	background-color: #288184;
+			// 	color: var(--color_white);
+			// 	img{
+			// 		filter: invert(1);
+			// 	}
+			// }
 		}
 		.searchLeft {
 			width: 15%;
@@ -508,7 +519,7 @@
 					@media (max-width: 767px) {
 						width: 100%;
 					}
-					.eosLinksTxt {
+					.eosLinksTxt { 
 						font-size: 20px;
 						justify-content: space-between;
 						@media (max-width: 767px) {
@@ -745,18 +756,25 @@
 
 .searchBar {
 	z-index: 9999;
-	top: 140px;
-	left: 50%;
-	width: 650px;
+	top: 118px;
+	left: 0%;
+	width: 100%;
 	position: fixed;
 	border-radius: 4px;
-	transform: translateX(-50%);
-	@media (max-width: 992px) {
-		left: inherit;
-		width: calc(96% - 50px);
+	transform: translateX(0%);
+	@media (max-width: 1199px) {
+		top: 98px;
+	}
+	@media (max-width: 991px) {
+		left: 0px;
+		width: 100%;
 		z-index: 999;
 		transform: none;
-		padding-left: 4%;
+		padding-left: 0%;
+		top: 95px;
+	}
+	@media (max-width: 767px) {
+		top: 92px;
 	}
 	.searchArea {
 		gap: 11px;
@@ -787,14 +805,22 @@
 			}
 		}
 		.Close {
-			top: 21px;
-			right: -50px;
-			border-radius: 4px;
+			top: 20px;
+    	right: 20px;
+			//border-radius: 4px;
 			position: absolute;
-			transform: translateY(-50%);
-			background-color: var(--color_black);
+			transform: translateY(0%);
+			// background-color: var(--color_black);
+			z-index: 10;
+			@media (max-width: 767px) {
+				top: 0px;
+    		right: 15px;
+			}
 			img {
-				filter: invert(1);
+				
+				@media (max-width: 767px) {
+					filter: invert(1);
+				}
 			}
 		}
 

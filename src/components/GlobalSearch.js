@@ -6,6 +6,7 @@
 import { useState, useEffect, useRef } from "react";
 
 // COMPONENTS //
+import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
 
@@ -18,7 +19,8 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 import styles from "@/styles/components/GlobalSearch.module.scss";
 
 // IMAGES //
-import SearchIcon from "../../public/img/icons/search.svg";
+import searchIcon from "../../public/img/icons/searchIcon.svg";
+import search_hover from "@/../public/img/icons/search_hover.svg";
 
 // SERVICES //
 import { searchData } from "@/services/Search.service";
@@ -237,7 +239,135 @@ export default function GlobalSearch() {
 	return (
 		<div className={styles.GlobalSearch}>
 			{/* Search Bar */}
-			<div className={`${styles.slobal_search_section} f_j`}>
+			<div className={`${styles.megaMenuBox} f_w_j`} data-lenis-prevent>
+				<div className={`${styles.menuBoxRight}`}>
+					<div className={`${styles.pageName}`}>
+						<h4 className="text_xxs font_primary color_medium_gray">
+							What are you looking for?
+						</h4>
+					</div>
+					<div className={`${styles.SearchResultsBox}`}>
+						<div className={`${styles.slobal_search_section} f_j`}>
+							<div className={styles.input_section}>
+								<input
+									className="search_input"
+									type="text"
+									value={searchTerm}
+									onChange={(e) => setSearchTerm(e.target.value)}
+									onKeyDown={handleKeyDown}
+									placeholder="What are you looking for?"
+								/>
+							</div>
+							<div className={styles.search_section}>
+								<button onClick={fetchSearchResults}>
+									<img src={searchIcon.src} alt="search" />
+								</button>
+							</div>
+						</div>
+						{/* Search Results */}
+						{results && !noResults && (
+							<div className={styles.results} data-lenis-prevent>
+								{Object.entries(results).map(([key, value]) => {
+									if (!value || (Array.isArray(value) && value.length === 0))
+										return null;
+
+									const items = Array.isArray(value) ? value : [value];
+									return items.map((item, idx) => {
+										const { link, title } = getLinkAndTitle(key, item);
+										return (
+											<div className={styles.title_link} key={`${key}-${idx}`}>
+												<a
+													// href={/projects/${contentObj?.slug}?search=${encodeURIComponent(searchTerm)}}
+													className="text_xs d_f"
+													href={link}
+													target="_blank"
+													rel="noreferrer"
+												>
+													<h3 className="text_sm">{title}</h3>
+												</a>
+											</div>
+										);
+									});
+								})}
+							</div>
+						)}
+						{/* No Results */}
+						{searchTerm.trim() && !isLoading && results && noResults && (
+							<div className={styles.results} data-lenis-prevent>
+								<div className={styles.title_link}>
+									<p className="no-data-text">No data found</p>
+								</div>
+							</div>
+						)}
+						{isLoading && (
+							<div className={styles.results} data-lenis-prevent>
+								<div className={styles.title_link}>
+									<p className="no-data-text">{"Loading..."}</p>
+								</div>
+							</div>
+						)}
+					</div>
+					<div className={`${styles.topSearchList}`}>
+						<div
+							className={`${styles.pageLinks} f_r_a_center text_reg f_w_m font_primary color_dark_gray pt_20`}
+						>
+							Top Searches
+						</div>
+						<div className={`${styles.eosItem}`}>
+							<a
+								href=""
+								className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+							>
+								<span>Net Zero Carbon 2050</span>{" "}
+								<img src={search_hover.src} alt="arrow" />
+							</a>
+							<a
+								href=""
+								className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+							>
+								<span>Energy Renewable Market</span>{" "}
+								<img src={search_hover.src} alt="arrow" />
+							</a>
+							<a
+								href=""
+								className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+							>
+								<span>Battery</span> <img src={search_hover.src} alt="arrow" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<div className={`${styles.menuBoxleft}`}>
+					<div
+						className={`${styles.pageLinks} f_r_a_center text_reg f_w_m font_primary color_dark_gray pt_20`}
+					>
+						Top Pages
+					</div>
+					<div className={`${styles.eosItem}`}>
+						<a
+							href=""
+							className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+						>
+							<span>Net Zero Carbon 2050</span>{" "}
+							<img src={search_hover.src} alt="arrow" />
+						</a>
+						<a
+							href=""
+							className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+						>
+							<span>Energy Renewable Market</span>{" "}
+							<img src={search_hover.src} alt="arrow" />
+						</a>
+						<a
+							href=""
+							className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+						>
+							<span>Battery</span> <img src={search_hover.src} alt="arrow" />
+						</a>
+					</div>
+				</div>
+			</div>
+			{/* <div className={`${styles.slobal_search_section} f_j`}>
 				<div className={styles.input_section}>
 					<input
 						className="search_input"
@@ -253,56 +383,11 @@ export default function GlobalSearch() {
 						<img src={SearchIcon.src} alt="search" />
 					</button>
 				</div>
-			</div>
-
+			</div> */}
 			{/* Typing feedback */}
 			{/* {isTyping && (
 				<p className={`${styles.title_link} text_md f_w_m`}>Searching...</p>
 			)} */}
-
-			{/* Search Results */}
-			{results && !noResults && (
-				<div className={styles.results} data-lenis-prevent>
-					{Object.entries(results).map(([key, value]) => {
-						if (!value || (Array.isArray(value) && value.length === 0)) return null;
-
-						const items = Array.isArray(value) ? value : [value];
-						return items.map((item, idx) => {
-							const { link, title } = getLinkAndTitle(key, item);
-							return (
-								<div className={styles.title_link} key={`${key}-${idx}`}>
-									<a
-										// href={/projects/${contentObj?.slug}?search=${encodeURIComponent(searchTerm)}}
-										className="text_xs d_f"
-										href={link}
-										target="_blank"
-										rel="noreferrer"
-									>
-										<img src={SearchIcon.src} alt="search" />
-										<h3 className="text_reg f_w_m">{title}</h3>
-									</a>
-								</div>
-							);
-						});
-					})}
-				</div>
-			)}
-
-			{/* No Results */}
-			{searchTerm.trim() && !isLoading && results && noResults && (
-				<div className={styles.results} data-lenis-prevent>
-					<div className={styles.title_link}>
-						<p className="no-data-text">No data found</p>
-					</div>
-				</div>
-			)}
-			{isLoading && (
-				<div className={styles.results} data-lenis-prevent>
-					<div className={styles.title_link}>
-						<p className="no-data-text">{"Loading..."}</p>
-					</div>
-				</div>
-			)}
 		</div>
 	);
 }

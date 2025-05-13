@@ -34,6 +34,7 @@ query GetInsights {
         }
       }
       postFields {
+      time
         speakers {
           nodes {
             ... on PostSpeaker {
