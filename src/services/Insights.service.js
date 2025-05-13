@@ -394,16 +394,32 @@ query GetInsightsInside {
       sections {
         content
         sectionTitle
+        lottie {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        buttons {
+          buttonText
+          iframe
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
       }
       mediaContact {
         designation
         name
-                 email {
-            text
-          }
-          phone {
-            text
-          }
+        email {
+          text
+        }
+        phone {
+          text
+        }
       }
       about {
         content

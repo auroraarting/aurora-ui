@@ -45,6 +45,7 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // DATA //
 
@@ -192,6 +193,17 @@ export default async function EnergyInside({ params }) {
 											data-name={item?.sectionTitle}
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
+											{item?.lottie?.node?.mediaItemUrl && (
+												<DotLottieReact
+													src={item?.lottie?.node?.mediaItemUrl}
+													autoplay={true}
+													loop={true}
+													renderer="svg"
+													renderersettings={{
+														preserveAspectRatio: "xMidYMid meet",
+													}}
+												/>
+											)}
 										</section>
 									);
 								})}

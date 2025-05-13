@@ -23,7 +23,7 @@ import IconArrRight from "/public/img/icons/pagination-right.png";
 export default function Pagination({
 	data = [],
 	paginationArr = [],
-	itemsPerPage = 6,
+	itemsPerPage = 12,
 	setCurrentItems,
 	isDark,
 }) {

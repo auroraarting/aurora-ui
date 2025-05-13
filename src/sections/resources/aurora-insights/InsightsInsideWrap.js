@@ -1,31 +1,33 @@
-// Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const fetchCache = "force-no-store"; // Optional: disables fetch caching
+"use client";
 
 /* eslint-disable quotes */
 // MODULES //
 
 // COMPONENTS //
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
-import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
+import Insights from "@/components/Insights";
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // SECTIONS //
-import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
-import WebinarMiddleRight from "@/sections/resources/webinar/WebinarMiddleRight";
-import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
+import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
+import CaseStudiesMiddleDescription from "@/sections/resources/aurora-insights/CaseStudiesMiddleDescription";
+import Client from "@/sections/resources/aurora-insights/Client";
 
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps, slugify } from "@/utils";
+import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
-import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
+import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
 
 // IMAGES //
 
@@ -37,61 +39,33 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-/** Fetch Meta Data */
-export async function generateMetadata({ params }) {
-	const data = await getInsightsInside(params.slug);
-	const post = data?.data?.postBy;
-
-	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
-		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
-			images: [
-				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
-				},
-			],
-		},
-	};
-}
-
-/** Fetch  */
-async function getData({ params }) {
-	const [data, categoriesForSelect, list] = await Promise.all([
-		getInsightsInside(params.slug),
-		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "public-webinar,webinar,webinar-recording"}'
-		),
-	]);
-	const otherList = list?.data?.posts?.nodes;
-
-	return {
-		props: {
-			data: data.data.postBy,
-			countries: categoriesForSelect.data.countries.nodes,
-			otherList,
-		},
-	};
-}
-
-/** WebinarInside Page */
-export default async function WebinarInside({ params }) {
-	const { props } = await getData({ params });
-	const { data, countries, otherList } = props;
-	const isUpcoming = !data?.categories?.nodes?.some(
-		(item) => item.slug === "webinar-recording"
+/** Articles Page */
+export default async function InsightsInsideWrap({
+	data,
+	otherList,
+	countries,
+}) {
+	const isArticle = data?.categories?.nodes?.some(
+		(item) => item.slug === "commentary"
 	);
+	const isCaseStudy = data?.categories?.nodes?.some(
+		(item) => item.slug === "case-study"
+	);
+	const isReports = data?.categories?.nodes?.some((item) =>
+		item.slug.includes("report")
+	);
+
+	/** headerArrayBtnFunc  */
+	const headerArrayBtnFunc = () => {
+		if (isArticle || isCaseStudy) {
+			OpenIframePopup("iframePopup", data?.postFields?.subscribeIframe);
+		} else if (isReports) {
+			OpenIframePopup("iframePopup", data?.postFields?.redactedReportIframe);
+		} else {
+			window.open(data?.postFields?.registerLink, "_blank", "noopener,noreferrer");
+		}
+	};
 
 	return (
 		<div>
@@ -100,7 +74,7 @@ export default async function WebinarInside({ params }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/webinar/${data?.slug}`}
+				Url={`/resources/aurora-insights/${data?.slug}`}
 			/>
 
 			<Script id="show-banner" strategy="afterInteractive">
@@ -143,16 +117,17 @@ export default async function WebinarInside({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg} pt_100 pb_60`}>
-					<WebinarInsideTopSection
+			<main className={styles.articlesPage}>
+				<div className="pb_60">
+					<CaseStudiesTop
 						data={data}
-						countries={countries}
-						isUpcoming={isUpcoming}
+						isArticle={isArticle}
+						isCaseStudy={isCaseStudy}
+						isReports={isReports}
 					/>
 				</div>
 				<SectionsHeader
-					hideall={true}
+					// hideall
 					customHtml={
 						dynamicInsightsBtnProps(data, "middleSectionButton").btntext && (
 							<div
@@ -167,11 +142,11 @@ export default async function WebinarInside({ params }) {
 						)
 					}
 				/>
-				<section className={`${styles.mediaMiddle} pt_80`}>
+				<section className={`${styles.CaseStudiesMiddle} pb_80 pt_40`}>
 					<div className="container">
-						<div className={`${styles.mediaMiddleFlex} f_j`}>
-							<div className={`${styles.mediaMiddleLeft}`}>
-								{/* <WebinarMiddleDescription /> */}
+						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
+							<div className={`${styles.CaseStudiesMiddleLeft} dynamic_content`}>
+								{/* <CaseStudiesMiddleDescription /> */}
 								{data?.content && (
 									<section id="overview" data-name="Overview">
 										<ContentFromCms>{data?.content}</ContentFromCms>
@@ -199,26 +174,24 @@ export default async function WebinarInside({ params }) {
 										</section>
 									);
 								})}
-								{!isUpcoming && (
-									<div className="pt_60">
-										<WebinarRecording data={data} />
-									</div>
-								)}
 							</div>
-							<div className={`${styles.mediaMiddleRight}`}>
-								<WebinarMiddleRight data={data} />
+							<div className={`${styles.CaseStudiesMiddleRight}`}>
+								<Client data={data} />
 							</div>
 						</div>
 					</div>
 				</section>
-				<div className="ptb_100">
+				<div className="pb_100">
+					<TestimonialFeedback data={data?.postFields} />
+				</div>
+				<div className="pb_100">
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle="Lorem ipsum dolor sit amet consectetur."
-						formSectionDesc='Please contact Duncan Young <a href="mailto:duncan.young@auroraer.com">duncan.young@auroraer.com</a>  for any queries.'
+						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
+						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
 						formSectionBtnText={
 							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
 						}
@@ -229,7 +202,6 @@ export default async function WebinarInside({ params }) {
 
 				<IframeModal />
 			</main>
-			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
