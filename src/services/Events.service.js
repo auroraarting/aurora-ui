@@ -256,12 +256,6 @@ query GetEventInside {
           }
         }
         video
-        videoThumbnail {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
       }
       hightlights {
         sectionTitle
