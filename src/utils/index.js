@@ -556,10 +556,23 @@ export const dynamicInsightsBtnProps = (
 ) => {
 	let obj = {};
 
-	if (data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl) {
-		obj.href = data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl;
+	if (
+		data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl ||
+		data?.postFields?.[keyVal]?.url
+	) {
+		obj.href =
+			data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl ||
+			data?.postFields?.[keyVal]?.url;
 		obj.target = "_blank";
 		obj.rel = "noreferrer";
+		obj.onClick = () => {
+			window.open(
+				data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl ||
+					data?.postFields?.[keyVal]?.url,
+				"_blank",
+				"noopener,noreferrer"
+			);
+		};
 	} else if (data?.postFields?.[keyVal]?.iframe) {
 		obj.onClick = () =>
 			OpenIframePopup(

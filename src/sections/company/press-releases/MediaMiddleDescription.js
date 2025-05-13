@@ -16,7 +16,7 @@ import styles from "@/styles/sections/company/press-releases/MediaMiddleDescript
 // IMAGES //
 import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
 import graph_img from "@/../public/img/resources/aurora_insights/graph_img.png";
-import { slugify } from "@/utils";
+import { dynamicInsightsBtnProps, slugify } from "@/utils";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // DATA //
@@ -50,6 +50,30 @@ export default function MediaMiddleDescription({ data }) {
 								}}
 							/>
 						)}
+						<div className="cmsButtonsWrap">
+							{item?.buttons?.map((btnItem) => {
+								const dataForBtn = {
+									postFields: { btnItem: btnItem } || {},
+								};
+								console.log(
+									dynamicInsightsBtnProps(dataForBtn, "btnItem"),
+									"dataForBtn"
+								);
+
+								return (
+									<div
+										{...dynamicInsightsBtnProps(dataForBtn, "btnItem")}
+										key="btn"
+										to="Insights"
+										className="cmsbuttons"
+									>
+										<Button color="primary" variant="filled" shape="rounded">
+											{dynamicInsightsBtnProps(dataForBtn, "btnItem").btntext}
+										</Button>
+									</div>
+								);
+							})}
+						</div>
 					</section>
 				);
 			})}

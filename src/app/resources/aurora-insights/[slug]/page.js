@@ -78,7 +78,6 @@ async function getData({ params }) {
 /** Articles Page */
 export default async function Articles({ params }) {
 	const { props } = await getData({ params });
-	const { data, otherList, countries } = props;
 
 	return (
 		<div>

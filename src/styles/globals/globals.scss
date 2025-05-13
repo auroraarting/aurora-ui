@@ -222,3 +222,16 @@ section {
 	width: max-content !important;
 	min-width: none;
 }
+
+.cmsButtonsWrap {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	.cmsbuttons {
+		width: max-content;
+		p {
+			margin-bottom: 0 !important;
+			color: var(--color_white) !important;
+		}
+	}
+}

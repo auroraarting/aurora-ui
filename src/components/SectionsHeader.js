@@ -127,8 +127,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		};
 	}, []);
 
-	console.log(sectionsList, "sectionsList");
-
 	return (
 		<>
 			<div className={`${styles.SectionsHeader} SectionsHeader`}>
