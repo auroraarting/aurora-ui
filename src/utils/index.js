@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
 import { openModal } from "@/components/Modal";
 // import { Link, scroller } from "react-scroll";
