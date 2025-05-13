@@ -490,7 +490,7 @@ export default function MediaListing({
 					paginationArr={paginationArr}
 					setCurrentItems={setList}
 					isDark={true}
-					itemsPerPage={12}
+					// itemsPerPage={12}
 				/>
 			</div>
 		</section>
