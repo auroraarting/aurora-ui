@@ -6,21 +6,10 @@ export const fetchCache = "force-no-store"; // Optional: disables fetch caching
 // MODULES //
 
 // COMPONENTS //
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import MetaTags from "@/components/MetaTags";
-import SectionsHeader from "@/components/SectionsHeader";
-import TestimonialFeedback from "@/components/TestimonialFeedback";
-import Insights from "@/components/Insights";
-import Button from "@/components/Buttons/Button";
-import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
-import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
-import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
-import CaseStudiesMiddleDescription from "@/sections/resources/aurora-insights/CaseStudiesMiddleDescription";
-import Client from "@/sections/resources/aurora-insights/Client";
+import InsightsInsideWrap from "@/sections/resources/aurora-insights/InsightsInsideWrap";
 
 // PLUGINS //
 
@@ -91,37 +80,8 @@ export default async function Articles({ params }) {
 	const { props } = await getData({ params });
 	const { data, otherList, countries } = props;
 
-	const isArticle = data?.categories?.nodes?.some(
-		(item) => item.slug === "commentary"
-	);
-	const isCaseStudy = data?.categories?.nodes?.some(
-		(item) => item.slug === "case-study"
-	);
-	const isReports = data?.categories?.nodes?.some((item) =>
-		item.slug.includes("report")
-	);
-
-	/** headerArrayBtnFunc  */
-	const headerArrayBtnFunc = () => {
-		if (isArticle || isCaseStudy) {
-			OpenIframePopup("iframePopup", data?.postFields?.subscribeIframe);
-		} else if (isReports) {
-			OpenIframePopup("iframePopup", data?.postFields?.redactedReportIframe);
-		} else {
-			window.open(data?.postFields?.registerLink, "_blank", "noopener,noreferrer");
-		}
-	};
-
 	return (
 		<div>
-			{/* Metatags */}
-			<MetaTags
-				Title={data?.title}
-				Desc={""}
-				OgImg={""}
-				Url={`/resources/aurora-insights/${data?.slug}`}
-			/>
-
 			<Script id="show-banner" strategy="afterInteractive">
 				{`
     let speechifyWidgetInstance;
@@ -162,80 +122,7 @@ export default async function Articles({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.articlesPage}>
-				<div className="pb_60">
-					<CaseStudiesTop
-						data={data}
-						isArticle={isArticle}
-						isCaseStudy={isCaseStudy}
-						isReports={isReports}
-					/>
-				</div>
-				<SectionsHeader
-					// hideall
-					customHtml={
-						dynamicInsightsBtnProps(data, "middleSectionButton").btntext && (
-							<div
-								{...dynamicInsightsBtnProps(data, "middleSectionButton")}
-								key="btn"
-								to="Insights"
-							>
-								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicInsightsBtnProps(data, "middleSectionButton").btntext}
-								</Button>
-							</div>
-						)
-					}
-				/>
-				<section className={`${styles.CaseStudiesMiddle} pb_80 pt_40`}>
-					<div className="container">
-						<div className={`${styles.CaseStudiesMiddleFlex} f_j`}>
-							<div className={`${styles.CaseStudiesMiddleLeft} dynamic_content`}>
-								{/* <CaseStudiesMiddleDescription /> */}
-								{data?.content && (
-									<section id="overview" data-name="Overview">
-										<ContentFromCms>{data?.content}</ContentFromCms>
-									</section>
-								)}
-								{data?.postFields?.sections?.map((item) => {
-									return (
-										<section
-											key={item?.sectionTitle}
-											id={slugify(item?.sectionTitle)}
-											data-name={item?.sectionTitle}
-										>
-											<ContentFromCms>{item?.content}</ContentFromCms>
-										</section>
-									);
-								})}
-							</div>
-							<div className={`${styles.CaseStudiesMiddleRight}`}>
-								<Client data={data} />
-							</div>
-						</div>
-					</div>
-				</section>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.postFields} />
-				</div>
-				<div className="pb_100">
-					<Insights
-						isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={otherList}
-						countries={countries}
-						formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
-						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
-						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
-						}
-						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
-					/>
-				</div>
-
-				<IframeModal />
-			</main>
+			<InsightsInsideWrap {...props} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

@@ -17,6 +17,7 @@ import styles from "@/styles/sections/company/press-releases/MediaMiddleDescript
 import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
 import graph_img from "@/../public/img/resources/aurora_insights/graph_img.png";
 import { slugify } from "@/utils";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // DATA //
 
@@ -38,6 +39,17 @@ export default function MediaMiddleDescription({ data }) {
 						data-name={item?.sectionTitle}
 					>
 						<ContentFromCms>{item?.content}</ContentFromCms>
+						{item?.lottie?.node?.mediaItemUrl && (
+							<DotLottieReact
+								src={item?.lottie?.node?.mediaItemUrl}
+								autoplay={true}
+								loop={true}
+								renderer="svg"
+								renderersettings={{
+									preserveAspectRatio: "xMidYMid meet",
+								}}
+							/>
+						)}
 					</section>
 				);
 			})}

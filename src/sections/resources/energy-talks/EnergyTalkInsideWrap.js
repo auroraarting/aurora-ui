@@ -1,11 +1,11 @@
-// Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const fetchCache = "force-no-store"; // Optional: disables fetch caching
+"use client";
 
 /* eslint-disable quotes */
 // MODULES //
 
 // COMPONENTS //
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import MetaTags from "@/components/MetaTags";
 import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
@@ -13,11 +13,12 @@ import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // SECTIONS //
-import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
-import WebinarMiddleRight from "@/sections/resources/webinar/WebinarMiddleRight";
-import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
+import EnergyInsideTopSection from "@/sections/resources/energy-talks/EnergyInsideTopSection";
+import EnergyMiddleDescription from "@/sections/resources/energy-talks/EnergyMiddleDescription";
+import EnergyMiddleRight from "@/sections/resources/energy-talks/EnergyMiddleRight";
 
 // PLUGINS //
 
@@ -25,11 +26,16 @@ import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
 import { dynamicInsightsBtnProps, slugify } from "@/utils";
 
 // STYLES //
-import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
+import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.scss";
 
 // IMAGES //
-
-// DATA //
+import country_thumb from "/public/img/global-presence/country_thumb.jpg";
+import other_logo from "/public/img/energy_talks/other.png";
+import googleVoice from "/public/img/energy_talks/google_voice.png";
+import spotify from "/public/img/energy_talks/spotify.svg";
+import apple from "/public/img/energy_talks/apple.svg";
+import google from "/public/img/energy_talks/google.svg";
+import calender from "/public/img/icons/calender.svg";
 
 // SERVICES //
 import {
@@ -37,61 +43,18 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 
-/** Fetch Meta Data */
-export async function generateMetadata({ params }) {
-	const data = await getInsightsInside(params.slug);
-	const post = data?.data?.postBy;
+// DATA //
 
-	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
-		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
-			images: [
-				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
-				},
-			],
-		},
-	};
-}
-
-/** Fetch  */
-async function getData({ params }) {
-	const [data, categoriesForSelect, list] = await Promise.all([
-		getInsightsInside(params.slug),
-		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "public-webinar,webinar,webinar-recording"}'
-		),
-	]);
-	const otherList = list?.data?.posts?.nodes;
-
-	return {
-		props: {
-			data: data.data.postBy,
-			countries: categoriesForSelect.data.countries.nodes,
-			otherList,
-		},
-	};
-}
-
-/** WebinarInside Page */
-export default async function WebinarInside({ params }) {
-	const { props } = await getData({ params });
-	const { data, countries, otherList } = props;
-	const isUpcoming = !data?.categories?.nodes?.some(
-		(item) => item.slug === "webinar-recording"
-	);
+/** EnergyInside Page */
+export default function EnergyTalkInsideWrap({
+	data,
+	events,
+	countries,
+	otherList,
+}) {
+	const dataForBtn = { postFields: data || {} };
 
 	return (
 		<div>
@@ -100,7 +63,7 @@ export default async function WebinarInside({ params }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/webinar/${data?.slug}`}
+				Url={`/energy-talks/${data?.slug}`}
 			/>
 
 			<Script id="show-banner" strategy="afterInteractive">
@@ -143,25 +106,20 @@ export default async function WebinarInside({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg} pt_100 pb_60`}>
-					<WebinarInsideTopSection
-						data={data}
-						countries={countries}
-						isUpcoming={isUpcoming}
-					/>
+			<main className={styles.EnergyInsidePage}>
+				<div className="pt_100 pb_40">
+					<EnergyInsideTopSection data={data} />
 				</div>
 				<SectionsHeader
-					hideall={true}
 					customHtml={
-						dynamicInsightsBtnProps(data, "middleSectionButton").btntext && (
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
 							<div
-								{...dynamicInsightsBtnProps(data, "middleSectionButton")}
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
 								key="btn"
 								to="Insights"
 							>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicInsightsBtnProps(data, "middleSectionButton").btntext}
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
 								</Button>
 							</div>
 						)
@@ -171,13 +129,16 @@ export default async function WebinarInside({ params }) {
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
-								{/* <WebinarMiddleDescription /> */}
+								{data?.podcastFields?.podcast && (
+									<ContentFromCms>{data?.podcastFields?.podcast}</ContentFromCms>
+								)}
+								{/* <EnergyMiddleDescription /> */}
 								{data?.content && (
 									<section id="overview" data-name="Overview">
 										<ContentFromCms>{data?.content}</ContentFromCms>
 									</section>
 								)}
-								{data?.postFields?.sections?.map((item) => {
+								{data?.podcastFields?.sections?.map((item) => {
 									return (
 										<section
 											key={item?.sectionTitle}
@@ -199,14 +160,9 @@ export default async function WebinarInside({ params }) {
 										</section>
 									);
 								})}
-								{!isUpcoming && (
-									<div className="pt_60">
-										<WebinarRecording data={data} />
-									</div>
-								)}
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
-								<WebinarMiddleRight data={data} />
+								<EnergyMiddleRight data={data} events={events} />
 							</div>
 						</div>
 					</div>
@@ -217,19 +173,45 @@ export default async function WebinarInside({ params }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle="Lorem ipsum dolor sit amet consectetur."
-						formSectionDesc='Please contact Duncan Young <a href="mailto:duncan.young@auroraer.com">duncan.young@auroraer.com</a>  for any queries.'
-						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
-						}
-						insightsTitle="More from Aurora"
+						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
+						insightsTitle="Previous Podcast"
+						insightsLink="/resources/energy-talks/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						customHtml={
+							<div className={`${styles.downloadListen}`}>
+								<div className={`${styles.downloadBox} f_r_a_center`}>
+									{data?.podcastFields?.spotifyLink && (
+										<a href={data?.podcastFields?.spotifyLink}>
+											<img src={spotify.src} alt="spotify" />
+										</a>
+									)}
+									{data?.podcastFields?.appleLink && (
+										<a href={data?.podcastFields?.appleLink}>
+											<img src={apple.src} alt="apple" />
+										</a>
+									)}
+									{data?.podcastFields?.youtubeLink && (
+										<a href={data?.podcastFields?.youtubeLink}>
+											<img src={google.src} alt="google" />
+										</a>
+									)}
+									{data?.podcastFields?.googleLink && (
+										<a href={data?.podcastFields?.googleLink}>
+											<img src={googleVoice.src} alt="google" />
+										</a>
+									)}
+									{data?.podcastFields?.otherLink && (
+										<a href={data?.podcastFields?.otherLink}>
+											<img src={other_logo.src} alt="google" />
+										</a>
+									)}
+								</div>
+							</div>
+						}
 					/>
 				</div>
-
 				<IframeModal />
 			</main>
-			<IframeModal />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
