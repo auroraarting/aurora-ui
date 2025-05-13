@@ -165,7 +165,7 @@ export default function WebinarListing({
 		}
 		setSelected(selectedObj);
 
-		const filteredArr = filterItems(arr, queryObj);
+		const filteredArr = filterItems(arr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setLoading(false);

@@ -520,6 +520,52 @@ export const filterItems = (items, filterObj) => {
 	});
 };
 
+/** filterItems for resources */
+export const filterItemsForPodcast = (podcasts, selected) => {
+	return podcasts.filter((podcast) => {
+		const { podcastFields, date } = podcast;
+
+		// 1. Match country
+		const countries = podcastFields.country?.nodes || [];
+		const matchCountry = selected.country
+			? countries.some((c) => c.title === selected.country)
+			: true;
+
+		// 2. Match poweredBy types
+		const poweredBy = podcastFields.poweredBy?.nodes || [];
+
+		const matchSoftware = selected.software
+			? poweredBy.some(
+					(p) =>
+						p.contentType.node.name === "softwares" && p.title === selected.software
+			  )
+			: true;
+
+		const matchProduct = selected.product
+			? poweredBy.some(
+					(p) =>
+						p.contentType.node.name === "products" && p.title === selected.product
+			  )
+			: true;
+
+		const matchService = selected.service
+			? poweredBy.some(
+					(p) =>
+						p.contentType.node.name === "services" && p.title === selected.service
+			  )
+			: true;
+
+		// 3. Match year
+		const matchYear = selected.year
+			? new Date(date).getFullYear() === selected.year
+			: true;
+
+		return (
+			matchCountry && matchSoftware && matchProduct && matchService && matchYear
+		);
+	});
+};
+
 /** filterBySearchQuery */
 export const filterBySearchQuery = (items, searchQuery) => {
 	if (!searchQuery) return items;
