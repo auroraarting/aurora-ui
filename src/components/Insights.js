@@ -56,6 +56,7 @@ export default function Insights({
 	insightsLink = "/resources/aurora-insights/",
 	customHtml,
 	hideall,
+	allTag,
 }) {
 	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
@@ -109,10 +110,10 @@ export default function Insights({
 	}, []);
 
 	let sectionId = {};
-	if (!hideall) {
-		sectionId.id = "insights";
-		sectionId["data-name"] = "Insights";
-	}
+	// if (!hideall) {
+	// 	sectionId.id = "insights";
+	// 	sectionId["data-name"] = "Insights";
+	// }
 
 	return (
 		<section className={`${styles.Insights} Insights`} {...sectionId}>
@@ -211,13 +212,14 @@ export default function Insights({
 													className={`${styles.hoverBg} width_100 b_r_10`}
 													alt="img"
 												/>
-												{isCategory(allCategories, item?.categories?.nodes) && (
+												{(isCategory(allCategories, item?.categories?.nodes) || allTag) && (
 													<p
 														className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 													>
-														{isCategory(allCategories, item?.categories?.nodes)}
+														{allTag || isCategory(allCategories, item?.categories?.nodes)}
 													</p>
 												)}
+
 												<p
 													className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
 												>
@@ -235,6 +237,16 @@ export default function Insights({
 															<img src={white_location.src} alt="location" />
 															<span>
 																{isCategory(data?.countries, item?.categories?.nodes)}
+															</span>
+														</p>
+													)}
+													{item.podcastFields?.country?.nodes && (
+														<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+															<img src={white_location.src} alt="location" />
+															<span>
+																{item.podcastFields?.country?.nodes?.map(
+																	(item2) => item2.title
+																)}
 															</span>
 														</p>
 													)}

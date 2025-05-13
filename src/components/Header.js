@@ -16,6 +16,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 import parse from "html-react-parser";
 
 // UTILS //
+import formatDate from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/Header.module.scss";
@@ -39,7 +40,6 @@ import Close from "@/../public/img/icons/close.svg";
 
 // SERVICES //
 import { fetchNavigationData } from "@/services/Navigation.service";
-import formatDate from "@/utils";
 
 // DATA //
 

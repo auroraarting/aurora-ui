@@ -54,7 +54,8 @@ export default function EnergyTalkInsideWrap({
 	countries,
 	otherList,
 }) {
-	const dataForBtn = { postFields: data || {} };
+	const dataForBtn = { postFields: data.podcastFields || {} };
+	console.log(dataForBtn, "dataForBtn");
 
 	return (
 		<div>
@@ -232,6 +233,7 @@ export default function EnergyTalkInsideWrap({
 								</div>
 							</div>
 						}
+						allTag="Energy Talks"
 					/>
 				</div>
 				<IframeModal />

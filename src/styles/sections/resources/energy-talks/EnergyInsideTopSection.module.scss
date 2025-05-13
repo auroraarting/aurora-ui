@@ -29,6 +29,13 @@
 		}
 		.imageWrapper {
 			width: 50%;
+			max-height: 270px;
+			overflow: hidden;
+
+			img {
+				object-fit: cover;
+				height: 100%;
+			}
 			@media (max-width: 1199px) {
 				width: 54%;
 			}

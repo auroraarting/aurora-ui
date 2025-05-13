@@ -23,14 +23,57 @@ import card_img2 from "../../public/img/contact/cardimg2.png";
 import card_img3 from "../../public/img/contact/cardimg3.png";
 
 // DATA //
+const defaultData = [
+	{
+		desc: "Unlock powerful tools for energy analysis.",
+		btnText: "Explore Software",
+		btnLink: "/software",
+		img: card_img.src,
+	},
+	{
+		desc: "Get deep insights and market trends.",
+		btnText: "Explore Subscription Analytics",
+		btnLink: "/products",
+		img: card_img2.src,
+	},
+	{
+		desc: "Expert advice to guide strategic decisions.",
+		btnText: "Explore Advisory",
+		btnLink: "/service/advisory",
+		img: card_img3.src,
+	},
+];
 
 /** SoftwareCards Section */
-export default function SoftwareCards() {
+export default function SoftwareCards({ dynamicData }) {
+	const data = dynamicData || defaultData;
 	return (
 		<section className={`${styles.SoftwareCards}`}>
 			<div className="container">
 				<div className={`${styles.SoftwareCardsFlex}`}>
-					<a href="/software" className={`${styles.CardsItem}`}>
+					{data?.map((item) => {
+						return (
+							<a
+								href={item?.btnLink}
+								className={`${styles.CardsItem}`}
+								key={item?.desc}
+							>
+								<img src={item?.img} className="width_100 b_r_20" alt="img" />
+								<div className={`${styles.hoverBox}`}></div>
+								<div className={`${styles.CardsDesc}`}>
+									<h2 className={`text_lg  ${item?.fontColor || "color_secondary"}`}>
+										{item?.desc}
+									</h2>
+									<div className={styles.btn_box}>
+										<Button color="primary" variant="filled" shape="rounded" mode="dark">
+											{item?.btnText}
+										</Button>
+									</div>
+								</div>
+							</a>
+						);
+					})}
+					{/* <a href="/software" className={`${styles.CardsItem}`}>
 						<img src={card_img.src} className="width_100 b_r_20" alt="img" />
 						<div className={`${styles.hoverBox}`}></div>
 						<div className={`${styles.CardsDesc}`}>
@@ -71,7 +114,7 @@ export default function SoftwareCards() {
 								</Button>
 							</div>
 						</div>
-					</a>
+					</a> */}
 				</div>
 			</div>
 		</section>

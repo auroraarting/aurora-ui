@@ -64,7 +64,9 @@ async function getData({ params }) {
 		getInsightsCategories(),
 		getPodcasts("first: 5"),
 	]);
-	const otherList = list?.data?.podcasts?.nodes;
+	const otherList = list?.data?.podcasts?.nodes
+		.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
+		.slice(0, 3);
 	return {
 		props: {
 			data: data.data.podcastBy,

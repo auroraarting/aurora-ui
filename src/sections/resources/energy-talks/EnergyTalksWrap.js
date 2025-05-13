@@ -27,6 +27,12 @@ import styles from "@/styles/pages/resources/energy-talks/EnergyTalks.module.scs
 
 // IMAGES //
 import country_thumb from "/public/img/global-presence/country_thumb.jpg";
+import other_logo from "/public/img/icons/amazon-music-icon.svg";
+import googleVoice from "/public/img/energy_talks/google_voice.png";
+import spotify from "/public/img/energy_talks/spotify.svg";
+import apple from "/public/img/energy_talks/apple.svg";
+import google from "/public/img/energy_talks/google.svg";
+import calender from "/public/img/icons/calender.svg";
 
 // DATA //
 
@@ -112,11 +118,58 @@ export default function EnergyTalksWrap({
 				)}
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
+							customHtml={
+								<div className={`${styles.downloadListen} downloadListen`}>
+									<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
+										<a href={data?.podcastFields?.spotifyLink}>
+											<img src={spotify.src} alt="spotify" />
+										</a>
+										<a href={data?.podcastFields?.appleLink}>
+											<img src={apple.src} alt="apple" />
+										</a>
+										<a href={data?.podcastFields?.youtubeLink}>
+											<img src={google.src} alt="google" />
+										</a>
+										<a href={data?.podcastFields?.googleLink}>
+											<img src={googleVoice.src} alt="google" />
+										</a>
+										<a href={data?.podcastFields?.otherLink}>
+											<img src={other_logo.src} alt="google" />
+										</a>
+									</div>
+								</div>
+							}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">
-					<SoftwareCards />
+					<SoftwareCards
+						dynamicData={[
+							{
+								desc: "Lorem ipsum dolor sit amet consectetur. Est.",
+								btnText: "View All Events",
+								btnLink: "/events",
+								img: "/img/contact/cardImg4.jpg",
+								fontColor: "color_white",
+							},
+							{
+								desc: "Lorem ipsum dolor sit amet consectetur. Velit.",
+								btnText: "Press Room",
+								btnLink: "/company/press-releases",
+								img: "/img/contact/cardImg5.jpg",
+								fontColor: "color_white",
+							},
+							{
+								desc: "Expert-led sessions on industry-defining topics.",
+								btnText: "Explore Advisory",
+								btnLink: "/service/advisory",
+								img: "/img/contact/cardImg6.jpg",
+							},
+						]}
+					/>
 				</div>
 			</main>
 			<IframeModal />

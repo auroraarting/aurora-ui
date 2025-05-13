@@ -140,6 +140,7 @@ query GetCareers {
     slug
     earlyCareers {
       banner {
+      city
         applicationWindow
         commencingIn
         programmeDuration
