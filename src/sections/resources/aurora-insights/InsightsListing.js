@@ -233,7 +233,7 @@ export default function InsightsListing({
 									</div>
 								</div>
 								{dropdowns.categoryType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.categoryType.selected.title === "" ? "selected" : ""
@@ -271,7 +271,7 @@ export default function InsightsListing({
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.countryType.selected.title === "" ? "selected" : ""
@@ -312,6 +312,7 @@ export default function InsightsListing({
 								{dropdowns.offeringsType.isOpen && (
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
+										data-lenis-prevent
 									>
 										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
@@ -364,7 +365,7 @@ export default function InsightsListing({
 									</div>
 								</div>
 								{dropdowns.yearsType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.yearsType.selected.title === "" ? "selected" : ""
