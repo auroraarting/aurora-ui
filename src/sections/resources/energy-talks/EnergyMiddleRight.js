@@ -42,12 +42,14 @@ export default function EnergyMiddleRight({ data, events }) {
 										className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
 										key={item?.title}
 									>
-										<div className={`${styles.ClientLogo}`}>
-											<img
-												src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
-												alt="pic"
-											/>
-										</div>
+										{item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
+											<div className={`${styles.ClientLogo}`}>
+												<img
+													src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
+													alt="pic"
+												/>
+											</div>
+										)}
 										<div className={`${styles.ClientDescription}`}>
 											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
 												{item?.title}
@@ -82,6 +84,13 @@ export default function EnergyMiddleRight({ data, events }) {
 									}
 									return item?.contentType?.node?.name;
 								};
+								/** hregModule  */
+								const hrefModule = () => {
+									if (item?.contentType?.node?.name === "services") {
+										return "service";
+									}
+									return item?.contentType?.node?.name;
+								};
 								return (
 									<div className={`${styles.poweredBy}`} key={item?.title}>
 										<a
@@ -91,9 +100,12 @@ export default function EnergyMiddleRight({ data, events }) {
 										>
 											<div className={`${styles.poweredLogo}`}>
 												<img
-													src={item?.softwares?.banner?.logo?.node?.mediaItemUrl}
+													src={
+														item?.[item?.contentType?.node?.name]?.banner?.logo?.node
+															?.mediaItemUrl
+													}
 													className={`${styles.amun_logo}`}
-													alt="amun_logo"
+													alt={`${item?.contentType?.node?.name}_logo`}
 												/>
 												{/* <img
                                     src={amun_hover_logo.src}

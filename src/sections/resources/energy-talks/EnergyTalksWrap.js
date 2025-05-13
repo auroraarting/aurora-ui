@@ -68,7 +68,7 @@ export default function EnergyTalksWrap({
 					/>
 				</div>
 				<div>
-					<TopEnergy data={energyTalksPage?.featured?.nodes?.[0]} />
+					<TopEnergy data={data[0]} />
 				</div>
 				<div className="pt_60 pb_100">
 					<EnergyListing
