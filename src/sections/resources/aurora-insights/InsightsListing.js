@@ -126,7 +126,7 @@ export default function InsightsListing({
 
 	/** filter  */
 	const filter = async (catName, key) => {
-		let queryObj = {};
+		let queryObj = { ...selected };
 		let selectedObj = selected;
 		let arr = original;
 		setLoading(true);
@@ -139,7 +139,7 @@ export default function InsightsListing({
 			return;
 		}
 		if (key === "categoryType") {
-			selectedObj.category = catName.title;
+			selectedObj.category = catName.alternate;
 			queryObj.category = catName.alternate;
 		}
 		if (key === "countryType") {
@@ -168,7 +168,9 @@ export default function InsightsListing({
 		}
 		setSelected(selectedObj);
 
-		const filteredArr = filterItems(arr, selectedObj);
+		console.log(queryObj, "selectedObj");
+
+		const filteredArr = filterItems(arr, queryObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setLoading(false);
@@ -203,6 +205,13 @@ export default function InsightsListing({
 		}
 	}, [search]);
 
+	/** selectedCategory  */
+	const selectedCategory = () => {
+		if (!selected.category) return "Category";
+		if (selected.category === "Articles") return "Commentary";
+		return selected.category;
+	};
+
 	return (
 		<section className={styles.InsightsListing}>
 			<div className={styles.filterMain}>
@@ -219,7 +228,7 @@ export default function InsightsListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected.category || "Category"}
+										{selectedCategory()}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
