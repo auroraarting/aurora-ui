@@ -53,15 +53,18 @@ export async function generateMetadata({ params }) {
 async function getData({ params }) {
 	const [data, moreRelated] = await Promise.all([
 		getInsightsInside(params.slug),
-		getInsights('first: 3, where: {categoryName: "commentary"}'),
+		getInsights(
+			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+		),
 	]);
-	console.log(data, "data");
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {
 		props: {
 			data: data?.data?.postBy || {},
-			moreRelated: moreRelated?.data?.posts?.nodes,
+			moreRelated: moreRelated?.data?.posts?.nodes
+				.filter((item) => item.slug != params.slug)
+				.slice(0, 3),
 			dataForBtn,
 		},
 	};

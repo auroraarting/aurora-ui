@@ -15,6 +15,7 @@ import formatDate, {
 	allCategories,
 	filterBySearchQuery,
 	filterItems,
+	filterItemsForPodcast,
 	isCategory,
 } from "@/utils";
 
@@ -190,7 +191,8 @@ export default function EnergyListing({
 		}
 		setSelected(selectedObj);
 
-		const filteredArr = filterItems(arr, queryObj);
+		console.log(selectedObj, "queryObj");
+		const filteredArr = filterItemsForPodcast(arr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setLoading(false);
@@ -224,6 +226,8 @@ export default function EnergyListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
+
+	console.log(list, "list");
 
 	return (
 		<section className={styles.EnergyListing}>
@@ -452,17 +456,19 @@ export default function EnergyListing({
 													/>
 													<span>{formatDate(item?.podcastFields?.date)}</span>
 												</p>
-												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-													<img
-														src={location.src}
-														className={`${styles.calender}`}
-														alt="calender"
-													/>
-													<span>
-														{item?.podcastFields?.country?.nodes?.map((item) => item?.name)}
-														{/* {isCategory(countries, item?.podcastFields?.country?.nodes)} */}
-													</span>
-												</p>
+												{item?.podcastFields?.country?.nodes.length > 0 && (
+													<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+														<img
+															src={location.src}
+															className={`${styles.calender}`}
+															alt="calender"
+														/>
+														<span>
+															{item?.podcastFields?.country?.nodes?.map((item) => item?.title)}
+															{/* {isCategory(countries, item?.podcastFields?.country?.nodes)} */}
+														</span>
+													</p>
+												)}
 											</div>
 										</div>
 									</a>

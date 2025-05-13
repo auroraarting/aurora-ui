@@ -41,11 +41,7 @@ import {
 } from "@/services/Insights.service";
 
 /** Articles Page */
-export default async function InsightsInsideWrap({
-	data,
-	otherList,
-	countries,
-}) {
+export default function InsightsInsideWrap({ data, otherList, countries }) {
 	const isArticle = data?.categories?.nodes?.some(
 		(item) => item.slug === "commentary"
 	);
@@ -56,16 +52,7 @@ export default async function InsightsInsideWrap({
 		item.slug.includes("report")
 	);
 
-	/** headerArrayBtnFunc  */
-	const headerArrayBtnFunc = () => {
-		if (isArticle || isCaseStudy) {
-			OpenIframePopup("iframePopup", data?.postFields?.subscribeIframe);
-		} else if (isReports) {
-			OpenIframePopup("iframePopup", data?.postFields?.redactedReportIframe);
-		} else {
-			window.open(data?.postFields?.registerLink, "_blank", "noopener,noreferrer");
-		}
-	};
+	console.log(data, "data");
 
 	return (
 		<div>
@@ -171,6 +158,30 @@ export default async function InsightsInsideWrap({
 													}}
 												/>
 											)}
+											<div className="cmsButtonsWrap">
+												{item?.buttons?.map((btnItem) => {
+													const dataForBtn = {
+														postFields: { btnItem: btnItem } || {},
+													};
+													console.log(
+														dynamicInsightsBtnProps(dataForBtn, "btnItem"),
+														"dataForBtn"
+													);
+
+													return (
+														<div
+															{...dynamicInsightsBtnProps(dataForBtn, "btnItem")}
+															key="btn"
+															to="Insights"
+															className="cmsbuttons"
+														>
+															<Button color="primary" variant="filled" shape="rounded">
+																{dynamicInsightsBtnProps(dataForBtn, "btnItem").btntext}
+															</Button>
+														</div>
+													);
+												})}
+											</div>
 										</section>
 									);
 								})}

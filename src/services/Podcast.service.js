@@ -22,6 +22,33 @@ query GetPodcasts {
             }
           }
         }
+        poweredBy {
+        nodes {
+         contentType {
+            node {
+              id
+              label
+              name
+              uri
+            }
+          }
+          ... on Product {
+            id
+            title
+            slug
+          }
+          ... on Service {
+            id
+            title
+            slug
+          }
+          ... on Software {
+            id
+            title
+            slug
+          }
+        }
+      }
       }
       featuredImage {
         node {

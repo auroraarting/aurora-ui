@@ -115,11 +115,10 @@ export default function PressReleasesInsideWrap({
 						defaultList={moreRelated}
 						formSectionTitle="Sign up to our press list"
 						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
-						// insightsTitle={data?.presses?.insights?.insightsTitle}
-						// formSectionBtnText="View All"
 						formSectionBtnText={
 							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
 						}
+						insightsLink="/company/press-releases/"
 						insightsTitle="More from Aurora"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 					/>

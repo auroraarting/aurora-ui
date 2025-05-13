@@ -403,6 +403,7 @@ query GetInsightsInside {
         buttons {
           buttonText
           iframe
+          url
           file {
             node {
               altText

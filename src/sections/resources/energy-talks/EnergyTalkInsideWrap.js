@@ -157,6 +157,30 @@ export default function EnergyTalkInsideWrap({
 													}}
 												/>
 											)}
+											<div className="cmsButtonsWrap">
+												{item?.buttons?.map((btnItem) => {
+													const dataForBtn = {
+														postFields: { btnItem: btnItem } || {},
+													};
+													console.log(
+														dynamicInsightsBtnProps(dataForBtn, "btnItem"),
+														"dataForBtn"
+													);
+
+													return (
+														<div
+															{...dynamicInsightsBtnProps(dataForBtn, "btnItem")}
+															key="btn"
+															to="Insights"
+															className="cmsbuttons"
+														>
+															<Button color="primary" variant="filled" shape="rounded">
+																{dynamicInsightsBtnProps(dataForBtn, "btnItem").btntext}
+															</Button>
+														</div>
+													);
+												})}
+											</div>
 										</section>
 									);
 								})}
