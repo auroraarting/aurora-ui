@@ -26,13 +26,16 @@ import clock from "/public/img/icons/clock.svg";
 
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
-	console.log(data, "data");
 	return (
 		<>
 			{data?.content && (
-				<div className={`${styles.contentBox}`}>
+				<section
+					className={`${styles.contentBox}`}
+					id="overview"
+					data-name="Overview"
+				>
 					<ContentFromCms>{data?.content}</ContentFromCms>
-				</div>
+				</section>
 			)}
 			{data?.events?.whyAttend?.agenda && (
 				<WhyAttend data={data?.events?.whyAttend} />
