@@ -461,7 +461,7 @@ export const allCategories = [
 	{ title: "Articles", alternate: "Commentary" },
 	{ title: "Case studies", alternate: "Case studies" },
 	{ title: "Market reports", alternate: "Market reports" },
-	{ title: "Public", alternate: "Public" },
+	// { title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
 	// { title: "Energy Talks", alternate: "Energy Talks" },
 	{ title: "Media", alternate: "Media" },
