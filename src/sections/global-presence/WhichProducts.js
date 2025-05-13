@@ -95,7 +95,11 @@ export default function WhichProducts({ data }) {
 	if (!data) return <></>;
 
 	return (
-		<section className={`${styles.WhichProducts}`}>
+		<section
+			className={`${styles.WhichProducts}`}
+			id="products-services"
+			data-name="Products & Services"
+		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary">

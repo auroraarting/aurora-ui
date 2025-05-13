@@ -27,55 +27,16 @@ import slider_arrow from "/public/img/icons/slider_arrow.svg";
 // DATA //
 
 /** TestimonialFeedback Section */
-export default function TestimonialFeedback({ data }) {
-	// const LogoData = [
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// 	{
-	// 		logos: erste.src,
-	// 	},
-	// ];
+export default function TestimonialFeedback({ data, hideId }) {
+	let obj = {};
+	// if (!hideId) {
+	// 	obj.id = "testimonial";
+	// 	obj["data-name"] = "Testimonial";
+	// }
+
 	if (!data || !data?.testimonials) return <></>;
 	return (
-		<section
-			className={`${styles.TestimonialFeedback}`}
-			id="testimonial"
-			data-name="Testimonial"
-		>
+		<section className={`${styles.TestimonialFeedback}`} {...obj}>
 			<div className="container">
 				<div className={`${styles.testimonialBox}`}>
 					<div className={`${styles.testimonialWhiteBox}`}>

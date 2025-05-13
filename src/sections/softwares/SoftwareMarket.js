@@ -65,7 +65,11 @@ export default function SoftwareMarket({
 	if (!mapJson) return <></>;
 
 	return (
-		<section className={`${styles.SoftwareMarket} `} id="availableregions">
+		<section
+			className={`${styles.SoftwareMarket} `}
+			id="availableregions"
+			data-name="Available Regions"
+		>
 			<div className="container">
 				<div className={`${styles.inner}`}>
 					<div className={`${styles.left}`}>

@@ -23,7 +23,11 @@ import calender from "../../../public/img/icons/calender.svg";
 /** PublicWebinar Section */
 export default function PublicWebinar() {
 	return (
-		<section className={`${styles.PublicWebinar}`}>
+		<section
+			className={`${styles.PublicWebinar}`}
+			id="events-webinars"
+			data-name="Events & Webinars"
+		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary">

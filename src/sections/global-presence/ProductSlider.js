@@ -38,28 +38,6 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** ProductSlider Section */
 export default function ProductSlider({ data }) {
-	const slidesData = [
-		{
-			type: "logo",
-			slideLogo: chronos.src,
-			title: "Bankable battery valuations at your fingertips",
-			description:
-				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project, get in touch now!",
-		},
-		{
-			type: "video",
-			videoUrl: "https://youtu.be/mOFoh9FUR8w?si=TDRatQfdd1J0GmvF",
-			videoThumbnail: chronos.src,
-			title: "Watch our latest battery valuation insights",
-		},
-		{
-			type: "logo",
-			slideLogo: chronos.src,
-			title: "Bankable battery valuations at your fingertips3",
-			description:
-				"Our leading bankable battery valuation tool, Chronos, is now available in Australia. If you want to learn about how Chronos can help you with you next energy storage project,get in touch now!",
-		},
-	];
 	if (!data) return <></>;
 	return (
 		<section className={`${styles.ProductSlider}`}>
