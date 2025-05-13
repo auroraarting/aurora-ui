@@ -2,22 +2,27 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
-import formatDate, { allCategories, isCategory } from "@/utils";
+import formatDate, {
+	allCategories,
+	formatTitleForEpisode,
+	isCategory,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/energy-talks/TopEnergy.module.scss";
 
 // IMAGES //
-import energy_logo from "@/../public/img/energy_talks/energy_logo.jpg";
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
-import black_clock from "@/../public/img/icons/black_clock.svg";
+import energy_logo from "/public/img/energy_talks/energy_logo.jpg";
+import location from "/public/img/icons/location.svg";
+import calender from "/public/img/icons/calender.svg";
+import black_clock from "/public/img/icons/black_clock.svg";
 
 // DATA //
 
@@ -39,7 +44,7 @@ export default function TopEnergy({ data }) {
 							{/* {isCategory(allCategories, data?.podcastFields?.country?.nodes || [])} */}
 						</div>
 						<h2 className="text_lg color_white text_uppercase f_w_m pt_30">
-							{data?.title}
+							<ContentFromCms>{formatTitleForEpisode(data?.title)}</ContentFromCms>
 						</h2>
 						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
 							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">

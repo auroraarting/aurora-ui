@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
 import { openModal } from "@/components/Modal";
@@ -1004,3 +1005,8 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 			};
 	}
 };
+
+/** formatTitleForEpisode  */
+export function formatTitleForEpisode(title) {
+	return title.replace(/(EP\.\d+)/, '<span class="ep-label">$1</span>');
+}

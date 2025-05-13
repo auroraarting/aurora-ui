@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 import Button from "@/components/Buttons/Button";
 import { useContextProvider } from "@/context/GlobalContext";
 import Pagination from "@/components/Pagination";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
@@ -16,6 +17,7 @@ import formatDate, {
 	filterBySearchQuery,
 	filterItems,
 	filterItemsForPodcast,
+	formatTitleForEpisode,
 	isCategory,
 } from "@/utils";
 
@@ -445,7 +447,9 @@ export default function EnergyListing({
 											<p
 												className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
 											>
-												{item?.title}
+												<ContentFromCms>
+													{formatTitleForEpisode(item?.title)}
+												</ContentFromCms>
 											</p>
 											<div className={`${styles.dateFlex} f_j pt_30`}>
 												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
