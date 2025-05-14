@@ -22,4 +22,7 @@
 		padding-bottom: 0px !important;
 		margin-bottom: 0px !important;
 	}
+	:global(.contentFlex) {
+		background-color: var(--color_blue) !important;
+	}
 }

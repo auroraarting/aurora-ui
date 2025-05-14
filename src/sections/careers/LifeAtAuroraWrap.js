@@ -29,6 +29,7 @@ import { Link, scroller } from "react-scroll";
 
 // STYLES //
 import styles from "@/styles/pages/careers/LifeAtAurora.module.scss";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // IMAGES //
 
@@ -46,36 +47,7 @@ export default function LifeAtAuroraWrap({
 	careersList,
 }) {
 	const [mapJson, setMapJson] = useState();
-	const [isFormVisible, setIsFormVisible] = useState(false); // Form hidden by default
-	console.log(mapJson);
-
-	/** scrollToSection */
-	const scrollToSection = (id) => {
-		scroller.scrollTo(id, {
-			duration: 500,
-			smooth: true,
-			offset: -100,
-			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
-		});
-
-		setTimeout(() => {
-			setIsFormVisible(true);
-			console.log("Scrolling finished!");
-		}, 500);
-	};
-
-	const headerArray = [
-		{ name: "Expertise", id: "#expertise" },
-		{ name: "Available Regions", id: "#availableregions" },
-		{ name: "Why Aurora", id: "#whyaurora" },
-		{ name: "Clients", id: "#clients" },
-		<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-			<Button color="primary" variant="filled" shape="rounded">
-				Get Started
-			</Button>
-		</div>,
-	];
+	const dataForBtn = { postFields: data || {} };
 
 	useEffect(() => {
 		let tempMapJson = {
@@ -131,7 +103,7 @@ export default function LifeAtAuroraWrap({
 					vimeoid={data?.banner?.videoLink}
 				/>
 				<div>
-					<SectionsHeader data={headerArray} />
+					<SectionsHeader />
 				</div>
 				{data?.keyAdvantages && (
 					<div>
@@ -139,7 +111,7 @@ export default function LifeAtAuroraWrap({
 					</div>
 				)}
 				<div className="pt_60">
-					<TeamAurora />
+					<TeamAurora defaultData={data?.teamAurora?.teams} />
 				</div>
 				{mapJson && (
 					<div className="dark_bg">
@@ -175,6 +147,13 @@ export default function LifeAtAuroraWrap({
 							isPowerBgVisible={true}
 							defaultList={otherList}
 							countries={countries}
+							formSectionTitle={data?.insights?.sectionTitle}
+							formSectionDesc={data?.insights?.sectionDesc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+							}
+							insightsTitle="Previous Events from Aurora"
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						/>
 					</div>
 				</div>

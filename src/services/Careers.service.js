@@ -27,7 +27,7 @@ query MyQuery {
         title
         description
         tabTitle
-         buttonLink
+        buttonLink
         buttonText
         accordian {
           title
@@ -58,6 +58,33 @@ query MyQuery {
               mediaItemUrl
             }
           }
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      teamAurora {
+        teams {
+          content
+          designation
+          name
           image {
             node {
               altText

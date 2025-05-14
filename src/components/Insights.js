@@ -122,7 +122,7 @@ export default function Insights({
 					{isPowerBgVisible && (
 						<div className={`${styles.powerBg} powerBg`}>
 							{!isFormVisible && (
-								<div className={`${styles.contentFlex} f_j`}>
+								<div className={`${styles.contentFlex} contentFlex f_j`}>
 									<div className={`${styles.title_wrap}`}>
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
 											{formSectionTitle}
