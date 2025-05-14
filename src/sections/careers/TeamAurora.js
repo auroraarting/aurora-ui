@@ -114,7 +114,6 @@ export default function TeamAurora({
 		},
 	],
 }) {
-	console.log(defaultData);
 	return (
 		<section
 			className={`${styles.TeamAurora} pb_50`}

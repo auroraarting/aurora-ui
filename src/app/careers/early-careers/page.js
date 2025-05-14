@@ -16,7 +16,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 import CareerCountryCard from "@/sections/careers/CareerCountryCard";
 import AllVideos from "@/components/AllVideos";
-import TeamAurora from "@/sections/careers/TeamAurora";
+import GraduateExperiance from "@/sections/careers/GraduateExperiance";
 import ConnectWithUs from "@/sections/careers/ConnectWithUs";
 
 // PLUGINS //
@@ -59,6 +59,8 @@ export default async function EarlyCareers() {
 	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	const programs = pageFetch.data.programs.nodes;
 	const offices = officesFetch.data.offices.nodes;
+
+	console.log(page);
 
 	return (
 		<div>
@@ -119,7 +121,7 @@ export default async function EarlyCareers() {
 					/>
 				</div>
 				<div className="pt_80">
-					<TeamAurora />
+					<GraduateExperiance defaultData={page?.graduateExperiences?.teams} />
 				</div>
 				<div className="">
 					<ConnectWithUs data={offices} />
