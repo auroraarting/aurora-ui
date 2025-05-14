@@ -25,26 +25,7 @@ query OurTeamPage {
         }
       }
       categories {
-        category {
-          node {
-            ... on Product {
-              id
-              slug
-              title
-            }
-            ... on Service {
-              id
-              slug
-              title
-            }
-            ... on Software {
-              id
-              slug
-              title
-            }
-            slug
-          }
-        }
+        categorytext
         desc
         leader {
           node {
@@ -73,15 +54,15 @@ query OurTeamPage {
         }
       }
       topSectionButton {
-          buttonText
-          iframe
-          file {
-            node {
-              altText
-              mediaItemUrl
-            }
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
           }
         }
+      }
     }
   }
 }
