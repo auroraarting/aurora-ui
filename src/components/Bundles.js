@@ -95,112 +95,114 @@ export default function Bundles({ data, name }) {
 								/>
 							</div>
 						</div>
-						<table className={`${styles.table} color_white`}>
-							<tbody>
-								<tr className="text_xxs">
-									<td>&nbsp;</td>
-									<td>
-										Strategy <br />& Planning
-									</td>
-									<td>
-										Project <br /> Siting
-									</td>
-									<td>
-										Design and <br /> Optimisation
-									</td>
-									<td>
-										Investment <br /> analysis
-									</td>
-									<td>
-										Financing & <br /> M&A
-									</td>
-									<td>
-										Portfolio <br /> Management <br /> & PPAs
-									</td>
-									<td>
-										Ongoing <br /> Valuation
-									</td>
-								</tr>
-								{list?.list?.map((item, ind) => {
-									return (
-										<tr key={ind}>
-											<td className={`${styles.logo}`}>
-												<img className={styles.img} src={item?.logo?.node?.mediaItemUrl} />
-												<div
-													className={`${styles.text} text_xs color_black`}
-													style={{ background: item?.bgColor }}
-												>
-													{item.logoText}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.strategyPlanning || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.projectSiting || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.designAndOptimisation || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.investmentAnalysis || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.financingMA || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.portfolioManagementPpas || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-											<td>
-												<div className={`${styles.checkmarks}`}>
-													{Array(item?.ongoingValuation || 0)
-														.fill()
-														.map((_, index) => (
-															<img key={index} src={Checkmark.src} />
-														))}
-												</div>
-											</td>
-										</tr>
-									);
-								})}
-							</tbody>
-						</table>
+						<div className={`${styles.tableMain}`}>
+							<table className={`${styles.table} color_white`}>
+								<tbody>
+									<tr className="text_xxs">
+										<td>&nbsp;</td>
+										<td>
+											Strategy <br />& Planning
+										</td>
+										<td>
+											Project <br /> Siting
+										</td>
+										<td>
+											Design and <br /> Optimisation
+										</td>
+										<td>
+											Investment <br /> analysis
+										</td>
+										<td>
+											Financing & <br /> M&A
+										</td>
+										<td>
+											Portfolio <br /> Management <br /> & PPAs
+										</td>
+										<td>
+											Ongoing <br /> Valuation
+										</td>
+									</tr>
+									{list?.list?.map((item, ind) => {
+										return (
+											<tr key={ind}>
+												<td className={`${styles.logo}`}>
+													<img className={styles.img} src={item?.logo?.node?.mediaItemUrl} />
+													<div
+														className={`${styles.text} text_xs color_black`}
+														style={{ background: item?.bgColor }}
+													>
+														{item.logoText}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.strategyPlanning || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.projectSiting || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.designAndOptimisation || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.investmentAnalysis || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.financingMA || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.portfolioManagementPpas || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+												<td>
+													<div className={`${styles.checkmarks}`}>
+														{Array(item?.ongoingValuation || 0)
+															.fill()
+															.map((_, index) => (
+																<img key={index} src={Checkmark.src} />
+															))}
+													</div>
+												</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -120,7 +120,7 @@ export default function WhoAreYouInsideWrap({
 				<div className="ptb_100 dark_bg">
 					<EosIntegratedSystem />
 				</div>
-				<div className="pb_100">
+				<div className="ptb_100">
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}

@@ -79,6 +79,8 @@
 						color: var(--color_secondary);
 						transition: 0.5s all;
 						box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
+						max-height: 250px;
+						overflow-y: auto;
 						li {
 							padding: 10px 20px;
 							transition: 0.5s all;

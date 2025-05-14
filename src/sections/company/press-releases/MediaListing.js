@@ -196,7 +196,7 @@ export default function MediaListing({
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.countryType.selected.title === "" ? "selected" : ""
@@ -236,6 +236,7 @@ export default function MediaListing({
 								{dropdowns.offeringsType.isOpen && (
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
+										data-lenis-prevent
 									>
 										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
@@ -288,7 +289,7 @@ export default function MediaListing({
 									</div>
 								</div>
 								{dropdowns.yearsType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										{optionsData.yearsType.map((option) => (
 											<li
 												key={option.title}
@@ -323,7 +324,7 @@ export default function MediaListing({
 									</div>
 								</div>
 								{dropdowns.languageType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										{optionsData.languageType.map((option) => (
 											<li
 												key={option.title}
