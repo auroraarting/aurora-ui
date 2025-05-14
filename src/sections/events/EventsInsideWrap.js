@@ -46,7 +46,6 @@ export default function EventsInsideWrap({
 	pastEvents,
 }) {
 	const dataForBtn = { postFields: data?.events || {} };
-	console.log(pastEvents, "data");
 	return (
 		<div>
 			{/* Metatags */}
@@ -129,7 +128,8 @@ export default function EventsInsideWrap({
 				{/* {pastEvents?.length > 0 && ( */}
 				<div className="pb_100">
 					<Insights
-						insightsLink="/events"
+						allTag="Events"
+						insightsLink="/events/"
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={pastEvents}

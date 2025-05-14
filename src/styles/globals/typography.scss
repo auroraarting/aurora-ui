@@ -20,6 +20,18 @@
 		font-size: 32px;
 	}
 }
+.text_xl_2 {
+	font-size: 40px;
+	line-height: 1.2;
+	font-weight: 600;
+	font-family: var(--font_primary);
+	@media (max-width: 1199px) {
+		font-size: 40px;
+	}
+	@media (max-width: 991px) {
+		font-size: 32px;
+	}
+}
 .text_lg {
 	font-size: 32px;
 	line-height: 1.2;

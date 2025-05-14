@@ -32,7 +32,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 export default function EventInsideVideo({ data }) {
 	return (
 		<div className={`${styles.EventInsideVideo} `}>
-			<h2 className="text_lg color_secondary pb_10">
+			<h2 className={`${styles.heading} text_lg color_secondary pb_10`}>
 				{data?.events?.glimps?.sectionTitle}
 			</h2>
 			<div className={`${styles.videoThumb}`}>

@@ -1,5 +1,14 @@
 @import "../../helpers/helpers.scss";
 .EventInsideVideo {
+	.heading {
+		width: 80%;
+		@include sm-down {
+			width: 100%;
+		}
+	}
+	iframe {
+		width: 100%;
+	}
 	.videoThumb {
 		position: relative;
 		cursor: pointer;

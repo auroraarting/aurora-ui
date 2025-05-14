@@ -96,18 +96,23 @@ async function getData({ params }) {
 		if (item?.slug != params.slug) eventList.push(tempObj);
 	});
 	pastEvents.data.events.nodes?.map((item) => {
+		let categories = [
+			{
+				slug: "event",
+				name: "Event",
+			},
+		];
+
+		item?.events?.thumbnail?.country.nodes?.map((item) => {
+			categories.push({ ...item, name: item.title });
+		});
 		const tempObj = {
 			title: item?.title,
 			slug: item?.slug,
 			date: item?.events?.thumbnail?.date,
 			featuredImage: null,
 			categories: {
-				nodes: [
-					{
-						slug: "event",
-						name: "Event",
-					},
-				],
+				nodes: categories,
 			},
 			language: {
 				id: "1",
