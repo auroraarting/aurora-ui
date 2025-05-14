@@ -10,7 +10,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // PLUGINS //
 
 // UTILS //
-import formatDate from "@/utils";
+import formatDate, { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsMiddleRight.module.scss";
@@ -28,7 +28,6 @@ import origin from "@/../public/img/resources/aurora_insights/origin.png";
 
 /** Client Section */
 export default function EventsMiddleRight({ data, events }) {
-	console.log(data, "data");
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
 			{data?.events?.interestedDesc && (
@@ -54,7 +53,7 @@ export default function EventsMiddleRight({ data, events }) {
 			)}
 
 			{data?.events?.pricingDesc && (
-				<div className={`${styles.whiteBox}`}>
+				<div className={`${styles.whiteBox} ${styles.pricingDesc}`}>
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Pricing</h5>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>
@@ -64,6 +63,28 @@ export default function EventsMiddleRight({ data, events }) {
 								and don’t miss this chance to contribute to the conversations driving
 								the energy transition forward. */}
 									<ContentFromCms>{data?.events?.pricingDesc}</ContentFromCms>
+									{dynamicInsightsBtnProps(
+										{ postFields: data?.events },
+										"middleSectionButton"
+									).btntext && (
+										<div
+											{...dynamicInsightsBtnProps(
+												{ postFields: data?.events },
+												"middleSectionButton"
+											)}
+											key="btn"
+											to="Insights"
+										>
+											<Button color="secondary" variant="underline">
+												{
+													dynamicInsightsBtnProps(
+														{ postFields: data?.events },
+														"middleSectionButton"
+													).btntext
+												}
+											</Button>
+										</div>
+									)}
 								</div>
 								{/* <div className={`${styles.btn_box} pt_10`}>
 								<Button color="secondary" variant="underline">
@@ -81,7 +102,7 @@ export default function EventsMiddleRight({ data, events }) {
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						Upcoming Events
 					</h5>
-					{events?.map((item) => {
+					{events?.slice(0, 1).map((item) => {
 						return (
 							<a
 								href={`/events/${item?.slug}`}

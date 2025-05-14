@@ -22,7 +22,11 @@ import ContentFromCms from "@/components/ContentFromCms";
 /** EventsLocation Section */
 export default function EventsLocation({ data }) {
 	return (
-		<div className={`${styles.EventsLocation} f_w_j ptb_50`}>
+		<section
+			className={`${styles.EventsLocation} f_w_j ptb_50`}
+			id="location"
+			data-name="Location"
+		>
 			<div className={`${styles.locationLeft}`}>
 				<h2 className="text_lg color_secondary pb_10">Location</h2>
 				<p className="text_reg color_dark_gray f_w_b">
@@ -33,6 +37,6 @@ export default function EventsLocation({ data }) {
 				<ContentFromCms>{data?.events?.location?.mapLink}</ContentFromCms>
 				{/* <img src={map.src} className="width_100" alt="map" /> */}
 			</div>
-		</div>
+		</section>
 	);
 }

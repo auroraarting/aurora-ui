@@ -47,11 +47,13 @@ export default function EventsListing({
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
 		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
+
+	console.log(list, "list");
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -459,9 +461,19 @@ export default function EventsListing({
 			<div className="container">
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
 					{list?.map((item, ind) => {
+						let hrefObj = {};
+
+						if (item?.events?.thumbnail?.externalUrl) {
+							hrefObj.href = item?.events?.thumbnail?.externalUrl;
+							hrefObj.target = "_blank";
+							hrefObj.rel = "noreferrer";
+						} else {
+							hrefObj.href = `/events/${item?.slug}`;
+						}
+
 						return (
 							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<a href={`/events/${item?.slug}`}>
+								<a {...hrefObj}>
 									<div className={`${styles.hoverBox}`}>
 										<img
 											src={hoverBg.src}

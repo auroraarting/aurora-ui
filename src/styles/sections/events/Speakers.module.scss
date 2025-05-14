@@ -47,6 +47,8 @@
 				}
 			}
 			.thumbnailImg {
+				filter: grayscale(1);
+				transition: all 0.4s ease-in-out;
 				img {
 					@media (max-width: 767px) {
 						width: 100%;
@@ -88,6 +90,10 @@
 				}
 			}
 			&:hover {
+				.thumbnailImg {
+					filter: grayscale(0);
+				}
+
 				.hoverEffect {
 					opacity: 1;
 					transition: 0.5s all;
@@ -180,6 +186,7 @@
 			// background: var(--color_white);
 		}
 		.BoxFlex {
+			position: relative;
 			.Imgthumbnail {
 				width: 25%;
 				@media (max-width: 767px) {
@@ -189,6 +196,14 @@
 			.Details {
 				width: 75%;
 				padding-left: 40px;
+				overflow: hidden;
+				position: relative;
+				overflow-y: auto;
+
+				.Desc {
+					position: absolute;
+				}
+
 				@media (max-width: 767px) {
 					width: 100%;
 					padding-left: 0px;

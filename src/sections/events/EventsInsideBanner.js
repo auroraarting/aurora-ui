@@ -34,7 +34,7 @@ function EventsInsideBanner({ data }) {
 					{data?.events?.thumbnail?.status} Event
 				</div>
 				<div className={`${styles.bannerTxt} pb_40`}>
-					<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
+					<h1 className="text_xl_2 font_primary f_w_m color_secondary text_uppercase">
 						{data?.title}
 					</h1>
 				</div>
@@ -42,7 +42,12 @@ function EventsInsideBanner({ data }) {
 					<ul>
 						<li className="text_xs color_light_gray text_uppercase">
 							<img src={grey_calendar.src} alt="grey_calendar" />
-							<span>{formatDate(data?.events?.thumbnail?.date)}</span>
+							<span>
+								{formatDate(data?.events?.thumbnail?.date)}
+								{data?.events?.thumbnail?.endDate
+									? ` - ${formatDate(data?.events?.thumbnail?.endDate)}`
+									: ""}
+							</span>
 						</li>
 						<li className="text_xs color_light_gray text_uppercase">
 							<img src={grey_location.src} alt="grey_calendar" />

@@ -16,6 +16,7 @@ query GetEvents {
           date
           status
           time
+          externalUrl
           logo {
             node {
               altText
@@ -188,6 +189,7 @@ query GetEventInside {
       thumbnail {
         address
         date
+        endDate
         status
         time
         logo {
@@ -270,6 +272,18 @@ query GetEventInside {
       insightsSectionButton {
         buttonText
         iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+    middleSectionButton{
+        buttonText
+        iframe
+        url
         file {
           node {
             altText
@@ -330,6 +344,7 @@ query GetEventInside {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

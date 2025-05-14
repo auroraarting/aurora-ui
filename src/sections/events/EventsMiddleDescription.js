@@ -65,7 +65,7 @@ const Hightlights = ({ data }) => {
 const WhyAttend = ({ data }) => {
 	const [open, setOpen] = useState(false);
 	return (
-		<section id="whyAttend" data-name="Why Attend" className="pb_50">
+		<section id="agenda" data-name="Agenda" className="pb_50">
 			<h2>Why attend?</h2>
 			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
 			<ul>
