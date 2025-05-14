@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -25,6 +26,7 @@ import { filterMarkersBySlug, getMapJsonForService } from "@/utils";
 import { getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getInsights } from "@/services/Insights.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -54,15 +56,19 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, regions, bundles] = await Promise.all([
+	const [data, regions, bundles, list] = await Promise.all([
 		getServiceData(params.slug),
 		getRegions(),
 		getBundlesSection(),
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
 	]);
 	const mapJson = getMapJsonForService(
 		filterMarkersBySlug(regions, params.slug)
 	);
 	const countries = data.data.countries.nodes;
+	const otherList = list?.data?.posts?.nodes || [];
 
 	return {
 		props: {
@@ -70,6 +76,7 @@ async function getData({ params }) {
 			mapJson,
 			bundles: bundles.data.page.bundles,
 			countries,
+			otherList,
 		},
 	};
 }
