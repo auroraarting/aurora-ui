@@ -39,7 +39,13 @@ import styles from "@/styles/pages/services/advisory.module.scss";
 // SERVICES //
 
 /** Advisory Page */
-export default function ServicesWrap({ data, mapJson, bundles, countries }) {
+export default function ServicesWrap({
+	data,
+	mapJson,
+	bundles,
+	countries,
+	otherList,
+}) {
 	const dataForBtn = { postFields: data || {} };
 
 	return (
@@ -116,10 +122,12 @@ export default function ServicesWrap({ data, mapJson, bundles, countries }) {
 					</div>
 					<Bundles data={bundles} />
 				</div>
-				<div className="pb_100">
+				<div className="ptb_100">
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						defaultList={otherList}
+						countries={countries}
 						formSectionBtnText={
 							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
