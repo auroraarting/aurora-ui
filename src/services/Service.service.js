@@ -149,23 +149,6 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
           }
         }
       }
-      introduction {
-        description
-        tabTitle
-        title
-        image {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        lottie {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
       keyAdvantages {
         desciption
         tabTitle
@@ -185,35 +168,6 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       }
       map {
         marquee
-      }
-      whyAurora {
-        description
-        endText
-        startText
-        title
-        list {
-          caption
-          description
-          title
-          value
-        }
-      }
-      fourStepProcess {
-        buttonLink
-        description
-        processTitle
-        tabTitle
-        process {
-          image {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          processDetails {
-            description
-          }
-        }
       }
       topSectionButton {
         buttonText
