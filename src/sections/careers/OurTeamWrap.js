@@ -67,20 +67,7 @@ export default function OurTeamWrap({
 					<DepartmentList
 						jobs={jobs}
 						data={data}
-						productService={[
-							{
-								category: "Product",
-								options: products?.map((item) => item.title),
-							},
-							{
-								category: "Software",
-								options: softwares?.map((item) => item.title),
-							},
-							{
-								category: "Service",
-								options: services?.map((item) => item.title),
-							},
-						]}
+						departments={data.categories?.map((item) => item.categorytext)}
 					/>
 				</div>
 				<div className={`${styles.containerCustom} ptb_100`}>

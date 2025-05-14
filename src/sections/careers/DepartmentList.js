@@ -23,7 +23,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 /** DepartmentList Section */
-export default function DepartmentList({ data, jobs, productService }) {
+export default function DepartmentList({ data, jobs, departments }) {
 	const [showAll, setShowAll] = useState(false);
 	const [selected, setSelected] = useState({});
 	const dropdownRefs = {
@@ -36,8 +36,6 @@ export default function DepartmentList({ data, jobs, productService }) {
 	});
 	const [selectedDepartment, setSelectedDepartment] = useState(0);
 	const dataForBtn = { postFields: data || {} };
-
-	const radioData = productService;
 
 	/** radio Input */
 	const handleChange = (option) => {
@@ -101,7 +99,7 @@ export default function DepartmentList({ data, jobs, productService }) {
 			offeringsType: { isOpen: false, selected: { title: option } },
 		});
 		const selectedOption = data?.categories?.findIndex(
-			(item) => item.category.node.title === option
+			(item) => item.categorytext === option
 		);
 		setSelectedDepartment(selectedOption);
 	};
@@ -129,22 +127,14 @@ export default function DepartmentList({ data, jobs, productService }) {
 									</div>
 									{dropdowns.offeringsType.isOpen && (
 										<div className={`${styles.selectOptionBox} ${styles.checkBoxWapper}`}>
-											{radioData.map((item, index) => (
+											{departments.map((item, index) => (
 												<div key={index} className={styles.checkBoxItem}>
-													<h4 className="text_sm color_dark_gray text_500">
-														{item.category}
+													<h4
+														className="text_sm color_dark_gray text_500"
+														onClick={() => handleSelect(item)}
+													>
+														{item}
 													</h4>
-													<div className={styles.checkBoxList}>
-														{item?.options?.map((option, idx) => (
-															<h4
-																key={idx}
-																className="text_sm color_dark_gray text_500"
-																onClick={() => handleSelect(option)}
-															>
-																{option}
-															</h4>
-														))}
-													</div>
 												</div>
 											))}
 										</div>
@@ -168,7 +158,7 @@ export default function DepartmentList({ data, jobs, productService }) {
 							<div className={`${styles.teamDetailsFlex} f_w_j ptb_50`}>
 								<div className={`${styles.teamDetailsItem}`}>
 									<h2 className="text_xl">
-										{data?.categories?.[selectedDepartment]?.category?.node?.title}
+										{dropdowns.offeringsType.selected.title}
 										{selectedDepartment < 0 && "No Data"}
 									</h2>
 								</div>
@@ -226,8 +216,8 @@ export default function DepartmentList({ data, jobs, productService }) {
 										)}
 										<div className={`${styles.leadDetailsInfo} pt_30`}>
 											{data?.categories?.[selectedDepartment]?.leaderDesc
-												.slice(0, showAll ? infoData.length : 2)
-												.map((item, idx) => (
+												?.slice(0, showAll ? infoData.length : 2)
+												?.map((item, idx) => (
 													<div key={idx} className={`${styles.leadDetailsInfoInner} pb_20`}>
 														<h5 className={`${styles.headTxt} text_reg color_white f_w_b`}>
 															{item.title}
@@ -236,7 +226,7 @@ export default function DepartmentList({ data, jobs, productService }) {
 													</div>
 												))}
 										</div>
-										{data?.categories?.[selectedDepartment]?.leaderDesc.length > 2 && (
+										{data?.categories?.[selectedDepartment]?.leaderDesc?.length > 2 && (
 											<div onClick={() => setShowAll(!showAll)}>
 												<Button color="secondary" variant="underline" mode="dark">
 													{showAll ? "Read Less" : "Read More"}
