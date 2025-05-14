@@ -75,6 +75,30 @@ query GetEarlyCareersLanding {
       listing {
         title
       }
+      graduateExperiences {
+        teams {
+          designation
+          name
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          popup {
+            thumb {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            list {
+              title
+              desc
+            }
+          }
+        }
+      }
     }
   }
   programs(first: 9999) {
