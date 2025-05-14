@@ -96,7 +96,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					/>
 				</div>
 				{data?.howWeHelpInside?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pb_100">
 						<TrustedLeaders
 							data={data?.howWeHelpInside?.ourClient}
 							sectionTitle={data?.howWeHelpInside?.ourClient?.title}
@@ -133,7 +133,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					</div>
 					<Bundles data={bundles} />
 				</div>
-				<div className="pb_100">
+				<div className="ptb_100">
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}

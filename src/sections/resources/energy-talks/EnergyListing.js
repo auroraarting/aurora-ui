@@ -252,7 +252,7 @@ export default function EnergyListing({
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.countryType.selected.title === "" ? "selected" : ""
@@ -293,6 +293,7 @@ export default function EnergyListing({
 								{dropdowns.offeringsType.isOpen && (
 									<div
 										className={`${styles.selectOptionBox} ${styles.checkBoxWapper} f_w`}
+										data-lenis-prevent
 									>
 										{productService.map((item, index) => (
 											<div key={index} className={styles.checkBoxItem}>
@@ -345,7 +346,7 @@ export default function EnergyListing({
 									</div>
 								</div>
 								{dropdowns.yearsType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.yearsType.selected.title === "" ? "selected" : ""
@@ -368,7 +369,7 @@ export default function EnergyListing({
 							</div>
 						</div>
 						{/* Reset */}
-						<div className={`${styles.selectBox} ${styles.widthCustom}`}>
+						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} "activeDropDown"`}

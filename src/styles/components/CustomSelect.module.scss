@@ -13,7 +13,9 @@
 		cursor: pointer;
 		z-index: 4;
 		position: relative;
-
+		@media (max-width: 767px) {
+			margin-bottom: 10px;
+		}
 		.arrow {
 			transition: all 0.4s ease-in-out;
 		}
