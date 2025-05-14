@@ -78,7 +78,7 @@ export default function Speakers({ data, title, desc }) {
 	});
 
 	return (
-		<section className={`${styles.Speakers}`}>
+		<section className={`${styles.Speakers}`} id="speakers" data-name="Speakers">
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">

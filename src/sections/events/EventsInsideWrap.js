@@ -41,10 +41,11 @@ export default function EventsInsideWrap({
 	data,
 	events,
 	countries,
-	dataForBtn,
 	eventsOriginal,
 	pastEvents,
 }) {
+	const dataForBtn = { postFields: data?.events || {} };
+	console.log(pastEvents, "data");
 	return (
 		<div>
 			{/* Metatags */}
@@ -121,22 +122,24 @@ export default function EventsInsideWrap({
 						<DownloadList data={data} />
 					</div>
 				)}
-				{pastEvents?.length > 0 && (
-					<div className="pb_100">
-						<Insights
-							isInsightsBlogsVisible={true}
-							defaultList={pastEvents}
-							countries={countries}
-							formSectionTitle="Sign up to receive our latest public insights straight to your inbox"
-							formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
-							insightsTitle="Previous Events from Aurora"
-							formSectionBtnText={
-								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
-							}
-							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
-						/>
-					</div>
-				)}
+				{/* {pastEvents?.length > 0 && ( */}
+				<div className="pb_100">
+					<Insights
+						insightsLink="/events"
+						isPowerBgVisible={true}
+						isInsightsBlogsVisible={true}
+						defaultList={pastEvents}
+						countries={countries}
+						formSectionTitle={data?.events?.insights?.sectionTitle}
+						formSectionDesc={data?.events?.insights?.sectionDesc}
+						formSectionBtnText={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+						}
+						insightsTitle="Previous Events from Aurora"
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+					/>
+				</div>
+				{/* )} */}
 				<IframeModal />
 			</main>
 			{/* Page Content ends here */}

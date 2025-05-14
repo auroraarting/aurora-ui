@@ -22,7 +22,11 @@ import download from "@/../public/img/resources/aurora_insights/download.svg";
 /** DownloadList Section */
 export default function DownloadList({ data }) {
 	return (
-		<div className="container">
+		<section
+			className="container"
+			id="download-materials"
+			data-name="Download Materials"
+		>
 			<div className={`${styles.DownloadWrapper} f_r_a_center`}>
 				{data?.events?.downloads?.map((item, ind) => {
 					return (
@@ -50,6 +54,6 @@ export default function DownloadList({ data }) {
 					);
 				})}
 			</div>
-		</div>
+		</section>
 	);
 }

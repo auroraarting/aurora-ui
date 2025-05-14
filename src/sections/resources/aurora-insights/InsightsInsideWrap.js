@@ -211,7 +211,7 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 					/>
 				</div>
 
-				<IframeModal />
+				<IframeModal hideLeft />
 			</main>
 			{/* Page Content ends here */}
 

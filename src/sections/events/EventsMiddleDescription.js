@@ -29,9 +29,13 @@ export default function EventsMiddleDescription({ data }) {
 	return (
 		<>
 			{data?.content && (
-				<div className={`${styles.contentBox}`}>
+				<section
+					className={`${styles.contentBox}`}
+					id="overview"
+					data-name="Overview"
+				>
 					<ContentFromCms>{data?.content}</ContentFromCms>
-				</div>
+				</section>
 			)}
 			{data?.events?.whyAttend?.agenda && (
 				<WhyAttend data={data?.events?.whyAttend} />
@@ -49,8 +53,8 @@ const Hightlights = ({ data }) => {
 		<section id="hightlights" data-name="Hightlights">
 			<h2>Hightlights</h2>
 			<ul>
-				{data?.hightlights?.map((item) => {
-					return <li key={item?.text}>{item?.text}</li>;
+				{data?.hightlights?.map((item, ind) => {
+					return <li key={(item?.text || "") + ind}>{item?.text}</li>;
 				})}
 			</ul>
 		</section>
@@ -63,6 +67,7 @@ const WhyAttend = ({ data }) => {
 	return (
 		<section id="whyAttend" data-name="Why Attend" className="pb_50">
 			<h2>Why attend?</h2>
+			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
 			<ul>
 				{data?.agenda?.map((item) => {
 					return <li key={item?.title}>{item?.title}</li>;

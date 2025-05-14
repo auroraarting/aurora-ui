@@ -38,7 +38,7 @@ export const metadata = {
 async function getData() {
 	const queryTxt =
 		// eslint-disable-next-line quotes
-		'first:9999, where: { categoryName: "public-webinar,webinar,webinar-recording" }';
+		'first:9999, where: { categoryName: "public-webinar,webinar,webinar-recording", dateQuery: {after: {year: 2023}}}';
 	const [data, categoriesForSelect, webinarpage] = await Promise.all([
 		getInsights(queryTxt),
 		getInsightsCategories(),

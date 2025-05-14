@@ -21,7 +21,11 @@ import national_grid from "@/../public/img/events/national_grid.png";
 /** Sponsors Section */
 export default function Sponsors({ data }) {
 	return (
-		<div className={`${styles.Sponsors} pb_50`}>
+		<section
+			id="sponsors"
+			data-name="Sponsors"
+			className={`${styles.Sponsors} pb_50`}
+		>
 			<h2 className="text_lg color_secondary pb_10">
 				{data?.events?.sponsors?.sectionTitle || "Sponsors"}
 			</h2>
@@ -66,6 +70,6 @@ export default function Sponsors({ data }) {
 					<img src={national_grid.src} alt="map" />
 				</div>
 			</div> */}
-		</div>
+		</section>
 	);
 }

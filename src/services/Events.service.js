@@ -175,6 +175,7 @@ query GetEventInside {
   eventBy(slug: "${slug}") {
     title
     slug
+    content
     featuredImage {
       node {
         altText
@@ -255,12 +256,6 @@ query GetEventInside {
           }
         }
         video
-        videoThumbnail {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
       }
       hightlights {
         sectionTitle
@@ -343,6 +338,7 @@ query GetEventInside {
         }
       }
       whyAttend {
+      desc
         agenda {
           address
           time

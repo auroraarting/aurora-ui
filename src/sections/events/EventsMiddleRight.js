@@ -28,9 +28,10 @@ import origin from "@/../public/img/resources/aurora_insights/origin.png";
 
 /** Client Section */
 export default function EventsMiddleRight({ data, events }) {
+	console.log(data, "data");
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
-			{data?.interestedDesc && (
+			{data?.events?.interestedDesc && (
 				<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_m pb_10">
@@ -44,7 +45,7 @@ export default function EventsMiddleRight({ data, events }) {
 								<span className="f_w_b">
 									<u>Priscilla Castro</u>
 								</span> */}
-									<ContentFromCms>{data?.interestedDesc}</ContentFromCms>
+									<ContentFromCms>{data?.events?.interestedDesc}</ContentFromCms>
 								</div>
 							</div>
 						</div>
@@ -52,7 +53,7 @@ export default function EventsMiddleRight({ data, events }) {
 				</div>
 			)}
 
-			{data?.pricingDesc && (
+			{data?.events?.pricingDesc && (
 				<div className={`${styles.whiteBox}`}>
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Pricing</h5>
@@ -62,7 +63,7 @@ export default function EventsMiddleRight({ data, events }) {
 									{/* The event is free of charge and tickets are limited - book yours today
 								and don’t miss this chance to contribute to the conversations driving
 								the energy transition forward. */}
-									<ContentFromCms>{data?.pricingDesc}</ContentFromCms>
+									<ContentFromCms>{data?.events?.pricingDesc}</ContentFromCms>
 								</div>
 								{/* <div className={`${styles.btn_box} pt_10`}>
 								<Button color="secondary" variant="underline">
