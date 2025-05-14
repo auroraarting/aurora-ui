@@ -14,7 +14,9 @@
 		overflow: hidden;
 		display: flex;
 		align-items: end;
-
+		@media (max-width: 1199px) {
+			width: 97%;
+		}
 		img {
 			width: 100%;
 			opacity: 0.2;
@@ -60,11 +62,20 @@
 				}
 			}
 		}
+		.tableMain{
+			@media (max-width: 767px) {
+				overflow: auto;
+			}
+		}
 		.table {
 			width: 100%;
 			table-layout: fixed;
 			border-collapse: collapse; /* optional: makes border cleaner */
-
+			@media (max-width: 767px) {
+				overflow: auto;
+        white-space: nowrap;
+        width: 170vw;
+			}
 			td {
 				border: 1px dashed #999;
 				text-align: center;

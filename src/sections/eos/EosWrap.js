@@ -104,7 +104,7 @@ export default function EOSPageWrap({
 					</div>
 				)}
 				{data.ourClient.testimonials && (
-					<div className="pb_100">
+					<div className="">
 						<TestimonialFeedback data={data.ourClient} />
 					</div>
 				)}

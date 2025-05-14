@@ -27,9 +27,12 @@
 			background-color: var(--color_gray);
 			padding: 20px 20px 30px;
 			border-radius: 20px;
-			max-height: 310px;
+			max-height: 305px;
 			transition: 0.5s ease-in-out;
 			overflow: hidden;
+			@media (max-width: 991px) {
+				max-height: 300px;
+			}
 			@media (max-width: 767px) {
 				max-height: unset;
 			}
@@ -73,6 +76,12 @@
 					span {
 						margin-left: 5px;
 					}
+				}
+				h4{
+					display: -webkit-box;
+					-webkit-line-clamp: 1;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
 				}
 			}
 			&:hover {

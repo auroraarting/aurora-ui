@@ -2,6 +2,9 @@
 .Counter {
 	background-color: var(--color_black);
 	overflow: hidden;
+		@media (max-width: 767px) {
+			padding-top: 0px;
+		}
 	.counterFlex {
 		width: 80%;
 		margin: 0 auto;
