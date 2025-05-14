@@ -19,6 +19,7 @@ import EventsMiddleRight from "@/sections/events/EventsMiddleRight";
 import EventsGallery from "@/sections/events/EventsGallery";
 import AudienceBreakdown from "@/sections/events/AudienceBreakdown";
 import DownloadList from "@/sections/events/DownloadList";
+import CountdownTimer from "@/sections/events/CountdownTimer";
 
 // PLUGINS //
 
@@ -61,6 +62,9 @@ export default function EventsInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.EventsInsidePage}>
+				{data?.events?.thumbnail?.status === "Upcoming" && (
+					<CountdownTimer targetDate={data?.events?.thumbnail?.date} />
+				)}
 				<div className="pt_100">
 					<EventsInsideBanner data={data} />
 				</div>
