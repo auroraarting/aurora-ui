@@ -108,6 +108,7 @@ query MyQuery {
         map {
           lat
           lng
+          mapUrl
         }
       }
       title

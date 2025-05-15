@@ -30,6 +30,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
                       map {
                         lat
                         lng
+                        mapUrl
                       }
                       contact {
                         address
@@ -67,6 +68,7 @@ query GetOffices {
         map {
           lat
           lng
+          mapUrl
         }
       }
       title
