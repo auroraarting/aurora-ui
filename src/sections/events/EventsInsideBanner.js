@@ -49,19 +49,23 @@ function EventsInsideBanner({ data }) {
 									: ""}
 							</span>
 						</li>
-						<li className="text_xs color_light_gray text_uppercase">
-							<img src={grey_location.src} alt="grey_calendar" />
-							<span>{data?.events?.thumbnail?.address}</span>
-						</li>
-						<li className="text_xs color_light_gray text_uppercase">
-							<img src={grey_clock.src} alt="grey_calendar" />
-							<span>{data?.events?.thumbnail?.time}</span>
-						</li>
-						<li className="text_xs color_light_gray text_uppercase">
+						{data?.events?.thumbnail?.address && (
+							<li className="text_xs color_light_gray text_uppercase">
+								<img src={grey_location.src} alt="grey_calendar" />
+								<span>{data?.events?.thumbnail?.address}</span>
+							</li>
+						)}
+						{data?.events?.thumbnail?.time && (
+							<li className="text_xs color_light_gray text_uppercase">
+								<img src={grey_clock.src} alt="grey_calendar" />
+								<span>{data?.events?.thumbnail?.time}</span>
+							</li>
+						)}
+						{/* <li className="text_xs color_light_gray text_uppercase">
 							<a href="" className="">
 								<img src={share.src} alt="share" />
 							</a>
-						</li>
+						</li> */}
 					</ul>
 				</div>
 			</div>
