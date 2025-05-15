@@ -511,6 +511,9 @@ export const filterItems = (items, filterObj) => {
 		const filterYear = filterObj.year;
 		const itemYear = new Date(item.date).getFullYear();
 		const matchesYear = filterYear ? itemYear === filterYear : true;
+		const matchTitle = filterObj.search
+			? item.title.toLowerCase().includes(filterObj.search)
+			: true;
 
 		const filterLanguage = filterObj.language;
 		const itemLanguage = item.language?.native_name?.toLowerCase();
@@ -518,7 +521,7 @@ export const filterItems = (items, filterObj) => {
 			? itemLanguage === filterLanguage.toLowerCase()
 			: true;
 
-		return matchesCategoryFilters && matchesYear && matchesLanguage;
+		return matchesCategoryFilters && matchesYear && matchesLanguage && matchTitle;
 	});
 };
 
@@ -562,8 +565,18 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 			? new Date(date).getFullYear() === selected.year
 			: true;
 
+		// 4. Match Title
+		const matchTitle = selected.search
+			? podcast?.title.toLowerCase().includes(selected.search)
+			: true;
+
 		return (
-			matchCountry && matchSoftware && matchProduct && matchService && matchYear
+			matchCountry &&
+			matchSoftware &&
+			matchProduct &&
+			matchService &&
+			matchYear &&
+			matchTitle
 		);
 	});
 };
@@ -571,8 +584,9 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 /** filterItems for resources */
 export const filterItemsForWebinar = (podcasts, selected) => {
 	return podcasts.filter((podcast) => {
-		const { webinarsFields, eventCategories } = podcast;
+		const { webinarsFields, eventCategories, title } = podcast;
 		const date = webinarsFields?.startDateAndTime;
+		console.log(podcast, "podcast");
 
 		// 1. Match country
 		const countries = webinarsFields?.country?.nodes || [];
@@ -615,7 +629,10 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			? categories.some((c) => c.name === selected.category)
 			: true;
 
-		console.log(selected.category);
+		// 5. Match Title
+		const matchTitle = selected.search
+			? title?.toLowerCase().includes(selected.search)
+			: true;
 
 		return (
 			matchCountry &&
@@ -623,7 +640,8 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			matchProduct &&
 			matchService &&
 			matchYear &&
-			matchCategory
+			matchCategory &&
+			matchTitle
 		);
 	});
 };

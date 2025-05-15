@@ -234,6 +234,28 @@ export default function JobOpenings({
 												)}
 											</div>
 										</div>
+										{/* Reset */}
+										<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
+											<div className={styles.custom_select}>
+												<div
+													className={`${styles.select_header_wapper} "activeDropDown"`}
+													onClick={() => {
+														setPaginationArr(data.jobs.data);
+														setDropdowns({
+															eventNameType: { isOpen: false, selected: { title: "" } },
+															offeringsType: { isOpen: false, selected: { title: "" } },
+															search: { isOpen: false, selected: { title: "" } },
+														});
+													}}
+												>
+													<div
+														className={`${styles.select_header} select_bg text_sm text_500`}
+													>
+														Reset
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 									<div className={`${styles.searchInput}`}>
 										<input

@@ -102,7 +102,7 @@ export default function WhoAreYouInsideWrap({
 				</div>
 				<div>
 					<GloballyBankableInsights
-						isMultiple={data?.whoAreYous?.whyAurora?.list.length > 1}
+						isMultiple={data?.whoAreYous?.whyAurora?.list?.length > 1}
 						data={data?.whoAreYous?.whyAurora}
 					/>
 				</div>

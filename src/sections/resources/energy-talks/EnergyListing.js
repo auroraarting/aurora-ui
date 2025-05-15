@@ -100,10 +100,10 @@ export default function EnergyListing({
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
 		],
-		yearsType: Array(new Date().getFullYear() - 2000)
+		yearsType: Array(new Date().getFullYear() - 2023)
 			.fill(null)
 			.map((item, ind) => {
-				return { title: 2001 + ind };
+				return { title: 2024 + ind };
 			})
 			.reverse(),
 	};
@@ -159,9 +159,6 @@ export default function EnergyListing({
 		if (key === "search") {
 			selectedObj.search = catName;
 			queryObj.search = catName;
-
-			window.location.href = `/resources/aurora-insights?search=${catName}`;
-			return;
 		}
 		if (key === "categoryType") {
 			selectedObj.category = catName.alternate;
@@ -391,7 +388,7 @@ export default function EnergyListing({
 							onClick={toggleSearchInput}
 						>
 							<div className={`${styles.searchBox} f_r_aj_between`}>
-								<p className="text_sm text_500">Search</p>
+								<p className="text_sm text_500">{selected?.search || "Search"}</p>
 								<span>
 									<img src={searchImg.src} alt="icon" />
 								</span>
