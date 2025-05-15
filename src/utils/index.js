@@ -568,6 +568,66 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 	});
 };
 
+/** filterItems for resources */
+export const filterItemsForWebinar = (podcasts, selected) => {
+	return podcasts.filter((podcast) => {
+		const { webinarsFields, eventCategories } = podcast;
+		const date = webinarsFields?.startDateAndTime;
+
+		// 1. Match country
+		const countries = webinarsFields?.country?.nodes || [];
+		const matchCountry = selected.country
+			? countries.some((c) => c.title === selected.country)
+			: true;
+
+		// 2. Match poweredBy types
+		const poweredBy = webinarsFields.serviceBy?.nodes || [];
+
+		const matchSoftware = selected.software
+			? poweredBy.some(
+					(p) =>
+						p.contentType.node.name === "softwares" && p.title === selected.software
+			  )
+			: true;
+
+		const matchProduct = selected.product
+			? poweredBy.some(
+					(p) =>
+						p.contentType.node.name === "products" && p.title === selected.product
+			  )
+			: true;
+
+		const matchService = selected.service
+			? poweredBy.some(
+					(p) =>
+						p.contentType.node.name === "services" && p.title === selected.service
+			  )
+			: true;
+
+		// 3. Match year
+		const matchYear = selected.year
+			? new Date(date).getFullYear() === selected.year
+			: true;
+
+		// 4. Match Category
+		const categories = eventCategories?.nodes || [];
+		const matchCategory = selected.category
+			? categories.some((c) => c.name === selected.category)
+			: true;
+
+		console.log(selected.category);
+
+		return (
+			matchCountry &&
+			matchSoftware &&
+			matchProduct &&
+			matchService &&
+			matchYear &&
+			matchCategory
+		);
+	});
+};
+
 /** filterBySearchQuery */
 export const filterBySearchQuery = (items, searchQuery) => {
 	if (!searchQuery) return items;

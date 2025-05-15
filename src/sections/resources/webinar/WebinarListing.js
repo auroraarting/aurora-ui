@@ -11,7 +11,12 @@ import { useRouter } from "next/router";
 // PLUGINS //
 
 // UTILS //
-import formatDate, { allCategories, filterItems, isCategory } from "@/utils";
+import formatDate, {
+	allCategories,
+	filterItems,
+	filterItemsForWebinar,
+	isCategory,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/webinar/WebinarListing.module.scss";
@@ -132,7 +137,7 @@ export default function WebinarListing({
 			selectedObj.search = catName;
 			queryObj.search = catName;
 
-			window.location.href = `/resources/aurora-insights?search=${catName}`;
+			window.location.href = `/resources/webinar?search=${catName}`;
 			return;
 		}
 		if (key === "categoryType") {
@@ -165,7 +170,7 @@ export default function WebinarListing({
 		}
 		setSelected(selectedObj);
 
-		const filteredArr = filterItems(arr, selectedObj);
+		const filteredArr = filterItemsForWebinar(arr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setLoading(false);
@@ -457,9 +462,10 @@ export default function WebinarListing({
 														className={`${styles.calender}`}
 														alt="calender"
 													/>
-													<span>{formatDate(item?.date)}</span>
+													<span>{formatDate(item?.webinarsFields?.startDateAndTime)}</span>
 												</p>
-												{isCategory(countries, item?.categories?.nodes) && (
+												{/* {isCategory(countries, item?.categories?.nodes) && ( */}
+												{item?.webinarsFields?.country?.nodes?.length > 0 && (
 													<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 														<img
 															src={location.src}
@@ -467,9 +473,12 @@ export default function WebinarListing({
 															alt="calender"
 														/>
 														{/* <span>India</span> */}
-														<span>{isCategory(countries, item?.categories?.nodes)}</span>
+														{item?.webinarsFields?.country?.nodes?.map((item2) => (
+															<span key={item?.title + item2?.title}>{item2?.title}</span>
+														))}
 													</p>
 												)}
+												{/* )} */}
 											</div>
 										</div>
 									</a>

@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -17,6 +18,7 @@ import styles from "@/styles/sections/resources/webinar/WebinarInsideTopSection.
 import calender from "@/../public/img/icons/calender.svg";
 import share from "@/../public/img/resources/aurora_insights/share.svg";
 import location from "@/../public/img/icons/location.svg";
+import { formatWebinarDateTime } from "@/utils/Client";
 
 // DATA //
 
@@ -24,8 +26,13 @@ import location from "@/../public/img/icons/location.svg";
 export default function WebinarInsideTopSection({
 	data,
 	countries,
-	isUpcoming,
+	// isUpcoming,
 }) {
+	const { date, time, isUpcoming } = formatWebinarDateTime(
+		data.webinarsFields.startDateAndTime,
+		data.webinarsFields.endDateAndTime,
+		data.webinarsFields.timezone
+	);
 	return (
 		<section className={`${styles.WebinarInsideTopSection} `}>
 			<div className="container">
@@ -35,7 +42,7 @@ export default function WebinarInsideTopSection({
 							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 						>
 							{isUpcoming ? "Upcoming: " : "Completed: "}
-							{isCategory(allCategories, data?.categories?.nodes)}
+							{data?.eventCategories?.nodes?.map((item) => item?.name)}
 						</div>
 						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
 							{data?.title}
@@ -48,20 +55,24 @@ export default function WebinarInsideTopSection({
 									alt="calender"
 								/>
 								<span>
-									{formatDate(data?.date)} {data?.time}
+									{date} @ {time}
 								</span>
 							</p>
-							<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
-								<img
-									src={location.src}
-									className={`${styles.calender}`}
-									alt="calender"
-								/>
-								<span>{isCategory(countries, data?.categories?.nodes)}</span>
-							</p>
-							<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
+							{data?.webinarsFields?.country?.nodes?.length > 0 && (
+								<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
+									<img
+										src={location.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									{data?.webinarsFields?.country?.nodes?.map((item) => (
+										<span key={item?.title}>{item?.title}</span>
+									))}
+								</p>
+							)}
+							{/* <p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
 								<img src={share.src} className={`${styles.calender}`} alt="calender" />
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</div>

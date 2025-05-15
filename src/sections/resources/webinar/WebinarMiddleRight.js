@@ -23,26 +23,25 @@ import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 export default function WebinarMiddleRight({ data }) {
 	return (
 		<div className={`${styles.WebinarMiddleRightBox}`}>
-			{(data?.postFields?.speakers?.nodes ||
-				data?.postFields?.speakers?.nodes ||
-				data?.postFields?.poweredBy?.nodes) && (
+			{(data?.webinarsFields?.speakers?.nodes ||
+				data?.webinarsFields?.poweredBy?.nodes) && (
 				<div className={`${styles.whiteBox}`}>
-					{data?.postFields?.speakers?.nodes && (
+					{data?.webinarsFields?.speakers?.nodes && (
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Speaker</h5>
 						</div>
 					)}
-					{data?.postFields?.speakers?.nodes?.map((item, ind) => {
+					{data?.webinarsFields?.speakers?.nodes?.map((item, ind) => {
 						return (
 							<div className={`${styles.BoxName}`} key={item?.title}>
 								<h5 className="text_reg color_gray f_w_m pb_10">{item?.title}</h5>
 							</div>
 						);
 					})}
-					{data?.postFields?.poweredBy?.nodes && (
+					{data?.webinarsFields?.poweredBy?.nodes && (
 						<div className={`${styles.itemBox} pt_20`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Service</h5>
-							{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
+							{data?.webinarsFields?.poweredBy?.nodes?.map((item, ind) => {
 								/**keyModule  */
 								const keyModule = () => {
 									if (item?.contentType?.node?.name === "softwares") {
@@ -81,16 +80,16 @@ export default function WebinarMiddleRight({ data }) {
 			)}
 			<div className={`${styles.whiteBox} ${styles.bgGreyBox}`}>
 				<div className={`${styles.InsideItem}`}>
-					{data?.tags?.nodes?.length > 0 && (
+					{data?.webinarTags?.nodes?.length > 0 && (
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Tags</h5>
 							<div className={`${styles.ClientFlex} f_w`}>
-								{data?.tags?.nodes?.map((item) => {
+								{data?.webinarTags?.nodes?.map((item) => {
 									return (
 										<a
 											key={item?.title || item?.name || item}
 											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-											href={`/resources/aurora-insights?search=${
+											href={`/resources/webinar?search=${
 												item?.title || item?.name || item
 											}`}
 										>
