@@ -62,10 +62,10 @@ export default function EventsWrap({
 						// data={data?.slice(1, data.length)}
 						data={data}
 						categories={categories}
-						years={Array(new Date().getFullYear() - 2000)
+						years={Array(new Date().getFullYear() - 2023)
 							.fill(null)
 							.map((item, ind) => {
-								return { title: 2001 + ind };
+								return { title: 2024 + ind };
 							})
 							.reverse()}
 						productService={[

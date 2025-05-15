@@ -95,10 +95,10 @@ export default function InsightsListing({
 			{ title: "Offerings3" },
 			{ title: "Offerings4" },
 		],
-		yearsType: Array(new Date().getFullYear() - 2000)
+		yearsType: Array(new Date().getFullYear() - 2023)
 			.fill(null)
 			.map((item, ind) => {
-				return { title: 2001 + ind };
+				return { title: 2024 + ind };
 			})
 			.reverse(),
 	};
@@ -134,9 +134,6 @@ export default function InsightsListing({
 		if (key === "search") {
 			selectedObj.search = catName;
 			queryObj.search = catName;
-
-			window.location.href = `/resources/aurora-insights?search=${catName}`;
-			return;
 		}
 		if (key === "categoryType") {
 			selectedObj.category = catName.alternate;
