@@ -168,7 +168,7 @@ export default function PressReleasesWrap({
 					<EventSmarterEnergy />
 				</div> */}
 				<PressCoverage data={page.pressCoverage} />
-				<div className={`${styles.containerCustom} pb_100`}>
+				{/* <div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
 						<Insights
 							isPowerBgVisible={true}
@@ -181,7 +181,7 @@ export default function PressReleasesWrap({
 							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						/>
 					</div>
-				</div>
+				</div> */}
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>

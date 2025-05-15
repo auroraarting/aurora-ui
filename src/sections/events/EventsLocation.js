@@ -23,20 +23,25 @@ import ContentFromCms from "@/components/ContentFromCms";
 export default function EventsLocation({ data }) {
 	return (
 		<section
-			className={`${styles.EventsLocation} f_w_j ptb_50`}
+			className={`${styles.EventsLocation} ptb_50`}
 			id="location"
 			data-name="Location"
 		>
-			<div className={`${styles.locationLeft}`}>
-				<h2 className="text_lg color_secondary pb_10">Location</h2>
-				<p className="text_reg color_dark_gray f_w_b">
-					{data?.events?.location?.address}
-				</p>
+			<div className="f_w_j">
+				<div className={`${styles.locationLeft}`}>
+					<h2 className="text_lg color_secondary pb_10">Location</h2>
+					<p className="text_reg color_dark_gray f_w_b">
+						{data?.events?.location?.address}
+					</p>
+				</div>
+				<div className={`${styles.locationRight}`}>
+					<ContentFromCms>{data?.events?.location?.mapLink}</ContentFromCms>
+					{/* <img src={map.src} className="width_100" alt="map" /> */}
+				</div>
 			</div>
-			<div className={`${styles.locationRight}`}>
-				<ContentFromCms>{data?.events?.location?.mapLink}</ContentFromCms>
-				{/* <img src={map.src} className="width_100" alt="map" /> */}
-			</div>
+			{data?.events?.location?.desc && (
+				<ContentFromCms>{data?.events?.location?.desc}</ContentFromCms>
+			)}
 		</section>
 	);
 }
