@@ -82,14 +82,16 @@ export default function EarlyCareersInsideWrap({
 					<TheApplicationProcess data={data.earlyCareers?.theApplicationProcess} />
 				</div>
 
-				<div className="ptb_100 dark_bg">
-					<AllVideos
-						title={data.earlyCareers?.careerSeries?.title}
-						desc={data.earlyCareers?.careerSeries?.sectionDesc}
-						redirectLink={data.earlyCareers?.careerSeries?.buttonLink}
-						iframe={data.earlyCareers?.careerSeries?.iframe}
-					/>
-				</div>
+				{data.earlyCareers?.careerSeries?.title && (
+					<div className="ptb_100 dark_bg">
+						<AllVideos
+							title={data.earlyCareers?.careerSeries?.title}
+							desc={data.earlyCareers?.careerSeries?.sectionDesc}
+							redirectLink={data.earlyCareers?.careerSeries?.buttonLink}
+							iframe={data.earlyCareers?.careerSeries?.iframe}
+						/>
+					</div>
+				)}
 				<div>
 					<SmarterEnergy
 						data={data?.earlyCareers?.expertise2}

@@ -44,11 +44,13 @@ export default function ServicesCircle({ data, customHtml, hideId }) {
 						<h3 className="text_xl color_white pb_20">
 							{data?.sectionTitle || data?.title}
 						</h3>
-						<div className="text_reg color_platinum_gray">
-							<ContentFromCms>
-								{data?.descripition || data?.desciption || data?.description}
-							</ContentFromCms>
-						</div>
+						{(data?.descripition || data?.desciption || data?.description) && (
+							<div className="text_reg color_platinum_gray">
+								<ContentFromCms>
+									{data?.descripition || data?.desciption || data?.description}
+								</ContentFromCms>
+							</div>
+						)}
 						{data?.buttonText && (
 							<div className="pt_40">
 								<a href={data?.buttonLink}>
