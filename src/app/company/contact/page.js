@@ -74,7 +74,7 @@ async function getData() {
 										/>
 										<div className={`${styles.countryImg}`}>
 											<img
-												src={item3?.offices?.thumbnail?.node?.mediaItemUrl}
+												src={item2?.featuredImage?.node?.mediaItemUrl}
 												className="width_100 b_r_10"
 												alt="img"
 											/>

@@ -12,6 +12,12 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           title
           slug
+             featuredImage {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
           countries {
             offices {
               offices(first: 999) {
