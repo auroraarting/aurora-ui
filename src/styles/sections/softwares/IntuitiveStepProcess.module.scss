@@ -1,89 +1,89 @@
 @import "../../helpers/helpers.scss";
 .IntuitiveStepProcess {
-	.StepProcessTxt{
-    width: 78%;
-    margin: 0 auto;
-    text-align: center;
-    @media (max-width: 1199px) {
-      width: 100%;
+	.StepProcessTxt {
+		width: 78%;
+		margin: 0 auto;
+		text-align: center;
+		@media (max-width: 1199px) {
+			width: 100%;
 		}
-  }
-  
-  .stepsSlider{
-    margin-left: calc(var(--container_left_space) + 15px);
-    .item{
-        padding: 40px 40px;
-        border-radius: 40px;
-        background-color: var(--color_gray);
-        transition:all 0.3s ease;
-        @media screen and (max-width: 767px) {
-          padding: 30px 20px;
-          border-radius: 20px;
-        }
-        .SliderItem {
-          .imgVideo{
-            width: 50%;
-            @media screen and (max-width: 767px) {
-              width: 100%;
-            }
-            img, video{
-              width: 100%;
-              height: 380px;
-              object-fit: cover;
-              object-position: center;
-              @media screen and (max-width: 991px) {
-                height: 300px;
-              }
-              @media screen and (max-width: 767px) {
-                height: 200px;
-              }
-            }
-          }
-          .Content{
-            width: 42%;
-            @media screen and (max-width: 767px) {
-              width: 100%;
-            }
-            .contentItem{
-              padding: 25px 0px;
-              border-bottom: 1px solid var(--color_dark_gray);
-              @media screen and (max-width: 767px) {
-                padding: 15px 0px;
-              }
-            }
-          }
-        }
-    }
-  }
-  :global(.swiper-horizontal){
-    padding-bottom: 100px;
-  }
-  :global(.swiper-pagination-horizontal){
-    bottom: 40px;
-    left: 50%;
-    width: max-content;
-    transform: translateX(-50%);
-    background-color: rgba(229, 229, 229, 0.5);
-    padding: 4px 5px;
-    border-radius: 50px;
-  }
-  :global(.swiper-pagination-bullet){
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    font-size: 14px;
-    font-family: var(--font_primary);
-    font-weight: 600;
-    color: var(--color_secondary);
-    opacity: 1;
-    background: #E5E5E5;
-    border: 2px solid #CECECE;
-    ;
-  }
-  
-  :global(.swiper-pagination-bullet-active) {
-    color: #fff;
-    background: #007aff;
-  }
+	}
+
+	.stepsSlider {
+		margin-left: calc(var(--container_left_space) + 15px);
+		.item {
+			padding: 40px 40px;
+			border-radius: 40px;
+			background-color: var(--color_gray);
+			transition: all 0.3s ease;
+			@media screen and (max-width: 767px) {
+				padding: 30px 20px;
+				border-radius: 20px;
+			}
+			.SliderItem {
+				.imgVideo {
+					width: 50%;
+					@media screen and (max-width: 767px) {
+						width: 100%;
+					}
+					img,
+					video {
+						width: 100%;
+						height: 380px;
+						object-fit: cover;
+						object-position: center;
+						@media screen and (max-width: 991px) {
+							height: 300px;
+						}
+						@media screen and (max-width: 767px) {
+							height: 200px;
+						}
+					}
+				}
+				.Content {
+					width: 42%;
+					@media screen and (max-width: 767px) {
+						width: 100%;
+					}
+					.contentItem {
+						padding: 25px 0px;
+						border-bottom: 1px solid var(--color_dark_gray);
+						@media screen and (max-width: 767px) {
+							padding: 15px 0px;
+						}
+					}
+				}
+			}
+		}
+	}
+	:global(.swiper-horizontal) {
+		padding-bottom: 100px;
+	}
+	:global(.swiper-pagination-horizontal) {
+		bottom: 40px !important;
+		left: 50% !important;
+		width: max-content !important;
+		transform: translateX(-50%) !important;
+		background-color: rgba(229, 229, 229, 0.5);
+		padding: 4px 5px;
+		border-radius: 50px;
+	}
+	:global(.swiper-pagination-bullet) {
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		font-size: 14px;
+		font-family: var(--font_primary);
+		font-weight: 600;
+		color: var(--color_secondary);
+		opacity: 1;
+		background: #e5e5e5;
+		border: 2px solid #cecece;
+	}
+
+	:global(.swiper-pagination-bullet-active) {
+		color: #fff;
+		background: #007aff;
+	}
 }
