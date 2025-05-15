@@ -42,10 +42,10 @@ export default function WhichProducts({ data }) {
 				if (!groupedBySlug[slug]) {
 					groupedBySlug[slug] = {
 						...node,
-						locationData: marker?.locationtitle || "",
+						locationData: undefined,
 						imgIcons:
 							marker?.category?.nodes?.[0]?.[
-								marker?.category?.nodes?.[0].contentType?.node?.name
+								marker?.category?.nodes?.[0]?.contentType?.node?.name
 							]?.map?.logo?.node?.mediaItemUrl,
 						children: (
 							<div className={`${styles.content_wrap}`}>
@@ -72,13 +72,13 @@ export default function WhichProducts({ data }) {
 				// 	locationTitle: marker.locationtitle,
 				// });
 
-				if (
-					marker.locationtitle &&
-					!groupedBySlug[slug].locationData.includes(marker.locationtitle)
-				) {
-					groupedBySlug[slug].locationData =
-						groupedBySlug[slug].locationData + " | " + marker.locationtitle;
-				}
+				// if (
+				// 	marker.locationtitle &&
+				// 	!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)
+				// ) {
+				// 	groupedBySlug[slug].locationData =
+				// 		groupedBySlug[slug].locationData + " | " + marker.locationtitle;
+				// }
 			});
 		});
 

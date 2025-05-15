@@ -33,7 +33,12 @@ import styles from "@/styles/pages/global-presence/Australia.module.scss";
 
 // SERVICES //
 /** Australia Page */
-export default function GlobalPresenceInsideWrap({ data, mapJson }) {
+export default function GlobalPresenceInsideWrap({
+	data,
+	mapJson,
+	insightsList,
+	countries,
+}) {
 	const dataForBtn = { postFields: data?.countries || {} };
 	console.log("data", dataForBtn);
 
@@ -139,6 +144,8 @@ export default function GlobalPresenceInsideWrap({ data, mapJson }) {
 								hideall
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
+								defaultList={insightsList}
+								countries={countries}
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionsButton").btntext
 								}

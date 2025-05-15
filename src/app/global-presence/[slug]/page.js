@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -23,6 +24,10 @@ import { getMapJsonForCountries } from "@/utils";
 // SERVICES //
 import { getCountryInside } from "@/services/GlobalPresence.service";
 import { getCountryInside as getCountryInsideWithLanguages } from "@/services/GlobalPresenceLanguages.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -66,6 +71,13 @@ async function getData({ params, query }) {
 		countryBy = data?.data?.countryBy;
 		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	}
+	const [insights, categoriesForSelect] = await Promise.all([
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
+		getInsightsCategories(),
+	]);
+	const insightsList = insights?.data?.posts?.nodes;
 
 	// Return 404 if no valid data
 	if (!countryBy) {
@@ -78,6 +90,8 @@ async function getData({ params, query }) {
 		props: {
 			data: countryBy,
 			mapJson,
+			insightsList,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
 		},
 	};
 }
