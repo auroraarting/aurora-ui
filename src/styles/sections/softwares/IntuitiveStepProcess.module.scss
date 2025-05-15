@@ -39,6 +39,9 @@
 							height: 200px;
 						}
 					}
+					video {
+						object-fit: contain;
+					}
 				}
 				.Content {
 					width: 42%;
