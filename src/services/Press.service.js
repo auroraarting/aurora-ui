@@ -443,6 +443,7 @@ query GetPressMediaKit {
           name
           designation
           title
+          country
           emails {
             text
           }

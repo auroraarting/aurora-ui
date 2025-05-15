@@ -294,6 +294,7 @@ query GetEventInside {
       location {
         address
         mapLink
+        desc
       }
       speakers {
         sectionDesc

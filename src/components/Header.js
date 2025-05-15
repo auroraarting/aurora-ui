@@ -152,7 +152,6 @@ export default function Header({ defaultNavigation }) {
 							<img src={dropdown_arrow.src} alt="arrow" />
 						</p>
 					</div>
-
 					<div className={`${styles.searchRight}`}>
 						<button
 							onClick={handleSearchClick}

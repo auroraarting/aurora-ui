@@ -35,6 +35,11 @@ export default function PressCoverage({ data }) {
 					{data?.list?.map((item) => {
 						return (
 							<div className={`${styles.mediaTeamBoxItem}`} key={item?.name}>
+								{item?.country && (
+									<h4 className="text_md color_white f_w_m font_primary ">
+										{item?.country}
+									</h4>
+								)}
 								{item?.name && (
 									<h4 className="text_reg color_white f_w_m font_primary ">
 										{item?.name}

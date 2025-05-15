@@ -179,7 +179,7 @@ export async function fetchNavigationData() {
       regionsFields {
         sequence
       }
-      countries(first: 9999) {
+      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}){
         nodes {
           slug
           title
