@@ -78,6 +78,12 @@ export async function searchData(searchTerm) {
       slug
     }
   }
+      webinars(first: 999, where: {search: "${searchTerm}"}) {
+    nodes {
+      slug
+      title
+    }
+  }
   offices(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       offices {
@@ -237,8 +243,6 @@ export async function searchData(searchTerm) {
 				return `/resources/aurora-insights/${item?.slug}`;
 			} else if (cat.includes("Media")) {
 				return `/company/press-releases/${item?.slug}`;
-			} else {
-				return `/resources/webinar/${item?.slug}`;
 			}
 		};
 		return { ...item, slug: href() };
@@ -249,6 +253,8 @@ export async function searchData(searchTerm) {
 	const whoareyous = data?.whoareyous.nodes;
 	const offices = data?.offices?.nodes;
 	const podcasts = data?.podcasts?.nodes;
+	const webinars = data.webinars.nodes;
+	console.log(webinars, "webinars");
 
 	// const about = data?.pages?.nodes?.[0]?.about;
 	// const eos = data?.pages?.nodes?.[0]?.eos;
@@ -267,6 +273,7 @@ export async function searchData(searchTerm) {
 		teams,
 		testimonials,
 		offices,
+		webinars,
 		// about,
 		// eos,
 		// globalPresence,

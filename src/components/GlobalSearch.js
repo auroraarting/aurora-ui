@@ -227,6 +227,13 @@ export default function GlobalSearch() {
 					)}`,
 					title: item.title,
 				};
+			case "webinars":
+				return {
+					link: `/resources/webinar/${item?.slug}?search=${encodeURIComponent(
+						searchTerm
+					)}`,
+					title: item.title,
+				};
 
 			default:
 				return {
