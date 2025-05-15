@@ -72,13 +72,17 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 							<SwiperSlide className={`${styles.item}`} key={ind}>
 								<div className={`${styles.SliderItem} f_w_j a_center`}>
 									<div className={`${styles.imgVideo}`}>
-										<img
-											src={
-												item?.image?.node?.mediaItemUrl || item?.video?.node?.mediaItemUrl
-											}
-											className={`${styles.steps_img}`}
-											alt="steps img"
-										/>
+										{item?.image?.node?.mediaItemUrl ? (
+											<img
+												src={item?.image?.node?.mediaItemUrl}
+												className={`${styles.steps_img}`}
+												alt="steps img"
+											/>
+										) : (
+											<video playsInline autoPlay muted loop>
+												<source src={item?.video?.node?.mediaItemUrl} type="video/mp4" />
+											</video>
+										)}
 										{/* <video playsInline autoPlay muted loop>
 									<source src="../../img/softwares/frame_video.mp4" type="video/mp4" />
 								</video> */}
