@@ -130,7 +130,9 @@ export default function EventsInsideWrap({
 					<Insights
 						allTag="Events"
 						insightsLink="/events/"
-						isPowerBgVisible={true}
+						isPowerBgVisible={
+							data?.events?.thumbnail?.status === "Past" ? false : true
+						}
 						isInsightsBlogsVisible={true}
 						defaultList={pastEvents}
 						countries={countries}
