@@ -161,6 +161,7 @@ query GetAbout {
         map {
           lat
           lng
+          mapUrl
         }
       }
       title

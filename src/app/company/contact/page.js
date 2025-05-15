@@ -35,6 +35,7 @@ import {
 	getRegions,
 } from "@/services/GlobalPresence.service";
 import { getOfficesByRegions } from "@/services/Offices.service";
+import { getContact } from "@/services/Contact.service";
 import IframeModal from "@/components/IframeModal";
 
 // DATA //
@@ -49,7 +50,7 @@ export const metadata = {
 async function getData() {
 	const [regions, page] = await Promise.all([
 		getOfficesByRegions(),
-		getGlobalPresencePage(),
+		getContact(),
 	]);
 
 	const regionsArr = regions.data.regions.nodes?.map((item) => {
@@ -61,6 +62,7 @@ async function getData() {
 					<div className={`${styles.CountryBox}`}>
 						{item?.countries?.nodes?.map((item2, ind2) => {
 							return item2?.countries?.offices?.offices?.nodes?.map((item3, ind3) => {
+								console.log(item3);
 								return (
 									<div className={`${styles.CountryItem}`} key={item2?.title}>
 										<img
@@ -81,21 +83,29 @@ async function getData() {
 											<h5 className="text_reg font_primary f_w_m color_secondary ">
 												{item2?.title}
 											</h5>
-											<Button color="secondary" variant="underline" size="xs">
-												View Map
-											</Button>
+											{item3?.offices?.map?.mapUrl && (
+												<a href={item3?.offices?.map?.mapUrl}>
+													<Button color="secondary" variant="underline" size="xs">
+														View Map
+													</Button>
+												</a>
+											)}
 										</div>
-										<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
-											<img src={location.src} className="" alt="img" />
-											<span>{item3?.offices?.contact?.address}</span>
-										</p>
-										<a
-											href={`tel:${item3?.offices?.contact?.tel}`}
-											className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-										>
-											<img src={call_icon.src} className="" alt="img" />
-											<span>{item3?.offices?.contact?.tel}</span>
-										</a>
+										{item3?.offices?.contact?.address && (
+											<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
+												<img src={location.src} className="" alt="img" />
+												<span>{item3?.offices?.contact?.address}</span>
+											</p>
+										)}
+										{item3?.offices?.contact?.tel && (
+											<a
+												href={`tel:${item3?.offices?.contact?.tel}`}
+												className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+											>
+												<img src={call_icon.src} className="" alt="img" />
+												<span>{item3?.offices?.contact?.tel}</span>
+											</a>
+										)}
 									</div>
 								);
 							});
@@ -108,14 +118,24 @@ async function getData() {
 	});
 
 	return {
-		props: { regions: regions.data.regions.nodes, regionsArr },
+		props: {
+			regions: regions.data.regions.nodes,
+			regionsArr,
+			page: page.data.page.contact,
+		},
 	};
 }
 
 /** Contact Page */
 export default async function ContactPage() {
 	const { props } = await getData();
-	const data = { regions: props.regions, regionsArr: props.regionsArr };
+	const data = {
+		regions: props.regions,
+		regionsArr: props.regionsArr,
+		page: props.page,
+	};
+
+	console.log(data);
 
 	return (
 		<div>
@@ -129,8 +149,8 @@ export default async function ContactPage() {
 			<main className={styles.ContactPage}>
 				<div className={`${styles.topBg} pb_100`}>
 					<InnerBanner
-						bannerTitle="Lorem ipsum dolor sit amet consectetur"
-						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
+						bannerTitle={data.page.banner.title}
+						bannerDescription={data.page.banner.description}
 						showContentOnly
 					/>
 
