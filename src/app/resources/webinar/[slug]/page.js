@@ -38,11 +38,12 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const data = await getInsightsInside(params.slug);
-	const post = data?.data?.postBy;
+	const data = await getWebinarInside(params.slug);
+	const post = data?.data?.webinar;
 
 	return {
 		title: post?.title || "Default Title",
@@ -68,19 +69,44 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, categoriesForSelect, list] = await Promise.all([
-		getInsightsInside(params.slug),
+		getWebinarInside(params.slug),
 		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "public-webinar,webinar,webinar-recording"}'
-		),
+		getWebinars("first: 4"),
 	]);
-	const otherList = list?.data?.posts?.nodes;
+	const pastWebinars = [];
+	const otherList = list?.data?.webinars?.nodes;
+	otherList?.map((item) => {
+		let categories = item?.eventCategories?.nodes;
+
+		item?.webinarsFields?.country?.nodes?.map((item) => {
+			categories.push({ ...item, name: item.title });
+		});
+		const tempObj = {
+			title: item?.title,
+			slug: item?.slug,
+			date: item?.webinarsFields?.startDateAndTime,
+			featuredImage: item?.featuredImage,
+			categories: {
+				nodes: categories,
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: item?.webinarTags,
+		};
+
+		if (item?.slug != params.slug) pastWebinars.push(tempObj);
+	});
 
 	return {
 		props: {
-			data: data.data.postBy,
+			data: data.data.webinar,
 			countries: categoriesForSelect.data.countries.nodes,
 			otherList,
+			pastWebinars,
 		},
 	};
 }
@@ -88,10 +114,8 @@ async function getData({ params }) {
 /** WebinarInside Page */
 export default async function WebinarInside({ params }) {
 	const { props } = await getData({ params });
-	const { data, countries, otherList } = props;
-	const isUpcoming = !data?.categories?.nodes?.some(
-		(item) => item.slug === "webinar-recording"
-	);
+	const { data, countries, otherList, pastWebinars } = props;
+	const dataForBtn = { postFields: data.webinarsFields || {} };
 
 	return (
 		<div>
@@ -145,23 +169,19 @@ export default async function WebinarInside({ params }) {
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
 				<div className={`${styles.topBg} pt_100 pb_60`}>
-					<WebinarInsideTopSection
-						data={data}
-						countries={countries}
-						isUpcoming={isUpcoming}
-					/>
+					<WebinarInsideTopSection data={data} countries={countries} />
 				</div>
 				<SectionsHeader
-					hideall={true}
+					// hideall={true}
 					customHtml={
-						dynamicInsightsBtnProps(data, "middleSectionButton").btntext && (
+						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
 							<div
-								{...dynamicInsightsBtnProps(data, "middleSectionButton")}
+								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 								key="btn"
 								to="Insights"
 							>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicInsightsBtnProps(data, "middleSectionButton").btntext}
+									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 								</Button>
 							</div>
 						)
@@ -177,12 +197,12 @@ export default async function WebinarInside({ params }) {
 										<ContentFromCms>{data?.content}</ContentFromCms>
 									</section>
 								)}
-								{data?.postFields?.sections?.map((item) => {
+								{data?.webinarsFields?.sections?.map((item) => {
 									return (
 										<section
-											key={item?.sectionTitle}
-											id={slugify(item?.sectionTitle)}
-											data-name={item?.sectionTitle}
+											key={item?.tabTitle}
+											id={slugify(item?.tabTitle)}
+											data-name={item?.tabTitle}
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
@@ -223,11 +243,11 @@ export default async function WebinarInside({ params }) {
 										</section>
 									);
 								})}
-								{!isUpcoming && (
-									<div className="pt_60">
-										<WebinarRecording data={data} />
-									</div>
-								)}
+								{/* {!isUpcoming && ( */}
+								<div className="pt_60">
+									<WebinarRecording data={data} />
+								</div>
+								{/* )} */}
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
 								<WebinarMiddleRight data={data} />
@@ -239,16 +259,59 @@ export default async function WebinarInside({ params }) {
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
-						defaultList={otherList}
+						defaultList={pastWebinars}
 						countries={countries}
-						formSectionTitle="Lorem ipsum dolor sit amet consectetur."
-						formSectionDesc='Please contact Duncan Young <a href="mailto:duncan.young@auroraer.com">duncan.young@auroraer.com</a>  for any queries.'
+						formSectionTitle={data?.webinarsFields?.insights?.sectionTitle}
+						formSectionDesc={data?.webinarsFields?.insights?.sectionDesc}
+						insightsLink="/resources/webinar/"
 						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
 						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
+					{/* <Insights
+						isPowerBgVisible={true}
+						isInsightsBlogsVisible={true}
+						defaultList={otherList}
+						countries={countries}
+						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
+						insightsTitle="Previous Podcast"
+						insightsLink="/resources/energy-talks/"
+						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						customHtml={
+							<div className={`${styles.downloadListen}`}>
+								<div className={`${styles.downloadBox} f_r_a_center`}>
+									{data?.podcastFields?.spotifyLink && (
+										<a href={data?.podcastFields?.spotifyLink}>
+											<img src={spotify.src} alt="spotify" />
+										</a>
+									)}
+									{data?.podcastFields?.appleLink && (
+										<a href={data?.podcastFields?.appleLink}>
+											<img src={apple.src} alt="apple" />
+										</a>
+									)}
+									{data?.podcastFields?.youtubeLink && (
+										<a href={data?.podcastFields?.youtubeLink}>
+											<img src={google.src} alt="google" />
+										</a>
+									)}
+									{data?.podcastFields?.googleLink && (
+										<a href={data?.podcastFields?.googleLink}>
+											<img src={googleVoice.src} alt="google" />
+										</a>
+									)}
+									{data?.podcastFields?.otherLink && (
+										<a href={data?.podcastFields?.otherLink}>
+											<img src={other_logo.src} alt="google" />
+										</a>
+									)}
+								</div>
+							</div>
+						}
+						allTag="Energy Talks"
+					/> */}
 				</div>
 
 				<IframeModal />

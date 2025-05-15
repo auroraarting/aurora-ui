@@ -29,3 +29,210 @@ query GetWebinarListing {
 	const res = await GraphQLAPI(query);
 	return res;
 };
+
+/** Fetch Webinar  Page */
+export const getWebinars = async (filters = "first: 9999") => {
+	const query = `
+query GetWebinars {
+  webinars(${filters}) {
+    nodes {
+      title
+      slug
+      featuredImage {
+      node {
+        altText
+        mediaItemUrl
+      }
+    }
+      webinarTags(first: 9999) {
+        nodes {
+          name
+          slug
+        }
+      }
+      eventCategories(first: 9999) {
+        nodes {
+          name
+          slug
+        }
+      }
+      webinarsFields {
+        country(first: 9999) {
+          nodes {
+            ... on Country {
+              id
+              title
+              slug
+            }
+          }
+        }
+        startDateAndTime
+        endDateAndTime
+        timezone
+        serviceBy(first: 99999) {
+          nodes {
+            contentType {
+              node {
+                name
+              }
+            }
+            slug
+            ... on Product {
+              id
+              slug
+              title
+            }
+            ... on Service {
+              id
+              title
+              slug
+            }
+            ... on Software {
+              id
+              title
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** Fetch Webinar  Page */
+export const getWebinarInside = async (slug) => {
+	const query = `
+query GetWebinarInside {
+  webinar(
+    id: "${slug}"
+    idType: SLUG
+  ) {
+    title
+    slug
+    webinarTags(first: 9999) {
+      nodes {
+        name
+        slug
+      }
+    }
+    eventCategories(first: 9999) {
+      nodes {
+        name
+        slug
+      }
+    }
+    webinarsFields {
+      country(first: 9999) {
+        nodes {
+          ... on Country {
+            id
+            title
+            slug
+          }
+        }
+      }
+      startDateAndTime
+      endDateAndTime
+      timezone
+      serviceBy(first: 99999) {
+        nodes {
+          contentType {
+            node {
+              name
+            }
+          }
+          slug
+          ... on Product {
+            id
+            slug
+            title
+          }
+          ... on Service {
+            id
+            title
+            slug
+          }
+          ... on Software {
+            id
+            title
+            slug
+          }
+        }
+      }
+      accessRecordingSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      sections {
+        content
+        tabTitle
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      speakers(first: 9999) {
+        nodes {
+          ... on PostSpeaker {
+            id
+            slug
+            title
+            postSpeakers {
+              thumbnail {
+                designation
+                linkedinLink
+                image {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    content
+    featuredImage {
+      node {
+        altText
+        mediaItemUrl
+      }
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};

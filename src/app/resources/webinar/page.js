@@ -24,7 +24,7 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import { getWebinarPage } from "@/services/Webinar.service";
+import { getWebinarPage, getWebinars } from "@/services/Webinar.service";
 
 // DATA //
 
@@ -36,39 +36,17 @@ export const metadata = {
 
 /** Fetch  getStaticProps*/
 async function getData() {
-	const queryTxt =
-		// eslint-disable-next-line quotes
-		'first:9999, where: { categoryName: "public-webinar,webinar,webinar-recording", dateQuery: {after: {year: 2023}}}';
 	const [data, categoriesForSelect, webinarpage] = await Promise.all([
-		getInsights(queryTxt),
+		getWebinars(),
 		getInsightsCategories(),
 		getWebinarPage(),
 	]);
 	let pastSpeakers = [];
 
-	data?.data?.posts?.nodes?.map((item) => {
-		item?.postFields?.speakers?.nodes?.map((item2) => {
-			pastSpeakers.push({
-				name: item2?.title,
-				designation: item2?.postSpeakers?.thumbnail?.designation,
-				desc: item2?.content || "",
-				thumbnail: item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl,
-				sessions: item2?.postSpeakers?.sessions?.map((item3) => {
-					return {
-						time: item3?.time,
-						topicName: item3?.title,
-						timeDateSession: item3?.timeSlot,
-						locationSession: item3?.address,
-					};
-				}),
-			});
-		});
-	});
-
 	return {
 		props: {
 			pagination: data.data?.posts?.pageInfo || {},
-			data: data?.data?.posts?.nodes || [],
+			data: data?.data?.webinars?.nodes || [],
 			tags: categoriesForSelect.data.tags.nodes,
 			categories: categoriesForSelect.data.categories.nodes,
 			countries: categoriesForSelect.data.countries.nodes,

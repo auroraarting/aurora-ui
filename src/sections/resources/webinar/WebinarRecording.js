@@ -9,6 +9,7 @@ import Button from "@/components/Buttons/Button";
 
 // UTILS //
 import { dynamicInsightsBtnProps } from "@/utils";
+import { formatWebinarDateTime } from "@/utils/Client";
 
 // STYLES //
 import styles from "@/styles/sections/resources/webinar/WebinarRecording.module.scss";
@@ -20,25 +21,41 @@ import recording_img from "@/../public/img/resources/webinar/recording_img.jpg";
 
 /** WebinarRecording Section */
 export default function WebinarRecording({ data }) {
-	const dataForBtn = { postFields: data.postFields || {} };
+	const dataForBtn = { postFields: data.webinarsFields || {} };
+	const { date, time, isUpcoming } = formatWebinarDateTime(
+		data.webinarsFields.startDateAndTime,
+		data.webinarsFields.endDateAndTime,
+		data.webinarsFields.timezone
+	);
+
+	if (isUpcoming) return <></>;
 
 	return (
-		<div className={`${styles.WebinarRecordingBox}`}>
-			<img src={recording_img.src} className="width_100 b_r_20" alt="img" />
-			<div className={`${styles.content}`}>
-				<h5 className="text_lg color_white f_w_s_b pb_30">
-					To view the webinar recording <br className="hidden_xs" />
-					please fill the form
-				</h5>
-				<div
-					className={`${styles.btnBox}`}
-					{...dynamicInsightsBtnProps(dataForBtn, "recordingSectionButton")}
-				>
-					<Button color="primary" variant="filled" shape="rounded" mode="dark">
-						Access Recording
-					</Button>
+		<div className="pt_60">
+			<section
+				id="recording"
+				data-name="Recording"
+				className={`${styles.WebinarRecordingBox}`}
+			>
+				<img src={recording_img.src} className="width_100 b_r_20" alt="img" />
+				<div className={`${styles.content}`}>
+					<h5 className="text_lg color_white f_w_s_b pb_30">
+						To view the webinar recording <br className="hidden_xs" />
+						please fill the form
+					</h5>
+					<div
+						className={`${styles.btnBox}`}
+						{...dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")}
+					>
+						<Button color="primary" variant="filled" shape="rounded" mode="dark">
+							{
+								dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")
+									?.btntext
+							}
+						</Button>
+					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	);
 }
