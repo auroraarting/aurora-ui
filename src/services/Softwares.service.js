@@ -220,6 +220,12 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
               mediaItemUrl
             }
           }
+            video {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
           processDetails {
             description
           }

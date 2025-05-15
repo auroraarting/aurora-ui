@@ -73,7 +73,9 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 								<div className={`${styles.SliderItem} f_w_j a_center`}>
 									<div className={`${styles.imgVideo}`}>
 										<img
-											src={item?.image?.node?.mediaItemUrl}
+											src={
+												item?.image?.node?.mediaItemUrl || item?.video?.node?.mediaItemUrl
+											}
 											className={`${styles.steps_img}`}
 											alt="steps img"
 										/>

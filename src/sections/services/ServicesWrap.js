@@ -73,7 +73,7 @@ export default function ServicesWrap({
 							data?.services?.banner?.desktopThumbnail?.node?.mediaItemUrl
 						}
 						mobileImage={data?.services?.banner?.mobileThumbnail?.node?.mediaItemUrl}
-						videoSrc={data?.services?.banner?.vimeoLink}
+						vimeoid={data?.services?.banner?.vimeoLink}
 						logo={data?.services?.banner?.logo?.node?.mediaItemUrl}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
