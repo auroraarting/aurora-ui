@@ -244,7 +244,7 @@ export async function fetchNavigationData() {
 	]);
 
 	const data = navdata?.data;
-	const webinar = webinardata.data.posts?.nodes;
+	const webinar = webinardata?.data?.posts?.nodes || [];
 
 	const softwares = data?.softwares?.nodes?.map((item) => {
 		return {
