@@ -143,8 +143,8 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">EOS Platform</h4>
-								<p className="text_reg color_silver_gray ">
+								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
+								<p className="text_reg color_silver_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
@@ -169,8 +169,8 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Software</h4>
-								<p className="text_reg color_silver_gray ">
+								<h4 className="text_md f_w_m color_secondary">Software</h4>
+								<p className="text_reg color_dark_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
@@ -203,8 +203,8 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Subscription Analytics</h4>
-								<p className="text_reg color_silver_gray ">
+								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
+								<p className="text_reg color_silver_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
@@ -237,8 +237,8 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Advisory</h4>
-								<p className="text_reg color_silver_gray ">
+								<h4 className="text_md f_w_m color_white">Advisory</h4>
+								<p className="text_reg color_silver_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights,
 									empowering energy professionals to make smarter, faster decisions.
 								</p>
