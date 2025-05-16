@@ -147,6 +147,7 @@ export default function Insights({
 									)}
 								</div>
 							)}
+
 							{isFormVisible && (
 								<div className={`${styles.formFlex} f_j`}>
 									<div className={`${styles.close}`} onClick={handleCloseForm}>

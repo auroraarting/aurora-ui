@@ -29,12 +29,18 @@ const services = [
 ];
 
 /** ServicesCircle Component */
-export default function ServicesCircle({ data, customHtml, hideId }) {
+export default function ServicesCircle({
+	data,
+	customHtml,
+	hideId,
+	customBtn,
+}) {
 	let obj = {};
 	if (!hideId) {
 		obj.id = "keyAdvantages";
 		obj["data-name"] = "Key Advantages";
 	}
+	console.log(customBtn, "customHtml");
 	if (!data?.advantages || !data) return <></>;
 	return (
 		<section className={`${styles.ServicesCircleSection} dark_bg `} {...obj}>
