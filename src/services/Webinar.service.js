@@ -197,6 +197,7 @@ query GetWebinarInside {
         buttonText
         iframe
         thumbtext
+        url
         file {
           node {
             altText
@@ -217,6 +218,7 @@ query GetWebinarInside {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -231,6 +233,7 @@ query GetWebinarInside {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
