@@ -252,19 +252,20 @@
 			.searchInput {
 				position: absolute;
 				right: 0px;
-				top: -2px;
+				top: -3px;
 				width: 100%;
-				border: 1px solid var(--color_dark_gray);
-				background-color: var(--color_gray);
+				border: 1px solid var(--color_platinum_gray);
+				background-color: var(--color_white);
 				border-radius: 50px;
 				padding: 10px 20px;
 				transition: 0.5s all;
+				form {
+					width: 100%;
+					flex: 1;
+				}
 				@media screen and (max-width: 767px) {
 					top: inherit;
 					bottom: 0px;
-				}
-				form {
-					width: 100%;
 				}
 				input {
 					width: 100%;
@@ -273,10 +274,9 @@
 					line-height: 1.4;
 					font-weight: 400;
 					font-family: var(--font_primary);
-					color: var(--color_silver_gray);
-					background-color: var(--color_gray);
+					color: var(--color_dark_gray);
 					&::placeholder {
-						color: var(--color_silver_gray);
+						color: var(--color_dark_gray);
 					}
 					&:focus-visible {
 						outline: none;
@@ -284,11 +284,13 @@
 				}
 				span {
 					cursor: pointer;
-					// width: 64px;
-
+					// width: 55px;
+					@media screen and (max-width: 767px) {
+						top: inherit;
+						width: 60px;
+					}
 					img {
 						margin-right: 10px;
-						filter: invert(1);
 					}
 					.closeBox {
 						width: 26px;
