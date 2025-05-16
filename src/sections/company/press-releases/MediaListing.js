@@ -116,8 +116,6 @@ export default function MediaListing({
 
 		if (key === "search") {
 			selectedObj.search = catName;
-			window.location.href = `/company/press-releases?search=${catName}`;
-			return;
 		}
 		if (key === "eventType") {
 			selectedObj.type = catName;
@@ -141,6 +139,7 @@ export default function MediaListing({
 			selectedObj.language = catName;
 		}
 		const filteredArr = filterItems(arr, selectedObj);
+		console.log(filteredArr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
@@ -374,7 +373,7 @@ export default function MediaListing({
 							onClick={toggleSearchInput}
 						>
 							<div className={`${styles.searchBox} f_r_aj_between`}>
-								<p className="text_sm text_500">Search</p>
+								<p className="text_sm text_500">{selected?.search || "Search"}</p>
 								<span>
 									<img src={searchImg.src} alt="icon" />
 								</span>

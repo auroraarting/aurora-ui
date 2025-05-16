@@ -828,28 +828,34 @@ export function filterItemsBySelectedObjForPress(arr, selectedObj) {
 			match: (node, value) => node.title === value,
 		},
 		{
-			key: "search",
-			getNodes: (item) => item.presses?.tags,
-			match: (node, value) => node.text === value,
-		},
-		{
 			key: "language",
 			match: (item, value) => item.language?.native_name === value,
 		},
 	];
 
-	return filters.reduce((filteredArr, { key, getNodes, match }) => {
+	// Step 1: Apply filters (year, product, software, service, language)
+	let filteredArr = filters.reduce((acc, { key, getNodes, match }) => {
 		const value = selectedObj[key];
-		if (!value) return filteredArr;
+		if (!value) return acc;
 
-		return filteredArr.filter((item) => {
+		return acc.filter((item) => {
 			if (getNodes) {
 				const nodes = getNodes(item) || [];
-				return nodes?.some((node) => match(node, value));
+				return nodes?.some((node) => node && match(node, value));
 			}
 			return match(item, value);
 		});
 	}, arr);
+
+	// Step 2: Apply search filter by title (case-insensitive)
+	if (selectedObj.search) {
+		const searchValue = selectedObj.search.toLowerCase();
+		filteredArr = filteredArr.filter((item) =>
+			item.title?.toLowerCase().includes(searchValue)
+		);
+	}
+
+	return filteredArr;
 }
 
 /** filterItemsBySelectedObj  */
@@ -862,23 +868,31 @@ export function filterItemsBySelectedObjForCareers(arr, selectedObj) {
 		},
 		{
 			key: "country",
-			getNodes: (item) => [item.earlyCareers.thumbnail.country.node],
-			match: (node, value) => node.title === value,
+			getNodes: (item) => [item.earlyCareers?.thumbnail?.country?.node],
+			match: (node, value) => node?.title === value,
 		},
 	];
 
-	return filters.reduce((filteredArr, { key, getNodes, match }) => {
+	// Step 1: Apply program/country filters
+	let filteredArr = filters.reduce((acc, { key, getNodes, match }) => {
 		const value = selectedObj[key];
-		if (!value) return filteredArr;
+		if (!value) return acc;
 
-		return filteredArr.filter((item) => {
-			if (getNodes) {
-				const nodes = getNodes(item) || [];
-				return nodes?.some((node) => match(node, value));
-			}
-			return match(item, value);
+		return acc.filter((item) => {
+			const nodes = getNodes(item) || [];
+			return nodes?.some((node) => node && match(node, value));
 		});
 	}, arr);
+
+	// Step 2: Apply search filter by title
+	if (selectedObj.search) {
+		const searchValue = selectedObj.search.toLowerCase();
+		filteredArr = filteredArr.filter((item) =>
+			item.title?.toLowerCase().includes(searchValue)
+		);
+	}
+
+	return filteredArr;
 }
 
 /** slugify  */
