@@ -1182,7 +1182,7 @@ export default function Header({ defaultNavigation }) {
 											>
 												<ul>
 													{item?.countries?.nodes?.map((country, index) => {
-														if (country?.countries?.hideonglobalpresence) return <></>;
+														if (country?.countries?.hideonglobalpresence) return null;
 														return (
 															<li key={index} className="text_xs color_platinum_gray">
 																<a href={`/global-presence/${country.slug}`}>
