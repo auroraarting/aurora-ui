@@ -70,6 +70,17 @@ export default function WebinarInsideTopSection({
 									))}
 								</p>
 							)}
+							{data?.webinarsFields?.venue && (
+								<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
+									<img
+										src={location.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>{data?.webinarsFields?.venue}</span>
+								</p>
+							)}
+
 							{/* <p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
 								<img src={share.src} className={`${styles.calender}`} alt="calender" />
 							</p> */}

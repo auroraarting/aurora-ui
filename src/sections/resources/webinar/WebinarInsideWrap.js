@@ -46,6 +46,7 @@ export default function WebinarInsideWrap({
 	otherList,
 	pastWebinars,
 }) {
+	console.log(data, "data");
 	const dataForBtn = { postFields: data.webinarsFields || {} };
 
 	return (
