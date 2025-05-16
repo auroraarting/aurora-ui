@@ -18,6 +18,7 @@ import IframeModal from "@/components/IframeModal";
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
 import WebinarMiddleRight from "@/sections/resources/webinar/WebinarMiddleRight";
 import WebinarRecording from "@/sections/resources/webinar/WebinarRecording";
+import WebinarInsideWrap from "@/sections/resources/webinar/WebinarInsideWrap";
 
 // PLUGINS //
 
@@ -115,18 +116,16 @@ async function getData({ params }) {
 /** WebinarInside Page */
 export default async function WebinarInside({ params }) {
 	const { props } = await getData({ params });
-	const { data, countries, otherList, pastWebinars } = props;
-	const dataForBtn = { postFields: data.webinarsFields || {} };
 
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/webinar/${data?.slug}`}
-			/>
+			/> */}
 
 			<Script id="show-banner" strategy="afterInteractive">
 				{`
@@ -168,157 +167,7 @@ export default async function WebinarInside({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg}  pb_60`}>
-					{/* <Breadcrumbs /> */}
-					<WebinarInsideTopSection data={data} countries={countries} />
-				</div>
-				<SectionsHeader
-					// hideall={true}
-					customHtml={
-						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
-							<div
-								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-								key="btn"
-								to="Insights"
-							>
-								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
-								</Button>
-							</div>
-						)
-					}
-				/>
-				<section className={`${styles.mediaMiddle} pt_80`}>
-					<div className="container">
-						<div className={`${styles.mediaMiddleFlex} f_j`}>
-							<div className={`${styles.mediaMiddleLeft}`}>
-								{/* <WebinarMiddleDescription /> */}
-								{data?.content && (
-									<section id="overview" data-name="Overview">
-										<ContentFromCms>{data?.content}</ContentFromCms>
-									</section>
-								)}
-								{data?.webinarsFields?.sections?.map((item) => {
-									return (
-										<section
-											key={item?.tabTitle}
-											id={slugify(item?.tabTitle)}
-											data-name={item?.tabTitle}
-										>
-											<ContentFromCms>{item?.content}</ContentFromCms>
-											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
-													src={item?.lottie?.node?.mediaItemUrl}
-													autoplay={true}
-													loop={true}
-													renderer="svg"
-													renderersettings={{
-														preserveAspectRatio: "xMidYMid meet",
-													}}
-												/>
-											)}
-											<div className="cmsButtonsWrap">
-												{item?.buttons?.map((btnItem) => {
-													const dataForBtn = {
-														postFields: { btnItem: btnItem } || {},
-													};
-													console.log(
-														dynamicInsightsBtnProps(dataForBtn, "btnItem"),
-														"dataForBtn"
-													);
-
-													return (
-														<div
-															{...dynamicInsightsBtnProps(dataForBtn, "btnItem")}
-															key="btn"
-															to="Insights"
-															className="cmsbuttons"
-														>
-															<Button color="primary" variant="filled" shape="rounded">
-																{dynamicInsightsBtnProps(dataForBtn, "btnItem").btntext}
-															</Button>
-														</div>
-													);
-												})}
-											</div>
-										</section>
-									);
-								})}
-								{/* {!isUpcoming && ( */}
-								<div className="pt_60">
-									<WebinarRecording data={data} />
-								</div>
-								{/* )} */}
-							</div>
-							<div className={`${styles.mediaMiddleRight}`}>
-								<WebinarMiddleRight data={data} />
-							</div>
-						</div>
-					</div>
-				</section>
-				<div className="ptb_100">
-					<Insights
-						isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={pastWebinars}
-						countries={countries}
-						formSectionTitle={data?.webinarsFields?.insights?.sectionTitle}
-						formSectionDesc={data?.webinarsFields?.insights?.sectionDesc}
-						insightsLink="/resources/webinar/"
-						formSectionBtnText={
-							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
-						}
-						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
-					/>
-					{/* <Insights
-						isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={otherList}
-						countries={countries}
-						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
-						insightsTitle="Previous Podcast"
-						insightsLink="/resources/energy-talks/"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
-						customHtml={
-							<div className={`${styles.downloadListen}`}>
-								<div className={`${styles.downloadBox} f_r_a_center`}>
-									{data?.podcastFields?.spotifyLink && (
-										<a href={data?.podcastFields?.spotifyLink}>
-											<img src={spotify.src} alt="spotify" />
-										</a>
-									)}
-									{data?.podcastFields?.appleLink && (
-										<a href={data?.podcastFields?.appleLink}>
-											<img src={apple.src} alt="apple" />
-										</a>
-									)}
-									{data?.podcastFields?.youtubeLink && (
-										<a href={data?.podcastFields?.youtubeLink}>
-											<img src={google.src} alt="google" />
-										</a>
-									)}
-									{data?.podcastFields?.googleLink && (
-										<a href={data?.podcastFields?.googleLink}>
-											<img src={googleVoice.src} alt="google" />
-										</a>
-									)}
-									{data?.podcastFields?.otherLink && (
-										<a href={data?.podcastFields?.otherLink}>
-											<img src={other_logo.src} alt="google" />
-										</a>
-									)}
-								</div>
-							</div>
-						}
-						allTag="Energy Talks"
-					/> */}
-				</div>
-
-				<IframeModal />
-			</main>
-			<IframeModal />
+			<WebinarInsideWrap {...props} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
