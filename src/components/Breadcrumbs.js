@@ -23,7 +23,7 @@ import styles from "@/styles/components/Breadcrumbs.module.scss";
 // SERVICES //
 
 /** Breadcrumbs  */
-export default function Breadcrumbs({ customPage }) {
+export default function Breadcrumbs({ customPage, className = "" }) {
 	const pathname = usePathname();
 	const segments = pathname.split("/").filter(Boolean);
 
@@ -49,8 +49,14 @@ export default function Breadcrumbs({ customPage }) {
 		];
 	}
 
+	// Add a condition to apply an extra class
+	const isSpecialPage = ["webinar", "/articles"].some((item) =>
+		item.includes(pathname)
+	);
+	if (isSpecialPage) return <></>;
+
 	return (
-		<div className={`${styles.Breadcrumbs} pt_20`}>
+		<div className={`Breadcrumbs ${styles.Breadcrumbs} ${className}`}>
 			<div className="container">
 				<nav
 					aria-label="Breadcrumb"

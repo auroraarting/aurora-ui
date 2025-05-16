@@ -44,6 +44,7 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
@@ -108,7 +109,8 @@ export default function EnergyTalkInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.EnergyInsidePage}>
-				<div className="pt_100 pb_40">
+				{/* <Breadcrumbs /> */}
+				<div className="pt_50 pb_40">
 					<EnergyInsideTopSection data={data} />
 				</div>
 				<SectionsHeader

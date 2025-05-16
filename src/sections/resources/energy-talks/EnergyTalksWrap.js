@@ -33,6 +33,7 @@ import spotify from "/public/img/energy_talks/spotify.svg";
 import apple from "/public/img/energy_talks/apple.svg";
 import google from "/public/img/energy_talks/google.svg";
 import calender from "/public/img/icons/calender.svg";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
@@ -66,6 +67,7 @@ export default function EnergyTalksWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.EnergyPage}>
+				{/* <Breadcrumbs /> */}
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
 						bannerTitle={energyTalksPage?.banner?.title}
