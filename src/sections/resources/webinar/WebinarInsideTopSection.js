@@ -42,7 +42,7 @@ export default function WebinarInsideTopSection({
 							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 						>
 							{isUpcoming ? "Upcoming: " : "Completed: "}
-							{data?.eventCategories?.nodes?.map((item) => item?.name)}
+							{data?.eventCategories?.nodes?.map((item) => item?.name)} Webinar
 						</div>
 						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
 							{data?.title}

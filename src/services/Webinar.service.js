@@ -166,7 +166,14 @@ query GetWebinarInside {
       accessRecordingSectionButton {
         buttonText
         iframe
+        thumbtext
         file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+          thumb {
           node {
             altText
             mediaItemUrl

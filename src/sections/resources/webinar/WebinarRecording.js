@@ -16,19 +16,18 @@ import styles from "@/styles/sections/resources/webinar/WebinarRecording.module.
 
 // IMAGES //
 import recording_img from "@/../public/img/resources/webinar/recording_img.jpg";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
 /** WebinarRecording Section */
 export default function WebinarRecording({ data }) {
 	const dataForBtn = { postFields: data.webinarsFields || {} };
-	const { date, time, isUpcoming } = formatWebinarDateTime(
-		data.webinarsFields.startDateAndTime,
-		data.webinarsFields.endDateAndTime,
-		data.webinarsFields.timezone
-	);
 
-	if (isUpcoming) return <></>;
+	if (
+		!dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")?.btntext
+	)
+		return <></>;
 
 	return (
 		<div className="pt_60">
@@ -37,12 +36,25 @@ export default function WebinarRecording({ data }) {
 				data-name="Recording"
 				className={`${styles.WebinarRecordingBox}`}
 			>
-				<img src={recording_img.src} className="width_100 b_r_20" alt="img" />
+				{data.webinarsFields?.accessRecordingSectionButton?.thumb?.node
+					?.mediaItemUrl && (
+					<img
+						src={
+							data.webinarsFields?.accessRecordingSectionButton?.thumb?.node
+								?.mediaItemUrl
+						}
+						className="width_100 b_r_20"
+						alt="img"
+					/>
+				)}
 				<div className={`${styles.content}`}>
-					<h5 className="text_lg color_white f_w_s_b pb_30">
-						To view the webinar recording <br className="hidden_xs" />
-						please fill the form
-					</h5>
+					{data.webinarsFields.accessRecordingSectionButton.thumbtext && (
+						<h5 className="text_lg color_white f_w_s_b pb_30">
+							<ContentFromCms>
+								{data.webinarsFields.accessRecordingSectionButton.thumbtext}
+							</ContentFromCms>
+						</h5>
+					)}
 					<div
 						className={`${styles.btnBox}`}
 						{...dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")}
