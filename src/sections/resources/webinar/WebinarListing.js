@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 // UTILS //
 import formatDate, {
 	allCategories,
+	filterBySearchQuery,
+	filterBySearchQueryWebinar,
 	filterItems,
 	filterItemsForWebinar,
 	isCategory,
@@ -192,6 +194,15 @@ export default function WebinarListing({
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
+
+	useEffect(() => {
+		if (search) {
+			const filtered = filterBySearchQueryWebinar(data, search);
+			setList(filtered);
+			setPaginationArr(filtered);
+			setOriginal(filtered);
+		}
+	}, [search]);
 
 	return (
 		<section className={styles.WebinarListing}>
