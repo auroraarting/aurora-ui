@@ -108,7 +108,7 @@ async function getData({ params }) {
 			data: data.data.webinar,
 			countries: categoriesForSelect.data.countries.nodes,
 			otherList,
-			pastWebinars,
+			pastWebinars: pastWebinars.slice(0, 3),
 		},
 	};
 }

@@ -1,6 +1,11 @@
 @import "../helpers/helpers.scss";
 
 .Insights {
+	.desc {
+		a {
+			color: var(--color_silver_gray);
+		}
+	}
 	.insightsBg {
 		backdrop-filter: blur(32px);
 		border-radius: 40px;

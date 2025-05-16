@@ -89,20 +89,22 @@ export default function GlobalPresenceInsideWrap({
 					hideId
 					data={data.countries.keyAdvantages}
 					customHtml={
-						dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
-							.btnText && (
-							<div
-								{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
-								className="pt_40"
-							>
-								<Button color="primary" variant="filled" shape="rounded">
-									{
-										dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
-											.btnText
-									}
-								</Button>
-							</div>
-						)
+						<>
+							{dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
+								.btntext && (
+								<div
+									{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
+									className="pt_40"
+								>
+									<Button color="primary" variant="filled" shape="rounded">
+										{
+											dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
+												.btntext
+										}
+									</Button>
+								</div>
+							)}
+						</>
 					}
 				/>
 				<div className="ptb_100">
@@ -110,16 +112,19 @@ export default function GlobalPresenceInsideWrap({
 						sectionTitle="Energy intelligence across every key market"
 						mapJson={mapJson}
 						customHtml={
-							dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
-								.btnText && (
+							dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
+								.btntext && (
 								<div
-									{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
+									{...dynamicInsightsBtnProps(
+										dataForBtn,
+										"availableRegionsSectionsButton"
+									)}
 									className=""
 								>
 									<Button color="primary" variant="filled" shape="rounded">
 										{
-											dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
-												.btnText
+											dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
+												.btntext
 										}
 									</Button>
 								</div>

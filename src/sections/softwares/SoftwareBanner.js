@@ -121,7 +121,7 @@ export default function SoftwareBanner({
 						) : (
 							<div {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicBtn.btnText}
+									{dynamicBtn.btntext}
 								</Button>
 							</div>
 						)}

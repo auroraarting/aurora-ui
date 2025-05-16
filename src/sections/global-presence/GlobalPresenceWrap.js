@@ -58,9 +58,7 @@ export default function GlobalPresenceWrap({
 						showContentOnly
 					/>
 
-					<GlobalMap locationJson={mapJson} marqueeText={data.page.mapMarquee} />
-
-					<section className={`${styles.CountryMain} ptb_100`}>
+					<section className={`${styles.CountryMain} pb_100`}>
 						<div className="container">
 							<div className={`${styles.accordian_main}`}>
 								{data.regionsArr && (
@@ -75,6 +73,8 @@ export default function GlobalPresenceWrap({
 							</div>
 						</div>
 					</section>
+
+					<GlobalMap locationJson={mapJson} marqueeText={data.page.mapMarquee} />
 
 					<div className={`${styles.insightBg} ptb_80`}>
 						<div className={`${styles.boxBg}`}></div>

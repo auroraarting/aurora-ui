@@ -127,7 +127,7 @@ export default function Insights({
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
 											{formSectionTitle}
 										</h2>
-										<div className="text_reg color_silver_gray">
+										<div className={`${styles.desc} text_reg color_silver_gray`}>
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</div>
 									</div>
@@ -147,6 +147,7 @@ export default function Insights({
 									)}
 								</div>
 							)}
+
 							{isFormVisible && (
 								<div className={`${styles.formFlex} f_j`}>
 									<div className={`${styles.close}`} onClick={handleCloseForm}>
@@ -156,7 +157,7 @@ export default function Insights({
 										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
 											{formSectionTitle}
 										</h2>
-										<div className="text_reg color_silver_gray">
+										<div className={`${styles.desc} text_reg color_silver_gray`}>
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</div>
 									</div>
