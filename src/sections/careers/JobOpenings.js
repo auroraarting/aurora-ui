@@ -160,7 +160,7 @@ export default function JobOpenings({
 													<div
 														className={`${styles.select_header} select_bg text_sm text_500`}
 													>
-														{dropdowns.eventNameType.selected.title || "Country"}
+														{dropdowns.eventNameType.selected.title || "Regions/State"}
 														<img src={dropdown_arrow.src} alt="icon" />
 													</div>
 												</div>
@@ -280,7 +280,7 @@ export default function JobOpenings({
 								</td>
 								<td className="text_xxs color_light_gray text_uppercase">
 									{/* Singapore */}
-									Country
+									Regions/State
 								</td>
 								<td className="text_xxs color_light_gray text_uppercase">
 									{/* Advisory */}
