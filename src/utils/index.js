@@ -658,6 +658,19 @@ export const filterBySearchQuery = (items, searchQuery) => {
 	});
 };
 
+/** filterBySearchQuery */
+export const filterBySearchQueryWebinar = (items, searchQuery) => {
+	if (!searchQuery) return items;
+
+	const lowerSearch = searchQuery.toLowerCase();
+
+	return items.filter((item) => {
+		const tagNames =
+			item.webinarTags?.nodes?.map((tag) => tag.name.toLowerCase()) || [];
+		return tagNames.some((tag) => tag.includes(lowerSearch));
+	});
+};
+
 /** OpenIframePopup  */
 export const OpenIframePopup = (modalClassName, iframeLink) => {
 	openModal(modalClassName);
