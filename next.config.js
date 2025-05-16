@@ -2,6 +2,8 @@
 const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
+	poweredByHeader: false,
+	productionBrowserSourceMaps: false,
 	images: {
 		domains: [
 			"img.youtube.com",

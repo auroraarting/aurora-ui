@@ -34,6 +34,7 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getWebinarPage } from "@/services/Webinar.service";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
@@ -63,6 +64,7 @@ export default function WebinarTalksWrap({
 			{/* Page Content starts here */}
 			<main className={styles.WebinarPage}>
 				<div className={`${styles.topBg}`}>
+					<Breadcrumbs />
 					<InnerBanner
 						bannerTitle={webinarpage?.banner?.title}
 						bannerDescription={webinarpage?.banner?.desc}

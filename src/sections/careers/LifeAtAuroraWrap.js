@@ -26,10 +26,10 @@ import Counter from "@/sections/careers/Counter";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/careers/LifeAtAurora.module.scss";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // IMAGES //
 
@@ -107,17 +107,22 @@ export default function LifeAtAuroraWrap({
 				</div>
 				{data?.keyAdvantages && (
 					<div>
-						<SmarterEnergy data={data?.keyAdvantages} />
+						<SmarterEnergy data={data?.keyAdvantages} sectionName="Our Culture" />
 					</div>
 				)}
 				<div className="pt_60">
-					<TeamAurora defaultData={data?.teamAurora?.teams} />
+					<TeamAurora
+						defaultData={data?.teamAurora?.teams}
+						id="Our-Teams"
+						sectionName="Our Teams"
+					/>
 				</div>
 				{mapJson && (
 					<div className="dark_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.globalMap?.marqueetext}
+							sectionName="Global Presence"
 						/>
 					</div>
 				)}

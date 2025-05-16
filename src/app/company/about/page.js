@@ -36,6 +36,7 @@ import { getLifeAtAurora } from "@/services/Careers.service";
 import { getAboutPage } from "@/services/About.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 /** Meta Data */
 export const metadata = {
@@ -106,6 +107,7 @@ export default async function About() {
 
 			{/* Page Content starts here */}
 			<main className={styles.AboutPage}>
+				{/* <Breadcrumbs /> */}
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
 						bannerTitle={data?.banner?.title}

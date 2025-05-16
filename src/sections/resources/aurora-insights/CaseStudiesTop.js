@@ -42,7 +42,7 @@ export default function CaseStudiesTop({ data }) {
 	};
 
 	return (
-		<section className={`${styles.CaseStudiesTop} pt_100`}>
+		<section className={`${styles.CaseStudiesTop} pt_50`}>
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
