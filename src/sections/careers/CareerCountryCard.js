@@ -192,7 +192,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 							</div>
 						</div>
 
-						{/* Language Dropdown */}
+						{/* Country Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
 							<div className={styles.custom_select}>
 								<div
@@ -205,12 +205,20 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<div
 										className={`${styles.select_header} select_bg text_sm color_silver_gray text_500`}
 									>
-										{dropdowns.countryType.selected.title}
+										{dropdowns.countryType.selected.title || "Country"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
 										{optionsData.countryType.map((option) => (
 											<li
 												key={option.title}
