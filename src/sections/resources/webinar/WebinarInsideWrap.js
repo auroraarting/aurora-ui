@@ -247,9 +247,9 @@ export default function WebinarInsideWrap({
 					/> */}
 				</div>
 
-				<IframeModal />
+				<IframeModal hideLeft />
 			</main>
-			<IframeModal />
+
 			{/* Page Content ends here */}
 
 			{/* Footer */}
