@@ -512,11 +512,14 @@ export default function Footer({ defaultNavigation }) {
 											} `}
 										>
 											<ul>
-												{item?.countries?.nodes?.map((country, index) => (
-													<li key={index} className="text_xs color_platinum_gray">
-														<a href={`/global-presence/${country.slug}`}>{country?.title}</a>
-													</li>
-												))}
+												{item?.countries?.nodes?.map((country, index) => {
+													if (country?.countries?.hideonglobalpresence) return <></>;
+													return (
+														<li key={index} className="text_xs color_platinum_gray">
+															<a href={`/global-presence/${country.slug}`}>{country?.title}</a>
+														</li>
+													);
+												})}
 												{/* <li className="text_xs color_platinum_gray">India</li>
 													<li className="text_xs color_platinum_gray">Japan</li>
 													<li className="text_xs color_platinum_gray">Korea</li>

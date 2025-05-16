@@ -39,6 +39,7 @@ import {
 } from "@/services/Insights.service";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -168,7 +169,8 @@ export default async function WebinarInside({ params }) {
 
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg} pt_100 pb_60`}>
+				<div className={`${styles.topBg}  pb_60`}>
+					{/* <Breadcrumbs /> */}
 					<WebinarInsideTopSection data={data} countries={countries} />
 				</div>
 				<SectionsHeader

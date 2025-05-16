@@ -9,12 +9,13 @@ export const getRegions = async () => {
     nodes {
       name
       slug
-      countries {
+      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           content
           slug
           title
           countries {
+            hideonglobalpresence
             map {
               zoom
               countryPin {
@@ -142,6 +143,7 @@ query GetCountryInside {
     slug
     title
     countries {
+    hideonglobalpresence
       bannerSection {
         description
         title

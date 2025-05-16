@@ -183,6 +183,9 @@ export async function fetchNavigationData() {
         nodes {
           slug
           title
+          countries{
+          hideonglobalpresence
+          }
         }
       }
     }

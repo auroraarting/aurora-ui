@@ -11,6 +11,7 @@ import Map from "@/components/MapContainer";
 import Marquee from "react-fast-marquee";
 
 // UTILS //
+import { slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/MapContainer.module.scss";
@@ -24,6 +25,7 @@ export default function GlobalMap({
 	locationJson,
 	marqueeText = " Energy intelligence across every key market",
 	className,
+	sectionName = "Available Regions",
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
@@ -34,8 +36,8 @@ export default function GlobalMap({
 	return (
 		<section
 			className={`${styles.globalMap} section_spacing ${className}`}
-			id="availableregions"
-			data-name="Available Regions"
+			id={slugify(sectionName)}
+			data-name={sectionName}
 		>
 			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 			{/* <div className="container"> */}

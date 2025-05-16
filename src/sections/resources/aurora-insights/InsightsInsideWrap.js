@@ -15,6 +15,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
@@ -105,6 +106,7 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 
 			{/* Page Content starts here */}
 			<main className={styles.articlesPage}>
+				{/* <Breadcrumbs /> */}
 				<div className="pb_60">
 					<CaseStudiesTop
 						data={data}

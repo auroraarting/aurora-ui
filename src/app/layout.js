@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import HighlightSearched from "@/components/HighlightSearched";
 import "@/styles/globals/globals.scss";
 import { fetchNavigationData } from "@/services/Navigation.service";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 /** Meta Data */
 export const metadata = {
@@ -27,6 +28,7 @@ export default async function RootLayout({ children }) {
 					{/* Header */}
 					<Header defaultNavigation={navigation} />
 					<HighlightSearched />
+					{/* <Breadcrumbs /> */}
 					{children}
 					{/* Footer */}
 					<Footer defaultNavigation={navigation} />

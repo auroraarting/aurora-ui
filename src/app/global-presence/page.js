@@ -54,12 +54,16 @@ async function getData() {
 				<div className={`${styles.CountryWrapper}`}>
 					<div className={`${styles.CountryBox}`}>
 						{item.countries?.nodes?.map((item2) => {
+							if (item2?.countries?.hideonglobalpresence) return <></>;
 							return (
 								<div className={`${styles.CountryItem}`} key={item2.slug}>
 									<a href={`/global-presence/${item2.slug}`}>
 										<img
-											src={item2?.featuredImage?.node?.mediaItemUrl}
-											className="width_100 b_r_10"
+											src={
+												item2?.featuredImage?.node?.mediaItemUrl ||
+												item2?.countries?.bannerSection?.image?.node?.mediaItemUrl
+											}
+											className={`width_100 b_r_10 ${styles.image}`}
 											alt="img"
 										/>
 										<div className="f_j a_center pt_10">

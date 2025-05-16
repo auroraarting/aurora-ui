@@ -97,7 +97,6 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 
 		if (key === "search") {
 			selectedObj.search = catName;
-			window.location.href = `/careers/early-careers?search=${catName}`;
 			return;
 		}
 		if (key === "programsType") {
