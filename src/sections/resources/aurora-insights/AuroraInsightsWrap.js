@@ -59,7 +59,7 @@ export default function AuroraInsightsWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.AuroraInsightsPage}>
-				<Breadcrumbs />
+				{/* <Breadcrumbs /> */}
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
 						bannerTitle={insightsPage?.banner?.title}
