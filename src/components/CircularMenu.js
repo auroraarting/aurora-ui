@@ -114,11 +114,11 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 						items?.[selectedService]?.advantagesTitle ||
 						"Lorem ipsum dolor"}
 				</p>
-				<p className={`${styles.desc} color_light_gray text_xs`}>
+				{/* <p className={`${styles.desc} color_light_gray text_xs`}>
 					{items?.[selectedService]?.description ||
 						items?.[selectedService]?.advantagesDescription ||
 						"Lorem ipsum dolor sit amet consectetur. Dolor nibh enim lobortis."}
-				</p>
+				</p> */}
 			</div>
 
 			<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
