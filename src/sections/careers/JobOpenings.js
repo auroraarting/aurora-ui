@@ -19,6 +19,7 @@ import styles from "@/styles/sections/careers/JobOpenings.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
+import searchImg from "/public/img/icons/search.svg";
 
 // DATA //
 
@@ -28,6 +29,7 @@ export default function JobOpenings({
 	hideFilters = true,
 	hideRedirect = false,
 }) {
+	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [jobs, setJobs] = useState(data.jobs.data);
 	const [filterdJob, setFilterdJob] = useState(data.jobs.data);
 	const [filters, setFilters] = useState({
@@ -126,6 +128,16 @@ export default function JobOpenings({
 			console.log(error, "json");
 		}
 	}
+
+	/** Toggle Search Input */
+	const toggleSearchInput = () => {
+		setIsSearchVisible((prev) => !prev);
+	};
+
+	/** Close Search Input */
+	const closeSearchInput = () => {
+		setIsSearchVisible(false);
+	};
 
 	return (
 		<section className={`${styles.JobOpenings} dark_bg ptb_100`}>
@@ -257,7 +269,7 @@ export default function JobOpenings({
 											</div>
 										</div>
 									</div>
-									<div className={`${styles.searchInput}`}>
+									{/* <div className={`${styles.searchInput}`}>
 										<input
 											type="text"
 											placeholder="Search..."
@@ -265,7 +277,39 @@ export default function JobOpenings({
 												handleOptionClick("search", e.target.value.toLowerCase())
 											}
 										/>
+									</div> */}
+									{/* search box */}
+									<div className={`${styles.selectBox} ${styles.widthCustomSearch} `}>
+										<div className={`${styles.searchBox}`} onClick={toggleSearchInput}>
+											<p className="text_sm color_silver_gray text_500">Search</p>
+											<span>
+												<img src={searchImg.src} alt="icon" />
+											</span>
+										</div>
 									</div>
+									{/* Search Input - Show/Hide on Click */}
+									{isSearchVisible && (
+										<div className={`${styles.searchInput} f_r_aj_between`}>
+											<form
+												className="w-full"
+												onSubmit={(e) => {
+													e.preventDefault();
+													const val = e.target.search.value;
+													handleOptionClick("search", e.target.search.value.toLowerCase());
+												}}
+											>
+												<input name="search" type="text" placeholder="Search Program" />
+											</form>
+
+											<span className="d_f">
+												<img src={searchImg.src} alt="icon" />
+												{/* Close Button */}
+												<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+													<span className="text_xs">X</span>
+												</div>
+											</span>
+										</div>
+									)}
 								</div>
 							</div>
 						</div>

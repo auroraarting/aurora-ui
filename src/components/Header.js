@@ -67,6 +67,7 @@ export default function Header({ defaultNavigation }) {
 	/** Open togglePopup on click of hamburger */
 	const togglePopup = () => {
 		setIsPopupActive((prev) => !prev);
+		handleCloseClick();
 	};
 
 	/** Open closePopup on click of hamburger */
