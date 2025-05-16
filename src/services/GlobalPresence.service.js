@@ -15,6 +15,24 @@ export const getRegions = async () => {
           slug
           title
           countries {
+          hideonglobalpresence
+                bannerSection {
+        description
+        title
+        videoLink
+        image {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        mobileImage {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
             map {
               zoom
               countryPin {
@@ -133,6 +151,7 @@ query GetCountryInside {
     slug
     title
     countries {
+    hideonglobalpresence
       bannerSection {
         description
         title

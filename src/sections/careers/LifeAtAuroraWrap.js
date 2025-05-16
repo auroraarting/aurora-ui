@@ -26,10 +26,10 @@ import Counter from "@/sections/careers/Counter";
 import { Link, scroller } from "react-scroll";
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/careers/LifeAtAurora.module.scss";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // IMAGES //
 

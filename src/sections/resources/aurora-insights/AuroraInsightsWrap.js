@@ -28,6 +28,7 @@ import styles from "@/styles/pages/resources/aurora-insights/AuroraInsights.modu
 
 // IMAGES //
 import country_thumb from "/public/img/global-presence/country_thumb.jpg";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
@@ -58,6 +59,7 @@ export default function AuroraInsightsWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.AuroraInsightsPage}>
+				<Breadcrumbs />
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
 						bannerTitle={insightsPage?.banner?.title}

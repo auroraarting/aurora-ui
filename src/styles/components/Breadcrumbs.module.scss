@@ -1,0 +1,11 @@
+@import "../helpers/helpers.scss";
+
+.Breadcrumbs {
+	// padding: 12px 0;
+	nav {
+		gap: 10px;
+		span {
+			gap: 10px;
+		}
+	}
+}
