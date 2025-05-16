@@ -126,6 +126,7 @@ query GetWebinarInside {
       }
     }
     webinarsFields {
+    venue
       country(first: 9999) {
         nodes {
           ... on Country {
@@ -140,27 +141,56 @@ query GetWebinarInside {
       timezone
       serviceBy(first: 99999) {
         nodes {
-          contentType {
-            node {
-              name
-            }
-          }
-          slug
-          ... on Product {
-            id
-            slug
-            title
-          }
-          ... on Service {
-            id
-            title
-            slug
-          }
-          ... on Software {
-            id
-            title
-            slug
-          }
+              contentType {
+                node {
+                  name
+                }
+              }
+              ... on Service {
+                id
+                slug
+                title
+                services {
+                  banner {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Software {
+                id
+                title
+                slug
+                softwares {
+                  banner {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Product {
+                id
+                title
+                slug
+                products {
+                  banner {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
         }
       }
       accessRecordingSectionButton {

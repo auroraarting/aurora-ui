@@ -38,10 +38,10 @@ export default function WebinarMiddleRight({ data }) {
 							</div>
 						);
 					})}
-					{data?.webinarsFields?.poweredBy?.nodes && (
-						<div className={`${styles.itemBox} pt_20`}>
+					{data?.webinarsFields?.serviceBy?.nodes && (
+						<div className={`${styles.itemBox} ptb_20`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Service</h5>
-							{data?.webinarsFields?.poweredBy?.nodes?.map((item, ind) => {
+							{data?.webinarsFields?.serviceBy?.nodes?.map((item, ind) => {
 								/**keyModule  */
 								const keyModule = () => {
 									if (item?.contentType?.node?.name === "softwares") {
