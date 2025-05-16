@@ -253,8 +253,9 @@ export async function searchData(searchTerm) {
 	const whoareyous = data?.whoareyous.nodes;
 	const offices = data?.offices?.nodes;
 	const podcasts = data?.podcasts?.nodes;
-	const webinars = data.webinars.nodes;
-	console.log(webinars, "webinars");
+	const webinars = data?.webinars?.nodes;
+	const earlyCareers = data?.earlyCareers?.nodes;
+	console.log(data, "webinars");
 
 	// const about = data?.pages?.nodes?.[0]?.about;
 	// const eos = data?.pages?.nodes?.[0]?.eos;
@@ -283,5 +284,6 @@ export async function searchData(searchTerm) {
 		events,
 		pages,
 		podcasts,
+		earlyCareers,
 	};
 }
