@@ -66,7 +66,7 @@
       background-color: var(--color_secondary);
       border: 1px solid var(--color_dark_gray);
       border-radius: 12px;
-      padding: 1rem;
+      padding: 15px 15px;
       color: white;
       display: flex;
       flex-wrap: wrap;
@@ -89,8 +89,8 @@
 
     .radioOption input[type="radio"] {
       appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 17px;
+      height: 17px;
       margin-right: 10px;
       border: 2px solid #aaa;
       border-radius: 50%;
