@@ -10,6 +10,8 @@ query NewQuery {
       stats {
         clients
         transactions
+        countries
+        advisoryProjects
       }
       ourClient {
         selectLogos(first: 999) {
@@ -496,20 +498,12 @@ export const getHomePageVoices = async () => {
 
 	let arr = [];
 
-	obj.events?.map((item) => {
-		let categories = {
-			nodes: [],
-		};
-		item?.events?.thumbnail?.country?.nodes?.map((item2, ind) => {
-			categories.nodes.push({ name: item2.title });
-		});
+	obj.caseStudies?.map((item) => {
 		arr.push({
 			...item,
-			link: `/events/${item.slug}`,
-			thumb: item?.events?.banner?.desktop?.node?.mediaItemUrl,
-			cat: "Events",
-			categories,
-			date: item?.events?.thumbnail?.date,
+			link: `/resources/aurora-insights/${item.slug}`,
+			cat: "Case Studies",
+			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});
 	obj.podcasts?.map((item) => {
@@ -526,6 +520,30 @@ export const getHomePageVoices = async () => {
 			cat: "Energy Talks",
 			categories,
 			date: item?.podcastFields?.date,
+		});
+	});
+	obj.events?.map((item) => {
+		let categories = {
+			nodes: [],
+		};
+		item?.events?.thumbnail?.country?.nodes?.map((item2, ind) => {
+			categories.nodes.push({ name: item2.title });
+		});
+		arr.push({
+			...item,
+			link: `/events/${item.slug}`,
+			thumb: item?.events?.banner?.desktop?.node?.mediaItemUrl,
+			cat: "Events",
+			categories,
+			date: item?.events?.thumbnail?.date,
+		});
+	});
+	obj.commentary?.map((item) => {
+		arr.push({
+			...item,
+			link: `/resources/aurora-insights/${item.slug}`,
+			cat: "Articles",
+			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});
 	obj.webinars?.map((item) => {
@@ -549,22 +567,6 @@ export const getHomePageVoices = async () => {
 			...item,
 			link: `/resources/aurora-insights/${item.slug}`,
 			cat: "Market Reports",
-			thumb: item?.featuredImage?.node?.mediaItemUrl,
-		});
-	});
-	obj.caseStudies?.map((item) => {
-		arr.push({
-			...item,
-			link: `/resources/aurora-insights/${item.slug}`,
-			cat: "Case Studies",
-			thumb: item?.featuredImage?.node?.mediaItemUrl,
-		});
-	});
-	obj.commentary?.map((item) => {
-		arr.push({
-			...item,
-			link: `/resources/aurora-insights/${item.slug}`,
-			cat: "Articles",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});

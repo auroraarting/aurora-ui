@@ -43,10 +43,17 @@ async function getData() {
 	]);
 	let pastSpeakers = [];
 
+	console.log(data?.data?.webinars?.nodes);
+
 	return {
 		props: {
 			pagination: data.data?.posts?.pageInfo || {},
-			data: data?.data?.webinars?.nodes || [],
+			data:
+				data?.data?.webinars?.nodes.sort(
+					(a, b) =>
+						new Date(b.webinarsFields?.startDateAndTime) -
+						new Date(a.webinarsFields?.startDateAndTime)
+				) || [],
 			tags: categoriesForSelect.data.tags.nodes,
 			categories: categoriesForSelect.data.categories.nodes,
 			countries: categoriesForSelect.data.countries.nodes,

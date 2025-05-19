@@ -94,11 +94,18 @@ export default function ProductSlider({ data }) {
 												<ContentFromCms>{slide?.description}</ContentFromCms>
 											</div>
 										)}
-										<a href={slide?.buttonLink} className={`${styles.bookBtnOne} pt_20`}>
-											<Button color="primary" variant="filled" shape="rounded">
-												{slide?.buttonText}
-											</Button>
-										</a>
+										{slide?.buttonText && (
+											<a
+												href={slide?.buttonLink}
+												target="_blank"
+												rel="noreferrer"
+												className={`${styles.bookBtnOne} pt_20`}
+											>
+												<Button color="primary" variant="filled" shape="rounded">
+													{slide?.buttonText}
+												</Button>
+											</a>
+										)}
 									</div>
 								</div>
 							</SwiperSlide>

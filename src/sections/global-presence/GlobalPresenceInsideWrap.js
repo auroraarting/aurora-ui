@@ -100,7 +100,7 @@ export default function GlobalPresenceInsideWrap({
 									{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
 									className="pt_40"
 								>
-									<Button color="primary" variant="filled" shape="rounded">
+									<Button color="white" variant="filled" shape="rounded">
 										{
 											dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
 												?.btntext
