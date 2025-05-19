@@ -70,7 +70,8 @@ export default function Counter({ data }) {
 					{data?.stats?.countries && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data?.stats?.countries} enableScrollSpy />
+								<CountUp end={data?.stats?.countries.split("+")[0]} enableScrollSpy />
+								<span>+</span>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								Countries
@@ -88,6 +89,21 @@ export default function Counter({ data }) {
 							</p>
 						</div>
 					)}
+					{data?.stats?.advisoryProjects && (
+						<div className={`${styles.countBox}`}>
+							<h4 className="text_xxl color_primary">
+								<CountUp
+									end={data?.stats?.advisoryProjects.split("+")[0]}
+									enableScrollSpy
+								/>
+								<span>+</span>
+							</h4>
+							<p className="text_xs color_white text_uppercase font_primary">
+								Advisory Projects
+							</p>
+						</div>
+					)}
+					{/* advisory projects */}
 				</div>
 			</div>
 		</section>

@@ -7,6 +7,7 @@ import Button from "@/components/Buttons/Button";
 // SECTIONS //
 
 // PLUGINS //
+import { LinkedinShareButton, TwitterShareButton } from "react-share";
 
 // UTILS //
 
@@ -58,7 +59,9 @@ export default function Client({ data }) {
 					)}
 					{data?.postFields?.authors?.nodes && (
 						<div className={`${styles.itemBox}`}>
-							<h5 className="text_reg color_gray f_w_b pb_10">Author</h5>
+							<h5 className="text_reg color_gray f_w_b pb_10">
+								{data?.postFields?.authors?.nodes?.length > 1 ? "Authors" : "Author"}
+							</h5>
 							{data?.postFields?.authors?.nodes?.map((item, ind) => {
 								return (
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
@@ -171,11 +174,16 @@ export default function Client({ data }) {
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Share</h5>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>
-							<a href="" className={`${styles.shareIcon}`}>
-								<img src={linkedin.src} alt="linkedin" />
+							<a className={`${styles.shareIcon}`}>
+								<LinkedinShareButton url={window.location.href}>
+									<img src={linkedin.src} alt="linkedin" />
+								</LinkedinShareButton>
 							</a>
-							<a href="" className={`${styles.shareIcon}`}>
-								<img src={twitter.src} alt="twitter" />
+
+							<a className={`${styles.shareIcon}`}>
+								<TwitterShareButton url={window.location.href}>
+									<img src={twitter.src} alt="twitter" />
+								</TwitterShareButton>
 							</a>
 						</div>
 					</div>
