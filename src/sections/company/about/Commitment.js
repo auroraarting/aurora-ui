@@ -55,8 +55,9 @@ export default function Commitment() {
 								<img src={dropdown_arrow.src} alt="icon" />
 							</span>
 							<a
-								href="../../../../public/pdf/About-2025-ESG-Report.pdf"
+								href="../../../../../pdf/About-2025-ESG-Report.pdf"
 								rel="noreferrer"
+								target="blank"
 							>
 								<Button color="primary" variant="filled" shape="rounded">
 									ESG Factsheet
