@@ -281,8 +281,8 @@ export default function Map({
 			if (locationJson?.length) {
 				const bounds = new window.google.maps.LatLngBounds();
 
-				locationJson.forEach((country) => {
-					country.markers.forEach((marker) => {
+				locationJson?.forEach((country) => {
+					country?.markers?.forEach((marker) => {
 						const lat = parseFloat(marker?.coordinates?.lat || marker?.lat);
 						const lng = parseFloat(marker?.coordinates?.lng || marker?.lng);
 						bounds.extend(new window.google.maps.LatLng(lat, lng));

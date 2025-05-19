@@ -21,7 +21,11 @@ import tel_icon from "@/../public/img/icons/tel_icon.svg";
 /** InsideMediaContact Section */
 export default function InsideMediaContact({ data }) {
 	return (
-		<div className={`${styles.mediaTeamBoxItem}`}>
+		<section
+			id="meidacontact"
+			data-name="Media Contact"
+			className={`${styles.mediaTeamBoxItem}`}
+		>
 			<h3 className="text_md color_white f_w_s_b font_primary pb_30">
 				Media Contact
 			</h3>
@@ -62,6 +66,6 @@ export default function InsideMediaContact({ data }) {
 					</>
 				);
 			})}
-		</div>
+		</section>
 	);
 }

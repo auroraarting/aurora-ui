@@ -156,7 +156,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				<div className={styles.filterMain}>
 					<div className={styles.filterflex}>
 						{/* Programs Type Dropdown */}
-						<div className={`${styles.selectBox}`} ref={dropdownRefs.programsType}>
+						{/* <div className={`${styles.selectBox}`} ref={dropdownRefs.programsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -190,7 +190,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
 
 						{/* Country Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
@@ -210,7 +210,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
-									<ul className={styles.selectOptionBox}>
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
 										<li
 											className={
 												dropdowns.countryType.selected.title === "" ? "selected" : ""
@@ -290,7 +290,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 								</form>
 
 								<span className="d_f">
-									<img src={searchImg.src} alt="icon" />
+									{/* <img src={searchImg.src} alt="icon" /> */}
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>

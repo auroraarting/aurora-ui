@@ -8,16 +8,16 @@ query GetOffices {
     nodes {
       name
       slug
-countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
+      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           title
           slug
-             featuredImage {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
+          featuredImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
           countries {
             offices {
               offices(first: 999) {
@@ -47,6 +47,15 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
                 }
               }
             }
+            bannerSection {
+              image {
+                node {
+                  altText
+                  mediaItemUrl
+                }
+              }
+            }
+            hideonglobalpresence
           }
         }
       }
