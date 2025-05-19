@@ -149,8 +149,7 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
 								<p className="text_reg color_silver_gray">
-									EOS Platform - EOS centralizes Aurora’s data, software, forecasts, and
-									insights.
+									EOS centralizes Aurora’s data, software, forecasts, and insights.
 								</p>
 							</div>
 							<img
@@ -175,9 +174,8 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_secondary">Software</h4>
 								<p className="text_reg color_dark_gray">
-									Software - Our software suite empowers energy professionals with
-									advanced tools for market forecasting, asset valuation, and strategic
-									decision-making.
+									Our software suite empowers energy professionals with advanced tools
+									for market forecasting, asset valuation, and strategic decision-making.
 								</p>
 							</div>
 							<DotLottieReact
@@ -210,9 +208,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
 								<p className="text_reg color_silver_gray">
-									Subscription analytics - Access energy forecasts, policy insights, and
-									analytics tools designed to inform smarter, faster market decisions
-									powered through our subscription analytics.
+									Access energy forecasts, policy insights, and analytics tools designed
+									to inform smarter, faster market decisions powered through our
+									subscription analytics.
 								</p>
 							</div>
 							<DotLottieReact
@@ -245,8 +243,8 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">Advisory</h4>
 								<p className="text_reg color_silver_gray">
-									Advisory - Bespoke advisory offering in-depth strategic recommendation
-									and insights.
+									Bespoke advisory offering in-depth strategic recommendation and
+									insights.
 								</p>
 							</div>
 							<img
