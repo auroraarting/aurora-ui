@@ -111,6 +111,10 @@ query GetAbout {
                 }
               }
             }
+          }
+        }
+        testimonials(first: 999) {
+          nodes {
             ... on Testimonial {
               id
               content
@@ -146,6 +150,30 @@ query GetAbout {
       stats {
         auroreans
         nationalities
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
       }
     }
   }

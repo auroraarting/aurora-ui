@@ -64,7 +64,11 @@ export default function AboutLeadership({ data, countries }) {
 	}, [slideNo]);
 
 	return (
-		<section className={`${styles.AboutLeadership}`}>
+		<section
+			className={`${styles.AboutLeadership}`}
+			id="Leadership"
+			data-name="Leadership"
+		>
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">

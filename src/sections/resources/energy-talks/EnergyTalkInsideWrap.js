@@ -68,42 +68,6 @@ export default function EnergyTalkInsideWrap({
 				Url={`/energy-talks/${data?.slug}`}
 			/>
 
-			<Script id="show-banner" strategy="afterInteractive">
-				{`
-    let speechifyWidgetInstance;
-
-    import("https://storage.googleapis.com/speechify-api-cdn/speechifyapi.min.mjs")
-      .then(async (speechifyWidget) => {
-        const articleRootElement = document.querySelector(".dynamic_content");
-        const articleHeading = document.querySelector(".speechify_wrap");
-
-        const widget = speechifyWidget.makeSpeechifyExperience({
-          rootElement: articleRootElement,
-          inlinePlayerElement: articleHeading,
-          visibility: {
-            showWidget: false,
-            showWidgetOnPlay: false,
-          },
-        });
-
-        await widget.mount();
-        speechifyWidgetInstance = widget;
-      });
-
-    // Optional: Expose functions to window for easy button binding
-    window.speechifyPlay = function() {
-      if (speechifyWidgetInstance) {
-        speechifyWidgetInstance.play();
-      }
-    };
-    window.speechifyPause = function() {
-      if (speechifyWidgetInstance) {
-        speechifyWidgetInstance.pause();
-      }
-    };
-  `}
-			</Script>
-
 			{/* Header */}
 			{/* <Header /> */}
 
