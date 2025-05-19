@@ -51,7 +51,7 @@ export default function Insights({
 	insightsTitle = "Insights",
 	formSectionTitle = "Let’s power the future, together",
 	formSectionDesc = "",
-	formSectionBtnText = "Speak To Our Experts",
+	formSectionBtnText = "Sign up",
 	formdata,
 	insightsLink = "/resources/aurora-insights/",
 	customHtml,
@@ -124,9 +124,12 @@ export default function Insights({
 							{!isFormVisible && (
 								<div className={`${styles.contentFlex} contentFlex f_j`}>
 									<div className={`${styles.title_wrap}`}>
-										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
+										{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
+											{insightsTitle}
+										</h2> */}
+										<p className="text_lg font_primary f_w_s_b color_white">
 											{formSectionTitle}
-										</h2>
+										</p>
 										<div className={`${styles.desc} text_reg color_silver_gray`}>
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</div>
@@ -154,9 +157,12 @@ export default function Insights({
 										<img src={close.src} className={`${styles.closeIcon}`} alt="close" />
 									</div>
 									<div className={`${styles.form_title}`}>
-										<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
-											{formSectionTitle}
+										<h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
+											{insightsTitle}
 										</h2>
+										<p className="text_reg font_primary color_silver_gray">
+											{formSectionTitle}
+										</p>
 										<div className={`${styles.desc} text_reg color_silver_gray`}>
 											<ContentFromCms>{formSectionDesc}</ContentFromCms>
 										</div>

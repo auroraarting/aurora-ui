@@ -32,7 +32,7 @@ const defaultData = [
 	},
 	{
 		desc: "Get deep insights and market trends.",
-		btnText: "Explore Subscription Analytics",
+		btnText: "Subscribe now",
 		btnLink: "/products",
 		img: card_img2.src,
 	},
