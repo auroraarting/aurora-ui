@@ -64,7 +64,7 @@ export default function WebinarTalksWrap({
 			{/* Page Content starts here */}
 			<main className={styles.WebinarPage}>
 				<div className={`${styles.topBg}`}>
-					<Breadcrumbs />
+					{/* <Breadcrumbs /> */}
 					<InnerBanner
 						bannerTitle={webinarpage?.banner?.title}
 						bannerDescription={webinarpage?.banner?.desc}
