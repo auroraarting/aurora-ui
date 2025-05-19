@@ -140,7 +140,7 @@ export default function LifeAtAuroraWrap({
 					</div>
 				)}
 				<div>
-					<JobOpenings data={jobs} />
+					<JobOpenings data={jobs} hideFilters={false} />
 				</div>
 
 				<div className="pt_100">

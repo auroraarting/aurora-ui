@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -13,11 +14,12 @@ import SectionsHeader from "@/components/SectionsHeader";
 import InnerBanner from "@/components/InnerBanner";
 import Button from "@/components/Buttons/Button";
 import TrustedLeaders from "@/components/TrustedLeaders";
-import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
 import GlobalMap from "@/components/GlobalMap";
+import Bundles from "@/components/Bundles";
 
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
+import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
 
 // PLUGINS //
 
@@ -40,10 +42,24 @@ import locationJson from "@/data/globalMap.json";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getSoftwarePage } from "@/services/Softwares.service";
 import IframeModal from "@/components/IframeModal";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 
 /** Fetch */
 async function getData() {
-	const [data, regions] = await Promise.all([getSoftwarePage(), getRegions()]);
+	const [data, regions, insightsFetch, categoriesForSelect, bundles] =
+		await Promise.all([
+			getSoftwarePage(),
+			getRegions(),
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
+			getInsightsCategories(),
+			getBundlesSection(),
+		]);
 	const softwares = data.data.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 
@@ -81,11 +97,14 @@ async function getData() {
 			data: {
 				...data.data.page.softwareLanding,
 			},
+			insights: insightsFetch?.data?.posts?.nodes || [],
 			softwares,
 			testimonials,
 			clientLogos,
 			regions,
 			mapJson,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			bundles: bundles.data.page.bundles,
 		},
 	};
 }
@@ -99,7 +118,16 @@ export const metadata = {
 /** Chronos Page */
 export default async function Softwares() {
 	const { props } = await getData();
-	const { mapJson, data, clientLogos, testimonials, softwares } = props;
+	const {
+		mapJson,
+		data,
+		clientLogos,
+		testimonials,
+		softwares,
+		insights,
+		countries,
+		bundles,
+	} = props;
 
 	return (
 		<div>
@@ -112,13 +140,8 @@ export default async function Softwares() {
 			{/* Page Content starts here */}
 			<main className={styles.SoftwareLanding}>
 				<InnerBanner
-					bannerTitle={
-						data.banner.title || "Lorem ipsum dolor sit amet consectetur."
-					}
-					bannerDescription={
-						data.banner.description ||
-						"Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique vulputate bibendum.. Accumsan in sed."
-					}
+					bannerTitle={data.banner.title}
+					bannerDescription={data.banner.description}
 					showContentOnly
 				/>
 				<div>
@@ -138,13 +161,25 @@ export default async function Softwares() {
 				<div className="pb_100">
 					<TestimonialFeedback data={testimonials} />
 				</div>
-				<div className={`${styles.insightBg} pb_100 pt_30`}>
+				<div className="pt_100 dark_bg">
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
+				</div>
+				<div className={`${styles.insightBg}  pt_30`}>
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
-							<Insights isPowerBgVisible={true} isInsightsBlogsVisible={true} />
+							<Insights
+								formSectionTitle="Expertise that powers progress"
+								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with Chronos specialists. Stay ahead with exclusive access to online and in-person community events."
+								isPowerBgVisible={true}
+								isInsightsBlogsVisible={true}
+								defaultList={insights}
+								countries={countries}
+							/>
 						</div>
 					</div>
-					<EosIntegratedSystem />
 				</div>
 			</main>
 			<IframeModal />

@@ -31,6 +31,7 @@ import calender from "@/../public/img/icons/calender.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import menu_hover_arrow from "@/../public/img/icons/menu_hover_arrow.svg";
 import header_img from "@/../public/img/header/eos.png";
+import WeAreHiringImg from "/public/img/wearehiringheader.jpg";
 import event_img from "@/../public/img/header/event_img.jpg";
 import event_logo from "@/../public/img/header/event_logo.png";
 import mac_img from "@/../public/img/header/mac_img.png";
@@ -182,11 +183,11 @@ export default function Header({ defaultNavigation }) {
 					<div className={`${styles.menuListBox} f_r_aj_between`}>
 						<div className={`${styles.header_inside}`}>
 							{/* Logo wrap */}
-							<Link href="/">
+							<a href="/">
 								<div className={styles.image_wrap}>
 									<img src={logo.src} alt="logo" />
 								</div>
-							</Link>
+							</a>
 
 							{/* Links Wrap */}
 							<div className={`${styles.links_wrap}`}>
@@ -235,12 +236,12 @@ export default function Header({ defaultNavigation }) {
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
-													<a
+													{/* <a
 														href="/company/team"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Team</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</a> */}
 													<a
 														href="/company/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -398,7 +399,11 @@ export default function Header({ defaultNavigation }) {
 																<h4 className="text_reg font_primary color_secondary">
 																	Latest Webinar
 																</h4>
-																<p className="text_xs color_light_gray">{item?.title}</p>
+																<p className="text_xs color_light_gray">
+																	Gain a deeper understanding of the forces shaping today&apos;s
+																	energy markets. Our webinars offer strategic and actionable
+																	intelligence for informed decision-making
+																</p>
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={`/resources/webinar/${item?.slug}`}>
 																		<Button color="primary" variant="filled" shape="rounded">
@@ -518,42 +523,8 @@ export default function Header({ defaultNavigation }) {
 															</a>
 														);
 													})}
-													{/* <a
-														href="/how-we-help/transaction-support"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Transaction Support</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/how-we-help/portfolio-valuation"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Portfolio Valuation</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/how-we-help/asset-citing-optimisation"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Asset Citing & Optimisation</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/how-we-help/strategy-us"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Strategy Us</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/how-we-help/ppas"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>PPAs</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a> */}
 												</div>
-												<div className={`${styles.weAreHiring} f_w_j`}>
+												{/* <div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
 														<img
 															src={header_img.src}
@@ -577,7 +548,37 @@ export default function Header({ defaultNavigation }) {
 															</a>
 														</div>
 													</div>
-												</div>
+												</div> */}
+												{data?.webinar?.map((item) => {
+													return (
+														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
+															<div className={`${styles.imgBox}`}>
+																<img
+																	src={item?.featuredImage?.node?.mediaItemUrl || header_img.src}
+																	className="width_100 b_r_10"
+																	alt="img"
+																/>
+															</div>
+															<div className={`${styles.contentBox}`}>
+																<h4 className="text_reg font_primary color_secondary">
+																	Latest Webinar
+																</h4>
+																<p className="text_xs color_light_gray">
+																	Gain a deeper understanding of the forces shaping today&apos;s
+																	energy markets. Our webinars offer strategic and actionable
+																	intelligence for informed decision-making
+																</p>
+																<div className={`${styles.btn_box} pt_20`}>
+																	<a href={`/resources/webinar/${item?.slug}`}>
+																		<Button color="primary" variant="filled" shape="rounded">
+																			View All
+																		</Button>
+																	</a>
+																</div>
+															</div>
+														</div>
+													);
+												})}
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
@@ -685,7 +686,8 @@ export default function Header({ defaultNavigation }) {
 															<img src={menu_hover_arrow.src} alt="arrow" />
 														</a>
 														<p className="text_xs color_light_gray ">
-															Lorem ipsum dolor sit amet consectetur.
+															EOS centralises Aurora&apos;s data, software, forecasts, and
+															insights.
 														</p>
 													</div>
 													{data?.services?.map((item, ind) => {
@@ -699,7 +701,8 @@ export default function Header({ defaultNavigation }) {
 																	<img src={menu_hover_arrow.src} alt="arrow" />
 																</a>
 																<div className="text_xs color_light_gray ">
-																	{parse(item?.content || "")}
+																	{/* {parse(item?.content || "")} */}
+																	Bespoke advisory offering in-depth strategic insights.
 																</div>
 															</div>
 														);
@@ -759,7 +762,7 @@ export default function Header({ defaultNavigation }) {
 													</div>
 													<div className={`${styles.softwareItem}`}>
 														<a
-															href=""
+															href="/products"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 														>
 															<span>Subscription Analytics</span>{" "}
@@ -1024,17 +1027,17 @@ export default function Header({ defaultNavigation }) {
 														<span>Life at Aurora</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
-													<a
+													{/* <a
 														href="/careers/faq"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 													>
 														<span>Faq</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</a> */}
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
 														<img
-															src={header_img.src}
+															src={WeAreHiringImg.src}
 															className="width_100 b_r_10"
 															alt="img"
 														/>
@@ -1044,8 +1047,9 @@ export default function Header({ defaultNavigation }) {
 															We are hiring!
 														</h4>
 														<p className="text_xs color_light_gray">
-															Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
-															sodales mperdiet volutpat dui ipsum massa.
+															We&apos;re seeking passionate professionals to contribute to
+															cutting-edge analysis and strategic insights. Explore
+															opportunities to shape the global energy landscape
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
 															<a href="/careers/join-us">

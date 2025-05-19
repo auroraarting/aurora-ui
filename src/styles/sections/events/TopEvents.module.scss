@@ -56,4 +56,28 @@
 			}
 		}
 	}
+	.arrowSection {
+		display: none;
+		position: absolute;
+		left: 40px;
+		bottom: 20px;
+		z-index: 1;
+		@media (max-width: 767px) {
+			bottom: 30px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
 }

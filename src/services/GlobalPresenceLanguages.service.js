@@ -138,12 +138,11 @@ export const getCountryInside = async (slug) => {
 	const query = `
 query GetCountryInside {
   countryBy(slug: "${slug}") {
-  translations
-  {
-    slug
+    translations{
+       slug
     title
     countries {
-    hideonglobalpresence
+      hideonglobalpresence
       bannerSection {
         description
         title
@@ -203,6 +202,26 @@ query GetCountryInside {
       availableRegions {
         sectionTitle
         tabTitle
+        team(first: 9999) {
+          nodes {
+            ... on Team {
+              id
+              title
+              teams {
+                thumbnail {
+                  designation
+                  linkedinLink
+                  image {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
       ourClients {
         sectionTitle

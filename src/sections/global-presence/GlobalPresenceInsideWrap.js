@@ -38,9 +38,11 @@ export default function GlobalPresenceInsideWrap({
 	mapJson,
 	insightsList,
 	countries,
+	events,
+	webinars,
 }) {
 	const dataForBtn = { postFields: data?.countries || {} };
-	console.log("data", dataForBtn);
+	console.log("data", data);
 
 	return (
 		<div>
@@ -59,39 +61,41 @@ export default function GlobalPresenceInsideWrap({
 			<main className={styles.AustraliaPage}>
 				<div>
 					<InnerBanner
-						bannerTitle={data.countries.bannerSection.title}
-						bannerDescription={data.countries.bannerSection.description}
+						bannerTitle={data?.countries?.bannerSection?.title}
+						bannerDescription={data?.countries?.bannerSection?.description}
 						// btnTxt="Get in Touch"
-						desktopImage={data.countries.bannerSection?.image?.node?.mediaItemUrl}
-						mobileImage={data.countries.bannerSection.mobileImage?.node?.mediaItemUrl}
+						desktopImage={data?.countries?.bannerSection?.image?.node?.mediaItemUrl}
+						mobileImage={
+							data?.countries?.bannerSection?.mobileImage?.node?.mediaItemUrl
+						}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionsButton")}
 					/>
 				</div>
 				<div className="pb_40">
-					<ProductSlider data={data.countries.announcement.slide} />
+					<ProductSlider data={data?.countries?.announcement?.slide} />
 				</div>
 				<SectionsHeader
 					customHtml={
-						dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton").btntext && (
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")?.btntext && (
 							<div {...dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")}>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton").btntext}
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")?.btntext}
 								</Button>
 							</div>
 						)
 					}
 				/>
-				<Introduction data={data.countries.introduction} />
+				<Introduction data={data?.countries?.introduction} />
 				<div className="pb_100">
-					<WhichProducts data={data.countries.map} />
+					<WhichProducts data={data?.countries?.map} />
 				</div>
 				<ServicesCircle
 					hideId
-					data={data.countries.keyAdvantages}
+					data={data?.countries?.keyAdvantages}
 					customHtml={
 						<>
 							{dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
-								.btntext && (
+								?.btntext && (
 								<div
 									{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")}
 									className="pt_40"
@@ -99,7 +103,7 @@ export default function GlobalPresenceInsideWrap({
 									<Button color="primary" variant="filled" shape="rounded">
 										{
 											dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
-												.btntext
+												?.btntext
 										}
 									</Button>
 								</div>
@@ -111,9 +115,10 @@ export default function GlobalPresenceInsideWrap({
 					<SoftwareMarket
 						sectionTitle="Energy intelligence across every key market"
 						mapJson={mapJson}
+						data={data?.countries?.availableRegions}
 						customHtml={
 							dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
-								.btntext && (
+								?.btntext && (
 								<div
 									{...dynamicInsightsBtnProps(
 										dataForBtn,
@@ -133,13 +138,13 @@ export default function GlobalPresenceInsideWrap({
 					/>
 				</div>
 				<div className="pb_100">
-					<TrustedLeaders data={data.countries.ourClients} />
+					<TrustedLeaders data={data?.countries?.ourClients} />
 				</div>
 				<div className="pb_100">
-					<TestimonialFeedback hideId data={data.countries.ourClients} />
+					<TestimonialFeedback hideId data={data?.countries?.ourClients} />
 				</div>
 				<div className="pb_100">
-					<PublicWebinar />
+					<PublicWebinar events={events} webinars={webinars} />
 				</div>
 
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
