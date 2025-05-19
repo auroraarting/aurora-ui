@@ -25,6 +25,7 @@ import { dynamicInsightsBtnProps, getMapJsonForAllRegions } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/who-are-you/FinancialSector.module.scss";
+import CounterDynamic from "../careers/CounterDynamic";
 
 // IMAGES //
 
@@ -100,6 +101,11 @@ export default function WhoAreYouInsideWrap({
 						marqueeText={data?.whoAreYous?.availableRegions?.marqueeText}
 					/>
 				</div>
+				{data?.howWeHelpInside?.stats && (
+					<div className="">
+						<CounterDynamic data={data?.whoAreYous?.stats} />
+					</div>
+				)}
 				<div>
 					<GloballyBankableInsights
 						isMultiple={data?.whoAreYous?.whyAurora?.list?.length > 1}

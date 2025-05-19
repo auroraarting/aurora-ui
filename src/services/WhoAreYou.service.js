@@ -117,6 +117,10 @@ export const getSingleWhoAreYou = async (slug) => {
           }
         }
       }
+      stats {
+        count
+        title
+      }
     }
   }
 }

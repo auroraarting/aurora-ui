@@ -21,6 +21,7 @@ import IframeModal from "@/components/IframeModal";
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
+import CounterDynamic from "@/sections/careers/CounterDynamic";
 
 // PLUGINS //
 
@@ -45,7 +46,6 @@ import desktop_banner from "/public/img/financial-sector/desktop_banner.jpg";
 /** Transactions Page */
 export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 	const dataForBtn = { postFields: data?.howWeHelpInside || {} };
-	console.log(data, "data");
 
 	return (
 		<div>
@@ -89,6 +89,11 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 						)
 					}
 				/>
+				{data?.howWeHelpInside?.stats && (
+					<div className="">
+						<CounterDynamic data={data?.howWeHelpInside?.stats} />
+					</div>
+				)}
 				<div>
 					<GloballyBankableInsights
 						data={data?.howWeHelpInside?.whyAurora}
