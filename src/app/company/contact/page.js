@@ -53,6 +53,8 @@ async function getData() {
 		getContact(),
 	]);
 
+	console.log(regions, "regions");
+
 	const regionsArr = regions.data.regions.nodes?.map((item) => {
 		let obj = {};
 		obj.title = item?.name;
@@ -63,7 +65,7 @@ async function getData() {
 						{item?.countries?.nodes?.map((item2, ind2) => {
 							return item2?.countries?.offices?.offices?.nodes?.map((item3, ind3) => {
 								console.log(item3);
-								if (item2?.countries?.hideonglobalpresence) return null;
+								// if (item2?.countries?.hideonglobalpresence) return null;
 								return (
 									<div className={`${styles.CountryItem}`} key={item2?.title}>
 										<img
