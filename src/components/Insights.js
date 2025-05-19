@@ -48,8 +48,8 @@ export default function Insights({
 	isInsightsBlogsVisible,
 	defaultList,
 	countries,
-	insightsTitle = "Join our mailing list",
-	formSectionTitle = "Subscribe for direct access to Aurora’s latest media releases, research highlights, and company news.",
+	insightsTitle = "Insights",
+	formSectionTitle = "Let’s power the future, together",
 	formSectionDesc = "",
 	formSectionBtnText = "Sign up",
 	formdata,
@@ -124,10 +124,10 @@ export default function Insights({
 							{!isFormVisible && (
 								<div className={`${styles.contentFlex} contentFlex f_j`}>
 									<div className={`${styles.title_wrap}`}>
-										<h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
+										{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
 											{insightsTitle}
-										</h2>
-										<p className="text_reg font_primary color_silver_gray">
+										</h2> */}
+										<p className="text_lg font_primary f_w_s_b color_white">
 											{formSectionTitle}
 										</p>
 										<div className={`${styles.desc} text_reg color_silver_gray`}>
