@@ -109,7 +109,7 @@ export default function HomeOurOfferings() {
 			<h3 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
 				<br className="visible_lg" /> to navigate and capitalize on the global shift
-				in energy systems
+				in energy systems.
 				{/* We provide our clients with
 				data-driven intelligence for <br className="visible_lg" /> strategy,
 				portfolio management and investment
@@ -147,9 +147,10 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">EOS Platform</h4>
-								<p className="text_reg color_silver_gray ">
-									EOS centralizes Aurora’s data, software, forecasts, and insights.
+								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
+								<p className="text_reg color_silver_gray">
+									EOS Platform - EOS centralizes Aurora’s data, software, forecasts, and
+									insights.
 								</p>
 							</div>
 							<img
@@ -172,10 +173,11 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Software</h4>
-								<p className="text_reg color_silver_gray ">
-									Our software suite empowers energy professionals with advanced tools
-									for market forecasting, asset valuation, and strategic decision-making.
+								<h4 className="text_md f_w_m color_secondary">Software</h4>
+								<p className="text_reg color_dark_gray">
+									Software - Our software suite empowers energy professionals with
+									advanced tools for market forecasting, asset valuation, and strategic
+									decision-making.
 								</p>
 							</div>
 							<DotLottieReact
@@ -206,11 +208,11 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Subscription Analytics</h4>
-								<p className="text_reg color_silver_gray ">
-									Access energy forecasts, policy insights, and analytics tools designed
-									to inform smarter, faster market decisions powered through our
-									subscription analytics.
+								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
+								<p className="text_reg color_silver_gray">
+									Subscription analytics - Access energy forecasts, policy insights, and
+									analytics tools designed to inform smarter, faster market decisions
+									powered through our subscription analytics.
 								</p>
 							</div>
 							<DotLottieReact
@@ -241,10 +243,10 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Advisory</h4>
-								<p className="text_reg color_silver_gray ">
-									Bespoke advisory offering in-depth strategic recommendation and
-									insights
+								<h4 className="text_md f_w_m color_white">Advisory</h4>
+								<p className="text_reg color_silver_gray">
+									Advisory - Bespoke advisory offering in-depth strategic recommendation
+									and insights.
 								</p>
 							</div>
 							<img
