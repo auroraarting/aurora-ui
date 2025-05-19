@@ -107,10 +107,14 @@ export default function HomeOurOfferings() {
 	return (
 		<section className={`${styles.HomeOurOfferings}`}>
 			<h3 className="text_lg color_secondary text_center">
-				We provide our clients with data-driven intelligence for{" "}
-				<br className="visible_lg" /> strategy, portfolio management and investment
+				We equip decision-makers with actionable intelligence
+				<br className="visible_lg" /> to navigate and capitalize on the global shift
+				in energy systems.
+				{/* We provide our clients with
+				data-driven intelligence for <br className="visible_lg" /> strategy,
+				portfolio management and investment
 				<br className="visible_lg" />
-				decisions on the global energy transformation
+				decisions on the global energy transformation */}
 			</h3>
 			<div className={`${styles.OurOfferingSlider} pt_60`}>
 				<Swiper
@@ -143,10 +147,10 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">EOS Platform</h4>
-								<p className="text_reg color_silver_gray ">
-									EOS centralizes Aurora’s data, software, forecasts, and insights,
-									empowering energy professionals to make smarter, faster decisions.
+								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
+								<p className="text_reg color_silver_gray">
+									EOS Platform - EOS centralizes Aurora’s data, software, forecasts, and
+									insights.
 								</p>
 							</div>
 							<img
@@ -169,10 +173,11 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Software</h4>
-								<p className="text_reg color_silver_gray ">
-									EOS centralizes Aurora’s data, software, forecasts, and insights,
-									empowering energy professionals to make smarter, faster decisions.
+								<h4 className="text_md f_w_m color_secondary">Software</h4>
+								<p className="text_reg color_dark_gray">
+									Software - Our software suite empowers energy professionals with
+									advanced tools for market forecasting, asset valuation, and strategic
+									decision-making.
 								</p>
 							</div>
 							<DotLottieReact
@@ -203,10 +208,11 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Subscription Analytics</h4>
-								<p className="text_reg color_silver_gray ">
-									EOS centralizes Aurora’s data, software, forecasts, and insights,
-									empowering energy professionals to make smarter, faster decisions.
+								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
+								<p className="text_reg color_silver_gray">
+									Subscription analytics - Access energy forecasts, policy insights, and
+									analytics tools designed to inform smarter, faster market decisions
+									powered through our subscription analytics.
 								</p>
 							</div>
 							<DotLottieReact
@@ -237,10 +243,10 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white ">Advisory</h4>
-								<p className="text_reg color_silver_gray ">
-									EOS centralizes Aurora’s data, software, forecasts, and insights,
-									empowering energy professionals to make smarter, faster decisions.
+								<h4 className="text_md f_w_m color_white">Advisory</h4>
+								<p className="text_reg color_silver_gray">
+									Advisory - Bespoke advisory offering in-depth strategic recommendation
+									and insights.
 								</p>
 							</div>
 							<img

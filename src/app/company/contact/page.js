@@ -64,6 +64,7 @@ async function getData() {
 						{item?.countries?.nodes?.map((item2, ind2) => {
 							return item2?.countries?.offices?.offices?.nodes?.map((item3, ind3) => {
 								console.log(item3);
+								if (item2?.countries?.hideonglobalpresence) return null;
 								return (
 									<div className={`${styles.CountryItem}`} key={item2?.title}>
 										<img
@@ -75,14 +76,14 @@ async function getData() {
 										/>
 										<div className={`${styles.countryImg}`}>
 											<img
-												src={item2?.featuredImage?.node?.mediaItemUrl}
+												src={item2?.countries?.bannerSection?.image?.node?.mediaItemUrl}
 												className="width_100 b_r_10"
 												alt="img"
 											/>
 										</div>
 										<div className="f_j a_center pt_10">
 											<h5 className="text_reg font_primary f_w_m color_secondary ">
-												{item2?.title}
+												{item3?.title}
 											</h5>
 											{item3?.offices?.map?.mapUrl && (
 												<a href={item3?.offices?.map?.mapUrl}>

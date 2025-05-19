@@ -57,7 +57,7 @@ export default function HomeEvents({ data }) {
 					>
 						{data?.map((item) => {
 							return (
-								<SwiperSlide key={item?.title}>
+								<SwiperSlide key={item?.title} className="pb_20">
 									<a href={`/events/${item?.slug}`} className={`${styles.card} f_w_j`}>
 										<div className={`${styles.content}`}>
 											<img

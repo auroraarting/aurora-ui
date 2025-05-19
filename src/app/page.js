@@ -35,7 +35,7 @@ import styles from "@/styles/pages/Home.module.scss";
 
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
-import { getHomePage } from "@/services/Home.service";
+import { getHomePage, getHomePageVoices } from "@/services/Home.service";
 import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 
@@ -49,20 +49,24 @@ export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Home Page */
 export default async function HomePage() {
-	const [regions, dataFetch, insightsFetch, eventsdata] = await Promise.all([
-		getRegions(),
-		getHomePage(),
-		getInsights(
-			'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
-		),
-		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-	]);
+	const [regions, dataFetch, insightsFetch, eventsdata, voicesFetch] =
+		await Promise.all([
+			getRegions(),
+			getHomePage(),
+			getInsights(
+				'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
+			),
+			// eslint-disable-next-line quotes
+			getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+			getHomePageVoices(),
+		]);
 	const mapJson = getMapJsonForAllRegions(regions);
 	const data = dataFetch.data.page.homepage;
 	const countries = dataFetch.data.countries.nodes;
 	const insights = insightsFetch.data.posts.nodes;
 	const events = eventsdata.data.events.nodes;
+	const voices = voicesFetch;
+	console.log(voices, "voices");
 
 	return (
 		<div>
@@ -93,7 +97,7 @@ export default async function HomePage() {
 				)}
 				<HomeWhoWeAre />
 				<div className="ptb_100">
-					<HomeResources data={insights} countries={countries} />
+					<HomeResources data={insights} countries={countries} voices={voices} />
 				</div>
 				<div className="pb_100">
 					<HomeEvents data={events} />

@@ -49,13 +49,6 @@ export default function TopMedia({ data }) {
 						prevEl: "#customPrev",
 						nextEl: "#customNext",
 					}}
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
-					// pagination={{
-					// 	clickable: true, // Makes it interactive
-					// }}
 					className={styles.slider}
 				>
 					{data?.map((item) => {

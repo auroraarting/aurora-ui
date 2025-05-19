@@ -28,6 +28,8 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import { getAllEvents } from "@/services/Events.service";
+import { getWebinars } from "@/services/Webinar.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -71,11 +73,13 @@ async function getData({ params, query }) {
 		countryBy = data?.data?.countryBy;
 		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	}
-	const [insights, categoriesForSelect] = await Promise.all([
+	const [insights, categoriesForSelect, events, webinars] = await Promise.all([
 		getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 		getInsightsCategories(),
+		getAllEvents('first:1,where: { thumbnail: { status: "Upcoming" } }'),
+		getWebinars("first:3"),
 	]);
 	const insightsList = insights?.data?.posts?.nodes;
 
@@ -92,6 +96,8 @@ async function getData({ params, query }) {
 			mapJson,
 			insightsList,
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			events: events.data.events.nodes,
+			webinars: webinars?.data?.webinars?.nodes || [],
 		},
 	};
 }

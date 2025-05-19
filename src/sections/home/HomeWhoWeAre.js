@@ -25,8 +25,8 @@ export default function HomeWhoWeAre() {
 		<section className={`${styles.HomeWhoWeAre} pt_100 pb_60`}>
 			<div className="container">
 				<h2 className="text_xl color_white">
-					Guiding you through the
-					<br className="hidden_xs" /> energy ecosystem
+					Strategic market focus
+					<br className="hidden_xs" /> for your sector
 				</h2>
 				<div className={`${styles.WhoWeAreSection} pt_60`}>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
@@ -44,7 +44,7 @@ export default function HomeWhoWeAre() {
 						</div>
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
-						<h4 className="text_md color_white f_w_m pb_20">Energy Consumer</h4>
+						<h4 className="text_md color_white f_w_m pb_20">Energy Consumers</h4>
 						<p className="text_reg color_white">
 							Large-scale businesses optimizing energy procurement, balancing
 							cost-efficiency, reliability, and sustainability while meeting
@@ -61,8 +61,8 @@ export default function HomeWhoWeAre() {
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
 						<h4 className="text_md color_white f_w_m pb_20">Utilities</h4>
 						<p className="text_reg color_white">
-							Organizations managing energy generation, transmission, and distribution,
-							optimizing grid performance and integrating renewables to meet future
+							Organisations managing energy generation, transmission, and distribution,
+							optimising grid performance and integrating renewables to meet future
 							energy demand.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
@@ -74,7 +74,7 @@ export default function HomeWhoWeAre() {
 						</div>
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
-						<h4 className="text_md color_white f_w_m pb_20">Developer</h4>
+						<h4 className="text_md color_white f_w_m pb_20">Developers</h4>
 						<p className="text_reg color_white">
 							Energy project developers evaluating feasibility, financing, and risks to
 							drive the development of renewable energy and infrastructure solutions.

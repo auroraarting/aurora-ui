@@ -239,7 +239,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 						</div>
 					)}
 					<div>
-						<JobOpenings data={jobs} />
+						<JobOpenings data={jobs} hideFilters={false} hideRedirect={true} />
 					</div>
 				</div>
 			</div>
