@@ -267,7 +267,7 @@ export default function ResearchLeadership() {
 																</div>
 															</div>
 															<p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
-																{parse(item.desc)}
+																{parse(item?.desc || "")}
 															</p>
 														</div>
 													</div>

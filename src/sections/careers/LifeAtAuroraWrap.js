@@ -21,6 +21,7 @@ import CollaborationSupport from "@/sections/careers/CollaborationSupport";
 import JobOpenings from "@/sections/careers/JobOpenings";
 import ConnectWithUs from "@/sections/careers/ConnectWithUs";
 import Counter from "@/sections/careers/Counter";
+import Benifits from "@/sections/careers/Benifits";
 
 // PLUGINS //
 import { Link, scroller } from "react-scroll";
@@ -103,9 +104,26 @@ export default function LifeAtAuroraWrap({
 					desktopImage={data?.banner?.dekstopimage?.node?.mediaItemUrl}
 					mobileImage={data?.banner?.mobileimage?.node?.mediaItemUrl}
 					vimeoid={data?.banner?.videoLink}
+					btnTxt={data?.banner?.buttonText}
+					btnLink={data?.banner?.buttonLink}
+					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 				/>
 				<div>
-					<SectionsHeader />
+					<SectionsHeader
+						customHtml={
+							dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
+								<div
+									{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+									key="btn"
+									to="Insights"
+								>
+									<Button color="primary" variant="filled" shape="rounded">
+										{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
+									</Button>
+								</div>
+							)
+						}
+					/>
 				</div>
 				{data?.keyAdvantages && (
 					<div>
@@ -136,6 +154,7 @@ export default function LifeAtAuroraWrap({
 				<div className={`${styles.EarlyMain}`}>
 					<EarlyCareersInside data={careersList} />
 				</div>
+				<Benifits data={data?.benefits} />
 				{data?.collaborationSupport?.list?.length > 0 && (
 					<div>
 						<CollaborationSupport data={data?.collaborationSupport} />

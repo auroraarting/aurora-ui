@@ -97,12 +97,10 @@ export default function Leaders({ data }) {
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						Leaders
+						{data?.leaders?.sectionTitle}
 					</h2>
 					<p className={`${styles.label} text_reg color_dark_gray`}>
-						Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada.
-						Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut
-						a
+						{data?.leaders?.sectionDesc}
 					</p>
 				</div>
 				<div className={`${styles.content_main_wrap} pt_40`}>
@@ -237,7 +235,7 @@ export default function Leaders({ data }) {
 																</div>
 															</div>
 															<p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
-																{parse(item.desc)}
+																{parse(item?.desc || "")}
 															</p>
 														</div>
 													</div>

@@ -1,0 +1,17 @@
+@import "../../helpers/helpers.scss";
+
+.Benifits {
+	.head {
+		width: 50%;
+	}
+	.list {
+		display: flex;
+		flex-wrap: wrap;
+		.item {
+			width: 50%;
+			display: flex;
+			align-items: center;
+			gap: 20px;
+		}
+	}
+}
