@@ -8,6 +8,9 @@ query GetOffices {
     nodes {
       name
       slug
+      regionsFields {
+        sequence
+      }
       countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           title
@@ -19,6 +22,7 @@ query GetOffices {
             }
           }
           countries {
+            sequence
             offices {
               offices(first: 999) {
                 nodes {
