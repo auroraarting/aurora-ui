@@ -163,7 +163,7 @@ export default function Speakers({ data, title, desc }) {
 																</p>
 															</div>
 															<p className={`${styles.Desc} text_xs color_silver_gray`}>
-																{parse(item.desc)}
+																{parse(item?.desc || "")}
 															</p>
 														</div>
 													</div>

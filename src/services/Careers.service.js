@@ -5,11 +5,14 @@ export const getLifeAtAurora = async (slug) => {
 	const query = `
 query MyQuery {
   page(id: "life-at-aurora", idType: URI) {
+    slug
     lifeAtAurora {
       banner {
         title
         description
         videoLink
+        buttonText
+        buttonLink
         dekstopimage {
           node {
             altText
@@ -93,8 +96,40 @@ query MyQuery {
           }
         }
       }
+      benefits {
+        sectionTitle
+        list {
+          desc
+          title
+          icon {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
     }
-    slug
   }
   offices {
     nodes {
