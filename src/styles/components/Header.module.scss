@@ -163,6 +163,7 @@
 				// cursor: pointer;
 				margin: 0 10px;
 				//height: 80px;
+
 				@include lg-down {
 					margin: 0px;
 					padding: 15px;
@@ -186,6 +187,14 @@
 					transform: scaleX(1);
 					@media (max-width: 1199px) {
 						content: none;
+					}
+				}
+				&.active {
+					&::after {
+						transform: scaleX(1);
+						@media (max-width: 1199px) {
+							content: none;
+						}
 					}
 				}
 				&:last-child {
@@ -519,7 +528,7 @@
 					@media (max-width: 767px) {
 						width: 100%;
 					}
-					.eosLinksTxt { 
+					.eosLinksTxt {
 						font-size: 20px;
 						justify-content: space-between;
 						@media (max-width: 767px) {
@@ -806,7 +815,7 @@
 		}
 		.Close {
 			top: 20px;
-    	right: 20px;
+			right: 20px;
 			//border-radius: 4px;
 			position: absolute;
 			transform: translateY(0%);
@@ -814,10 +823,9 @@
 			z-index: 10;
 			@media (max-width: 767px) {
 				top: 0px;
-    		right: 15px;
+				right: 15px;
 			}
 			img {
-				
 				@media (max-width: 767px) {
 					filter: invert(1);
 				}
