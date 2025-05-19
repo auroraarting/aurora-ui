@@ -2,6 +2,7 @@
 
 // MODULES //
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -37,20 +38,19 @@ export default function HomeBanner() {
 					<div className={`${styles.BannerInfo} f_w_j`}>
 						<div className={`${styles.BannerContent}`}>
 							<h1 className="text_xl f_w_m color_white pb_10 text_uppercase">
-								Bankable energy analytics that power investment decisons
+								Bankable energy analytics that power investment decisions
 							</h1>
 							<p className="text_reg color_silver_gray">
 								From long-term forecasts to on-demand software and strategic advisory,
 								Aurora equips you with the insight and tools to make smarter energy
 								decisions across every stage of the asset lifecycle.
 							</p>
-							<div
-								{...dynamicInsightsBtnProps()}
-								className={`${styles.bookBtnOne} pt_40`}
-							>
-								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									Book a Demo
-								</Button>
+							<div className={`${styles.bookBtnOne} pt_40`}>
+								<Link href="/software">
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+										Explore Now
+									</Button>
+								</Link>
 							</div>
 						</div>
 						<div className={`${styles.BannerImg}`}>
