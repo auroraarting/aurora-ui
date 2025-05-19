@@ -154,7 +154,7 @@ export default function LifeAtAuroraWrap({
 				<div className={`${styles.EarlyMain}`}>
 					<EarlyCareersInside data={careersList} />
 				</div>
-				<Benifits data={data?.benefits} />
+				{/* <Benifits data={data?.benefits} /> */}
 				{data?.collaborationSupport?.list?.length > 0 && (
 					<div>
 						<CollaborationSupport data={data?.collaborationSupport} />
