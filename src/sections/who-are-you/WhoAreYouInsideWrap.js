@@ -107,12 +107,12 @@ export default function WhoAreYouInsideWrap({
 					/>
 				</div>
 
-				{data?.services?.ourClient?.selectLogos && (
+				{data?.whoAreYous?.ourClient?.selectLogos && (
 					<div className="ptb_100">
 						<TrustedLeaders data={data?.whoAreYous?.ourClient} />
 					</div>
 				)}
-				{data?.services?.ourClient?.testimonials && (
+				{data?.whoAreYous?.ourClient?.testimonials && (
 					<div className="pb_100">
 						<TestimonialFeedback data={data?.whoAreYous?.ourClient} />
 					</div>
