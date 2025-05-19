@@ -3,6 +3,7 @@
 // MODULES //
 import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // COMPONENTS //
 import Image from "next/image";
@@ -56,6 +57,7 @@ export default function Header({ defaultNavigation }) {
 	const [showSearch, setShowSearch] = useState(false);
 	const searchParams = useSearchParams();
 	const searchQuery = searchParams.get("search");
+	const pathname = usePathname();
 
 	/** toggle */
 	const toggleTab = (index) => {
@@ -195,7 +197,7 @@ export default function Header({ defaultNavigation }) {
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "company" ? styles.dropdown_opened : ""
-									} dropdown`}
+									} ${pathname.includes("company") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("company")}
 									data-lenis-prevent
 								>
@@ -352,7 +354,7 @@ export default function Header({ defaultNavigation }) {
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "WhoAreYou" ? styles.dropdown_opened : ""
-									} dropdown`}
+									} ${pathname.includes("who-are-you") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("WhoAreYou")}
 									data-lenis-prevent
 								>
@@ -491,7 +493,7 @@ export default function Header({ defaultNavigation }) {
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "HowWeHelp" ? styles.dropdown_opened : ""
-									} dropdown`}
+									} ${pathname.includes("how-we-help") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("HowWeHelp")}
 									data-lenis-prevent
 								>
@@ -655,6 +657,12 @@ export default function Header({ defaultNavigation }) {
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "ProductServices" ? styles.dropdown_opened : ""
+									} ${
+										(pathname.includes("software") ||
+											pathname.includes("eos") ||
+											pathname.includes("products") ||
+											pathname.includes("service")) &&
+										styles.active
 									} dropdown`}
 									onClick={() => toggleDropdown("ProductServices")}
 									data-lenis-prevent
@@ -825,7 +833,7 @@ export default function Header({ defaultNavigation }) {
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "Resources" ? styles.dropdown_opened : ""
-									} dropdown`}
+									} ${pathname.includes("resources") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("Resources")}
 									data-lenis-prevent
 								>
@@ -966,7 +974,11 @@ export default function Header({ defaultNavigation }) {
 									</div>
 								</div>
 
-								<div className={styles.links}>
+								<div
+									className={`${styles.links} ${
+										pathname.includes("events") && styles.active
+									}`}
+								>
 									<a href="/events">
 										<div
 											className={`${styles.link_title} text_xs font_primary color_dark_gray`}
@@ -979,7 +991,7 @@ export default function Header({ defaultNavigation }) {
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "Careers" ? styles.dropdown_opened : ""
-									} dropdown`}
+									} ${pathname.includes("careers") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("Careers")}
 									data-lenis-prevent
 								>
