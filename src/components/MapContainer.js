@@ -423,7 +423,7 @@ export default function Map({
 										url:
 											marker?.icon?.node?.mediaItemUrl ||
 											marker?.icon ||
-											"/img/softwares/mapMarker.svg",
+											"/img/softwares/mapMarkerYellow.svg",
 										// scaledSize: new window.google.maps.Size(10, 10),
 										// origin: new window.google.maps.Point(0, 0),
 										// anchor: new window.google.maps.Point(25, 50),

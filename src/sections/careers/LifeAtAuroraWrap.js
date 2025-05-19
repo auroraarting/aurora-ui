@@ -49,6 +49,8 @@ export default function LifeAtAuroraWrap({
 	const [mapJson, setMapJson] = useState();
 	const dataForBtn = { postFields: data || {} };
 
+	console.log(data, "data");
+
 	useEffect(() => {
 		let tempMapJson = {
 			zoom: 9,

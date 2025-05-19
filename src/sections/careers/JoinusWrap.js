@@ -57,7 +57,7 @@ export default function JoinusWrap({ page, otherList, countries, jobs }) {
 							defaultList={otherList}
 							countries={countries}
 							formSectionTitle={page?.insights?.sectionTitle}
-							formSectionDesc={page?.insights?.sectionTitle}
+							formSectionDesc={page?.insights?.sectionDesc}
 							formSectionBtnText={
 								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 							}
