@@ -54,70 +54,80 @@ async function getData() {
 		getContact(),
 	]);
 
-	const regionsArr = regions.data.regions.nodes?.map((item) => {
-		let obj = {};
-		obj.title = item?.name;
-		if (item?.countries?.nodes?.length > 0) {
-			obj.children = (
-				<div className={`${styles.CountryWrapper}`}>
-					<div className={`${styles.CountryBox}`}>
-						{item?.countries?.nodes?.map((item2, ind2) => {
-							return item2?.countries?.offices?.offices?.nodes?.map((item3, ind3) => {
-								console.log(item3);
-								if (item2?.countries?.hideonglobalpresence) return null;
-								return (
-									<div className={`${styles.CountryItem}`} key={item2?.title}>
-										<img
-											height={179}
-											width={446}
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										<div className={`${styles.countryImg}`}>
-											<img
-												src={item2?.countries?.bannerSection?.image?.node?.mediaItemUrl}
-												className="width_100 b_r_10"
-												alt="img"
-											/>
-										</div>
-										<div className="f_j a_center pt_10">
-											<h5 className="text_reg font_primary f_w_m color_secondary ">
-												{item3?.title}
-											</h5>
-											{item3?.offices?.map?.mapUrl && (
-												<a href={item3?.offices?.map?.mapUrl}>
-													<Button color="secondary" variant="underline" size="xs">
-														View Map
-													</Button>
-												</a>
-											)}
-										</div>
-										{item3?.offices?.contact?.address && (
-											<p className={`${styles.address} d_f color_dark_gray text_xs pt_10`}>
-												<img src={location.src} className="" alt="img" />
-												<span>{item3?.offices?.contact?.address}</span>
-											</p>
-										)}
-										{item3?.offices?.contact?.tel && (
-											<a
-												href={`tel:${item3?.offices?.contact?.tel}`}
-												className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
-											>
-												<img src={call_icon.src} className="" alt="img" />
-												<span>{item3?.offices?.contact?.tel}</span>
-											</a>
-										)}
-									</div>
-								);
-							});
-						})}
+	console.log(regions, "regions");
+
+	const regionsArr = regions.data.regions.nodes
+		?.sort((a, b) => a?.regionsFields?.sequence - b?.regionsFields?.sequence)
+		.map((item) => {
+			let obj = {};
+			obj.title = item?.name;
+			if (item?.countries?.nodes?.length > 0) {
+				obj.children = (
+					<div className={`${styles.CountryWrapper}`}>
+						<div className={`${styles.CountryBox}`}>
+							{item?.countries?.nodes
+								?.sort((a, b) => b?.countries?.sequence - a?.countries?.sequence)
+								.map((item2, ind2) => {
+									return item2?.countries?.offices?.offices?.nodes?.map(
+										(item3, ind3) => {
+											// console.log(item3);
+											// if (item2?.countries?.hideonglobalpresence) return null;
+											return (
+												<div className={`${styles.CountryItem}`} key={item2?.title}>
+													<img
+														height={179}
+														width={446}
+														src={hoverBg.src}
+														className={`${styles.hoverBg} width_100 b_r_10`}
+														alt="img"
+													/>
+													<div className={`${styles.countryImg}`}>
+														<img
+															src={item2?.countries?.bannerSection?.image?.node?.mediaItemUrl}
+															className="width_100 b_r_10"
+															alt="img"
+														/>
+													</div>
+													<div className="f_j a_center pt_10">
+														<h5 className="text_reg font_primary f_w_m color_secondary ">
+															{item3?.title}
+														</h5>
+														{item3?.offices?.map?.mapUrl && (
+															<a href={item3?.offices?.map?.mapUrl}>
+																<Button color="secondary" variant="underline" size="xs">
+																	View Map
+																</Button>
+															</a>
+														)}
+													</div>
+													{item3?.offices?.contact?.address && (
+														<p
+															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+														>
+															<img src={location.src} className="" alt="img" />
+															<span>{item3?.offices?.contact?.address}</span>
+														</p>
+													)}
+													{item3?.offices?.contact?.tel && (
+														<a
+															href={`tel:${item3?.offices?.contact?.tel}`}
+															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
+														>
+															<img src={call_icon.src} className="" alt="img" />
+															<span>{item3?.offices?.contact?.tel}</span>
+														</a>
+													)}
+												</div>
+											);
+										}
+									);
+								})}
+						</div>
 					</div>
-				</div>
-			);
-		}
-		return obj;
-	});
+				);
+			}
+			return obj;
+		});
 
 	return {
 		props: {
