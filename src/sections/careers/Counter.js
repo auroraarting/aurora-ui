@@ -28,7 +28,8 @@ export default function Counter({ data }) {
 					{data?.stats?.auroreans && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data?.stats?.auroreans} enableScrollSpy /> <spn>+</spn>
+								<CountUp end={data?.stats?.auroreans} enableScrollSpy />
+								<span>+</span>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								Auroreans
@@ -38,8 +39,8 @@ export default function Counter({ data }) {
 					{data?.stats?.nationalities && (
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
-								<CountUp end={data?.stats?.nationalities} enableScrollSpy />{" "}
-								<spn>+</spn>
+								<CountUp end={data?.stats?.nationalities} enableScrollSpy />
+								<span>+</span>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								nationalities
@@ -80,7 +81,7 @@ export default function Counter({ data }) {
 						<div className={`${styles.countBox}`}>
 							<h4 className="text_xxl color_primary">
 								<CountUp end={data?.stats?.transactions} enableScrollSpy />
-								<spn>+</spn>
+								<span>+</span>
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
 								Transactions
