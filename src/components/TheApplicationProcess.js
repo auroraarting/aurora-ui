@@ -157,6 +157,8 @@ export default function TheApplicationProcess({ data }) {
 		});
 	};
 
+	console.log("accordianData2()", accordianData());
+
 	return (
 		<section
 			className={`${styles.SmarterEnergy} ptb_100`}
@@ -170,23 +172,27 @@ export default function TheApplicationProcess({ data }) {
 							{data?.title}
 						</h2>
 						<p className="text_reg color_dark_gray">{data?.description}</p>
-						<div onClick={() => openModal("application-tips")} className="m_t_20">
-							<Button color="primary" variant="filled" shape="rounded">
-								Application Tips
-							</Button>
-						</div>
+						{accordianData2() && (
+							<div onClick={() => openModal("application-tips")} className="m_t_20">
+								<Button color="primary" variant="filled" shape="rounded">
+									Application Tips
+								</Button>
+							</div>
+						)}
 					</div>
-					<div className={`${styles.common_queries_faq}`}>
-						<div className={`${styles.accordian_main}`}>
-							<AccordianCommon
-								fontStyle={"text_md"}
-								fontWeight={"f_w_m"}
-								fontFamily={"font_primary"}
-								fontColor={"color_secondary"}
-								items={accordianData()}
-							/>
+					{accordianData() && (
+						<div className={`${styles.common_queries_faq}`}>
+							<div className={`${styles.accordian_main}`}>
+								<AccordianCommon
+									fontStyle={"text_md"}
+									fontWeight={"f_w_m"}
+									fontFamily={"font_primary"}
+									fontColor={"color_secondary"}
+									items={accordianData()}
+								/>
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			</div>
 			<Modal id="application-tips">
@@ -199,16 +205,18 @@ export default function TheApplicationProcess({ data }) {
 					>
 						<ContentFromCms>{data?.applicationTips?.desc}</ContentFromCms>
 					</div>
-					<div className={`${styles.accordian_main}`}>
-						<AccordianCommon
-							fontStyle={"text_md color_white"}
-							fontWeight={"f_w_m"}
-							fontFamily={"font_primary"}
-							fontColor={"color_white"}
-							fontContentColor={"color_white"}
-							items={accordianData2()}
-						/>
-					</div>
+					{accordianData2() && (
+						<div className={`${styles.accordian_main}`}>
+							<AccordianCommon
+								fontStyle={"text_md color_white"}
+								fontWeight={"f_w_m"}
+								fontFamily={"font_primary"}
+								fontColor={"color_white"}
+								fontContentColor={"color_white"}
+								items={accordianData2()}
+							/>
+						</div>
+					)}
 				</div>
 			</Modal>
 		</section>

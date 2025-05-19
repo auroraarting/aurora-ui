@@ -107,7 +107,10 @@ export default function EarlyCareersInside({ data }) {
 												className={`${styles.location}`}
 												alt="location"
 											/>
-											<span>{item?.earlyCareers?.thumbnail?.country?.node?.title}</span>
+											<span>
+												{item?.earlyCareers?.thumbnail?.country?.node?.title ||
+													item?.earlyCareers?.banner?.city}
+											</span>
 										</p>
 										<h4 className="text_md color_white f_w_m font_primary pt_10">
 											{item?.title}

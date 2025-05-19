@@ -28,6 +28,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/careers/early-careers/EarlyCareers.module.scss";
+import Button from "@/components/Buttons/Button";
 
 // IMAGES //
 
@@ -45,6 +46,9 @@ export default function EarlyCareersInsideWrap({
 	offices,
 	dataForBtn,
 }) {
+	const dataForBtnForInsights = {
+		postFields: data?.earlyCareers?.insights || {},
+	};
 	return (
 		<div>
 			{/* Metatags */}
@@ -64,7 +68,21 @@ export default function EarlyCareersInsideWrap({
 					<CareersInsideBanner data={data} />
 				</div>
 				{/* <div> */}
-				<SectionsHeader />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
+								</Button>
+							</div>
+						)
+					}
+				/>
 				{/* </div> */}
 				<div>
 					<WhatWeLook data={data} />
@@ -106,9 +124,13 @@ export default function EarlyCareersInsideWrap({
 								formSectionTitle={data?.earlyCareers?.insights?.title}
 								formSectionDesc={data?.earlyCareers?.insights?.desc}
 								formSectionBtnText={
-									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+									dynamicInsightsBtnProps(dataForBtnForInsights, "insightsSectionButton")
+										.btntext
 								}
-								formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+								formdata={dynamicInsightsBtnProps(
+									dataForBtnForInsights,
+									"insightsSectionButton"
+								)}
 							/>
 						</div>
 					</div>
