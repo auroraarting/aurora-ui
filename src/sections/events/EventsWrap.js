@@ -113,7 +113,7 @@ export default function EventsWrap({
 							formSectionDesc="We're always looking for new and exciting opportunities to collaborate. For partnership enquiries, please contact <a href='mailto:events@auroraer.com'>events@auroraer.com</a>"
 							formSectionBtnText={
 								dynamicInsightsBtnProps({ postFields: page }, "insightsSectionButton")
-									.btnText
+									.btntext
 							}
 							formdata={dynamicInsightsBtnProps(
 								{ postFields: page },

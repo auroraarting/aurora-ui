@@ -127,15 +127,7 @@ export default function SoftwareMarket({
 								]}
 							/> */}
 						</div>
-						{customHtml ? (
-							customHtml
-						) : (
-							<div {...dynamicInsightsBtnProps()}>
-								<Button color="primary" variant="filled" shape="rounded">
-									Get in Touch
-								</Button>
-							</div>
-						)}
+						{customHtml}
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}

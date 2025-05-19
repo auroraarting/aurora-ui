@@ -115,9 +115,6 @@ export default function SoftwareInsideWrap({
 						<CaseStudy data={data?.caseStudy} countries={countries} />
 					</div>
 				)}
-				{/* <div className="pb_100">
-					<SoftwareMarket />
-				</div> */}
 				{data?.ourClient?.selectLogos && (
 					<div className="ptb_100">
 						<TrustedLeaders data={data?.ourClient} />

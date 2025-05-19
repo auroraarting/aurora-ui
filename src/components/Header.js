@@ -67,6 +67,7 @@ export default function Header({ defaultNavigation }) {
 	/** Open togglePopup on click of hamburger */
 	const togglePopup = () => {
 		setIsPopupActive((prev) => !prev);
+		handleCloseClick();
 	};
 
 	/** Open closePopup on click of hamburger */
@@ -1181,7 +1182,7 @@ export default function Header({ defaultNavigation }) {
 											>
 												<ul>
 													{item?.countries?.nodes?.map((country, index) => {
-														if (country?.countries?.hideonglobalpresence) return <></>;
+														if (country?.countries?.hideonglobalpresence) return null;
 														return (
 															<li key={index} className="text_xs color_platinum_gray">
 																<a href={`/global-presence/${country.slug}`}>

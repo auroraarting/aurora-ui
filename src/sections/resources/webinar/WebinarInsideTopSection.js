@@ -42,7 +42,7 @@ export default function WebinarInsideTopSection({
 							className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 						>
 							{isUpcoming ? "Upcoming: " : "Completed: "}
-							{data?.eventCategories?.nodes?.map((item) => item?.name)}
+							{data?.eventCategories?.nodes?.map((item) => item?.name)} Webinar
 						</div>
 						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
 							{data?.title}
@@ -70,6 +70,17 @@ export default function WebinarInsideTopSection({
 									))}
 								</p>
 							)}
+							{data?.webinarsFields?.venue && (
+								<p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
+									<img
+										src={location.src}
+										className={`${styles.calender}`}
+										alt="calender"
+									/>
+									<span>{data?.webinarsFields?.venue}</span>
+								</p>
+							)}
+
 							{/* <p className="text_xs f_w_m color_dark_gray text_uppercase f_r_a_center">
 								<img src={share.src} className={`${styles.calender}`} alt="calender" />
 							</p> */}

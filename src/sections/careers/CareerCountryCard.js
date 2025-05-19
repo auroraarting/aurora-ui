@@ -32,9 +32,11 @@ import location from "../../../public/img/icons/location.svg";
 import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import searchImg from "../../../public/img/icons/search.svg";
-import { GlobalContext, useContextProvider } from "@/context/GlobalContext";
 
 // DATA //
+
+// CONTEXT //
+import { GlobalContext, useContextProvider } from "@/context/GlobalContext";
 
 /** CareerCountryCard Section */
 export default function CareerCountryCard({ page, data, programs, countries }) {
@@ -97,7 +99,6 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 
 		if (key === "search") {
 			selectedObj.search = catName;
-			return;
 		}
 		if (key === "programsType") {
 			selectedObj.program = catName;
@@ -191,7 +192,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 							</div>
 						</div>
 
-						{/* Language Dropdown */}
+						{/* Country Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
 							<div className={styles.custom_select}>
 								<div
@@ -204,12 +205,20 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<div
 										className={`${styles.select_header} select_bg text_sm color_silver_gray text_500`}
 									>
-										{dropdowns.countryType.selected.title}
+										{dropdowns.countryType.selected.title || "Country"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox}>
+										<li
+											className={
+												dropdowns.countryType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("countryType", "")}
+										>
+											All
+										</li>
 										{optionsData.countryType.map((option) => (
 											<li
 												key={option.title}
@@ -256,7 +265,9 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 						{/* search box */}
 						<div className={`${styles.selectBox} ${styles.widthCustomSearch} `}>
 							<div className={`${styles.searchBox}`} onClick={toggleSearchInput}>
-								<p className="text_sm color_silver_gray text_500">Search</p>
+								<p className="text_sm color_silver_gray text_500">
+									{selected.search || "Search"}
+								</p>
 								<span>
 									<img src={searchImg.src} alt="icon" />
 								</span>
@@ -270,6 +281,8 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									onSubmit={(e) => {
 										e.preventDefault();
 										const val = e.target.search.value;
+										console.log("Asdasda", val);
+
 										filter(val, "search");
 									}}
 								>

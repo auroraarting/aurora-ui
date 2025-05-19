@@ -75,14 +75,14 @@ export default function ProductInsideWrap({ data, mapJson }) {
 				</div>
 				<SectionsHeader
 					customHtml={
-						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText && (
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
 							<div
 								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
 								key="btn"
 								to="Insights"
 							>
 								<Button color="primary" variant="filled" shape="rounded">
-									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btnText}
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
 								</Button>
 							</div>
 						)

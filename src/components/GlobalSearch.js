@@ -234,6 +234,13 @@ export default function GlobalSearch() {
 					)}`,
 					title: item.title,
 				};
+			case "earlyCareers":
+				return {
+					link: `/careers/early-careers/${item?.slug}?search=${encodeURIComponent(
+						searchTerm
+					)}`,
+					title: item.title,
+				};
 
 			default:
 				return {
