@@ -122,6 +122,9 @@ query GetEarlyCareersListing {
       title
       slug
       earlyCareers {
+      banner{
+      city
+      }
         thumbnail {
           islive
           country {
