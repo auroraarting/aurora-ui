@@ -33,6 +33,9 @@
 		}
 		.formBox {
 			width: 55%;
+			@media (max-width: 1199px) {
+				width: 62%;
+			}
 			@media (max-width: 767px) {
 				width: 100%;
 			}
