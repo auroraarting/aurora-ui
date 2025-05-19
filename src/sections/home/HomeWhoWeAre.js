@@ -25,8 +25,8 @@ export default function HomeWhoWeAre() {
 		<section className={`${styles.HomeWhoWeAre} pt_100 pb_60`}>
 			<div className="container">
 				<h2 className="text_xl color_white">
-					Guiding you through the
-					<br className="hidden_xs" /> energy ecosystem
+					Strategic market focus
+					<br className="hidden_xs" /> for your sector
 				</h2>
 				<div className={`${styles.WhoWeAreSection} pt_60`}>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>

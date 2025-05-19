@@ -44,7 +44,7 @@ export default function HomeBanner() {
 							<p className="text_reg color_silver_gray">
 								From long-term forecasts to on-demand software and strategic advisory,
 								Aurora equips you with the insight and tools to make smarter energy
-								decisions across every stage of the asset lifecycle
+								decisions across every stage of the asset lifecycle.
 							</p>
 							<div
 								// {...dynamicInsightsBtnProps()}
