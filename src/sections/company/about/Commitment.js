@@ -50,13 +50,18 @@ export default function Commitment() {
 							transition through rigorous quantitative analysis, providing the insights
 							and tools necessary for informed decision-making.
 						</p>
-						<div className={`${styles.btn_box}`} {...dynamicInsightsBtnProps()}>
+						<div className={`${styles.btn_box}`}>
 							<span>
 								<img src={dropdown_arrow.src} alt="icon" />
 							</span>
-							<Button color="primary" variant="filled" shape="rounded">
-								ESG Factsheet
-							</Button>
+							<a
+								href="../../../../public/pdf/About-2025-ESG-Report.pdf"
+								rel="noreferrer"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									ESG Factsheet
+								</Button>
+							</a>
 						</div>
 					</div>
 				</div>
