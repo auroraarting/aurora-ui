@@ -1,6 +1,6 @@
 @import "../../helpers/helpers.scss";
 .HomeResources {
-  .publicFlex {
+	.publicFlex {
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}
@@ -44,22 +44,25 @@
 			.ItemBox {
 				border-radius: 20px;
 				padding: 20px 20px;
-        margin-bottom: 20px;
+				margin-bottom: 20px;
 				background-color: var(--color_white);
-        .insideBox{
-          width: 100%;
-          .tag {
-            background-color: var(--color_blue);
-            padding: 5px 12px;
-            border-radius: 8px;
-            width: max-content;
-            margin-top: 20px;
-          }
-        }
-				
+				.case_img {
+					height: 260px;
+					object-fit: cover;
+				}
+				.insideBox {
+					width: 100%;
+					.tag {
+						background-color: var(--color_blue);
+						padding: 5px 12px;
+						border-radius: 8px;
+						width: max-content;
+						margin-top: 20px;
+					}
+				}
 			}
-      .webinarHome{
-        height: 460px;
+			.webinarHome {
+				height: 460px;
 				background-image: url("../../../../public/img/global-presence/publicBg.png");
 				background-repeat: no-repeat;
 				background-size: cover;
@@ -72,7 +75,7 @@
 				@media (max-width: 767px) {
 					height: 300px;
 				}
-      }
+			}
 		}
 		.publicleft {
 			width: 40%;
@@ -83,15 +86,15 @@
 				width: 100%;
 			}
 			.webinarBox {
-        position: sticky;
-        top: 120px;
+				position: sticky;
+				top: 120px;
 				.webinarItem {
 					margin-left: 10px;
 					@media (max-width: 767px) {
 						margin-left: 0px;
 					}
 					.contentBox {
-            position: relative;
+						position: relative;
 						border-bottom: 1px solid var(--color_platinum_gray);
 						padding: 20px 20px;
 						@media (max-width: 991px) {
@@ -106,62 +109,60 @@
 							background-color: var(--color_secondary);
 							border-radius: 12px;
 							margin: 0 0 5px;
-							.categoryTxt{
+							.categoryTxt {
 								position: relative;
 								color: var(--color_medium_gray);
 							}
-							.descTxt{
+							.descTxt {
 								position: relative;
 								color: var(--color_white);
-							} 
-							.dateFlex{
+							}
+							.dateFlex {
 								position: relative;
-								p{
-								
-								color: var(--color_silver_gray);
+								p {
+									color: var(--color_silver_gray);
 								}
-								img{
-								filter: invert(1);
+								img {
+									filter: invert(1);
 								}
 							}
 							.hoverBg {
 								opacity: 1;
 							}
 						}
-            .hoverBg {
-              position: absolute;
-              left: 0;
-              top: 0px;
-              opacity: 0;
-              height: 100%;
-              width: 100%;
+						.hoverBg {
+							position: absolute;
+							left: 0;
+							top: 0px;
+							opacity: 0;
+							height: 100%;
+							width: 100%;
 							z-index: 0;
-            }
-            &:hover{
-              background-color: var(--color_secondary);
-              border-radius: 12px;
-              .categoryTxt{
-                position: relative;
-                color: var(--color_medium_gray);
-              }
-              .descTxt{
-                position: relative;
-                color: var(--color_white);
-              } 
-              .dateFlex{
-                position: relative;
-                p{
-                 
-                  color: var(--color_silver_gray);
-                }
-                img{
-                  filter: invert(1);
-                }
-              }
-              .hoverBg {
-                opacity: 1;
-              }
-            }
+						}
+						&:hover {
+							background-color: var(--color_secondary);
+							border-radius: 12px;
+							.categoryTxt {
+								position: relative;
+								color: var(--color_medium_gray);
+							}
+							.descTxt {
+								position: relative;
+								color: var(--color_white);
+							}
+							.dateFlex {
+								position: relative;
+								p {
+									color: var(--color_silver_gray);
+								}
+								img {
+									filter: invert(1);
+								}
+							}
+							.hoverBg {
+								opacity: 1;
+							}
+						}
 					}
 				}
 			}

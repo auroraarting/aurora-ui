@@ -55,7 +55,7 @@ export default function EventsWrap({
 					/>
 				</div>
 				<div>
-					<TopEvents data={page?.featured?.nodes?.[0]} />
+					<TopEvents list={page?.featured?.nodes} />
 				</div>
 				<div className="pt_60">
 					<EventsListing

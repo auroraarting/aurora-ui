@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 "use client";
 
 // MODULES //
@@ -43,14 +44,17 @@ export default function HomeBanner() {
 							<p className="text_reg color_silver_gray">
 								From long-term forecasts to on-demand software and strategic advisory,
 								Aurora equips you with the insight and tools to make smarter energy
-								decisions across every stage of the asset lifecycle.
+								decisions across every stage of the asset lifecycle
 							</p>
-							<div className={`${styles.bookBtnOne} pt_40`}>
-								<Link href="/software">
+							<div
+								// {...dynamicInsightsBtnProps()}
+								className={`${styles.bookBtnOne} pt_40`}
+							>
+								<a href="/software">
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
 										Explore Now
 									</Button>
-								</Link>
+								</a>
 							</div>
 						</div>
 						<div className={`${styles.BannerImg}`}>

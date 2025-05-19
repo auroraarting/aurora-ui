@@ -40,7 +40,9 @@ export default function SoftwareMarket({
 	sectionTitle = "From your market to the world",
 	mapJson,
 	customHtml,
+	data,
 }) {
+	console.log(data, "dataat");
 	/** centerOfCountry  */
 	let centerOfCountry = () => {
 		if (mapJson) {
@@ -75,59 +77,36 @@ export default function SoftwareMarket({
 					<div className={`${styles.left}`}>
 						<p className={`${styles.title} text_xl text_600`}>{sectionTitle}</p>
 
-						<div className={`${styles.meetTitle} text_reg f_w_m`}>Meet the Team</div>
-						<div className={`${styles.dropdownWrap}`}>
-							<div className={`${styles.author}`}>
-								<div className={`${styles.authorInner}`}>
-									<div className={`${styles.pic}`}>
-										<img src={AuthorPic.src} alt="AuthorPic" />
-									</div>
-									<div className={`${styles.detail}`}>
-										<p className={`${styles.name} text_500`}>Hugo Batten</p>
-										<p className={`${styles.position} text_xs text_300`}>
-											Head of Australia
-										</p>
-									</div>
+						{data?.team?.nodes?.length > 0 && (
+							<>
+								<div className={`${styles.meetTitle} text_reg f_w_m`}>
+									Meet the Team
 								</div>
-							</div>
-							<div className={`${styles.author}`}>
-								<div className={`${styles.authorInner}`}>
-									<div className={`${styles.pic}`}>
-										<img src={AuthorPic.src} alt="AuthorPic" />
-									</div>
-									<div className={`${styles.detail}`}>
-										<p className={`${styles.name} text_500`}>Hugo Batten</p>
-										<p className={`${styles.position} text_xs text_300`}>
-											Head of Australia
-										</p>
-									</div>
-								</div>
-							</div>
-							{/* <div className={`${styles.upcoming}`}>
-								<p className={`${styles.text} text_500`}>Upcoming Locations</p>
-								<img src={DrownDownArrow.src} alt="DrownDownArrow" />
-							</div> */}
-							{/* <AccordianCommon
-								fontStyle={"text_reg"}
-								fontWeight={"f_w_m"}
-								fontFamily={"font_primary"}
-								fontColor={"color_secondary"}
-								defaultActiveId={-1}
-								items={[
-									{
-										title: "Upcoming Location",
-										children: (
-											<div className={`${styles.content_wrap}`}>
-												<p className="text_reg color_dark_gray">
-													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.
-												</p>
+								<div className={`${styles.dropdownWrap}`}>
+									{data?.team?.nodes?.map((item, ind) => {
+										return (
+											<div className={`${styles.author}`} key={item?.id}>
+												<div className={`${styles.authorInner}`}>
+													<div className={`${styles.pic}`}>
+														<img
+															src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
+															alt="AuthorPic"
+														/>
+													</div>
+													<div className={`${styles.detail}`}>
+														<p className={`${styles.name} text_500`}>{item?.title}</p>
+														<p className={`${styles.position} text_xs text_300`}>
+															{item?.teams?.thumbnail?.designation}
+														</p>
+													</div>
+												</div>
 											</div>
-										),
-									},
-								]}
-							/> */}
-						</div>
-						{customHtml}
+										);
+									})}
+								</div>
+							</>
+						)}
+						<div className="m_t_30">{customHtml}</div>
 					</div>
 					<div className={`${styles.right}`}>
 						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}

@@ -75,6 +75,7 @@ async function getData({ params }) {
 		getInsightsCategories(),
 		getWebinars("first: 4"),
 	]);
+	console.log(data, "data");
 	const pastWebinars = [];
 	const otherList = list?.data?.webinars?.nodes;
 	otherList?.map((item) => {

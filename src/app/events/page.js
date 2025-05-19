@@ -41,7 +41,10 @@ export default async function Events() {
 		getAllEventCountries(),
 		getEventLandingPage(),
 	]);
-	const data = dataFetch.data.events.nodes;
+	const data = dataFetch.data.events.nodes.sort(
+		(a, b) =>
+			new Date(b?.events?.thumbnail?.date) - new Date(a?.events?.thumbnail?.date)
+	);
 	const categories = categoriesFetch.data.eventscategories.nodes?.map((item) => {
 		return { title: item.name };
 	});

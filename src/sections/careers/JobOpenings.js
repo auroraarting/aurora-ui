@@ -177,7 +177,7 @@ export default function JobOpenings({
 													</div>
 												</div>
 												{dropdowns.eventNameType.isOpen && (
-													<ul className={styles.selectOptionBox}>
+													<ul className={styles.selectOptionBox} data-lenis-prevent>
 														<li
 															className={
 																dropdowns.eventNameType.selected.title === "" ? "selected" : ""
@@ -220,7 +220,7 @@ export default function JobOpenings({
 													</div>
 												</div>
 												{dropdowns.offeringsType.isOpen && (
-													<ul className={styles.selectOptionBox}>
+													<ul className={styles.selectOptionBox} data-lenis-prevent>
 														<li
 															className={
 																dropdowns.offeringsType.selected.title === "" ? "selected" : ""

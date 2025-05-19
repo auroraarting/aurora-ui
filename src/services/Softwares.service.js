@@ -309,6 +309,16 @@ query GetPageSoftwares {
           }
         }
       }
+      inisghtsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
     }
   }
   softwares(first: 999) {
