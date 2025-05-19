@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 "use client";
 // MODULES //
 
@@ -29,23 +30,26 @@ export default function EosIntegratedSystem() {
 						<img src={IMac.src} className="img" alt="imac" />
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<h2 className="text_xl font_primary f_w_m color_white pb_10">
-							EOS - Integrated system, endless possibilities
+						<h2 className="text_xl font_primary f_w_m color_white m_b_15">
+							Integrated energy intelligence with EOS
 						</h2>
 						<p className={`${styles.label} text_reg color_platinum_gray pb_10`}>
-							Subscribe for comprehensive market analytics powered by our fundamental
-							model—credible, reliable, and bankable forecasts. Access everything in
-							one place with EOS, your energy market hub. Enjoy workshops, analyst
-							support, and webinars on forecasts, policy changes, and market
-							opportunities.
+							EOS is Aurora&apos;s unique, interactive energy intelligence platform,
+							providing clients with seamless access to software, data, forecast
+							reports, and insights essential for strategic decision-making.
 						</p>
-						<div
-							{...dynamicInsightsBtnProps()}
-							className={`${styles.bookBtnOne} pt_20`}
-						>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Subscribe Now
-							</Button>
+						<p className={`${styles.label} text_reg color_platinum_gray pb_10`}>
+							Used by thousands of energy market professionals each week globally, EOS
+							serves as the central hub for all our software and research subscription
+							services, enabling users to efficiently access our intelligence, whatever
+							their use case.
+						</p>
+						<div className={`${styles.bookBtnOne} pt_20`}>
+							<a href="/software">
+								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+									Explore Now
+								</Button>
+							</a>
 						</div>
 					</div>
 				</div>
