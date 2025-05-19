@@ -156,6 +156,8 @@ export default function GlobalPresenceInsideWrap({
 								isInsightsBlogsVisible={true}
 								defaultList={insightsList}
 								countries={countries}
+								formSectionTitle={data?.countries?.insights?.sectionTitle}
+								formSectionDesc={data?.countries?.insights?.sectionDesc}
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionsButton").btntext
 								}

@@ -21,7 +21,7 @@
 		display: none;
 	}
 	:global(.gm-style-iw-chr) {
-		display: none;
+		display: none !important;
 		transform: translateY(25px) translateX(-10px);
 		button {
 			background-color: var(--color_white) !important;

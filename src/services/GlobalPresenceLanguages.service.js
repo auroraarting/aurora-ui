@@ -258,6 +258,7 @@ query GetCountryInside {
       }
       insights {
         sectionTitle
+        sectionDesc
       }
       subscribeSection {
         description
