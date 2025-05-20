@@ -153,7 +153,10 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 						{page?.listing?.title}
 					</h2>
 				</div>
-				<div className={styles.filterMain}>
+				<div
+					// className={styles.filterMain}
+					className={styles.filterMain1}
+				>
 					<div className={styles.filterflex}>
 						{/* Programs Type Dropdown */}
 						{/* <div className={`${styles.selectBox}`} ref={dropdownRefs.programsType}>
@@ -193,7 +196,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 						</div> */}
 
 						{/* Country Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.countryType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.countryType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -235,10 +238,10 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
 
 						{/* Reset */}
-						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
+						{/* <div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} "activeDropDown"`}
@@ -260,10 +263,10 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						{/* search box */}
-						<div className={`${styles.selectBox} ${styles.widthCustomSearch} `}>
+						{/* <div className={`${styles.selectBox} ${styles.widthCustomSearch} `}>
 							<div className={`${styles.searchBox}`} onClick={toggleSearchInput}>
 								<p className="text_sm color_silver_gray text_500">
 									{selected.search || "Search"}
@@ -272,9 +275,9 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<img src={searchImg.src} alt="icon" />
 								</span>
 							</div>
-						</div>
+						</div> */}
 						{/* Search Input - Show/Hide on Click */}
-						{isSearchVisible && (
+						{/* {isSearchVisible && (
 							<div className={`${styles.searchInput} f_r_aj_between`}>
 								<form
 									className="w-full"
@@ -290,14 +293,12 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 								</form>
 
 								<span className="d_f">
-									{/* <img src={searchImg.src} alt="icon" /> */}
-									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>
 									</div>
 								</span>
 							</div>
-						)}
+						)} */}
 					</div>
 				</div>
 
