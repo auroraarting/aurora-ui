@@ -124,6 +124,10 @@ export const getSingleWhoAreYou = async (slug) => {
         count
         title
       }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
     }
   }
 }
