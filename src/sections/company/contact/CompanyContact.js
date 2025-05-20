@@ -66,6 +66,15 @@ export default function CompanyContact() {
 		// 	}, 5000);
 		// }
 		// console.log(result);
+		const res = await fetch("/api/contact", {
+			method: "POST",
+			body: JSON.stringify({
+				data: data,
+			}),
+		});
+		// const result = await res.json();
+
+		console.log(res, "data");
 	};
 	return (
 		<div className={styles.ContactMain}>

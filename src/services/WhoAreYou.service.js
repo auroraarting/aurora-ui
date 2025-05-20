@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleWhoAreYou = async (slug) => {
 	const query = `
  query GetWhoAreYouBySlug {
-  whoareyouBy(slug: "${slug}") {
+  whoareyouBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     whoAreYous {

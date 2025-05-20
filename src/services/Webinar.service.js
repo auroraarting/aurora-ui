@@ -108,7 +108,7 @@ export const getWebinarInside = async (slug) => {
 	const query = `
 query GetWebinarInside {
   webinar(
-    id: "${slug}"
+    id: "${decodeURIComponent(slug)}"
     idType: SLUG
   ) {
     title

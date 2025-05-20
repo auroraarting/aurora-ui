@@ -173,7 +173,7 @@ query GetEventInside {
 export const getEventsInside = async (slug) => {
 	const query = `
 query GetEventInside {
-  eventBy(slug: "${slug}") {
+  eventBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     content
