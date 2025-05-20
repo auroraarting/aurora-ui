@@ -79,6 +79,9 @@
 				@media (max-width: 991px) {
 					padding: 20px 20px;
 				}
+				@media (max-width: 767px) {
+					padding: 20px 20px 100px;
+				}
 			}
 		}
 		.flexItemTwo {
@@ -125,9 +128,9 @@
 			// @media (max-width: 1199px) {
 			// 	right: 55px;
 			// }
-			// @media (max-width: 767px) {
-			// 	right: 30px;
-			// }
+			@media (max-width: 767px) {
+				bottom: 30px;
+			}
 			.customPrev,
 			.customNext {
 				background-color: unset;

@@ -420,7 +420,7 @@ export default function MediaListing({
 										/>
 
 										<p
-											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase `}
 										>
 											Press Release
 										</p>
