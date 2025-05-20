@@ -33,6 +33,281 @@ import form_img from "../../public/img/softwares/form_img.png";
 import hoverBg from "../../public/img/home/hoverBg.png";
 
 // DATA //
+const tempdata = {
+	data: [
+		{
+			title:
+				"Upside forecast from participating in ancillary services in Iberia for a range of renewable-generation technologies",
+			slug:
+				"upside-forecast-from-participating-in-ancillary-services-in-iberia-for-a-range-of-renewable-generation-technologies",
+			date: "2025-05-14T14:56:52",
+			featuredImage: {
+				node: {
+					altText: "",
+					mediaItemUrl:
+						"https://cms-production.auroraer.com/wp-content/uploads/2025/05/Frame-8.jpg",
+				},
+			},
+			categories: {
+				nodes: [
+					{
+						slug: "case-studies",
+						name: "Case Studies",
+					},
+					{
+						slug: "uncategorized",
+						name: "Uncategorized",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+			postFields: {
+				time: "5 MIN READ",
+				speakers: null,
+			},
+		},
+		{
+			title:
+				"Grid curtailment estimation at a specific node in the context of a solar PV financing in Spain",
+			slug:
+				"grid-curtailment-estimation-at-a-specific-node-in-the-context-of-a-solar-pv-financing-in-spain",
+			date: "2025-05-14T14:53:11",
+			featuredImage: {
+				node: {
+					altText: "",
+					mediaItemUrl:
+						"https://cms-production.auroraer.com/wp-content/uploads/2025/05/Grid-curtailment-estimation-Image.jpg",
+				},
+			},
+			categories: {
+				nodes: [
+					{
+						slug: "case-studies",
+						name: "Case Studies",
+					},
+					{
+						slug: "uncategorized",
+						name: "Uncategorized",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+			postFields: {
+				time: "5 MIN READ",
+				speakers: null,
+			},
+		},
+		{
+			title:
+				"Optimal size determination of an electrolyser project co-located with solar PV and BESS for a developer in Spain",
+			slug:
+				"optimal-size-determination-of-an-electrolyser-project-co-located-with-solar-pv-and-bess-for-a-developer-in-spain",
+			date: "2025-05-14T14:48:43",
+			featuredImage: {
+				node: {
+					altText: "",
+					mediaItemUrl:
+						"https://cms-production.auroraer.com/wp-content/uploads/2025/05/Frame-3-1.jpg",
+				},
+			},
+			categories: {
+				nodes: [
+					{
+						slug: "case-studies",
+						name: "Case Studies",
+					},
+					{
+						slug: "uncategorized",
+						name: "Uncategorized",
+					},
+				],
+			},
+			language: {
+				id: "1",
+				code: "en",
+				language_code: "en",
+				native_name: "English",
+			},
+			tags: {
+				nodes: [],
+			},
+			postFields: {
+				time: "5 MIN READ",
+				speakers: null,
+			},
+		},
+	],
+	countries: [
+		{
+			title: "Australia",
+			slug: "australia",
+		},
+		{
+			title: "Austria",
+			slug: "austria",
+		},
+		{
+			title: "Baltics",
+			slug: "baltics",
+		},
+		{
+			title: "Belgium",
+			slug: "belgium",
+		},
+		{
+			title: "Brazil",
+			slug: "brazil",
+		},
+		{
+			title: "Bulgaria",
+			slug: "bulgaria",
+		},
+		{
+			title: "Chile",
+			slug: "chile",
+		},
+		{
+			title: "Croatia",
+			slug: "croatia",
+		},
+		{
+			title: "Czechia",
+			slug: "czechia",
+		},
+		{
+			title: "Europe",
+			slug: "europe",
+		},
+		{
+			title: "France",
+			slug: "france",
+		},
+		{
+			title: "Germany",
+			slug: "germany",
+		},
+		{
+			title: "Great Britain",
+			slug: "great-britain",
+		},
+		{
+			title: "Greece",
+			slug: "greece",
+		},
+		{
+			title: "Hungary",
+			slug: "hungary",
+		},
+		{
+			title: "Iberia",
+			slug: "iberia",
+		},
+		{
+			title: "India",
+			slug: "india",
+		},
+		{
+			title: "Ireland",
+			slug: "ireland",
+		},
+		{
+			title: "Italy",
+			slug: "italy",
+		},
+		{
+			title: "Japan",
+			slug: "japan",
+		},
+		{
+			title: "Korea",
+			slug: "korea",
+		},
+		{
+			title: "London",
+			slug: "london",
+		},
+		{
+			title: "Malaysia",
+			slug: "malaysia",
+		},
+		{
+			title: "Netherlands",
+			slug: "netherlands",
+		},
+		{
+			title: "New Zealand",
+			slug: "new-zealand",
+		},
+		{
+			title: "Noram",
+			slug: "noram",
+		},
+		{
+			title: "Nordics",
+			slug: "nordics",
+		},
+		{
+			title: "Philippines",
+			slug: "philippines",
+		},
+		{
+			title: "Poland",
+			slug: "poland",
+		},
+		{
+			title: "Romania",
+			slug: "romania",
+		},
+		{
+			title: "Serbia",
+			slug: "serbia",
+		},
+		{
+			title: "Singapore",
+			slug: "singapore",
+		},
+		{
+			title: "Slovakia",
+			slug: "slovakia",
+		},
+		{
+			title: "Slovenia",
+			slug: "slovenia",
+		},
+		{
+			title: "Spain",
+			slug: "spain",
+		},
+		{
+			title: "Sweden",
+			slug: "sweden",
+		},
+		{
+			title: "Switzerland",
+			slug: "switzerland",
+		},
+		{
+			title: "UK",
+			slug: "uk",
+		},
+	],
+};
 
 // SERVICES //
 import {
@@ -88,6 +363,7 @@ export default function Insights({
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
 		const resjson = await resdata.json();
+		console.log(resjson, "resjson");
 		setData(resjson);
 	};
 
@@ -104,9 +380,10 @@ export default function Insights({
 	}
 
 	useEffect(() => {
-		// if (!defaultList || defaultList.length === 0) {
-		// 	fetchdata();
-		// }
+		if (!defaultList || defaultList.length === 0) {
+			setData(tempdata);
+			fetchdata();
+		}
 	}, []);
 
 	let sectionId = {};

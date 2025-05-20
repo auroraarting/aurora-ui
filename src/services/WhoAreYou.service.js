@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleWhoAreYou = async (slug) => {
 	const query = `
  query GetWhoAreYouBySlug {
-  whoareyouBy(slug: "${slug}") {
+  whoareyouBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     whoAreYous {
@@ -90,6 +90,7 @@ export const getSingleWhoAreYou = async (slug) => {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -100,6 +101,7 @@ export const getSingleWhoAreYou = async (slug) => {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -110,6 +112,7 @@ export const getSingleWhoAreYou = async (slug) => {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

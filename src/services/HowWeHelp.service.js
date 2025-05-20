@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleHowWeHelp = async (slug) => {
 	const query = `
 query GetSingleHowWeHelp {
-  howwehelpBy(slug: "${slug}") {
+  howwehelpBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     howWeHelpInside {
@@ -102,6 +102,7 @@ query GetSingleHowWeHelp {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -112,6 +113,7 @@ query GetSingleHowWeHelp {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -122,6 +124,7 @@ query GetSingleHowWeHelp {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

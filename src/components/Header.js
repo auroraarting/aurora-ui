@@ -161,7 +161,7 @@ export default function Header({ defaultNavigation }) {
 							onClick={handleSearchClick}
 							className={`${styles.searchFlex} text_sm f_w_m color_dark_gray font_primary f_r_a_center`}
 						>
-							<img src={searchImg.src} alt="search" />
+							<img src={searchImg.src} alt="" />
 							<span>Search</span>
 						</button>
 					</div>
@@ -1180,9 +1180,9 @@ export default function Header({ defaultNavigation }) {
 												className={`${styles.CountryHeading}`}
 												onClick={() => toggleTab(ind + 1)}
 											>
-												<h4 className="text_md f_w_m color_white font_primary">
+												<p className="text_md f_w_m color_white font_primary">
 													{item?.name}
-												</h4>
+												</p>
 												<img
 													src={dropdown_arrow.src}
 													className={`${

@@ -10,7 +10,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       slug
     }
   }
-  softwareBy(slug: "${slug}") {
+  softwareBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     softwares {

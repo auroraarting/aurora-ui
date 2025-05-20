@@ -137,9 +137,10 @@ query GetInsightsDropDowns {
 
 /** Insights Page */
 export const getInsightsInside = async (slug) => {
+	console.log(slug, "slug");
 	const query = `
 query GetInsightsInside {
-  postBy(slug: "${slug}") {
+  postBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     date

@@ -52,7 +52,7 @@ export default function CompanyContact() {
 		//reset,
 		formState: { errors },
 	} = useForm({ mode: "onChange" });
-	const selected = watch("event"); // Watch the value of the radio
+	const selected = watch("office"); // Watch the value of the radio
 
 	/** Function to handle submit */
 	const onSubmit = async (data) => {
@@ -66,6 +66,15 @@ export default function CompanyContact() {
 		// 	}, 5000);
 		// }
 		// console.log(result);
+		const res = await fetch("/api/contact", {
+			method: "POST",
+			body: JSON.stringify({
+				data: data,
+			}),
+		});
+		// const result = await res.json();
+
+		console.log(res, "data");
 	};
 	return (
 		<div className={styles.ContactMain}>
@@ -189,20 +198,22 @@ export default function CompanyContact() {
 
 				<div className={`${styles.formRow} f_w_j`}>
 					<div className={`${styles.radioBox}`}>
-						<p className={styles.label}>Event*</p>
+						<p className={styles.label}>Office*</p>
 						<div className={`${styles.radioGroup} ${styles.fullWidthBox}`}>
 							{options.map((option) => (
 								<label key={option} className={styles.radioOption}>
 									<input
 										type="radio"
 										value={option}
-										{...register("event", { required: "Please select an event" })}
+										{...register("office", { required: "Please select an office" })}
 									/>
 									<span>{option}</span>
 								</label>
 							))}
 						</div>
-						{errors.event && <label className="error">{errors.event.message}</label>}
+						{errors.office && (
+							<label className="error">{errors.office.message}</label>
+						)}
 					</div>
 				</div>
 

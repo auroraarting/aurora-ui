@@ -173,7 +173,7 @@ export default async function ContactPage() {
 									Have a question?
 								</h2>
 								<p className="text_reg color_silver_gray">
-									Get in touch, we look forward to hearing from you.
+									We look forward to your message. Contact us today.
 								</p>
 							</div>
 							<div className={`${styles.formBox}`}>
