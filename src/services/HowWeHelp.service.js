@@ -102,6 +102,7 @@ query GetSingleHowWeHelp {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -112,6 +113,7 @@ query GetSingleHowWeHelp {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -122,6 +124,7 @@ query GetSingleHowWeHelp {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
