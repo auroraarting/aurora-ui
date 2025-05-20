@@ -44,7 +44,9 @@ export default async function LifeAtAurora() {
 			getFetchJobData(),
 			getOffices(),
 			getInsightsCategories(),
-			getInsights('first: 3, where: {categoryName: ""}'),
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
 			getEarlyCareersListing("first: 10"),
 		]);
 	let obj = {

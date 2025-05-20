@@ -39,7 +39,9 @@ export default async function JoinUs() {
 	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([
 		getFetchJobData(),
 		getInsightsCategories(),
-		getInsights('first: 3, where: {categoryName: ""}'),
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
 		getJoinUsPage(),
 	]);
 

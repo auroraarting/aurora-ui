@@ -15,6 +15,7 @@ import { useContextProvider } from "@/context/GlobalContext";
 import formatDate, {
 	filterBySearchQueryEvents,
 	filterItemsBySelectedObj,
+	updateQueryFast,
 } from "@/utils";
 
 // STYLES //
@@ -52,6 +53,16 @@ export default function EventsListing({
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
+	const [searchInput, setSearchInput] = useState(null);
+	/** Debounced search when typing */
+	useEffect(() => {
+		const delay = setTimeout(() => {
+			if (searchInput === null) return;
+			filter(searchInput, "search");
+		}, 500);
+
+		return () => clearTimeout(delay);
+	}, [searchInput]);
 
 	console.log(list, "list");
 
@@ -116,8 +127,6 @@ export default function EventsListing({
 
 		if (key === "search") {
 			selectedObj.search = catName;
-			window.location.href = `/events?search=${catName}`;
-			return;
 		}
 		if (key === "eventType") {
 			selectedObj.type = catName;
@@ -140,6 +149,12 @@ export default function EventsListing({
 		if (key === "eventStatusType") {
 			selectedObj.status = catName;
 		}
+		setLoading(false);
+
+		// Code to Change Query in Url Start
+		updateQueryFast(selectedObj);
+		// Code to Change Query in Url End
+
 		const filteredArr = filterItemsBySelectedObj(arr, selectedObj);
 		setList(filteredArr);
 		setSelected(selectedObj);
@@ -162,6 +177,27 @@ export default function EventsListing({
 			});
 		};
 		document.addEventListener("mousedown", handleClickOutside);
+
+		// Get Search Query From URl Start
+		const params = new URLSearchParams(window.location.search);
+		const selecObj = {};
+		for (const [key, value] of params.entries()) {
+			if (key === "year") {
+				selecObj[key] = parseInt(value);
+			} else {
+				selecObj[key] = value;
+			}
+		}
+		if (params.size > 0) {
+			setLoading(true);
+			setSelected(selecObj);
+			const filteredArr = filterItemsBySelectedObj(data, selecObj);
+			setList(filteredArr);
+			setLoading(false);
+			console.log(selecObj, "selecObj");
+		}
+		// Get Search Query From URl End
+
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
@@ -265,7 +301,7 @@ export default function EventsListing({
 						</div>
 
 						{/* Offerings Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -295,13 +331,12 @@ export default function EventsListing({
 															<input
 																type="radio"
 																id={item.category}
-																name={item.category} // Single name for all radio buttons
+																name={item.category}
 																className={styles.hiddenRadio}
 																defaultChecked={
 																	selected?.[item.category.toLowerCase()] === option
-																} // Ensure only one is selected overall
+																}
 																onChange={() => {
-																	// handleChange(option);
 																	filter(option, item.category);
 																}}
 															/>
@@ -315,7 +350,7 @@ export default function EventsListing({
 									</div>
 								)}
 							</div>
-						</div>
+						</div> */}
 
 						{/* Event Status Type Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
@@ -444,10 +479,20 @@ export default function EventsListing({
 										filter(val, "search");
 									}}
 								>
-									<input name="search" type="text" placeholder="Search Events" />
+									<input
+										autoFocus
+										name="search"
+										type="text"
+										placeholder="Search Events"
+										onChange={(e) => setSearchInput(e.target.value)}
+									/>
 								</form>
 								<span className="d_f">
-									<img src={searchImg.src} alt="icon" />
+									<img
+										src={searchImg.src}
+										alt="icon"
+										onClick={() => filter(searchInput, "search")}
+									/>
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>
@@ -522,117 +567,14 @@ export default function EventsListing({
 							</div>
 						);
 					})}
+					{loading && <p>Loading...</p>}
+					{list?.length === 0 && !loading && (
+						<p>
+							No resources available for this selection. Please choose a different
+							option.
+						</p>
+					)}
 				</div>
-				{/* <div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div className={`${styles.ItemBox}`}>
-						<a href="">
-							<div className={`${styles.hoverBox}`}>
-								<img src={energy_transition.src} className="" alt="img" />
-								<p
-									className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
-								>
-									Spring Forum
-								</p>
-								<p
-									className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
-								>
-									Competing Visions of Progress: The Energy Transition in a Polarised
-									World
-								</p>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_medium_gray f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>UK</span>
-									</p>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div> */}
 			</div>
 		</section>
 	);

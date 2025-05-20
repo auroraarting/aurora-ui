@@ -32,7 +32,7 @@ import {
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const data = await getInsightsInside(params.slug);
+	const data = await getInsightsInside(params.slug2);
 	const post = data?.data?.postBy;
 
 	return {
@@ -58,11 +58,10 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
+	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
 	const [data, list, categoriesForSelect] = await Promise.all([
-		getInsightsInside(params.slug),
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-		),
+		getInsightsInside(params.slug2),
+		getInsights(`first: 3, where: {categoryName: "${resourceCat}"}`),
 		getInsightsCategories(),
 	]);
 

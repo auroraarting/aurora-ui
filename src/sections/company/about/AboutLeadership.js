@@ -17,7 +17,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
-import formatDate, { isCategory } from "@/utils";
+import formatDate, { allCategories, isCategory, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/about/AboutLeadership.module.scss";
@@ -263,7 +263,9 @@ export default function AboutLeadership({ data, countries }) {
 																			<SwiperSlide key={index}>
 																				<div className={`${styles.ItemBox} `}>
 																					<a
-																						href={`/resources/aurora-insights/${blogData?.slug}`}
+																						href={`/resources/aurora-insights/${slugify(
+																							isCategory(allCategories, blogData?.categories?.nodes)
+																						)}/${blogData?.slug}`}
 																						className={`${styles.hoverBox}`}
 																					>
 																						<img

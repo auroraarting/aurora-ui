@@ -41,7 +41,9 @@ async function getData() {
 			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 		getInsightsCategories(),
-		getInsights('first: 3, where: {categoryName: ""}'),
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
 		getInsightsPage(),
 	]);
 	const otherList = list?.data?.posts?.nodes;

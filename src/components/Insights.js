@@ -19,6 +19,7 @@ import formatDate, {
 	allCategories,
 	dynamicInsightsBtnProps,
 	isCategory,
+	slugify,
 } from "@/utils";
 
 // STYLES //
@@ -349,7 +350,10 @@ export default function Insights({
 	};
 
 	/** defaultPathname  */
-	const defaultPathname = () => {
+	const defaultPathname = (categories) => {
+		if (categories && insightsLink.includes("/resources/aurora-insights/")) {
+			return `${insightsLink}${slugify(isCategory(allCategories, categories))}/`;
+		}
 		if (insightsLink) {
 			return insightsLink;
 		}
@@ -484,7 +488,7 @@ export default function Insights({
 								{data?.data?.map((item, ind) => {
 									return (
 										<a
-											href={`${defaultPathname()}${item?.slug}`}
+											href={`${defaultPathname(item?.categories?.nodes)}${item?.slug}`}
 											className={`${styles.ItemBox} boxH`}
 											key={item?.title}
 										>

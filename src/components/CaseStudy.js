@@ -20,7 +20,7 @@ import plant_img from "../../public/img/services/advisory/plant_img.jpg";
 import clock from "../../public/img/icons/clock.svg";
 import location from "../../public/img/icons/location.svg";
 import calender from "../../public/img/icons/calender.svg";
-import formatDate, { allCategories, isCategory } from "@/utils";
+import formatDate, { allCategories, isCategory, slugify } from "@/utils";
 
 // DATA //
 
@@ -37,7 +37,7 @@ export default function CaseStudy({ data, countries = [] }) {
 				<div className={`${styles.contentImgFlex} f_w_j`}>
 					<div className={`${styles.contentBox}`}>
 						<a
-							href={`/resources/aurora-insights/${first?.[0]?.slug}`}
+							href={`/resources/aurora-insights/case-studies/${first?.[0]?.slug}`}
 							className={`${styles.hoverBox}`}
 						>
 							<p

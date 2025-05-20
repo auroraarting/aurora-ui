@@ -72,7 +72,7 @@ export default function AuroraInsightsWrap({
 				</div>
 				<div className="pt_60 pb_100">
 					<InsightsListing
-						data={data?.slice(1, data.length)}
+						data={data}
 						pagination={pagination}
 						countries={countries}
 						products={products}
