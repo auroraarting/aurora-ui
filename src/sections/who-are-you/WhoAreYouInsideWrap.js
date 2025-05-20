@@ -101,7 +101,7 @@ export default function WhoAreYouInsideWrap({
 						marqueeText={data?.whoAreYous?.availableRegions?.marqueeText}
 					/>
 				</div>
-				{data?.howWeHelpInside?.stats && (
+				{data?.whoAreYous?.stats && (
 					<div className="">
 						<CounterDynamic data={data?.whoAreYous?.stats} />
 					</div>
