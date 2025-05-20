@@ -142,10 +142,12 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
-						formSectionTitle={
+						formSectionTitle={data?.howWeHelpInside?.insights?.sectionTitle}
+						formSectionDesc={data?.howWeHelpInside?.insights?.sectionDesc}
+						formSectionBtnText={
 							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
-						formSectionDesc=""
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 				<div className="pb_100">

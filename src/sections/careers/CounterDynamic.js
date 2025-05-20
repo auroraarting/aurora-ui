@@ -24,25 +24,15 @@ export default function CounterDynamic({ data }) {
 	console.log(data, "Stats");
 	return (
 		<section className={`${styles.Counter} ptb_40`}>
-			<div className="container">
+			<div className="containerLarge">
 				<div className={`${styles.counterFlex} f_w_j`}>
-					{data?.stats?.auroreans && (
-						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
-								<CountUp end={data?.stats?.auroreans} enableScrollSpy />
-								<span>+</span>
-							</h4>
-							<p className="text_xs color_white text_uppercase font_primary">
-								Auroreans
-							</p>
-						</div>
-					)}
 					{data?.map((item) => {
 						return (
 							<div className={`${styles.countBox}`} key={item?.title}>
 								<h4 className="text_xxl color_primary">
-									<CountUp end={item?.count.split("+")[0]} enableScrollSpy />
-									{item?.count?.split("+")?.length > 1 && <span>+</span>}
+									{/* <CountUp end={item?.count.split("+")[0]} enableScrollSpy /> */}
+									{item?.count}
+									{/* {item?.count?.split("+")?.length > 1 && <span>+</span>} */}
 								</h4>
 								<p className="text_xs color_white text_uppercase font_primary">
 									{item?.title}

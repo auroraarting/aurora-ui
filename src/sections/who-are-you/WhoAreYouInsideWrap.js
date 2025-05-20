@@ -96,7 +96,7 @@ export default function WhoAreYouInsideWrap({
 				<SmarterEnergy data={data?.whoAreYous?.expertise} />
 				<div>
 					<GlobalMap
-						className="dark_bg"
+						className="black_bg"
 						locationJson={mapJson}
 						marqueeText={data?.whoAreYous?.availableRegions?.marqueeText}
 					/>
@@ -130,7 +130,12 @@ export default function WhoAreYouInsideWrap({
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
-						formSectionBtnText="Start the Conversation"
+						formSectionTitle={data?.whoAreYous?.insights?.sectionTitle}
+						formSectionDesc={data?.whoAreYous?.insights?.sectionDesc}
+						formSectionBtnText={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+						}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 				<div className="pb_100">

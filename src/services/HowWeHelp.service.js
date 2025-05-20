@@ -256,9 +256,13 @@ query GetSingleHowWeHelp {
           }
         }
       }
-      stats{
+      stats {
         count
         title
+      }
+      insights {
+        sectionDesc
+        sectionTitle
       }
     }
   }
