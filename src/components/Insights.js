@@ -104,9 +104,9 @@ export default function Insights({
 	}
 
 	useEffect(() => {
-		// if (!defaultList || defaultList.length === 0) {
-		// 	fetchdata();
-		// }
+		if (!defaultList || defaultList.length === 0) {
+			fetchdata();
+		}
 	}, []);
 
 	let sectionId = {};
