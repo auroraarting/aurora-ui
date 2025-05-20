@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSinglePress = async (slug) => {
 	const query = `
 query GetPresses {
-  pressBy(slug: "${slug}") {
+  pressBy(slug: "${decodeURIComponent(slug)}") {
     content
     title
     slug

@@ -57,6 +57,7 @@ async function getData({ params }) {
 			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
 		),
 	]);
+	console.log(data, "datasadasdas");
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {

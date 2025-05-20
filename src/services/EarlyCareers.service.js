@@ -162,7 +162,7 @@ query GetEarlyCareersListing {
 export const getEarlyCareersInside = async (slug) => {
 	const query = `
 query GetCareers {
-  earlyCareerBy(slug: "${slug}") {
+  earlyCareerBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     earlyCareers {

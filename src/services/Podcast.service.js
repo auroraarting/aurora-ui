@@ -68,7 +68,7 @@ query GetPodcasts {
 export const getPodcastInside = async (slug) => {
 	const query = `
 query GetPodcastBy {
-  podcastBy(slug: "${slug}") {
+  podcastBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     content

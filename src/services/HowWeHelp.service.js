@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleHowWeHelp = async (slug) => {
 	const query = `
 query GetSingleHowWeHelp {
-  howwehelpBy(slug: "${slug}") {
+  howwehelpBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
     howWeHelpInside {
