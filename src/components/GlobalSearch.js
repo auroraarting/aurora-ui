@@ -255,11 +255,11 @@ export default function GlobalSearch() {
 			{/* Search Bar */}
 			<div className={`${styles.megaMenuBox} f_w_j`} data-lenis-prevent>
 				<div className={`${styles.menuBoxRight}`}>
-					<div className={`${styles.pageName}`}>
+					{/* <div className={`${styles.pageName}`}>
 						<h4 className="text_xxs font_primary color_medium_gray">
 							What are you looking for?
 						</h4>
-					</div>
+					</div> */}
 					<div className={`${styles.SearchResultsBox}`}>
 						<div className={`${styles.slobal_search_section} f_j`}>
 							<div className={styles.input_section}>
