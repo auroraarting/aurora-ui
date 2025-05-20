@@ -37,6 +37,7 @@ import {
 import { getOfficesByRegions } from "@/services/Offices.service";
 import { getContact } from "@/services/Contact.service";
 import IframeModal from "@/components/IframeModal";
+import CompanyContact from "@/sections/company/contact/CompanyContact";
 
 // DATA //
 
@@ -176,12 +177,13 @@ export default async function ContactPage() {
 								</p>
 							</div>
 							<div className={`${styles.formBox}`}>
-								<iframe
+								{/* <iframe
 									// src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
 									src="https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 									className={`${styles.form_img}`}
 									title="Form"
-								></iframe>
+								></iframe> */}
+								<CompanyContact />
 							</div>
 						</div>
 					</div>
