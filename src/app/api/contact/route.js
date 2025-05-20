@@ -9,12 +9,17 @@ export async function POST(req) {
 	try {
 		const response = await fetch(process.env.CONTACT_FORM_API, {
 			method: "POST",
+			headers: ServerHeaders.headers,
 			body: JSON.stringify({
 				...data,
 			}),
-            
 		});
-		console.log(response, "name");
+		console.log(
+			JSON.stringify({
+				...data,
+			}),
+			"name"
+		);
 		return Response.json(response);
 	} catch (error) {
 		return new Response(`Webhook error: ${error.message}`, {
