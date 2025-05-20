@@ -19,7 +19,7 @@
 
 		.box {
 			width: var(--widthOfEachDiv);
-
+			cursor: pointer;
 			padding: 20px 0;
 
 			&.onlyText {

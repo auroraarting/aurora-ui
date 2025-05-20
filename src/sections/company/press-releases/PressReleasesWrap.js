@@ -58,15 +58,9 @@ export default function PressReleasesWrap({
 }) {
 	const [activeTab, setActiveTab] = useState("PressRoom");
 	const dataForBtn = {
-		postFields:
-			{
-				insightsSectionButton: {
-					buttonText: "Subscribe",
-					iframe: "https://go.auroraer.com/mailinglist",
-					file: null,
-				},
-			} || {},
+		postFields: page,
 	};
+	console.log(page);
 
 	/** */
 	const handleTabClick = (tab) => {
@@ -167,26 +161,26 @@ export default function PressReleasesWrap({
 					<Insights isPowerBgVisible={true} />
 					<EventSmarterEnergy />
 				</div> */}
-				<PressCoverage data={page.pressCoverage} />
-				{/* <div className={`${styles.containerCustom} pb_100`}>
+				{page?.pressCoverage && <PressCoverage data={page?.pressCoverage} />}
+				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
 						<Insights
 							isPowerBgVisible={true}
-							formSectionTitle="Sign up to our press list"
-							formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+							formSectionTitle={page?.insights?.sectionTitle}
+							formSectionDesc={page?.insights?.sectionDesc}
 							formSectionBtnText={
-								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")?.btntext
 							}
 							insightsTitle="More from Aurora"
 							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						/>
 					</div>
-				</div> */}
+				</div>
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 
 			{/* Page Content ends here */}
 

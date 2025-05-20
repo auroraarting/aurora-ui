@@ -23,6 +23,8 @@ import linkedin from "@/../public/img/resources/aurora_insights/linkedin.svg";
 import twitter from "@/../public/img/resources/aurora_insights/twitter.svg";
 import tag_download_icon from "@/../public/img/resources/aurora_insights/tag_download_icon.svg";
 import { dynamicInsightsBtnProps } from "@/utils";
+import webinar_logo from "@/../public/img/icons/webinarIcon.png";
+import podcast_logo from "@/../public/img/icons/podcastIcon.png";
 
 // DATA //
 
@@ -84,7 +86,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={client_logo.src} alt="logo" />
+							<img src={webinar_logo.src} alt="logo" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
@@ -101,7 +103,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={client_logo.src} alt="logo" />
+							<img src={podcast_logo.src} alt="logo" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>

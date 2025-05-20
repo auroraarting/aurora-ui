@@ -355,7 +355,7 @@ query GetPressMediaKit {
       leaders {
         sectionTitle
         sectionDesc
-        leaders {
+        leaders(first: 99999) {
           nodes {
             ... on Team {
               id
@@ -442,13 +442,56 @@ query GetPressMediaKit {
         list {
           name
           designation
-          title
           country
           emails {
             text
           }
           phone {
             text
+          }
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+    }
+  }
+}
+      `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** Fetch Page */
+export const getPressPageInsights = async () => {
+	const query = `
+query GetPressMediaKit {
+  page(id: "press-landing", idType: URI) {
+    pressLanding {
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
           }
         }
       }
