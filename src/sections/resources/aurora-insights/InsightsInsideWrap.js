@@ -154,10 +154,11 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}
-													renderer="svg"
-													renderersettings={{
-														preserveAspectRatio: "xMidYMid meet",
-													}}
+													// renderer="svg"
+													width="100%"
+													// renderersettings={{
+													// 	preserveAspectRatio: "xMidYMid meet",
+													// }}
 												/>
 											)}
 											<div className="cmsButtonsWrap">

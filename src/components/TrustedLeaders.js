@@ -115,9 +115,9 @@ export default function TrustedLeaders({
 							rows: 2,
 						}}
 						spaceBetween={20}
-						// pagination={{
-						// 	clickable: true,
-						// }}
+						pagination={{
+							clickable: true,
+						}}
 						breakpoints={{
 							768: {
 								slidesPerView: 3,

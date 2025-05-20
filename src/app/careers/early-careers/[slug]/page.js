@@ -73,7 +73,7 @@ export default async function EarlyCareers({ params }) {
 		(item) => item.slug !== params.slug
 	);
 	const offices = officesFetch.data.offices.nodes;
-	const dataForBtn = { postFields: data?.earlyCareers?.insights || {} };
+	const dataForBtn = { postFields: data?.earlyCareers || {} };
 	console.log(data, "dataForBtn");
 
 	return (

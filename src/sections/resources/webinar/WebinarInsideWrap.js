@@ -176,11 +176,13 @@ export default function WebinarInsideWrap({
 										</section>
 									);
 								})}
-								{/* {!isUpcoming && ( */}
-								<div className="pt_60">
-									<WebinarRecording data={data} />
-								</div>
-								{/* )} */}
+
+								{dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")
+									?.btntext && (
+									<div className="pt_60">
+										<WebinarRecording data={data} />
+									</div>
+								)}
 							</div>
 							<div className={`${styles.mediaMiddleRight}`}>
 								<WebinarMiddleRight data={data} />
@@ -190,7 +192,9 @@ export default function WebinarInsideWrap({
 				</section>
 				<div className="ptb_100">
 					<Insights
-						isPowerBgVisible={true}
+						isPowerBgVisible={
+							data?.webinarsFields?.insights?.sectionTitle ? true : false
+						}
 						isInsightsBlogsVisible={true}
 						defaultList={pastWebinars}
 						countries={countries}
@@ -203,48 +207,6 @@ export default function WebinarInsideWrap({
 						insightsTitle="More from Aurora"
 						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
-					{/* <Insights
-						isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={otherList}
-						countries={countries}
-						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
-						insightsTitle="Previous Podcast"
-						insightsLink="/resources/energy-talks/"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
-						customHtml={
-							<div className={`${styles.downloadListen}`}>
-								<div className={`${styles.downloadBox} f_r_a_center`}>
-									{data?.podcastFields?.spotifyLink && (
-										<a href={data?.podcastFields?.spotifyLink}>
-											<img src={spotify.src} alt="spotify" />
-										</a>
-									)}
-									{data?.podcastFields?.appleLink && (
-										<a href={data?.podcastFields?.appleLink}>
-											<img src={apple.src} alt="apple" />
-										</a>
-									)}
-									{data?.podcastFields?.youtubeLink && (
-										<a href={data?.podcastFields?.youtubeLink}>
-											<img src={google.src} alt="google" />
-										</a>
-									)}
-									{data?.podcastFields?.googleLink && (
-										<a href={data?.podcastFields?.googleLink}>
-											<img src={googleVoice.src} alt="google" />
-										</a>
-									)}
-									{data?.podcastFields?.otherLink && (
-										<a href={data?.podcastFields?.otherLink}>
-											<img src={other_logo.src} alt="google" />
-										</a>
-									)}
-								</div>
-							</div>
-						}
-						allTag="Energy Talks"
-					/> */}
 				</div>
 
 				<IframeModal hideLeft />

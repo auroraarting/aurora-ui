@@ -90,9 +90,7 @@ export default async function HomePage() {
 				{mapJson && <GlobalMap locationJson={mapJson} />}
 				{data?.stats && (
 					<div>
-						<Counter
-							data={{ stats: { ...data.stats, countries: countries.length } }}
-						/>
+						<Counter data={{ stats: { ...data.stats } }} />
 					</div>
 				)}
 				<HomeWhoWeAre />

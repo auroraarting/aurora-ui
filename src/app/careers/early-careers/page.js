@@ -54,13 +54,44 @@ export default async function EarlyCareers() {
 			getOffices(),
 		]);
 
-	const data = dataFetch.data.earlyCareers.nodes;
+	const data = dataFetch.data.earlyCareers.nodes?.map((item) => {
+		let countries = {
+			node: {
+				title: item?.earlyCareers?.thumbnail?.country?.node?.title || "",
+			},
+		};
+		if (item?.earlyCareers?.banner?.city) {
+			countries = {
+				node: {
+					title: item?.earlyCareers?.banner?.city,
+				},
+			};
+		}
+		return {
+			...item,
+			earlyCareers: {
+				...item?.earlyCareers,
+				thumbnail: {
+					...item?.earlyCareers.thumbnail,
+					country: countries,
+				},
+			},
+		};
+	});
 	const page = pageFetch.data.page.earlyCareersLanding;
-	const countries = categoriesForSelect?.data?.countries?.nodes || [];
+	let countries = categoriesForSelect?.data?.countries?.nodes || [];
 	const programs = pageFetch.data.programs.nodes;
 	const offices = officesFetch.data.offices.nodes;
 
-	console.log(page);
+	dataFetch.data.earlyCareers.nodes?.map((item) => {
+		if (item?.earlyCareers?.banner?.city) {
+			countries.push({ title: item?.earlyCareers?.banner?.city });
+		}
+	});
+
+	countries = countries.sort((a, b) => a.title.localeCompare(b.title));
+
+	console.log(data, "data");
 
 	return (
 		<div>

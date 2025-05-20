@@ -156,6 +156,10 @@ query GetSingleHowWeHelp {
                     }
                   }
                 }
+                stats {
+                  count
+                  title
+                }
               }
             }
             ... on Product {
@@ -248,6 +252,10 @@ query GetSingleHowWeHelp {
             }
           }
         }
+      }
+      stats{
+        count
+        title
       }
     }
   }
