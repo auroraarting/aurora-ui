@@ -14,12 +14,6 @@ export async function POST(req) {
 				...data,
 			}),
 		});
-		console.log(
-			JSON.stringify({
-				...data,
-			}),
-			"name"
-		);
 		return Response.json(response);
 	} catch (error) {
 		return new Response(`Webhook error: ${error.message}`, {
