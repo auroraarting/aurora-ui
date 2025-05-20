@@ -39,7 +39,9 @@ export default function PressReleasesInsideWrap({
 	data,
 	dataForBtn,
 	moreRelated,
+	page,
 }) {
+	const dataForBtn2 = { postFields: page || {} };
 	return (
 		<div>
 			{/* Metatags */}
@@ -113,18 +115,19 @@ export default function PressReleasesInsideWrap({
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={moreRelated}
-						formSectionTitle="Sign up to our press list"
-						formSectionDesc="Lorem ipsum dolor sit amet consectetur. Mattis fermentum proin erat pellentesque risus ac. Facilisis ullamcorper."
+						formSectionTitle={page?.insights?.sectionTitle}
+						formSectionDesc={page?.insights?.sectionDesc}
 						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
+							dynamicInsightsBtnProps(dataForBtn2, "insightsSectionButton")?.btntext
 						}
-						insightsLink="/company/press-releases/"
 						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						formdata={dynamicInsightsBtnProps(dataForBtn2, "insightsSectionButton")}
+						insightsLink="/company/press-releases/"
+						allTag="Press"
 					/>
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

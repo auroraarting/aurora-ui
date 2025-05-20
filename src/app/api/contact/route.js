@@ -4,7 +4,6 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 
 export async function POST(req) {
 	const { data } = await req.json(); // get the `data` object
-	const { name } = data; // now get `name` from inside it
 
 	try {
 		const response = await fetch(process.env.CONTACT_FORM_API, {

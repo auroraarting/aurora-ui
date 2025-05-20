@@ -26,6 +26,7 @@ import {
 	getWhoAreYous,
 } from "@/services/WhoAreYou.service";
 import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -55,10 +56,11 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, services, regions] = await Promise.all([
+	const [data, services, regions, bundles] = await Promise.all([
 		getSingleWhoAreYou(params.slug),
 		getWhoAreYous(),
 		getRegions(),
+		getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
 
@@ -68,6 +70,7 @@ async function getData({ params }) {
 			services: services.data.howWeHelps.nodes,
 			mapJson,
 			regions,
+			bundles: bundles.data.page.bundles,
 		},
 	};
 }

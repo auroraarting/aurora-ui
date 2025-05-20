@@ -22,6 +22,7 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 
 // SERVICES //
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
+import { getPressPageInsights } from "@/services/Press.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -51,11 +52,12 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, moreRelated] = await Promise.all([
+	const [data, moreRelated, page] = await Promise.all([
 		getInsightsInside(params.slug),
 		getInsights(
 			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
 		),
+		getPressPageInsights(),
 	]);
 	console.log(data, "datasadasdas");
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
@@ -67,6 +69,7 @@ async function getData({ params }) {
 				.filter((item) => item.slug != params.slug)
 				.slice(0, 3),
 			dataForBtn,
+			page: page?.data?.page?.pressLanding,
 		},
 	};
 }
