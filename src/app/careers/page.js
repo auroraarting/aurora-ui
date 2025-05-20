@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -62,54 +63,77 @@ export default async function Careers() {
 							<div className={`${styles.common_queries_flex} f_w_j`}>
 								<div className={`${styles.title_wrap}`}>
 									<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-										Lorem ipsum dolor sit amet
+										Powering the future of energy
 									</h2>
 									<p className="text_reg color_dark_gray">
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
+										Join a team influencing global energy decisions with rigour, clarity,
+										and ambition. At Aurora, your work helps drive the world’s transition
+										to a sustainable energy future.
 									</p>
 								</div>
 								<div className={`${styles.common_queries_faq}`}>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/careers/life-at-aurora">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Life at Aurora</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Experience a supportive culture that values intellectual curiosity,
+												collaboration, and well-being, fostering personal and professional
+												growth.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/careers/early-careers">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Early Careers</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Launch your career with our graduate programmes, offering mentorship
+												and hands-on experience in energy analytics and advisory.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/careers/our-team">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Our Teams</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Collaborate with diverse experts across modelling, technology, and
+												more, all contributing to trusted insights in global energy markets.
+											</p>
+										</div>
+									</div>
+									<div className={`${styles.linksItem}`}>
+										<div className={`${styles.arrowLinks}`}>
+											<a href="/careers/join-us">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
+										</div>
+										<div className={`${styles.Desc}`}>
+											<h4 className="text_md f_w_m font_primary pb_10">Join Us</h4>
+											<p className="text_reg color_dark_gray">
+												Be part of a vibrant, dynamic, and transformative organisation
+												driving the global energy transition.
 											</p>
 										</div>
 									</div>
@@ -120,6 +144,7 @@ export default async function Careers() {
 					<div className={`${styles.containerCustom} pb_100`}>
 						<div className="container">
 							<Insights
+								formSectionTitle="Connect with trusted energy advisors"
 								isPowerBgVisible={true}
 								defaultList={otherList}
 								countries={countries}

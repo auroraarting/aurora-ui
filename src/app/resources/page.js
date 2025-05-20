@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -50,54 +51,59 @@ export default function Resources() {
 							<div className={`${styles.common_queries_flex} f_w_j`}>
 								<div className={`${styles.title_wrap}`}>
 									<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-										Lorem ipsum dolor sit amet
+										A curated library of energy intelligence
 									</h2>
 									<p className="text_reg color_dark_gray">
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
+										Explore Aurora’s library of expert content, designed to inform,
+										inspire, and support smarter energy decisions across every market.
 									</p>
 								</div>
 								<div className={`${styles.common_queries_faq}`}>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/resources/aurora-insights">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Aurora Insights</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Timely analysis and market commentary from Aurora’s expert research
+												teams.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/resources/energy-talks">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Energy Talks</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Podcasts featuring exclusive conversations with industry leaders
+												shaping the future of energy.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/resources/webinar">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Webinars</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Live and on-demand sessions unpacking major energy market trends and
+												policy shifts.
 											</p>
 										</div>
 									</div>
@@ -107,7 +113,10 @@ export default function Resources() {
 					</section>
 					<div className={`${styles.containerCustom} pb_100`}>
 						<div className="container">
-							<Insights isPowerBgVisible={true} />
+							<Insights
+								formSectionTitle="Connect with trusted energy advisors"
+								isPowerBgVisible={true}
+							/>
 						</div>
 					</div>
 					<div className="pb_100">
