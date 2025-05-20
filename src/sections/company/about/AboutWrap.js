@@ -141,7 +141,7 @@ export default function AboutWrap({ data, countries, mapJson }) {
 					<Commitment />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

@@ -14,6 +14,7 @@ import IntegratedSystem from "@/components/IntegratedSystem";
 import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import IframeModal from "@/components/IframeModal";
+import Bundles from "@/components/Bundles";
 
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
@@ -39,6 +40,7 @@ export default function WhoAreYouInsideWrap({
 	services,
 	mapJson,
 	regions,
+	bundles,
 }) {
 	const dataForBtn = { postFields: data?.whoAreYous || {} };
 
@@ -123,8 +125,11 @@ export default function WhoAreYouInsideWrap({
 						<TestimonialFeedback data={data?.whoAreYous?.ourClient} />
 					</div>
 				)}
-				<div className="ptb_100 dark_bg">
-					<EosIntegratedSystem />
+				<div className="pt_100 dark_bg">
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
 				</div>
 				<div className="ptb_100">
 					<Insights

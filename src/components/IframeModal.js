@@ -31,10 +31,10 @@ export default function IframeModal({
 				<div className="wrap ">
 					{!hideLeft && (
 						<div className="text">
-							<h2 className="title text_lg f_w_s_b font_primary color_white">
+							<h2 className="title text_lg f_w_s_b font_primary color_black">
 								<ContentFromCms>{sectionTitle}</ContentFromCms>
 							</h2>
-							<div className="desc text_reg font_secondary color_silver_gray">
+							<div className="desc text_reg font_secondary color_silver_black">
 								<ContentFromCms>{sectionDesc}</ContentFromCms>
 							</div>
 						</div>

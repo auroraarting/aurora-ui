@@ -94,7 +94,7 @@ export default function TrustedLeaders({
 			<div className="container">
 				<div className="pb_40">
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
-						{sectionTitle}
+						{data?.title || sectionTitle}
 					</h2>
 				</div>
 				{/* <div className={`${styles.box_wrap}`}>

@@ -49,7 +49,7 @@ export default function CompanyContact() {
 		register,
 		handleSubmit,
 		watch,
-		//reset,
+		reset,
 		formState: { errors },
 	} = useForm({ mode: "onChange" });
 	const selected = watch("office"); // Watch the value of the radio
@@ -72,6 +72,7 @@ export default function CompanyContact() {
 				data: data,
 			}),
 		});
+		reset();
 		// const result = await res.json();
 
 		console.log(res, "data");

@@ -82,7 +82,7 @@ export default function Bundles({ data, name }) {
 									eventId="resetCustomSelect1"
 									list={data?.bundleTabs.map((item) => item.tabName)}
 									defaultId={0}
-									placeholder="Sample Packagess"
+									placeholder="Sample Packages"
 									mode="dark"
 									selectVal={selectVal}
 									setSelectVal={setSelectVal}
