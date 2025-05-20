@@ -43,6 +43,12 @@
 							transition: 0.3s all;
 						}
 					}
+					&:hover{
+						span{
+							background-color: var(--color_white);
+							transition: 0.3s all;
+						}
+					}
 				}
 				.Desc {
 					width: 80%;

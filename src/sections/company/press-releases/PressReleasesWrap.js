@@ -162,7 +162,7 @@ export default function PressReleasesWrap({
 					<EventSmarterEnergy />
 				</div> */}
 				{page?.pressCoverage && <PressCoverage data={page?.pressCoverage} />}
-				<div className={`${styles.containerCustom} pb_100`}>
+				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
 						<Insights
 							isPowerBgVisible={true}

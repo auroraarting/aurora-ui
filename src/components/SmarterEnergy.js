@@ -207,7 +207,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 
 	return (
 		<section
-			className={`${styles.SmarterEnergy} ptb_100`}
+			className={`${styles.SmarterEnergy} SmarterEnergy ptb_100`}
 			id={sectionName ? slugify(sectionName) : "expertise"}
 			data-name={sectionName || "Expertise"}
 		>

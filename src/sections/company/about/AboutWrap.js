@@ -106,7 +106,7 @@ export default function AboutWrap({ data, countries, mapJson }) {
 				<div className={`${styles.EosMain} pt_100 pb_60`}>
 					<EosIntegratedSystem />
 				</div>
-				<div className="ptb_100">
+				<div className="pt_100">
 					<section id="Products-Service" data-name="Products & Service">
 						<SoftwareCards />
 					</section>

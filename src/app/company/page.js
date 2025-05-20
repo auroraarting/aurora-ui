@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -48,54 +49,74 @@ export default function Company() {
 							<div className={`${styles.common_queries_flex} f_w_j`}>
 								<div className={`${styles.title_wrap}`}>
 									<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-										Lorem ipsum dolor sit amet
+										Behind the insights, a global team
 									</h2>
 									<p className="text_reg color_dark_gray">
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
+										Discover the people, principles, and global reach powering Aurora’s
+										market-leading energy intelligence.
 									</p>
 								</div>
 								<div className={`${styles.common_queries_faq}`}>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/company/about">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
 											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Learn how Aurora came to be, what drives us, and who we serve.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/global-presence">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Global Presence</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Explore where we operate and how our insights support clients
+												worldwide.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/company/press-releases">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Press</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Read our latest media features, announcements, and expert
+												commentary.
+											</p>
+										</div>
+									</div>
+									<div className={`${styles.linksItem}`}>
+										<div className={`${styles.arrowLinks}`}>
+											<a href="/company/contact">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
+										</div>
+										<div className={`${styles.Desc}`}>
+											<h4 className="text_md f_w_m font_primary pb_10">Contact us</h4>
+											<p className="text_reg color_dark_gray">
+												Get in touch with our experts to explore how our data-driven
+												analysis can support your strategic decisions.
 											</p>
 										</div>
 									</div>
@@ -105,7 +126,10 @@ export default function Company() {
 					</section>
 					<div className={`${styles.containerCustom} pb_100`}>
 						<div className="container">
-							<Insights isPowerBgVisible={true} />
+							<Insights
+								formSectionTitle="Connect with trusted energy advisors"
+								isPowerBgVisible={true}
+							/>
 						</div>
 					</div>
 					<div className="pb_100">

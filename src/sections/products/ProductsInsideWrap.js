@@ -112,6 +112,9 @@ export default function ProductInsideWrap({ data, mapJson }) {
 						<TestimonialFeedback data={data?.products?.ourClient} />
 					</div>
 				)}
+				<div className={`${styles.whatsInclude}`}>
+					<SmarterEnergy data={data?.products?.expertise} />
+				</div>
 				<ServicesCircle data={data?.products?.keyAdvantages} />
 				<div>
 					<GloballyBankableInsights data={data?.products?.whyAurora} />

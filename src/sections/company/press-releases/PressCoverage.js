@@ -25,7 +25,7 @@ export default function PressCoverage({ data }) {
 	console.log(data, "page");
 
 	return (
-		<section className={`${styles.PressCoverage} bg_secondary ptb_100 m_b_100`}>
+		<section className={`${styles.PressCoverage} bg_secondary ptb_100 `}>
 			<div className="container">
 				<h3 className="text_md color_white f_w_s_b font_primary pb_30">
 					{data?.sectionTitle}
