@@ -495,9 +495,9 @@ export default function Footer({ defaultNavigation }) {
 											className={`${styles.CountryHeading}`}
 											onClick={() => toggleTab(ind + 1)}
 										>
-											<h4 className="text_md f_w_m color_white font_primary">
+											<p className="text_md f_w_m color_white font_primary">
 												{item?.name}
-											</h4>
+											</p>
 											<img
 												src={dropdown_arrow.src}
 												className={`${

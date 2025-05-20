@@ -106,7 +106,7 @@ export default function HomeOurOfferings() {
 	}, []);
 	return (
 		<section className={`${styles.HomeOurOfferings}`}>
-			<h3 className="text_lg color_secondary text_center">
+			<h2 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
 				<br className="visible_lg" /> to navigate and capitalize on the global shift
 				in energy systems.
@@ -115,7 +115,7 @@ export default function HomeOurOfferings() {
 				portfolio management and investment
 				<br className="visible_lg" />
 				decisions on the global energy transformation */}
-			</h3>
+			</h2>
 			<div className={`${styles.OurOfferingSlider} pt_60`}>
 				<Swiper
 					modules={[Navigation, Pagination, Autoplay]}
@@ -147,7 +147,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
+								<p className="text_md f_w_m color_white">EOS Platform</p>
 								<p className="text_reg color_silver_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights.
 								</p>
@@ -172,7 +172,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_secondary">Software</h4>
+								<p className="text_md f_w_m color_secondary">Software</p>
 								<p className="text_reg color_dark_gray">
 									Our software suite empowers energy professionals with advanced tools
 									for market forecasting, asset valuation, and strategic decision-making.
@@ -206,7 +206,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
+								<p className="text_md f_w_m color_white">Subscription Analytics</p>
 								<p className="text_reg color_silver_gray">
 									Access energy forecasts, policy insights, and analytics tools designed
 									to inform smarter, faster market decisions powered through our
@@ -241,7 +241,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<h4 className="text_md f_w_m color_white">Advisory</h4>
+								<p className="text_md f_w_m color_white">Advisory</p>
 								<p className="text_reg color_silver_gray">
 									Bespoke advisory offering in-depth strategic recommendation and
 									insights.
