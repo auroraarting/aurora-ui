@@ -12,6 +12,9 @@
 	left: 0;
 	z-index: 999999;
 	background-color: var(--color_white);
+	&:global(.hide) {
+		display: none;
+	}
 }
 .loader {
 	width: 50px;

@@ -91,7 +91,7 @@ export default async function EarlyCareers() {
 
 	countries = countries.sort((a, b) => a.title.localeCompare(b.title));
 
-	console.log(data, "data");
+	console.log(page, "data");
 
 	return (
 		<div>
@@ -152,7 +152,10 @@ export default async function EarlyCareers() {
 					/>
 				</div>
 				<div className="pt_80">
-					<GraduateExperiance defaultData={page?.graduateExperiences?.teams} />
+					<GraduateExperiance
+						title={page?.listing?.title}
+						defaultData={page?.graduateExperiences?.teams}
+					/>
 				</div>
 				<div className="">
 					<ConnectWithUs data={offices} />
