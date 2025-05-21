@@ -396,6 +396,8 @@ export default function Insights({
 	// 	sectionId["data-name"] = "Insights";
 	// }
 
+	console.log(formdata, "formdata");
+
 	return (
 		<section className={`${styles.Insights} Insights`} {...sectionId}>
 			<div className="containerLarge">
