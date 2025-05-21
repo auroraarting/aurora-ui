@@ -10,4 +10,25 @@
 			background-position: top center;
 		}
 	}
+	.whatsInclude{
+		background-image: url("../../../../public/img/softwares/what_include.jpg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: top center;
+		:global(.SmarterEnergy){
+			background-image: none;
+			h2{
+				color: var(--color_white);
+			}
+			p{
+				color: var(--color_platinum_gray);
+			}
+		}
+		:global(.headerF){
+			color: var(--color_white);
+		}
+		:global(.AccImgMinus){
+			filter: invert(1);
+		}
+	}
 }

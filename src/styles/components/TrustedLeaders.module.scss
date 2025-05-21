@@ -1,13 +1,16 @@
 @import "../helpers/helpers.scss";
 .TrustedLeaders {
 	:global(.swiper-horizontal) {
-		padding-bottom: 50px;
+		padding-bottom: 60px;
+		@media (max-width: 767px) {
+			padding-bottom: 50px;
+		}
 	}
 	:global(.swiper-pagination-horizontal) {
-		bottom: 0px;
-		left: 50%;
-		width: auto;
-		transform: translateX(-50%);
+		bottom: 0px !important;
+		left: 50% !important;
+		width: max-content !important;
+		transform: translateX(-50%) !important;
 		background-color: rgba(229, 229, 229, 0.5);
 		padding: 0px 10px 4px;
 		border-radius: 50px;

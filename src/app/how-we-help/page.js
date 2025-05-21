@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const fetchCache = "force-no-store"; // Optional: disables fetch caching
@@ -48,54 +49,95 @@ export default function HowWeHelp() {
 							<div className={`${styles.common_queries_flex} f_w_j`}>
 								<div className={`${styles.title_wrap}`}>
 									<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-										Lorem ipsum dolor sit amet
+										Intelligence behind every decision
 									</h2>
 									<p className="text_reg color_dark_gray">
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
+										Specialised support across the asset lifecycle, from siting and
+										valuation to strategy and PPAs, is designed to drive better investment
+										outcomes in energy and infrastructure.
 									</p>
 								</div>
 								<div className={`${styles.common_queries_faq}`}>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/how-we-help/transactions-support">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">
+												Transaction Support
+											</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Navigate acquisitions, investments, and mergers with confidence.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/how-we-help/portfolio-valuation">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">
+												Portfolio Valuation
+											</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Ensure every asset is accurately valued and strategically managed.
 											</p>
 										</div>
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<a href="/how-we-help/asset-citing-optimisation">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">
+												Asset Siting & Optimisation
+											</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Pinpoint the right locations and maximise operational potential.
+											</p>
+										</div>
+									</div>
+									<div className={`${styles.linksItem}`}>
+										<div className={`${styles.arrowLinks}`}>
+											<a href="/how-we-help/ppas">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
+										</div>
+										<div className={`${styles.Desc}`}>
+											<h4 className="text_md f_w_m font_primary pb_10">
+												PPAs (Power Purchase Agreements)
+											</h4>
+											<p className="text_reg color_dark_gray">
+												Secure agreements that drive profitability and sustainability.
+											</p>
+										</div>
+									</div>
+									<div className={`${styles.linksItem}`}>
+										<div className={`${styles.arrowLinks}`}>
+											<a href="/how-we-help/strategy">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</a>
+										</div>
+										<div className={`${styles.Desc}`}>
+											<h4 className="text_md f_w_m font_primary pb_10">Strategy</h4>
+											<p className="text_reg color_dark_gray">
+												Build forward-thinking plans that define and achieve your goals.
 											</p>
 										</div>
 									</div>
@@ -105,7 +147,10 @@ export default function HowWeHelp() {
 					</section>
 					<div className={`${styles.containerCustom} pb_100`}>
 						<div className="container">
-							<Insights isPowerBgVisible={true} />
+							<Insights
+								formSectionTitle="Connect with trusted energy advisors"
+								isPowerBgVisible={true}
+							/>
 						</div>
 					</div>
 					<div className="pb_100">

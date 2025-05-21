@@ -4,6 +4,9 @@
 	line-height: 1;
 	font-weight: 600;
 	font-family: var(--font_primary);
+	@media (min-width: 992px) and (max-width: 1200px) {
+		font-size: 70px;
+	}
 	@media (max-width: 991px) {
 		font-size: 44px;
 	}

@@ -24,6 +24,7 @@ import Redefining from "@/sections/softwares/Redefining";
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 import IntuitiveStepProcess from "@/sections/softwares/IntuitiveStepProcess";
 import TrustOurExperts from "@/sections/softwares/TrustOurExperts";
+import SoftwareVideos from "@/sections/softwares/SoftwareVideos";
 
 // PLUGINS //
 
@@ -147,6 +148,9 @@ export default function SoftwareInsideWrap({
 						)
 					}
 				/>
+				<div className="pt_100">
+					<SoftwareVideos />
+				</div>
 				<SmarterEnergy data={data?.expertise} />
 				{data?.expertSupport?.list?.length > 0 && (
 					<div className="ptb_100">
