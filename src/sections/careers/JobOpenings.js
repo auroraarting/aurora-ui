@@ -42,6 +42,16 @@ export default function JobOpenings({
 		search: { isOpen: false, selected: { title: "" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data.jobs.data);
+	const [searchInput, setSearchInput] = useState(null);
+	/** Debounced search when typing */
+	useEffect(() => {
+		const delay = setTimeout(() => {
+			if (searchInput === null) return;
+			handleOptionClick("search", searchInput.toLowerCase());
+		}, 500);
+
+		return () => clearTimeout(delay);
+	}, [searchInput]);
 
 	const dropdownRefs = {
 		eventNameType: useRef(null),
@@ -298,11 +308,23 @@ export default function JobOpenings({
 													handleOptionClick("search", e.target.search.value.toLowerCase());
 												}}
 											>
-												<input name="search" type="text" placeholder="Search Program" />
+												<input
+													autoFocus
+													name="search"
+													type="text"
+													placeholder="Search Program"
+													onChange={(e) => setSearchInput(e.target.value)}
+												/>
 											</form>
 
 											<span className="d_f">
-												<img src={searchImg.src} alt="icon" />
+												<img
+													src={searchImg.src}
+													alt="icon"
+													onClick={() =>
+														handleOptionClick("search", searchInput.toLowerCase())
+													}
+												/>
 												{/* Close Button */}
 												<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 													<span className="text_xs">X</span>
