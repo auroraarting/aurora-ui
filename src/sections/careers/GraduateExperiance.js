@@ -28,8 +28,8 @@ export default function GraduateExperiance({
 	sectionName = "Graduate Experiences",
 	id = "Graduate-Experiences",
 	defaultData,
+	title = "What’s it like to be a part of Team Aurora?",
 }) {
-	console.log("defaultData", defaultData);
 	const [selectId, setSelectId] = useState();
 	// useEffect(() => {
 	// 	openModal("teamPop");
@@ -45,7 +45,7 @@ export default function GraduateExperiance({
 				<div className="containerLarge">
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-							What’s it like to be a part of Team Aurora?
+							{title}
 						</h2>
 						<div className={`${styles.bookBtn}`}>
 							<Link href="/careers/our-team">
