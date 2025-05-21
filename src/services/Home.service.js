@@ -501,7 +501,7 @@ export const getHomePageVoices = async () => {
 	obj.caseStudies?.map((item) => {
 		arr.push({
 			...item,
-			link: `/resources/aurora-insights/${item.slug}`,
+			link: `/resources/aurora-insights/case-studies/${item.slug}`,
 			cat: "Case Studies",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
@@ -541,7 +541,7 @@ export const getHomePageVoices = async () => {
 	obj.commentary?.map((item) => {
 		arr.push({
 			...item,
-			link: `/resources/aurora-insights/${item.slug}`,
+			link: `/resources/aurora-insights/articles/${item.slug}`,
 			cat: "Articles",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
@@ -565,7 +565,7 @@ export const getHomePageVoices = async () => {
 	obj.marketReports?.map((item) => {
 		arr.push({
 			...item,
-			link: `/resources/aurora-insights/${item.slug}`,
+			link: `/resources/aurora-insights/market-reports/${item.slug}`,
 			cat: "Market Reports",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});

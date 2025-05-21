@@ -84,7 +84,7 @@ export default function CaseStudy({ data, countries = [] }) {
 						return (
 							<div className={`${styles.ItemBox} boxH`} key={ind}>
 								<a
-									href={`/resources/aurora-insights/${item?.slug}`}
+									href={`/resources/aurora-insights/case-studies/${item?.slug}`}
 									className={`${styles.hoverBox}`}
 								>
 									<p

@@ -52,7 +52,7 @@ export default function AuroraInsightsWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} />
+			{/* <MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

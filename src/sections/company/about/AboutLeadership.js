@@ -279,7 +279,7 @@ export default function AboutLeadership({ data, countries }) {
 																							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 																						>
 																							{/* {blogData.tags} */}
-																							Case Study
+																							{isCategory(allCategories, blogData?.categories?.nodes)}
 																						</p>
 																						<div
 																							className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}

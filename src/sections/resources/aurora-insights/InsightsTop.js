@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -8,7 +9,7 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
-import formatDate, { allCategories, isCategory } from "@/utils";
+import formatDate, { allCategories, isCategory, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/resources/aurora-insights/InsightsTop.module.scss";
@@ -27,7 +28,9 @@ export default function InsightsTop({ data }) {
 		<section className={`${styles.InsightsTop}`}>
 			<div className="container">
 				<a
-					href={`/resources/aurora-insights/${data?.slug}`}
+					href={`/resources/aurora-insights/${slugify(
+						isCategory(allCategories, data?.categories?.nodes)
+					)}/${data?.slug}`}
 					className={`${styles.card} f_w_j`}
 				>
 					<div className={`${styles.content}`}>
