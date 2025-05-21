@@ -402,7 +402,7 @@ export default function Header({ defaultNavigation }) {
 															</div>
 															<div className={`${styles.contentBox}`}>
 																<h4 className="text_reg font_primary color_secondary">
-																	Latest Webinar
+																	Latest Resources
 																</h4>
 																<p className="text_xs color_light_gray">
 																	Gain a deeper understanding of the forces shaping today&apos;s
@@ -566,7 +566,7 @@ export default function Header({ defaultNavigation }) {
 															</div>
 															<div className={`${styles.contentBox}`}>
 																<h4 className="text_reg font_primary color_secondary">
-																	Latest Webinar
+																	Latest Resources
 																</h4>
 																<p className="text_xs color_light_gray">
 																	Gain a deeper understanding of the forces shaping today&apos;s
