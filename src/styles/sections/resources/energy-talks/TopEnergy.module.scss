@@ -33,6 +33,9 @@
 				align-items: center;
 				p {
 					margin-right: 40px;
+					@media (max-width: 991px) {
+						margin-right: 15px;
+					}
 					img {
 						filter: invert(1);
 					}

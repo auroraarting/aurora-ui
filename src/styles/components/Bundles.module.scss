@@ -29,6 +29,9 @@
 	}
 	.table_wrap {
 		// padding: 0 50px;
+		@media (max-width: 767px) {
+			padding-top: 20px;
+		}
 		.tab_wrap {
 			display: flex;
 			justify-content: space-between;
