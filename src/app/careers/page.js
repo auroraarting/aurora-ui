@@ -147,6 +147,7 @@ export default async function Careers() {
 						<div className="container">
 							<Insights
 								formSectionTitle="Connect with trusted energy advisors"
+								formSectionBtnText="Speak to our experts"
 								isPowerBgVisible={true}
 								defaultList={otherList}
 								countries={countries}

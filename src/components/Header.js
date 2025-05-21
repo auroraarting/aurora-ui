@@ -410,7 +410,7 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={"/resources"}>
+																	<a href={"/resources/aurora-insights"}>
 																		<Button color="primary" variant="filled" shape="rounded">
 																			View All
 																		</Button>
