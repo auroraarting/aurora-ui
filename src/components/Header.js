@@ -406,8 +406,8 @@ export default function Header({ defaultNavigation }) {
 																</h4>
 																<p className="text_xs color_light_gray">
 																	Gain a deeper understanding of the forces shaping today&apos;s
-																	energy markets. Our webinars offer strategic and actionable
-																	intelligence for informed decision-making
+																	energy markets. Our insights provide strategic and actionable
+																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={`/resources/webinar/${item?.slug}`}>
@@ -570,8 +570,8 @@ export default function Header({ defaultNavigation }) {
 																</h4>
 																<p className="text_xs color_light_gray">
 																	Gain a deeper understanding of the forces shaping today&apos;s
-																	energy markets. Our webinars offer strategic and actionable
-																	intelligence for informed decision-making
+																	energy markets. Our insights provide strategic and actionable
+																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={`/resources/webinar/${item?.slug}`}>
