@@ -114,10 +114,8 @@ export default function GlobalPresenceInsideWrap({
 				<div className="ptb_100">
 					<SoftwareMarket
 						mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
-						sectionTitle={
-							data?.countries?.availableRegions?.sectionTitle ||
-							"Energy intelligence across every key market"
-						}
+						// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
+						sectionTitle={"Energy intelligence across every key market"}
 						mapJson={mapJson}
 						data={data?.countries?.availableRegions}
 						customHtml={
