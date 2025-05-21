@@ -410,7 +410,7 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={`/resources/webinar/${item?.slug}`}>
+																	<a href={"/resources"}>
 																		<Button color="primary" variant="filled" shape="rounded">
 																			View All
 																		</Button>
@@ -574,7 +574,7 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={`/resources/webinar/${item?.slug}`}>
+																	<a href={"/resources"}>
 																		<Button color="primary" variant="filled" shape="rounded">
 																			View All
 																		</Button>

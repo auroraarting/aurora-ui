@@ -20,6 +20,10 @@ export const GlobalContext = ({ children }) => {
 				const getLoaderHtml = document.querySelector(".loaderWrap");
 				getLoaderHtml.classList.remove("hide");
 
+				setTimeout(() => {
+					getLoaderHtml.classList.add("hide");
+				}, 5000);
+
 				// Add your logic here (e.g., start spinner)
 			}
 		};
