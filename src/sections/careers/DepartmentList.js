@@ -162,9 +162,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 										{selectedDepartment < 0 && "No Data"}
 									</h2>
 								</div>
-								<div
-									className={`${styles.teamDetailsItem} text_reg m_b_20 color_dark_gray`}
-								>
+								<div className={`${styles.teamDetailsItem} text_reg color_dark_gray`}>
 									<ContentFromCms>
 										{data?.categories?.[selectedDepartment]?.desc}
 									</ContentFromCms>
