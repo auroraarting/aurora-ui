@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import formatDate from "..";
 
 const tzAbbreviationMap = {
 	"Europe/London": { std: "GMT", dst: "BST" },
@@ -27,36 +28,54 @@ export function formatWebinarDateTime(
 	endDateAndTime,
 	timezone
 ) {
-	const zone = timezone[0];
+	// const zone = timezone[0];
 
-	const start = DateTime.fromISO(startDateAndTime, { zone: "utc" }).setZone(
-		zone
-	);
-	const end = DateTime.fromISO(endDateAndTime, { zone: "utc" }).setZone(zone);
+	// const start = DateTime.fromISO(startDateAndTime, { zone: "utc" }).setZone(
+	// 	zone
+	// );
+	// const end = DateTime.fromISO(endDateAndTime, { zone: "utc" }).setZone(zone);
 
-	const date = start.toLocaleString({
-		month: "short",
-		day: "numeric",
-		year: "numeric",
+	// const date = start.toLocaleString({
+	// 	month: "short",
+	// 	day: "numeric",
+	// 	year: "numeric",
+	// });
+	// const startTime = start.toLocaleString(DateTime.TIME_SIMPLE);
+	// const endTime = end.toLocaleString(DateTime.TIME_SIMPLE);
+
+	// const abbrs = tzAbbreviationMap[zone] || {
+	// 	std: start.offsetNameShort,
+	// 	dst: end.offsetNameShort,
+	// };
+	// const startAbbr = start.isInDST ? abbrs.dst : abbrs.std;
+	// const endAbbr = end.isInDST ? abbrs.dst : abbrs.std;
+	// const tzAbbr = startAbbr === endAbbr ? startAbbr : `${startAbbr} – ${endAbbr}`;
+
+	// // Compare current time (in event timezone) with event start time to get isUpcoming
+	// const now = DateTime.now().setZone(zone);
+	// const isUpcoming = now <= start;
+
+	const date = formatDate(startDateAndTime);
+	const startTime = new Date(startDateAndTime).toLocaleTimeString("en-US", {
+		hour: "2-digit",
+		minute: "2-digit",
+		hour12: true,
+		timeZone: "UTC",
 	});
-	const startTime = start.toLocaleString(DateTime.TIME_SIMPLE);
-	const endTime = end.toLocaleString(DateTime.TIME_SIMPLE);
-
-	const abbrs = tzAbbreviationMap[zone] || {
-		std: start.offsetNameShort,
-		dst: end.offsetNameShort,
-	};
-	const startAbbr = start.isInDST ? abbrs.dst : abbrs.std;
-	const endAbbr = end.isInDST ? abbrs.dst : abbrs.std;
-	const tzAbbr = startAbbr === endAbbr ? startAbbr : `${startAbbr} – ${endAbbr}`;
-
-	// Compare current time (in event timezone) with event start time to get isUpcoming
-	const now = DateTime.now().setZone(zone);
-	const isUpcoming = now <= start;
+	const endTime = new Date(endDateAndTime).toLocaleTimeString("en-US", {
+		hour: "2-digit",
+		minute: "2-digit",
+		hour12: true,
+		timeZone: "UTC",
+	});
+	const tzAbbr = timezone;
+	// Compare current time (in UTC) with endDateAndTime
+	const currentUTC = new Date().toISOString(); // current time in UTC as string
+	const isUpcoming = new Date(currentUTC) <= new Date(endDateAndTime);
 
 	return {
 		date,
-		time: `${startTime} – ${endTime} ${tzAbbr}`,
+		time: `   ${startTime} – ${endTime} ${tzAbbr}`,
 		isUpcoming,
 	};
 }
