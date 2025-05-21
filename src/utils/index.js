@@ -459,8 +459,8 @@ export function buildQueryFromContext(context) {
 
 export const allCategories = [
 	{ title: "Articles", alternate: "Commentary" },
-	{ title: "Case studies", alternate: "Case studies" },
-	{ title: "Market reports", alternate: "Market reports" },
+	{ title: "Case Studies", alternate: "Case Studies" },
+	{ title: "Market Reports", alternate: "Market Reports" },
 	// { title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
 	// { title: "Energy Talks", alternate: "Energy Talks" },
@@ -586,7 +586,6 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 	return podcasts.filter((podcast) => {
 		const { webinarsFields, eventCategories, title } = podcast;
 		const date = webinarsFields?.startDateAndTime;
-		console.log(podcast, "podcast");
 
 		// 1. Match country
 		const countries = webinarsFields?.country?.nodes || [];
@@ -631,7 +630,7 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 
 		// 5. Match Title
 		const matchTitle = selected.search
-			? title?.toLowerCase().includes(selected.search)
+			? title?.toLowerCase().includes(selected.search.toLowerCase())
 			: true;
 
 		return (
@@ -800,6 +799,14 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 		{
 			key: "status",
 			match: (item, value) => item.events?.thumbnail?.status === value,
+		},
+		// 🔍 Add search filter
+		{
+			key: "search",
+			match: (item, value) => {
+				const title = item.title || item.events?.title || "";
+				return title.toLowerCase().includes(value.toLowerCase());
+			},
 		},
 	];
 
@@ -1115,3 +1122,22 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 export function formatTitleForEpisode(title) {
 	return title.replace(/(EP\.\d+)/, '<span class="ep-label">$1</span>');
 }
+
+/** updateQueryFast  */
+export const updateQueryFast = (selecObj) => {
+	const params = new URLSearchParams(window.location.search);
+
+	for (const key in selecObj) {
+		const value = selecObj[key];
+
+		// Remove from URL if value is empty string, null, or undefined
+		if (value === "" || value === undefined || value === null) {
+			params.delete(key);
+		} else {
+			params.set(key, value);
+		}
+	}
+
+	const newUrl = `${window.location.pathname}?${params.toString()}`;
+	window.history.pushState({}, "", newUrl); // Fast and smooth
+};

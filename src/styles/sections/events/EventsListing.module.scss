@@ -15,7 +15,7 @@
 			}
 			.selectBox {
 				position: relative;
-				width: 19%;
+				width: 20%;
 				border: 0;
 				border-radius: 0;
 				// padding-bottom: 5px;
@@ -238,7 +238,7 @@
 				}
 
 				&.widthCustom {
-					width: 12%;
+					width: 20%;
 					@media (max-width: 767px) {
 						width: 100%;
 					}
@@ -271,6 +271,9 @@
 				@media screen and (max-width: 767px) {
 					top: inherit;
 					bottom: 0px;
+				}
+				form {
+					width: 100%;
 				}
 				input {
 					width: 100%;

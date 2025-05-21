@@ -42,7 +42,9 @@ export const metadata = {
 export default async function Careers() {
 	const [categoriesForSelect, list] = await Promise.all([
 		getInsightsCategories(),
-		getInsights('first: 3, where: {categoryName: ""}'),
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
 	]);
 	const otherList = list?.data?.posts?.nodes;
 	const countries = categoriesForSelect.data.countries.nodes;

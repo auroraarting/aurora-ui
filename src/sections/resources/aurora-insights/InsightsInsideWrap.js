@@ -58,12 +58,12 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/resources/aurora-insights/${data?.slug}`}
-			/>
+			/> */}
 
 			<Script id="show-banner" strategy="afterInteractive">
 				{`

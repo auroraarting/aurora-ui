@@ -11,7 +11,9 @@ export async function GET(req, res) {
 	try {
 		const [categoriesForSelect, list] = await Promise.all([
 			getInsightsCategories(),
-			getInsights('first: 3, where: {categoryName: ""}'),
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
 		]);
 		const defaultList = list?.data?.posts?.nodes;
 		const countries = categoriesForSelect.data.countries.nodes;

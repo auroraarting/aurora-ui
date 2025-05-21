@@ -264,6 +264,7 @@ export default function GlobalSearch() {
 						<div className={`${styles.slobal_search_section} f_j`}>
 							<div className={styles.input_section}>
 								<input
+									autoFocus
 									className="search_input"
 									type="text"
 									value={searchTerm}

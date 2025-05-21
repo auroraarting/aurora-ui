@@ -85,6 +85,7 @@ export default function Header({ defaultNavigation }) {
 
 	/** Function to toggle dropdown */
 	const toggleDropdown = (dropdownKey) => {
+		handleCloseClick();
 		setOpenDropdown((prevOpenDropdown) =>
 			prevOpenDropdown === dropdownKey ? null : dropdownKey
 		);
@@ -128,7 +129,8 @@ export default function Header({ defaultNavigation }) {
 
 	/** handleSearchClick */
 	const handleSearchClick = () => {
-		setShowSearch(true);
+		setShowSearch(!showSearch);
+		setOpenDropdown(null);
 	};
 
 	/** handleCloseClick */

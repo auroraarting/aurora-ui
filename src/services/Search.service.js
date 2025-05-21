@@ -78,7 +78,7 @@ export async function searchData(searchTerm) {
       slug
     }
   }
-      webinars(first: 999, where: {search: "${searchTerm}"}) {
+  webinars(first: 999, where: {search: "${searchTerm}"}) {
     nodes {
       slug
       title
@@ -124,10 +124,7 @@ export async function searchData(searchTerm) {
       }
     }
   }
-  posts(
-    first: 9999
-    where: {search: "${searchTerm}", categoryName: "commentary,public-webinar,webinar,webinar-recording,media"}
-  ) {
+  posts(first: 9999,where: {search: "${searchTerm}", categoryName: "case-studies,commentary,market-reports,media"}) {
     nodes {
       title
       slug
@@ -240,7 +237,11 @@ export async function searchData(searchTerm) {
 		const href = () => {
 			let cat = isCategory(allCategories, item?.categories?.nodes);
 			if (cat.includes("Articles")) {
-				return `/resources/aurora-insights/${item?.slug}`;
+				return `/resources/aurora-insights/articles/${item?.slug}`;
+			} else if (cat.includes("Case Studies")) {
+				return `/resources/aurora-insights/case-studies/${item?.slug}`;
+			} else if (cat.includes("Market Reports")) {
+				return `/resources/aurora-insights/market-reports/${item?.slug}`;
 			} else if (cat.includes("Media")) {
 				return `/company/press-releases/${item?.slug}`;
 			}

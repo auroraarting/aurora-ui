@@ -44,7 +44,9 @@ export default async function EOSPage() {
 			getRegions(),
 			getBundlesSection(),
 			getInsightsCategories(),
-			getInsights('first: 3, where: {categoryName: ""}'),
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
 		]);
 	const mapJson = getMapJsonForAllRegions(regions);
 	const otherList = list?.data?.posts?.nodes;

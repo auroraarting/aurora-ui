@@ -83,7 +83,7 @@ export default function Leaders({ data }) {
 				});
 				return {
 					tags: "Case Study",
-					blogSlug: `/resources/aurora-insights/${item2?.slug}`,
+					blogSlug: `/resources/aurora-insights/case-studies/${item2?.slug}`,
 					blogDesc: item2?.title,
 					blogDate: formatDate(item2?.date),
 					blogLocation: location,

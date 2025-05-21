@@ -52,7 +52,7 @@ export default function AuroraInsightsWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} />
+			{/* <MetaTags Title={"Aurora Insights"} Url={"/resources/aurora-insights"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}
@@ -72,7 +72,7 @@ export default function AuroraInsightsWrap({
 				</div>
 				<div className="pt_60 pb_100">
 					<InsightsListing
-						data={data?.slice(1, data.length)}
+						data={data}
 						pagination={pagination}
 						countries={countries}
 						products={products}

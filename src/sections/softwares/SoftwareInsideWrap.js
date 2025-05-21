@@ -111,11 +111,11 @@ export default function SoftwareInsideWrap({
 					</div>
 				)}
 				<GlobalMap locationJson={mapJson} />
-				{data?.caseStudy?.title && (
-					<div className="pt_100">
-						<CaseStudy data={data?.caseStudy} countries={countries} />
-					</div>
-				)}
+				{/* {data?.caseStudy?.title && ( */}
+				<div className="pt_100">
+					<CaseStudy data={data?.caseStudy} countries={countries} />
+				</div>
+				{/* )} */}
 				{data?.ourClient?.selectLogos && (
 					<div className="ptb_100">
 						<TrustedLeaders data={data?.ourClient} />

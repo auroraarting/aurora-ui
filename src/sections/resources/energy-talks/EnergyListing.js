@@ -19,6 +19,7 @@ import formatDate, {
 	filterItemsForPodcast,
 	formatTitleForEpisode,
 	isCategory,
+	updateQueryFast,
 } from "@/utils";
 
 // STYLES //
@@ -58,6 +59,16 @@ export default function EnergyListing({
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data);
+	const [searchInput, setSearchInput] = useState(null);
+	/** Debounced search when typing */
+	useEffect(() => {
+		const delay = setTimeout(() => {
+			if (searchInput === null) return;
+			filter(searchInput, "search");
+		}, 500);
+
+		return () => clearTimeout(delay);
+	}, [searchInput]);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -129,26 +140,6 @@ export default function EnergyListing({
 		}
 	};
 
-	const radioData = [
-		{
-			category: "Product",
-			options: [
-				"Power & Renewables",
-				"Flexible Energy",
-				"Grid Add-on",
-				"Hydrogen Service",
-			],
-		},
-		{
-			category: "Software",
-			options: ["Amun", "Chronos", "Lumus PPA", "Origin"],
-		},
-		{
-			category: "Service",
-			options: ["Advisory"],
-		},
-	];
-
 	/** filter  */
 	const filter = async (catName, key) => {
 		let queryObj = {};
@@ -190,6 +181,10 @@ export default function EnergyListing({
 		}
 		setSelected(selectedObj);
 
+		// Code to Change Query in Url Start
+		updateQueryFast(selectedObj);
+		// Code to Change Query in Url End
+
 		console.log(selectedObj, "queryObj");
 		const filteredArr = filterItemsForPodcast(arr, selectedObj);
 		setList(filteredArr);
@@ -214,6 +209,28 @@ export default function EnergyListing({
 			});
 		};
 		document.addEventListener("mousedown", handleClickOutside);
+
+		// Get Search Query From URl Start
+		const params = new URLSearchParams(window.location.search);
+		const selecObj = {};
+		for (const [key, value] of params.entries()) {
+			if (key === "year") {
+				selecObj[key] = parseInt(value);
+			} else {
+				selecObj[key] = value;
+			}
+		}
+		if (params.size > 0) {
+			setLoading(true);
+			setSelected(selecObj);
+			const filteredArr = filterItemsForPodcast(data, selecObj);
+			setList(filteredArr);
+			setPaginationArr(filteredArr);
+			setLoading(false);
+			console.log(selecObj, "selecObj");
+		}
+		// Get Search Query From URl End
+
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
@@ -272,7 +289,7 @@ export default function EnergyListing({
 							</div>
 						</div>
 						{/* Offerings Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -282,7 +299,6 @@ export default function EnergyListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{/* {selected.productService || "Products & Services"} */}
 										Products & Services
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
@@ -323,7 +339,7 @@ export default function EnergyListing({
 									</div>
 								)}
 							</div>
-						</div>
+						</div> */}
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}
@@ -374,6 +390,9 @@ export default function EnergyListing({
 										setSelected({});
 										setList(data);
 										setPaginationArr(data);
+										const url = new URL(window.location);
+										url.search = ""; // clear query string
+										window.history.replaceState({}, document.title, url.toString());
 									}}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
@@ -405,10 +424,20 @@ export default function EnergyListing({
 										filter(val, "search");
 									}}
 								>
-									<input name="search" type="text" placeholder="Search Events" />
+									<input
+										autoFocus
+										name="search"
+										type="text"
+										placeholder="Search Podcasts"
+										onChange={(e) => setSearchInput(e.target.value)}
+									/>
 								</form>
 								<span className="d_f">
-									<img src={searchImg.src} alt="icon" />
+									<img
+										src={searchImg.src}
+										alt="icon"
+										onClick={() => filter(searchInput, "search")}
+									/>
 									{/* Close Button */}
 									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
 										<span className="text_xs">X</span>
@@ -480,7 +509,12 @@ export default function EnergyListing({
 							);
 						})}
 					{loading && <p>Loading...</p>}
-					{list?.length === 0 && !loading && <p>No Data</p>}
+					{list?.length === 0 && !loading && (
+						<p>
+							No resources available for this selection. Please choose a different
+							option.
+						</p>
+					)}
 				</div>
 				<Pagination
 					data={list}
