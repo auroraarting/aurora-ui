@@ -4,6 +4,9 @@ const nextConfig = {
 	swcMinify: true,
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
+	// experimental: {
+	// 	dynamicIO: true,
+	// },
 	images: {
 		domains: [
 			"img.youtube.com",

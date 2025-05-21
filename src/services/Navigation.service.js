@@ -179,12 +179,12 @@ export async function fetchNavigationData() {
       regionsFields {
         sequence
       }
-      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}){
+      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           slug
           title
-          countries{
-          hideonglobalpresence
+          countries {
+            hideonglobalpresence
           }
         }
       }
@@ -232,6 +232,18 @@ export async function fetchNavigationData() {
             }
           }
         }
+      }
+    }
+  }
+  page(id: "search-topics", idType: URI) {
+    searchTopics {
+      topPages {
+        title
+        url
+      }
+      topSearches {
+        title
+        url
       }
     }
   }
@@ -288,6 +300,8 @@ export async function fetchNavigationData() {
 	const events = data?.events?.nodes;
 	const whoareyous = data?.whoareyous.nodes;
 	const howWeHelps = data?.howWeHelps.nodes;
+	const topPages = data?.page?.searchTopics?.topPages;
+	const topSearches = data?.page?.searchTopics?.topSearches;
 
 	return {
 		products,
@@ -298,6 +312,8 @@ export async function fetchNavigationData() {
 		howWeHelps,
 		events,
 		webinar,
+		topPages,
+		topSearches,
 		ok: true,
 	};
 }
