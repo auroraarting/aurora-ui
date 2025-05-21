@@ -29,7 +29,7 @@ export default function CounterDynamic({ data }) {
 					{data?.map((item) => {
 						return (
 							<div className={`${styles.countBox}`} key={item?.title}>
-								<h4 className="text_xxl color_primary">
+								<h4 className="text_xl color_primary">
 									{/* <CountUp end={item?.count.split("+")[0]} enableScrollSpy /> */}
 									{item?.count}
 									{/* {item?.count?.split("+")?.length > 1 && <span>+</span>} */}
