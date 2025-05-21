@@ -131,6 +131,7 @@ export default function WhoAreYou() {
 						<div className="container">
 							<Insights
 								formSectionTitle="Connect with trusted energy advisors"
+								formSectionBtnText="Speak to our experts"
 								isPowerBgVisible={true}
 							/>
 						</div>
