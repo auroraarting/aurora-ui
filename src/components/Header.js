@@ -1232,7 +1232,7 @@ export default function Header({ defaultNavigation }) {
 								<img src={white_close.src} alt="search" />
 							</button>
 						</div>
-						<GlobalSearch />
+						<GlobalSearch data={defaultNavigation} />
 					</div>
 				</>
 			)}

@@ -41,6 +41,7 @@ export default function SoftwareMarket({
 	mapJson,
 	customHtml,
 	data,
+	mapThumb,
 }) {
 	console.log(data, "dataat");
 	/** centerOfCountry  */
@@ -109,16 +110,19 @@ export default function SoftwareMarket({
 						<div className="m_t_30">{customHtml}</div>
 					</div>
 					<div className={`${styles.right}`}>
-						{/* <img className={`${styles.map}`} src={Map.src} alt="Map" /> */}
-						<Map
-							mapCenter={mapCenter}
-							setValueOfSelect={setValueOfSelect}
-							valueOfSelect={valueOfSelect}
-							map={map}
-							setMap={setMap}
-							defaultZoom={mapJson?.zoom || 4}
-							locationJson={[customMapJson]}
-						/>
+						{mapThumb ? (
+							<img className={`${styles.map}`} src={mapThumb} alt="Map" />
+						) : (
+							<Map
+								mapCenter={mapCenter}
+								setValueOfSelect={setValueOfSelect}
+								valueOfSelect={valueOfSelect}
+								map={map}
+								setMap={setMap}
+								defaultZoom={mapJson?.zoom || 4}
+								locationJson={[customMapJson]}
+							/>
+						)}
 
 						{/* <div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>
