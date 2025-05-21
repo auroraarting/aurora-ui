@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
+import Link from "next/link";
 
 // COMPONENTS //
 import Footer from "@/components/Footer";
@@ -50,54 +51,29 @@ export default function Services() {
 							<div className={`${styles.common_queries_flex} f_w_j`}>
 								<div className={`${styles.title_wrap}`}>
 									<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-										Lorem ipsum dolor sit amet
+										Bespoke services for every energy decisions
 									</h2>
 									<p className="text_reg color_dark_gray">
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
-										Porttitor leo vel morbi diam pulvinar massa nunc habitasse egestas.
+										Aurora provides data-driven insights, bespoke analytics and tailored
+										services to support strategic decisions in the evolving energy
+										landscape.
 									</p>
 								</div>
 								<div className={`${styles.common_queries_faq}`}>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
+											<Link href="/service/advisory" rel="noreferrer">
+												<span>
+													<img src={dropdown_arrow.src} alt="icon" />
+												</span>
+											</Link>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Advisory</h4>
 											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
-											</p>
-										</div>
-									</div>
-									<div className={`${styles.linksItem}`}>
-										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
-										</div>
-										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
-											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
-											</p>
-										</div>
-									</div>
-									<div className={`${styles.linksItem}`}>
-										<div className={`${styles.arrowLinks}`}>
-											<span>
-												<img src={dropdown_arrow.src} alt="icon" />
-											</span>
-										</div>
-										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">About Us</h4>
-											<p className="text_reg color_dark_gray">
-												Lorem ipsum dolor sit amet consectetur. Habitant faucibus libero
-												arcu neque commodo
+												Aurora’s services combine market-leading data, modelling, and
+												analysis to guide complex decisions across the global energy value
+												chain.
 											</p>
 										</div>
 									</div>
@@ -107,7 +83,12 @@ export default function Services() {
 					</section>
 					<div className={`${styles.containerCustom} pb_100`}>
 						<div className="container">
-							<Insights isPowerBgVisible={true} />
+							<Insights
+								formSectionTitle="Connect with trusted energy advisors"
+								formSectionBtnText="Speak to our experts"
+								insightsLink="/company/contact/"
+								isPowerBgVisible={true}
+							/>
 						</div>
 					</div>
 					<div className="pb_100">
