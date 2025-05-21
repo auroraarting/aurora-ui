@@ -28,7 +28,7 @@ import { searchData } from "@/services/Search.service";
 // DATA //
 
 /** GlobalSearch Component */
-export default function GlobalSearch() {
+export default function GlobalSearch({ data }) {
 	// STATE //
 	const [searchTerm, setSearchTerm] = useState("");
 	const [results, setResults] = useState(null);
@@ -329,26 +329,17 @@ export default function GlobalSearch() {
 							Top Searches
 						</div>
 						<div className={`${styles.eosItem}`}>
-							<a
-								href=""
-								className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-							>
-								<span>Net Zero Carbon 2050</span>{" "}
-								<img src={search_hover.src} alt="arrow" />
-							</a>
-							<a
-								href=""
-								className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-							>
-								<span>Energy Renewable Market</span>{" "}
-								<img src={search_hover.src} alt="arrow" />
-							</a>
-							<a
-								href=""
-								className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-							>
-								<span>Battery</span> <img src={search_hover.src} alt="arrow" />
-							</a>
+							{data?.topSearches?.map((item) => {
+								return (
+									<a
+										key={item?.title}
+										href={item?.url}
+										className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+									>
+										<span>{item?.title}</span> <img src={search_hover.src} alt="arrow" />
+									</a>
+								);
+							})}
 						</div>
 					</div>
 				</div>
@@ -359,26 +350,17 @@ export default function GlobalSearch() {
 						Top Pages
 					</div>
 					<div className={`${styles.eosItem}`}>
-						<a
-							href=""
-							className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-						>
-							<span>Net Zero Carbon 2050</span>{" "}
-							<img src={search_hover.src} alt="arrow" />
-						</a>
-						<a
-							href=""
-							className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-						>
-							<span>Energy Renewable Market</span>{" "}
-							<img src={search_hover.src} alt="arrow" />
-						</a>
-						<a
-							href=""
-							className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-						>
-							<span>Battery</span> <img src={search_hover.src} alt="arrow" />
-						</a>
+						{data?.topPages?.map((item) => {
+							return (
+								<a
+									key={item?.title}
+									href={item?.url}
+									className={`${styles.eosLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+								>
+									<span>{item?.title}</span> <img src={search_hover.src} alt="arrow" />
+								</a>
+							);
+						})}
 					</div>
 				</div>
 			</div>
