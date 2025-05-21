@@ -31,7 +31,10 @@ query GetProductBySlug {
           from
           to
         }
-        shortDescription
+                  title
+          shortDescription
+          spotlightTitle
+          spotlightDesc
       }
       ourClient {
         selectLogos(first: 999) {

@@ -31,7 +31,10 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
           from
           to
         }
-        shortDescription
+                  title
+          shortDescription
+          spotlightTitle
+          spotlightDesc
       }
       ourClient {
         selectLogos(first: 999) {
@@ -343,7 +346,10 @@ query GetPageSoftwares {
             from
             to
           }
+          title
           shortDescription
+          spotlightTitle
+          spotlightDesc
         }
         ourClient {
           selectLogos(first: 999) {
