@@ -42,6 +42,7 @@ export default function TransactionSolutions({
 	slugPage = "products",
 	keyValue = "products",
 	isSlider,
+	useSpotlight,
 }) {
 	console.log(data);
 	const animTimeline = gsap.timeline({});
@@ -111,6 +112,8 @@ export default function TransactionSolutions({
 	return (
 		<section
 			className={`${styles.TransactionSolutions} ${isSlider && styles.isSlider}`}
+			id="spotlight"
+			data-name="Spotlight"
 		>
 			<div className={`${styles.flexBox} f_j`}>
 				<div className={`${styles.flexItemOne}`}>
@@ -157,10 +160,14 @@ export default function TransactionSolutions({
 													/>
 												)}
 												<h2 className="text_xl font_primary f_w_m color_white pt_40">
-													{item?.title}
+													{useSpotlight
+														? item?.[contentType]?.thumbnail?.spotlightTitle
+														: item?.[contentType]?.thumbnail?.title}
 												</h2>
 												<p className={`${styles.label} text_reg color_platinum_gray`}>
-													{item?.[contentType]?.thumbnail?.shortDescription}
+													{useSpotlight
+														? item?.[contentType]?.thumbnail?.spotlightDesc
+														: item?.[contentType]?.thumbnail?.shortDescription}
 												</p>
 												<div className={`${styles.bookBtn} pt_30`}>
 													<a href={item?.link || `/${slugPage}/${item?.slug}`}>
@@ -198,10 +205,14 @@ export default function TransactionSolutions({
 											/>
 										)}
 										<h2 className="text_xl font_primary f_w_m color_white pt_40">
-											{item?.title}
+											{useSpotlight
+												? item?.[contentType]?.thumbnail?.spotlightTitle
+												: item?.[contentType]?.thumbnail?.title}
 										</h2>
 										<p className={`${styles.label} text_reg color_platinum_gray`}>
-											{item?.[contentType]?.thumbnail?.shortDescription}
+											{useSpotlight
+												? item?.[contentType]?.thumbnail?.spotlightDesc
+												: item?.[contentType]?.thumbnail?.shortDescription}
 										</p>
 										<div className={`${styles.bookBtn} pt_30`}>
 											<a href={item?.link || `/${slugPage}/${item?.slug}`}>

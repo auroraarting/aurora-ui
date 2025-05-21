@@ -13,7 +13,10 @@ query GetSingleHowWeHelp {
         description
       }
       thumbnail {
+        title
         shortDescription
+        spotlightTitle
+        spotlightDesc
         banner {
           node {
             altText
@@ -141,7 +144,10 @@ query GetSingleHowWeHelp {
               slug
               howWeHelpInside {
                 thumbnail {
+                  title
                   shortDescription
+                  spotlightTitle
+                  spotlightDesc
                   banner {
                     node {
                       altText
@@ -172,7 +178,10 @@ query GetSingleHowWeHelp {
               products {
                 thumbnail {
                   primaryColor
+                  title
                   shortDescription
+                  spotlightTitle
+                  spotlightDesc
                   banner {
                     node {
                       altText
@@ -199,7 +208,10 @@ query GetSingleHowWeHelp {
               services {
                 thumbnail {
                   primaryColor
+                  title
                   shortDescription
+                  spotlightTitle
+                  spotlightDesc
                   banner {
                     node {
                       altText
@@ -226,7 +238,10 @@ query GetSingleHowWeHelp {
               softwares {
                 thumbnail {
                   primaryColor
+                  title
                   shortDescription
+                  spotlightTitle
+                  spotlightDesc
                   banner {
                     node {
                       altText
@@ -286,7 +301,10 @@ query GetAllHowWeHelps {
           description
         }
         thumbnail {
+                    title
           shortDescription
+          spotlightTitle
+          spotlightDesc
           banner {
             node {
               altText
