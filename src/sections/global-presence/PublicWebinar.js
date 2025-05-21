@@ -56,7 +56,7 @@ export default function PublicWebinar({ events, webinars }) {
 											className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
 										>
 											{item?.eventscategories?.nodes?.map((item2) => item2.name)}
-											{" Webinar"}
+											{/* {" Webinar"} */}
 										</p>
 										<h4 className={`${styles.descTxt} text_lg color_secondary pt_10`}>
 											{item?.title}

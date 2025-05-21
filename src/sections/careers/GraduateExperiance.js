@@ -86,7 +86,7 @@ export default function GraduateExperiance({
 					</div>
 				</div>
 			</section>
-			<div className={`${styles.popup}`}>
+			<div className={`${styles.popup}`} data-lenis-prevent>
 				<Modal id="teamPop">
 					<div className={`${styles.card} d_f`}>
 						<img

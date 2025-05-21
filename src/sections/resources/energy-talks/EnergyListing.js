@@ -181,15 +181,16 @@ export default function EnergyListing({
 		}
 		setSelected(selectedObj);
 
-		// Code to Change Query in Url Start
-		updateQueryFast(selectedObj);
-		// Code to Change Query in Url End
-
 		console.log(selectedObj, "queryObj");
 		const filteredArr = filterItemsForPodcast(arr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setLoading(false);
+
+		// Code to Change Query in Url Start
+		delete selectedObj?.search;
+		updateQueryFast(selectedObj);
+		// Code to Change Query in Url End
 	};
 
 	/** Close Dropdown on Click Outside */

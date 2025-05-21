@@ -30,6 +30,7 @@
 					// border-bottom: 1px solid #f8f8f8;
 					@media screen and (max-width: 767px) {
 						width: 100%;
+						flex: none;
 					}
 					.custom_select {
 						.select_header_wapper {
@@ -58,7 +59,7 @@
 								}
 
 								@media screen and (max-width: 767px) {
-									background-color: var(--color_white);
+									//background-color: var(--color_white);
 								}
 								img {
 									position: absolute;
@@ -66,6 +67,10 @@
 									top: 15px;
 									@media screen and (min-width: 768px) and (max-width: 1199px) {
 										right: 5px;
+										
+									}
+									@media screen and (max-width: 767px) {
+										top: 10px;
 									}
 								}
 								&:hover {
@@ -287,6 +292,9 @@
 					}
 					span {
 						cursor: pointer;
+						@media screen and (max-width: 767px) {
+							width: 60px;
+						}
 						img {
 							margin-right: 10px;
 						}
@@ -592,7 +600,10 @@
 				}
 				span {
 					cursor: pointer;
-					// width: 64px;
+					width: 60px;
+					@media screen and (max-width: 767px) {
+						width: 60px;
+					}
 
 					img {
 						margin-right: 10px;
@@ -608,6 +619,11 @@
 						align-items: center;
 						justify-content: center;
 						font-size: 18px;
+						span{
+							display: flex;
+							align-items: center;
+							justify-content: center;
+						}
 					}
 				}
 			}

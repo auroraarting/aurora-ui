@@ -176,10 +176,6 @@ export default function InsightsListing({
 			queryObj.service = catName;
 		}
 
-		// Code to Change Query in Url Start
-		updateQueryFast(selectedObj);
-		// Code to Change Query in Url End
-
 		console.log(selectedObj, "selectedObj");
 		setSelected(selectedObj);
 
@@ -187,6 +183,11 @@ export default function InsightsListing({
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setLoading(false);
+
+		// Code to Change Query in Url Start
+		delete selectedObj?.search;
+		updateQueryFast(selectedObj);
+		// Code to Change Query in Url End
 	};
 
 	/** Close Dropdown on Click Outside */

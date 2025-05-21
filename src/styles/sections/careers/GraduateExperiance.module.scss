@@ -49,6 +49,7 @@
 				transition: 0.5s ease-in-out;
 			}
 			.teamFlex {
+				justify-content: space-between;
 				.teamLogo {
 					width: 22%;
 					img {
@@ -213,13 +214,20 @@
 .card {
 	gap: 40px;
 	padding: 100px 80px;
-	@include lg-down {
-		padding: 20px;
+	// @include lg-down {
+	// 	padding: 20px;
+	// 	flex-direction: column;
+	// }
+	@media (max-width: 767px) {
+		padding: 5px;
 		flex-direction: column;
 	}
 	.thumb {
 		height: max-content;
 		border-radius: 20px;
+		@media (max-width: 767px) {
+			width: 80%;
+		}
 	}
 	.line {
 		height: 1px;

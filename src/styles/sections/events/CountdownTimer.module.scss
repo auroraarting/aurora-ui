@@ -23,7 +23,9 @@
 			p {
 				width: 100px;
 				border-left: 1px solid var(--color_silver);
-
+				@media (max-width: 767px) {
+					width: 85px;
+				}
 				&:nth-child(1) {
 					border: none;
 				}
