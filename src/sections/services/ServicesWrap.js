@@ -46,7 +46,8 @@ export default function ServicesWrap({
 	countries,
 	otherList,
 }) {
-	const dataForBtn = { postFields: data || {} };
+	const dataForBtn = { postFields: data.services || {} };
+	console.log(dataForBtn, "dataForBtn");
 
 	return (
 		<div>
@@ -128,6 +129,8 @@ export default function ServicesWrap({
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
+						formSectionTitle={data?.services?.insights?.sectionTitle}
+						formSectionDesc={data?.services?.insights?.sectionDesc}
 						formSectionBtnText={
 							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}

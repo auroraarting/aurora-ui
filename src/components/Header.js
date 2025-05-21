@@ -40,6 +40,7 @@ import amun_logo from "@/../public/img/header/amun_logo.svg";
 import popup_close from "@/../public/img/icons/popup_close.svg";
 import white_close from "@/../public/img/icons/white_close.svg";
 import Close from "@/../public/img/icons/close.svg";
+import WebinarImg from "/public/img/header_webinar.jpg";
 
 // SERVICES //
 import { fetchNavigationData } from "@/services/Navigation.service";
@@ -394,7 +395,7 @@ export default function Header({ defaultNavigation }) {
 														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
 															<div className={`${styles.imgBox}`}>
 																<img
-																	src={item?.featuredImage?.node?.mediaItemUrl || header_img.src}
+																	src={WebinarImg.src}
 																	className="width_100 b_r_10"
 																	alt="img"
 																/>
@@ -405,8 +406,8 @@ export default function Header({ defaultNavigation }) {
 																</h4>
 																<p className="text_xs color_light_gray">
 																	Gain a deeper understanding of the forces shaping today&apos;s
-																	energy markets. Our webinars offer strategic and actionable
-																	intelligence for informed decision-making
+																	energy markets. Our insights provide strategic and actionable
+																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={`/resources/webinar/${item?.slug}`}>
@@ -558,7 +559,7 @@ export default function Header({ defaultNavigation }) {
 														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
 															<div className={`${styles.imgBox}`}>
 																<img
-																	src={item?.featuredImage?.node?.mediaItemUrl || header_img.src}
+																	src={WebinarImg.src}
 																	className="width_100 b_r_10"
 																	alt="img"
 																/>
@@ -569,8 +570,8 @@ export default function Header({ defaultNavigation }) {
 																</h4>
 																<p className="text_xs color_light_gray">
 																	Gain a deeper understanding of the forces shaping today&apos;s
-																	energy markets. Our webinars offer strategic and actionable
-																	intelligence for informed decision-making
+																	energy markets. Our insights provide strategic and actionable
+																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={`/resources/webinar/${item?.slug}`}>
