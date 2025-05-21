@@ -128,6 +128,7 @@ export default function Company() {
 						<div className="container">
 							<Insights
 								formSectionTitle="Connect with trusted energy advisors"
+								formSectionBtnText="Speak to our experts"
 								isPowerBgVisible={true}
 							/>
 						</div>

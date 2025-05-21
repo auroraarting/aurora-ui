@@ -69,6 +69,10 @@
 
 		.right {
 			min-height: 500px;
+			@media (max-width: 991px) {
+				height: auto;
+				min-height: auto;
+			}
 			.map {
 				border-radius: 15px;
 			}

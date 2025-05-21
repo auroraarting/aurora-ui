@@ -10,6 +10,9 @@
 			.titleBox {
 				position: sticky;
 				top: 120px;
+				@media (max-width: 1199px) {
+					top: 200px;
+				}
 			}
 		}
 		.OurEdgeHistory {

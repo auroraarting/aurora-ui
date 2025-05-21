@@ -86,14 +86,15 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							Integrated system, endless possibilities
 						</h2>
 						<p className="text_reg color_dark_gray">
-							Chronos is just one part of Aurora’s EOS Platform, a software designed to
-							tackle every energy challenge. From scenario modelling to bespoke
-							advisory services, we’re your partner in progress.
+							Aurora empowers you to analyse power markets and assets with
+							unprecedented sophistication, ease, and portability, helping you build an
+							edge in a crowded market. Aurora’s software delivers precision analytics
+							for complex energy systems.
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<a href={link}>
+							<a href={"/software"}>
 								<Button color="secondary" variant="filled" shape="rounded">
-									Explore More
+									Explore Now
 								</Button>
 							</a>
 						</div>
