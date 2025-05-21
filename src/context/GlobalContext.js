@@ -11,6 +11,9 @@ export const GlobalContext = ({ children }) => {
 	useEffect(() => {
 		/** handleClick  */
 		const handleClick = (e) => {
+			// ⛔ Respect Cmd/Ctrl clicks (open in new tab)
+			if (e.metaKey || e.ctrlKey) return;
+
 			// Look for <a> tags only
 			const link = e.target.closest("a");
 
