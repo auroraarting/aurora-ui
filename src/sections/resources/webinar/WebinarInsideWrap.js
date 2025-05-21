@@ -206,6 +206,7 @@ export default function WebinarInsideWrap({
 						}
 						insightsTitle="More from Aurora"
 						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						allTag="Webinar"
 					/>
 				</div>
 
