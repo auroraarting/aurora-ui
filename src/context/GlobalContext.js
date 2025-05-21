@@ -11,6 +11,9 @@ export const GlobalContext = ({ children }) => {
 	useEffect(() => {
 		/** handleClick  */
 		const handleClick = (e) => {
+			// ⛔ Respect Cmd/Ctrl clicks (open in new tab)
+			if (e.metaKey || e.ctrlKey) return;
+
 			// Look for <a> tags only
 			const link = e.target.closest("a");
 
@@ -19,10 +22,6 @@ export const GlobalContext = ({ children }) => {
 				console.log("User clicked link:", link.href);
 				const getLoaderHtml = document.querySelector(".loaderWrap");
 				getLoaderHtml.classList.remove("hide");
-
-				setTimeout(() => {
-					getLoaderHtml.classList.add("hide");
-				}, 5000);
 
 				// Add your logic here (e.g., start spinner)
 			}
