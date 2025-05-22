@@ -39,7 +39,7 @@ export default function Redefining({ title, description, image, lottie }) {
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						{image && (
-							<img src={image} className={`${styles.redefining}`} alt="redefining" />
+							<img src={image} className={`${styles.redefining}`} alt="Redefining" />
 						)}
 						{lottie && (
 							<DotLottieReact
