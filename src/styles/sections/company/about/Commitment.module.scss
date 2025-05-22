@@ -1,24 +1,33 @@
 @import "../../../helpers/helpers.scss";
 .Commitment {
+	.flex {
+		display: flex;
+		justify-content: space-between;
+	}
 	.commitmentWapper {
 		position: relative;
+		width: 48%;
 		.commitmentImg {
+			z-index: 1;
+			height: 100%;
 			border-radius: 40px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			object-fit: cover;
 			@media (max-width: 991px) {
-				height: 400px;
 				object-fit: cover;
 				object-position: top center;
 			}
 			@media (max-width: 767px) {
-				height: 500px;
 				border-radius: 20px;
 			}
 		}
 		.CardsDesc {
-			position: absolute;
-			left: 0px;
-			top: 0px;
-			width: 65%;
+			z-index: 2;
+			position: relative;
+			// left: 0px;
+			// top: 0px;
 			height: 100%;
 			padding: 40px 40px;
 			@media (max-width: 991px) {
