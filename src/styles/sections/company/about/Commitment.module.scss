@@ -3,10 +3,18 @@
 	.flex {
 		display: flex;
 		justify-content: space-between;
+		@include sm-down {
+			flex-direction: column;
+			gap: 30px;
+		}
 	}
 	.commitmentWapper {
 		position: relative;
 		width: 48%;
+
+		@include sm-down {
+			width: 100%;
+		}
 		.commitmentImg {
 			z-index: 1;
 			height: 100%;
