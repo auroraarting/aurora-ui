@@ -139,7 +139,7 @@ export default function GlobalPresenceInsideWrap({
 						}
 					/>
 				</div>
-				{data?.countries?.ourClient?.selectLogos && (
+				{data?.countries?.ourClients?.selectLogos && (
 					<div className="pb_100">
 						<TrustedLeaders data={data?.countries?.ourClients} />
 					</div>
