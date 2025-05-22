@@ -478,7 +478,8 @@ export function isCategory(categoryList, dynamicWords) {
 
 	categoryList?.forEach((item) => {
 		const target = (item.alternate || item.title).toLowerCase();
-		const match = words?.some((word) => target.includes(word));
+		// const match = words?.some((word) => target.includes(word));
+		const match = words?.some((word) => target === word.toLowerCase());
 
 		if (match) {
 			if (!txt) {
