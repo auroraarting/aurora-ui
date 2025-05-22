@@ -261,45 +261,55 @@ export async function fetchNavigationData() {
 	const data = navdata?.data;
 	const webinar = webinardata?.data?.posts?.nodes || [];
 
-	const softwares = data?.softwares?.nodes?.map((item) => {
-		return {
-			title: item?.title,
-			slug: item?.slug,
-			logo: {
-				logo: item?.softwares?.map?.logo?.node?.mediaItemUrl,
-				altText: item?.softwares?.map?.logo?.node?.altText,
-			},
-		};
-	});
-	const products = data?.products?.nodes?.map((item) => {
-		return {
-			title: item?.title,
-			slug: item?.slug,
-			logo: {
-				logo: item?.products?.map?.logo?.node?.mediaItemUrl,
-				altText: item?.products?.map?.logo?.node?.altText,
-			},
-		};
-	});
-	const services = data?.services?.nodes?.map((item) => {
-		return {
-			title: item?.title,
-			slug: item?.slug,
-			content: item?.content,
-			logo: {
-				logo: item?.services?.map?.logo?.node?.mediaItemUrl,
-				altText: item?.services?.map?.logo?.node?.altText,
-			},
-		};
-	});
+	const softwares = data?.softwares?.nodes
+		?.map((item) => {
+			return {
+				title: item?.title,
+				slug: item?.slug,
+				logo: {
+					logo: item?.softwares?.map?.logo?.node?.mediaItemUrl,
+					altText: item?.softwares?.map?.logo?.node?.altText,
+				},
+			};
+		})
+		.sort((a, b) => a.title.localeCompare(b.title));
+	const products = data?.products?.nodes
+		?.map((item) => {
+			return {
+				title: item?.title,
+				slug: item?.slug,
+				logo: {
+					logo: item?.products?.map?.logo?.node?.mediaItemUrl,
+					altText: item?.products?.map?.logo?.node?.altText,
+				},
+			};
+		})
+		.sort((a, b) => a.title.localeCompare(b.title));
+	const services = data?.services?.nodes
+		?.map((item) => {
+			return {
+				title: item?.title,
+				slug: item?.slug,
+				content: item?.content,
+				logo: {
+					logo: item?.services?.map?.logo?.node?.mediaItemUrl,
+					altText: item?.services?.map?.logo?.node?.altText,
+				},
+			};
+		})
+		.sort((a, b) => a.title.localeCompare(b.title));
 	const regions = data?.regions.nodes?.sort(
 		(a, b) =>
 			parseFloat(a.regionsFields?.sequence || 0) -
 			parseFloat(b.regionsFields?.sequence || 0)
 	);
 	const events = data?.events?.nodes;
-	const whoareyous = data?.whoareyous.nodes;
-	const howWeHelps = data?.howWeHelps.nodes;
+	const whoareyous = data?.whoareyous.nodes.sort((a, b) =>
+		a.title.localeCompare(b.title)
+	);
+	const howWeHelps = data?.howWeHelps.nodes.sort((a, b) =>
+		a.title.localeCompare(b.title)
+	);
 	const topPages = data?.page?.searchTopics?.topPages;
 	const topSearches = data?.page?.searchTopics?.topSearches;
 

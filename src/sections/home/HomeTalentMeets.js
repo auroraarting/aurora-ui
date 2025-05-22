@@ -50,7 +50,12 @@ export default function HomeTalentMeets() {
 						</p>
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<Link href="/careers/life-at-aurora">
-								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								<Button
+									color="primary"
+									variant="filled"
+									shape="rounded"
+									hoverBg="white"
+								>
 									Life at Aurora
 								</Button>
 							</Link>
