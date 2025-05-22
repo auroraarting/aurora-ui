@@ -478,8 +478,8 @@ export function isCategory(categoryList, dynamicWords) {
 
 	categoryList?.forEach((item) => {
 		const target = (item.alternate || item.title).toLowerCase();
-		// const match = words?.some((word) => target.includes(word));
-		const match = words?.some((word) => target === word.toLowerCase());
+		const match = words?.some((word) => target.includes(word));
+		// const match = words?.some((word) => target === word.toLowerCase());
 
 		if (match) {
 			if (!txt) {
@@ -496,33 +496,52 @@ export function isCategory(categoryList, dynamicWords) {
 /** filterItems for resources */
 export const filterItems = (items, filterObj) => {
 	return items.filter((item) => {
-		const categoryNames =
-			item.categories?.nodes?.map((c) => c.name.toLowerCase()) || [];
-		const categorySlugs =
-			item.categories?.nodes?.map((c) => c.slug.toLowerCase()) || [];
-
+		const categoryNodes = item.categories?.nodes || [];
+		const categoryNames = categoryNodes.map((c) => c.name.toLowerCase());
+		const categorySlugs = categoryNodes.map((c) => c.slug.toLowerCase());
 		const allCategoryValues = [...categoryNames, ...categorySlugs];
 
+		// 1. Match specific filters
 		const matchKeys = ["category", "country", "software", "product", "service"];
 		const matchesCategoryFilters = matchKeys.every((key) => {
-			if (!filterObj[key]) return true; // skip if not filtering by this key
+			if (!filterObj[key]) return true;
 			return allCategoryValues.includes(filterObj[key].toLowerCase());
 		});
 
+		// 2. Match Year
 		const filterYear = filterObj.year;
 		const itemYear = new Date(item.date).getFullYear();
 		const matchesYear = filterYear ? itemYear === filterYear : true;
-		const matchTitle = filterObj.search
-			? item.title.toLowerCase().includes(filterObj.search)
-			: true;
 
+		// 3. Match Language
 		const filterLanguage = filterObj.language;
 		const itemLanguage = item.language?.native_name?.toLowerCase();
 		const matchesLanguage = filterLanguage
 			? itemLanguage === filterLanguage.toLowerCase()
 			: true;
 
-		return matchesCategoryFilters && matchesYear && matchesLanguage && matchTitle;
+		// 4. 🔍 Enhanced Search
+		const matchSearch = filterObj.search
+			? (() => {
+					const lowerSearch = filterObj.search.toLowerCase();
+					const searchText = [
+						item.title,
+						item.language?.native_name,
+						itemYear.toString(),
+						...categoryNames,
+						...categorySlugs,
+					]
+						.filter(Boolean)
+						.join(" ")
+						.toLowerCase();
+
+					return searchText.includes(lowerSearch);
+			  })()
+			: true;
+
+		return (
+			matchesCategoryFilters && matchesYear && matchesLanguage && matchSearch
+		);
 	});
 };
 
@@ -531,13 +550,13 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 	return podcasts.filter((podcast) => {
 		const { podcastFields, date } = podcast;
 
-		// 1. Match country
+		// Country
 		const countries = podcastFields.country?.nodes || [];
 		const matchCountry = selected.country
 			? countries.some((c) => c.title === selected.country)
 			: true;
 
-		// 2. Match poweredBy types
+		// poweredBy
 		const poweredBy = podcastFields.poweredBy?.nodes || [];
 
 		const matchSoftware = selected.software
@@ -561,14 +580,42 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 			  )
 			: true;
 
-		// 3. Match year
+		// Year
 		const matchYear = selected.year
 			? new Date(date).getFullYear() === selected.year
 			: true;
 
-		// 4. Match Title
-		const matchTitle = selected.search
-			? podcast?.title.toLowerCase().includes(selected.search)
+		// 🔍 Enhanced Search
+		const matchSearch = selected.search
+			? (() => {
+					const lowerSearch = selected.search.toLowerCase();
+
+					const title = podcast.title || "";
+					const countryTitles = countries.map((c) => c.title);
+					const softwareTitles = poweredBy
+						.filter((p) => p.contentType.node.name === "softwares")
+						.map((p) => p.title);
+					const productTitles = poweredBy
+						.filter((p) => p.contentType.node.name === "products")
+						.map((p) => p.title);
+					const serviceTitles = poweredBy
+						.filter((p) => p.contentType.node.name === "services")
+						.map((p) => p.title);
+					const year = date ? new Date(date).getFullYear().toString() : "";
+
+					const searchableText = [
+						title,
+						...countryTitles,
+						...softwareTitles,
+						...productTitles,
+						...serviceTitles,
+						year,
+					]
+						.join(" ")
+						.toLowerCase();
+
+					return searchableText.includes(lowerSearch);
+			  })()
 			: true;
 
 		return (
@@ -577,7 +624,7 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 			matchProduct &&
 			matchService &&
 			matchYear &&
-			matchTitle
+			matchSearch
 		);
 	});
 };
@@ -629,9 +676,38 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			? categories.some((c) => c.name === selected.category)
 			: true;
 
-		// 5. Match Title
-		const matchTitle = selected.search
-			? title?.toLowerCase().includes(selected.search.toLowerCase())
+		// 5. 🔍 Enhanced Search
+		const matchSearch = selected.search
+			? (() => {
+					const lowerSearch = selected.search.toLowerCase();
+
+					const countryTitles = countries.map((c) => c.title);
+					const categoryNames = categories.map((c) => c.name);
+					const softwareTitles = poweredBy
+						.filter((p) => p.contentType.node.name === "softwares")
+						.map((p) => p.title);
+					const productTitles = poweredBy
+						.filter((p) => p.contentType.node.name === "products")
+						.map((p) => p.title);
+					const serviceTitles = poweredBy
+						.filter((p) => p.contentType.node.name === "services")
+						.map((p) => p.title);
+					const year = date ? new Date(date).getFullYear().toString() : "";
+
+					const searchableText = [
+						title,
+						...countryTitles,
+						...categoryNames,
+						...softwareTitles,
+						...productTitles,
+						...serviceTitles,
+						year,
+					]
+						.join(" ")
+						.toLowerCase();
+
+					return searchableText.includes(lowerSearch);
+			  })()
 			: true;
 
 		return (
@@ -641,7 +717,7 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			matchService &&
 			matchYear &&
 			matchCategory &&
-			matchTitle
+			matchSearch
 		);
 	});
 };
@@ -805,8 +881,42 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 		{
 			key: "search",
 			match: (item, value) => {
+				const lowerValue = value.toLowerCase();
+
+				// Get title
 				const title = item.title || item.events?.title || "";
-				return title.toLowerCase().includes(value.toLowerCase());
+
+				// Get country names
+				const countries =
+					item.events?.thumbnail?.country?.nodes?.map((c) => c.title) || [];
+
+				// Get types
+				const types = item.eventscategories?.nodes?.map((n) => n.name) || [];
+
+				// Get product/service/software titles
+				const categories =
+					item.events?.thumbnail?.category?.nodes?.map((n) => n.title) || [];
+
+				// Get status
+				const status = item.events?.thumbnail?.status || "";
+
+				// Get year
+				const date = item.events?.thumbnail?.date;
+				const year = date ? new Date(date).getFullYear().toString() : "";
+
+				// Combine all fields into a single string for search
+				const searchableText = [
+					title,
+					...countries,
+					...types,
+					...categories,
+					status,
+					year,
+				]
+					.join(" ")
+					.toLowerCase();
+
+				return searchableText.includes(lowerValue);
 			},
 		},
 	];
