@@ -129,6 +129,12 @@ export async function fetchNavigationData() {
       slug
       softwares {
         map {
+                headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
           logo {
             node {
               altText
@@ -145,6 +151,12 @@ export async function fetchNavigationData() {
       slug
       products {
         map {
+                headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
           logo {
             node {
               altText
@@ -162,6 +174,12 @@ export async function fetchNavigationData() {
       content
       services {
         map {
+        headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
           logo {
             node {
               altText
@@ -267,8 +285,12 @@ export async function fetchNavigationData() {
 				title: item?.title,
 				slug: item?.slug,
 				logo: {
-					logo: item?.softwares?.map?.logo?.node?.mediaItemUrl,
-					altText: item?.softwares?.map?.logo?.node?.altText,
+					logo:
+						item?.softwares?.map?.headerLogo?.node?.mediaItemUrl ||
+						item?.softwares?.map?.logo?.node?.mediaItemUrl,
+					altText:
+						item?.softwares?.map?.headerLogo?.altText ||
+						item?.softwares?.map?.logo?.node?.altText,
 				},
 			};
 		})
@@ -279,8 +301,12 @@ export async function fetchNavigationData() {
 				title: item?.title,
 				slug: item?.slug,
 				logo: {
-					logo: item?.products?.map?.logo?.node?.mediaItemUrl,
-					altText: item?.products?.map?.logo?.node?.altText,
+					logo:
+						item?.products?.map?.headerLogo?.node?.mediaItemUrl ||
+						item?.products?.map?.logo?.node?.mediaItemUrl,
+					altText:
+						item?.products?.map?.headerLogo?.altText ||
+						item?.products?.map?.logo?.node?.altText,
 				},
 			};
 		})
@@ -292,8 +318,12 @@ export async function fetchNavigationData() {
 				slug: item?.slug,
 				content: item?.content,
 				logo: {
-					logo: item?.services?.map?.logo?.node?.mediaItemUrl,
-					altText: item?.services?.map?.logo?.node?.altText,
+					logo:
+						item?.services?.map?.headerLogo?.node?.mediaItemUrl ||
+						item?.services?.map?.logo?.node?.mediaItemUrl,
+					altText:
+						item?.services?.map?.headerLogo?.altText ||
+						item?.services?.map?.logo?.node?.altText,
 				},
 			};
 		})
