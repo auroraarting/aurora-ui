@@ -20,10 +20,10 @@ import styles from "@/styles/sections/careers/Counter.module.scss";
 // DATA //
 
 /** Counter Section */
-export default function CounterDynamic({ data }) {
+export default function CounterDynamic({ data, className }) {
 	console.log(data, "Stats");
 	return (
-		<section className={`${styles.Counter} ptb_40`}>
+		<section className={`${styles.Counter} ${className} ptb_40`}>
 			<div className="containerLarge">
 				<div className={`${styles.counterFlex} f_w_j`}>
 					{data?.map((item) => {

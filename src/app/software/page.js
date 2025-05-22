@@ -165,7 +165,11 @@ export default async function Softwares() {
 						<TestimonialFeedback data={testimonials} />
 					</div>
 				)}
-				<div className="pt_100 dark_bg">
+				<div className="pt_100 dark_bg relative">
+					<img
+						className={`${styles.bgGradient} bgGradientEos`}
+						src="/img/eos-bg-gradient.png"
+					/>
 					<div className="pb_100">
 						<EosIntegratedSystem />
 					</div>
