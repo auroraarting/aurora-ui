@@ -20,6 +20,7 @@ import IframeModal from "@/components/IframeModal";
 // SECTIONS //
 import TransactionsBanner from "@/sections/how-we-help/TransactionsBanner";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import HowWeHelpSolutionsChallenge from "@/sections/how-we-help/HowWeHelpSolutionsChallenge";
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 import CounterDynamic from "@/sections/careers/CounterDynamic";
 
@@ -158,7 +159,8 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					/>
 				</div>
 				<div className="pb_100">
-					<SolutionsChallenge />
+					{/* <SolutionsChallenge /> */}
+					<HowWeHelpSolutionsChallenge />
 				</div>
 			</main>
 			<IframeModal />
