@@ -13,6 +13,14 @@
 				width: 100%;
 				margin-bottom: 20px;
 			}
+			h2{
+				p{
+					line-height: 1;
+					@media (max-width: 767px) {
+						line-height: 1.1;
+					}
+				}
+			}
 		}
 		.flexItemTwo {
 			width: 40%;
