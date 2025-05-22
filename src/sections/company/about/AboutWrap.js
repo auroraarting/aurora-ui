@@ -29,6 +29,9 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/company/About.module.scss";
+import ServicesCircle from "@/components/ServicesCircle";
+import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
+import Bundles from "@/components/Bundles";
 
 // IMAGES //
 
@@ -37,7 +40,13 @@ import styles from "@/styles/pages/company/About.module.scss";
 // SERVICES //
 
 /** About Page */
-export default function AboutWrap({ data, countries, mapJson }) {
+export default function AboutWrap({
+	data,
+	countries,
+	mapJson,
+	pageEos,
+	bundles,
+}) {
 	const dataForBtn = { postFields: data };
 
 	console.log(data, "data");
@@ -89,23 +98,37 @@ export default function AboutWrap({ data, countries, mapJson }) {
 						<OurEdge data={data?.ourEdge} />
 					</div>
 				)}
+				{/* eos */}
+				<ServicesCircle data={data?.keyAdvantages} />
+				{data?.trustedModels?.sectionTitle && (
+					<div className="ptb_100">
+						<CuttingEdgeModels data={data?.trustedModels} />
+					</div>
+				)}
+				{/* eos */}
 				{mapJson && (
 					<div className="dark_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
+							className="dark_bg"
 						/>
 					</div>
 				)}
-				<div>
+				<div className="">
 					<Counter
+						className="dark_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className={`${styles.EosMain} pt_100 pb_60`}>
-					<EosIntegratedSystem />
+				<div className="pt_100 dark_bg">
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
 				</div>
+
 				<div className="pt_100">
 					<section id="Products-Service" data-name="Products & Service">
 						<SoftwareCards />
@@ -138,7 +161,7 @@ export default function AboutWrap({ data, countries, mapJson }) {
 					/>
 				</div>
 				<div className="pb_100">
-					<Commitment />
+					<Commitment data={data?.pdfSections} />
 				</div>
 			</main>
 			<IframeModal hideLeft />

@@ -22,7 +22,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** WebinarRecording Section */
 export default function WebinarRecording({ data }) {
-	const dataForBtn = { postFields: data.webinarsFields || {} };
+	const dataForBtn = { postFields: data?.webinarsFields || {} };
 
 	if (
 		!dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")?.btntext

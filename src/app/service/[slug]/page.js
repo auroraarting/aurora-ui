@@ -67,6 +67,7 @@ async function getData({ params }) {
 	const mapJson = getMapJsonForService(
 		filterMarkersBySlug(regions, params.slug)
 	);
+	console.log(filterMarkersBySlug(regions, params.slug), "mapJson");
 	const countries = data.data.countries.nodes;
 	const otherList = list?.data?.posts?.nodes || [];
 

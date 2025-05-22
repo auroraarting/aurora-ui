@@ -155,7 +155,7 @@ export default function CuttingEdgeModels({ data }) {
 							);
 						})}
 					</div> */}
-					{data?.list.length > 0 && (
+					{data?.list?.length > 0 && (
 						<AccordianCommon
 							fontStyle={"text_lg"}
 							fontWeight={"f_w_s_b"}

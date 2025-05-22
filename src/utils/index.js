@@ -67,7 +67,7 @@ export function getMapJsonForCountries(data) {
 					lng: parseFloat(markerItem?.coordinates?.lng),
 					url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
 					icon:
-						node?.service?.map?.logo?.node?.mediaItemUrl ||
+						node?.services?.map?.logo?.node?.mediaItemUrl ||
 						node?.products?.map?.logo?.node?.mediaItemUrl ||
 						node?.softwares?.map?.logo?.node?.mediaItemUrl ||
 						markerItem?.icon?.node?.mediaItemUrl ||
@@ -109,7 +109,7 @@ export function getMapJsonForProducts(regions) {
 							hoverImg: "",
 							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.services?.map?.logo?.node?.mediaItemUrl ||
 								node?.products?.map?.logo?.node?.mediaItemUrl ||
 								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
 								item3?.icon?.node?.mediaItemUrl ||
@@ -171,7 +171,7 @@ export function getMapJsonForService(regions) {
 							hoverImg: "",
 							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.services?.map?.logo?.node?.mediaItemUrl ||
 								node?.products?.map?.logo?.node?.mediaItemUrl ||
 								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
 								item3?.icon?.node?.mediaItemUrl ||
@@ -233,7 +233,7 @@ export function getMapJsonForSoftware(regions) {
 							hoverImg: "",
 							// icon: item3?.icon?.node?.mediaItemUrl,
 							icon:
-								node?.service?.map?.logo?.node?.mediaItemUrl ||
+								node?.services?.map?.logo?.node?.mediaItemUrl ||
 								node?.products?.map?.logo?.node?.mediaItemUrl ||
 								node?.softwares?.map?.logo?.node?.mediaItemUrl ||
 								item3?.icon?.node?.mediaItemUrl ||
@@ -311,7 +311,7 @@ export function getMapJsonForAllRegions(regions) {
 						url: "",
 						hoverImg: "",
 						icon:
-							node?.service?.map?.logo?.node?.mediaItemUrl ||
+							node?.services?.map?.logo?.node?.mediaItemUrl ||
 							node?.products?.map?.logo?.node?.mediaItemUrl ||
 							node?.softwares?.map?.logo?.node?.mediaItemUrl ||
 							item3?.icon?.node?.mediaItemUrl,
