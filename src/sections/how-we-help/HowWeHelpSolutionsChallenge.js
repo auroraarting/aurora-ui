@@ -26,6 +26,8 @@ import styles from "@/styles/sections/how-we-help/HowWeHelpSolutionsChallenge.mo
 import asset_citing from "@/../public/img/transactions/asset_citing.svg";
 import ppas from "@/../public/img/transactions/ppas.svg";
 import strategy from "@/../public/img/transactions/strategy.svg";
+import portfolio_valuation from "@/../public/img/transactions/portfolio_valuation.svg";
+import transaction_icon from "@/../public/img/transactions/transaction_icon.svg";
 import hover_arrow from "@/../public/img/softwares/hover_arrow.svg";
 
 // DATA //
@@ -147,7 +149,7 @@ export default function HowWeHelpSolutionsChallenge() {
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap} ${styles.logoBox}`}>
 											<img
-												src={asset_citing.src}
+												src={portfolio_valuation.src}
 												className={`${styles.imgOne} `}
 												alt="img"
 											/>
@@ -172,7 +174,7 @@ export default function HowWeHelpSolutionsChallenge() {
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap} ${styles.logoBox}`}>
 											<img
-												src={asset_citing.src}
+												src={transaction_icon.src}
 												className={`${styles.imgOne} `}
 												alt="img"
 											/>
