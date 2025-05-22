@@ -121,8 +121,8 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					/>
 				</div>
 				{data?.howWeHelpInside?.stats && (
-					<div className="">
-						<CounterDynamic data={data?.howWeHelpInside?.stats} />
+					<div className="pb_100 dark_bg">
+						<CounterDynamic className="dark_bg" data={data?.howWeHelpInside?.stats} />
 					</div>
 				)}
 				<div className="">
@@ -135,8 +135,12 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 						useSpotlight
 					/>
 				</div>
-				<div className="ptb_100 dark_bg">
-					<div className="pb_100">
+				<div className="ptb_100 dark_bg relative">
+					<img
+						className={`${styles.bgGradient} bgGradientEos`}
+						src="/img/eos-bg-gradient.png"
+					/>
+					<div className="">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />

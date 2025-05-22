@@ -1,5 +1,7 @@
 @import "../helpers/helpers.scss";
 .EosIntegratedSystem {
+	position: relative;
+
 	.flexBox {
 		align-items: center;
 		@media (max-width: 991px) {

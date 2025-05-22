@@ -90,7 +90,7 @@ export default function ProductSlider({ data }) {
 									<div className={`${styles.testimonialTxt}`}>
 										<h3 className="text_lg color_secondary pb_10">{slide.heading}</h3>
 										{slide?.description && (
-											<div className="text_reg color_dark_gray">
+											<div className={`${styles.content} text_reg color_dark_gray`}>
 												<ContentFromCms>{slide?.description}</ContentFromCms>
 											</div>
 										)}

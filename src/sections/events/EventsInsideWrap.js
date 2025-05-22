@@ -28,6 +28,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // IMAGES //
 
@@ -64,7 +65,10 @@ export default function EventsInsideWrap({
 				{data?.events?.thumbnail?.status === "Upcoming" && (
 					<CountdownTimer targetDate={data?.events?.thumbnail?.date} />
 				)}
-				<div className="pt_100">
+				<div className="container">
+					<Breadcrumbs />
+				</div>
+				<div className="pt_50">
 					<EventsInsideBanner data={data} />
 				</div>
 				<SectionsHeader

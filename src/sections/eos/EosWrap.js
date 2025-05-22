@@ -114,7 +114,10 @@ export default function EOSPageWrap({
 				<div>
 					<SmarterEnergy data={data.expertise} />
 				</div>
-				<div className={`${styles.insightBg} pt_30`}>
+				<div
+					// className={`${styles.insightBg} pt_30`}
+					className="pt_30"
+				>
 					<div>
 						<div className="pb_100">
 							<Insights
