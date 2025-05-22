@@ -49,7 +49,7 @@ export default function SoftwareInsideWrap({
 	countries,
 }) {
 	const dataForBtn = { postFields: data || {} };
-	console.log(data);
+	console.log(data, "data");
 
 	return (
 		<div>

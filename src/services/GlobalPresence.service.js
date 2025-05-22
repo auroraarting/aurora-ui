@@ -306,6 +306,12 @@ query GetCountryInside {
                 content
                 services {
                   map {
+                     headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
                     logo {
                       node {
                         altText
@@ -322,6 +328,12 @@ query GetCountryInside {
                 content
                 softwares {
                   map {
+                     headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
                     logo {
                       node {
                         altText
@@ -338,6 +350,12 @@ query GetCountryInside {
                 content
                 products {
                   map {
+                     headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
                     logo {
                       node {
                         altText
