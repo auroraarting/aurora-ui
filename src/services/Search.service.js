@@ -154,6 +154,12 @@ export async function searchData(searchTerm) {
       slug
     }
   }
+    countries(first: 9999, where: {orderby: {field: TITLE, order: ASC},search: "${searchTerm}"}) {
+        nodes {
+          slug
+          title
+        }
+  }
 }
     `;
 	const { data } = await GraphQLAPI(combinedQuery);
@@ -256,7 +262,7 @@ export async function searchData(searchTerm) {
 	const podcasts = data?.podcasts?.nodes;
 	const webinars = data?.webinars?.nodes;
 	const earlyCareers = data?.earlyCareers?.nodes;
-	console.log(data, "webinars");
+	const countries = data?.countries?.nodes;
 
 	// const about = data?.pages?.nodes?.[0]?.about;
 	// const eos = data?.pages?.nodes?.[0]?.eos;
@@ -286,5 +292,6 @@ export async function searchData(searchTerm) {
 		pages,
 		podcasts,
 		earlyCareers,
+		countries,
 	};
 }

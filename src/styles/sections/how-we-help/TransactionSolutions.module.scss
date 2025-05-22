@@ -3,6 +3,10 @@
 	background: linear-gradient(0deg, #0069b4 0.03%, #0b1d2d 133.43%);
 	height: 100vh;
 
+	:global(.swiper-initialized) {
+		width: 100%;
+	}
+
 	.flexBox {
 		height: 100%;
 		@media (max-width: 991px) {

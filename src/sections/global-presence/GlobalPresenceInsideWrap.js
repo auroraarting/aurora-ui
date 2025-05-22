@@ -139,12 +139,16 @@ export default function GlobalPresenceInsideWrap({
 						}
 					/>
 				</div>
-				<div className="pb_100">
-					<TrustedLeaders data={data?.countries?.ourClients} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback hideId data={data?.countries?.ourClients} />
-				</div>
+				{data?.countries?.ourClients?.selectLogos && (
+					<div className="pb_100">
+						<TrustedLeaders data={data?.countries?.ourClients} />
+					</div>
+				)}
+				{data?.countries?.ourClients?.testimonials && (
+					<div className="pb_100">
+						<TestimonialFeedback hideId data={data?.countries?.ourClients} />
+					</div>
+				)}
 				<div className="pb_100">
 					<PublicWebinar events={events} webinars={webinars} />
 				</div>

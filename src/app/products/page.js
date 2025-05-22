@@ -120,12 +120,16 @@ export default async function Products() {
 					<SoftwareMarket />
 				</div> */}
 				<ServicesCircleWhite data={data.keyAdvantages} />
-				<div className="ptb_100">
-					<TrustedLeaders data={clientLogos} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={testimonials} />
-				</div>
+				{clientLogos?.selectLogos?.nodes?.length > 0 && (
+					<div className="ptb_100">
+						<TrustedLeaders data={clientLogos} />
+					</div>
+				)}
+				{testimonials?.testimonials?.nodes?.length > 0 && (
+					<div className="pb_100">
+						<TestimonialFeedback data={testimonials} />
+					</div>
+				)}
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">

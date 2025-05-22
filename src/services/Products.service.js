@@ -52,7 +52,10 @@ query GetPageProduct {
             from
             to
           }
+                    title
           shortDescription
+          spotlightTitle
+          spotlightDesc
         }
         ourClient {
           selectLogos(first: 999) {
@@ -115,7 +118,10 @@ query GetProductBySlug {
           from
           to
         }
-        shortDescription
+                  title
+          shortDescription
+          spotlightTitle
+          spotlightDesc
       }
       ourClient {
         selectLogos {

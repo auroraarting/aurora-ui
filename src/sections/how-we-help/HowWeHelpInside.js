@@ -89,19 +89,16 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 						)
 					}
 				/>
-				{data?.howWeHelpInside?.stats && (
-					<div className="">
-						<CounterDynamic data={data?.howWeHelpInside?.stats} />
-					</div>
-				)}
+
 				<div>
 					<GloballyBankableInsights
 						data={data?.howWeHelpInside?.whyAurora}
 						isMultiple={data?.howWeHelpInside?.whyAurora?.list?.length > 1}
 					/>
 				</div>
+
 				{data?.howWeHelpInside?.ourClient?.selectLogos && (
-					<div className="pb_100">
+					<div className="ptb_100">
 						<TrustedLeaders
 							data={data?.howWeHelpInside?.ourClient}
 							sectionTitle={data?.howWeHelpInside?.ourClient?.title}
@@ -123,6 +120,11 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 						marqueeText={data?.howWeHelpInside?.availableRegions?.marqueeText}
 					/>
 				</div>
+				{data?.howWeHelpInside?.stats && (
+					<div className="">
+						<CounterDynamic data={data?.howWeHelpInside?.stats} />
+					</div>
+				)}
 				<div className="">
 					<TransactionSolutions
 						slugPage="how-we-help"
@@ -130,6 +132,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 						// data={data?.howWeHelpInside?.spotlights?.selected?.nodes}
 						keyValue="howWeHelpInside"
 						isSlider={true}
+						useSpotlight
 					/>
 				</div>
 				<div className="ptb_100 dark_bg">
