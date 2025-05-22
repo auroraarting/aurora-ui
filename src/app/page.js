@@ -78,7 +78,7 @@ export default async function HomePage() {
 				<HomeBanner />
 				<HomeOurOfferings />
 				{data?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="ptb_40">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
