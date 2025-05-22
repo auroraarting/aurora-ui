@@ -29,6 +29,9 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/company/About.module.scss";
+import ServicesCircle from "@/components/ServicesCircle";
+import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
+import Bundles from "@/components/Bundles";
 
 // IMAGES //
 
@@ -37,7 +40,13 @@ import styles from "@/styles/pages/company/About.module.scss";
 // SERVICES //
 
 /** About Page */
-export default function AboutWrap({ data, countries, mapJson }) {
+export default function AboutWrap({
+	data,
+	countries,
+	mapJson,
+	pageEos,
+	bundles,
+}) {
 	const dataForBtn = { postFields: data };
 
 	console.log(data, "data");
@@ -89,6 +98,14 @@ export default function AboutWrap({ data, countries, mapJson }) {
 						<OurEdge data={data?.ourEdge} />
 					</div>
 				)}
+				{/* eos */}
+				<ServicesCircle data={pageEos?.keyAdvantages} />
+				{pageEos?.trustedModels?.sectionTitle && (
+					<div className="ptb_100">
+						<CuttingEdgeModels data={pageEos?.trustedModels} />
+					</div>
+				)}
+				{/* eos */}
 				{mapJson && (
 					<div className="dark_bg">
 						<GlobalMap
@@ -98,14 +115,18 @@ export default function AboutWrap({ data, countries, mapJson }) {
 						/>
 					</div>
 				)}
-				<div>
+				<div className="black_bg pb_100">
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className={`${styles.EosMain} pt_100 pb_60`}>
-					<EosIntegratedSystem />
+				<div className="pt_100 dark_bg">
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} name={pageEos?.bundles?.sectionTitle} />
 				</div>
+
 				<div className="pt_100">
 					<section id="Products-Service" data-name="Products & Service">
 						<SoftwareCards />

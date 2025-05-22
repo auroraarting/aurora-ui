@@ -251,7 +251,7 @@ section {
 	}
 }
 
-.error{
+.error {
 	font-size: 13px;
 	color: red;
 	top: -5px;
@@ -259,4 +259,8 @@ section {
 }
 .reactFastMarquee {
 	gap: 300px;
+}
+
+.black_bg {
+	background-color: var(--color_black);
 }

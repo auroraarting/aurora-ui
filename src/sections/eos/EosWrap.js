@@ -82,7 +82,10 @@ export default function EOSPageWrap({
 						)
 					}
 				/>
-				<div className="ptb_100 ">
+				<div className="ptb_100">
+					<SoftwareCards />
+				</div>
+				{/* <div className="ptb_100 ">
 					<div className="container">
 						<div className={`f_j ${styles.bundlesHeader} pb_40`}>
 							<p className="text_xl f_w_s_b font_primary">{data?.bundles?.title}</p>
@@ -90,16 +93,16 @@ export default function EOSPageWrap({
 						</div>
 					</div>
 					<Bundles data={bundles} name={data?.bundles?.sectionTitle} />
-				</div>
+				</div> */}
 				<GlobalMap locationJson={mapJson} />
-				{data.trustedModels.sectionTitle && (
+				{/* {data.trustedModels.sectionTitle && (
 					<div className="ptb_100">
 						<CuttingEdgeModels data={data.trustedModels} />
 					</div>
 				)}
-				<ServicesCircle data={data.keyAdvantages} />
+				<ServicesCircle data={data.keyAdvantages} /> */}
 				{data.ourClient.selectLogos && (
-					<div className="ptb_100">
+					<div className="pt_100">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
@@ -132,9 +135,9 @@ export default function EOSPageWrap({
 						<EventSmarterEnergy />
 					</div> */}
 				</div>
-				<div className="ptb_100">
+				{/* <div className="ptb_100">
 					<SoftwareCards />
-				</div>
+				</div> */}
 			</main>
 			<IframeModal />
 			{/* Page eos ends here */}

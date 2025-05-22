@@ -24,6 +24,8 @@ import styles from "@/styles/pages/company/About.module.scss";
 import { getAboutPage } from "@/services/About.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
+import { getEosPage } from "@/services/Eos.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 
 /** Meta Data */
 export const metadata = {
@@ -33,11 +35,14 @@ export const metadata = {
 
 /** Fetch  */
 async function getData() {
-	const [data, categoriesForSelect, officesFetch] = await Promise.all([
-		getAboutPage(),
-		getInsightsCategories(),
-		getOffices(),
-	]);
+	const [data, categoriesForSelect, officesFetch, pageFetch, bundlesFetch] =
+		await Promise.all([
+			getAboutPage(),
+			getInsightsCategories(),
+			getOffices(),
+			getEosPage(),
+			getBundlesSection(),
+		]);
 	let obj = {
 		data: { ...data.data.page.about, offices: officesFetch.data.offices.nodes },
 	};
@@ -67,12 +72,16 @@ async function getData() {
 
 		tempMapJson.markers.push(obj);
 	});
+	const pageEos = pageFetch.data.page.eos;
+	const bundles = bundlesFetch.data.page.bundles;
 
 	return {
 		props: {
 			...obj,
 			mapJson: tempMapJson,
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			pageEos,
+			bundles,
 		},
 	};
 }
