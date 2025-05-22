@@ -25,16 +25,52 @@ import commitment_banner from "/public/img/commit-1.jpg";
 import commitment_banner2 from "/public/img/commit-2.jpg";
 
 import dropdown_arrow from "../../../../public/img/icons/dropdown_arrow.svg";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
 /** Commitment Section */
-export default function Commitment() {
+export default function Commitment({ data }) {
 	return (
 		<section className={`${styles.Commitment}`}>
 			<div className="containerLarge">
 				<div className={`${styles.flex}`}>
-					<div className={`${styles.commitmentWapper}`}>
+					{data?.map((item) => {
+						return (
+							<div className={`${styles.commitmentWapper}`} key={item?.title}>
+								<picture>
+									<img
+										src={item?.backgroundImage?.node?.mediaItemUrl}
+										className={`${styles.commitmentImg} width_100`}
+										alt="Banner Image"
+									/>
+								</picture>
+								<div className={`${styles.CardsDesc}`}>
+									<h2 className="text_lg font_primary f_w_s_b color_secondary pb_20">
+										{item?.title}
+									</h2>
+									<p className="text_reg color_dark_gray">
+										<ContentFromCms>{item?.desc}</ContentFromCms>
+									</p>
+									<div className={`${styles.btn_box}`}>
+										<span>
+											<img src={dropdown_arrow.src} alt="icon" />
+										</span>
+										<a
+											href={item?.pdf?.node?.mediaItemUrl}
+											rel="noreferrer"
+											target="_blank"
+										>
+											<Button color="primary" variant="filled" shape="rounded">
+												{item?.buttonText}
+											</Button>
+										</a>
+									</div>
+								</div>
+							</div>
+						);
+					})}
+					{/* <div className={`${styles.commitmentWapper}`}>
 						<picture>
 							<img
 								src={commitment_banner.src}
@@ -56,11 +92,7 @@ export default function Commitment() {
 								<span>
 									<img src={dropdown_arrow.src} alt="icon" />
 								</span>
-								<a
-									href="../../../../../pdf/About-2025-ESG-Report.pdf"
-									rel="noreferrer"
-									target="blank"
-								>
+								<a href="/pdf/2025-ESG-Report.pdf" rel="noreferrer" target="_blank">
 									<Button color="primary" variant="filled" shape="rounded">
 										ESG Factsheet
 									</Button>
@@ -90,9 +122,9 @@ export default function Commitment() {
 									<img src={dropdown_arrow.src} alt="icon" />
 								</span>
 								<a
-									href="../../../../../pdf/About-2025-ESG-Report.pdf"
+									href="/pdf/Gender-Pay-Gap-Report-2024.pdf"
 									rel="noreferrer"
-									target="blank"
+									target="_blank"
 								>
 									<Button color="primary" variant="filled" shape="rounded">
 										Gender Pay Gap Report
@@ -100,7 +132,7 @@ export default function Commitment() {
 								</a>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</section>

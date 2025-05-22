@@ -99,10 +99,10 @@ export default function AboutWrap({
 					</div>
 				)}
 				{/* eos */}
-				<ServicesCircle data={pageEos?.keyAdvantages} />
-				{pageEos?.trustedModels?.sectionTitle && (
+				<ServicesCircle data={data?.keyAdvantages} />
+				{data?.trustedModels?.sectionTitle && (
 					<div className="ptb_100">
-						<CuttingEdgeModels data={pageEos?.trustedModels} />
+						<CuttingEdgeModels data={data?.trustedModels} />
 					</div>
 				)}
 				{/* eos */}
@@ -112,11 +112,13 @@ export default function AboutWrap({
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
+							className="dark_bg"
 						/>
 					</div>
 				)}
-				<div className="black_bg pb_100">
+				<div className="">
 					<Counter
+						className="dark_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
@@ -124,7 +126,7 @@ export default function AboutWrap({
 					<div className="pb_100">
 						<EosIntegratedSystem />
 					</div>
-					<Bundles data={bundles} name={pageEos?.bundles?.sectionTitle} />
+					<Bundles data={bundles} />
 				</div>
 
 				<div className="pt_100">
@@ -159,7 +161,7 @@ export default function AboutWrap({
 					/>
 				</div>
 				<div className="pb_100">
-					<Commitment />
+					<Commitment data={data?.pdfSections} />
 				</div>
 			</main>
 			<IframeModal hideLeft />

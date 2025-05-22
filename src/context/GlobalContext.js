@@ -9,26 +9,45 @@ const BookmarkContext = createContext();
 /** GlobalContext  */
 export const GlobalContext = ({ children }) => {
 	useEffect(() => {
-		/** handleClick  */
+		/**handleClick  */
 		const handleClick = (e) => {
 			// ⛔ Respect Cmd/Ctrl clicks (open in new tab)
-			if (e.metaKey || e.ctrlKey) return;
+			if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
-			// Look for <a> tags only
 			const link = e.target.closest("a");
+			if (!link) return;
 
-			if (link && link.href && link.origin === window.location.origin) {
-				// Internal link clicked
-				console.log("User clicked link:", link.href);
-				const getLoaderHtml = document.querySelector(".loaderWrap");
+			const href = link.getAttribute("href");
+			if (!href || href === "#") return;
+
+			// ⛔ Skip if link opens in a new tab or downloads a file
+			if (
+				link.target === "_blank" ||
+				link.hasAttribute("download") ||
+				link.rel === "noopener noreferrer"
+			) {
+				return;
+			}
+
+			// ⛔ External links
+			const isExternal =
+				link.hostname !== window.location.hostname ||
+				href.startsWith("http") ||
+				href.startsWith("mailto:") ||
+				href.startsWith("tel:");
+
+			if (isExternal) return;
+
+			// ✅ Internal link clicked normally
+			console.log("User clicked internal link:", link.href);
+
+			const getLoaderHtml = document.querySelector(".loaderWrap");
+			if (getLoaderHtml) {
 				getLoaderHtml.classList.remove("hide");
-
-				// Add your logic here (e.g., start spinner)
 			}
 		};
 
 		document.addEventListener("click", handleClick);
-
 		return () => document.removeEventListener("click", handleClick);
 	}, []);
 

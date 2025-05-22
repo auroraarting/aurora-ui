@@ -20,9 +20,9 @@ import styles from "@/styles/sections/careers/Counter.module.scss";
 // DATA //
 
 /** Counter Section */
-export default function Counter({ data }) {
+export default function Counter({ data, className }) {
 	return (
-		<section className={`${styles.Counter} pt_40`}>
+		<section className={`${styles.Counter} pt_40 ${className}`}>
 			<div className="container">
 				<div className={`${styles.counterFlex} f_w_j`}>
 					{data?.stats?.auroreans && (
