@@ -125,11 +125,17 @@ export default function WhoAreYouInsideWrap({
 						<TestimonialFeedback data={data?.whoAreYous?.ourClient} />
 					</div>
 				)}
-				<div className="pt_100 dark_bg">
-					<div className="pb_100">
+				<div className="pt_100 dark_bg relative">
+					<img
+						className={`${styles.bgGradient} bgGradientEos`}
+						src="/img/eos-bg-gradient.png"
+					/>
+					<div className="">
 						<EosIntegratedSystem />
 					</div>
-					<Bundles data={bundles} />
+					<div className="pb_100">
+						<Bundles data={bundles} />
+					</div> 
 				</div>
 				<div className="ptb_100">
 					<Insights
