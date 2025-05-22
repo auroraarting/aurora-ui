@@ -3,6 +3,7 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import { usePathname } from "next/navigation";
 
 // SECTIONS //
 
@@ -29,6 +30,11 @@ import play from "@/../public/img/softwares/play_icon.svg";
 
 /** SoftwareVideos Section */
 export default function SoftwareVideos() {
+	const pathname = usePathname();
+	const isOrigin = pathname.includes("origin");
+
+	if (!pathname.includes("origin") && !pathname.includes("chronos")) return null;
+
 	return (
 		<section className={`${styles.SoftwareVideos}`}>
 			<div className="container">
@@ -54,13 +60,18 @@ export default function SoftwareVideos() {
 								strategy and navigate market uncertainties with confidence
 							</h3>
 							<a
-								href="#"
+								href={isOrigin ? "/software/chronos" : "/software/origin"}
 								target="_blank"
 								rel="noreferrer"
 								className={`${styles.bookBtnOne}`}
 							>
-								<Button color="primary" variant="filled" shape="rounded">
-									What is Origin?
+								<Button
+									color="primary"
+									variant="filled"
+									shape="rounded"
+									hoverBg="white"
+								>
+									What is {!isOrigin ? "Origin" : "Chronos"}?
 								</Button>
 							</a>
 						</div>

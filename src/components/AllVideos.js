@@ -52,8 +52,9 @@ export default function AllVideos({
 						<h4
 							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 						>
-							Aurora’s career series
+							{sectionName}
 						</h4>
+
 						<h2 className="text_xl font_primary f_w_m color_white pb_20">{title}</h2>
 						<p className="text_reg color_dark_gray pb_20">{desc}</p>
 						<a

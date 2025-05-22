@@ -428,6 +428,10 @@ query GetInsightsInside {
         content
         sectionTitle
       }
+      insights {
+        desc
+        title
+      }
     }
   }
 }
