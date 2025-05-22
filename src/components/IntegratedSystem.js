@@ -88,11 +88,12 @@ export default function IntegratedSystem({ module = "softwares" }) {
 						<p className="text_reg color_dark_gray">
 							Aurora empowers you to analyse power markets and assets with
 							unprecedented sophistication, ease, and portability, helping you build an
-							edge in a crowded market. Aurora’s software delivers precision analytics
-							for complex energy systems.
+							edge in a crowded market. Aurora’s{" "}
+							{module === "softwares" ? "software" : "product"} delivers precision
+							analytics for complex energy systems.
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<a href={"/software"}>
+							<a href={`/${keyModule()}`}>
 								<Button color="secondary" variant="filled" shape="rounded">
 									Explore Now
 								</Button>

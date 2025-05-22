@@ -39,7 +39,6 @@ import CaseStudy from "@/components/CaseStudy";
 /** ProductInside Page */
 export default function ProductInsideWrap({ data, mapJson }) {
 	const dataForBtn = { postFields: data?.products || {} };
-	console.log(mapJson);
 
 	return (
 		<div>
@@ -137,7 +136,7 @@ export default function ProductInsideWrap({ data, mapJson }) {
 					<EosIntegratedSystem />
 				</div>
 				<div className="ptb_100">
-					<IntegratedSystem />
+					<IntegratedSystem module="products" />
 				</div>
 			</main>
 			<IframeModal />

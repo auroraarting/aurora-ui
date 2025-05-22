@@ -155,12 +155,16 @@ export default async function Softwares() {
 					<GloballyBankableInsights data={data.keyAdvantages} />
 				</div>
 				<GlobalMap locationJson={mapJson} />
-				<div className="ptb_100">
-					<TrustedLeaders data={clientLogos} />
-				</div>
-				<div className="pb_100">
-					<TestimonialFeedback data={testimonials} />
-				</div>
+				{clientLogos?.selectLogos?.nodes?.length > 0 && (
+					<div className="ptb_100">
+						<TrustedLeaders data={clientLogos} />
+					</div>
+				)}
+				{testimonials?.testimonials?.nodes?.length > 0 && (
+					<div className="pb_100">
+						<TestimonialFeedback data={testimonials} />
+					</div>
+				)}
 				<div className="pt_100 dark_bg">
 					<div className="pb_100">
 						<EosIntegratedSystem />
