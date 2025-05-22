@@ -91,7 +91,7 @@ export default function SoftwareMarket({
 													<div className={`${styles.pic}`}>
 														<img
 															src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
-															alt="AuthorPic"
+															alt={item?.title}
 														/>
 													</div>
 													<div className={`${styles.detail}`}>

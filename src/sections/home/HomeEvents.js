@@ -63,7 +63,7 @@ export default function HomeEvents({ data }) {
 											<img
 												src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 												className=""
-												alt="img"
+												alt="logo img"
 												loading="lazy"
 											/>
 											<div
@@ -104,7 +104,7 @@ export default function HomeEvents({ data }) {
 												<img
 													src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
 													className="width_100 b_r_20"
-													alt="img"
+													alt={item?.events?.thumbnail?.status}
 													loading="lazy"
 												/>
 											</div>

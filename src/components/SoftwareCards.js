@@ -58,7 +58,7 @@ export default function SoftwareCards({ dynamicData }) {
 								className={`${styles.CardsItem}`}
 								key={item?.desc}
 							>
-								<img src={item?.img} className="width_100 b_r_20" alt="img" />
+								<img src={item?.img} className="width_100 b_r_20" alt={item?.desc} />
 								<div className={`${styles.hoverBox}`}></div>
 								<div className={`${styles.CardsDesc}`}>
 									<h2 className={`text_lg  ${item?.fontColor || "color_secondary"}`}>
