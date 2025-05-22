@@ -148,6 +148,8 @@ export default function Header({ defaultNavigation }) {
 
 	// if (!data) return <div className="stalePage"></div>;
 
+	console.log(defaultNavigation, "defaultNavigation");
+
 	return (
 		<>
 			<header className={`${styles.main_headerBox} main_headerBox`}>
@@ -736,7 +738,7 @@ export default function Header({ defaultNavigation }) {
 																		href={`/software/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 																	>
-																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
+																		<img src={item?.logo?.logo} alt="arrow" />
 																		<span>{item?.title}</span>
 																	</a>
 																);

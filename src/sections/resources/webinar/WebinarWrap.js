@@ -103,6 +103,7 @@ export default function WebinarTalksWrap({
 				{webinarpage?.video?.sectionTitle && (
 					<div className="pb_100">
 						<AllVideos
+							sectionName="Latest Videos"
 							title={webinarpage?.video?.sectionTitle}
 							desc={webinarpage?.video?.sectionDesc}
 							redirectLink={webinarpage?.video?.redirectLink}

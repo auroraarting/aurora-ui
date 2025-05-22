@@ -147,7 +147,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_white">EOS Platform</p>
+								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
 								<p className="text_reg color_silver_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights.
 								</p>
@@ -172,7 +172,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_secondary">Software</p>
+								<h4 className="text_md f_w_m color_secondary">Software</h4>
 								<p className="text_reg color_dark_gray">
 									Our software suite empowers energy professionals with advanced tools
 									for market forecasting, asset valuation, and strategic decision-making.
@@ -206,7 +206,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_white">Subscription Analytics</p>
+								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
 								<p className="text_reg color_silver_gray">
 									Access energy forecasts, policy insights, and analytics tools designed
 									to inform smarter, faster market decisions powered through our
@@ -241,7 +241,7 @@ export default function HomeOurOfferings() {
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_white">Advisory</p>
+								<h4 className="text_md f_w_m color_white">Advisory</h4>
 								<p className="text_reg color_silver_gray">
 									Bespoke advisory offering in-depth strategic recommendation and
 									insights.
