@@ -241,6 +241,13 @@ export default function GlobalSearch({ data }) {
 					)}`,
 					title: item.title,
 				};
+			case "countries":
+				return {
+					link: `/global-presence//${item?.slug}?search=${encodeURIComponent(
+						searchTerm
+					)}`,
+					title: item.title,
+				};
 
 			default:
 				return {
