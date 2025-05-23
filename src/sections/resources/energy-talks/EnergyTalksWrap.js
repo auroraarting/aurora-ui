@@ -50,6 +50,7 @@ export default function EnergyTalksWrap({
 	softwares,
 	services,
 	energyTalksPage,
+	socialLinks,
 }) {
 	const [original, setOriginal] = useState(data);
 	return (
@@ -126,21 +127,16 @@ export default function EnergyTalksWrap({
 							customHtml={
 								<div className={`${styles.downloadListen} downloadListen`}>
 									<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
-										<a href={data?.podcastFields?.spotifyLink}>
-											<img src={spotify.src} alt="spotify" />
-										</a>
-										<a href={data?.podcastFields?.appleLink}>
-											<img src={apple.src} alt="apple" />
-										</a>
-										<a href={data?.podcastFields?.youtubeLink}>
-											<img src={google.src} alt="google" />
-										</a>
-										<a href={data?.podcastFields?.googleLink}>
-											<img src={googleVoice.src} alt="google" />
-										</a>
-										<a href={data?.podcastFields?.otherLink}>
-											<img src={other_logo.src} alt="google" />
-										</a>
+										{socialLinks?.map((item) => {
+											return (
+												<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+													<img
+														src={item?.logo?.node?.mediaItemUrl}
+														alt={item?.logo?.node?.altText}
+													/>
+												</a>
+											);
+										})}
 									</div>
 								</div>
 							}

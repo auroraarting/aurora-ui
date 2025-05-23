@@ -27,6 +27,7 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
+import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
 // DATA //
 
@@ -58,12 +59,14 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, events, categoriesForSelect, list] = await Promise.all([
-		getPodcastInside(params.slug),
-		getPodcasts("first: 1"),
-		getInsightsCategories(),
-		getPodcasts("first: 5"),
-	]);
+	const [data, events, categoriesForSelect, list, socialLinksFetch] =
+		await Promise.all([
+			getPodcastInside(params.slug),
+			getPodcasts("first: 1"),
+			getInsightsCategories(),
+			getPodcasts("first: 5"),
+			getEnergyTalksPageSocialLinks(),
+		]);
 	const otherList = list?.data?.podcasts?.nodes
 		.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
 		.slice(0, 3);
@@ -76,6 +79,7 @@ async function getData({ params }) {
 				) || [],
 			countries: categoriesForSelect.data.countries.nodes,
 			otherList,
+			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
 		},
 	};
 }

@@ -30,7 +30,7 @@ import styles from "@/styles/pages/resources/energy-talks/EnergyInside.module.sc
 
 // IMAGES //
 import country_thumb from "/public/img/global-presence/country_thumb.jpg";
-import other_logo from "/public/img/energy_talks/other.png";
+import other_logo from "/public/img/icons/amazon-music-icon.svg";
 import googleVoice from "/public/img/energy_talks/google_voice.png";
 import spotify from "/public/img/energy_talks/spotify.svg";
 import apple from "/public/img/energy_talks/apple.svg";
@@ -54,9 +54,10 @@ export default function EnergyTalkInsideWrap({
 	events,
 	countries,
 	otherList,
+	socialLinks,
 }) {
 	const dataForBtn = { postFields: data.podcastFields || {} };
-	console.log(dataForBtn, "dataForBtn");
+	console.log(socialLinks, "socialLinks");
 
 	return (
 		<div>
@@ -75,7 +76,7 @@ export default function EnergyTalkInsideWrap({
 			<main className={styles.EnergyInsidePage}>
 				{/* <Breadcrumbs /> */}
 				<div className="pt_50 pb_40">
-					<EnergyInsideTopSection data={data} />
+					<EnergyInsideTopSection data={data} socialLinks={socialLinks} />
 				</div>
 				<SectionsHeader
 					customHtml={
@@ -171,31 +172,16 @@ export default function EnergyTalkInsideWrap({
 						customHtml={
 							<div className={`${styles.downloadListen}`}>
 								<div className={`${styles.downloadBox} f_r_a_center`}>
-									{data?.podcastFields?.spotifyLink && (
-										<a href={data?.podcastFields?.spotifyLink}>
-											<img src={spotify.src} alt="spotify" />
-										</a>
-									)}
-									{data?.podcastFields?.appleLink && (
-										<a href={data?.podcastFields?.appleLink}>
-											<img src={apple.src} alt="apple" />
-										</a>
-									)}
-									{data?.podcastFields?.youtubeLink && (
-										<a href={data?.podcastFields?.youtubeLink}>
-											<img src={google.src} alt="google" />
-										</a>
-									)}
-									{data?.podcastFields?.googleLink && (
-										<a href={data?.podcastFields?.googleLink}>
-											<img src={googleVoice.src} alt="google" />
-										</a>
-									)}
-									{data?.podcastFields?.otherLink && (
-										<a href={data?.podcastFields?.otherLink}>
-											<img src={other_logo.src} alt="google" />
-										</a>
-									)}
+									{socialLinks?.map((item) => {
+										return (
+											<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+												<img
+													src={item?.logo?.node?.mediaItemUrl}
+													alt={item?.logo?.node?.altText}
+												/>
+											</a>
+										);
+									})}
 								</div>
 							</div>
 						}

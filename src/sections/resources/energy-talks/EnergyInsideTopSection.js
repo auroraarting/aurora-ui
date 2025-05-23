@@ -29,7 +29,7 @@ import black_clock from "@/../public/img/icons/black_clock.svg";
 // DATA //
 
 /** EnergyInsideTopSection Section */
-export default function EnergyInsideTopSection({ data }) {
+export default function EnergyInsideTopSection({ data, socialLinks }) {
 	return (
 		<section className={`${styles.EnergyInsideTopSection} `}>
 			<div className="container">
@@ -61,6 +61,27 @@ export default function EnergyInsideTopSection({ data }) {
 								</p>
 							)}
 						</div>
+						<div className={`${styles.dateBox}`}>
+							<div className={`${styles.downloadListenBox} f_w_j a_center`}>
+								<div className={`${styles.downloadListen}`}>
+									<div className={`${styles.downloadBox} f_r_a_center`}>
+										<p className="text_xs f_w_m font_primary color_secondary text_uppercase">
+											Stream on
+										</p>
+										{socialLinks?.map((item) => {
+											return (
+												<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+													<img
+														src={item?.logo?.node?.mediaItemUrl}
+														alt={item?.logo?.node?.altText}
+													/>
+												</a>
+											);
+										})}
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					{data?.featuredImage?.node?.mediaItemUrl && (
 						<div className={`${styles.imageWrapper}`}>
@@ -71,67 +92,6 @@ export default function EnergyInsideTopSection({ data }) {
 							/>
 						</div>
 					)}
-				</div>
-				<div className={`${styles.dateBox}`}>
-					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
-						<div className={`${styles.downloadListen}`}>
-							<div className={`${styles.downloadBox} f_r_a_center`}>
-								<p className="text_xs f_w_m font_primary color_secondary text_uppercase">
-									Stream on
-								</p>
-								{data?.podcastFields?.spotifyLink && (
-									<a
-										href={data?.podcastFields?.spotifyLink}
-										target="_blank"
-										rel="noreferrer"
-									>
-										<img src={spotify.src} alt="spotify" />
-									</a>
-								)}
-								{data?.podcastFields?.appleLink && (
-									<a
-										href={data?.podcastFields?.appleLink}
-										target="_blank"
-										rel="noreferrer"
-									>
-										<img src={apple.src} alt="apple" />
-									</a>
-								)}
-								{data?.podcastFields?.youtubeLink && (
-									<a
-										href={data?.podcastFields?.youtubeLink}
-										target="_blank"
-										rel="noreferrer"
-									>
-										<img src={google.src} alt="google" />
-									</a>
-								)}
-								{data?.podcastFields?.googleLink && (
-									<a
-										href={data?.podcastFields?.googleLink}
-										target="_blank"
-										rel="noreferrer"
-									>
-										<img src={googleVoice.src} alt="google" />
-									</a>
-								)}
-								{data?.podcastFields?.otherLink && (
-									<a
-										href={data?.podcastFields?.otherLink}
-										target="_blank"
-										rel="noreferrer"
-									>
-										<img src={other_logo.src} alt="google" />
-									</a>
-								)}
-							</div>
-						</div>
-						<div className={`${styles.downloadListenShare} f_r_a_center`}>
-							<a href="" className="text_sm f_w_m font_primary f_r_a_center">
-								<img src={share.src} alt="share" />
-							</a>
-						</div>
-					</div>
 				</div>
 			</div>
 		</section>

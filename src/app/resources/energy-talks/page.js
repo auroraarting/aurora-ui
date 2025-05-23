@@ -24,7 +24,10 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import { getEnergyTalksPage } from "@/services/EnergyTalks.service";
+import {
+	getEnergyTalksPage,
+	getEnergyTalksPageSocialLinks,
+} from "@/services/EnergyTalks.service";
 import { getPodcasts } from "@/services/Podcast.service";
 
 /** Meta Data */
@@ -35,11 +38,13 @@ export const metadata = {
 
 /** Fetch getStaticProps */
 async function getData() {
-	const [data, categoriesForSelect, energyTalksPage] = await Promise.all([
-		getPodcasts(),
-		getInsightsCategories(),
-		getEnergyTalksPage(),
-	]);
+	const [data, categoriesForSelect, energyTalksPage, socialLinksFetch] =
+		await Promise.all([
+			getPodcasts(),
+			getInsightsCategories(),
+			getEnergyTalksPage(),
+			getEnergyTalksPageSocialLinks(),
+		]);
 
 	return {
 		props: {
@@ -52,6 +57,7 @@ async function getData() {
 			softwares: categoriesForSelect.data.softwares.nodes,
 			services: categoriesForSelect.data.services.nodes,
 			energyTalksPage: energyTalksPage.data.page.energyTalksListing,
+			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
 		},
 	};
 }

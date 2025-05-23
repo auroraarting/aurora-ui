@@ -1,5 +1,9 @@
 @import "../../../helpers/helpers.scss";
 .EnergyInsideTopSection {
+	.content {
+		display: flex;
+		flex-direction: column;
+	}
 	.card {
 		@media (max-width: 767px) {
 			flex-direction: column-reverse;
@@ -45,7 +49,9 @@
 		}
 	}
 	.dateBox {
+		margin-top: auto;
 		.downloadListenBox {
+			padding: 10px 0;
 			margin-top: 20px;
 			border-top: 1px solid var(--color_platinum_gray);
 			border-bottom: 1px solid var(--color_platinum_gray);
