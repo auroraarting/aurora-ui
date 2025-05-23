@@ -19,6 +19,7 @@ import IframeModal from "@/components/IframeModal";
 // SECTIONS //
 import EosBanner from "@/sections/eos/EosBanner";
 import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
+import CounterDynamic from "@/sections/careers/CounterDynamic";
 
 // PLUGINS //
 
@@ -27,6 +28,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/Eos.module.scss";
+import Introduction from "../global-presence/Introduction";
 
 // IMAGES //
 
@@ -43,6 +45,7 @@ export default function EOSPageWrap({
 	bundles,
 	dataForBtn,
 }) {
+	console.log(data, "data");
 	return (
 		<div>
 			{/* Metatags */}
@@ -82,7 +85,8 @@ export default function EOSPageWrap({
 						)
 					}
 				/>
-				<div className="ptb_100">
+				{data?.introduction && <Introduction data={data?.introduction} />}
+				<div className="pb_100">
 					<SoftwareCards />
 				</div>
 				{/* <div className="ptb_100 ">
@@ -95,6 +99,11 @@ export default function EOSPageWrap({
 					<Bundles data={bundles} name={data?.bundles?.sectionTitle} />
 				</div> */}
 				<GlobalMap locationJson={mapJson} />
+				{data?.stats && (
+					<div className="pb_100 dark_bg">
+						<CounterDynamic className="dark_bg" data={data?.stats} />
+					</div>
+				)}
 				{/* {data.trustedModels.sectionTitle && (
 					<div className="ptb_100">
 						<CuttingEdgeModels data={data.trustedModels} />
@@ -125,8 +134,8 @@ export default function EOSPageWrap({
 								isInsightsBlogsVisible={true}
 								defaultList={otherList}
 								countries={countries}
-								formSectionTitle="Integrated energy intelligence with EOS"
-								formSectionDesc="EOS is Aurora's unique, interactive energy intelligence platform, providing clients with seamless access to software, data, forecast reports, and insights essential for strategic decision-making."
+								formSectionTitle="Expertise that powers progress"
+								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with the specialists. Stay ahead with exclusive access to online and in-person community events."
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 								}
