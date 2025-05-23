@@ -28,7 +28,7 @@ import styles from "@/styles/sections/home/HomeOurOfferings.module.scss";
 
 // IMAGES //
 import macEOS from "../../../public/img/home/mac-eos.png";
-import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
+import menu_hover_arrow from "../../../public/img/home/card_arrow.svg";
 import Ellipse from "../../../public/img/ellipse.png";
 
 // DATA //

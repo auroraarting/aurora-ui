@@ -31,7 +31,7 @@ export default function HomeWhoWeAre() {
 				<div className={`${styles.WhoWeAreSection} pt_60`}>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
 						<h4 className="text_md color_white f_w_m pb_20">Financial Sector</h4>
-						<p className="text_reg color_white">
+						<p className="text_reg color_silver_gray">
 							For informed capital allocation in evolving energy landscapes, energy
 							investors trust Aurora&apos;s analytical rigor and regulatory expertise.
 						</p>
@@ -45,7 +45,7 @@ export default function HomeWhoWeAre() {
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
 						<h4 className="text_md color_white f_w_m pb_20">Energy Consumers</h4>
-						<p className="text_reg color_white">
+						<p className="text_reg color_silver_gray">
 							Large-scale businesses optimizing energy procurement, balancing
 							cost-efficiency, reliability, and sustainability while meeting
 							operational and regulatory requirements.
@@ -60,7 +60,7 @@ export default function HomeWhoWeAre() {
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
 						<h4 className="text_md color_white f_w_m pb_20">Utilities</h4>
-						<p className="text_reg color_white">
+						<p className="text_reg color_silver_gray">
 							Organisations managing energy generation, transmission, and distribution,
 							optimising grid performance and integrating renewables to meet future
 							energy demand.
@@ -75,7 +75,7 @@ export default function HomeWhoWeAre() {
 					</div>
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
 						<h4 className="text_md color_white f_w_m pb_20">Developers</h4>
-						<p className="text_reg color_white">
+						<p className="text_reg color_silver_gray">
 							Energy project developers evaluating feasibility, financing, and risks to
 							drive the development of renewable energy and infrastructure solutions.
 						</p>

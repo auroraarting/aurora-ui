@@ -40,7 +40,7 @@ export default function HomeTalentMeets() {
 						/>
 					</div>
 					<div className={`${styles.content}`}>
-						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
+						<h2 className="text_xl font_primary color_secondary pb_20">
 							Where talent meets purpose
 						</h2>
 						<p className="text_reg color_dark_gray">

@@ -32,7 +32,7 @@ export default function HomeResources({ data, countries, voices }) {
 		<section className={`${styles.HomeResources}`}>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
+					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						All voices all markets
 					</h2>
 				</div>
@@ -56,12 +56,12 @@ export default function HomeResources({ data, countries, voices }) {
 											Latest {item?.cat}
 										</div>
 										<h4
-											className={`${styles.descTxt} text_md f_w_s_b color_secondary pt_10`}
+											className={`${styles.descTxt} text_md f_w_m color_secondary font_primary pt_10`}
 										>
 											{item?.title}
 										</h4>
 										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={calender.src}
 													className={`${styles.calender}`}
@@ -71,7 +71,7 @@ export default function HomeResources({ data, countries, voices }) {
 												<span>{formatDate(item?.date)}</span>
 											</p>
 											{isCategory(countries, item?.categories?.nodes) && (
-												<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 													<img
 														src={location.src}
 														className={`${styles.location}`}
