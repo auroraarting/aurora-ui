@@ -59,63 +59,69 @@
     font-weight: 400;
   }
 
-  .radioBox{
-    width: 100%;
-    margin-bottom: 10px;
-    .radioGroup {
-      background-color: var(--color_secondary);
-      border: 1px solid var(--color_dark_gray);
-      border-radius: 12px;
-      padding: 15px 15px;
-      color: white;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+  .radioBox {
+  width: 100%;
+  margin-bottom: 10px;
+
+  .radioGroup {
+    background-color: var(--color_secondary);
+    border: 1px solid var(--color_dark_gray);
+    border-radius: 12px;
+    padding: 15px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .radioOption {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: var(--font_primary);
+    font-weight: 400;
+    width: 48%;
+    color: var(--color_medium_gray);
+
+    @media (max-width: 767px) {
+      width: 100%;
     }
 
-    .radioOption {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.75rem;
-      cursor: pointer;
-      font-size: 14px;
-      font-family: var(--font_primary);
-      font-weight: 400;
-      width: 48%;
-      @media (max-width: 767px) {
-				width: 100%;
-			}
-    }
-
-    .radioOption input[type="radio"] {
+    input[type="radio"] {
       appearance: none;
       width: 17px;
       height: 17px;
       margin-right: 10px;
-      border: 2px solid #aaa;
+      border: 2px solid var(--color_medium_gray);
       border-radius: 50%;
       background-color: transparent;
       position: relative;
       cursor: pointer;
       transition: all 0.2s ease;
-    }
 
-    .radioOption input[type="radio"]:checked {
-      border-color: #FFD700;
-      background-color: #FFD700;
-    }
+      &:checked {
+        border-color: #FFD700;
+        background-color: #FFD700;
 
-    .radioOption input[type="radio"]:checked::before {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 8px;
-      height: 8px;
-      background-color: #2a2a2a;
-      border-radius: 50%;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          width: 8px;
+          height: 8px;
+          background-color: #2a2a2a;
+          border-radius: 50%;
+        }
+      }
+
+      &:checked + span {
+        color: var(--color_white); // Or any color you want for the label
+      }
     }
   }
+}
 
   
 }
