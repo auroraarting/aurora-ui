@@ -125,8 +125,8 @@ export default function EOSPageWrap({
 								isInsightsBlogsVisible={true}
 								defaultList={otherList}
 								countries={countries}
-								formSectionTitle="Expertise that powers progress"
-								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with Chronos specialists. Stay ahead with exclusive access to online and in-person community events."
+								formSectionTitle="Integrated energy intelligence with EOS"
+								formSectionDesc="EOS is Aurora's unique, interactive energy intelligence platform, providing clients with seamless access to software, data, forecast reports, and insights essential for strategic decision-making."
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 								}

@@ -118,7 +118,31 @@ export default function WebinarTalksWrap({
 					</div>
 				</div>
 				<div className="pb_100">
-					<SoftwareCards />
+					<SoftwareCards
+						dynamicData={[
+							{
+								desc: "In-depth insights from global energy leaders",
+								btnText: "View Energy Talks",
+								btnLink: "/resources/energy-talks",
+								img: "/img/contact/cardImg7.jpg",
+								fontColor: "color_black",
+							},
+							{
+								desc: "Expert analysis and case studies on energy markets",
+								btnText: "View All Resources",
+								btnLink: "/resources/aurora-insights",
+								img: "/img/contact/cardImg5.jpg",
+								fontColor: "color_white",
+							},
+							{
+								desc: "Join events shaping the future of energy",
+								btnText: "View All Events",
+								btnLink: "/events",
+								fontColor: "color_white",
+								img: "/img/contact/cardImg4.jpg",
+							},
+						]}
+					/>
 				</div>
 			</main>
 			<IframeModal />
