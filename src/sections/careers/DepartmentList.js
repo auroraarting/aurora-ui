@@ -184,7 +184,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 													?.thumbnail?.image?.node?.mediaItemUrl
 											}
 											className="b_r_20"
-											alt=""
+											alt={data?.categories?.[selectedDepartment]?.leader?.node?.title}
 										/>
 									</div>
 									<div className={`${styles.leadDetailsItem}`}>
@@ -208,7 +208,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 															?.thumbnail?.linkedinLink
 													}
 												>
-													<img src={linKed.src} alt="" />
+													<img src={linKed.src} alt="linkedin" />
 												</a>
 											</div>
 										)}

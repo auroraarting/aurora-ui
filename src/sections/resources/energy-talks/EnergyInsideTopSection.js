@@ -67,7 +67,7 @@ export default function EnergyInsideTopSection({ data }) {
 							<img
 								src={data?.featuredImage?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
-								alt="img"
+								alt="featured Image"
 							/>
 						</div>
 					)}

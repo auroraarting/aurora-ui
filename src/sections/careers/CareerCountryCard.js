@@ -310,6 +310,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<img
 										src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
 										className={`${styles.countryImg} b_r_10`}
+										alt={item?.earlyCareers?.thumbnail?.country?.node?.title}
 									/>
 									{item?.earlyCareers?.thumbnail?.islive && (
 										<p
