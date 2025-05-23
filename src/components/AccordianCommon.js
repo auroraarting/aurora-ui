@@ -88,12 +88,13 @@ export default function AccordianCommon({
 									alt=""
 								/>
 							)}
-							{item?.tag && (
-								<p className="text_xs text_uppercase color_light_gray m_b_30">
-									{item?.tag}
-								</p>
-							)}
+
 							<div>
+								{item?.tag && (
+									<p className="text_xs text_uppercase color_light_gray m_b_30">
+										{item?.tag} <br />
+									</p>
+								)}
 								{item.title}
 								{item.locationData && (
 									<div className={`${styles.locationList} d_f pt_10`}>

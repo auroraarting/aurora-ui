@@ -11,6 +11,7 @@
 	.commitmentWapper {
 		position: relative;
 		width: 48%;
+		min-height: 370px;
 
 		@include sm-down {
 			width: 100%;
@@ -38,6 +39,8 @@
 			// top: 0px;
 			height: 100%;
 			padding: 40px 40px;
+			display: flex;
+			flex-direction: column;
 			@media (max-width: 991px) {
 				width: 100%;
 			}
@@ -46,7 +49,7 @@
 			}
 			.btn_box {
 				position: relative;
-				margin-top: 30px;
+				margin-top: auto;
 				max-width: fit-content;
 				button {
 					padding: 10px 25px 10px 50px;
