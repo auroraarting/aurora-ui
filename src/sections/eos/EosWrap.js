@@ -100,8 +100,8 @@ export default function EOSPageWrap({
 				</div> */}
 				<GlobalMap locationJson={mapJson} />
 				{data?.stats && (
-					<div className="pb_100 dark_bg">
-						<CounterDynamic className="dark_bg" data={data?.stats} />
+					<div className="pb_100 black_bg">
+						<CounterDynamic className="black_bg" data={data?.stats} />
 					</div>
 				)}
 				{/* {data.trustedModels.sectionTitle && (

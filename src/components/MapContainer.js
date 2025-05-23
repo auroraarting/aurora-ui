@@ -413,8 +413,9 @@ export default function Map({
 
 						const uniqueName = marker.unique || marker.name;
 						return (
-							<div key={index}>
+							<div key={index} className="marker">
 								<Marker
+									className="marker"
 									position={{
 										lat: parseFloat(marker?.coordinates?.lat) || parseFloat(marker?.lat),
 										lng: parseFloat(marker?.coordinates?.lng) || parseFloat(marker?.lng),

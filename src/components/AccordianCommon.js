@@ -32,7 +32,9 @@ export default function AccordianCommon({
 	// const [activeIndex, setActiveIndex] = useState(null);
 	const [activeIndex, setActiveIndex] = useState(defaultActiveId);
 	const [heights, setHeights] = useState([]);
+	const [widthOfImg, setWidthOfImg] = useState(0);
 	const contentRefs = useRef([]);
+
 	useEffect(() => {
 		/** handleAccordionClick function */
 		const calculateHeights = () => {
@@ -49,6 +51,7 @@ export default function AccordianCommon({
 			window.removeEventListener("resize", calculateHeights);
 		};
 	}, [activeIndex]);
+
 	/** handleAccordionClick function */
 	const handleAccordionClick = (index) => {
 		setActiveIndex(activeIndex === index ? null : index);
@@ -57,6 +60,13 @@ export default function AccordianCommon({
 	const toggleAccordion = (index) => {
 		setActiveIndex(activeIndex === index ? null : index);
 	};
+
+	useEffect(() => {
+		const widthOfImgIcon = document
+			.querySelector(".imgIcons")
+			.getBoundingClientRect();
+		setWidthOfImg(widthOfImgIcon.width + 10);
+	}, []);
 
 	return (
 		<div className={styles.accordion}>
@@ -69,7 +79,7 @@ export default function AccordianCommon({
 						onClick={() => toggleAccordion(index)}
 					>
 						<div
-							className={`${fontStyle} ${fontWeight} ${fontFamily} ${fontColor} ${fontColor} headerF`}
+							className={`${fontStyle} ${fontWeight} ${fontFamily} ${fontColor} ${fontColor} headerF f_r_a_center`}
 						>
 							{item.imgIcons && (
 								<img
@@ -125,6 +135,7 @@ export default function AccordianCommon({
 								height: activeIndex === index ? `${heights[index]}px` : "0px",
 								overflow: "hidden",
 								transition: "height 0.3s ease",
+								paddingLeft: `${widthOfImg}px`,
 							}}
 						>
 							<div
