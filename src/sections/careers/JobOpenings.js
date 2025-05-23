@@ -340,32 +340,34 @@ export default function JobOpenings({
 				<div className={`${styles.tableBox}`}>
 					<table className={`${hideFilters && styles.borderHide}`}>
 						<tbody>
-							<tr>
-								<td className="text_xxs font_primary color_light_gray f_w_m text_uppercase">
-									Position
-								</td>
-								<td className="text_xxs color_light_gray text_uppercase">
-									{/* Singapore */}
-									Regions/State
-								</td>
-								<td className="text_xxs color_light_gray text_uppercase">
-									{/* Advisory */}
-									Department
-								</td>
-								<td className="text_xxs color_light_gray text_uppercase">
-									{/* Permanent - Full Time */}
-									Employment Type
-								</td>
-								<td className="text_xxs color_light_gray text_uppercase">
-									{/* Permanent - Full Time */}
-									{/* {item?.employment_type_text} */}
-									{/* <a href={item?.url} target="_blank" rel="noreferrer">
+							{filterdJob?.length > 0 && (
+								<tr>
+									<td className="text_xxs font_primary color_light_gray f_w_m text_uppercase">
+										Position
+									</td>
+									<td className="text_xxs color_light_gray text_uppercase">
+										{/* Singapore */}
+										Regions/State
+									</td>
+									<td className="text_xxs color_light_gray text_uppercase">
+										{/* Advisory */}
+										Department
+									</td>
+									<td className="text_xxs color_light_gray text_uppercase">
+										{/* Permanent - Full Time */}
+										Employment Type
+									</td>
+									<td className="text_xxs color_light_gray text_uppercase">
+										{/* Permanent - Full Time */}
+										{/* {item?.employment_type_text} */}
+										{/* <a href={item?.url} target="_blank" rel="noreferrer">
 										<Button color="primary" variant="filled" shape="rounded" mode="max">
 											View Job
 										</Button>
 									</a> */}
-								</td>
-							</tr>
+									</td>
+								</tr>
+							)}
 							{filterdJob?.map((item, ind) => {
 								return (
 									<tr key={item?.title + ind}>
@@ -398,15 +400,8 @@ export default function JobOpenings({
 							})}
 							{filterdJob?.length === 0 && (
 								<tr>
-									<td className="text_md font_primary color_white f_w_m">No Openings</td>
-									<td className="text_reg color_platinum_gray">{/* Singapore */}</td>
-									<td className="text_reg color_platinum_gray">{/* Advisory */}</td>
-									<td className="text_reg color_platinum_gray">
-										{/* Permanent - Full Time */}
-									</td>
-									<td className="text_reg color_platinum_gray">
-										{/* Permanent - Full Time */}
-										{/* {item?.employment_type_text} */}
+									<td className="text_md font_primary color_white f_w_m">
+										No openings as per current filters and search. Please reset filters.
 									</td>
 								</tr>
 							)}
