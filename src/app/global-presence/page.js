@@ -63,10 +63,10 @@ async function getData() {
 												item2?.featuredImage?.node?.mediaItemUrl ||
 												item2?.countries?.bannerSection?.image?.node?.mediaItemUrl
 											}
-											className={`width_100 b_r_10 ${styles.image}`}
+											className={`width_100 ${styles.image}`}
 											alt={item2.title}
 										/>
-										<div className="f_j a_center pt_10">
+										<div className={`${styles.contentBox} f_j a_center`}>
 											<h5 className="text_reg font_primary f_w_m color_secondary ">
 												{item2.title}
 											</h5>

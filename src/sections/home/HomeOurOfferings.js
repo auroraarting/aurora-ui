@@ -30,6 +30,7 @@ import styles from "@/styles/sections/home/HomeOurOfferings.module.scss";
 import macEOS from "../../../public/img/home/mac-eos.png";
 import menu_hover_arrow from "../../../public/img/home/card_arrow.svg";
 import Ellipse from "../../../public/img/ellipse.png";
+import AdvisoryImg from "../../../public/img/home/advisory.jpg";
 
 // DATA //
 
@@ -236,7 +237,7 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox} cardHBg`}>
+						<div className={`${styles.itemBox} ${styles.advisoryBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
 								<a href="/service/advisory" role="button">
 									<img
@@ -252,9 +253,9 @@ export default function HomeOurOfferings() {
 								</p>
 							</div>
 							<img
-								src={macEOS.src}
+								src={AdvisoryImg.src}
 								alt="Advisory"
-								className={`${styles.BoxImg} m_0_auto`}
+								className={`${styles.BoxImg} m_0_auto b_r_10`}
 							/>
 						</div>
 					</SwiperSlide>
