@@ -28,7 +28,11 @@ import independent from "../../../../public/img/company/about/independent.png";
 /** OurEdge Section */
 export default function OurEdge({ data }) {
 	return (
-		<section className={`${styles.OurEdge}`} id="edge" data-name="Our Edge">
+		<section
+			className={`${styles.OurEdge}`}
+			id="edge"
+			data-name="OUR EDGE & MODELS"
+		>
 			<div className="container">
 				<div className={`${styles.OurEdgeFlex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>

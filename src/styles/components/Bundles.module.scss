@@ -4,11 +4,16 @@
 	position: relative;
 
 	:global(.CustomSelect) {
-		width: 350px;
+		width: 380px;
 
 		@include sm-down {
 			width: 100%;
 		}
+	}
+
+	:global(.selectedText) {
+		text-transform: uppercase;
+		font-weight: 700;
 	}
 
 	.bg {
