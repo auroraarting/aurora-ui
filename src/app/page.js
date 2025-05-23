@@ -49,24 +49,41 @@ export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Home Page */
 export default async function HomePage() {
-	const [regions, dataFetch, insightsFetch, eventsdata, voicesFetch] =
-		await Promise.all([
-			getRegions(),
-			getHomePage(),
-			getInsights(
-				'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
-			),
-			// eslint-disable-next-line quotes
-			getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-			getHomePageVoices(),
-		]);
-	const mapJson = getMapJsonForAllRegions(regions);
-	const data = dataFetch.data.page.homepage;
-	const countries = dataFetch.data.countries.nodes;
-	const insights = insightsFetch.data.posts.nodes;
-	const events = eventsdata.data.events.nodes;
-	const voices = voicesFetch;
+	let mapJson;
+	let data;
+	let countries;
+	let insights;
+	let events;
+	let voices;
+	let showHTml;
+
+	try {
+		const [regions, dataFetch, insightsFetch, eventsdata, voicesFetch] =
+			await Promise.all([
+				getRegions(),
+				getHomePage(),
+				getInsights(
+					'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
+				),
+				// eslint-disable-next-line quotes
+				getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+				getHomePageVoices(),
+			]);
+		mapJson = getMapJsonForAllRegions(regions);
+		data = dataFetch.data.page.homepage;
+		countries = dataFetch.data.countries.nodes;
+		insights = insightsFetch.data.posts.nodes;
+		events = eventsdata.data.events.nodes;
+		voices = voicesFetch;
+		showHTml = true;
+	} catch (error) {
+		showHTml = false;
+		console.log(error, "Error");
+	}
+
 	console.log(voices, "voices");
+
+	if (!showHTml) return null;
 
 	return (
 		<div>
