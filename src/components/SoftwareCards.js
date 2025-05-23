@@ -31,8 +31,8 @@ const defaultData = [
 		img: card_img.src,
 	},
 	{
-		desc: "Get deep insights and market trends.",
-		btnText: "Subscribe now",
+		desc: "Get deep insights and global market trends",
+		btnText: "Explore Subscription Analytics",
 		btnLink: "/products",
 		img: card_img2.src,
 	},
