@@ -151,24 +151,25 @@ export default function EnergyTalksWrap({
 					<SoftwareCards
 						dynamicData={[
 							{
-								desc: "Lorem ipsum dolor sit amet consectetur. Est.",
-								btnText: "View All Events",
-								btnLink: "/events",
-								img: "/img/contact/cardImg4.jpg",
-								fontColor: "color_white",
+								desc: "Expert-led sessions on industry-defining topics",
+								btnText: "View All Webinar",
+								btnLink: "/resources/webinar",
+								img: "/img/contact/cardImg6.jpg",
+								fontColor: "color_black",
 							},
 							{
-								desc: "Lorem ipsum dolor sit amet consectetur. Velit.",
-								btnText: "Press Room",
-								btnLink: "/company/press-releases",
+								desc: "Expert analysis and case studies on energy markets",
+								btnText: "View All Resources",
+								btnLink: "/resources/aurora-insights",
 								img: "/img/contact/cardImg5.jpg",
 								fontColor: "color_white",
 							},
 							{
-								desc: "Expert-led sessions on industry-defining topics.",
-								btnText: "Explore Advisory",
-								btnLink: "/service/advisory",
-								img: "/img/contact/cardImg6.jpg",
+								desc: "Join events shaping the future of energy",
+								btnText: "View All Events",
+								btnLink: "/events",
+								fontColor: "color_white",
+								img: "/img/contact/cardImg4.jpg",
 							},
 						]}
 					/>
