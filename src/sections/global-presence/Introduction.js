@@ -30,7 +30,7 @@ export default function Introduction({ data }) {
 			<div className="container">
 				<div className={`${styles.flexBox} f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
-						<h2 className="text_xl font_primary f_w_m color_secondary text_uppercase">
+						<h2 className="text_xl font_primary f_w_m color_secondary ">
 							{data?.sectionTitle}
 						</h2>
 					</div>
