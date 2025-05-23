@@ -35,7 +35,7 @@ export default function HomeEvents({ data }) {
 		<section className={`${styles.HomeEvents}`}>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
+					<h2 className="text_xl font_primary color_secondary">
 						Join the leading <br className="hidden_md" />
 						energy conversations
 					</h2>
