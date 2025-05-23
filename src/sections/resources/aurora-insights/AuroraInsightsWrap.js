@@ -151,7 +151,7 @@ export default function AuroraInsightsWrap({
 								btnText: "View Energy Talks",
 								btnLink: "/resources/energy-talks",
 								img: "/img/contact/cardImg7.jpg",
-								fontColor: "color_white",
+								fontColor: "color_black",
 							},
 							{
 								desc: "Join events shaping the future of energy",
