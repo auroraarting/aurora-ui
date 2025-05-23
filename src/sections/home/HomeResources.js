@@ -78,7 +78,11 @@ export default function HomeResources({ data, countries, voices }) {
 														alt="location"
 														loading="lazy"
 													/>
-													<span>{isCategory(countries, item?.categories?.nodes)}</span>
+													<span>
+														{item?.events
+															? item?.categories?.nodes?.map((item) => item.name)
+															: isCategory(countries, item?.categories?.nodes)}
+													</span>
 												</p>
 											)}
 										</div>

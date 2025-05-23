@@ -123,13 +123,13 @@ query GetRegions {
 export async function fetchNavigationData() {
 	const combinedQuery = `
  query GetAllNavigationData {
-  softwares(first: 9999) {
+  softwares(first: 9999,where: {orderby: {field: DATE, order: DESC}}) {
     nodes {
       title
       slug
       softwares {
         map {
-                headerLogo{
+          headerLogo {
             node {
               altText
               mediaItemUrl
@@ -145,13 +145,13 @@ export async function fetchNavigationData() {
       }
     }
   }
-  products(first: 9999) {
+  products(first: 9999, where: {orderby: {field: DATE, order: DESC}}) {
     nodes {
       title
       slug
       products {
         map {
-                headerLogo{
+          headerLogo {
             node {
               altText
               mediaItemUrl
@@ -167,14 +167,14 @@ export async function fetchNavigationData() {
       }
     }
   }
-  services(first: 9999) {
+  services(first: 9999, where: {orderby: {field: DATE, order: DESC}}) {
     nodes {
       title
       slug
       content
       services {
         map {
-        headerLogo{
+          headerLogo {
             node {
               altText
               mediaItemUrl
@@ -279,55 +279,52 @@ export async function fetchNavigationData() {
 	const data = navdata?.data;
 	const webinar = webinardata?.data?.posts?.nodes || [];
 
-	const softwares = data?.softwares?.nodes
-		?.map((item) => {
-			return {
-				title: item?.title,
-				slug: item?.slug,
-				logo: {
-					logo:
-						item?.softwares?.map?.headerLogo?.node?.mediaItemUrl ||
-						item?.softwares?.map?.logo?.node?.mediaItemUrl,
-					altText:
-						item?.softwares?.map?.headerLogo?.altText ||
-						item?.softwares?.map?.logo?.node?.altText,
-				},
-			};
-		})
-		.sort((a, b) => a.title.localeCompare(b.title));
-	const products = data?.products?.nodes
-		?.map((item) => {
-			return {
-				title: item?.title,
-				slug: item?.slug,
-				logo: {
-					logo:
-						item?.products?.map?.headerLogo?.node?.mediaItemUrl ||
-						item?.products?.map?.logo?.node?.mediaItemUrl,
-					altText:
-						item?.products?.map?.headerLogo?.altText ||
-						item?.products?.map?.logo?.node?.altText,
-				},
-			};
-		})
-		.sort((a, b) => a.title.localeCompare(b.title));
-	const services = data?.services?.nodes
-		?.map((item) => {
-			return {
-				title: item?.title,
-				slug: item?.slug,
-				content: item?.content,
-				logo: {
-					logo:
-						item?.services?.map?.headerLogo?.node?.mediaItemUrl ||
-						item?.services?.map?.logo?.node?.mediaItemUrl,
-					altText:
-						item?.services?.map?.headerLogo?.altText ||
-						item?.services?.map?.logo?.node?.altText,
-				},
-			};
-		})
-		.sort((a, b) => a.title.localeCompare(b.title));
+	const softwares = data?.softwares?.nodes?.map((item) => {
+		return {
+			title: item?.title,
+			slug: item?.slug,
+			logo: {
+				logo:
+					item?.softwares?.map?.headerLogo?.node?.mediaItemUrl ||
+					item?.softwares?.map?.logo?.node?.mediaItemUrl,
+				altText:
+					item?.softwares?.map?.headerLogo?.altText ||
+					item?.softwares?.map?.logo?.node?.altText,
+			},
+		};
+	});
+	// .sort((a, b) => a.title.localeCompare(b.title));
+	const products = data?.products?.nodes?.map((item) => {
+		return {
+			title: item?.title,
+			slug: item?.slug,
+			logo: {
+				logo:
+					item?.products?.map?.headerLogo?.node?.mediaItemUrl ||
+					item?.products?.map?.logo?.node?.mediaItemUrl,
+				altText:
+					item?.products?.map?.headerLogo?.altText ||
+					item?.products?.map?.logo?.node?.altText,
+			},
+		};
+	});
+	// .sort((a, b) => a.title.localeCompare(b.title));
+	const services = data?.services?.nodes?.map((item) => {
+		return {
+			title: item?.title,
+			slug: item?.slug,
+			content: item?.content,
+			logo: {
+				logo:
+					item?.services?.map?.headerLogo?.node?.mediaItemUrl ||
+					item?.services?.map?.logo?.node?.mediaItemUrl,
+				altText:
+					item?.services?.map?.headerLogo?.altText ||
+					item?.services?.map?.logo?.node?.altText,
+			},
+		};
+	});
+	// .sort((a, b) => a.title.localeCompare(b.title));
 	const regions = data?.regions.nodes?.sort(
 		(a, b) =>
 			parseFloat(a.regionsFields?.sequence || 0) -
