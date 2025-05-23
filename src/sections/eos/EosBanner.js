@@ -85,7 +85,7 @@ export default function EosBanner({
 								</Button>
 							</a>
 							{btnTxt && (
-								<a href={btnLink}>
+								<a href={btnLink} target="_blank" rel="noreferrer">
 									<Button color="secondary" variant="filled" shape="rounded" mode="dark">
 										{btnTxt}
 									</Button>

@@ -80,6 +80,7 @@ query EOSPage {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -90,6 +91,7 @@ query EOSPage {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -100,12 +102,21 @@ query EOSPage {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
             mediaItemUrl
           }
         }
+      }
+      introduction {
+        description
+        sectionTitle
+      }
+      stats {
+        count
+        title
       }
     }
   }

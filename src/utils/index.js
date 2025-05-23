@@ -771,23 +771,41 @@ export const dynamicInsightsBtnProps = (
 ) => {
 	let obj = {};
 
-	if (
-		data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl ||
-		data?.postFields?.[keyVal]?.url
-	) {
-		obj.href =
-			data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl ||
-			data?.postFields?.[keyVal]?.url;
-		obj.target = "_blank";
-		obj.rel = "noreferrer";
-		obj.onClick = () => {
-			window.open(
-				data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl ||
-					data?.postFields?.[keyVal]?.url,
-				"_blank",
-				"noopener,noreferrer"
-			);
-		};
+	const fileUrl = data?.postFields?.[keyVal]?.file?.node?.mediaItemUrl;
+	const fallbackUrl = data?.postFields?.[keyVal]?.url;
+	const finalUrl = fileUrl || fallbackUrl;
+
+	if (finalUrl) {
+		obj.href = finalUrl;
+
+		// If fileUrl exists, treat it as external (always open in new tab)
+		if (fileUrl) {
+			obj.target = "_blank";
+			obj.rel = "noreferrer";
+			obj.onClick = () => {
+				window.open(fileUrl, "_blank", "noopener,noreferrer");
+			};
+		}
+		// If we're using fallbackUrl, check if it's external
+		else if (fallbackUrl) {
+			const isExternal =
+				typeof window !== "undefined" &&
+				!fallbackUrl.startsWith("/") &&
+				!fallbackUrl.includes(window.location.origin);
+
+			if (isExternal) {
+				obj.target = "_blank";
+				obj.rel = "noreferrer";
+				obj.onClick = () => {
+					window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+				};
+			} else {
+				// Internal URL — same tab
+				obj.onClick = () => {
+					window.location.href = fallbackUrl;
+				};
+			}
+		}
 	} else if (data?.postFields?.[keyVal]?.iframe) {
 		obj.onClick = () =>
 			OpenIframePopup(
@@ -796,6 +814,7 @@ export const dynamicInsightsBtnProps = (
 					"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 			);
 	}
+
 	if (data?.postFields?.[keyVal]?.buttonText) {
 		obj.btntext = data?.postFields?.[keyVal]?.buttonText;
 	}
