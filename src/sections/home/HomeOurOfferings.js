@@ -105,7 +105,11 @@ export default function HomeOurOfferings() {
 		return () => clearInterval(interval);
 	}, []);
 	return (
-		<section className={`${styles.HomeOurOfferings}`}>
+		<section
+			className={`${styles.HomeOurOfferings}`}
+			aria-label="our offerings section"
+			title="our offerings section"
+		>
 			<h2 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
 				<br className="visible_lg" /> to navigate and capitalize on the global shift
@@ -140,7 +144,7 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/eos">
+								<a href="/eos" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -165,7 +169,7 @@ export default function HomeOurOfferings() {
 							style={{ backgroundColor: bgColors[bgIndex] }}
 						>
 							<div className={`${styles.Content}`}>
-								<a href="/software">
+								<a href="/software" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -199,7 +203,7 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} ${styles.LottieContent} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/products">
+								<a href="/products" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -234,7 +238,7 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/service/advisory">
+								<a href="/service/advisory" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"

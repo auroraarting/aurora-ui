@@ -155,7 +155,12 @@ export default function Header({ defaultNavigation }) {
 			<header className={`${styles.main_headerBox} main_headerBox`}>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
-					<div className={`${styles.globalListMobile}`} onClick={togglePopup}>
+					<div
+						className={`${styles.globalListMobile}`}
+						onClick={togglePopup}
+						role="button"
+						aria-label="click to open global presence menu"
+					>
 						<p className="text_sm font_primary color_dark_gray f_w_m f_r_a_center">
 							<span>Global Presence </span>
 							<img src={dropdown_arrow.src} alt="arrow" />
@@ -165,6 +170,8 @@ export default function Header({ defaultNavigation }) {
 						<button
 							onClick={handleSearchClick}
 							className={`${styles.searchFlex} text_sm f_w_m color_dark_gray font_primary f_r_a_center`}
+							role="button"
+							aria-label="click to open search"
 						>
 							<img src={searchImg.src} alt="" />
 							<span>Search</span>
@@ -175,6 +182,8 @@ export default function Header({ defaultNavigation }) {
 							href="https://eos.auroraer.com/dragonfly/login/"
 							target="_blank"
 							rel="noreferrer"
+							role="button"
+							aria-label="click to open eos sign in link"
 							className={`${styles.eosFlex} text_xxs f_w_m font_primary color_secondary f_r_a_center`}
 						>
 							<img src={login_icon.src} alt="login" />
@@ -192,7 +201,7 @@ export default function Header({ defaultNavigation }) {
 							{/* Logo wrap */}
 							<a href="/">
 								<div className={styles.image_wrap}>
-									<img src={logo.src} alt="logo" />
+									<img src={logo.src} alt="website logo" />
 								</div>
 							</a>
 
@@ -205,6 +214,9 @@ export default function Header({ defaultNavigation }) {
 									} ${pathname.includes("/company") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("company")}
 									data-lenis-prevent
+									role="button"
+									aria-haspopup="true"
+									aria-expanded="true"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Company</p>
@@ -225,6 +237,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/company/about"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>About Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -233,6 +246,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/global-presence"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Global Presence</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -240,6 +254,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/company/press-releases"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</a>
@@ -252,6 +267,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/company/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Contact Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -275,7 +291,7 @@ export default function Header({ defaultNavigation }) {
 															make data-driven decisions.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/eos">
+															<a href="/eos" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
 																	Know More
 																</Button>
@@ -288,7 +304,7 @@ export default function Header({ defaultNavigation }) {
 												{data?.events?.map((item, ind) => {
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`}>
+															<a href={`/events/${item?.slug}`} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -362,6 +378,9 @@ export default function Header({ defaultNavigation }) {
 									} ${pathname.includes("/who-are-you") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("WhoAreYou")}
 									data-lenis-prevent
+									role="button"
+									aria-haspopup="true"
+									aria-expanded="true"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Who Are You</p>
@@ -385,6 +404,7 @@ export default function Header({ defaultNavigation }) {
 																key={ind}
 																href={`/who-are-you/${item?.slug}`}
 																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
 															>
 																<span>{item?.title}</span>{" "}
 																<img src={menu_hover_arrow.src} alt="arrow" />
@@ -412,7 +432,7 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={"/resources/aurora-insights"}>
+																	<a href={"/resources/aurora-insights"} role="button">
 																		<Button color="primary" variant="filled" shape="rounded">
 																			View All
 																		</Button>
@@ -427,7 +447,7 @@ export default function Header({ defaultNavigation }) {
 												{data?.events?.map((item, ind) => {
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`}>
+															<a href={`/events/${item?.slug}`} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -501,6 +521,9 @@ export default function Header({ defaultNavigation }) {
 									} ${pathname.includes("/how-we-help") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("HowWeHelp")}
 									data-lenis-prevent
+									role="button"
+									aria-haspopup="true"
+									aria-expanded="true"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">How We Help</p>
@@ -524,6 +547,7 @@ export default function Header({ defaultNavigation }) {
 																key={ind}
 																href={`/how-we-help/${item?.slug}`}
 																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
 															>
 																<span>{item?.title}</span>{" "}
 																<img src={menu_hover_arrow.src} alt="arrow" />
@@ -576,7 +600,7 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={"/resources/aurora-insights"}>
+																	<a href={"/resources/aurora-insights"} role="button">
 																		<Button color="primary" variant="filled" shape="rounded">
 																			View All
 																		</Button>
@@ -591,7 +615,7 @@ export default function Header({ defaultNavigation }) {
 												{data?.events?.map((item, ind) => {
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`}>
+															<a href={`/events/${item?.slug}`} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -671,6 +695,9 @@ export default function Header({ defaultNavigation }) {
 									} dropdown`}
 									onClick={() => toggleDropdown("ProductServices")}
 									data-lenis-prevent
+									role="button"
+									aria-haspopup="true"
+									aria-expanded="true"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">
@@ -694,6 +721,7 @@ export default function Header({ defaultNavigation }) {
 														<a
 															href="/eos"
 															className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+															role="button"
 														>
 															<span>EOS Platform</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
@@ -709,6 +737,7 @@ export default function Header({ defaultNavigation }) {
 																<a
 																	href={`/service/${item?.slug}`}
 																	className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+																	role="button"
 																>
 																	<span>{item?.title}</span>{" "}
 																	<img src={menu_hover_arrow.src} alt="arrow" />
@@ -726,6 +755,7 @@ export default function Header({ defaultNavigation }) {
 														<a
 															href="/software"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+															role="button"
 														>
 															<span>Software</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
@@ -737,6 +767,7 @@ export default function Header({ defaultNavigation }) {
 																		key={ind}
 																		href={`/software/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																		role="button"
 																	>
 																		<img src={item?.logo?.logo} alt="arrow" />
 																		<span>{item?.title}</span>
@@ -777,6 +808,7 @@ export default function Header({ defaultNavigation }) {
 														<a
 															href="/products"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+															role="button"
 														>
 															<span>Subscription Analytics</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
@@ -788,6 +820,7 @@ export default function Header({ defaultNavigation }) {
 																		key={ind}
 																		href={`/products/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																		role="button"
 																	>
 																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
 																		<span>{item?.title}</span>
@@ -841,6 +874,9 @@ export default function Header({ defaultNavigation }) {
 									} ${pathname.includes("/resources") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("Resources")}
 									data-lenis-prevent
+									role="button"
+									aria-haspopup="true"
+									aria-expanded="true"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Resources</p>
@@ -861,6 +897,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/resources/aurora-insights"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Aurora Insights</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -868,6 +905,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/resources/energy-talks"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Energy Talks</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -875,6 +913,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/resources/webinar"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Webinars</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -898,7 +937,7 @@ export default function Header({ defaultNavigation }) {
 															make data-driven decisions.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/eos">
+															<a href="/eos" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
 																	Know More
 																</Button>
@@ -911,7 +950,7 @@ export default function Header({ defaultNavigation }) {
 												{data?.events?.map((item, ind) => {
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`}>
+															<a href={`/events/${item?.slug}`} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -983,8 +1022,9 @@ export default function Header({ defaultNavigation }) {
 									className={`${styles.links} ${
 										pathname.includes("/events") && styles.active
 									}`}
+									role="button"
 								>
-									<a href="/events">
+									<a href="/events" role="button">
 										<div
 											className={`${styles.link_title} text_xs font_primary color_dark_gray`}
 										>
@@ -999,6 +1039,9 @@ export default function Header({ defaultNavigation }) {
 									} ${pathname.includes("/careers") && styles.active} dropdown`}
 									onClick={() => toggleDropdown("Careers")}
 									data-lenis-prevent
+									role="button"
+									aria-haspopup="true"
+									aria-expanded="true"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Careers</p>
@@ -1019,6 +1062,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/careers/join-us"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Join Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -1026,6 +1070,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/careers/early-careers"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Early Careers</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -1033,6 +1078,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/careers/our-team"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Our Teams</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -1040,6 +1086,7 @@ export default function Header({ defaultNavigation }) {
 													<a
 														href="/careers/life-at-aurora"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
 													>
 														<span>Life at Aurora</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
@@ -1069,7 +1116,7 @@ export default function Header({ defaultNavigation }) {
 															opportunities to shape the global energy landscape
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/careers/join-us">
+															<a href="/careers/join-us" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
 																	See Open Positions
 																</Button>
@@ -1082,7 +1129,7 @@ export default function Header({ defaultNavigation }) {
 												{data?.events?.map((item, ind) => {
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`}>
+															<a href={`/events/${item?.slug}`} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -1150,13 +1197,23 @@ export default function Header({ defaultNavigation }) {
 							</div>
 
 							{/* Hamburger icon visible in mobile only */}
-							<div className={styles.hamburger_icon} onClick={toggleSidebar}>
+							<div
+								className={styles.hamburger_icon}
+								onClick={toggleSidebar}
+								role="button"
+								aria-label="click to open menu"
+							>
 								<span className={styles.hamburger_line}></span>
 								<span className={styles.hamburger_line}></span>
 								<span className={styles.hamburger_line}></span>
 							</div>
 						</div>
-						<div className={`${styles.globalList}`} onClick={togglePopup}>
+						<div
+							className={`${styles.globalList}`}
+							onClick={togglePopup}
+							role="button"
+							aria-label="click to open global presence"
+						>
 							<p className="text_sm font_primary color_dark_gray f_w_m f_r_a_center">
 								<span>Global Presence </span>
 								<img src={dropdown_arrow.src} alt="arrow" />
@@ -1174,6 +1231,7 @@ export default function Header({ defaultNavigation }) {
 								aria-label="Close menu"
 								className={styles.close_btn}
 								onClick={closePopup}
+								role="button"
 							>
 								<img src={popup_close.src} alt="" />
 							</button>
@@ -1184,6 +1242,8 @@ export default function Header({ defaultNavigation }) {
 											<div
 												className={`${styles.CountryHeading}`}
 												onClick={() => toggleTab(ind + 1)}
+												role="button"
+												aria-label="click to open"
 											>
 												<p className="text_md f_w_m color_white font_primary">
 													{item?.name}
@@ -1206,7 +1266,7 @@ export default function Header({ defaultNavigation }) {
 														if (country?.countries?.hideonglobalpresence) return null;
 														return (
 															<li key={index} className="text_xs color_platinum_gray">
-																<a href={`/global-presence/${country.slug}`}>
+																<a href={`/global-presence/${country.slug}`} role="button">
 																	{country?.title}
 																</a>
 															</li>
@@ -1231,7 +1291,12 @@ export default function Header({ defaultNavigation }) {
 					<div className={styles.searchOverlay}></div>
 					<div className={styles.searchBar}>
 						<div className={styles.searchArea}>
-							<button className={`${styles.Close}`} onClick={handleCloseClick}>
+							<button
+								className={`${styles.Close}`}
+								onClick={handleCloseClick}
+								role="button"
+								aria-label="click to close menu"
+							>
 								<img src={white_close.src} alt="search" />
 							</button>
 						</div>

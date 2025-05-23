@@ -29,7 +29,11 @@ import Image from "next/image";
 /** HomeResources Section */
 export default function HomeResources({ data, countries, voices }) {
 	return (
-		<section className={`${styles.HomeResources}`}>
+		<section
+			className={`${styles.HomeResources}`}
+			aria-label="resources section"
+			title="resources section"
+		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
@@ -41,7 +45,7 @@ export default function HomeResources({ data, countries, voices }) {
 						{voices?.slice(0, 3)?.map((item) => {
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title}>
-									<a href={item?.link} className={`${styles.insideBox}`}>
+									<a href={item?.link} className={`${styles.insideBox}`} role="button">
 										<img
 											src={item?.thumb}
 											className={`${styles.case_img} width_100 b_r_10`}
@@ -96,7 +100,7 @@ export default function HomeResources({ data, countries, voices }) {
 							<div className={`${styles.webinarItem}`}>
 								{voices?.slice(3, 6)?.map((item) => {
 									return (
-										<a href={item?.link} key={item?.title}>
+										<a href={item?.link} key={item?.title} role="button">
 											<div className={`${styles.contentBox}`}>
 												<img
 													height={179}
