@@ -29,6 +29,7 @@ import black_right from "/public/img/icons/black_right.svg";
 import hoverEffect from "/public/img/eos/hoverEffect.png";
 import origin_logo from "/public/img/eos/origin_logo.png";
 import AccordianCommon from "@/components/AccordianCommon";
+import { removeHTML } from "@/utils";
 
 // DATA //
 
@@ -116,8 +117,9 @@ export default function CuttingEdgeModels({ data }) {
 		<section className={`${styles.CuttingEdgeModels}`}>
 			<div className="container">
 				<div className={`${styles.titleWrapper} pb_40`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						<ContentFromCms>{data?.sectionTitle}</ContentFromCms>
+					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_10">
+						{/* <ContentFromCms>{data?.sectionTitle}</ContentFromCms> */}
+						{removeHTML(data?.sectionTitle)}
 					</h2>
 					<div className={`${styles.label} text_reg color_dark_gray`}>
 						<ContentFromCms>{data?.sectionDescription}</ContentFromCms>

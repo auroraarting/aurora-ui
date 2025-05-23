@@ -38,6 +38,7 @@ query GetWebinars {
     nodes {
       title
       slug
+      content(format: RAW)
       featuredImage {
       node {
         altText

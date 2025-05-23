@@ -9,6 +9,7 @@ query GetInsights {
       title
       slug
       date
+      content
       featuredImage {
         node {
           altText

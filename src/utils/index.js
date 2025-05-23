@@ -632,7 +632,8 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 /** filterItems for resources */
 export const filterItemsForWebinar = (podcasts, selected) => {
 	return podcasts.filter((podcast) => {
-		const { webinarsFields, eventCategories, title } = podcast;
+		const { webinarsFields, eventCategories, title, content, webinarTags } =
+			podcast;
 		const date = webinarsFields?.startDateAndTime;
 
 		// 1. Match country
@@ -680,7 +681,6 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 		const matchSearch = selected.search
 			? (() => {
 					const lowerSearch = selected.search.toLowerCase();
-
 					const countryTitles = countries.map((c) => c.title);
 					const categoryNames = categories.map((c) => c.name);
 					const softwareTitles = poweredBy
@@ -692,15 +692,19 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 					const serviceTitles = poweredBy
 						.filter((p) => p.contentType.node.name === "services")
 						.map((p) => p.title);
+					const webinarTagsTitles = webinarTags.nodes.map((p) => p.name);
+					//
 					const year = date ? new Date(date).getFullYear().toString() : "";
 
 					const searchableText = [
+						content,
 						title,
 						...countryTitles,
 						...categoryNames,
 						...softwareTitles,
 						...productTitles,
 						...serviceTitles,
+						...webinarTagsTitles,
 						year,
 					]
 						.join(" ")
@@ -1271,3 +1275,8 @@ export const updateQueryFast = (selecObj) => {
 	const newUrl = `${window.location.pathname}?${params.toString()}`;
 	window.history.pushState({}, "", newUrl); // Fast and smooth
 };
+
+/** removeHTML  */
+export function removeHTML(str) {
+	return str.replace(/<[^>]*>/g, "");
+}
