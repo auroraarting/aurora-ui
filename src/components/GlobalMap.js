@@ -50,7 +50,7 @@ export default function GlobalMap({
 				</span> */}
 			</Marquee>
 
-			<div className="container">
+			<div className="">
 				<Map
 					mapCenter={mapCenter}
 					setValueOfSelect={setValueOfSelect}

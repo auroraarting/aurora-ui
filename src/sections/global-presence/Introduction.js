@@ -34,7 +34,7 @@ export default function Introduction({ data }) {
 							{data?.sectionTitle}
 						</h2>
 					</div>
-					<div className={`${styles.flexItemTwo} text_reg color_dark_gray pb_10`}>
+					<div className={`${styles.flexItemTwo} text_reg color_dark_gray`}>
 						{data?.description && (
 							<ContentFromCms>{data?.description}</ContentFromCms>
 						)}
