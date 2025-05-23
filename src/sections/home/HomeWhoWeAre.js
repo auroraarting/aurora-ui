@@ -22,7 +22,11 @@ import styles from "@/styles/sections/home/HomeWhoWeAre.module.scss";
 /** HomeWhoWeAre Section */
 export default function HomeWhoWeAre() {
 	return (
-		<section className={`${styles.HomeWhoWeAre} pt_100 pb_60`}>
+		<section
+			className={`${styles.HomeWhoWeAre} pt_100 pb_60`}
+			aria-label="who are you section"
+			title="who are you section"
+		>
 			<div className="container">
 				<h2 className="text_xl color_white">
 					Strategic market focus
@@ -37,7 +41,7 @@ export default function HomeWhoWeAre() {
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/financial-sector">
-								<Button color="secondary" variant="underline" mode="dark">
+								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Read More
 								</Button>
 							</Link>
@@ -52,7 +56,7 @@ export default function HomeWhoWeAre() {
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/energy-consumer">
-								<Button color="secondary" variant="underline" mode="dark">
+								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>
 							</Link>
@@ -67,7 +71,7 @@ export default function HomeWhoWeAre() {
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/utilities">
-								<Button color="secondary" variant="underline" mode="dark">
+								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>
 							</Link>
@@ -81,7 +85,7 @@ export default function HomeWhoWeAre() {
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/developer">
-								<Button color="secondary" variant="underline" mode="dark">
+								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>
 							</Link>
