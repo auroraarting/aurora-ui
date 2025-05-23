@@ -99,7 +99,7 @@ export default function AboutWrap({
 					</div>
 				)}
 				{/* eos */}
-				<ServicesCircle data={data?.keyAdvantages} />
+				<ServicesCircle data={data?.keyAdvantages} hideId />
 				{data?.trustedModels?.sectionTitle && (
 					<div className="ptb_100">
 						<CuttingEdgeModels data={data?.trustedModels} />
@@ -107,22 +107,22 @@ export default function AboutWrap({
 				)}
 				{/* eos */}
 				{mapJson && (
-					<div className="dark_bg">
+					<div className="black_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
-							className="dark_bg"
+							className="black_bg"
 						/>
 					</div>
 				)}
 				<div className="">
 					<Counter
-						className="dark_bg"
+						className="black_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="ptb_100 dark_bg relative">
+				<div className="ptb_100 black_bg relative">
 					{/* <img
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
@@ -135,7 +135,7 @@ export default function AboutWrap({
 				</div>
 
 				<div className="pt_100">
-					<section id="Products-Service" data-name="Products & Service">
+					<section>
 						<SoftwareCards />
 					</section>
 				</div>

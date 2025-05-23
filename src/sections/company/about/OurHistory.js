@@ -30,7 +30,11 @@ export default function OurHistory({ data }) {
 	if (!data?.sectionTitle) return <></>;
 
 	return (
-		<section className={`${styles.OurHistory}`}>
+		<section
+			className={`${styles.OurHistory}`}
+			id="OUR-HISTORY"
+			data-name="OUR HISTORY"
+		>
 			<div className="container">
 				<div className={`${styles.integratedSystemFlex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>

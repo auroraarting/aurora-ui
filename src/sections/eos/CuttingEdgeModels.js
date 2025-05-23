@@ -115,7 +115,7 @@ export default function CuttingEdgeModels({ data }) {
 	return (
 		<section className={`${styles.CuttingEdgeModels}`}>
 			<div className="container">
-				<div className={`${styles.titleWrapper}`}>
+				<div className={`${styles.titleWrapper} pb_40`}>
 					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
 						<ContentFromCms>{data?.sectionTitle}</ContentFromCms>
 					</h2>
@@ -123,38 +123,7 @@ export default function CuttingEdgeModels({ data }) {
 						<ContentFromCms>{data?.sectionDescription}</ContentFromCms>
 					</div>
 				</div>
-				<div className={`${styles.content_main_wrap} pt_40`}>
-					{/* <div className={`${styles.box_wrap}`}>
-						{data?.list?.map((item, ind) => {
-							const related = item?.category?.nodes?.[0];
-
-							return (
-								<div
-									className={`${styles.box_item}`}
-									key={ind}
-									onClick={(e) => handleSlideClick1(e, ind)}
-									data-slide={ind}
-								>
-									<div className={`${styles.content}`}>
-										<p className="text_xs color_light_gray text_uppercase pb_10">
-											{related?.title}
-										</p>
-										<h5 className="text_md f_w_m color_secondary font_primary">
-											{item.title}
-										</h5>
-										<div className={`${styles.arrowBox}`}>
-											<span>
-												<img src={black_right.src} alt="icon" />
-											</span>
-										</div>
-										<div className={`${styles.hoverEffect} pt_20`}>
-											<img src={hoverEffect.src} className="" alt=" img" />
-										</div>
-									</div>
-								</div>
-							);
-						})}
-					</div> */}
+				<div className={`${styles.content_main_wrap} `}>
 					{data?.list?.length > 0 && (
 						<AccordianCommon
 							fontStyle={"text_lg"}

@@ -73,7 +73,7 @@ export default function CustomSelect({
 			ref={selectRef}
 		>
 			<div className={`${styles.selected}`} onClick={handleStateOfSelect}>
-				<span className={`${styles.selectedText} text_xs text_500`}>
+				<span className={`${styles.selectedText} selectedText text_xs text_500`}>
 					{list?.[selectedId] || placeholder}
 				</span>
 				<img
