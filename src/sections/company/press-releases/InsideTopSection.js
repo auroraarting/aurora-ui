@@ -65,7 +65,7 @@ export default function InsideTopSection({
 					</div>
 					{featuredImage && (
 						<div className={`${styles.imageWrapper}`}>
-							<img src={featuredImage} className="width_100 b_r_20" alt="img" />
+							<img src={featuredImage} className="width_100 b_r_20" alt={title} />
 						</div>
 					)}
 				</div>

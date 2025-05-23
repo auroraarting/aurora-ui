@@ -80,7 +80,7 @@ export default function OurHistory({ data }) {
 												<img
 													src={item?.mediaItemUrl}
 													className={`${styles.imgOne} widht_100 b_r_20`}
-													alt="img"
+													alt={data?.sectionTitle}
 												/>
 											</div>
 										</SwiperSlide>

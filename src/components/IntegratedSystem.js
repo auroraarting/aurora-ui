@@ -143,7 +143,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 														height={215}
 														width={277}
 														className={`${styles.imgOne} `}
-														alt="img"
+														alt={item?.title}
 													/>
 												</div>
 												<div className={`${styles.itemBoxWrap}`}>
@@ -153,7 +153,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 																item?.[module]?.map?.logo?.node?.mediaItemUrl || origin_logo.src
 															}
 															className={`${styles.centerLogo}`}
-															alt="img"
+															alt={item?.title}
 														/>
 														<p className="color_white text_xxs f_w_b pt_10">{item?.title}</p>
 													</div>
@@ -163,7 +163,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 															className="text_xs text_uppercase f_w_m"
 														>
 															Know More
-															<img src={hover_arrow.src} className="" alt="img" />
+															<img src={hover_arrow.src} className="" alt="icon" />
 														</div>
 													</div>
 												</div>

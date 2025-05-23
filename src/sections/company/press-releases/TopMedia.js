@@ -95,7 +95,7 @@ export default function TopMedia({ data }) {
 											<img
 												src={item?.featuredImage?.node?.mediaItemUrl}
 												className="width_100 b_r_20"
-												alt="img"
+												alt="Press Release"
 											/>
 										</div>
 									)}

@@ -45,7 +45,7 @@ export default function HomeResources({ data, countries, voices }) {
 										<img
 											src={item?.thumb}
 											className={`${styles.case_img} width_100 b_r_10`}
-											alt="case img"
+											alt={item?.cat}
 											height={360}
 											width={640}
 											loading="lazy"

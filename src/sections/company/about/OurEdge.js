@@ -51,7 +51,7 @@ export default function OurEdge({ data }) {
 												<img
 													src={item?.logo?.node?.mediaItemUrl}
 													className={`${styles.icons} `}
-													alt="icon"
+													alt={item?.title}
 												/>
 											</span>
 										</div>

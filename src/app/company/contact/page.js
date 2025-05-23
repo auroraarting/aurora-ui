@@ -79,13 +79,13 @@ async function getData() {
 														width={446}
 														src={hoverBg.src}
 														className={`${styles.hoverBg} width_100 b_r_10`}
-														alt="img"
+														alt="hover img"
 													/>
 													<div className={`${styles.countryImg}`}>
 														<img
 															src={item2?.countries?.bannerSection?.image?.node?.mediaItemUrl}
 															className="width_100 b_r_10"
-															alt="img"
+															alt={item3?.title}
 														/>
 													</div>
 													<div className="f_j a_center pt_10">
@@ -104,7 +104,7 @@ async function getData() {
 														<p
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={location.src} className="" alt="location" />
 															<span>{item3?.offices?.contact?.address}</span>
 														</p>
 													)}
@@ -113,7 +113,7 @@ async function getData() {
 															href={`tel:${item3?.offices?.contact?.tel}`}
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={call_icon.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="call" />
 															<span>{item3?.offices?.contact?.tel}</span>
 														</a>
 													)}

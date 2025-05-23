@@ -117,7 +117,7 @@ export default function AboutLeadership({ data, countries }) {
 												<img
 													src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 													className="b_r_20"
-													alt="story img"
+													alt={item?.title}
 												/>
 											</div>
 											<div className={`${styles.content} pt_20`}>
@@ -191,7 +191,7 @@ export default function AboutLeadership({ data, countries }) {
 															<img
 																src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 																className="b_r_20"
-																alt="story img"
+																alt={item?.title}
 															/>
 															{/* <div className={`${styles.profileDownload}`}>
 																<a

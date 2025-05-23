@@ -154,7 +154,7 @@ export default function HomeOurOfferings() {
 							</div>
 							<img
 								src={macEOS.src}
-								alt="mac eos"
+								alt="EOS Platform"
 								className={`${styles.BoxImg} m_0_auto`}
 							/>
 						</div>
@@ -249,7 +249,7 @@ export default function HomeOurOfferings() {
 							</div>
 							<img
 								src={macEOS.src}
-								alt="mac eos"
+								alt="Advisory"
 								className={`${styles.BoxImg} m_0_auto`}
 							/>
 						</div>
