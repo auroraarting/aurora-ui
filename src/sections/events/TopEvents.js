@@ -59,7 +59,7 @@ export default function TopEvents({ list }) {
 										<img
 											src={data?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 											className=""
-											alt="img"
+											alt="Event logo"
 										/>
 										<div
 											className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
@@ -100,7 +100,7 @@ export default function TopEvents({ list }) {
 										<img
 											src={data?.events?.banner?.desktop?.node?.mediaItemUrl}
 											className="width_100 b_r_20"
-											alt="img"
+											alt={data?.events?.thumbnail?.status}
 										/>
 									</div>
 								</a>

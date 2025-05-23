@@ -69,7 +69,7 @@ export default function InsightsTop({ data }) {
 							<img
 								src={data?.featuredImage?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
-								alt="img"
+								alt={data?.title}
 							/>
 						</div>
 					)}

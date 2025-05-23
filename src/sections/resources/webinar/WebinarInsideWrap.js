@@ -100,7 +100,7 @@ export default function WebinarInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg}  pb_60`}>
+				<div className={`${styles.topBg}  ptb_60`}>
 					{/* <Breadcrumbs /> */}
 					<WebinarInsideTopSection data={data} countries={countries} />
 				</div>

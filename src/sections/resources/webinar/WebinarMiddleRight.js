@@ -64,7 +64,7 @@ export default function WebinarMiddleRight({ data }) {
 													item?.[item?.contentType?.node?.name]?.banner?.logo?.node
 														?.mediaItemUrl
 												}
-												alt="pic"
+												alt="Software Logo"
 											/>
 										</div>
 										{/* <div className={`${styles.ClientDescription}`}>

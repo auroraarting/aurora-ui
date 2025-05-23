@@ -529,7 +529,7 @@ export default function EventsListing({
 										<img
 											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 											className={`${styles.productLogo} `}
-											alt="img"
+											alt="Events Logo"
 										/>
 										<p
 											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
