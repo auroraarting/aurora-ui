@@ -42,14 +42,14 @@ export default function EnergyMiddleRight({ data, events }) {
 										className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
 										key={item?.title}
 									>
-										{item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
+										{/* {item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
 												<img
 													src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
 													alt="pic"
 												/>
 											</div>
-										)}
+										)} */}
 										<div className={`${styles.ClientDescription}`}>
 											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
 												{item?.title}

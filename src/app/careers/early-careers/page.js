@@ -148,7 +148,7 @@ export default async function EarlyCareers() {
 						desc={page?.careerSeries?.sectionDesc}
 						redirectLink={page?.careerSeries?.buttonLink}
 						iframe={page?.careerSeries?.iframe}
-						sectionName="Aurora’s career series"
+						sectionName="Latest Videos"
 					/>
 				</div>
 				<div className="pt_80">

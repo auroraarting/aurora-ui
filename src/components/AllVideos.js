@@ -36,7 +36,7 @@ export default function AllVideos({
 	videoLink,
 	videoThumbnail,
 	iframe,
-	sectionName = "Aurora’s career series",
+	sectionName = "Latest Videos",
 	id = "Auroras-career-series",
 }) {
 	if (!title) return <></>;
