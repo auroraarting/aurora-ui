@@ -42,9 +42,10 @@ const options = [
 /** CompanyContact Component */
 export default function CompanyContact() {
 	// const [selected, setSelected] = useState("Renewables Summit, London");
-
 	const formRef = useRef();
-	//const [thankYouMessage, setthankYouMessage] = useState(false);
+	const [thankYouMessage, setthankYouMessage] = useState(false);
+	const [loading, setLoading] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -66,16 +67,28 @@ export default function CompanyContact() {
 		// 	}, 5000);
 		// }
 		// console.log(result);
-		const res = await fetch("/api/contact", {
-			method: "POST",
-			body: JSON.stringify({
-				data: data,
-			}),
-		});
-		reset();
-		// const result = await res.json();
+		setLoading(true);
+		try {
+			const res = await fetch("/api/contact", {
+				method: "POST",
+				body: JSON.stringify({
+					data: data,
+				}),
+			});
+			reset();
+			setthankYouMessage(true);
+			setLoading(false);
 
-		console.log(res, "data");
+			setTimeout(() => {
+				setthankYouMessage(false);
+			}, 5000);
+			// const result = await res.json();
+
+			console.log(res, "data");
+		} catch (error) {
+			setLoading(false);
+			console.log(error, "error");
+		}
 	};
 	return (
 		<div className={styles.ContactMain}>
@@ -238,14 +251,19 @@ export default function CompanyContact() {
 					</div>
 				</div>
 
-				<div className={`${styles.btnBox}`}>
+				<div
+					className={`${styles.btnBox}`}
+					style={{ pointerEvents: loading ? "none" : "all" }}
+				>
 					<Button color="red" variant="filled" shape="rounded">
-						Submit
+						{loading ? "Submiting..." : "Submit"}
 					</Button>
 				</div>
-				{/* {thankYouMessage && (
-					<h2 className="text_md font_primary color_primary pt_20">Thank You</h2>
-				)} */}
+				{/* {thankYouMessage && ( */}
+				<h2 className="text_sm font_primary color_primary pt_20">
+					Thank you for your details, we will get back to you soon
+				</h2>
+				{/* )} */}
 			</form>
 		</div>
 	);
