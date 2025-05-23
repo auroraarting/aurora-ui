@@ -2,14 +2,17 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI  */
 export default async function GraphQLAPI(query) {
+	let res;
+	let req;
 	try {
-		const req = await fetch(`${process.env.API_URL}`, {
+		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
 		});
-		const res = await req.json();
+		res = await req.json();
 		return res;
 	} catch (error) {
-		console.log(error);
+		req = await req.text();
+		console.log(error, req, "errror");
 	}
 }
