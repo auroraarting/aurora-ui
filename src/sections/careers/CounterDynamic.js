@@ -30,9 +30,9 @@ export default function CounterDynamic({ data, className }) {
 						return (
 							<div className={`${styles.countBox}`} key={item?.title}>
 								<h4 className="text_xl color_primary">
-									{/* <CountUp end={item?.count.split("+")[0]} enableScrollSpy /> */}
-									{item?.count}
-									{/* {item?.count?.split("+")?.length > 1 && <span>+</span>} */}
+									<CountUp end={item?.count.split("+")[0]} enableScrollSpy />
+									{/* {item?.count} */}
+									{item?.count?.split("+")?.length > 1 && <span>+</span>}
 								</h4>
 								<p className="text_xs color_white text_uppercase font_primary">
 									{item?.title}

@@ -64,8 +64,8 @@ export default function AccordianCommon({
 	useEffect(() => {
 		const widthOfImgIcon = document
 			.querySelector(".imgIcons")
-			.getBoundingClientRect();
-		setWidthOfImg(widthOfImgIcon.width + 10);
+			?.getBoundingClientRect();
+		setWidthOfImg((widthOfImgIcon?.width || 0) + 10);
 	}, []);
 
 	return (
