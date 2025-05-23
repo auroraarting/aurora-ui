@@ -136,22 +136,29 @@ export default function TrustedLeaders({
 						modules={[Grid, Pagination]}
 						className="mySwiper"
 					>
-						{data?.selectLogos?.nodes?.map((item, ind) => (
-							<SwiperSlide key={ind}>
-								<div className={`${styles.box_item}`} key={ind}>
-									<div className={`${styles.imgBox}`}>
-										{item?.featuredImage?.node?.mediaItemUrl && (
-											<img
-												src={item?.featuredImage?.node?.mediaItemUrl}
-												className="b_r_10"
-												alt="story img"
-												loading="lazy"
-											/>
-										)}
+						{data?.selectLogos?.nodes?.map((item, ind) => {
+							const imageUrl = item?.featuredImage?.node?.mediaItemUrl;
+							const imageName = imageUrl
+								? imageUrl.split("/").pop().split(".")[0].replace(/[-_]/g, " ")
+								: "story image";
+
+							return (
+								<SwiperSlide key={ind}>
+									<div className={`${styles.box_item}`}>
+										<div className={`${styles.imgBox}`}>
+											{imageUrl && (
+												<img
+													src={imageUrl}
+													className="b_r_10"
+													alt={imageName}
+													loading="lazy"
+												/>
+											)}
+										</div>
 									</div>
-								</div>
-							</SwiperSlide>
-						))}
+								</SwiperSlide>
+							);
+						})}
 					</Swiper>
 				</div>
 			</div>

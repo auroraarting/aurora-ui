@@ -35,7 +35,7 @@ export default function HomeTalentMeets() {
 						<img
 							src={meet_img.src}
 							className="width_100 b_r_20"
-							alt="meet img"
+							alt="Where talent meets"
 							loading="lazy"
 						/>
 					</div>

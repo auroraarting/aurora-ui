@@ -113,7 +113,7 @@ export default function EventsMiddleRight({ data, events }) {
 									<div className={`${styles.ClientLogo}`}>
 										<img
 											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
-											alt="logo"
+											alt="Events Logo"
 										/>
 									</div>
 									<div className={`${styles.dateFlex} pt_10`}>

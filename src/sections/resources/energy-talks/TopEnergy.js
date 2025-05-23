@@ -86,7 +86,7 @@ export default function TopEnergy({ data }) {
 							<img
 								src={data?.featuredImage?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
-								alt="img"
+								alt="Latest Podcast"
 							/>
 						</div>
 					)}

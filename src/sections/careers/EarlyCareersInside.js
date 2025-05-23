@@ -91,6 +91,10 @@ export default function EarlyCareersInside({ data }) {
 										<img
 											src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
 											className={`${styles.countryImg} b_r_10`}
+											alt={
+												item?.earlyCareers?.thumbnail?.country?.node?.title ||
+												item?.earlyCareers?.banner?.city
+											}
 										/>
 										{item?.earlyCareers?.thumbnail?.islive && (
 											<p

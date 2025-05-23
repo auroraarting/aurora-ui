@@ -85,7 +85,7 @@ export default function AccordianCommon({
 								<img
 									src={item.imgIcons}
 									className={`${styles.imgIcons} imgIcons`}
-									alt=""
+									alt="Icons"
 								/>
 							)}
 

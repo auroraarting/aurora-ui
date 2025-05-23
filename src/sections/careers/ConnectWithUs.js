@@ -82,6 +82,7 @@ export default function ConnectWithUs({ data }) {
 											<img
 												src={item?.offices?.thumbnail?.node?.mediaItemUrl}
 												className={`${styles.connectImg} b_r_10`}
+												alt={item?.title}
 											/>
 										</div>
 									)}

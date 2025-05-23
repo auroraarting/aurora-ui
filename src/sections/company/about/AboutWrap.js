@@ -126,8 +126,9 @@ export default function AboutWrap({
 					{/* <img
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
-					/> */}
-					<div className="">
+						alt="bg img"
+					/>
+					<div className="pb_100">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />
