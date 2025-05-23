@@ -91,7 +91,7 @@ export default function AccordianCommon({
 
 							<div>
 								{item?.tag && (
-									<p className="text_xs text_uppercase color_light_gray m_b_30">
+									<p className="text_xs text_uppercase color_light_gray m_b_10">
 										{item?.tag} <br />
 									</p>
 								)}
