@@ -67,7 +67,9 @@ export default function CustomSelect({
 
 	return (
 		<div
-			className={`${styles.CustomSelect} ${open && styles.open} ${styles[mode]}`}
+			className={`${styles.CustomSelect} CustomSelect  ${open && styles.open} ${
+				styles[mode]
+			}`}
 			ref={selectRef}
 		>
 			<div className={`${styles.selected}`} onClick={handleStateOfSelect}>

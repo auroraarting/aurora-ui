@@ -36,9 +36,9 @@ import AccordianCommon from "@/components/AccordianCommon";
 export default function CuttingEdgeModels({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
-
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index) => {
 		e.preventDefault();
@@ -61,8 +61,8 @@ export default function CuttingEdgeModels({ data }) {
 
 	const eventSpeakersData2 = data?.list?.map((item) => {
 		let obj = {};
-		const related = item?.category?.nodes?.[0];
-		obj.tag = related?.title;
+		const related = item?.category;
+		obj.tag = related;
 		obj.title = item?.title;
 		// if (item?.countries?.nodes?.length > 0) {
 		obj.children = (

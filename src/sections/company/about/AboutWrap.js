@@ -122,12 +122,12 @@ export default function AboutWrap({
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="pt_100 dark_bg relative">
-					<img
+				<div className="ptb_100 dark_bg relative">
+					{/* <img
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
 						alt="bg img"
-					/>
+					/> */}
 					<div className="pb_100">
 						<EosIntegratedSystem />
 					</div>
@@ -140,7 +140,7 @@ export default function AboutWrap({
 					</section>
 				</div>
 				{data.ourClient.selectLogos && (
-					<div className="ptb_100">
+					<div className="pt_100">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
