@@ -25,14 +25,14 @@
 			cursor: pointer;
 		}
 		.form_title {
-			width: 40%;
+			width: 30%;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-bottom: 20px;
 			}
 		}
 		.formBox {
-			width: 55%;
+			width: 60%;
 			@media (max-width: 1199px) {
 				width: 62%;
 			}
@@ -68,7 +68,7 @@
 				.CountryItem {
 					position: relative;
 					background-color: var(--color_white);
-					border-radius: 10px;
+					border-radius: 12px;
 					padding: 20px;
 					transition: ease-out 0.5s;
 					.hoverBg {
@@ -84,6 +84,7 @@
 						border-radius: 12px;
 						img {
 							transition: ease-out 0.5s;
+							border-radius: 8px;
 						}
 					}
 					h5 {
