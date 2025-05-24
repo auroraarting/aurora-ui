@@ -43,7 +43,6 @@ export default function SoftwareMarket({
 	data,
 	mapThumb,
 }) {
-	console.log(data, "dataat");
 	/** centerOfCountry  */
 	let centerOfCountry = () => {
 		if (mapJson) {

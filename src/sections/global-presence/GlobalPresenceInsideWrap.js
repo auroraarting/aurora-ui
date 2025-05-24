@@ -42,7 +42,6 @@ export default function GlobalPresenceInsideWrap({
 	webinars,
 }) {
 	const dataForBtn = { postFields: data?.countries || {} };
-	console.log("data", data);
 
 	return (
 		<div>

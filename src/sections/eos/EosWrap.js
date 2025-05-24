@@ -45,7 +45,6 @@ export default function EOSPageWrap({
 	bundles,
 	dataForBtn,
 }) {
-	console.log(data, "data");
 	return (
 		<div>
 			{/* Metatags */}

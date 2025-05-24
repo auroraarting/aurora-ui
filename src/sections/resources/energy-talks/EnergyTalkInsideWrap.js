@@ -57,7 +57,6 @@ export default function EnergyTalkInsideWrap({
 	socialLinks,
 }) {
 	const dataForBtn = { postFields: data.podcastFields || {} };
-	console.log(socialLinks, "socialLinks");
 
 	return (
 		<div>
@@ -130,10 +129,6 @@ export default function EnergyTalkInsideWrap({
 													const dataForBtn = {
 														postFields: { btnItem: btnItem } || {},
 													};
-													console.log(
-														dynamicInsightsBtnProps(dataForBtn, "btnItem"),
-														"dataForBtn"
-													);
 
 													return (
 														<div

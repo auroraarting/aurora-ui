@@ -91,8 +91,6 @@ export default async function EarlyCareers() {
 
 	countries = countries.sort((a, b) => a.title.localeCompare(b.title));
 
-	console.log(page, "data");
-
 	return (
 		<div>
 			{/* Metatags */}

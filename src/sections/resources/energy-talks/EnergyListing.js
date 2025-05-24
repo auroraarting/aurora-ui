@@ -181,7 +181,6 @@ export default function EnergyListing({
 		}
 		setSelected(selectedObj);
 
-		console.log(selectedObj, "queryObj");
 		const filteredArr = filterItemsForPodcast(arr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
@@ -228,7 +227,6 @@ export default function EnergyListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 
@@ -243,8 +241,6 @@ export default function EnergyListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
-
-	console.log(list, "list");
 
 	return (
 		<section className={styles.EnergyListing}>

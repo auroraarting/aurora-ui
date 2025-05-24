@@ -108,8 +108,6 @@ export default function CuttingEdgeModels({ data }) {
 		},
 	];
 
-	console.log(eventSpeakersData2, " data?.list");
-
 	if (!data || !data.sectionTitle) return <></>;
 
 	// console.log(eventSpeakersData);

@@ -22,8 +22,6 @@ import tel_icon from "/public/img/icons/tel_icon.svg";
 
 /** TopMedia Section */
 export default function PressCoverage({ data }) {
-	console.log(data, "page");
-
 	return (
 		<section className={`${styles.PressCoverage} bg_secondary ptb_100 `}>
 			<div className="container">

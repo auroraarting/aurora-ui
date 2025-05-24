@@ -52,38 +52,29 @@ export default async function HomePage() {
 	let mapJson;
 	let data;
 	let countries;
-	let insights;
 	let events;
 	let voices;
-	let showHTml;
+	let errorMsg;
 
 	try {
-		const [regions, dataFetch, insightsFetch, eventsdata, voicesFetch] =
-			await Promise.all([
-				getRegions(),
-				getHomePage(),
-				getInsights(
-					'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
-				),
-				// eslint-disable-next-line quotes
-				getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-				getHomePageVoices(),
-			]);
+		const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
+			getRegions(),
+			getHomePage(),
+			// eslint-disable-next-line quotes
+			getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+			getHomePageVoices(),
+		]);
 		mapJson = getMapJsonForAllRegions(regions);
 		data = dataFetch.data.page.homepage;
 		countries = dataFetch.data.countries.nodes;
-		insights = insightsFetch.data.posts.nodes;
 		events = eventsdata.data.events.nodes;
 		voices = voicesFetch;
-		showHTml = true;
 	} catch (error) {
-		showHTml = false;
+		errorMsg = error;
 		console.log(error, "Error");
 	}
 
-	console.log(voices, "voices");
-
-	if (!showHTml) return null;
+	if (errorMsg) return <div>{errorMsg}</div>;
 
 	return (
 		<div>
@@ -112,7 +103,7 @@ export default async function HomePage() {
 				)}
 				<HomeWhoWeAre />
 				<div className="ptb_100">
-					<HomeResources data={insights} countries={countries} voices={voices} />
+					<HomeResources countries={countries} voices={voices} />
 				</div>
 				<div className="pb_100">
 					<HomeEvents data={events} />

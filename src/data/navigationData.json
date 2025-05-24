@@ -1,0 +1,536 @@
+{
+	"products": [
+		{
+			"title": "Power & Renewables",
+			"slug": "power-renewables",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Power-Renewables-Service-1.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Flexible Energy",
+			"slug": "flexible-energy",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-Service.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Grid",
+			"slug": "grid",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Grid-Add-On.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Hydrogen",
+			"slug": "hydrogen",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Hydrogen-Service.svg",
+				"altText": ""
+			}
+		}
+	],
+	"softwares": [
+		{
+			"title": "Origin",
+			"slug": "origin",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Origin-1.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Amun",
+			"slug": "amun",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun-1.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Chronos",
+			"slug": "chronos",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Chronos.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Lumus",
+			"slug": "lumus",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.svg",
+				"altText": ""
+			}
+		},
+		{
+			"title": "Nodal Explorer",
+			"slug": "nodalexplorer",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Nodal.svg",
+				"altText": ""
+			}
+		}
+	],
+	"services": [
+		{
+			"title": "Advisory",
+			"slug": "advisory",
+			"content": "<p>Bespoke advisory offering in-depth strategic recommendation and insights.</p>\n",
+			"logo": {
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/03/Advisory.svg",
+				"altText": ""
+			}
+		}
+	],
+	"regions": [
+		{
+			"name": "Europe",
+			"slug": "europe",
+			"regionsFields": {
+				"sequence": 1
+			},
+			"countries": {
+				"nodes": [
+					{
+						"slug": "austria",
+						"title": "Austria",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "baltics",
+						"title": "Baltics",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "belgium",
+						"title": "Belgium",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "bulgaria",
+						"title": "Bulgaria",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "croatia",
+						"title": "Croatia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "czechia",
+						"title": "Czechia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "france",
+						"title": "France",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "germany",
+						"title": "Germany",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "great-britain",
+						"title": "Great Britain",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "greece",
+						"title": "Greece",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "hungary",
+						"title": "Hungary",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "iberia",
+						"title": "Iberia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "ireland",
+						"title": "Ireland",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "italy",
+						"title": "Italy",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "netherlands",
+						"title": "Netherlands",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "nordics",
+						"title": "Nordics",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "poland",
+						"title": "Poland",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "romania",
+						"title": "Romania",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "serbia",
+						"title": "Serbia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "slovakia",
+						"title": "Slovakia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "slovenia",
+						"title": "Slovenia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "spain",
+						"title": "Spain",
+						"countries": {
+							"hideonglobalpresence": true
+						}
+					},
+					{
+						"slug": "sweden",
+						"title": "Sweden",
+						"countries": {
+							"hideonglobalpresence": true
+						}
+					},
+					{
+						"slug": "switzerland",
+						"title": "Switzerland",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "Asia",
+			"slug": "asia",
+			"regionsFields": {
+				"sequence": 2
+			},
+			"countries": {
+				"nodes": [
+					{
+						"slug": "india",
+						"title": "India",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "japan",
+						"title": "Japan",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "korea",
+						"title": "Korea",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "malaysia",
+						"title": "Malaysia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "philippines",
+						"title": "Philippines",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "singapore",
+						"title": "Singapore",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "Australia",
+			"slug": "australia",
+			"regionsFields": {
+				"sequence": 3
+			},
+			"countries": {
+				"nodes": [
+					{
+						"slug": "australia",
+						"title": "Australia",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "North America",
+			"slug": "north-america",
+			"regionsFields": {
+				"sequence": 4
+			},
+			"countries": {
+				"nodes": [
+					{
+						"slug": "noram",
+						"title": "Noram",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "South America",
+			"slug": "south-america",
+			"regionsFields": {
+				"sequence": 5
+			},
+			"countries": {
+				"nodes": [
+					{
+						"slug": "brazil",
+						"title": "Brazil",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					},
+					{
+						"slug": "chile",
+						"title": "Chile",
+						"countries": {
+							"hideonglobalpresence": false
+						}
+					}
+				]
+			}
+		}
+	],
+	"whoareyous": [
+		{
+			"title": "Developers",
+			"slug": "developers"
+		},
+		{
+			"title": "Energy Consumers",
+			"slug": "energy-consumers"
+		},
+		{
+			"title": "Financial Sector",
+			"slug": "financial-sector"
+		},
+		{
+			"title": "Utilities",
+			"slug": "utilities"
+		}
+	],
+	"howWeHelps": [
+		{
+			"title": "Asset Citing & Optimisation",
+			"slug": "asset-citing-optimisation"
+		},
+		{
+			"title": "Portfolio Valuation",
+			"slug": "portfolio-valuation"
+		},
+		{
+			"title": "PPAs",
+			"slug": "ppas"
+		},
+		{
+			"title": "Strategy",
+			"slug": "strategy"
+		},
+		{
+			"title": "Transaction Support",
+			"slug": "transactions-support"
+		}
+	],
+	"events": [
+		{
+			"title": "Topic 2024 — After the Energy Crisis: Prospects for Renewables and Batteries in Germany",
+			"slug": "topic-2024-after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
+			"featuredImage": null,
+			"events": {
+				"thumbnail": {
+					"date": "2024-05-28T00:00:00+00:00",
+					"status": "Past",
+					"time": null,
+					"logo": {
+						"node": {
+							"altText": "",
+							"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Renewables-Battery-Summit-1.png"
+						}
+					}
+				},
+				"banner": {
+					"desktop": {
+						"node": {
+							"altText": "",
+							"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Aurora-Renewables-Battery-Summit-Berlin-2024-2.jpg"
+						}
+					}
+				}
+			}
+		}
+	],
+	"webinar": [
+		{
+			"title": "Outlook for Demand Users: Ireland I-SEM Retail Price Forecast",
+			"slug": "outlook-for-demand-users-ireland-i-sem-retail-price-forecast-2",
+			"date": "2024-05-16T10:37:03",
+			"content": "<p>Due to high electricity costs, a difficult-to-maintain-grid, and no price caps to protect consumers, the I-SEM saw the highest retail prices in Europe in the second half of 2023, excluding taxes and levies, for both small (such as households) and large energy users. It is then increasingly important to consider how wholesale electricity prices, as well as fast evolving network costs, are translated into a consumer bill.</p>\n<p>In this report, we present the following:</p>\n<ul>\n<li>The additional costs a demand user must pay on top of wholesale electricity prices and how we expect these to evolve over time</li>\n<li>How we can assist the generation of a site-specific retail price for large energy users using a custom demand profile</li>\n</ul>\n<p>&nbsp;</p>\n<p>To view a recording of this Public Webinar, please see <a href=\"https://go.auroraer.com/l/885013/2024-05-16/n49y6\" target=\"_blank\" rel=\"noopener\">here</a>.</p>\n<p>If you have any questions, please get in touch with <a href=\"mailto:rebecca.cabrera@auroraer.com\"><strong>Rebecca Cabrera</strong></a><strong>.</strong></p>\n",
+			"featuredImage": {
+				"node": {
+					"altText": "",
+					"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2024/05/Website-Images-Use-This-1.png"
+				}
+			},
+			"categories": {
+				"nodes": [
+					{
+						"slug": "insight",
+						"name": "Insight"
+					},
+					{
+						"slug": "ireland",
+						"name": "Ireland"
+					},
+					{
+						"slug": "public",
+						"name": "Public"
+					},
+					{
+						"slug": "webinar-recording",
+						"name": "Webinar Recording"
+					}
+				]
+			},
+			"language": {
+				"id": "1",
+				"code": "en",
+				"language_code": "en",
+				"native_name": "English"
+			},
+			"tags": {
+				"nodes": []
+			},
+			"postFields": {
+				"time": null,
+				"speakers": null
+			}
+		}
+	],
+	"topPages": [
+		{
+			"title": "EOS Platform",
+			"url": "/eos"
+		},
+		{
+			"title": "Events",
+			"url": "/events"
+		},
+		{
+			"title": "Advisory",
+			"url": "/service/advisory"
+		},
+		{
+			"title": "Chronos",
+			"url": "/software/chronos"
+		}
+	],
+	"topSearches": [
+		{
+			"title": "Net Zero Carbon 2050",
+			"url": "/"
+		},
+		{
+			"title": "Energy Renewable Market",
+			"url": "/"
+		},
+		{
+			"title": "Battery",
+			"url": "/"
+		},
+		{
+			"title": "Net Zero Carbon 2050",
+			"url": "/"
+		}
+	],
+	"ok": true
+}

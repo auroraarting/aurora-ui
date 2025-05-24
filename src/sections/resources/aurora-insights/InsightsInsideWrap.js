@@ -53,8 +53,6 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 		item.slug.includes("report")
 	);
 
-	console.log(data, "data");
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -166,10 +164,6 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 													const dataForBtn = {
 														postFields: { btnItem: btnItem } || {},
 													};
-													console.log(
-														dynamicInsightsBtnProps(dataForBtn, "btnItem"),
-														"dataForBtn"
-													);
 
 													return (
 														<div

@@ -284,7 +284,6 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									onSubmit={(e) => {
 										e.preventDefault();
 										const val = e.target.search.value;
-										console.log("Asdasda", val);
 
 										filter(val, "search");
 									}}
