@@ -57,13 +57,20 @@ export default async function HomePage() {
 	let errorMsg;
 
 	try {
-		const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
-			getRegions(),
-			getHomePage(),
-			// eslint-disable-next-line quotes
-			getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-			getHomePageVoices(),
-		]);
+		// const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
+		// 	getRegions(),
+		// 	getHomePage(),
+		// 	// eslint-disable-next-line quotes
+		// 	getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+		// 	getHomePageVoices(),
+		// ]);
+		const regions = await getRegions();
+		const dataFetch = await getHomePage();
+		const eventsdata = await getAllEvents(
+			'first:3, where: { thumbnail: { status: "Upcoming" } }'
+		);
+		const voicesFetch = await getHomePageVoices();
+
 		mapJson = getMapJsonForAllRegions(regions);
 		data = dataFetch.data.page.homepage;
 		countries = dataFetch.data.countries.nodes;
