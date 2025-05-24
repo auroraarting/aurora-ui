@@ -526,6 +526,7 @@ export const filterItems = (items, filterObj) => {
 					const lowerSearch = filterObj.search.toLowerCase();
 					const searchText = [
 						item.title,
+						item.content,
 						item.language?.native_name,
 						itemYear.toString(),
 						...categoryNames,
@@ -910,6 +911,9 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 				// Get title
 				const title = item.title || item.events?.title || "";
 
+				// Get title
+				const content = item.content || "";
+
 				// Get country names
 				const countries =
 					item.events?.thumbnail?.country?.nodes?.map((c) => c.title) || [];
@@ -931,6 +935,7 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 				// Combine all fields into a single string for search
 				const searchableText = [
 					title,
+					content,
 					...countries,
 					...types,
 					...categories,

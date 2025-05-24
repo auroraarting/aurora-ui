@@ -8,6 +8,7 @@ query GetEvents {
     nodes {
       title
       slug
+      content
       events {
         interestedDesc
         pricingDesc
