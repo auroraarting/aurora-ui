@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -86,7 +86,7 @@ export default async function HomePage() {
 				<HomeBanner />
 				<HomeOurOfferings />
 				{data?.ourClient?.selectLogos && (
-					<div className="pb_40 pt_100">
+					<div className="ptb_40">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
