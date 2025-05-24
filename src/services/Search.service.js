@@ -274,8 +274,6 @@ export async function searchData(searchTerm) {
 	const earlyCareers = data?.earlyCareers?.nodes;
 	const countries = data?.countries?.nodes;
 
-	console.log(pages, "pages");
-
 	// const about = data?.pages?.nodes?.[0]?.about;
 	// const eos = data?.pages?.nodes?.[0]?.eos;
 	// const globalPresence = data?.pages?.nodes?.[0]?.globalPresence;
