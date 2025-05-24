@@ -48,46 +48,46 @@ async function getData() {
 	// const regionsArr = regions?.data?.regions?.nodes?.map((item) => {
 	// 	let obj = {};
 
-		obj.title = item.name;
-		if (item.countries?.nodes.length > 0) {
-			obj.children = (
-				<div className={`${styles.CountryWrapper}`}>
-					<div className={`${styles.CountryBox}`}>
-						{item.countries?.nodes?.map((item2) => {
-							if (item2?.countries?.hideonglobalpresence) return <></>;
-							return (
-								<div className={`${styles.CountryItem}`} key={item2.slug}>
-									<a href={`/global-presence/${item2.slug}`}>
-										<img
-											src={
-												item2?.featuredImage?.node?.mediaItemUrl ||
-												item2?.countries?.bannerSection?.image?.node?.mediaItemUrl
-											}
-											className={`width_100 ${styles.image}`}
-											alt={item2.title}
-										/>
-										<div className={`${styles.contentBox} f_j a_center`}>
-											<h5 className="text_reg font_primary f_w_m color_secondary ">
-												{item2.title}
-											</h5>
-											<span>
-												<img
-													src={slider_arrow.src}
-													className={`${styles.icon}`}
-													alt="arrow"
-												/>
-											</span>
-										</div>
-									</a>
-								</div>
-							);
-						})}
-					</div>
-				</div>
-			);
-		}
-		return obj;
-	});
+	// 	obj.title = item.name;
+	// 	if (item.countries?.nodes.length > 0) {
+	// 		obj.children = (
+	// 			<div className={`${styles.CountryWrapper}`}>
+	// 				<div className={`${styles.CountryBox}`}>
+	// 					{item.countries?.nodes?.map((item2) => {
+	// 						if (item2?.countries?.hideonglobalpresence) return <></>;
+	// 						return (
+	// 							<div className={`${styles.CountryItem}`} key={item2.slug}>
+	// 								<a href={`/global-presence/${item2.slug}`}>
+	// 									<img
+	// 										src={
+	// 											item2?.featuredImage?.node?.mediaItemUrl ||
+	// 											item2?.countries?.bannerSection?.image?.node?.mediaItemUrl
+	// 										}
+	// 										className={`width_100 b_r_10 ${styles.image}`}
+	// 										alt={item2.title}
+	// 									/>
+	// 									<div className="f_j a_center pt_10">
+	// 										<h5 className="text_reg font_primary f_w_m color_secondary ">
+	// 											{item2.title}
+	// 										</h5>
+	// 										<span>
+	// 											<img
+	// 												src={slider_arrow.src}
+	// 												className={`${styles.icon}`}
+	// 												alt="arrow"
+	// 											/>
+	// 										</span>
+	// 									</div>
+	// 								</a>
+	// 							</div>
+	// 						);
+	// 					})}
+	// 				</div>
+	// 			</div>
+	// 		);
+	// 	}
+	// 	return obj;
+	// });
 
 	return {
 		props: {
