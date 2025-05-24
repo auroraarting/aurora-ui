@@ -83,11 +83,8 @@ export default function CompanyContact() {
 				setthankYouMessage(false);
 			}, 5000);
 			// const result = await res.json();
-
-			console.log(res, "data");
 		} catch (error) {
 			setLoading(false);
-			console.log(error, "error");
 		}
 	};
 	return (

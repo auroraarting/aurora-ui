@@ -64,8 +64,6 @@ export default function EventsListing({
 		return () => clearTimeout(delay);
 	}, [searchInput]);
 
-	console.log(list, "list");
-
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
 		setIsSearchVisible((prev) => !prev);
@@ -195,7 +193,6 @@ export default function EventsListing({
 			const filteredArr = filterItemsBySelectedObj(data, selecObj);
 			setList(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 

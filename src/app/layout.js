@@ -23,7 +23,6 @@ export const metadata = {
 export default async function RootLayout({ children }) {
 	// const navigation = await fetchNavigationData();
 	const navigation = navigationJSON;
-	console.log(navigation, "navigation");
 
 	return (
 		<html lang="en">

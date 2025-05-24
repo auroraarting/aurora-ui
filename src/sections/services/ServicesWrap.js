@@ -47,7 +47,6 @@ export default function ServicesWrap({
 	otherList,
 }) {
 	const dataForBtn = { postFields: data.services || {} };
-	console.log(dataForBtn, "dataForBtn");
 
 	return (
 		<div>

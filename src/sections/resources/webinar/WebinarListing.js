@@ -47,7 +47,6 @@ export default function WebinarListing({
 	original,
 	setOriginal,
 }) {
-	console.log(data, "data");
 	const { search } = useContextProvider();
 	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
@@ -227,7 +226,6 @@ export default function WebinarListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 

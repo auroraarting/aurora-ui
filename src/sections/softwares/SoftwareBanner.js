@@ -85,8 +85,6 @@ export default function SoftwareBanner({
 		setIsPlaying(!isPlaying);
 	};
 
-	console.log(dynamicBtn);
-
 	return (
 		<section className={`${styles.SoftwareBanner} ptb_100`}>
 			<div className="container">

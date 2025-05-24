@@ -151,7 +151,6 @@ export default function MediaListing({
 		}
 
 		const filteredArr = filterItems(arr, selectedObj);
-		console.log(filteredArr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
@@ -197,7 +196,6 @@ export default function MediaListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 

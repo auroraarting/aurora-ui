@@ -176,7 +176,6 @@ export default function InsightsListing({
 			queryObj.service = catName;
 		}
 
-		console.log(selectedObj, "selectedObj");
 		setSelected(selectedObj);
 
 		const filteredArr = filterItems(arr, queryObj);
@@ -225,7 +224,6 @@ export default function InsightsListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 

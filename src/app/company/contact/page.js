@@ -54,8 +54,6 @@ async function getData() {
 		getContact(),
 	]);
 
-	console.log(regions, "regions");
-
 	const regionsArr = regions.data.regions.nodes
 		?.sort((a, b) => a?.regionsFields?.sequence - b?.regionsFields?.sequence)
 		.map((item) => {
@@ -146,8 +144,6 @@ export default async function ContactPage() {
 		regionsArr: props.regionsArr,
 		page: props.page,
 	};
-
-	console.log(data);
 
 	return (
 		<div>

@@ -55,10 +55,6 @@ export default function MediaMiddleDescription({ data }) {
 								const dataForBtn = {
 									postFields: { btnItem: btnItem } || {},
 								};
-								console.log(
-									dynamicInsightsBtnProps(dataForBtn, "btnItem"),
-									"dataForBtn"
-								);
 
 								return (
 									<div

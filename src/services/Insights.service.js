@@ -138,7 +138,6 @@ query GetInsightsDropDowns {
 
 /** Insights Page */
 export const getInsightsInside = async (slug) => {
-	console.log(slug, "slug");
 	const query = `
 query GetInsightsInside {
   postBy(slug: "${decodeURIComponent(slug)}") {

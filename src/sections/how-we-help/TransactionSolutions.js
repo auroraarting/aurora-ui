@@ -44,7 +44,6 @@ export default function TransactionSolutions({
 	isSlider,
 	useSpotlight,
 }) {
-	console.log(data);
 	const animTimeline = gsap.timeline({});
 	const [swiperOne, setSwiperOne] = useState(null);
 	const [swiperTwo, setSwiperTwo] = useState(null);

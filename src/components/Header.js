@@ -148,8 +148,6 @@ export default function Header({ defaultNavigation }) {
 
 	// if (!data) return <div className="stalePage"></div>;
 
-	console.log(defaultNavigation, "defaultNavigation");
-
 	return (
 		<>
 			<header className={`${styles.main_headerBox} main_headerBox`}>
