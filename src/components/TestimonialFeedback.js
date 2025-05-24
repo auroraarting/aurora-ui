@@ -36,7 +36,12 @@ export default function TestimonialFeedback({ data, hideId }) {
 
 	if (!data || !data?.testimonials) return <></>;
 	return (
-		<section className={`${styles.TestimonialFeedback}`} {...obj}>
+		<section
+			className={`${styles.TestimonialFeedback}`}
+			{...obj}
+			aria-label="testimonial"
+			title="testimonial"
+		>
 			<div className="container">
 				<div className={`${styles.testimonialBox}`}>
 					<div className={`${styles.testimonialWhiteBox}`}>
@@ -87,10 +92,14 @@ export default function TestimonialFeedback({ data, hideId }) {
 						</Swiper>
 						{data?.testimonials?.nodes?.length > 1 && (
 							<div className={`${styles.arrowSection} f_w_a_j_center`}>
-								<button className={`${styles.customPrev}`} id="customPrev">
+								<button
+									className={`${styles.customPrev}`}
+									id="customPrev"
+									role="button"
+								>
 									<img src={slider_arrow.src} alt="icon" loading="lazy" />
 								</button>
-								<button className={styles.customNext} id="customNext">
+								<button className={styles.customNext} id="customNext" role="button">
 									<img src={slider_arrow.src} alt="icon" loading="lazy" />
 								</button>
 							</div>

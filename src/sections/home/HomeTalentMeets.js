@@ -28,7 +28,11 @@ import meet_img from "../../../public/img/home/meet_img.jpg";
 /** HomeTalentMeets Section */
 export default function HomeTalentMeets() {
 	return (
-		<section className={`${styles.HomeTalentMeets} ptb_100`}>
+		<section
+			className={`${styles.HomeTalentMeets} ptb_100`}
+			aria-label="talent meets purpose section"
+			title="talent meets purpose section"
+		>
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.imageWrapper}`}>
@@ -40,7 +44,7 @@ export default function HomeTalentMeets() {
 						/>
 					</div>
 					<div className={`${styles.content}`}>
-						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
+						<h2 className="text_xl font_primary color_secondary pb_20">
 							Where talent meets purpose
 						</h2>
 						<p className="text_reg color_dark_gray">
@@ -55,6 +59,7 @@ export default function HomeTalentMeets() {
 									variant="filled"
 									shape="rounded"
 									hoverBg="white"
+									role="button"
 								>
 									Life at Aurora
 								</Button>

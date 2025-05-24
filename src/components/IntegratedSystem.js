@@ -82,7 +82,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 			<div className="container">
 				<div className={`${styles.integratedSystemFlex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
-						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
+						<h2 className="text_lg font_primary color_secondary pb_20">
 							Integrated system, endless possibilities
 						</h2>
 						<p className="text_reg color_dark_gray">

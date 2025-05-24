@@ -28,8 +28,9 @@ import styles from "@/styles/sections/home/HomeOurOfferings.module.scss";
 
 // IMAGES //
 import macEOS from "../../../public/img/home/mac-eos.png";
-import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
+import menu_hover_arrow from "../../../public/img/home/card_arrow.svg";
 import Ellipse from "../../../public/img/ellipse.png";
+import AdvisoryImg from "../../../public/img/home/advisory.jpg";
 
 // DATA //
 
@@ -105,7 +106,11 @@ export default function HomeOurOfferings() {
 		return () => clearInterval(interval);
 	}, []);
 	return (
-		<section className={`${styles.HomeOurOfferings}`}>
+		<section
+			className={`${styles.HomeOurOfferings}`}
+			aria-label="our offerings section"
+			title="our offerings section"
+		>
 			<h2 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
 				<br className="visible_lg" /> to navigate and capitalize on the global shift
@@ -140,7 +145,7 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/eos">
+								<a href="/eos" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -165,7 +170,7 @@ export default function HomeOurOfferings() {
 							style={{ backgroundColor: bgColors[bgIndex] }}
 						>
 							<div className={`${styles.Content}`}>
-								<a href="/software">
+								<a href="/software" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -199,7 +204,7 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} ${styles.LottieContent} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/products">
+								<a href="/products" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -232,9 +237,9 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox} cardHBg`}>
+						<div className={`${styles.itemBox} ${styles.advisoryBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/service/advisory">
+								<a href="/service/advisory" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
@@ -248,9 +253,9 @@ export default function HomeOurOfferings() {
 								</p>
 							</div>
 							<img
-								src={macEOS.src}
+								src={AdvisoryImg.src}
 								alt="Advisory"
-								className={`${styles.BoxImg} m_0_auto`}
+								className={`${styles.BoxImg} m_0_auto b_r_10`}
 							/>
 						</div>
 					</SwiperSlide>

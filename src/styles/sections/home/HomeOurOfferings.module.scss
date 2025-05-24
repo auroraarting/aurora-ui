@@ -60,6 +60,15 @@
 				p {
 					color: var(--color_secondary);
 				}
+				canvas {
+					position: relative;
+					top: -100px;
+				}
+			}
+			&.advisoryBox {
+				display: flex;
+				flex-wrap: wrap;
+				padding-bottom: 20px;
 			}
 		}
 		.softwareAnim {

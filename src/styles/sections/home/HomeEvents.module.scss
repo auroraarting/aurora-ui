@@ -26,7 +26,7 @@
 				}
 				.tag {
 					background-color: var(--color_blue);
-					padding: 12px 12px;
+					padding: 8px 12px;
 					border-radius: 8px;
 					width: max-content;
 					margin-top: 30px;
@@ -74,9 +74,11 @@
 				background-color: unset;
 				border: none;
 				cursor: pointer;
+				padding: 0px;
 			}
 			.customPrev {
 				rotate: 180deg;
+				margin-right: 10px;
 			}
 		}
 	}

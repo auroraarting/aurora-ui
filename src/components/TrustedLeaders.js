@@ -90,6 +90,8 @@ export default function TrustedLeaders({
 			className={`${styles.TrustedLeaders} TrustedLeaders`}
 			id="ourClients"
 			data-name="Our Clients"
+			aria-label="our Clients"
+			title="our Clients"
 		>
 			<div className="container">
 				<div className="pb_40">

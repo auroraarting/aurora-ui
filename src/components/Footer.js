@@ -69,7 +69,7 @@ export default function Footer({ defaultNavigation }) {
 						<div className={`${styles.footerMenuFlex}`}>
 							<div className={`${styles.footerMenuItem_left}`}>
 								<div className={`${styles.footerLogo}`}>
-									<Link href="/">
+									<Link href="/" role="button">
 										<img src={footer_logo.src} alt="logo" />
 									</Link>
 								</div>
@@ -80,6 +80,7 @@ export default function Footer({ defaultNavigation }) {
 												href="https://x.com/i/flow/login?redirect_after_login=%2Fauroraer_oxford"
 												target="_blank"
 												rel="noreferrer"
+												role="button"
 											>
 												<img src={x.src} alt="x" />
 											</Link>
@@ -89,6 +90,7 @@ export default function Footer({ defaultNavigation }) {
 												href="https://www.linkedin.com/company/aurora-energy-research-limited"
 												target="_blank"
 												rel="noreferrer"
+												role="button"
 											>
 												<img src={footer_linkedin.src} alt="x" />
 											</Link>
@@ -98,6 +100,7 @@ export default function Footer({ defaultNavigation }) {
 												href="https://www.youtube.com/channel/UCp62kF6LHu7IycqpxQ7IqbQ"
 												target="_blank"
 												rel="noreferrer"
+												role="button"
 											>
 												<img src={footer_youtube.src} alt="youtube" />
 											</Link>
@@ -107,6 +110,7 @@ export default function Footer({ defaultNavigation }) {
 												href="https://soundcloud.com/user-564729441"
 												target="_blank"
 												rel="noreferrer"
+												role="button"
 											>
 												<img src={soundcloud.src} alt="soundcloud" />
 											</Link>
@@ -118,16 +122,21 @@ export default function Footer({ defaultNavigation }) {
 								<div className={`${styles.footerMenuInnerFlex}`}>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<Link href="/company/about">About Us</Link>
+											<Link href="/company/about" role="button">
+												About Us
+											</Link>
 										</li>
 										<li
 											className={`${styles.sub_menu_box} ${
 												toggleState === 1 && styles.drop_down_active
 											}`}
 											onClick={() => toggleTab(1)}
+											role="button"
+											aria-haspopup="true"
+											aria-expanded="true"
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a href="/who-are-you" className="">
+												<a href="/who-are-you" className="" role="button">
 													Who Are You
 												</a>
 												<img
@@ -145,7 +154,7 @@ export default function Footer({ defaultNavigation }) {
 												{data?.whoareyous?.map((item, ind) => {
 													return (
 														<p key={ind}>
-															<a href={`/who-are-you/${item?.slug}`}>
+															<a href={`/who-are-you/${item?.slug}`} role="button">
 																<span className="">{item?.title}</span>
 															</a>
 															<img
@@ -163,9 +172,12 @@ export default function Footer({ defaultNavigation }) {
 												toggleState === 2 && styles.drop_down_active
 											}`}
 											onClick={() => toggleTab(2)}
+											role="button"
+											aria-haspopup="true"
+											aria-expanded="true"
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a href="/how-we-help" className="">
+												<a href="/how-we-help" className="" role="button">
 													How We Help
 												</a>
 												<img
@@ -183,7 +195,7 @@ export default function Footer({ defaultNavigation }) {
 												{data?.howWeHelps?.map((item, ind) => {
 													return (
 														<p key={ind}>
-															<a href={`/how-we-help/${item?.slug}`}>
+															<a href={`/how-we-help/${item?.slug}`} role="button">
 																<span className="">{item?.title}</span>
 															</a>
 															<img
@@ -201,9 +213,14 @@ export default function Footer({ defaultNavigation }) {
 												toggleState === 3 && styles.drop_down_active
 											}`}
 											onClick={() => toggleTab(3)}
+											role="button"
+											aria-haspopup="true"
+											aria-expanded="true"
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a href="/careers">Careers</a>
+												<a href="/careers" role="button">
+													Careers
+												</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -217,7 +234,7 @@ export default function Footer({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.sub_menu_list}`}>
 												<p>
-													<a href="/careers/early-careers">
+													<a href="/careers/early-careers" role="button">
 														<span className="">Early Careers</span>
 													</a>
 													<img
@@ -227,7 +244,7 @@ export default function Footer({ defaultNavigation }) {
 													/>
 												</p>
 												<p>
-													<a href="/careers/faq">
+													<a href="/careers/faq" role="button">
 														<span className="">Faq</span>
 													</a>
 													<img
@@ -237,7 +254,7 @@ export default function Footer({ defaultNavigation }) {
 													/>
 												</p>
 												<p>
-													<a href="/careers/join-us">
+													<a href="/careers/join-us" role="button">
 														<span className="">Join Us</span>
 													</a>
 													<img
@@ -247,7 +264,7 @@ export default function Footer({ defaultNavigation }) {
 													/>
 												</p>
 												<p>
-													<a href="/careers/life-at-aurora">
+													<a href="/careers/life-at-aurora" role="button">
 														<span className="">Life at Aurora</span>
 													</a>
 													<img
@@ -257,7 +274,7 @@ export default function Footer({ defaultNavigation }) {
 													/>
 												</p>
 												<p>
-													<a href="/careers/our-team">
+													<a href="/careers/our-team" role="button">
 														<span className="">Our Team</span>
 													</a>
 													<img
@@ -271,16 +288,23 @@ export default function Footer({ defaultNavigation }) {
 									</ul>
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<a href="/eos">EOS Platform</a>
+											<a href="/eos" role="button">
+												EOS Platform
+											</a>
 										</li>
 										<li
 											className={`${styles.sub_menu_box} ${
 												toggleState === 4 && styles.drop_down_active
 											}`}
 											onClick={() => toggleTab(4)}
+											role="button"
+											aria-haspopup="true"
+											aria-expanded="true"
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a href="/software">Software</a>
+												<a href="/software" role="button">
+													Software
+												</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -296,7 +320,7 @@ export default function Footer({ defaultNavigation }) {
 												{data?.softwares?.map((item, ind) => {
 													return (
 														<p key={ind}>
-															<a href={`/software/${item?.slug}`}>
+															<a href={`/software/${item?.slug}`} role="button">
 																<span className="">{item?.title}</span>
 															</a>
 															<img
@@ -344,9 +368,14 @@ export default function Footer({ defaultNavigation }) {
 												toggleState === 5 && styles.drop_down_active
 											}`}
 											onClick={() => toggleTab(5)}
+											role="button"
+											aria-haspopup="true"
+											aria-expanded="true"
 										>
 											<div className={`${styles.sub_menu_flex} d_f`}>
-												<a href="/products">Subscription Analytics</a>
+												<a href="/products" role="button">
+													Subscription Analytics
+												</a>
 												<img
 													src={white_plus_arrow.src}
 													className={`${styles.white_plus_arrow}`}
@@ -362,7 +391,7 @@ export default function Footer({ defaultNavigation }) {
 												{data?.products?.map((item, ind) => {
 													return (
 														<p key={ind}>
-															<a href={`/products/${item?.slug}`}>
+															<a href={`/products/${item?.slug}`} role="button">
 																<span className="">{item?.title}</span>
 															</a>
 															<img
@@ -408,7 +437,9 @@ export default function Footer({ defaultNavigation }) {
 										{data?.services?.map((item, ind) => {
 											return (
 												<li key={ind}>
-													<a href={`/service/${item?.slug}`}>{item?.title}</a>
+													<a href={`/service/${item?.slug}`} role="button">
+														{item?.title}
+													</a>
 												</li>
 											);
 										})}
@@ -416,22 +447,34 @@ export default function Footer({ defaultNavigation }) {
 
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<a href="/company/press-releases">Press</a>
+											<a href="/company/press-releases" role="button">
+												Press
+											</a>
 										</li>
 										<li>
-											<a href="/events">Events</a>
+											<a href="/events" role="button">
+												Events
+											</a>
 										</li>
 										<li>
-											<a href="/resources">Resources</a>
+											<a href="/resources" role="button">
+												Resources
+											</a>
 										</li>
 										<li>
-											<a href="/company/contact">Contact Us</a>
+											<a href="/company/contact" role="button">
+												Contact Us
+											</a>
 										</li>
 									</ul>
 								</div>
 							</div>
 						</div>
-						<div className={`${styles.footerGlobal} m_t_30`} onClick={togglePopup}>
+						<div
+							className={`${styles.footerGlobal} m_t_30`}
+							onClick={togglePopup}
+							role="button"
+						>
 							<p className="font_primary color_white f_r_aj_between">
 								<span>Global Presence</span>
 								<img
@@ -450,13 +493,19 @@ export default function Footer({ defaultNavigation }) {
 							<div className={`${styles.footerBtmItem}`}>
 								<ul>
 									<li className="color_silver_gray">
-										<a href="/legal/terms">Terms</a>
+										<a href="/legal/terms" role="button">
+											Terms
+										</a>
 									</li>
 									<li className="color_silver_gray">
-										<a href="/legal/cookies">Cookies</a>
+										<a href="/legal/cookies" role="button">
+											Cookies
+										</a>
 									</li>
 									<li className="color_silver_gray">
-										<a href="/policies-and-compliance">Policies and Compliance</a>
+										<a href="/policies-and-compliance" role="button">
+											Policies and Compliance
+										</a>
 									</li>
 								</ul>
 							</div>
@@ -466,6 +515,7 @@ export default function Footer({ defaultNavigation }) {
 									className="text_reg text_500"
 									target="_blank"
 									rel="noreferrer"
+									role="button"
 								>
 									<img src={ting_logo.src} alt="ting logo" />
 								</a>
@@ -484,6 +534,7 @@ export default function Footer({ defaultNavigation }) {
 							aria-label="Close menu"
 							className={styles.close_btn}
 							onClick={closePopup}
+							role="button"
 						>
 							<img src={popup_close.src} alt="" />
 						</button>
@@ -494,6 +545,7 @@ export default function Footer({ defaultNavigation }) {
 										<div
 											className={`${styles.CountryHeading}`}
 											onClick={() => toggleTab(ind + 1)}
+											role="button"
 										>
 											<p className="text_md f_w_m color_white font_primary">
 												{item?.name}
@@ -516,7 +568,9 @@ export default function Footer({ defaultNavigation }) {
 													if (country?.countries?.hideonglobalpresence) return null;
 													return (
 														<li key={index} className="text_xs color_platinum_gray">
-															<a href={`/global-presence/${country.slug}`}>{country?.title}</a>
+															<a href={`/global-presence/${country.slug}`} role="button">
+																{country?.title}
+															</a>
 														</li>
 													);
 												})}

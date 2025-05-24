@@ -1,5 +1,9 @@
 @import "../../helpers/helpers.scss";
 .HomeResources {
+	background-image: url("../../../../public/img/home/resources_bg.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
 	.publicFlex {
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
