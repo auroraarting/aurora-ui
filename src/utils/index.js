@@ -529,16 +529,24 @@ export const filterItems = (items, filterObj) => {
 					const sectionContent =
 						item?.postFields?.sections?.map((p) => p?.content) || [];
 					const mediaContactTitles =
-						item?.postFields?.mediaContact?.map((item) => item?.name) || [];
+						item?.postFields?.mediaContact?.map((p) => p?.name) || [];
 					const mediaContactDesc =
-						item?.postFields?.mediaContact?.map((item) => item?.designation) || [];
+						item?.postFields?.mediaContact?.map((p) => p?.designation) || [];
 					const testimonialsTitles =
-						item?.postFields?.testimonials?.nodes?.map((item) => item?.title) || [];
+						item?.postFields?.testimonials?.nodes?.map((p) => p?.title) || [];
 					const testimonialsContent =
-						item?.postFields?.testimonials?.nodes?.map((item) => item?.content) || [];
+						item?.postFields?.testimonials?.nodes?.map((p) => p?.content) || [];
 					const testimonialsDesignation =
 						item?.postFields?.testimonials?.nodes?.map(
-							(item) => item?.testimonials?.designation
+							(p) => p?.testimonials?.designation
+						) || [];
+					const authorsTitle =
+						item?.postFields?.authors?.nodes?.map((p) => p?.title) || [];
+					const authorsContent =
+						item?.postFields?.authors?.nodes?.map((p) => p?.content) || [];
+					const authorsDesignation =
+						item?.postFields?.authors?.nodes?.map(
+							(p) => p?.postAuthors?.thumbnail?.designation
 						) || [];
 
 					const searchText = [
@@ -548,8 +556,11 @@ export const filterItems = (items, filterObj) => {
 						item?.postFields?.mediaContact,
 						item.language?.native_name,
 						itemYear.toString(),
+						...authorsTitle,
+						...authorsContent,
 						...testimonialsTitles,
 						...testimonialsContent,
+						...authorsDesignation,
 						...mediaContactTitles,
 						...testimonialsDesignation,
 						...mediaContactDesc,

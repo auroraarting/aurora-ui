@@ -46,6 +46,7 @@ export default function InsightsListing({
 	original,
 	setOriginal,
 }) {
+	console.log(data, "data");
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
 	const [list, setList] = useState(data);
