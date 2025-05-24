@@ -38,7 +38,7 @@ export const metadata = {
 async function getData() {
 	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
 		getInsights(
-			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+			'first: 99, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 		getInsightsCategories(),
 		getInsights(

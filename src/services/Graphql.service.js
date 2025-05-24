@@ -13,7 +13,7 @@ export default async function GraphQLAPI(query) {
 		res = await req.json();
 		return res;
 	} catch (error) {
-		req = await req.text();
+		// req = await req.text();
 		console.log(error, req, "errror");
 	}
 }
