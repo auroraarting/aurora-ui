@@ -62,9 +62,9 @@ export default function EnergyInsideTopSection({ data, socialLinks }) {
 							)}
 						</div>
 						<div className={`${styles.dateBox}`}>
-							<div className={`${styles.downloadListenBox} f_w_j a_center`}>
-								<div className={`${styles.downloadListen}`}>
-									<div className={`${styles.downloadBox} f_r_a_center`}>
+							<div className={`${styles.downloadListenBox}  f_w_j a_center`}>
+								<div className={`${styles.downloadListen} downloadListen`}>
+									<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
 										<p className="text_xs f_w_m font_primary color_secondary text_uppercase">
 											Stream on
 										</p>

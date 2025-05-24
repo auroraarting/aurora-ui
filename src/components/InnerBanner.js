@@ -20,7 +20,7 @@ import pause_button from "../../public/img/icons/pause_button.svg";
 import video_play from "../../public/img/icons/video_play.svg";
 
 // UTILS //
-import { dynamicInsightsBtnProps } from "@/utils";
+import { dynamicInsightsBtnProps, removeHTML } from "@/utils";
 
 /** Inner Banner component */
 function InnerBanner({
@@ -65,7 +65,8 @@ function InnerBanner({
 				<div className={`${styles.flexBox} f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
-							<ContentFromCms>{bannerTitle}</ContentFromCms>
+							{/* <ContentFromCms>{bannerTitle}</ContentFromCms> */}
+							{removeHTML(bannerTitle)}
 						</h1>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>

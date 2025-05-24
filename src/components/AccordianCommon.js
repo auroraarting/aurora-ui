@@ -30,7 +30,12 @@ export default function AccordianCommon({
 	defaultActiveId = 0,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
-	const [activeIndex, setActiveIndex] = useState(defaultActiveId);
+	const [activeIndex, setActiveIndex] = useState(
+		items?.map((item, ind) => {
+			if (ind === 0) return true;
+			return false;
+		})
+	);
 	const [heights, setHeights] = useState([]);
 	const [widthOfImg, setWidthOfImg] = useState(0);
 	const contentRefs = useRef([]);
@@ -58,7 +63,9 @@ export default function AccordianCommon({
 	};
 	/** toggleAccordion */
 	const toggleAccordion = (index) => {
-		setActiveIndex(activeIndex === index ? null : index);
+		let arr = [...activeIndex];
+		arr[index] = !arr[index];
+		setActiveIndex(arr);
 	};
 
 	useEffect(() => {
@@ -109,7 +116,7 @@ export default function AccordianCommon({
 							</div>
 						</div>
 						<span className="icon">
-							{activeIndex === index ? (
+							{activeIndex[index] ? (
 								<img
 									src={minus_icon.src}
 									className={`${styles.AccImgMinus} AccImgMinus`}
@@ -129,11 +136,11 @@ export default function AccordianCommon({
 					{item.children && (
 						<div
 							className={`${styles.accordionContent} ${
-								activeIndex === index ? styles.active : ""
+								activeIndex[index] ? styles.active : ""
 							}`}
 							ref={(el) => (contentRefs.current[index] = el)}
 							style={{
-								height: activeIndex === index ? `${heights[index]}px` : "0px",
+								height: activeIndex[index] ? `${heights[index]}px` : "0px",
 								overflow: "hidden",
 								transition: "height 0.3s ease",
 								paddingLeft: `${widthOfImg}px`,
@@ -141,7 +148,7 @@ export default function AccordianCommon({
 						>
 							<div
 								className={`${
-									activeIndex === index ? styles.activeInner : ""
+									activeIndex[index] ? styles.activeInner : ""
 								} activeSpace`}
 							>
 								{item.children}

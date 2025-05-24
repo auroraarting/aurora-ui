@@ -440,7 +440,13 @@ export default function EnergyListing({
 										onClick={() => filter(searchInput, "search")}
 									/>
 									{/* Close Button */}
-									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+									<div
+										className={`${styles.closeBox}`}
+										onClick={() => {
+											closeSearchInput();
+											filter("", "search");
+										}}
+									>
 										<span className="text_xs">X</span>
 									</div>
 								</span>
