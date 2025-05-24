@@ -6,66 +6,299 @@ export const getInsights = async (filterString = "first:9999") => {
 query GetInsights {
   posts(${filterString}) {
     nodes {
-      title
-      slug
-      date
-      content
-      featuredImage {
-        node {
-          altText
-          mediaItemUrl
+          title
+    slug
+    date
+    content
+    featuredImage {
+      node {
+        altText
+        mediaItemUrl
+      }
+    }
+    categories(first: 9999) {
+      nodes {
+        slug
+        name
+      }
+    }
+    language {
+      id
+      code
+      language_code
+      native_name
+    }
+    tags(first: 9999) {
+      nodes {
+        name
+        slug
+      }
+    }
+    postFields {
+      appleLink
+      otherLink
+      googleLink
+      topSectionButton {
+        iframe
+        buttonText
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
         }
       }
-      categories(first: 9999) {
-        nodes {
-          slug
-          name
+      middleSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
         }
       }
-      language {
-        id
-        code
-        language_code
-        native_name
-      }
-      tags(first: 9999) {
-        nodes {
-          name
-          slug
+      bottomSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
         }
       }
-      postFields {
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      spotifyLink
       time
-        speakers {
-          nodes {
-            ... on PostSpeaker {
-              id
-              title
-              slug
-              postSpeakers {
-                sessions {
-                  address
-                  time
-                  timeSlot
-                  title
-                }
-                thumbnail {
-                  designation
-                  linkedinLink
-                  image {
-                    node {
-                      altText
-                      mediaItemUrl
-                    }
+      youtubeLink
+      authors {
+        nodes {
+          ... on PostAuthor {
+            content
+            title
+            slug
+            postAuthors {
+              thumbnail {
+                linkedinLink
+                designation
+                image {
+                  node {
+                    altText
+                    mediaItemUrl
                   }
                 }
               }
-              content
             }
           }
         }
       }
+      speakers {
+        nodes {
+          ... on PostSpeaker {
+            title
+            slug
+            postSpeakers {
+              thumbnail {
+                designation
+                linkedinLink
+                image {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      client {
+        title
+        image {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      podcast
+      poweredBy {
+        nodes {
+          ... on Product {
+            id
+            products {
+              thumbnail {
+                primaryColor
+              }
+              map {
+                logo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+              banner {
+                logo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+            title
+            slug
+          }
+          contentType {
+            node {
+              id
+              label
+              name
+              uri
+            }
+          }
+          ... on Service {
+            id
+            title
+            slug
+            contentType {
+              node {
+                name
+                uri
+                label
+              }
+            }
+            services {
+              thumbnail {
+                primaryColor
+              }
+              map {
+                logo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+              banner {
+                logo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+          ... on Software {
+            id
+            title
+            slug
+            contentType {
+              node {
+                label
+                name
+              }
+            }
+            softwares {
+              thumbnail {
+                primaryColor
+              }
+              banner {
+                logo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+              map {
+                logo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      testimonials {
+        nodes {
+          ... on Testimonial {
+            id
+            content
+            title
+            slug
+            testimonials {
+              designation
+            }
+          }
+        }
+      }
+      recordingSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      sections {
+        content
+        sectionTitle
+        lottie {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        buttons {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+      mediaContact {
+        designation
+        name
+        email {
+          text
+        }
+        phone {
+          text
+        }
+      }
+      about {
+        content
+        sectionTitle
+      }
+      insights {
+        desc
+        title
+      }
     }
+  }
   }
 }
     `;

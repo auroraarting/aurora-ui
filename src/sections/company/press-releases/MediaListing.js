@@ -42,6 +42,7 @@ export default function MediaListing({
 	languages,
 	countries,
 }) {
+	console.log(data, "data");
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
 	const [original, setOriginal] = useState(data);

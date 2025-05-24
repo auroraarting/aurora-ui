@@ -40,11 +40,11 @@ query GetWebinars {
       slug
       content(format: RAW)
       featuredImage {
-      node {
-        altText
-        mediaItemUrl
+        node {
+          altText
+          mediaItemUrl
+        }
       }
-    }
       webinarTags(first: 9999) {
         nodes {
           name
@@ -94,6 +94,10 @@ query GetWebinars {
               slug
             }
           }
+        }
+        sections {
+          content
+          tabTitle
         }
       }
     }

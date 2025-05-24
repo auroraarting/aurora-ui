@@ -52,6 +52,7 @@ export default function EnergyTalksWrap({
 	energyTalksPage,
 	socialLinks,
 }) {
+	console.log(data, "data");
 	const [original, setOriginal] = useState(data);
 	return (
 		<div>
