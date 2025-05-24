@@ -65,13 +65,13 @@ export default async function HomePage() {
 		// 	getHomePageVoices(),
 		// ]);
 		const regions = await getRegions();
-		await new Promise((res) => setTimeout(res, 1000));
+		await new Promise((res) => setTimeout(res, 200));
 		const dataFetch = await getHomePage();
-		await new Promise((res) => setTimeout(res, 1000));
+		await new Promise((res) => setTimeout(res, 200));
 		const eventsdata = await getAllEvents(
 			'first:3, where: { thumbnail: { status: "Upcoming" } }'
 		);
-		await new Promise((res) => setTimeout(res, 1000));
+		await new Promise((res) => setTimeout(res, 200));
 		const voicesFetch = await getHomePageVoices();
 
 		mapJson = getMapJsonForAllRegions(regions);
