@@ -170,8 +170,8 @@ export default function EnergyTalkInsideWrap({
 						insightsLink="/resources/energy-talks/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 						customHtml={
-							<div className={`${styles.downloadListen}`}>
-								<div className={`${styles.downloadBox} f_r_a_center`}>
+							<div className={`${styles.downloadListen} downloadListen`}>
+								<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
 									{socialLinks?.map((item) => {
 										return (
 											<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
