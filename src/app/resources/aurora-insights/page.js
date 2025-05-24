@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -38,7 +38,7 @@ export const metadata = {
 async function getData() {
 	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
 		getInsights(
-			'first: 99, where: {categoryName: "case-studies,commentary,market-reports"}'
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 		getInsightsCategories(),
 		getInsights(
