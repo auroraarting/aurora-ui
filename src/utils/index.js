@@ -548,7 +548,7 @@ export const filterItems = (items, filterObj) => {
 /** filterItems for resources */
 export const filterItemsForPodcast = (podcasts, selected) => {
 	return podcasts.filter((podcast) => {
-		const { podcastFields, date } = podcast;
+		const { podcastFields, date, content } = podcast;
 
 		// Country
 		const countries = podcastFields.country?.nodes || [];
@@ -605,6 +605,7 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 
 					const searchableText = [
 						title,
+						content,
 						...countryTitles,
 						...softwareTitles,
 						...productTitles,
