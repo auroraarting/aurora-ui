@@ -207,8 +207,6 @@ export default function EventsListing({
 		}
 	}, [search]);
 
-	console.log(data, "data");
-
 	return (
 		<section className={styles.EventsListing}>
 			<div className={styles.filterMain}>

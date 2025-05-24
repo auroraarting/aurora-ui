@@ -47,7 +47,6 @@ export default function WebinarListing({
 	original,
 	setOriginal,
 }) {
-	console.log(data, "data");
 	const { search } = useContextProvider();
 	const [list, setList] = useState(data);
 	const [selected, setSelected] = useState({});
