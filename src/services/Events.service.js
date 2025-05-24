@@ -11,75 +11,192 @@ query GetEvents {
       content
       events {
         interestedDesc
-        pricingDesc
-        thumbnail {
+      pricingDesc
+      thumbnail {
+        address
+        date
+        endDate
+        status
+        time
+        logo {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        country {
+          nodes {
+            ... on Country {
+              id
+              title
+              slug
+            }
+          }
+        }
+      }
+      breakdown {
+        sectionDesc
+        sectionTitle
+        desktopImage {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        mobileImage {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      downloads {
+        link
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        type {
+          nodes {
+            ... on Eventdownload {
+              id
+              name
+              eventDownloads {
+                icon {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      glimps {
+        sectionTitle
+        gallery {
+          nodes {
+            altText
+            mediaItemUrl
+          }
+        }
+        video
+      }
+      hightlights {
+        sectionTitle
+        hightlights {
+          text
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+    middleSectionButton{
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      location {
+        address
+        mapLink
+        desc
+      }
+      speakers {
+        sectionDesc
+        sectionTitle
+        speakers {
+          sessions {
+            address
+            time
+            timeSlot
+            title
+          }
+          speakers {
+            nodes {
+              ... on PostSpeaker {
+                id
+                content
+                title
+                slug
+                postSpeakers {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      sponsors {
+        sectionTitle
+        sponsors {
+          title
+          gallery {
+            nodes {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+      topSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      whyAttend {
+      desc
+        agenda {
           address
-          date
-          status
           time
-          externalUrl
-          logo {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          country {
+          timeSlot
+          title
+          speaker {
             nodes {
-              ... on Country {
+              ... on PostSpeaker {
                 id
                 title
                 slug
-              }
-            }
-          }
-          category(first: 999) {
-            nodes {
-              contentType {
-                node {
-                  name
-                }
-              }
-              ... on Service {
-                id
-                slug
-                title
-                content
-                services {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
-                    }
-                  }
-                }
-              }
-              ... on Software {
-                id
-                title
-                slug
-                content
-                softwares {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
-                    }
-                  }
-                }
-              }
-              ... on Product {
-                id
-                title
-                slug
-                content
-                products {
-                  map {
-                    logo {
+                postSpeakers {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
                       node {
                         altText
                         mediaItemUrl
@@ -91,20 +208,21 @@ query GetEvents {
             }
           }
         }
-        banner {
-          desktop {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          mobile {
-            node {
-              altText
-              mediaItemUrl
-            }
+      }
+      banner {
+        desktop {
+          node {
+            altText
+            mediaItemUrl
           }
         }
+        mobile {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
       }
       eventscategories {
         nodes {

@@ -523,14 +523,40 @@ export const filterItems = (items, filterObj) => {
 		// 4. 🔍 Enhanced Search
 		const matchSearch = filterObj.search
 			? (() => {
-					const lowerSearch = filterObj.search.toLowerCase();
+					const lowerSearch = filterObj.search.toLowerCase() || [];
+					const sectionTitles =
+						item?.postFields?.sections?.map((p) => p?.sectionTitle) || [];
+					const sectionContent =
+						item?.postFields?.sections?.map((p) => p?.content) || [];
+					const mediaContactTitles =
+						item?.postFields?.mediaContact?.map((item) => item?.name) || [];
+					const mediaContactDesc =
+						item?.postFields?.mediaContact?.map((item) => item?.designation) || [];
+					const testimonialsTitles =
+						item?.postFields?.testimonials?.nodes?.map((item) => item?.title) || [];
+					const testimonialsContent =
+						item?.postFields?.testimonials?.nodes?.map((item) => item?.content) || [];
+					const testimonialsDesignation =
+						item?.postFields?.testimonials?.nodes?.map(
+							(item) => item?.testimonials?.designation
+						) || [];
+
 					const searchText = [
 						item.title,
 						item.content,
+						item?.postFields?.about?.content,
+						item?.postFields?.mediaContact,
 						item.language?.native_name,
 						itemYear.toString(),
+						...testimonialsTitles,
+						...testimonialsContent,
+						...mediaContactTitles,
+						...testimonialsDesignation,
+						...mediaContactDesc,
 						...categoryNames,
 						...categorySlugs,
+						sectionTitles,
+						sectionContent,
 					]
 						.filter(Boolean)
 						.join(" ")
@@ -602,11 +628,15 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 					const serviceTitles = poweredBy
 						.filter((p) => p.contentType.node.name === "services")
 						.map((p) => p.title);
+					const sectionTitles = podcastFields?.sections?.map((p) => p?.sectionTitle);
+					const sectionContent = podcastFields?.sections?.map((p) => p?.content);
 					const year = date ? new Date(date).getFullYear().toString() : "";
 
 					const searchableText = [
 						title,
 						content,
+						sectionTitles,
+						sectionContent,
 						...countryTitles,
 						...softwareTitles,
 						...productTitles,
@@ -695,12 +725,17 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 						.filter((p) => p.contentType.node.name === "services")
 						.map((p) => p.title);
 					const webinarTagsTitles = webinarTags.nodes.map((p) => p.name);
-					//
 					const year = date ? new Date(date).getFullYear().toString() : "";
+					const sectionTitles = webinarsFields?.sections?.map(
+						(p) => p?.sectionTitle
+					);
+					const sectionContent = webinarsFields?.sections?.map((p) => p?.content);
 
 					const searchableText = [
 						content,
 						title,
+						sectionTitles,
+						sectionContent,
 						...countryTitles,
 						...categoryNames,
 						...softwareTitles,
@@ -932,10 +967,32 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 				const date = item.events?.thumbnail?.date;
 				const year = date ? new Date(date).getFullYear().toString() : "";
 
+				const speakersTitle =
+					item.events?.speakers?.speakers?.flatMap((item) =>
+						item?.speakers?.nodes?.map((item2) => item2?.title)
+					) || [];
+				const speakersContent =
+					item.events?.speakers?.speakers?.flatMap((item) =>
+						item?.speakers?.nodes?.map((item2) => item2?.content)
+					) || [];
+				const speakersDesignation =
+					item.events?.speakers?.speakers?.flatMap((item) =>
+						item?.speakers?.nodes?.map(
+							(item2) => item2?.postSpeakers?.thumbnail?.designation
+						)
+					) || [];
+
 				// Combine all fields into a single string for search
 				const searchableText = [
 					title,
 					content,
+					item?.events?.interestedDesc,
+					item?.events?.pricingDesc,
+					item?.events?.location?.address,
+					item?.events?.location?.desc,
+					...speakersTitle,
+					...speakersContent,
+					...speakersDesignation,
 					...countries,
 					...types,
 					...categories,
