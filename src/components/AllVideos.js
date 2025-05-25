@@ -70,24 +70,28 @@ export default function AllVideos({
 					</div>
 					<div className={`${styles.imageWrapper}`}>
 						{!iframe && (
-							<LightGallery
-								speed={500}
-								plugins={[lgThumbnail, lgZoom, lgVideo]}
-								mobileSettings={{ closable: true }}
-							>
-								<a href={videoLink} data-src={videoLink}>
-									<img
-										src={videoThumbnail}
-										className={`${styles.videoThumbnail} img b_r_10`}
-										alt="video thumbnail"
-									/>
-									<img
-										src={video_play.src}
-										className={`${styles.playIcon} `}
-										alt="play"
-									/>
-								</a>
-							</LightGallery>
+							<div style={{ pointerEvents: videoLink ? "all" : "none" }}>
+								<LightGallery
+									speed={500}
+									plugins={[lgThumbnail, lgZoom, lgVideo]}
+									mobileSettings={{ closable: true }}
+								>
+									<a href={videoLink} data-src={videoLink}>
+										<img
+											src={videoThumbnail}
+											className={`${styles.videoThumbnail} img b_r_10`}
+											alt="video thumbnail"
+										/>
+										{videoLink && (
+											<img
+												src={video_play.src}
+												className={`${styles.playIcon} `}
+												alt="play"
+											/>
+										)}
+									</a>
+								</LightGallery>
+							</div>
 						)}
 						{iframe && <ContentFromCms>{iframe}</ContentFromCms>}
 					</div>

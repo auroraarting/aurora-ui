@@ -64,12 +64,23 @@ async function getData({ params }) {
 			getPodcastInside(params.slug),
 			getPodcasts("first: 1"),
 			getInsightsCategories(),
-			getPodcasts("first: 5"),
+			getPodcasts(),
 			getEnergyTalksPageSocialLinks(),
 		]);
+
 	const otherList = list?.data?.podcasts?.nodes
-		.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
-		.slice(0, 3);
+		?.filter(
+			(item) =>
+				item?.slug !== data?.data?.podcastBy?.slug &&
+				new Date(item?.podcastFields?.date) <
+					new Date(data.data.podcastBy.podcastFields.date) // published before now
+		)
+		?.sort(
+			(a, b) => new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date)
+		)
+		?.slice(0, 3);
+
+	console.log(otherList, "otherList");
 	return {
 		props: {
 			data: data.data.podcastBy,

@@ -69,15 +69,17 @@ export default function EnergyTalksWrap({
 			{/* Page Content starts here */}
 			<main className={styles.EnergyPage}>
 				{/* <Breadcrumbs /> */}
-				<div className={`${styles.topBg}`}>
-					<InnerBanner
-						bannerTitle={energyTalksPage?.banner?.title}
-						bannerDescription={energyTalksPage.banner?.desc}
-						showContentOnly
-					/>
-				</div>
-				<div>
-					<TopEnergy data={data[0]} />
+				<div className={`${styles.gradient} gradient`}>
+					<div className={`${styles.topBg}`}>
+						<InnerBanner
+							bannerTitle={energyTalksPage?.banner?.title}
+							bannerDescription={energyTalksPage.banner?.desc}
+							showContentOnly
+						/>
+					</div>
+					<div>
+						<TopEnergy data={data[0]} />
+					</div>
 				</div>
 				<div className="pt_60 pb_100">
 					<EnergyListing
