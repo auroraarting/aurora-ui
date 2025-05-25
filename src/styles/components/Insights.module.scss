@@ -6,6 +6,18 @@
 			color: var(--color_silver_gray);
 		}
 	}
+
+	:global {
+		.downloadListen {
+			display: grid;
+			place-items: center;
+			.downloadBox {
+				img {
+					width: 47px;
+				}
+			}
+		}
+	}
 	.insightsBg {
 		backdrop-filter: blur(32px);
 		border-radius: 40px;

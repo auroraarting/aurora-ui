@@ -277,3 +277,10 @@ section {
 .relative {
 	position: relative;
 }
+
+.gradient {
+	background-image: url("/img/insights_wrap_bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top left;
+}
