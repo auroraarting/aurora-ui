@@ -256,11 +256,11 @@ export default function CompanyContact() {
 						{loading ? "Submiting..." : "Submit"}
 					</Button>
 				</div>
-				{/* {thankYouMessage && ( */}
-				<h2 className="text_sm font_primary color_primary pt_20">
-					Thank you for your details, we will get back to you soon
-				</h2>
-				{/* )} */}
+				{thankYouMessage && (
+					<h2 className="text_sm font_primary color_primary pt_20">
+						Thank you for your details, we will get back to you soon
+					</h2>
+				)}
 			</form>
 		</div>
 	);
