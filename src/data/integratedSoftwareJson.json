@@ -1,0 +1,136 @@
+[
+	{
+		"title": "",
+		"slug": "origin",
+		"softwares": {
+			"map": {
+				"logo": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "/img/integratedLogo/origin.svg"
+					}
+				}
+			},
+			"thumbnail": {
+				"primaryColor": "#ffcc00",
+				"banner": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Origin.jpg"
+					}
+				}
+			}
+		},
+		"placeholder": "/img/softwares/system_one.jpg"
+	},
+	{
+		"title": "",
+		"slug": "amun",
+		"softwares": {
+			"map": {
+				"logo": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "/img/integratedLogo/amun.svg"
+					}
+				}
+			},
+			"thumbnail": {
+				"primaryColor": "#00be86",
+				"banner": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun.jpg"
+					}
+				}
+			}
+		},
+		"placeholder": "/img/softwares/turbine_img.jpg"
+	},
+	{
+		"title": "",
+		"slug": "chronos",
+		"softwares": {
+			"map": {
+				"logo": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "/img/integratedLogo/chronos.svg"
+					}
+				}
+			},
+			"thumbnail": {
+				"primaryColor": "#00b6ed",
+				"banner": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Chronos.jpg"
+					}
+				}
+			}
+		},
+		"placeholder": "/img/softwares/solar_img.jpg"
+	},
+	{
+		"title": "",
+		"slug": "lumus",
+		"softwares": {
+			"map": {
+				"logo": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "/img/integratedLogo/lumus.svg"
+					}
+				}
+			},
+			"thumbnail": {
+				"primaryColor": "#0069b4",
+				"banner": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
+					}
+				}
+			}
+		},
+		"placeholder": "/img/softwares/system_one.jpg"
+	},
+	{
+		"title": "",
+		"slug": "nodalexplorer",
+		"softwares": {
+			"primaryColor": "#3c3c3b",
+			"banner": {
+				"node": {
+					"altText": "",
+					"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
+				}
+			}
+		},
+		"placeholder": "/img/softwares/turbine_img.jpg"
+	},
+	{
+		"title": "",
+		"slug": "amun",
+		"softwares": {
+			"map": {
+				"logo": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "/img/integratedLogo/amun.svg"
+					}
+				}
+			},
+			"thumbnail": {
+				"primaryColor": "#00be86",
+				"banner": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun.jpg"
+					}
+				}
+			}
+		},
+		"placeholder": "/img/softwares/turbine_img.jpg"
+	}
+]

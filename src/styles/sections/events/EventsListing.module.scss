@@ -27,8 +27,12 @@
 					.select_header_wapper {
 						border-right: 1px solid var(--color_platinum_gray);
 						padding: 0px 15px;
+						height: 71px;
 						@media screen and (max-width: 1199px) {
 							padding: 0px 8px;
+						}
+						@media screen and (min-width: 768px) and (max-width: 991px) {
+							height: 65px;
 						}
 
 						@media screen and (max-width: 767px) {
@@ -239,6 +243,7 @@
 
 				&.widthCustom {
 					width: 20%;
+					align-items: flex-start;
 					@media (max-width: 767px) {
 						width: 100%;
 					}

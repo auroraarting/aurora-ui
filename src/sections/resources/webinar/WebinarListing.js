@@ -25,8 +25,8 @@ import formatDate, {
 import styles from "@/styles/sections/resources/webinar/WebinarListing.module.scss";
 
 // IMAGES //
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
+import location from "@/../public/img/icons/grey_location.svg";
+import calender from "@/../public/img/icons/grey_calendar.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import searchImg from "@/../public/img/icons/search.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
@@ -328,7 +328,7 @@ export default function WebinarListing({
 							</div>
 						</div>
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -378,7 +378,7 @@ export default function WebinarListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}

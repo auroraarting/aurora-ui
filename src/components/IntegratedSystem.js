@@ -35,11 +35,13 @@ import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 
 // DATA //
 const placeholders = [system_one.src, turbine_img.src, solar_img.src];
+import integratedSoftware from "@/data/integratedSoftwareJson.json";
 
 /** IntegratedSystem Section */
 export default function IntegratedSystem({ module = "softwares" }) {
 	const [data, setData] = useState();
 	const link = module === "softwares" ? "/software" : "/products";
+	console.log(data, "data");
 
 	/** keyModule  */
 	const keyModule = () => {
@@ -56,20 +58,18 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		let res;
 
 		if (module === "softwares") {
-			let resdata = await fetch("/api/softwares");
-			res = await resdata.json();
+			res = {
+				data: {
+					[module]: {
+						nodes: integratedSoftware,
+					},
+				},
+			};
 		} else {
 			let resdata = await fetch("/api/products");
 			res = await resdata.json();
 		}
-		let arr = res?.data?.[module]?.nodes?.map((item) => {
-			if (count > 2) {
-				count = 0;
-			} else {
-				count = count + 1;
-			}
-			return { ...item, placeholder: placeholders[count] };
-		});
+		let arr = res?.data?.[module]?.nodes;
 		setData(arr);
 	};
 
@@ -139,7 +139,10 @@ export default function IntegratedSystem({ module = "softwares" }) {
 											>
 												<div className={`${styles.itemBoxWrap}`}>
 													<img
-														src={item?.[module]?.thumbnail?.banner?.node?.mediaItemUrl}
+														src={
+															item?.[module]?.thumbnail?.banner?.node?.mediaItemUrl ||
+															system_one.src
+														}
 														height={215}
 														width={277}
 														className={`${styles.imgOne} `}
@@ -157,7 +160,12 @@ export default function IntegratedSystem({ module = "softwares" }) {
 														/>
 														<p className="color_white text_xxs f_w_b pt_10">{item?.title}</p>
 													</div>
-													<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
+													<div
+														className={`${styles.hoverBox} ${styles.hoverBoxOne}`}
+														style={{
+															backgroundColor: item?.[module]?.thumbnail?.primaryColor,
+														}}
+													>
 														<div
 															// href={`/${module}/${item?.slug}`}
 															className="text_xs text_uppercase f_w_m"

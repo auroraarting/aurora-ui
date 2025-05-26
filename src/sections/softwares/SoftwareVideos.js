@@ -43,7 +43,7 @@ export default function SoftwareVideos() {
 						<div className={`${styles.productLogoBox}`}>
 							<div className={`${styles.videoBox}`}>
 								<LightGallery speed={500} plugins={[lgThumbnail, lgZoom, lgVideo]}>
-									<div data-src={product_logo.src}>
+									<div data-src="https://vimeo.com/1067644103">
 										<img
 											src={product_logo.src}
 											className={`${styles.videoThumbnail} img b_r_10`}
