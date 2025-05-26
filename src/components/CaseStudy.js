@@ -74,7 +74,7 @@ export default function CaseStudy({ data, countries = [] }) {
 					<div className={`${styles.ImgBox}`}>
 						<img
 							src={first?.[0]?.featuredImage?.node?.mediaItemUrl}
-							className={`${styles.plant_img} img width_100`}
+							className={`${styles.plant_img} img width_100 b_r_20`}
 							alt={data?.title}
 						/>
 					</div>

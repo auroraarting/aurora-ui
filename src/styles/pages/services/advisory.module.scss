@@ -1,4 +1,6 @@
 .AdvisoryPage {
 	background-color: var(--color_silver);
-	
+	:global(.accordionContent){
+		padding-left: 0px !important;
+	}
 }
