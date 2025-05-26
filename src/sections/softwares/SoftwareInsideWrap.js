@@ -109,14 +109,16 @@ export default function SoftwareInsideWrap({
 						/>
 					</div>
 				)}
-				<GlobalMap locationJson={mapJson} />
+				<div className="m_b_100">
+					<GlobalMap locationJson={mapJson} />
+				</div>
 				{/* {data?.caseStudy?.title && ( */}
-				<div className="pt_100">
+				<div className="pb_100">
 					<CaseStudy data={data?.caseStudy} countries={countries} />
 				</div>
 				{/* )} */}
 				{data?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className={`${styles.TrustOurExpertsBg} pb_100`}>
 						<TrustedLeaders data={data?.ourClient} />
 					</div>
 				)}
@@ -152,7 +154,7 @@ export default function SoftwareInsideWrap({
 				</div>
 				<SmarterEnergy data={data?.expertise} />
 				{data?.expertSupport?.list?.length > 0 && (
-					<div className="ptb_100">
+					<div className="pb_100">
 						<TrustOurExperts data={data?.expertSupport} />
 					</div>
 				)}
