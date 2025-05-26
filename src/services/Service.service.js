@@ -31,10 +31,10 @@ query GetProductBySlug {
           from
           to
         }
-                  title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
+        title
+        shortDescription
+        spotlightTitle
+        spotlightDesc
       }
       ourClient {
         selectLogos(first: 999) {
@@ -215,6 +215,16 @@ query GetProductBySlug {
       insights {
         sectionDesc
         sectionTitle
+      }
+      keyAdvantageSectionButton {
+        buttonText
+        iframe
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
       }
     }
   }

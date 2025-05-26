@@ -114,6 +114,7 @@ export default function AuroraInsightsWrap({
 							redirectLink={insightsPage?.video?.redirectLink}
 							videoLink={insightsPage?.video?.videoLink}
 							videoThumbnail={insightsPage?.video?.videoThumbnail?.node?.mediaItemUrl}
+							iframe={insightsPage?.video?.iframe}
 						/>
 					</div>
 				)}

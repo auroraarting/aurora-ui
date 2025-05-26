@@ -2,9 +2,10 @@
 .WhichProducts {
 	.common_queries_faq {
 		.content_wrap {
-			padding-left: 55px;
+			// padding-left: 55px;
+			width: 80%;
 			@media (max-width: 767px) {
-				padding-left: 55px;
+				// padding-left: 55px;
 			}
 		}
 	}

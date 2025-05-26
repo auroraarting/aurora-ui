@@ -395,6 +395,10 @@ export default function Insights({
 	// 	sectionId["data-name"] = "Insights";
 	// }
 
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [data]);
+
 	return (
 		<section className={`${styles.Insights} Insights`} {...sectionId}>
 			<div className="containerLarge">
