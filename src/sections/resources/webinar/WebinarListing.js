@@ -328,7 +328,7 @@ export default function WebinarListing({
 							</div>
 						</div>
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -378,7 +378,7 @@ export default function WebinarListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}

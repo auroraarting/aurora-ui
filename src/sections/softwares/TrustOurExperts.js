@@ -52,7 +52,7 @@ export default function TrustOurExperts({ data }) {
 					<div className={`${styles.placeholderImg} pt_40`}>
 						<img
 							src={data?.image?.node?.mediaItemUrl}
-							className={`${styles.img}`}
+							className={`${styles.img} b_r_20`}
 							alt="Expert support"
 						/>
 					</div>

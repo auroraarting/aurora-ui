@@ -304,7 +304,7 @@ export default function EventsListing({
 						</div>
 
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -353,7 +353,7 @@ export default function EventsListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 
 						{/* Event Status Type Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>

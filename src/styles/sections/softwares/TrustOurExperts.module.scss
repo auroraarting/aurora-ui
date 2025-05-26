@@ -1,22 +1,28 @@
 @import "../../helpers/helpers.scss";
 .TrustOurExperts {
+	h2{
+		width: 48%;
+		@include lg-down {
+			width: 100%;
+		}
+	}
 	.wrap {
 		display: flex;
-		gap: 100px;
+		gap: 90px;
 
 		.trustOurBox {
 			display: grid;
 			grid-template-columns: repeat(1, 1fr);
 			grid-gap: 0px;
-			width: 50%;
+			width: 45%;
 
 			@include lg-down {
 				width: 100%;
 			}
 
 			.trustOurItemOne {
-				padding-top: 20px;
-				padding-bottom: 20px;
+				padding-top: 15px;
+				padding-bottom: 15px;
 				border-bottom: 1px solid #e5e5e5;
 				display: flex;
 				gap: 20px;
@@ -27,7 +33,7 @@
 			}
 		}
 		.placeholderImg {
-			width: 50%;
+			width: 55%;
 			@include lg-down {
 				width: 100%;
 			}
