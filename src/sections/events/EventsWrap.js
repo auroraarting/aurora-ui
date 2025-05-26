@@ -47,15 +47,17 @@ export default function EventsWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.eventsPage}>
-				<div className={`${styles.topBg}`}>
-					<InnerBanner
-						bannerTitle={page?.banner?.title}
-						bannerDescription={page?.banner?.desc}
-						showContentOnly
-					/>
-				</div>
-				<div>
-					<TopEvents list={page?.featured?.nodes} />
+				<div className={`${styles.gradient} gradient`}>
+					<div className={`${styles.topBg}`}>
+						<InnerBanner
+							bannerTitle={page?.banner?.title}
+							bannerDescription={page?.banner?.desc}
+							showContentOnly
+						/>
+					</div>
+					<div>
+						<TopEvents list={page?.featured?.nodes} />
+					</div>
 				</div>
 				<div className="pt_60">
 					<EventsListing
