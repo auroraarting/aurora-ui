@@ -541,16 +541,16 @@ export default function EventsListing({
 											alt="Events Logo"
 										/>
 										<p
-											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
 										>
 											{item?.eventscategories?.nodes?.map((item2) => item2.name)}
 										</p>
 										<p
-											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
 										>
 											{item?.title}
 										</p>
-										<div className={`${styles.dateFlex} f_j pt_30`}>
+										<div className={`${styles.dateFlex} f_j pt_40`}>
 											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={calender.src}

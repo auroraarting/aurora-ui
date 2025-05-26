@@ -50,13 +50,13 @@ export default function AllVideos({
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.content}`}>
 						<h4
-							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase pb_40`}
 						>
 							{sectionName}
 						</h4>
 
 						<h2 className="text_xl font_primary f_w_m color_white pb_20">{title}</h2>
-						<p className="text_reg color_dark_gray pb_20">{desc}</p>
+						<p className="text_reg color_dark_gray pb_40">{desc}</p>
 						<a
 							href={redirectLink}
 							target="_blank"
@@ -79,7 +79,7 @@ export default function AllVideos({
 									<a href={videoLink} data-src={videoLink}>
 										<img
 											src={videoThumbnail}
-											className={`${styles.videoThumbnail} img b_r_10`}
+											className={`${styles.videoThumbnail} img b_r_20`}
 											alt="video thumbnail"
 										/>
 										{videoLink && (
