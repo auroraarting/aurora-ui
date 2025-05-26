@@ -3,6 +3,9 @@ import { useRef, useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import EventSmarterEnergy from "@/components/EventSmarterEnergy";
+import Insights from "@/components/Insights";
+import ContentFromCms from "@/components/ContentFromCms";
+
 // SECTIONS //
 import JobOpenings from "./JobOpenings";
 // PLUGINS //
@@ -16,8 +19,7 @@ import styles from "@/styles/sections/careers/DepartmentList.module.scss";
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import linKed from "../../../public/img/icons/linkedin.svg";
 import advisoryMain from "../../../public/img/careers/advisoryMain.jpg";
-import Insights from "@/components/Insights";
-import ContentFromCms from "@/components/ContentFromCms";
+import hoverEffect from "../../../public/img/events/hoverEffect.png";
 import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
@@ -178,14 +180,19 @@ export default function DepartmentList({ data, jobs, departments }) {
 									className={`${styles.leadDetailsFlex} f_w_j ptb_50 dark_bg b_r_20`}
 								>
 									<div className={`${styles.leadDetailsItem}`}>
-										<img
-											src={
-												data?.categories?.[selectedDepartment]?.leader?.node?.teams
-													?.thumbnail?.image?.node?.mediaItemUrl
-											}
-											className="b_r_20"
-											alt={data?.categories?.[selectedDepartment]?.leader?.node?.title}
-										/>
+										<div className={`${styles.leadThumb}`}>
+											<img
+												src={
+													data?.categories?.[selectedDepartment]?.leader?.node?.teams
+														?.thumbnail?.image?.node?.mediaItemUrl
+												}
+												className="b_r_20"
+												alt={data?.categories?.[selectedDepartment]?.leader?.node?.title}
+											/>
+											<div className={`${styles.popUp}`}>
+												<img src={hoverEffect.src} className="b_r_20" alt=" img" />
+											</div>
+										</div>
 									</div>
 									<div className={`${styles.leadDetailsItem}`}>
 										<div className={`${styles.leadDetailsContent}`}>

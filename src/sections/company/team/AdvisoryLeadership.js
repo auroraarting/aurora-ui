@@ -252,6 +252,9 @@ export default function AdvisoryLeadership({ data, countries }) {
 																className="b_r_20"
 																alt="story img"
 															/>
+															<div className={`${styles.popUp}`}>
+																<img src={hoverEffect.src} className="b_r_20" alt=" img" />
+															</div>
 															{/* <div className={`${styles.profileDownload}`}>
 																<a
 																	href={item.downloadProfileUrl}
