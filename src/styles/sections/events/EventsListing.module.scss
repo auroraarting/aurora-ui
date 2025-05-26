@@ -334,15 +334,13 @@
 				border-bottom: 1px solid var(--color_platinum_gray);
 				border-right: none;
 			}
-			&:nth-child(3) {
-				border-right: none;
-			}
-			&:nth-child(6) {
+			&:nth-child(3n),
+			&:last-child {
 				border-right: none;
 			}
 			.hoverBox {
 				position: relative;
-				padding: 20px 20px;
+				padding: 40px 20px;
 				border-radius: 20px;
 				.productLogo {
 					position: relative;
@@ -367,6 +365,7 @@
 					-webkit-line-clamp: 3;
 					-webkit-box-orient: vertical;
 					overflow: hidden;
+					height: 106px;
 				}
 				.dateFlex {
 					align-items: center;
