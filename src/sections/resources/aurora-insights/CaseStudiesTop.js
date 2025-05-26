@@ -19,6 +19,7 @@ import styles from "@/styles/sections/resources/aurora-insights/CaseStudiesTop.m
 import plant_img from "/public/img/resources/aurora_insights/plant_img.jpg";
 import download from "/public/img/resources/aurora_insights/download.svg";
 import play from "/public/img/resources/aurora_insights/play.svg";
+import pause_icon from "/public/img/resources/aurora_insights/pause_icon.svg";
 import share from "/public/img/resources/aurora_insights/share.svg";
 import copy from "/public/img/resources/aurora_insights/copy.svg";
 import calender from "/public/img/icons/calender.svg";
@@ -90,7 +91,11 @@ export default function CaseStudiesTop({ data }) {
 											onClick={Speechify}
 											className="text_sm f_w_m font_primary f_r_a_center speechify_wrap"
 										>
-											<img src={play.src} alt="play" />
+											{/* <img src={play.src} alt="play" /> */}
+											<img
+												src={isPlaying ? pause_icon.src : play.src}
+												alt={isPlaying ? "pause" : "play"}
+											/>
 											<span>{isPlaying ? "Pause" : "Listen"}</span>
 										</a>
 									</div>
