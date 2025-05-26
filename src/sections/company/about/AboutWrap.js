@@ -116,7 +116,7 @@ export default function AboutWrap({
 				)}
 				<div className="">
 					<Counter
-						className=""
+						className="black_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
