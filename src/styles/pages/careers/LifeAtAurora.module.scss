@@ -1,8 +1,11 @@
 @import "../../helpers/helpers.scss";
 .LifeAtAuroraPage {
 	background-color: var(--color_silver);
+	.countBg {
+		background-color: var(--color_secondary);
+	}
 	.EarlyMain {
-		background-color: var(--color_black);
+		background-color: var(--color_secondary);
 	}
 	.containerCustom {
 		:global(.containerLarge) {
