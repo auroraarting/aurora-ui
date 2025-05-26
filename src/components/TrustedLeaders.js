@@ -29,60 +29,6 @@ export default function TrustedLeaders({
 	data,
 	sectionTitle = "Trusted by industry leaders",
 }) {
-	const LogoData = [
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-	];
-
 	if (!data || !data?.selectLogos) return <></>;
 
 	return (
@@ -111,7 +57,8 @@ export default function TrustedLeaders({
 
 				<div className={`${styles.box_wrap}`}>
 					<Swiper
-						slidesPerView={2}
+						slidesPerGroup={5} // scroll 5 columns = 10 items with 2 rows
+						slidesPerView={5}
 						grid={{
 							fill: "row", // This is important for row layout
 							rows: 2,
@@ -123,6 +70,7 @@ export default function TrustedLeaders({
 						breakpoints={{
 							768: {
 								slidesPerView: 3,
+								slidesPerGroup: 3,
 								grid: {
 									fill: "row", // This is important for row layout
 									rows: 2,
@@ -130,6 +78,7 @@ export default function TrustedLeaders({
 							},
 							1024: {
 								slidesPerView: 5,
+								slidesPerGroup: 5,
 								grid: {
 									rows: 2,
 								},

@@ -94,7 +94,27 @@ export default function ServicesWrap({
 					}
 				/>
 				<SmarterEnergy data={data?.services?.expertise} />
-				<ServicesCircle data={data?.services?.keyAdvantages} />
+				<ServicesCircle
+					data={data?.services?.keyAdvantages}
+					customHtml={
+						<>
+							{dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionButton")
+								?.btntext && (
+								<div
+									{...dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionButton")}
+									className="pt_40"
+								>
+									<Button color="white" variant="filled" shape="rounded">
+										{
+											dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionButton")
+												?.btntext
+										}
+									</Button>
+								</div>
+							)}
+						</>
+					}
+				/>
 				{data?.services?.caseStudy?.title && (
 					<div className="ptb_100">
 						<CaseStudy data={data?.services?.caseStudy} countries={countries} />
@@ -116,8 +136,12 @@ export default function ServicesWrap({
 						<TestimonialFeedback data={data?.services?.ourClient} />
 					</div>
 				)}
-				<div className="ptb_100 dark_bg">
-					<div className="pb_100">
+				<div className="ptb_100 dark_bg relative">
+					<img
+						className={`${styles.bgGradient} bgGradientEos`}
+						src="/img/eos-bg-gradient.png"
+					/>
+					<div className="">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />
@@ -140,7 +164,7 @@ export default function ServicesWrap({
 					<IntegratedSystem />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

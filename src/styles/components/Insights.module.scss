@@ -132,6 +132,7 @@
 					margin-top: 0px;
 				}
 				.ItemBox {
+					height: 100%;
 					width: 33.333%;
 					padding: 0px 25px;
 					border-right: 1px solid var(--color_dark_gray);
@@ -154,7 +155,14 @@
 							border-bottom: none;
 						}
 					}
+					> a {
+						height: 100%;
+						display: block;
+					}
 					.hoverBox {
+						height: 100%;
+						display: flex;
+						flex-direction: column;
 						position: relative;
 						min-height: 190px;
 						transition: 0.3s all;
@@ -181,6 +189,7 @@
 							overflow: hidden;
 						}
 						.dateFlex {
+							margin-top: auto;
 							align-items: center;
 							p {
 								span {

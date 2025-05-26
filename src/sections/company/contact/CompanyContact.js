@@ -100,10 +100,20 @@ export default function CompanyContact() {
 							type="text"
 							id="name"
 							name="name"
-							{...register("name", { required: true })}
+							{...register("name", {
+								required: true,
+								validate: (value) =>
+									!/<[^>]*script|<[^>]+>/gi.test(value) || "Invalid characters detected",
+							})}
 						/>
 						{errors.name && errors.name.type == "required" && (
 							<label className="error">This field is required</label>
+						)}
+						{errors.name && errors.name.type == "required" && (
+							<label className="error">This field is required</label>
+						)}
+						{errors.name && errors.name.type == "validate" && (
+							<label className="error">Invalid characters detected!</label>
 						)}
 					</div>
 					<div className={styles.formGroup}>
@@ -115,10 +125,17 @@ export default function CompanyContact() {
 							type="text"
 							id="lastname"
 							name="lastname"
-							{...register("lastname", { required: true })}
+							{...register("lastname", {
+								required: true,
+								validate: (value) =>
+									!/<[^>]*script|<[^>]+>/gi.test(value) || "Invalid characters detected",
+							})}
 						/>
 						{errors.lastname && errors.lastname.type == "required" && (
 							<label className="error">This field is required</label>
+						)}
+						{errors.lastname && errors.lastname.type == "validate" && (
+							<label className="error">Invalid characters detected!</label>
 						)}
 					</div>
 				</div>
@@ -132,10 +149,14 @@ export default function CompanyContact() {
 							type="text"
 							id="company"
 							name="company"
-							{...register("company", { required: true })}
+							{...register("company", {
+								required: true,
+								validate: (value) =>
+									!/<[^>]*script|<[^>]+>/gi.test(value) || "Invalid characters detected",
+							})}
 						/>
-						{errors.company && errors.company.type == "required" && (
-							<label className="error">This field is required</label>
+						{errors.company && errors.company.type == "validate" && (
+							<label className="error">Invalid characters detected!</label>
 						)}
 					</div>
 					<div className={styles.formGroup}>
@@ -147,10 +168,17 @@ export default function CompanyContact() {
 							type="text"
 							id="jobtitle"
 							name="jobtitle"
-							{...register("jobtitle", { required: true })}
+							{...register("jobtitle", {
+								required: true,
+								validate: (value) =>
+									!/<[^>]*script|<[^>]+>/gi.test(value) || "Invalid characters detected",
+							})}
 						/>
 						{errors.jobtitle && errors.jobtitle.type == "required" && (
 							<label className="error">This field is required</label>
+						)}
+						{errors.jobtitle && errors.jobtitle.type == "validate" && (
+							<label className="error">Invalid characters detected!</label>
 						)}
 					</div>
 				</div>
@@ -167,6 +195,8 @@ export default function CompanyContact() {
 							{...register("email", {
 								required: true,
 								pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+								validate: (value) =>
+									!/<[^>]*script|<[^>]+>/gi.test(value) || "Invalid characters detected",
 							})}
 						/>
 						{errors.email && errors.email.type == "required" && (
@@ -174,6 +204,9 @@ export default function CompanyContact() {
 						)}
 						{errors.email && errors.email.type == "pattern" && (
 							<label className="error">Enter valid email</label>
+						)}
+						{errors.email && errors.email.type == "validate" && (
+							<label className="error">Invalid characters detected!</label>
 						)}
 					</div>
 					<div className={styles.formGroup}>
@@ -240,10 +273,15 @@ export default function CompanyContact() {
 							rows={5}
 							{...register("message", {
 								required: true,
+								validate: (value) =>
+									!/<[^>]*script|<[^>]+>/gi.test(value) || "Invalid characters detected",
 							})}
 						/>
 						{errors.message && errors.message.type == "required" && (
 							<label className="error">This field is required</label>
+						)}
+						{errors.message && errors.message.type == "validate" && (
+							<label className="error">Invalid characters detected!</label>
 						)}
 					</div>
 				</div>
