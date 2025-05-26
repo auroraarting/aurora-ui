@@ -98,7 +98,7 @@ export default function WhoAreYouInsideWrap({
 				<SmarterEnergy data={data?.whoAreYous?.expertise} />
 				<div>
 					<GlobalMap
-						className="black_bg"
+						className=""
 						locationJson={mapJson}
 						marqueeText={data?.whoAreYous?.availableRegions?.marqueeText}
 					/>
@@ -135,7 +135,7 @@ export default function WhoAreYouInsideWrap({
 					</div>
 					<div className="pb_100">
 						<Bundles data={bundles} />
-					</div> 
+					</div>
 				</div>
 				<div className="ptb_100">
 					<Insights
