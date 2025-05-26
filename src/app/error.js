@@ -16,17 +16,7 @@ export default function Error({ error, reset }) {
 		<main className={`${styles.not_found_page}`}>
 			<div className={styles.not_found_wrap}>
 				<h2 className={styles.title}>Error</h2>
-				<p className={`${styles.desp} text_center`}>
-					The page that you are
-					<br /> looking for does not exist!
-				</p>
-				<Link href={"/"}>
-					<div className={styles.home_btn}>
-						<Button color="primary" variant="filled" shape="rounded">
-							Go to Homepage
-						</Button>
-					</div>
-				</Link>
+				<p className={`${styles.desp} text_center`}>Something went wrong!</p>
 			</div>
 		</main>
 	);
