@@ -5,7 +5,7 @@
 	.CircleGrid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		grid-column-gap: 220px;
+		grid-column-gap: 170px;
 		align-items: center;
 		@media (max-width: 1199px) {
 			grid-column-gap: 50px;

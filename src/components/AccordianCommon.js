@@ -137,7 +137,7 @@ export default function AccordianCommon({
 						<div
 							className={`${styles.accordionContent} ${
 								activeIndex[index] ? styles.active : ""
-							}`}
+							} accordionContent`}
 							ref={(el) => (contentRefs.current[index] = el)}
 							style={{
 								height: activeIndex[index] ? `${heights[index]}px` : "0px",

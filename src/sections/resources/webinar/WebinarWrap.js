@@ -97,11 +97,11 @@ export default function WebinarTalksWrap({
 						]}
 					/>
 				</div>
-				<div className="ptb_100">
+				{/* <div className="ptb_100">
 					<PastSpeakers data={pastSpeakers} />
-				</div>
+				</div> */}
 				{webinarpage?.video?.sectionTitle && (
-					<div className="pb_100">
+					<div className="ptb_100">
 						<AllVideos
 							sectionName="Latest Videos"
 							title={webinarpage?.video?.sectionTitle}
