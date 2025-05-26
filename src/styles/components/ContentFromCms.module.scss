@@ -2,9 +2,10 @@
 
 .contentFromCms {
 	a {
-		color: #0070f3; /* blue-ish link color */
-		text-decoration: underline; /* underline to show it's a link */
-		font-weight: 500; /* slightly bold */
+		// color: #0070f3;
+		color: #3c3c3b;
+		text-decoration: underline;
+		font-weight: 500;
 		transition: background-color 0.2s ease, color 0.2s ease;
 	}
 	p {
