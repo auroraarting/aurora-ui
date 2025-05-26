@@ -18,7 +18,7 @@
 	.content_main_wrap {
 		position: relative;
 		@media (max-width: 767px) {
-			padding-left: 15px;
+			padding: 0px 15px;
 		}
 	}
 	.box_wrap {
@@ -188,6 +188,18 @@
 				z-index: 1;
 			}
 		}
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
 	}
 	.PopupItem {
 		&::-webkit-scrollbar {
@@ -206,6 +218,19 @@
 				img {
 					@media (max-width: 767px) {
 						width: 170px;
+					}
+				}
+				.popUp{
+					position: absolute;
+					bottom: 0;
+					right: 0px;
+					width: 100%;
+    			height: auto;
+					img{
+						width: 100%;
+						@media (max-width: 767px) {
+							width: 170px;
+						}
 					}
 				}
 				.profileDownload {
