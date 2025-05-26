@@ -35,7 +35,7 @@ export default function EnergyMiddleRight({ data, events }) {
 				<div className={`${styles.whiteBox} ${styles.speaker}`}>
 					{data?.podcastFields?.speakers?.nodes && (
 						<div className={`${styles.itemBox}`}>
-							<h5 className="text_reg color_gray f_w_b pb_10">Speakers</h5>
+							<h5 className="text_reg color_gray f_w_b pb_10">Guests</h5>
 							{data?.podcastFields?.speakers?.nodes?.map((item, ind) => {
 								return (
 									<div
@@ -154,7 +154,7 @@ export default function EnergyMiddleRight({ data, events }) {
 					<h5
 						className={`${styles.subTxt} text_reg color_gray f_w_b pb_10 font_primary`}
 					>
-						Upcoming Podcast
+						Latest Podcast
 					</h5>
 					<div className={`${styles.itemBox}`}>
 						{events?.map((item, ind) => {

@@ -32,7 +32,7 @@
 			}
 		}
 		.imageWrapper {
-			width: 50%;
+			// width: 50%;
 			overflow: hidden;
 
 			img {
@@ -40,7 +40,7 @@
 				height: 100%;
 			}
 			@media (max-width: 1199px) {
-				width: 54%;
+				// width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;

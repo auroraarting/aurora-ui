@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
@@ -73,15 +75,52 @@ async function getData({ params, query }) {
 		countryBy = data?.data?.countryBy;
 		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	}
-	const [insights, categoriesForSelect, events, webinars] = await Promise.all([
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-		),
-		getInsightsCategories(),
-		getAllEvents('first:1,where: { thumbnail: { status: "Upcoming" } }'),
-		getWebinars("first:3"),
-	]);
+	const [insights, categoriesForSelect, eventsFetch, webinarsFetch] =
+		await Promise.all([
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
+			getInsightsCategories(),
+			getAllEvents("first:9999"),
+			getWebinars("first:9999"),
+		]);
 	const insightsList = insights?.data?.posts?.nodes;
+	const webinars = webinarsFetch?.data?.webinars?.nodes?.filter((item) =>
+		item?.webinarsFields?.country?.nodes?.some(
+			(item2) => item2?.slug === params.slug
+		)
+	);
+	const events = eventsFetch?.data?.events?.nodes?.filter((item) =>
+		item?.events?.thumbnail?.country?.nodes?.some(
+			(item2) => item2?.slug === params.slug
+		)
+	);
+	console.log(eventsFetch, "events");
+
+	const webinarList =
+		webinars?.length > 0
+			? webinars?.sort(
+					(a, b) =>
+						new Date(a?.webinarsFields?.startDateAndTime) -
+						new Date(b?.webinarsFields?.startDateAndTime)
+			  )
+			: webinarsFetch?.data?.webinars?.nodes?.sort(
+					(a, b) =>
+						new Date(a?.webinarsFields?.startDateAndTime) -
+						new Date(b?.webinarsFields?.startDateAndTime)
+			  );
+	const eventsList =
+		events?.length > 0
+			? events?.sort(
+					(a, b) =>
+						new Date(a?.events?.thumbnail?.date) -
+						new Date(b?.events?.thumbnail?.date)
+			  )
+			: eventsFetch?.data?.events?.nodes?.sort(
+					(a, b) =>
+						new Date(a?.events?.thumbnail?.date) -
+						new Date(b?.events?.thumbnail?.date)
+			  );
 
 	// Return 404 if no valid data
 	if (!countryBy) {
@@ -96,8 +135,8 @@ async function getData({ params, query }) {
 			mapJson,
 			insightsList,
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
-			events: events.data.events.nodes,
-			webinars: webinars?.data?.webinars?.nodes || [],
+			events: eventsList.slice(0, 1) || [],
+			webinars: webinarList?.slice(0, 3) || [],
 		},
 	};
 }
