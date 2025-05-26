@@ -97,7 +97,7 @@ export default function Speakers({ data, title, desc }) {
 									data-slide={ind}
 								>
 									<div className={`${styles.thumbnailImg}`}>
-										<img src={item?.thumbnail} className="b_r_20" alt="story img" />
+										<img src={item?.thumbnail} className="b_r_20" alt={item?.name} />
 									</div>
 									<div className={`${styles.content} pt_20`}>
 										<h5 className="text_reg f_w_m color_white font_secondary">
@@ -149,7 +149,7 @@ export default function Speakers({ data, title, desc }) {
 												<div className={`${styles.PopupItem}`}>
 													<div className={`${styles.BoxFlex} f_w`}>
 														<div className={styles.Imgthumbnail}>
-															<img src={item.thumbnail} className="b_r_20" alt="story img" />
+															<img src={item.thumbnail} className="b_r_20" alt={item.name} />
 														</div>
 														<div className={`${styles.Details}`}>
 															<div className={`${styles.boxName}`}>
@@ -203,7 +203,7 @@ export default function Speakers({ data, title, desc }) {
 																		</div>
 																		<div className={`${styles.ClientFlex} f_r_a_center`}>
 																			<div className={`${styles.ClientLogo}`}>
-																				<img src={item.thumbnail} alt="pic" />
+																				<img src={item.thumbnail} alt={item.name} />
 																			</div>
 																			<div className={`${styles.ClientDescription}`}>
 																				<h5 className="text_xs font_primary color_white f_w_m">

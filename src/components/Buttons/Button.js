@@ -22,6 +22,7 @@ export default function Button({
 	color,
 	variant,
 	mode,
+	hoverBg,
 	size = "text_sm",
 }) {
 	return (
@@ -33,6 +34,7 @@ export default function Button({
 				${styles[`btn_${variant}`]}
 				${styles[shape]}
 				${styles[`mode_${mode}`]}
+                ${styles[`hover_${hoverBg}`]}
 				`}
 		>
 			<div className={`${styles.textWrap}`}>

@@ -54,8 +54,6 @@ async function getData() {
 		getContact(),
 	]);
 
-	console.log(regions, "regions");
-
 	const regionsArr = regions.data.regions.nodes
 		?.sort((a, b) => a?.regionsFields?.sequence - b?.regionsFields?.sequence)
 		.map((item) => {
@@ -79,13 +77,13 @@ async function getData() {
 														width={446}
 														src={hoverBg.src}
 														className={`${styles.hoverBg} width_100 b_r_10`}
-														alt="img"
+														alt="hover img"
 													/>
 													<div className={`${styles.countryImg}`}>
 														<img
 															src={item2?.countries?.bannerSection?.image?.node?.mediaItemUrl}
-															className="width_100 b_r_10"
-															alt="img"
+															className="width_100"
+															alt={item3?.title}
 														/>
 													</div>
 													<div className="f_j a_center pt_10">
@@ -104,7 +102,7 @@ async function getData() {
 														<p
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={location.src} className="" alt="img" />
+															<img src={location.src} className="" alt="location" />
 															<span>{item3?.offices?.contact?.address}</span>
 														</p>
 													)}
@@ -113,7 +111,7 @@ async function getData() {
 															href={`tel:${item3?.offices?.contact?.tel}`}
 															className={`${styles.address} d_f color_dark_gray text_xs pt_10`}
 														>
-															<img src={call_icon.src} className="" alt="img" />
+															<img src={call_icon.src} className="" alt="call" />
 															<span>{item3?.offices?.contact?.tel}</span>
 														</a>
 													)}
@@ -147,8 +145,6 @@ export default async function ContactPage() {
 		page: props.page,
 	};
 
-	console.log(data);
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -169,7 +165,7 @@ export default async function ContactPage() {
 					<div className="container">
 						<div className={`${styles.formFlex} f_j`}>
 							<div className={`${styles.form_title}`}>
-								<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
+								<h2 className="text_lg font_primary f_w_s_b color_white pb_30">
 									Have a question?
 								</h2>
 								<p className="text_reg color_silver_gray">
@@ -199,7 +195,7 @@ export default async function ContactPage() {
 									fontStyle={"text_lg"}
 									fontWeight={"f_w_s_b"}
 									fontFamily={"font_primary"}
-									fontColor={"color_secondary"}
+									fontColor={"color_light_gray"}
 									items={data?.regionsArr}
 								/>
 							)}

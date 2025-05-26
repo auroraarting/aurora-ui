@@ -29,7 +29,7 @@ export default function Benifits({ data }) {
 					{data?.list?.map((item) => {
 						return (
 							<div className={`${styles.item}`} key={item?.title}>
-								<img src={item?.icon?.node?.mediaItemUrl} />
+								<img src={item?.icon?.node?.mediaItemUrl} alt={item?.title} />
 								<div className={`${styles.title}`}>
 									<p className={`${styles.text} f_w_s_b`}>{item?.title}</p>
 									<p className={`${styles.desc} text_xs`}>{item?.desc}</p>

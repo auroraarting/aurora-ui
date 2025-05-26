@@ -21,7 +21,11 @@ import InsightsListing from "@/sections/resources/aurora-insights/InsightsListin
 // PLUGINS //
 
 // UTILS //
-import { buildQueryFromContext, objectToGraphQLArgs } from "@/utils";
+import {
+	buildQueryFromContext,
+	dynamicInsightsBtnProps,
+	objectToGraphQLArgs,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/AuroraInsights.module.scss";
@@ -48,6 +52,9 @@ export default function AuroraInsightsWrap({
 	insightsPage,
 }) {
 	const [original, setOriginal] = useState(data);
+	const dataForBtnForInsights = {
+		postFields: insightsPage || {},
+	};
 
 	return (
 		<div>
@@ -60,15 +67,17 @@ export default function AuroraInsightsWrap({
 			{/* Page Content starts here */}
 			<main className={styles.AuroraInsightsPage}>
 				{/* <Breadcrumbs /> */}
-				<div className={`${styles.topBg}`}>
-					<InnerBanner
-						bannerTitle={insightsPage?.banner?.title}
-						bannerDescription={insightsPage.banner?.desc}
-						showContentOnly
-					/>
-				</div>
-				<div>
-					<InsightsTop data={data?.[0]} />
+				<div className={`${styles.gradient}`}>
+					<div className={`${styles.topBg}`}>
+						<InnerBanner
+							bannerTitle={insightsPage?.banner?.title}
+							bannerDescription={insightsPage.banner?.desc}
+							showContentOnly
+						/>
+					</div>
+					<div>
+						<InsightsTop data={data?.[0]} />
+					</div>
 				</div>
 				<div className="pt_60 pb_100">
 					<InsightsListing
@@ -99,11 +108,13 @@ export default function AuroraInsightsWrap({
 				{insightsPage?.video?.sectionTitle && (
 					<div className="pb_100">
 						<AllVideos
+							sectionName="Latest Videos"
 							title={insightsPage?.video?.sectionTitle}
 							desc={insightsPage?.video?.sectionDesc}
 							redirectLink={insightsPage?.video?.redirectLink}
 							videoLink={insightsPage?.video?.videoLink}
 							videoThumbnail={insightsPage?.video?.videoThumbnail?.node?.mediaItemUrl}
+							iframe={insightsPage?.video?.iframe}
 						/>
 					</div>
 				)}
@@ -113,11 +124,45 @@ export default function AuroraInsightsWrap({
 							isPowerBgVisible={true}
 							defaultList={otherList}
 							countries={countries}
+							formSectionTitle={insightsPage?.insights?.title}
+							formSectionDesc={insightsPage?.insights?.desc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtnForInsights, "insightsSectionButton")
+									.btntext
+							}
+							formdata={dynamicInsightsBtnProps(
+								dataForBtnForInsights,
+								"insightsSectionButton"
+							)}
 						/>
 					</div>
 				</div>
 				<div className="pb_100">
-					<SoftwareCards />
+					<SoftwareCards
+						dynamicData={[
+							{
+								desc: "Expert-led sessions on industry-defining topics",
+								btnText: "View All Webinar",
+								btnLink: "/resources/webinar",
+								img: "/img/contact/cardImg6.jpg",
+								fontColor: "color_black",
+							},
+							{
+								desc: "In-depth insights from global energy leaders",
+								btnText: "View Energy Talks",
+								btnLink: "/resources/energy-talks",
+								img: "/img/contact/cardImg7.jpg",
+								fontColor: "color_black",
+							},
+							{
+								desc: "Join events shaping the future of energy",
+								btnText: "View All Events",
+								btnLink: "/events",
+								fontColor: "color_white",
+								img: "/img/contact/cardImg4.jpg",
+							},
+						]}
+					/>
 				</div>
 			</main>
 			<IframeModal />

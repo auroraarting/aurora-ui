@@ -8,6 +8,7 @@ import "@/styles/globals/globals.scss";
 import { fetchNavigationData } from "@/services/Navigation.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Loader from "@/components/Loader";
+import navigationJSON from "@/data/navigationData.json";
 
 /** Meta Data */
 export const metadata = {
@@ -20,7 +21,8 @@ export const metadata = {
 
 /** layout page */
 export default async function RootLayout({ children }) {
-	const navigation = await fetchNavigationData();
+	// const navigation = await fetchNavigationData();
+	const navigation = navigationJSON;
 
 	return (
 		<html lang="en">

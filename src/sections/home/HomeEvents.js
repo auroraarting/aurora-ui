@@ -32,10 +32,14 @@ import formatDate from "@/utils";
 /** HomeEvents Section */
 export default function HomeEvents({ data }) {
 	return (
-		<section className={`${styles.HomeEvents}`}>
+		<section
+			className={`${styles.HomeEvents}`}
+			aria-label="events section"
+			title="events section"
+		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
+					<h2 className="text_xl font_primary color_secondary">
 						Join the leading <br className="hidden_md" />
 						energy conversations
 					</h2>
@@ -58,12 +62,16 @@ export default function HomeEvents({ data }) {
 						{data?.map((item) => {
 							return (
 								<SwiperSlide key={item?.title} className="pb_20">
-									<a href={`/events/${item?.slug}`} className={`${styles.card} f_w_j`}>
+									<a
+										href={`/events/${item?.slug}`}
+										className={`${styles.card} f_w_j`}
+										role="button"
+									>
 										<div className={`${styles.content}`}>
 											<img
 												src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 												className=""
-												alt="img"
+												alt="logo img"
 												loading="lazy"
 											/>
 											<div
@@ -104,7 +112,7 @@ export default function HomeEvents({ data }) {
 												<img
 													src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
 													className="width_100 b_r_20"
-													alt="img"
+													alt={item?.events?.thumbnail?.status}
 													loading="lazy"
 												/>
 											</div>
@@ -116,10 +124,10 @@ export default function HomeEvents({ data }) {
 					</Swiper>
 					{data?.length > 1 && (
 						<div className={`${styles.arrowSection} f_w_a_j_center`}>
-							<button className={`${styles.customPrev}`} id="customPrev">
+							<button className={`${styles.customPrev}`} id="customPrev" role="button">
 								<img src={slider_arrow.src} alt="icon" loading="lazy" />
 							</button>
-							<button className={styles.customNext} id="customNext">
+							<button className={styles.customNext} id="customNext" role="button">
 								<img src={slider_arrow.src} alt="icon" loading="lazy" />
 							</button>
 						</div>

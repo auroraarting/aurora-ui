@@ -29,6 +29,7 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import searchImg from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -63,8 +64,6 @@ export default function EventsListing({
 
 		return () => clearTimeout(delay);
 	}, [searchInput]);
-
-	console.log(list, "list");
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -195,7 +194,6 @@ export default function EventsListing({
 			const filteredArr = filterItemsBySelectedObj(data, selecObj);
 			setList(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 
@@ -209,6 +207,10 @@ export default function EventsListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.EventsListing}>
@@ -495,7 +497,14 @@ export default function EventsListing({
 										onClick={() => filter(searchInput, "search")}
 									/>
 									{/* Close Button */}
-									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+									<div
+										className={`${styles.closeBox}`}
+										onClick={() => {
+											setSearchInput("");
+											filter("", "search");
+											closeSearchInput();
+										}}
+									>
 										<span className="text_xs">X</span>
 									</div>
 								</span>
@@ -529,19 +538,19 @@ export default function EventsListing({
 										<img
 											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
 											className={`${styles.productLogo} `}
-											alt="img"
+											alt="Events Logo"
 										/>
 										<p
-											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_30`}
+											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
 										>
 											{item?.eventscategories?.nodes?.map((item2) => item2.name)}
 										</p>
 										<p
-											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_10`}
+											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
 										>
 											{item?.title}
 										</p>
-										<div className={`${styles.dateFlex} f_j pt_30`}>
+										<div className={`${styles.dateFlex} f_j pt_40`}>
 											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={calender.src}

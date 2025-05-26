@@ -15,6 +15,7 @@ query GetWebinarListing {
         sectionDesc
         videoLink
         sectionTitle
+        iframe
         videoThumbnail {
           node {
             altText
@@ -38,12 +39,13 @@ query GetWebinars {
     nodes {
       title
       slug
+      content(format: RAW)
       featuredImage {
-      node {
-        altText
-        mediaItemUrl
+        node {
+          altText
+          mediaItemUrl
+        }
       }
-    }
       webinarTags(first: 9999) {
         nodes {
           name
@@ -93,6 +95,10 @@ query GetWebinars {
               slug
             }
           }
+        }
+        sections {
+          content
+          tabTitle
         }
       }
     }

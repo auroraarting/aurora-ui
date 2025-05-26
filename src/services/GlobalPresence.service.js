@@ -306,6 +306,12 @@ query GetCountryInside {
                 content
                 services {
                   map {
+                     headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
                     logo {
                       node {
                         altText
@@ -322,6 +328,12 @@ query GetCountryInside {
                 content
                 softwares {
                   map {
+                     headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
                     logo {
                       node {
                         altText
@@ -338,6 +350,12 @@ query GetCountryInside {
                 content
                 products {
                   map {
+                     headerLogo{
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
                     logo {
                       node {
                         altText
@@ -366,6 +384,7 @@ query GetCountryInside {
       topSectionsButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -376,6 +395,7 @@ query GetCountryInside {
       middleSectionsButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -386,6 +406,7 @@ query GetCountryInside {
       keyAdvantageSectionsButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -396,6 +417,7 @@ query GetCountryInside {
       availableRegionsSectionsButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -406,6 +428,7 @@ query GetCountryInside {
       insightsSectionsButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

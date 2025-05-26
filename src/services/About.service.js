@@ -197,63 +197,7 @@ query GetAbout {
         list {
           title
           description
-          category(first: 999) {
-            nodes {
-              contentType {
-                node {
-                  name
-                }
-              }
-              ... on Service {
-                id
-                slug
-                title
-                content
-                services {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
-                    }
-                  }
-                }
-              }
-              ... on Software {
-                id
-                title
-                slug
-                content
-                softwares {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
-                    }
-                  }
-                }
-              }
-              ... on Product {
-                id
-                title
-                slug
-                content
-                products {
-                  map {
-                    logo {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+          category
         }
       }
       pdfSections {

@@ -33,7 +33,7 @@ export default function HomeBanner() {
 	];
 
 	return (
-		<div className={styles.HomeBanner}>
+		<div className={styles.HomeBanner} aria-label="banner" title="banner">
 			<div className={`${styles.BannerContentSection}`}>
 				<div className="container">
 					<div className={`${styles.BannerInfo} f_w_j`}>
@@ -50,7 +50,7 @@ export default function HomeBanner() {
 								// {...dynamicInsightsBtnProps()}
 								className={`${styles.bookBtnOne} pt_40`}
 							>
-								<a href="/software">
+								<a href="/software" role="button">
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
 										Explore Now
 									</Button>

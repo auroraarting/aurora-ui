@@ -42,7 +42,7 @@ export default function Commitment({ data }) {
 									<img
 										src={item?.backgroundImage?.node?.mediaItemUrl}
 										className={`${styles.commitmentImg} width_100`}
-										alt="Banner Image"
+										alt={item?.title}
 									/>
 								</picture>
 								<div className={`${styles.CardsDesc}`}>

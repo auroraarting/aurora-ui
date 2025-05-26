@@ -46,7 +46,6 @@ export default function WebinarInsideWrap({
 	otherList,
 	pastWebinars,
 }) {
-	console.log(data, "data");
 	const dataForBtn = { postFields: data?.webinarsFields || {} };
 
 	return (
@@ -100,7 +99,7 @@ export default function WebinarInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.WebinarInsidePage}>
-				<div className={`${styles.topBg}  pb_60`}>
+				<div className={`${styles.topBg}  ptb_60`}>
 					{/* <Breadcrumbs /> */}
 					<WebinarInsideTopSection data={data} countries={countries} />
 				</div>
@@ -154,10 +153,6 @@ export default function WebinarInsideWrap({
 													const dataForBtn = {
 														postFields: { btnItem: btnItem } || {},
 													};
-													console.log(
-														dynamicInsightsBtnProps(dataForBtn, "btnItem"),
-														"dataForBtn"
-													);
 
 													return (
 														<div

@@ -32,24 +32,24 @@ export default function EnergyMiddleRight({ data, events }) {
 		<div className={`${styles.EnergyMiddleRightBox}`}>
 			{(data?.podcastFields?.speakers ||
 				data?.podcastFields?.poweredBy?.nodes) && (
-				<div className={`${styles.whiteBox}`}>
+				<div className={`${styles.whiteBox} ${styles.speaker}`}>
 					{data?.podcastFields?.speakers?.nodes && (
 						<div className={`${styles.itemBox}`}>
-							<h5 className="text_reg color_gray f_w_b pb_10">Speakers</h5>
+							<h5 className="text_reg color_gray f_w_b pb_10">Guests</h5>
 							{data?.podcastFields?.speakers?.nodes?.map((item, ind) => {
 								return (
 									<div
 										className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
 										key={item?.title}
 									>
-										{item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
+										{/* {item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
 												<img
 													src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
 													alt="pic"
 												/>
 											</div>
-										)}
+										)} */}
 										<div className={`${styles.ClientDescription}`}>
 											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
 												{item?.title}
@@ -74,7 +74,7 @@ export default function EnergyMiddleRight({ data, events }) {
 						</div>
 					)}
 					{data?.podcastFields?.poweredBy?.nodes && (
-						<div className={`${styles.itemBox}`}>
+						<div className={`${styles.itemBox} ${styles.power}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
 							{data?.podcastFields?.poweredBy?.nodes?.map((item, ind) => {
 								/**keyModule  */
@@ -128,8 +128,8 @@ export default function EnergyMiddleRight({ data, events }) {
 			)}
 			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
 				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_m pb_10">
-						Interested in partnering with us?
+					<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
+						Interested in coming on as a Podcast guest?
 					</h5>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientDescription}`}>
@@ -150,9 +150,11 @@ export default function EnergyMiddleRight({ data, events }) {
 			</div>
 
 			{events.length > 0 && (
-				<div className={`${styles.whiteBox}`}>
-					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
-						Upcoming Podcast
+				<div className={`${styles.whiteBox} ${styles.podcast}`}>
+					<h5
+						className={`${styles.subTxt} text_reg color_gray f_w_b pb_10 font_primary`}
+					>
+						Latest Podcast
 					</h5>
 					<div className={`${styles.itemBox}`}>
 						{events?.map((item, ind) => {

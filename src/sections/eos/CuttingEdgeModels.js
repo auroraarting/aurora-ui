@@ -29,6 +29,7 @@ import black_right from "/public/img/icons/black_right.svg";
 import hoverEffect from "/public/img/eos/hoverEffect.png";
 import origin_logo from "/public/img/eos/origin_logo.png";
 import AccordianCommon from "@/components/AccordianCommon";
+import { removeHTML } from "@/utils";
 
 // DATA //
 
@@ -36,9 +37,9 @@ import AccordianCommon from "@/components/AccordianCommon";
 export default function CuttingEdgeModels({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
-
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index) => {
 		e.preventDefault();
@@ -61,8 +62,8 @@ export default function CuttingEdgeModels({ data }) {
 
 	const eventSpeakersData2 = data?.list?.map((item) => {
 		let obj = {};
-		const related = item?.category?.nodes?.[0];
-		obj.tag = related?.title;
+		const related = item?.category;
+		obj.tag = related;
 		obj.title = item?.title;
 		// if (item?.countries?.nodes?.length > 0) {
 		obj.children = (
@@ -107,54 +108,22 @@ export default function CuttingEdgeModels({ data }) {
 		},
 	];
 
-	console.log(eventSpeakersData2, " data?.list");
-
 	if (!data || !data.sectionTitle) return <></>;
 
 	// console.log(eventSpeakersData);
 	return (
 		<section className={`${styles.CuttingEdgeModels}`}>
 			<div className="container">
-				<div className={`${styles.titleWrapper}`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						<ContentFromCms>{data?.sectionTitle}</ContentFromCms>
+				<div className={`${styles.titleWrapper} pb_40`}>
+					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_10">
+						{/* <ContentFromCms>{data?.sectionTitle}</ContentFromCms> */}
+						{removeHTML(data?.sectionTitle)}
 					</h2>
 					<div className={`${styles.label} text_reg color_dark_gray`}>
 						<ContentFromCms>{data?.sectionDescription}</ContentFromCms>
 					</div>
 				</div>
-				<div className={`${styles.content_main_wrap} pt_40`}>
-					{/* <div className={`${styles.box_wrap}`}>
-						{data?.list?.map((item, ind) => {
-							const related = item?.category?.nodes?.[0];
-
-							return (
-								<div
-									className={`${styles.box_item}`}
-									key={ind}
-									onClick={(e) => handleSlideClick1(e, ind)}
-									data-slide={ind}
-								>
-									<div className={`${styles.content}`}>
-										<p className="text_xs color_light_gray text_uppercase pb_10">
-											{related?.title}
-										</p>
-										<h5 className="text_md f_w_m color_secondary font_primary">
-											{item.title}
-										</h5>
-										<div className={`${styles.arrowBox}`}>
-											<span>
-												<img src={black_right.src} alt="icon" />
-											</span>
-										</div>
-										<div className={`${styles.hoverEffect} pt_20`}>
-											<img src={hoverEffect.src} className="" alt=" img" />
-										</div>
-									</div>
-								</div>
-							);
-						})}
-					</div> */}
+				<div className={`${styles.content_main_wrap} `}>
 					{data?.list?.length > 0 && (
 						<AccordianCommon
 							fontStyle={"text_lg"}

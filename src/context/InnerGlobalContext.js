@@ -45,10 +45,6 @@ export default function InnerGlobalContext({ children }) {
 		setTimeout(() => {
 			addCssVariables();
 		}, 1000);
-
-		if (search) {
-			console.log("search.toLowerCase()", search.toLowerCase());
-		}
 	}, []);
 
 	return (

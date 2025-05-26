@@ -26,6 +26,8 @@ import styles from "@/styles/sections/how-we-help/HowWeHelpSolutionsChallenge.mo
 import asset_citing from "@/../public/img/transactions/asset_citing.svg";
 import ppas from "@/../public/img/transactions/ppas.svg";
 import strategy from "@/../public/img/transactions/strategy.svg";
+import portfolio_valuation from "@/../public/img/transactions/portfolio_valuation.svg";
+import transaction_icon from "@/../public/img/transactions/transaction_icon.svg";
 import hover_arrow from "@/../public/img/softwares/hover_arrow.svg";
 
 // DATA //
@@ -82,7 +84,7 @@ export default function HowWeHelpSolutionsChallenge() {
 											<img
 												src={asset_citing.src}
 												className={`${styles.imgOne} `}
-												alt="img"
+												alt="Asset Citing & Optimisation"
 											/>
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
@@ -95,7 +97,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
-													<img src={hover_arrow.src} className="" alt="img" />
+													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
 										</div>
@@ -104,7 +106,7 @@ export default function HowWeHelpSolutionsChallenge() {
 								<SwiperSlide>
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap} ${styles.logoBox}`}>
-											<img src={ppas.src} className={`${styles.imgOne} `} alt="img" />
+											<img src={ppas.src} className={`${styles.imgOne} `} alt="PPAs" />
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
 											<h4 className={`${styles.centerLogo} color_secondary f_w_s_b`}>
@@ -116,7 +118,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
-													<img src={hover_arrow.src} className="" alt="img" />
+													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
 										</div>
@@ -125,7 +127,11 @@ export default function HowWeHelpSolutionsChallenge() {
 								<SwiperSlide>
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap} ${styles.logoBox}`}>
-											<img src={strategy.src} className={`${styles.imgOne} `} alt="img" />
+											<img
+												src={strategy.src}
+												className={`${styles.imgOne} `}
+												alt="Strategy"
+											/>
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
 											<h4 className={`${styles.centerLogo} color_secondary f_w_s_b`}>
@@ -137,7 +143,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
-													<img src={hover_arrow.src} className="" alt="img" />
+													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
 										</div>
@@ -147,9 +153,9 @@ export default function HowWeHelpSolutionsChallenge() {
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap} ${styles.logoBox}`}>
 											<img
-												src={asset_citing.src}
+												src={portfolio_valuation.src}
 												className={`${styles.imgOne} `}
-												alt="img"
+												alt="Portfolio portfolio-valuationaluation"
 											/>
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
@@ -162,7 +168,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
-													<img src={hover_arrow.src} className="" alt="img" />
+													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
 										</div>
@@ -172,9 +178,9 @@ export default function HowWeHelpSolutionsChallenge() {
 									<div className={`${styles.itemBox}`}>
 										<div className={`${styles.itemBoxWrap} ${styles.logoBox}`}>
 											<img
-												src={asset_citing.src}
+												src={transaction_icon.src}
 												className={`${styles.imgOne} `}
-												alt="img"
+												alt="Transactions Support"
 											/>
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
@@ -188,7 +194,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
-													<img src={hover_arrow.src} className="" alt="img" />
+													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
 										</div>

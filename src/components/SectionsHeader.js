@@ -130,22 +130,24 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	return (
 		<>
 			<div className={`${styles.SectionsHeader} SectionsHeader`}>
-				<div className={`${styles.boxWrap}`}>
-					{sectionsList?.map((item, ind) => {
-						return (
-							<div
-								key={ind}
-								className={`${styles.box} ${styles.onlyText} ${
-									activeTab >= ind ? "" : "color_medium_gray"
-								} text_xs text_uppercase`}
-								onClick={() => scrollToSection(item?.id)}
-							>
-								{typeof item.name === "string" ? item.name : item}
-							</div>
-						);
-					})}
+				<div className="container">
+					<div className={`${styles.boxWrap}`}>
+						{sectionsList?.map((item, ind) => {
+							return (
+								<div
+									key={ind}
+									className={`${styles.box} ${styles.onlyText} ${
+										activeTab >= ind ? "" : "color_medium_gray"
+									} text_xs text_uppercase`}
+									onClick={() => scrollToSection(item?.id)}
+								>
+									{typeof item.name === "string" ? item.name : item}
+								</div>
+							);
+						})}
+					</div>
+					<div className={`${styles.progress}`}></div>
 				</div>
-				<div className={`${styles.progress}`}></div>
 			</div>
 			<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
 				<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>

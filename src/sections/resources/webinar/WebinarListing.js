@@ -32,6 +32,7 @@ import searchImg from "@/../public/img/icons/search.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
 import Pagination from "@/components/Pagination";
 import { useContextProvider } from "@/context/GlobalContext";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -226,7 +227,6 @@ export default function WebinarListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 
@@ -241,6 +241,10 @@ export default function WebinarListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.WebinarListing}>
@@ -476,7 +480,14 @@ export default function WebinarListing({
 										onClick={() => filter(searchInput, "search")}
 									/>
 									{/* Close Button */}
-									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+									<div
+										className={`${styles.closeBox}`}
+										onClick={() => {
+											setSearchInput("");
+											closeSearchInput();
+											filter("", "search");
+										}}
+									>
 										<span className="text_xs">X</span>
 									</div>
 								</span>

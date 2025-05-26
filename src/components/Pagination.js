@@ -14,8 +14,8 @@ import { useState, useEffect } from "react";
 import styles from "@/styles/components/Pagination.module.scss";
 
 // IMAGES //
-import IconArrLeft from "/public/img/icons/pagination-left.png";
-import IconArrRight from "/public/img/icons/pagination-right.png";
+import IconArrLeft from "/public/img/icons/pagination-left.svg";
+import IconArrRight from "/public/img/icons/pagination-right.svg";
 
 // DATA //
 

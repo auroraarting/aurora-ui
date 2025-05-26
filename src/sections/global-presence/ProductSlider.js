@@ -65,7 +65,7 @@ export default function ProductSlider({ data }) {
 												<img
 													src={slide?.thumbnailImage?.node?.mediaItemUrl}
 													className="img b_r_10"
-													alt="logo"
+													alt="software logo"
 												/>
 											</div>
 										) : (

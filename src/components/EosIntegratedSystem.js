@@ -27,7 +27,7 @@ export default function EosIntegratedSystem() {
 			<div className="container">
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
-						<img src={IMac.src} className="img" alt="imac" />
+						<img src={IMac.src} className="img" alt="EOS Mac" />
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
 						<h2 className="text_xl font_primary f_w_m color_white m_b_15">

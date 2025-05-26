@@ -3,6 +3,10 @@
 	@media (max-width: 767px) {
 		padding-top: 30px;
 	}
+	h2 {
+		position: relative;
+		z-index: 1;
+	}
 	h3 {
 		padding: 0 15px;
 	}
@@ -56,6 +60,15 @@
 				p {
 					color: var(--color_secondary);
 				}
+				canvas {
+					position: relative;
+					top: -100px;
+				}
+			}
+			&.advisoryBox {
+				display: flex;
+				flex-wrap: wrap;
+				padding-bottom: 20px;
 			}
 		}
 		.softwareAnim {

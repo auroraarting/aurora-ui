@@ -58,11 +58,11 @@
 	}
 
 	.markerHover {
-		padding: 10px 15px;
+		padding: 5px 15px;
 		color: var(--color_white);
 		border-radius: 100px;
-		background-color: var(--color_blue);
-		// transform: translate(-110%, -50%);
+		background-color: var(--color_black);
+		// transform: translateX(50px);
 		// width: max-content;
 
 		&.isHoverImg {

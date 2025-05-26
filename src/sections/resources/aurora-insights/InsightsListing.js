@@ -31,6 +31,7 @@ import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
 import { getInsights } from "@/services/Insights.service";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -176,7 +177,6 @@ export default function InsightsListing({
 			queryObj.service = catName;
 		}
 
-		console.log(selectedObj, "selectedObj");
 		setSelected(selectedObj);
 
 		const filteredArr = filterItems(arr, queryObj);
@@ -225,7 +225,6 @@ export default function InsightsListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 
@@ -247,6 +246,10 @@ export default function InsightsListing({
 		if (selected.category === "Commentary") return "Articles";
 		return selected.category;
 	};
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.InsightsListing}>
@@ -480,7 +483,14 @@ export default function InsightsListing({
 										onClick={() => filter(searchInput, "search")}
 									/>
 									{/* Close Button */}
-									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+									<div
+										className={`${styles.closeBox}`}
+										onClick={() => {
+											setSearchInput("");
+											filter("", "search");
+											closeSearchInput();
+										}}
+									>
 										<span className="text_xs">X</span>
 									</div>
 								</span>

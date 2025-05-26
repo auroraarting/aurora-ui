@@ -23,7 +23,6 @@ import formatDate from "@/utils";
 
 /** PublicWebinar Section */
 export default function PublicWebinar({ events, webinars }) {
-	console.log(events, "events");
 	return (
 		<section
 			className={`${styles.PublicWebinar}`}
@@ -50,45 +49,57 @@ export default function PublicWebinar({ events, webinars }) {
 							}
 
 							return (
-								<a {...hrefObj} className={`${styles.ItemBox}`} key={item?.id}>
-									<div className={`${styles.contentBox}`}>
-										<p
-											className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
+								<a {...hrefObj} className={`${styles.ItemBox}`} key={item?.title}>
+									<a href={item?.link} className={`${styles.insideBox}`} role="button">
+										<img
+											src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
+											className={`${styles.case_img} width_100 b_r_10`}
+											alt={item?.cat}
+											height={360}
+											width={640}
+											loading="lazy"
+										/>
+										<div
+											className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 										>
-											{item?.eventscategories?.nodes?.map((item2) => item2.name)}
-											{/* {" Webinar"} */}
-										</p>
-										<h4 className={`${styles.descTxt} text_lg color_secondary pt_10`}>
+											Latest {item?.cat}
+										</div>
+										<h4
+											className={`${styles.descTxt} text_md f_w_m color_secondary font_primary pt_10`}
+										>
 											{item?.title}
 										</h4>
 										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={calender.src}
 													className={`${styles.calender}`}
 													alt="calender"
+													loading="lazy"
 												/>
 												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
 											</p>
-											{item?.events?.thumbnail?.country?.nodes.length > 0 && (
-												<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
-													<img
-														src={location.src}
-														className={`${styles.location}`}
-														alt="location"
-													/>
-													<span>
-														{item?.events?.thumbnail?.country?.nodes?.map(
-															(item2) => item2.title
-														)}
-													</span>
-												</p>
-											)}
+											{/* {isCategory(countries, item?.categories?.nodes) && ( */}
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+												<img
+													src={location.src}
+													className={`${styles.location}`}
+													alt="location"
+													loading="lazy"
+												/>
+												<span>
+													{item?.events?.thumbnail?.country?.nodes?.map(
+														(item2) => item2.title
+													)}
+												</span>
+											</p>
+											{/* )} */}
 										</div>
-									</div>
+									</a>
 								</a>
 							);
 						})}
+
 						{/* <div className={`${styles.ItemBox}`}>
 							<div className={`${styles.contentBox}`}>
 								<p

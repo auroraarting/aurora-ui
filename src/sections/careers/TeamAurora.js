@@ -149,7 +149,7 @@ export default function TeamAurora({
 								<div className={`${styles.teamFlex} f_r_a_center`}>
 									{item?.image?.node?.mediaItemUrl && (
 										<div className={`${styles.teamLogo}`}>
-											<img src={item?.image?.node?.mediaItemUrl} alt="logo" />
+											<img src={item?.image?.node?.mediaItemUrl} alt={item?.name} />
 										</div>
 									)}
 									<div className={`${styles.teamDescription}`}>

@@ -29,10 +29,14 @@ import Image from "next/image";
 /** HomeResources Section */
 export default function HomeResources({ data, countries, voices }) {
 	return (
-		<section className={`${styles.HomeResources}`}>
+		<section
+			className={`${styles.HomeResources}`}
+			aria-label="resources section"
+			title="resources section"
+		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
+					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						All voices all markets
 					</h2>
 				</div>
@@ -41,11 +45,11 @@ export default function HomeResources({ data, countries, voices }) {
 						{voices?.slice(0, 3)?.map((item) => {
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title}>
-									<a href={item?.link} className={`${styles.insideBox}`}>
+									<a href={item?.link} className={`${styles.insideBox}`} role="button">
 										<img
 											src={item?.thumb}
 											className={`${styles.case_img} width_100 b_r_10`}
-											alt="case img"
+											alt={item?.cat}
 											height={360}
 											width={640}
 											loading="lazy"
@@ -56,12 +60,12 @@ export default function HomeResources({ data, countries, voices }) {
 											Latest {item?.cat}
 										</div>
 										<h4
-											className={`${styles.descTxt} text_md f_w_s_b color_secondary pt_10`}
+											className={`${styles.descTxt} text_md f_w_m color_secondary font_primary pt_10`}
 										>
 											{item?.title}
 										</h4>
 										<div className={`${styles.dateFlex} f_j pt_30`}>
-											<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
+											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={calender.src}
 													className={`${styles.calender}`}
@@ -71,14 +75,18 @@ export default function HomeResources({ data, countries, voices }) {
 												<span>{formatDate(item?.date)}</span>
 											</p>
 											{isCategory(countries, item?.categories?.nodes) && (
-												<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 													<img
 														src={location.src}
 														className={`${styles.location}`}
 														alt="location"
 														loading="lazy"
 													/>
-													<span>{isCategory(countries, item?.categories?.nodes)}</span>
+													<span>
+														{item?.events
+															? item?.categories?.nodes?.map((item) => item.name)
+															: isCategory(countries, item?.categories?.nodes)}
+													</span>
 												</p>
 											)}
 										</div>
@@ -92,7 +100,7 @@ export default function HomeResources({ data, countries, voices }) {
 							<div className={`${styles.webinarItem}`}>
 								{voices?.slice(3, 6)?.map((item) => {
 									return (
-										<a href={item?.link} key={item?.title}>
+										<a href={item?.link} key={item?.title} role="button">
 											<div className={`${styles.contentBox}`}>
 												<img
 													height={179}

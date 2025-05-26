@@ -1,11 +1,12 @@
 @import "../../helpers/helpers.scss";
 .Introduction {
-  .flexBox {
+	.flexBox {
+		align-items: center;
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}
 		.flexItemOne {
-			width: 40%;
+			width: 45%;
 			@media (max-width: 1199px) {
 				width: 38%;
 			}
@@ -27,6 +28,9 @@
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+			}
+			p {
+				margin-bottom: 0;
 			}
 		}
 	}

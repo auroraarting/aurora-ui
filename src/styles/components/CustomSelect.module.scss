@@ -12,6 +12,7 @@
 		justify-content: space-between;
 		cursor: pointer;
 		z-index: 4;
+		gap: 10px;
 		position: relative;
 		@media (max-width: 767px) {
 			margin-bottom: 10px;
@@ -47,7 +48,8 @@
 				cursor: pointer;
 
 				&:hover {
-					background-color: #c6c6c6;
+					background-color: var(--color_primary);
+					color: black;
 				}
 
 				&.alreadySelected {
@@ -69,9 +71,15 @@
 			// top: 50%;
 			top: 110%;
 			height: 150px;
-			padding: 6px 0px;
-			padding-top: 20px;
+			// padding: 6px 0px;
+			// padding-top: 20px;
 			// opacity: 1;
+
+			.listInner {
+				.listItem {
+					padding: 8px 14px;
+				}
+			}
 		}
 	}
 

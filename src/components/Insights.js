@@ -367,7 +367,6 @@ export default function Insights({
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
 		const resjson = await resdata.json();
-		console.log(resjson, "resjson");
 		setData(resjson);
 	};
 
@@ -396,7 +395,9 @@ export default function Insights({
 	// 	sectionId["data-name"] = "Insights";
 	// }
 
-	console.log(formdata, "formdata");
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [data]);
 
 	return (
 		<section className={`${styles.Insights} Insights`} {...sectionId}>

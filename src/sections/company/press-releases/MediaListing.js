@@ -31,6 +31,7 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 import searchImg from "/public/img/icons/search.svg";
 import popup_close from "/public/img/icons/popup_close.svg";
 import hoverBg from "/public/img/home/hoverBg.png";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -151,7 +152,6 @@ export default function MediaListing({
 		}
 
 		const filteredArr = filterItems(arr, selectedObj);
-		console.log(filteredArr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
@@ -197,7 +197,6 @@ export default function MediaListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 
@@ -212,6 +211,10 @@ export default function MediaListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.MediaListing}>
@@ -455,7 +458,14 @@ export default function MediaListing({
 										onClick={() => filter(searchInput, "search")}
 									/>
 									{/* Close Button */}
-									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+									<div
+										className={`${styles.closeBox}`}
+										onClick={() => {
+											setSearchInput();
+											filter("", "search");
+											closeSearchInput();
+										}}
+									>
 										<span className="text_xs">X</span>
 									</div>
 								</span>

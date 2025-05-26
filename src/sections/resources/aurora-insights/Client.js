@@ -46,7 +46,7 @@ export default function Client({ data }) {
 									<div className={`${styles.ClientFlex} f_r_a_center`} key={item?.title}>
 										{item?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.ClientLogo}`}>
-												<img src={item?.image?.node?.mediaItemUrl} alt="logo" />
+												<img src={item?.image?.node?.mediaItemUrl} alt={item?.title} />
 											</div>
 										)}
 										<div className={`${styles.ClientDescription}`}>
@@ -69,7 +69,7 @@ export default function Client({ data }) {
 											<div className={`${styles.ClientLogo}`}>
 												<img
 													src={item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl}
-													alt="pic"
+													alt="Authors image"
 												/>
 											</div>
 										)}
@@ -87,7 +87,7 @@ export default function Client({ data }) {
 													rel="noreferrer"
 													className={`${styles.social}`}
 												>
-													<img src={social_icon.src} alt="pic" />
+													<img src={social_icon.src} alt="social icon" />
 												</a>
 											)}
 										</div>
@@ -127,7 +127,7 @@ export default function Client({ data }) {
 															?.mediaItemUrl
 													}
 													className={`${styles.amun_logo}`}
-													alt="amun_logo"
+													alt="software logo"
 												/>
 												{/* <img
                                     src={amun_hover_logo.src}
@@ -206,7 +206,7 @@ export default function Client({ data }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={webinar_logo.src} alt="logo" />
+							<img src={webinar_logo.src} alt="Shaping the energy discussion" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
@@ -223,7 +223,7 @@ export default function Client({ data }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={podcast_logo.src} alt="logo" />
+							<img src={podcast_logo.src} alt="Energy unplugged by Aurora" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>
