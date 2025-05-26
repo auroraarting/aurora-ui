@@ -51,8 +51,8 @@ export default function TeamWrap({ data, countries }) {
 			<main className={styles.TeamPage}>
 				<div className={`${styles.topBg}`}>
 					<InnerBanner
-						bannerTitle="latest press releases & media contacts"
-						bannerDescription="Lorem ipsum dolor sit amet consectetur. Elit massa a ut malesuada. Tincidunt pellentesque euismod morbi elit in tempor in. Ut elit in diam ut a mattis."
+						bannerTitle="The people who shape Aurora"
+						bannerDescription="Drawn from industry, academia, and finance, our leadership team drives innovation, steers strategy, and ensures we stay focused on what matters most, delivering clarity in a changing energy world."
 						showContentOnly
 					/>
 				</div>
