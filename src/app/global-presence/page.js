@@ -64,7 +64,7 @@ async function getData() {
 												item2?.countries?.bannerSection?.image?.node?.mediaItemUrl
 											}
 											className={`width_100 b_r_10 ${styles.image}`}
-											alt="img"
+											alt={item2.title}
 										/>
 										<div className="f_j a_center pt_10">
 											<h5 className="text_reg font_primary f_w_m color_secondary ">

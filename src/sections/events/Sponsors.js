@@ -20,7 +20,6 @@ import national_grid from "@/../public/img/events/national_grid.png";
 
 /** Sponsors Section */
 export default function Sponsors({ data }) {
-	console.log(data?.events?.sponsors?.sponsors?.length);
 	if (
 		data?.events?.sponsors?.sponsors?.length === 0 ||
 		!data?.events?.sponsors?.sponsors?.length
@@ -44,7 +43,7 @@ export default function Sponsors({ data }) {
 						{item?.gallery?.nodes?.map((item2) => {
 							return (
 								<div className={`${styles.SponsorsItem}`} key={item2?.mediaItemUrl}>
-									<img src={item2?.mediaItemUrl} alt="map" />
+									<img src={item2?.mediaItemUrl} alt="Sponsors Logos" />
 								</div>
 							);
 						})}

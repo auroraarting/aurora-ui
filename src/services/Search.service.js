@@ -164,6 +164,16 @@ export async function searchData(searchTerm) {
     `;
 	const { data } = await GraphQLAPI(combinedQuery);
 
+	/** removeDuplicatesByTitle  */
+	function removeDuplicatesByTitle(arr) {
+		const seen = new Set();
+		return arr.filter((item) => {
+			if (!item.title || seen.has(item.title)) return false;
+			seen.add(item.title);
+			return true;
+		});
+	}
+
 	const softwares = data?.softwares?.nodes?.map((item) => {
 		return {
 			title: item?.title,
@@ -271,27 +281,22 @@ export async function searchData(searchTerm) {
 	// const lifeAtAurora = data?.pages?.nodes?.[0]?.lifeAtAurora;
 
 	return {
-		products,
-		softwares,
-		services,
-		regions,
-		whoareyous,
-		howWeHelps,
-		teamsectors,
-		teams,
-		testimonials,
-		offices,
-		webinars,
-		// about,
-		// eos,
-		// globalPresence,
-		// homepage,
-		// lifeAtAurora,
-		posts,
-		events,
-		pages,
-		podcasts,
-		earlyCareers,
-		countries,
+		products: removeDuplicatesByTitle(products),
+		softwares: removeDuplicatesByTitle(softwares),
+		services: removeDuplicatesByTitle(services),
+		regions: removeDuplicatesByTitle(regions),
+		whoareyous: removeDuplicatesByTitle(whoareyous),
+		howWeHelps: removeDuplicatesByTitle(howWeHelps),
+		teamsectors: removeDuplicatesByTitle(teamsectors),
+		teams: removeDuplicatesByTitle(teams),
+		// testimonials: removeDuplicatesByTitle(testimonials),
+		offices: removeDuplicatesByTitle(offices),
+		webinars: removeDuplicatesByTitle(webinars),
+		posts: removeDuplicatesByTitle(posts),
+		events: removeDuplicatesByTitle(events),
+		pages: removeDuplicatesByTitle(pages),
+		podcasts: removeDuplicatesByTitle(podcasts),
+		earlyCareers: removeDuplicatesByTitle(earlyCareers),
+		countries: removeDuplicatesByTitle(countries),
 	};
 }

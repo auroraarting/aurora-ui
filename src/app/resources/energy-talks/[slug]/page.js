@@ -27,6 +27,7 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
+import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
 // DATA //
 
@@ -58,15 +59,28 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, events, categoriesForSelect, list] = await Promise.all([
-		getPodcastInside(params.slug),
-		getPodcasts("first: 1"),
-		getInsightsCategories(),
-		getPodcasts("first: 5"),
-	]);
+	const [data, events, categoriesForSelect, list, socialLinksFetch] =
+		await Promise.all([
+			getPodcastInside(params.slug),
+			getPodcasts("first: 1"),
+			getInsightsCategories(),
+			getPodcasts(),
+			getEnergyTalksPageSocialLinks(),
+		]);
+
 	const otherList = list?.data?.podcasts?.nodes
-		.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
-		.slice(0, 3);
+		?.filter(
+			(item) =>
+				item?.slug !== data?.data?.podcastBy?.slug &&
+				new Date(item?.podcastFields?.date) <
+					new Date(data.data.podcastBy.podcastFields.date) // published before now
+		)
+		?.sort(
+			(a, b) => new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date)
+		)
+		?.slice(0, 3);
+
+	console.log(otherList, "otherList");
 	return {
 		props: {
 			data: data.data.podcastBy,
@@ -76,6 +90,7 @@ async function getData({ params }) {
 				) || [],
 			countries: categoriesForSelect.data.countries.nodes,
 			otherList,
+			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
 		},
 	};
 }

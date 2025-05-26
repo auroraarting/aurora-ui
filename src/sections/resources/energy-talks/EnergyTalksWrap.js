@@ -50,6 +50,7 @@ export default function EnergyTalksWrap({
 	softwares,
 	services,
 	energyTalksPage,
+	socialLinks,
 }) {
 	const [original, setOriginal] = useState(data);
 	return (
@@ -68,15 +69,17 @@ export default function EnergyTalksWrap({
 			{/* Page Content starts here */}
 			<main className={styles.EnergyPage}>
 				{/* <Breadcrumbs /> */}
-				<div className={`${styles.topBg}`}>
-					<InnerBanner
-						bannerTitle={energyTalksPage?.banner?.title}
-						bannerDescription={energyTalksPage.banner?.desc}
-						showContentOnly
-					/>
-				</div>
-				<div>
-					<TopEnergy data={data[0]} />
+				<div className={`${styles.gradient} gradient`}>
+					<div className={`${styles.topBg}`}>
+						<InnerBanner
+							bannerTitle={energyTalksPage?.banner?.title}
+							bannerDescription={energyTalksPage.banner?.desc}
+							showContentOnly
+						/>
+					</div>
+					<div>
+						<TopEnergy data={data[0]} />
+					</div>
 				</div>
 				<div className="pt_60 pb_100">
 					<EnergyListing
@@ -126,21 +129,16 @@ export default function EnergyTalksWrap({
 							customHtml={
 								<div className={`${styles.downloadListen} downloadListen`}>
 									<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
-										<a href={data?.podcastFields?.spotifyLink}>
-											<img src={spotify.src} alt="spotify" />
-										</a>
-										<a href={data?.podcastFields?.appleLink}>
-											<img src={apple.src} alt="apple" />
-										</a>
-										<a href={data?.podcastFields?.youtubeLink}>
-											<img src={google.src} alt="google" />
-										</a>
-										<a href={data?.podcastFields?.googleLink}>
-											<img src={googleVoice.src} alt="google" />
-										</a>
-										<a href={data?.podcastFields?.otherLink}>
-											<img src={other_logo.src} alt="google" />
-										</a>
+										{socialLinks?.map((item) => {
+											return (
+												<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+													<img
+														src={item?.logo?.node?.mediaItemUrl}
+														alt={item?.logo?.node?.altText}
+													/>
+												</a>
+											);
+										})}
 									</div>
 								</div>
 							}
@@ -151,24 +149,25 @@ export default function EnergyTalksWrap({
 					<SoftwareCards
 						dynamicData={[
 							{
-								desc: "Lorem ipsum dolor sit amet consectetur. Est.",
-								btnText: "View All Events",
-								btnLink: "/events",
-								img: "/img/contact/cardImg4.jpg",
-								fontColor: "color_white",
+								desc: "Expert-led sessions on industry-defining topics",
+								btnText: "View All Webinar",
+								btnLink: "/resources/webinar",
+								img: "/img/contact/cardImg6.jpg",
+								fontColor: "color_black",
 							},
 							{
-								desc: "Lorem ipsum dolor sit amet consectetur. Velit.",
-								btnText: "Press Room",
-								btnLink: "/company/press-releases",
+								desc: "Expert analysis and case studies on energy markets",
+								btnText: "View All Resources",
+								btnLink: "/resources/aurora-insights",
 								img: "/img/contact/cardImg5.jpg",
 								fontColor: "color_white",
 							},
 							{
-								desc: "Expert-led sessions on industry-defining topics.",
-								btnText: "Explore Advisory",
-								btnLink: "/service/advisory",
-								img: "/img/contact/cardImg6.jpg",
+								desc: "Join events shaping the future of energy",
+								btnText: "View All Events",
+								btnLink: "/events",
+								fontColor: "color_white",
+								img: "/img/contact/cardImg4.jpg",
 							},
 						]}
 					/>

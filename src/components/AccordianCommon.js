@@ -30,9 +30,16 @@ export default function AccordianCommon({
 	defaultActiveId = 0,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
-	const [activeIndex, setActiveIndex] = useState(defaultActiveId);
+	const [activeIndex, setActiveIndex] = useState(
+		items?.map((item, ind) => {
+			if (ind === 0) return true;
+			return false;
+		})
+	);
 	const [heights, setHeights] = useState([]);
+	const [widthOfImg, setWidthOfImg] = useState(0);
 	const contentRefs = useRef([]);
+
 	useEffect(() => {
 		/** handleAccordionClick function */
 		const calculateHeights = () => {
@@ -49,14 +56,24 @@ export default function AccordianCommon({
 			window.removeEventListener("resize", calculateHeights);
 		};
 	}, [activeIndex]);
+
 	/** handleAccordionClick function */
 	const handleAccordionClick = (index) => {
 		setActiveIndex(activeIndex === index ? null : index);
 	};
 	/** toggleAccordion */
 	const toggleAccordion = (index) => {
-		setActiveIndex(activeIndex === index ? null : index);
+		let arr = [...activeIndex];
+		arr[index] = !arr[index];
+		setActiveIndex(arr);
 	};
+
+	useEffect(() => {
+		const widthOfImgIcon = document
+			.querySelector(".imgIcons")
+			?.getBoundingClientRect();
+		setWidthOfImg((widthOfImgIcon?.width || 0) + 10);
+	}, []);
 
 	return (
 		<div className={styles.accordion}>
@@ -69,21 +86,22 @@ export default function AccordianCommon({
 						onClick={() => toggleAccordion(index)}
 					>
 						<div
-							className={`${fontStyle} ${fontWeight} ${fontFamily} ${fontColor} ${fontColor} headerF`}
+							className={`${fontStyle} ${fontWeight} ${fontFamily} ${fontColor} ${fontColor} headerF f_r_a_center`}
 						>
 							{item.imgIcons && (
 								<img
 									src={item.imgIcons}
 									className={`${styles.imgIcons} imgIcons`}
-									alt=""
+									alt="Icons"
 								/>
 							)}
-							{item?.tag && (
-								<p className="text_xs text_uppercase color_light_gray m_b_30">
-									{item?.tag}
-								</p>
-							)}
+
 							<div>
+								{item?.tag && (
+									<p className="text_xs text_uppercase color_light_gray m_b_10">
+										{item?.tag} <br />
+									</p>
+								)}
 								{item.title}
 								{item.locationData && (
 									<div className={`${styles.locationList} d_f pt_10`}>
@@ -98,7 +116,7 @@ export default function AccordianCommon({
 							</div>
 						</div>
 						<span className="icon">
-							{activeIndex === index ? (
+							{activeIndex[index] ? (
 								<img
 									src={minus_icon.src}
 									className={`${styles.AccImgMinus} AccImgMinus`}
@@ -118,18 +136,19 @@ export default function AccordianCommon({
 					{item.children && (
 						<div
 							className={`${styles.accordionContent} ${
-								activeIndex === index ? styles.active : ""
+								activeIndex[index] ? styles.active : ""
 							}`}
 							ref={(el) => (contentRefs.current[index] = el)}
 							style={{
-								height: activeIndex === index ? `${heights[index]}px` : "0px",
+								height: activeIndex[index] ? `${heights[index]}px` : "0px",
 								overflow: "hidden",
 								transition: "height 0.3s ease",
+								paddingLeft: `${widthOfImg}px`,
 							}}
 						>
 							<div
 								className={`${
-									activeIndex === index ? styles.activeInner : ""
+									activeIndex[index] ? styles.activeInner : ""
 								} activeSpace`}
 							>
 								{item.children}

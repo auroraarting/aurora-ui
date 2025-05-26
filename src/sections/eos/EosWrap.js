@@ -19,6 +19,7 @@ import IframeModal from "@/components/IframeModal";
 // SECTIONS //
 import EosBanner from "@/sections/eos/EosBanner";
 import CuttingEdgeModels from "@/sections/eos/CuttingEdgeModels";
+import CounterDynamic from "@/sections/careers/CounterDynamic";
 
 // PLUGINS //
 
@@ -27,6 +28,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/Eos.module.scss";
+import Introduction from "../global-presence/Introduction";
 
 // IMAGES //
 
@@ -82,7 +84,8 @@ export default function EOSPageWrap({
 						)
 					}
 				/>
-				<div className="ptb_100">
+				{data?.introduction && <Introduction data={data?.introduction} />}
+				<div className="pb_100">
 					<SoftwareCards />
 				</div>
 				{/* <div className="ptb_100 ">
@@ -95,6 +98,11 @@ export default function EOSPageWrap({
 					<Bundles data={bundles} name={data?.bundles?.sectionTitle} />
 				</div> */}
 				<GlobalMap locationJson={mapJson} />
+				{data?.stats && (
+					<div className="pb_100 black_bg">
+						<CounterDynamic className="black_bg" data={data?.stats} />
+					</div>
+				)}
 				{/* {data.trustedModels.sectionTitle && (
 					<div className="ptb_100">
 						<CuttingEdgeModels data={data.trustedModels} />
@@ -126,7 +134,7 @@ export default function EOSPageWrap({
 								defaultList={otherList}
 								countries={countries}
 								formSectionTitle="Expertise that powers progress"
-								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with Chronos specialists. Stay ahead with exclusive access to online and in-person community events."
+								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with the specialists. Stay ahead with exclusive access to online and in-person community events."
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 								}

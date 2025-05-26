@@ -23,32 +23,36 @@ query GetPodcasts {
           }
         }
         poweredBy {
-        nodes {
-         contentType {
-            node {
+          nodes {
+            contentType {
+              node {
+                id
+                label
+                name
+                uri
+              }
+            }
+            ... on Product {
               id
-              label
-              name
-              uri
+              title
+              slug
+            }
+            ... on Service {
+              id
+              title
+              slug
+            }
+            ... on Software {
+              id
+              title
+              slug
             }
           }
-          ... on Product {
-            id
-            title
-            slug
-          }
-          ... on Service {
-            id
-            title
-            slug
-          }
-          ... on Software {
-            id
-            title
-            slug
-          }
         }
-      }
+        sections {
+          content
+          sectionTitle
+        }
       }
       featuredImage {
         node {

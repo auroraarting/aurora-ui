@@ -34,7 +34,6 @@ export default function WebinarInsideTopSection({
 		data.webinarsFields.timezone
 	);
 
-	console.log(data, "data");
 	return (
 		<section className={`${styles.WebinarInsideTopSection} `}>
 			<div className="container">

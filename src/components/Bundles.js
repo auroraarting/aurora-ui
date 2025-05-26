@@ -77,23 +77,21 @@ export default function Bundles({ data, name }) {
 									);
 								})}
 							</div>
-							<div className="">
-								<CustomSelect
-									eventId="resetCustomSelect1"
-									list={data?.bundleTabs.map((item) => item.tabName)}
-									defaultId={0}
-									placeholder="Sample Packages"
-									mode="dark"
-									selectVal={selectVal}
-									setSelectVal={setSelectVal}
-									afterSelect={(e) => {
-										const filter = data?.bundleTabs.filter(
-											(item) => item.tabName === e.value
-										);
-										handleTabChange(filter[0]);
-									}}
-								/>
-							</div>
+							<CustomSelect
+								eventId="resetCustomSelect1"
+								list={data?.bundleTabs.map((item) => item.tabName)}
+								defaultId={0}
+								placeholder="Sample Packages"
+								mode="dark"
+								selectVal={selectVal}
+								setSelectVal={setSelectVal}
+								afterSelect={(e) => {
+									const filter = data?.bundleTabs.filter(
+										(item) => item.tabName === e.value
+									);
+									handleTabChange(filter[0]);
+								}}
+							/>
 						</div>
 						<div className={`${styles.tableMain}`}>
 							<table className={`${styles.table} color_white`}>
@@ -102,21 +100,39 @@ export default function Bundles({ data, name }) {
 										<td>&nbsp;</td>
 										<td>
 											Strategy <br />& Planning
+											<div className={`${styles.arr}`}>
+												<img src="/img/bundle-arr.svg" />
+											</div>
 										</td>
 										<td>
 											Project <br /> Siting
+											<div className={`${styles.arr}`}>
+												<img src="/img/bundle-arr.svg" />
+											</div>
 										</td>
 										<td>
 											Design and <br /> Optimisation
+											<div className={`${styles.arr}`}>
+												<img src="/img/bundle-arr.svg" />
+											</div>
 										</td>
 										<td>
 											Investment <br /> analysis
+											<div className={`${styles.arr}`}>
+												<img src="/img/bundle-arr.svg" />
+											</div>
 										</td>
 										<td>
 											Financing & <br /> M&A
+											<div className={`${styles.arr}`}>
+												<img src="/img/bundle-arr.svg" />
+											</div>
 										</td>
 										<td>
 											Portfolio <br /> Management <br /> & PPAs
+											<div className={`${styles.arr}`}>
+												<img src="/img/bundle-arr.svg" />
+											</div>
 										</td>
 										<td>
 											Ongoing <br /> Valuation
@@ -124,7 +140,12 @@ export default function Bundles({ data, name }) {
 									</tr>
 									{list?.list?.map((item, ind) => {
 										return (
-											<tr key={ind}>
+											<tr
+												key={ind}
+												className={`${
+													item.logoText === "Bespoke expert support" && styles.highlighted
+												}`}
+											>
 												<td className={`${styles.logo}`}>
 													<img className={styles.img} src={item?.logo?.node?.mediaItemUrl} />
 													<div

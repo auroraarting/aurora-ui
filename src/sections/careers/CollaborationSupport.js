@@ -80,7 +80,7 @@ export default function CollaborationSupport({ data }) {
 											<img
 												src={item?.icon?.node?.mediaItemUrl}
 												className={`${styles.strategy_icon}`}
-												alt="strategy icon"
+												alt={item.name}
 											/>
 											<span>{item.name}</span>
 										</h4>
@@ -92,6 +92,7 @@ export default function CollaborationSupport({ data }) {
 										<img
 											src={item?.image?.node?.mediaItemUrl}
 											className={`${styles.countryImg} width_100`}
+											alt={item.name}
 										/>
 									</div>
 								</div>

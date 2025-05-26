@@ -1,5 +1,9 @@
 @import "../../../helpers/helpers.scss";
 .EnergyInsideTopSection {
+	.content {
+		display: flex;
+		flex-direction: column;
+	}
 	.card {
 		@media (max-width: 767px) {
 			flex-direction: column-reverse;
@@ -28,8 +32,7 @@
 			}
 		}
 		.imageWrapper {
-			width: 50%;
-			max-height: 270px;
+			// width: 50%;
 			overflow: hidden;
 
 			img {
@@ -37,7 +40,7 @@
 				height: 100%;
 			}
 			@media (max-width: 1199px) {
-				width: 54%;
+				// width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
@@ -45,7 +48,9 @@
 		}
 	}
 	.dateBox {
+		margin-top: auto;
 		.downloadListenBox {
+			padding: 10px 0;
 			margin-top: 20px;
 			border-top: 1px solid var(--color_platinum_gray);
 			border-bottom: 1px solid var(--color_platinum_gray);

@@ -29,60 +29,6 @@ export default function TrustedLeaders({
 	data,
 	sectionTitle = "Trusted by industry leaders",
 }) {
-	const LogoData = [
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-		{
-			logos: erste.src,
-		},
-	];
-
 	if (!data || !data?.selectLogos) return <></>;
 
 	return (
@@ -90,6 +36,8 @@ export default function TrustedLeaders({
 			className={`${styles.TrustedLeaders} TrustedLeaders`}
 			id="ourClients"
 			data-name="Our Clients"
+			aria-label="our Clients"
+			title="our Clients"
 		>
 			<div className="container">
 				<div className="pb_40">
@@ -109,7 +57,8 @@ export default function TrustedLeaders({
 
 				<div className={`${styles.box_wrap}`}>
 					<Swiper
-						slidesPerView={2}
+						slidesPerGroup={5} // scroll 5 columns = 10 items with 2 rows
+						slidesPerView={5}
 						grid={{
 							fill: "row", // This is important for row layout
 							rows: 2,
@@ -121,6 +70,7 @@ export default function TrustedLeaders({
 						breakpoints={{
 							768: {
 								slidesPerView: 3,
+								slidesPerGroup: 3,
 								grid: {
 									fill: "row", // This is important for row layout
 									rows: 2,
@@ -128,6 +78,7 @@ export default function TrustedLeaders({
 							},
 							1024: {
 								slidesPerView: 5,
+								slidesPerGroup: 5,
 								grid: {
 									rows: 2,
 								},
@@ -136,22 +87,29 @@ export default function TrustedLeaders({
 						modules={[Grid, Pagination]}
 						className="mySwiper"
 					>
-						{data?.selectLogos?.nodes?.map((item, ind) => (
-							<SwiperSlide key={ind}>
-								<div className={`${styles.box_item}`} key={ind}>
-									<div className={`${styles.imgBox}`}>
-										{item?.featuredImage?.node?.mediaItemUrl && (
-											<img
-												src={item?.featuredImage?.node?.mediaItemUrl}
-												className="b_r_10"
-												alt="story img"
-												loading="lazy"
-											/>
-										)}
+						{data?.selectLogos?.nodes?.map((item, ind) => {
+							const imageUrl = item?.featuredImage?.node?.mediaItemUrl;
+							const imageName = imageUrl
+								? imageUrl.split("/").pop().split(".")[0].replace(/[-_]/g, " ")
+								: "story image";
+
+							return (
+								<SwiperSlide key={ind}>
+									<div className={`${styles.box_item}`}>
+										<div className={`${styles.imgBox}`}>
+											{imageUrl && (
+												<img
+													src={imageUrl}
+													className="b_r_10"
+													alt={imageName}
+													loading="lazy"
+												/>
+											)}
+										</div>
 									</div>
-								</div>
-							</SwiperSlide>
-						))}
+								</SwiperSlide>
+							);
+						})}
 					</Swiper>
 				</div>
 			</div>

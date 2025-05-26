@@ -49,8 +49,6 @@ export default function AboutWrap({
 }) {
 	const dataForBtn = { postFields: data };
 
-	console.log(data, "data");
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -99,7 +97,7 @@ export default function AboutWrap({
 					</div>
 				)}
 				{/* eos */}
-				<ServicesCircle data={data?.keyAdvantages} />
+				<ServicesCircle data={data?.keyAdvantages} hideId />
 				{data?.trustedModels?.sectionTitle && (
 					<div className="ptb_100">
 						<CuttingEdgeModels data={data?.trustedModels} />
@@ -107,26 +105,27 @@ export default function AboutWrap({
 				)}
 				{/* eos */}
 				{mapJson && (
-					<div className="dark_bg">
+					<div className="black_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
-							className="dark_bg"
+							className="black_bg"
 						/>
 					</div>
 				)}
 				<div className="">
 					<Counter
-						className="dark_bg"
+						className="black_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="pt_100 dark_bg relative">
-					<img
+				<div className="ptb_100 black_bg relative">
+					{/* <img
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
-					/>
+						alt="bg img"
+					/> */}
 					<div className="pb_100">
 						<EosIntegratedSystem />
 					</div>
@@ -134,12 +133,12 @@ export default function AboutWrap({
 				</div>
 
 				<div className="pt_100">
-					<section id="Products-Service" data-name="Products & Service">
+					<section>
 						<SoftwareCards />
 					</section>
 				</div>
 				{data.ourClient.selectLogos && (
-					<div className="ptb_100">
+					<div className="pt_100">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}

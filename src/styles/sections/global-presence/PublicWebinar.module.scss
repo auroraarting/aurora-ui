@@ -42,21 +42,25 @@
 				margin-bottom: 60px;
 			}
 			.ItemBox {
-				height: 485px;
-				background-image: url("../../../../public/img/global-presence/publicBg.png");
-				background-repeat: no-repeat;
-				background-size: cover;
-				background-position: top center;
+				// height: 485px;
+				// background-image: url("../../../../public/img/global-presence/publicBg.png");
+				// background-repeat: no-repeat;
+				// background-size: cover;
+				// background-position: top center;
 				border-radius: 20px;
 				display: flex;
 				align-items: flex-end;
-				padding: 30px 45px;
+				padding: 30px 0px;
+				.case_img {
+					height: 300px;
+					object-fit: cover;
+				}
 				@media (max-width: 991px) {
 					padding: 30px 20px;
-					height: 440px;
+					// height: 440px;
 				}
 				@media (max-width: 767px) {
-					height: 300px;
+					// height: 300px;
 				}
 				.hoverBox {
 				}

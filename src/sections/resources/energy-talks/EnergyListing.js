@@ -31,6 +31,7 @@ import calender from "/public/img/icons/calender.svg";
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 import searchImg from "/public/img/icons/search.svg";
 import hoverBg from "/public/img/home/hoverBg.png";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -181,7 +182,6 @@ export default function EnergyListing({
 		}
 		setSelected(selectedObj);
 
-		console.log(selectedObj, "queryObj");
 		const filteredArr = filterItemsForPodcast(arr, selectedObj);
 		setList(filteredArr);
 		setPaginationArr(filteredArr);
@@ -228,7 +228,6 @@ export default function EnergyListing({
 			setList(filteredArr);
 			setPaginationArr(filteredArr);
 			setLoading(false);
-			console.log(selecObj, "selecObj");
 		}
 		// Get Search Query From URl End
 
@@ -244,7 +243,9 @@ export default function EnergyListing({
 		}
 	}, [search]);
 
-	console.log(list, "list");
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.EnergyListing}>
@@ -429,7 +430,7 @@ export default function EnergyListing({
 										autoFocus
 										name="search"
 										type="text"
-										placeholder="Search Podcasts"
+										placeholder="Search Energy Talks"
 										onChange={(e) => setSearchInput(e.target.value)}
 									/>
 								</form>
@@ -440,7 +441,13 @@ export default function EnergyListing({
 										onClick={() => filter(searchInput, "search")}
 									/>
 									{/* Close Button */}
-									<div className={`${styles.closeBox}`} onClick={closeSearchInput}>
+									<div
+										className={`${styles.closeBox}`}
+										onClick={() => {
+											closeSearchInput();
+											filter("", "search");
+										}}
+									>
 										<span className="text_xs">X</span>
 									</div>
 								</span>
@@ -454,8 +461,11 @@ export default function EnergyListing({
 					{!loading &&
 						list.map((item, ind) => {
 							return (
-								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
-									<a href={`/resources/energy-talks/${item?.slug}`}>
+								<div className={`${styles.ItemBox} gridItem`} key={item?.title + ind}>
+									<a
+										href={`/resources/energy-talks/${item?.slug}`}
+										className={`${styles.itemInside}`}
+									>
 										<div className={`${styles.hoverBox}`}>
 											<img
 												src={hoverBg.src}
@@ -468,7 +478,7 @@ export default function EnergyListing({
 											<p
 												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 											>
-												Energy Talks
+												PodCast
 												{/* {isCategory(allCategories, item?.categories?.nodes)} */}
 											</p>
 											{/* )} */}

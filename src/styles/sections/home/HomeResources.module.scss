@@ -1,5 +1,9 @@
 @import "../../helpers/helpers.scss";
 .HomeResources {
+	background-image: url("../../../../public/img/home/resources_bg.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
 	.publicFlex {
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
@@ -47,7 +51,7 @@
 				margin-bottom: 20px;
 				background-color: var(--color_white);
 				.case_img {
-					height: 260px;
+					height: 300px;
 					object-fit: cover;
 				}
 				.insideBox {

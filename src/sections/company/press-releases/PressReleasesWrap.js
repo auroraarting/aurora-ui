@@ -60,7 +60,6 @@ export default function PressReleasesWrap({
 	const dataForBtn = {
 		postFields: page,
 	};
-	console.log(page);
 
 	/** */
 	const handleTabClick = (tab) => {

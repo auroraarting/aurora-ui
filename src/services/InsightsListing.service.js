@@ -15,7 +15,22 @@ query GetWebinarListing {
         sectionDesc
         videoLink
         sectionTitle
+        iframe
         videoThumbnail {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
+      insights {
+        desc
+        title
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        file {
           node {
             altText
             mediaItemUrl

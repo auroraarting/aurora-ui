@@ -157,8 +157,6 @@ export default function TheApplicationProcess({ data }) {
 		});
 	};
 
-	console.log("accordianData2()", accordianData());
-
 	return (
 		<section
 			className={`${styles.SmarterEnergy} ptb_100`}

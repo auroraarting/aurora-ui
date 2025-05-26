@@ -28,8 +28,9 @@ import styles from "@/styles/sections/home/HomeOurOfferings.module.scss";
 
 // IMAGES //
 import macEOS from "../../../public/img/home/mac-eos.png";
-import menu_hover_arrow from "../../../public/img/icons/menu_hover_arrow.svg";
+import menu_hover_arrow from "../../../public/img/home/card_arrow.svg";
 import Ellipse from "../../../public/img/ellipse.png";
+import AdvisoryImg from "../../../public/img/home/advisory.jpg";
 
 // DATA //
 
@@ -105,7 +106,11 @@ export default function HomeOurOfferings() {
 		return () => clearInterval(interval);
 	}, []);
 	return (
-		<section className={`${styles.HomeOurOfferings}`}>
+		<section
+			className={`${styles.HomeOurOfferings}`}
+			aria-label="our offerings section"
+			title="our offerings section"
+		>
 			<h2 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
 				<br className="visible_lg" /> to navigate and capitalize on the global shift
@@ -140,21 +145,21 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/eos">
+								<a href="/eos" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_white">EOS Platform</p>
+								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
 								<p className="text_reg color_silver_gray">
 									EOS centralizes Aurora’s data, software, forecasts, and insights.
 								</p>
 							</div>
 							<img
 								src={macEOS.src}
-								alt="mac eos"
+								alt="EOS Platform"
 								className={`${styles.BoxImg} m_0_auto`}
 							/>
 						</div>
@@ -165,14 +170,14 @@ export default function HomeOurOfferings() {
 							style={{ backgroundColor: bgColors[bgIndex] }}
 						>
 							<div className={`${styles.Content}`}>
-								<a href="/software">
+								<a href="/software" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_secondary">Software</p>
+								<h4 className="text_md f_w_m color_secondary">Software</h4>
 								<p className="text_reg color_dark_gray">
 									Our software suite empowers energy professionals with advanced tools
 									for market forecasting, asset valuation, and strategic decision-making.
@@ -199,14 +204,14 @@ export default function HomeOurOfferings() {
 					<SwiperSlide>
 						<div className={`${styles.itemBox} ${styles.LottieContent} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/products">
+								<a href="/products" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_white">Subscription Analytics</p>
+								<h4 className="text_md f_w_m color_white">Subscription Analytics</h4>
 								<p className="text_reg color_silver_gray">
 									Access energy forecasts, policy insights, and analytics tools designed
 									to inform smarter, faster market decisions powered through our
@@ -232,25 +237,25 @@ export default function HomeOurOfferings() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div className={`${styles.itemBox} cardHBg`}>
+						<div className={`${styles.itemBox} ${styles.advisoryBox} cardHBg`}>
 							<div className={`${styles.Content}`}>
-								<a href="/service/advisory">
+								<a href="/service/advisory" role="button">
 									<img
 										src={menu_hover_arrow.src}
 										alt="icon"
 										className={`${styles.Icon_arrow}`}
 									/>
 								</a>
-								<p className="text_md f_w_m color_white">Advisory</p>
+								<h4 className="text_md f_w_m color_white">Advisory</h4>
 								<p className="text_reg color_silver_gray">
 									Bespoke advisory offering in-depth strategic recommendation and
 									insights.
 								</p>
 							</div>
 							<img
-								src={macEOS.src}
-								alt="mac eos"
-								className={`${styles.BoxImg} m_0_auto`}
+								src={AdvisoryImg.src}
+								alt="Advisory"
+								className={`${styles.BoxImg} m_0_auto b_r_10`}
 							/>
 						</div>
 					</SwiperSlide>

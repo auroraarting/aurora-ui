@@ -45,6 +45,7 @@
 		.box_item {
 			position: relative;
 			padding: 0px 20px 20px 0px;
+
 			&::after {
 				content: " ";
 				position: absolute;
@@ -79,10 +80,35 @@
 					transition: 0.5s all;
 				}
 			}
+
+			&:nth-child(10n + 6),
+			&:nth-child(10n + 7),
+			&:nth-child(10n + 8),
+			&:nth-child(10n + 9),
+			&:nth-child(10n + 10) {
+				/* ✅ Styles applied to 6–10, 16–20, 26–30, etc. */
+				&::before {
+					background-color: transparent;
+				}
+			}
 		}
 	}
 	:global(.swiper-wrapper) {
 		flex-wrap: wrap !important;
+	}
+	:global(.swiper-slide) {
+		&:nth-child(10n + 6),
+		&:nth-child(10n + 7),
+		&:nth-child(10n + 8),
+		&:nth-child(10n + 9),
+		&:nth-child(10n + 10) {
+			/* ✅ Styles applied to 6–10, 16–20, 26–30, etc. */
+			.box_item {
+				&::before {
+					background-color: transparent;
+				}
+			}
+		}
 	}
 	// :global(.swiper-slide) {
 	// 	&:nth-last-of-type(5) {

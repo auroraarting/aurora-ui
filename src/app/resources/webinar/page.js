@@ -43,8 +43,6 @@ async function getData() {
 	]);
 	let pastSpeakers = [];
 
-	console.log(data?.data?.webinars?.nodes);
-
 	return {
 		props: {
 			pagination: data.data?.posts?.pageInfo || {},

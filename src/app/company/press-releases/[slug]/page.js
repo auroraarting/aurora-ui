@@ -59,7 +59,6 @@ async function getData({ params }) {
 		),
 		getPressPageInsights(),
 	]);
-	console.log(data, "datasadasdas");
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {

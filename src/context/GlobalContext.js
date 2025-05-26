@@ -39,8 +39,6 @@ export const GlobalContext = ({ children }) => {
 			if (isExternal) return;
 
 			// ✅ Internal link clicked normally
-			console.log("User clicked internal link:", link.href);
-
 			const getLoaderHtml = document.querySelector(".loaderWrap");
 			if (getLoaderHtml) {
 				getLoaderHtml.classList.remove("hide");

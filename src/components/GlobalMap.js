@@ -38,6 +38,8 @@ export default function GlobalMap({
 			className={`${styles.globalMap} section_spacing ${className}`}
 			id={slugify(sectionName)}
 			data-name={sectionName}
+			aria-label="map"
+			title="map"
 		>
 			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 			{/* <div className="container"> */}
@@ -50,7 +52,7 @@ export default function GlobalMap({
 				</span> */}
 			</Marquee>
 
-			<div className="container">
+			<div className="">
 				<Map
 					mapCenter={mapCenter}
 					setValueOfSelect={setValueOfSelect}

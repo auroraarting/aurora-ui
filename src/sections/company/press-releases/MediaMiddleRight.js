@@ -86,7 +86,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={webinar_logo.src} alt="logo" />
+							<img src={webinar_logo.src} alt="Shaping the energy discussion" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
@@ -103,7 +103,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={podcast_logo.src} alt="logo" />
+							<img src={podcast_logo.src} alt="Energy unplugged by Aurora" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>

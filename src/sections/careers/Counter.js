@@ -22,7 +22,11 @@ import styles from "@/styles/sections/careers/Counter.module.scss";
 /** Counter Section */
 export default function Counter({ data, className }) {
 	return (
-		<section className={`${styles.Counter} pt_40 ${className}`}>
+		<section
+			className={`${styles.Counter} pt_40 ${className}`}
+			aria-label="counter"
+			title="counter"
+		>
 			<div className="container">
 				<div className={`${styles.counterFlex} f_w_j`}>
 					{data?.stats?.auroreans && (

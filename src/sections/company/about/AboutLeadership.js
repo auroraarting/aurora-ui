@@ -17,7 +17,12 @@ import { Navigation, Autoplay } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
-import formatDate, { allCategories, isCategory, slugify } from "@/utils";
+import formatDate, {
+	allCategories,
+	isCategory,
+	removeHTML,
+	slugify,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/about/AboutLeadership.module.scss";
@@ -71,8 +76,8 @@ export default function AboutLeadership({ data, countries }) {
 		>
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						{data?.sectionTitle}
+					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_10">
+						{removeHTML(data?.sectionTitle)}
 					</h2>
 					<div className={`${styles.label} text_reg color_dark_gray`}>
 						<ContentFromCms>{data?.sectionDescription}</ContentFromCms>
@@ -117,7 +122,7 @@ export default function AboutLeadership({ data, countries }) {
 												<img
 													src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 													className="b_r_20"
-													alt="story img"
+													alt={item?.title}
 												/>
 											</div>
 											<div className={`${styles.content} pt_20`}>
@@ -191,7 +196,7 @@ export default function AboutLeadership({ data, countries }) {
 															<img
 																src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
 																className="b_r_20"
-																alt="story img"
+																alt={item?.title}
 															/>
 															{/* <div className={`${styles.profileDownload}`}>
 																<a

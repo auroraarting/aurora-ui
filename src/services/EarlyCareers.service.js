@@ -121,6 +121,7 @@ query GetEarlyCareersListing {
     nodes {
       title
       slug
+      content
       earlyCareers {
       banner{
       city

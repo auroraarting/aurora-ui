@@ -68,11 +68,6 @@ const WhyAttend = ({ data }) => {
 		<section id="agenda" data-name="Agenda" className="pb_50">
 			<h2>Why attend?</h2>
 			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-			<ul>
-				{data?.agenda?.map((item) => {
-					return <li key={item?.title}>{item?.title}</li>;
-				})}
-			</ul>
 			<div className={styles.btn_box} onClick={() => setOpen(!open)}>
 				<Button color="secondary" variant="filled" shape="rounded">
 					View Full Agenda

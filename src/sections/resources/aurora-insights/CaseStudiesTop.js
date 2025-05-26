@@ -70,55 +70,43 @@ export default function CaseStudiesTop({ data }) {
 								</p>
 							)}
 						</div>
+						<div className={`${styles.dateBox}`}>
+							<div className={`${styles.downloadListenBox} f_w_j a_center`}>
+								<div className={`${styles.downloadListen}`}>
+									<div className={`${styles.downloadBox} f_r_a_center`}>
+										{dynamicInsightsBtnProps(data, "topSectionButton").btntext && (
+											<a
+												{...dynamicInsightsBtnProps(data, "topSectionButton")}
+												className="text_sm f_w_m font_primary f_r_a_center"
+											>
+												<img src={download.src} alt="download" />
+												<span>
+													{dynamicInsightsBtnProps(data, "topSectionButton").btntext}
+												</span>
+											</a>
+										)}
+
+										<a
+											onClick={Speechify}
+											className="text_sm f_w_m font_primary f_r_a_center speechify_wrap"
+										>
+											<img src={play.src} alt="play" />
+											<span>{isPlaying ? "Pause" : "Listen"}</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					{data?.featuredImage?.node?.mediaItemUrl && (
 						<div className={`${styles.imageWrapper}`}>
 							<img
 								src={data?.featuredImage?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
-								alt="img"
+								alt={data?.title}
 							/>
 						</div>
 					)}
-				</div>
-				<div className={`${styles.dateBox}`}>
-					{/* <ul>
-						<li className="text_xs color_dark_gray text_uppercase">December 2024</li>
-						<li className="text_xs color_dark_gray text_uppercase">5 min Read</li>
-					</ul> */}
-					<div className={`${styles.downloadListenBox} f_w_j a_center`}>
-						<div className={`${styles.downloadListen}`}>
-							<div className={`${styles.downloadBox} f_r_a_center`}>
-								{dynamicInsightsBtnProps(data, "topSectionButton").btntext && (
-									<a
-										{...dynamicInsightsBtnProps(data, "topSectionButton")}
-										className="text_sm f_w_m font_primary f_r_a_center"
-									>
-										<img src={download.src} alt="download" />
-										<span>
-											{dynamicInsightsBtnProps(data, "topSectionButton").btntext}
-										</span>
-									</a>
-								)}
-
-								<a
-									onClick={Speechify}
-									className="text_sm f_w_m font_primary f_r_a_center speechify_wrap"
-								>
-									<img src={play.src} alt="play" />
-									<span>{isPlaying ? "Pause" : "Listen"}</span>
-								</a>
-							</div>
-						</div>
-						<div className={`${styles.downloadListenShare} f_r_a_center`}>
-							<a href="" className="text_sm f_w_m font_primary f_r_a_center">
-								<img src={share.src} alt="share" />
-							</a>
-							{/* <a href="" className="text_sm f_w_m font_primary f_r_a_center">
-								<img src={copy.src} alt="copy" />
-							</a> */}
-						</div>
-					</div>
 				</div>
 			</div>
 		</section>

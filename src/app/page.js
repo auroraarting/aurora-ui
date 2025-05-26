@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -49,24 +49,42 @@ export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Home Page */
 export default async function HomePage() {
-	const [regions, dataFetch, insightsFetch, eventsdata, voicesFetch] =
-		await Promise.all([
-			getRegions(),
-			getHomePage(),
-			getInsights(
-				'first: 6, where: {categoryName: "commentary,public-webinar,webinar,webinar-recording,market-reports"}'
-			),
-			// eslint-disable-next-line quotes
-			getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-			getHomePageVoices(),
-		]);
-	const mapJson = getMapJsonForAllRegions(regions);
-	const data = dataFetch.data.page.homepage;
-	const countries = dataFetch.data.countries.nodes;
-	const insights = insightsFetch.data.posts.nodes;
-	const events = eventsdata.data.events.nodes;
-	const voices = voicesFetch;
-	console.log(voices, "voices");
+	let mapJson;
+	let data;
+	let countries;
+	let events;
+	let voices;
+	let errorMsg;
+
+	try {
+		// const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
+		// 	getRegions(),
+		// 	getHomePage(),
+		// 	// eslint-disable-next-line quotes
+		// 	getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+		// 	getHomePageVoices(),
+		// ]);
+		const regions = await getRegions();
+		await new Promise((res) => setTimeout(res, 200));
+		const dataFetch = await getHomePage();
+		await new Promise((res) => setTimeout(res, 200));
+		const eventsdata = await getAllEvents(
+			'first:3, where: { thumbnail: { status: "Upcoming" } }'
+		);
+		await new Promise((res) => setTimeout(res, 200));
+		const voicesFetch = await getHomePageVoices();
+
+		mapJson = getMapJsonForAllRegions(regions);
+		data = dataFetch.data.page.homepage;
+		countries = dataFetch.data.countries.nodes;
+		events = eventsdata.data.events.nodes;
+		voices = voicesFetch;
+	} catch (error) {
+		errorMsg = error;
+		console.log(error, "Error");
+	}
+
+	if (errorMsg) return <div>{errorMsg}</div>;
 
 	return (
 		<div>
@@ -78,7 +96,7 @@ export default async function HomePage() {
 				<HomeBanner />
 				<HomeOurOfferings />
 				{data?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pt_40">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
@@ -95,7 +113,7 @@ export default async function HomePage() {
 				)}
 				<HomeWhoWeAre />
 				<div className="ptb_100">
-					<HomeResources data={insights} countries={countries} voices={voices} />
+					<HomeResources countries={countries} voices={voices} />
 				</div>
 				<div className="pb_100">
 					<HomeEvents data={events} />

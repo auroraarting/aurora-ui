@@ -69,7 +69,7 @@ export default function GraduateExperiance({
 									<div className={`${styles.teamFlex} f_r_a_center`}>
 										{item?.image?.node?.mediaItemUrl && (
 											<div className={`${styles.teamLogo}`}>
-												<img src={item?.image?.node?.mediaItemUrl} alt="logo" />
+												<img src={item?.image?.node?.mediaItemUrl} alt={item?.name} />
 											</div>
 										)}
 										<div className={`${styles.teamDescription}`}>
@@ -92,7 +92,7 @@ export default function GraduateExperiance({
 						<img
 							className={`${styles.thumb}`}
 							src={defaultData[selectId]?.popup?.thumb?.node?.mediaItemUrl}
-							alt={"thumb"}
+							alt={defaultData[selectId]?.name}
 						/>
 						<div className={`${styles.contentWrap} color_white`}>
 							<div className={`${styles.head} color_white text_lg f_w_m`}>

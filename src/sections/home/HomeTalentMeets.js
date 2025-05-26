@@ -28,19 +28,23 @@ import meet_img from "../../../public/img/home/meet_img.jpg";
 /** HomeTalentMeets Section */
 export default function HomeTalentMeets() {
 	return (
-		<section className={`${styles.HomeTalentMeets} ptb_100`}>
+		<section
+			className={`${styles.HomeTalentMeets} ptb_100`}
+			aria-label="talent meets purpose section"
+			title="talent meets purpose section"
+		>
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.imageWrapper}`}>
 						<img
 							src={meet_img.src}
 							className="width_100 b_r_20"
-							alt="meet img"
+							alt="Where talent meets"
 							loading="lazy"
 						/>
 					</div>
 					<div className={`${styles.content}`}>
-						<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
+						<h2 className="text_xl font_primary color_secondary pb_20">
 							Where talent meets purpose
 						</h2>
 						<p className="text_reg color_dark_gray">
@@ -50,7 +54,13 @@ export default function HomeTalentMeets() {
 						</p>
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<Link href="/careers/life-at-aurora">
-								<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								<Button
+									color="primary"
+									variant="filled"
+									shape="rounded"
+									hoverBg="white"
+									role="button"
+								>
 									Life at Aurora
 								</Button>
 							</Link>

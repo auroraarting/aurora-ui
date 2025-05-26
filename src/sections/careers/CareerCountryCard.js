@@ -284,7 +284,6 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									onSubmit={(e) => {
 										e.preventDefault();
 										const val = e.target.search.value;
-										console.log("Asdasda", val);
 
 										filter(val, "search");
 									}}
@@ -310,6 +309,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<img
 										src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
 										className={`${styles.countryImg} b_r_10`}
+										alt={item?.earlyCareers?.thumbnail?.country?.node?.title}
 									/>
 									{item?.earlyCareers?.thumbnail?.islive && (
 										<p

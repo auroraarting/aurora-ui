@@ -36,7 +36,7 @@ export default function AllVideos({
 	videoLink,
 	videoThumbnail,
 	iframe,
-	sectionName = "Aurora’s career series",
+	sectionName = "Latest Videos",
 	id = "Auroras-career-series",
 }) {
 	if (!title) return <></>;
@@ -50,12 +50,13 @@ export default function AllVideos({
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.content}`}>
 						<h4
-							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+							className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase pb_40`}
 						>
-							Aurora’s career series
+							{sectionName}
 						</h4>
+
 						<h2 className="text_xl font_primary f_w_m color_white pb_20">{title}</h2>
-						<p className="text_reg color_dark_gray pb_20">{desc}</p>
+						<p className="text_reg color_dark_gray pb_40">{desc}</p>
 						<a
 							href={redirectLink}
 							target="_blank"
@@ -69,24 +70,28 @@ export default function AllVideos({
 					</div>
 					<div className={`${styles.imageWrapper}`}>
 						{!iframe && (
-							<LightGallery
-								speed={500}
-								plugins={[lgThumbnail, lgZoom, lgVideo]}
-								mobileSettings={{ closable: true }}
-							>
-								<a href={videoLink} data-src={videoLink}>
-									<img
-										src={videoThumbnail}
-										className={`${styles.videoThumbnail} img b_r_10`}
-										alt="video thumbnail"
-									/>
-									<img
-										src={video_play.src}
-										className={`${styles.playIcon} `}
-										alt="play"
-									/>
-								</a>
-							</LightGallery>
+							<div style={{ pointerEvents: videoLink ? "all" : "none" }}>
+								<LightGallery
+									speed={500}
+									plugins={[lgThumbnail, lgZoom, lgVideo]}
+									mobileSettings={{ closable: true }}
+								>
+									<a href={videoLink} data-src={videoLink}>
+										<img
+											src={videoThumbnail}
+											className={`${styles.videoThumbnail} img b_r_20`}
+											alt="video thumbnail"
+										/>
+										{videoLink && (
+											<img
+												src={video_play.src}
+												className={`${styles.playIcon} `}
+												alt="play"
+											/>
+										)}
+									</a>
+								</LightGallery>
+							</div>
 						)}
 						{iframe && <ContentFromCms>{iframe}</ContentFromCms>}
 					</div>
