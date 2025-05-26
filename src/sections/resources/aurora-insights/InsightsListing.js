@@ -31,6 +31,7 @@ import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
 import { getInsights } from "@/services/Insights.service";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -245,6 +246,10 @@ export default function InsightsListing({
 		if (selected.category === "Commentary") return "Articles";
 		return selected.category;
 	};
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.InsightsListing}>
