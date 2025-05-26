@@ -340,10 +340,25 @@
 					.leadDetailsItem {
 						&:first-child {
 							width: 30%;
+							position: relative;
 							@media (max-width: 767px) {
 								width: 100%;
 								margin-bottom: 30px;
 							}
+							.leadThumb{
+								position: relative;
+								.popUp{
+									position: absolute;
+									bottom: 0;
+									right: 0px;
+									width: 100%;
+									height: auto;
+									img{
+										width: 100%;
+									}
+								}
+							}
+							
 						}
 						&:last-child {
 							width: 67%;

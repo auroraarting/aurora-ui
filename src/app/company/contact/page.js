@@ -195,7 +195,7 @@ export default async function ContactPage() {
 									fontStyle={"text_lg"}
 									fontWeight={"f_w_s_b"}
 									fontFamily={"font_primary"}
-									fontColor={"color_light_gray"}
+									fontColor={"color_secondary"}
 									items={data?.regionsArr}
 								/>
 							)}

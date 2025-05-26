@@ -77,7 +77,7 @@ export default function GlobalPresenceWrap({
 					<GlobalMap locationJson={mapJson} marqueeText={data.page.mapMarquee} />
 
 					<div className={`${styles.insightBg} ptb_80`}>
-						<div className={`${styles.boxBg}`}></div>
+						{/* <div className={`${styles.boxBg}`}></div> */}
 						<EosIntegratedSystem />
 					</div>
 					<div className="ptb_100">

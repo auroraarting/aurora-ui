@@ -52,6 +52,12 @@
 				width: 100%;
 				margin-bottom: 20px;
 			}
+			h1, h2{
+				letter-spacing: -2.1px;
+				@media (max-width: 1199px) {
+					letter-spacing: -1px;
+				}
+			}
 		}
 		.flexItemTwo {
 			width: 40%;

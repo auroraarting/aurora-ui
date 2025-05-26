@@ -150,6 +150,9 @@ export default function Speakers({ data, title, desc }) {
 													<div className={`${styles.BoxFlex} f_w`}>
 														<div className={styles.Imgthumbnail}>
 															<img src={item.thumbnail} className="b_r_20" alt={item.name} />
+															<div className={`${styles.popUp}`}>
+																<img src={hoverEffect.src} className="b_r_20" alt=" img" />
+															</div>
 														</div>
 														<div className={`${styles.Details}`}>
 															<div className={`${styles.boxName}`}>
