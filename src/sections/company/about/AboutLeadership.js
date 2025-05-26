@@ -198,6 +198,9 @@ export default function AboutLeadership({ data, countries }) {
 																className="b_r_20"
 																alt={item?.title}
 															/>
+															<div className={`${styles.popUp}`}>
+																<img src={hoverEffect.src} className="b_r_20" alt=" img" />
+															</div>
 															{/* <div className={`${styles.profileDownload}`}>
 																<a
 																	href={item.downloadProfileUrl}

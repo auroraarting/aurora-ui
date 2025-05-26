@@ -215,6 +215,19 @@
 						width: 170px;
 					}
 				}
+				.popUp{
+					position: absolute;
+					bottom: 0;
+					right: 0px;
+					width: 100%;
+    			height: auto;
+					img{
+						width: 100%;
+						@media (max-width: 767px) {
+							width: 170px;
+						}
+					}
+				}
 				.profileDownload {
 					position: absolute;
 					bottom: 20px;
@@ -262,10 +275,24 @@
 					.Desc {
 						position: absolute;
 						top: 0;
+						padding-right: 20px;
 					}
 				}
 			}
+			
 		}
+		::-webkit-scrollbar {
+				width: 5px;
+				height: 5px;
+				background: var(--color_gray);
+			}
+			::-webkit-scrollbar-track {
+				border-radius: 50px;
+			}
+			::-webkit-scrollbar-thumb {
+				background: var(--color_white);
+				border-radius: 50px;
+			}
 		.blogWapper {
 			position: relative;
 			margin: 50px 0px;
