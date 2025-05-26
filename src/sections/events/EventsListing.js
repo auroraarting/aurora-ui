@@ -29,6 +29,7 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import searchImg from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -206,6 +207,10 @@ export default function EventsListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.EventsListing}>

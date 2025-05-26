@@ -15,6 +15,7 @@ query GetWebinarListing {
         sectionDesc
         videoLink
         sectionTitle
+        iframe
         videoThumbnail {
           node {
             altText

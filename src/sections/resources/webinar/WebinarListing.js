@@ -32,6 +32,7 @@ import searchImg from "@/../public/img/icons/search.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
 import Pagination from "@/components/Pagination";
 import { useContextProvider } from "@/context/GlobalContext";
+import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -240,6 +241,10 @@ export default function WebinarListing({
 			setOriginal(filtered);
 		}
 	}, [search]);
+
+	useEffect(() => {
+		EqualHeight(`${styles.ItemBox}`);
+	}, [list]);
 
 	return (
 		<section className={styles.WebinarListing}>
