@@ -57,8 +57,8 @@ export default function TrustedLeaders({
 
 				<div className={`${styles.box_wrap}`}>
 					<Swiper
-						slidesPerGroup={5} // scroll 5 columns = 10 items with 2 rows
-						slidesPerView={5}
+						slidesPerGroup={2} // scroll 5 columns = 10 items with 2 rows
+						slidesPerView={2}
 						grid={{
 							fill: "row", // This is important for row layout
 							rows: 2,
