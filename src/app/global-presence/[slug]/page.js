@@ -95,7 +95,6 @@ async function getData({ params, query }) {
 			(item2) => item2?.slug === params.slug
 		)
 	);
-	console.log(eventsFetch, "events");
 
 	const webinarList =
 		webinars?.length > 0

@@ -41,7 +41,6 @@ import integratedSoftware from "@/data/integratedSoftwareJson.json";
 export default function IntegratedSystem({ module = "softwares" }) {
 	const [data, setData] = useState();
 	const link = module === "softwares" ? "/software" : "/products";
-	console.log(data, "data");
 
 	/** keyModule  */
 	const keyModule = () => {

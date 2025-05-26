@@ -18,7 +18,8 @@
 			width: max-content;
 			margin: 0 auto;
 			margin-bottom: 25px;
-			width: 200px;
+			text-align: center;
+			// width: 200px;
 
 			@include lg-down {
 				width: 150px;
