@@ -116,7 +116,7 @@ export default function WhoAreYouInsideWrap({
 				</div>
 
 				{data?.whoAreYous?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data?.whoAreYous?.ourClient} />
 					</div>
 				)}

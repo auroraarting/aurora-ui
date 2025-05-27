@@ -110,7 +110,7 @@ export default function EOSPageWrap({
 				)}
 				<ServicesCircle data={data.keyAdvantages} /> */}
 				{data.ourClient.selectLogos && (
-					<div className="pt_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
