@@ -23,7 +23,6 @@ import formatDate from "@/utils";
 
 /** PublicWebinar Section */
 export default function PublicWebinar({ events, webinars }) {
-	console.log(events, "events");
 	return (
 		<section
 			className={`${styles.PublicWebinar}`}

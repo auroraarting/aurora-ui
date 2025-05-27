@@ -116,7 +116,6 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 							<div className={`${styles.Content}`}>
 								{data?.process?.map((obj, objInd) => {
 									return obj?.processDetails?.map((item, ind2) => {
-										console.log(active, ind2, item?.description);
 										return (
 											<div
 												className={`${styles.contentItem} ${
