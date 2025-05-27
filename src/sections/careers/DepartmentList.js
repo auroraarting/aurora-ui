@@ -219,11 +219,11 @@ export default function DepartmentList({ data, jobs, departments }) {
 												</a>
 											</div>
 										)}
-										<div className={`${styles.leadDetailsInfo} pt_30`}>
+										<div className={`${styles.leadDetailsInfo} pt_20`}>
 											{data?.categories?.[selectedDepartment]?.leaderDesc
 												?.slice(0, showAll ? infoData.length : 2)
 												?.map((item, idx) => (
-													<div key={idx} className={`${styles.leadDetailsInfoInner} pb_20`}>
+													<div key={idx} className={`${styles.leadDetailsInfoInner} pb_40`}>
 														<h5 className={`${styles.headTxt} text_reg color_white f_w_b`}>
 															{item.title}
 														</h5>

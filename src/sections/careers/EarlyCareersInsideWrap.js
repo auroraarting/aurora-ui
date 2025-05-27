@@ -64,7 +64,7 @@ export default function EarlyCareersInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.EarlyCareers}>
-				<div className="pt_100">
+				<div className="pt_40">
 					<CareersInsideBanner data={data} />
 				</div>
 				{/* <div> */}
@@ -110,7 +110,7 @@ export default function EarlyCareersInsideWrap({
 						/>
 					</div>
 				)}
-				<div>
+				<div className="">
 					<SmarterEnergy
 						data={data?.earlyCareers?.expertise2}
 						sectionName="Get to Know"

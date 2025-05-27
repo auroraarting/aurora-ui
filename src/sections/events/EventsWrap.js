@@ -100,7 +100,7 @@ export default function EventsWrap({
 				{page?.audienceSpeak?.sectionTitle && (
 					<div className={`${styles.bottomBg} pb_100`}>
 						<div className="container">
-							<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
+							<h2 className="text_xl font_primary color_secondary pb_20">
 								{page?.audienceSpeak?.sectionTitle}
 							</h2>
 						</div>
