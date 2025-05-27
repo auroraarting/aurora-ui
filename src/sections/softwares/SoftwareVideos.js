@@ -36,7 +36,7 @@ export default function SoftwareVideos() {
 	if (!pathname.includes("origin") && !pathname.includes("chronos")) return null;
 
 	return (
-		<section className={`${styles.SoftwareVideos}`}>
+		<section className={`${styles.SoftwareVideos} pt_100`}>
 			<div className="container">
 				<div className={`${styles.testimonialWhiteBox}`}>
 					<div className={`${styles.testimonialItem} f_w_j`}>

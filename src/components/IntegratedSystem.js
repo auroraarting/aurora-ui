@@ -36,6 +36,7 @@ import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 // DATA //
 const placeholders = [system_one.src, turbine_img.src, solar_img.src];
 import integratedSoftware from "@/data/integratedSoftwareJson.json";
+import integratedProducts from "@/data/integratedProductsJson.json";
 
 /** IntegratedSystem Section */
 export default function IntegratedSystem({ module = "softwares" }) {
@@ -57,6 +58,8 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		let res;
 
 		if (module === "softwares") {
+			// let resdata = await fetch("/api/softwares");
+			// res = await resdata.json();
 			res = {
 				data: {
 					[module]: {
@@ -65,8 +68,15 @@ export default function IntegratedSystem({ module = "softwares" }) {
 				},
 			};
 		} else {
-			let resdata = await fetch("/api/products");
-			res = await resdata.json();
+			// let resdata = await fetch("/api/products");
+			// res = await resdata.json();
+			res = {
+				data: {
+					[module]: {
+						nodes: integratedProducts,
+					},
+				},
+			};
 		}
 		let arr = res?.data?.[module]?.nodes;
 		setData(arr);

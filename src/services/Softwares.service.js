@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleSoftware = async (slug) => {
 	const query = `
 query GetProductBySlug {
-countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
+  countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug
@@ -31,10 +31,10 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
           from
           to
         }
-                  title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
+        title
+        shortDescription
+        spotlightTitle
+        spotlightDesc
       }
       ourClient {
         selectLogos(first: 999) {
@@ -223,7 +223,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
               mediaItemUrl
             }
           }
-            video {
+          video {
             node {
               altText
               mediaItemUrl
@@ -273,6 +273,10 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
             mediaItemUrl
           }
         }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
       }
     }
   }

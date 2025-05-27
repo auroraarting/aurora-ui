@@ -149,7 +149,7 @@ export default function SoftwareInsideWrap({
 						)
 					}
 				/>
-				<div className="pt_100">
+				<div className="">
 					<SoftwareVideos />
 				</div>
 				<SmarterEnergy data={data?.expertise} />
@@ -163,6 +163,8 @@ export default function SoftwareInsideWrap({
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						formSectionTitle={data?.insights?.sectionTitle}
+						formSectionDesc={data?.insights?.sectionDesc}
 						formSectionBtnText={
 							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
