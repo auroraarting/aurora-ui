@@ -32,7 +32,11 @@ export default function CaseStudy({ data, countries = [] }) {
 	const restArr = data?.selectCaseStudies?.nodes?.slice(1, data.length);
 
 	return (
-		<section className={`${styles.CaseStudy}`}>
+		<section
+			className={`${styles.CaseStudy}`}
+			id="case-study"
+			data-name="Case Studies"
+		>
 			<div className="container">
 				<div className={`${styles.contentImgFlex} f_w_j`}>
 					<div className={`${styles.contentBox}`}>

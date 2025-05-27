@@ -144,7 +144,7 @@ export default function ServicesWrap({
 					<div className="">
 						<EosIntegratedSystem />
 					</div>
-					<Bundles data={bundles} />
+					<Bundles data={bundles} name="" />
 				</div>
 				<div className="ptb_100">
 					<Insights

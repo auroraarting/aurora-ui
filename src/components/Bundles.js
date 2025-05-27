@@ -35,12 +35,25 @@ export default function Bundles({ data, name }) {
 		setList(tab);
 	};
 
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (name === undefined) {
+			return {
+				id: "eos",
+				"data-name": "Eos",
+			};
+		} else if (name === "") {
+			return {};
+		} else if (name) {
+			return {
+				id: slugify(name),
+				"data-name": name,
+			};
+		}
+	};
+
 	return (
-		<section
-			className={`${styles.Bundles} Bundles `}
-			id={name ? slugify(name) : "eos"}
-			data-name={name || "Eos"}
-		>
+		<section className={`${styles.Bundles} Bundles `} {...sectionTitle()}>
 			<div className={`${styles.bg} dark_bg`}>
 				<img src={hoverBg.src} />
 			</div>

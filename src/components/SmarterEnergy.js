@@ -33,6 +33,23 @@ import grey_clock from "/public/img/icons/grey_clock.svg";
 export default function SmarterEnergy({ data, sectionName }) {
 	if (!data?.title) return <></>;
 
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (sectionName === undefined) {
+			return {
+				id: "expertise",
+				"data-name": "Expertise",
+			};
+		} else if (sectionName === "") {
+			return {};
+		} else if (sectionName) {
+			return {
+				id: slugify(sectionName),
+				"data-name": sectionName,
+			};
+		}
+	};
+
 	const tempAccordian = [
 		{
 			title: "Transaction Support",
@@ -208,8 +225,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 	return (
 		<section
 			className={`${styles.SmarterEnergy} SmarterEnergy ptb_100`}
-			id={sectionName ? slugify(sectionName) : "expertise"}
-			data-name={sectionName || "Expertise"}
+			{...sectionTitle()}
 		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>
