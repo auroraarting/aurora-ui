@@ -39,10 +39,10 @@ export default function InsightsTop({ data }) {
 						>
 							Latest {isCategory(allCategories, data?.categories?.nodes)}
 						</div>
-						<h2 className="text_lg color_white text_uppercase f_w_m pt_30">
+						<h2 className="text_lg color_white text_uppercase f_w_m pt_40">
 							{data?.title}
 						</h2>
-						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
+						<div className={`${styles.dateFlex} f_r_a_center pt_30`}>
 							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
 								<img
 									src={calender.src}
