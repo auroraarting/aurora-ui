@@ -43,10 +43,10 @@ export default function TopEnergy({ data }) {
 							Latest Podcast
 							{/* {isCategory(allCategories, data?.podcastFields?.country?.nodes || [])} */}
 						</div>
-						<h2 className="text_lg color_white text_uppercase f_w_m pt_30">
+						<h2 className="text_lg color_white text_uppercase f_w_m pt_40">
 							<ContentFromCms>{formatTitleForEpisode(data?.title)}</ContentFromCms>
 						</h2>
-						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
+						<div className={`${styles.dateFlex} f_r_a_center pt_30`}>
 							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
 								<img
 									src={calender.src}
@@ -67,7 +67,7 @@ export default function TopEnergy({ data }) {
 								</p>
 							)}
 							{data?.podcastFields?.country?.nodes.length > 0 && (
-								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
 									<img
 										src={location.src}
 										className={`${styles.calender}`}
