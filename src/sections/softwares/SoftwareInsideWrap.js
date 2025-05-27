@@ -135,6 +135,7 @@ export default function SoftwareInsideWrap({
 					<GloballyBankableInsights
 						data={data?.whyAurora}
 						isMultiple={data?.whyAurora?.list?.length > 1}
+						name=""
 					/>
 				</div>
 				<IntuitiveStepProcess
