@@ -39,6 +39,17 @@
 					margin: 0 auto;
 				}
 			}
+			
+				canvas {
+					width: 350px !important;
+					height: 350px !important;
+					margin: 0 auto;
+					display: table;
+					@media (max-width: 991px) {
+						width: 300px !important;
+						height: 300px !important;
+					}
+				}
 		}
 	}
 }
