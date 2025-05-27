@@ -16,6 +16,9 @@
 		.itemBox {
 			padding: 25px 40px 0 40px;
 			border-radius: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			align-content: space-between;
 			//height: 570px;
 			// display: flex;
 			// flex-direction: column;
@@ -54,21 +57,16 @@
 			}
 			&.LottieContent {
 				background-color: var(--color_white);
+				padding-bottom: 30px;
 				h4 {
 					color: var(--color_secondary);
 				}
 				p {
 					color: var(--color_secondary);
 				}
-				canvas {
-					position: relative;
-					top: -100px;
-				}
 			}
 			&.advisoryBox {
-				display: flex;
-				flex-wrap: wrap;
-				padding-bottom: 20px;
+				padding-bottom: 30px;
 			}
 		}
 		.softwareAnim {
@@ -80,6 +78,14 @@
 			background-color: var(--color_white);
 			svg {
 				border-radius: 20px;
+			}
+			canvas {
+				width: 490px !important;
+				height: 390px !important;
+				@media (max-width: 767px) {
+					width: 290px !important;
+					height: 220px !important;
+				}
 			}
 		}
 
