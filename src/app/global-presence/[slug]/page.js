@@ -85,30 +85,44 @@ async function getData({ params, query }) {
 			getWebinars("first:9999"),
 		]);
 	const insightsList = insights?.data?.posts?.nodes;
-	const webinars = webinarsFetch?.data?.webinars?.nodes?.filter((item) =>
-		item?.webinarsFields?.country?.nodes?.some(
-			(item2) => item2?.slug === params.slug
+	const webinars = webinarsFetch?.data?.webinars?.nodes
+		?.filter((item) =>
+			item?.webinarsFields?.country?.nodes?.some(
+				(item2) => item2?.slug === params.slug
+			)
 		)
-	);
-	const events = eventsFetch?.data?.events?.nodes?.filter((item) =>
-		item?.events?.thumbnail?.country?.nodes?.some(
-			(item2) => item2?.slug === params.slug
+		?.filter(
+			(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
+		);
+	const events = eventsFetch?.data?.events?.nodes
+		?.filter((item) =>
+			item?.events?.thumbnail?.country?.nodes?.some(
+				(item2) => item2?.slug === params.slug
+			)
 		)
-	);
+		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date));
 
-	let sortedAllWebinars = webinarsFetch?.data?.webinars?.nodes?.sort(
-		(a, b) =>
-			new Date(b?.webinarsFields?.startDateAndTime) -
-			new Date(a?.webinarsFields?.startDateAndTime)
-	);
+	let sortedAllWebinars = webinarsFetch?.data?.webinars?.nodes
+		?.filter(
+			(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
+		)
+		.sort(
+			(a, b) =>
+				new Date(b?.webinarsFields?.startDateAndTime) -
+				new Date(a?.webinarsFields?.startDateAndTime)
+		);
 
 	let webinarList =
 		webinars?.length > 0
-			? webinars?.sort(
-					(a, b) =>
-						new Date(b?.webinarsFields?.startDateAndTime) -
-						new Date(a?.webinarsFields?.startDateAndTime)
-			  )
+			? webinars
+					?.filter(
+						(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
+					)
+					?.sort(
+						(a, b) =>
+							new Date(b?.webinarsFields?.startDateAndTime) -
+							new Date(a?.webinarsFields?.startDateAndTime)
+					)
 			: sortedAllWebinars;
 
 	if (webinarList.length < 3) {
@@ -122,16 +136,20 @@ async function getData({ params, query }) {
 
 	const eventsList =
 		events?.length > 0
-			? events?.sort(
-					(a, b) =>
-						new Date(b?.events?.thumbnail?.date) -
-						new Date(a?.events?.thumbnail?.date)
-			  )
-			: eventsFetch?.data?.events?.nodes?.sort(
-					(a, b) =>
-						new Date(b?.events?.thumbnail?.date) -
-						new Date(a?.events?.thumbnail?.date)
-			  );
+			? events
+					?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+					?.sort(
+						(a, b) =>
+							new Date(b?.events?.thumbnail?.date) -
+							new Date(a?.events?.thumbnail?.date)
+					)
+			: eventsFetch?.data?.events?.nodes
+					?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+					?.sort(
+						(a, b) =>
+							new Date(b?.events?.thumbnail?.date) -
+							new Date(a?.events?.thumbnail?.date)
+					);
 
 	// Return 404 if no valid data
 	if (!countryBy) {

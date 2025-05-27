@@ -7,7 +7,7 @@
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Power-Renewables-1.svg"
+						"mediaItemUrl": "/img/productsIntegrated/power.svg"
 					}
 				}
 			},
@@ -30,7 +30,7 @@
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Flexible-Energy.svg"
+						"mediaItemUrl": "/img/productsIntegrated/flexible.svg"
 					}
 				}
 			},
@@ -53,7 +53,7 @@
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Grid.svg"
+						"mediaItemUrl": "/img/productsIntegrated/grid.svg"
 					}
 				}
 			},
@@ -76,7 +76,7 @@
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/03/Hydrogen.svg"
+						"mediaItemUrl": "/img/productsIntegrated/hydrogen.svg"
 					}
 				}
 			},

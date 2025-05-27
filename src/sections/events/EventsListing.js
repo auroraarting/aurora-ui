@@ -210,7 +210,7 @@ export default function EventsListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.EventsListing}>

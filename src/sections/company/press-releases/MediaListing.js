@@ -214,7 +214,7 @@ export default function MediaListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.MediaListing}>

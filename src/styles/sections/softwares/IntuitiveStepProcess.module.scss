@@ -10,7 +10,7 @@
 	}
 
 	.stepsSlider {
-		margin-left: calc(var(--container_left_space) + 15px);
+		// margin-left: calc(var(--container_left_space) + 15px);
 		.item {
 			padding: 40px 40px;
 			border-radius: 40px;
@@ -21,10 +21,24 @@
 				border-radius: 20px;
 			}
 			.SliderItem {
-				.imgVideo {
+				.imgVideoWrap {
+					position: relative;
 					width: 50%;
 					@media screen and (max-width: 767px) {
 						width: 100%;
+					}
+				}
+				.imgVideo {
+					opacity: 0;
+					&:not(&:nth-child(1)) {
+						position: absolute;
+						top: 0;
+						left: 0;
+						height: 100%;
+						width: 100%;
+					}
+					&.active {
+						opacity: 1;
 					}
 					img,
 					video {
@@ -49,8 +63,14 @@
 						width: 100%;
 					}
 					.contentItem {
+						cursor: pointer;
+						opacity: 0.5;
 						padding: 25px 0px;
 						border-bottom: 1px solid var(--color_dark_gray);
+
+						&.active {
+							opacity: 1;
+						}
 						@media screen and (max-width: 767px) {
 							padding: 15px 0px;
 						}

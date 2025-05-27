@@ -245,7 +245,7 @@ export default function EnergyListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.EnergyListing}>

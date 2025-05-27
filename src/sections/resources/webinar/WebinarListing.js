@@ -244,7 +244,7 @@ export default function WebinarListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.WebinarListing}>

@@ -17,11 +17,14 @@
 		}
 		.integratedImgMain {
 			width: 55%;
+			position: relative;
 
 			@media (max-width: 991px) {
 				width: 100%;
 			}
 			.integratedImgBox {
+				.slider {
+				}
 				.itemBox {
 					position: relative;
 					width: 100%;
