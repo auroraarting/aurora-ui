@@ -9,6 +9,7 @@ import { fetchNavigationData } from "@/services/Navigation.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Loader from "@/components/Loader";
 import navigationJSON from "@/data/navigationData.json";
+import { getAllEvents } from "@/services/Events.service";
 
 /** Meta Data */
 export const metadata = {
@@ -22,7 +23,16 @@ export const metadata = {
 /** layout page */
 export default async function RootLayout({ children }) {
 	// const navigation = await fetchNavigationData();
-	const navigation = navigationJSON;
+	const eventsFetch = await getAllEvents("first:9999");
+	const events = eventsFetch?.data?.events?.nodes
+		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+		?.sort(
+			(a, b) =>
+				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+		)
+		.slice(0, 1);
+
+	const navigation = { ...navigationJSON, events };
 
 	return (
 		<html lang="en">

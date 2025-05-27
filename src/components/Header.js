@@ -17,7 +17,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 import parse from "html-react-parser";
 
 // UTILS //
-import formatDate from "@/utils";
+import formatDate, { OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/Header.module.scss";
@@ -300,9 +300,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -443,9 +458,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -611,9 +641,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -946,9 +991,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -1125,9 +1185,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img

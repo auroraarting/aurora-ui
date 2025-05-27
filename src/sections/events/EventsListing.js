@@ -15,6 +15,7 @@ import { useContextProvider } from "@/context/GlobalContext";
 import formatDate, {
 	filterBySearchQueryEvents,
 	filterItemsBySelectedObj,
+	OpenIframePopup,
 	updateQueryFast,
 } from "@/utils";
 
@@ -55,6 +56,7 @@ export default function EventsListing({
 	});
 	const [list, setList] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
+	console.log(list, "list");
 	/** Debounced search when typing */
 	useEffect(() => {
 		const delay = setTimeout(() => {
@@ -519,9 +521,15 @@ export default function EventsListing({
 						let hrefObj = {};
 
 						if (item?.events?.thumbnail?.externalUrl) {
-							hrefObj.href = item?.events?.thumbnail?.externalUrl;
-							hrefObj.target = "_blank";
-							hrefObj.rel = "noreferrer";
+							// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+							// hrefObj.target = "_blank";
+							// hrefObj.rel = "noreferrer";
+							hrefObj.onClick = () =>
+								OpenIframePopup(
+									"iframePopup",
+									item?.events?.thumbnail?.externalUrl ||
+										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+								);
 						} else {
 							hrefObj.href = `/events/${item?.slug}`;
 						}

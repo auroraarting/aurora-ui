@@ -18,6 +18,7 @@ query GetEvents {
         endDate
         status
         time
+        externalUrl
         logo {
           node {
             altText
@@ -588,6 +589,7 @@ query GetEventLanding {
                 date
                 status
                 time
+                externalUrl
                 logo {
                   node {
                     altText
