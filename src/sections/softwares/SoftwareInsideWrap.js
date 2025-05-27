@@ -47,6 +47,7 @@ export default function SoftwareInsideWrap({
 	regions,
 	meta,
 	countries,
+	showMap,
 }) {
 	const dataForBtn = { postFields: data || {} };
 
@@ -109,9 +110,11 @@ export default function SoftwareInsideWrap({
 						/>
 					</div>
 				)}
-				<div className="m_b_100">
-					<GlobalMap locationJson={mapJson} />
-				</div>
+				{showMap && (
+					<div className="m_b_100">
+						<GlobalMap locationJson={mapJson} />
+					</div>
+				)}
 				{/* {data?.caseStudy?.title && ( */}
 				<div className="pb_100">
 					<CaseStudy data={data?.caseStudy} countries={countries} />
@@ -175,7 +178,7 @@ export default function SoftwareInsideWrap({
 					<IntegratedSystem module="products" />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
