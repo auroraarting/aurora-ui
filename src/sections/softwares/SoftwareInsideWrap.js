@@ -50,6 +50,7 @@ export default function SoftwareInsideWrap({
 	showMap,
 }) {
 	const dataForBtn = { postFields: data || {} };
+	console.log(data?.whyAurora, "data?.whyAurora");
 
 	return (
 		<div>
@@ -138,6 +139,7 @@ export default function SoftwareInsideWrap({
 					/>
 				</div>
 				<IntuitiveStepProcess
+					removeTopBottom={data?.whyAurora?.title ? false : true}
 					data={data?.fourStepProcess}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext && (
@@ -155,7 +157,7 @@ export default function SoftwareInsideWrap({
 				<div className="">
 					<SoftwareVideos />
 				</div>
-				<SmarterEnergy data={data?.expertise} />
+				<SmarterEnergy data={data?.expertise} sectionName="" />
 				{data?.expertSupport?.list?.length > 0 && (
 					<div className="pb_100">
 						<TrustOurExperts data={data?.expertSupport} />

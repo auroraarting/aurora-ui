@@ -25,7 +25,11 @@ import steps_img from "../../../public/img/softwares/steps_img.jpg";
 // DATA //
 
 /** IntuitiveStepProcess Section */
-export default function IntuitiveStepProcess({ data, customHtml }) {
+export default function IntuitiveStepProcess({
+	removeTopBottom,
+	data,
+	customHtml,
+}) {
 	const [active, setActive] = useState(0);
 	const intervalRef = useRef(null);
 
@@ -61,7 +65,11 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 
 	return (
 		<section
-			className={`${styles.IntuitiveStepProcess} dark_bg pt_100 pb_40`}
+			id="fourstep"
+			data-name="4 STEP PROCESS"
+			className={`${styles.IntuitiveStepProcess} dark_bg ${
+				removeTopBottom ? "" : "pt_100"
+			} pb_40`}
 			onMouseEnter={stopInterval}
 			onMouseLeave={startInterval}
 		>
