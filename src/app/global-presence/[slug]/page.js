@@ -85,15 +85,7 @@ async function getData({ params, query }) {
 			getWebinars("first:9999"),
 		]);
 	const insightsList = insights?.data?.posts?.nodes;
-	const webinars = webinarsFetch?.data?.webinars?.nodes
-		?.filter((item) =>
-			item?.webinarsFields?.country?.nodes?.some(
-				(item2) => item2?.slug === params.slug
-			)
-		)
-		?.filter(
-			(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
-		);
+
 	const events = eventsFetch?.data?.events?.nodes
 		?.filter((item) =>
 			item?.events?.thumbnail?.country?.nodes?.some(
@@ -105,7 +97,6 @@ async function getData({ params, query }) {
 			(a, b) =>
 				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
 		);
-	console.log(events, "events");
 	const eventsAll = eventsFetch?.data?.events?.nodes
 		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 		?.sort(
@@ -114,35 +105,38 @@ async function getData({ params, query }) {
 		);
 	const eventsList = events?.length > 0 ? events : eventsAll;
 
-	let sortedAllWebinars = webinarsFetch?.data?.webinars?.nodes
+	const webinars = webinarsFetch?.data?.webinars?.nodes
+		?.filter((item) =>
+			item?.webinarsFields?.country?.nodes?.some(
+				(item2) => item2?.slug === params.slug
+			)
+		)
 		?.filter(
 			(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
 		)
-		.sort(
+		?.sort(
 			(a, b) =>
-				new Date(b?.webinarsFields?.startDateAndTime) -
-				new Date(a?.webinarsFields?.startDateAndTime)
+				new Date(a?.webinarsFields?.startDateAndTime) -
+				new Date(b?.webinarsFields?.startDateAndTime)
+		);
+	const webinarsAll = webinarsFetch?.data?.webinars?.nodes
+		?.filter(
+			(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
+		)
+		?.sort(
+			(a, b) =>
+				new Date(a?.webinarsFields?.startDateAndTime) -
+				new Date(b?.webinarsFields?.startDateAndTime)
 		);
 
-	let webinarList =
-		webinars?.length > 0
-			? webinars
-					?.filter(
-						(item) => new Date() < new Date(item.webinarsFields?.startDateAndTime)
-					)
-					?.sort(
-						(a, b) =>
-							new Date(b?.webinarsFields?.startDateAndTime) -
-							new Date(a?.webinarsFields?.startDateAndTime)
-					)
-			: sortedAllWebinars;
+	let webinarList = webinars?.length > 0 ? webinars : webinarsAll;
 
 	if (webinarList.length < 3) {
-		let remainingSoted = sortedAllWebinars.slice(0, 3 - webinarList.length);
+		let remainingSoted = webinarsAll.slice(0, 3 - webinarList.length);
 		webinarList = [...webinarList, ...remainingSoted].sort(
 			(a, b) =>
-				new Date(b?.webinarsFields?.startDateAndTime) -
-				new Date(a?.webinarsFields?.startDateAndTime)
+				new Date(a?.webinarsFields?.startDateAndTime) -
+				new Date(b?.webinarsFields?.startDateAndTime)
 		);
 	}
 
