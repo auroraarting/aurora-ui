@@ -149,7 +149,7 @@ export default function SoftwareInsideWrap({
 						)
 					}
 				/>
-				<div className="pt_100">
+				<div className="">
 					<SoftwareVideos />
 				</div>
 				<SmarterEnergy data={data?.expertise} />

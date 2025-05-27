@@ -68,16 +68,15 @@ export default function IntegratedSystem({ module = "softwares" }) {
 				},
 			};
 		} else {
-			let resdata = await fetch("/api/products");
-			res = await resdata.json();
-			console.log(res, "res");
-			// res = {
-			// 	data: {
-			// 		[module]: {
-			// 			nodes: integratedProducts,
-			// 		},
-			// 	},
-			// };
+			// let resdata = await fetch("/api/products");
+			// res = await resdata.json();
+			res = {
+				data: {
+					[module]: {
+						nodes: integratedProducts,
+					},
+				},
+			};
 		}
 		let arr = res?.data?.[module]?.nodes;
 		setData(arr);

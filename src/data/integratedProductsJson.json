@@ -1,13 +1,13 @@
 [
 	{
 		"title": "",
-		"slug": "origin",
-		"softwares": {
+		"slug": "power-renewables",
+		"products": {
 			"map": {
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "/img/integratedLogo/origin.svg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Power-Renewables-1.svg"
 					}
 				}
 			},
@@ -16,46 +16,21 @@
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Origin.jpg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
 					}
 				}
 			}
-		},
-		"placeholder": "/img/softwares/system_one.jpg"
+		}
 	},
 	{
 		"title": "",
-		"slug": "amun",
-		"softwares": {
+		"slug": "flexible-energy",
+		"products": {
 			"map": {
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "/img/integratedLogo/amun.svg"
-					}
-				}
-			},
-			"thumbnail": {
-				"primaryColor": "#00be86",
-				"banner": {
-					"node": {
-						"altText": "",
-						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun.jpg"
-					}
-				}
-			}
-		},
-		"placeholder": "/img/softwares/turbine_img.jpg"
-	},
-	{
-		"title": "",
-		"slug": "chronos",
-		"softwares": {
-			"map": {
-				"logo": {
-					"node": {
-						"altText": "",
-						"mediaItemUrl": "/img/integratedLogo/chronos.svg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Flexible-Energy.svg"
 					}
 				}
 			},
@@ -64,73 +39,56 @@
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Chronos.jpg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-1.jpg"
 					}
 				}
 			}
-		},
-		"placeholder": "/img/softwares/solar_img.jpg"
+		}
 	},
 	{
 		"title": "",
-		"slug": "lumus",
-		"softwares": {
+		"slug": "grid",
+		"products": {
 			"map": {
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "/img/integratedLogo/lumus.svg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Grid.svg"
 					}
 				}
 			},
 			"thumbnail": {
-				"primaryColor": "#0069b4",
+				"primaryColor": "#3c3c3b",
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Grid.jpg"
 					}
 				}
 			}
-		},
-		"placeholder": "/img/softwares/system_one.jpg"
+		}
 	},
 	{
 		"title": "",
-		"slug": "nodalexplorer",
-		"softwares": {
-			"primaryColor": "#3c3c3b",
-			"banner": {
-				"node": {
-					"altText": "",
-					"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
-				}
-			}
-		},
-		"placeholder": "/img/softwares/turbine_img.jpg"
-	},
-	{
-		"title": "",
-		"slug": "amun",
-		"softwares": {
+		"slug": "hydrogen",
+		"products": {
 			"map": {
 				"logo": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "/img/integratedLogo/amun.svg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/03/Hydrogen.svg"
 					}
 				}
 			},
 			"thumbnail": {
-				"primaryColor": "#00be86",
+				"primaryColor": "#9858c9",
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun.jpg"
+						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Hydrogen.jpg"
 					}
 				}
 			}
-		},
-		"placeholder": "/img/softwares/turbine_img.jpg"
+		}
 	}
 ]

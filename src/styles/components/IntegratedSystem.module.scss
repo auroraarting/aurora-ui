@@ -12,7 +12,7 @@
 		:global {
 			.swiper-wrapper {
 				border-radius: 12px;
-				overflow: hidden;
+				// overflow: hidden;
 			}
 		}
 		.integratedImgMain {
@@ -22,8 +22,6 @@
 				width: 100%;
 			}
 			.integratedImgBox {
-				//border-radius: 10px;
-
 				.itemBox {
 					position: relative;
 					width: 100%;

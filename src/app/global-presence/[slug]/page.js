@@ -100,25 +100,25 @@ async function getData({ params, query }) {
 		webinars?.length > 0
 			? webinars?.sort(
 					(a, b) =>
-						new Date(a?.webinarsFields?.startDateAndTime) -
-						new Date(b?.webinarsFields?.startDateAndTime)
+						new Date(b?.webinarsFields?.startDateAndTime) -
+						new Date(a?.webinarsFields?.startDateAndTime)
 			  )
 			: webinarsFetch?.data?.webinars?.nodes?.sort(
 					(a, b) =>
-						new Date(a?.webinarsFields?.startDateAndTime) -
-						new Date(b?.webinarsFields?.startDateAndTime)
+						new Date(b?.webinarsFields?.startDateAndTime) -
+						new Date(a?.webinarsFields?.startDateAndTime)
 			  );
 	const eventsList =
 		events?.length > 0
 			? events?.sort(
 					(a, b) =>
-						new Date(a?.events?.thumbnail?.date) -
-						new Date(b?.events?.thumbnail?.date)
+						new Date(b?.events?.thumbnail?.date) -
+						new Date(a?.events?.thumbnail?.date)
 			  )
 			: eventsFetch?.data?.events?.nodes?.sort(
 					(a, b) =>
-						new Date(a?.events?.thumbnail?.date) -
-						new Date(b?.events?.thumbnail?.date)
+						new Date(b?.events?.thumbnail?.date) -
+						new Date(a?.events?.thumbnail?.date)
 			  );
 
 	// Return 404 if no valid data
