@@ -22,6 +22,7 @@ import styles from "@/styles/sections/softwares/GloballyBankableInsights.module.
 // IMAGES //
 import Bg from "/public/img/softwares/bankableInsightsBg.jpg";
 import InsightsBg from "/public/img/softwares/insightsBgGradient.png";
+import { slugify } from "@/utils";
 
 // DATA //
 const defaultRows = [
@@ -34,15 +35,32 @@ const defaultRows = [
 ];
 
 /** GloballyBankableInsights Section */
-export default function GloballyBankableInsights({ data, isMultiple }) {
+export default function GloballyBankableInsights({
+	data,
+	isMultiple,
+	name = "Why Aurora",
+}) {
 	if (!data?.title || data?.list?.length === 0) return <></>;
 
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (name === undefined) {
+			return {
+				id: "whyAurora",
+				"data-name": "Why Aurora",
+			};
+		} else if (name === "") {
+			return {};
+		} else if (name) {
+			return {
+				id: slugify(name),
+				"data-name": name,
+			};
+		}
+	};
+
 	return (
-		<section
-			className={`${styles.GloballyBankableInsights}`}
-			id="whyAurora"
-			data-name="Why Aurora"
-		>
+		<section className={`${styles.GloballyBankableInsights}`} {...sectionTitle()}>
 			{!isMultiple && <img className={`${styles.bg}`} src={Bg.src} alt="Bg" />}
 			<div className="section_spacing">
 				<div className="container">
