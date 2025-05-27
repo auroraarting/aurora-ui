@@ -17,7 +17,7 @@ import styles from "@/styles/sections/global-presence/PublicWebinar.module.scss"
 // IMAGES //
 import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
-import formatDate from "@/utils";
+import formatDate, { OpenIframePopup } from "@/utils";
 
 // DATA //
 
@@ -41,9 +41,15 @@ export default function PublicWebinar({ events, webinars }) {
 							let hrefObj = {};
 
 							if (item?.events?.thumbnail?.externalUrl) {
-								hrefObj.href = item?.events?.thumbnail?.externalUrl;
-								hrefObj.target = "_blank";
-								hrefObj.rel = "noreferrer";
+								// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+								// hrefObj.target = "_blank";
+								// hrefObj.rel = "noreferrer";
+								hrefObj.onClick = () =>
+									OpenIframePopup(
+										"iframePopup",
+										item?.events?.thumbnail?.externalUrl ||
+											"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+									);
 							} else {
 								hrefObj.href = `/events/${item?.slug}`;
 							}

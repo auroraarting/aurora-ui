@@ -99,11 +99,21 @@
 		"title": "",
 		"slug": "nodalexplorer",
 		"softwares": {
-			"primaryColor": "#3c3c3b",
-			"banner": {
-				"node": {
-					"altText": "",
-					"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
+			"map": {
+				"logo": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "/img/integratedLogo/nodal.svg"
+					}
+				}
+			},
+			"thumbnail": {
+				"primaryColor": "#ffff",
+				"banner": {
+					"node": {
+						"altText": "",
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
+					}
 				}
 			}
 		},
