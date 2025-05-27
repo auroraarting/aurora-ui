@@ -114,10 +114,11 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							<Swiper
 								modules={[Navigation, Pagination, Autoplay]}
 								slidesPerView={2}
+								slidesPerGroup={1}
 								spaceBetween={0}
 								grabCursor={true}
 								speed={500}
-								loop={true}
+								//loop={true}
 								navigation={{
 									prevEl: "#customPrev",
 									nextEl: "#customNext",
@@ -132,9 +133,11 @@ export default function IntegratedSystem({ module = "softwares" }) {
 								breakpoints={{
 									767: {
 										slidesPerView: 2,
+										slidesPerGroup: 1,
 									},
 									768: {
 										slidesPerView: 3,
+										slidesPerGroup: 1,
 									},
 								}}
 								className={`${styles.slider} custom-swiper`}
