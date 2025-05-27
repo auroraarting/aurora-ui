@@ -1,6 +1,6 @@
 "use client";
 // MODULES //
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -27,6 +27,28 @@ import steps_img from "../../../public/img/softwares/steps_img.jpg";
 /** IntuitiveStepProcess Section */
 export default function IntuitiveStepProcess({ data, customHtml }) {
 	const [active, setActive] = useState(0);
+	const intervalRef = useRef(null);
+
+	/** startInterval  */
+	const startInterval = () => {
+		intervalRef.current = setInterval(() => {
+			setActive((prev) => (prev < data.process.length - 1 ? prev + 1 : 0));
+		}, 2000);
+	};
+
+	/** stopInterval  */
+	const stopInterval = () => {
+		if (intervalRef.current) {
+			clearInterval(intervalRef.current);
+			intervalRef.current = null;
+		}
+	};
+
+	useEffect(() => {
+		startInterval();
+		return () => stopInterval(); // Cleanup on unmount
+	}, []);
+
 	if (data.process.length === 0) return <></>;
 
 	/** pagination */
@@ -38,7 +60,11 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 	};
 
 	return (
-		<section className={`${styles.IntuitiveStepProcess} dark_bg pt_100 pb_40`}>
+		<section
+			className={`${styles.IntuitiveStepProcess} dark_bg pt_100 pb_40`}
+			onMouseEnter={stopInterval}
+			onMouseLeave={startInterval}
+		>
 			<div className="container">
 				<div className={`${styles.StepProcessTxt} `}>
 					<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
@@ -90,7 +116,6 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 							<div className={`${styles.Content}`}>
 								{data?.process?.map((obj, objInd) => {
 									return obj?.processDetails?.map((item, ind2) => {
-										console.log(active, ind2, item?.description);
 										return (
 											<div
 												className={`${styles.contentItem} ${

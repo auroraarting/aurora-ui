@@ -80,7 +80,6 @@ async function getData({ params }) {
 		)
 		?.slice(0, 3);
 
-	console.log(otherList, "otherList");
 	return {
 		props: {
 			data: data.data.podcastBy,

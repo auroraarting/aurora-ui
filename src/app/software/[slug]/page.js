@@ -60,6 +60,8 @@ async function getData({ params }) {
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug)
 	);
+	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
+
 	const countries = data.data.countries.nodes;
 
 	return {
@@ -67,6 +69,7 @@ async function getData({ params }) {
 			data: data?.data?.softwareBy?.softwares || {},
 			mapJson,
 			regions,
+			showMap,
 			meta: data.data.softwareBy,
 			countries,
 		},

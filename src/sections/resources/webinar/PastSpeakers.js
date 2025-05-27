@@ -62,7 +62,7 @@ export default function PastSpeakers({ data }) {
 		<section className={`${styles.PastSpeakers}`}>
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
+					<h2 className="text_xl font_primary color_secondary pb_10">
 						Past Speakers
 					</h2>
 					<p className={`${styles.label} text_reg color_dark_gray`}>

@@ -237,6 +237,7 @@ query GetProductBySlug {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -247,6 +248,7 @@ query GetProductBySlug {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -257,6 +259,7 @@ query GetProductBySlug {
       stepsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -267,6 +270,7 @@ query GetProductBySlug {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -319,6 +323,7 @@ query GetPageSoftwares {
       inisghtsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

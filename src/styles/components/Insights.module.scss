@@ -44,8 +44,11 @@
 			.contentFlex {
 				background-color: var(--color_gray);
 				border-radius: 20px;
-				padding: 30px 30px;
+				padding: 40px 40px;
 				gap: 50px;
+				@media (max-width: 1199px) {
+					padding: 30px 30px;
+				}
 				@media (max-width: 767px) {
 					flex-wrap: wrap;
 					padding: 20px 15px;
