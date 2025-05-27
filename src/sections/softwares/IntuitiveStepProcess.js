@@ -1,5 +1,6 @@
 "use client";
 // MODULES //
+import { useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -25,6 +26,7 @@ import steps_img from "../../../public/img/softwares/steps_img.jpg";
 
 /** IntuitiveStepProcess Section */
 export default function IntuitiveStepProcess({ data, customHtml }) {
+	const [active, setActive] = useState(0);
 	if (data.process.length === 0) return <></>;
 
 	/** pagination */
@@ -57,7 +59,56 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 				</div>
 			</div>
 			<div className={`${styles.stepsSlider} pt_40`}>
-				<Swiper
+				<div className="container">
+					<div className={`${styles.item}`}>
+						<div className={`${styles.SliderItem} f_w_j a_center`}>
+							<div className={`${styles.imgVideoWrap}`}>
+								{data?.process?.map((item, ind) => {
+									return (
+										<div
+											className={`${styles.imgVideo} ${
+												active === ind ? styles.active : ""
+											}`}
+											key={ind}
+										>
+											{item?.image?.node?.mediaItemUrl ? (
+												<img
+													src={item?.image?.node?.mediaItemUrl}
+													className={`${styles.steps_img}`}
+													alt="steps img"
+												/>
+											) : (
+												<video playsInline autoPlay muted loop>
+													<source src={item?.video?.node?.mediaItemUrl} type="video/mp4" />
+												</video>
+											)}
+										</div>
+									);
+								})}
+							</div>
+
+							<div className={`${styles.Content}`}>
+								{data?.process?.map((obj, objInd) => {
+									return obj?.processDetails?.map((item, ind2) => {
+										console.log(active, ind2, item?.description);
+										return (
+											<div
+												className={`${styles.contentItem} ${
+													active === objInd ? styles.active : ""
+												}`}
+												key={objInd}
+												onClick={() => setActive(objInd)}
+											>
+												<h5 className="text_md color_white f_w_s_b">{item?.description}</h5>
+											</div>
+										);
+									});
+								})}
+							</div>
+						</div>
+					</div>
+				</div>
+				{/* <Swiper
 					pagination={pagination}
 					modules={[Pagination, Autoplay]}
 					slidesPerView={1.1}
@@ -83,9 +134,6 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 												<source src={item?.video?.node?.mediaItemUrl} type="video/mp4" />
 											</video>
 										)}
-										{/* <video playsInline autoPlay muted loop>
-									<source src="../../img/softwares/frame_video.mp4" type="video/mp4" />
-								</video> */}
 									</div>
 									<div className={`${styles.Content}`}>
 										{item?.processDetails?.map((item, ind) => {
@@ -97,27 +145,12 @@ export default function IntuitiveStepProcess({ data, customHtml }) {
 												</div>
 											);
 										})}
-										{/* <div className={`${styles.contentItem}`}>
-											<h5 className="text_md color_white f_w_s_b">
-												Up-to-date locational benefits & charges
-											</h5>
-										</div>
-										<div className={`${styles.contentItem}`}>
-											<h5 className="text_md color_white f_w_s_b">
-												Up-to-date locational benefits & charges
-											</h5>
-										</div>
-										<div className={`${styles.contentItem}`}>
-											<h5 className="text_md color_white f_w_s_b">
-												Up-to-date locational benefits & charges
-											</h5>
-										</div> */}
 									</div>
 								</div>
 							</SwiperSlide>
 						);
 					})}
-				</Swiper>
+				</Swiper> */}
 			</div>
 		</section>
 	);

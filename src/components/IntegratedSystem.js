@@ -137,7 +137,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 										slidesPerView: 3,
 									},
 								}}
-								className={styles.slider}
+								className={`${styles.slider} custom-swiper`}
 							>
 								{data?.map((item, ind) => {
 									return (

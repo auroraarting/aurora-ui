@@ -249,7 +249,7 @@ export default function InsightsListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.InsightsListing}>

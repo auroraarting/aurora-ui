@@ -16,6 +16,7 @@ import styles from "@/styles/components/AccordianCommon.module.scss";
 import plus_arrow from "@/../public/img/icons/plus_arrow.svg";
 import minus_icon from "@/../public/img/icons/minus_icon.svg";
 import location from "@/../public/img/icons/location.svg";
+import { usePathname } from "next/navigation";
 
 // DATA //
 
@@ -30,6 +31,7 @@ export default function AccordianCommon({
 	defaultActiveId = 0,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
+	const pathname = usePathname();
 	const [activeIndex, setActiveIndex] = useState(
 		items?.map((item, ind) => {
 			if (ind === 0) return true;
@@ -72,8 +74,8 @@ export default function AccordianCommon({
 		const widthOfImgIcon = document
 			.querySelector(".imgIcons")
 			?.getBoundingClientRect();
-		setWidthOfImg((widthOfImgIcon?.width || 0) + 10);
-	}, []);
+		setWidthOfImg((widthOfImgIcon?.width || 0) + (widthOfImgIcon ? 10 : 0));
+	}, [pathname]);
 
 	return (
 		<div className={styles.accordion}>

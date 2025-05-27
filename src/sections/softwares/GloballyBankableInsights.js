@@ -92,7 +92,7 @@ const SingleInsight = ({ data, endPoint }) => {
 				text={data?.caption}
 			/>
 			<div className={`${styles.textData}`}>
-				<p className={`${styles.insightTitle} text_lg`}>{data?.title}</p>
+				<p className={`${styles.insightTitle} text_lg pb_30`}>{data?.title}</p>
 				<p className={`${styles.insightsDesc}`}>{data?.description}</p>
 			</div>
 		</>
