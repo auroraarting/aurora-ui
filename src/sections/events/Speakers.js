@@ -81,9 +81,7 @@ export default function Speakers({ data, title, desc }) {
 		<section className={`${styles.Speakers}`} id="speakers" data-name="Speakers">
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						{title}
-					</h2>
+					<h2 className="text_xl font_primary color_secondary pb_10">{title}</h2>
 					<p className={`${styles.label} text_reg color_dark_gray`}>{desc}</p>
 				</div>
 				<div className={`${styles.content_main_wrap} pt_40`}>

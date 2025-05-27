@@ -25,9 +25,9 @@ export default function WorkingTeams({ data }) {
 	return (
 		<section className={`${styles.workingTeams} pt_100`}>
 			<div className="container">
-				<div className={`${styles.workingTeamsHead} f_w_j m_b_20`}>
+				<div className={`${styles.workingTeamsHead} f_w_j m_b_40`}>
 					<div className={`${styles.workingTeamsHeadItem}`}>
-						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_10">
+						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 							{/* Working with our teams */}
 							{data?.earlyCareers?.workingWithOurTeams?.sectionTitle}
 						</h2>
@@ -51,9 +51,7 @@ export default function WorkingTeams({ data }) {
 								<h4 className="font_primary f_w_m text_reg color_secondary pt_10 ">
 									{item?.title}
 								</h4>
-								<p className="text_xs font_secondary color_dark_gray l_h_4">
-									{item?.desc}
-								</p>
+								<p className="text_xs font_secondary color_dark_gray">{item?.desc}</p>
 							</div>
 						);
 					})}

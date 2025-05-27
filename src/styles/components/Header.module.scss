@@ -472,6 +472,7 @@
 			.ItemBox {
 				background-color: var(--color_white);
 				border-radius: 15px;
+				cursor: pointer;
 				@media (max-width: 767px) {
 					width: 100%;
 					border-right: none;
