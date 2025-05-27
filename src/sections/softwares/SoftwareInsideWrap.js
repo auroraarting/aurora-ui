@@ -118,7 +118,7 @@ export default function SoftwareInsideWrap({
 				</div>
 				{/* )} */}
 				{data?.ourClient?.selectLogos && (
-					<div className={`${styles.TrustOurExpertsBg} pb_100`}>
+					<div className={`${styles.TrustOurExpertsBg} pb_50`}>
 						<TrustedLeaders data={data?.ourClient} />
 					</div>
 				)}

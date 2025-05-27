@@ -108,29 +108,5 @@
 			}
 		},
 		"placeholder": "/img/softwares/turbine_img.jpg"
-	},
-	{
-		"title": "",
-		"slug": "amun",
-		"softwares": {
-			"map": {
-				"logo": {
-					"node": {
-						"altText": "",
-						"mediaItemUrl": "/img/integratedLogo/amun.svg"
-					}
-				}
-			},
-			"thumbnail": {
-				"primaryColor": "#00be86",
-				"banner": {
-					"node": {
-						"altText": "",
-						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun.jpg"
-					}
-				}
-			}
-		},
-		"placeholder": "/img/softwares/turbine_img.jpg"
 	}
 ]

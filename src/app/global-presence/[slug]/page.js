@@ -96,18 +96,30 @@ async function getData({ params, query }) {
 		)
 	);
 
-	const webinarList =
+	let sortedAllWebinars = webinarsFetch?.data?.webinars?.nodes?.sort(
+		(a, b) =>
+			new Date(b?.webinarsFields?.startDateAndTime) -
+			new Date(a?.webinarsFields?.startDateAndTime)
+	);
+
+	let webinarList =
 		webinars?.length > 0
 			? webinars?.sort(
 					(a, b) =>
 						new Date(b?.webinarsFields?.startDateAndTime) -
 						new Date(a?.webinarsFields?.startDateAndTime)
 			  )
-			: webinarsFetch?.data?.webinars?.nodes?.sort(
-					(a, b) =>
-						new Date(b?.webinarsFields?.startDateAndTime) -
-						new Date(a?.webinarsFields?.startDateAndTime)
-			  );
+			: sortedAllWebinars;
+
+	if (webinarList.length < 3) {
+		let remainingSoted = sortedAllWebinars.slice(0, 3 - webinarList.length);
+		webinarList = [...webinarList, ...remainingSoted].sort(
+			(a, b) =>
+				new Date(b?.webinarsFields?.startDateAndTime) -
+				new Date(a?.webinarsFields?.startDateAndTime)
+		);
+	}
+
 	const eventsList =
 		events?.length > 0
 			? events?.sort(

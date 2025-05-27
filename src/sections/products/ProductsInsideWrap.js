@@ -102,7 +102,7 @@ export default function ProductInsideWrap({ data, mapJson }) {
 					</div>
 				)} */}
 				{data?.products?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data?.products?.ourClient} />
 					</div>
 				)}

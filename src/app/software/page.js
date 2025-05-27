@@ -156,7 +156,7 @@ export default async function Softwares() {
 				</div>
 				<GlobalMap locationJson={mapJson} />
 				{clientLogos?.selectLogos?.nodes?.length > 0 && (
-					<div className="ptb_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={clientLogos} />
 					</div>
 				)}
