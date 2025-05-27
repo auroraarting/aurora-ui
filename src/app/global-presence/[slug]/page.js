@@ -132,13 +132,22 @@ async function getData({ params, query }) {
 	let webinarList = webinars?.length > 0 ? webinars : webinarsAll;
 
 	if (webinarList.length < 3) {
-		let remainingSoted = webinarsAll.slice(0, 3 - webinarList.length);
-		webinarList = [...webinarList, ...remainingSoted].sort(
-			(a, b) =>
-				new Date(a?.webinarsFields?.startDateAndTime) -
-				new Date(b?.webinarsFields?.startDateAndTime)
-		);
+		let remainingSoted = webinarsAll;
+		webinarList = [...webinarList, ...remainingSoted]
+			// Remove duplicates based on `title`
+			.filter(
+				(item, index, self) =>
+					index === self.findIndex((t) => t?.title === item?.title)
+			);
+		// Sort by start date and time
+		// .sort(
+		// 	(a, b) =>
+		// 		new Date(a?.webinarsFields?.startDateAndTime) -
+		// 		new Date(b?.webinarsFields?.startDateAndTime)
+		// );
 	}
+
+	console.log(webinarList, "webinarList");
 
 	// Return 404 if no valid data
 	if (!countryBy) {
