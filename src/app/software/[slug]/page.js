@@ -62,7 +62,6 @@ async function getData({ params }) {
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
 
-	console.log(mapJson, "mapJson");
 	const countries = data.data.countries.nodes;
 
 	return {
