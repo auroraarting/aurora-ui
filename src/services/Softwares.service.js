@@ -303,23 +303,6 @@ query GetPageSoftwares {
         description
       }
       mapMarquee
-      keyAdvantages {
-        title
-        tabTitle
-        description
-        buttonLink
-        buttonText
-        advantages {
-          title
-          description
-          icon {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
       inisghtsSectionButton {
         buttonText
         iframe
@@ -329,6 +312,23 @@ query GetPageSoftwares {
             altText
             mediaItemUrl
           }
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      whyAurora {
+        endPoint
+        description
+        endText
+        startText
+        title
+        list {
+          caption
+          description
+          title
+          value
         }
       }
     }

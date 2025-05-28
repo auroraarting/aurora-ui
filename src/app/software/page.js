@@ -24,7 +24,11 @@ import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
 // PLUGINS //
 
 // UTILS //
-import { getMapJsonForSoftware, removeDuplicatesByKeys } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	getMapJsonForSoftware,
+	removeDuplicatesByKeys,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareLanding.module.scss";
@@ -129,6 +133,10 @@ export default async function Softwares() {
 		bundles,
 	} = props;
 
+	const dataForBtn = {
+		postFields: data,
+	};
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -152,7 +160,7 @@ export default async function Softwares() {
 					/>
 				</div>
 				<div>
-					<GloballyBankableInsights data={data.keyAdvantages} />
+					<GloballyBankableInsights data={data.whyAurora} />
 				</div>
 				<GlobalMap locationJson={mapJson} />
 				{clientLogos?.selectLogos?.nodes?.length > 0 && (
@@ -179,12 +187,16 @@ export default async function Softwares() {
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
 							<Insights
-								formSectionTitle="Expertise that powers progress"
-								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with Chronos specialists. Stay ahead with exclusive access to online and in-person community events."
+								formSectionTitle={data?.insights?.sectionTitle}
+								formSectionDesc={data?.insights?.sectionDesc}
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
 								defaultList={insights}
 								countries={countries}
+								formSectionBtnText={
+									dynamicInsightsBtnProps(dataForBtn, "inisghtsSectionButton").btntext
+								}
+								formdata={dynamicInsightsBtnProps(dataForBtn, "inisghtsSectionButton")}
 							/>
 						</div>
 					</div>
