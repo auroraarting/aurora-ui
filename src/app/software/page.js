@@ -20,6 +20,7 @@ import Bundles from "@/components/Bundles";
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import SoftwaresLanding from "@/sections/softwares/SoftwareLanding";
 
 // PLUGINS //
 
@@ -146,63 +147,7 @@ export default async function Softwares() {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.SoftwareLanding}>
-				<InnerBanner
-					bannerTitle={data.banner.title}
-					bannerDescription={data.banner.description}
-					showContentOnly
-				/>
-				<div>
-					<TransactionSolutions
-						data={softwares.nodes}
-						keyValue={"softwares"}
-						slugPage="software"
-					/>
-				</div>
-				<div>
-					<GloballyBankableInsights data={data.whyAurora} />
-				</div>
-				<GlobalMap locationJson={mapJson} />
-				{clientLogos?.selectLogos?.nodes?.length > 0 && (
-					<div className="pb_50 pt_100 ">
-						<TrustedLeaders data={clientLogos} />
-					</div>
-				)}
-				{testimonials?.testimonials?.nodes?.length > 0 && (
-					<div className="pb_100">
-						<TestimonialFeedback data={testimonials} />
-					</div>
-				)}
-				<div className="pt_100 dark_bg relative">
-					<img
-						className={`${styles.bgGradient} bgGradientEos`}
-						src="/img/eos-bg-gradient.png"
-					/>
-					<div className="pb_100">
-						<EosIntegratedSystem />
-					</div>
-					<Bundles data={bundles} />
-				</div>
-				<div className={`${styles.insightBg}  pt_30`}>
-					<div className={`${styles.boxBg}`}>
-						<div className="pb_100">
-							<Insights
-								formSectionTitle={data?.insights?.sectionTitle}
-								formSectionDesc={data?.insights?.sectionDesc}
-								isPowerBgVisible={true}
-								isInsightsBlogsVisible={true}
-								defaultList={insights}
-								countries={countries}
-								formSectionBtnText={
-									dynamicInsightsBtnProps(dataForBtn, "inisghtsSectionButton").btntext
-								}
-								formdata={dynamicInsightsBtnProps(dataForBtn, "inisghtsSectionButton")}
-							/>
-						</div>
-					</div>
-				</div>
-			</main>
-			<IframeModal />
+			<SoftwaresLanding {...props} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
