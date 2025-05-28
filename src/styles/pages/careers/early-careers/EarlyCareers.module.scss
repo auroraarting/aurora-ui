@@ -23,6 +23,9 @@
 		margin-bottom: 0px !important;
 	}
 	:global(.SmarterEnergy) {
-		background-position: top center;
+		//background-position: top center;
+	}
+	:global(.ServicesCircleSection) {
+		padding-top: 0px;
 	}
 }
