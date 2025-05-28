@@ -67,6 +67,14 @@
 			}
 			&.advisoryBox {
 				padding-bottom: 30px;
+
+				.BoxImg {
+					height: 318px;
+					object-fit: cover;
+					@media (max-width: 768px) {
+						height: 200px;
+					}
+				}
 			}
 		}
 		.softwareAnim {
