@@ -33,9 +33,10 @@ export default function TrustedLeaders({
 	const [paddingBottom, setPaddingBottom] = useState("");
 	useEffect(() => {
 		const checkIfPagination = document.querySelectorAll(
-			".swiper-pagination span"
+			".TrustedLeaders .swiper-pagination span"
 		);
-		if (checkIfPagination?.length > 2) {
+		console.log(checkIfPagination?.length);
+		if (checkIfPagination?.length > 1) {
 			setPaddingBottom("60px");
 		}
 	}, []);
@@ -66,7 +67,7 @@ export default function TrustedLeaders({
 					))}
 				</div> */}
 
-				<div className={`${styles.box_wrap}`}>
+				<div className={`${styles.box_wrap} pb_40`}>
 					<Swiper
 						slidesPerGroup={2} // scroll 5 columns = 10 items with 2 rows
 						slidesPerView={2}
