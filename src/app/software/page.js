@@ -60,7 +60,8 @@ async function getData() {
 			getInsightsCategories(),
 			getBundlesSection(),
 		]);
-	const softwares = data.data.softwares;
+	console.log(data, "data");
+	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 
 	let testimonials = {
@@ -74,7 +75,7 @@ async function getData() {
 		},
 	};
 
-	softwares.nodes.map((item) => {
+	softwares?.nodes?.map((item) => {
 		// testimonials
 		testimonials.testimonials.nodes = removeDuplicatesByKeys(
 			[
@@ -95,7 +96,7 @@ async function getData() {
 	return {
 		props: {
 			data: {
-				...data.data.page.softwareLanding,
+				...data?.data?.page?.softwareLanding,
 			},
 			insights: insightsFetch?.data?.posts?.nodes || [],
 			softwares,
