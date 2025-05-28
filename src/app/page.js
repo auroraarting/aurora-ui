@@ -38,12 +38,25 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getHomePage, getHomePageVoices } from "@/services/Home.service";
 import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Meta Data */
-export const metadata = {
-	title: "Home | Aurora",
-	description: "Aurora",
-};
+// /** Meta Data */
+// export const metadata = {
+// 	title: "Home | Aurora",
+// 	description: "Aurora",
+// };
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "homepage", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+	};
+}
 
 export const revalidate = 60; // Revalidates every 60 seconds
 
