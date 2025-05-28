@@ -44,7 +44,7 @@ export default function HowWeHelpSolutionsChallenge() {
 						</h2>
 						<p className="text_reg color_dark_gray">
 							We bring together precise analytics, expert insights, and tailored tools
-							to empower your energy decisions. Explore our solutions in valuations,
+							to enable your energy decisions. Explore our solutions in valuations,
 							strategy, PPAs, and asset optimisation to drive success.
 						</p>
 					</div>
