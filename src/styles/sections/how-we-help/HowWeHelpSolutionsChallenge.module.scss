@@ -1,12 +1,11 @@
 @import "../../helpers/helpers.scss";
 .HowWeHelpSolutionsChallenge {
-  
 	.integratedSystemFlex {
-    // @media (min-width: 1200px) {
-    //   align-items: center;
-    // }
+		// @media (min-width: 1200px) {
+		//   align-items: center;
+		// }
 		.title_wrap {
-			width: 45%;
+			width: 41%;
 			@media (max-width: 991px) {
 				width: 100%;
 				margin-bottom: 40px;
@@ -27,12 +26,12 @@
 					flex-direction: column;
 					//background-color: var(--color_secondary);
 					// flex-wrap: wrap;
-          
+
 					&:nth-child(even) {
 						display: flex;
 						flex-direction: column-reverse;
 					}
-          
+
 					.itemBoxWrap {
 						position: relative;
 						display: flex;
@@ -40,7 +39,7 @@
 						justify-content: center;
 						height: 175px;
 						overflow: hidden;
-            background-color: var(--color_white);
+						background-color: var(--color_white);
 						@media (max-width: 767px) {
 							height: 140px;
 						}
@@ -53,11 +52,11 @@
 						}
 						.centerLogo {
 							transition: 0.5s all;
-              text-align: center;
-              font-size: 20px;
-              @media (max-width: 767px) {
-                font-size: 16px;
-              }
+							text-align: center;
+							font-size: 20px;
+							@media (max-width: 767px) {
+								font-size: 16px;
+							}
 						}
 						.hoverBox {
 							position: absolute;
@@ -67,7 +66,7 @@
 							padding: 8px 10px;
 							transform: translateY(110px);
 							transition: 0.5s all;
-              
+
 							@media (max-width: 767px) {
 								padding: 8px 6px;
 							}
@@ -106,9 +105,9 @@
 							}
 						}
 					}
-          .logoBox{
-            background-color: var(--color_secondary);
-          }
+					.logoBox {
+						background-color: var(--color_secondary);
+					}
 				}
 				:global(.swiper-slide) {
 					&:nth-child(even) {
