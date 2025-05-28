@@ -99,7 +99,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 				</div>
 
 				{data?.howWeHelpInside?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="">
 						<TrustedLeaders
 							data={data?.howWeHelpInside?.ourClient}
 							sectionTitle={data?.howWeHelpInside?.ourClient?.title}
