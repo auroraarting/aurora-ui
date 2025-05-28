@@ -321,7 +321,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 								</div>
 								<div className={`${styles.cardDesc} pt_20`}>
 									{item?.earlyCareers?.thumbnail?.country?.node?.title && (
-										<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase">
+										<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase f_w_m">
 											<img
 												src={location.src}
 												className={`${styles.location}`}

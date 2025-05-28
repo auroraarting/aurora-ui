@@ -52,6 +52,10 @@ export default function AccordianCommon({
 		};
 
 		calculateHeights();
+		setTimeout(() => {
+			calculateHeights();
+		}, 1000);
+
 		window.addEventListener("resize", calculateHeights); // Recalculate heights on window resize
 
 		return () => {

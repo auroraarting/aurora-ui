@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
+import { useEffect, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -28,6 +29,25 @@ import slider_arrow_black from "../../../public/img/icons/slider_arrow_black.svg
 
 /** EarlyCareers Section */
 export default function EarlyCareersInside({ data }) {
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+	const swiperRef = useRef(null);
+
+	useEffect(() => {
+		if (
+			swiperRef.current &&
+			prevRef.current &&
+			nextRef.current &&
+			swiperRef.current.swiper
+		) {
+			swiperRef.current.swiper.params.navigation.prevEl = prevRef.current;
+			swiperRef.current.swiper.params.navigation.nextEl = nextRef.current;
+			swiperRef.current.swiper.navigation.destroy();
+			swiperRef.current.swiper.navigation.init();
+			swiperRef.current.swiper.navigation.update();
+		}
+	}, []);
+
 	return (
 		<section className={`${styles.EarlyCareers} pb_50`}>
 			<div className="container">
@@ -42,16 +62,17 @@ export default function EarlyCareersInside({ data }) {
 					</a>
 				</div>
 				<div className={`${styles.arrowSection} f_w_a_j_center`}>
-					<button className={`${styles.customPrev}`} id="customPrev">
+					<button ref={prevRef} className={styles.customPrev}>
 						<img src={slider_arrow_black.src} alt="icon" />
 					</button>
-					<button className={styles.customNext} id="customNext">
+					<button ref={nextRef} className={styles.customNext}>
 						<img src={slider_arrow_black.src} alt="icon" />
 					</button>
 				</div>
 			</div>
 			<div className={`${styles.SliderMain} pt_20`}>
 				<Swiper
+					ref={swiperRef}
 					modules={[Navigation, Pagination, Autoplay]}
 					slidesPerView={1.1}
 					spaceBetween={20}

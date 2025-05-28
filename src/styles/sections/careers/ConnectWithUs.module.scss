@@ -1,11 +1,14 @@
 @import "../../helpers/helpers.scss";
 .ConnectWithUs {
 	position: relative;
+	:global(.swiper) {
+		padding-left: 40px;
+	}
 	.title_wrap {
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
 		}
-		.bookBtn{
+		.bookBtn {
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-top: 15px;
@@ -14,8 +17,8 @@
 	}
 	.SliderMain {
 		position: relative;
-		padding-left: calc(var(--container_left_space) + 15px);
-    :global(.swiper-wrapper) {
+		padding-left: calc((var(--container_left_space) + 15px) - 40px);
+		:global(.swiper-wrapper) {
 			padding: 40px 0px;
 			@media (max-width: 767px) {
 				padding: 20px 0px 60px;
@@ -30,7 +33,7 @@
 		}
 		.cardItem {
 			background-color: var(--color_white);
-			padding: 20px 20px 30px;
+			padding: 20px;
 			border-radius: 20px;
 			max-height: 345px;
 			transition: 0.5s ease-in-out;
@@ -47,14 +50,13 @@
 					object-fit: cover;
 					object-position: center;
 				}
-				
 			}
 			&:hover {
 				max-height: 390px;
-        transform: rotate(-5deg);
-        box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
+				transform: rotate(-5deg);
+				box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
 				transition: 0.5s ease-in-out;
-        @media (max-width: 767px) {
+				@media (max-width: 767px) {
 					max-height: unset;
 				}
 			}

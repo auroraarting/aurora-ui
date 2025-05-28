@@ -1,19 +1,25 @@
 @import "../../helpers/helpers.scss";
 
 .DepartmentList {
+	position: relative;
 	.topNav {
 		border-top: 1px solid var(--color_platinum_gray);
 		border-bottom: 1px solid var(--color_platinum_gray);
-		padding: 5px 0px;
+		padding: 8px 0px;
+		position: sticky;
+		top: var(--header_height);
+		left: 0;
+		background-color: var(--color_silver);
+		z-index: 99;
 		.filterflexMain {
 			flex-wrap: wrap;
 			.filterflex {
 				display: flex;
 				position: relative;
 				align-items: center;
-				width: 30%;
+				// width: 30%;
 				@media screen and (min-width: 767px) and (max-width: 992px) {
-					width: 40%;
+					// width: 40%;
 				}
 				@media screen and (max-width: 767px) {
 					flex-wrap: wrap;
@@ -30,6 +36,7 @@
 						width: 100%;
 					}
 					.custom_select {
+						width: max-content;
 						.select_header_wapper {
 							border-right: 1px solid var(--color_platinum_gray);
 							padding: 0px 15px;
@@ -49,6 +56,7 @@
 								padding: 10px 15px;
 								border-radius: 50px;
 								cursor: pointer;
+								padding-right: 40px;
 								transition: 0.5s all;
 								@media screen and (min-width: 768px) and (max-width: 1199px) {
 									padding: 10px 10px;
@@ -170,7 +178,7 @@
 							// grid-template-columns: repeat(3, 1fr);
 							grid-template-columns: repeat(3, 1fr); // 2 columns
 							gap: 16px;
-							@media screen and (max-width: 991px) {
+							@media screen and (max-width: 1110px) {
 								width: 450px;
 								padding: 20px 20px;
 							}
@@ -182,6 +190,7 @@
 								display: flex;
 								flex-direction: column;
 								gap: 8px;
+								cursor: pointer;
 								// width: 33.33%;
 								// padding-right: 15px;
 								// @media screen and (max-width: 767px) {
@@ -190,68 +199,63 @@
 								// 	margin-bottom: 20px;
 								// }
 								&:hover {
-									.checkBoxList {
-										display: block;
-									}
+									display: block;
+									background-color: var(--color_primary);
 								}
-								.checkBoxList {
-									padding-left: 20px;
-									// display: none;
-									h4 {
-										cursor: pointer;
-									}
-									@media screen and (max-width: 767px) {
-										padding-left: 10px;
-									}
-									.checkBoxList {
-										display: flex;
-										flex-direction: column;
-										gap: 10px;
-									}
+								h4 {
+									cursor: pointer;
+								}
+								padding-left: 20px;
+								// display: none;
+								h4 {
+									cursor: pointer;
+								}
+								@media screen and (max-width: 767px) {
+									padding-left: 10px;
+								}
 
-									.checkboxLabel {
-										display: flex;
-										align-items: center;
-										cursor: pointer;
-										font-size: 14px;
-										line-height: 1.4;
-										font-weight: 400;
-										font-family: var(--font_primary);
-										color: var(--color_dark_gray);
-										user-select: none;
-										margin-top: 15px;
-									}
+								.checkboxLabel {
+									display: flex;
+									align-items: center;
+									cursor: pointer;
+									font-size: 14px;
+									line-height: 1.4;
+									font-weight: 400;
+									font-family: var(--font_primary);
+									color: var(--color_dark_gray);
+									user-select: none;
+									margin-top: 15px;
+								}
 
-									.hiddenRadio {
-										display: none;
-									}
+								.hiddenRadio {
+									display: none;
+								}
 
-									.customRadio {
-										display: inline-block;
-										width: 16px;
-										height: 16px;
-										border: 2px solid #555;
-										border-radius: 50%;
-										position: relative;
-										margin-right: 8px;
-									}
+								.customRadio {
+									display: inline-block;
+									width: 16px;
+									height: 16px;
+									border: 2px solid #555;
+									border-radius: 50%;
+									position: relative;
+									margin-right: 8px;
+								}
 
-									.hiddenRadio:checked + .customRadio {
-										background-color: var(--color_primary_shade);
-										border-color: var(--color_primary_shade);
-									}
+								.hiddenRadio:checked + .customRadio {
+									background-color: var(--color_primary_shade);
+									border-color: var(--color_primary_shade);
+								}
 
-									.hiddenRadio:checked + .customRadio::after {
-										content: "";
-										width: 8px;
-										height: 8px;
-										background: var(--color_secondary);
-										border-radius: 50%;
-										position: absolute;
-										top: 50%;
-										left: 50%;
-										transform: translate(-50%, -50%);
-									}
+								.hiddenRadio:checked + .customRadio::after {
+									content: "";
+									width: 8px;
+									height: 8px;
+									background: var(--color_secondary);
+									border-radius: 50%;
+									position: absolute;
+									top: 50%;
+									left: 50%;
+									transform: translate(-50%, -50%);
 								}
 							}
 						}
@@ -345,20 +349,19 @@
 								width: 100%;
 								margin-bottom: 30px;
 							}
-							.leadThumb{
+							.leadThumb {
 								position: relative;
-								.popUp{
+								.popUp {
 									position: absolute;
 									bottom: 0;
 									right: 0px;
 									width: 100%;
 									height: auto;
-									img{
+									img {
 										width: 100%;
 									}
 								}
 							}
-							
 						}
 						&:last-child {
 							width: 67%;

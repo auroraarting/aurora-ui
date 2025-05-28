@@ -130,13 +130,12 @@ export default function DepartmentList({ data, jobs, departments }) {
 									{dropdowns.offeringsType.isOpen && (
 										<div className={`${styles.selectOptionBox} ${styles.checkBoxWapper}`}>
 											{departments.map((item, index) => (
-												<div key={index} className={styles.checkBoxItem}>
-													<h4
-														className="text_sm color_dark_gray text_500"
-														onClick={() => handleSelect(item)}
-													>
-														{item}
-													</h4>
+												<div
+													key={index}
+													className={styles.checkBoxItem}
+													onClick={() => handleSelect(item)}
+												>
+													<h4 className="text_sm color_dark_gray text_500">{item}</h4>
 												</div>
 											))}
 										</div>
@@ -244,7 +243,12 @@ export default function DepartmentList({ data, jobs, departments }) {
 						</div>
 					)}
 					<div>
-						<JobOpenings data={jobs} hideFilters={false} hideRedirect={true} />
+						<JobOpenings
+							data={jobs}
+							hideFilters={false}
+							hideRedirect={true}
+							defaultSelected={dropdowns?.offeringsType?.selected?.title}
+						/>
 					</div>
 				</div>
 			</div>

@@ -142,7 +142,7 @@ export default function TeamAurora({
 							>
 								<div className={`${styles.teamHoverShow}`}>
 									<img src={quate.src} alt="quate" />
-									<p className="text_sm font_primary f_w_i color_white pt_10">
+									<p className="text_sm font_primary f_w_i f_w_l color_white pt_10">
 										{item?.content}
 									</p>
 								</div>

@@ -224,7 +224,7 @@ export default function Map({
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
 												{marker?.hoverImg && <img src={marker.hoverImg} />}
-												{marker?.name || marker?.category?.nodes?.[0]?.title}
+												<p>{marker?.name || marker?.category?.nodes?.[0]?.title}</p>
 											</div>
 										</a>
 									</InfoWindow>

@@ -28,6 +28,7 @@ export default function JobOpenings({
 	data,
 	hideFilters = true,
 	hideRedirect = false,
+	defaultSelected,
 }) {
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [jobs, setJobs] = useState(data.jobs.data);
@@ -38,7 +39,7 @@ export default function JobOpenings({
 	});
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "" } },
-		offeringsType: { isOpen: false, selected: { title: "" } },
+		offeringsType: { isOpen: false, selected: { title: defaultSelected || "" } },
 		search: { isOpen: false, selected: { title: "" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data.jobs.data);
@@ -148,6 +149,12 @@ export default function JobOpenings({
 	const closeSearchInput = () => {
 		setIsSearchVisible(false);
 	};
+
+	useEffect(() => {
+		if (defaultSelected) {
+			handleOptionClick("offeringsType", defaultSelected);
+		}
+	}, [defaultSelected]);
 
 	return (
 		<section className={`${styles.JobOpenings} dark_bg ptb_100`}>
