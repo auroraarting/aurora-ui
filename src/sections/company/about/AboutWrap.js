@@ -92,7 +92,7 @@ export default function AboutWrap({
 					</div>
 				)}
 				{data?.ourEdge?.sectionTitle && (
-					<div className={`${styles.OurEdgeMain} pt_100`}>
+					<div className={`${styles.OurEdgeMain} pt_40`}>
 						<OurEdge data={data?.ourEdge} />
 					</div>
 				)}
