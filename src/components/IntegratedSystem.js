@@ -79,7 +79,6 @@ export default function IntegratedSystem({ module = "softwares" }) {
 			};
 		}
 		let arr = res?.data?.[module]?.nodes;
-		console.log(arr, "arr");
 		setData(arr);
 	};
 

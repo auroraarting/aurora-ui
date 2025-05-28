@@ -147,8 +147,6 @@ async function getData({ params, query }) {
 		// );
 	}
 
-	console.log(webinarList, "webinarList");
-
 	// Return 404 if no valid data
 	if (!countryBy) {
 		return {

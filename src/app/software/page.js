@@ -60,7 +60,6 @@ async function getData() {
 			getInsightsCategories(),
 			getBundlesSection(),
 		]);
-	console.log(data, "data");
 	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 
