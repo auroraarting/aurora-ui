@@ -67,7 +67,7 @@ export default function TrustedLeaders({
 					))}
 				</div> */}
 
-				<div className={`${styles.box_wrap} pb_40`}>
+				<div className={`${styles.box_wrap} `}>
 					<Swiper
 						slidesPerGroup={2} // scroll 5 columns = 10 items with 2 rows
 						slidesPerView={2}
