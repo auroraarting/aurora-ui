@@ -104,7 +104,7 @@ export default function WhoAreYouInsideWrap({
 					/>
 				</div>
 				{data?.whoAreYous?.stats && (
-					<div className="">
+					<div className="pb_50 dark_bg">
 						<CounterDynamic data={data?.whoAreYous?.stats} />
 					</div>
 				)}

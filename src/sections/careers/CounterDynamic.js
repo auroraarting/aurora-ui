@@ -22,7 +22,7 @@ import styles from "@/styles/sections/careers/Counter.module.scss";
 /** Counter Section */
 export default function CounterDynamic({ data, className }) {
 	return (
-		<section className={`${styles.Counter} ${className} pt_40 pb_100`}>
+		<section className={`${styles.Counter} ${className} ptb_40`}>
 			<div className="containerLarge">
 				<div className={`${styles.counterFlex} f_w_j`}>
 					{data?.map((item) => {

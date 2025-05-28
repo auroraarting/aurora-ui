@@ -38,7 +38,6 @@ export default function TrustedLeaders({
 		if (checkIfPagination?.length > 2) {
 			setPaddingBottom("60px");
 		}
-		console.log("checkIfPagination", checkIfPagination);
 	}, []);
 
 	if (!data || !data?.selectLogos) return <></>;
