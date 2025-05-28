@@ -33,11 +33,16 @@ export default function ConnectWithUs({ data }) {
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						Connect with us
 					</h2>
-					<div className={`${styles.bookBtn}`}>
+					<a
+						className={`${styles.bookBtn}`}
+						href="https://www.instagram.com/lifeataurora"
+						target="_blank"
+						rel="noreferrer"
+					>
 						<Button color="primary" variant="filled" shape="rounded">
 							Follow us on Instagram
 						</Button>
-					</div>
+					</a>
 				</div>
 			</div>
 			<div className={`${styles.SliderMain}`}>

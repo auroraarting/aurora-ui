@@ -210,7 +210,7 @@ export default function Map({
 												}  text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker?.name || marker?.category?.nodes?.[0]?.title}
+												<p>{marker?.name || marker?.category?.nodes?.[0]?.title}</p>
 											</div>
 										</a>
 									</InfoWindow>

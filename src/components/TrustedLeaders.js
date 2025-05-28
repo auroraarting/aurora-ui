@@ -1,6 +1,7 @@
 "use client";
 
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -29,6 +30,17 @@ export default function TrustedLeaders({
 	data,
 	sectionTitle = "Trusted by industry leaders",
 }) {
+	const [paddingBottom, setPaddingBottom] = useState("");
+	useEffect(() => {
+		const checkIfPagination = document.querySelectorAll(
+			".swiper-pagination span"
+		);
+		if (checkIfPagination?.length > 2) {
+			setPaddingBottom("60px");
+		}
+		console.log("checkIfPagination", checkIfPagination);
+	}, []);
+
 	if (!data || !data?.selectLogos) return <></>;
 
 	return (
@@ -86,6 +98,7 @@ export default function TrustedLeaders({
 						}}
 						modules={[Grid, Pagination]}
 						className="mySwiper"
+						style={{ paddingBottom: paddingBottom }}
 					>
 						{data?.selectLogos?.nodes?.map((item, ind) => {
 							const imageUrl = item?.featuredImage?.node?.mediaItemUrl;

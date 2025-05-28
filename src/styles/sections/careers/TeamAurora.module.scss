@@ -47,6 +47,10 @@
 				opacity: 0;
 				max-height: 0px;
 				transition: 0.5s ease-in-out;
+
+				img {
+					width: 20px;
+				}
 			}
 			.teamFlex {
 				.teamLogo {
@@ -72,6 +76,7 @@
 				}
 			}
 			&:hover {
+				padding-top: 20px;
 				transition: 0.5s ease-in-out;
 				background-color: var(--color_secondary);
 				background-image: url("../../../../public/img/careers/hoverBg.png");

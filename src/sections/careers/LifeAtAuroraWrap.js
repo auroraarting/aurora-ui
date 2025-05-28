@@ -106,34 +106,34 @@ export default function LifeAtAuroraWrap({
 					btnLink={data?.banner?.buttonLink}
 					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 				/>
-				<div>
-					<SectionsHeader
-						customHtml={
-							dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
-								<div
-									{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
-									key="btn"
-									to="Insights"
-								>
-									<Button color="primary" variant="filled" shape="rounded">
-										{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
-									</Button>
-								</div>
-							)
-						}
-					/>
-				</div>
-				{data?.keyAdvantages && (
-					<div>
-						<SmarterEnergy data={data?.keyAdvantages} sectionName="Our Culture" />
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
+								</Button>
+							</div>
+						)
+					}
+				/>
+				<div className="belongingBg">
+					{data?.keyAdvantages && (
+						<div>
+							<SmarterEnergy data={data?.keyAdvantages} sectionName="Our Culture" />
+						</div>
+					)}
+					<div className="pt_60">
+						<TeamAurora
+							defaultData={data?.teamAurora?.teams}
+							id="Our-Teams"
+							sectionName="Our Teams"
+						/>
 					</div>
-				)}
-				<div className="pt_60">
-					<TeamAurora
-						defaultData={data?.teamAurora?.teams}
-						id="Our-Teams"
-						sectionName="Our Teams"
-					/>
 				</div>
 				{mapJson && (
 					<div className="dark_bg">
@@ -159,7 +159,7 @@ export default function LifeAtAuroraWrap({
 					</div>
 				)}
 				<div>
-					<JobOpenings data={jobs} hideFilters={false} />
+					<JobOpenings data={jobs} hideFilters={false} hideRedirect />
 				</div>
 
 				<div className="pt_100">
