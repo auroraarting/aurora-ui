@@ -64,7 +64,7 @@ export default function HomeOurOfferings() {
 		>
 			<h2 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
-				<br className="visible_lg" /> to navigate and capitalize on the global shift
+				<br className="visible_lg" /> to navigate and capitalise on the global shift
 				in energy systems.
 			</h2>
 			<div className={`${styles.OurOfferingSlider} pt_60`}>
@@ -96,7 +96,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
 								<p className="text_reg color_silver_gray">
-									EOS centralizes Aurora’s data, software, forecasts, and insights.
+									EOS is Aurora’s integrated energy intelligence platform, bringing
+									together forecasts, market models, reports, and tools to support
+									strategic decision-making.
 								</p>
 							</div>
 							<img
@@ -190,8 +192,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">Advisory</h4>
 								<p className="text_reg color_silver_gray">
-									Bespoke advisory offering in-depth strategic recommendation and
-									insights.
+									Bespoke advisory support combining deep market expertise, modelling and
+									insight to help clients navigate complex energy investment and policy
+									decisions.
 								</p>
 							</div>
 							<img
