@@ -70,7 +70,7 @@ export default function HomeEvents({ data }) {
 										<div className={`${styles.content}`}>
 											<img
 												src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
-												className=""
+												className={`${styles.Eventlogo}`}
 												alt="logo img"
 												loading="lazy"
 											/>

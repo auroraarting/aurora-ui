@@ -58,7 +58,7 @@ export default function TopEvents({ list }) {
 									<div className={`${styles.content}`}>
 										<img
 											src={data?.events?.thumbnail?.logo?.node?.mediaItemUrl}
-											className="b_r_8"
+											className={`${styles.Eventlogo} b_r_8`}
 											alt="Event logo"
 										/>
 										<div

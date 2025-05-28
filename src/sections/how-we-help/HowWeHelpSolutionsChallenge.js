@@ -56,7 +56,7 @@ export default function HowWeHelpSolutionsChallenge() {
 								spaceBetween={0}
 								grabCursor={true}
 								speed={500}
-								loop={true}
+								//loop={true}
 								navigation={{
 									prevEl: "#customPrev",
 									nextEl: "#customNext",

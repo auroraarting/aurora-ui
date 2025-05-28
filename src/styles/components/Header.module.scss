@@ -508,6 +508,7 @@
 						.dateFlex {
 							align-items: center;
 							p {
+								text-transform: uppercase;
 								span {
 									margin-left: 5px;
 									margin-top: 2px;
@@ -634,6 +635,7 @@
 		position: relative;
 		width: 950px;
 		padding: 100px 0px 80px;
+		margin: 0 auto;
 		@media (max-width: 1199px) {
 			padding: 60px 0px 60px;
 		}

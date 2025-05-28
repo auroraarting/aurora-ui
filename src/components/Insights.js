@@ -411,7 +411,7 @@ export default function Insights({
 										{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
 											{insightsTitle}
 										</h2> */}
-										<p className="text_lg font_primary f_w_s_b color_white">
+										<p className="text_lg font_primary f_w_s_b color_white pb_10">
 											{formSectionTitle}
 										</p>
 										<div className={`${styles.desc} text_reg color_silver_gray`}>

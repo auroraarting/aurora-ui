@@ -51,7 +51,7 @@ export default function CaseStudiesTop({ data }) {
 							{data?.title}
 						</h1>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 								<img
 									src={calender.src}
 									className={`${styles.calender}`}
@@ -61,7 +61,7 @@ export default function CaseStudiesTop({ data }) {
 								<span>{formatDate(data?.date)}</span>
 							</p>
 							{data?.postFields?.time && (
-								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img
 										src={black_clock.src}
 										className={`${styles.calender}`}
