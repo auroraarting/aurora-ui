@@ -31,7 +31,7 @@ export default function PublicWebinar({ events, webinars }) {
 		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
+					<h2 className="text_xl font_primary color_secondary">
 						All voices all markets
 					</h2>
 				</div>

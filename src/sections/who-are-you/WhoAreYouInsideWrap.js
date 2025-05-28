@@ -59,7 +59,7 @@ export default function WhoAreYouInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.FinancialSectorPage}>
-				<div className="pb_60">
+				<div className="">
 					<InnerBanner
 						// bannerTitle="Energy solutions for those who see beyond the grid"
 						// bannerDescription="Aurora empowers industries with tailored energy intelligence, helping decision-makers drive impact, manage risks, and seize opportunities in a rapidly changing energy landscape."
