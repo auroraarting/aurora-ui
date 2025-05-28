@@ -225,7 +225,7 @@ export default function TransactionSolutions({
 							);
 						})
 					)}
-					{isSlider && (
+					{isSlider && data.length > 1 && (
 						<div className={`${styles.arrowSection} f_w_a_j_center`}>
 							<button className={`${styles.customPrev}`} id="customPrev">
 								<img src="/img/icons/howwehelpSwiperRight.svg" alt="icon" />

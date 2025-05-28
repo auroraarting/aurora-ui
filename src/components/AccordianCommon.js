@@ -29,6 +29,7 @@ export default function AccordianCommon({
 	fontColor,
 	locationData,
 	defaultActiveId = 0,
+	openAll,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
 	const pathname = usePathname();
@@ -69,7 +70,12 @@ export default function AccordianCommon({
 	};
 	/** toggleAccordion */
 	const toggleAccordion = (index) => {
-		let arr = [...activeIndex];
+		let arr = [];
+		if (openAll) {
+			arr = [...activeIndex];
+		} else {
+			arr = activeIndex?.map((item) => false);
+		}
 		arr[index] = !arr[index];
 		setActiveIndex(arr);
 	};
