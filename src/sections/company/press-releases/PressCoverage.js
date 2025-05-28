@@ -25,7 +25,7 @@ export default function PressCoverage({ data }) {
 	return (
 		<section className={`${styles.PressCoverage} bg_secondary ptb_100 `}>
 			<div className="container">
-				<h3 className="text_md color_white f_w_s_b font_primary pb_30">
+				<h3 className="text_xl color_white f_w_s_b font_primary pb_20">
 					{data?.sectionTitle}
 				</h3>
 				<p className={`${styles.desc}  color_silver_gray`}>{data?.sectionDesc}</p>
@@ -34,7 +34,7 @@ export default function PressCoverage({ data }) {
 						return (
 							<div className={`${styles.mediaTeamBoxItem}`} key={item?.name}>
 								{item?.country && (
-									<h4 className="text_md color_white f_w_m font_primary ">
+									<h4 className="text_md color_white f_w_m font_primary pb_40">
 										{item?.country}
 									</h4>
 								)}
@@ -44,7 +44,7 @@ export default function PressCoverage({ data }) {
 									</h4>
 								)}
 								{item?.designation && (
-									<p className="text_xs color_platinum_gray pb_20">
+									<p className="text_xs color_platinum_gray pb_30">
 										{item?.designation}
 									</p>
 								)}
