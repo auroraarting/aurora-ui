@@ -105,22 +105,22 @@ export default function AboutWrap({
 				)}
 				{/* eos */}
 				{mapJson && (
-					<div className="black_bg">
+					<div className="dark_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
-							className="black_bg"
+							className="dark_bg"
 						/>
 					</div>
 				)}
 				<div className="">
 					<Counter
-						className="black_bg"
+						className="dark_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="ptb_100 black_bg relative">
+				<div className="ptb_100 dark_bg relative">
 					{/* <img
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
