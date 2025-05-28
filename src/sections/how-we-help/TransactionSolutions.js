@@ -158,7 +158,7 @@ export default function TransactionSolutions({
 														alt="solar plant"
 													/>
 												)}
-												<h2 className="text_xl font_primary f_w_m color_white pt_40">
+												<h2 className="text_xl font_primary color_white pt_40 pb_30">
 													{useSpotlight
 														? item?.[contentType]?.thumbnail?.spotlightTitle
 														: item?.[contentType]?.thumbnail?.title}
@@ -203,7 +203,7 @@ export default function TransactionSolutions({
 												alt="solar plant"
 											/>
 										)}
-										<h2 className="text_xl font_primary f_w_m color_white pt_40">
+										<h2 className="text_xl font_primary color_white pt_40 pb_30">
 											{useSpotlight
 												? item?.[contentType]?.thumbnail?.spotlightTitle
 												: item?.[contentType]?.thumbnail?.title}
