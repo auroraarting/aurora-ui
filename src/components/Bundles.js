@@ -19,7 +19,7 @@ import styles from "@/styles/components/Bundles.module.scss";
 
 // IMAGES //
 import Icon from "/public/img/table-icon.png";
-import Checkmark from "/public/img/checkmark.png";
+import Checkmark from "/public/img/checkmark.svg";
 import hoverBg from "/public/img/hoverBundles.png";
 import { slugify } from "@/utils";
 
@@ -80,7 +80,7 @@ export default function Bundles({ data, name }) {
 											}}
 										>
 											<p
-												className={`${styles.text} text_xs font_primary f_w_b  ${
+												className={`${styles.text} text_xs font_primary  ${
 													list.tabName === item.tabName ? "" : "color_white"
 												}`}
 											>
@@ -109,7 +109,7 @@ export default function Bundles({ data, name }) {
 						<div className={`${styles.tableMain}`}>
 							<table className={`${styles.table} color_white`}>
 								<tbody>
-									<tr className="text_xxs">
+									<tr className="text_xxs f_w_s_b">
 										<td>&nbsp;</td>
 										<td>
 											Strategy <br />& Planning
