@@ -101,8 +101,8 @@ export default function WhichProducts({ data }) {
 			data-name="Products & Services"
 		>
 			<div className="container">
-				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
+				<div className={`${styles.titleTxt} pb_20`}>
+					<h2 className="text_xl font_primary color_secondary">
 						Which products are available
 					</h2>
 				</div>

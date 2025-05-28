@@ -70,7 +70,7 @@ export default function GlobalPresenceInsideWrap({
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionsButton")}
 					/>
 				</div>
-				<div className="pb_40">
+				<div className="">
 					<ProductSlider data={data?.countries?.announcement?.slide} />
 				</div>
 				<SectionsHeader
@@ -139,7 +139,7 @@ export default function GlobalPresenceInsideWrap({
 					/>
 				</div>
 				{data?.countries?.ourClients?.selectLogos && (
-					<div className="pb_50 pt_100 ">
+					<div className="pb_50">
 						<TrustedLeaders data={data?.countries?.ourClients} />
 					</div>
 				)}

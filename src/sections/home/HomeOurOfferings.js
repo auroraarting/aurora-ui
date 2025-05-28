@@ -45,59 +45,10 @@ export default function HomeOurOfferings() {
 
 	const [svgHeight, setSvgHeight] = useState("347px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
-	const bgColors = ["#00be86", "#fc0", "#00b6ed", "#0069b4"];
+	const bgColors = ["#fff", "#fff", "#fff", "#fff"];
 	const [bgIndex, setBgIndex] = useState(0);
-	// const anim1 = useRef();
-	// const anim2 = useRef();
-	// /** platLottie funnction */
-	// function playLottie() {
-	// 	Lottie.loadAnimation({
-	// 		container: anim1.current,
-	// 		renderer: "svg",
-	// 		loop: true,
-	// 		autoplay: true,
-	// 		animationData: require("../../../public/img/home/lottie/SoftwareLottie.json"),
-	// 	});
-	// 	Lottie.loadAnimation({
-	// 		container: anim2.current,
-	// 		renderer: "svg",
-	// 		loop: true,
-	// 		autoplay: true,
-	// 		animationData: require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
-	// 	});
-	// }
-	// const animRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	// const animRefs2 = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	// /** platLottie funnction */
-	// function platLottieResp() {
-	// 	/** platLottie funnction */
-	// 	const loadLottieAnimation = (ref, animationData) => {
-	// 		if (ref.current) {
-	// 			Lottie.loadAnimation({
-	// 				container: ref.current,
-	// 				renderer: "svg",
-	// 				loop: true,
-	// 				autoplay: true,
-	// 				animationData: animationData,
-	// 			});
-	// 		}
-	// 	};
-	// 	const animationDataArray = [
-	// 		require("../../../public/img/home/lottie/SoftwareLottie.json"),
-	// 	];
-	// 	const animationDataArray1 = [
-	// 		require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
-	// 	];
-	// 	animRefs.forEach((ref, index) => {
-	// 		loadLottieAnimation(ref, animationDataArray[index]);
-	// 	});
-	// 	animRefs2.forEach((ref, index) => {
-	// 		loadLottieAnimation(ref, animationDataArray1[index]);
-	// 	});
-	// }
+
 	useEffect(() => {
-		// playLottie();
-		// platLottieResp();
 		EqualHeight("cardHBg");
 		const interval = setInterval(() => {
 			setBgIndex((prev) => (prev + 1) % bgColors.length);
@@ -113,13 +64,8 @@ export default function HomeOurOfferings() {
 		>
 			<h2 className="text_lg color_secondary text_center">
 				We equip decision-makers with actionable intelligence
-				<br className="visible_lg" /> to navigate and capitalize on the global shift
+				<br className="visible_lg" /> to navigate and capitalise on the global shift
 				in energy systems.
-				{/* We provide our clients with
-				data-driven intelligence for <br className="visible_lg" /> strategy,
-				portfolio management and investment
-				<br className="visible_lg" />
-				decisions on the global energy transformation */}
 			</h2>
 			<div className={`${styles.OurOfferingSlider} pt_60`}>
 				<Swiper
@@ -129,10 +75,6 @@ export default function HomeOurOfferings() {
 					speed={500}
 					loop={true}
 					slidesPerView="auto"
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
 					pagination={{
 						clickable: true, // Makes it interactive
 					}}
@@ -154,7 +96,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
 								<p className="text_reg color_silver_gray">
-									EOS centralizes Aurora’s data, software, forecasts, and insights.
+									EOS is Aurora’s integrated energy intelligence platform, bringing
+									together forecasts, market models, reports, and tools to support
+									strategic decision-making.
 								</p>
 							</div>
 							<img
@@ -188,7 +132,7 @@ export default function HomeOurOfferings() {
 								autoplay={true}
 								loop={true}
 								renderer="svg"
-								style={{ height: svgHeight }}
+								// style={{ height: svgHeight }}
 								renderersettings={{
 									preserveAspectRatio: "xMidYMid meet",
 								}}
@@ -248,8 +192,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">Advisory</h4>
 								<p className="text_reg color_silver_gray">
-									Bespoke advisory offering in-depth strategic recommendation and
-									insights.
+									Bespoke advisory support combining deep market expertise, modelling and
+									insight to help clients navigate complex energy investment and policy
+									decisions.
 								</p>
 							</div>
 							<img

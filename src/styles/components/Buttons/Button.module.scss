@@ -113,7 +113,7 @@
 			}
 			.animatedText2 {
 				transform: translate(-50%, -50%);
-				color: var(--color_black);
+				color: var(--color_gray);
 			}
 			&::after {
 				clip-path: circle(100% at 50% 100%);
@@ -124,11 +124,11 @@
 
 		&.mode_dark {
 			background-color: var(--color_white);
-			color: var(--color_black);
+			color: var(--color_gray);
 
 			&:hover {
 				.animatedText2 {
-					color: var(--color_black) !important;
+					color: var(--color_gray) !important;
 				}
 			}
 		}
@@ -145,7 +145,7 @@
 		}
 		&.hover_white {
 			.animatedText2 {
-				color: var(--color_black);
+				color: var(--color_gray);
 			}
 			&::after {
 				background-color: var(--color_white);
@@ -156,7 +156,7 @@
 	// Filled White Button
 	&.btn_white {
 		background-color: var(--color_white);
-		color: var(--color_black);
+		color: var(--color_gray);
 		position: relative;
 		overflow: hidden;
 		border: 0px solid transparent;
