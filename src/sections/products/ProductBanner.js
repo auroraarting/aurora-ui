@@ -64,7 +64,7 @@ export default function ProductBanner({
 	};
 
 	return (
-		<section className={`${styles.ProductBanner} pt_60 pb_100`}>
+		<section className={`${styles.ProductBanner} pt_60`}>
 			<div className="container">
 				{logo && (
 					<div className={`${styles.SoftwareLogo} pb_20`}>

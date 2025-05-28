@@ -9,6 +9,7 @@ body {
 	margin: 0;
 	@extend .text_reg;
 	font-family: var(--font_secondary);
+	-webkit-font-smoothing: antialiased;
 }
 
 * {

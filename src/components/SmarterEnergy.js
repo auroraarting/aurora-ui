@@ -138,7 +138,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 										item?.description}
 								</p>
 								{item?.buttonLink && (
-									<a href={item?.buttonLink} className={`${styles.bookBtn} pt_30`}>
+									<a href={item?.buttonLink} className={`${styles.bookBtn} pt_10`}>
 										<Button color="secondary" variant="underline">
 											Know more
 										</Button>
@@ -147,7 +147,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 								{item?.popup?.title && (
 									<div
 										onClick={() => openModal(`popupAccordian${ind}`)}
-										className={`${styles.bookBtn} pt_30`}
+										className={`${styles.bookBtn} pt_10`}
 									>
 										<Button color="secondary" variant="underline">
 											Know more
