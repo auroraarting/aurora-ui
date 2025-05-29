@@ -67,6 +67,11 @@ export function getMapJsonForCountries(data) {
 					) {
 						return "software";
 					}
+					if (
+						markerItem?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+					) {
+						return "service";
+					}
 					return markerItem?.category?.nodes?.[0]?.contentType?.node?.name;
 				};
 
@@ -137,6 +142,9 @@ export function getMapJsonForProducts(regions) {
 								if (node?.contentType?.node?.name === "softwares") {
 									return "software";
 								}
+								if (node?.contentType?.node?.name === "services") {
+									return "service";
+								}
 								return node?.contentType?.node?.name;
 							};
 							if (node?.contentType?.node?.name != "products") {
@@ -199,6 +207,9 @@ export function getMapJsonForService(regions) {
 								if (node?.contentType?.node?.name === "softwares") {
 									return "software";
 								}
+								if (node?.contentType?.node?.name === "services") {
+									return "service";
+								}
 								return node?.contentType?.node?.name;
 							};
 							if (node?.contentType?.node?.name != "services") {
@@ -260,6 +271,9 @@ export function getMapJsonForSoftware(regions) {
 							const keyModule = () => {
 								if (node?.contentType?.node?.name === "softwares") {
 									return "software";
+								}
+								if (node?.contentType?.node?.name === "services") {
+									return "service";
 								}
 								return node?.contentType?.node?.name;
 							};
@@ -337,6 +351,9 @@ export function getMapJsonForAllRegions(regions) {
 						const keyModule = () => {
 							if (node.contentType?.node?.name === "softwares") {
 								return "software";
+							}
+							if (node?.contentType?.node?.name === "services") {
+								return "service";
 							}
 							return node.contentType?.node?.name;
 						};
