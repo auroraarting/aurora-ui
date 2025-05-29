@@ -35,7 +35,6 @@ export default function TrustedLeaders({
 		const checkIfPagination = document.querySelectorAll(
 			".TrustedLeaders .swiper-pagination span"
 		);
-		console.log(checkIfPagination?.length);
 		if (checkIfPagination?.length > 1) {
 			setPaddingBottom("60px");
 		}

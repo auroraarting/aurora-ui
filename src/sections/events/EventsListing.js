@@ -50,8 +50,8 @@ export default function EventsListing({
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
-		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
@@ -368,7 +368,7 @@ export default function EventsListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected?.status || "Event Status"}
+										{selected?.status || "Status"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>

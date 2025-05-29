@@ -40,6 +40,20 @@ export default function WhichProducts({ data }) {
 				const slug = node?.slug;
 
 				if (!groupedBySlug[slug]) {
+					/** keyModule  */
+					const keyModule = () => {
+						if (
+							marker?.category?.nodes?.[0]?.contentType?.node?.name === "softwares"
+						) {
+							return "software";
+						}
+						if (
+							marker?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+						) {
+							return "service";
+						}
+						return marker?.category?.nodes?.[0]?.contentType?.node?.name;
+					};
 					groupedBySlug[slug] = {
 						...node,
 						locationData: marker.bottomText,
@@ -55,7 +69,7 @@ export default function WhichProducts({ data }) {
 									</ContentFromCms>
 								</div>
 								<a
-									href={`/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`}
+									href={`/${keyModule()}/${marker?.category?.nodes?.[0]?.slug}`}
 									className={`${styles.bookBtn} pt_20`}
 								>
 									<Button color="secondary" variant="underline">
@@ -103,7 +117,7 @@ export default function WhichProducts({ data }) {
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_20`}>
 					<h2 className="text_xl font_primary color_secondary">
-						Which products are available
+						Our fleet of products
 					</h2>
 				</div>
 				<div className={`${styles.common_queries_faq}`}>
