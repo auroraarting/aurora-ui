@@ -5,11 +5,11 @@
 	}
 	.tag {
 		background-color: var(--color_blue);
-		padding: 12px 20px;
+		padding: 8px 20px;
 		border-radius: 8px;
 		width: max-content;
 		margin-bottom: 30px;
-
+    letter-spacing: 1px;
 		&.isLive {
 			background-color: var(--color_primary);
 		}

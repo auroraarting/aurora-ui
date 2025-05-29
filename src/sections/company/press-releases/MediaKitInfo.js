@@ -25,7 +25,7 @@ export default function MediaKitInfo({ data }) {
 			<div className="container">
 				<div className={`${styles.InfoBoxFlex} f_w_j`}>
 					<div className={`${styles.infoContent}`}>
-						<h2 className="text_xl color_secondary pb_10">{data?.mediaKit?.title}</h2>
+						<h2 className="text_xl color_secondary pb_20">{data?.mediaKit?.title}</h2>
 						<p className="text_reg color_dark_gray">{data?.mediaKit?.desc}</p>
 						<div className={`${styles.downloadBtn} pt_30`}>
 							{data?.mediaKit?.logos?.node?.mediaItemUrl && (

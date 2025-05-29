@@ -22,11 +22,17 @@
 			width: var(--widthOfEachDiv);
 			cursor: pointer;
 			padding: 15px 0;
-
+			letter-spacing: 1.3px;
+			color: var(--color_medium_gray);
+			font-family: var(--font_primary);
 			&.onlyText {
 				text-align: center;
 				display: grid;
 				place-items: center;
+			}
+			&.activeTxt{
+				font-weight: 600;
+				color: var(--color_secondary);
 			}
 		}
 	}
