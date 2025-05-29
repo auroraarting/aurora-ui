@@ -47,7 +47,7 @@ export default function CaseStudiesTop({ data }) {
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
-						<h1 className="text_lg color_secondary text_uppercase f_w_m pt_30">
+						<h1 className="text_lg color_secondary text_uppercase f_w_m ">
 							{data?.title}
 						</h1>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>

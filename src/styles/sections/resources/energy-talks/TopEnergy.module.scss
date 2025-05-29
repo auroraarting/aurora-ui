@@ -14,7 +14,7 @@
 			border-radius: 15px;
 		}
 		.content {
-			width: 45%;
+			width: 50%;
 			// @media (max-width: 1199px) {
 			// 	width: 54%;
 			// }
@@ -27,7 +27,7 @@
 				padding: 8px 12px;
 				border-radius: 8px;
 				width: max-content;
-				margin-top: 30px;
+				//margin-top: 30px;
 				letter-spacing: 1px;
 			}
 			.dateFlex {
@@ -48,10 +48,10 @@
 			}
 		}
 		.imageWrapper {
-			width: 50%;
+			width: 45%;
 
 			@media (max-width: 1199px) {
-				width: 54%;
+				//width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
