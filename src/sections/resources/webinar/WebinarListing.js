@@ -515,7 +515,7 @@ export default function WebinarListing({
 											<p
 												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 											>
-												Webinar
+												{item?.eventCategories?.nodes?.map((item) => item?.name)}
 												{/* {isCategory(allCategories, item?.categories?.nodes)} */}
 											</p>
 											{/* )} */}

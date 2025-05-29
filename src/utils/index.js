@@ -60,12 +60,22 @@ export function getMapJsonForCountries(data) {
 			?.map((markerItem) => {
 				let node = markerItem?.category?.nodes[0];
 
+				/** keyModule  */
+				const keyModule = () => {
+					if (
+						markerItem?.category?.nodes?.[0]?.contentType?.node?.name === "softwares"
+					) {
+						return "software";
+					}
+					return markerItem?.category?.nodes?.[0]?.contentType?.node?.name;
+				};
+
 				let obj = {
 					unique: Math.random(),
 					name: markerItem?.category?.nodes?.[0]?.title || "",
 					lat: parseFloat(markerItem?.coordinates?.lat),
 					lng: parseFloat(markerItem?.coordinates?.lng),
-					url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
+					url: `/${keyModule()}/${markerItem?.category?.nodes?.[0]?.slug}`,
 					icon:
 						node?.services?.map?.logo?.node?.mediaItemUrl ||
 						node?.products?.map?.logo?.node?.mediaItemUrl ||
