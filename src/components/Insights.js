@@ -514,7 +514,11 @@ export default function Insights({
 												<p
 													className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
 												>
-													{item?.title}
+													{item?.customHtmlForTitle ? (
+														<ContentFromCms>{item?.title}</ContentFromCms>
+													) : (
+														item?.title
+													)}
 												</p>
 												<div className={`${styles.dateFlex} f_j pt_30`}>
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">

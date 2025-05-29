@@ -14,7 +14,11 @@ import EnergyTalkInsideWrap from "@/sections/resources/energy-talks/EnergyTalkIn
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps, slugify } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	formatTitleForEpisode,
+	slugify,
+} from "@/utils";
 
 // STYLES //
 
@@ -88,7 +92,13 @@ async function getData({ params }) {
 					(item) => item?.slug !== data?.data?.podcastBy?.slug
 				) || [],
 			countries: categoriesForSelect.data.countries.nodes,
-			otherList,
+			otherList: otherList?.map((item) => {
+				return {
+					...item,
+					title: formatTitleForEpisode(item?.title),
+					customHtmlForTitle: true,
+				};
+			}),
 			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
 		},
 	};
