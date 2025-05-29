@@ -139,7 +139,7 @@ query GetProductBySlug {
         spotlightDesc
       }
       ourClient {
-        selectLogos {
+        selectLogos(first: 9999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -152,7 +152,7 @@ query GetProductBySlug {
             }
           }
         }
-        testimonials {
+        testimonials(first: 9999) {
           nodes {
             ... on Testimonial {
               id

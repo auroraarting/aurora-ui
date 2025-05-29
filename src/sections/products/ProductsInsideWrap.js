@@ -123,7 +123,7 @@ export default function ProductInsideWrap({ data, mapJson, bundles }) {
 					<SmarterEnergy data={data?.products?.expertise} />
 				</div>
 				{data?.products?.expertSupport?.list?.length > 0 && (
-					<div className="ptb_100">
+					<div className="pb_100">
 						<TrustOurExperts data={data?.products?.expertSupport} />
 					</div>
 				)}
