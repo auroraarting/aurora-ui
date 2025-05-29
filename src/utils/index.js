@@ -153,7 +153,8 @@ export function getMapJsonForProducts(regions) {
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${keyModule()}/${node?.slug}`;
+							// obj2.url = `/${keyModule()}/${node?.slug}`;
+							obj2.url = `/global-presence/${item2?.slug}`;
 						}
 
 						return obj2;
@@ -218,7 +219,8 @@ export function getMapJsonForService(regions) {
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${keyModule()}/${node?.slug}`;
+							// obj2.url = `/${keyModule()}/${node?.slug}`;
+							obj2.url = `/global-presence/${item2?.slug}`;
 						}
 
 						return obj2;
@@ -283,7 +285,8 @@ export function getMapJsonForSoftware(regions) {
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${keyModule()}/${node?.slug}`;
+							// obj2.url = `/${keyModule()}/${node?.slug}`;
+							obj2.url = `/global-presence/${item2?.slug}`;
 						}
 
 						return obj2;
@@ -291,6 +294,7 @@ export function getMapJsonForSoftware(regions) {
 					.filter((item) => item),
 				zoom: item2?.countries?.map?.zoom,
 				name: item2?.title,
+				slug: item2?.slug,
 			};
 
 			obj && mapJson.push(obj);
