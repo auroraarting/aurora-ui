@@ -36,13 +36,13 @@ export default function WhichProducts({ data }) {
 		const groupedBySlug = {};
 
 		markers?.map((marker) => {
-			marker?.category?.nodes?.map((node) => {
+			marker?.category?.nodes?.map((node, ind) => {
 				const slug = node?.slug;
 
 				if (!groupedBySlug[slug]) {
 					groupedBySlug[slug] = {
 						...node,
-						locationData: undefined,
+						locationData: marker.bottomText,
 						imgIcons:
 							marker?.category?.nodes?.[0]?.[
 								marker?.category?.nodes?.[0]?.contentType?.node?.name
@@ -72,13 +72,13 @@ export default function WhichProducts({ data }) {
 				// 	locationTitle: marker.locationtitle,
 				// });
 
-				// if (
-				// 	marker.locationtitle &&
-				// 	!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)
-				// ) {
-				// 	groupedBySlug[slug].locationData =
-				// 		groupedBySlug[slug].locationData + " | " + marker.locationtitle;
-				// }
+				if (
+					marker.bottomText &&
+					!groupedBySlug[slug]?.locationData?.includes(marker?.bottomText)
+				) {
+					groupedBySlug[slug].locationData =
+						groupedBySlug[slug].locationData + " |  " + marker.bottomText;
+				}
 			});
 		});
 
