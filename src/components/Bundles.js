@@ -57,9 +57,9 @@ export default function Bundles({ data, name }) {
 			<div className={`${styles.bg} dark_bg`}>
 				<img src={hoverBg.src} />
 			</div>
-			<div className="ptb_60">
+			<div className="pb_60 pt_100">
 				<div className="container">
-					<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
+					<h2 className="text_lg font_primary f_w_s_b color_white">
 						Asset Lifecycle Management tools <br /> that meet your needs
 					</h2>
 				</div>

@@ -86,7 +86,7 @@ export default function IntuitiveStepProcess({
 						</div>
 					)}
 				</div>
-				<div className={`${styles.stepsTxt} pt_80`}>
+				<div className={`${styles.stepsTxt} pt_100`}>
 					<h2 className="text_xl font_primary f_w_s_b text_center color_white ">
 						{data?.processTitle}
 					</h2>
@@ -108,7 +108,7 @@ export default function IntuitiveStepProcess({
 											{item?.image?.node?.mediaItemUrl ? (
 												<img
 													src={item?.image?.node?.mediaItemUrl}
-													className={`${styles.steps_img}`}
+													className={`${styles.steps_img} b_r_20`}
 													alt="steps img"
 												/>
 											) : (

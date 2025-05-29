@@ -144,7 +144,7 @@ export default function LifeAtAuroraWrap({
 						/>
 					</div>
 				)}
-				<div className={`${styles.countBg} pb_80`}>
+				<div className={`${styles.countBg} pb_100`}>
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
