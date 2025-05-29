@@ -51,7 +51,7 @@ export default function MediaListing({
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [dropdowns, setDropdowns] = useState({
 		languageType: { isOpen: false, selected: { title: "Language" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
 	});
@@ -404,7 +404,7 @@ export default function MediaListing({
 											languageType: { isOpen: false, selected: { title: "Language" } },
 											offeringsType: {
 												isOpen: false,
-												selected: { title: "Products & Services" },
+												selected: { title: "Offerings" },
 											},
 											yearsType: { isOpen: false, selected: { title: "Year" } },
 											countryType: { isOpen: false, selected: { title: "Country" } },

@@ -88,7 +88,7 @@ export default function EventsWrap({
 					/>
 				</div>
 				{page?.speakers?.sectionTitle && (
-					<div className="ptb_100">
+					<div className="pb_100 pt_50">
 						<Speakers
 							data={[{ ...page.speakers }]}
 							title={page?.speakers?.sectionTitle}
