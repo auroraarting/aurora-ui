@@ -51,6 +51,12 @@
 			@media (max-width: 991px) {
 				margin: 20px auto 0px auto;
 			}
+			p{
+				color: var(--color_white);
+			}
+			:global(.color_light_gray){
+				height: 45px;
+			}
 		}
 
 		.CenterBox {

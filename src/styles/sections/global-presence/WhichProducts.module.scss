@@ -11,10 +11,7 @@
 	}
 	:global(.headerF) {
 		display: flex;
-		align-items: center;
-		@media (max-width: 767px) {
-			align-items: flex-start;
-		}
+		align-items: flex-start;
 	}
 	:global(.imgIcons) {
 		margin-right: 15px;
