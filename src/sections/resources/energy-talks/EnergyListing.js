@@ -56,7 +56,7 @@ export default function EnergyListing({
 	const [dropdowns, setDropdowns] = useState({
 		categoryType: { isOpen: false, selected: { title: "Category" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data);
@@ -301,7 +301,7 @@ export default function EnergyListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										Products & Services
+										Offerings
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
