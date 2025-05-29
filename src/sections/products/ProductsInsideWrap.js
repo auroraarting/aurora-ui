@@ -29,6 +29,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // STYLES //
 import styles from "@/styles/pages/product/ProductInside.module.scss";
 import CaseStudy from "@/components/CaseStudy";
+import Bundles from "@/components/Bundles";
 
 // IMAGES //
 
@@ -37,7 +38,7 @@ import CaseStudy from "@/components/CaseStudy";
 // SERVICES //
 
 /** ProductInside Page */
-export default function ProductInsideWrap({ data, mapJson }) {
+export default function ProductInsideWrap({ data, mapJson, bundles }) {
 	const dataForBtn = { postFields: data?.products || {} };
 
 	return (
@@ -126,11 +127,30 @@ export default function ProductInsideWrap({ data, mapJson }) {
 						<TrustOurExperts data={data?.products?.expertSupport} />
 					</div>
 				)}
+				{/* <div className="pt_100 dark_bg relative">
+					<img
+						className={`${styles.bgGradient} bgGradientEos`}
+						src="/img/eos-bg-gradient.png"
+					/>
+					<div className="pb_100">
+						<EosIntegratedSystem />
+					</div>
+					<Bundles data={bundles} />
+				</div> */}
 
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
-							<Insights isPowerBgVisible={true} isInsightsBlogsVisible={true} />
+							<Insights
+								isPowerBgVisible={true}
+								isInsightsBlogsVisible={true}
+								formSectionTitle={data?.products?.insights?.sectionTitle}
+								formSectionDesc={data?.products?.insights?.sectionDesc}
+								formSectionBtnText={
+									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+								}
+								formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+							/>
 						</div>
 					</div>
 					<EosIntegratedSystem />

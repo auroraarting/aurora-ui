@@ -28,6 +28,21 @@ query GetPageProduct {
           }
         }
       }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            mediaItemUrl
+            altText
+          }
+        }
+      }
     }
   }
   products(first: 999) {
@@ -52,7 +67,7 @@ query GetPageProduct {
             from
             to
           }
-                    title
+          title
           shortDescription
           spotlightTitle
           spotlightDesc
@@ -118,10 +133,10 @@ query GetProductBySlug {
           from
           to
         }
-                  title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
+        title
+        shortDescription
+        spotlightTitle
+        spotlightDesc
       }
       ourClient {
         selectLogos {
@@ -182,6 +197,7 @@ query GetProductBySlug {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -192,6 +208,7 @@ query GetProductBySlug {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -202,6 +219,7 @@ query GetProductBySlug {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -334,6 +352,10 @@ query GetProductBySlug {
             description
           }
         }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
       }
     }
   }

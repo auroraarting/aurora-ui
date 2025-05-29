@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -5,26 +6,21 @@ export const dynamic = "force-dynamic"; // ⚠️ Important!
 // MODULES //
 
 // COMPONENTS //
-import TrustedLeaders from "@/components/TrustedLeaders";
-import TestimonialFeedback from "@/components/TestimonialFeedback";
-import Insights from "@/components/Insights";
-import EosIntegratedSystem from "@/components/EosIntegratedSystem";
-import IntegratedSystem from "@/components/IntegratedSystem";
-import ServicesCircleWhite from "@/components/ServicesCircleWhite";
-import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
+import ProductListingWrapper from "@/sections/products/ProductListingWrapper";
 
 // PLUGINS //
 
 // UTILS //
-import { getMapJsonForProducts, removeDuplicatesByKeys } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	getMapJsonForProducts,
+	removeDuplicatesByKeys,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/product/Products.module.scss";
-import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
-import InnerBanner from "@/components/InnerBanner";
-import GlobalMap from "@/components/GlobalMap";
 
 // IMAGES //
 
@@ -33,6 +29,11 @@ import GlobalMap from "@/components/GlobalMap";
 // SERVICES //
 import { getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Meta Data */
 export const metadata = {
@@ -42,7 +43,16 @@ export const metadata = {
 
 /** Fetch */
 async function getData() {
-	const [data, regions] = await Promise.all([getProductPage(), getRegions()]);
+	const [data, regions, bundles, categoriesForSelect, insightsFetch] =
+		await Promise.all([
+			getProductPage(),
+			getRegions(),
+			getBundlesSection(),
+			getInsightsCategories(),
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
+		]);
 	const products = data.data.products;
 	const mapJson = getMapJsonForProducts(regions);
 
@@ -87,6 +97,9 @@ async function getData() {
 			clientLogos,
 			regions,
 			mapJson,
+			bundles: bundles.data.page.bundles,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			insights: insightsFetch?.data?.posts?.nodes || [],
 		},
 	};
 }
@@ -94,7 +107,6 @@ async function getData() {
 /** Products Page */
 export default async function Products() {
 	const { props } = await getData();
-	const { data, products, testimonials, clientLogos, mapJson } = props;
 
 	return (
 		<div>
@@ -105,44 +117,7 @@ export default async function Products() {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.ProductsPage}>
-				{/* <ProductListingWrapper /> */}
-				<InnerBanner
-					bannerTitle={data?.banner?.title}
-					bannerDescription={data?.banner?.description}
-					showContentOnly
-				/>
-				<div>
-					<TransactionSolutions data={products.nodes} slugPage="products" />
-				</div>
-				<GlobalMap locationJson={mapJson} marqueeText={data.mapMarquee} />
-				{/* <div className="ptb_100">
-					<SoftwareMarket />
-				</div> */}
-				<ServicesCircleWhite data={data.keyAdvantages} />
-				{clientLogos?.selectLogos?.nodes?.length > 0 && (
-					<div className="pb_50 pt_100 ">
-						<TrustedLeaders data={clientLogos} />
-					</div>
-				)}
-				{testimonials?.testimonials?.nodes?.length > 0 && (
-					<div className="pb_100">
-						<TestimonialFeedback data={testimonials} />
-					</div>
-				)}
-				<div className={`${styles.insightBg} pb_100 pt_30`}>
-					<div className={`${styles.boxBg}`}>
-						<div className="pb_100">
-							<Insights isInsightsBlogsVisible={true} />
-						</div>
-					</div>
-					<EosIntegratedSystem />
-				</div>
-				<div className="ptb_100">
-					<IntegratedSystem />
-				</div>
-			</main>
-			<IframeModal />
+			<ProductListingWrapper {...props} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
