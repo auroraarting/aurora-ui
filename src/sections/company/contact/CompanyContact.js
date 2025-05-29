@@ -290,7 +290,7 @@ export default function CompanyContact() {
 					className={`${styles.btnBox}`}
 					style={{ pointerEvents: loading ? "none" : "all" }}
 				>
-					<Button color="red" variant="filled" shape="rounded">
+					<Button color="primary" variant="filled" shape="rounded" mode="dark">
 						{loading ? "Submiting..." : "Submit"}
 					</Button>
 				</div>
