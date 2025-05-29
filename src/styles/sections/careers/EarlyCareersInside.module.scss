@@ -17,7 +17,7 @@
 		position: relative;
 		padding-left: calc(var(--container_left_space) + 15px);
 		:global(.swiper-slide) {
-			height: 365px;
+			height: 390px;
 			border-radius: 20px;
 			@media (max-width: 767px) {
 				height: auto;
@@ -27,11 +27,11 @@
 			background-color: var(--color_gray);
 			padding: 20px 20px 30px;
 			border-radius: 20px;
-			max-height: 305px;
+			max-height: 330px;
 			transition: 0.5s ease-in-out;
 			overflow: hidden;
 			@media (max-width: 991px) {
-				max-height: 300px;
+				max-height: 320px;
 			}
 			@media (max-width: 767px) {
 				max-height: unset;
@@ -85,7 +85,7 @@
 				}
 			}
 			&:hover {
-				max-height: 370px;
+				max-height: 390px;
 				transition: 0.5s ease-in-out;
 				@media (max-width: 767px) {
 					max-height: unset;
@@ -96,7 +96,7 @@
 	.arrowSection {
 		position: absolute;
 		right: 10px;
-		top: 20px;
+		top: 10px;
 		bottom: unset;
 		z-index: 1;
 		@media (max-width: 1199px) {

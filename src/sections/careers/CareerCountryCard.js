@@ -319,7 +319,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 										</p>
 									)}
 								</div>
-								<div className={`${styles.cardDesc} pt_20`}>
+								<div className={`${styles.cardDesc} pt_30`}>
 									{item?.earlyCareers?.thumbnail?.country?.node?.title && (
 										<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase f_w_m">
 											<img
@@ -333,7 +333,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<h4 className="text_md color_white f_w_m font_primary pt_10">
 										{item?.title}
 									</h4>
-									<div className={`${styles.btn_box} pt_20`}>
+									<div className={`${styles.btn_box} pt_30`}>
 										<a href={`/careers/early-careers/${item?.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
 												Read More

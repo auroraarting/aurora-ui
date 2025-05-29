@@ -52,9 +52,7 @@ export default function EarlyCareersInside({ data }) {
 		<section className={`${styles.EarlyCareers} pb_50`}>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
-					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
-						Early Careers
-					</h2>
+					<h2 className="text_xl font_primary f_w_s_b color_white">Early Careers</h2>
 					<a href="/careers/early-careers" className={`${styles.bookBtn}`}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Explore
@@ -125,8 +123,8 @@ export default function EarlyCareersInside({ data }) {
 											</p>
 										)}
 									</div>
-									<div className={`${styles.cardDesc} pt_20`}>
-										<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
+									<div className={`${styles.cardDesc} pt_30`}>
+										<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase">
 											<img
 												src={location.src}
 												className={`${styles.location}`}
@@ -140,7 +138,7 @@ export default function EarlyCareersInside({ data }) {
 										<h4 className="text_md color_white f_w_m font_primary pt_10">
 											{item?.title}
 										</h4>
-										<div className={`${styles.btn_box} pt_20`}>
+										<div className={`${styles.btn_box} pt_30`}>
 											<a href={`/careers/early-careers/${item?.slug}`}>
 												<Button color="secondary" variant="underline" mode="dark">
 													Read More
