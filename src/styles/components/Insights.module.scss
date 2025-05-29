@@ -171,6 +171,7 @@
 						transition: 0.3s all;
 						padding: 15px 15px;
 						cursor: pointer;
+						border-radius: 20px;
 						.categoryTxt {
 							position: relative;
 							padding-left: 10px;
@@ -210,6 +211,7 @@
 							height: 100%;
 							width: 100%;
 							z-index: 0;
+							border-radius: 20px;
 						}
 					}
 					&:hover {
