@@ -165,6 +165,11 @@ export default function Map({
 									) {
 										return "software";
 									}
+									if (
+										marker?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+									) {
+										return "service";
+									}
 									return marker?.category?.nodes?.[0]?.contentType?.node?.name;
 								};
 								return `/${keyModule()}/${marker?.category?.nodes?.[0]?.slug}`;

@@ -48,6 +48,9 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		if (module === "softwares") {
 			return "software";
 		}
+		if (module === "services") {
+			return "service";
+		}
 
 		return module;
 	};

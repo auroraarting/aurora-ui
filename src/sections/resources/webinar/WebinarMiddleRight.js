@@ -48,6 +48,9 @@ export default function WebinarMiddleRight({ data }) {
 									if (item?.contentType?.node?.name === "softwares") {
 										return "software";
 									}
+									if (item?.contentType?.node?.name === "services") {
+										return "service";
+									}
 									return item?.contentType?.node?.name;
 								};
 								return (

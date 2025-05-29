@@ -47,6 +47,11 @@ export default function WhichProducts({ data }) {
 						) {
 							return "software";
 						}
+						if (
+							marker?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+						) {
+							return "service";
+						}
 						return marker?.category?.nodes?.[0]?.contentType?.node?.name;
 					};
 					groupedBySlug[slug] = {
