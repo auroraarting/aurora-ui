@@ -24,6 +24,7 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 // SERVICES //
 import { getProductBySlug } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -53,9 +54,10 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, regions] = await Promise.all([
+	const [data, regions, bundles] = await Promise.all([
 		getProductBySlug(params.slug),
 		getRegions(),
+		getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForProducts(
 		filterMarkersBySlug(regions, params.slug)
@@ -65,6 +67,7 @@ async function getData({ params }) {
 		props: {
 			data: data.data.productBy,
 			mapJson,
+			bundles: bundles.data.page.bundles,
 		},
 	};
 }
