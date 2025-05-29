@@ -57,7 +57,7 @@ export default function PressReleasesInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.mediaInsidePage}>
-				<div className="pt_100 pb_40">
+				<div className="pt_50 pb_20">
 					<InsideTopSection
 						title={data?.title}
 						date={data?.date}

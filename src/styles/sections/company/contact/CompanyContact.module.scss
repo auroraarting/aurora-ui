@@ -90,8 +90,8 @@
 
     input[type="radio"] {
       appearance: none;
-      width: 17px;
-      height: 17px;
+      width: 16px;
+      height: 16px;
       margin-right: 10px;
       border: 2px solid var(--color_medium_gray);
       border-radius: 50%;
@@ -107,8 +107,9 @@
         &::before {
           content: "";
           position: absolute;
-          top: 3px;
-          left: 3px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           width: 8px;
           height: 8px;
           background-color: #2a2a2a;

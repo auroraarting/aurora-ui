@@ -124,7 +124,7 @@ export default function EOSPageWrap({
 				</div>
 				<div
 					// className={`${styles.insightBg} pt_30`}
-					className="pt_30"
+					className=""
 				>
 					<div>
 						<div className="pb_100">

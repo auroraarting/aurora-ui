@@ -31,7 +31,7 @@ export default function Counter({ data, className }) {
 				<div className={`${styles.counterFlex} f_w_j`}>
 					{data?.stats?.auroreans && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp end={data?.stats?.auroreans} enableScrollSpy />
 								<span>+</span>
 							</h4>
@@ -42,7 +42,7 @@ export default function Counter({ data, className }) {
 					)}
 					{data?.stats?.nationalities && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp end={data?.stats?.nationalities} enableScrollSpy />
 								<span>+</span>
 							</h4>
@@ -53,7 +53,7 @@ export default function Counter({ data, className }) {
 					)}
 					{data?.stats?.offices && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp end={data?.stats?.offices} enableScrollSpy />
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
@@ -63,7 +63,7 @@ export default function Counter({ data, className }) {
 					)}
 					{data?.stats?.clients && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp end={data?.stats?.clients} enableScrollSpy />
 							</h4>
 							<p className="text_xs color_white text_uppercase font_primary">
@@ -73,7 +73,7 @@ export default function Counter({ data, className }) {
 					)}
 					{data?.stats?.countries && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp end={data?.stats?.countries.split("+")[0]} enableScrollSpy />
 								<span>+</span>
 							</h4>
@@ -84,7 +84,7 @@ export default function Counter({ data, className }) {
 					)}
 					{data?.stats?.transactions && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp end={data?.stats?.transactions} enableScrollSpy />
 								<span>+</span>
 							</h4>
@@ -95,7 +95,7 @@ export default function Counter({ data, className }) {
 					)}
 					{data?.stats?.advisoryProjects && (
 						<div className={`${styles.countBox}`}>
-							<h4 className="text_xxl color_primary">
+							<h4 className="text_xl color_primary">
 								<CountUp
 									end={data?.stats?.advisoryProjects.split("+")[0]}
 									enableScrollSpy

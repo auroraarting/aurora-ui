@@ -13,7 +13,7 @@
 			border-radius: 15px;
 		}
 		.content {
-			width: 45%;
+			width: 50%;
 			// @media (max-width: 1199px) {
 			// 	width: 54%;
 			// }
@@ -51,9 +51,9 @@
 			}
 		}
 		.imageWrapper {
-			width: 50%;
+			width: 45%;
 			@media (max-width: 1199px) {
-				width: 54%;
+				//width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
