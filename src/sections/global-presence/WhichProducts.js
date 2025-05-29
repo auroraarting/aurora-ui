@@ -103,7 +103,7 @@ export default function WhichProducts({ data }) {
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_20`}>
 					<h2 className="text_xl font_primary color_secondary">
-						Which products are available
+						Our fleet of products
 					</h2>
 				</div>
 				<div className={`${styles.common_queries_faq}`}>
