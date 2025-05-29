@@ -36,116 +36,55 @@ import gallery_seven_img from "@/../public/img/events/gallery_seven_img.jpg";
 /** EventsGallery Section */
 export default function EventsGallery({ data }) {
 	/** EventsGallery Section */
+	const chunkItems = (arr, size) => {
+		const chunks = [];
+		for (let i = 0; i < arr.length; i += size) {
+			chunks.push(arr.slice(i, i + size));
+		}
+		return chunks;
+	};
+
+	/** EventsGallery Section */
 	const onInit = () => {
 		// console.log("lightGallery has been initialized");
 	};
+
+	const chunks = chunkItems(data?.events?.glimps?.gallery?.nodes, 7);
+
 	return (
 		<div className={`${styles.EventsGallery} EventsGallery `}>
 			<h2 className="text_lg color_secondary pb_10">Glimpses of our event</h2>
 			<div className={`${styles.galleryMain}`}>
-				<div className={styles.galleryBox}>
-					<LightGallery
-						onInit={onInit}
-						speed={500}
-						plugins={[lgThumbnail, lgVideo]}
-						mode="lg-fade"
-						mobileSettings={{ closable: true }}
-					>
-						{data?.events?.glimps?.gallery?.nodes?.map((item) => {
-							return (
-								<a
-									key={item?.mediaItemUrl}
-									href={item?.mediaItemUrl}
-									data-src={item?.mediaItemUrl}
-									className={`${styles.galleryItemOne}`}
-								>
-									<img
-										src={item?.mediaItemUrl}
-										className={`${styles.galleryImg} width_100 b_r_10`}
-										alt="Gallery 1"
-									/>
-								</a>
-							);
-						})}
-						{/* <a
-							href={gallery_img.src}
-							data-src={gallery_img.src}
-							className={`${styles.galleryItemOne}`}
-						>
-							<img
-								src={gallery_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery 1"
-							/>
-						</a>
-						<a
-							className={`${styles.galleryItemTwo}`}
-							href={gallery_two_img.src}
-							data-src={gallery_two_img.src}
-						>
-							<img
-								src={gallery_two_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery"
-							/>
-						</a>
-						<a
-							className={`${styles.galleryItemThree}`}
-							href={gallery_three_img.src}
-							data-src={gallery_three_img.src}
-						>
-							<img
-								src={gallery_three_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery"
-							/>
-						</a>
-						<a
-							className={`${styles.galleryItemFour}`}
-							href={gallery_four_img.src}
-							data-src={gallery_four_img.src}
-						>
-							<img
-								src={gallery_four_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery"
-							/>
-						</a>
-						<a
-							className={`${styles.galleryItemFive}`}
-							href={gallery_five_img.src}
-							data-src={gallery_five_img.src}
-						>
-							<img
-								src={gallery_five_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery"
-							/>
-						</a>
-						<a
-							className={`${styles.galleryItemSix}`}
-							href={gallery_six_img.src}
-							data-src={gallery_six_img.src}
-						>
-							<img
-								src={gallery_six_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery"
-							/>
-						</a>
-						<a
-							className={`${styles.galleryItemSeven}`}
-							href={gallery_seven_img.src}
-							data-src={gallery_seven_img.src}
-						>
-							<img
-								src={gallery_seven_img.src}
-								className={`${styles.galleryImg} width_100 b_r_10`}
-								alt="Gallery"
-							/>
-						</a> */}
-					</LightGallery>
-				</div>
+				{chunks?.map((item, ind) => {
+					return (
+						<div className={styles.galleryBox} key={ind}>
+							<LightGallery
+								onInit={onInit}
+								speed={500}
+								plugins={[lgThumbnail, lgVideo]}
+								mode="lg-fade"
+								mobileSettings={{ closable: true }}
+							>
+								{item?.map((item) => {
+									return (
+										<a
+											key={item?.mediaItemUrl}
+											href={item?.mediaItemUrl}
+											data-src={item?.mediaItemUrl}
+											className={`${styles.galleryItemOne}`}
+										>
+											<img
+												src={item?.mediaItemUrl}
+												className={`${styles.galleryImg} width_100 b_r_10`}
+												alt="Gallery 1"
+											/>
+										</a>
+									);
+								})}
+							</LightGallery>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
