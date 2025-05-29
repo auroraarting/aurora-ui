@@ -177,7 +177,7 @@ export default function SoftwareInsideWrap({
 					/>
 				</div>
 				<div className="pb_100">
-					<IntegratedSystem module="products" />
+					<IntegratedSystem />
 				</div>
 			</main>
 			<IframeModal hideLeft />
