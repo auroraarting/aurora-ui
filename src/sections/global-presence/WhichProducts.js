@@ -40,6 +40,15 @@ export default function WhichProducts({ data }) {
 				const slug = node?.slug;
 
 				if (!groupedBySlug[slug]) {
+					/** keyModule  */
+					const keyModule = () => {
+						if (
+							marker?.category?.nodes?.[0]?.contentType?.node?.name === "softwares"
+						) {
+							return "software";
+						}
+						return marker?.category?.nodes?.[0]?.contentType?.node?.name;
+					};
 					groupedBySlug[slug] = {
 						...node,
 						locationData: marker.bottomText,
@@ -55,7 +64,7 @@ export default function WhichProducts({ data }) {
 									</ContentFromCms>
 								</div>
 								<a
-									href={`/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`}
+									href={`/${keyModule()}/${marker?.category?.nodes?.[0]?.slug}`}
 									className={`${styles.bookBtn} pt_20`}
 								>
 									<Button color="secondary" variant="underline">
