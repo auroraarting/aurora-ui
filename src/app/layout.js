@@ -22,7 +22,7 @@ export const metadata = {
 
 /** layout page */
 export default async function RootLayout({ children }) {
-	// const navigation = await fetchNavigationData();
+	const navigationFetch = await fetchNavigationData();
 	const eventsFetch = await getAllEvents("first:9999");
 	const events = eventsFetch?.data?.events?.nodes
 		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
@@ -32,7 +32,7 @@ export default async function RootLayout({ children }) {
 		)
 		.slice(0, 1);
 
-	const navigation = { ...navigationJSON, events };
+	const navigation = { ...navigationFetch, events };
 
 	return (
 		<html lang="en">
