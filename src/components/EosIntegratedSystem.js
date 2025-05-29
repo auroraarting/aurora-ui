@@ -30,7 +30,7 @@ export default function EosIntegratedSystem() {
 						<img src={IMac.src} className="img" alt="EOS Mac" />
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<h2 className="text_xl font_primary f_w_m color_white pb_30">
+						<h2 className="text_xl font_primary color_white pb_30">
 							Integrated energy intelligence with EOS
 						</h2>
 						<p className={`${styles.label} text_reg color_platinum_gray pb_10`}>

@@ -67,7 +67,7 @@ export default function TestimonialFeedback({ data, hideId }) {
 									<SwiperSlide key={ind}>
 										<div className={`${styles.testimonialItem}`}>
 											<div className={`${styles.testimonialTxt}`}>
-												<div className="text_md color_dark_gray f_w_i font_primary d_f">
+												<div className="text_reg color_dark_gray f_w_i font_primary d_f">
 													<img
 														src={quate.src}
 														className={`${styles.quate}`}
@@ -78,7 +78,7 @@ export default function TestimonialFeedback({ data, hideId }) {
 												</div>
 											</div>
 											<div className={`${styles.nameTxt}`}>
-												<h5 className="text_lg ont_primary f_w_m color_secondary">
+												<h5 className="text_md ont_primary f_w_m color_secondary">
 													{item?.title}
 												</h5>
 												<p className="text_xs color_dark_gray f_w_m pt_10">
