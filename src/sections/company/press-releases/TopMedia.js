@@ -25,7 +25,7 @@ import styles from "@/styles/sections/company/press-releases/TopMedia.module.scs
 import press_img from "/public/img/media-center/press_img.jpg";
 import clock from "/public/img/icons/clock.svg";
 import white_calendar from "/public/img/icons/white_calendar.svg";
-import slider_arrow from "/public/img/icons/slider_arrow.svg";
+import slider_arrow from "/public/img/icons/howwehelpSwiperRight.svg";
 
 // DATA //
 

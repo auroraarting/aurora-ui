@@ -35,7 +35,7 @@ export default function EnergyInsideTopSection({ data, socialLinks }) {
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
-						<h1 className="text_lg color_secondary text_uppercase f_w_m pt_30">
+						<h1 className="text_lg color_secondary text_uppercase f_w_m pt_20">
 							<ContentFromCms>{formatTitleForEpisode(data?.title)}</ContentFromCms>
 						</h1>
 						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>

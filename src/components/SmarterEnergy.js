@@ -132,7 +132,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 					children: (
 						<>
 							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
+								<p className="text_reg color_dark_gray pb_10">
 									{item?.accordionDescription ||
 										item?.accordionDesc ||
 										item?.description}

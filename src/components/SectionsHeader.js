@@ -137,7 +137,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 								<div
 									key={ind}
 									className={`${styles.box} ${styles.onlyText} ${
-										activeTab >= ind ? "" : "color_medium_gray"
+										activeTab >= ind ? `${styles.activeTxt}` : ""
 									} text_xs text_uppercase`}
 									onClick={() => scrollToSection(item?.id)}
 								>

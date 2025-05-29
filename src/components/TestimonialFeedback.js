@@ -81,7 +81,7 @@ export default function TestimonialFeedback({ data, hideId }) {
 												<h5 className="text_md ont_primary f_w_m color_secondary">
 													{item?.title}
 												</h5>
-												<p className="text_xs color_dark_gray f_w_m pt_10">
+												<p className="text_xs color_dark_gray f_w_m ">
 													{item?.testimonials?.designation || item?.designation}
 												</p>
 											</div>

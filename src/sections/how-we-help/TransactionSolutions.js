@@ -158,7 +158,7 @@ export default function TransactionSolutions({
 														alt="solar plant"
 													/>
 												)}
-												<h2 className="text_xl font_primary color_white pt_40 pb_30">
+												<h2 className="text_xl font_primary color_white pt_60 pb_20">
 													{useSpotlight
 														? item?.[contentType]?.thumbnail?.spotlightTitle
 														: item?.[contentType]?.thumbnail?.title}
@@ -168,7 +168,7 @@ export default function TransactionSolutions({
 														? item?.[contentType]?.thumbnail?.spotlightDesc
 														: item?.[contentType]?.thumbnail?.shortDescription}
 												</p>
-												<div className={`${styles.bookBtn} pt_30`}>
+												<div className={`${styles.bookBtn} pt_60`}>
 													<a href={item?.link || `/${slugPage}/${item?.slug}`}>
 														<Button color="secondary" variant="underline" mode="dark">
 															Know more
@@ -203,7 +203,7 @@ export default function TransactionSolutions({
 												alt="solar plant"
 											/>
 										)}
-										<h2 className="text_xl font_primary color_white pt_40 pb_30">
+										<h2 className="text_xl font_primary color_white pt_60 pb_20">
 											{useSpotlight
 												? item?.[contentType]?.thumbnail?.spotlightTitle
 												: item?.[contentType]?.thumbnail?.title}
@@ -213,7 +213,7 @@ export default function TransactionSolutions({
 												? item?.[contentType]?.thumbnail?.spotlightDesc
 												: item?.[contentType]?.thumbnail?.shortDescription}
 										</p>
-										<div className={`${styles.bookBtn} pt_30`}>
+										<div className={`${styles.bookBtn} pt_60`}>
 											<a href={item?.link || `/${slugPage}/${item?.slug}`}>
 												<Button color="secondary" variant="underline" mode="dark">
 													Know more
