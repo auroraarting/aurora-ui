@@ -6,6 +6,10 @@
 	background-color: var(--color_secondary);
 	overflow: hidden;
 
+	:global(.swiper-wrapper) {
+		transition-timing-function: linear !important;
+	}
+
 	&:global(.section_spacing) {
 		padding-top: 40px;
 		padding-bottom: 0%;
@@ -13,7 +17,8 @@
 
 	.title {
 		text-align: center;
-		margin-left: 30px;
+		// margin-left: 30px;
+		padding-left: 600px;
 	}
 
 	:global(.container) {

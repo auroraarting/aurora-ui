@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps } from "@/utils";
+import { dynamicInsightsBtnProps, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/EosIntegratedSystem.module.scss";
@@ -21,9 +21,25 @@ import IMac from "../../public/img/global-presence/IMac.png";
 // DATA //
 
 /** EosIntegratedSystem Section */
-export default function EosIntegratedSystem() {
+export default function EosIntegratedSystem({ name }) {
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (name === undefined) {
+			return {
+				id: "eos",
+				"data-name": "Eos",
+			};
+		} else if (name === "") {
+			return {};
+		} else if (name) {
+			return {
+				id: slugify(name),
+				"data-name": name,
+			};
+		}
+	};
 	return (
-		<section className={`${styles.EosIntegratedSystem}`}>
+		<section className={`${styles.EosIntegratedSystem}`} {...sectionTitle()}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>

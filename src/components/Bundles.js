@@ -53,7 +53,7 @@ export default function Bundles({ data, name }) {
 	};
 
 	return (
-		<section className={`${styles.Bundles} Bundles `} {...sectionTitle()}>
+		<section className={`${styles.Bundles} Bundles `}>
 			<div className={`${styles.bg} dark_bg`}>
 				<img src={hoverBg.src} />
 			</div>
