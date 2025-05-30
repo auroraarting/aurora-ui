@@ -62,13 +62,13 @@ export default function HomeBanner() {
 									<h1 className="text_xl f_w_m color_white pb_10 text_uppercase">
 										LUMUS
 									</h1>
-									<p className="text_lg f_w_m color_white pb_15 text_uppercase">
+									<p className="text_xl f_w_m color_white pb_15 text_uppercase">
 										PPA pricing made transparent
 									</p>
 									<p className="text_reg color_silver_gray">
 										Our advanced valuation software for Power Purchase Agreements,
 										delivers unparalleled pricing transparency powered by deep market
-										intelligence
+										intelligence.
 									</p>
 									<div className={`${styles.bookBtnOne} pt_40`}>
 										<a href="/software/lumus" role="button">
