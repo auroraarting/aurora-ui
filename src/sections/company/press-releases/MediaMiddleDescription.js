@@ -3,6 +3,7 @@
 // COMPONENTS //
 import ContentFromCms from "@/components/ContentFromCms";
 import Button from "@/components/Buttons/Button";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 
@@ -40,7 +41,7 @@ export default function MediaMiddleDescription({ data }) {
 					>
 						<ContentFromCms>{item?.content}</ContentFromCms>
 						{item?.lottie?.node?.mediaItemUrl && (
-							<DotLottieReact
+							<LottieRenderer
 								src={item?.lottie?.node?.mediaItemUrl}
 								autoplay={true}
 								loop={true}

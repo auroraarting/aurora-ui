@@ -3,6 +3,7 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 
@@ -42,7 +43,7 @@ export default function Redefining({ title, description, image, lottie }) {
 							<img src={image} className={`${styles.redefining}`} alt="Redefining" />
 						)}
 						{lottie && (
-							<DotLottieReact
+							<LottieRenderer
 								src={lottie}
 								autoplay={true}
 								loop={true}

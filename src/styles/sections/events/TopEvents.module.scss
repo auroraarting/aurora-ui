@@ -14,13 +14,23 @@
 			border-radius: 15px;
 		}
 		.content {
-			width: 50%;
+			width: 42%;
 			// @media (max-width: 1199px) {
 			// 	width: 54%;
 			// }
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-top: 30px;
+			}
+			h2{
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				height: 115px;
+				@media (max-width: 991px) {
+					height: 79px;
+				}
 			}
 			.Eventlogo {
 				height: 120px;
@@ -35,33 +45,43 @@
 			}
 			.dateFlex {
 				align-items: center;
+				flex-wrap: wrap;
 				p {
-					margin-right: 40px;
+					margin-right: 20px;
 					img {
 						filter: invert(1);
 					}
 					span {
 						margin-left: 5px;
-						margin-top: 2px;
+						margin-top: 4px;
 					}
 				}
 			}
 		}
 		.imageWrapper {
-			width: 45%;
-			img {
-				height: 100%;
-				object-fit: cover;
-				@media (max-width: 767px) {
-					height: 200px;
-					object-position: center;
-				}
-			}
+			width: 54%;
 			@media (max-width: 1199px) {
 				//width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+			}
+			img {
+				width: 570px;
+				height: 360px;
+				aspect-ratio: 570 / 360;
+				object-fit: cover;
+				object-position: center;
+				@media (max-width: 1199px) {
+					height: 300px;
+					width: 100%;
+				}
+				@media (max-width: 991px) {
+					height: 250px;
+				}
+				@media (max-width: 767px) {
+					height: 200px;
+				}
 			}
 		}
 	}

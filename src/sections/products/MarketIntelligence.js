@@ -3,7 +3,7 @@
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
-
+import LottieRenderer from "@/components/LottieRenderer";
 // SECTIONS //
 
 // PLUGINS //
@@ -49,7 +49,7 @@ export default function MarketIntelligence({ data }) {
 						)}
 						{/* data?.lottie?.node?.mediaItemUrl */}
 						{data?.lottie?.node?.mediaItemUrl && (
-							<DotLottieReact
+							<LottieRenderer
 								src={data?.lottie?.node?.mediaItemUrl}
 								autoplay={true}
 								loop={true}

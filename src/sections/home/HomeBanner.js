@@ -7,6 +7,7 @@ import Link from "next/link";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 

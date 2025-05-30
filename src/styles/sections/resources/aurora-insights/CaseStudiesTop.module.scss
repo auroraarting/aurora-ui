@@ -91,15 +91,29 @@
 			}
 		}
 		.imageWrapper {
-			width: 42%;
-			img {
-				height: 100%;
-			}
+			width: 44%;
+			
 			@media (max-width: 1199px) {
 				width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+			}
+			img {
+				height: 287px;
+				width: 500px;
+				aspect-ratio: 500 / 287;
+				object-fit: cover;
+				object-position: center;
+				@media (max-width: 1199px) {
+					width: 100%;
+				}
+				@media (max-width: 991px) {
+					height: 220px;
+				}
+				@media (max-width: 767px) {
+					height: 200px;
+				}
 			}
 		}
 	}
