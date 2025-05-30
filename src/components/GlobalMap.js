@@ -43,13 +43,11 @@ export default function GlobalMap({
 		>
 			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 			{/* <div className="container"> */}
-			<Marquee className="pb_40 reactFastMarquee" speed={100}>
+
+			<Marquee className="pb_40 reactFastMarquee" speed={300} autoFill>
 				<span className={`${styles.title} color_white text_xxl`}>
 					{marqueeText}
 				</span>
-				{/* <span className={`${styles.title} color_white text_xxl`}>
-					{marqueeText}
-				</span> */}
 			</Marquee>
 
 			<div className="">
