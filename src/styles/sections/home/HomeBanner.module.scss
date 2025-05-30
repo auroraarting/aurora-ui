@@ -46,7 +46,7 @@
 	// 	padding-bottom: 100px;
 	// }
 	:global(.swiper-pagination-horizontal) {
-		bottom: 150px;
+		bottom: 150px !important;
 		left: 50% !important;
 		width: auto !important;
 		transform: translateX(-50%) !important;
@@ -54,7 +54,7 @@
 		padding: 0px 10px 4px;
 		border-radius: 50px;
 		@media (max-width: 767px) {
-			bottom: 0;
+			bottom: 0 !important;
 		}
 	}
 	:global(.swiper-pagination-bullet) {
