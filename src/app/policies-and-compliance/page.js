@@ -88,6 +88,26 @@ export default function PoliciesAndCompliance() {
 									Modern Slavery Statement (Aurora Energy Research Ltd)
 								</a>
 							</p>
+							<h2>Net Zero Policy</h2>
+							<p>
+								<a
+									href="/img/pdf/Net-Zero-Policy-2025-final.pdf"
+									target="_blank"
+									rel="noreferrer"
+								>
+									Net Zero Policy 2025
+								</a>
+							</p>
+							<h2>Whistleblowing Policy</h2>
+							<p>
+								<a
+									href="/img/pdf/Whistleblowing-Policy-FINAL-April-2025.pdf"
+									target="_blank"
+									rel="noreferrer"
+								>
+									Whistleblowing Policy 2025
+								</a>
+							</p>
 						</div>
 					</div>
 				</section>
