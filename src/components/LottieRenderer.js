@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 
-/** LottieFromURL  */
-const LottieFromURL = ({ src }) => {
+/** LottieRenderer  */
+const LottieRenderer = ({ src }) => {
 	const url = src;
 	const [animationData, setAnimationData] = useState(null);
 
@@ -21,9 +21,9 @@ const LottieFromURL = ({ src }) => {
 		fetchAnimation();
 	}, [url]);
 
-	if (!animationData) return <p>Loading...</p>;
+	if (!animationData) return null;
 
 	return <Lottie animationData={animationData} loop autoplay />;
 };
 
-export default LottieFromURL;
+export default LottieRenderer;

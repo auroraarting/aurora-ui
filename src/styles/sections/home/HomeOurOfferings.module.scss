@@ -14,6 +14,7 @@
 	.OurOfferingSlider {
 		padding-left: var(--container_left_space);
 		.itemBox {
+			overflow: hidden;
 			padding: 25px 40px 0 40px;
 			border-radius: 20px;
 			display: flex;
@@ -85,10 +86,12 @@
 			border-radius: 20px;
 			background-color: var(--color_white);
 			svg {
-				border-radius: 20px;
+				// border-radius: 20px;
 			}
 			canvas,
-			svg {
+			.svg {
+				// height: 100%;
+				// width: 100%;
 				width: 490px !important;
 				height: 390px !important;
 				@media (max-width: 767px) {
