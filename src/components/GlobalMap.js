@@ -9,11 +9,6 @@ import Map from "@/components/MapContainer";
 
 // PLUGINS //
 import Marquee from "react-fast-marquee";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 // UTILS //
 import { slugify } from "@/utils";
@@ -48,30 +43,7 @@ export default function GlobalMap({
 		>
 			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 			{/* <div className="container"> */}
-			{/* <Swiper
-				modules={[Autoplay]}
-				slidesPerView={"auto"}
-				spaceBetween={0}
-				allowTouchMove={false}
-				loop={true}
-				speed={5000} // control scroll speed
-				autoplay={{
-					delay: 0.2, // needs to be non-zero but as low as possible
-					disableOnInteraction: false,
-				}}
-				className={`${styles.slider} custom-swiper`}
-			>
-				<SwiperSlide>
-					<span className={`${styles.title} color_white text_xxl`}>
-						{marqueeText}
-					</span>
-				</SwiperSlide>
-				<SwiperSlide>
-					<span className={`${styles.title} color_white text_xxl`}>
-						{marqueeText}
-					</span>
-				</SwiperSlide>
-			</Swiper> */}
+
 			<Marquee className="pb_40 reactFastMarquee" speed={300} autoFill>
 				<span className={`${styles.title} color_white text_xxl`}>
 					{marqueeText}
