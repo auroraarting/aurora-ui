@@ -62,6 +62,7 @@ export default function InsightsListing({
 	});
 	const [paginationArr, setPaginationArr] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
+	console.log(list, countries, "list");
 	/** Debounced search when typing */
 	useEffect(() => {
 		const delay = setTimeout(() => {
