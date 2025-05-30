@@ -102,7 +102,7 @@ export default async function HomePage() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags />
+			<MetaTags ogImg={"https://www-staging.auroraer.com/img/og-image.jpg"} />
 			{/* Header */}
 			{/* <Header /> */}
 
