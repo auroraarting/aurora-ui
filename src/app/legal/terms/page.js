@@ -39,7 +39,7 @@ export default function Terms() {
 
 			{/* Page Content starts here */}
 			<main className={styles.TermsPage}>
-				<section className={`${styles.TermsInside} ptb_100`}>
+				<section className={`${styles.TermsInside} pt_60 pb_100`}>
 					<div className="container">
 						<h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
 							Terms of use
