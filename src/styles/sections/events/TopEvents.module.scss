@@ -1,6 +1,7 @@
 @import "../../helpers/helpers.scss";
 .TopEvents {
 	.card {
+		cursor: pointer;
 		padding: 40px 40px;
 		background-color: var(--color_secondary);
 		border-radius: 20px;
@@ -26,9 +27,12 @@
 				-webkit-line-clamp: 3;
 				-webkit-box-orient: vertical;
 				overflow: hidden;
-				
+				height: 135px;
+				@media (max-width: 991px) {
+					height: 99px;
+				}
 			}
-			.Eventlogo{
+			.Eventlogo {
 				height: 120px;
 			}
 			.tag {
