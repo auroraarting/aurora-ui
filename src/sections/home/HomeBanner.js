@@ -56,7 +56,7 @@ export default function HomeBanner() {
 						className={styles.slider}
 					>
 						<SwiperSlide>
-							<div className={`${styles.BannerInfo} f_w_j cardHBg`}>
+							<div className={`${styles.BannerInfo} f_w_j`}>
 								<div className={`${styles.BannerContent}`}>
 									<h1 className="text_xl f_w_m color_white pb_10 text_uppercase">
 										LUMUS
@@ -83,7 +83,7 @@ export default function HomeBanner() {
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<div className={`${styles.BannerInfo} f_w_j cardHBg`}>
+							<div className={`${styles.BannerInfo} f_w_j`}>
 								<div className={`${styles.BannerContent}`}>
 									<h2 className="text_xl f_w_m color_white pb_10 text_uppercase">
 										Bankable energy analytics that power investment decisions
