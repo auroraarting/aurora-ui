@@ -66,9 +66,9 @@ export default function TopEvents({ list }) {
 										>
 											{data?.events?.thumbnail?.status} Event
 										</div>
-										<p className="color_white text_lg text_uppercase m_t_30 font_primary f_w_m">
+										<h2 className="color_white text_lg text_uppercase m_t_30 font_primary f_w_m">
 											{data?.title}
-										</p>
+										</h2>
 										<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
 											{data?.events?.thumbnail?.date && (
 												<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
