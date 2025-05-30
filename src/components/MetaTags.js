@@ -44,23 +44,14 @@ export default function MetaTags({ Title, Desc, OgImg, Url }) {
 			<meta property="og:title" content={title} />
 			<meta property="og:description" content={desc} />
 			<meta property="og:url" content={url} />
-			<meta
-				property="og:image"
-				content={"https://www-staging.auroraer.com/img/og-image.jpg"}
-			/>
-			<meta
-				property="og:image:secure_url"
-				content={"https://www-staging.auroraer.com/img/og-image.jpg"}
-			/>
+			<meta property="og:image" content={ogImg} />
+			<meta property="og:image:secure_url" content={ogImg} />
 			<meta property="og:type" content="website" />
 
 			{/* twitter card  */}
 			<meta name="twitter:title" content={title} />
 			<meta name="twitter:description" content={desc} />
-			<meta
-				name="twitter:image"
-				content={"https://www-staging.auroraer.com/img/og-image.jpg"}
-			/>
+			<meta name="twitter:image" content={ogImg} />
 			<meta name="twitter:card" content="summary_large_image" />
 
 			{/* canonical tag */}

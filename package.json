@@ -21,6 +21,8 @@
 		"fs-extra": "^11.2.0",
 		"html-react-parser": "^5.0.6",
 		"lightgallery": "^2.7.1",
+		"lottie-react": "^2.4.1",
+		"lottie-web": "^5.13.0",
 		"luxon": "^3.6.1",
 		"next": "^15.3.1",
 		"path": "^0.12.7",

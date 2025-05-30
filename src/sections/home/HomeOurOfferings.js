@@ -8,6 +8,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import dynamic from "next/dynamic";
 
 // COMPONENTS //
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 
@@ -50,6 +51,7 @@ export default function HomeOurOfferings() {
 
 	useEffect(() => {
 		EqualHeight("cardHBg");
+
 		const interval = setInterval(() => {
 			setBgIndex((prev) => (prev + 1) % bgColors.length);
 		}, 1000); // Change every 1s (sync with Lottie)
@@ -127,16 +129,18 @@ export default function HomeOurOfferings() {
 									for market forecasting, asset valuation, and strategic decision-making.
 								</p>
 							</div>
-							<DotLottieReact
-								src={lottieAnimations[0].src}
-								autoplay={true}
-								loop={true}
-								renderer="svg"
-								// style={{ height: svgHeight }}
-								renderersettings={{
-									preserveAspectRatio: "xMidYMid meet",
-								}}
-							/>
+							<div className={`${styles.svg}`}>
+								<LottieRenderer
+									src={lottieAnimations[0].src}
+									autoplay={true}
+									loop={true}
+									renderer="svg"
+									// style={{ height: svgHeight }}
+									renderersettings={{
+										preserveAspectRatio: "xMidYMid meet",
+									}}
+								/>
+							</div>
 							{/* <img
 								src={macEOS.src}
 								alt="mac eos"
@@ -162,16 +166,18 @@ export default function HomeOurOfferings() {
 									subscription analytics.
 								</p>
 							</div>
-							<DotLottieReact
-								src={lottieAnimations2[0].src}
-								autoplay={true}
-								loop={true}
-								renderer="svg"
-								style={{ height: svgHeight }}
-								renderersettings={{
-									preserveAspectRatio: "xMidYMid meet",
-								}}
-							/>
+							<div className={`${styles.svg}`}>
+								<LottieRenderer
+									src={lottieAnimations2[0].src}
+									autoplay={true}
+									loop={true}
+									renderer="svg"
+									style={{ height: svgHeight }}
+									renderersettings={{
+										preserveAspectRatio: "xMidYMid meet",
+									}}
+								/>
+							</div>
 							{/* <img
 								src={macEOS.src}
 								alt="mac eos"

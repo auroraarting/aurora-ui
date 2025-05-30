@@ -55,6 +55,13 @@ export async function generateMetadata() {
 		title: seo?.title || "Default Title",
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
 	};
 }
 
@@ -101,9 +108,10 @@ export default async function HomePage() {
 
 	return (
 		<div>
+			{/* Metatags */}
+			<MetaTags />
 			{/* Header */}
 			{/* <Header /> */}
-			<MetaTags />
 
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>

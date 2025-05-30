@@ -11,6 +11,7 @@ import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
@@ -138,7 +139,7 @@ export default function WebinarInsideWrap({
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
+												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}
