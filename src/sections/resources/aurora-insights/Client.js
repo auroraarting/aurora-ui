@@ -215,7 +215,7 @@ export default function Client({ data }) {
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
 							<a href="/resources/webinar" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
-									View Webinar
+									View webinars
 								</Button>
 							</a>
 						</div>
@@ -232,7 +232,7 @@ export default function Client({ data }) {
 							<p className="text_reg font_primary">Energy unplugged by Aurora</p>
 							<a href="/resources/energy-talks" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
-									View All Podcast
+									View all podcasts
 								</Button>
 							</a>
 						</div>
