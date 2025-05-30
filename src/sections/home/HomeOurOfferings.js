@@ -8,6 +8,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import dynamic from "next/dynamic";
 
 // COMPONENTS //
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 
@@ -127,7 +128,7 @@ export default function HomeOurOfferings() {
 									for market forecasting, asset valuation, and strategic decision-making.
 								</p>
 							</div>
-							<DotLottieReact
+							<LottieRenderer
 								src={lottieAnimations[0].src}
 								autoplay={true}
 								loop={true}
@@ -162,7 +163,7 @@ export default function HomeOurOfferings() {
 									subscription analytics.
 								</p>
 							</div>
-							<DotLottieReact
+							<LottieRenderer
 								src={lottieAnimations2[0].src}
 								autoplay={true}
 								loop={true}

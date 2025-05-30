@@ -87,7 +87,8 @@
 			svg {
 				border-radius: 20px;
 			}
-			canvas {
+			canvas,
+			svg {
 				width: 490px !important;
 				height: 390px !important;
 				@media (max-width: 767px) {

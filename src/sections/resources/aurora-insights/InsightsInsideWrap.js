@@ -16,6 +16,7 @@ import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
@@ -23,6 +24,7 @@ import CaseStudiesMiddleDescription from "@/sections/resources/aurora-insights/C
 import Client from "@/sections/resources/aurora-insights/Client";
 
 // PLUGINS //
+import Lottie from "lottie-react";
 
 // UTILS //
 import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
@@ -140,6 +142,7 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 									</section>
 								)}
 								{data?.postFields?.sections?.map((item) => {
+									console.log(item?.lottie?.node?.mediaItemUrl);
 									return (
 										<section
 											key={item?.sectionTitle}
@@ -148,11 +151,13 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
+												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}
-													// renderer="svg"
+													className="lottieDyanmic"
+													renderer="svg"
+													// height="400px"
 													width="100%"
 													// renderersettings={{
 													// 	preserveAspectRatio: "xMidYMid meet",

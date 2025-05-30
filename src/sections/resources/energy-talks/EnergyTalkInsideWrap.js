@@ -14,6 +14,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 import EnergyInsideTopSection from "@/sections/resources/energy-talks/EnergyInsideTopSection";
@@ -114,7 +115,7 @@ export default function EnergyTalkInsideWrap({
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
+												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}

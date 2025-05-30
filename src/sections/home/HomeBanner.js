@@ -7,6 +7,7 @@ import Link from "next/link";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 
@@ -63,7 +64,7 @@ export default function HomeBanner() {
 								className={`${styles.BannerGraph} width_100`}
 								alt="Banner Graph"
 							/> */}
-							<DotLottieReact
+							<LottieRenderer
 								src={lottieAnimations[0].src}
 								autoplay={true}
 								loop={true}

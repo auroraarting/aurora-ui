@@ -286,3 +286,11 @@ section {
 	background-size: cover;
 	background-position: bottom center;
 }
+
+.lottieDyanmic {
+	height: 500px;
+	width: 100%;
+	canvas {
+		// object-fit: cover;
+	}
+}
