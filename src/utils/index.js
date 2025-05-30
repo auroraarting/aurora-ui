@@ -500,28 +500,44 @@ export const allCategories = [
 
 /** findFunc  */
 export function isCategory(categoryList, dynamicWords) {
-	const words = dynamicWords
-		?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
-		.map((word) => word?.trim())
-		.filter(Boolean); // remove empty strings
+	// const words = dynamicWords
+	// 	?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
+	// 	.map((word) => word?.trim())
+	// 	.filter(Boolean); // remove empty strings
 
-	let txt = "";
+	// let txt = "";
+
+	// categoryList?.forEach((item) => {
+	// 	const target = (item.alternate || item.title).toLowerCase();
+	// 	const match = words?.some((word) => target.includes(word));
+	// 	// const match = words?.some((word) => target === word.toLowerCase());
+
+	// 	if (match) {
+	// 		if (!txt) {
+	// 			txt += item.title;
+	// 		} else {
+	// 			txt += `, ${item.title}`;
+	// 		}
+	// 	}
+	// });
+
+	// return txt;
+
+	const names = dynamicWords
+		?.map((item) => item.name.toLowerCase().trim())
+		.filter(Boolean);
+
+	let matchedTitles = [];
 
 	categoryList?.forEach((item) => {
-		const target = (item.alternate || item.title).toLowerCase();
-		const match = words?.some((word) => target.includes(word));
-		// const match = words?.some((word) => target === word.toLowerCase());
+		const target = (item.alternate || item.title).toLowerCase().trim();
 
-		if (match) {
-			if (!txt) {
-				txt += item.title;
-			} else {
-				txt += `, ${item.title}`;
-			}
+		if (names?.includes(target)) {
+			matchedTitles.push(item.title);
 		}
 	});
 
-	return txt;
+	return matchedTitles.join(", ");
 }
 
 /** filterItems for resources */

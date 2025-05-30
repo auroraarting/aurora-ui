@@ -8,6 +8,9 @@
 		font-family: var(--font_primary);
 		margin-bottom: 20px;
 		color: var(--color_secondary);
+		&:nth-child(1) {
+			margin-top: 0;
+		}
 		@media (max-width: 991px) {
 			font-size: 25px;
 		}
