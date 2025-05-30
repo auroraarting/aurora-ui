@@ -66,7 +66,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 				<TransactionsBanner
 					data={data?.howWeHelpInside?.banner}
 					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-					btnTxt="Get Started"
+					btnTxt={dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 				/>
 				<SectionsHeader
 					// customHtml={
