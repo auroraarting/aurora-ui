@@ -59,7 +59,6 @@ export default function ProductListingWrapper({
 	countries,
 	insights,
 }) {
-	console.log(data, "data");
 	const dataForBtn = {
 		postFields: data,
 	};

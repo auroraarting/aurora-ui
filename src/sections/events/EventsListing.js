@@ -56,7 +56,6 @@ export default function EventsListing({
 	});
 	const [list, setList] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
-	console.log(list, "list");
 	/** Debounced search when typing */
 	useEffect(() => {
 		const delay = setTimeout(() => {
