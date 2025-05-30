@@ -101,9 +101,10 @@ export default async function HomePage() {
 
 	return (
 		<div>
+			{/* Metatags */}
+			<MetaTags />
 			{/* Header */}
 			{/* <Header /> */}
-			<MetaTags />
 
 			{/* Page Content starts here */}
 			<main className={`${styles.HomePage}`}>
