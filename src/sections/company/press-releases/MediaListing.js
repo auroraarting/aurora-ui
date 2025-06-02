@@ -17,6 +17,7 @@ import formatDate, {
 	filterItems,
 	filterItemsBySelectedObj,
 	filterItemsBySelectedObjForPress,
+	isCategory,
 	updateQueryFast,
 } from "@/utils";
 
@@ -43,6 +44,7 @@ export default function MediaListing({
 	languages,
 	countries,
 }) {
+	console.log(data, "data");
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
 	const [original, setOriginal] = useState(data);
@@ -508,6 +510,17 @@ export default function MediaListing({
 												/>
 												<span>{formatDate(item?.date)}</span>
 											</p>
+											{isCategory(countries, item?.categories?.nodes) && (
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={location.src}
+														className={`${styles.location}`}
+														alt="location"
+													/>
+													{/* <span>WECC</span> */}
+													{isCategory(countries, item?.categories?.nodes)}
+												</p>
+											)}
 										</div>
 									</div>
 								</a>
