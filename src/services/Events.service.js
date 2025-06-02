@@ -540,7 +540,7 @@ query GetEventLanding {
       speakers {
         sectionTitle
         sectionDesc
-        speakers {
+        speakers(first: 999) {
           nodes {
             ... on PostSpeaker {
               id
@@ -553,6 +553,27 @@ query GetEventLanding {
                   image {
                     node {
                       mediaItemUrl
+                    }
+                  }
+                }
+                sessions {
+                  address
+                  time
+                  timeSlot
+                  title
+                }
+                articles {
+                  articlesby(first: 999) {
+                    nodes {
+                      ... on Post {
+                        id
+                        slug
+                        title
+                        postFields {
+                          time
+                        }
+                        date
+                      }
                     }
                   }
                 }
