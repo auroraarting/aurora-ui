@@ -48,12 +48,6 @@ export async function generateMetadata() {
 	};
 }
 
-/** Meta Data */
-export const metadata = {
-	title: "Company | Aurora",
-	description: "Aurora",
-};
-
 /** company Page */
 export default function Company() {
 	return (
