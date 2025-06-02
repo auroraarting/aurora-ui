@@ -238,6 +238,12 @@ query GetProductBySlug {
               slug
               content
               date
+                 featuredImage {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
               categories(first: 9999) {
                 nodes {
                   slug

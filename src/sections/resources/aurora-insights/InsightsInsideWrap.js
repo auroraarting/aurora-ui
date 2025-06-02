@@ -142,7 +142,6 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 									</section>
 								)}
 								{data?.postFields?.sections?.map((item) => {
-									console.log(item?.lottie?.node?.mediaItemUrl);
 									return (
 										<section
 											key={item?.sectionTitle}

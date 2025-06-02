@@ -97,11 +97,11 @@ export default function ProductInsideWrap({ data, mapJson, bundles }) {
 					locationJson={mapJson}
 					marqueeText={data?.products?.map?.marquee}
 				/>
-				{/* {data?.products?.caseStudy?.selectCaseStudies?.nodes && (
-					<div className="ptb_100">
-						<CaseStudy data={data?.products?.caseStudy?.selectCaseStudies?.nodes} />
+				{data?.products?.caseStudy?.selectCaseStudies?.nodes && (
+					<div className="pt_100">
+						<CaseStudy data={data?.products?.caseStudy} />
 					</div>
-				)} */}
+				)}
 				{data?.products?.ourClient?.selectLogos && (
 					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data?.products?.ourClient} />
