@@ -14,6 +14,11 @@
 					top: 200px;
 				}
 			}
+			h2{
+				@media (max-width: 767px) {
+					padding-bottom: 10px;
+				}
+			}
 		}
 		.OurEdgeHistory {
 			position: relative;
@@ -25,6 +30,9 @@
 			.OurItem {
 				position: relative;
 				padding-bottom: 30px;
+				@media (max-width: 767px) {
+					padding-bottom: 0px;
+				}
 				&::before {
 					content: " ";
 					position: absolute;
@@ -79,9 +87,13 @@
 						}
 						h4 {
 							transition: 0.5s all;
+							
 						}
 						p {
 							transition: 0.5s all;
+							@media (max-width: 767px) {
+								margin-bottom: 0px;
+							}
 						}
 					}
 				}
