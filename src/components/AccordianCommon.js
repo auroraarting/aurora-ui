@@ -74,7 +74,10 @@ export default function AccordianCommon({
 		if (openAll) {
 			arr = [...activeIndex];
 		} else {
-			arr = activeIndex?.map((item) => false);
+			arr = activeIndex?.map((item, arrInd) => {
+				if (arrInd === index) return activeIndex[index];
+				return false;
+			});
 		}
 		arr[index] = !arr[index];
 		setActiveIndex(arr);
