@@ -122,7 +122,7 @@ export default function AboutWrap({
 						src="/img/eos-bg-gradient.png"
 						alt="bg img"
 					/> */}
-					<div className="pb_100">
+					<div className="">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />

@@ -566,7 +566,7 @@ export default function EventsListing({
 												/>
 												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
 											</p>
-											<p className="text_xs f_w_m color_medium_gray f_r_a_center">
+											<p className="text_xs f_w_m color_light_gray f_r_a_center">
 												<img
 													src={location.src}
 													className={`${styles.location}`}

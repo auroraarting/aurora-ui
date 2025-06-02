@@ -28,7 +28,6 @@
 				filter: invert(0);
 			}
 		}
-
 		.TopLeft {
 			top: 0;
 			left: 0;
@@ -50,14 +49,16 @@
 		}
 		.CircleBox {
 			@media (max-width: 991px) {
-				margin: 20px auto 0px auto;
+				margin: 30px auto 0px auto;
 			}
 			p{
 				color: var(--color_white);
 			}
 			:global(.color_light_gray){
 				height: 45px;
+				text-align: center;
 			}
+			
 		}
 
 		.CenterBox {

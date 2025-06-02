@@ -1,6 +1,7 @@
 @import "../helpers/helpers.scss";
 
 .selected {
+	text-align: center;
 	&.hide {
 		opacity: 0;
 	}

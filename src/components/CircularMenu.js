@@ -103,7 +103,7 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 			<div
 				className={`${styles.selected} ${
 					selectedService === null && styles.hide
-				} m_b_15`}
+				} m_b_15 selectedNew`}
 			>
 				<p
 					className={`${styles.title} ${
