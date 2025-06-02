@@ -40,12 +40,6 @@ import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-// /** Meta Data */
-// export const metadata = {
-// 	title: "Home | Aurora",
-// 	description: "Aurora",
-// };
-
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "homepage", idType: URI)');

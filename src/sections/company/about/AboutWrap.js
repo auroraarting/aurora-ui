@@ -2,7 +2,6 @@
 // MODULES //
 
 // COMPONENTS //
-import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
@@ -51,9 +50,6 @@ export default function AboutWrap({
 
 	return (
 		<div>
-			{/* Metatags */}
-			<MetaTags Title={"About"} Desc={""} OgImg={""} Url={"/about"} />
-
 			{/* Header */}
 			{/* <Header /> */}
 
