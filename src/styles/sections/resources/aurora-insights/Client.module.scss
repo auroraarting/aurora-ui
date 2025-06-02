@@ -33,6 +33,12 @@
 				.ClientLogo {
 					width: 20%;
 					margin-right: 10px;
+					box-shadow: 0px 4px 19px 0px rgba(255, 204, 0, 0.5);
+					border-radius: 100%;
+					width: 60px;
+					height: 60px;
+					overflow: hidden;
+					border: 2px solid #ffcc0080;
 					img {
 						width: 60px;
 						height: 60px;
