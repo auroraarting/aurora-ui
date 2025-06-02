@@ -40,7 +40,7 @@ export default function Sponsors({ data }) {
 		<section
 			id="sponsors"
 			data-name="Sponsors"
-			className={`${styles.Sponsors} pb_50`}
+			className={`${styles.Sponsors} pt_60`}
 		>
 			<h2 className="text_lg color_secondary pb_10">
 				{data?.events?.sponsors?.sectionTitle || "Sponsors"}

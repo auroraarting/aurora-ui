@@ -17,6 +17,8 @@
 		flex-wrap: wrap;
 		&:last-child {
 			border-bottom: none;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
 		}
 		.SponsorsItem {
 			width: 33%;
