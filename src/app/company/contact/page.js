@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -38,14 +39,28 @@ import { getOfficesByRegions } from "@/services/Offices.service";
 import { getContact } from "@/services/Contact.service";
 import IframeModal from "@/components/IframeModal";
 import CompanyContact from "@/sections/company/contact/CompanyContact";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-/** Meta Data */
-export const metadata = {
-	title: "Contact | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "contact", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Fetch  */
 async function getData() {

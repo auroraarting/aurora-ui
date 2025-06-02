@@ -67,14 +67,6 @@ export default async function PressReleases() {
 	const { props } = await getData();
 	return (
 		<div>
-			{/* Metatags */}
-			{/* <MetaTags
-				Title={"Media Center"}
-				Desc={""}
-				OgImg={""}
-				Url={"/media-center"}
-			/> */}
-
 			{/* Header */}
 			{/* <Header /> */}
 
