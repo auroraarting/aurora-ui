@@ -63,7 +63,7 @@ export default function ServicesWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.AdvisoryPage}>
-				<div className="pb_60">
+				<div className="">
 					<InnerBanner
 						bannerTitle={data?.services?.banner?.title}
 						bannerDescription={data?.services?.banner?.description}

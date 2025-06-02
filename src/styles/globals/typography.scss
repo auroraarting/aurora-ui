@@ -471,9 +471,15 @@
 }
 .pt_20 {
 	padding-top: 20px;
+	@media only screen and (max-width: 767px) {
+		padding-top: 10px;
+	}
 }
 .pb_20 {
 	padding-bottom: 20px;
+	@media only screen and (max-width: 767px) {
+		padding-bottom: 10px;
+	}
 }
 .pt_15 {
 	padding-top: 15px;
@@ -484,6 +490,9 @@
 
 .ptb_20 {
 	padding: 20px 0;
+	@media only screen and (max-width: 767px) {
+		padding: 10px 0px;
+	}
 }
 .pt_30 {
 	padding-top: 30px;

@@ -25,7 +25,7 @@ import card_img3 from "../../public/img/contact/cardimg3.png";
 // DATA //
 const defaultData = [
 	{
-		desc: "Unlock powerful tools for energy analysis.",
+		desc: "Unlock powerful tools for energy analysis",
 		btnText: "Explore Software",
 		btnLink: "/software",
 		img: card_img.src,
@@ -37,7 +37,7 @@ const defaultData = [
 		img: card_img2.src,
 	},
 	{
-		desc: "Expert advice to guide strategic decisions.",
+		desc: "Expert advice to guide strategic decisions",
 		btnText: "Explore Advisory",
 		btnLink: "/service/advisory",
 		img: card_img3.src,
