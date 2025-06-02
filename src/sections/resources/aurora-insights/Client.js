@@ -108,9 +108,16 @@ export default function Client({ data, countries }) {
 								{data?.postFields?.authors?.nodes?.map((item, ind) => {
 									return (
 										<div
-											className={`${styles.ClientFlex} f_r_a_center`}
+											className={`${styles.ClientFlex} f_r_a_center ${
+												!item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl &&
+												styles.hideCursor
+											}`}
 											key={item?.title}
-											onClick={() => handleAuthorClick(ind)}
+											onClick={() => {
+												if (!item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl)
+													return;
+												handleAuthorClick(ind);
+											}}
 										>
 											{item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl && (
 												<div className={`${styles.ClientLogo}`}>

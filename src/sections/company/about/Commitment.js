@@ -52,20 +52,21 @@ export default function Commitment({ data }) {
 									<p className="text_reg color_dark_gray">
 										<ContentFromCms>{item?.desc}</ContentFromCms>
 									</p>
-									<div className={`${styles.btn_box}`}>
+									<a
+										href={item?.pdf?.node?.mediaItemUrl}
+										rel="noreferrer"
+										target="_blank"
+										className={`${styles.btn_box}`}
+									>
 										<span>
 											<img src={dropdown_arrow.src} alt="icon" />
 										</span>
-										<a
-											href={item?.pdf?.node?.mediaItemUrl}
-											rel="noreferrer"
-											target="_blank"
-										>
+										<a>
 											<Button color="primary" variant="filled" shape="rounded">
 												{item?.buttonText}
 											</Button>
 										</a>
-									</div>
+									</a>
 								</div>
 							</div>
 						);
