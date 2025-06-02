@@ -142,7 +142,7 @@ export default function ServicesWrap({
 						src="/img/eos-bg-gradient.png"
 					/>
 					<div className="">
-						<EosIntegratedSystem />
+						<EosIntegratedSystem name="" />
 					</div>
 					<Bundles data={bundles} name="" />
 				</div>
