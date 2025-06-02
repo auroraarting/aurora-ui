@@ -45,6 +45,12 @@
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+				height: 250px;
+			}
+			img{
+				@media (max-width: 767px) {
+					width: 180px;
+				}
 			}
 			.whiteBox {
 			}

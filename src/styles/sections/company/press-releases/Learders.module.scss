@@ -55,7 +55,7 @@
 				border-radius: 20px;
 				transition: 0.5s all;
 				@media (max-width: 767px) {
-					border-radius: 10px;
+					//border-radius: 10px;
 				}
 			}
 			.thumbnailImg {
@@ -89,6 +89,9 @@
 					position: absolute;
 					right: 20px;
 					top: 35px;
+					@media (max-width: 767px) {
+						top: 25px;
+					}
 				}
 			}
 			.hoverEffect {

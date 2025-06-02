@@ -63,7 +63,7 @@ export default function EosIntegratedSystem({ name }) {
 						<div className={`${styles.bookBtnOne} pt_60`}>
 							<a href="/software">
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									Explore Now
+									Explore now
 								</Button>
 							</a>
 						</div>
