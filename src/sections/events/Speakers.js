@@ -84,7 +84,7 @@ export default function Speakers({ data, title, desc }) {
 					<h2 className="text_xl font_primary color_secondary pb_10">{title}</h2>
 					<p className={`${styles.label} text_reg color_dark_gray`}>{desc}</p>
 				</div>
-				<div className={`${styles.content_main_wrap} pt_40`}>
+				<div className={`${styles.content_main_wrap} pt_20`}>
 					<div className={`${styles.box_wrap}`}>
 						{eventSpeakersData?.map((item, ind) => {
 							return (

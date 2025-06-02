@@ -8,7 +8,12 @@
 			}
 			@media (max-width: 767px) {
 				width: 100%;
-				margin-bottom: 40px;
+				margin-bottom: 0px;
+			}
+			h2{
+				@media (max-width: 767px) {
+					padding-bottom: 10px;
+				}
 			}
 		}
 		.integratedImgMain {
@@ -27,6 +32,9 @@
 
 				:global(.swiper-horizontal) {
 					padding-bottom: 50px;
+					@media (max-width: 767px) {
+						padding-bottom: 0px;
+					}
 				}
 				:global(.swiper-pagination-horizontal) {
 					bottom: 0px;

@@ -93,7 +93,7 @@ export default function EventsInsideWrap({
 								<EventsMiddleDescription data={data} />
 								<EventsLocation data={data} />
 								{data?.events?.glimps?.gallery?.nodes && (
-									<div className="pb_60">
+									<div className="">
 										<EventsGallery data={data} />
 									</div>
 								)}

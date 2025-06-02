@@ -18,7 +18,9 @@
 	border-radius: 5px;
 	transition: all 0.2s ease-in;
 	//width: 150px;
-
+	@media (max-width: 767px) {
+		padding: 12px 28px;
+	}
 	.textWrap {
 		overflow: hidden;
 		position: relative;
