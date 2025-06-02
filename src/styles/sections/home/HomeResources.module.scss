@@ -50,6 +50,9 @@
 				padding: 20px 20px;
 				margin-bottom: 40px;
 				background-color: var(--color_white);
+				@media (max-width: 767px) {
+					margin-bottom: 20px;
+				}
 				.case_img {
 					height: 304px;
 					object-fit: cover;
@@ -119,8 +122,8 @@
 							}
 						}
 						@media (max-width: 767px) {
-							background-color: var(--color_secondary);
-							border-radius: 12px;
+							//background-color: var(--color_secondary);
+							//border-radius: 12px;
 							margin: 0 0 5px;
 							.categoryTxt {
 								position: relative;
@@ -128,15 +131,15 @@
 							}
 							.descTxt {
 								position: relative;
-								color: var(--color_white);
+								//color: var(--color_white);
 							}
 							.dateFlex {
 								position: relative;
 								p {
-									color: var(--color_silver_gray);
+									//color: var(--color_silver_gray);
 								}
 								img {
-									filter: invert(1);
+									//filter: invert(1);
 								}
 							}
 							.hoverBg {
