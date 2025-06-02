@@ -1,6 +1,7 @@
+/* eslint-disable require-jsdoc */
 "use client";
 // MODULES //
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // COMPONENTS //
 
@@ -31,6 +32,26 @@ export default function GlobalMap({
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 	const [map, setMap] = useState(null);
 
+	const [marqueeSpeed, setMarqueeSpeed] = useState(200);
+
+	// Set marquee speed based on screen size
+	useEffect(() => {
+		const updateMarqueeSpeed = () => {
+			const width = window.innerWidth;
+			if (width < 480) {
+				setMarqueeSpeed(100); // Mobile
+			} else if (width < 768) {
+				setMarqueeSpeed(100); // Tablet
+			} else {
+				setMarqueeSpeed(200); // Desktop
+			}
+		};
+
+		updateMarqueeSpeed(); // Initial check
+		window.addEventListener("resize", updateMarqueeSpeed);
+		return () => window.removeEventListener("resize", updateMarqueeSpeed);
+	}, []);
+
 	if (locationJson.length === 0) return <></>;
 
 	return (
@@ -44,7 +65,7 @@ export default function GlobalMap({
 			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
 			{/* <div className="container"> */}
 
-			<Marquee className="pb_40 reactFastMarquee" speed={300} autoFill>
+			<Marquee className="pb_40 reactFastMarquee" speed={marqueeSpeed} autoFill>
 				<span className={`${styles.title} color_white text_xxl`}>
 					{marqueeText}
 				</span>

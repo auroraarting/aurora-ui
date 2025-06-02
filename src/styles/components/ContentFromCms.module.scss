@@ -11,6 +11,9 @@
 	p {
 		margin-bottom: 15px;
 		line-height: 1.6;
+		@media (max-width: 767px) {
+			line-height: 1.5;
+		}
 	}
 	strong {
 		font-weight: 600;

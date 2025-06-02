@@ -14,6 +14,11 @@
 					top: 200px;
 				}
 			}
+			h2{
+				@media (max-width: 767px) {
+					padding-bottom: 10px;
+				}
+			}
 		}
 		.OurEdgeHistory {
 			position: relative;
@@ -21,10 +26,14 @@
 			margin-top: 14px;
 			@media (max-width: 991px) {
 				width: 100%;
+				margin-top: 0px;
 			}
 			.OurItem {
 				position: relative;
 				padding-bottom: 30px;
+				@media (max-width: 767px) {
+					padding-bottom: 0px;
+				}
 				&::before {
 					content: " ";
 					position: absolute;
@@ -49,7 +58,7 @@
 					transition: 0.5s all;
 					border-radius: 20px;
 					@media (max-width: 767px) {
-						padding: 20px 10px 20px;
+						padding: 0px 10px 20px;
 					}
 					.iconBox {
 						position: relative;
@@ -79,9 +88,13 @@
 						}
 						h4 {
 							transition: 0.5s all;
+							
 						}
 						p {
 							transition: 0.5s all;
+							@media (max-width: 767px) {
+								margin-bottom: 0px;
+							}
 						}
 					}
 				}

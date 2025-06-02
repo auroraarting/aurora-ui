@@ -50,6 +50,9 @@
 		}
 	}
 	.hoverBox {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 		.categoryTxt {
 			position: relative;
 			padding-left: 10px;
@@ -71,6 +74,7 @@
 			overflow: hidden;
 		}
 		.dateFlex {
+			margin-top: auto;
 			align-items: center;
 			span {
 				margin-left: 5px;
