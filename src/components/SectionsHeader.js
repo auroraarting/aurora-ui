@@ -15,7 +15,7 @@ import { Link, scroller } from "react-scroll";
 import styles from "@/styles/components/SectionsHeader.module.scss";
 
 // IMAGES //
-import accarrow from "../../public/img/icons/acc_arrow.svg";
+import accarrow from "../../public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 

@@ -20,6 +20,13 @@
 				}
 			}
 		}
+		.titleDesc{
+				p{
+					@media (max-width: 767px) {
+						padding-bottom: 0px;
+					}
+				}
+			}
 		.OurEdgeHistory {
 			position: relative;
 			width: 58%;
@@ -58,7 +65,8 @@
 					transition: 0.5s all;
 					border-radius: 20px;
 					@media (max-width: 767px) {
-						padding: 0px 10px 20px;
+						padding: 20px 20px 20px;
+						margin-bottom: 10px;
 					}
 					.iconBox {
 						position: relative;
@@ -88,7 +96,9 @@
 						}
 						h4 {
 							transition: 0.5s all;
-							
+							@media (max-width: 767px) {
+								padding-bottom: 10px;
+							} 
 						}
 						p {
 							transition: 0.5s all;
