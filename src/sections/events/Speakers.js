@@ -35,9 +35,9 @@ import clock from "../../../public/img/icons/clock.svg";
 export default function Speakers({ data, title, desc }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
-
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+    
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index) => {
 		e.preventDefault();
@@ -51,6 +51,7 @@ export default function Speakers({ data, title, desc }) {
 		setIsPopupOpen(false);
 		setSlideNo(0);
 	};
+
 	useEffect(() => {
 		if (sliderRef.current?.swiper) {
 			sliderRef.current.swiper.slideTo(slideNo);

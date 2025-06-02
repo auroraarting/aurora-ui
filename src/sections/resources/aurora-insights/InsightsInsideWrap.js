@@ -188,7 +188,7 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 								})}
 							</div>
 							<div className={`${styles.CaseStudiesMiddleRight}`}>
-								<Client data={data} />
+								<Client data={data} countries={countries} />
 							</div>
 						</div>
 					</div>

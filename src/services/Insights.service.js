@@ -466,6 +466,27 @@ query GetInsightsInside {
                   }
                 }
               }
+              articles {
+                articlesby(first: 9999) {
+                  nodes {
+                    ... on Post {
+                      id
+                      slug
+                      title
+                      date
+                      postFields {
+                        time
+                      }
+                      categories(first: 9999) {
+                        nodes {
+                          name
+                          slug
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
