@@ -333,6 +333,9 @@
 				height: 90%;
 				background-color: var(--color_platinum_gray);
 				width: 1px;
+				@media (max-width: 767px) {
+					display: none;
+				}
 			}
 			&::before {
 				content: "";
@@ -343,6 +346,9 @@
 				height: 1px;
 				background-color: var(--color_platinum_gray);
 				width: 90%;
+				@media (max-width: 767px) {
+					display: none;
+				}
 			}
 			&:nth-child(3n),
 			&:last-child {

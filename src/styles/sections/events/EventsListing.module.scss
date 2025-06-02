@@ -56,6 +56,7 @@
 
 							@media screen and (max-width: 767px) {
 								background-color: var(--color_white);
+								padding: 12px 15px;
 							}
 							img {
 								position: absolute;
@@ -260,7 +261,7 @@
 					@media screen and (max-width: 767px) {
 						background-color: var(--color_white);
 						border-radius: 50px;
-						padding: 5px 15px;
+						padding: 12px 15px;
 						margin-top: 10px;
 					}
 				}
@@ -300,7 +301,7 @@
 				}
 				span {
 					cursor: pointer;
-					// width: 64px;
+					width: 64px;
 
 					img {
 						margin-right: 10px;
@@ -316,6 +317,7 @@
 						align-items: center;
 						justify-content: center;
 						font-size: 18px;
+						text-align: center;
 					}
 				}
 			}
@@ -346,6 +348,9 @@
 				height: 90%;
 				background-color: var(--color_platinum_gray);
 				width: 1px;
+				@media (max-width: 767px) {
+					display: none;
+				}
 			}
 			&::before {
 				content: "";
@@ -356,6 +361,9 @@
 				height: 1px;
 				background-color: var(--color_platinum_gray);
 				width: 90%;
+				@media (max-width: 767px) {
+					display: none;
+				}
 			}
 			&:nth-child(3n),
 			&:last-child {

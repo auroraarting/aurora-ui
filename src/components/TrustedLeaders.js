@@ -51,7 +51,7 @@ export default function TrustedLeaders({
 			title="our Clients"
 		>
 			<div className="container">
-				<div className="pb_40">
+				<div className={`${styles.titleTxt} pb_40`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						{data?.title || sectionTitle}
 					</h2>
