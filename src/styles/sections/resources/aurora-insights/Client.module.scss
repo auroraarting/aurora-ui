@@ -26,6 +26,10 @@
 				padding-bottom: 20px;
 				margin-bottom: 20px;
 
+				&.hideCursor {
+					cursor: auto;
+				}
+
 				&:last-child {
 					border-bottom: none;
 					margin-bottom: 0px;
