@@ -32,7 +32,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Client Section */
 export default function Client({ data }) {
-	console.log(data, "data");
 	return (
 		<div className={`${styles.ClientBox}`}>
 			{(data?.postFields?.client ||
