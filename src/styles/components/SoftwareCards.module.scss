@@ -18,6 +18,11 @@
 			img {
 				transition: ease-out 0.3s;
 				position: relative;
+				@media (max-width: 767px) {
+					height: 250px;
+					object-fit: cover;
+					object-position: center;
+				}
 			}
 			.hoverBox {
 				position: absolute;

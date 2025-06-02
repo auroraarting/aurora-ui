@@ -26,6 +26,7 @@
 			margin-top: 14px;
 			@media (max-width: 991px) {
 				width: 100%;
+				margin-top: 0px;
 			}
 			.OurItem {
 				position: relative;
@@ -57,7 +58,7 @@
 					transition: 0.5s all;
 					border-radius: 20px;
 					@media (max-width: 767px) {
-						padding: 20px 10px 20px;
+						padding: 0px 10px 20px;
 					}
 					.iconBox {
 						position: relative;
