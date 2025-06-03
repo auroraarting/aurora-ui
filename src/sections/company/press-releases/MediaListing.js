@@ -449,7 +449,7 @@ export default function MediaListing({
 										autoFocus
 										name="search"
 										type="text"
-										placeholder="Search Events"
+										placeholder="Search"
 										onChange={(e) => setSearchInput(e.target.value)}
 									/>
 								</form>
