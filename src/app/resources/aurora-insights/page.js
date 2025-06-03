@@ -36,16 +36,24 @@ export const metadata = {
 
 /** Fetch  getStaticProps*/
 async function getData() {
-	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
-		getInsights(
-			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
-		),
-		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-		),
-		getInsightsPage(),
-	]);
+	// const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
+	// 	getInsights(
+	// 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+	// 	),
+	// 	getInsightsCategories(),
+	// 	getInsights(
+	// 		'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+	// 	),
+	// 	getInsightsPage(),
+	// ]);
+	const data = await getInsights(
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+	);
+	const categoriesForSelect = await getInsightsCategories();
+	const list = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+	);
+	const insightsPage = await getInsightsPage();
 	const otherList = list?.data?.posts?.nodes;
 
 	return {
