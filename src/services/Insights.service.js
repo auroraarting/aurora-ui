@@ -35,9 +35,6 @@ query GetInsights {
       }
     }
     postFields {
-      appleLink
-      otherLink
-      googleLink
       topSectionButton {
         iframe
         buttonText
@@ -78,9 +75,9 @@ query GetInsights {
           }
         }
       }
-      spotifyLink
+
       time
-      youtubeLink
+
       authors {
         nodes {
           ... on PostAuthor {
@@ -403,9 +400,6 @@ query GetInsightsInside {
       }
     }
     postFields {
-      appleLink
-      otherLink
-      googleLink
       topSectionButton {
         iframe
         buttonText
@@ -446,9 +440,9 @@ query GetInsightsInside {
           }
         }
       }
-      spotifyLink
+
       time
-      youtubeLink
+
       authors {
         nodes {
           ... on PostAuthor {
