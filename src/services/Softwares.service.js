@@ -31,6 +31,7 @@ query GetProductBySlug {
           from
           to
         }
+          primaryColor
         title
         shortDescription
         spotlightTitle
@@ -197,6 +198,12 @@ query GetProductBySlug {
       }
       map {
         marquee
+            headerLogo {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
       }
       whyAurora {
         title
