@@ -422,6 +422,9 @@
 					-webkit-box-orient: vertical;
 					overflow: hidden;
 					height: 106px;
+					@media (max-width: 767px) {
+						height: 91px;
+					}
 				}
 				.dateFlex {
 					align-items: center;
