@@ -24,7 +24,7 @@ export default function EventsLocation({ data }) {
 	if (!data?.events?.location?.mapLink) return null;
 	return (
 		<section
-			className={`${styles.EventsLocation} ptb_50`}
+			className={`${styles.EventsLocation} pb_50`}
 			id="location"
 			data-name="Location"
 		>
