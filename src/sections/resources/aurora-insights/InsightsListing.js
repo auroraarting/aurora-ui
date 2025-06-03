@@ -472,7 +472,7 @@ export default function InsightsListing({
 										autoFocus
 										name="search"
 										type="text"
-										placeholder="Search Events"
+										placeholder="Search Insights"
 										onChange={(e) => setSearchInput(e.target.value)}
 									/>
 								</form>
