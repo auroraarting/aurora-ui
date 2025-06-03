@@ -993,7 +993,12 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 		},
 		{
 			key: "status",
-			match: (item, value) => item.events?.thumbnail?.status === value,
+			match: (item, value) => {
+				let todaysDate = new Date();
+				if (value === "Upcoming")
+					return new Date(item.events?.thumbnail?.date) >= todaysDate;
+				return new Date(item.events?.thumbnail?.date) < todaysDate;
+			},
 		},
 		// 🔍 Add search filter
 		{

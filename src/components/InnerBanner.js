@@ -59,10 +59,10 @@ function InnerBanner({
 	};
 
 	return (
-		<section className={`${styles.BannerMain}`}>
+		<section className={`${styles.BannerMain} BannerMain`}>
 			<div className="container">
 				{/* Banner Content */}
-				<div className={`${styles.flexBox} f_j ptb_60`}>
+				<div className={`${styles.flexBox} flexBox f_j ptb_60`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
 							{/* <ContentFromCms>{bannerTitle}</ContentFromCms> */}
