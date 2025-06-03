@@ -57,13 +57,13 @@ export default function SoftwareBanner({
 		video: getVimeoUrl(vimeoid),
 		controls: false,
 		paused: false,
-		autoplay: true,
+		autoplay: false,
 		loop: true,
 		responsive: true,
 		muted: true, // <-- Add this!
 	};
 
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const videoRef = useRef(null);
 
 	/** togglePlayPause */
