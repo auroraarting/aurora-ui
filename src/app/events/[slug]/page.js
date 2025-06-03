@@ -128,9 +128,27 @@ async function getData({ params }) {
 		if (item?.slug != params.slug) pastEventList.push(tempObj);
 	});
 
+	// if (value === "Upcoming")
+	//     return new Date(item.events?.thumbnail?.date) >= todaysDate;
+	// return new Date(item.events?.thumbnail?.date) < todaysDate;
+
+	let todaysDate = new Date();
+	let isUpcoming =
+		new Date(data?.data?.eventBy.events?.thumbnail?.date) >= todaysDate
+			? "Upcoming"
+			: "Past";
+
+	const dataFromAPI = {
+		...data?.data?.eventBy,
+		events: {
+			...data?.data?.eventBy.events,
+			thumbnail: { ...data?.data?.eventBy.events.thumbnail, status: isUpcoming },
+		},
+	};
+
 	return {
 		props: {
-			data: data?.data?.eventBy || {},
+			data: dataFromAPI,
 			countries,
 			dataForBtn,
 			events: eventList,

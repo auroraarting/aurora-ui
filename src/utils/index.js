@@ -567,6 +567,34 @@ export const filterItems = (items, filterObj) => {
 			? itemLanguage === filterLanguage.toLowerCase()
 			: true;
 
+		// 3. Status
+		const filterStatus = filterObj.status;
+		const todaysDate = new Date();
+		const itemDate = new Date(item?.date);
+		/** matchesStatus  */
+		const matchesStatusFunc = () => {
+			if (filterStatus) {
+				if (filterStatus === "Upcoming") {
+					return itemDate >= todaysDate; // Upcoming events
+				} else {
+					return itemDate < todaysDate; // Past events
+				}
+			} else {
+				return true;
+			}
+		};
+		const matchesStatus = matchesStatusFunc();
+
+		//     {
+		// 	key: "status",
+		// 	match: (item, value) => {
+		// 		let todaysDate = new Date();
+		// 		if (value === "Upcoming")
+		// 			return new Date(item.events?.thumbnail?.date) >= todaysDate;
+		// 		return new Date(item.events?.thumbnail?.date) < todaysDate;
+		// 	},
+		// },
+
 		// 4. 🔍 Enhanced Search
 		const matchSearch = filterObj.search
 			? (() => {
@@ -625,7 +653,11 @@ export const filterItems = (items, filterObj) => {
 			: true;
 
 		return (
-			matchesCategoryFilters && matchesYear && matchesLanguage && matchSearch
+			matchesCategoryFilters &&
+			matchesYear &&
+			matchesLanguage &&
+			matchSearch &&
+			matchesStatus
 		);
 	});
 };
@@ -669,6 +701,24 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 		const matchYear = selected.year
 			? new Date(date).getFullYear() === selected.year
 			: true;
+
+		// 3. Status
+		const filterStatus = selected.status;
+		const todaysDate = new Date();
+		const itemDate = new Date(podcast?.podcastFields?.date);
+		/** matchesStatus  */
+		const matchesStatusFunc = () => {
+			if (filterStatus) {
+				if (filterStatus === "Upcoming") {
+					return itemDate >= todaysDate; // Upcoming events
+				} else {
+					return itemDate < todaysDate; // Past events
+				}
+			} else {
+				return true;
+			}
+		};
+		const matchesStatus = matchesStatusFunc();
 
 		// 🔍 Enhanced Search
 		const matchSearch = selected.search
@@ -714,7 +764,8 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 			matchProduct &&
 			matchService &&
 			matchYear &&
-			matchSearch
+			matchSearch &&
+			matchesStatus
 		);
 	});
 };
@@ -767,6 +818,24 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			? categories.some((c) => c.name === selected.category)
 			: true;
 
+		// 3. Status
+		const filterStatus = selected.status;
+		const todaysDate = new Date();
+		const itemDate = new Date(podcast?.webinarsFields?.endDateAndTime);
+		/** matchesStatus  */
+		const matchesStatusFunc = () => {
+			if (filterStatus) {
+				if (filterStatus === "Upcoming") {
+					return itemDate >= todaysDate; // Upcoming events
+				} else {
+					return itemDate < todaysDate; // Past events
+				}
+			} else {
+				return true;
+			}
+		};
+		const matchesStatus = matchesStatusFunc();
+
 		// 5. 🔍 Enhanced Search
 		const matchSearch = selected.search
 			? (() => {
@@ -816,7 +885,8 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			matchService &&
 			matchYear &&
 			matchCategory &&
-			matchSearch
+			matchSearch &&
+			matchesStatus
 		);
 	});
 };
@@ -993,7 +1063,12 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 		},
 		{
 			key: "status",
-			match: (item, value) => item.events?.thumbnail?.status === value,
+			match: (item, value) => {
+				let todaysDate = new Date();
+				if (value === "Upcoming")
+					return new Date(item.events?.thumbnail?.date) >= todaysDate;
+				return new Date(item.events?.thumbnail?.date) < todaysDate;
+			},
 		},
 		// 🔍 Add search filter
 		{
@@ -1019,7 +1094,9 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 					item.events?.thumbnail?.category?.nodes?.map((n) => n.title) || [];
 
 				// Get status
-				const status = item.events?.thumbnail?.status || "";
+				let todaysDate = new Date();
+				const status =
+					new Date(item.events?.thumbnail?.date) >= todaysDate ? "Upcoming" : "Past";
 
 				// Get year
 				const date = item.events?.thumbnail?.date;

@@ -23,6 +23,21 @@ query GetWebinarListing {
           }
         }
       }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
     }
   }
 }
