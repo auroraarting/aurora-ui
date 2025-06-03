@@ -55,7 +55,7 @@ export default function AllVideos({
 							{sectionName}
 						</h4>
 
-						<h2 className="text_xl font_primary color_white pb_15">{title}</h2>
+						<h2 className="text_xl font_primary color_white pb_20">{title}</h2>
 						<p className="text_reg color_dark_gray pb_40">{desc}</p>
 						<a
 							href={redirectLink}

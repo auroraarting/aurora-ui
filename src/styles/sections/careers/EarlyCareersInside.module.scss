@@ -4,12 +4,14 @@
 	.title_wrap {
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
+			width: 70%;
 		}
 		.bookBtn {
 			margin-right: 110px;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-right: 0px;
+				margin: 20px 0px 10px;
 			}
 		}
 	}
@@ -105,7 +107,7 @@
 		}
 		@media (max-width: 767px) {
 			right: 10px;
-			bottom: -50px;
+			bottom: -38px;
 		}
 		.customPrev,
 		.customNext {
