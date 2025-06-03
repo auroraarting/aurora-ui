@@ -1094,7 +1094,9 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 					item.events?.thumbnail?.category?.nodes?.map((n) => n.title) || [];
 
 				// Get status
-				const status = item.events?.thumbnail?.status || "";
+				let todaysDate = new Date();
+				const status =
+					new Date(item.events?.thumbnail?.date) >= todaysDate ? "Upcoming" : "Past";
 
 				// Get year
 				const date = item.events?.thumbnail?.date;

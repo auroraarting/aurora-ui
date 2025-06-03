@@ -309,7 +309,6 @@ query GetEventInside {
         address
         date
         endDate
-        status
         time
         logo {
           node {
@@ -607,7 +606,6 @@ query GetEventLanding {
               thumbnail {
                 address
                 date
-                status
                 time
                 externalUrl
                 logo {
