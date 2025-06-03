@@ -1,6 +1,6 @@
 "use client";
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
