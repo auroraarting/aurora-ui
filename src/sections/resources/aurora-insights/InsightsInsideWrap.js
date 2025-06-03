@@ -202,10 +202,7 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle={
-							data?.postFields?.insights?.title ||
-							"Sign up to receive our latest public insights straight to your inbox"
-						}
+						formSectionTitle={data?.postFields?.insights?.title}
 						formSectionDesc={data?.postFields?.insights?.desc}
 						formSectionBtnText={
 							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
