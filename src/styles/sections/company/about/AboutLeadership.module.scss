@@ -139,6 +139,18 @@
 			backdrop-filter: blur(7px);
 			-webkit-backdrop-filter: blur(7px);
 		}
+		::-webkit-scrollbar {
+				width: 5px;
+				height: 5px;
+				background: var(--color_gray);
+			}
+			::-webkit-scrollbar-track {
+				border-radius: 50px;
+			}
+			::-webkit-scrollbar-thumb {
+				background: var(--color_white);
+				border-radius: 50px;
+			}
 		.popup_content {
 			position: relative;
 			z-index: 1002;
@@ -276,6 +288,9 @@
 						position: absolute;
 						top: 0;
 						padding-right: 20px;
+						@media (max-width: 767px) {
+							position: relative;
+						}
 					}
 				}
 			}

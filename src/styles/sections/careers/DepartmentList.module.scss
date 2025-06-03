@@ -23,6 +23,7 @@
 				}
 				@media screen and (max-width: 767px) {
 					flex-wrap: wrap;
+					width: 100%;
 				}
 				.selectBox {
 					position: relative;
@@ -341,7 +342,7 @@
 				.leadDetailsFlex {
 					padding: 60px 60px;
 					@media (max-width: 767px) {
-						padding: 25px;
+						padding: 20px 20px;
 					}
 					.leadDetailsItem {
 						&:first-child {
@@ -353,6 +354,11 @@
 							}
 							.leadThumb {
 								position: relative;
+									img {
+										@media (max-width: 767px) {
+											border-radius: 12px;
+										}
+									}
 								.popUp {
 									position: absolute;
 									bottom: 0;
