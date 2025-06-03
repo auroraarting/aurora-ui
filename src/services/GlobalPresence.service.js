@@ -286,7 +286,7 @@ query GetCountryInside {
           lng
         }
         markers {
-        bottomText
+
           mapThumbnail {
             node {
               altText
