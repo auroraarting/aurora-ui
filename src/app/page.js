@@ -82,16 +82,20 @@ export default async function HomePage() {
 		await new Promise((res) => setTimeout(res, 200));
 		const dataFetch = await getHomePage();
 		await new Promise((res) => setTimeout(res, 200));
-		const eventsdata = await getAllEvents(
-			'first:3, where: { thumbnail: { status: "Upcoming" } }'
-		);
+		const eventsdata = await getAllEvents("first:9999");
 		await new Promise((res) => setTimeout(res, 200));
 		const voicesFetch = await getHomePageVoices();
 
 		mapJson = getMapJsonForAllRegions(regions);
 		data = dataFetch.data.page.homepage;
 		countries = dataFetch.data.countries.nodes;
-		events = eventsdata.data.events.nodes;
+		events = eventsdata?.data?.events?.nodes
+			?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+			?.sort(
+				(a, b) =>
+					new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+			)
+			.slice(0, 1);
 		voices = voicesFetch;
 	} catch (error) {
 		errorMsg = error;
