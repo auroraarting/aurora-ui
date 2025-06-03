@@ -27,7 +27,7 @@ import clock from "/public/img/icons/clock.svg";
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
 	return (
-		<>
+		<div className={`${styles.eventsMiddleDescription} `}>
 			{data?.content && (
 				<section
 					className={`${styles.contentBox}`}
@@ -43,7 +43,7 @@ export default function EventsMiddleDescription({ data }) {
 			{data?.events?.hightlights?.hightlights && (
 				<Hightlights data={data?.events?.hightlights} />
 			)}
-		</>
+		</div>
 	);
 }
 
@@ -51,12 +51,15 @@ export default function EventsMiddleDescription({ data }) {
 const Hightlights = ({ data }) => {
 	return (
 		<section id="hightlights" data-name="Hightlights">
-			<h2>Hightlights</h2>
-			<ul>
-				{data?.hightlights?.map((item, ind) => {
-					return <li key={(item?.text || "") + ind}>{item?.text}</li>;
-				})}
-			</ul>
+			<div className={`${styles.contentBox}`}>
+				<h2>Hightlights</h2>
+
+				<ul>
+					{data?.hightlights?.map((item, ind) => {
+						return <li key={(item?.text || "") + ind}>{item?.text}</li>;
+					})}
+				</ul>
+			</div>
 		</section>
 	);
 };
@@ -66,12 +69,14 @@ const WhyAttend = ({ data }) => {
 	const [open, setOpen] = useState(false);
 	return (
 		<section id="agenda" data-name="Agenda" className="pb_50">
-			<h2>Why attend?</h2>
-			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-			<div className={`${styles.btn_box} pt_30`} onClick={() => setOpen(!open)}>
-				<Button color="secondary" variant="filled" shape="rounded">
-					View Full Agenda
-				</Button>
+			<div className={`${styles.contentBox}`}>
+				<h2>Why attend?</h2>
+				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
+				<div className={`${styles.btn_box} pt_30`} onClick={() => setOpen(!open)}>
+					<Button color="secondary" variant="filled" shape="rounded">
+						View Full Agenda
+					</Button>
+				</div>
 			</div>
 			<div
 				className={`${styles.agendaPopup} ${open && styles.open}`}
