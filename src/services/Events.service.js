@@ -708,6 +708,7 @@ query GetEventLanding {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
