@@ -35,6 +35,7 @@
 					// border-bottom: 1px solid #f8f8f8;
 					@media screen and (max-width: 767px) {
 						width: 100%;
+						flex: unset;
 					}
 					.custom_select {
 						width: max-content;
@@ -60,7 +61,7 @@
 								padding-right: 40px;
 								transition: 0.5s all;
 								@media screen and (min-width: 768px) and (max-width: 1199px) {
-									padding: 10px 10px;
+									padding: 10px 25px;
 								}
 
 								@media screen and (max-width: 767px) {
@@ -171,23 +172,29 @@
 							// }
 						}
 						.checkBoxWapper {
-							width: 550px;
-							left: 50%;
-							transform: translateX(-50%);
-							padding: 40px 40px;
+							width: 940px;
+							left: -150px;
+							//transform: translateX(-50%);
+							padding: 40px 20px;
 							display: grid;
 							// grid-template-columns: repeat(3, 1fr);
 							grid-template-columns: repeat(3, 1fr); // 2 columns
 							gap: 16px;
 							@media screen and (max-width: 1110px) {
-								width: 300px;
+								width: 650px;
 								padding: 20px 20px;
 								grid-template-columns: repeat(2, 1fr);
+							}
+							@media screen and (max-width: 991px) {
+								left: -130px;
 							}
 							@media screen and (max-width: 767px) {
 								padding: 30px 20px;
 								width: max-content;
 								grid-template-columns: repeat(1, 1fr);
+								left: 0px;
+        				//transform: translateX(-50%);
+								gap: 8px;
 							}
 							.checkBoxItem {
 								display: flex;
@@ -214,7 +221,7 @@
 									cursor: pointer;
 								}
 								@media screen and (max-width: 767px) {
-									padding-left: 10px;
+									padding-left: 0px;
 								}
 
 								.checkboxLabel {
