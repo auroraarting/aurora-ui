@@ -45,7 +45,7 @@ export async function generateMetadata() {
 
 /** Fetch */
 async function getData() {
-	const [data] = await Promise.all([getTeamSectors()]);
+	const [data] = await Promise.all([await getTeamSectors()]);
 	const countries = data.data.countries.nodes;
 
 	return {

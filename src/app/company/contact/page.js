@@ -65,8 +65,8 @@ export async function generateMetadata() {
 /** Fetch  */
 async function getData() {
 	const [regions, page] = await Promise.all([
-		getOfficesByRegions(),
-		getContact(),
+		await getOfficesByRegions(),
+		await getContact(),
 	]);
 
 	const regionsArr = regions.data.regions.nodes

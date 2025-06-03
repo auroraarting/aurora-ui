@@ -57,10 +57,10 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, regions, bundles, list] = await Promise.all([
-		getServiceData(params.slug),
-		getRegions(),
-		getBundlesSection(),
-		getInsights(
+		await getServiceData(params.slug),
+		await getRegions(),
+		await getBundlesSection(),
+		await getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 	]);

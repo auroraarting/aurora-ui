@@ -45,11 +45,11 @@ export const metadata = {
 async function getData() {
 	const [data, regions, bundles, categoriesForSelect, insightsFetch] =
 		await Promise.all([
-			getProductPage(),
-			getRegions(),
-			getBundlesSection(),
-			getInsightsCategories(),
-			getInsights(
+			await getProductPage(),
+			await getRegions(),
+			await getBundlesSection(),
+			await getInsightsCategories(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
 		]);

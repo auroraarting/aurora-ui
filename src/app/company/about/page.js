@@ -52,11 +52,11 @@ export async function generateMetadata() {
 async function getData() {
 	const [data, categoriesForSelect, officesFetch, pageFetch, bundlesFetch] =
 		await Promise.all([
-			getAboutPage(),
-			getInsightsCategories(),
-			getOffices(),
-			getEosPage(),
-			getBundlesSection(),
+			await getAboutPage(),
+			await getInsightsCategories(),
+			await getOffices(),
+			await getEosPage(),
+			await getBundlesSection(),
 		]);
 	let obj = {
 		data: { ...data.data.page.about, offices: officesFetch.data.offices.nodes },

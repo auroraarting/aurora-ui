@@ -36,10 +36,10 @@ export const metadata = {
 /** events Page */
 export default async function Events() {
 	const [dataFetch, categoriesFetch, filters, pageFetch] = await Promise.all([
-		getAllEvents(),
-		getAllEventCategories(),
-		getAllEventCountries(),
-		getEventLandingPage(),
+		await getAllEvents(),
+		await getAllEventCategories(),
+		await getAllEventCountries(),
+		await getEventLandingPage(),
 	]);
 	const data = dataFetch.data.events.nodes.sort(
 		(a, b) =>
