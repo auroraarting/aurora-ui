@@ -98,9 +98,14 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							Integrated system, endless possibilities
 						</h2>
 						<p className="text_reg color_dark_gray">
-							Aurora empowers you to analyse power markets and assets with
+							{/* Aurora empowers you to analyse power markets and assets with
 							unprecedented sophistication, ease, and portability, helping you build an
 							edge in a crowded market. Aurora’s{" "}
+							{module === "softwares" ? "software" : "product"} delivers precision
+							analytics for complex energy systems. */}
+							Aurora empowers you to analyse power markets and assets with
+							unprecedented sophistication, ease, and portability, helping you build an
+							edge in a crowded market. Our{" "}
 							{module === "softwares" ? "software" : "product"} delivers precision
 							analytics for complex energy systems.
 						</p>
