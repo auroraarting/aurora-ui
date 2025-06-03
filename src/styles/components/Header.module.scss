@@ -206,6 +206,9 @@
 					justify-content: space-between;
 					cursor: pointer;
 					height: 80px;
+					p {
+						font-size: 14px;
+					}
 					@media (max-width: 1199px) {
 						height: auto;
 					}
