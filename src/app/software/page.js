@@ -57,13 +57,13 @@ import { getBundlesSection } from "@/services/Bundles.service";
 async function getData() {
 	const [data, regions, insightsFetch, categoriesForSelect, bundles] =
 		await Promise.all([
-			getSoftwarePage(),
-			getRegions(),
-			getInsights(
+			await getSoftwarePage(),
+			await getRegions(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			getInsightsCategories(),
-			getBundlesSection(),
+			await getInsightsCategories(),
+			await getBundlesSection(),
 		]);
 	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
