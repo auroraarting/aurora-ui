@@ -2,8 +2,8 @@
 
 .contentFromCms {
 	a {
-		color: #0070f3;
-		// color: #3c3c3b;
+		// color: #0070f3;
+		color: var(--color_secondary);
 		text-decoration: underline;
 		font-weight: 500;
 		transition: background-color 0.2s ease, color 0.2s ease;
