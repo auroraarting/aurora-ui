@@ -16,7 +16,6 @@ query GetEvents {
         address
         date
         endDate
-        status
         time
         externalUrl
         logo {
@@ -310,7 +309,6 @@ query GetEventInside {
         address
         date
         endDate
-        status
         time
         logo {
           node {
@@ -608,7 +606,6 @@ query GetEventLanding {
               thumbnail {
                 address
                 date
-                status
                 time
                 externalUrl
                 logo {
@@ -711,6 +708,7 @@ query GetEventLanding {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

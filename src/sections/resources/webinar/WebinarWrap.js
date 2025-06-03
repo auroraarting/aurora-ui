@@ -35,6 +35,7 @@ import {
 } from "@/services/Insights.service";
 import { getWebinarPage } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
@@ -52,6 +53,10 @@ export default function WebinarTalksWrap({
 	webinarpage,
 }) {
 	const [original, setOriginal] = useState(data);
+
+	const dataForBtnForInsights = {
+		postFields: webinarpage || {},
+	};
 
 	return (
 		<div>
@@ -115,7 +120,19 @@ export default function WebinarTalksWrap({
 				)}
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							formSectionTitle={webinarpage?.insights?.sectionTitle}
+							formSectionDesc={webinarpage?.insights?.sectionDesc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtnForInsights, "insightsSectionButton")
+									.btntext
+							}
+							formdata={dynamicInsightsBtnProps(
+								dataForBtnForInsights,
+								"insightsSectionButton"
+							)}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">

@@ -56,6 +56,7 @@ export default function MediaListing({
 		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
+		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 	});
 	const [list, setList] = useState(data);
 	const [paginationArr, setPaginationArr] = useState(data);
@@ -89,6 +90,7 @@ export default function MediaListing({
 		languageType: useRef(null),
 		offeringsType: useRef(null),
 		yearsType: useRef(null),
+		eventStatusType: useRef(null),
 	};
 
 	const optionsData = {
@@ -103,6 +105,7 @@ export default function MediaListing({
 		],
 		yearsType: years,
 		countryType: countries,
+		eventStatusType: [{ title: "Upcoming" }, { title: "Past" }],
 	};
 
 	/** Toggle Dropdown */
@@ -151,6 +154,9 @@ export default function MediaListing({
 		}
 		if (key === "languageType") {
 			selectedObj.language = catName;
+		}
+		if (key === "eventStatusType") {
+			selectedObj.status = catName;
 		}
 
 		const filteredArr = filterItems(arr, selectedObj);
@@ -385,6 +391,48 @@ export default function MediaListing({
 														: ""
 												}
 												onClick={() => handleOptionClick("languageType", option)}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div>
+						{/* Event Status Type Dropdown */}
+						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.eventStatusType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("eventStatusType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{selected?.status || "Status"}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.eventStatusType.isOpen && (
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
+										<li
+											className={
+												dropdowns.eventStatusType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventStatusType", "")}
+										>
+											All
+										</li>
+										{optionsData.eventStatusType.map((option) => (
+											<li
+												key={option.title}
+												className={
+													option.title === dropdowns.eventStatusType.selected.title
+														? "selected"
+														: ""
+												}
+												onClick={() => handleOptionClick("eventStatusType", option)}
 											>
 												{option.title}
 											</li>

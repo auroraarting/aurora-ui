@@ -37,9 +37,9 @@ export const metadata = {
 /** Fetch  getStaticProps*/
 async function getData() {
 	const [data, categoriesForSelect, webinarpage] = await Promise.all([
-		getWebinars(),
-		getInsightsCategories(),
-		getWebinarPage(),
+		await getWebinars(),
+		await getInsightsCategories(),
+		await getWebinarPage(),
 	]);
 	let pastSpeakers = [];
 

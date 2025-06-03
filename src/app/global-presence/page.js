@@ -39,8 +39,8 @@ async function getData() {
 	// const regions = await getRegions();
 	// const page = await getGlobalPresencePage();
 	const [regions, page] = await Promise.all([
-		getRegions(),
-		getGlobalPresencePage(),
+		await getRegions(),
+		await getGlobalPresencePage(),
 	]);
 
 	const mapJson = getMapJsonForAllRegions(regions);

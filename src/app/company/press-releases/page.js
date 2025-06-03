@@ -55,12 +55,12 @@ export async function generateMetadata() {
 /** Fetch */
 async function getData() {
 	const [data, filters, languages, page] = await Promise.all([
-		getInsights(
+		await getInsights(
 			'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
 		),
-		getAllEventCountries(),
-		getPressesLanguages(),
-		getPressPage(),
+		await getAllEventCountries(),
+		await getPressesLanguages(),
+		await getPressPage(),
 	]);
 
 	return {

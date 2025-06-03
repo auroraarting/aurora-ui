@@ -57,10 +57,10 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, services, regions, bundles] = await Promise.all([
-		getSingleWhoAreYou(params.slug),
-		getWhoAreYous(),
-		getRegions(),
-		getBundlesSection(),
+		await getSingleWhoAreYou(params.slug),
+		await getWhoAreYous(),
+		await getRegions(),
+		await getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
 

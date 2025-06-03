@@ -40,10 +40,10 @@ export const metadata = {
 async function getData() {
 	const [data, categoriesForSelect, energyTalksPage, socialLinksFetch] =
 		await Promise.all([
-			getPodcasts(),
-			getInsightsCategories(),
-			getEnergyTalksPage(),
-			getEnergyTalksPageSocialLinks(),
+			await getPodcasts(),
+			await getInsightsCategories(),
+			await getEnergyTalksPage(),
+			await getEnergyTalksPageSocialLinks(),
 		]);
 
 	return {

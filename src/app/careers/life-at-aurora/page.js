@@ -40,14 +40,14 @@ export const metadata = {
 export default async function LifeAtAurora() {
 	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =
 		await Promise.all([
-			getLifeAtAurora(),
-			getFetchJobData(),
-			getOffices(),
-			getInsightsCategories(),
-			getInsights(
+			await getLifeAtAurora(),
+			await getFetchJobData(),
+			await getOffices(),
+			await getInsightsCategories(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			getEarlyCareersListing("first: 10"),
+			await getEarlyCareersListing("first: 10"),
 		]);
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: offices.data.offices.nodes },

@@ -60,10 +60,10 @@ export async function generateMetadata({ params }) {
 export default async function EarlyCareers({ params }) {
 	const [dataFetch, categoriesForSelect, list, officesFetch] = await Promise.all(
 		[
-			getEarlyCareersInside(params.slug),
-			getInsightsCategories(),
-			getEarlyCareersListing("first: 10"),
-			getOffices(),
+			await getEarlyCareersInside(params.slug),
+			await getInsightsCategories(),
+			await getEarlyCareersListing("first: 10"),
+			await getOffices(),
 		]
 	);
 

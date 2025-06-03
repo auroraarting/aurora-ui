@@ -40,11 +40,11 @@ export const metadata = {
 export default async function EOSPage() {
 	const [dataFetch, regions, bundlesFetch, categoriesForSelect, list] =
 		await Promise.all([
-			getEosPage(),
-			getRegions(),
-			getBundlesSection(),
-			getInsightsCategories(),
-			getInsights(
+			await getEosPage(),
+			await getRegions(),
+			await getBundlesSection(),
+			await getInsightsCategories(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
 		]);

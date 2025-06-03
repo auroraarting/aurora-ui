@@ -68,12 +68,15 @@ const WhyAttend = ({ data }) => {
 		<section id="agenda" data-name="Agenda" className="pb_50">
 			<h2>Why attend?</h2>
 			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-			<div className={styles.btn_box} onClick={() => setOpen(!open)}>
+			<div className={`${styles.btn_box} pt_30`} onClick={() => setOpen(!open)}>
 				<Button color="secondary" variant="filled" shape="rounded">
 					View Full Agenda
 				</Button>
 			</div>
-			<div className={`${styles.agendaPopup} ${open && styles.open}`}>
+			<div
+				className={`${styles.agendaPopup} ${open && styles.open}`}
+				data-lenis-prevent
+			>
 				<div className={`${styles.content}`}>
 					<img
 						className={`${styles.close}`}

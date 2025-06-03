@@ -54,12 +54,12 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
-		getEventsInside(params.slug),
+		await getEventsInside(params.slug),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-		getInsightsCategories(),
+		await getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+		await getInsightsCategories(),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
+		await getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
 	]);
 
 	const countries = categoriesForSelect?.data?.countries?.nodes;
@@ -128,9 +128,27 @@ async function getData({ params }) {
 		if (item?.slug != params.slug) pastEventList.push(tempObj);
 	});
 
+	// if (value === "Upcoming")
+	//     return new Date(item.events?.thumbnail?.date) >= todaysDate;
+	// return new Date(item.events?.thumbnail?.date) < todaysDate;
+
+	let todaysDate = new Date();
+	let isUpcoming =
+		new Date(data?.data?.eventBy.events?.thumbnail?.date) >= todaysDate
+			? "Upcoming"
+			: "Past";
+
+	const dataFromAPI = {
+		...data?.data?.eventBy,
+		events: {
+			...data?.data?.eventBy.events,
+			thumbnail: { ...data?.data?.eventBy.events.thumbnail, status: isUpcoming },
+		},
+	};
+
 	return {
 		props: {
-			data: data?.data?.eventBy || {},
+			data: dataFromAPI,
 			countries,
 			dataForBtn,
 			events: eventList,

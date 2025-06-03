@@ -37,12 +37,12 @@ export const metadata = {
 /** JoinUs Page */
 export default async function JoinUs() {
 	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([
-		getFetchJobData(),
-		getInsightsCategories(),
-		getInsights(
+		await getFetchJobData(),
+		await getInsightsCategories(),
+		await getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
-		getJoinUsPage(),
+		await getJoinUsPage(),
 	]);
 
 	const page = pageFetch.data.page.joinUs;

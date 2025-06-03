@@ -55,9 +55,9 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, regions, bundles] = await Promise.all([
-		getProductBySlug(params.slug),
-		getRegions(),
-		getBundlesSection(),
+		await getProductBySlug(params.slug),
+		await getRegions(),
+		await getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForProducts(
 		filterMarkersBySlug(regions, params.slug)

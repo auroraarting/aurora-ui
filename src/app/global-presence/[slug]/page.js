@@ -66,23 +66,25 @@ async function getData({ params, query }) {
 
 	if (language && language === "jp") {
 		// Fetch Japanese data
-		[data] = await Promise.all([getCountryInsideWithLanguages(params.slug)]);
+		[data] = await Promise.all([
+			await getCountryInsideWithLanguages(params.slug),
+		]);
 		countryBy = data?.data?.countryBy?.translations?.[0];
 		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	} else {
 		// Default fetch
-		[data] = await Promise.all([getCountryInside(params.slug)]);
+		[data] = await Promise.all([await getCountryInside(params.slug)]);
 		countryBy = data?.data?.countryBy;
 		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	}
 	const [insights, categoriesForSelect, eventsFetch, webinarsFetch] =
 		await Promise.all([
-			getInsights(
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			getInsightsCategories(),
-			getAllEvents("first:9999"),
-			getWebinars("first:9999"),
+			await getInsightsCategories(),
+			await getAllEvents("first:9999"),
+			await getWebinars("first:9999"),
 		]);
 	const insightsList = insights?.data?.posts?.nodes;
 
