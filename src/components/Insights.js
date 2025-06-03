@@ -483,7 +483,7 @@ export default function Insights({
 									className={`${styles.bookBtn}`}
 								>
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
-										View All
+										View all
 									</Button>
 								</a>
 							</div>
