@@ -16,7 +16,6 @@ query GetEvents {
         address
         date
         endDate
-        status
         time
         externalUrl
         logo {
