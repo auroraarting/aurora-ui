@@ -41,6 +41,7 @@ import Bundles from "@/components/Bundles";
 export default function ProductInsideWrap({ data, mapJson, bundles }) {
 	const dataForBtn = { postFields: data?.products || {} };
 
+	console.log(data, "data");
 	return (
 		<div>
 			{/* Metatags */}
@@ -115,7 +116,10 @@ export default function ProductInsideWrap({ data, mapJson, bundles }) {
 				{/* <div className={`${styles.whatsInclude}`}>
 					<SmarterEnergy data={data?.products?.expertise} />
 				</div> */}
-				<ServicesCircle data={data?.products?.keyAdvantages} />
+				<ServicesCircle
+					data={data?.products?.keyAdvantages}
+					customColor={data?.products?.thumbnail?.primaryColor}
+				/>
 				<div>
 					<GloballyBankableInsights data={data?.products?.whyAurora} />
 				</div>
