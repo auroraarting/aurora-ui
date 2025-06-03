@@ -92,6 +92,8 @@ export default function Leaders({ data }) {
 		};
 	});
 
+	console.log(mediaLeadersData, "mediaLeadersData");
+
 	return (
 		<section className={`${styles.Leaders}`}>
 			<div className="container">
@@ -208,18 +210,20 @@ export default function Leaders({ data }) {
 															<div className={`${styles.popUp}`}>
 																<img src={hoverEffect.src} className="b_r_20" alt=" img" />
 															</div>
-															<div className={`${styles.profileDownload}`}>
-																<a
-																	href={item.downloadProfileUrl}
-																	className="d_f"
-																	download
-																	target="_blank"
-																	rel="noopener noreferrer"
-																>
-																	Download Profile
-																	<img src={black_down_arrow.src} alt="icon" />
-																</a>
-															</div>
+															{item.downloadProfileUrl && (
+																<div className={`${styles.profileDownload}`}>
+																	<a
+																		href={item.downloadProfileUrl}
+																		className="d_f"
+																		download
+																		target="_blank"
+																		rel="noopener noreferrer"
+																	>
+																		Download Profile
+																		<img src={black_down_arrow.src} alt="icon" />
+																	</a>
+																</div>
+															)}
 														</div>
 														<div className={`${styles.Details}`}>
 															<div className={`${styles.boxName}`}>
