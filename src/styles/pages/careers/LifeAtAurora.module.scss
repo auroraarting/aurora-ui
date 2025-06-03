@@ -2,15 +2,14 @@
 .LifeAtAuroraPage {
 	background-color: var(--color_silver);
 	:global(.belongingBg) {
-		backdrop-filter: blur(32px);
-		// background-image: url("/img/belonging.png");
+		background-image: url(/_next/static/media/energy_bg.254c428d.png);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: top center;
 	}
-	// :global(.SmarterEnergy) {
-	// 	background-image: none !important;
-	// }
+	:global(.SmarterEnergy) {
+		background-image: none !important;
+	}
 	.countBg {
 		background-color: var(--color_secondary);
 	}

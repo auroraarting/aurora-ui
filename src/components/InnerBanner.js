@@ -1,7 +1,7 @@
 "use client";
 
 // MODULES //
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";

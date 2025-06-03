@@ -18,7 +18,12 @@ import styles from "@/styles/components/CircularMenu.module.scss";
 // DATA //
 
 /** CircularMenu Component */
-export default function CircularMenu({ items, iconDefault, mode }) {
+export default function CircularMenu({
+	items,
+	iconDefault,
+	mode,
+	customColor,
+}) {
 	const containerRef = useRef(null);
 	const [selectedService, setselectedServices] = useState(0);
 	const [size, setSize] = useState(450); // Default size
@@ -167,7 +172,9 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 										<motion.path
 											d={`M${center},${center} L${startX},${startY} A${radius},${radius} 0 0,1 ${endX},${endY} Z`}
 											fill={
-												i === selectedService ? "#FFCC00" : stylesForAlternateModes().fill
+												i === selectedService
+													? `${customColor || "#FFCC00"}`
+													: stylesForAlternateModes().fill
 											}
 											stroke={stylesForAlternateModes().stroke}
 											strokeWidth="2"

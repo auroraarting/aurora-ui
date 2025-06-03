@@ -170,7 +170,7 @@
 							// }
 						}
 						.checkBoxWapper {
-							width: 730px;
+							width: 550px;
 							left: 50%;
 							transform: translateX(-50%);
 							padding: 40px 40px;
@@ -179,12 +179,14 @@
 							grid-template-columns: repeat(3, 1fr); // 2 columns
 							gap: 16px;
 							@media screen and (max-width: 1110px) {
-								width: 450px;
+								width: 300px;
 								padding: 20px 20px;
+								grid-template-columns: repeat(2, 1fr);
 							}
 							@media screen and (max-width: 767px) {
 								padding: 30px 20px;
-								width: 100%;
+								width: max-content;
+								grid-template-columns: repeat(1, 1fr);
 							}
 							.checkBoxItem {
 								display: flex;

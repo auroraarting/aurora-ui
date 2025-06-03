@@ -34,6 +34,7 @@ export default function ServicesCircle({
 	customHtml,
 	hideId,
 	customBtn,
+	customColor,
 }) {
 	let obj = {};
 	if (!hideId) {
@@ -69,7 +70,11 @@ export default function ServicesCircle({
 					</div>
 					<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
 						{data?.advantages?.length > 0 && (
-							<CircularMenu items={data?.advantages} iconDefault={IconStrategy} />
+							<CircularMenu
+								items={data?.advantages}
+								iconDefault={IconStrategy}
+								customColor={customColor}
+							/>
 						)}
 					</div>
 				</div>

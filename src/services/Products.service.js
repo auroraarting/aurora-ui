@@ -133,6 +133,7 @@ query GetProductBySlug {
           from
           to
         }
+        primaryColor
         title
         shortDescription
         spotlightTitle
