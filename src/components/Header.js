@@ -447,7 +447,7 @@ export default function Header({ defaultNavigation }) {
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={"/resources/aurora-insights"} role="button">
 																		<Button color="primary" variant="filled" shape="rounded">
-																			View All
+																			View all
 																		</Button>
 																	</a>
 																</div>
@@ -602,7 +602,7 @@ export default function Header({ defaultNavigation }) {
 														<div className={`${styles.btn_box} pt_20`}>
 															<a href="/careers/life-at-aurora">
 																<Button color="primary" variant="filled" shape="rounded">
-																	View All
+																	View all
 																</Button>
 															</a>
 														</div>
@@ -630,7 +630,7 @@ export default function Header({ defaultNavigation }) {
 																<div className={`${styles.btn_box} pt_20`}>
 																	<a href={"/resources/aurora-insights"} role="button">
 																		<Button color="primary" variant="filled" shape="rounded">
-																			View All
+																			View all
 																		</Button>
 																	</a>
 																</div>
