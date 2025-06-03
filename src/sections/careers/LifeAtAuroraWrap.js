@@ -79,8 +79,6 @@ export default function LifeAtAuroraWrap({
 		setMapJson(tempMapJson);
 	}, []);
 
-	// console.log(offices);
-
 	return (
 		<div>
 			{/* Metatags */}
