@@ -24,6 +24,10 @@
 	}
 	:global(.SmarterEnergy) {
 		//background-position: top center;
+		//padding-top: 0px;
+	}
+	:global(.applicationMain) {
+		padding-bottom: 0px;
 	}
 	:global(.ServicesCircleSection) {
 		padding-top: 0px;
