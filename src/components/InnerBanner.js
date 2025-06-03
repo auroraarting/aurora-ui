@@ -39,12 +39,12 @@ function InnerBanner({
 		video: vimeoid,
 		controls: false,
 		paused: false,
-		autoplay: true,
+		autoplay: false,
 		loop: true,
 		responsive: true,
 		muted: true,
 	};
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const vimeoRef = useRef(null);
 
 	/** togglePlayPause */
