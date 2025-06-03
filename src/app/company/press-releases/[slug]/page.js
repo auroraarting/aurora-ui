@@ -53,11 +53,11 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, moreRelated, page] = await Promise.all([
-		getInsightsInside(params.slug),
-		getInsights(
+		await getInsightsInside(params.slug),
+		await getInsights(
 			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
 		),
-		getPressPageInsights(),
+		await getPressPageInsights(),
 	]);
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 

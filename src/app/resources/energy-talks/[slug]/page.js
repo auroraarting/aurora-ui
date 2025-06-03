@@ -65,11 +65,11 @@ export async function generateMetadata({ params }) {
 async function getData({ params }) {
 	const [data, events, categoriesForSelect, list, socialLinksFetch] =
 		await Promise.all([
-			getPodcastInside(params.slug),
-			getPodcasts("first: 1"),
-			getInsightsCategories(),
-			getPodcasts(),
-			getEnergyTalksPageSocialLinks(),
+			await getPodcastInside(params.slug),
+			await getPodcasts("first: 1"),
+			await getInsightsCategories(),
+			await getPodcasts(),
+			await getEnergyTalksPageSocialLinks(),
 		]);
 
 	const otherList = list?.data?.podcasts?.nodes
