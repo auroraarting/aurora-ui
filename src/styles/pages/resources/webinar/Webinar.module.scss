@@ -1,6 +1,15 @@
 @import "../../../helpers/helpers.scss";
 .WebinarPage {
 	background-color: var(--color_silver);
+	:global(.BannerMain .flexBox) {
+		padding: 140px 0;
+		@media (max-width: 991px) {
+			padding: 100px 0px;
+		}
+		@media (max-width: 767px) {
+			padding: 60px 0px;
+		}
+	}
 	.topBg {
 		background-image: url("../../../../../public/img/resources/webinar/webinarBg.png");
 		background-repeat: no-repeat;
