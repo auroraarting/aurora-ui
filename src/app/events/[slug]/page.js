@@ -56,11 +56,13 @@ async function getData({ params }) {
 	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
 		await getEventsInside(params.slug),
 		// eslint-disable-next-line quotes
-		await getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+		await getAllEvents("first:9999"), //Upcoming
 		await getInsightsCategories(),
 		// eslint-disable-next-line quotes
-		await getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
+		await getAllEvents("first:9999"), //Past
 	]);
+
+	let todaysDate = new Date();
 
 	const countries = categoriesForSelect?.data?.countries?.nodes;
 	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
@@ -128,11 +130,6 @@ async function getData({ params }) {
 		if (item?.slug != params.slug) pastEventList.push(tempObj);
 	});
 
-	// if (value === "Upcoming")
-	//     return new Date(item.events?.thumbnail?.date) >= todaysDate;
-	// return new Date(item.events?.thumbnail?.date) < todaysDate;
-
-	let todaysDate = new Date();
 	let isUpcoming =
 		new Date(data?.data?.eventBy.events?.thumbnail?.date) >= todaysDate
 			? "Upcoming"
@@ -152,10 +149,18 @@ async function getData({ params }) {
 			countries,
 			dataForBtn,
 			events: eventList,
-			pastEvents: pastEventList,
-			eventsOriginal: events.data.events.nodes.filter(
-				(item) => item.slug != params.slug
-			),
+			pastEvents: pastEventList
+				?.filter((item) => new Date() > new Date(item?.date))
+				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
+				.slice(0, 3),
+			eventsOriginal: events.data.events.nodes
+				?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+				?.sort(
+					(a, b) =>
+						new Date(a?.events?.thumbnail?.date) -
+						new Date(b?.events?.thumbnail?.date)
+				)
+				.slice(0, 1),
 		},
 	};
 }
