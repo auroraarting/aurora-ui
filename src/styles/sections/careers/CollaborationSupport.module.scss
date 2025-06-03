@@ -6,6 +6,9 @@
 	background-position: bottom center;
 	position: relative;
 	.title_wrap {
+		@media (max-width: 991px) {
+			width: 70%;
+		}
 		.bookBtn {
 			margin-right: 110px;
 		}
@@ -77,7 +80,7 @@
 		}
 		@media (max-width: 767px) {
 			right: 10px;
-			top: 50px;
+			top: 38px;
 		}
 		.customPrev,
 		.customNext {

@@ -3,6 +3,9 @@
 	position: relative;
 	:global(.swiper) {
 		padding-left: 40px;
+		@media (max-width: 767px) {
+			padding-left: 15px;
+		}
 	}
 	.title_wrap {
 		@media (max-width: 767px) {
@@ -49,6 +52,9 @@
 					width: 100%;
 					object-fit: cover;
 					object-position: center;
+					@media (max-width: 767px) {
+						height: auto;
+					}
 				}
 			}
 			&:hover {
