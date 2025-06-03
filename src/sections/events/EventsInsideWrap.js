@@ -68,7 +68,7 @@ export default function EventsInsideWrap({
 				<div className="container">
 					<Breadcrumbs />
 				</div>
-				<div className="pt_50">
+				<div className="pt_40">
 					<EventsInsideBanner data={data} />
 				</div>
 				<SectionsHeader

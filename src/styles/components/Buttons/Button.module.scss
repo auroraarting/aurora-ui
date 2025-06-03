@@ -85,7 +85,7 @@
 
 	// Filled Primary Button
 	&.btn_primary {
-		background-color: var(--color_black);
+		background-color: var(--color_secondary);
 		color: var(--color_white);
 		position: relative;
 		overflow: hidden;
@@ -140,7 +140,7 @@
 
 			&:hover {
 				.animatedText2 {
-					background-color: var(--color_black);
+					background-color: var(--color_secondary);
 					color: var(--color_white) !important;
 				}
 			}
@@ -211,7 +211,7 @@
 
 			&:hover {
 				.animatedText2 {
-					background-color: var(--color_black);
+					background-color: var(--color_secondary);
 					color: var(--color_white) !important;
 				}
 			}
