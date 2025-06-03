@@ -27,27 +27,21 @@ import {
 } from "@/services/WhoAreYou.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Fetch Meta Data */
+/** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const data = await getSingleWhoAreYou(params.slug);
-	const post = data?.data?.whoareyouBy;
+	const meta = await getPageSeo(`whoareyouBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.whoareyouBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
 		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
 				},
 			],
 		},

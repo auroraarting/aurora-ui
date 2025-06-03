@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
@@ -25,19 +26,32 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
-/** Meta Data */
-export const metadata = {
-	title: "Who Are You | Aurora",
-	description: "Aurora",
-};
+// SERVICES //
+import { getPageSeo } from "@/services/Seo.service";
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "who-are-you", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** WhoAreYou Page */
 export default function WhoAreYou() {
 	return (
 		<div>
-			{/* Metatags */}
-			<MetaTags Title={"Who Are You"} Desc={""} OgImg={""} Url={"/who-are-you"} />
-
 			{/* Header */}
 			{/* <Header /> */}
 

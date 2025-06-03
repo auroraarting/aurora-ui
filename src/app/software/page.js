@@ -52,6 +52,7 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Fetch */
 async function getData() {
@@ -114,11 +115,24 @@ async function getData() {
 	};
 }
 
-/** Meta Data */
-export const metadata = {
-	title: "Software | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "software", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Chronos Page */
 export default async function Softwares() {
@@ -140,9 +154,6 @@ export default async function Softwares() {
 
 	return (
 		<div>
-			{/* Metatags */}
-			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/software"} />
-
 			{/* Header */}
 			{/* <Header /> */}
 
