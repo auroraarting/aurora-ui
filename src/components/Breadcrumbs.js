@@ -60,7 +60,7 @@ export default function Breadcrumbs({ customPage, className = "" }) {
 			<div className="">
 				<nav
 					aria-label="Breadcrumb"
-					className="text_xxs text-gray-600 text_uppercase  ptb_20 f_w"
+					className="text_xxs text-gray-600 text_uppercase  pt_20 f_w"
 				>
 					{finalCrumbs.map((crumb, i) => (
 						<span key={crumb.href} className="f_w">
