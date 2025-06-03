@@ -140,6 +140,10 @@ export default function Header({ defaultNavigation }) {
 	};
 
 	useEffect(() => {
+		toggleDropdown();
+	}, [pathname]);
+
+	useEffect(() => {
 		if (searchQuery) {
 			const decodedSearchTerm = decodeURIComponent(searchQuery);
 			highlightSearchTerm(decodedSearchTerm);
