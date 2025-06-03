@@ -42,8 +42,8 @@ export const metadata = {
 /** Careers Page */
 export default async function Careers() {
 	const [categoriesForSelect, list] = await Promise.all([
-		getInsightsCategories(),
-		getInsights(
+		await getInsightsCategories(),
+		await getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 	]);

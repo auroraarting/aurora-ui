@@ -71,9 +71,9 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, categoriesForSelect, list] = await Promise.all([
-		getWebinarInside(params.slug),
-		getInsightsCategories(),
-		getWebinars("first: 4"),
+		await getWebinarInside(params.slug),
+		await getInsightsCategories(),
+		await getWebinars("first: 4"),
 	]);
 	const pastWebinars = [];
 	const otherList = list?.data?.webinars?.nodes;

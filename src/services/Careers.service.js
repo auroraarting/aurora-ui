@@ -112,6 +112,7 @@ query MyQuery {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -122,6 +123,7 @@ query MyQuery {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

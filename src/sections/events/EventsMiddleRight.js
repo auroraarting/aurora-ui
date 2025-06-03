@@ -125,7 +125,7 @@ export default function EventsMiddleRight({ data, events }) {
 											/>
 											<span>{formatDate(item?.events?.thumbnail?.date)}</span>
 										</p>
-										<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 											<img
 												src={grey_location.src}
 												className={`${styles.location}`}

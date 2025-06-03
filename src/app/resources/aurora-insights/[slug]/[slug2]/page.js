@@ -60,9 +60,9 @@ export async function generateMetadata({ params }) {
 async function getData({ params }) {
 	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
 	const [data, list, categoriesForSelect] = await Promise.all([
-		getInsightsInside(params.slug2),
-		getInsights(`first: 3, where: {categoryName: "${resourceCat}"}`),
-		getInsightsCategories(),
+		await getInsightsInside(params.slug2),
+		await getInsights(`first: 3, where: {categoryName: "${resourceCat}"}`),
+		await getInsightsCategories(),
 	]);
 
 	const otherList = list?.data?.posts?.nodes || [];

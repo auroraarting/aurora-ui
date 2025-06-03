@@ -47,10 +47,12 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, regions] = await Promise.all([
-		getSingleSoftware(params.slug),
-		getRegions(),
-	]);
+	// const [data, regions] = await Promise.all([
+	// 	getSingleSoftware(params.slug),
+	// 	getRegions(),
+	// ]);
+	const data = await getSingleSoftware(params.slug);
+	const regions = await getRegions();
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug)
 	);

@@ -41,6 +41,16 @@
 	border-radius: 50%;
 	border: 2px solid #333;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	display: grid;
+	place-items: center;
+
+	.centerLogo {
+		width: 98px;
+		border-radius: 100%;
+		@include sm-down {
+			width: 60px;
+		}
+	}
 
 	&.white {
 		background-color: var(--color_silver);

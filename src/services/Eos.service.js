@@ -114,6 +114,10 @@ query EOSPage {
         description
         sectionTitle
       }
+        insights {
+        sectionTitle
+        sectionDesc
+      }
       stats {
         count
         title

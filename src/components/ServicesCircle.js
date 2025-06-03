@@ -35,6 +35,7 @@ export default function ServicesCircle({
 	hideId,
 	customBtn,
 	customColor,
+	centerLogo,
 }) {
 	let obj = {};
 	if (!hideId) {
@@ -74,6 +75,7 @@ export default function ServicesCircle({
 								items={data?.advantages}
 								iconDefault={IconStrategy}
 								customColor={customColor}
+								centerLogo={centerLogo}
 							/>
 						)}
 					</div>

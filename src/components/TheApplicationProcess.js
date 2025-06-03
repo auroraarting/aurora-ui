@@ -159,7 +159,7 @@ export default function TheApplicationProcess({ data }) {
 
 	return (
 		<section
-			className={`${styles.SmarterEnergy} ptb_100`}
+			className={`${styles.SmarterEnergy} applicationMain ptb_100`}
 			id="expertise"
 			data-name="Expertise"
 		>

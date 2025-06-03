@@ -54,12 +54,12 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
-		getEventsInside(params.slug),
+		await getEventsInside(params.slug),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-		getInsightsCategories(),
+		await getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
+		await getInsightsCategories(),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
+		await getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
 	]);
 
 	const countries = categoriesForSelect?.data?.countries?.nodes;

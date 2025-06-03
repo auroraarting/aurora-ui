@@ -329,6 +329,12 @@ query GetProductBySlug {
       }
       map {
         marquee
+              headerLogo {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
       }
       whyAurora {
         title

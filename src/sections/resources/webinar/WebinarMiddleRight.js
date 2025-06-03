@@ -34,13 +34,17 @@ export default function WebinarMiddleRight({ data }) {
 					)}
 					{data?.webinarsFields?.speakers?.nodes?.map((item, ind) => {
 						return (
-							<div className={`${styles.BoxName}`} key={item?.title}>
+							<div className={`${styles.BoxName} `} key={item?.title}>
 								<h5 className="text_reg color_gray f_w_m pb_10">{item?.title}</h5>
 							</div>
 						);
 					})}
 					{data?.webinarsFields?.serviceBy?.nodes && (
-						<div className={`${styles.itemBox} pb_20`}>
+						<div
+							className={`${styles.itemBox} pb_20 ${
+								data?.webinarsFields?.speakers?.nodes?.length > 0 && "pt_20"
+							}`}
+						>
 							<h5 className="text_reg color_gray f_w_b pb_10">Service</h5>
 							{data?.webinarsFields?.serviceBy?.nodes?.map((item, ind) => {
 								/**keyModule  */

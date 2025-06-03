@@ -509,7 +509,7 @@ export default function Footer({ defaultNavigation }) {
 									</li>
 								</ul>
 							</div>
-							<div className={`${styles.footerBtmItem}`}>
+							{/* <div className={`${styles.footerBtmItem}`}>
 								<a
 									href="https://www.ting.in/"
 									className="text_reg text_500"
@@ -519,7 +519,7 @@ export default function Footer({ defaultNavigation }) {
 								>
 									<img src={ting_logo.src} alt="ting logo" />
 								</a>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

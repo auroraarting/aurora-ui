@@ -11,10 +11,10 @@
         @media (max-width: 767px) {
           width: 100%;
         }
-        @media (max-width: 767px) {
-          overflow-x: scroll;
-          white-space: nowrap;
-        }
+        // @media (max-width: 767px) {
+        //   overflow-x: scroll;
+        //   white-space: nowrap;
+        // }
         .switchBox {
           width: max-content;
           margin: 0 auto;
@@ -37,11 +37,11 @@
             text-align: center;
             cursor: pointer;
             @media (max-width: 767px) {
-              padding: 12px 25px;
+              padding: 12px 20px;
               margin-bottom: 0px;
               border: none;
               border-radius: 0px;
-              width: 230px;
+              width: max-content;
             }
           }
     

@@ -133,8 +133,8 @@ export default function EOSPageWrap({
 								isInsightsBlogsVisible={true}
 								defaultList={otherList}
 								countries={countries}
-								formSectionTitle="Expertise that powers progress"
-								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with the specialists. Stay ahead with exclusive access to online and in-person community events."
+								formSectionTitle={data?.insights?.sectionTitle}
+								formSectionDesc={data?.insights?.sectionDesc}
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 								}

@@ -30,7 +30,7 @@ export const metadata = {
 
 /** Faq Page */
 export default async function Faq() {
-	const [pageFetch] = await Promise.all([getFaqPage()]);
+	const [pageFetch] = await Promise.all([await getFaqPage()]);
 	const page = pageFetch.data.page.faq;
 
 	return (

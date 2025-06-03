@@ -1,12 +1,24 @@
 @import "../../helpers/helpers.scss";
 .Sponsors {
 	.SponsorsFlexWrap {
+		@media (max-width: 767px) {
+			flex-wrap: wrap;
+		}
 		.SponsorsItemTitle {
 			width: 25%;
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
 			height: 180px;
+			@media (max-width: 767px) {
+				width: 100%;
+				height: auto;
+			}
+			h4{
+				@media (max-width: 767px) {
+					padding-left: 10px;
+				}
+			}
 		}
 	}
 	.SponsorsFlex {
@@ -15,10 +27,14 @@
 		padding-bottom: 20px;
 		border-bottom: 1px solid var(--color_platinum_gray);
 		flex-wrap: wrap;
+		@media (max-width: 767px) {
+			margin-bottom: 20px !important;
+		}
 		&:last-child {
 			border-bottom: none;
 			margin-bottom: 0px;
 			padding-bottom: 0px;
+			
 		}
 		.SponsorsItem {
 			width: 33%;
@@ -38,6 +54,7 @@
 				margin: 0 auto;
 				border-radius: 8px;
 			}
+			
 		}
 	}
 }
