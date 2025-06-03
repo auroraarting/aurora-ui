@@ -238,7 +238,7 @@ export const getHomePageVoices = async () => {
       }
     }
   }
-  events(first: 1, where: {thumbnail: {status: "Upcoming"}}) {
+  events(first: 99999) {
     nodes {
       title
       slug
@@ -248,7 +248,6 @@ export const getHomePageVoices = async () => {
         thumbnail {
           address
           date
-          status
           time
           externalUrl
           logo {
@@ -486,9 +485,16 @@ export const getHomePageVoices = async () => {
 	const resAllData = resFetchAll;
 	const resCaseStudiesData = resFetchCaseStudies;
 	const resCommentaryData = resFetchCommentary;
+	const events = resAllData?.data?.events?.nodes
+		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+		?.sort(
+			(a, b) =>
+				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+		)
+		.slice(0, 3);
 
 	const obj = {
-		events: resAllData.data.events.nodes,
+		events: events,
 		podcasts: resAllData.data.podcasts.nodes,
 		webinars: resAllData.data.webinars.nodes,
 		marketReports: resAllData.data.posts.nodes,
