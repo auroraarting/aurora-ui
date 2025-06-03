@@ -23,6 +23,7 @@ export default function CircularMenu({
 	iconDefault,
 	mode,
 	customColor,
+	centerLogo,
 }) {
 	const containerRef = useRef(null);
 	const [selectedService, setselectedServices] = useState(0);
@@ -220,9 +221,11 @@ export default function CircularMenu({
 						</svg>
 					)}
 				</div>
-				<div
-					className={`${styles.CenterBox} ${mode === "light" && styles.white}`}
-				></div>
+				<div className={`${styles.CenterBox} ${mode === "light" && styles.white}`}>
+					{centerLogo && (
+						<img src={centerLogo} className={`${styles.centerLogo} centerLogo`} />
+					)}
+				</div>
 			</div>
 		</>
 	);

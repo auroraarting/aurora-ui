@@ -50,6 +50,7 @@ export default function SoftwareInsideWrap({
 	showMap,
 }) {
 	const dataForBtn = { postFields: data || {} };
+	console.log(data, "data");
 
 	return (
 		<div>
@@ -130,7 +131,11 @@ export default function SoftwareInsideWrap({
 						<TestimonialFeedback data={data?.ourClient} />
 					</div>
 				)}
-				<ServicesCircle data={data?.keyAdvantages} />
+				<ServicesCircle
+					data={data?.keyAdvantages}
+					customColor={data?.thumbnail?.primaryColor}
+					centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
+				/>
 				<div>
 					<GloballyBankableInsights
 						data={data?.whyAurora}

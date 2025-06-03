@@ -119,6 +119,7 @@ export default function ProductInsideWrap({ data, mapJson, bundles }) {
 				<ServicesCircle
 					data={data?.products?.keyAdvantages}
 					customColor={data?.products?.thumbnail?.primaryColor}
+					centerLogo={data?.products?.map?.headerLogo?.node?.mediaItemUrl}
 				/>
 				<div>
 					<GloballyBankableInsights data={data?.products?.whyAurora} />
