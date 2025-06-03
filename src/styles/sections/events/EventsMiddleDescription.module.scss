@@ -1,6 +1,9 @@
 @import "../../helpers/helpers.scss";
 .contentBox {
 	iframe {
+		body {
+			justify-content: flex-start;
+		}
 		width: 100%;
 		#player {
 			width: 100%;
