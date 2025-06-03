@@ -3,15 +3,16 @@
 import { createContext, useContext, Suspense, useEffect } from "react";
 import InnerGlobalContext from "./InnerGlobalContext"; // we'll move logic here
 import Loader from "@/components/Loader";
+import { usePathname } from "next/navigation";
 
 const BookmarkContext = createContext();
 
 /** GlobalContext  */
 export const GlobalContext = ({ children }) => {
+	const pathname = usePathname();
 	useEffect(() => {
 		/**handleClick  */
 		const handleClick = (e) => {
-			// ⛔ Respect Cmd/Ctrl clicks (open in new tab)
 			if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
 			const link = e.target.closest("a");
@@ -20,7 +21,6 @@ export const GlobalContext = ({ children }) => {
 			const href = link.getAttribute("href");
 			if (!href || href === "#") return;
 
-			// ⛔ Skip if link opens in a new tab or downloads a file
 			if (
 				link.target === "_blank" ||
 				link.hasAttribute("download") ||
@@ -29,7 +29,6 @@ export const GlobalContext = ({ children }) => {
 				return;
 			}
 
-			// ⛔ External links
 			const isExternal =
 				link.hostname !== window.location.hostname ||
 				href.startsWith("http") ||
@@ -38,7 +37,17 @@ export const GlobalContext = ({ children }) => {
 
 			if (isExternal) return;
 
-			// ✅ Internal link clicked normally
+			// ✅ Skip loader if navigating to the same path
+			const currentPath =
+				window.location.pathname + window.location.search + window.location.hash;
+			const linkPath =
+				new URL(href, window.location.origin).pathname +
+				new URL(href, window.location.origin).search +
+				new URL(href, window.location.origin).hash;
+
+			if (linkPath === currentPath) return;
+
+			// ✅ Internal link clicked, path is different
 			const getLoaderHtml = document.querySelector(".loaderWrap");
 			if (getLoaderHtml) {
 				getLoaderHtml.classList.remove("hide");
@@ -48,6 +57,14 @@ export const GlobalContext = ({ children }) => {
 		document.addEventListener("click", handleClick);
 		return () => document.removeEventListener("click", handleClick);
 	}, []);
+
+	useEffect(() => {
+		// ✅ This runs once on page load
+		const getLoaderHtml = document.querySelector(".loaderWrap");
+		if (getLoaderHtml) {
+			getLoaderHtml.classList.add("hide");
+		}
+	}, [pathname]); // <-- empty dependency array = run once on mount
 
 	return (
 		<Suspense fallback={<Loader />}>
