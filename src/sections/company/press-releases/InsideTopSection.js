@@ -16,7 +16,7 @@ import styles from "@/styles/sections/company/press-releases/InsideTopSection.mo
 // IMAGES //
 import press_img from "@/../public/img/media-center/press_img.jpg";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
-import calender from "@/../public/img/icons/calender.svg";
+import calender from "@/../public/img/icons/grey_calendar.svg";
 
 import download from "@/../public/img/resources/aurora_insights/download.svg";
 import share from "@/../public/img/resources/aurora_insights/share.svg";
