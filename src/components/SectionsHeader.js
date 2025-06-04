@@ -149,37 +149,41 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 					<div className={`${styles.progress}`}></div>
 				</div>
 			</div>
-			<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
-				<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
-					<div
-						className={`${styles.dropdownToggle} f_r_aj_between`}
-						onClick={() => setDropdownOpen((prev) => !prev)}
-					>
-						<span>
-							{sectionsList[activeTab]?.name || "Select"} &nbsp;
-							<img
-								src={accarrow.src}
-								className={`${styles.dropArrow} ${
-									dropdownOpen ? styles.dropArrowAct : ""
-								}`}
-								alt=""
-							/>
-						</span>
-						<div className={`${styles.flexInner} d_f`}>{customHtml} </div>
-					</div>
-					{dropdownOpen && (
-						<div className={styles.dropdownList}>
-							{sectionsList?.map((item, ind) => (
-								<div
-									key={ind}
-									className={styles.dropdownItem}
-									onClick={() => handleItemClick(item)}
-								>
-									{typeof item.name === "string" ? item.name : item}
-								</div>
-							))}
+			<div
+				className={`${styles.SectionsHeaderDropdown} ${styles.SectionsHeaderResponsive} SectionsHeaderDropdown`}
+			>
+				<div className="container">
+					<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
+						<div
+							className={`${styles.dropdownToggle} f_r_aj_between`}
+							onClick={() => setDropdownOpen((prev) => !prev)}
+						>
+							<span>
+								{sectionsList[activeTab]?.name || "Select"} &nbsp;
+								<img
+									src={accarrow.src}
+									className={`${styles.dropArrow} ${
+										dropdownOpen ? styles.dropArrowAct : ""
+									}`}
+									alt=""
+								/>
+							</span>
+							<div className={`${styles.flexInner} d_f`}>{customHtml} </div>
 						</div>
-					)}
+						{dropdownOpen && (
+							<div className={styles.dropdownList}>
+								{sectionsList?.map((item, ind) => (
+									<div
+										key={ind}
+										className={styles.dropdownItem}
+										onClick={() => handleItemClick(item)}
+									>
+										{typeof item.name === "string" ? item.name : item}
+									</div>
+								))}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</>
