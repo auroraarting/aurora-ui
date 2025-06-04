@@ -94,7 +94,7 @@ export default function WhichProducts({ data }) {
 				// 		groupedBySlug[slug].locationData + " |  " + marker.bottomText;
 				// }
 
-                if (
+				if (
 					marker.locationtitle &&
 					!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)
 				) {
