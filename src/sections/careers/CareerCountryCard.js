@@ -304,7 +304,11 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				<div className={`${styles.SliderMain} pt_20`}>
 					{filteredData?.map((item) => {
 						return (
-							<div className={`${styles.cardItem}`} key={item?.slug}>
+							<a
+								href={`/careers/early-careers/${item?.slug}`}
+								className={`${styles.cardItem}`}
+								key={item?.slug}
+							>
 								<div className={`${styles.cardImg}`}>
 									<img
 										src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
@@ -343,7 +347,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 										</a>
 									</div>
 								</div>
-							</div>
+							</a>
 						);
 					})}
 				</div>
