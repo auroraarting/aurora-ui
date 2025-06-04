@@ -33,9 +33,9 @@
 						@media screen and (max-width: 1199px) {
 							padding: 0px 8px;
 						}
-						@media screen and (min-width: 768px) and (max-width: 991px) {
-							height: 65px;
-						}
+						// @media screen and (min-width: 768px) and (max-width: 991px) {
+						// 	height: 65px;
+						// }
 						@media screen and (max-width: 767px) {
 							border-right: none;
 							padding: 10px 0px;
@@ -84,6 +84,9 @@
 						box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
 						max-height: 250px;
 						overflow-y: auto;
+						@media screen and (min-width: 768px) and (max-width: 1199px) {
+							width: 180px;
+						}
 						li {
 							padding: 10px 20px;
 							transition: 0.5s all;
@@ -160,9 +163,11 @@
 						left: 50%;
 						transform: translateX(-50%);
 						padding: 40px 40px;
-						@media screen and (max-width: 991px) {
-							width: 660px;
+						@media screen and (max-width: 1199px) {
+							width: 600px;
 							padding: 20px 20px;
+							left: 0px;
+							transform: unset;
 						}
 						@media screen and (max-width: 767px) {
 							padding: 30px 20px;
@@ -408,7 +413,14 @@
 				.dateFlex {
 					align-items: center;
 					margin-top: auto;
+					@media screen and (min-width: 768px) and (max-width: 991px) {
+						flex-wrap: wrap;
+					}
 					p {
+						@media screen and (min-width: 768px) and (max-width: 991px) {
+							width: 100%;
+							padding-bottom: 5px;
+						}
 						span {
 							margin-left: 5px;
 							margin-top: 2px;
