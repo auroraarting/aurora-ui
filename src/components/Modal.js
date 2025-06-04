@@ -23,7 +23,7 @@ export default function Modal({ children, id }) {
 		<div className={`modal ${styles.modal}`} id={id ? id : "modal"}>
 			{/** Modal Backdrop */}
 			<div onClick={() => closeModal(id)} className={styles.overlay}></div>
-			<div className={`${styles.content} content`}>
+			<div className={`${styles.content} content`} data-lenis-prevent>
 				{/**  Close Icon */}
 				<div
 					className={`${styles.closeBtn} closeBtn  next_image`}

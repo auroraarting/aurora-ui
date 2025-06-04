@@ -5,6 +5,11 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: bottom center;
+	:global(.content) {
+		max-height: 80vh;
+		overflow-y: auto;
+	}
+
 	.common_queries_flex {
 		.title_wrap {
 			width: 40%;
