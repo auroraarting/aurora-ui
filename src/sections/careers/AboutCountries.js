@@ -56,7 +56,7 @@ export default function AboutCountries({ data }) {
 					<div className={`${styles.SliderMain} pt_20`}>
 						<Swiper
 							modules={[Navigation, Autoplay]}
-							slidesPerView={1.1}
+							slidesPerView={1.5}
 							spaceBetween={20}
 							grabCursor={true}
 							speed={500}
