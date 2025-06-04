@@ -45,14 +45,15 @@
 		}
 		.flexItemOne {
 			width: 56%;
-			@media (max-width: 991px) {
-				width: 55%;
+			@media (max-width: 1199px) {
+				width: 50%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-bottom: 20px;
 			}
-			h1, h2{
+			h1,
+			h2 {
 				letter-spacing: -0.55px;
 				// @media (max-width: 1199px) {
 				// 	letter-spacing: -1px;
@@ -62,15 +63,15 @@
 		.flexItemTwo {
 			width: 40%;
 			@media (max-width: 1199px) {
-				width: 48%;
+				width: 46%;
 			}
-			@media (max-width: 991px) {
-				width: 42%;
-			}
+			// @media (max-width: 991px) {
+			// 	width: 42%;
+			// }
 			@media (max-width: 767px) {
 				width: 100%;
 			}
-			.bookBtn{
+			.bookBtn {
 				display: inline-block;
 			}
 		}
