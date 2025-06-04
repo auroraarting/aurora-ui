@@ -64,7 +64,9 @@ export default function SoftwareMarket({
 	const [map, setMap] = useState(null);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 
-	if (!mapJson) return <></>;
+	if (!mapJson) {
+		return <></>;
+	}
 
 	return (
 		<section

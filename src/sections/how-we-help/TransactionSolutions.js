@@ -106,7 +106,9 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	if (data?.length === 0 || !data) return <></>;
+	if (data?.length === 0 || !data) {
+		return <></>;
+	}
 
 	return (
 		<section

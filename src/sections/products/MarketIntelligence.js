@@ -21,7 +21,9 @@ import market_intelligence from "../../../public/img/products/market_intelligenc
 
 /** MarketIntelligence Section */
 export default function MarketIntelligence({ data }) {
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 
 	return (
 		<section

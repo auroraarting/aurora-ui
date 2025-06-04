@@ -53,7 +53,9 @@ export default function IntuitiveStepProcess({
 		return () => stopInterval(); // Cleanup on unmount
 	}, []);
 
-	if (data.process.length === 0) return <></>;
+	if (data.process.length === 0) {
+		return <></>;
+	}
 
 	/** pagination */
 	const pagination = {

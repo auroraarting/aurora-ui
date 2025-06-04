@@ -53,7 +53,9 @@ export default function Breadcrumbs({ customPage, className = "" }) {
 	const isSpecialPage = ["webinar", "/articles"].some((item) =>
 		item.includes(pathname)
 	);
-	if (isSpecialPage) return <></>;
+	if (isSpecialPage) {
+		return <></>;
+	}
 
 	return (
 		<div className={`Breadcrumbs ${styles.Breadcrumbs} ${className}`}>

@@ -39,7 +39,7 @@ export default function Pagination({
 
 	useEffect(() => {
 		setCurrentItems(paginationArr.slice(0, itemsPerPage));
-	}, [paginationArr.length]);
+	}, [paginationArr, itemsPerPage]);
 
 	/** handlePageClick  */
 	const handlePageClick = (page) => {

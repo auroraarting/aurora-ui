@@ -26,8 +26,9 @@ export default function WebinarRecording({ data }) {
 
 	if (
 		!dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")?.btntext
-	)
+	) {
 		return <></>;
+	}
 
 	return (
 		<div className="pt_60">

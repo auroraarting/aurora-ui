@@ -34,7 +34,9 @@ export default function TestimonialFeedback({ data, hideId }) {
 	// 	obj["data-name"] = "Testimonial";
 	// }
 
-	if (!data || !data?.testimonials) return <></>;
+	if (!data || !data?.testimonials) {
+		return <></>;
+	}
 	return (
 		<section
 			className={`${styles.TestimonialFeedback}`}

@@ -52,7 +52,9 @@ export default function GlobalMap({
 		return () => window.removeEventListener("resize", updateMarqueeSpeed);
 	}, []);
 
-	if (locationJson.length === 0) return <></>;
+	if (locationJson.length === 0) {
+		return <></>;
+	}
 
 	return (
 		<section

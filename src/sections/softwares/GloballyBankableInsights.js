@@ -40,7 +40,9 @@ export default function GloballyBankableInsights({
 	isMultiple,
 	name = "Why Aurora",
 }) {
-	if (!data?.title || data?.list?.length === 0) return <></>;
+	if (!data?.title || data?.list?.length === 0) {
+		return <></>;
+	}
 
 	/** sectionTitle  */
 	const sectionTitle = () => {
