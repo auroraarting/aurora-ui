@@ -3,6 +3,9 @@
 	.OurEdgeFlex {
 		.title_wrap {
 			width: 40%;
+			@media (max-width: 1199px) {
+				padding-bottom: 40px;
+			}
 			@media (max-width: 991px) {
 				width: 100%;
 				margin-bottom: 10px;
@@ -14,19 +17,19 @@
 					top: 200px;
 				}
 			}
-			h2{
+			h2 {
 				@media (max-width: 767px) {
 					padding-bottom: 10px;
 				}
 			}
 		}
-		.titleDesc{
-				p{
-					@media (max-width: 767px) {
-						padding-bottom: 0px;
-					}
+		.titleDesc {
+			p {
+				@media (max-width: 767px) {
+					padding-bottom: 0px;
 				}
 			}
+		}
 		.OurEdgeHistory {
 			position: relative;
 			width: 58%;
@@ -98,7 +101,7 @@
 							transition: 0.5s all;
 							@media (max-width: 767px) {
 								padding-bottom: 10px;
-							} 
+							}
 						}
 						p {
 							transition: 0.5s all;
