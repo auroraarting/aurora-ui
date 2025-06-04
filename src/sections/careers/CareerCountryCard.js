@@ -335,7 +335,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									>
 										{item?.title}
 									</h4>
-									<div className={`${styles.btn_box} pt_30`}>
+									<div className={`${styles.btn_box} pt_40`}>
 										<a href={`/careers/early-careers/${item?.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
 												Read More
