@@ -4,13 +4,13 @@
 		.title_wrap {
 			width: 45%;
 			@media (max-width: 991px) {
-				width: 50%;
+				width: 100%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-bottom: 0px;
 			}
-			h2{
+			h2 {
 				@media (max-width: 767px) {
 					padding-bottom: 10px;
 				}
@@ -19,7 +19,7 @@
 		.integratedImgMain {
 			width: 50%;
 			@media (max-width: 991px) {
-				width: 45%;
+				width: 100%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
@@ -28,10 +28,18 @@
 				.itemBox {
 					position: relative;
 					width: 100%;
+					img {
+						@media (max-width: 991px) {
+							width: 100%;
+						}
+					}
 				}
 
 				:global(.swiper-horizontal) {
 					padding-bottom: 50px;
+					@media (max-width: 1199px) {
+						padding-bottom: 20px;
+					}
 					@media (max-width: 767px) {
 						padding-bottom: 0px;
 					}

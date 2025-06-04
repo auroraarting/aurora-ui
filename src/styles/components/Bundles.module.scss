@@ -5,7 +5,9 @@
 
 	:global(.CustomSelect) {
 		width: 380px;
-
+		@media (max-width: 1199px) {
+			width: 310px;
+		}
 		@include sm-down {
 			width: 100%;
 		}
@@ -82,7 +84,7 @@
 			}
 		}
 		.tableMain {
-			@media (max-width: 767px) {
+			@media (max-width: 991px) {
 				overflow: auto;
 			}
 		}
@@ -90,6 +92,9 @@
 			width: 100%;
 			table-layout: fixed;
 			border-collapse: collapse; /* optional: makes border cleaner */
+			@media (max-width: 991px) {
+				width: 135vw;
+			}
 			@media (max-width: 767px) {
 				overflow: auto;
 				//white-space: nowrap;
