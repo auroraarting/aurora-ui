@@ -30,7 +30,9 @@ import slider_arrow from "/public/img/icons/slider_arrow.svg";
 
 /** AboutCountries Section */
 export default function AboutCountries({ data }) {
-	if (!data?.earlyCareers?.collaborationSupport?.sectionTitle) return null;
+	if (!data?.earlyCareers?.collaborationSupport?.sectionTitle) {
+		return null;
+	}
 	return (
 		<section className={`${styles.aboutCountries} pt_100`}>
 			<div className="container">
@@ -70,7 +72,7 @@ export default function AboutCountries({ data }) {
 							// }}
 							breakpoints={{
 								768: {
-									slidesPerView: 1.3,
+									// slidesPerView: 1.3,
 								},
 							}}
 							className={styles.slider}
