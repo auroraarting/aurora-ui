@@ -66,6 +66,9 @@ export default function JobOpenings({
 			...dropdowns,
 			[key]: { isOpen: false, selected: { title: option } },
 		};
+		if (option === "") {
+			arr = [...jobs]; // clone to force re-render & effect
+		}
 		if (dropdownObj.eventNameType.selected.title) {
 			arr = arr.filter((item) =>
 				item.location.name

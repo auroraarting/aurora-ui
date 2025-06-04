@@ -35,7 +35,7 @@ export default function Pagination({
 		const totalPages = Math.ceil(paginationArr.length / itemsPerPage);
 		setTotalPages(totalPages);
 		setCurrentPage(1);
-	}, [paginationArr.length, itemsPerPage]);
+	}, [paginationArr, itemsPerPage]);
 
 	useEffect(() => {
 		setCurrentItems(paginationArr.slice(0, itemsPerPage));
