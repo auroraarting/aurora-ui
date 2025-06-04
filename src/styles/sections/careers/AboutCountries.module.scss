@@ -40,7 +40,8 @@
 				flex-direction: column-reverse;
 			}
 			.cardDesc {
-				width: 50%;
+				// width: 50%;
+				flex: 1;
 				padding: 40px 40px;
 				@media (max-width: 1199px) {
 					padding: 40px 20px;
@@ -60,7 +61,7 @@
 			}
 			.cardImg {
 				position: relative;
-				width: 50%;
+				// width: 50%;
 				@media (max-width: 991px) {
 					width: 100%;
 				}
