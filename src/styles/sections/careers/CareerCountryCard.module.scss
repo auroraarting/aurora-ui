@@ -395,6 +395,9 @@
 				}
 			}
 			.cardDesc {
+				.title {
+					font-size: 20px;
+				}
 				p {
 					img {
 						filter: invert(1);
@@ -403,7 +406,7 @@
 						margin-left: 5px;
 					}
 				}
-				h4{
+				h4 {
 					display: -webkit-box;
 					-webkit-line-clamp: 1;
 					-webkit-box-orient: vertical;
