@@ -97,7 +97,7 @@ export default function SoftwaresLanding({
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
 					/>
-					<div className="pb_100">
+					<div className="">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />
