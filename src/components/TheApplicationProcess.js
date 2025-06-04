@@ -175,7 +175,7 @@ export default function TheApplicationProcess({ data }) {
 						{accordianData2() && (
 							<div onClick={() => openModal("application-tips")} className="m_t_20">
 								<Button color="primary" variant="filled" shape="rounded">
-									Application Tips
+									Application tips
 								</Button>
 							</div>
 						)}
@@ -198,7 +198,7 @@ export default function TheApplicationProcess({ data }) {
 			<Modal id="application-tips">
 				<div className={`${styles.popup} color_white`}>
 					<p className={`${styles.title} color_white text_lg f_w_s_b font_primary`}>
-						Application Tips
+						Application tips
 					</p>
 					<div
 						className={`${styles.desc} color_white font_secondary text_reg pt_30`}

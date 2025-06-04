@@ -7,11 +7,41 @@
 			padding-left: 15px;
 		}
 	}
+	.arrowSection {
+		// position: absolute;
+		// right: 80px;
+		// bottom: 50px;
+		z-index: 1;
+		// @media (max-width: 1199px) {
+		// 	right: 55px;
+		// }
+		@media (max-width: 767px) {
+			// right: 30px;
+			width: 94px;
+			margin: 20px auto 0px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
 	.title_wrap {
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
 		}
 		.bookBtn {
+			margin-left: auto;
+			margin-right: 20px;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-top: 15px;

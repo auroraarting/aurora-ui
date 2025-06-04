@@ -1,6 +1,13 @@
 @import "../../helpers/helpers.scss";
 .EventsInsidePage {
 	background-color: var(--color_silver);
+
+    iframe {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 640 / 360;
+	}
+
 	.eventsMiddle {
 		.eventsMiddleFlex {
 			@media (max-width: 767px) {

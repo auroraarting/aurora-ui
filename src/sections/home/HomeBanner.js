@@ -64,7 +64,7 @@ export default function HomeBanner() {
 										PPA pricing made transparent
 									</h1>
 									{/* <p className="text_xl f_w_m color_white pb_15 text_uppercase">
-										
+
 									</p> */}
 									<p className="text_reg color_silver_gray">
 										Our advanced valuation software for Power Purchase Agreements,
@@ -101,7 +101,7 @@ export default function HomeBanner() {
 									>
 										<a href="/software" role="button">
 											<Button color="primary" variant="filled" shape="rounded" mode="dark">
-												Explore Now
+												Explore now
 											</Button>
 										</a>
 									</div>

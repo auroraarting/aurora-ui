@@ -27,6 +27,7 @@ export default function GlobalMap({
 	marqueeText = " Energy intelligence across every key market",
 	className,
 	sectionName = "Available Regions",
+	hideOnHover,
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
@@ -82,6 +83,7 @@ export default function GlobalMap({
 					setMap={setMap}
 					defaultZoom={2.2}
 					locationJson={locationJson}
+					hideOnHover={hideOnHover}
 				/>
 			</div>
 			{/* </div> */}

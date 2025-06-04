@@ -112,7 +112,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 						<div className={`${styles.bookBtn} pt_30`}>
 							<a href={`/${keyModule()}`}>
 								<Button color="secondary" variant="filled" shape="rounded">
-									Explore Now
+									Explore now
 								</Button>
 							</a>
 						</div>

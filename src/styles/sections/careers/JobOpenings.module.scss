@@ -638,6 +638,7 @@
 	.title_wrap {
 	}
 	.tableBox {
+        min-height: 620px;
 		@media (max-width: 991px) {
 			overflow-x: scroll;
 			// white-space: nowrap;

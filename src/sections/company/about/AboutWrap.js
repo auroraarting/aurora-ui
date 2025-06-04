@@ -107,6 +107,7 @@ export default function AboutWrap({
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
 							className="dark_bg"
+							hideOnHover
 						/>
 					</div>
 				)}

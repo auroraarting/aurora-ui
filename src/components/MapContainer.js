@@ -42,6 +42,7 @@ export default function Map({
 	setMap,
 	defaultZoom = 4,
 	locationJson,
+	hideOnHover = false,
 }) {
 	const [show, setShow] = useState(false);
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
@@ -209,7 +210,7 @@ export default function Map({
 									onMouseOver={() => {
 										setSelectedMarker(uniqueName);
 									}}
-									// onMouseOut={() => setSelectedMarker(null)}
+									onMouseOut={() => hideOnHover && setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
@@ -220,6 +221,9 @@ export default function Map({
 											lng: parseFloat(marker?.lng) || parseFloat(marker?.coordinates?.lng),
 										}}
 										onCloseClick={() => setSelectedMarker(null)}
+										options={{
+											disableAutoPan: true,
+										}}
 									>
 										<a href={href()}>
 											<div

@@ -66,7 +66,7 @@ export default function AllVideos({
 							className={`${styles.bookBtnOne} bookBtnOne`}
 						>
 							<Button color="secondary" variant="underline" mode="dark" size="xs">
-								Watch All Videos
+								Watch all videos
 							</Button>
 						</a>
 					</div>

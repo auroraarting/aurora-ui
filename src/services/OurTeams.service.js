@@ -56,6 +56,7 @@ query OurTeamPage {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
