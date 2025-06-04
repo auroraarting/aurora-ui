@@ -31,7 +31,6 @@ import slider_arrow from "/public/img/icons/slider_arrow.svg";
 /** AboutCountries Section */
 export default function AboutCountries({ data }) {
 	if (!data?.earlyCareers?.collaborationSupport?.sectionTitle) return null;
-
 	return (
 		<section className={`${styles.aboutCountries} pt_100`}>
 			<div className="container">
