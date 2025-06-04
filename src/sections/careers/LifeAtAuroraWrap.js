@@ -66,7 +66,7 @@ export default function LifeAtAuroraWrap({
 				name: item.title,
 				lat: item.offices.map.lat,
 				lng: item.offices.map.lng,
-				url: "/careers/life-at-aurora",
+				url: "",
 				hoverImg: item.offices.thumbnail.node.mediaItemUrl,
 				unique: Math.random(),
 				// icon:

@@ -21,6 +21,7 @@ import styles from "@/styles/sections/careers/ConnectWithUs.module.scss";
 // IMAGES //
 import connect_img from "../../../public/img/careers/connect_img.jpg";
 import location from "../../../public/img/icons/location.svg";
+import slider_arrow from "/public/img/icons/slider_arrow.svg";
 
 // DATA //
 
@@ -29,7 +30,7 @@ export default function ConnectWithUs({ data }) {
 	return (
 		<section className={`${styles.ConnectWithUs}`}>
 			<div className="container">
-				<div className={`${styles.title_wrap} f_r_aj_between`}>
+				<div className={`${styles.title_wrap} f_w_a`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						Connect with us
 					</h2>
@@ -43,6 +44,14 @@ export default function ConnectWithUs({ data }) {
 							Follow us on Instagram
 						</Button>
 					</a>
+					<div className={`${styles.arrowSection} f_w_a_j_center`}>
+						<button className={`${styles.customPrev}`} id="customPrevConnect">
+							<img src={slider_arrow.src} alt="icon" />
+						</button>
+						<button className={styles.customNext} id="customNextConnect">
+							<img src={slider_arrow.src} alt="icon" />
+						</button>
+					</div>
 				</div>
 			</div>
 			<div className={`${styles.SliderMain}`}>
@@ -54,8 +63,8 @@ export default function ConnectWithUs({ data }) {
 					speed={500}
 					loop={true}
 					navigation={{
-						prevEl: "#customPrev",
-						nextEl: "#customNext",
+						prevEl: "#customPrevConnect",
+						nextEl: "#customNextConnect",
 					}}
 					// autoplay={{
 					// 	delay: 3000,
