@@ -192,7 +192,7 @@ export default function JobOpenings({
 													<div
 														className={`${styles.select_header} select_bg text_sm text_500`}
 													>
-														{dropdowns.eventNameType.selected.title || "Regions/State"}
+														{dropdowns.eventNameType.selected.title || "Country"}
 														<img src={dropdown_arrow.src} alt="icon" />
 													</div>
 												</div>
@@ -357,7 +357,7 @@ export default function JobOpenings({
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
 										{/* Singapore */}
-										Regions/State
+										Country
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
 										{/* Advisory */}
@@ -459,6 +459,7 @@ export default function JobOpenings({
 					paginationArr={paginationArr}
 					itemsPerPage={5}
 					setCurrentItems={setFilterdJob}
+
 				/>
 			</div>
 		</section>
