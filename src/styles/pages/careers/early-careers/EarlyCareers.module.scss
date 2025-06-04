@@ -1,7 +1,7 @@
 @import "../../../helpers/helpers.scss";
 .EarlyCareers {
 	background-color: var(--color_silver);
-  .EarlyMain {
+	.EarlyMain {
 		background-color: var(--color_secondary);
 	}
 	.containerCustom {
@@ -27,7 +27,7 @@
 		//padding-top: 0px;
 	}
 	:global(.applicationMain) {
-		padding-bottom: 0px;
+		// padding-bottom: 0px;
 	}
 	:global(.ServicesCircleSection) {
 		padding-top: 0px;
