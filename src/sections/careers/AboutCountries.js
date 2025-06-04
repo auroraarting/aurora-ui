@@ -70,11 +70,7 @@ export default function AboutCountries({ data }) {
 							//   delay: 3000,
 							//   disableOnInteraction: false,
 							// }}
-							breakpoints={{
-								768: {
-									// slidesPerView: 1.3,
-								},
-							}}
+
 							className={styles.slider}
 						>
 							{data?.earlyCareers?.collaborationSupport?.list.map((item, ind) => (
