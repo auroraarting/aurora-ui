@@ -106,7 +106,9 @@ export default function WhichProducts({ data }) {
 		data && setAccordianArr(getAllData());
 	}, []);
 
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 
 	return (
 		<section

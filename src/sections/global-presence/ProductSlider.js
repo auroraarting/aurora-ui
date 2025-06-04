@@ -38,7 +38,9 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** ProductSlider Section */
 export default function ProductSlider({ data }) {
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 	return (
 		<section className={`${styles.ProductSlider}`}>
 			<div className="containerLarge">

@@ -42,7 +42,9 @@ export default function ServicesCircle({
 		obj.id = "keyAdvantages";
 		obj["data-name"] = "Key Advantages";
 	}
-	if (!data?.advantages || !data) return <></>;
+	if (!data?.advantages || !data) {
+		return <></>;
+	}
 	return (
 		<section className={`${styles.ServicesCircleSection} dark_bg `} {...obj}>
 			<div className="container">

@@ -39,7 +39,9 @@ export default function AllVideos({
 	sectionName = "Latest Videos",
 	id = "Auroras-career-series",
 }) {
-	if (!title) return <></>;
+	if (!title) {
+		return <></>;
+	}
 	return (
 		<section
 			className={`${styles.CareerSeries} CareerSeries`}

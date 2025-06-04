@@ -34,8 +34,10 @@ export default function Sponsors({ data }) {
 	if (
 		data?.events?.sponsors?.sponsors?.length === 0 ||
 		!data?.events?.sponsors?.sponsors?.length
-	)
+	) {
 		return <></>;
+	}
+
 	return (
 		<section
 			id="sponsors"

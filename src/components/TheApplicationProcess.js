@@ -26,7 +26,9 @@ import strategy from "../../public/img/softwares/strategy.svg";
 
 /** TheApplicationProcess Section */
 export default function TheApplicationProcess({ data }) {
-	if (!data?.title) return <></>;
+	if (!data?.title) {
+		return <></>;
+	}
 
 	const tempAccordian = [
 		{

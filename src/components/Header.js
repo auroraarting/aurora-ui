@@ -141,6 +141,9 @@ export default function Header({ defaultNavigation }) {
 
 	useEffect(() => {
 		toggleDropdown();
+		setShowSearch(false);
+		closePopup();
+		setOpenSidebar(false);
 	}, [pathname]);
 
 	useEffect(() => {

@@ -40,7 +40,9 @@ export default function TrustedLeaders({
 		}
 	}, []);
 
-	if (!data || !data?.selectLogos) return <></>;
+	if (!data || !data?.selectLogos) {
+		return <></>;
+	}
 
 	return (
 		<section
