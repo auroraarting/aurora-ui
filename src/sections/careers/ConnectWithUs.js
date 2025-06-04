@@ -44,14 +44,16 @@ export default function ConnectWithUs({ data }) {
 							Follow us on Instagram
 						</Button>
 					</a>
-					<div className={`${styles.arrowSection} f_w_a_j_center`}>
-						<button className={`${styles.customPrev}`} id="customPrevConnect">
-							<img src={slider_arrow.src} alt="icon" />
-						</button>
-						<button className={styles.customNext} id="customNextConnect">
-							<img src={slider_arrow.src} alt="icon" />
-						</button>
-					</div>
+					{data?.length > 0 && (
+						<div className={`${styles.arrowSection} f_w_a_j_center`}>
+							<button className={`${styles.customPrev}`} id="customPrevConnect">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+							<button className={styles.customNext} id="customNextConnect">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className={`${styles.SliderMain}`}>
