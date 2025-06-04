@@ -961,13 +961,16 @@ export const dynamicInsightsBtnProps = (
 				typeof window !== "undefined" &&
 				!fallbackUrl.startsWith("/") &&
 				!fallbackUrl.includes(window.location.origin);
+			const isMailTo = fallbackUrl.startsWith("mailto:");
 
 			if (isExternal) {
-				obj.target = "_blank";
-				obj.rel = "noreferrer";
-				obj.onClick = () => {
-					window.open(fallbackUrl, "_blank", "noopener,noreferrer");
-				};
+				if (!isMailTo) {
+					obj.target = "_blank";
+					obj.rel = "noreferrer";
+					obj.onClick = () => {
+						window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+					};
+				}
 			} else {
 				// Internal URL — same tab
 				obj.onClick = () => {

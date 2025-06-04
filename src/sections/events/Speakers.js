@@ -37,7 +37,7 @@ export default function Speakers({ data, title, desc }) {
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
-    
+
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index) => {
 		e.preventDefault();
@@ -225,7 +225,7 @@ export default function Speakers({ data, title, desc }) {
 											</SwiperSlide>
 										))}
 									</Swiper>
-									<div className={`${styles.arrowSection} f_w_a_j_center`}>
+									<div className={`${styles.arrowSection} pt_20 f_w_a_j_center`}>
 										<button className={`${styles.customPrev}`} id="customPrev">
 											<img src={slider_arrow.src} alt="icon" />
 										</button>

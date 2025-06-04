@@ -125,7 +125,7 @@ export default function Bundles({ data, name }) {
 											</div>
 										</td>
 										<td>
-											Design and <br /> Optimisation
+											Design & <br /> Optimisation
 											<div className={`${styles.arr}`}>
 												<img src="/img/bundle-arr.svg" />
 											</div>
