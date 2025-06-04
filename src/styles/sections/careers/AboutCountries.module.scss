@@ -1,5 +1,33 @@
 @import "../../helpers/helpers.scss";
 .aboutCountries {
+	.arrowSection {
+		// position: absolute;
+		// right: 80px;
+		// bottom: 50px;
+		z-index: 1;
+		// @media (max-width: 1199px) {
+		// 	right: 55px;
+		// }
+		@media (max-width: 767px) {
+			// right: 30px;
+			width: 94px;
+			margin: 20px auto 0px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
 	.SliderMain {
 		position: relative;
 		padding-left: calc(var(--container_left_space) + 15px);
@@ -12,7 +40,8 @@
 				flex-direction: column-reverse;
 			}
 			.cardDesc {
-				width: 50%;
+				// width: 50%;
+				flex: 1;
 				padding: 40px 40px;
 				@media (max-width: 1199px) {
 					padding: 40px 20px;
@@ -32,7 +61,7 @@
 			}
 			.cardImg {
 				position: relative;
-				width: 50%;
+				// width: 50%;
 				@media (max-width: 991px) {
 					width: 100%;
 				}

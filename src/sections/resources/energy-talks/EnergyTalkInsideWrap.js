@@ -98,7 +98,9 @@ export default function EnergyTalkInsideWrap({
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{data?.podcastFields?.podcast && (
-									<ContentFromCms>{data?.podcastFields?.podcast}</ContentFromCms>
+									<div className={`${styles.podcast}`}>
+										<ContentFromCms>{data?.podcastFields?.podcast}</ContentFromCms>
+									</div>
 								)}
 								{/* <EnergyMiddleDescription /> */}
 								{data?.content && (

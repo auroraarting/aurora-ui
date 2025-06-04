@@ -10,6 +10,7 @@
 		width: 16px;
 		height: 16px;
 		cursor: pointer;
+        filter: invert(1);
 		&:nth-child(1) {
 			margin-right: 10px;
 		}
@@ -35,9 +36,9 @@
 	}
 
 	&.dark {
-		// img {
-		// 	filter: invert(1);
-		// }
+		img {
+			filter: invert(0);
+		}
 		.page_number {
 			&.active {
 				background-color: var(--color_black);

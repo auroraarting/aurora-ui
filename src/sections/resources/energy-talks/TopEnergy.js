@@ -28,7 +28,9 @@ import black_clock from "/public/img/icons/black_clock.svg";
 
 /** TopEnergy Section */
 export default function TopEnergy({ data }) {
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 	return (
 		<section className={`${styles.TopEnergy}`}>
 			<div className="container">

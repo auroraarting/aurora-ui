@@ -39,7 +39,9 @@ export default function AllVideos({
 	sectionName = "Latest Videos",
 	id = "Auroras-career-series",
 }) {
-	if (!title) return <></>;
+	if (!title) {
+		return <></>;
+	}
 	return (
 		<section
 			className={`${styles.CareerSeries} CareerSeries`}
@@ -64,7 +66,7 @@ export default function AllVideos({
 							className={`${styles.bookBtnOne} bookBtnOne`}
 						>
 							<Button color="secondary" variant="underline" mode="dark" size="xs">
-								Watch All Videos
+								Watch all videos
 							</Button>
 						</a>
 					</div>

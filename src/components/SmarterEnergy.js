@@ -31,7 +31,9 @@ import grey_clock from "/public/img/icons/grey_clock.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data, sectionName }) {
-	if (!data?.title) return <></>;
+	if (!data?.title) {
+		return <></>;
+	}
 
 	/** sectionTitle  */
 	const sectionTitle = () => {

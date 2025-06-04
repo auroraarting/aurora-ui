@@ -54,7 +54,9 @@ async function getData() {
 				<div className={`${styles.CountryWrapper}`}>
 					<div className={`${styles.CountryBox}`}>
 						{item.countries?.nodes?.map((item2) => {
-							if (item2?.countries?.hideonglobalpresence) return <></>;
+							if (item2?.countries?.hideonglobalpresence) {
+								return <></>;
+							}
 							return (
 								<div className={`${styles.CountryItem}`} key={item2.slug}>
 									<a href={`/global-presence/${item2.slug}`}>

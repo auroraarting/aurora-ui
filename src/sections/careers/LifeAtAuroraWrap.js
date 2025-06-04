@@ -66,7 +66,7 @@ export default function LifeAtAuroraWrap({
 				name: item.title,
 				lat: item.offices.map.lat,
 				lng: item.offices.map.lng,
-				url: "/careers/life-at-aurora",
+				url: "",
 				hoverImg: item.offices.thumbnail.node.mediaItemUrl,
 				unique: Math.random(),
 				// icon:
@@ -128,8 +128,8 @@ export default function LifeAtAuroraWrap({
 					<div className="pt_60">
 						<TeamAurora
 							defaultData={data?.teamAurora?.teams}
-							id="Our-Teams"
-							sectionName="Our Teams"
+							id="Employee-Speak"
+							sectionName="Employee Speak"
 						/>
 					</div>
 				</div>
@@ -139,6 +139,7 @@ export default function LifeAtAuroraWrap({
 							locationJson={[mapJson]}
 							marqueeText={data?.globalMap?.marqueetext}
 							sectionName="Global Presence"
+							hideOnHover
 						/>
 					</div>
 				)}

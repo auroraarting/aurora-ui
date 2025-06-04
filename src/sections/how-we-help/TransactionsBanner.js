@@ -21,7 +21,9 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** TransactionsBanner Section */
 export default function TransactionsBanner({ data, dynamicBtn, btnTxt }) {
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 	return (
 		<section className={`${styles.TransactionsBanner}`}>
 			<div className="container">

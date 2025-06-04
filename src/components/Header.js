@@ -141,6 +141,9 @@ export default function Header({ defaultNavigation }) {
 
 	useEffect(() => {
 		toggleDropdown();
+		setShowSearch(false);
+		closePopup();
+		setOpenSidebar(false);
 	}, [pathname]);
 
 	useEffect(() => {
@@ -1122,11 +1125,11 @@ export default function Header({ defaultNavigation }) {
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													<Link
-														href="/careers/join-us"
+														href="/careers/life-at-aurora"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
-														<span>Join Us</span>{" "}
+														<span>Life at Aurora</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 													<Link
@@ -1146,13 +1149,14 @@ export default function Header({ defaultNavigation }) {
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 													<Link
-														href="/careers/life-at-aurora"
+														href="/careers/join-us"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
-														<span>Life at Aurora</span>{" "}
+														<span>Join Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
+
 													{/* <a
 														href="/careers/faq"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}

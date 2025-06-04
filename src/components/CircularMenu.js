@@ -120,10 +120,13 @@ export default function CircularMenu({
 						items?.[selectedService]?.advantagesTitle ||
 						"Lorem ipsum dolor"}
 				</p>
-				<p className={`${styles.desc} color_light_gray text_xs`}>
-					{items?.[selectedService]?.description ||
-						items?.[selectedService]?.advantagesDescription}
-				</p>
+				{(items?.[selectedService]?.description ||
+					items?.[selectedService]?.advantagesDescription) && (
+					<p className={`${styles.desc} color_light_gray text_xs`}>
+						{items?.[selectedService]?.description ||
+							items?.[selectedService]?.advantagesDescription}
+					</p>
+				)}
 			</div>
 
 			<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
