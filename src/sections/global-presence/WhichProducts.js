@@ -56,7 +56,7 @@ export default function WhichProducts({ data }) {
 					};
 					groupedBySlug[slug] = {
 						...node,
-						locationData: marker.bottomText,
+						locationData: marker.locationtitle,
 						imgIcons:
 							marker?.category?.nodes?.[0]?.[
 								marker?.category?.nodes?.[0]?.contentType?.node?.name
@@ -86,12 +86,20 @@ export default function WhichProducts({ data }) {
 				// 	locationTitle: marker.locationtitle,
 				// });
 
-				if (
-					marker.bottomText &&
-					!groupedBySlug[slug]?.locationData?.includes(marker?.bottomText)
+				// if (
+				// 	marker.bottomText &&
+				// 	!groupedBySlug[slug]?.locationData?.includes(marker?.bottomText)
+				// ) {
+				// 	groupedBySlug[slug].locationData =
+				// 		groupedBySlug[slug].locationData + " |  " + marker.bottomText;
+				// }
+
+                if (
+					marker.locationtitle &&
+					!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)
 				) {
 					groupedBySlug[slug].locationData =
-						groupedBySlug[slug].locationData + " |  " + marker.bottomText;
+						groupedBySlug[slug].locationData + " |  " + marker.locationtitle;
 				}
 			});
 		});

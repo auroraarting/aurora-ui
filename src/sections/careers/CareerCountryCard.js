@@ -144,8 +144,8 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 	return (
 		<section
 			className={`${styles.CareerCountryCard} CareerCountryCard ptb_100`}
-			id="Programs"
-			data-name="Programs"
+			id="Programmes"
+			data-name="Programmes"
 		>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>

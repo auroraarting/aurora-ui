@@ -23,68 +23,70 @@ import styles from "@/styles/components/MapContainer.module.scss";
 
 /** GlobalMap Component */
 export default function GlobalMap({
-	locationJson,
-	marqueeText = " Energy intelligence across every key market",
-	className,
-	sectionName = "Available Regions",
+    locationJson,
+    marqueeText = " Energy intelligence across every key market",
+    className,
+    sectionName = "Available Regions",
+    hideOnHover
 }) {
-	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
-	const [valueOfSelect, setValueOfSelect] = useState(0);
-	const [map, setMap] = useState(null);
+    const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
+    const [valueOfSelect, setValueOfSelect] = useState(0);
+    const [map, setMap] = useState(null);
 
-	const [marqueeSpeed, setMarqueeSpeed] = useState(200);
+    const [marqueeSpeed, setMarqueeSpeed] = useState(200);
 
-	// Set marquee speed based on screen size
-	useEffect(() => {
-		const updateMarqueeSpeed = () => {
-			const width = window.innerWidth;
-			if (width < 480) {
-				setMarqueeSpeed(100); // Mobile
-			} else if (width < 768) {
-				setMarqueeSpeed(100); // Tablet
-			} else {
-				setMarqueeSpeed(200); // Desktop
-			}
-		};
+    // Set marquee speed based on screen size
+    useEffect(() => {
+        const updateMarqueeSpeed = () => {
+            const width = window.innerWidth;
+            if (width < 480) {
+                setMarqueeSpeed(100); // Mobile
+            } else if (width < 768) {
+                setMarqueeSpeed(100); // Tablet
+            } else {
+                setMarqueeSpeed(200); // Desktop
+            }
+        };
 
-		updateMarqueeSpeed(); // Initial check
-		window.addEventListener("resize", updateMarqueeSpeed);
-		return () => window.removeEventListener("resize", updateMarqueeSpeed);
-	}, []);
+        updateMarqueeSpeed(); // Initial check
+        window.addEventListener("resize", updateMarqueeSpeed);
+        return () => window.removeEventListener("resize", updateMarqueeSpeed);
+    }, []);
 
-	if (locationJson.length === 0) {
-		return <></>;
-	}
+    if (locationJson.length === 0) {
+        return <></>;
+    }
 
-	return (
-		<section
-			className={`${styles.globalMap} section_spacing ${className}`}
-			id={slugify(sectionName)}
-			data-name={sectionName}
-			aria-label="map"
-			title="map"
-		>
-			{/* <img src={available_regions.src} className="width_100" alt="img" /> */}
-			{/* <div className="container"> */}
+    return (
+        <section
+            className={`${styles.globalMap} section_spacing ${className}`}
+            id={slugify(sectionName)}
+            data-name={sectionName}
+            aria-label="map"
+            title="map"
+        >
+            {/* <img src={available_regions.src} className="width_100" alt="img" /> */}
+            {/* <div className="container"> */}
 
-			<Marquee className="pb_40 reactFastMarquee" speed={marqueeSpeed} autoFill>
-				<span className={`${styles.title} color_white text_xxl`}>
-					{marqueeText}
-				</span>
-			</Marquee>
+            <Marquee className="pb_40 reactFastMarquee" speed={marqueeSpeed} autoFill>
+                <span className={`${styles.title} color_white text_xxl`}>
+                    {marqueeText}
+                </span>
+            </Marquee>
 
-			<div className="">
-				<Map
-					mapCenter={mapCenter}
-					setValueOfSelect={setValueOfSelect}
-					valueOfSelect={valueOfSelect}
-					map={map}
-					setMap={setMap}
-					defaultZoom={2.2}
-					locationJson={locationJson}
-				/>
-			</div>
-			{/* </div> */}
-		</section>
-	);
+            <div className="">
+                <Map
+                    mapCenter={mapCenter}
+                    setValueOfSelect={setValueOfSelect}
+                    valueOfSelect={valueOfSelect}
+                    map={map}
+                    setMap={setMap}
+                    defaultZoom={2.2}
+                    locationJson={locationJson}
+                    hideOnHover={hideOnHover}
+                />
+            </div>
+            {/* </div> */}
+        </section>
+    );
 }
