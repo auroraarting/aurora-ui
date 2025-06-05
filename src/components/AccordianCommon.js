@@ -118,7 +118,7 @@ export default function AccordianCommon({
 									</p>
 								)}
 								{item.title}
-								{item.locationData && (
+								{/* {item.locationData && (
 									<div className={`${styles.locationList} d_f pt_10`}>
 										<img
 											src={location.src}
@@ -127,7 +127,7 @@ export default function AccordianCommon({
 										/>
 										<p className="text_xs color_light_gray">{item.locationData}</p>
 									</div>
-								)}
+								)} */}
 							</div>
 						</div>
 						<span className="icon">
