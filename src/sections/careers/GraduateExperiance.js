@@ -94,7 +94,8 @@ export default function GraduateExperiance({
 						/>
 						<div className={`${styles.contentWrap} color_white`}>
 							<div className={`${styles.head} color_white text_lg f_w_m`}>
-								Graduate Experience: <br /> {defaultData[selectId]?.name}
+								{/* Graduate Experience: <br />  */}
+								{defaultData[selectId]?.name}
 							</div>
 							<p className={`${styles.designation} text_xs`}>
 								{defaultData[selectId]?.designation}
