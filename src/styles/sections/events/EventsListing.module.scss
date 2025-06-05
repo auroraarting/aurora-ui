@@ -410,6 +410,9 @@
 				.categoryTxt {
 					position: relative;
 					padding-left: 10px;
+					@media screen and (min-width: 768px) and (max-width: 1199px) {
+						margin-top: 20px;
+					}
 					&::before {
 						content: " ";
 						position: absolute;
@@ -434,8 +437,12 @@
 				.dateFlex {
 					align-items: center;
 					margin-top: auto;
+					@media screen and (min-width: 768px) and (max-width: 1199px) {
+						padding-top: 20px;
+					}
 					@media screen and (min-width: 768px) and (max-width: 991px) {
 						flex-wrap: wrap;
+						padding-top: 20px;
 					}
 
 					p {
