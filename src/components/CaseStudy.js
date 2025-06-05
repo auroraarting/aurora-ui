@@ -17,9 +17,9 @@ import styles from "@/styles/components/CaseStudy.module.scss";
 
 // IMAGES //
 import plant_img from "../../public/img/services/advisory/plant_img.jpg";
-import clock from "../../public/img/icons/clock.svg";
-import location from "../../public/img/icons/location.svg";
-import calender from "../../public/img/icons/calender.svg";
+import clock from "../../public/img/icons/grey_clock.svg";
+import location from "../../public/img/icons/grey_location.svg";
+import calender from "../../public/img/icons/grey_calendar.svg";
 import formatDate, { allCategories, isCategory, slugify } from "@/utils";
 
 // DATA //
@@ -123,7 +123,7 @@ export default function CaseStudy({ data, countries = [] }) {
 													alt="location"
 												/>
 												{/* <span>WECC</span> */}
-												{isCategory(countries, item?.categories?.nodes)}
+												<span>{isCategory(countries, item?.categories?.nodes)}</span>
 											</p>
 										)}
 									</div>
