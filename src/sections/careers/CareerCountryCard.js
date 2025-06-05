@@ -150,7 +150,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
-						{page?.listing?.title}
+						Building tomorrow’s energy leaders
 					</h2>
 				</div>
 				<div

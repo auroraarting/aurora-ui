@@ -4,14 +4,10 @@
 // MODULES //
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import lottie from "lottie-web";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import dynamic from "next/dynamic";
 
 // COMPONENTS //
 import LottieRenderer from "@/components/LottieRenderer";
-
-// SECTIONS //
 
 // PLUGINS //
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,7 +15,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import { useInView } from "react-intersection-observer";
 
 // UTILS //
 import EqualHeight from "../../utils/EqualHeight";
@@ -33,8 +28,6 @@ import menu_hover_arrow from "../../../public/img/home/card_arrow.svg";
 import Ellipse from "../../../public/img/ellipse.png";
 import AdvisoryImg from "../../../public/img/home/advisory.jpg";
 
-// DATA //
-
 /** HomeOurOfferings Section */
 export default function HomeOurOfferings() {
   const lottieAnimations = [
@@ -43,49 +36,27 @@ export default function HomeOurOfferings() {
   const lottieAnimations2 = [
     { id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
   ];
-  const [svgHeight, setSvgHeight] = useState("347px");
-  const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
+  const [svgHeight] = useState("347px");
   const bgColors = ["#00BE86", "#00B6ED", "#FC0", "#027BD1", "#FFFFFF"];
   const [bgIndex, setBgIndex] = useState(0);
+  
+  // Refs for Lottie animation instances
+  const softwareLottieRef = useRef(null);
 
-  // Refs for software animation
-  const softwareAnimRef = useRef(null);
-  const softwareContainerRef = useRef(null);
-  const currentSegmentRef = useRef(0);
+  // Handle Lottie animation ready event
+  const handleSoftwareLottieReady = (animation) => {
+    softwareLottieRef.current = animation;
+    
+    // Listen to enterFrame events for color synchronization
+    animation.addEventListener("enterFrame", (e) => {
+      const progress = e.currentTime / e.totalTime;
+      const segment = Math.floor(progress * bgColors.length);
+      setBgIndex(segment);
+    });
+  };
 
   useEffect(() => {
     EqualHeight("cardHBg");
-
-    // Initialize software animation
-    let anim;
-    if (softwareContainerRef.current) {
-      anim = lottie.loadAnimation({
-        container: softwareContainerRef.current,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        path: "/img/home/lottie/SoftwareLottie.json",
-      });
-
-      anim.addEventListener("data_ready", () => {
-        const totalFrames = anim.totalFrames;
-        const segmentLength = totalFrames / bgColors.length;
-        
-        anim.addEventListener("enterFrame", (event) => {
-          const newSegment = Math.floor(event.currentTime / segmentLength);
-          
-          // Only update state when segment changes
-          if (newSegment !== currentSegmentRef.current) {
-            currentSegmentRef.current = newSegment;
-            setBgIndex(newSegment);
-          }
-        });
-      });
-    }
-
-    return () => {
-      if (anim) anim.destroy();
-    };
   }, []);
 
   return (
@@ -116,6 +87,7 @@ export default function HomeOurOfferings() {
           }}
           className={styles.slider}
         >
+          {/* EOS Platform Slide */}
           <SwiperSlide>
             <div className={`${styles.itemBox} cardHBg`}>
               <div className={`${styles.Content}`}>
@@ -140,11 +112,12 @@ export default function HomeOurOfferings() {
               />
             </div>
           </SwiperSlide>
+
+          {/* Software Slide with Synced Animation */}
           <SwiperSlide>
             <div
               className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}
               style={{ backgroundColor: bgColors[bgIndex] }}
-              ref={softwareAnimRef}
             >
               <div className={`${styles.Content}`}>
                 <a href="/software" role="button">
@@ -160,13 +133,23 @@ export default function HomeOurOfferings() {
                   for market forecasting, asset valuation, and strategic decision-making.
                 </p>
               </div>
-              <div 
-                className={`${styles.svg}`} 
-                ref={softwareContainerRef}
-                style={{ height: svgHeight }}
-              />
+              <div className={`${styles.svg}`}>
+                <LottieRenderer
+                  ref={handleSoftwareLottieReady}
+                  src={lottieAnimations[0].src}
+                  autoplay={true}
+                  loop={true}
+                  renderer="svg"
+                  style={{ height: svgHeight }}
+                  renderersettings={{
+                    preserveAspectRatio: "xMidYMid meet",
+                  }}
+                />
+              </div>
             </div>
           </SwiperSlide>
+
+          {/* Subscription Analytics Slide */}
           <SwiperSlide>
             <div className={`${styles.itemBox} ${styles.LottieContent} cardHBg`}>
               <div className={`${styles.Content}`}>
@@ -198,6 +181,8 @@ export default function HomeOurOfferings() {
               </div>
             </div>
           </SwiperSlide>
+
+          {/* Advisory Slide */}
           <SwiperSlide>
             <div className={`${styles.itemBox} ${styles.advisoryBox} cardHBg`}>
               <div className={`${styles.Content}`}>
