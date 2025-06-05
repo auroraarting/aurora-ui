@@ -117,7 +117,7 @@ export default function PublicWebinar({ events, webinars }) {
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/events">
 								<Button color="primary" variant="filled" shape="rounded">
-									View all Events
+									View all events
 								</Button>
 							</a>
 						</div>
@@ -260,7 +260,7 @@ export default function PublicWebinar({ events, webinars }) {
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/resources/webinar">
 								<Button color="primary" variant="filled" shape="rounded">
-									View all Webinars
+									View all webinars
 								</Button>
 							</a>
 						</div>

@@ -72,6 +72,7 @@ export default function TrustedLeaders({
 					<Swiper
 						slidesPerGroup={2} // scroll 5 columns = 10 items with 2 rows
 						slidesPerView={2}
+						grabCursor={true}
 						grid={{
 							fill: "row", // This is important for row layout
 							rows: 2,
