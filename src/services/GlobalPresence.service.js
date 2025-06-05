@@ -374,6 +374,7 @@ query GetCountryInside {
             lng
           }
           locationtitle
+          bottomText
         }
       }
       mapThumb {

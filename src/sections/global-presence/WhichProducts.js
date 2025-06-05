@@ -57,6 +57,7 @@ export default function WhichProducts({ data }) {
 					groupedBySlug[slug] = {
 						...node,
 						locationData: marker.locationtitle,
+						bottomTextData: marker.bottomText,
 						imgIcons:
 							marker?.category?.nodes?.[0]?.[
 								marker?.category?.nodes?.[0]?.contentType?.node?.name

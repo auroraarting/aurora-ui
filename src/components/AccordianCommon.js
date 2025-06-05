@@ -28,10 +28,12 @@ export default function AccordianCommon({
 	fontFamily,
 	fontColor,
 	locationData,
+	bottomTextData,
 	defaultActiveId = 0,
 	openAll,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
+	console.log(items);
 	const pathname = usePathname();
 	const [activeIndex, setActiveIndex] = useState(
 		items?.map((item, ind) => {
@@ -118,16 +120,16 @@ export default function AccordianCommon({
 									</p>
 								)}
 								{item.title}
-								{/* {item.locationData && (
+								{item.bottomTextData && (
 									<div className={`${styles.locationList} d_f pt_10`}>
 										<img
 											src={location.src}
 											className={`${styles.location}`}
 											alt="location"
 										/>
-										<p className="text_xs color_light_gray">{item.locationData}</p>
+										<p className="text_xs color_light_gray">{item.bottomTextData}</p>
 									</div>
-								)} */}
+								)}
 							</div>
 						</div>
 						<span className="icon">
