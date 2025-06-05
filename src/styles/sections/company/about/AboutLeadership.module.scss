@@ -209,10 +209,13 @@
 		}
 		.BoxFlex {
 			align-items: flex-start;
-			overflow: hidden;
-			overflow-y: scroll;
-			position: relative;
-			height: 190px;
+			overflow: auto;
+			
+			@media (max-width: 1199px) {
+				overflow-y: scroll;
+				position: relative;
+				//height: 260px;
+			}
 			@media (max-width: 767px) {
 				height: auto;
 				overflow-y: auto;
