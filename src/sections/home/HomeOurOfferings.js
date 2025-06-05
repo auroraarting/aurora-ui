@@ -4,6 +4,7 @@
 // MODULES //
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import lottie from "lottie-web";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import dynamic from "next/dynamic";
 
@@ -18,7 +19,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-// import Lottie from "lottie-web";
 import { useInView } from "react-intersection-observer";
 
 // UTILS //
@@ -43,21 +43,51 @@ export default function HomeOurOfferings() {
 	const lottieAnimations2 = [
 		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
 	];
-
 	const [svgHeight, setSvgHeight] = useState("347px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
-	const bgColors = ["#fff", "#fff", "#fff", "#fff"];
+	const bgColors = ["#00BE86", "#00B6ED", "#FC0", "#027BD1", "#FFFFFF"];
 	const [bgIndex, setBgIndex] = useState(0);
+
+	// Refs for software animation
+	const softwareAnimRef = useRef(null);
+	const softwareContainerRef = useRef(null);
+	const currentSegmentRef = useRef(-1);
 
 	useEffect(() => {
 		EqualHeight("cardHBg");
 
-		const interval = setInterval(() => {
-			setBgIndex((prev) => (prev + 1) % bgColors.length);
-		}, 1000); // Change every 1s (sync with Lottie)
+		// Initialize software animation
+		let anim;
+		if (softwareContainerRef.current) {
+			anim = lottie.loadAnimation({
+				container: softwareContainerRef.current,
+				renderer: "svg",
+				loop: true,
+				autoplay: true,
+				path: lottieAnimations[0].src,
+			});
 
-		return () => clearInterval(interval);
+			anim.addEventListener("data_ready", () => {
+				const totalFrames = anim.totalFrames;
+				const segmentLength = totalFrames / bgColors.length;
+
+				anim.addEventListener("enterFrame", (event) => {
+					const newSegment = Math.floor(event.currentTime / segmentLength);
+
+					// Only update state when segment changes
+					if (newSegment !== currentSegmentRef.current) {
+						currentSegmentRef.current = newSegment;
+						setBgIndex(newSegment);
+					}
+				});
+			});
+		}
+
+		return () => {
+			if (anim) anim.destroy();
+		};
 	}, []);
+
 	return (
 		<section
 			className={`${styles.HomeOurOfferings}`}
@@ -78,7 +108,7 @@ export default function HomeOurOfferings() {
 					loop={true}
 					slidesPerView="auto"
 					pagination={{
-						clickable: true, // Makes it interactive
+						clickable: true,
 					}}
 					breakpoints={{
 						767: {},
@@ -114,6 +144,7 @@ export default function HomeOurOfferings() {
 						<div
 							className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}
 							style={{ backgroundColor: bgColors[bgIndex] }}
+							ref={softwareAnimRef}
 						>
 							<div className={`${styles.Content}`}>
 								<a href="/software" role="button">
@@ -129,24 +160,11 @@ export default function HomeOurOfferings() {
 									for market forecasting, asset valuation, and strategic decision-making.
 								</p>
 							</div>
-							<div className={`${styles.svg}`}>
-								<LottieRenderer
-									src={lottieAnimations[0].src}
-									autoplay={true}
-									loop={true}
-									renderer="svg"
-									// style={{ height: svgHeight }}
-									renderersettings={{
-										preserveAspectRatio: "xMidYMid meet",
-									}}
-								/>
-							</div>
-							{/* <img
-								src={macEOS.src}
-								alt="mac eos"
-								className={`${styles.BoxImg} m_0_auto`}
-							/> */}
-							{/* <div className={`${styles.softwareAnim}`} ref={animRefs[0]}></div> */}
+							<div
+								className={`${styles.svg}`}
+								ref={softwareContainerRef}
+								style={{ height: svgHeight }}
+							/>
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
@@ -178,12 +196,6 @@ export default function HomeOurOfferings() {
 									}}
 								/>
 							</div>
-							{/* <img
-								src={macEOS.src}
-								alt="mac eos"
-								className={`${styles.BoxImg} m_0_auto`}
-							/> */}
-							{/* <div className={`${styles.softwareAnim}`} ref={animRefs2[0]}></div> */}
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
