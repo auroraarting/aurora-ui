@@ -37,7 +37,7 @@ export default function HomeResources({ data, countries, voices }) {
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
-						All voices all markets
+						All voices, all markets
 					</h2>
 				</div>
 				<div className={`${styles.publicFlex} f_w_j`}>
