@@ -48,7 +48,7 @@ export default function GraduateExperiance({
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 							{title}
 						</h2>
-						<p className="text_reg color_dark_gray">{parse(description)}</p>
+						<p className="text_reg color_dark_gray">Explore first-hand accounts from our graduates, covering everything <br className="hidden_xs" />from the application journey to their daily experiences on the job.</p>
 						{/* <div className={`${styles.bookBtn}`}>
 							<Link href="/careers/our-team">
 								<Button color="primary" variant="filled" shape="rounded">
