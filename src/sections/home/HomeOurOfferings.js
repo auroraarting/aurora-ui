@@ -43,10 +43,9 @@ export default function HomeOurOfferings() {
 	const lottieAnimations2 = [
 		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
 	];
-
 	const [svgHeight, setSvgHeight] = useState("347px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
-	const bgColors = ["#fff", "#fff", "#fff", "#fff"];
+	const bgColors = ["#fff", "#fff", "#fff", "#fff", "fff"];
 	const [bgIndex, setBgIndex] = useState(0);
 
 	useEffect(() => {
