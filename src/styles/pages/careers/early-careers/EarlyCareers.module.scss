@@ -32,4 +32,10 @@
 	:global(.ServicesCircleSection) {
 		padding-top: 0px;
 	}
+	.CricleBg{
+		background-image: url("../../../../../public/img/careers/circleBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: top center;
+	}
 }

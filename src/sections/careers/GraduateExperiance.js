@@ -38,11 +38,7 @@ export default function GraduateExperiance({
 
 	return (
 		<>
-			<section
-				className={`${styles.TeamAurora} pb_50`}
-				id={id}
-				data-name={sectionName}
-			>
+			<section className={`${styles.TeamAurora}`} id={id} data-name={sectionName}>
 				<div className="containerLarge">
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
