@@ -6,7 +6,10 @@
 	:global(.CustomSelect) {
 		width: 380px;
 		@media (max-width: 1199px) {
-			width: 310px;
+			width: 360px;
+		}
+		@media (max-width: 991px) {
+			width: 320px;
 		}
 		@include sm-down {
 			width: 100%;
