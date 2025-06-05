@@ -148,13 +148,13 @@ export default function EarlyCareersWrap({
 						sectionName="Latest Videos"
 					/>
 				</div>
-				<div className="pt_80">
+				<div className={`${styles.CricleBg} pt_80`}>
 					<GraduateExperiance
 						title={page?.listing?.title}
 						defaultData={page?.graduateExperiences?.teams}
 					/>
 				</div>
-				<div className="">
+				<div className="pt_60">
 					<ConnectWithUs data={offices} />
 				</div>
 				<div className="pb_100">

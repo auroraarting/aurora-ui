@@ -5,6 +5,9 @@
 		width: 60%;
 		margin: 0 auto 80px;
 		text-align: center;
+		@media (max-width: 991px) {
+			width: 80%;
+		}
 		@media (max-width: 767px) {
 			width: 100%;
 			margin: 0 auto;
