@@ -154,7 +154,7 @@ export default function WebinarTalksWrap({
 							},
 							{
 								desc: "Join events shaping the future of energy",
-								btnText: "View all Events",
+								btnText: "View all events",
 								btnLink: "/events",
 								fontColor: "color_white",
 								img: "/img/contact/cardImg4.jpg",
