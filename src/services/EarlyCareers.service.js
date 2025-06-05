@@ -74,6 +74,7 @@ query GetEarlyCareersLanding {
       }
       listing {
         title
+        description
       }
       graduateExperiences {
         teams {

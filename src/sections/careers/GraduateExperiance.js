@@ -10,6 +10,7 @@ import Modal, { openModal } from "@/components/Modal";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -37,17 +38,13 @@ export default function GraduateExperiance({
 
 	return (
 		<>
-			<section
-				className={`${styles.TeamAurora} pb_50`}
-				id={id}
-				data-name={sectionName}
-			>
+			<section className={`${styles.TeamAurora}`} id={id} data-name={sectionName}>
 				<div className="containerLarge">
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 							{title}
 						</h2>
-						<p className="text_reg color_dark_gray">Explore first-hand accounts from our graduates, covering everything <br className="hidden_xs" />from the application journey to their daily experiences on the job!</p>
+						<p className="text_reg color_dark_gray">Explore first-hand accounts from our graduates, covering everything <br className="hidden_xs" />from the application journey to their daily experiences on the job.</p>
 						{/* <div className={`${styles.bookBtn}`}>
 							<Link href="/careers/our-team">
 								<Button color="primary" variant="filled" shape="rounded">
