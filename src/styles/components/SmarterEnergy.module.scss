@@ -34,13 +34,22 @@
 		.modal {
 			.content {
 				width: 80%;
+				@media (max-width: 991px) {
+					width: 100%;
+					max-height: 100%;
+				}
 			}
 		}
 	}
 
 	.popup {
 		padding: 50px;
-
+		@media (max-width: 1199px) {
+			padding: 20px;
+		}
+		@media (max-width: 991px) {
+			padding: 0px;
+		}
 		:global {
 			.icon {
 				img {
@@ -63,17 +72,25 @@
 				padding: 8px;
 				gap: 20px;
 				flex-wrap: wrap;
-
+				margin-bottom: 10px;
 				.category {
 					background-color: var(--color_blue);
 					border-radius: 12px;
 					padding: 12px;
+					width: 200px;
+					justify-content: center;
 				}
 
 				> div {
 					display: flex;
 					align-items: center;
 					gap: 8px;
+				}
+				.date {
+					width: 100px;
+				}
+				.time {
+					width: 120px;
 				}
 			}
 		}

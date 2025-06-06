@@ -47,6 +47,11 @@
 					max-height: 100vh;
 					height: 100vh !important;
 				}
+				p {
+					a {
+						color: var(--color_white);
+					}
+				}
 			}
 		}
 	}
