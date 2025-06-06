@@ -106,46 +106,49 @@ export default function EarlyCareersInside({ data }) {
 						return (
 							<SwiperSlide key={item?.title + ind}>
 								<div className={`${styles.cardItem}`} key={item?.slug}>
-									<div className={`${styles.cardImg}`}>
-										<img
-											src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
-											className={`${styles.countryImg} b_r_10`}
-											alt={
-												item?.earlyCareers?.thumbnail?.country?.node?.title ||
-												item?.earlyCareers?.banner?.city
-											}
-										/>
-										{item?.earlyCareers?.thumbnail?.islive && (
-											<p
-												className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
-											>
-												Live
-											</p>
-										)}
-									</div>
-									<div className={`${styles.cardDesc} pt_30`}>
-										<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase">
+									<a href={`/careers/early-careers/${item?.slug}`}>
+										<div className={`${styles.cardImg}`}>
 											<img
-												src={location.src}
-												className={`${styles.location}`}
-												alt="location"
+												src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
+												className={`${styles.countryImg} b_r_10`}
+												alt={
+													item?.earlyCareers?.thumbnail?.country?.node?.title ||
+													item?.earlyCareers?.banner?.city
+												}
 											/>
-											<span>
-												{item?.earlyCareers?.thumbnail?.country?.node?.title ||
-													item?.earlyCareers?.banner?.city}
-											</span>
-										</p>
-										<h4 className="text_md color_white f_w_m font_primary pt_10">
-											{item?.title}
-										</h4>
-										<div className={`${styles.btn_box} pt_30`}>
-											<a href={`/careers/early-careers/${item?.slug}`}>
+											{item?.earlyCareers?.thumbnail?.islive && (
+												<p
+													className={`${styles.categoryTxt} text_xxs color_secondary text_uppercase`}
+												>
+													Live
+												</p>
+											)}
+										</div>
+										<div className={`${styles.cardDesc} pt_30`}>
+											<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase">
+												<img
+													src={location.src}
+													className={`${styles.location}`}
+													alt="location"
+												/>
+												<span>
+													{item?.earlyCareers?.thumbnail?.country?.node?.title ||
+														item?.earlyCareers?.banner?.city}
+												</span>
+											</p>
+											<h4 className="text_md color_white f_w_m font_primary pt_10">
+												{item?.title}
+											</h4>
+											<div className={`${styles.btn_box} pt_30`}>
 												<Button color="secondary" variant="underline" mode="dark">
 													Read More
 												</Button>
-											</a>
+												{/* <a href={`/careers/early-careers/${item?.slug}`}>
+													
+												</a> */}
+											</div>
 										</div>
-									</div>
+									</a>
 								</div>
 							</SwiperSlide>
 						);

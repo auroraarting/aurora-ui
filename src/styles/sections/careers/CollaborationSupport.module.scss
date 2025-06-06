@@ -43,6 +43,11 @@
 					}
 				}
 			}
+			.cardContent {
+				@media (max-width: 991px) {
+					height: 185px;
+				}
+			}
 			.cardImg {
 				position: relative;
 				width: 50%;
@@ -62,6 +67,11 @@
 					@media (max-width: 991px) {
 						border-top-left-radius: 20px;
 						border-bottom-right-radius: 0px;
+						height: 300px;
+					}
+					@media (max-width: 767px) {
+						border-top-left-radius: 20px;
+						border-bottom-right-radius: 0px;
 						height: auto;
 					}
 				}
@@ -76,7 +86,7 @@
 		z-index: 1;
 		@media (max-width: 1199px) {
 			right: 0px;
-			top: 10px;
+			top: 0px;
 		}
 		@media (max-width: 767px) {
 			right: 10px;

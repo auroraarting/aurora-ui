@@ -125,7 +125,7 @@ export default function LifeAtAuroraWrap({
 							<SmarterEnergy data={data?.keyAdvantages} sectionName="Our Culture" />
 						</div>
 					)}
-					<div className="pt_60">
+					<div className="">
 						<TeamAurora
 							defaultData={data?.teamAurora?.teams}
 							id="Employee-Speak"
