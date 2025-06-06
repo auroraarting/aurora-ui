@@ -42,8 +42,10 @@ export default function HomeResources({ data, countries, voices }) {
 				</div>
 				<div className={`${styles.publicFlex} f_w_j`}>
 					<div className={`${styles.publicRight}`}>
-						{voices?.slice(0, 3)?.map((item) => {
-							return (
+						{voices
+							.slice(0, 3)
+							.reverse()
+							.map((item) => (
 								<div className={`${styles.ItemBox}`} key={item?.title}>
 									<a href={item?.link} className={`${styles.insideBox}`} role="button">
 										<img
@@ -92,13 +94,12 @@ export default function HomeResources({ data, countries, voices }) {
 										</div>
 									</a>
 								</div>
-							);
-						})}
+							))}
 					</div>
 					<div className={`${styles.publicleft}`}>
 						<div className={`${styles.webinarBox}`}>
 							<div className={`${styles.webinarItem}`}>
-								{voices?.slice(3, 6)?.map((item) => {
+								{voices?.slice(5, 8)?.map((item) => {
 									return (
 										<a href={item?.link} key={item?.title} role="button">
 											<div className={`${styles.contentBox}`}>

@@ -31,6 +31,7 @@ import formatDate from "@/utils";
 
 /** HomeEvents Section */
 export default function HomeEvents({ data }) {
+	// console.log(data);
 	return (
 		<section
 			className={`${styles.HomeEvents}`}
@@ -77,8 +78,9 @@ export default function HomeEvents({ data }) {
 											<div
 												className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 											>
-												{item?.events?.thumbnail?.status} Event
+												{item?.events?.thumbnail?.status}Upcoming Event
 											</div>
+
 											<h2 className="text_lg color_white text_uppercase f_w_m pt_20">
 												{item?.title}
 											</h2>
