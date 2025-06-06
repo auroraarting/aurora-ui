@@ -55,7 +55,7 @@ export default function HomeWhoWeAre() {
 							operational and regulatory requirements.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Link href="/who-are-you/energy-consumer">
+							<Link href="/who-are-you/energy-consumers">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>
@@ -84,7 +84,7 @@ export default function HomeWhoWeAre() {
 							drive the development of renewable energy and infrastructure solutions.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Link href="/who-are-you/developer">
+							<Link href="/who-are-you/developers">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>
