@@ -175,7 +175,7 @@ export default function WebinarInsideWrap({
 
 								{dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")
 									?.btntext && (
-									<div className="pt_60">
+									<div className="">
 										<WebinarRecording data={data} />
 									</div>
 								)}
