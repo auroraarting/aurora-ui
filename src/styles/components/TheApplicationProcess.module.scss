@@ -34,18 +34,34 @@
 	:global(.imgIcons) {
 		margin-right: 10px;
 	}
+	:global(.accordionContent) {
+		padding-left: 0px !important;
+	}
 
 	:global {
 		.modal {
 			.content {
 				width: 80%;
+				@media (max-width: 991px) {
+					width: 100% !important;
+					max-height: 100vh;
+					height: 100vh !important;
+				}
 			}
 		}
 	}
 
 	.popup {
-		padding: 50px;
-
+		padding: 30px;
+		@media (max-width: 1199px) {
+			padding: 20px;
+		}
+		@media (max-width: 991px) {
+			padding: 10px;
+		}
+		@media (max-width: 767px) {
+			padding: 0px;
+		}
 		:global {
 			.icon {
 				img {
@@ -58,7 +74,7 @@
 		}
 		.accordian_main {
 			border-top: 1px solid #2c2c2c;
-			padding-top: 40px;
+			padding-top: 0px;
 			margin-top: 50px;
 		}
 	}
