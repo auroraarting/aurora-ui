@@ -57,7 +57,7 @@ export default function AboutCountries({ data }) {
 					<div className={`${styles.SliderMain} pt_20`}>
 						<Swiper
 							modules={[Navigation, Autoplay]}
-							slidesPerView={1.6}
+							slidesPerView={1.2}
 							spaceBetween={20}
 							grabCursor={true}
 							speed={500}
@@ -70,7 +70,14 @@ export default function AboutCountries({ data }) {
 							//   delay: 3000,
 							//   disableOnInteraction: false,
 							// }}
-
+							breakpoints={{
+								768: {
+									slidesPerView: 1.6,
+								},
+								992: {
+									slidesPerView: 1.6,
+								},
+							}}
 							className={styles.slider}
 						>
 							{data?.earlyCareers?.collaborationSupport?.list.map((item, ind) => (

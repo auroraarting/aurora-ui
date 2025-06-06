@@ -193,7 +193,7 @@
 								width: max-content;
 								grid-template-columns: repeat(1, 1fr);
 								left: 0px;
-        				//transform: translateX(-50%);
+								//transform: translateX(-50%);
 								gap: 8px;
 							}
 							.checkBoxItem {
@@ -348,6 +348,13 @@
 				}
 				.leadDetailsFlex {
 					padding: 60px 60px;
+					@media (max-width: 1199px) {
+						padding: 40px 40px;
+					}
+					@media (max-width: 991px) {
+						padding: 20px 20px;
+						flex-wrap: wrap;
+					}
 					@media (max-width: 767px) {
 						padding: 20px 20px;
 					}
@@ -355,17 +362,20 @@
 						&:first-child {
 							width: 30%;
 							position: relative;
+							@media (max-width: 991px) {
+								width: 30%;
+								margin-bottom: 20px;
+							}
 							@media (max-width: 767px) {
 								width: 100%;
-								margin-bottom: 30px;
 							}
 							.leadThumb {
 								position: relative;
-									img {
-										@media (max-width: 767px) {
-											border-radius: 12px;
-										}
+								img {
+									@media (max-width: 767px) {
+										border-radius: 12px;
 									}
+								}
 								.popUp {
 									position: absolute;
 									bottom: 0;
@@ -380,7 +390,7 @@
 						}
 						&:last-child {
 							width: 67%;
-							@media (max-width: 767px) {
+							@media (max-width: 991px) {
 								width: 100%;
 							}
 						}
@@ -401,6 +411,12 @@
 								}
 							}
 						}
+					}
+				}
+				.thumFix {
+					.leadThumb {
+						position: sticky !important;
+						top: 190px;
 					}
 				}
 			}

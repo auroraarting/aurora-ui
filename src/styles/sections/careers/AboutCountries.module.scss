@@ -11,7 +11,7 @@
 		@media (max-width: 767px) {
 			// right: 30px;
 			width: 94px;
-			margin: 20px auto 0px;
+			margin: -10px auto 0px;
 		}
 		.customPrev,
 		.customNext {
@@ -40,7 +40,7 @@
 				flex-direction: column-reverse;
 			}
 			.cardDesc {
-				// width: 50%;
+				width: 55%;
 				flex: 1;
 				padding: 40px 40px;
 				@media (max-width: 1199px) {
@@ -61,29 +61,38 @@
 			}
 			.cardImg {
 				position: relative;
-				// width: 50%;
+				width: 45%;
 				@media (max-width: 991px) {
 					width: 100%;
 				}
 				img {
-					height: 380px;
+					height: 340px;
 					width: 100%;
 					object-fit: cover;
 					object-position: center;
 					border-top-right-radius: 20px;
 					border-bottom-right-radius: 20px;
 					@media (max-width: 1199px) {
-						height: 400px;
+						height: 360px;
 					}
 					@media (max-width: 991px) {
 						border-top-left-radius: 20px;
 						border-bottom-right-radius: 0px;
+						height: 300px;
+					}
+					@media (max-width: 767px) {
 						height: auto;
 					}
 				}
 			}
 		}
 		.points {
+			@media (max-width: 991px) {
+				min-height: 113px;
+			}
+			@media (max-width: 767px) {
+				min-height: auto;
+			}
 			ul {
 				margin: 0;
 				padding: 0 0 0 16px;

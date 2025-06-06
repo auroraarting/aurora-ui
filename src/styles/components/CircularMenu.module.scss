@@ -2,6 +2,9 @@
 
 .selected {
 	text-align: center;
+	@media (max-width: 1199px) {
+		padding-top: 20px;
+	}
 	&.hide {
 		opacity: 0;
 	}
