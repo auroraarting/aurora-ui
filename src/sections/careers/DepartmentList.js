@@ -178,7 +178,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 								<div
 									className={`${styles.leadDetailsFlex} f_w_j ptb_50 dark_bg b_r_20`}
 								>
-									<div className={`${styles.leadDetailsItem}`}>
+									<div className={`${styles.leadDetailsItem} ${styles.thumFix}`}>
 										<div className={`${styles.leadThumb}`}>
 											<img
 												src={

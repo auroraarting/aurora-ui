@@ -60,10 +60,7 @@ export default function Breadcrumbs({ customPage, className = "" }) {
 	return (
 		<div className={`Breadcrumbs ${styles.Breadcrumbs} ${className}`}>
 			<div className="">
-				<nav
-					aria-label="Breadcrumb"
-					className="text_xxs text-gray-600 text_uppercase  pt_20 f_w"
-				>
+				<nav aria-label="Breadcrumb" className="text_xxs text-gray-600  pt_20 f_w">
 					{finalCrumbs.map((crumb, i) => (
 						<span key={crumb.href} className="f_w">
 							{i > 0 && <img src="/img/icons/leftBreadcrumbs.svg" />}

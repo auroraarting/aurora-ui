@@ -82,7 +82,7 @@ export default function PressReleasesInsideWrap({
 						)
 					}
 				/>
-				<section className={`${styles.mediaMiddle} pt_80`}>
+				<section className={`${styles.mediaMiddle} pt_40`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>

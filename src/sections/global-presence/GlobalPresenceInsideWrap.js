@@ -114,7 +114,7 @@ export default function GlobalPresenceInsideWrap({
 					<SoftwareMarket
 						mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
 						// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
-						sectionTitle={"Energy intelligence across every key market"}
+						sectionTitle={"Energy intelligence modelled for your market"}
 						mapJson={mapJson}
 						data={data?.countries?.availableRegions}
 						customHtml={

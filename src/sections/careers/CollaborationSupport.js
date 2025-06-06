@@ -66,6 +66,9 @@ export default function CollaborationSupport({ data }) {
 					// }}
 					breakpoints={{
 						768: {
+							slidesPerView: 1.6,
+						},
+						993: {
 							slidesPerView: 1.3,
 						},
 					}}
@@ -84,7 +87,9 @@ export default function CollaborationSupport({ data }) {
 											/>
 											<span>{item.name}</span>
 										</h4>
-										<div className="text_reg color_dark_gray font_secondary f_w_r pt_10">
+										<div
+											className={`${styles.cardContent} text_reg color_dark_gray font_secondary f_w_r pt_10`}
+										>
 											<ContentFromCms>{item?.description}</ContentFromCms>
 										</div>
 									</div>

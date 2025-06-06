@@ -1,6 +1,7 @@
 @import "../../helpers/helpers.scss";
 .Sponsors {
 	.SponsorsFlexWrap {
+		margin-bottom: 15px;
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
 		}
@@ -9,32 +10,37 @@
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
-			height: 180px;
+			height: 145px;
+			@media (max-width: 1199px) {
+				height: 130px;
+			}
+			@media (max-width: 991px) {
+				height: 90px;
+			}
 			@media (max-width: 767px) {
 				width: 100%;
 				height: auto;
 			}
-			h4{
+			h4 {
 				@media (max-width: 767px) {
 					padding-left: 10px;
 				}
 			}
 		}
+		&:last-child {
+			margin-bottom: 0px;
+		}
 	}
 	.SponsorsFlex {
 		flex: 1;
-		margin-bottom: 20px;
 		padding-bottom: 20px;
 		border-bottom: 1px solid var(--color_platinum_gray);
 		flex-wrap: wrap;
-		@media (max-width: 767px) {
-			margin-bottom: 20px !important;
-		}
+
 		&:last-child {
 			border-bottom: none;
 			margin-bottom: 0px;
 			padding-bottom: 0px;
-			
 		}
 		.SponsorsItem {
 			width: 33%;
@@ -43,7 +49,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			@media (max-width: 767px) {
+			@media (max-width: 1199px) {
 				padding: 10px 10px;
 			}
 			&:first-child {
@@ -54,7 +60,6 @@
 				margin: 0 auto;
 				border-radius: 8px;
 			}
-			
 		}
 	}
 }

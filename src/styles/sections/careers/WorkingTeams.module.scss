@@ -17,6 +17,9 @@
 		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 50px 50px;
 		@media screen and (max-width: 992px) {
+			grid-gap: 25px 25px;
+		}
+		@media screen and (max-width: 767px) {
 			grid-template-columns: repeat(1, 1fr);
 		}
 	}
