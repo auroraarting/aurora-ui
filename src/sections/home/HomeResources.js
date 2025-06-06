@@ -28,6 +28,18 @@ import Image from "next/image";
 
 /** HomeResources Section */
 export default function HomeResources({ data, countries, voices }) {
+	/** Map WP/Strapi category names → the label you want to surface */
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	const CATEGORY_DISPLAY = {
+		"Case Studies": "LATEST CASE STUDY",
+		"Energy Talks": "LATEST PODCAST",
+		Events: "UPcoming EVENT",
+	};
+
+	// eslint-disable-next-line require-jsdoc
+	const getDisplayCategory = (cat) =>
+		CATEGORY_DISPLAY[cat] || cat?.toUpperCase(); // fallback keeps everything else nice
+
 	return (
 		<section
 			className={`${styles.HomeResources}`}
@@ -59,7 +71,7 @@ export default function HomeResources({ data, countries, voices }) {
 										<div
 											className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 										>
-											Latest {item?.cat}
+											{getDisplayCategory(item?.cat)}
 										</div>
 										<h4
 											className={`${styles.descTxt} text_md f_w_m color_secondary font_primary pt_10`}
