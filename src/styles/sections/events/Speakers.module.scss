@@ -91,6 +91,9 @@
 				opacity: 0;
 				transition: 0.5s all;
 				z-index: 1;
+				@media (max-width: 1199px) {
+					display: none;
+				}
 				img {
 					border-radius: 20px;
 					@media (max-width: 767px) {
@@ -143,17 +146,17 @@
 			-webkit-backdrop-filter: blur(7px);
 		}
 		::-webkit-scrollbar {
-				width: 5px;
-				height: 5px;
-				background: var(--color_gray);
-			}
-			::-webkit-scrollbar-track {
-				border-radius: 50px;
-			}
-			::-webkit-scrollbar-thumb {
-				background: var(--color_white);
-				border-radius: 50px;
-			}
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
 		.popup_content {
 			position: relative;
 			z-index: 1002;
@@ -172,7 +175,6 @@
 				padding: 40px 15px 30px;
 				width: calc(100% - 20px);
 			}
-			
 		}
 		.close_btn {
 			padding: 0;
@@ -215,13 +217,13 @@
 				@media (max-width: 767px) {
 					width: 70%;
 				}
-				.popUp{
+				.popUp {
 					position: absolute;
 					bottom: 0;
 					right: 0px;
 					width: 100%;
-    			height: auto;
-					img{
+					height: auto;
+					img {
 						width: 100%;
 					}
 				}

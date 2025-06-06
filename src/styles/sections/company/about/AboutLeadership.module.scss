@@ -92,6 +92,9 @@
 				right: 0px;
 				opacity: 0;
 				transition: 0.5s all;
+				@media (max-width: 1199px) {
+					display: none;
+				}
 				img {
 					border-radius: 20px;
 					@media (max-width: 767px) {
@@ -210,7 +213,7 @@
 		.BoxFlex {
 			align-items: flex-start;
 			overflow: auto;
-			
+
 			@media (max-width: 1199px) {
 				overflow-y: scroll;
 				position: relative;
