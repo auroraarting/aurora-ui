@@ -108,7 +108,7 @@ export default function WebinarInsideWrap({
 					// hideall={true}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
-							<div
+							<a
 								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 								key="btn"
 								to="Insights"
@@ -116,7 +116,7 @@ export default function WebinarInsideWrap({
 								<Button color="primary" variant="filled" shape="rounded">
 									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 								</Button>
-							</div>
+							</a>
 						)
 					}
 				/>
