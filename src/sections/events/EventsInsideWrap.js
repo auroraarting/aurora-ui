@@ -65,9 +65,9 @@ export default function EventsInsideWrap({
 				{data?.events?.thumbnail?.status === "Upcoming" && (
 					<CountdownTimer targetDate={data?.events?.thumbnail?.date} />
 				)}
-				<div className="container">
+				{/* <div className="container">
 					<Breadcrumbs />
-				</div>
+				</div> */}
 				<div className="pt_40">
 					<EventsInsideBanner data={data} />
 				</div>

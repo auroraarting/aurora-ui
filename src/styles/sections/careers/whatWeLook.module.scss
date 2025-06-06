@@ -14,15 +14,21 @@
 		}
 		.list_wrap {
 			ul {
-				padding: 0 0 0 16px;
+				padding: 0 0 0 0px;
+				list-style-type: none;
 				li {
 					position: relative;
-					padding-left: 10px;
-					&::marker {
-						content: url("../../../../public/img/icons/checkIcn.svg");
-					}
+					padding-left: 25px;
+					// &::marker {
+					// 	content: url("../../../../public/img/icons/checkIcn.svg");
+					// }
 					@media screen and (max-width: 992px) {
 						font-size: 18px;
+					}
+					.checkIcn {
+						position: absolute;
+						left: 0px;
+						top: 5px;
 					}
 				}
 			}

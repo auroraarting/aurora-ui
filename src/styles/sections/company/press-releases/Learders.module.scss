@@ -101,6 +101,9 @@
 				opacity: 0;
 				transition: 0.5s all;
 				z-index: 1;
+				@media (max-width: 1199px) {
+					display: none;
+				}
 				img {
 					border-radius: 20px;
 					@media (max-width: 767px) {
@@ -194,17 +197,17 @@
 			}
 		}
 		::-webkit-scrollbar {
-				width: 5px;
-				height: 5px;
-				background: var(--color_gray);
-			}
-			::-webkit-scrollbar-track {
-				border-radius: 50px;
-			}
-			::-webkit-scrollbar-thumb {
-				background: var(--color_white);
-				border-radius: 50px;
-			}
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
 	}
 	.PopupItem {
 		&::-webkit-scrollbar {
@@ -231,14 +234,14 @@
 						width: 100%;
 					}
 				}
-				.popUp{
+				.popUp {
 					position: absolute;
 					bottom: 0;
 					right: 0px;
 					width: 100%;
-    			height: auto;
+					height: auto;
 					z-index: 1;
-					img{
+					img {
 						width: 100%;
 					}
 				}
@@ -295,7 +298,7 @@
 				// }
 			}
 		}
-		
+
 		.blogWapper {
 			position: relative;
 			margin: 50px 0px;
