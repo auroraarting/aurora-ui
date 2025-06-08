@@ -21,7 +21,9 @@ const LottieRenderer = ({ src }) => {
 		fetchAnimation();
 	}, [url]);
 
-	if (!animationData) return null;
+	if (!animationData) {
+		return null;
+	}
 
 	return <Lottie animationData={animationData} loop autoplay />;
 };

@@ -40,7 +40,7 @@ const AccordionItem = ({ children }) => {
 				if (child.type === AccordionContent && isOpen) {
 					return child;
 				}
-				return null;
+				return <></>;
 			})}
 		</div>
 	);

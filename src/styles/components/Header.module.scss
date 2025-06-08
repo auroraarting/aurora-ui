@@ -142,7 +142,7 @@
 			padding-inline-start: 0;
 			// The menu is transformed as per sidebar on click of hamburger icon
 			@include lg-down {
-				padding-top: 20px;
+				// padding-top: 20px;
 				background-color: var(--color_white);
 				transition: ease all 300ms;
 				transform: translateX(-100%);
@@ -155,6 +155,9 @@
 			}
 			@media (max-width: 767px) {
 				top: 93px;
+				height: calc(100vh - 93px);
+				display: block;
+				overflow: auto;
 			}
 			.links {
 				@extend %relative_box;
@@ -229,6 +232,7 @@
 					transform: translateY(-10px);
 					visibility: hidden;
 					width: 100%;
+
 					&::after {
 						content: " ";
 						position: absolute;
@@ -246,6 +250,12 @@
 						position: relative;
 						display: none;
 						top: 0;
+						display: block;
+						visibility: visible;
+						opacity: 1;
+						max-height: 0;
+						overflow: hidden;
+						padding-top: 0px;
 					}
 					.dropdown_links {
 						padding: 8px 15px;
@@ -279,14 +289,15 @@
 						}
 					}
 				}
+
 				// This class is added when link is clicked
 				&.dropdown_opened {
 					@media (max-width: 1199px) {
-						max-height: 450px;
+						// max-height: 450px;
 						overflow: auto;
 					}
 					@media (max-width: 767px) {
-						max-height: 250px;
+						// max-height: 250px;
 					}
 					.dropdown_wrap {
 						transform: translateY(2px);
