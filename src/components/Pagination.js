@@ -78,7 +78,9 @@ export default function Pagination({
 		return pageNumbers;
 	};
 
-	if (totalPages <= 1) return null;
+	if (totalPages <= 1) {
+		return null;
+	}
 
 	return (
 		<div className={`${styles.pagination} ${isDark ? styles.dark : ""}`}>

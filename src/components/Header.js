@@ -86,10 +86,41 @@ export default function Header({ defaultNavigation }) {
 
 	/** Function to toggle dropdown */
 	const toggleDropdown = (dropdownKey) => {
+		const shouldOpen = openDropdown === dropdownKey ? null : dropdownKey;
 		handleCloseClick();
 		setOpenDropdown((prevOpenDropdown) =>
 			prevOpenDropdown === dropdownKey ? null : dropdownKey
 		);
+		if (window.innerWidth > 600) {
+			return;
+		}
+		const dropdowns = document.querySelectorAll(`.${styles.dropdown_wrap}`);
+		[...dropdowns].map((item) => {
+			item.style.maxHeight = "0px";
+			item.style.paddingTop = "0px";
+			// paddingTop
+		});
+		if (shouldOpen) {
+			const megaMenuHtml = document.querySelector(
+				`#${dropdownKey} .${styles.megaMenuBox}`
+			);
+			const wrapHtml = document.querySelector(
+				`#${dropdownKey} .${styles.dropdown_wrap}`
+			);
+			wrapHtml.style.maxHeight = `${
+				megaMenuHtml.getBoundingClientRect().height
+			}px`;
+			wrapHtml.style.paddingTop = "15px";
+			console.log(wrapHtml.getBoundingClientRect().height, "wraHtml");
+		} else {
+			const wrapHtml = document.querySelector(
+				`#${dropdownKey} .${styles.dropdown_wrap}`
+			);
+			if (wrapHtml) {
+				wrapHtml.style.maxHeight = "0px";
+				wrapHtml.style.paddingTop = "0px";
+			}
+		}
 	};
 
 	/** highlightSearchTerm */
@@ -157,7 +188,7 @@ export default function Header({ defaultNavigation }) {
 
 	return (
 		<>
-			<header className={`${styles.main_headerBox} main_headerBox`}>
+			<header className={`${styles.main_headerBox} zd`}>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
 					<div
@@ -222,6 +253,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="company"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Company</p>
@@ -230,8 +262,8 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
-										<div className={`${styles.megaMenuBox} f_w_j`}>
+									<div className={`${styles.dropdown_wrap} dropdown_wrap`}>
+										<div className={`${styles.megaMenuBox} f_w_j megaMenuBox`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
@@ -263,12 +295,6 @@ export default function Header({ defaultNavigation }) {
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
-													{/* <a
-														href="/company/team"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Team</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a> */}
 													<Link
 														href="/company/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -401,6 +427,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="WhoAreYou"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Who Are You</p>
@@ -559,6 +586,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="HowWeHelp"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">How We Help</p>
@@ -590,31 +618,6 @@ export default function Header({ defaultNavigation }) {
 														);
 													})}
 												</div>
-												{/* <div className={`${styles.weAreHiring} f_w_j`}>
-													<div className={`${styles.imgBox}`}>
-														<img
-															src={header_img.src}
-															className="width_100 b_r_10"
-															alt="img"
-														/>
-													</div>
-													<div className={`${styles.contentBox}`}>
-														<h4 className="text_reg font_primary color_secondary">
-															We are hiring!
-														</h4>
-														<p className="text_xs color_light_gray">
-															Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
-															sodales mperdiet volutpat dui ipsum massa.
-														</p>
-														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/careers/life-at-aurora">
-																<Button color="primary" variant="filled" shape="rounded">
-																	View all
-																</Button>
-															</a>
-														</div>
-													</div>
-												</div> */}
 												{data?.webinar?.map((item) => {
 													return (
 														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
@@ -748,6 +751,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="ProductServices"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">
@@ -824,34 +828,6 @@ export default function Header({ defaultNavigation }) {
 																	</Link>
 																);
 															})}
-															{/* <a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Amun</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Chronos</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Origin</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Lumus PPA</span>{" "}
-															</a> */}
 														</div>
 													</div>
 													<div className={`${styles.softwareItem}`}>
@@ -877,34 +853,6 @@ export default function Header({ defaultNavigation }) {
 																	</Link>
 																);
 															})}
-															{/* <a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Flexible Energy </span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Power & Renewables</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Hydrogen</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Grid Add-on</span>{" "}
-															</a> */}
 														</div>
 													</div>
 												</div>
@@ -927,6 +875,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="Resources"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Resources</p>
@@ -1107,6 +1056,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="Careers"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Careers</p>

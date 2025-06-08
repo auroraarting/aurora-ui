@@ -49,7 +49,7 @@ export default function TransactionSolutions({
 	const [swiperTwo, setSwiperTwo] = useState(null);
 
 	useEffect(() => {
-		if (data?.length === 0 || !data || isSlider) return null;
+		if (data?.length === 0 || !data || isSlider) return;
 
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;

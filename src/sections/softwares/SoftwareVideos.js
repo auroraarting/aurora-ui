@@ -33,7 +33,9 @@ export default function SoftwareVideos() {
 	const pathname = usePathname();
 	const isOrigin = pathname.includes("origin");
 
-	if (!pathname.includes("origin") && !pathname.includes("chronos")) return null;
+	if (!pathname.includes("origin") && !pathname.includes("chronos")) {
+		return null;
+	}
 
 	return (
 		<section className={`${styles.SoftwareVideos} pt_100`}>
