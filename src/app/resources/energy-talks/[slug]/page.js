@@ -62,14 +62,14 @@ export async function generateMetadata({ params }) {
 }
 
 /** Fetch  */
-async function getData({ params }) {
+async function getData({ slug }) {
 	const [data, events, categoriesForSelect, list, socialLinksFetch] =
 		await Promise.all([
-			await getPodcastInside(params.slug),
-			await getPodcasts("first: 1"),
-			await getInsightsCategories(),
-			await getPodcasts(),
-			await getEnergyTalksPageSocialLinks(),
+			getPodcastInside(slug),
+			getPodcasts("first: 1"),
+			getInsightsCategories(),
+			getPodcasts(),
+			getEnergyTalksPageSocialLinks(),
 		]);
 
 	const otherList = list?.data?.podcasts?.nodes
@@ -104,9 +104,18 @@ async function getData({ params }) {
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const podcasts = await getPodcasts();
+	return podcasts?.data?.podcasts?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** EnergyInside Page */
 export default async function EnergyInside({ params }) {
-	const { props } = await getData({ params });
+	const { slug } = await params;
+	const { props } = await getData({ slug });
 
 	return (
 		<div>

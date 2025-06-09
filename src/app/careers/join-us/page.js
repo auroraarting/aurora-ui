@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -33,6 +33,8 @@ export const metadata = {
 	title: "Join Us | Aurora",
 	description: "Aurora",
 };
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** JoinUs Page */
 export default async function JoinUs() {

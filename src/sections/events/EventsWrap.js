@@ -111,8 +111,10 @@ export default function EventsWrap({
 					<div className="container">
 						<Insights
 							isPowerBgVisible={true}
-							formSectionTitle="Interested in partnering with us?"
-							formSectionDesc="We're always looking for new and exciting opportunities to collaborate. For partnership enquiries, please contact <a href='mailto:events@auroraer.com'>events@auroraer.com</a>"
+							// formSectionTitle="Interested in partnering with us?"
+							// formSectionDesc="We're always looking for new and exciting opportunities to collaborate. For partnership enquiries, please contact <a href='mailto:events@auroraer.com'>events@auroraer.com</a>"
+							formSectionTitle={page?.insights?.sectionTitle}
+							formSectionDesc={page?.insights?.sectionDesc}
 							formSectionBtnText={
 								dynamicInsightsBtnProps({ postFields: page }, "insightsSectionButton")
 									.btntext

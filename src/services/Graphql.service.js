@@ -1,3 +1,4 @@
+import { rateLimitedFetch } from "@/lib/rateLimitedFetch";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI  */
@@ -5,7 +6,7 @@ export default async function GraphQLAPI(query) {
 	let res;
 	let req;
 	try {
-		req = await fetch(`${process.env.API_URL}`, {
+		req = await rateLimitedFetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
 			next: { revalidate: 60 },

@@ -21,14 +21,32 @@ import transaction from "../../public/img/softwares/transaction.svg";
 import portfolio from "../../public/img/softwares/portfolio.svg";
 import asset from "../../public/img/softwares/asset.svg";
 import strategy from "../../public/img/softwares/strategy.svg";
+import { slugify } from "@/utils";
 
 // DATA //
 
 /** TheApplicationProcess Section */
-export default function TheApplicationProcess({ data }) {
+export default function TheApplicationProcess({ data, sectionName }) {
 	if (!data?.title) {
 		return <></>;
 	}
+
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (sectionName === undefined) {
+			return {
+				id: "expertise",
+				"data-name": "Expertise",
+			};
+		} else if (sectionName === "") {
+			return {};
+		} else if (sectionName) {
+			return {
+				id: slugify(sectionName),
+				"data-name": sectionName,
+			};
+		}
+	};
 
 	const tempAccordian = [
 		{
@@ -162,8 +180,7 @@ export default function TheApplicationProcess({ data }) {
 	return (
 		<section
 			className={`${styles.SmarterEnergy} applicationMain ptb_100`}
-			id="expertise"
-			data-name="Expertise"
+			{...sectionTitle()}
 		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>

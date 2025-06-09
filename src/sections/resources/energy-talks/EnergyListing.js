@@ -363,7 +363,7 @@ export default function EnergyListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected.year || "Years"}
+										{selected.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>

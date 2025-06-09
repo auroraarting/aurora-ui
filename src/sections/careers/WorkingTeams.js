@@ -23,7 +23,11 @@ import teamsIcn03 from "../../../public/img/careers/teamsIcn03.svg";
 /** WhatWeLook Section */
 export default function WorkingTeams({ data }) {
 	return (
-		<section className={`${styles.workingTeams} pt_100`}>
+		<section
+			className={`${styles.workingTeams} pt_100`}
+			id="EXPOSURE"
+			data-name="EXPOSURE"
+		>
 			<div className="container">
 				<div className={`${styles.workingTeamsHead} f_w_j m_b_40`}>
 					<div className={`${styles.workingTeamsHeadItem}`}>

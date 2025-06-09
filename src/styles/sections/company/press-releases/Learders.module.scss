@@ -224,8 +224,10 @@
 			overflow-y: auto;
 			position: relative;
 			.Imgthumbnail {
-				position: relative;
+				position: sticky;
+				top: 0;
 				width: 25%;
+
 				@media (max-width: 991px) {
 					width: 30%;
 				}
@@ -294,11 +296,18 @@
 						margin-top: 20px;
 					}
 				}
-				// .Desc {
-				// 	position: relative;
-				// 	top: 0;
-				// 	padding-right: 20px;
-				// }
+				.DescWrap {
+					position: relative;
+
+					.Desc {
+						position: absolute;
+						top: 0;
+						padding-right: 20px;
+						@media (max-width: 767px) {
+							position: relative;
+						}
+					}
+				}
 			}
 		}
 

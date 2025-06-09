@@ -96,7 +96,7 @@ export default function PressReleasesWrap({
 								}`}
 								onClick={() => handleTabClick("PressRoom")}
 							>
-								<p className="text_xs f_w_m font_primary ">Press Room</p>
+								<p className="text_xs f_w_m font_primary ">Press Releases</p>
 							</div>
 							<div
 								className={`${styles.listTxt} ${
