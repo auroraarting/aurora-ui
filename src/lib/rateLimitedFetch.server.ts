@@ -1,6 +1,7 @@
 // lib/rateLimitedFetch.ts
 import Bottleneck from "bottleneck";
 import IORedis from "ioredis";
+import { v4 as uuidv4 } from "uuid";
 
 // const redis = new IORedis(
 // 	"redis://default:aKAwsBVnsChBew7oL7yC+LLsHDTWHZHDvRzOD8aOUk+/ivR8/xMGWJmlfZArYD+8A436NkfKd5J/0IYY@64.227.145.242:6379"
@@ -44,29 +45,70 @@ if (typeof window !== "undefined") {
 
 // Connect to Redis running in your VM (change host/port as needed)
 const redisClient = new IORedis({
-	host: "127.0.0.1", // or your VM IP
+	host: "64.227.145.242", // or your VM IP
 	port: 6379,
-	password: "", // if required
+	password:
+		"aKAwsBVnsChBew7oL7yC+LLsHDTWHZHDvRzOD8aOUk+/ivR8/xMGWJmlfZArYD+8A436NkfKd5J/0IYY", // if required
 	enableOfflineQueue: false,
+	lazyConnect: false, // Connect on first use
+	reconnectOnError: () => true,
 });
 
 // Create a Bottleneck group backed by Redis
 const limiter = new Bottleneck({
 	id: "global-api-limiter",
-	maxConcurrent: 1,
-	minTime: 1000 * 20, // minimum time between requests (e.g. 20s per request)
-	datastore: "ioredis",
-	clearDatastore: false,
+	// maxConcurrent: 1,
+	// minTime: 1000 * 20, // minimum time between requests (e.g. 20s per request)
+	datastore: "redis",
+	clearDatastore: true,
 	clientOptions: {
 		client: redisClient,
 	},
+	// 💡 This allows up to 5 requests per 1000ms
+	reservoir: 5, // max requests in a burst
+	reservoirRefreshAmount: 5, // refill to 5
+	reservoirRefreshInterval: 1000, // every 1000ms = 1s
+	maxConcurrent: 1, // one at a time for safety
 });
 
 limiter.on("queued", (info) => {
 	console.log("Queued request", info.options.id);
 });
+redisClient.on("connect", () => {
+	console.log("Redis connected!");
+});
+redisClient.on("error", (err) => {
+	console.error("Redis error:", err);
+});
+limiter.on("error", (err) => {
+	console.error("Bottleneck error:", err);
+});
+limiter.on("failed", (error, jobInfo) => {
+	console.error("Bottleneck job failed:", error, jobInfo);
+});
+limiter.on("debug", (msg) => {
+	console.log("Bottleneck debug:", msg);
+});
+limiter.on("message", (msg) => {
+	console.log(msg); // prints "this is a string"
+});
+limiter.on("executing", (info) => {
+	console.log(`🚀 Executing: Job ${info.options.id}`);
+});
 
 /** rateLimitedFetch  */
-export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
-	return limiter.schedule(() => fetch(url, options));
-}
+// export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
+// 	return limiter.schedule(() => fetch(url, options));
+// }
+
+// Wrap native fetch
+// export const rateLimitedFetch = limiter.wrap(fetch);
+
+/** Rate-limited fetch  */
+export const rateLimitedFetch = async (url: string, options?: RequestInit) => {
+	const jobId = `job-${uuidv4()}`;
+	console.time(jobId);
+	const res = await limiter.schedule({ id: jobId }, () => fetch(url, options));
+	console.timeEnd(jobId);
+	return res;
+};

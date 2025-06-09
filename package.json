@@ -40,7 +40,8 @@
 		"resend": "^2.0.0",
 		"sass": "^1.54.9",
 		"scroll-out": "^2.2.12",
-		"swiper": "^11.2.6"
+		"swiper": "^11.2.6",
+		"uuid": "^11.1.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.5",

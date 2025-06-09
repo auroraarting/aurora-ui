@@ -39,13 +39,10 @@ export default async function RootLayout({ children }) {
 			<body>
 				<GlobalContext>
 					{/* Header */}
-					<Header defaultNavigation={navigation} />
-					<HighlightSearched />
 					<Loader hide />
 					{/* <Breadcrumbs /> */}
 					{children}
 					{/* Footer */}
-					<Footer defaultNavigation={navigation} />
 				</GlobalContext>
 			</body>
 		</html>

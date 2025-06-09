@@ -1,4 +1,3 @@
-"use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
@@ -29,6 +28,10 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 // SERVICES //
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
 
 /** Meta Data */
 export const metadata = {
