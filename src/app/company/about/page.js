@@ -50,14 +50,24 @@ export async function generateMetadata() {
 
 /** Fetch  */
 async function getData() {
-	const [data, categoriesForSelect, officesFetch, pageFetch, bundlesFetch] =
-		await Promise.all([
-			await getAboutPage(),
-			await getInsightsCategories(),
-			await getOffices(),
-			await getEosPage(),
-			await getBundlesSection(),
-		]);
+	// const [data, categoriesForSelect, officesFetch, pageFetch, bundlesFetch] =
+	// 	await Promise.all([
+	// 		await getAboutPage(),
+	// 		await getInsightsCategories(),
+	// 		await getOffices(),
+	// 		await getEosPage(),
+	// 		await getBundlesSection(),
+	// 	]);
+	const data = await getAboutPage();
+	await new Promise((res) => setTimeout(res, 200));
+	const categoriesForSelect = await getInsightsCategories();
+	await new Promise((res) => setTimeout(res, 200));
+	const officesFetch = await getOffices();
+	await new Promise((res) => setTimeout(res, 200));
+	const pageFetch = await getEosPage();
+	await new Promise((res) => setTimeout(res, 200));
+	const bundlesFetch = await getBundlesSection();
+
 	let obj = {
 		data: { ...data.data.page.about, offices: officesFetch.data.offices.nodes },
 	};

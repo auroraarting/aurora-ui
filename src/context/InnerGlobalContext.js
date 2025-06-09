@@ -42,7 +42,7 @@ export default function InnerGlobalContext({ children }) {
 			targets: [".fadeInUp", ".scaleUpAnimation"],
 			once: true,
 		});
-		setTimeout(() => {
+		setInterval(() => {
 			addCssVariables();
 		}, 1000);
 	}, []);

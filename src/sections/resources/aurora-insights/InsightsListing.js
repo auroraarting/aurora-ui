@@ -433,7 +433,7 @@ export default function InsightsListing({
 							</div>
 						</div>
 						{/* Event Status Type Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -473,7 +473,7 @@ export default function InsightsListing({
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
 						{/* Reset */}
 						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
@@ -556,7 +556,7 @@ export default function InsightsListing({
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
 									<a
 										href={`/resources/aurora-insights/${slugify(
-											isCategory(allCategories, item?.categories?.nodes)
+											isCategory(allCategories, item?.categories?.nodes, true)
 										)}/${item?.slug}`}
 									>
 										<div className={`${styles.hoverBox}`}>

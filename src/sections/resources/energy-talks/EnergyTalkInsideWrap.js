@@ -164,7 +164,7 @@ export default function EnergyTalkInsideWrap({
 						defaultList={otherList}
 						countries={countries}
 						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
-						insightsTitle="Previous Podcast"
+						insightsTitle="Previous Podcasts"
 						insightsLink="/resources/energy-talks/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 						customHtml={
@@ -183,7 +183,7 @@ export default function EnergyTalkInsideWrap({
 								</div>
 							</div>
 						}
-						allTag="Energy Talks"
+						allTag="Podcast"
 					/>
 				</div>
 				<IframeModal />

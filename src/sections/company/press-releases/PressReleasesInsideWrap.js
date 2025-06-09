@@ -123,7 +123,7 @@ export default function PressReleasesInsideWrap({
 						insightsTitle="More from Aurora"
 						formdata={dynamicInsightsBtnProps(dataForBtn2, "insightsSectionButton")}
 						insightsLink="/company/press-releases/"
-						allTag="Press"
+						allTag="Press Releases"
 					/>
 				</div>
 			</main>
