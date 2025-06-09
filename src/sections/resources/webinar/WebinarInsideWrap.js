@@ -31,14 +31,6 @@ import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 /** WebinarInside Page */
 export default function WebinarInsideWrap({

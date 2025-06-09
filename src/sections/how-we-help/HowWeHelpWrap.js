@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -17,13 +17,13 @@ import IframeModal from "@/components/IframeModal";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/how-we-help/HowWeHelp.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 

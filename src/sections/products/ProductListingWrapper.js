@@ -34,13 +34,6 @@ import GlobalMap from "@/components/GlobalMap";
 // DATA //
 
 // SERVICES //
-import { getProductPage } from "@/services/Products.service";
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
 
 /** Meta Data */
 export const metadata = {

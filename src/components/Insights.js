@@ -311,10 +311,6 @@ const tempdata = {
 };
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
 
 /** Insights Section */
 export default function Insights({

@@ -533,7 +533,7 @@ export function isCategory(categoryList, dynamicWords, forUrl) {
 		const target = (item.alternate || item.title).toLowerCase().trim();
 
 		if (names?.includes(target)) {
-			if (!forUrl) {
+			if (forUrl) {
 				if (item.title === "Case Studies") {
 					item.title = "Case Study";
 				}

@@ -15,13 +15,13 @@ import IframeModal from "@/components/IframeModal";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/company/company.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 

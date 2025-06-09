@@ -13,6 +13,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import SoftwareCards from "@/components/SoftwareCards";
 import AllVideos from "@/components/AllVideos";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import WebinarListing from "@/sections/resources/webinar/WebinarListing";
@@ -21,6 +22,7 @@ import PastSpeakers from "@/sections/resources/webinar/PastSpeakers";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/webinar/Webinar.module.scss";
@@ -29,13 +31,6 @@ import styles from "@/styles/pages/resources/webinar/Webinar.module.scss";
 import country_thumb from "/public/img/global-presence/country_thumb.jpg";
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
-import { getWebinarPage } from "@/services/Webinar.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 

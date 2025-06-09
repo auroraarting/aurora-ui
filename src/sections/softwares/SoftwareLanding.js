@@ -13,6 +13,8 @@ import TrustedLeaders from "@/components/TrustedLeaders";
 import GlobalMap from "@/components/GlobalMap";
 import Bundles from "@/components/Bundles";
 import IframeModal from "@/components/IframeModal";
+import Insights from "@/components/Insights";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
@@ -33,8 +35,6 @@ import styles from "@/styles/pages/softwares/SoftwareLanding.module.scss";
 // IMAGES //
 import desktop_banner from "@/../public/img/banner/desktop_banner.jpg";
 import available_regions from "@/../public/img/global-presence/available_regions.jpg";
-import Insights from "@/components/Insights";
-import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 
 // DATA //
 import locationJson from "@/data/globalMap.json";

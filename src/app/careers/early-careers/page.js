@@ -51,10 +51,10 @@ export const metadata = {
 export default async function EarlyCareers() {
 	const [dataFetch, pageFetch, categoriesForSelect, officesFetch] =
 		await Promise.all([
-			await getEarlyCareersListing("first: 99999"),
-			await getEarlyCareersPage(),
-			await getInsightsCategories(),
-			await getOffices(),
+			getEarlyCareersListing("first: 99999"),
+			getEarlyCareersPage(),
+			getInsightsCategories(),
+			getOffices(),
 		]);
 
 	return (

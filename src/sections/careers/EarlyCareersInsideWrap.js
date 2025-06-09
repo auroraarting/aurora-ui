@@ -10,6 +10,7 @@ import IntegratedSystem from "@/components/IntegratedSystem";
 import Insights from "@/components/Insights";
 import IframeModal from "@/components/IframeModal";
 import TheApplicationProcess from "@/components/TheApplicationProcess";
+import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
 import SectionsHeader from "@/components/SectionsHeader";
@@ -28,7 +29,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/careers/early-careers/EarlyCareers.module.scss";
-import Button from "@/components/Buttons/Button";
 
 // IMAGES //
 
