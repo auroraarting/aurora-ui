@@ -24,7 +24,11 @@ import { getMapJsonForCountries } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getCountryInside } from "@/services/GlobalPresence.service";
+import {
+	getCountries,
+	getCountryInside,
+	getRegions,
+} from "@/services/GlobalPresence.service";
 import { getCountryInside as getCountryInsideWithLanguages } from "@/services/GlobalPresenceLanguages.service";
 import {
 	getInsights,
@@ -32,7 +36,6 @@ import {
 } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
-import { getRegions } from "@/services/Navigation.service";
 
 export const revalidate = 60; // Revalidates every 60 seconds
 
@@ -64,12 +67,11 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const regions = await getRegions();
-	return regions?.data?.regions?.nodes.flatMap((item) =>
-		item.countries?.nodes?.map((country) => ({
-			slug: country.slug,
-		}))
-	);
+	const countries = await getCountries();
+
+	return countries?.data?.countries?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Fetch  */
