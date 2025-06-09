@@ -16,6 +16,7 @@
 		"@react-google-maps/api": "^2.20.6",
 		"@studio-freight/lenis": "^1.0.22",
 		"@u-wave/react-vimeo": "^0.9.12",
+		"bottleneck": "^2.19.5",
 		"commander": "^11.1.0",
 		"framer-motion": "^12.4.7",
 		"fs-extra": "^11.2.0",
