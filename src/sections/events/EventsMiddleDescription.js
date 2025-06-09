@@ -82,6 +82,9 @@ const WhyAttend = ({ data }) => {
 				data-lenis-prevent
 			>
 				<div className={`${styles.content}`}>
+					{/* <div className={`${styles.CloseWrap}`}>
+						
+					</div> */}
 					<img
 						className={`${styles.close}`}
 						src={popup_close.src}

@@ -81,6 +81,9 @@
 				}
 				p {
 					width: 88%;
+					@media (max-width: 767px) {
+						font-size: 12px;
+					}
 				}
 				a {
 					width: 32px;
@@ -169,13 +172,13 @@
 				padding: 40px 20px 55px;
 			}
 			@media only screen and (max-width: 767px) {
-				padding: 40px 15px 30px;
+				padding: 60px 15px 30px;
 				width: calc(100% - 20px);
 			}
 		}
 		.close_btn {
 			padding: 0;
-			position: absolute;
+			position: fixed;
 			right: 55px;
 			top: 20px;
 			z-index: 2;
@@ -194,12 +197,11 @@
 			// 	top: 35px;
 			// }
 			@media only screen and (max-width: 1199px) {
-				top: 10px;
 				right: 20px;
 			}
 			@media only screen and (max-width: 767px) {
-				right: 10px;
-				top: 10px;
+				// right: 10px;
+				// top: 10px;
 				z-index: 1;
 			}
 		}
