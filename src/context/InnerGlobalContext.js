@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { BookmarkContext } from "./GlobalContext"; // import from above
 import SmoothScrolling from "@/utils/SmoothScrolling";
@@ -11,6 +11,7 @@ import { setTimeout } from "timers";
 export default function InnerGlobalContext({ children }) {
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
+	const [showLanguages, setShowLanguages] = useState(false);
 
 	/** addCssVariables  */
 	const addCssVariables = () => {
@@ -48,7 +49,7 @@ export default function InnerGlobalContext({ children }) {
 	}, []);
 
 	return (
-		<BookmarkContext.Provider value={{ search }}>
+		<BookmarkContext.Provider value={{ search, showLanguages, setShowLanguages }}>
 			{children}
 		</BookmarkContext.Provider>
 	);

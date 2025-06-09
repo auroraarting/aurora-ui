@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 // COMPONENTS //
@@ -44,8 +44,10 @@ import WebinarImg from "/public/img/header_webinar.jpg";
 
 // SERVICES //
 import { fetchNavigationData } from "@/services/Navigation.service";
+import { useContextProvider } from "@/context/GlobalContext";
 
 // DATA //
+import languages from "@/data/languages.json";
 
 /** Header Component */
 export default function Header({ defaultNavigation }) {
@@ -59,6 +61,11 @@ export default function Header({ defaultNavigation }) {
 	const searchParams = useSearchParams();
 	const searchQuery = searchParams.get("search");
 	const pathname = usePathname();
+	const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+	// const [showLanguages, setShowLanguages] = useState(true);
+	const { showLanguages } = useContextProvider();
+	const [showLanguagesList, setShowLanguagesList] = useState(false);
+	const language = searchParams.get("language");
 
 	/** toggle */
 	const toggleTab = (index) => {
@@ -174,6 +181,14 @@ export default function Header({ defaultNavigation }) {
 		setShowSearch(false);
 		closePopup();
 		setOpenSidebar(false);
+
+		if (language) {
+			const selectedLang = languages.find(
+				(lang) => lang.shortTitle.toLowerCase() === language?.toLowerCase()
+			);
+			setSelectedLanguage(selectedLang);
+		}
+		console.log(showLanguages, "showLanguages");
 	}, [pathname]);
 
 	useEffect(() => {
@@ -187,7 +202,11 @@ export default function Header({ defaultNavigation }) {
 
 	return (
 		<>
-			<header className={`${styles.main_headerBox} main_headerBox`}>
+			<header
+				className={`${styles.main_headerBox} ${
+					showLanguages && styles.showLanguages
+				} ${showLanguagesList && styles.showLanguagesList}  main_headerBox`}
+			>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
 					<div
@@ -224,13 +243,51 @@ export default function Header({ defaultNavigation }) {
 							<img src={login_icon.src} alt="login" />
 							<span>EOS Sign in</span>
 						</Link>
+						{showLanguages && (
+							<div className={`${styles.languageFlex}`}>
+								<div
+									className={`${styles.selected} text_xxs f_w_m font_primary`}
+									onClick={() => setShowLanguagesList(!showLanguagesList)}
+								>
+									<img src={selectedLanguage?.icon} />
+									{selectedLanguage?.shortTitle}
+									<img src={dropdown_arrow.src} />
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
+
 				<div
 					className={`${styles.main_header} ${
 						openSidebar ? styles.sidebar_opened : ""
 					}`}
 				>
+					{showLanguagesList && (
+						<div className={`${styles.list}`}>
+							<div className={`${styles.listInner}`}>
+								<div className={`${styles.langWrap}`}>
+									{languages?.map((item) => {
+										return (
+											<div
+												className={`${styles.item} text_xxs f_w_m font_primary`}
+												key={item?.title}
+												onClick={() => {
+													window.location.href = `${pathname}?language=${item?.shortTitle.toLowerCase()}`;
+													setSelectedLanguage(item);
+													setShowLanguagesList(!showLanguagesList);
+												}}
+											>
+												{/* <img src={selectedLanguage?.icon} /> */}
+												{item?.shortTitle}-{item?.title}
+												{/* <img src={dropdown_arrow.src} /> */}
+											</div>
+										);
+									})}
+								</div>
+							</div>
+						</div>
+					)}
 					<div className={`${styles.menuListBox} f_r_aj_between`}>
 						<div className={`${styles.header_inside}`}>
 							{/* Logo wrap */}
