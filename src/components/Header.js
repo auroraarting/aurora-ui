@@ -91,7 +91,7 @@ export default function Header({ defaultNavigation }) {
 		setOpenDropdown((prevOpenDropdown) =>
 			prevOpenDropdown === dropdownKey ? null : dropdownKey
 		);
-		if (window.innerWidth > 600) {
+		if (window.innerWidth > 1200) {
 			return;
 		}
 		const dropdowns = document.querySelectorAll(`.${styles.dropdown_wrap}`);

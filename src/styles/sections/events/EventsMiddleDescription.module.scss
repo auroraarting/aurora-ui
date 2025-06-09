@@ -87,17 +87,22 @@
 		width: 80%;
 		height: 100vh;
 		background-color: var(--color_secondary);
-		padding: 60px;
+		padding: 40px 50px;
 		position: relative;
 		transform: translateX(100%);
 		transition: all 0.4s ease-in-out;
 		overflow-y: auto;
-
+		@media (max-width: 1199px) {
+			width: 95%;
+			padding: 35px 20px;
+		}
 		.close {
 			cursor: pointer;
-			position: absolute;
-			top: 20px;
-			right: 20px;
+			position: sticky;
+			top: 0px;
+			right: 0px;
+			margin-left: auto;
+			z-index: 1;
 		}
 
 		.sessionBox {
