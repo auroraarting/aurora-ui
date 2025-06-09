@@ -70,15 +70,15 @@ if (typeof window !== "undefined") {
 
 // Create a Bottleneck group backed by Redis
 const limiter = new Bottleneck({
-	id: "global-api-limiter",
-	datastore: "ioredis",
-	clearDatastore: false, // Don't clear in prod!
-	Redis: IORedis,
-	clientOptions: {
-		host: "redis-17052.c243.eu-west-1-3.ec2.redns.redis-cloud.com",
-		port: 17052,
-		password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
-	},
+	// id: "global-api-limiter",
+	// datastore: "ioredis",
+	// clearDatastore: false, // Don't clear in prod!
+	// Redis: IORedis,
+	// clientOptions: {
+	// 	host: "redis-17052.c243.eu-west-1-3.ec2.redns.redis-cloud.com",
+	// 	port: 17052,
+	// 	password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
+	// },
 	// 💡 This allows up to 5 requests per 1000ms
 	reservoir: 3, // max requests in a burst
 	reservoirRefreshAmount: 3, // refill to 5
