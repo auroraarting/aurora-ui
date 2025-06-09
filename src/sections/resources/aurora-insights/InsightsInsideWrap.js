@@ -44,7 +44,12 @@ import {
 } from "@/services/Insights.service";
 
 /** Articles Page */
-export default function InsightsInsideWrap({ data, otherList, countries }) {
+export default function InsightsInsideWrap({
+	data,
+	otherList,
+	countries,
+	insights,
+}) {
 	const isArticle = data?.categories?.nodes?.some(
 		(item) => item.slug === "commentary"
 	);
@@ -54,6 +59,8 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 	const isReports = data?.categories?.nodes?.some((item) =>
 		item.slug.includes("report")
 	);
+
+	console.log(insights, "insights");
 
 	return (
 		<div>
@@ -202,13 +209,13 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle={data?.postFields?.insights?.title}
-						formSectionDesc={data?.postFields?.insights?.desc}
+						formSectionTitle={insights?.title}
+						formSectionDesc={insights?.desc}
 						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
+							dynamicInsightsBtnProps(insights, "insightsSectionButton").btntext
 						}
 						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						formdata={dynamicInsightsBtnProps(insights, "insightsSectionButton")}
 					/>
 				</div>
 

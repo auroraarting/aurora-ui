@@ -80,6 +80,26 @@ async function getData({ params }) {
 export default async function Articles({ params }) {
 	const { props } = await getData({ params });
 
+	/** insights */
+	const insights = () => {
+		if (params.slug2 === "article") {
+			return {
+				insights: {
+					title: "Energy insights to your inbox",
+					desc:
+						"Subscribe to get our most recent energy insights delivered straight to your inbox.",
+					iframe: "https://go.auroraer.com/mailinglist",
+				},
+				insightsSectionButton: {
+					buttonText: "Subscribe",
+					iframe: "https://go.auroraer.com/mailinglist",
+				},
+			};
+		}
+	};
+
+	// data?.postFields?.insights?.title
+
 	return (
 		<div>
 			<Script id="show-banner" strategy="afterInteractive">
@@ -122,7 +142,7 @@ export default async function Articles({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<InsightsInsideWrap {...props} />
+			<InsightsInsideWrap {...props} {...insights()} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

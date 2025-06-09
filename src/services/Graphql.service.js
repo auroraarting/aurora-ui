@@ -1,4 +1,4 @@
-import { rateLimitedFetch } from "@/lib/rateLimitedFetch";
+import { rateLimitedFetch } from "@/lib/rateLimitedFetch.server";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI  */
