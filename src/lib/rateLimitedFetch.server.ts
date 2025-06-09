@@ -80,10 +80,10 @@ const limiter = new Bottleneck({
 		password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
 	},
 	// 💡 This allows up to 5 requests per 1000ms
-	reservoir: 5, // max requests in a burst
-	reservoirRefreshAmount: 5, // refill to 5
+	reservoir: 3, // max requests in a burst
+	reservoirRefreshAmount: 3, // refill to 5
 	reservoirRefreshInterval: 1000, // every 1000ms = 1s
-	maxConcurrent: 5, // one at a time for safety
+	maxConcurrent: 3, // one at a time for safety
 });
 
 limiter.on("queued", (info) => {
