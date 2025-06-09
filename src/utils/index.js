@@ -489,7 +489,7 @@ export function buildQueryFromContext(context) {
 }
 
 export const allCategories = [
-	{ title: "Articles", alternate: "Commentary" },
+	{ title: "Article", alternate: "Commentary" },
 	{ title: "Case Studies", alternate: "Case Studies" },
 	{ title: "Market Reports", alternate: "Market Reports" },
 	// { title: "Public", alternate: "Public" },
@@ -499,7 +499,7 @@ export const allCategories = [
 ];
 
 /** findFunc  */
-export function isCategory(categoryList, dynamicWords) {
+export function isCategory(categoryList, dynamicWords, forUrl) {
 	// const words = dynamicWords
 	// 	?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
 	// 	.map((word) => word?.trim())
@@ -533,6 +533,15 @@ export function isCategory(categoryList, dynamicWords) {
 		const target = (item.alternate || item.title).toLowerCase().trim();
 
 		if (names?.includes(target)) {
+			if (!forUrl) {
+				if (item.title === "Case Studies") {
+					item.title = "Case Study";
+				}
+				if (item.title === "Market Reports") {
+					item.title = "Market Report";
+				}
+			}
+
 			matchedTitles.push(item.title);
 		}
 	});

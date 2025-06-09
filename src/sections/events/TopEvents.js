@@ -81,7 +81,7 @@ export default function TopEvents({ list }) {
 										<div
 											className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 										>
-											{data?.events?.thumbnail?.status} Upcoming Event
+											{data?.events?.thumbnail?.status} UPCOMING EVENT
 										</div>
 										<h2 className="color_white text_lg text_uppercase m_t_30 font_primary f_w_m">
 											{data?.title}

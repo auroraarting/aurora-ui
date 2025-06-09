@@ -556,7 +556,7 @@ export default function InsightsListing({
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
 									<a
 										href={`/resources/aurora-insights/${slugify(
-											isCategory(allCategories, item?.categories?.nodes)
+											isCategory(allCategories, item?.categories?.nodes, true)
 										)}/${item?.slug}`}
 									>
 										<div className={`${styles.hoverBox}`}>

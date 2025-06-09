@@ -25,7 +25,7 @@ import upcoming_img from "../../../public/img/events/upcoming_img.jpg";
 import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
 import slider_arrow from "../../../public/img/icons/sliderArrow.svg";
-import formatDate from "@/utils";
+import formatDate, { OpenIframePopup } from "@/utils";
 
 // DATA //
 
@@ -61,10 +61,27 @@ export default function HomeEvents({ data }) {
 						className={styles.slider}
 					>
 						{data?.map((item) => {
+							let hrefObj = {};
+
+							if (item?.events?.thumbnail?.externalUrl) {
+								// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+								// hrefObj.target = "_blank";
+								// hrefObj.rel = "noreferrer";
+								hrefObj.onClick = () =>
+									OpenIframePopup(
+										"iframePopup",
+										item?.events?.thumbnail?.externalUrl ||
+											"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+									);
+							} else {
+								hrefObj.href = `/events/${item?.slug}`;
+							}
+
 							return (
 								<SwiperSlide key={item?.title} className="pb_20">
 									<a
-										href={`/events/${item?.slug}`}
+										// href={`/events/${item?.slug}`}
+										{...hrefObj}
 										className={`${styles.card} f_w_j`}
 										role="button"
 									>
@@ -78,7 +95,7 @@ export default function HomeEvents({ data }) {
 											<div
 												className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
 											>
-												{item?.events?.thumbnail?.status}Upcoming Event
+												{item?.events?.thumbnail?.status} UPCOMING EVENT
 											</div>
 
 											<h2 className="text_lg color_white text_uppercase f_w_m pt_20">

@@ -100,7 +100,7 @@ export default function EventsMiddleRight({ data, events }) {
 			{events?.length > 0 && (
 				<div className={`${styles.whiteBox}`}>
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
-						Upcoming Events
+						UPCOMING EVENT
 					</h5>
 					{events?.slice(0, 1).map((item) => {
 						return (
