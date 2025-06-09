@@ -44,15 +44,14 @@ if (typeof window !== "undefined") {
 }
 
 // Connect to Redis running in your VM (change host/port as needed)
-const redisClient = new IORedis({
-	host: "64.227.145.242", // or your VM IP
-	port: 6379,
-	password:
-		"aKAwsBVnsChBew7oL7yC+LLsHDTWHZHDvRzOD8aOUk+/ivR8/xMGWJmlfZArYD+8A436NkfKd5J/0IYY", // if required
-	enableOfflineQueue: false,
-	lazyConnect: false, // Connect on first use
-	reconnectOnError: () => true,
-});
+// const redisClient = new IORedis({
+// 	host: "64.227.145.242", // or your VM IP
+// 	port: 17052,
+// 	password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI", // if required
+// 	enableOfflineQueue: false,
+// 	lazyConnect: false, // Connect on first use
+// 	reconnectOnError: () => true,
+// });
 
 // Create a Bottleneck group backed by Redis
 const limiter = new Bottleneck({
@@ -61,13 +60,13 @@ const limiter = new Bottleneck({
 	clearDatastore: false, // Don't clear in prod!
 	Redis: IORedis,
 	clientOptions: {
-		host: "64.227.145.242",
-		port: 6379,
-		password: "aKAwsBVnsChBew7oL7yC+LLsHDTWHZHDvRzOD8aOUk+/ivR8/xMGWJmlfZArYD+8A436NkfKd5J/0IYY",
+		host: "redis-17052.c243.eu-west-1-3.ec2.redns.redis-cloud.com",
+		port: 17052,
+		password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
 	},
 	// 💡 This allows up to 5 requests per 1000ms
-	reservoir: 5, // max requests in a burst
-	reservoirRefreshAmount: 5, // refill to 5
+	reservoir: 10, // max requests in a burst
+	reservoirRefreshAmount: 10, // refill to 5
 	reservoirRefreshInterval: 1000, // every 1000ms = 1s
 	maxConcurrent: 1, // one at a time for safety
 });
@@ -75,12 +74,12 @@ const limiter = new Bottleneck({
 limiter.on("queued", (info) => {
 	console.log("Queued request", info.options.id);
 });
-redisClient.on("connect", () => {
-	console.log("Redis connected!");
-});
-redisClient.on("error", (err) => {
-	console.error("Redis error:", err);
-});
+// redisClient.on("connect", () => {
+// 	console.log("Redis connected!");
+// });
+// redisClient.on("error", (err) => {
+// 	console.error("Redis error:", err);
+// });
 limiter.on("error", (err) => {
 	console.error("Bottleneck error:", err);
 });
