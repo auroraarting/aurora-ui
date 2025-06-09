@@ -69,8 +69,8 @@ export async function generateMetadata({ params }) {
 export async function generateStaticParams() {
 	const countries = await getCountries();
 	console.log("Countries:", countries?.data?.countries?.nodes);
-	return countries?.data?.countries?.nodes.map((item) => ({
-		slug: item.slug,
+	return countries?.data?.countries?.nodes?.map((item) => ({
+		slug: item?.slug || "india",
 	}));
 }
 
