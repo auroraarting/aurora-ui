@@ -7,6 +7,15 @@
 		background-size: cover;
 		background-position: bottom left;
 	}
+	:global(.BannerMain .flexBox) {
+		padding: 140px 0;
+		@media (max-width: 991px) {
+			padding: 100px 0px;
+		}
+		@media (max-width: 767px) {
+			padding: 60px 0px;
+		}
+	}
 	.category {
 		.switchBox {
 			display: flex;

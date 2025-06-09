@@ -17,6 +17,7 @@ import styles from "@/styles/components/ServicesCircle.module.scss";
 
 // IMAGES //
 import IconStrategy from "../../public/img/softwares/Icon-Strategy.svg";
+import { slugify } from "@/utils";
 
 // DATA //
 const services = [
@@ -36,17 +37,35 @@ export default function ServicesCircle({
 	customBtn,
 	customColor,
 	centerLogo,
+	sectionName,
 }) {
 	let obj = {};
-	if (!hideId) {
-		obj.id = "keyAdvantages";
-		obj["data-name"] = "Key Advantages";
-	}
+
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (sectionName === undefined) {
+			return {
+				id: "keyAdvantages",
+				"data-name": "Key Advantages",
+			};
+		} else if (sectionName === "") {
+			return {};
+		} else if (sectionName) {
+			return {
+				id: slugify(sectionName),
+				"data-name": sectionName,
+			};
+		}
+	};
+
 	if (!data?.advantages || !data) {
 		return <></>;
 	}
 	return (
-		<section className={`${styles.ServicesCircleSection} dark_bg `} {...obj}>
+		<section
+			className={`${styles.ServicesCircleSection} dark_bg `}
+			{...sectionTitle()}
+		>
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>

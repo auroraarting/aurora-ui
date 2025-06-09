@@ -79,11 +79,8 @@ export default async function HomePage() {
 		// 	getHomePageVoices(),
 		// ]);
 		const regions = await getRegions();
-		await new Promise((res) => setTimeout(res, 200));
 		const dataFetch = await getHomePage();
-		await new Promise((res) => setTimeout(res, 200));
 		const eventsdata = await getAllEvents("first:9999");
-		await new Promise((res) => setTimeout(res, 200));
 		const voicesFetch = await getHomePageVoices();
 
 		mapJson = getMapJsonForAllRegions(regions);

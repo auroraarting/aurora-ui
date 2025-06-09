@@ -52,7 +52,9 @@ export default function EarlyCareersInside({ data }) {
 		<section className={`${styles.EarlyCareers} pb_50`}>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
-					<h2 className="text_xl font_primary f_w_s_b color_white">Early Careers</h2>
+					<h2 className="text_xl font_primary f_w_s_b color_white">
+						Other graduate programmes
+					</h2>
 					<a href="/careers/early-careers" className={`${styles.bookBtn}`}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
 							Explore
@@ -144,7 +146,7 @@ export default function EarlyCareersInside({ data }) {
 													Read More
 												</Button>
 												{/* <a href={`/careers/early-careers/${item?.slug}`}>
-													
+
 												</a> */}
 											</div>
 										</div>

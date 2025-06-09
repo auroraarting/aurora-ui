@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 // MODULES //
-import { useRef, useEffect, useState } from "react";
+import { useEffect } from "react";
+
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
@@ -12,7 +14,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+
 // UTILS //
+import EqualHeight from "../../utils/EqualHeight";
 
 // STYLES //
 import styles from "@/styles/sections/careers/AboutCountries.module.scss";
@@ -33,8 +37,19 @@ export default function AboutCountries({ data }) {
 	if (!data?.earlyCareers?.collaborationSupport?.sectionTitle) {
 		return null;
 	}
+
+	useEffect(() => {
+		setTimeout(() => {
+			EqualHeight("aboutBoxH");
+		}, 1000);
+		//EqualHeight("aboutBoxH");
+	}, []);
 	return (
-		<section className={`${styles.aboutCountries} pt_100`}>
+		<section
+			className={`${styles.aboutCountries} pt_100`}
+			id="ABOUT"
+			data-name="ABOUT"
+		>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
@@ -97,7 +112,7 @@ export default function AboutCountries({ data }) {
 												</h4>
 											)}
 
-											<div className={styles.points}>
+											<div className={`${styles.points} aboutBoxH`}>
 												<div className="text_reg m_b_10 color_dark_gray">
 													<ContentFromCms>{item?.desc}</ContentFromCms>
 												</div>

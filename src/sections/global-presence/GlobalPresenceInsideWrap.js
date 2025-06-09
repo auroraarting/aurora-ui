@@ -26,6 +26,8 @@ import { dynamicInsightsBtnProps, getMapJsonForCountries } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/global-presence/Australia.module.scss";
+import { useContextProvider } from "@/context/GlobalContext";
+import { useEffect } from "react";
 
 // IMAGES //
 
@@ -41,7 +43,19 @@ export default function GlobalPresenceInsideWrap({
 	events,
 	webinars,
 }) {
+	const { setShowLanguages } = useContextProvider();
 	const dataForBtn = { postFields: data?.countries || {} };
+
+	useEffect(() => {
+		console.log(data?.translations);
+		if (data?.translations?.length >= 1) {
+			setShowLanguages(true);
+		}
+		console.log(data, "data");
+		return () => {
+			setShowLanguages(false);
+		};
+	}, []);
 
 	return (
 		<div>

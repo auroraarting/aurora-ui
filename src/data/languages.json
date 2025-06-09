@@ -1,0 +1,12 @@
+[
+	{
+		"title": "English",
+		"shortTitle": "EN",
+		"icon": "/img/en-flag.svg"
+	},
+	{
+		"title": "Japan",
+		"shortTitle": "JP",
+		"icon": "/img/jp-flag.svg"
+	}
+]
