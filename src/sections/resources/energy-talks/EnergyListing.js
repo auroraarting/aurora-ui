@@ -391,7 +391,7 @@ export default function EnergyListing({
 							</div>
 						</div>
 						{/* Event Status Type Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -431,7 +431,7 @@ export default function EnergyListing({
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
 						{/* Reset */}
 						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>

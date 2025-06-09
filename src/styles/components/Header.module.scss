@@ -159,6 +159,9 @@
 				display: block;
 				overflow: auto;
 			}
+			@media (max-width: 1199px) {
+				padding-bottom: 40px;
+			}
 			.links {
 				@extend %relative_box;
 				@extend %f_r_a_center;
@@ -211,6 +214,10 @@
 					height: 80px;
 					p {
 						font-size: 14px;
+						@media (max-width: 1199px) {
+							font-size: 18px;
+							font-weight: 500;
+						}
 					}
 					@media (max-width: 1199px) {
 						height: auto;
@@ -270,6 +277,10 @@
 					.link_title {
 						p {
 							font-size: 14px;
+							@media (max-width: 1199px) { 
+								font-size: 18px;
+								font-weight: 500;
+							}
 						}
 					}
 					.arrow_img {
@@ -406,6 +417,12 @@
 			.pageName {
 				padding-bottom: 10px;
 				border-bottom: 1px solid var(--color_platinum_gray);
+
+				h4{
+					@media (max-width: 1200px) {
+						font-size: 14px;
+					}
+				}
 			}
 			.pageLinks {
 				width: 500px;
@@ -418,6 +435,9 @@
 					width: 50%;
 					margin-bottom: 10px;
 					padding-right: 15px;
+					@media (max-width: 1200px) {
+						font-size: 14px;
+					}
 					span {
 						padding-right: 10px;
 					}
@@ -685,6 +705,11 @@
 					.arrow_rotate {
 						transform: rotate(180deg);
 					}
+					p{
+						@media (max-width: 1200px) {
+							font-size: 18px;;
+						}
+					}
 				}
 				.CountryNameBox {
 					@media (max-width: 767px) {
@@ -719,6 +744,9 @@
 					li {
 						padding-bottom: 10px;
 						width: 48%;
+						@media (max-width: 1200px) {
+							font-size: 14px;
+						}
 					}
 				}
 				&:nth-child(1) {

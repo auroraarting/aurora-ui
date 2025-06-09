@@ -113,7 +113,7 @@ export default function SoftwareInsideWrap({
 				)}
 				{showMap && (
 					<div className="m_b_100">
-						<GlobalMap locationJson={mapJson} />
+						<GlobalMap locationJson={mapJson} marqueeData={data?.Map?.Marquee} />
 					</div>
 				)}
 				{/* {data?.caseStudy?.title && ( */}

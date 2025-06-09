@@ -91,7 +91,7 @@ export default function Header({ defaultNavigation }) {
 		setOpenDropdown((prevOpenDropdown) =>
 			prevOpenDropdown === dropdownKey ? null : dropdownKey
 		);
-		if (window.innerWidth > 600) {
+		if (window.innerWidth > 1200) {
 			return;
 		}
 		const dropdowns = document.querySelectorAll(`.${styles.dropdown_wrap}`);
@@ -108,10 +108,9 @@ export default function Header({ defaultNavigation }) {
 				`#${dropdownKey} .${styles.dropdown_wrap}`
 			);
 			wrapHtml.style.maxHeight = `${
-				megaMenuHtml.getBoundingClientRect().height
+				megaMenuHtml.getBoundingClientRect().height + 50
 			}px`;
 			wrapHtml.style.paddingTop = "15px";
-			console.log(wrapHtml.getBoundingClientRect().height, "wraHtml");
 		} else {
 			const wrapHtml = document.querySelector(
 				`#${dropdownKey} .${styles.dropdown_wrap}`
@@ -188,7 +187,7 @@ export default function Header({ defaultNavigation }) {
 
 	return (
 		<>
-			<header className={`${styles.main_headerBox} zd`}>
+			<header className={`${styles.main_headerBox} main_headerBox`}>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
 					<div
