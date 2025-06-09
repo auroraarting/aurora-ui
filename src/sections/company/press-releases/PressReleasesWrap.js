@@ -35,14 +35,6 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 // DATA //
 
 // SERVICES //
-import {
-	getPresses,
-	getPressesCards,
-	getPressesLanguages,
-	getPressPage,
-} from "@/services/Press.service";
-import { getAllEventCountries } from "@/services/Events.service";
-import { getInsights } from "@/services/Insights.service";
 import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Press Releases Page */

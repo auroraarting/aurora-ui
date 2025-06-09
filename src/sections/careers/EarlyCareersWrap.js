@@ -31,12 +31,6 @@ import styles from "@/styles/pages/careers/early-careers/EarlyCareers.module.scs
 // DATA //
 
 // SERVICES //
-import {
-	getEarlyCareersListing,
-	getEarlyCareersPage,
-} from "@/services/EarlyCareers.service";
-import { getInsightsCategories } from "@/services/Insights.service";
-import { getOffices } from "@/services/Offices.service";
 
 /** EarlyCareers Page */
 export default function EarlyCareersWrap({

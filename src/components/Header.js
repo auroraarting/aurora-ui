@@ -43,7 +43,6 @@ import Close from "@/../public/img/icons/close.svg";
 import WebinarImg from "/public/img/header_webinar.jpg";
 
 // SERVICES //
-import { fetchNavigationData } from "@/services/Navigation.service";
 import { useContextProvider } from "@/context/GlobalContext";
 
 // DATA //

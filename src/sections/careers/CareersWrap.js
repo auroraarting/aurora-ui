@@ -29,10 +29,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
 
 /** Meta Data */
 export const metadata = {
