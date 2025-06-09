@@ -140,6 +140,7 @@
 				background-color: unset;
 				border: none;
 				cursor: pointer;
+				padding: 0px;
 				img {
 					@media (max-width: 767px) {
 						width: 35px;
@@ -148,6 +149,7 @@
 			}
 			.customPrev {
 				rotate: 180deg;
+				margin-right: 10px;
 			}
 		}
 		.flexBox {
@@ -170,8 +172,8 @@
 			}
 		}
 	}
-	.spaceInner{
-		img{
+	.spaceInner {
+		img {
 			@media (max-width: 767px) {
 				height: 40px;
 			}

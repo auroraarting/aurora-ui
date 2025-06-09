@@ -24,10 +24,11 @@ import styles from "@/styles/components/MapContainer.module.scss";
 /** GlobalMap Component */
 export default function GlobalMap({
 	locationJson,
-	marqueeText = " Energy intelligence across every key market",
+	marqueeText = "Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market Energy intelligence across every key market",
 	className,
 	sectionName = "Available Regions",
 	hideOnHover,
+	marqueeData,
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);

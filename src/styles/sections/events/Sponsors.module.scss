@@ -1,5 +1,8 @@
 @import "../../helpers/helpers.scss";
 .Sponsors {
+	.sponsorsTitle {
+		padding-bottom: 20px;
+	}
 	.SponsorsFlexWrap {
 		margin-bottom: 15px;
 		@media (max-width: 767px) {
@@ -23,7 +26,7 @@
 			}
 			h4 {
 				@media (max-width: 767px) {
-					padding-left: 10px;
+					padding-left: 0px;
 				}
 			}
 		}
