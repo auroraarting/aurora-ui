@@ -57,12 +57,13 @@ const redisClient = new IORedis({
 // Create a Bottleneck group backed by Redis
 const limiter = new Bottleneck({
 	id: "global-api-limiter",
-	// maxConcurrent: 1,
-	// minTime: 1000 * 20, // minimum time between requests (e.g. 20s per request)
-	datastore: "redis",
-	clearDatastore: true,
+	datastore: "ioredis",
+	clearDatastore: false, // Don't clear in prod!
+	Redis: IORedis,
 	clientOptions: {
-		client: redisClient,
+		host: "64.227.145.242",
+		port: 6379,
+		password: "aKAwsBVnsChBew7oL7yC+LLsHDTWHZHDvRzOD8aOUk+/ivR8/xMGWJmlfZArYD+8A436NkfKd5J/0IYY",
 	},
 	// 💡 This allows up to 5 requests per 1000ms
 	reservoir: 5, // max requests in a burst
