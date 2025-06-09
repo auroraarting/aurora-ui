@@ -35,6 +35,8 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`howwehelpBy(slug: "${params.slug}")`);

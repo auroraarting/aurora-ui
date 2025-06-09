@@ -30,6 +30,8 @@ import { getOffices } from "@/services/Offices.service";
 
 // DATA //
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getEarlyCareersInside(params.slug);

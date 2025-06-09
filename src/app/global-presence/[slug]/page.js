@@ -34,6 +34,8 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getRegions } from "@/services/Navigation.service";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getCountryInside(params.slug);
