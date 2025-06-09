@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Buttons/Button";
 import GlobalSearch from "@/components/GlobalSearch";
+import { useContextProvider } from "@/context/GlobalContext";
 
 // SECTIONS //
 
@@ -43,7 +44,6 @@ import Close from "@/../public/img/icons/close.svg";
 import WebinarImg from "/public/img/header_webinar.jpg";
 
 // SERVICES //
-import { useContextProvider } from "@/context/GlobalContext";
 
 // DATA //
 import languages from "@/data/languages.json";

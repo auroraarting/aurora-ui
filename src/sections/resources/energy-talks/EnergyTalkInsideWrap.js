@@ -15,6 +15,7 @@ import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import LottieRenderer from "@/components/LottieRenderer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import EnergyInsideTopSection from "@/sections/resources/energy-talks/EnergyInsideTopSection";
@@ -39,13 +40,12 @@ import google from "/public/img/energy_talks/google.svg";
 import calender from "/public/img/icons/calender.svg";
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
-import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
+// import {
+// 	getInsights,
+// 	getInsightsCategories,
+// 	getInsightsInside,
+// } from "@/services/Insights.service";
+// import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 
 // DATA //
 

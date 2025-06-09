@@ -23,7 +23,6 @@ import searchIcon from "../../public/img/icons/searchIcon.svg";
 import search_hover from "@/../public/img/icons/search_hover.svg";
 
 // SERVICES //
-import { searchData } from "@/services/Search.service";
 
 // DATA //
 

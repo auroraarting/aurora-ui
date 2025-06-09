@@ -37,11 +37,6 @@ import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scs
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
 
 /** Articles Page */
 export default function InsightsInsideWrap({

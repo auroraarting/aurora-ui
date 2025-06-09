@@ -13,8 +13,10 @@ import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
 import InnerBanner from "@/components/InnerBanner";
 import SoftwareCards from "@/components/SoftwareCards";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
+import CompanyContact from "@/sections/company/contact/CompanyContact";
 
 // PLUGINS //
 
@@ -30,18 +32,12 @@ import location from "@/../public/img/icons/location.svg";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import hoverBg from "@/../public/img/contact/hoverBg.png";
 
+// DATA //
+
 // SERVICES //
-import {
-	getGlobalPresencePage,
-	getRegions,
-} from "@/services/GlobalPresence.service";
+import { getPageSeo } from "@/services/Seo.service";
 import { getOfficesByRegions } from "@/services/Offices.service";
 import { getContact } from "@/services/Contact.service";
-import IframeModal from "@/components/IframeModal";
-import CompanyContact from "@/sections/company/contact/CompanyContact";
-import { getPageSeo } from "@/services/Seo.service";
-
-// DATA //
 
 /** generateMetadata  */
 export async function generateMetadata() {

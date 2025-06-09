@@ -16,13 +16,13 @@ import Insights from "@/components/Insights";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/services/Services.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 

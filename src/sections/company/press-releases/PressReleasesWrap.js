@@ -25,6 +25,7 @@ import PressCoverage from "@/sections/company/press-releases/PressCoverage";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/company/press-releases/PressReleases.module.scss";
@@ -35,7 +36,6 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 // DATA //
 
 // SERVICES //
-import { dynamicInsightsBtnProps } from "@/utils";
 
 /** Press Releases Page */
 export default function PressReleasesWrap({
