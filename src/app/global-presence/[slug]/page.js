@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -32,6 +32,7 @@ import {
 } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
+import { getRegions } from "@/services/Navigation.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -57,6 +58,16 @@ export async function generateMetadata({ params }) {
 			],
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const regions = await getRegions();
+	return regions?.data?.regions?.nodes.flatMap((item) =>
+		item.countries?.nodes?.map((country) => ({
+			slug: country.slug,
+		}))
+	);
 }
 
 /** Fetch  */

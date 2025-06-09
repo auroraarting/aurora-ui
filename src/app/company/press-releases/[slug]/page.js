@@ -50,10 +50,20 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await await getInsights(
+		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+	);
+	return data.data.posts.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** Fetch  */
-async function getData({ params }) {
+async function getData({ slug }) {
 	const [data, moreRelated, page] = await Promise.all([
-		await getInsightsInside(params.slug),
+		await getInsightsInside(slug),
 		await getInsights(
 			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
 		),
@@ -65,7 +75,7 @@ async function getData({ params }) {
 		props: {
 			data: data?.data?.postBy || {},
 			moreRelated: moreRelated?.data?.posts?.nodes
-				.filter((item) => item.slug != params.slug)
+				.filter((item) => item.slug != slug)
 				.slice(0, 3),
 			dataForBtn,
 			page: page?.data?.page?.pressLanding,
@@ -75,7 +85,8 @@ async function getData({ params }) {
 
 /** PressInside Page */
 export default async function PressInside({ params }) {
-	const { props } = await getData({ params });
+	const { slug } = await params;
+	const { props } = await getData({ slug });
 
 	return (
 		<div>
