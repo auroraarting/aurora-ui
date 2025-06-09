@@ -68,7 +68,7 @@ const limiter = new Bottleneck({
 	reservoir: 10, // max requests in a burst
 	reservoirRefreshAmount: 10, // refill to 5
 	reservoirRefreshInterval: 1000, // every 1000ms = 1s
-	maxConcurrent: 1, // one at a time for safety
+	maxConcurrent: 3, // one at a time for safety
 });
 
 limiter.on("queued", (info) => {
