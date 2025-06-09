@@ -59,9 +59,13 @@ async function getData() {
 	// 		await getBundlesSection(),
 	// 	]);
 	const data = await getAboutPage();
+	await new Promise((res) => setTimeout(res, 200));
 	const categoriesForSelect = await getInsightsCategories();
+	await new Promise((res) => setTimeout(res, 200));
 	const officesFetch = await getOffices();
+	await new Promise((res) => setTimeout(res, 200));
 	const pageFetch = await getEosPage();
+	await new Promise((res) => setTimeout(res, 200));
 	const bundlesFetch = await getBundlesSection();
 
 	let obj = {
