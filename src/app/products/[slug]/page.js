@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -22,7 +22,7 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getProductBySlug } from "@/services/Products.service";
+import { getProductBySlug, getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
@@ -44,6 +44,14 @@ export async function generateMetadata({ params }) {
 			],
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getProductPage();
+	return data?.data?.products?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Fetch  */
