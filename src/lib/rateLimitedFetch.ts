@@ -2,11 +2,11 @@
 import Bottleneck from "bottleneck";
 
 const limiter = new Bottleneck({
-	maxConcurrent: 5, // One request at a time
-	minTime: 0, // 20s delay between requests (3/min)
-	reservoir: 5, // 3 requests
-	reservoirRefreshAmount: 5,
-	reservoirRefreshInterval: 1000, // every minute
+	maxConcurrent: 3, // Allow up to 3 requests in parallel
+	minTime: 0, // No enforced delay between requests
+	reservoir: 3, // 3 requests per interval
+	reservoirRefreshAmount: 3, // Refill 3 requests
+	reservoirRefreshInterval: 1000, // Every 1 second
 });
 
 /** rateLimitedFetch  */
