@@ -83,7 +83,9 @@ export default function Pagination({
 	}
 
 	return (
-		<div className={`${styles.pagination} ${isDark ? styles.dark : ""}`}>
+		<div
+			className={`${styles.pagination} ${isDark ? styles.dark : ""} pagination`}
+		>
 			{/* Previous button */}
 			<img
 				src={IconArrLeft.src}

@@ -3,11 +3,17 @@
 	position: relative;
 	background-color: var(--color_secondary);
 	height: 140vh;
+	@media (max-width: 1199px) {
+		height: max-content;
+	}
 	:global(.container) {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		justify-content: space-between;
+		// justify-content: space-between;
+	}
+	:global(.pagination) {
+		margin-top: auto;
 	}
 	.title_wrap {
 		@media (max-width: 767px) {

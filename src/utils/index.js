@@ -1489,5 +1489,5 @@ export const updateQueryFast = (selecObj) => {
 
 /** removeHTML  */
 export function removeHTML(str) {
-	return str.replace(/<[^>]*>/g, "");
+	return str?.replace(/<[^>]*>/g, "");
 }
