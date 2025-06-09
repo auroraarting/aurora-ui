@@ -80,7 +80,7 @@ export default function GraduateExperiance({
 											</h4>
 											<p className="text_xs color_dark_gray f_w_l">{item?.designation}</p>
 										</div>
-										<img src="/img/icons/plusIcon.png" />
+										<img src="/img/icons/plusIcon.svg" />
 									</div>
 								</div>
 							);
