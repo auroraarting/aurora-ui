@@ -48,11 +48,9 @@ export default function GlobalPresenceInsideWrap({
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
-		console.log(data?.translations);
 		if (data?.translations?.length >= 1) {
 			setShowLanguages(true);
 		}
-		console.log(data, "data");
 		return () => {
 			setShowLanguages(false);
 		};

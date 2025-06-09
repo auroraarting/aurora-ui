@@ -68,7 +68,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const countries = await getCountries();
-
+	console.log("Countries:", countries?.data?.countries?.nodes);
 	return countries?.data?.countries?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
@@ -167,12 +167,12 @@ async function getData({ params, query }) {
 		// );
 	}
 
-	// Return 404 if no valid data
-	if (!countryBy) {
-		return {
-			notFound: true,
-		};
-	}
+	// // Return 404 if no valid data
+	// if (!countryBy) {
+	// 	return {
+	// 		notFound: true,
+	// 	};
+	// }
 
 	return {
 		props: {
