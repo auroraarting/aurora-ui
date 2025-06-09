@@ -69,7 +69,10 @@ async function getData({ params, query }) {
 		[data] = await Promise.all([
 			await getCountryInsideWithLanguages(params.slug),
 		]);
-		countryBy = data?.data?.countryBy?.translations?.[0];
+		countryBy = {
+			...data?.data?.countryBy?.translations?.[0],
+			translations: data?.data?.countryBy?.translations,
+		};
 		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	} else {
 		// Default fetch

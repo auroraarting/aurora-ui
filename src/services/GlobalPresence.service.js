@@ -148,6 +148,10 @@ export const getCountryInside = async (slug) => {
 	const query = `
 query GetCountryInside {
   countryBy(slug: "${decodeURIComponent(slug)}") {
+  translations {
+      slug
+      title
+    }
     slug
     title
     countries {

@@ -21,7 +21,11 @@ import checkIcn from "../../../public/img/icons/checkIcn.svg";
 /** WhatWeLook Section */
 export default function WhatWeLook({ data }) {
 	return (
-		<section className={`${styles.whatWeLook}  ptb_100`}>
+		<section
+			className={`${styles.whatWeLook}  ptb_100`}
+			id="CRITERIA"
+			data-name="CRITERIA"
+		>
 			<div className="container">
 				<div className={`${styles.whatWeLookFlx} f_w_j`}>
 					<div className={`${styles.whatWeLookItem}`}>

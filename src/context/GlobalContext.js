@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, Suspense, useEffect } from "react";
+import {
+	createContext,
+	useContext,
+	Suspense,
+	useEffect,
+	useState,
+} from "react";
 import InnerGlobalContext from "./InnerGlobalContext"; // we'll move logic here
 import Loader from "@/components/Loader";
 import { usePathname } from "next/navigation";
@@ -10,6 +16,7 @@ const BookmarkContext = createContext();
 /** GlobalContext  */
 export const GlobalContext = ({ children }) => {
 	const pathname = usePathname();
+
 	useEffect(() => {
 		/**handleClick  */
 		const handleClick = (e) => {

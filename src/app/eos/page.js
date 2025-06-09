@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -49,6 +49,8 @@ export async function generateMetadata() {
 		},
 	};
 }
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** EOS Page */
 export default async function EOSPage() {

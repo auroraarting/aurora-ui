@@ -146,7 +146,7 @@ export default function TeamAurora({
 					<div className={`${styles.bookBtn}`}>
 						<Link href="/careers/our-team">
 							<Button color="primary" variant="filled" shape="rounded">
-								Our Teams
+								Our teams
 							</Button>
 						</Link>
 					</div>

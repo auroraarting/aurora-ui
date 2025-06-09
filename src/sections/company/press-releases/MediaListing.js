@@ -334,7 +334,7 @@ export default function MediaListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected?.year || "Years"}
+										{selected?.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -366,7 +366,7 @@ export default function MediaListing({
 							</div>
 						</div>
 						{/* Language Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.languageType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.languageType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -408,7 +408,7 @@ export default function MediaListing({
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
 						{/* Event Status Type Dropdown */}
 						{/* <div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
 							<div className={styles.custom_select}>

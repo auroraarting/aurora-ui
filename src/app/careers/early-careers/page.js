@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -38,6 +38,8 @@ import {
 } from "@/services/EarlyCareers.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Meta Data */
 export const metadata = {

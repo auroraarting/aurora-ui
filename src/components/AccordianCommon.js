@@ -33,7 +33,6 @@ export default function AccordianCommon({
 	openAll,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
-	console.log(items);
 	const pathname = usePathname();
 	const [activeIndex, setActiveIndex] = useState(
 		items?.map((item, ind) => {

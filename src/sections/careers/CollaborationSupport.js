@@ -1,5 +1,5 @@
 // MODULES //
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -29,9 +29,12 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** CollaborationSupport Section */
 export default function CollaborationSupport({ data }) {
-	// useEffect(() => {
-	// 	EqualHeight(`${styles.cardBoxH}`);
-	// }, [data]);
+	useEffect(() => {
+		// setTimeout(() => {
+		// 	EqualHeight("cardBoxH");
+		// }, 1000);
+		EqualHeight("cardBoxH");
+	}, []);
 	return (
 		<section
 			className={`${styles.CollaborationSupport} ptb_100`}
@@ -93,7 +96,7 @@ export default function CollaborationSupport({ data }) {
 											<span>{item.name}</span>
 										</h4>
 										<div
-											className={`${styles.cardContent} ${styles.cardBoxH} text_reg color_dark_gray font_secondary f_w_r pt_10`}
+											className={`${styles.cardContent} cardBoxH text_reg color_dark_gray font_secondary f_w_r pt_10`}
 										>
 											<ContentFromCms>{item?.description}</ContentFromCms>
 										</div>

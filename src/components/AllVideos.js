@@ -39,15 +39,18 @@ export default function AllVideos({
 	sectionName = "Latest Videos",
 	id = "Auroras-career-series",
 }) {
+	let obj = {};
+	if (sectionName === "") {
+		sectionName = "Latest Videos";
+	}
+	if (id === "") {
+		sectionName = "Auroras-career-series";
+	}
 	if (!title) {
 		return <></>;
 	}
 	return (
-		<section
-			className={`${styles.CareerSeries} CareerSeries`}
-			id={id}
-			data-name={sectionName}
-		>
+		<section className={`${styles.CareerSeries} CareerSeries`} {...obj}>
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.content}`}>

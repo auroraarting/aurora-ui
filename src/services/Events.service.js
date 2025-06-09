@@ -716,6 +716,10 @@ query GetEventLanding {
           }
         }
       }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
     }
   }
 }

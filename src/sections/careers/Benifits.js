@@ -22,7 +22,7 @@ import styles from "@/styles/sections/careers/Benifits.module.scss";
 /** Faq Page Wrap */
 export default function Benifits({ data }) {
 	return (
-		<section className={`${styles.Benifits} pt_100`}>
+		<section className={`${styles.Benifits} pt_100`} id="PERKS" data-name="PERKS">
 			<div className="container">
 				<h2 className={`${styles.head} text_xl`}>{data?.sectionTitle}</h2>
 				<div className={`${styles.list}`}>

@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -37,6 +37,8 @@ export const metadata = {
 	title: "Our Team | Aurora",
 	description: "Aurora",
 };
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {

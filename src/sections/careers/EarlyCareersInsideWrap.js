@@ -88,7 +88,10 @@ export default function EarlyCareersInsideWrap({
 					<WhatWeLook data={data} />
 				</div>
 				<div>
-					<ServicesCircle data={data?.earlyCareers?.keyAdvantages} />
+					<ServicesCircle
+						data={data?.earlyCareers?.keyAdvantages}
+						sectionName="GROWTH"
+					/>
 				</div>
 				<div>
 					<WorkingTeams data={data} />
@@ -97,7 +100,10 @@ export default function EarlyCareersInsideWrap({
 					<AboutCountries data={data} />
 				</div>
 				<div>
-					<TheApplicationProcess data={data?.earlyCareers?.theApplicationProcess} />
+					<TheApplicationProcess
+						data={data?.earlyCareers?.theApplicationProcess}
+						sectionName="PROCESS"
+					/>
 				</div>
 
 				{data?.earlyCareers?.careerSeries?.title && (
@@ -107,14 +113,13 @@ export default function EarlyCareersInsideWrap({
 							desc={data?.earlyCareers?.careerSeries?.sectionDesc}
 							redirectLink={data?.earlyCareers?.careerSeries?.buttonLink}
 							iframe={data?.earlyCareers?.careerSeries?.iframe}
+							sectionName=""
+							id=""
 						/>
 					</div>
 				)}
 				<div className="">
-					<SmarterEnergy
-						data={data?.earlyCareers?.expertise2}
-						sectionName="Get to Know"
-					/>
+					<SmarterEnergy data={data?.earlyCareers?.expertise2} sectionName="" />
 				</div>
 				<div className={`${styles.EarlyMain} pt_100`}>
 					<div className={`${styles.containerCustom}`}>

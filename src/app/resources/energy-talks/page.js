@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -36,14 +36,16 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch getStaticProps */
 async function getData() {
 	const [data, categoriesForSelect, energyTalksPage, socialLinksFetch] =
 		await Promise.all([
-			await getPodcasts(),
-			await getInsightsCategories(),
-			await getEnergyTalksPage(),
-			await getEnergyTalksPageSocialLinks(),
+			getPodcasts(),
+			getInsightsCategories(),
+			getEnergyTalksPage(),
+			getEnergyTalksPageSocialLinks(),
 		]);
 
 	return {

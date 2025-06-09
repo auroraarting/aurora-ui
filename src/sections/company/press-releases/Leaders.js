@@ -148,9 +148,9 @@ export default function Leaders({ data }) {
 													{item.name}
 												</h5>
 												<p className="text_xs color_platinum_gray">{item.designation}</p>
-												<div className={`${styles.downIcon}`}>
+												{/* <div className={`${styles.downIcon}`}>
 													<img src={black_down_arrow.src} className="" alt="icons" />
-												</div>
+												</div> */}
 											</div>
 											<div className={`${styles.hoverEffect} pt_20`}>
 												<img src={hoverEffect.src} className="" alt=" img" />
@@ -217,9 +217,10 @@ export default function Leaders({ data }) {
 																		className="d_f"
 																		download
 																		target="_blank"
-																		rel="noopener noreferrer"
+																		// rel="noopener noreferrer"
+																		rel="noreferrer"
 																	>
-																		Download Profile
+																		Download
 																		<img src={black_down_arrow.src} alt="icon" />
 																	</a>
 																</div>
@@ -235,15 +236,27 @@ export default function Leaders({ data }) {
 																<p className="text_xs color_silver_gray">{item.designation}</p>
 																<div className={`${styles.downloadProfile} pt_20 f_w_j`}>
 																	<div className={`${styles.linkedin}`}>
-																		<a href={item.linkedinUrl} className="d_f">
+																		<a
+																			href={item.linkedinUrl}
+																			className="d_f"
+																			target="_blank"
+																			rel="noreferrer"
+																		>
 																			<img src={linkedin.src} alt="icon" />
 																		</a>
 																	</div>
 																</div>
 															</div>
-															<p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
+															{/* <p className={`${styles.Desc} text_xs color_silver_gray l_h_6`}>
 																{parse(item?.desc || "")}
-															</p>
+															</p> */}
+															<div className={`${styles.DescWrap}`}>
+																<div
+																	className={`${styles.Desc} text_xs color_silver_gray l_h_6`}
+																>
+																	{parse(item?.desc || "")}
+																</div>
+															</div>
 														</div>
 													</div>
 													{item?.blogData?.length > 0 && (
@@ -286,11 +299,18 @@ export default function Leaders({ data }) {
 																					>
 																						{blogData.tags}
 																					</p>
-																					<p
+																					{/* <p
 																						className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
 																					>
 																						{blogData.blogDesc}
-																					</p>
+																					</p> */}
+																					<div className={`${styles.DescWrap}`}>
+																						<div
+																							className={`${styles.Desc} text_xs color_silver_gray l_h_6`}
+																						>
+																							{parse(blogData?.blogDesc || "")}
+																						</div>
+																					</div>
 																					<div className={`${styles.dateFlex} f_j pt_30`}>
 																						<p className="text_xs f_w_m color_medium_gray text_uppercase d_f">
 																							<img
