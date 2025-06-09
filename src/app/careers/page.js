@@ -61,7 +61,7 @@ export default async function Careers() {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<CareersWrap />
+			<CareersWrap otherList={otherList} countries={countries} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
