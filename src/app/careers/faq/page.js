@@ -32,18 +32,7 @@ export const metadata = {
 
 /** Faq Page */
 export default async function Faq() {
-	const [pageFetch] = await Promise.all([
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-		getFaqPage(),
-	]);
+	const [pageFetch] = await Promise.all([getFaqPage()]);
 	const page = pageFetch.data.page.faq;
 
 	return (
