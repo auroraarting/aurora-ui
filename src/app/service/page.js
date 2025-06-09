@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -51,6 +51,8 @@ export async function generateMetadata() {
 		},
 	};
 }
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Services Page */
 export default function Services() {

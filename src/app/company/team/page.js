@@ -43,6 +43,8 @@ export async function generateMetadata() {
 	};
 }
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch */
 async function getData() {
 	const [data] = await Promise.all([await getTeamSectors()]);

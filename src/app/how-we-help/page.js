@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -48,6 +48,8 @@ export async function generateMetadata() {
 		},
 	};
 }
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** HowWeHelp Page */
 export default function HowWeHelp() {
