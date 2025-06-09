@@ -44,7 +44,7 @@ export default function Sponsors({ data }) {
 			data-name="Sponsors"
 			className={`${styles.Sponsors} pt_60`}
 		>
-			<h2 className="text_lg color_secondary pb_10">
+			<h2 className={`${styles.sponsorsTitle} text_lg color_secondary`}>
 				{data?.events?.sponsors?.sectionTitle || "Sponsors"}
 			</h2>
 			{data?.events?.sponsors?.sponsors?.map((item) => {

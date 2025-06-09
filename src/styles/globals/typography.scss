@@ -80,9 +80,9 @@
 	line-height: 1.6;
 	font-weight: 400;
 	font-family: var(--font_secondary);
-	@media (max-width: 991px) {
-		font-size: 12px;
-	}
+	// @media (max-width: 991px) {
+	// 	font-size: 12px;
+	// }
 	@media (max-width: 767px) {
 		line-height: 1.5;
 	}
