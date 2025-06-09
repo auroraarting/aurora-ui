@@ -22,6 +22,8 @@ import FaqWrap from "@/sections/careers/FaqWrap";
 // SERVICES //
 import { getFaqPage } from "@/services/Faq.service";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Meta Data */
 export const metadata = {
 	title: "FAQ | Aurora",

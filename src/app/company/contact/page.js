@@ -151,6 +151,8 @@ async function getData() {
 	};
 }
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Contact Page */
 export default async function ContactPage() {
 	const { props } = await getData();

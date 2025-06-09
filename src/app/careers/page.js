@@ -39,6 +39,8 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Careers Page */
 export default async function Careers() {
 	const [categoriesForSelect, list] = await Promise.all([

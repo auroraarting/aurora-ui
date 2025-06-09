@@ -36,6 +36,8 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
 	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =

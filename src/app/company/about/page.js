@@ -111,6 +111,8 @@ async function getData() {
 	};
 }
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** About Page */
 export default async function About() {
 	const { props } = await getData();

@@ -34,6 +34,8 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** JoinUs Page */
 export default async function JoinUs() {
 	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([

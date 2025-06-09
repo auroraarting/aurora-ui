@@ -39,6 +39,8 @@ import {
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Meta Data */
 export const metadata = {
 	title: "Early Careers | Aurora",
