@@ -356,7 +356,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				<Pagination
 					data={filteredData}
 					paginationArr={paginationArr}
-					// itemsPerPage={5}
+					itemsPerPage={6}
 					setCurrentItems={setFilteredData}
 				/>
 			</div>

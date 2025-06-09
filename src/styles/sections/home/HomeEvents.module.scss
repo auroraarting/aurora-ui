@@ -4,6 +4,7 @@
 		padding: 40px 40px;
 		background-color: var(--color_secondary);
 		border-radius: 20px;
+		cursor: pointer;
 		@media (max-width: 1199px) {
 			padding: 25px 25px;
 		}
@@ -24,7 +25,7 @@
 					width: 100%;
 					margin-top: 30px;
 				}
-				h2{
+				h2 {
 					display: -webkit-box;
 					-webkit-line-clamp: 3;
 					-webkit-box-orient: vertical;
@@ -34,9 +35,9 @@
 						height: 99px;
 					}
 				}
-				.Eventlogo{
+				.Eventlogo {
 					height: 120px;
-						@media (max-width: 767px) {
+					@media (max-width: 767px) {
 						height: 90px;
 					}
 				}

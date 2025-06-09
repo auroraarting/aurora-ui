@@ -44,7 +44,6 @@ export default function MediaListing({
 	languages,
 	countries,
 }) {
-	console.log(data, "data");
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
 	const [original, setOriginal] = useState(data);
@@ -224,6 +223,8 @@ export default function MediaListing({
 		EqualHeight(`${styles.ItemBox}`);
 	}, [list, selected]);
 
+	// console.log(list, "list");
+
 	return (
 		<section className={styles.MediaListing}>
 			<div className={styles.filterMain}>
@@ -364,7 +365,6 @@ export default function MediaListing({
 								)}
 							</div>
 						</div>
-
 						{/* Language Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.languageType}>
 							<div className={styles.custom_select}>
@@ -382,6 +382,16 @@ export default function MediaListing({
 								</div>
 								{dropdowns.languageType.isOpen && (
 									<ul className={styles.selectOptionBox} data-lenis-prevent>
+										<li
+											// className={
+											// 	option.title === dropdowns.languageType.selected.title
+											// 		? "selected"
+											// 		: ""
+											// }
+											onClick={() => handleOptionClick("languageType", "")}
+										>
+											All
+										</li>
 										{optionsData.languageType.map((option) => (
 											<li
 												key={option.title}
@@ -400,7 +410,7 @@ export default function MediaListing({
 							</div>
 						</div>
 						{/* Event Status Type Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -440,7 +450,7 @@ export default function MediaListing({
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
 						{/* Reset */}
 						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>

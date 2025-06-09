@@ -59,7 +59,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
 export const getHomePageVoices = async () => {
 	const pageVoices = `
     query GetHomePageVoices {
-  posts(first: 1, where: {categoryName: "market-reports", orderby: {field: DATE, order: DESC}}) {
+  posts(first: 99999, where: {categoryName: "market-reports", orderby: {field: DATE, order: DESC}}) {
     nodes {
       title
       slug
@@ -121,7 +121,7 @@ export const getHomePageVoices = async () => {
       }
     }
   }
-  podcasts(first: 1) {
+  podcasts(first: 99999) {
     nodes {
       title
       slug
@@ -175,7 +175,7 @@ export const getHomePageVoices = async () => {
       }
     }
   }
-  webinars(first: 1) {
+  webinars(first: 99999) {
     nodes {
       title
       slug
@@ -478,9 +478,9 @@ export const getHomePageVoices = async () => {
     }`;
 	const [resFetchAll, resFetchCaseStudies, resFetchCommentary] =
 		await Promise.all([
-			GraphQLAPI(pageVoices),
-			GraphQLAPI(pageCaseStudies),
-			GraphQLAPI(pageCommentary),
+			await GraphQLAPI(pageVoices),
+			await GraphQLAPI(pageCaseStudies),
+			await GraphQLAPI(pageCommentary),
 		]);
 	const resAllData = resFetchAll;
 	const resCaseStudiesData = resFetchCaseStudies;
@@ -495,11 +495,20 @@ export const getHomePageVoices = async () => {
 
 	const obj = {
 		events: events,
-		podcasts: resAllData.data.podcasts.nodes,
-		webinars: resAllData.data.webinars.nodes,
-		marketReports: resAllData.data.posts.nodes,
-		caseStudies: resCaseStudiesData.data.posts.nodes,
-		commentary: resCommentaryData.data.posts.nodes,
+		podcasts: resAllData.data.podcasts.nodes.slice(0, 1),
+		webinars: resAllData.data.webinars.nodes
+			?.filter(
+				(item) => new Date() < new Date(item?.webinarsFields?.startDateAndTime)
+			)
+			?.sort(
+				(a, b) =>
+					new Date(a?.webinarsFields?.startDateAndTime) -
+					new Date(b?.webinarsFields?.startDateAndTime)
+			)
+			.slice(0, 1),
+		marketReports: resAllData.data.posts.nodes.slice(0, 1),
+		caseStudies: resCaseStudiesData.data.posts.nodes.slice(0, 1),
+		commentary: resCommentaryData.data.posts.nodes.slice(0, 1),
 	};
 
 	let arr = [];
@@ -508,7 +517,7 @@ export const getHomePageVoices = async () => {
 		arr.push({
 			...item,
 			link: `/resources/aurora-insights/case-studies/${item.slug}`,
-			cat: "Case Studies",
+			cat: "Case Study",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});
@@ -539,16 +548,17 @@ export const getHomePageVoices = async () => {
 			...item,
 			link: `/events/${item.slug}`,
 			thumb: item?.events?.banner?.desktop?.node?.mediaItemUrl,
-			cat: "Events",
+			cat: "Event",
 			categories,
 			date: item?.events?.thumbnail?.date,
+			externalUrl: item?.events?.thumbnail?.externalUrl,
 		});
 	});
 	obj.commentary?.map((item) => {
 		arr.push({
 			...item,
 			link: `/resources/aurora-insights/articles/${item.slug}`,
-			cat: "Articles",
+			cat: "Article",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});
@@ -572,7 +582,7 @@ export const getHomePageVoices = async () => {
 		arr.push({
 			...item,
 			link: `/resources/aurora-insights/market-reports/${item.slug}`,
-			cat: "Market Reports",
+			cat: "Market Report",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});
