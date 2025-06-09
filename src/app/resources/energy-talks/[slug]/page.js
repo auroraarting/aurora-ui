@@ -35,6 +35,8 @@ import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
 // DATA //
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getPodcastInside(params.slug);

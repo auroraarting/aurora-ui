@@ -25,6 +25,8 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getEventsInside(params.slug);

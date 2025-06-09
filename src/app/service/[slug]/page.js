@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -23,11 +23,13 @@ import { filterMarkersBySlug, getMapJsonForService } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getServiceData } from "@/services/Service.service";
+import { getAllServiceData, getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getInsights } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
@@ -73,6 +75,14 @@ async function getData({ params }) {
 			otherList,
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getAllServiceData();
+	return data?.data?.services?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Advisory Page */

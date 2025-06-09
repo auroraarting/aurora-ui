@@ -86,30 +86,24 @@ const limiter = new Bottleneck({
 	maxConcurrent: 5, // one at a time for safety
 });
 
-limiter.on("queued", (info) => {
-	console.log("Queued request", info.options.id);
-});
-// redisClient.on("connect", () => {
-// 	console.log("Redis connected!");
+// limiter.on("queued", (info) => {
+// 	console.log("Queued request", info.options.id);
 // });
-// redisClient.on("error", (err) => {
-// 	console.error("Redis error:", err);
+// limiter.on("error", (err) => {
+// 	console.error("Bottleneck error:", err);
 // });
-limiter.on("error", (err) => {
-	console.error("Bottleneck error:", err);
-});
-limiter.on("failed", (error, jobInfo) => {
-	console.error("Bottleneck job failed:", error, jobInfo);
-});
-limiter.on("debug", (msg) => {
-	console.log("Bottleneck debug:", msg);
-});
-limiter.on("message", (msg) => {
-	console.log(msg); // prints "this is a string"
-});
-limiter.on("executing", (info) => {
-	console.log(`🚀 Executing: Job ${info.options.id}`);
-});
+// limiter.on("failed", (error, jobInfo) => {
+// 	console.error("Bottleneck job failed:", error, jobInfo);
+// });
+// limiter.on("debug", (msg) => {
+// 	console.log("Bottleneck debug:", msg);
+// });
+// limiter.on("message", (msg) => {
+// 	console.log(msg); // prints "this is a string"
+// });
+// limiter.on("executing", (info) => {
+// 	console.log(`🚀 Executing: Job ${info.options.id}`);
+// });
 
 /** rateLimitedFetch  */
 // export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
@@ -122,8 +116,8 @@ limiter.on("executing", (info) => {
 /** Rate-limited fetch  */
 export const rateLimitedFetch = async (url: string, options?: RequestInit) => {
 	const jobId = `job-${uuidv4()}`;
-	console.time(jobId);
+	// console.time(jobId);
 	const res = await limiter.schedule({ id: jobId }, () => fetch(url, options));
-	console.timeEnd(jobId);
+	// console.timeEnd(jobId);
 	return res;
 };
