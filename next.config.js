@@ -68,6 +68,30 @@ const nextConfig = {
 			},
 		];
 	},
+	async redirects() {
+		return [
+			{
+				source: "/advisory",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/insights",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/webinars",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/podcast",
+				destination: "/resources/energy-talks",
+				permanent: true,
+			},
+		];
+	},
 };
 
 module.exports = nextConfig;
