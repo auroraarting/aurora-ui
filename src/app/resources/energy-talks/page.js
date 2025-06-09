@@ -42,10 +42,10 @@ export const revalidate = 60; // Revalidates every 60 seconds
 async function getData() {
 	const [data, categoriesForSelect, energyTalksPage, socialLinksFetch] =
 		await Promise.all([
-			await getPodcasts(),
-			await getInsightsCategories(),
-			await getEnergyTalksPage(),
-			await getEnergyTalksPageSocialLinks(),
+			getPodcasts(),
+			getInsightsCategories(),
+			getEnergyTalksPage(),
+			getEnergyTalksPageSocialLinks(),
 		]);
 
 	return {
