@@ -133,16 +133,16 @@ export default function LifeAtAuroraWrap({
 						/>
 					</div>
 				</div>
-				{mapJson && (
-					<div className="dark_bg">
-						<GlobalMap
-							locationJson={[mapJson]}
-							marqueeText={data?.globalMap?.marqueetext}
-							sectionName="Global Presence"
-							hideOnHover
-						/>
-					</div>
-				)}
+				{/* {mapJson && ( */}
+				<div className="dark_bg">
+					<GlobalMap
+						locationJson={[mapJson]}
+						marqueeText={data?.globalMap?.marqueetext}
+						sectionName="Global Presence"
+						hideOnHover
+					/>
+				</div>
+				{/* )} */}
 				<div className={`${styles.countBg} pb_100`}>
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}

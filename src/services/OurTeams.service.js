@@ -16,6 +16,7 @@ query OurTeamPage {
         insightsSectionButton {
           buttonText
           iframe
+          url
           file {
             node {
               altText

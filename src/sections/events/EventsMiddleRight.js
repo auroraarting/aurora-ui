@@ -53,7 +53,9 @@ export default function EventsMiddleRight({ data, events }) {
 			)}
 
 			{data?.events?.pricingDesc && (
-				<div className={`${styles.whiteBox} ${styles.pricingDesc}`}>
+				<div
+					className={`${styles.whiteBox} ${styles.pricingDesc} ${styles.yellowBox}`}
+				>
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_b pb_10">Pricing</h5>
 						<div className={`${styles.ClientFlex}  f_r_a_center  text_xs`}>
