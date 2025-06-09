@@ -158,6 +158,8 @@
 				height: calc(100vh - 93px);
 				display: block;
 				overflow: auto;
+			}
+			@media (max-width: 1199px) {
 				padding-bottom: 40px;
 			}
 			.links {
