@@ -22,6 +22,12 @@
 			.ClientFlex {
 				.ClientDescription {
 					width: 100%;
+					h3 {
+						&:last-child {
+							margin: 0;
+							font-size: 18px;
+						}
+					}
 					.social {
 						margin-top: 5px;
 					}
