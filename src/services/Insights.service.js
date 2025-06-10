@@ -299,7 +299,7 @@ query GetInsights {
   }
 }
     `;
-	const res = await GraphQLAPINoBottleneck(query);
+	const res = await GraphQLAPI(query);
 	return res;
 };
 
@@ -362,7 +362,7 @@ query GetInsightsDropDowns {
   }
 }
     `;
-	const res = await GraphQLAPINoBottleneck(query);
+	const res = await GraphQLAPI(query);
 	return res;
 };
 
@@ -687,7 +687,7 @@ query GetInsightsInside {
 
 	let res = {};
 	try {
-		res = await GraphQLAPINoBottleneck(query);
+		res = await GraphQLAPI(query);
 		return res;
 	} catch (error) {
 		console.log("error", error);
