@@ -9,7 +9,7 @@ export default async function GraphQLAPI(query) {
 		req = await rateLimitedFetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 60 },
+			// next: { revalidate: 60 },
 		});
 		res = await req.json();
 		return res;
