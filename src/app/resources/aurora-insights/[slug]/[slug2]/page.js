@@ -115,8 +115,6 @@ export default async function Articles({ params }) {
 		};
 	};
 
-	console.log(props);
-
 	// data?.postFields?.insights?.title
 
 	return (
