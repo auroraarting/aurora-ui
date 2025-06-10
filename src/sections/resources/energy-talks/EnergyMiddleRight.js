@@ -138,11 +138,15 @@ export default function EnergyMiddleRight({ data, events }) {
 						<div className={`${styles.ClientDescription}`}>
 							<div className="text_xs color_dark_gray font_primary">
 								<ContentFromCms>
-									{data?.podcastFields?.interested
+									{/* {data?.podcastFields?.interested
 										? data?.podcastFields?.interested
 										: `We’re always looking for new and exciting thought leadership.
                                            For enquiries, please contact <span className="f_w_b">
                                            <a href="mailto:angelina.scialla@auroraer.com">Angelina Scialla</a>
+                                           </span>`} */}
+									{`We’re always looking for new and exciting thought leadership.
+                                           For enquiries, please contact <span className="f_w_b">
+                                           <a href="mailto:angelina.scialla@auroraer.com"><strong>Angelina Scialla</strong></a>
                                            </span>`}
 								</ContentFromCms>
 							</div>

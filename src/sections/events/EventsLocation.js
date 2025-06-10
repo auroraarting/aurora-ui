@@ -31,13 +31,19 @@ export default function EventsLocation({ data }) {
 			data-name="Location"
 		>
 			<div className="f_w_j">
-				<div className={`${styles.locationLeft}`}>
-					<h2 className="text_lg color_secondary pb_10">Location</h2>
-					<p className="text_reg color_dark_gray f_w_b">
-						{data?.events?.location?.address}
-					</p>
-				</div>
-				<div className={`${styles.locationRight}`}>
+				{data?.events?.location?.addres && (
+					<div className={`${styles.locationLeft}`}>
+						<h2 className="text_lg color_secondary pb_10">Location</h2>
+						<p className="text_reg color_dark_gray f_w_b">
+							{data?.events?.location?.address}
+						</p>
+					</div>
+				)}
+				<div
+					className={`${styles.locationRight} ${
+						!data?.events?.location?.addres && styles.fullWidth
+					}`}
+				>
 					<ContentFromCms>{data?.events?.location?.mapLink}</ContentFromCms>
 					{/* <img src={map.src} className="width_100" alt="map" /> */}
 				</div>
