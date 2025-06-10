@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 // SECTIONS //
 
@@ -18,6 +19,7 @@ import formatDate, {
 	OpenIframePopup,
 	updateQueryFast,
 } from "@/utils";
+import EqualHeight from "@/utils/EqualHeight";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsListing.module.scss";
@@ -30,7 +32,6 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import searchImg from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
-import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -520,22 +521,22 @@ export default function EventsListing({
 						let hrefObj = {};
 
 						if (item?.events?.thumbnail?.externalUrl) {
-							// hrefObj.href = item?.events?.thumbnail?.externalUrl;
-							// hrefObj.target = "_blank";
-							// hrefObj.rel = "noreferrer";
-							hrefObj.onClick = () =>
+							hrefObj.href = item?.events?.thumbnail?.externalUrl;
+							hrefObj.onClick = (e) => {
+								e?.preventDefault(); // Prevent navigation
 								OpenIframePopup(
 									"iframePopup",
 									item?.events?.thumbnail?.externalUrl ||
 										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 								);
+							};
 						} else {
 							hrefObj.href = `/events/${item?.slug}`;
 						}
 
 						return (
 							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<a {...hrefObj}>
+								<Link {...hrefObj}>
 									<div className={`${styles.hoverBox}`}>
 										<img
 											src={hoverBg.src}
@@ -580,7 +581,7 @@ export default function EventsListing({
 											</p>
 										</div>
 									</div>
-								</a>
+								</Link>
 							</div>
 						);
 					})}
