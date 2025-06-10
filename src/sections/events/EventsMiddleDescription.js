@@ -71,7 +71,7 @@ const WhyAttend = ({ data }) => {
 			<div className={`${styles.contentBox}`}>
 				<h2>Why attend?</h2>
 				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-				<div className={`${styles.btn_box} pt_20`} onClick={() => setOpen(!open)}>
+				<div className={`${styles.btn_box} pt_0`} onClick={() => setOpen(!open)}>
 					<Button color="primary" variant="filled" shape="rounded">
 						View full agenda
 					</Button>

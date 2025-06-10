@@ -129,7 +129,7 @@ export default function EnergyMiddleRight({ data, events }) {
 					)}
 				</div>
 			)}
-			<div className={`${styles.whiteBox}`}>
+			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
 						Interested in coming on as a Podcast guest?
@@ -140,11 +140,10 @@ export default function EnergyMiddleRight({ data, events }) {
 								<ContentFromCms>
 									{data?.podcastFields?.interested
 										? data?.podcastFields?.interested
-										: `We&apos;re always looking for new and exciting opportunities to
-									collaborate. For partnership enquiries, please contact
-									<span className="f_w_b">
-										<u>Priscilla Castro</u>
-									</span>`}
+										: `We’re always looking for new and exciting thought leadership.
+                                           For enquiries, please contact <span className="f_w_b">
+                                           <a href="mailto:angelina.scialla@auroraer.com">Angelina Scialla</a>
+                                           </span>`}
 								</ContentFromCms>
 							</div>
 						</div>
