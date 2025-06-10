@@ -75,6 +75,9 @@
 	}
 	.locationRight {
 		width: 60%;
+		&.fullWidth {
+			width: 100%;
+		}
 		iframe {
 			width: 100%;
 			height: 400px;

@@ -19,6 +19,7 @@ import formatDate, {
 	allCategories,
 	dynamicInsightsBtnProps,
 	isCategory,
+	OpenIframePopup,
 	slugify,
 } from "@/utils";
 
@@ -348,7 +349,9 @@ export default function Insights({
 	/** defaultPathname  */
 	const defaultPathname = (categories) => {
 		if (categories && insightsLink.includes("/resources/aurora-insights/")) {
-			return `${insightsLink}${slugify(isCategory(allCategories, categories))}/`;
+			return `${insightsLink}${slugify(
+				isCategory(allCategories, categories, true)
+			)}/`;
 		}
 		if (insightsLink) {
 			return insightsLink;
@@ -485,9 +488,26 @@ export default function Insights({
 							</div>
 							<div className={`${styles.insightsItemFlex} d_f m_t_30`}>
 								{data?.data?.map((item, ind) => {
+									let hrefObj = {};
+									if (item?.externalUrl) {
+										hrefObj.href = item?.externalUrl;
+										hrefObj.onClick = (e) => {
+											e?.preventDefault(); // Prevent navigation
+											OpenIframePopup(
+												"iframePopup",
+												item?.externalUrl ||
+													"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+											);
+										};
+									} else {
+										hrefObj.href = `${defaultPathname(item?.categories?.nodes)}${
+											item?.slug
+										}`;
+									}
 									return (
 										<a
-											href={`${defaultPathname(item?.categories?.nodes)}${item?.slug}`}
+											{...hrefObj}
+											// href={`${defaultPathname(item?.categories?.nodes)}${item?.slug}`}
 											className={`${styles.ItemBox} boxH`}
 											key={item?.title}
 										>

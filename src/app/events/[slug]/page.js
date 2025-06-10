@@ -122,6 +122,7 @@ async function getData({ slug }) {
 			title: item?.title,
 			slug: item?.slug,
 			date: item?.events?.thumbnail?.date,
+			externalUrl: item?.events?.thumbnail?.externalUrl,
 			featuredImage: null,
 			categories: {
 				nodes: categories,
@@ -160,17 +161,21 @@ async function getData({ slug }) {
 			dataForBtn,
 			events: eventList,
 			pastEvents: pastEventList
-				?.filter((item) => new Date() > new Date(item?.date))
-				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
+				?.filter((item) => new Date() < new Date(item?.date))
+				?.sort((a, b) => new Date(a?.date) - new Date(b?.date))
 				.slice(0, 3),
-			eventsOriginal: events.data.events.nodes
-				?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
-				?.sort(
-					(a, b) =>
-						new Date(a?.events?.thumbnail?.date) -
-						new Date(b?.events?.thumbnail?.date)
-				)
-				.slice(0, 1),
+			eventsOriginal:
+				events.data.events.nodes
+					?.filter(
+						(item) =>
+							new Date() < new Date(item.events?.thumbnail?.date) && item.slug !== slug
+					)
+					?.sort(
+						(a, b) =>
+							new Date(a?.events?.thumbnail?.date) -
+							new Date(b?.events?.thumbnail?.date)
+					)
+					.slice(0, 1) || [],
 		},
 	};
 }

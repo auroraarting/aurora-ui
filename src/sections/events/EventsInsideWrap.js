@@ -91,7 +91,9 @@ export default function EventsInsideWrap({
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
 								<EventsMiddleDescription data={data} />
-								<EventsLocation data={data} />
+								{data?.events?.thumbnail?.status === "Upcoming" && (
+									<EventsLocation data={data} />
+								)}
 								{data?.events?.glimps?.gallery?.nodes && (
 									<div className="">
 										<EventsGallery data={data} />
