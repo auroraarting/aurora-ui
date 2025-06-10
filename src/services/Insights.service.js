@@ -1,4 +1,4 @@
-import GraphQLAPI from "./Graphql.service";
+import GraphQLAPI, { GraphQLAPINoBottleneck } from "./Graphql.service";
 
 /** Insights Page */
 export const getInsights = async (filterString = "first:9999") => {
@@ -299,7 +299,7 @@ query GetInsights {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPINoBottleneck(query);
 	return res;
 };
 
@@ -362,7 +362,7 @@ query GetInsightsDropDowns {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPINoBottleneck(query);
 	return res;
 };
 
@@ -687,7 +687,7 @@ query GetInsightsInside {
 
 	let res = {};
 	try {
-		res = await GraphQLAPI(query);
+		res = await GraphQLAPINoBottleneck(query);
 		return res;
 	} catch (error) {
 		console.log("error", error);
