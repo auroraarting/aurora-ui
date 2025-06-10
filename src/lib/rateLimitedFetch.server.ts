@@ -86,24 +86,24 @@ const limiter = new Bottleneck({
 	maxConcurrent: 3, // one at a time for safety
 });
 
-limiter.on("queued", (info) => {
-	console.log("Queued request", info.options.id);
-});
-limiter.on("error", (err) => {
-	console.error("Bottleneck error:", err);
-});
-limiter.on("failed", (error, jobInfo) => {
-	console.error("Bottleneck job failed:", error, jobInfo);
-});
-limiter.on("debug", (msg) => {
-	console.log("Bottleneck debug:", msg);
-});
-limiter.on("message", (msg) => {
-	console.log(msg); // prints "this is a string"
-});
-limiter.on("executing", (info) => {
-	console.log(`🚀 Executing: Job ${info.options.id}`);
-});
+// limiter.on("queued", (info) => {
+// 	console.log("Queued request", info.options.id);
+// });
+// limiter.on("error", (err) => {
+// 	console.error("Bottleneck error:", err);
+// });
+// limiter.on("failed", (error, jobInfo) => {
+// 	console.error("Bottleneck job failed:", error, jobInfo);
+// });
+// limiter.on("debug", (msg) => {
+// 	console.log("Bottleneck debug:", msg);
+// });
+// limiter.on("message", (msg) => {
+// 	console.log(msg); // prints "this is a string"
+// });
+// limiter.on("executing", (info) => {
+// 	console.log(`🚀 Executing: Job ${info.options.id}`);
+// });
 
 /** rateLimitedFetch  */
 // export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
