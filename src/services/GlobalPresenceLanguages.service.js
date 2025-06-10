@@ -439,6 +439,6 @@ query GetCountryInside {
   }
 }
     `;
-	const res = await GraphQLAPINoBottleneck(query);
+	const res = await GraphQLAPI(query);
 	return res;
 };

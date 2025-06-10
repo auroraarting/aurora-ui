@@ -71,9 +71,9 @@ const WhyAttend = ({ data }) => {
 			<div className={`${styles.contentBox}`}>
 				<h2>Why attend?</h2>
 				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-				<div className={`${styles.btn_box} pt_30`} onClick={() => setOpen(!open)}>
-					<Button color="secondary" variant="filled" shape="rounded">
-						View Full Agenda
+				<div className={`${styles.btn_box} pt_20`} onClick={() => setOpen(!open)}>
+					<Button color="primary" variant="filled" shape="rounded">
+						View full agenda
 					</Button>
 				</div>
 			</div>
@@ -83,7 +83,7 @@ const WhyAttend = ({ data }) => {
 			>
 				<div className={`${styles.content}`}>
 					{/* <div className={`${styles.CloseWrap}`}>
-						
+
 					</div> */}
 					<img
 						className={`${styles.close}`}
@@ -107,15 +107,15 @@ const WhyAttend = ({ data }) => {
 								</h4>
 								<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
 									<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
-										<img src={clock.src} className={`${styles.clock}`} alt="clock" />
-										<span>{item?.address}</span>
-									</p>
-									<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
 										<img
 											src={location.src}
 											className={`${styles.location}`}
-											alt="location"
+											alt="clock"
 										/>
+										<span>{item?.address}</span>
+									</p>
+									<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
+										<img src={clock.src} className={`${styles.clock}`} alt="location" />
 										<span>{item?.timeSlot}</span>
 									</p>
 								</div>

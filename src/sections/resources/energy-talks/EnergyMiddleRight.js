@@ -129,7 +129,7 @@ export default function EnergyMiddleRight({ data, events }) {
 					)}
 				</div>
 			)}
-			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
+			<div className={`${styles.whiteBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
 						Interested in coming on as a Podcast guest?
