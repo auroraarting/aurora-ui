@@ -655,7 +655,7 @@ export default function Header({ defaultNavigation }) {
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
-														Services
+														What we do
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>

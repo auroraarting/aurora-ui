@@ -489,7 +489,7 @@ export function buildQueryFromContext(context) {
 }
 
 export const allCategories = [
-	{ title: "Article", alternate: "Commentary" },
+	{ title: "Articles", alternate: "Commentary" },
 	{ title: "Case Studies", alternate: "Case Studies" },
 	{ title: "Market Reports", alternate: "Market Reports" },
 	// { title: "Public", alternate: "Public" },
@@ -499,46 +499,36 @@ export const allCategories = [
 ];
 
 /** findFunc  */
-export function isCategory(categoryList, dynamicWords, forUrl) {
-	// const words = dynamicWords
-	// 	?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
-	// 	.map((word) => word?.trim())
-	// 	.filter(Boolean); // remove empty strings
-
-	// let txt = "";
-
-	// categoryList?.forEach((item) => {
-	// 	const target = (item.alternate || item.title).toLowerCase();
-	// 	const match = words?.some((word) => target.includes(word));
-	// 	// const match = words?.some((word) => target === word.toLowerCase());
-
-	// 	if (match) {
-	// 		if (!txt) {
-	// 			txt += item.title;
-	// 		} else {
-	// 			txt += `, ${item.title}`;
-	// 		}
-	// 	}
-	// });
-
-	// return txt;
-
+export function isCategory(categoryList, dynamicWords, forUrl = false) {
 	const names = dynamicWords
 		?.map((item) => item.name.toLowerCase().trim())
 		.filter(Boolean);
 
 	let matchedTitles = [];
 
-	categoryList?.forEach((item) => {
+	categoryList?.map((item) => {
 		const target = (item.alternate || item.title).toLowerCase().trim();
 
 		if (names?.includes(target)) {
-			if (forUrl) {
+			if (!forUrl) {
 				if (item.title === "Case Studies") {
 					item.title = "Case Study";
 				}
 				if (item.title === "Market Reports") {
 					item.title = "Market Report";
+				}
+				if (item.title === "Articles") {
+					item.title = "Article";
+				}
+			} else {
+				if (item.title === "Case Study") {
+					item.title = "Case Studies";
+				}
+				if (item.title === "Market Report") {
+					item.title = "Market Reports";
+				}
+				if (item.title === "Article") {
+					item.title = "Articles";
 				}
 			}
 

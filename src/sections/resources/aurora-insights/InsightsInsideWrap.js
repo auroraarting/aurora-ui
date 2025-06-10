@@ -44,6 +44,7 @@ export default function InsightsInsideWrap({
 	otherList,
 	countries,
 	insights,
+	insightsSectionButton,
 }) {
 	const isArticle = data?.categories?.nodes?.some(
 		(item) => item.slug === "commentary"
@@ -54,8 +55,9 @@ export default function InsightsInsideWrap({
 	const isReports = data?.categories?.nodes?.some((item) =>
 		item.slug.includes("report")
 	);
-
-	console.log(insights, "insights");
+	const dataForBtn = {
+		postFields: { insightsSectionButton: { ...insightsSectionButton } } || {},
+	};
 
 	return (
 		<div>
@@ -207,10 +209,10 @@ export default function InsightsInsideWrap({
 						formSectionTitle={insights?.title}
 						formSectionDesc={insights?.desc}
 						formSectionBtnText={
-							dynamicInsightsBtnProps(insights, "insightsSectionButton").btntext
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
 						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(insights, "insightsSectionButton")}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 
