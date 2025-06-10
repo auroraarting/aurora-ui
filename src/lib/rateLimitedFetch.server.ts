@@ -80,44 +80,44 @@ const limiter = new Bottleneck({
 	// 	password: process.env.REDIS_PASSWORD,
 	// },
 	// 💡 This allows up to 5 requests per 1000ms
-	reservoir: 5, // max requests in a burst
-	reservoirRefreshAmount: 5, // refill to 5
+	reservoir: 3, // max requests in a burst
+	reservoirRefreshAmount: 3, // refill to 5
 	reservoirRefreshInterval: 1000, // every 1000ms = 1s
-	maxConcurrent: 5, // one at a time for safety
+	maxConcurrent: 3, // one at a time for safety
 });
 
-limiter.on("queued", (info) => {
-	console.log("Queued request", info.options.id);
-});
-limiter.on("error", (err) => {
-	console.error("Bottleneck error:", err);
-});
-limiter.on("failed", (error, jobInfo) => {
-	console.error("Bottleneck job failed:", error, jobInfo);
-});
-limiter.on("debug", (msg) => {
-	console.log("Bottleneck debug:", msg);
-});
-limiter.on("message", (msg) => {
-	console.log(msg); // prints "this is a string"
-});
-limiter.on("executing", (info) => {
-	console.log(`🚀 Executing: Job ${info.options.id}`);
-});
+// limiter.on("queued", (info) => {
+// 	console.log("Queued request", info.options.id);
+// });
+// limiter.on("error", (err) => {
+// 	console.error("Bottleneck error:", err);
+// });
+// limiter.on("failed", (error, jobInfo) => {
+// 	console.error("Bottleneck job failed:", error, jobInfo);
+// });
+// limiter.on("debug", (msg) => {
+// 	console.log("Bottleneck debug:", msg);
+// });
+// limiter.on("message", (msg) => {
+// 	console.log(msg); // prints "this is a string"
+// });
+// limiter.on("executing", (info) => {
+// 	console.log(`🚀 Executing: Job ${info.options.id}`);
+// });
 
 /** rateLimitedFetch  */
-export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
-	return limiter.schedule(() => fetch(url, options));
-}
+// export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
+// 	return limiter.schedule(() => fetch(url, options));
+// }
 
 // Wrap native fetch
 // export const rateLimitedFetch = limiter.wrap(fetch);
 
 /** Rate-limited fetch  */
-// export const rateLimitedFetch = async (url: string, options?: RequestInit) => {
-// 	const jobId = `job-${uuidv4()}`;
-// 	// console.time(jobId);
-// 	const res = await limiter.schedule({ id: jobId }, () => fetch(url, options));
-// 	// console.timeEnd(jobId);
-// 	return res;
-// };
+export const rateLimitedFetch = async (url: string, options?: RequestInit) => {
+	const jobId = `job-${uuidv4()}`;
+	// console.time(jobId);
+	const res = await limiter.schedule({ id: jobId }, () => fetch(url, options));
+	// console.timeEnd(jobId);
+	return res;
+};
