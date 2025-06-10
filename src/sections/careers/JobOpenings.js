@@ -350,34 +350,28 @@ export default function JobOpenings({
 				<div className={`${styles.tableBox}`}>
 					<table className={`${hideFilters && styles.borderHide}`}>
 						<tbody>
-							{filterdJob?.length > 0 && (
+							{/* {filterdJob?.length > 0 && (
 								<tr>
 									<td className="text_xxs font_primary color_light_gray f_w_m text_uppercase">
 										Position
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										{/* Singapore */}
+										
 										Country
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										{/* Advisory */}
+										
 										Department
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										{/* Permanent - Full Time */}
+										
 										Employment Type
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										{/* Permanent - Full Time */}
-										{/* {item?.employment_type_text} */}
-										{/* <a href={item?.url} target="_blank" rel="noreferrer">
-										<Button color="primary" variant="filled" shape="rounded" mode="max">
-											View Job
-										</Button>
-									</a> */}
+										
 									</td>
 								</tr>
-							)}
+							)} */}
 							{filterdJob?.map((item, ind) => {
 								return (
 									<tr key={item?.title + ind}>
@@ -459,7 +453,6 @@ export default function JobOpenings({
 					paginationArr={paginationArr}
 					itemsPerPage={5}
 					setCurrentItems={setFilterdJob}
-
 				/>
 			</div>
 		</section>
