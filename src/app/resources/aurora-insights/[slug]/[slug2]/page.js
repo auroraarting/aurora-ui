@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -59,14 +59,14 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const data = await getInsights(
-// 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
-// 	);
-// 	return data?.data?.posts?.nodes.map((item) => ({
-// 		slug: item.slug,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const data = await getInsights(
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+	);
+	return data?.data?.posts?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
 
 /** Fetch  */
 async function getData({ params }) {

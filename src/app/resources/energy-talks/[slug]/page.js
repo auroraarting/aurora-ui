@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -107,12 +107,12 @@ async function getData({ slug }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const podcasts = await getPodcasts();
-// 	return podcasts?.data?.podcasts?.nodes.map((item) => ({
-// 		slug: item.slug,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const podcasts = await getPodcasts();
+	return podcasts?.data?.podcasts?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
 
 /** EnergyInside Page */
 export default async function EnergyInside({ params }) {
