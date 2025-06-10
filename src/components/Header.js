@@ -187,7 +187,6 @@ export default function Header({ defaultNavigation }) {
 			);
 			setSelectedLanguage(selectedLang);
 		}
-		console.log(showLanguages, "showLanguages");
 	}, [pathname]);
 
 	useEffect(() => {
@@ -317,7 +316,10 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap} dropdown_wrap`}>
+									<div
+										className={`${styles.dropdown_wrap} dropdown_wrap`}
+										onClick={() => setOpenSidebar(false)}
+									>
 										<div className={`${styles.megaMenuBox} f_w_j megaMenuBox`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
@@ -491,7 +493,10 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
+									<div
+										className={`${styles.dropdown_wrap}`}
+										onClick={() => setOpenSidebar(false)}
+									>
 										<div className={`${styles.megaMenuBox} f_w_j`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
@@ -650,7 +655,10 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
+									<div
+										className={`${styles.dropdown_wrap}`}
+										onClick={() => setOpenSidebar(false)}
+									>
 										<div className={`${styles.megaMenuBox} f_w_j`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
@@ -817,7 +825,10 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
+									<div
+										className={`${styles.dropdown_wrap}`}
+										onClick={() => setOpenSidebar(false)}
+									>
 										<div className={`${styles.megaMenuBox} ${styles.productBox} f_w_j`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
@@ -939,7 +950,10 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
+									<div
+										className={`${styles.dropdown_wrap}`}
+										onClick={() => setOpenSidebar(false)}
+									>
 										<div className={`${styles.megaMenuBox} f_w_j`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
@@ -1092,6 +1106,7 @@ export default function Header({ defaultNavigation }) {
 										pathname.includes("/events") && styles.active
 									}`}
 									role="button"
+									onClick={() => setOpenSidebar(false)}
 								>
 									<Link href="/events" role="button">
 										<div
@@ -1120,7 +1135,10 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
+									<div
+										className={`${styles.dropdown_wrap}`}
+										onClick={() => setOpenSidebar(false)}
+									>
 										<div className={`${styles.megaMenuBox} f_w_j`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>

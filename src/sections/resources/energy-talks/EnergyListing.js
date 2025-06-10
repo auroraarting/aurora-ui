@@ -32,6 +32,7 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 import searchImg from "/public/img/icons/search.svg";
 import hoverBg from "/public/img/home/hoverBg.png";
 import EqualHeight from "@/utils/EqualHeight";
+import Link from "next/link";
 
 // DATA //
 
@@ -511,7 +512,7 @@ export default function EnergyListing({
 						list.map((item, ind) => {
 							return (
 								<div className={`${styles.ItemBox} gridItem`} key={item?.title + ind}>
-									<a
+									<Link
 										href={`/resources/energy-talks/${item?.slug}`}
 										className={`${styles.itemInside}`}
 									>
@@ -564,7 +565,7 @@ export default function EnergyListing({
 												)}
 											</div>
 										</div>
-									</a>
+									</Link>
 								</div>
 							);
 						})}

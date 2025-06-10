@@ -33,6 +33,7 @@ import searchImg from "/public/img/icons/search.svg";
 import popup_close from "/public/img/icons/popup_close.svg";
 import hoverBg from "/public/img/home/hoverBg.png";
 import EqualHeight from "@/utils/EqualHeight";
+import Link from "next/link";
 
 // DATA //
 
@@ -539,7 +540,7 @@ export default function MediaListing({
 					{list?.map((item, ind) => {
 						return (
 							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<a href={`/company/press-releases/${item?.slug}`}>
+								<Link href={`/company/press-releases/${item?.slug}`}>
 									<div className={`${styles.hoverBox}`}>
 										<img
 											height={179}
@@ -581,7 +582,7 @@ export default function MediaListing({
 											)}
 										</div>
 									</div>
-								</a>
+								</Link>
 							</div>
 						);
 					})}

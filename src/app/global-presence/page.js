@@ -27,6 +27,7 @@ import {
 	getGlobalPresencePage,
 	getRegions,
 } from "@/services/GlobalPresence.service";
+import Link from "next/link";
 
 /** Meta Data */
 export const metadata = {
@@ -61,7 +62,7 @@ async function getData() {
 							}
 							return (
 								<div className={`${styles.CountryItem}`} key={item2.slug}>
-									<a href={`/global-presence/${item2.slug}`}>
+									<Link href={`/global-presence/${item2.slug}`}>
 										<img
 											src={
 												item2?.featuredImage?.node?.mediaItemUrl ||
@@ -82,7 +83,7 @@ async function getData() {
 												/>
 											</span>
 										</div>
-									</a>
+									</Link>
 								</div>
 							);
 						})}
