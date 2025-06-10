@@ -10,7 +10,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // PLUGINS //
 
 // UTILS //
-import formatDate, { dynamicInsightsBtnProps } from "@/utils";
+import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsMiddleRight.module.scss";
@@ -105,9 +105,25 @@ export default function EventsMiddleRight({ data, events }) {
 						UPCOMING EVENT
 					</h5>
 					{events?.slice(0, 1).map((item) => {
+						let hrefObj = {};
+						if (item?.events?.thumbnail?.externalUrl) {
+							hrefObj.href = item?.events?.thumbnail?.externalUrl;
+							hrefObj.onClick = (e) => {
+								e?.preventDefault(); // Prevent navigation
+								OpenIframePopup(
+									"iframePopup",
+									item?.events?.thumbnail?.externalUrl ||
+										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+								);
+							};
+						} else {
+							hrefObj.href = `/events/${item?.slug}`;
+						}
+
 						return (
 							<a
-								href={`/events/${item?.slug}`}
+								// href={`/events/${item?.slug}`}
+								{...hrefObj}
 								className={`${styles.itemBox}`}
 								key={item?.title}
 							>

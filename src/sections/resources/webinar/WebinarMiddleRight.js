@@ -112,12 +112,12 @@ export default function WebinarMiddleRight({ data }) {
 						<h5 className="text_reg color_gray f_w_b pb_10">Share</h5>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>
 							<a className={`${styles.shareIcon}`}>
-								<LinkedinShareButton url={window.location.href}>
+								<LinkedinShareButton url={window && window.location.href}>
 									<img src={linkedin.src} alt="linkedin" />
 								</LinkedinShareButton>
 							</a>
 							<a className={`${styles.shareIcon}`}>
-								<TwitterShareButton url={window.location.href}>
+								<TwitterShareButton url={window && window.location.href}>
 									<img src={twitter.src} alt="twitter" />
 								</TwitterShareButton>
 							</a>
