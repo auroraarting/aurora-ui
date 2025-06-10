@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -78,12 +78,12 @@ async function getData({ params }) {
 }
 
 /** generateStaticParams  */
-export async function generateStaticParams() {
-	const data = await getSoftwarePage();
-	return data?.data?.softwares?.nodes.map((item) => ({
-		slug: item.slug,
-	}));
-}
+// export async function generateStaticParams() {
+// 	const data = await getSoftwarePage();
+// 	return data?.data?.softwares?.nodes.map((item) => ({
+// 		slug: item.slug,
+// 	}));
+// }
 
 /** Chronos Page */
 export default async function SoftwarePage({ params }) {

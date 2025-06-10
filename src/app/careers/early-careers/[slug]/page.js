@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -59,12 +59,12 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-export async function generateStaticParams() {
-	const earlyCareers = await getEarlyCareersListing("first: 99999");
-	return earlyCareers.data.earlyCareers.nodes.map((item) => ({
-		slug: item.slug,
-	}));
-}
+// export async function generateStaticParams() {
+// 	const earlyCareers = await getEarlyCareersListing("first: 99999");
+// 	return earlyCareers.data.earlyCareers.nodes.map((item) => ({
+// 		slug: item.slug,
+// 	}));
+// }
 
 /** EarlyCareers Page */
 export default async function EarlyCareers({ params }) {
