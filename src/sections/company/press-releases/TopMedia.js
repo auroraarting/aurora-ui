@@ -26,6 +26,7 @@ import press_img from "/public/img/media-center/press_img.jpg";
 import clock from "/public/img/icons/clock.svg";
 import white_calendar from "/public/img/icons/white_calendar.svg";
 import slider_arrow from "/public/img/icons/howwehelpSwiperRight.svg";
+import Link from "next/link";
 
 // DATA //
 
@@ -55,7 +56,7 @@ export default function TopMedia({ data }) {
 						return (
 							<SwiperSlide key={item?.title}>
 								<div className={`${styles.card} topMedia f_w_j`} key={item.title}>
-									<a
+									<Link
 										href={`/company/press-releases/${item?.slug}`}
 										className={`${styles.content}`}
 									>
@@ -89,7 +90,7 @@ export default function TopMedia({ data }) {
 												</p>
 											)}
 										</div>
-									</a>
+									</Link>
 									{item?.featuredImage?.node?.mediaItemUrl && (
 										<div className={`${styles.imageWrapper}`}>
 											<img

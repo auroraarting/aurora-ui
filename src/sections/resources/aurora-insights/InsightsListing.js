@@ -31,6 +31,7 @@ import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
 import EqualHeight from "@/utils/EqualHeight";
+import Link from "next/link";
 
 // DATA //
 
@@ -553,7 +554,7 @@ export default function InsightsListing({
 						list.map((item, ind) => {
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
-									<a
+									<Link
 										href={`/resources/aurora-insights/${slugify(
 											isCategory(allCategories, item?.categories?.nodes, true)
 										)}/${item?.slug}`}
@@ -601,7 +602,7 @@ export default function InsightsListing({
 												)}
 											</div>
 										</div>
-									</a>
+									</Link>
 								</div>
 							);
 						})}

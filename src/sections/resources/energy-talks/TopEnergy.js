@@ -23,6 +23,7 @@ import energy_logo from "/public/img/energy_talks/energy_logo.jpg";
 import location from "/public/img/icons/location.svg";
 import calender from "/public/img/icons/calender.svg";
 import black_clock from "/public/img/icons/black_clock.svg";
+import Link from "next/link";
 
 // DATA //
 
@@ -34,7 +35,7 @@ export default function TopEnergy({ data }) {
 	return (
 		<section className={`${styles.TopEnergy}`}>
 			<div className="container">
-				<a
+				<Link
 					href={`/resources/energy-talks/${data?.slug}`}
 					className={`${styles.card} f_w_j`}
 				>
@@ -92,7 +93,7 @@ export default function TopEnergy({ data }) {
 							/>
 						</div>
 					)}
-				</a>
+				</Link>
 			</div>
 		</section>
 	);

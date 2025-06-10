@@ -33,6 +33,7 @@ import Banner4 from "/public/img/products/banner4.jpg";
 import PowerRenewables from "/public/img/products/power-renewables.png";
 import Hydrogen from "/public/img/products/hydrogen.png";
 import Grid from "/public/img/products/grid.png";
+import Link from "next/link";
 
 // DATA //
 
@@ -171,11 +172,11 @@ export default function TransactionSolutions({
 														: item?.[contentType]?.thumbnail?.shortDescription}
 												</p>
 												<div className={`${styles.bookBtn} pt_60`}>
-													<a href={item?.link || `/${slugPage}/${item?.slug}`}>
+													<Link href={item?.link || `/${slugPage}/${item?.slug}`}>
 														<Button color="secondary" variant="underline" mode="dark">
 															Know more
 														</Button>
-													</a>
+													</Link>
 												</div>
 											</div>
 										</div>

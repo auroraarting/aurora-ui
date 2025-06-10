@@ -33,6 +33,7 @@ import white_location from "../../public/img/icons/white_location.svg";
 import close from "../../public/img/icons/close.png";
 import form_img from "../../public/img/softwares/form_img.png";
 import hoverBg from "../../public/img/home/hoverBg.png";
+import Link from "next/link";
 
 // DATA //
 const tempdata = {
@@ -505,7 +506,7 @@ export default function Insights({
 										}`;
 									}
 									return (
-										<a
+										<Link
 											{...hrefObj}
 											// href={`${defaultPathname(item?.categories?.nodes)}${item?.slug}`}
 											className={`${styles.ItemBox} boxH`}
@@ -563,7 +564,7 @@ export default function Insights({
 													)}
 												</div>
 											</div>
-										</a>
+										</Link>
 									);
 								})}
 							</div>

@@ -33,6 +33,7 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 import Pagination from "@/components/Pagination";
 import { useContextProvider } from "@/context/GlobalContext";
 import EqualHeight from "@/utils/EqualHeight";
+import Link from "next/link";
 
 // DATA //
 
@@ -551,7 +552,7 @@ export default function WebinarListing({
 						list.map((item, ind) => {
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
-									<a href={`/resources/webinar/${item?.slug}`}>
+									<Link href={`/resources/webinar/${item?.slug}`}>
 										<div className={`${styles.hoverBox}`}>
 											<img
 												src={hoverBg.src}
@@ -599,7 +600,7 @@ export default function WebinarListing({
 												{/* )} */}
 											</div>
 										</div>
-									</a>
+									</Link>
 								</div>
 							);
 						})}
