@@ -53,14 +53,14 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const data = await await getInsights(
-// 		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
-// 	);
-// 	return data.data.posts.nodes.map((item) => ({
-// 		slug: item.slug,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const data = await await getInsights(
+		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+	);
+	return data.data.posts.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
 
 /** Fetch  */
 async function getData({ slug }) {
