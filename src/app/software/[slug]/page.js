@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -22,9 +22,14 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getSingleSoftware } from "@/services/Softwares.service";
+import {
+	getSingleSoftware,
+	getSoftwarePage,
+} from "@/services/Softwares.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
@@ -70,6 +75,14 @@ async function getData({ params }) {
 			countries,
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getSoftwarePage();
+	return data?.data?.softwares?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Chronos Page */

@@ -26,7 +26,6 @@ import country_thumb from "/public/img/global-presence/country_thumb.jpg";
 // DATA //
 
 // SECTORS //
-import { getTeamSectors } from "@/services/Teams.service";
 
 /** Team Page */
 export default function TeamWrap({ data, countries }) {

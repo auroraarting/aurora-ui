@@ -7,6 +7,7 @@ import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
@@ -28,7 +29,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 // IMAGES //
 

@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -35,6 +35,8 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`howwehelpBy(slug: "${params.slug}")`);
@@ -52,6 +54,14 @@ export async function generateMetadata({ params }) {
 			],
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const services = await getHowWeHelps();
+	return services.data.howWeHelps.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Fetch  */

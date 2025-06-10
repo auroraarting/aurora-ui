@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -30,6 +30,8 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getInsightsInside(params.slug2);
@@ -56,6 +58,16 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getInsights(
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
+	);
+	return data?.data?.posts?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** Fetch  */
 async function getData({ params }) {
 	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
@@ -78,7 +90,34 @@ async function getData({ params }) {
 
 /** Articles Page */
 export default async function Articles({ params }) {
+	const { slug2, slug } = await params;
 	const { props } = await getData({ params });
+
+	/** insights */
+	const insights = () => {
+		if (params.slug === "article" || params.slug === "articles") {
+			return {
+				insights: {
+					title: "Energy insights to your inbox",
+					desc:
+						"Subscribe to get our most recent energy insights delivered straight to your inbox.",
+					iframe: "https://go.auroraer.com/mailinglist",
+				},
+				insightsSectionButton: {
+					buttonText: "Subscribe",
+					iframe: "https://go.auroraer.com/mailinglist",
+				},
+			};
+		}
+		return {
+			insights: props.data.postFields.insights,
+			insightsSectionButton: props.data.postFields.insightsSectionButton,
+		};
+	};
+
+	console.log(props);
+
+	// data?.postFields?.insights?.title
 
 	return (
 		<div>
@@ -122,7 +161,7 @@ export default async function Articles({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<InsightsInsideWrap {...props} />
+			<InsightsInsideWrap {...props} {...insights()} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

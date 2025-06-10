@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -28,6 +28,8 @@ import {
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
@@ -67,6 +69,14 @@ async function getData({ params }) {
 			bundles: bundles.data.page.bundles,
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const services = await getWhoAreYous();
+	return services.data.howWeHelps.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** FinancialSector Page */

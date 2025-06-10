@@ -14,6 +14,8 @@ import GlobalMap from "@/components/GlobalMap";
 import SectionsHeader from "@/components/SectionsHeader";
 import SmarterEnergy from "@/components/SmarterEnergy";
 import IframeModal from "@/components/IframeModal";
+import CaseStudy from "@/components/CaseStudy";
+import Bundles from "@/components/Bundles";
 
 // SECTIONS //
 import ProductBanner from "@/sections/products/ProductBanner";
@@ -28,8 +30,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/product/ProductInside.module.scss";
-import CaseStudy from "@/components/CaseStudy";
-import Bundles from "@/components/Bundles";
 
 // IMAGES //
 

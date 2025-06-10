@@ -16,6 +16,7 @@ import Button from "@/components/Buttons/Button";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import GlobalMap from "@/components/GlobalMap";
 import Bundles from "@/components/Bundles";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
@@ -46,7 +47,6 @@ import locationJson from "@/data/globalMap.json";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getSoftwarePage } from "@/services/Softwares.service";
-import IframeModal from "@/components/IframeModal";
 import {
 	getInsights,
 	getInsightsCategories,

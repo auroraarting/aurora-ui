@@ -1,5 +1,7 @@
 "use client";
 // MODULES //
+import { useEffect } from "react";
+import { useContextProvider } from "@/context/GlobalContext";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -26,14 +28,13 @@ import { dynamicInsightsBtnProps, getMapJsonForCountries } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/global-presence/Australia.module.scss";
-import { useContextProvider } from "@/context/GlobalContext";
-import { useEffect } from "react";
 
 // IMAGES //
 
 // DATA //
 
 // SERVICES //
+
 /** Australia Page */
 export default function GlobalPresenceInsideWrap({
 	data,
@@ -47,11 +48,9 @@ export default function GlobalPresenceInsideWrap({
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
-		console.log(data?.translations);
 		if (data?.translations?.length >= 1) {
 			setShowLanguages(true);
 		}
-		console.log(data, "data");
 		return () => {
 			setShowLanguages(false);
 		};

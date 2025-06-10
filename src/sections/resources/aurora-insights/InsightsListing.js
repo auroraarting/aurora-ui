@@ -30,7 +30,6 @@ import searchImg from "/public/img/icons/search.svg";
 import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
-import { getInsights } from "@/services/Insights.service";
 import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //

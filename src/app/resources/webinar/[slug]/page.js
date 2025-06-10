@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -42,6 +42,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getWebinarInside(params.slug);
@@ -66,6 +68,14 @@ export async function generateMetadata({ params }) {
 			],
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getWebinars();
+	return data?.data?.webinars?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Fetch  */

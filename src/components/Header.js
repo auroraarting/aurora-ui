@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Buttons/Button";
 import GlobalSearch from "@/components/GlobalSearch";
+import { useContextProvider } from "@/context/GlobalContext";
 
 // SECTIONS //
 
@@ -43,8 +44,6 @@ import Close from "@/../public/img/icons/close.svg";
 import WebinarImg from "/public/img/header_webinar.jpg";
 
 // SERVICES //
-import { fetchNavigationData } from "@/services/Navigation.service";
-import { useContextProvider } from "@/context/GlobalContext";
 
 // DATA //
 import languages from "@/data/languages.json";
@@ -656,7 +655,7 @@ export default function Header({ defaultNavigation }) {
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
-														Services
+														What we do
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>

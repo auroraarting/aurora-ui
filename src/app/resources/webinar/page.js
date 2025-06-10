@@ -34,6 +34,8 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch  getStaticProps*/
 async function getData() {
 	const [data, categoriesForSelect, webinarpage] = await Promise.all([
