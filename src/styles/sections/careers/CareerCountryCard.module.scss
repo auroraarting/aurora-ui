@@ -2,10 +2,10 @@
 .CareerCountryCard {
 	position: relative;
 	background-color: var(--color_secondary);
-	height: 140vh;
-	@media (max-width: 1199px) {
-		height: max-content;
-	}
+	// height: 140vh;
+	// @media (max-width: 1199px) {
+	// 	height: max-content;
+	// }
 	:global(.container) {
 		display: flex;
 		flex-direction: column;

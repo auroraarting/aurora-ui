@@ -65,6 +65,16 @@
 		:global(.text_500) {
 			margin-bottom: 0px;
 		}
+
+		button {
+			p {
+				font-size: 16px;
+				font-weight: 600;
+				&:nth-child(1) {
+					color: var(--color_white);
+				}
+			}
+		}
 	}
 	iframe {
 		width: 100%;

@@ -132,7 +132,7 @@ export default function EventsInsideWrap({
 				{/* {pastEvents?.length > 0 && ( */}
 				<div className="pb_100">
 					<Insights
-						allTag="Past Events"
+						allTag="Past Event"
 						insightsLink="/events/"
 						isPowerBgVisible={
 							data?.events?.thumbnail?.status === "Past" ? false : true
