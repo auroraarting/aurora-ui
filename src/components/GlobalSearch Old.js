@@ -21,7 +21,6 @@ import styles from "@/styles/components/GlobalSearch.module.scss";
 import SearchIcon from "../../public/img/icons/search.svg";
 
 // SERVICES //
-import { searchData } from "@/services/Search.service";
 
 // DATA //
 

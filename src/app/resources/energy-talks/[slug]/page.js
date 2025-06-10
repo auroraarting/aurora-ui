@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -34,6 +34,8 @@ import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
 // DATA //
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {

@@ -44,8 +44,6 @@ export default function HomeResources({ data, countries, voices }) {
 	const getDisplayCategory = (cat) =>
 		CATEGORY_DISPLAY[cat] || cat?.toUpperCase(); // fallback keeps everything else nice
 
-	console.log(voices, "voices");
-
 	return (
 		<section
 			className={`${styles.HomeResources}`}

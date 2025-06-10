@@ -233,3 +233,19 @@ query GetProductBySlug {
 	const res = await GraphQLAPI(query);
 	return res;
 };
+
+/** Fetch Page */
+export const getAllServiceData = async (slug) => {
+	const query = `
+query GetProductBySlug {
+  services(first: 9999) {
+    nodes {
+      title
+      slug
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};

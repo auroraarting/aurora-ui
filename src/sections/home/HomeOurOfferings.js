@@ -95,7 +95,7 @@ export default function HomeOurOfferings() {
 			title="our offerings section"
 		>
 			<h2 className="text_lg color_secondary text_center">
-				We equip decision-makers with actionable intelligence
+				We provide decision-makers with actionable intelligence
 				<br className="visible_lg" /> to navigate and capitalise on the global shift
 				in energy systems.
 			</h2>
@@ -156,8 +156,8 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_secondary">Software</h4>
 								<p className="text_reg color_dark_gray">
-									Our software suite empowers energy professionals with advanced tools
-									for market forecasting, asset valuation, and strategic decision-making.
+									Our software suite enables energy professionals with advanced tools for
+									market forecasting, asset valuation, and strategic decision-making.
 								</p>
 							</div>
 							<div

@@ -455,3 +455,19 @@ query GetCountryInside {
 	const res = await GraphQLAPI(query);
 	return res;
 };
+
+/** Fetch Regions Data */
+export const getCountries = async () => {
+	const query = `
+ query GetProductBySlug {
+  countries(first: 9999) {
+    nodes {
+      title
+      slug
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};

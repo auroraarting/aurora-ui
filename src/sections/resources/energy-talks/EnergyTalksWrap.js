@@ -13,6 +13,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import SoftwareCards from "@/components/SoftwareCards";
 import AllVideos from "@/components/AllVideos";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import TopEnergy from "@/sections/resources/energy-talks/TopEnergy";
@@ -33,7 +34,6 @@ import spotify from "/public/img/energy_talks/spotify.svg";
 import apple from "/public/img/energy_talks/apple.svg";
 import google from "/public/img/energy_talks/google.svg";
 import calender from "/public/img/icons/calender.svg";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
