@@ -51,15 +51,15 @@ export default function TopEvents({ list }) {
 						let hrefObj = {};
 
 						if (data?.events?.thumbnail?.externalUrl) {
-							// hrefObj.href = item?.events?.thumbnail?.externalUrl;
-							// hrefObj.target = "_blank";
-							// hrefObj.rel = "noreferrer";
-							hrefObj.onClick = () =>
+							hrefObj.href = data?.events?.thumbnail?.externalUrl;
+							hrefObj.onClick = (e) => {
+								e?.preventDefault(); // Prevent navigation
 								OpenIframePopup(
 									"iframePopup",
 									data?.events?.thumbnail?.externalUrl ||
 										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 								);
+							};
 						} else {
 							hrefObj.href = `/events/${data?.slug}`;
 						}
