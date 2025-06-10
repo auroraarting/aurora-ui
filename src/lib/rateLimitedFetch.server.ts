@@ -70,15 +70,15 @@ if (typeof window !== "undefined") {
 
 // Create a Bottleneck group backed by Redis
 const limiter = new Bottleneck({
-	id: "global-api-limiter",
-	datastore: "ioredis",
-	clearDatastore: false, // Don't clear in prod!
-	Redis: IORedis,
-	clientOptions: {
-		host: process.env.REDIS_HOST,
-		port: process.env.REDIS_PORT,
-		password: process.env.REDIS_PASSWORD,
-	},
+	// id: "global-api-limiter",
+	// datastore: "ioredis",
+	// clearDatastore: false, // Don't clear in prod!
+	// Redis: IORedis,
+	// clientOptions: {
+	// 	host: process.env.REDIS_HOST,
+	// 	port: process.env.REDIS_PORT,
+	// 	password: process.env.REDIS_PASSWORD,
+	// },
 	// 💡 This allows up to 5 requests per 1000ms
 	reservoir: 5, // max requests in a burst
 	reservoirRefreshAmount: 5, // refill to 5
@@ -106,18 +106,18 @@ limiter.on("executing", (info) => {
 });
 
 /** rateLimitedFetch  */
-// export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
-// 	return limiter.schedule(() => fetch(url, options));
-// }
+export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
+	return limiter.schedule(() => fetch(url, options));
+}
 
 // Wrap native fetch
 // export const rateLimitedFetch = limiter.wrap(fetch);
 
 /** Rate-limited fetch  */
-export const rateLimitedFetch = async (url: string, options?: RequestInit) => {
-	const jobId = `job-${uuidv4()}`;
-	// console.time(jobId);
-	const res = await limiter.schedule({ id: jobId }, () => fetch(url, options));
-	// console.timeEnd(jobId);
-	return res;
-};
+// export const rateLimitedFetch = async (url: string, options?: RequestInit) => {
+// 	const jobId = `job-${uuidv4()}`;
+// 	// console.time(jobId);
+// 	const res = await limiter.schedule({ id: jobId }, () => fetch(url, options));
+// 	// console.timeEnd(jobId);
+// 	return res;
+// };
