@@ -519,7 +519,6 @@ export default function EventsListing({
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
 					{list?.map((item, ind) => {
 						let hrefObj = {};
-
 						if (item?.events?.thumbnail?.externalUrl) {
 							hrefObj.href = item?.events?.thumbnail?.externalUrl;
 							hrefObj.onClick = (e) => {

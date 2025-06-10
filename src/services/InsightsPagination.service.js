@@ -1,4 +1,4 @@
-import GraphQLAPI from "./GraphqlAPI.service";
+import GraphQLAPI from "./Graphql.service";
 
 /** Insights Page */
 export const getInsights = async ({ first = 36, after = null } = {}) => {
