@@ -7,7 +7,7 @@ export default async function GraphQLAPI(query, variables = {}) {
 		const req = await rateLimitedFetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query, variables }), // ✅ Send variables
-			// next: { revalidate: 60 },
+			next: { revalidate: 60 },
 		});
 		const res = await req.json();
 		return res;
