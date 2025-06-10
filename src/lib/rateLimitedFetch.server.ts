@@ -75,9 +75,9 @@ const limiter = new Bottleneck({
 	// clearDatastore: false, // Don't clear in prod!
 	// Redis: IORedis,
 	// clientOptions: {
-	// 	host: "redis-17052.c243.eu-west-1-3.ec2.redns.redis-cloud.com",
-	// 	port: 17052,
-	// 	password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
+	// 	host: process.env.REDIS_HOST,
+	// 	port: process.env.REDIS_PORT,
+	// 	password: process.env.REDIS_PASSWORD,
 	// },
 	// 💡 This allows up to 5 requests per 1000ms
 	reservoir: 3, // max requests in a burst

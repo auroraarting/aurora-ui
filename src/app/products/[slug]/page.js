@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -49,12 +49,12 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const data = await getProductPage();
-// 	return data?.data?.products?.nodes.map((item) => ({
-// 		slug: item.slug,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const data = await getProductPage();
+	return data?.data?.products?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
 
 /** Fetch  */
 async function getData({ params }) {
