@@ -19,6 +19,7 @@ import plant_img from "@/../public/img/resources/aurora_insights/plant_img.jpg";
 import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import black_clock from "@/../public/img/icons/black_clock.svg";
+import Link from "next/link";
 
 // DATA //
 
@@ -27,7 +28,7 @@ export default function InsightsTop({ data }) {
 	return (
 		<section className={`${styles.InsightsTop}`}>
 			<div className="container">
-				<a
+				<Link
 					href={`/resources/aurora-insights/${slugify(
 						isCategory(allCategories, data?.categories?.nodes)
 					)}/${data?.slug}`}
@@ -73,7 +74,7 @@ export default function InsightsTop({ data }) {
 							/>
 						</div>
 					)}
-				</a>
+				</Link>
 			</div>
 		</section>
 	);
