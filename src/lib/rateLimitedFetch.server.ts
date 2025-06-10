@@ -70,40 +70,40 @@ if (typeof window !== "undefined") {
 
 // Create a Bottleneck group backed by Redis
 const limiter = new Bottleneck({
-	// id: "global-api-limiter",
-	// datastore: "ioredis",
-	// clearDatastore: false, // Don't clear in prod!
-	// Redis: IORedis,
-	// clientOptions: {
-	// 	host: "redis-17052.c243.eu-west-1-3.ec2.redns.redis-cloud.com",
-	// 	port: 17052,
-	// 	password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
-	// },
+	id: "global-api-limiter",
+	datastore: "ioredis",
+	clearDatastore: false, // Don't clear in prod!
+	Redis: IORedis,
+	clientOptions: {
+		host: "redis-17052.c243.eu-west-1-3.ec2.redns.redis-cloud.com",
+		port: 17052,
+		password: "TSy692fg7tnqS8LLFd2rFfnsF2mDFDYI",
+	},
 	// 💡 This allows up to 5 requests per 1000ms
-	reservoir: 3, // max requests in a burst
-	reservoirRefreshAmount: 3, // refill to 5
+	reservoir: 5, // max requests in a burst
+	reservoirRefreshAmount: 5, // refill to 5
 	reservoirRefreshInterval: 1000, // every 1000ms = 1s
-	maxConcurrent: 3, // one at a time for safety
+	maxConcurrent: 5, // one at a time for safety
 });
 
-// limiter.on("queued", (info) => {
-// 	console.log("Queued request", info.options.id);
-// });
-// limiter.on("error", (err) => {
-// 	console.error("Bottleneck error:", err);
-// });
-// limiter.on("failed", (error, jobInfo) => {
-// 	console.error("Bottleneck job failed:", error, jobInfo);
-// });
-// limiter.on("debug", (msg) => {
-// 	console.log("Bottleneck debug:", msg);
-// });
-// limiter.on("message", (msg) => {
-// 	console.log(msg); // prints "this is a string"
-// });
-// limiter.on("executing", (info) => {
-// 	console.log(`🚀 Executing: Job ${info.options.id}`);
-// });
+limiter.on("queued", (info) => {
+	console.log("Queued request", info.options.id);
+});
+limiter.on("error", (err) => {
+	console.error("Bottleneck error:", err);
+});
+limiter.on("failed", (error, jobInfo) => {
+	console.error("Bottleneck job failed:", error, jobInfo);
+});
+limiter.on("debug", (msg) => {
+	console.log("Bottleneck debug:", msg);
+});
+limiter.on("message", (msg) => {
+	console.log(msg); // prints "this is a string"
+});
+limiter.on("executing", (info) => {
+	console.log(`🚀 Executing: Job ${info.options.id}`);
+});
 
 /** rateLimitedFetch  */
 // export async function rateLimitedFetch(url: string, options: RequestInit = {}) {
