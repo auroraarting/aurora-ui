@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -78,12 +78,12 @@ async function getData({ params }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const data = await getAllServiceData();
-// 	return data?.data?.services?.nodes.map((item) => ({
-// 		slug: item.slug,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const data = await getAllServiceData();
+	return data?.data?.services?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
 
 /** Advisory Page */
 export default async function Advisory({ params }) {
