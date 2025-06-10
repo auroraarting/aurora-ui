@@ -562,15 +562,16 @@ export default function Footer({ defaultNavigation }) {
 											className={`${styles.CountryNameBox} ${
 												toggleState === ind + 1 ? styles.ul_section_active : ""
 											} `}
+											onClick={() => closePopup()}
 										>
 											<ul>
 												{item?.countries?.nodes?.map((country, index) => {
 													if (country?.countries?.hideonglobalpresence) return null;
 													return (
 														<li key={index} className="text_xs color_platinum_gray">
-															<a href={`/global-presence/${country.slug}`} role="button">
+															<Link href={`/global-presence/${country.slug}`} role="button">
 																{country?.title}
-															</a>
+															</Link>
 														</li>
 													);
 												})}
