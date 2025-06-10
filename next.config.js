@@ -330,13 +330,8 @@ const nextConfig = {
 				destination: "/resources/webinar/battery-investments-in-belgium",
 				permanent: true,
 			},
-			// {
-			// 	source: "/software/chronos/chronos-for-germany/?utm_source=Newsletter&utm_medium=Chronos+Banner&utm_campaign=Chronos+x+pv+magazine",
-			// 	destination: "/software/chronos",
-			// 	permanent: true,
-			// },
 			{
-				source: "/webinar/powering-the-italian-future-here-comes-the-sun-the-wind-and-the-atom",
+				source: "/webinar/powering-tshe-italian-future-here-comes-the-sun-the-wind-and-the-atom",
 				destination: "/resources/webinar/powering-the-italian-future-here-comes-the-sun-the-wind-and-the-atom",
 				permanent: true,
 			},
@@ -355,21 +350,6 @@ const nextConfig = {
 				destination: "/company/press-releases/tpg-rise-climate-acquires-aurora-energy-research-to-accelerate-strategic-growth?search=tpg%20rise",
 				permanent: true,
 			},
-			// {
-			// 	source: "/software/chronos/chronos-for-germany/?utm_source=Newsletter&utm_medium=Chronos+Banner&utm_campaign=Chronos+x+pv+magazine",
-			// 	destination: "/software/chronos",
-			// 	permanent: true,
-			// },
-			// {
-			// 	source: "/software/chronos/chronos-for-germany/?utm_source=Newsletter&utm_medium=Chronos+Banner&utm_campaign=Chronos+x+pv+magazine",
-			// 	destination: "/software/chronos",
-			// 	permanent: true,
-			// },
-			// {
-			// 	source: "/software/lumus/?utm_source=Newsletter&utm_medium=Lumus+Banner&utm_campaign=Lumus+x+pv+magazine",
-			// 	destination: "/software/lumus",
-			// 	permanent: true,
-			// },
 			{
 				source: "/software/chronos/chronos-for-germany",
 				destination: "/software/chronos",
@@ -380,11 +360,6 @@ const nextConfig = {
 				destination: "/company/press-releases/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
 				permanent: true,
 			},
-			// {
-			// 	source: "/software/lumus/?utm_source=Newsletter&utm_medium=Lumus+Banner&utm_campaign=Lumus+x+pv+magazine",
-			// 	destination: "/software/lumus",
-			// 	permanent: true,
-			// },
 			{
 				source: "/media/aurora-launches-lumus-to-bring-clarity-to-ppa-pricing-across-europe",
 				destination: "/company/press-releases/northeast-brazil-netherlands-green-hydrogen-corridor-could-fulfill-dutch-imports-by-2030-new-study-reveals",
@@ -395,11 +370,6 @@ const nextConfig = {
 				destination: "/company/press-releases/evs-data-centers-and-hydrogen-to-quadruple-brazils-power-demand-share-by-2060-study-finds",
 				permanent: true,
 			},
-			// {
-			// 	source: "/software/chronos/chronos-for-germany/?utm_source=Newsletter&utm_medium=Chronos+Banner&utm_campaign=Chronos+x+pv+magazine",
-			// 	destination: "h/software/chronos",
-			// 	permanent: true,
-			// },
 			{
 				source: "/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
 				destination: "/company/press-releases/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
@@ -570,6 +540,50 @@ const nextConfig = {
 				destination: "/resources/webinar/from-volatility-to-value-negative-prices-and-batteries-in-the-baltics",
 				permanent: true,
 			},
+			{
+				source: "/software/chronos/chronos-for-germany",
+				has: [
+					{
+						type: "query",
+						key: "utm_source",
+						value: "Newsletter"
+					},
+					{
+						type: "query",
+						key: "utm_medium",
+						value: "Chronos+Banner"
+					},
+					{
+						type: "query",
+						key: "utm_campaign",
+						value: "Chronos+x+pv+magazine"
+					}
+				],
+				destination: "/software/chronos",
+				permanent: true
+			},
+			{
+				source: "/software/lumus",
+				has: [
+					{
+						type: "query",
+						key: "utm_source",
+						value: "Newsletter"
+					},
+					{
+						type: "query",
+						key: "utm_medium",
+						value: "Lumus+Banner"
+					},
+					{
+						type: "query",
+						key: "utm_campaign",
+						value: "Lumus+x+pv+magazine"
+					}
+				],
+				destination: "/software/lumus",
+				permanent: true
+			}
 		];
 	},
 };
