@@ -10,6 +10,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Loader from "@/components/Loader";
 import navigationJSON from "@/data/navigationData.json";
 import { getAllEvents } from "@/services/Events.service";
+import Script from "next/script";
 
 /** Meta Data */
 export const metadata = {
@@ -37,6 +38,17 @@ export default async function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body>
+				<Script
+					async
+					src="https://www.googletagmanager.com/gtag/js?id=G-Z75SWZL0J6"
+				></Script>
+				<Script id="google-analytics" strategy="afterInteractive">
+					{`window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', 'G-Z75SWZL0J6');`}
+				</Script>
+
 				<GlobalContext>
 					{/* Header */}
 					<Header defaultNavigation={navigation} />
