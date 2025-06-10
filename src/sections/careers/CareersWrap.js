@@ -29,10 +29,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
 
 /** Meta Data */
 export const metadata = {
@@ -41,7 +37,7 @@ export const metadata = {
 };
 
 /** Careers Page */
-export default async function Careers() {
+export default function Careers({ otherList, countries }) {
 	const dataForBtn = {
 		postFields: {
 			insightsSectionButton: {
@@ -51,14 +47,6 @@ export default async function Careers() {
 			},
 		},
 	};
-	const [categoriesForSelect, list] = await Promise.all([
-		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-		),
-	]);
-	const otherList = list?.data?.posts?.nodes;
-	const countries = categoriesForSelect.data.countries.nodes;
 
 	return (
 		<div>

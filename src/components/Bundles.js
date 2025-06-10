@@ -19,7 +19,7 @@ import styles from "@/styles/components/Bundles.module.scss";
 
 // IMAGES //
 import Icon from "/public/img/table-icon.png";
-import Checkmark from "/public/img/checkmark.png";
+import Checkmark from "/public/img/checkmark.svg";
 import hoverBg from "/public/img/hoverBundles.png";
 import { slugify } from "@/utils";
 
@@ -35,19 +35,33 @@ export default function Bundles({ data, name }) {
 		setList(tab);
 	};
 
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (name === undefined) {
+			return {
+				id: "eos",
+				"data-name": "Eos",
+			};
+		} else if (name === "") {
+			return {};
+		} else if (name) {
+			return {
+				id: slugify(name),
+				"data-name": name,
+			};
+		}
+	};
+
 	return (
-		<section
-			className={`${styles.Bundles} Bundles `}
-			id={name ? slugify(name) : "eos"}
-			data-name={name || "Eos"}
-		>
+		<section className={`${styles.Bundles} Bundles `}>
 			<div className={`${styles.bg} dark_bg`}>
 				<img src={hoverBg.src} />
 			</div>
-			<div className="ptb_60">
+			<div className="pb_60 pt_100">
 				<div className="container">
-					<h2 className="text_lg font_primary f_w_s_b color_white pb_20">
-						Asset Lifecycle Management tools <br /> that meet your needs
+					<h2 className="text_lg font_primary f_w_s_b color_white">
+						Asset Lifecycle Management tools <br className="hidden_xs" /> that meet
+						your needs
 					</h2>
 				</div>
 				<div className="container">
@@ -67,7 +81,7 @@ export default function Bundles({ data, name }) {
 											}}
 										>
 											<p
-												className={`${styles.text} text_xs font_primary f_w_b  ${
+												className={`${styles.text} text_xs font_primary  ${
 													list.tabName === item.tabName ? "" : "color_white"
 												}`}
 											>
@@ -96,7 +110,7 @@ export default function Bundles({ data, name }) {
 						<div className={`${styles.tableMain}`}>
 							<table className={`${styles.table} color_white`}>
 								<tbody>
-									<tr className="text_xxs">
+									<tr className="text_xxs f_w_s_b">
 										<td>&nbsp;</td>
 										<td>
 											Strategy <br />& Planning
@@ -111,7 +125,7 @@ export default function Bundles({ data, name }) {
 											</div>
 										</td>
 										<td>
-											Design and <br /> Optimisation
+											Design & <br /> Optimisation
 											<div className={`${styles.arr}`}>
 												<img src="/img/bundle-arr.svg" />
 											</div>

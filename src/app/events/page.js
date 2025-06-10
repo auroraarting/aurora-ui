@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -33,13 +33,15 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** events Page */
 export default async function Events() {
 	const [dataFetch, categoriesFetch, filters, pageFetch] = await Promise.all([
-		getAllEvents(),
-		getAllEventCategories(),
-		getAllEventCountries(),
-		getEventLandingPage(),
+		await getAllEvents(),
+		await getAllEventCategories(),
+		await getAllEventCountries(),
+		await getEventLandingPage(),
 	]);
 	const data = dataFetch.data.events.nodes.sort(
 		(a, b) =>

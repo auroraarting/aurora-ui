@@ -1,8 +1,20 @@
 @import "../../helpers/helpers.scss";
 .LifeAtAuroraPage {
 	background-color: var(--color_silver);
+	:global(.belongingBg) {
+		background-image: url(/_next/static/media/energy_bg.254c428d.png);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: top center;
+	}
+	:global(.SmarterEnergy) {
+		background-image: none !important;
+	}
+	.countBg {
+		background-color: var(--color_secondary);
+	}
 	.EarlyMain {
-		background-color: var(--color_black);
+		background-color: var(--color_secondary);
 	}
 	.containerCustom {
 		:global(.containerLarge) {

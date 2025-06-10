@@ -14,6 +14,8 @@ import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import LottieRenderer from "@/components/LottieRenderer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import EnergyInsideTopSection from "@/sections/resources/energy-talks/EnergyInsideTopSection";
@@ -38,13 +40,12 @@ import google from "/public/img/energy_talks/google.svg";
 import calender from "/public/img/icons/calender.svg";
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
-import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
+// import {
+// 	getInsights,
+// 	getInsightsCategories,
+// 	getInsightsInside,
+// } from "@/services/Insights.service";
+// import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 
 // DATA //
 
@@ -97,7 +98,9 @@ export default function EnergyTalkInsideWrap({
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
 								{data?.podcastFields?.podcast && (
-									<ContentFromCms>{data?.podcastFields?.podcast}</ContentFromCms>
+									<div className={`${styles.podcast}`}>
+										<ContentFromCms>{data?.podcastFields?.podcast}</ContentFromCms>
+									</div>
 								)}
 								{/* <EnergyMiddleDescription /> */}
 								{data?.content && (
@@ -114,7 +117,7 @@ export default function EnergyTalkInsideWrap({
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
+												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}
@@ -161,7 +164,7 @@ export default function EnergyTalkInsideWrap({
 						defaultList={otherList}
 						countries={countries}
 						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
-						insightsTitle="Previous Podcast"
+						insightsTitle="Previous Podcasts"
 						insightsLink="/resources/energy-talks/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 						customHtml={
@@ -180,7 +183,7 @@ export default function EnergyTalkInsideWrap({
 								</div>
 							</div>
 						}
-						allTag="Energy Talks"
+						allTag="Podcast"
 					/>
 				</div>
 				<IframeModal />

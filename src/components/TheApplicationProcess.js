@@ -21,12 +21,32 @@ import transaction from "../../public/img/softwares/transaction.svg";
 import portfolio from "../../public/img/softwares/portfolio.svg";
 import asset from "../../public/img/softwares/asset.svg";
 import strategy from "../../public/img/softwares/strategy.svg";
+import { slugify } from "@/utils";
 
 // DATA //
 
 /** TheApplicationProcess Section */
-export default function TheApplicationProcess({ data }) {
-	if (!data?.title) return <></>;
+export default function TheApplicationProcess({ data, sectionName }) {
+	if (!data?.title) {
+		return <></>;
+	}
+
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (sectionName === undefined) {
+			return {
+				id: "expertise",
+				"data-name": "Expertise",
+			};
+		} else if (sectionName === "") {
+			return {};
+		} else if (sectionName) {
+			return {
+				id: slugify(sectionName),
+				"data-name": sectionName,
+			};
+		}
+	};
 
 	const tempAccordian = [
 		{
@@ -159,9 +179,8 @@ export default function TheApplicationProcess({ data }) {
 
 	return (
 		<section
-			className={`${styles.SmarterEnergy} ptb_100`}
-			id="expertise"
-			data-name="Expertise"
+			className={`${styles.SmarterEnergy} applicationMain ptb_100`}
+			{...sectionTitle()}
 		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>
@@ -173,7 +192,7 @@ export default function TheApplicationProcess({ data }) {
 						{accordianData2() && (
 							<div onClick={() => openModal("application-tips")} className="m_t_20">
 								<Button color="primary" variant="filled" shape="rounded">
-									Application Tips
+									Application tips
 								</Button>
 							</div>
 						)}
@@ -196,7 +215,7 @@ export default function TheApplicationProcess({ data }) {
 			<Modal id="application-tips">
 				<div className={`${styles.popup} color_white`}>
 					<p className={`${styles.title} color_white text_lg f_w_s_b font_primary`}>
-						Application Tips
+						Application tips
 					</p>
 					<div
 						className={`${styles.desc} color_white font_secondary text_reg pt_30`}

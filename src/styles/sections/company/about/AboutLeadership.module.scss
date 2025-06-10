@@ -6,7 +6,7 @@
 		}
 	}
 	.titleWrapper {
-		width: 55%;
+		width: 60%;
 		@media (max-width: 1199px) {
 			width: 80%;
 		}
@@ -81,6 +81,9 @@
 				}
 				p {
 					width: 88%;
+					@media (max-width: 767px) {
+						font-size: 12px;
+					}
 				}
 				a {
 					width: 32px;
@@ -92,6 +95,9 @@
 				right: 0px;
 				opacity: 0;
 				transition: 0.5s all;
+				@media (max-width: 1199px) {
+					display: none;
+				}
 				img {
 					border-radius: 20px;
 					@media (max-width: 767px) {
@@ -139,6 +145,18 @@
 			backdrop-filter: blur(7px);
 			-webkit-backdrop-filter: blur(7px);
 		}
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
 		.popup_content {
 			position: relative;
 			z-index: 1002;
@@ -154,13 +172,13 @@
 				padding: 40px 20px 55px;
 			}
 			@media only screen and (max-width: 767px) {
-				padding: 40px 15px 30px;
+				padding: 60px 15px 30px;
 				width: calc(100% - 20px);
 			}
 		}
 		.close_btn {
 			padding: 0;
-			position: absolute;
+			position: fixed;
 			right: 55px;
 			top: 20px;
 			z-index: 2;
@@ -179,12 +197,11 @@
 			// 	top: 35px;
 			// }
 			@media only screen and (max-width: 1199px) {
-				top: 10px;
 				right: 20px;
 			}
 			@media only screen and (max-width: 767px) {
-				right: 10px;
-				top: 10px;
+				// right: 10px;
+				// top: 10px;
 				z-index: 1;
 			}
 		}
@@ -197,10 +214,17 @@
 		}
 		.BoxFlex {
 			align-items: flex-start;
-			overflow: hidden;
-			overflow-y: auto;
-			position: relative;
+			overflow: auto;
 
+			@media (max-width: 1199px) {
+				overflow-y: scroll;
+				position: relative;
+				//height: 260px;
+			}
+			@media (max-width: 767px) {
+				height: auto;
+				overflow-y: auto;
+			}
 			.Imgthumbnail {
 				position: sticky;
 				top: 0;
@@ -215,13 +239,13 @@
 						width: 170px;
 					}
 				}
-				.popUp{
+				.popUp {
 					position: absolute;
 					bottom: 0;
 					right: 0px;
 					width: 100%;
-    			height: auto;
-					img{
+					height: auto;
+					img {
 						width: 100%;
 						@media (max-width: 767px) {
 							width: 170px;
@@ -276,23 +300,25 @@
 						position: absolute;
 						top: 0;
 						padding-right: 20px;
+						@media (max-width: 767px) {
+							position: relative;
+						}
 					}
 				}
 			}
-			
 		}
 		::-webkit-scrollbar {
-				width: 5px;
-				height: 5px;
-				background: var(--color_gray);
-			}
-			::-webkit-scrollbar-track {
-				border-radius: 50px;
-			}
-			::-webkit-scrollbar-thumb {
-				background: var(--color_white);
-				border-radius: 50px;
-			}
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
 		.blogWapper {
 			position: relative;
 			margin: 50px 0px;
@@ -339,7 +365,7 @@
 							content: " ";
 							position: absolute;
 							left: 0;
-							top: 5px;
+							top: 8px;
 							width: 4px;
 							height: 4px;
 							background-color: var(--color_primary);
@@ -459,7 +485,7 @@
 	.aboutArrowSectionLeaders {
 		position: absolute;
 		right: 0px;
-		top: -35px;
+		top: -60px;
 		bottom: unset;
 		z-index: 1;
 		@media (max-width: 1199px) {

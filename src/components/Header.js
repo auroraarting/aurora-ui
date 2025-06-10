@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 // COMPONENTS //
@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Buttons/Button";
 import GlobalSearch from "@/components/GlobalSearch";
+import { useContextProvider } from "@/context/GlobalContext";
 
 // SECTIONS //
 
@@ -17,7 +18,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 import parse from "html-react-parser";
 
 // UTILS //
-import formatDate from "@/utils";
+import formatDate, { OpenIframePopup } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/Header.module.scss";
@@ -43,9 +44,9 @@ import Close from "@/../public/img/icons/close.svg";
 import WebinarImg from "/public/img/header_webinar.jpg";
 
 // SERVICES //
-import { fetchNavigationData } from "@/services/Navigation.service";
 
 // DATA //
+import languages from "@/data/languages.json";
 
 /** Header Component */
 export default function Header({ defaultNavigation }) {
@@ -59,6 +60,11 @@ export default function Header({ defaultNavigation }) {
 	const searchParams = useSearchParams();
 	const searchQuery = searchParams.get("search");
 	const pathname = usePathname();
+	const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+	// const [showLanguages, setShowLanguages] = useState(true);
+	const { showLanguages } = useContextProvider();
+	const [showLanguagesList, setShowLanguagesList] = useState(false);
+	const language = searchParams.get("language");
 
 	/** toggle */
 	const toggleTab = (index) => {
@@ -86,10 +92,40 @@ export default function Header({ defaultNavigation }) {
 
 	/** Function to toggle dropdown */
 	const toggleDropdown = (dropdownKey) => {
+		const shouldOpen = openDropdown === dropdownKey ? null : dropdownKey;
 		handleCloseClick();
 		setOpenDropdown((prevOpenDropdown) =>
 			prevOpenDropdown === dropdownKey ? null : dropdownKey
 		);
+		if (window.innerWidth > 1200) {
+			return;
+		}
+		const dropdowns = document.querySelectorAll(`.${styles.dropdown_wrap}`);
+		[...dropdowns].map((item) => {
+			item.style.maxHeight = "0px";
+			item.style.paddingTop = "0px";
+			// paddingTop
+		});
+		if (shouldOpen) {
+			const megaMenuHtml = document.querySelector(
+				`#${dropdownKey} .${styles.megaMenuBox}`
+			);
+			const wrapHtml = document.querySelector(
+				`#${dropdownKey} .${styles.dropdown_wrap}`
+			);
+			wrapHtml.style.maxHeight = `${
+				megaMenuHtml.getBoundingClientRect().height + 50
+			}px`;
+			wrapHtml.style.paddingTop = "15px";
+		} else {
+			const wrapHtml = document.querySelector(
+				`#${dropdownKey} .${styles.dropdown_wrap}`
+			);
+			if (wrapHtml) {
+				wrapHtml.style.maxHeight = "0px";
+				wrapHtml.style.paddingTop = "0px";
+			}
+		}
 	};
 
 	/** highlightSearchTerm */
@@ -140,6 +176,21 @@ export default function Header({ defaultNavigation }) {
 	};
 
 	useEffect(() => {
+		toggleDropdown();
+		setShowSearch(false);
+		closePopup();
+		setOpenSidebar(false);
+
+		if (language) {
+			const selectedLang = languages.find(
+				(lang) => lang.shortTitle.toLowerCase() === language?.toLowerCase()
+			);
+			setSelectedLanguage(selectedLang);
+		}
+		console.log(showLanguages, "showLanguages");
+	}, [pathname]);
+
+	useEffect(() => {
 		if (searchQuery) {
 			const decodedSearchTerm = decodeURIComponent(searchQuery);
 			highlightSearchTerm(decodedSearchTerm);
@@ -150,7 +201,11 @@ export default function Header({ defaultNavigation }) {
 
 	return (
 		<>
-			<header className={`${styles.main_headerBox} main_headerBox`}>
+			<header
+				className={`${styles.main_headerBox} ${
+					showLanguages && styles.showLanguages
+				} ${showLanguagesList && styles.showLanguagesList}  main_headerBox`}
+			>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
 					<div
@@ -176,7 +231,7 @@ export default function Header({ defaultNavigation }) {
 						</button>
 					</div>
 					<div className={`${styles.searchLeft}`}>
-						<a
+						<Link
 							href="https://eos.auroraer.com/dragonfly/login/"
 							target="_blank"
 							rel="noreferrer"
@@ -186,22 +241,60 @@ export default function Header({ defaultNavigation }) {
 						>
 							<img src={login_icon.src} alt="login" />
 							<span>EOS Sign in</span>
-						</a>
+						</Link>
+						{showLanguages && (
+							<div className={`${styles.languageFlex}`}>
+								<div
+									className={`${styles.selected} text_xxs f_w_m font_primary`}
+									onClick={() => setShowLanguagesList(!showLanguagesList)}
+								>
+									<img src={selectedLanguage?.icon} />
+									{selectedLanguage?.shortTitle}
+									<img src={dropdown_arrow.src} />
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
+
 				<div
 					className={`${styles.main_header} ${
 						openSidebar ? styles.sidebar_opened : ""
 					}`}
 				>
+					{showLanguagesList && (
+						<div className={`${styles.list}`}>
+							<div className={`${styles.listInner}`}>
+								<div className={`${styles.langWrap}`}>
+									{languages?.map((item) => {
+										return (
+											<div
+												className={`${styles.item} text_xxs f_w_m font_primary`}
+												key={item?.title}
+												onClick={() => {
+													window.location.href = `${pathname}?language=${item?.shortTitle.toLowerCase()}`;
+													setSelectedLanguage(item);
+													setShowLanguagesList(!showLanguagesList);
+												}}
+											>
+												{/* <img src={selectedLanguage?.icon} /> */}
+												{item?.shortTitle}-{item?.title}
+												{/* <img src={dropdown_arrow.src} /> */}
+											</div>
+										);
+									})}
+								</div>
+							</div>
+						</div>
+					)}
 					<div className={`${styles.menuListBox} f_r_aj_between`}>
 						<div className={`${styles.header_inside}`}>
 							{/* Logo wrap */}
-							<a href="/">
+							<Link href="/">
 								<div className={styles.image_wrap}>
 									<img src={logo.src} alt="website logo" />
 								</div>
-							</a>
+							</Link>
 
 							{/* Links Wrap */}
 							<div className={`${styles.links_wrap}`}>
@@ -215,6 +308,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="company"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Company</p>
@@ -223,8 +317,8 @@ export default function Header({ defaultNavigation }) {
 										</span>
 									</div>
 									{/* Dropdown is opened when link is clicked */}
-									<div className={`${styles.dropdown_wrap}`}>
-										<div className={`${styles.megaMenuBox} f_w_j`}>
+									<div className={`${styles.dropdown_wrap} dropdown_wrap`}>
+										<div className={`${styles.megaMenuBox} f_w_j megaMenuBox`}>
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
@@ -232,44 +326,38 @@ export default function Header({ defaultNavigation }) {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
+													<Link
 														href="/company/about"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>About Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</Link>
 
-													<a
+													<Link
 														href="/global-presence"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Global Presence</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
+													</Link>
+													<Link
 														href="/company/press-releases"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													{/* <a
-														href="/company/team"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-													>
-														<span>Team</span> <img src={menu_hover_arrow.src} alt="arrow" />
-													</a> */}
-													<a
+													</Link>
+													<Link
 														href="/company/contact"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Contact Us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</Link>
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
@@ -289,20 +377,35 @@ export default function Header({ defaultNavigation }) {
 															make data-driven decisions.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/eos" role="button">
+															<Link href="/eos" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
 																	Know More
 																</Button>
-															</a>
+															</Link>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -379,6 +482,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="WhoAreYou"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Who Are You</p>
@@ -398,7 +502,7 @@ export default function Header({ defaultNavigation }) {
 												<div className={`${styles.pageLinks} pt_20`}>
 													{data?.whoareyous?.map((item, ind) => {
 														return (
-															<a
+															<Link
 																key={ind}
 																href={`/who-are-you/${item?.slug}`}
 																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -406,7 +510,7 @@ export default function Header({ defaultNavigation }) {
 															>
 																<span>{item?.title}</span>{" "}
 																<img src={menu_hover_arrow.src} alt="arrow" />
-															</a>
+															</Link>
 														);
 													})}
 												</div>
@@ -430,11 +534,11 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={"/resources/aurora-insights"} role="button">
+																	<Link href={"/resources/aurora-insights"} role="button">
 																		<Button color="primary" variant="filled" shape="rounded">
-																			View All
+																			View all
 																		</Button>
-																	</a>
+																	</Link>
 																</div>
 															</div>
 														</div>
@@ -443,9 +547,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -522,6 +641,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="HowWeHelp"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">How We Help</p>
@@ -535,13 +655,13 @@ export default function Header({ defaultNavigation }) {
 											<div className={`${styles.menuBoxRight}`}>
 												<div className={`${styles.pageName}`}>
 													<h4 className="text_xxs font_primary color_medium_gray">
-														Services
+														What we do
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
 													{data?.howWeHelps?.map((item, ind) => {
 														return (
-															<a
+															<Link
 																key={ind}
 																href={`/how-we-help/${item?.slug}`}
 																className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -549,35 +669,10 @@ export default function Header({ defaultNavigation }) {
 															>
 																<span>{item?.title}</span>{" "}
 																<img src={menu_hover_arrow.src} alt="arrow" />
-															</a>
+															</Link>
 														);
 													})}
 												</div>
-												{/* <div className={`${styles.weAreHiring} f_w_j`}>
-													<div className={`${styles.imgBox}`}>
-														<img
-															src={header_img.src}
-															className="width_100 b_r_10"
-															alt="img"
-														/>
-													</div>
-													<div className={`${styles.contentBox}`}>
-														<h4 className="text_reg font_primary color_secondary">
-															We are hiring!
-														</h4>
-														<p className="text_xs color_light_gray">
-															Lorem ipsum dolor sit amet consectetur. Elementum ullamcorper nec
-															sodales mperdiet volutpat dui ipsum massa.
-														</p>
-														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/careers/life-at-aurora">
-																<Button color="primary" variant="filled" shape="rounded">
-																	View All
-																</Button>
-															</a>
-														</div>
-													</div>
-												</div> */}
 												{data?.webinar?.map((item) => {
 													return (
 														<div className={`${styles.weAreHiring} f_w_j`} key={item?.title}>
@@ -598,11 +693,11 @@ export default function Header({ defaultNavigation }) {
 																	intelligence for informed decision-making.
 																</p>
 																<div className={`${styles.btn_box} pt_20`}>
-																	<a href={"/resources/aurora-insights"} role="button">
+																	<Link href={"/resources/aurora-insights"} role="button">
 																		<Button color="primary" variant="filled" shape="rounded">
-																			View All
+																			View all
 																		</Button>
-																	</a>
+																	</Link>
 																</div>
 															</div>
 														</div>
@@ -611,9 +706,24 @@ export default function Header({ defaultNavigation }) {
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -696,6 +806,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="ProductServices"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">
@@ -716,14 +827,14 @@ export default function Header({ defaultNavigation }) {
 												</div>
 												<div className={`${styles.eosAdvisoryFlex} f_w_j`}>
 													<div className={`${styles.eosItem}`}>
-														<a
+														<Link
 															href="/eos"
 															className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 															role="button"
 														>
 															<span>EOS Platform</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
-														</a>
+														</Link>
 														<p className="text_xs color_light_gray ">
 															EOS centralises Aurora&apos;s data, software, forecasts, and
 															insights.
@@ -732,14 +843,14 @@ export default function Header({ defaultNavigation }) {
 													{data?.services?.map((item, ind) => {
 														return (
 															<div className={`${styles.eosItem}`} key={ind}>
-																<a
+																<Link
 																	href={`/service/${item?.slug}`}
 																	className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 																	role="button"
 																>
 																	<span>{item?.title}</span>{" "}
 																	<img src={menu_hover_arrow.src} alt="arrow" />
-																</a>
+																</Link>
 																<div className="text_xs color_light_gray ">
 																	{/* {parse(item?.content || "")} */}
 																	Bespoke advisory offering in-depth strategic insights.
@@ -750,18 +861,18 @@ export default function Header({ defaultNavigation }) {
 												</div>
 												<div className={`${styles.softwareFlex} f_w_j`}>
 													<div className={`${styles.softwareItem}`}>
-														<a
+														<Link
 															href="/software"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 															role="button"
 														>
 															<span>Software</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
-														</a>
+														</Link>
 														<div className={`${styles.softwareListBox}`}>
 															{data?.softwares?.map((item, ind) => {
 																return (
-																	<a
+																	<Link
 																		key={ind}
 																		href={`/software/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -769,52 +880,24 @@ export default function Header({ defaultNavigation }) {
 																	>
 																		<img src={item?.logo?.logo} alt="arrow" />
 																		<span>{item?.title}</span>
-																	</a>
+																	</Link>
 																);
 															})}
-															{/* <a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Amun</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Chronos</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Origin</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Lumus PPA</span>{" "}
-															</a> */}
 														</div>
 													</div>
 													<div className={`${styles.softwareItem}`}>
-														<a
+														<Link
 															href="/products"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 															role="button"
 														>
 															<span>Subscription Analytics</span>{" "}
 															<img src={menu_hover_arrow.src} alt="arrow" />
-														</a>
+														</Link>
 														<div className={`${styles.softwareListBox}`}>
 															{data?.products?.map((item, ind) => {
 																return (
-																	<a
+																	<Link
 																		key={ind}
 																		href={`/products/${item?.slug}`}
 																		className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -822,37 +905,9 @@ export default function Header({ defaultNavigation }) {
 																	>
 																		<img src={item?.logo?.logo || amun_logo.src} alt="arrow" />
 																		<span>{item?.title}</span>
-																	</a>
+																	</Link>
 																);
 															})}
-															{/* <a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Flexible Energy </span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Power & Renewables</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Hydrogen</span>{" "}
-															</a>
-															<a
-																href=""
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-															>
-																<img src={amun_logo.src} alt="arrow" />
-																<span>Grid Add-on</span>{" "}
-															</a> */}
 														</div>
 													</div>
 												</div>
@@ -875,6 +930,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="Resources"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Resources</p>
@@ -892,30 +948,30 @@ export default function Header({ defaultNavigation }) {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
+													<Link
 														href="/resources/aurora-insights"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Aurora Insights</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
+													</Link>
+													<Link
 														href="/resources/energy-talks"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Energy Talks</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
+													</Link>
+													<Link
 														href="/resources/webinar"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Webinars</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</Link>
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
@@ -935,20 +991,35 @@ export default function Header({ defaultNavigation }) {
 															make data-driven decisions.
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/eos" role="button">
+															<Link href="/eos" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
 																	Know More
 																</Button>
-															</a>
+															</Link>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img
@@ -1022,13 +1093,13 @@ export default function Header({ defaultNavigation }) {
 									}`}
 									role="button"
 								>
-									<a href="/events" role="button">
+									<Link href="/events" role="button">
 										<div
 											className={`${styles.link_title} text_xs font_primary color_dark_gray`}
 										>
-											Events
+											<p>Events</p>
 										</div>
-									</a>
+									</Link>
 								</div>
 
 								<div
@@ -1040,6 +1111,7 @@ export default function Header({ defaultNavigation }) {
 									role="button"
 									aria-haspopup="true"
 									aria-expanded="true"
+									id="Careers"
 								>
 									<div className={styles.link_title}>
 										<p className="text_xs font_primary color_dark_gray">Careers</p>
@@ -1057,38 +1129,39 @@ export default function Header({ defaultNavigation }) {
 													</h4>
 												</div>
 												<div className={`${styles.pageLinks} pt_20`}>
-													<a
-														href="/careers/join-us"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-														role="button"
-													>
-														<span>Join Us</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/careers/early-careers"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-														role="button"
-													>
-														<span>Early Careers</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
-														href="/careers/our-team"
-														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-														role="button"
-													>
-														<span>Our Teams</span>{" "}
-														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
-													<a
+													<Link
 														href="/careers/life-at-aurora"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>Life at Aurora</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</a>
+													</Link>
+													<Link
+														href="/careers/early-careers"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
+													>
+														<span>Early Careers</span>{" "}
+														<img src={menu_hover_arrow.src} alt="arrow" />
+													</Link>
+													<Link
+														href="/careers/our-team"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
+													>
+														<span>Our Teams</span>{" "}
+														<img src={menu_hover_arrow.src} alt="arrow" />
+													</Link>
+													<Link
+														href="/careers/join-us"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
+													>
+														<span>Join Us</span>{" "}
+														<img src={menu_hover_arrow.src} alt="arrow" />
+													</Link>
+
 													{/* <a
 														href="/careers/faq"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
@@ -1114,20 +1187,35 @@ export default function Header({ defaultNavigation }) {
 															opportunities to shape the global energy landscape
 														</p>
 														<div className={`${styles.btn_box} pt_20`}>
-															<a href="/careers/join-us" role="button">
+															<Link href="/careers/join-us" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
 																	See Open Positions
 																</Button>
-															</a>
+															</Link>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												{data?.events?.map((item, ind) => {
+													let hrefObj = {};
+
+													if (item?.events?.thumbnail?.externalUrl) {
+														// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+														// hrefObj.target = "_blank";
+														// hrefObj.rel = "noreferrer";
+														hrefObj.onClick = () =>
+															OpenIframePopup(
+																"iframePopup",
+																item?.events?.thumbnail?.externalUrl ||
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															);
+													} else {
+														hrefObj.href = `/events/${item?.slug}`;
+													}
 													return (
 														<div className={`${styles.ItemBox}`} key={item?.title}>
-															<a href={`/events/${item?.slug}`} role="button">
+															<a {...hrefObj} role="button">
 																<div className={`${styles.hoverBox}`}>
 																	<div className={`${styles.eventImgBox}`}>
 																		<img

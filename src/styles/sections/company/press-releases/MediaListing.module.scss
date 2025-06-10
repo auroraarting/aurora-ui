@@ -20,6 +20,9 @@
 				border-radius: 0;
 				// padding-bottom: 5px;
 				// border-bottom: 1px solid #f8f8f8;
+				@media screen and (min-width: 768px) and (max-width: 1199px) {
+					align-items: flex-start;
+				}
 				@media screen and (max-width: 767px) {
 					width: 100%;
 				}
@@ -29,11 +32,12 @@
 						border-right: 1px solid var(--color_platinum_gray);
 						padding: 0px 15px;
 						@media screen and (max-width: 1199px) {
-							padding: 0px 8px;
+							padding: 0px 5px;
+							//height: 71px;
 						}
-						@media screen and (min-width: 768px) and (max-width: 991px) {
-							//height: 65px;
-						}
+						// @media screen and (min-width: 768px) and (max-width: 991px) {
+						// 	height: 65px;
+						// }
 						@media screen and (max-width: 767px) {
 							border-right: none;
 							padding: 10px 0px;
@@ -47,8 +51,12 @@
 							border-radius: 50px;
 							cursor: pointer;
 							transition: 0.5s all;
+							@media screen and (max-width: 1199px) {
+								padding: 10px 10px;
+							}
 							@media screen and (max-width: 767px) {
 								background-color: var(--color_white);
+								padding: 10px 15px;
 							}
 							img {
 								position: absolute;
@@ -82,7 +90,9 @@
 						box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
 						max-height: 250px;
 						overflow-y: auto;
-
+						@media screen and (min-width: 768px) and (max-width: 1199px) {
+							width: 180px;
+						}
 						li {
 							padding: 10px 20px;
 							transition: 0.5s all;
@@ -160,7 +170,7 @@
 						// transform: translateX(-50%);
 						padding: 40px 40px;
 						@media screen and (max-width: 991px) {
-							width: 660px;
+							width: 600px;
 							padding: 20px 20px;
 						}
 						@media screen and (max-width: 767px) {
@@ -176,10 +186,10 @@
 								margin-bottom: 20px;
 							}
 							.checkBoxList {
-								padding-left: 20px;
-								@media screen and (max-width: 767px) {
-									padding-left: 10px;
-								}
+								// padding-left: 20px;
+								// @media screen and (max-width: 767px) {
+								// 	padding-left: 10px;
+								// }
 								.checkBoxList {
 									display: flex;
 									flex-direction: column;
@@ -267,6 +277,7 @@
 				@media screen and (max-width: 767px) {
 					top: inherit;
 					bottom: 0px;
+					text-align: center;
 				}
 				input {
 					width: 100%;
@@ -288,7 +299,7 @@
 					// width: 55px;
 					@media screen and (max-width: 767px) {
 						top: inherit;
-						width: 60px;
+						width: 50px;
 					}
 					img {
 						margin-right: 10px;
@@ -320,8 +331,43 @@
 			height: 100%;
 			width: 33.333%;
 			padding: 20px 20px 20px;
-			border-right: 1px solid var(--color_platinum_gray);
-			border-bottom: 1px solid var(--color_platinum_gray);
+			// border-right: 1px solid var(--color_platinum_gray);
+			// border-bottom: 1px solid var(--color_platinum_gray);
+
+			position: relative;
+			&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 0;
+				height: 90%;
+				background-color: var(--color_platinum_gray);
+				width: 1px;
+				@media (max-width: 767px) {
+					display: none;
+				}
+			}
+			&::before {
+				content: "";
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				bottom: 0;
+				height: 1px;
+				background-color: var(--color_platinum_gray);
+				width: 90%;
+				@media (max-width: 767px) {
+					display: none;
+				}
+			}
+			&:nth-child(3n),
+			&:last-child {
+				&::after {
+					display: none;
+				}
+			}
+
 			@media (max-width: 767px) {
 				width: 100%;
 				padding-top: 20px;
@@ -355,7 +401,7 @@
 						content: " ";
 						position: absolute;
 						left: 0;
-						top: 5px;
+						top: 8px;
 						width: 4px;
 						height: 4px;
 						background-color: var(--color_primary);
@@ -372,7 +418,14 @@
 				.dateFlex {
 					align-items: center;
 					margin-top: auto;
+					@media screen and (min-width: 768px) and (max-width: 991px) {
+						flex-wrap: wrap;
+					}
 					p {
+						@media screen and (min-width: 768px) and (max-width: 991px) {
+							width: 100%;
+							padding-bottom: 5px;
+						}
 						span {
 							margin-left: 5px;
 							margin-top: 2px;

@@ -11,31 +11,51 @@
 		border-radius: 20px;
 		margin-bottom: 25px;
 		.itemBox {
+			border-bottom: 1px solid var(--color_platinum_gray);
+			margin-bottom: 20px;
 			&:last-child {
+				border-bottom: none;
+				margin-bottom: 0px;
 				.ClientFlex {
 					// border-bottom: none;
 				}
 			}
 			.ClientFlex {
+				cursor: pointer;
 				border-bottom: 1px solid var(--color_platinum_gray);
 				padding-bottom: 20px;
 				margin-bottom: 20px;
 
+				&.hideCursor {
+					cursor: auto;
+				}
+
 				&:last-child {
 					border-bottom: none;
+					margin-bottom: 0px;
 				}
 
 				.ClientLogo {
 					width: 20%;
+					margin-right: 10px;
+					// width: 60px;
+					// height: 60px;
+					overflow: hidden;
+
+					@media (max-width: 991px) {
+						width: 26%;
+					}
 					img {
 						width: 60px;
 						height: 60px;
 						border-radius: 50%;
+						border: 2px solid #ffcc0080;
+						//box-shadow: 0px 4px 19px 0px rgba(255, 204, 0, 0.5);
+						border-radius: 100%;
 					}
 				}
 				.ClientDescription {
 					width: 78%;
-					padding-left: 10px;
 					.social {
 						margin-top: 5px;
 					}
@@ -112,5 +132,391 @@
 				margin-left: 15px;
 			}
 		}
+	}
+}
+
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	// background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	// background: rgba(0, 0, 0, 0.51);
+	// box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	// backdrop-filter: blur(7px);
+	// -webkit-backdrop-filter: blur(7px);
+	.Overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: transparent;
+		z-index: 1001;
+		background-color: rgba(0, 0, 0, 0.7);
+		background: rgba(0, 0, 0, 0.3);
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+		backdrop-filter: blur(7px);
+		-webkit-backdrop-filter: blur(7px);
+	}
+	.popup_content {
+		position: relative;
+		z-index: 1002;
+		width: var(--container_width);
+		margin-left: auto;
+		border-radius: 0px;
+		padding: 80px 60px 80px;
+		border: 1px solid var(--text_color);
+		background-color: var(--color_secondary);
+		height: 100vh;
+		overflow-y: scroll;
+		@media (max-width: 1199px) {
+			padding: 40px 20px 55px;
+		}
+		@media only screen and (max-width: 767px) {
+			padding: 40px 15px 30px;
+			width: calc(100% - 20px);
+		}
+	}
+	.blogWapper {
+		position: relative;
+		margin: 50px 0px;
+		@media (max-width: 767px) {
+			margin: 40px 0px 20px;
+		}
+		h3 {
+			border-bottom: 1px solid var(--color_gray);
+			padding-bottom: 20px;
+		}
+	}
+	.insightsItemFlex {
+		@media (max-width: 767px) {
+			flex-wrap: wrap;
+			margin-top: 20px;
+		}
+		.ItemBox {
+			// width: 33.333%;
+			padding: 0px 15px;
+			border-right: 1px solid var(--color_dark_gray);
+			@media (max-width: 991px) {
+				padding: 0px 15px;
+			}
+			// @media (max-width: 767px) {
+			// 	padding-top: 20px;
+			// }
+			// &:first-child {
+			// 	padding-left: 0px;
+			// }
+			// &:last-child {
+			// 	border-right: none;
+			// 	@media (max-width: 767px) {
+			// 		border-bottom: none;
+			// 	}
+			// }
+			.hoverBox {
+				min-height: 190px;
+				padding: 15px 15px;
+				// transition: 0.3s all;
+				.categoryTxt {
+					position: relative;
+					padding-left: 10px;
+					&::before {
+						content: " ";
+						position: absolute;
+						left: 0;
+						top: 8px;
+						width: 4px;
+						height: 4px;
+						background-color: var(--color_primary);
+						border-radius: 50%;
+					}
+				}
+				.descTxt {
+					position: relative;
+					display: -webkit-box;
+					-webkit-line-clamp: 3;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				.dateFlex {
+					position: relative;
+					align-items: center;
+					p {
+						img {
+							filter: invert(1);
+						}
+						span {
+							margin-left: 5px;
+						}
+					}
+				}
+				.hoverBg {
+					position: absolute;
+					left: 0;
+					top: 0px;
+					opacity: 0;
+					height: 100%;
+					width: 100%;
+					z-index: 0;
+				}
+			}
+			&:hover {
+				.hoverBox {
+					background-color: var(--color_secondary);
+
+					border-radius: 20px;
+					// transition: 0.3s all;
+					.descTxt {
+						color: var(--color_white);
+						position: relative;
+						text-decoration: underline;
+						font-weight: 600;
+					}
+					.dateFlex {
+						p {
+							color: var(--color_white);
+							img {
+								// filter: invert(1);
+								// opacity: 0.5;
+							}
+						}
+					}
+					.hoverBg {
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+	.arrowSectionLeaders {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+
+		@media (max-width: 767px) {
+			right: 0px;
+			top: 35px;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			display: inline-flex;
+			img {
+				width: 30px;
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
+	.close_btn {
+		padding: 0;
+		position: absolute;
+		right: 20px;
+		top: 20px;
+		z-index: 2;
+		border: none;
+		box-shadow: none;
+		filter: drop-shadow(0px 7px 12px rgba(0, 0, 0, 0.23));
+		text-shadow: none;
+		background-color: transparent;
+		outline: none !important;
+		cursor: pointer;
+		img {
+			// filter: brightness(285%);
+		}
+		// @media only screen and (min-width: 767px) and (max-width: 992px) {
+		// 	right: 25px;
+		// 	top: 35px;
+		// }
+		@media only screen and (max-width: 767px) {
+			right: 10px;
+			top: 10px;
+			z-index: 1;
+		}
+	}
+}
+.PopupItem {
+	&::-webkit-scrollbar {
+		width: 2px;
+		height: 2px;
+		// background: var(--color_white);
+	}
+
+	.BoxFlex {
+		position: relative;
+		.Imgthumbnail {
+			width: 25%;
+			position: relative;
+			@media (max-width: 767px) {
+				width: 70%;
+			}
+			.popUp {
+				position: absolute;
+				bottom: 0;
+				right: 0px;
+				width: 100%;
+				height: auto;
+				img {
+					width: 100%;
+				}
+			}
+		}
+		.Details {
+			width: 75%;
+			padding-left: 40px;
+			overflow: hidden;
+			position: relative;
+			overflow-y: auto;
+
+			.Desc {
+				position: absolute;
+				padding-right: 20px;
+			}
+
+			@media (max-width: 767px) {
+				width: 100%;
+				padding-left: 0px;
+				margin-top: 20px;
+			}
+			.boxName {
+				border-bottom: 1px solid rgba(206, 206, 206, 0.2);
+				margin-bottom: 20px;
+				padding-bottom: 20px;
+			}
+		}
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
+	}
+	.sessionWapper {
+		margin: 50px 0px;
+		@media (max-width: 767px) {
+			margin: 40px 0px 20px;
+		}
+		h3 {
+			border-bottom: 1px solid var(--color_gray);
+			padding-bottom: 20px;
+		}
+		.sessionBox {
+			background-color: var(--color_gray);
+			border-radius: 12px;
+			padding: 20px 20px;
+			margin-top: 20px;
+			.sessionTime {
+				width: 8%;
+				@media (max-width: 991px) {
+					width: 12%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					margin-bottom: 10px;
+				}
+				.tag {
+					background-color: var(--color_blue);
+					padding: 12px 18px;
+					border-radius: 8px;
+					width: max-content;
+				}
+			}
+			.sessionDescription {
+				width: 92%;
+				padding-left: 20px;
+				@media (max-width: 991px) {
+					width: 88%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					padding-left: 0px;
+				}
+				.dateFlex {
+					align-items: center;
+					@media (max-width: 767px) {
+						flex-wrap: wrap;
+					}
+					p {
+						margin-right: 40px;
+						@media (max-width: 767px) {
+							width: 100%;
+							margin-bottom: 10px;
+							margin-right: 0px;
+							align-items: flex-start;
+						}
+						img {
+							filter: invert(1);
+							@media (max-width: 767px) {
+								width: 6%;
+								margin-top: 5px;
+							}
+						}
+						.clock {
+							filter: invert(0);
+						}
+						span {
+							margin-left: 5px;
+							margin-top: 2px;
+							@media (max-width: 767px) {
+								width: 90%;
+							}
+						}
+					}
+				}
+				.ClientFlex {
+					margin-top: 15px;
+					.ClientLogo {
+						width: 5%;
+						@media (max-width: 991px) {
+							width: 8%;
+						}
+						@media (max-width: 767px) {
+							width: 16%;
+						}
+						img {
+							width: 40px;
+							height: 40px;
+							border-radius: 50%;
+						}
+					}
+					.ClientDescription {
+						width: 90%;
+						padding-left: 10px;
+						@media (max-width: 767px) {
+							width: 82%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.arrowSection {
+	justify-content: flex-end;
+	@media (max-width: 767px) {
+		justify-content: center;
+		margin-top: 10px;
+	}
+	.customPrev,
+	.customNext {
+		background-color: unset;
+		border: none;
+		cursor: pointer;
+	}
+	.customPrev {
+		rotate: 180deg;
 	}
 }

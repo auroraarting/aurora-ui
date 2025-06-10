@@ -35,6 +35,8 @@ import hover_arrow from "../../public/img/softwares/hover_arrow.svg";
 
 // DATA //
 const placeholders = [system_one.src, turbine_img.src, solar_img.src];
+import integratedSoftware from "@/data/integratedSoftwareJson.json";
+import integratedProducts from "@/data/integratedProductsJson.json";
 
 /** IntegratedSystem Section */
 export default function IntegratedSystem({ module = "softwares" }) {
@@ -46,6 +48,9 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		if (module === "softwares") {
 			return "software";
 		}
+		if (module === "services") {
+			return "service";
+		}
 
 		return module;
 	};
@@ -56,20 +61,27 @@ export default function IntegratedSystem({ module = "softwares" }) {
 		let res;
 
 		if (module === "softwares") {
-			let resdata = await fetch("/api/softwares");
-			res = await resdata.json();
+			// let resdata = await fetch("/api/softwares");
+			// res = await resdata.json();
+			res = {
+				data: {
+					[module]: {
+						nodes: integratedSoftware,
+					},
+				},
+			};
 		} else {
-			let resdata = await fetch("/api/products");
-			res = await resdata.json();
+			// let resdata = await fetch("/api/products");
+			// res = await resdata.json();
+			res = {
+				data: {
+					[module]: {
+						nodes: integratedProducts,
+					},
+				},
+			};
 		}
-		let arr = res?.data?.[module]?.nodes?.map((item) => {
-			if (count > 2) {
-				count = 0;
-			} else {
-				count = count + 1;
-			}
-			return { ...item, placeholder: placeholders[count] };
-		});
+		let arr = res?.data?.[module]?.nodes;
 		setData(arr);
 	};
 
@@ -86,16 +98,21 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							Integrated system, endless possibilities
 						</h2>
 						<p className="text_reg color_dark_gray">
-							Aurora empowers you to analyse power markets and assets with
+							{/* Aurora empowers you to analyse power markets and assets with
 							unprecedented sophistication, ease, and portability, helping you build an
 							edge in a crowded market. Aurora’s{" "}
+							{module === "softwares" ? "software" : "product"} delivers precision
+							analytics for complex energy systems. */}
+							Aurora empowers you to analyse power markets and assets with
+							unprecedented sophistication, ease, and portability, helping you build an
+							edge in a crowded market. Our{" "}
 							{module === "softwares" ? "software" : "product"} delivers precision
 							analytics for complex energy systems.
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
 							<a href={`/${keyModule()}`}>
 								<Button color="secondary" variant="filled" shape="rounded">
-									Explore Now
+									Explore now
 								</Button>
 							</a>
 						</div>
@@ -105,10 +122,11 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							<Swiper
 								modules={[Navigation, Pagination, Autoplay]}
 								slidesPerView={2}
+								slidesPerGroup={1}
 								spaceBetween={0}
 								grabCursor={true}
 								speed={500}
-								loop={true}
+								//loop={true}
 								navigation={{
 									prevEl: "#customPrev",
 									nextEl: "#customNext",
@@ -123,12 +141,14 @@ export default function IntegratedSystem({ module = "softwares" }) {
 								breakpoints={{
 									767: {
 										slidesPerView: 2,
+										slidesPerGroup: 1,
 									},
 									768: {
 										slidesPerView: 3,
+										slidesPerGroup: 1,
 									},
 								}}
-								className={styles.slider}
+								className={`${styles.slider} custom-swiper`}
 							>
 								{data?.map((item, ind) => {
 									return (
@@ -139,7 +159,10 @@ export default function IntegratedSystem({ module = "softwares" }) {
 											>
 												<div className={`${styles.itemBoxWrap}`}>
 													<img
-														src={item?.[module]?.thumbnail?.banner?.node?.mediaItemUrl}
+														src={
+															item?.[module]?.thumbnail?.banner?.node?.mediaItemUrl ||
+															system_one.src
+														}
 														height={215}
 														width={277}
 														className={`${styles.imgOne} `}
@@ -157,7 +180,12 @@ export default function IntegratedSystem({ module = "softwares" }) {
 														/>
 														<p className="color_white text_xxs f_w_b pt_10">{item?.title}</p>
 													</div>
-													<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
+													<div
+														className={`${styles.hoverBox} ${styles.hoverBoxOne}`}
+														style={{
+															backgroundColor: item?.[module]?.thumbnail?.primaryColor,
+														}}
+													>
 														<div
 															// href={`/${module}/${item?.slug}`}
 															className="text_xs text_uppercase f_w_m"

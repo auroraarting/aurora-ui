@@ -11,6 +11,7 @@ import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
@@ -30,14 +31,6 @@ import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 /** WebinarInside Page */
 export default function WebinarInsideWrap({
@@ -107,7 +100,7 @@ export default function WebinarInsideWrap({
 					// hideall={true}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
-							<div
+							<a
 								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 								key="btn"
 								to="Insights"
@@ -115,11 +108,11 @@ export default function WebinarInsideWrap({
 								<Button color="primary" variant="filled" shape="rounded">
 									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 								</Button>
-							</div>
+							</a>
 						)
 					}
 				/>
-				<section className={`${styles.mediaMiddle} pt_80`}>
+				<section className={`${styles.mediaMiddle} pt_40`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
@@ -138,7 +131,7 @@ export default function WebinarInsideWrap({
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
+												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}
@@ -174,7 +167,7 @@ export default function WebinarInsideWrap({
 
 								{dynamicInsightsBtnProps(dataForBtn, "accessRecordingSectionButton")
 									?.btntext && (
-									<div className="pt_60">
+									<div className="">
 										<WebinarRecording data={data} />
 									</div>
 								)}

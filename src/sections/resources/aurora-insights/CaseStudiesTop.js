@@ -19,6 +19,7 @@ import styles from "@/styles/sections/resources/aurora-insights/CaseStudiesTop.m
 import plant_img from "/public/img/resources/aurora_insights/plant_img.jpg";
 import download from "/public/img/resources/aurora_insights/download.svg";
 import play from "/public/img/resources/aurora_insights/play.svg";
+import pause_icon from "/public/img/resources/aurora_insights/pause_icon.svg";
 import share from "/public/img/resources/aurora_insights/share.svg";
 import copy from "/public/img/resources/aurora_insights/copy.svg";
 import calender from "/public/img/icons/calender.svg";
@@ -46,11 +47,11 @@ export default function CaseStudiesTop({ data }) {
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
-						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
+						<h1 className="text_lg color_secondary text_uppercase f_w_m pt_20">
 							{data?.title}
-						</h2>
+						</h1>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 								<img
 									src={calender.src}
 									className={`${styles.calender}`}
@@ -60,7 +61,7 @@ export default function CaseStudiesTop({ data }) {
 								<span>{formatDate(data?.date)}</span>
 							</p>
 							{data?.postFields?.time && (
-								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img
 										src={black_clock.src}
 										className={`${styles.calender}`}
@@ -90,7 +91,11 @@ export default function CaseStudiesTop({ data }) {
 											onClick={Speechify}
 											className="text_sm f_w_m font_primary f_r_a_center speechify_wrap"
 										>
-											<img src={play.src} alt="play" />
+											{/* <img src={play.src} alt="play" /> */}
+											<img
+												src={isPlaying ? pause_icon.src : play.src}
+												alt={isPlaying ? "pause" : "play"}
+											/>
 											<span>{isPlaying ? "Pause" : "Listen"}</span>
 										</a>
 									</div>

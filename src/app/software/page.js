@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -16,15 +16,21 @@ import Button from "@/components/Buttons/Button";
 import TrustedLeaders from "@/components/TrustedLeaders";
 import GlobalMap from "@/components/GlobalMap";
 import Bundles from "@/components/Bundles";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
 import GloballyBankableInsights from "@/sections/softwares/GloballyBankableInsights";
 import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import SoftwaresLanding from "@/sections/softwares/SoftwareLanding";
 
 // PLUGINS //
 
 // UTILS //
-import { getMapJsonForSoftware, removeDuplicatesByKeys } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	getMapJsonForSoftware,
+	removeDuplicatesByKeys,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareLanding.module.scss";
@@ -41,26 +47,26 @@ import locationJson from "@/data/globalMap.json";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getSoftwarePage } from "@/services/Softwares.service";
-import IframeModal from "@/components/IframeModal";
 import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Fetch */
 async function getData() {
 	const [data, regions, insightsFetch, categoriesForSelect, bundles] =
 		await Promise.all([
-			getSoftwarePage(),
-			getRegions(),
-			getInsights(
+			await getSoftwarePage(),
+			await getRegions(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			getInsightsCategories(),
-			getBundlesSection(),
+			await getInsightsCategories(),
+			await getBundlesSection(),
 		]);
-	const softwares = data.data.softwares;
+	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 
 	let testimonials = {
@@ -74,7 +80,7 @@ async function getData() {
 		},
 	};
 
-	softwares.nodes.map((item) => {
+	softwares?.nodes?.map((item) => {
 		// testimonials
 		testimonials.testimonials.nodes = removeDuplicatesByKeys(
 			[
@@ -95,7 +101,7 @@ async function getData() {
 	return {
 		props: {
 			data: {
-				...data.data.page.softwareLanding,
+				...data?.data?.page?.softwareLanding,
 			},
 			insights: insightsFetch?.data?.posts?.nodes || [],
 			softwares,
@@ -109,11 +115,26 @@ async function getData() {
 	};
 }
 
-/** Meta Data */
-export const metadata = {
-	title: "Software | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "software", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Chronos Page */
 export default async function Softwares() {
@@ -129,68 +150,17 @@ export default async function Softwares() {
 		bundles,
 	} = props;
 
+	const dataForBtn = {
+		postFields: data,
+	};
+
 	return (
 		<div>
-			{/* Metatags */}
-			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/software"} />
-
 			{/* Header */}
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<main className={styles.SoftwareLanding}>
-				<InnerBanner
-					bannerTitle={data.banner.title}
-					bannerDescription={data.banner.description}
-					showContentOnly
-				/>
-				<div>
-					<TransactionSolutions
-						data={softwares.nodes}
-						keyValue={"softwares"}
-						slugPage="software"
-					/>
-				</div>
-				<div>
-					<GloballyBankableInsights data={data.keyAdvantages} />
-				</div>
-				<GlobalMap locationJson={mapJson} />
-				{clientLogos?.selectLogos?.nodes?.length > 0 && (
-					<div className="ptb_100">
-						<TrustedLeaders data={clientLogos} />
-					</div>
-				)}
-				{testimonials?.testimonials?.nodes?.length > 0 && (
-					<div className="pb_100">
-						<TestimonialFeedback data={testimonials} />
-					</div>
-				)}
-				<div className="pt_100 dark_bg relative">
-					<img
-						className={`${styles.bgGradient} bgGradientEos`}
-						src="/img/eos-bg-gradient.png"
-					/>
-					<div className="pb_100">
-						<EosIntegratedSystem />
-					</div>
-					<Bundles data={bundles} />
-				</div>
-				<div className={`${styles.insightBg}  pt_30`}>
-					<div className={`${styles.boxBg}`}>
-						<div className="pb_100">
-							<Insights
-								formSectionTitle="Expertise that powers progress"
-								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with Chronos specialists. Stay ahead with exclusive access to online and in-person community events."
-								isPowerBgVisible={true}
-								isInsightsBlogsVisible={true}
-								defaultList={insights}
-								countries={countries}
-							/>
-						</div>
-					</div>
-				</div>
-			</main>
-			<IframeModal />
+			<SoftwaresLanding {...props} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

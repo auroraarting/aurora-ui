@@ -13,6 +13,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import SoftwareCards from "@/components/SoftwareCards";
 import AllVideos from "@/components/AllVideos";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import WebinarListing from "@/sections/resources/webinar/WebinarListing";
@@ -21,6 +22,7 @@ import PastSpeakers from "@/sections/resources/webinar/PastSpeakers";
 // PLUGINS //
 
 // UTILS //
+import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/webinar/Webinar.module.scss";
@@ -29,12 +31,6 @@ import styles from "@/styles/pages/resources/webinar/Webinar.module.scss";
 import country_thumb from "/public/img/global-presence/country_thumb.jpg";
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
-import { getWebinarPage } from "@/services/Webinar.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
@@ -52,6 +48,10 @@ export default function WebinarTalksWrap({
 	webinarpage,
 }) {
 	const [original, setOriginal] = useState(data);
+
+	const dataForBtnForInsights = {
+		postFields: webinarpage || {},
+	};
 
 	return (
 		<div>
@@ -97,11 +97,11 @@ export default function WebinarTalksWrap({
 						]}
 					/>
 				</div>
-				<div className="ptb_100">
+				{/* <div className="ptb_100">
 					<PastSpeakers data={pastSpeakers} />
-				</div>
+				</div> */}
 				{webinarpage?.video?.sectionTitle && (
-					<div className="pb_100">
+					<div className="ptb_100">
 						<AllVideos
 							sectionName="Latest Videos"
 							title={webinarpage?.video?.sectionTitle}
@@ -115,7 +115,19 @@ export default function WebinarTalksWrap({
 				)}
 				<div className={`${styles.containerCustom} pb_100`}>
 					<div className="container">
-						<Insights isPowerBgVisible={true} />
+						<Insights
+							isPowerBgVisible={true}
+							formSectionTitle={webinarpage?.insights?.sectionTitle}
+							formSectionDesc={webinarpage?.insights?.sectionDesc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtnForInsights, "insightsSectionButton")
+									.btntext
+							}
+							formdata={dynamicInsightsBtnProps(
+								dataForBtnForInsights,
+								"insightsSectionButton"
+							)}
+						/>
 					</div>
 				</div>
 				<div className="pb_100">
@@ -130,14 +142,14 @@ export default function WebinarTalksWrap({
 							},
 							{
 								desc: "Expert analysis and case studies on energy markets",
-								btnText: "View All Resources",
+								btnText: "View all Resources",
 								btnLink: "/resources/aurora-insights",
 								img: "/img/contact/cardImg5.jpg",
 								fontColor: "color_white",
 							},
 							{
 								desc: "Join events shaping the future of energy",
-								btnText: "View All Events",
+								btnText: "View all events",
 								btnLink: "/events",
 								fontColor: "color_white",
 								img: "/img/contact/cardImg4.jpg",

@@ -3,6 +3,9 @@
 	.OurEdgeFlex {
 		.title_wrap {
 			width: 40%;
+			@media (max-width: 1199px) {
+				padding-bottom: 40px;
+			}
 			@media (max-width: 991px) {
 				width: 100%;
 				margin-bottom: 10px;
@@ -14,16 +17,33 @@
 					top: 200px;
 				}
 			}
+			h2 {
+				@media (max-width: 767px) {
+					padding-bottom: 10px;
+				}
+			}
+		}
+		.titleDesc {
+			p {
+				@media (max-width: 767px) {
+					padding-bottom: 0px;
+				}
+			}
 		}
 		.OurEdgeHistory {
 			position: relative;
 			width: 58%;
+			margin-top: 14px;
 			@media (max-width: 991px) {
 				width: 100%;
+				margin-top: 0px;
 			}
 			.OurItem {
 				position: relative;
 				padding-bottom: 30px;
+				@media (max-width: 767px) {
+					padding-bottom: 0px;
+				}
 				&::before {
 					content: " ";
 					position: absolute;
@@ -45,9 +65,11 @@
 				.OurEdgeBox {
 					position: relative;
 					padding: 20px 20px 40px;
-					transition: 0.3s all;
+					transition: 0.5s all;
+					border-radius: 20px;
 					@media (max-width: 767px) {
-						padding: 20px 10px 20px;
+						padding: 20px 20px 20px;
+						margin-bottom: 10px;
 					}
 					.iconBox {
 						position: relative;
@@ -57,7 +79,7 @@
 							height: 54px;
 							border-radius: 50%;
 							background-color: var(--color_platinum_gray);
-							transition: 0.3s all;
+							transition: 0.5s all;
 							@media (max-width: 767px) {
 								width: 40px;
 								height: 40px;
@@ -76,10 +98,16 @@
 							padding-left: 15px;
 						}
 						h4 {
-							transition: 0.3s all;
+							transition: 0.5s all;
+							@media (max-width: 767px) {
+								padding-bottom: 10px;
+							}
 						}
 						p {
-							transition: 0.3s all;
+							transition: 0.5s all;
+							@media (max-width: 767px) {
+								margin-bottom: 0px;
+							}
 						}
 					}
 				}
@@ -91,21 +119,21 @@
 					.OurEdgeBox {
 						background-color: var(--color_gray);
 						border-radius: 20px;
-						transition: 0.3s all;
+						transition: 0.5s all;
 						.iconBox {
 							span {
 								background-color: var(--color_primary);
-								transition: 0.3s all;
+								transition: 0.5s all;
 							}
 						}
 						.contentBox {
 							h4 {
 								color: var(--color_white);
-								transition: 0.3s all;
+								transition: 0.5s all;
 							}
 							p {
 								color: var(--color_silver_gray);
-								transition: 0.3s all;
+								transition: 0.5s all;
 							}
 						}
 					}

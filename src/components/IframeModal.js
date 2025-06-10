@@ -21,7 +21,7 @@ import styles from "@/styles/components/IframeModal.module.scss";
 
 /** IframeModal */
 export default function IframeModal({
-	hideLeft,
+	hideLeft = true,
 	sectionTitle = "Sign up to receive our latest public insights straight to your inbox",
 	sectionDesc = "Please fill out this form to download a redacted sample of Navigating the e-fuel landscape: demand drivers, cost and willingness to pay - A Market Report by Aurora.",
 }) {

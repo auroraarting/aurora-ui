@@ -46,12 +46,12 @@ export default function EosBanner({
 		video: vimeoid,
 		controls: false,
 		paused: false,
-		autoplay: true,
+		autoplay: false,
 		loop: true,
 		responsive: true,
 		muted: true,
 	};
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const vimeoRef = useRef(null);
 
 	/** togglePlayPause */
@@ -79,14 +79,14 @@ export default function EosBanner({
 							<ContentFromCms>{bannerDescription}</ContentFromCms>
 						</div>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<a {...dataForBtn}>
+							{/* <a {...dataForBtn}>
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
 									{dataForBtn?.btntext}
 								</Button>
-							</a>
+							</a> */}
 							{btnTxt && (
 								<a href={btnLink} target="_blank" rel="noreferrer">
-									<Button color="secondary" variant="filled" shape="rounded" mode="dark">
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
 										{btnTxt}
 									</Button>
 								</a>

@@ -10,7 +10,7 @@ import Button from "@/components/Buttons/Button";
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps } from "@/utils";
+import { dynamicInsightsBtnProps, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/components/EosIntegratedSystem.module.scss";
@@ -21,16 +21,32 @@ import IMac from "../../public/img/global-presence/IMac.png";
 // DATA //
 
 /** EosIntegratedSystem Section */
-export default function EosIntegratedSystem() {
+export default function EosIntegratedSystem({ name }) {
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (name === undefined) {
+			return {
+				id: "eos",
+				"data-name": "Eos",
+			};
+		} else if (name === "") {
+			return {};
+		} else if (name) {
+			return {
+				id: slugify(name),
+				"data-name": name,
+			};
+		}
+	};
 	return (
-		<section className={`${styles.EosIntegratedSystem}`}>
+		<section className={`${styles.EosIntegratedSystem}`} {...sectionTitle()}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
 						<img src={IMac.src} className="img" alt="EOS Mac" />
 					</div>
 					<div className={`${styles.flexItemTwo}`}>
-						<h2 className="text_xl font_primary f_w_m color_white m_b_15">
+						<h2 className="text_xl font_primary color_white pb_20">
 							Integrated energy intelligence with EOS
 						</h2>
 						<p className={`${styles.label} text_reg color_platinum_gray pb_10`}>
@@ -44,10 +60,10 @@ export default function EosIntegratedSystem() {
 							services, enabling users to efficiently access our intelligence, whatever
 							their use case.
 						</p>
-						<div className={`${styles.bookBtnOne} pt_20`}>
+						<div className={`${styles.bookBtnOne} pt_60`}>
 							<a href="/software">
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									Explore Now
+									Explore now
 								</Button>
 							</a>
 						</div>

@@ -1,7 +1,7 @@
 @import "../../../helpers/helpers.scss";
 .TopEnergy {
 	.card {
-		align-items: flex-end;
+		// align-items: flex-end;
 		padding: 40px 40px;
 		background-color: var(--color_secondary);
 		border-radius: 20px;
@@ -9,12 +9,12 @@
 			padding: 25px 25px;
 		}
 		@media (max-width: 767px) {
-			padding: 15px 15px;
+			padding: 20px 20px;
 			flex-direction: column-reverse;
-			border-radius: 15px;
+			border-radius: 20px;
 		}
 		.content {
-			width: 45%;
+			width: 42%;
 			// @media (max-width: 1199px) {
 			// 	width: 54%;
 			// }
@@ -22,17 +22,29 @@
 				width: 100%;
 				margin-top: 30px;
 			}
+			h2{
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				height: 155px;
+				@media (max-width: 991px) {
+					height: 119px;
+				}
+			}
 			.tag {
 				background-color: var(--color_blue);
-				padding: 12px 12px;
+				padding: 8px 12px;
 				border-radius: 8px;
 				width: max-content;
-				margin-top: 30px;
+				//margin-top: 30px;
+				letter-spacing: 1px;
 			}
 			.dateFlex {
 				align-items: center;
+				flex-wrap: wrap;
 				p {
-					margin-right: 40px;
+					margin-right: 20px;
 					@media (max-width: 991px) {
 						margin-right: 15px;
 					}
@@ -41,19 +53,37 @@
 					}
 					span {
 						margin-left: 5px;
-						margin-top: 2px;
+						margin-top: 4px;
 					}
 				}
 			}
 		}
 		.imageWrapper {
-			width: 50%;
+			width: 54%;
 
 			@media (max-width: 1199px) {
-				width: 54%;
+				//width: 54%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+			}
+			img {
+				width: 570px;
+				height: 360px;
+				aspect-ratio: 570 / 360;
+				object-fit: cover;
+				object-position: center;
+				@media (max-width: 1199px) {
+					height: 300px;
+					width: 100%;
+				}
+				@media (max-width: 991px) {
+					height: 250px;
+				}
+				@media (max-width: 767px) {
+					height: 200px;
+					border-radius: 12px;
+				}
 			}
 		}
 	}

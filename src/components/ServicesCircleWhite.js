@@ -30,10 +30,12 @@ const services = [
 
 /** ServicesCircle Component */
 export default function ServicesCircleWhite({ data, sectionName }) {
-	if (data.advantages?.length === 0) return <></>;
+	if (data.advantages?.length === 0) {
+		return <></>;
+	}
 	return (
 		<section
-			className={`${styles.ServicesCircleSection} white_bg `}
+			className={`${styles.ServicesCircleSection} ServicesCircleSection white_bg `}
 			id={sectionName}
 			data-name={sectionName}
 		>

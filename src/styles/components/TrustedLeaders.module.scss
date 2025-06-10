@@ -1,9 +1,9 @@
 @import "../helpers/helpers.scss";
 .TrustedLeaders {
 	:global(.swiper-horizontal) {
-		padding-bottom: 60px;
+		// padding-bottom: 60px;
 		@media (max-width: 767px) {
-			padding-bottom: 50px;
+			// padding-bottom: 50px;
 		}
 	}
 	:global(.swiper-pagination-horizontal) {
@@ -33,6 +33,11 @@
 		width: 50px;
 		border-radius: 50px;
 		transition: 0.5s all;
+	}
+	.titleTxt{
+		@media (max-width: 767px) {
+			padding-bottom: 20px;
+		}
 	}
 
 	.box_wrap {

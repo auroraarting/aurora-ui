@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -34,13 +34,15 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch  */
 async function getData() {
 	// const regions = await getRegions();
 	// const page = await getGlobalPresencePage();
 	const [regions, page] = await Promise.all([
-		getRegions(),
-		getGlobalPresencePage(),
+		await getRegions(),
+		await getGlobalPresencePage(),
 	]);
 
 	const mapJson = getMapJsonForAllRegions(regions);
@@ -54,7 +56,9 @@ async function getData() {
 				<div className={`${styles.CountryWrapper}`}>
 					<div className={`${styles.CountryBox}`}>
 						{item.countries?.nodes?.map((item2) => {
-							if (item2?.countries?.hideonglobalpresence) return <></>;
+							if (item2?.countries?.hideonglobalpresence) {
+								return <></>;
+							}
 							return (
 								<div className={`${styles.CountryItem}`} key={item2.slug}>
 									<a href={`/global-presence/${item2.slug}`}>

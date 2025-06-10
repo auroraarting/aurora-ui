@@ -23,6 +23,10 @@
 				align-items: flex-start;
 				.ClientLogo {
 					width: 25%;
+					margin-right: 10px;
+					@media (max-width: 991px) {
+						width: 32%;
+					}
 					img {
 						width: 60px;
 						height: 60px;
@@ -31,7 +35,7 @@
 				}
 				.ClientDescription {
 					width: 75%;
-					padding-left: 10px;
+
 					.social {
 						margin-top: 5px;
 					}

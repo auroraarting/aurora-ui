@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 export const getSingleSoftware = async (slug) => {
 	const query = `
 query GetProductBySlug {
-countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
+  countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
       slug
@@ -31,10 +31,11 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
           from
           to
         }
-                  title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
+          primaryColor
+        title
+        shortDescription
+        spotlightTitle
+        spotlightDesc
       }
       ourClient {
         selectLogos(first: 999) {
@@ -197,6 +198,12 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       }
       map {
         marquee
+            headerLogo {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
       }
       whyAurora {
         title
@@ -223,7 +230,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
               mediaItemUrl
             }
           }
-            video {
+          video {
             node {
               altText
               mediaItemUrl
@@ -237,6 +244,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -247,6 +255,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -257,6 +266,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       stepsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -267,12 +277,17 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
             mediaItemUrl
           }
         }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
       }
     }
   }
@@ -295,31 +310,32 @@ query GetPageSoftwares {
         description
       }
       mapMarquee
-      keyAdvantages {
-        title
-        tabTitle
-        description
-        buttonLink
-        buttonText
-        advantages {
-          title
-          description
-          icon {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
       inisghtsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
             mediaItemUrl
           }
+        }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      whyAurora {
+        endPoint
+        description
+        endText
+        startText
+        title
+        list {
+          caption
+          description
+          title
+          value
         }
       }
     }

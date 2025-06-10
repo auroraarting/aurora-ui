@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -22,29 +22,28 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getSingleSoftware } from "@/services/Softwares.service";
+import {
+	getSingleSoftware,
+	getSoftwarePage,
+} from "@/services/Softwares.service";
 import { getRegions } from "@/services/GlobalPresence.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Fetch Meta Data */
+export const revalidate = 60; // Revalidates every 60 seconds
+
+/** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const data = await getSingleSoftware(params.slug);
-	const post = data?.data?.softwareBy;
+	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.softwareBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
 		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
@@ -53,13 +52,17 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, regions] = await Promise.all([
-		getSingleSoftware(params.slug),
-		getRegions(),
-	]);
+	// const [data, regions] = await Promise.all([
+	// 	getSingleSoftware(params.slug),
+	// 	getRegions(),
+	// ]);
+	const data = await getSingleSoftware(params.slug);
+	const regions = await getRegions();
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug)
 	);
+	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
+
 	const countries = data.data.countries.nodes;
 
 	return {
@@ -67,10 +70,19 @@ async function getData({ params }) {
 			data: data?.data?.softwareBy?.softwares || {},
 			mapJson,
 			regions,
+			showMap,
 			meta: data.data.softwareBy,
 			countries,
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getSoftwarePage();
+	return data?.data?.softwares?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Chronos Page */

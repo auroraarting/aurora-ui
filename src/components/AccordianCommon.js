@@ -16,6 +16,7 @@ import styles from "@/styles/components/AccordianCommon.module.scss";
 import plus_arrow from "@/../public/img/icons/plus_arrow.svg";
 import minus_icon from "@/../public/img/icons/minus_icon.svg";
 import location from "@/../public/img/icons/location.svg";
+import { usePathname } from "next/navigation";
 
 // DATA //
 
@@ -27,9 +28,12 @@ export default function AccordianCommon({
 	fontFamily,
 	fontColor,
 	locationData,
+	bottomTextData,
 	defaultActiveId = 0,
+	openAll,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
+	const pathname = usePathname();
 	const [activeIndex, setActiveIndex] = useState(
 		items?.map((item, ind) => {
 			if (ind === 0) return true;
@@ -50,6 +54,10 @@ export default function AccordianCommon({
 		};
 
 		calculateHeights();
+		setTimeout(() => {
+			calculateHeights();
+		}, 1000);
+
 		window.addEventListener("resize", calculateHeights); // Recalculate heights on window resize
 
 		return () => {
@@ -63,7 +71,15 @@ export default function AccordianCommon({
 	};
 	/** toggleAccordion */
 	const toggleAccordion = (index) => {
-		let arr = [...activeIndex];
+		let arr = [];
+		if (openAll) {
+			arr = [...activeIndex];
+		} else {
+			arr = activeIndex?.map((item, arrInd) => {
+				if (arrInd === index) return activeIndex[index];
+				return false;
+			});
+		}
 		arr[index] = !arr[index];
 		setActiveIndex(arr);
 	};
@@ -72,8 +88,8 @@ export default function AccordianCommon({
 		const widthOfImgIcon = document
 			.querySelector(".imgIcons")
 			?.getBoundingClientRect();
-		setWidthOfImg((widthOfImgIcon?.width || 0) + 10);
-	}, []);
+		setWidthOfImg((widthOfImgIcon?.width || 0) + (widthOfImgIcon ? 10 : 0));
+	}, [pathname]);
 
 	return (
 		<div className={styles.accordion}>
@@ -103,14 +119,14 @@ export default function AccordianCommon({
 									</p>
 								)}
 								{item.title}
-								{item.locationData && (
+								{item.bottomTextData && (
 									<div className={`${styles.locationList} d_f pt_10`}>
 										<img
 											src={location.src}
 											className={`${styles.location}`}
 											alt="location"
 										/>
-										<p className="text_xs color_light_gray">{item.locationData}</p>
+										<p className="text_xs color_light_gray">{item.bottomTextData}</p>
 									</div>
 								)}
 							</div>
@@ -137,7 +153,7 @@ export default function AccordianCommon({
 						<div
 							className={`${styles.accordionContent} ${
 								activeIndex[index] ? styles.active : ""
-							}`}
+							} accordionContent`}
 							ref={(el) => (contentRefs.current[index] = el)}
 							style={{
 								height: activeIndex[index] ? `${heights[index]}px` : "0px",

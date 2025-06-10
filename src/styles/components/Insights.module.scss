@@ -30,7 +30,7 @@
 			padding: 30px 20px;
 		}
 		@media (max-width: 767px) {
-			padding: 30px 15px 0px;
+			padding: 20px 15px 0px;
 			border-radius: 20px;
 		}
 		.powerBg {
@@ -44,11 +44,14 @@
 			.contentFlex {
 				background-color: var(--color_gray);
 				border-radius: 20px;
-				padding: 30px 30px;
+				padding: 40px 40px;
 				gap: 50px;
+				@media (max-width: 1199px) {
+					padding: 30px 30px;
+				}
 				@media (max-width: 767px) {
 					flex-wrap: wrap;
-					padding: 20px 15px;
+					padding: 20px 20px;
 				}
 				.title_wrap {
 					flex: 1;
@@ -61,6 +64,7 @@
 					// width: 45%;
 					// flex: 1;
 					text-align: right;
+					height: max-content;
 					@media (max-width: 767px) {
 						width: 100%;
 						text-align: left;
@@ -112,13 +116,25 @@
 			margin-top: 20px;
 
 			.titleFlex {
+				@media (max-width: 767px) {
+					flex-wrap: wrap;
+				}
 				.title {
 					width: 60%;
+					@media (max-width: 767px) {
+						width: 100%;
+					}
 				}
 				.bookBtn {
 					flex: 1;
 					// width: 45%;
 					text-align: right;
+					height: max-content;
+					@media (max-width: 767px) {
+						width: 100%;
+						text-align: left;
+						margin-top: 20px;
+					}
 					button {
 						@media (max-width: 767px) {
 							width: 120px;
@@ -168,6 +184,7 @@
 						transition: 0.3s all;
 						padding: 15px 15px;
 						cursor: pointer;
+						border-radius: 20px;
 						.categoryTxt {
 							position: relative;
 							padding-left: 10px;
@@ -175,7 +192,7 @@
 								content: " ";
 								position: absolute;
 								left: 0;
-								top: 5px;
+								top: 8px;
 								width: 4px;
 								height: 4px;
 								background-color: var(--color_primary);
@@ -192,7 +209,14 @@
 						.dateFlex {
 							margin-top: auto;
 							align-items: center;
+							@media screen and (min-width: 768px) and (max-width: 1199px) {
+								flex-wrap: wrap;
+							}
 							p {
+								@media screen and (min-width: 768px) and (max-width: 1199px) {
+									width: 100%;
+									padding-bottom: 5px;
+								}
 								span {
 									margin-left: 5px;
 									margin-top: 2px;
@@ -207,6 +231,7 @@
 							height: 100%;
 							width: 100%;
 							z-index: 0;
+							border-radius: 20px;
 						}
 					}
 					&:hover {

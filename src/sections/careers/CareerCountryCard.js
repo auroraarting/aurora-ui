@@ -144,13 +144,13 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 	return (
 		<section
 			className={`${styles.CareerCountryCard} CareerCountryCard ptb_100`}
-			id="Programs"
-			data-name="Programs"
+			id="Programmes"
+			data-name="Programmes"
 		>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
-						{page?.listing?.title}
+						Building tomorrow’s energy leaders
 					</h2>
 				</div>
 				<div
@@ -304,7 +304,11 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				<div className={`${styles.SliderMain} pt_20`}>
 					{filteredData?.map((item) => {
 						return (
-							<div className={`${styles.cardItem}`} key={item?.slug}>
+							<a
+								href={`/careers/early-careers/${item?.slug}`}
+								className={`${styles.cardItem}`}
+								key={item?.slug}
+							>
 								<div className={`${styles.cardImg}`}>
 									<img
 										src={item?.earlyCareers?.thumbnail?.thumb?.node?.mediaItemUrl}
@@ -319,9 +323,9 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 										</p>
 									)}
 								</div>
-								<div className={`${styles.cardDesc} pt_20`}>
+								<div className={`${styles.cardDesc} pt_30`}>
 									{item?.earlyCareers?.thumbnail?.country?.node?.title && (
-										<p className="text_sm color_white color_platinum_gray f_r_a_center text_uppercase">
+										<p className="text_xs color_white color_platinum_gray f_r_a_center text_uppercase f_w_m">
 											<img
 												src={location.src}
 												className={`${styles.location}`}
@@ -330,10 +334,12 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 											<span>{item?.earlyCareers?.thumbnail?.country?.node?.title}</span>
 										</p>
 									)}
-									<h4 className="text_md color_white f_w_m font_primary pt_10">
+									<h4
+										className={`text_md color_white f_w_m font_primary pt_10 ${styles.title}`}
+									>
 										{item?.title}
 									</h4>
-									<div className={`${styles.btn_box} pt_20`}>
+									<div className={`${styles.btn_box} pt_40`}>
 										<a href={`/careers/early-careers/${item?.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
 												Read More
@@ -341,7 +347,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 										</a>
 									</div>
 								</div>
-							</div>
+							</a>
 						);
 					})}
 				</div>
@@ -350,7 +356,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				<Pagination
 					data={filteredData}
 					paginationArr={paginationArr}
-					// itemsPerPage={5}
+					itemsPerPage={6}
 					setCurrentItems={setFilteredData}
 				/>
 			</div>

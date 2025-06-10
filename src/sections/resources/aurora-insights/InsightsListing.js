@@ -30,7 +30,6 @@ import searchImg from "/public/img/icons/search.svg";
 import hoverBg from "/public/img/home/hoverBg.png";
 
 // SERVICES //
-import { getInsights } from "@/services/Insights.service";
 import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
@@ -57,8 +56,9 @@ export default function InsightsListing({
 	const [dropdowns, setDropdowns] = useState({
 		categoryType: { isOpen: false, selected: { title: "Category" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
+		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
@@ -87,6 +87,7 @@ export default function InsightsListing({
 		countryType: useRef(null),
 		offeringsType: useRef(null),
 		yearsType: useRef(null),
+		eventStatusType: useRef(null),
 	};
 
 	const optionsData = {
@@ -114,6 +115,7 @@ export default function InsightsListing({
 				return { title: 2024 + ind };
 			})
 			.reverse(),
+		eventStatusType: [{ title: "Upcoming" }, { title: "Past" }],
 	};
 
 	/** Toggle Dropdown */
@@ -175,6 +177,10 @@ export default function InsightsListing({
 		if (key === "Service") {
 			selectedObj.service = catName;
 			queryObj.service = catName;
+		}
+		if (key === "eventStatusType") {
+			selectedObj.status = catName;
+			queryObj.status = catName;
 		}
 
 		setSelected(selectedObj);
@@ -249,7 +255,7 @@ export default function InsightsListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.InsightsListing}>
@@ -333,7 +339,7 @@ export default function InsightsListing({
 							</div>
 						</div>
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -343,7 +349,7 @@ export default function InsightsListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										Products & Services
+										Offerings
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -383,7 +389,7 @@ export default function InsightsListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}
@@ -398,7 +404,7 @@ export default function InsightsListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected.year || "Years"}
+										{selected.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -425,6 +431,48 @@ export default function InsightsListing({
 								)}
 							</div>
 						</div>
+						{/* Event Status Type Dropdown */}
+						{/* <div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.eventStatusType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("eventStatusType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{selected?.status || "Status"}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.eventStatusType.isOpen && (
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
+										<li
+											className={
+												dropdowns.eventStatusType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventStatusType", "")}
+										>
+											All
+										</li>
+										{optionsData.eventStatusType.map((option) => (
+											<li
+												key={option.title}
+												className={
+													option.title === dropdowns.eventStatusType.selected.title
+														? "selected"
+														: ""
+												}
+												onClick={() => handleOptionClick("eventStatusType", option)}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div> */}
 						{/* Reset */}
 						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
@@ -472,7 +520,7 @@ export default function InsightsListing({
 										autoFocus
 										name="search"
 										type="text"
-										placeholder="Search Events"
+										placeholder="Search Insights"
 										onChange={(e) => setSearchInput(e.target.value)}
 									/>
 								</form>
@@ -507,7 +555,7 @@ export default function InsightsListing({
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
 									<a
 										href={`/resources/aurora-insights/${slugify(
-											isCategory(allCategories, item?.categories?.nodes)
+											isCategory(allCategories, item?.categories?.nodes, true)
 										)}/${item?.slug}`}
 									>
 										<div className={`${styles.hoverBox}`}>

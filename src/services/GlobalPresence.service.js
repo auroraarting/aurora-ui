@@ -148,6 +148,10 @@ export const getCountryInside = async (slug) => {
 	const query = `
 query GetCountryInside {
   countryBy(slug: "${decodeURIComponent(slug)}") {
+  translations {
+      slug
+      title
+    }
     slug
     title
     countries {
@@ -286,6 +290,7 @@ query GetCountryInside {
           lng
         }
         markers {
+
           mapThumbnail {
             node {
               altText
@@ -373,6 +378,7 @@ query GetCountryInside {
             lng
           }
           locationtitle
+          bottomText
         }
       }
       mapThumb {
@@ -442,6 +448,22 @@ query GetCountryInside {
         altText
         mediaItemUrl
       }
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query);
+	return res;
+};
+
+/** Fetch Regions Data */
+export const getCountries = async () => {
+	const query = `
+ query GetProductBySlug {
+  countries(first: 9999) {
+    nodes {
+      title
+      slug
     }
   }
 }

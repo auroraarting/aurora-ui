@@ -35,11 +35,11 @@ export default function Pagination({
 		const totalPages = Math.ceil(paginationArr.length / itemsPerPage);
 		setTotalPages(totalPages);
 		setCurrentPage(1);
-	}, [paginationArr.length, itemsPerPage]);
+	}, [paginationArr, itemsPerPage]);
 
 	useEffect(() => {
 		setCurrentItems(paginationArr.slice(0, itemsPerPage));
-	}, [paginationArr.length]);
+	}, [paginationArr, itemsPerPage]);
 
 	/** handlePageClick  */
 	const handlePageClick = (page) => {
@@ -78,10 +78,14 @@ export default function Pagination({
 		return pageNumbers;
 	};
 
-	if (totalPages <= 1) return null;
+	if (totalPages <= 1) {
+		return null;
+	}
 
 	return (
-		<div className={`${styles.pagination} ${isDark ? styles.dark : ""}`}>
+		<div
+			className={`${styles.pagination} ${isDark ? styles.dark : ""} pagination`}
+		>
 			{/* Previous button */}
 			<img
 				src={IconArrLeft.src}

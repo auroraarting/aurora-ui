@@ -1,22 +1,29 @@
 @import "../../helpers/helpers.scss";
 
 .DepartmentList {
+	position: relative;
 	.topNav {
 		border-top: 1px solid var(--color_platinum_gray);
 		border-bottom: 1px solid var(--color_platinum_gray);
-		padding: 5px 0px;
+		padding: 8px 0px;
+		position: sticky;
+		top: var(--header_height);
+		left: 0;
+		background-color: var(--color_silver);
+		z-index: 99;
 		.filterflexMain {
 			flex-wrap: wrap;
 			.filterflex {
 				display: flex;
 				position: relative;
 				align-items: center;
-				width: 30%;
+				// width: 30%;
 				@media screen and (min-width: 767px) and (max-width: 992px) {
-					width: 40%;
+					// width: 40%;
 				}
 				@media screen and (max-width: 767px) {
 					flex-wrap: wrap;
+					width: 100%;
 				}
 				.selectBox {
 					position: relative;
@@ -28,8 +35,10 @@
 					// border-bottom: 1px solid #f8f8f8;
 					@media screen and (max-width: 767px) {
 						width: 100%;
+						flex: unset;
 					}
 					.custom_select {
+						width: max-content;
 						.select_header_wapper {
 							border-right: 1px solid var(--color_platinum_gray);
 							padding: 0px 15px;
@@ -49,9 +58,10 @@
 								padding: 10px 15px;
 								border-radius: 50px;
 								cursor: pointer;
+								padding-right: 40px;
 								transition: 0.5s all;
 								@media screen and (min-width: 768px) and (max-width: 1199px) {
-									padding: 10px 10px;
+									padding: 10px 25px;
 								}
 
 								@media screen and (max-width: 767px) {
@@ -162,26 +172,35 @@
 							// }
 						}
 						.checkBoxWapper {
-							width: 730px;
-							left: 50%;
-							transform: translateX(-50%);
-							padding: 40px 40px;
+							width: 940px;
+							left: -150px;
+							//transform: translateX(-50%);
+							padding: 40px 20px;
 							display: grid;
 							// grid-template-columns: repeat(3, 1fr);
 							grid-template-columns: repeat(3, 1fr); // 2 columns
 							gap: 16px;
-							@media screen and (max-width: 991px) {
-								width: 450px;
+							@media screen and (max-width: 1110px) {
+								width: 650px;
 								padding: 20px 20px;
+								grid-template-columns: repeat(2, 1fr);
+							}
+							@media screen and (max-width: 991px) {
+								left: -130px;
 							}
 							@media screen and (max-width: 767px) {
 								padding: 30px 20px;
-								width: 100%;
+								width: max-content;
+								grid-template-columns: repeat(1, 1fr);
+								left: 0px;
+								//transform: translateX(-50%);
+								gap: 8px;
 							}
 							.checkBoxItem {
 								display: flex;
 								flex-direction: column;
 								gap: 8px;
+								cursor: pointer;
 								// width: 33.33%;
 								// padding-right: 15px;
 								// @media screen and (max-width: 767px) {
@@ -190,68 +209,63 @@
 								// 	margin-bottom: 20px;
 								// }
 								&:hover {
-									.checkBoxList {
-										display: block;
-									}
+									display: block;
+									background-color: var(--color_primary);
 								}
-								.checkBoxList {
-									padding-left: 20px;
-									// display: none;
-									h4 {
-										cursor: pointer;
-									}
-									@media screen and (max-width: 767px) {
-										padding-left: 10px;
-									}
-									.checkBoxList {
-										display: flex;
-										flex-direction: column;
-										gap: 10px;
-									}
+								h4 {
+									cursor: pointer;
+								}
+								padding-left: 20px;
+								// display: none;
+								h4 {
+									cursor: pointer;
+								}
+								@media screen and (max-width: 767px) {
+									padding-left: 0px;
+								}
 
-									.checkboxLabel {
-										display: flex;
-										align-items: center;
-										cursor: pointer;
-										font-size: 14px;
-										line-height: 1.4;
-										font-weight: 400;
-										font-family: var(--font_primary);
-										color: var(--color_dark_gray);
-										user-select: none;
-										margin-top: 15px;
-									}
+								.checkboxLabel {
+									display: flex;
+									align-items: center;
+									cursor: pointer;
+									font-size: 14px;
+									line-height: 1.4;
+									font-weight: 400;
+									font-family: var(--font_primary);
+									color: var(--color_dark_gray);
+									user-select: none;
+									margin-top: 15px;
+								}
 
-									.hiddenRadio {
-										display: none;
-									}
+								.hiddenRadio {
+									display: none;
+								}
 
-									.customRadio {
-										display: inline-block;
-										width: 16px;
-										height: 16px;
-										border: 2px solid #555;
-										border-radius: 50%;
-										position: relative;
-										margin-right: 8px;
-									}
+								.customRadio {
+									display: inline-block;
+									width: 16px;
+									height: 16px;
+									border: 2px solid #555;
+									border-radius: 50%;
+									position: relative;
+									margin-right: 8px;
+								}
 
-									.hiddenRadio:checked + .customRadio {
-										background-color: var(--color_primary_shade);
-										border-color: var(--color_primary_shade);
-									}
+								.hiddenRadio:checked + .customRadio {
+									background-color: var(--color_primary_shade);
+									border-color: var(--color_primary_shade);
+								}
 
-									.hiddenRadio:checked + .customRadio::after {
-										content: "";
-										width: 8px;
-										height: 8px;
-										background: var(--color_secondary);
-										border-radius: 50%;
-										position: absolute;
-										top: 50%;
-										left: 50%;
-										transform: translate(-50%, -50%);
-									}
+								.hiddenRadio:checked + .customRadio::after {
+									content: "";
+									width: 8px;
+									height: 8px;
+									background: var(--color_secondary);
+									border-radius: 50%;
+									position: absolute;
+									top: 50%;
+									left: 50%;
+									transform: translate(-50%, -50%);
 								}
 							}
 						}
@@ -333,44 +347,58 @@
 				.bgImg {
 				}
 				.leadDetailsFlex {
-					padding: 50px 50px;
+					padding: 60px 60px;
+					@media (max-width: 1199px) {
+						padding: 40px 40px;
+					}
+					@media (max-width: 991px) {
+						padding: 20px 20px;
+						flex-wrap: wrap;
+					}
 					@media (max-width: 767px) {
-						padding: 25px;
+						padding: 20px 20px;
 					}
 					.leadDetailsItem {
 						&:first-child {
 							width: 30%;
 							position: relative;
+							@media (max-width: 991px) {
+								width: 30%;
+								margin-bottom: 20px;
+							}
 							@media (max-width: 767px) {
 								width: 100%;
-								margin-bottom: 30px;
 							}
-							.leadThumb{
+							.leadThumb {
 								position: relative;
-								.popUp{
+								img {
+									@media (max-width: 767px) {
+										border-radius: 12px;
+									}
+								}
+								.popUp {
 									position: absolute;
 									bottom: 0;
 									right: 0px;
 									width: 100%;
 									height: auto;
-									img{
+									img {
 										width: 100%;
 									}
 								}
 							}
-							
 						}
 						&:last-child {
 							width: 67%;
-							@media (max-width: 767px) {
+							@media (max-width: 991px) {
 								width: 100%;
 							}
 						}
 						.leadDetailsContent {
 						}
 						.leadDetailsContentSocial {
-							padding: 20px 0 15px;
-							border-bottom: solid 1px #5f5f5f;
+							padding: 30px 0 20px;
+							border-bottom: 1px solid rgba(206, 206, 206, 0.2);
 							img {
 								display: inline-block;
 								margin-right: 10px;
@@ -379,10 +407,16 @@
 						.leadDetailsInfo {
 							.leadDetailsInfoInner {
 								.headTxt {
-									padding-bottom: 5px;
+									padding-bottom: 10px;
 								}
 							}
 						}
+					}
+				}
+				.thumFix {
+					.leadThumb {
+						position: sticky !important;
+						top: 190px;
 					}
 				}
 			}

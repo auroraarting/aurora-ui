@@ -1,5 +1,41 @@
 @import "../../../helpers/helpers.scss";
 .MediaKitInfo {
+	.btn_box {
+		position: relative;
+		margin-top: auto;
+		max-width: fit-content;
+		button {
+			padding: 10px 25px 10px 50px;
+		}
+		span {
+			pointer-events: none;
+			position: absolute;
+			left: 6px;
+			top: 5px;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			background-color: var(--color_platinum_gray);
+			transition: 0.3s all;
+			z-index: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				transition: 0.3s all;
+			}
+		}
+		&:hover {
+			span {
+				background-color: var(--color_black);
+				transition: 0.3s all;
+				img {
+					filter: invert(1);
+					transition: 0.3s all;
+				}
+			}
+		}
+	}
 	.InfoBoxFlex {
 		.infoContent {
 			width: 50%;
@@ -8,27 +44,28 @@
 			}
 			.downloadBtn {
 				display: inline-flex;
+				gap: 20px;
 				@media (max-width: 767px) {
 					flex-wrap: wrap;
 				}
-				a {
-					align-items: center;
-					background-color: var(--color_secondary);
-					padding: 5px 15px 5px 5px;
-					font-size: 16px;
-					line-height: 1.4;
-					font-weight: 400;
-					font-family: var(--font_primary);
-					color: var(--color_white);
-					border-radius: 50px;
-					margin-right: 20px;
-					@media (max-width: 767px) {
-						margin-bottom: 10px;
-					}
-					img {
-						margin-right: 10px;
-					}
-				}
+				// a {
+				// 	align-items: center;
+				// 	background-color: var(--color_secondary);
+				// 	padding: 5px 15px 5px 5px;
+				// 	font-size: 16px;
+				// 	line-height: 1.4;
+				// 	font-weight: 400;
+				// 	font-family: var(--font_primary);
+				// 	color: var(--color_white);
+				// 	border-radius: 50px;
+				// 	margin-right: 20px;
+				// 	@media (max-width: 767px) {
+				// 		margin-bottom: 10px;
+				// 	}
+				// 	img {
+				// 		margin-right: 10px;
+				// 	}
+				// }
 			}
 		}
 		.infoLogo {
@@ -45,6 +82,12 @@
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+				height: 250px;
+			}
+			img {
+				@media (max-width: 767px) {
+					width: 180px;
+				}
 			}
 			.whiteBox {
 			}

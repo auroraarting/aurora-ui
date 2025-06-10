@@ -10,6 +10,7 @@ import IntegratedSystem from "@/components/IntegratedSystem";
 import Insights from "@/components/Insights";
 import IframeModal from "@/components/IframeModal";
 import TheApplicationProcess from "@/components/TheApplicationProcess";
+import Button from "@/components/Buttons/Button";
 
 // SECTIONS //
 import SectionsHeader from "@/components/SectionsHeader";
@@ -28,7 +29,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/careers/early-careers/EarlyCareers.module.scss";
-import Button from "@/components/Buttons/Button";
 
 // IMAGES //
 
@@ -64,7 +64,7 @@ export default function EarlyCareersInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.EarlyCareers}>
-				<div className="pt_100">
+				<div className="pt_60">
 					<CareersInsideBanner data={data} />
 				</div>
 				{/* <div> */}
@@ -88,7 +88,10 @@ export default function EarlyCareersInsideWrap({
 					<WhatWeLook data={data} />
 				</div>
 				<div>
-					<ServicesCircle data={data?.earlyCareers?.keyAdvantages} />
+					<ServicesCircle
+						data={data?.earlyCareers?.keyAdvantages}
+						sectionName="GROWTH"
+					/>
 				</div>
 				<div>
 					<WorkingTeams data={data} />
@@ -97,24 +100,26 @@ export default function EarlyCareersInsideWrap({
 					<AboutCountries data={data} />
 				</div>
 				<div>
-					<TheApplicationProcess data={data.earlyCareers?.theApplicationProcess} />
+					<TheApplicationProcess
+						data={data?.earlyCareers?.theApplicationProcess}
+						sectionName="PROCESS"
+					/>
 				</div>
 
-				{data.earlyCareers?.careerSeries?.title && (
+				{data?.earlyCareers?.careerSeries?.title && (
 					<div className="ptb_100 dark_bg">
 						<AllVideos
-							title={data.earlyCareers?.careerSeries?.title}
-							desc={data.earlyCareers?.careerSeries?.sectionDesc}
-							redirectLink={data.earlyCareers?.careerSeries?.buttonLink}
-							iframe={data.earlyCareers?.careerSeries?.iframe}
+							title={data?.earlyCareers?.careerSeries?.title}
+							desc={data?.earlyCareers?.careerSeries?.sectionDesc}
+							redirectLink={data?.earlyCareers?.careerSeries?.buttonLink}
+							iframe={data?.earlyCareers?.careerSeries?.iframe}
+							sectionName=""
+							id=""
 						/>
 					</div>
 				)}
-				<div>
-					<SmarterEnergy
-						data={data?.earlyCareers?.expertise2}
-						sectionName="Get to Know"
-					/>
+				<div className="">
+					<SmarterEnergy data={data?.earlyCareers?.expertise2} sectionName="" />
 				</div>
 				<div className={`${styles.EarlyMain} pt_100`}>
 					<div className={`${styles.containerCustom}`}>

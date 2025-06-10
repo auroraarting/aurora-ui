@@ -1,6 +1,7 @@
+/* eslint-disable quotes */
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -26,19 +27,34 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
-/** Meta Data */
-export const metadata = {
-	title: "How We Help | Aurora",
-	description: "Aurora",
-};
+// SERVICES //
+import { getPageSeo } from "@/services/Seo.service";
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "how-we-help", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** HowWeHelp Page */
 export default function HowWeHelp() {
 	return (
 		<div>
-			{/* Metatags */}
-			{/* <MetaTags Title={"How We Help"} Desc={""} OgImg={""} Url={"/how-we-help"} /> */}
-
 			{/* Header */}
 			{/* <Header /> */}
 

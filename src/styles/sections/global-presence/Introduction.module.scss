@@ -1,7 +1,8 @@
 @import "../../helpers/helpers.scss";
 .Introduction {
 	.flexBox {
-		align-items: center;
+		align-items: flex-start;
+
 		@media (max-width: 991px) {
 			flex-wrap: wrap;
 		}

@@ -81,6 +81,9 @@
 				}
 				p {
 					width: 88%;
+					@media (max-width: 767px) {
+						font-size: 12px;
+					}
 				}
 				a {
 					width: 32px;
@@ -154,15 +157,15 @@
 				padding: 40px 20px 55px;
 			}
 			@media only screen and (max-width: 767px) {
-				padding: 40px 15px 30px;
+				padding: 60px 15px 30px;
 				width: calc(100% - 20px);
 			}
 		}
 		.close_btn {
 			padding: 0;
-			position: absolute;
+			position: fixed;
 			right: 55px;
-			top: 20px;
+			top: 30px;
 			z-index: 2;
 			border: none;
 			box-shadow: none;
@@ -179,12 +182,12 @@
 			// 	top: 35px;
 			// }
 			@media only screen and (max-width: 1199px) {
-				top: 10px;
+				//top: 10px;
 				right: 20px;
 			}
 			@media only screen and (max-width: 767px) {
 				right: 10px;
-				top: 10px;
+				top: 20px;
 				z-index: 1;
 			}
 		}
@@ -220,13 +223,13 @@
 						width: 170px;
 					}
 				}
-				.popUp{
+				.popUp {
 					position: absolute;
 					bottom: 0;
 					right: 0px;
 					width: 100%;
-    			height: auto;
-					img{
+					height: auto;
+					img {
 						width: 100%;
 						@media (max-width: 767px) {
 							width: 170px;
@@ -322,7 +325,7 @@
 							content: " ";
 							position: absolute;
 							left: 0;
-							top: 5px;
+							top: 8px;
 							width: 4px;
 							height: 4px;
 							background-color: var(--color_primary);

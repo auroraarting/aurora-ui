@@ -92,7 +92,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 							<p className="text_reg font_primary">Shaping the energy discussion</p>
 							<a href="/resources/webinar" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
-									View Webinar
+									View webinars
 								</Button>
 							</a>
 						</div>
@@ -103,13 +103,13 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 				<div className={`${styles.itemBox}`}>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientLogo}`}>
-							<img src={podcast_logo.src} alt="Energy unplugged by Aurora" />
+							<img src={podcast_logo.src} alt="Energy Unplugged by Aurora" />
 						</div>
 						<div className={`${styles.ClientDescription}`}>
-							<p className="text_reg font_primary">Energy unplugged by Aurora</p>
+							<p className="text_reg font_primary">Energy Unplugged by Aurora</p>
 							<a href="/resources/energy-talks" className={`${styles.btn_box} `}>
 								<Button color="secondary" variant="underline">
-									View All Podcast
+									View all podcasts
 								</Button>
 							</a>
 						</div>

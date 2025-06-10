@@ -4,6 +4,7 @@
 	overflow: hidden;
 	@media (max-width: 767px) {
 		padding-top: 0px !important;
+		padding-bottom: 0px;
 	}
 	.counterFlex {
 		width: 100%;
@@ -20,7 +21,7 @@
 			// padding: 0px 60px;
 			@media (max-width: 767px) {
 				padding: 25px 0px;
-				width: 100%;
+				width: 50%;
 				border-bottom: 1px solid var(--color_dark_gray);
 				border-right: none;
 				flex: none;
@@ -28,7 +29,7 @@
 			&:last-child {
 				border-right: none;
 				@media (max-width: 767px) {
-					border-bottom: none;
+					//border-bottom: none;
 				}
 			}
 			p {

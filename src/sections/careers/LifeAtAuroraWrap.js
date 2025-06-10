@@ -66,7 +66,7 @@ export default function LifeAtAuroraWrap({
 				name: item.title,
 				lat: item.offices.map.lat,
 				lng: item.offices.map.lng,
-				url: "/careers/life-at-aurora",
+				url: "",
 				hoverImg: item.offices.thumbnail.node.mediaItemUrl,
 				unique: Math.random(),
 				// icon:
@@ -78,8 +78,6 @@ export default function LifeAtAuroraWrap({
 
 		setMapJson(tempMapJson);
 	}, []);
-
-	// console.log(offices);
 
 	return (
 		<div>
@@ -106,45 +104,46 @@ export default function LifeAtAuroraWrap({
 					btnLink={data?.banner?.buttonLink}
 					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 				/>
-				<div>
-					<SectionsHeader
-						customHtml={
-							dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
-								<div
-									{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
-									key="btn"
-									to="Insights"
-								>
-									<Button color="primary" variant="filled" shape="rounded">
-										{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
-									</Button>
-								</div>
-							)
-						}
-					/>
-				</div>
-				{data?.keyAdvantages && (
-					<div>
-						<SmarterEnergy data={data?.keyAdvantages} sectionName="Our Culture" />
-					</div>
-				)}
-				<div className="pt_60">
-					<TeamAurora
-						defaultData={data?.teamAurora?.teams}
-						id="Our-Teams"
-						sectionName="Our Teams"
-					/>
-				</div>
-				{mapJson && (
-					<div className="dark_bg">
-						<GlobalMap
-							locationJson={[mapJson]}
-							marqueeText={data?.globalMap?.marqueetext}
-							sectionName="Global Presence"
+				<SectionsHeader
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
+							<div
+								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
+								</Button>
+							</div>
+						)
+					}
+				/>
+				<div className="belongingBg">
+					{data?.keyAdvantages && (
+						<div>
+							<SmarterEnergy data={data?.keyAdvantages} sectionName="Our Culture" />
+						</div>
+					)}
+					<div className="">
+						<TeamAurora
+							defaultData={data?.teamAurora?.teams}
+							id="Employee-Speak"
+							sectionName="Employee Speak"
 						/>
 					</div>
-				)}
-				<div className="black_bg pb_80">
+				</div>
+				{/* {mapJson && ( */}
+				<div className="dark_bg">
+					<GlobalMap
+						locationJson={[mapJson]}
+						marqueeText={data?.globalMap?.marqueetext}
+						sectionName="Global Presence"
+						hideOnHover
+					/>
+				</div>
+				{/* )} */}
+				<div className={`${styles.countBg} pb_100`}>
 					<Counter
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
@@ -159,7 +158,7 @@ export default function LifeAtAuroraWrap({
 					</div>
 				)}
 				<div>
-					<JobOpenings data={jobs} hideFilters={false} />
+					<JobOpenings data={jobs} hideFilters={false} hideRedirect />
 				</div>
 
 				<div className="pt_100">

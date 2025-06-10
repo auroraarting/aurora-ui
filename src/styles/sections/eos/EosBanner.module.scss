@@ -1,6 +1,6 @@
 @import "../../helpers/helpers.scss";
 .EosBanner {
-	background-image: url("../../../../public/img/eos/topBg.png");
+	background-image: url("../../../../public/img/eos/topBg.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: bottom center;
@@ -31,12 +31,18 @@
 				width: 100%;
 			}
 			.bookBtn {
-				:global(.text_600) {
+				a{
 					margin-right: 20px;
 					@media (max-width: 991px) {
 						margin-right: 10px;
 					}
 				}
+				// :global(.text_600) {
+				// 	margin-right: 20px;
+				// 	@media (max-width: 991px) {
+				// 		margin-right: 10px;
+				// 	}
+				// }
 			}
 		}
 	}

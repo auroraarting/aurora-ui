@@ -83,7 +83,7 @@ export default function AboutLeadership({ data, countries }) {
 						<ContentFromCms>{data?.sectionDescription}</ContentFromCms>
 					</div>
 				</div>
-				<div className={`${styles.content_main_wrap} pt_40`}>
+				<div className={`${styles.content_main_wrap} pt_20`}>
 					<div className={`${styles.box_wrap}`}>
 						<Swiper
 							modules={[Navigation, Autoplay]}

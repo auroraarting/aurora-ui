@@ -16,6 +16,7 @@ import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 import CaseStudiesTop from "@/sections/resources/aurora-insights/CaseStudiesTop";
@@ -23,6 +24,7 @@ import CaseStudiesMiddleDescription from "@/sections/resources/aurora-insights/C
 import Client from "@/sections/resources/aurora-insights/Client";
 
 // PLUGINS //
+import Lottie from "lottie-react";
 
 // UTILS //
 import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
@@ -35,14 +37,15 @@ import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scs
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
 
 /** Articles Page */
-export default function InsightsInsideWrap({ data, otherList, countries }) {
+export default function InsightsInsideWrap({
+	data,
+	otherList,
+	countries,
+	insights,
+	insightsSectionButton,
+}) {
 	const isArticle = data?.categories?.nodes?.some(
 		(item) => item.slug === "commentary"
 	);
@@ -52,6 +55,9 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 	const isReports = data?.categories?.nodes?.some((item) =>
 		item.slug.includes("report")
 	);
+	const dataForBtn = {
+		postFields: { insightsSectionButton: { ...insightsSectionButton } } || {},
+	};
 
 	return (
 		<div>
@@ -148,11 +154,13 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
-												<DotLottieReact
+												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
 													autoplay={true}
 													loop={true}
-													// renderer="svg"
+													className="lottieDyanmic"
+													renderer="svg"
+													// height="400px"
 													width="100%"
 													// renderersettings={{
 													// 	preserveAspectRatio: "xMidYMid meet",
@@ -184,7 +192,7 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 								})}
 							</div>
 							<div className={`${styles.CaseStudiesMiddleRight}`}>
-								<Client data={data} />
+								<Client data={data} countries={countries} />
 							</div>
 						</div>
 					</div>
@@ -198,16 +206,13 @@ export default function InsightsInsideWrap({ data, otherList, countries }) {
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle={
-							data?.postFields?.insights?.title ||
-							"Sign up to receive our latest public insights straight to your inbox"
-						}
-						formSectionDesc={data?.postFields?.insights?.desc}
+						formSectionTitle={insights?.title}
+						formSectionDesc={insights?.desc}
 						formSectionBtnText={
-							dynamicInsightsBtnProps(data, "insightsSectionButton").btntext
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
 						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
 

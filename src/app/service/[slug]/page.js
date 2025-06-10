@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -23,31 +23,27 @@ import { filterMarkersBySlug, getMapJsonForService } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getServiceData } from "@/services/Service.service";
+import { getAllServiceData, getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getInsights } from "@/services/Insights.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Fetch Meta Data */
+export const revalidate = 60; // Revalidates every 60 seconds
+
+/** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const data = await getServiceData(params.slug);
-	const post = data?.data?.serviceBy;
+	const meta = await getPageSeo(`serviceBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.serviceBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
 		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
@@ -57,10 +53,10 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, regions, bundles, list] = await Promise.all([
-		getServiceData(params.slug),
-		getRegions(),
-		getBundlesSection(),
-		getInsights(
+		await getServiceData(params.slug),
+		await getRegions(),
+		await getBundlesSection(),
+		await getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
 	]);
@@ -79,6 +75,14 @@ async function getData({ params }) {
 			otherList,
 		},
 	};
+}
+
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const data = await getAllServiceData();
+	return data?.data?.services?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Advisory Page */

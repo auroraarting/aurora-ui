@@ -1,6 +1,9 @@
 @import "../../helpers/helpers.scss";
 .contentBox {
 	iframe {
+		body {
+			justify-content: flex-start;
+		}
 		width: 100%;
 		#player {
 			width: 100%;
@@ -14,10 +17,15 @@
 		font-family: var(--font_primary);
 		margin-bottom: 20px;
 		color: var(--color_secondary);
+
+		&:nth-child(1) {
+			margin-top: 0;
+		}
 		@media (max-width: 991px) {
 			font-size: 25px;
 		}
 	}
+
 	h5 {
 		font-size: 18px;
 		line-height: 1.6;
@@ -44,6 +52,11 @@
 			font-family: var(--font_secondary);
 			color: var(--color_dark_gray);
 			padding-bottom: 10px;
+		}
+	}
+	button {
+		p {
+			margin-bottom: 0;
 		}
 	}
 	.btn_box {
@@ -74,15 +87,22 @@
 		width: 80%;
 		height: 100vh;
 		background-color: var(--color_secondary);
-		padding: 60px;
+		padding: 40px 50px;
 		position: relative;
 		transform: translateX(100%);
 		transition: all 0.4s ease-in-out;
-
+		overflow-y: auto;
+		@media (max-width: 1199px) {
+			width: 95%;
+			padding: 35px 20px;
+		}
 		.close {
-			position: absolute;
-			top: 20px;
-			right: 20px;
+			cursor: pointer;
+			position: sticky;
+			top: 0px;
+			right: 0px;
+			margin-left: auto;
+			z-index: 1;
 		}
 
 		.sessionBox {

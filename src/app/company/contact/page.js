@@ -1,5 +1,6 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -12,8 +13,10 @@ import Button from "@/components/Buttons/Button";
 import AccordianCommon from "@/components/AccordianCommon";
 import InnerBanner from "@/components/InnerBanner";
 import SoftwareCards from "@/components/SoftwareCards";
+import IframeModal from "@/components/IframeModal";
 
 // SECTIONS //
+import CompanyContact from "@/sections/company/contact/CompanyContact";
 
 // PLUGINS //
 
@@ -29,29 +32,37 @@ import location from "@/../public/img/icons/location.svg";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 import hoverBg from "@/../public/img/contact/hoverBg.png";
 
-// SERVICES //
-import {
-	getGlobalPresencePage,
-	getRegions,
-} from "@/services/GlobalPresence.service";
-import { getOfficesByRegions } from "@/services/Offices.service";
-import { getContact } from "@/services/Contact.service";
-import IframeModal from "@/components/IframeModal";
-import CompanyContact from "@/sections/company/contact/CompanyContact";
-
 // DATA //
 
-/** Meta Data */
-export const metadata = {
-	title: "Contact | Aurora",
-	description: "Aurora",
-};
+// SERVICES //
+import { getPageSeo } from "@/services/Seo.service";
+import { getOfficesByRegions } from "@/services/Offices.service";
+import { getContact } from "@/services/Contact.service";
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "contact", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Fetch  */
 async function getData() {
 	const [regions, page] = await Promise.all([
-		getOfficesByRegions(),
-		getContact(),
+		await getOfficesByRegions(),
+		await getContact(),
 	]);
 
 	const regionsArr = regions.data.regions.nodes
@@ -135,6 +146,8 @@ async function getData() {
 		},
 	};
 }
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Contact Page */
 export default async function ContactPage() {

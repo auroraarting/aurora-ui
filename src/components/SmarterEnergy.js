@@ -31,7 +31,26 @@ import grey_clock from "/public/img/icons/grey_clock.svg";
 
 /** SmarterEnergy Section */
 export default function SmarterEnergy({ data, sectionName }) {
-	if (!data?.title) return <></>;
+	if (!data?.title) {
+		return <></>;
+	}
+
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (sectionName === undefined) {
+			return {
+				id: "expertise",
+				"data-name": "Expertise",
+			};
+		} else if (sectionName === "") {
+			return {};
+		} else if (sectionName) {
+			return {
+				id: slugify(sectionName),
+				"data-name": sectionName,
+			};
+		}
+	};
 
 	const tempAccordian = [
 		{
@@ -115,13 +134,13 @@ export default function SmarterEnergy({ data, sectionName }) {
 					children: (
 						<>
 							<div className={`${styles.content_wrap}`}>
-								<p className="text_reg color_dark_gray">
+								<p className="text_reg color_dark_gray pb_10">
 									{item?.accordionDescription ||
 										item?.accordionDesc ||
 										item?.description}
 								</p>
 								{item?.buttonLink && (
-									<a href={item?.buttonLink} className={`${styles.bookBtn} pt_30`}>
+									<a href={item?.buttonLink} className={`${styles.bookBtn} pt_10`}>
 										<Button color="secondary" variant="underline">
 											Know more
 										</Button>
@@ -130,7 +149,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 								{item?.popup?.title && (
 									<div
 										onClick={() => openModal(`popupAccordian${ind}`)}
-										className={`${styles.bookBtn} pt_30`}
+										className={`${styles.bookBtn} pt_10`}
 									>
 										<Button color="secondary" variant="underline">
 											Know more
@@ -208,8 +227,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 	return (
 		<section
 			className={`${styles.SmarterEnergy} SmarterEnergy ptb_100`}
-			id={sectionName ? slugify(sectionName) : "expertise"}
-			data-name={sectionName || "Expertise"}
+			{...sectionTitle()}
 		>
 			<div className="container">
 				<div className={`${styles.common_queries_flex} f_w_j`}>

@@ -12,6 +12,9 @@
 		@media (max-width: 991px) {
 			width: 100%;
 		}
+		@media (max-width: 767px) {
+			padding-bottom: 10px;
+		}
 	}
 	.dateBox {
 		ul {
@@ -49,6 +52,11 @@
 			bottom: 20px;
 			border-radius: 12px;
 			overflow: hidden;
+			img {
+				@media (max-width: 1199px) {
+					width: 200px;
+				}
+			}
 		}
 	}
 }

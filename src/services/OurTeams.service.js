@@ -16,6 +16,7 @@ query OurTeamPage {
         insightsSectionButton {
           buttonText
           iframe
+          url
           file {
             node {
               altText
@@ -56,6 +57,7 @@ query OurTeamPage {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText

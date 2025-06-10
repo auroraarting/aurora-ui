@@ -57,13 +57,13 @@ export default function SoftwareBanner({
 		video: getVimeoUrl(vimeoid),
 		controls: false,
 		paused: false,
-		autoplay: true,
+		autoplay: false,
 		loop: true,
 		responsive: true,
 		muted: true, // <-- Add this!
 	};
 
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const videoRef = useRef(null);
 
 	/** togglePlayPause */
@@ -86,7 +86,7 @@ export default function SoftwareBanner({
 	};
 
 	return (
-		<section className={`${styles.SoftwareBanner} ptb_100`}>
+		<section className={`${styles.SoftwareBanner} pt_60`}>
 			<div className="container">
 				{logo && (
 					<div className={`${styles.SoftwareLogo} pb_20`}>

@@ -18,9 +18,9 @@
 			@media (max-width: 991px) {
 				width: 100%;
 			}
-			.content_wrap {
-				padding-left: 45px;
-			}
+			// .content_wrap {
+			// 	padding-left: 45px;
+			// }
 		}
 	}
 	:global(.headerF) {
@@ -34,13 +34,29 @@
 		.modal {
 			.content {
 				width: 80%;
+				@media (max-width: 991px) {
+					width: 100%;
+					max-height: 100%;
+					padding: 60px 20px 20px;
+				}
 			}
+		}
+	}
+	:global(.closeBtn) {
+		position: fixed;
+		@media (max-width: 767px) {
+			top: 30px;
 		}
 	}
 
 	.popup {
 		padding: 50px;
-
+		@media (max-width: 1199px) {
+			padding: 20px;
+		}
+		@media (max-width: 991px) {
+			padding: 0px;
+		}
 		:global {
 			.icon {
 				img {
@@ -51,6 +67,7 @@
 				border-color: #2c2c2c;
 			}
 		}
+
 		.accordian_main {
 			border-top: 1px solid #2c2c2c;
 			padding-top: 40px;
@@ -63,17 +80,25 @@
 				padding: 8px;
 				gap: 20px;
 				flex-wrap: wrap;
-
+				margin-bottom: 10px;
 				.category {
 					background-color: var(--color_blue);
 					border-radius: 12px;
 					padding: 12px;
+					width: 200px;
+					justify-content: center;
 				}
 
 				> div {
 					display: flex;
 					align-items: center;
 					gap: 8px;
+				}
+				.date {
+					width: 100px;
+				}
+				.time {
+					width: 120px;
 				}
 			}
 		}

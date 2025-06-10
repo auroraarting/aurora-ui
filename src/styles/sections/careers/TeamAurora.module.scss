@@ -28,7 +28,7 @@
 			border-radius: 20px;
 			width: 360px;
 			position: absolute;
-			transition: 0.5s ease-in-out;
+			transition: all 0.5s ease-in-out;
 			overflow: hidden;
 			@media (max-width: 1199px) {
 				width: 340px;
@@ -47,6 +47,10 @@
 				opacity: 0;
 				max-height: 0px;
 				transition: 0.5s ease-in-out;
+
+				img {
+					width: 20px;
+				}
 			}
 			.teamFlex {
 				.teamLogo {
@@ -72,13 +76,14 @@
 				}
 			}
 			&:hover {
+				padding-top: 20px;
 				transition: 0.5s ease-in-out;
 				background-color: var(--color_secondary);
 				background-image: url("../../../../public/img/careers/hoverBg.png");
 				background-repeat: no-repeat;
 				background-size: cover;
 				background-position: center;
-				z-index: 2;
+				// z-index: 2;
 				h4,
 				p {
 					transition: 0.5s ease-in-out;

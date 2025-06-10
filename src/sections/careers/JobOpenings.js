@@ -28,6 +28,7 @@ export default function JobOpenings({
 	data,
 	hideFilters = true,
 	hideRedirect = false,
+	defaultSelected,
 }) {
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [jobs, setJobs] = useState(data.jobs.data);
@@ -38,7 +39,7 @@ export default function JobOpenings({
 	});
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "" } },
-		offeringsType: { isOpen: false, selected: { title: "" } },
+		offeringsType: { isOpen: false, selected: { title: defaultSelected || "" } },
 		search: { isOpen: false, selected: { title: "" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data.jobs.data);
@@ -65,6 +66,9 @@ export default function JobOpenings({
 			...dropdowns,
 			[key]: { isOpen: false, selected: { title: option } },
 		};
+		if (option === "") {
+			arr = [...jobs]; // clone to force re-render & effect
+		}
 		if (dropdownObj.eventNameType.selected.title) {
 			arr = arr.filter((item) =>
 				item.location.name
@@ -149,6 +153,12 @@ export default function JobOpenings({
 		setIsSearchVisible(false);
 	};
 
+	useEffect(() => {
+		if (defaultSelected) {
+			handleOptionClick("offeringsType", defaultSelected);
+		}
+	}, [defaultSelected]);
+
 	return (
 		<section className={`${styles.JobOpenings} dark_bg ptb_100`}>
 			<div className="container">
@@ -182,7 +192,7 @@ export default function JobOpenings({
 													<div
 														className={`${styles.select_header} select_bg text_sm text_500`}
 													>
-														{dropdowns.eventNameType.selected.title || "Regions/State"}
+														{dropdowns.eventNameType.selected.title || "Country"}
 														<img src={dropdown_arrow.src} alt="icon" />
 													</div>
 												</div>
@@ -347,7 +357,7 @@ export default function JobOpenings({
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
 										{/* Singapore */}
-										Regions/State
+										Country
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
 										{/* Advisory */}
@@ -449,6 +459,7 @@ export default function JobOpenings({
 					paginationArr={paginationArr}
 					itemsPerPage={5}
 					setCurrentItems={setFilterdJob}
+
 				/>
 			</div>
 		</section>

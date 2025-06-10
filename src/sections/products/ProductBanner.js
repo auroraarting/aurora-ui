@@ -44,12 +44,12 @@ export default function ProductBanner({
 		video: vimeoid,
 		controls: false,
 		paused: false,
-		autoplay: true,
+		autoplay: false,
 		loop: true,
 		responsive: true,
 		muted: true,
 	};
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const vimeoRef = useRef(null);
 
 	/** togglePlayPause */
@@ -64,7 +64,7 @@ export default function ProductBanner({
 	};
 
 	return (
-		<section className={`${styles.ProductBanner} ptb_100`}>
+		<section className={`${styles.ProductBanner} pt_60`}>
 			<div className="container">
 				{logo && (
 					<div className={`${styles.SoftwareLogo} pb_20`}>

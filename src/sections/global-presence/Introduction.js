@@ -20,7 +20,9 @@ import styles from "@/styles/sections/global-presence/Introduction.module.scss";
 
 /** Introduction Section */
 export default function Introduction({ data }) {
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 	return (
 		<section
 			className={`${styles.Introduction}`}
@@ -28,9 +30,9 @@ export default function Introduction({ data }) {
 			data-name="Introduction"
 		>
 			<div className="container">
-				<div className={`${styles.flexBox} f_j ptb_60`}>
+				<div className={`${styles.flexBox} f_j ptb_100`}>
 					<div className={`${styles.flexItemOne}`}>
-						<h2 className="text_xl font_primary f_w_m color_secondary ">
+						<h2 className="text_xl font_primary color_secondary ">
 							{data?.sectionTitle}
 						</h2>
 					</div>

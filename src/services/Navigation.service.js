@@ -19,7 +19,8 @@ query GetSoftwares {
             }
           }
         }
-          thumbnail {
+        thumbnail {
+          primaryColor
           banner {
             node {
               altText
@@ -54,6 +55,7 @@ query GetProducts {
           }
         }
           thumbnail {
+          primaryColor
           banner {
             node {
               altText

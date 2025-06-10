@@ -5,7 +5,7 @@
 			flex-direction: column-reverse;
 		}
 		.content {
-			width: 45%;
+			width: 50%;
 			display: flex;
 			flex-direction: column;
 			// @media (max-width: 1199px) {
@@ -61,9 +61,10 @@
 					.downloadListen {
 						.downloadBox {
 							@media (max-width: 767px) {
-								padding: 15px 0px;
+								padding: 0px 0px;
 							}
 							a {
+								cursor: pointer;
 								margin-right: 40px;
 								&:last-child {
 									border-right: none;
@@ -90,15 +91,29 @@
 			}
 		}
 		.imageWrapper {
-			width: 50%;
-			img {
-				height: 100%;
-			}
+			width: 44%;
+
 			@media (max-width: 1199px) {
-				width: 54%;
+				width: 46%;
 			}
 			@media (max-width: 767px) {
 				width: 100%;
+			}
+			img {
+				height: 287px;
+				width: 500px;
+				aspect-ratio: 500 / 287;
+				object-fit: cover;
+				object-position: center;
+				@media (max-width: 1199px) {
+					width: 100%;
+				}
+				@media (max-width: 991px) {
+					height: 220px;
+				}
+				@media (max-width: 767px) {
+					height: 200px;
+				}
 			}
 		}
 	}

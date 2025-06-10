@@ -63,7 +63,7 @@ export default function ServicesWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.AdvisoryPage}>
-				<div className="pb_60">
+				<div className="">
 					<InnerBanner
 						bannerTitle={data?.services?.banner?.title}
 						bannerDescription={data?.services?.banner?.description}
@@ -127,7 +127,7 @@ export default function ServicesWrap({
 					/>
 				)}
 				{data?.services?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data?.services?.ourClient} />
 					</div>
 				)}
@@ -142,9 +142,9 @@ export default function ServicesWrap({
 						src="/img/eos-bg-gradient.png"
 					/>
 					<div className="">
-						<EosIntegratedSystem />
+						<EosIntegratedSystem name="" />
 					</div>
-					<Bundles data={bundles} />
+					<Bundles data={bundles} name="" />
 				</div>
 				<div className="ptb_100">
 					<Insights

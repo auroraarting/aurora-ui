@@ -1,11 +1,50 @@
 @import "../../helpers/helpers.scss";
 .ConnectWithUs {
 	position: relative;
+	:global(.swiper) {
+		padding-left: 40px;
+		@media (max-width: 767px) {
+			padding-left: 15px;
+		}
+	}
+	.arrowSection {
+		// position: absolute;
+		// right: 80px;
+		// bottom: 50px;
+		z-index: 1;
+		// @media (max-width: 1199px) {
+		// 	right: 55px;
+		// }
+		@media (max-width: 767px) {
+			// right: 30px;
+			width: 94px;
+			margin: 20px auto 0px;
+			position: absolute;
+			right: 15px;
+			bottom: 0;
+		}
+		.customPrev,
+		.customNext {
+			background-color: unset;
+			border: none;
+			cursor: pointer;
+			img {
+				@media (max-width: 767px) {
+					width: 35px;
+				}
+			}
+		}
+		.customPrev {
+			rotate: 180deg;
+		}
+	}
 	.title_wrap {
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
 		}
-		.bookBtn{
+		.bookBtn {
+			margin-left: auto;
+			margin-right: 20px;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-top: 15px;
@@ -14,8 +53,8 @@
 	}
 	.SliderMain {
 		position: relative;
-		padding-left: calc(var(--container_left_space) + 15px);
-    :global(.swiper-wrapper) {
+		padding-left: calc((var(--container_left_space) + 15px) - 40px);
+		:global(.swiper-wrapper) {
 			padding: 40px 0px;
 			@media (max-width: 767px) {
 				padding: 20px 0px 60px;
@@ -30,7 +69,7 @@
 		}
 		.cardItem {
 			background-color: var(--color_white);
-			padding: 20px 20px 30px;
+			padding: 20px;
 			border-radius: 20px;
 			max-height: 345px;
 			transition: 0.5s ease-in-out;
@@ -46,15 +85,17 @@
 					width: 100%;
 					object-fit: cover;
 					object-position: center;
+					@media (max-width: 767px) {
+						height: auto;
+					}
 				}
-				
 			}
 			&:hover {
 				max-height: 390px;
-        transform: rotate(-5deg);
-        box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
+				transform: rotate(-5deg);
+				box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.1);
 				transition: 0.5s ease-in-out;
-        @media (max-width: 767px) {
+				@media (max-width: 767px) {
 					max-height: unset;
 				}
 			}

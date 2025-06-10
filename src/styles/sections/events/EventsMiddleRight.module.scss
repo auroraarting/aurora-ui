@@ -2,6 +2,9 @@
 .EventsMiddleRightBox {
 	position: sticky;
 	top: 220px;
+	@media (max-width: 1199px) {
+		top: 200px;
+	}
 	.whiteBox {
 		background-color: var(--color_white);
 		padding: 30px 20px 30px;
@@ -21,6 +24,11 @@
 					width: 100%;
 					.social {
 						margin-top: 5px;
+					}
+				}
+				.ClientLogo {
+					img {
+						height: 90px;
 					}
 				}
 			}

@@ -1,8 +1,8 @@
 @import "../../../helpers/helpers.scss";
 .EarlyCareers {
 	background-color: var(--color_silver);
-  .EarlyMain {
-		background-color: var(--color_black);
+	.EarlyMain {
+		background-color: var(--color_secondary);
 	}
 	.containerCustom {
 		:global(.containerLarge) {
@@ -21,5 +21,24 @@
 		border-bottom: none !important;
 		padding-bottom: 0px !important;
 		margin-bottom: 0px !important;
+	}
+	:global(.SmarterEnergy) {
+		//background-position: top center;
+		//padding-top: 0px;
+	}
+	:global(.applicationMain) {
+		// padding-bottom: 0px;
+	}
+	:global(.ServicesCircleSection) {
+		padding-top: 0px;
+	}
+	.CricleBg {
+		background-image: url("../../../../../public/img/careers/circleBg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: top center;
+		@media (max-width: 991px) {
+			background-image: unset;
+		}
 	}
 }

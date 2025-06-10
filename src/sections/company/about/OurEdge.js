@@ -40,7 +40,7 @@ export default function OurEdge({ data }) {
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 								{data?.sectionTitle}
 							</h2>
-							<div className="text_reg color_dark_gray pb_20">
+							<div className={`${styles.titleDesc} text_reg color_dark_gray`}>
 								<ContentFromCms>{data?.description}</ContentFromCms>
 							</div>
 						</div>

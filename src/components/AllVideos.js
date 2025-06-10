@@ -39,13 +39,18 @@ export default function AllVideos({
 	sectionName = "Latest Videos",
 	id = "Auroras-career-series",
 }) {
-	if (!title) return <></>;
+	let obj = {};
+	if (sectionName === "") {
+		sectionName = "Latest Videos";
+	}
+	if (id === "") {
+		sectionName = "Auroras-career-series";
+	}
+	if (!title) {
+		return <></>;
+	}
 	return (
-		<section
-			className={`${styles.CareerSeries} CareerSeries`}
-			id={id}
-			data-name={sectionName}
-		>
+		<section className={`${styles.CareerSeries} CareerSeries`} {...obj}>
 			<div className="container">
 				<div className={`${styles.card} f_r_aj_between`}>
 					<div className={`${styles.content}`}>
@@ -55,7 +60,7 @@ export default function AllVideos({
 							{sectionName}
 						</h4>
 
-						<h2 className="text_xl font_primary f_w_m color_white pb_20">{title}</h2>
+						<h2 className="text_xl font_primary color_white pb_20">{title}</h2>
 						<p className="text_reg color_dark_gray pb_40">{desc}</p>
 						<a
 							href={redirectLink}
@@ -64,7 +69,7 @@ export default function AllVideos({
 							className={`${styles.bookBtnOne} bookBtnOne`}
 						>
 							<Button color="secondary" variant="underline" mode="dark" size="xs">
-								Watch All Videos
+								Watch all videos
 							</Button>
 						</a>
 					</div>

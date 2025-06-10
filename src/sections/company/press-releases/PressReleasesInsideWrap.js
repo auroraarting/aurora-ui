@@ -57,7 +57,7 @@ export default function PressReleasesInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.mediaInsidePage}>
-				<div className="pt_100 pb_40">
+				<div className="pt_50 pb_20">
 					<InsideTopSection
 						title={data?.title}
 						date={data?.date}
@@ -82,7 +82,7 @@ export default function PressReleasesInsideWrap({
 						)
 					}
 				/>
-				<section className={`${styles.mediaMiddle} pt_80`}>
+				<section className={`${styles.mediaMiddle} pt_40`}>
 					<div className="container">
 						<div className={`${styles.mediaMiddleFlex} f_j`}>
 							<div className={`${styles.mediaMiddleLeft}`}>
@@ -123,7 +123,7 @@ export default function PressReleasesInsideWrap({
 						insightsTitle="More from Aurora"
 						formdata={dynamicInsightsBtnProps(dataForBtn2, "insightsSectionButton")}
 						insightsLink="/company/press-releases/"
-						allTag="Press"
+						allTag="Press Releases"
 					/>
 				</div>
 			</main>

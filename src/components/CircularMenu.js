@@ -18,7 +18,13 @@ import styles from "@/styles/components/CircularMenu.module.scss";
 // DATA //
 
 /** CircularMenu Component */
-export default function CircularMenu({ items, iconDefault, mode }) {
+export default function CircularMenu({
+	items,
+	iconDefault,
+	mode,
+	customColor,
+	centerLogo,
+}) {
 	const containerRef = useRef(null);
 	const [selectedService, setselectedServices] = useState(0);
 	const [size, setSize] = useState(450); // Default size
@@ -103,7 +109,7 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 			<div
 				className={`${styles.selected} ${
 					selectedService === null && styles.hide
-				} m_b_15`}
+				} m_b_15 selectedNew`}
 			>
 				<p
 					className={`${styles.title} ${
@@ -114,10 +120,13 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 						items?.[selectedService]?.advantagesTitle ||
 						"Lorem ipsum dolor"}
 				</p>
-				<p className={`${styles.desc} color_light_gray text_xs`}>
-					{items?.[selectedService]?.description ||
-						items?.[selectedService]?.advantagesDescription}
-				</p>
+				{(items?.[selectedService]?.description ||
+					items?.[selectedService]?.advantagesDescription) && (
+					<p className={`${styles.desc} color_light_gray text_xs`}>
+						{items?.[selectedService]?.description ||
+							items?.[selectedService]?.advantagesDescription}
+					</p>
+				)}
 			</div>
 
 			<div className={`${styles.CircleInfo} ${styles.CircleBox}`}>
@@ -167,7 +176,9 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 										<motion.path
 											d={`M${center},${center} L${startX},${startY} A${radius},${radius} 0 0,1 ${endX},${endY} Z`}
 											fill={
-												i === selectedService ? "#FFCC00" : stylesForAlternateModes().fill
+												i === selectedService
+													? `${customColor || "#FFCC00"}`
+													: stylesForAlternateModes().fill
 											}
 											stroke={stylesForAlternateModes().stroke}
 											strokeWidth="2"
@@ -213,9 +224,11 @@ export default function CircularMenu({ items, iconDefault, mode }) {
 						</svg>
 					)}
 				</div>
-				<div
-					className={`${styles.CenterBox} ${mode === "light" && styles.white}`}
-				></div>
+				<div className={`${styles.CenterBox} ${mode === "light" && styles.white}`}>
+					{centerLogo && (
+						<img src={centerLogo} className={`${styles.centerLogo} centerLogo`} />
+					)}
+				</div>
 			</div>
 		</>
 	);

@@ -130,13 +130,12 @@ export default function DepartmentList({ data, jobs, departments }) {
 									{dropdowns.offeringsType.isOpen && (
 										<div className={`${styles.selectOptionBox} ${styles.checkBoxWapper}`}>
 											{departments.map((item, index) => (
-												<div key={index} className={styles.checkBoxItem}>
-													<h4
-														className="text_sm color_dark_gray text_500"
-														onClick={() => handleSelect(item)}
-													>
-														{item}
-													</h4>
+												<div
+													key={index}
+													className={styles.checkBoxItem}
+													onClick={() => handleSelect(item)}
+												>
+													<h4 className="text_sm color_dark_gray text_500">{item}</h4>
 												</div>
 											))}
 										</div>
@@ -179,7 +178,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 								<div
 									className={`${styles.leadDetailsFlex} f_w_j ptb_50 dark_bg b_r_20`}
 								>
-									<div className={`${styles.leadDetailsItem}`}>
+									<div className={`${styles.leadDetailsItem} ${styles.thumFix}`}>
 										<div className={`${styles.leadThumb}`}>
 											<img
 												src={
@@ -219,11 +218,11 @@ export default function DepartmentList({ data, jobs, departments }) {
 												</a>
 											</div>
 										)}
-										<div className={`${styles.leadDetailsInfo} pt_30`}>
+										<div className={`${styles.leadDetailsInfo} pt_20`}>
 											{data?.categories?.[selectedDepartment]?.leaderDesc
 												?.slice(0, showAll ? infoData.length : 2)
 												?.map((item, idx) => (
-													<div key={idx} className={`${styles.leadDetailsInfoInner} pb_20`}>
+													<div key={idx} className={`${styles.leadDetailsInfoInner} pb_40`}>
 														<h5 className={`${styles.headTxt} text_reg color_white f_w_b`}>
 															{item.title}
 														</h5>
@@ -244,7 +243,12 @@ export default function DepartmentList({ data, jobs, departments }) {
 						</div>
 					)}
 					<div>
-						<JobOpenings data={jobs} hideFilters={false} hideRedirect={true} />
+						<JobOpenings
+							data={jobs}
+							hideFilters={false}
+							hideRedirect={true}
+							defaultSelected={dropdowns?.offeringsType?.selected?.title}
+						/>
 					</div>
 				</div>
 			</div>

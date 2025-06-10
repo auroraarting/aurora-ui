@@ -4,10 +4,12 @@
 // MODULES //
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import lottie from "lottie-web";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import dynamic from "next/dynamic";
 
 // COMPONENTS //
+import LottieRenderer from "@/components/LottieRenderer";
 
 // SECTIONS //
 
@@ -17,7 +19,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-// import Lottie from "lottie-web";
 import { useInView } from "react-intersection-observer";
 
 // UTILS //
@@ -42,69 +43,51 @@ export default function HomeOurOfferings() {
 	const lottieAnimations2 = [
 		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
 	];
-
 	const [svgHeight, setSvgHeight] = useState("347px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
-	const bgColors = ["#00be86", "#fc0", "#00b6ed", "#0069b4"];
+	const bgColors = ["#00BE86", "#00B6ED", "#FC0", "#027BD1", "#FFFFFF"];
 	const [bgIndex, setBgIndex] = useState(0);
-	// const anim1 = useRef();
-	// const anim2 = useRef();
-	// /** platLottie funnction */
-	// function playLottie() {
-	// 	Lottie.loadAnimation({
-	// 		container: anim1.current,
-	// 		renderer: "svg",
-	// 		loop: true,
-	// 		autoplay: true,
-	// 		animationData: require("../../../public/img/home/lottie/SoftwareLottie.json"),
-	// 	});
-	// 	Lottie.loadAnimation({
-	// 		container: anim2.current,
-	// 		renderer: "svg",
-	// 		loop: true,
-	// 		autoplay: true,
-	// 		animationData: require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
-	// 	});
-	// }
-	// const animRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	// const animRefs2 = [useRef(null), useRef(null), useRef(null), useRef(null)];
-	// /** platLottie funnction */
-	// function platLottieResp() {
-	// 	/** platLottie funnction */
-	// 	const loadLottieAnimation = (ref, animationData) => {
-	// 		if (ref.current) {
-	// 			Lottie.loadAnimation({
-	// 				container: ref.current,
-	// 				renderer: "svg",
-	// 				loop: true,
-	// 				autoplay: true,
-	// 				animationData: animationData,
-	// 			});
-	// 		}
-	// 	};
-	// 	const animationDataArray = [
-	// 		require("../../../public/img/home/lottie/SoftwareLottie.json"),
-	// 	];
-	// 	const animationDataArray1 = [
-	// 		require("../../../public/img/home/lottie/SubscriptionCardLottie.json"),
-	// 	];
-	// 	animRefs.forEach((ref, index) => {
-	// 		loadLottieAnimation(ref, animationDataArray[index]);
-	// 	});
-	// 	animRefs2.forEach((ref, index) => {
-	// 		loadLottieAnimation(ref, animationDataArray1[index]);
-	// 	});
-	// }
-	useEffect(() => {
-		// playLottie();
-		// platLottieResp();
-		EqualHeight("cardHBg");
-		const interval = setInterval(() => {
-			setBgIndex((prev) => (prev + 1) % bgColors.length);
-		}, 1000); // Change every 1s (sync with Lottie)
 
-		return () => clearInterval(interval);
+	// Refs for software animation
+	const softwareAnimRef = useRef(null);
+	const softwareContainerRef = useRef(null);
+	const currentSegmentRef = useRef(-1);
+
+	useEffect(() => {
+		EqualHeight("cardHBg");
+
+		// Initialize software animation
+		let anim;
+		if (softwareContainerRef.current) {
+			anim = lottie.loadAnimation({
+				container: softwareContainerRef.current,
+				renderer: "svg",
+				loop: true,
+				autoplay: true,
+				path: lottieAnimations[0].src,
+			});
+
+			anim.addEventListener("data_ready", () => {
+				const totalFrames = anim.totalFrames;
+				const segmentLength = totalFrames / bgColors.length;
+
+				anim.addEventListener("enterFrame", (event) => {
+					const newSegment = Math.floor(event.currentTime / segmentLength);
+
+					// Only update state when segment changes
+					if (newSegment !== currentSegmentRef.current) {
+						currentSegmentRef.current = newSegment;
+						setBgIndex(newSegment);
+					}
+				});
+			});
+		}
+
+		return () => {
+			if (anim) anim.destroy();
+		};
 	}, []);
+
 	return (
 		<section
 			className={`${styles.HomeOurOfferings}`}
@@ -112,14 +95,9 @@ export default function HomeOurOfferings() {
 			title="our offerings section"
 		>
 			<h2 className="text_lg color_secondary text_center">
-				We equip decision-makers with actionable intelligence
-				<br className="visible_lg" /> to navigate and capitalize on the global shift
+				We provide decision-makers with actionable intelligence
+				<br className="visible_lg" /> to navigate and capitalise on the global shift
 				in energy systems.
-				{/* We provide our clients with
-				data-driven intelligence for <br className="visible_lg" /> strategy,
-				portfolio management and investment
-				<br className="visible_lg" />
-				decisions on the global energy transformation */}
 			</h2>
 			<div className={`${styles.OurOfferingSlider} pt_60`}>
 				<Swiper
@@ -129,12 +107,8 @@ export default function HomeOurOfferings() {
 					speed={500}
 					loop={true}
 					slidesPerView="auto"
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
 					pagination={{
-						clickable: true, // Makes it interactive
+						clickable: true,
 					}}
 					breakpoints={{
 						767: {},
@@ -154,7 +128,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">EOS Platform</h4>
 								<p className="text_reg color_silver_gray">
-									EOS centralizes Aurora’s data, software, forecasts, and insights.
+									EOS is Aurora’s integrated energy intelligence platform, bringing
+									together forecasts, market models, reports, and tools to support
+									strategic decision-making.
 								</p>
 							</div>
 							<img
@@ -168,6 +144,7 @@ export default function HomeOurOfferings() {
 						<div
 							className={`${styles.itemBox} ${styles.softwareAnim} cardHBg`}
 							style={{ backgroundColor: bgColors[bgIndex] }}
+							ref={softwareAnimRef}
 						>
 							<div className={`${styles.Content}`}>
 								<a href="/software" role="button">
@@ -179,26 +156,15 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_secondary">Software</h4>
 								<p className="text_reg color_dark_gray">
-									Our software suite empowers energy professionals with advanced tools
-									for market forecasting, asset valuation, and strategic decision-making.
+									Our software suite enables energy professionals with advanced tools for
+									market forecasting, asset valuation, and strategic decision-making.
 								</p>
 							</div>
-							<DotLottieReact
-								src={lottieAnimations[0].src}
-								autoplay={true}
-								loop={true}
-								renderer="svg"
+							<div
+								className={`${styles.svg}`}
+								ref={softwareContainerRef}
 								style={{ height: svgHeight }}
-								renderersettings={{
-									preserveAspectRatio: "xMidYMid meet",
-								}}
 							/>
-							{/* <img
-								src={macEOS.src}
-								alt="mac eos"
-								className={`${styles.BoxImg} m_0_auto`}
-							/> */}
-							{/* <div className={`${styles.softwareAnim}`} ref={animRefs[0]}></div> */}
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
@@ -218,22 +184,18 @@ export default function HomeOurOfferings() {
 									subscription analytics.
 								</p>
 							</div>
-							<DotLottieReact
-								src={lottieAnimations2[0].src}
-								autoplay={true}
-								loop={true}
-								renderer="svg"
-								style={{ height: svgHeight }}
-								renderersettings={{
-									preserveAspectRatio: "xMidYMid meet",
-								}}
-							/>
-							{/* <img
-								src={macEOS.src}
-								alt="mac eos"
-								className={`${styles.BoxImg} m_0_auto`}
-							/> */}
-							{/* <div className={`${styles.softwareAnim}`} ref={animRefs2[0]}></div> */}
+							<div className={`${styles.svg}`}>
+								<LottieRenderer
+									src={lottieAnimations2[0].src}
+									autoplay={true}
+									loop={true}
+									renderer="svg"
+									style={{ height: svgHeight }}
+									renderersettings={{
+										preserveAspectRatio: "xMidYMid meet",
+									}}
+								/>
+							</div>
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
@@ -248,8 +210,9 @@ export default function HomeOurOfferings() {
 								</a>
 								<h4 className="text_md f_w_m color_white">Advisory</h4>
 								<p className="text_reg color_silver_gray">
-									Bespoke advisory offering in-depth strategic recommendation and
-									insights.
+									Bespoke advisory support combining deep market expertise, modelling and
+									insight to help clients navigate complex energy investment and policy
+									decisions.
 								</p>
 							</div>
 							<img

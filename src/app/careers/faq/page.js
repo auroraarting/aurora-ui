@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -22,6 +22,8 @@ import FaqWrap from "@/sections/careers/FaqWrap";
 // SERVICES //
 import { getFaqPage } from "@/services/Faq.service";
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Meta Data */
 export const metadata = {
 	title: "FAQ | Aurora",
@@ -30,7 +32,7 @@ export const metadata = {
 
 /** Faq Page */
 export default async function Faq() {
-	const [pageFetch] = await Promise.all([getFaqPage()]);
+	const [pageFetch] = await Promise.all([await getFaqPage()]);
 	const page = pageFetch.data.page.faq;
 
 	return (

@@ -53,15 +53,14 @@ export default function Breadcrumbs({ customPage, className = "" }) {
 	const isSpecialPage = ["webinar", "/articles"].some((item) =>
 		item.includes(pathname)
 	);
-	if (isSpecialPage) return <></>;
+	if (isSpecialPage) {
+		return <></>;
+	}
 
 	return (
 		<div className={`Breadcrumbs ${styles.Breadcrumbs} ${className}`}>
-			<div className="container">
-				<nav
-					aria-label="Breadcrumb"
-					className="text_xxs text-gray-600 text_uppercase  ptb_20 f_w"
-				>
+			<div className="">
+				<nav aria-label="Breadcrumb" className="text_xxs text-gray-600  pt_20 f_w">
 					{finalCrumbs.map((crumb, i) => (
 						<span key={crumb.href} className="f_w">
 							{i > 0 && <img src="/img/icons/leftBreadcrumbs.svg" />}

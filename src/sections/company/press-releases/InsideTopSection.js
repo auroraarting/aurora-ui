@@ -16,7 +16,7 @@ import styles from "@/styles/sections/company/press-releases/InsideTopSection.mo
 // IMAGES //
 import press_img from "@/../public/img/media-center/press_img.jpg";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
-import calender from "@/../public/img/icons/calender.svg";
+import calender from "@/../public/img/icons/grey_calendar.svg";
 
 import download from "@/../public/img/resources/aurora_insights/download.svg";
 import share from "@/../public/img/resources/aurora_insights/share.svg";
@@ -37,12 +37,12 @@ export default function InsideTopSection({
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
-						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_20">
+						<h1 className="text_lg color_secondary text_uppercase f_w_m pt_20">
 							{title}
-						</h2>
+						</h1>
 						<div className={`${styles.dateFlex} f_r_a_center pt_20`}>
 							{date && (
-								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img
 										src={calender.src}
 										className={`${styles.calender}`}
@@ -52,7 +52,7 @@ export default function InsideTopSection({
 								</p>
 							)}
 							{time && (
-								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img
 										src={grey_clock.src}
 										className={`${styles.location}`}

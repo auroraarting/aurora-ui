@@ -43,7 +43,7 @@ export default function PoliciesAndCompliance() {
 
 			{/* Page Content starts here */}
 			<main className={styles.TermsPage}>
-				<section className={`${styles.TermsInside} ptb_100`}>
+				<section className={`${styles.TermsInside} pt_60 pb_100`}>
 					<div className="container">
 						<h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
 							POLICIES AND COMPLIANCE
@@ -86,6 +86,26 @@ export default function PoliciesAndCompliance() {
 									rel="noreferrer"
 								>
 									Modern Slavery Statement (Aurora Energy Research Ltd)
+								</a>
+							</p>
+							<h2>Net Zero Policy</h2>
+							<p>
+								<a
+									href="/img/pdf/Net-Zero-Policy-2025-final.pdf"
+									target="_blank"
+									rel="noreferrer"
+								>
+									Net Zero Policy 2025
+								</a>
+							</p>
+							<h2>Whistleblowing Policy</h2>
+							<p>
+								<a
+									href="/img/pdf/Whistleblowing-Policy-FINAL-April-2025.pdf"
+									target="_blank"
+									rel="noreferrer"
+								>
+									Whistleblowing Policy 2025
 								</a>
 							</p>
 						</div>

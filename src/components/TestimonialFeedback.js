@@ -34,7 +34,9 @@ export default function TestimonialFeedback({ data, hideId }) {
 	// 	obj["data-name"] = "Testimonial";
 	// }
 
-	if (!data || !data?.testimonials) return <></>;
+	if (!data || !data?.testimonials) {
+		return <></>;
+	}
 	return (
 		<section
 			className={`${styles.TestimonialFeedback}`}
@@ -67,7 +69,7 @@ export default function TestimonialFeedback({ data, hideId }) {
 									<SwiperSlide key={ind}>
 										<div className={`${styles.testimonialItem}`}>
 											<div className={`${styles.testimonialTxt}`}>
-												<div className="text_md color_dark_gray f_w_i font_primary d_f">
+												<div className="text_reg color_dark_gray f_w_i font_primary d_f">
 													<img
 														src={quate.src}
 														className={`${styles.quate}`}
@@ -77,33 +79,39 @@ export default function TestimonialFeedback({ data, hideId }) {
 													<ContentFromCms>{item?.content}</ContentFromCms>
 												</div>
 											</div>
-											<div className={`${styles.nameTxt}`}>
-												<h5 className="text_lg ont_primary f_w_m color_secondary">
-													{item?.title}
-												</h5>
-												<p className="text_xs color_dark_gray f_w_m pt_10">
-													{item?.testimonials?.designation || item?.designation}
-												</p>
+											<div className={`d_f relative ${styles.nameTxtWrap}`}>
+												<div className={`${styles.nameTxt}`}>
+													<h5 className="text_md ont_primary f_w_m color_secondary">
+														{item?.title}
+													</h5>
+													<p className="text_xs color_dark_gray f_w_m ">
+														{item?.testimonials?.designation || item?.designation}
+													</p>
+												</div>
+												{data?.testimonials?.nodes?.length > 1 && (
+													<div className={`${styles.arrowSection} f_w_a_j_center`}>
+														<button
+															className={`${styles.customPrev}`}
+															id="customPrev"
+															role="button"
+														>
+															<img src={slider_arrow.src} alt="icon" loading="lazy" />
+														</button>
+														<button
+															className={styles.customNext}
+															id="customNext"
+															role="button"
+														>
+															<img src={slider_arrow.src} alt="icon" loading="lazy" />
+														</button>
+													</div>
+												)}
 											</div>
 										</div>
 									</SwiperSlide>
 								);
 							})}
 						</Swiper>
-						{data?.testimonials?.nodes?.length > 1 && (
-							<div className={`${styles.arrowSection} f_w_a_j_center`}>
-								<button
-									className={`${styles.customPrev}`}
-									id="customPrev"
-									role="button"
-								>
-									<img src={slider_arrow.src} alt="icon" loading="lazy" />
-								</button>
-								<button className={styles.customNext} id="customNext" role="button">
-									<img src={slider_arrow.src} alt="icon" loading="lazy" />
-								</button>
-							</div>
-						)}
 					</div>
 				</div>
 			</div>

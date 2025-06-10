@@ -6,6 +6,13 @@
 	h2 {
 		position: relative;
 		z-index: 1;
+		@media (max-width: 1199px) {
+			width: 75%;
+			margin: 0 auto;
+		}
+		@media (max-width: 767px) {
+			width: 100%;
+		}
 	}
 	h3 {
 		padding: 0 15px;
@@ -14,8 +21,12 @@
 	.OurOfferingSlider {
 		padding-left: var(--container_left_space);
 		.itemBox {
+			overflow: hidden;
 			padding: 25px 40px 0 40px;
 			border-radius: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			align-content: space-between;
 			//height: 570px;
 			// display: flex;
 			// flex-direction: column;
@@ -41,7 +52,7 @@
 					-webkit-box-orient: vertical;
 					overflow: hidden;
 					height: 32px;
-					margin-bottom: 20px;
+					margin-bottom: 10px;
 				}
 				p {
 					display: -webkit-box;
@@ -54,21 +65,24 @@
 			}
 			&.LottieContent {
 				background-color: var(--color_white);
+				padding-bottom: 30px;
 				h4 {
 					color: var(--color_secondary);
 				}
 				p {
 					color: var(--color_secondary);
 				}
-				canvas {
-					position: relative;
-					top: -100px;
-				}
 			}
 			&.advisoryBox {
-				display: flex;
-				flex-wrap: wrap;
-				padding-bottom: 20px;
+				padding-bottom: 30px;
+
+				.BoxImg {
+					height: 318px;
+					object-fit: cover;
+					@media (max-width: 768px) {
+						height: 200px;
+					}
+				}
 			}
 		}
 		.softwareAnim {
@@ -79,7 +93,18 @@
 			border-radius: 20px;
 			background-color: var(--color_white);
 			svg {
-				border-radius: 20px;
+				// border-radius: 20px;
+			}
+			canvas,
+			.svg {
+				// height: 100%;
+				// width: 100%;
+				width: 490px !important;
+				height: 390px !important;
+				@media (max-width: 767px) {
+					width: 290px !important;
+					height: 220px !important;
+				}
 			}
 		}
 

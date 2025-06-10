@@ -99,8 +99,8 @@ export default function EOSPageWrap({
 				</div> */}
 				<GlobalMap locationJson={mapJson} />
 				{data?.stats && (
-					<div className="pb_100 black_bg">
-						<CounterDynamic className="black_bg" data={data?.stats} />
+					<div className="pb_50 dark_bg">
+						<CounterDynamic className="dark_bg" data={data?.stats} />
 					</div>
 				)}
 				{/* {data.trustedModels.sectionTitle && (
@@ -110,7 +110,7 @@ export default function EOSPageWrap({
 				)}
 				<ServicesCircle data={data.keyAdvantages} /> */}
 				{data.ourClient.selectLogos && (
-					<div className="pt_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}
@@ -124,7 +124,7 @@ export default function EOSPageWrap({
 				</div>
 				<div
 					// className={`${styles.insightBg} pt_30`}
-					className="pt_30"
+					className=""
 				>
 					<div>
 						<div className="pb_100">
@@ -133,8 +133,8 @@ export default function EOSPageWrap({
 								isInsightsBlogsVisible={true}
 								defaultList={otherList}
 								countries={countries}
-								formSectionTitle="Expertise that powers progress"
-								formSectionDesc="Our team provides tailored onboarding, in-depth feature training, and expert-led valuation reviews with the specialists. Stay ahead with exclusive access to online and in-person community events."
+								formSectionTitle={data?.insights?.sectionTitle}
+								formSectionDesc={data?.insights?.sectionDesc}
 								formSectionBtnText={
 									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 								}

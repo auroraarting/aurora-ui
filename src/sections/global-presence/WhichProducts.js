@@ -36,13 +36,28 @@ export default function WhichProducts({ data }) {
 		const groupedBySlug = {};
 
 		markers?.map((marker) => {
-			marker?.category?.nodes?.map((node) => {
+			marker?.category?.nodes?.map((node, ind) => {
 				const slug = node?.slug;
 
 				if (!groupedBySlug[slug]) {
+					/** keyModule  */
+					const keyModule = () => {
+						if (
+							marker?.category?.nodes?.[0]?.contentType?.node?.name === "softwares"
+						) {
+							return "software";
+						}
+						if (
+							marker?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+						) {
+							return "service";
+						}
+						return marker?.category?.nodes?.[0]?.contentType?.node?.name;
+					};
 					groupedBySlug[slug] = {
 						...node,
-						locationData: undefined,
+						locationData: marker.locationtitle,
+						bottomTextData: marker.bottomText,
 						imgIcons:
 							marker?.category?.nodes?.[0]?.[
 								marker?.category?.nodes?.[0]?.contentType?.node?.name
@@ -55,7 +70,7 @@ export default function WhichProducts({ data }) {
 									</ContentFromCms>
 								</div>
 								<a
-									href={`/${marker?.category?.nodes?.[0]?.contentType?.node?.name}/${marker?.category?.nodes?.[0]?.slug}`}
+									href={`/${keyModule()}/${marker?.category?.nodes?.[0]?.slug}`}
 									className={`${styles.bookBtn} pt_20`}
 								>
 									<Button color="secondary" variant="underline">
@@ -73,12 +88,20 @@ export default function WhichProducts({ data }) {
 				// });
 
 				// if (
-				// 	marker.locationtitle &&
-				// 	!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)
+				// 	marker.bottomText &&
+				// 	!groupedBySlug[slug]?.locationData?.includes(marker?.bottomText)
 				// ) {
 				// 	groupedBySlug[slug].locationData =
-				// 		groupedBySlug[slug].locationData + " | " + marker.locationtitle;
+				// 		groupedBySlug[slug].locationData + " |  " + marker.bottomText;
 				// }
+
+				if (
+					marker.locationtitle &&
+					!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)
+				) {
+					groupedBySlug[slug].locationData =
+						groupedBySlug[slug].locationData + " |  " + marker.locationtitle;
+				}
 			});
 		});
 
@@ -92,7 +115,9 @@ export default function WhichProducts({ data }) {
 		data && setAccordianArr(getAllData());
 	}, []);
 
-	if (!data) return <></>;
+	if (!data) {
+		return <></>;
+	}
 
 	return (
 		<section
@@ -101,9 +126,9 @@ export default function WhichProducts({ data }) {
 			data-name="Products & Services"
 		>
 			<div className="container">
-				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
-						Which products are available
+				<div className={`${styles.titleTxt} pb_20`}>
+					<h2 className="text_xl font_primary color_secondary">
+						Our fleet of products
 					</h2>
 				</div>
 				<div className={`${styles.common_queries_faq}`}>

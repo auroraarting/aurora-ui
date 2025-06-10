@@ -38,12 +38,26 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getHomePage, getHomePageVoices } from "@/services/Home.service";
 import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Meta Data */
-export const metadata = {
-	title: "Home | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "homepage", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 export const revalidate = 60; // Revalidates every 60 seconds
 
@@ -65,19 +79,20 @@ export default async function HomePage() {
 		// 	getHomePageVoices(),
 		// ]);
 		const regions = await getRegions();
-		await new Promise((res) => setTimeout(res, 200));
 		const dataFetch = await getHomePage();
-		await new Promise((res) => setTimeout(res, 200));
-		const eventsdata = await getAllEvents(
-			'first:3, where: { thumbnail: { status: "Upcoming" } }'
-		);
-		await new Promise((res) => setTimeout(res, 200));
+		const eventsdata = await getAllEvents("first:9999");
 		const voicesFetch = await getHomePageVoices();
 
 		mapJson = getMapJsonForAllRegions(regions);
 		data = dataFetch.data.page.homepage;
 		countries = dataFetch.data.countries.nodes;
-		events = eventsdata.data.events.nodes;
+		events = eventsdata?.data?.events?.nodes
+			?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+			?.sort(
+				(a, b) =>
+					new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+			)
+			.slice(0, 1);
 		voices = voicesFetch;
 	} catch (error) {
 		errorMsg = error;
@@ -88,6 +103,8 @@ export default async function HomePage() {
 
 	return (
 		<div>
+			{/* Metatags */}
+			<MetaTags />
 			{/* Header */}
 			{/* <Header /> */}
 
@@ -96,7 +113,7 @@ export default async function HomePage() {
 				<HomeBanner />
 				<HomeOurOfferings />
 				{data?.ourClient?.selectLogos && (
-					<div className="pt_40">
+					<div className="pt_100 pb_50">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}

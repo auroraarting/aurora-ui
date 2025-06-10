@@ -7,6 +7,7 @@ import Insights from "@/components/Insights";
 import SectionsHeader from "@/components/SectionsHeader";
 import Button from "@/components/Buttons/Button";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import EventsInsideBanner from "@/sections/events/EventsInsideBanner";
@@ -28,7 +29,6 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 // IMAGES //
 
@@ -65,10 +65,10 @@ export default function EventsInsideWrap({
 				{data?.events?.thumbnail?.status === "Upcoming" && (
 					<CountdownTimer targetDate={data?.events?.thumbnail?.date} />
 				)}
-				<div className="container">
+				{/* <div className="container">
 					<Breadcrumbs />
-				</div>
-				<div className="pt_50">
+				</div> */}
+				<div className="pt_40">
 					<EventsInsideBanner data={data} />
 				</div>
 				<SectionsHeader
@@ -93,7 +93,7 @@ export default function EventsInsideWrap({
 								<EventsMiddleDescription data={data} />
 								<EventsLocation data={data} />
 								{data?.events?.glimps?.gallery?.nodes && (
-									<div className="pb_60">
+									<div className="">
 										<EventsGallery data={data} />
 									</div>
 								)}
@@ -132,7 +132,7 @@ export default function EventsInsideWrap({
 				{/* {pastEvents?.length > 0 && ( */}
 				<div className="pb_100">
 					<Insights
-						allTag="Events"
+						allTag="Past Events"
 						insightsLink="/events/"
 						isPowerBgVisible={
 							data?.events?.thumbnail?.status === "Past" ? false : true

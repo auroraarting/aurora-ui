@@ -311,10 +311,6 @@ const tempdata = {
 };
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
 
 /** Insights Section */
 export default function Insights({
@@ -411,7 +407,7 @@ export default function Insights({
 										{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
 											{insightsTitle}
 										</h2> */}
-										<p className="text_lg font_primary f_w_s_b color_white">
+										<p className="text_lg font_primary f_w_s_b color_white pb_10">
 											{formSectionTitle}
 										</p>
 										<div className={`${styles.desc} text_reg color_silver_gray`}>
@@ -483,7 +479,7 @@ export default function Insights({
 									className={`${styles.bookBtn}`}
 								>
 									<Button color="primary" variant="filled" shape="rounded" mode="dark">
-										View All
+										View all
 									</Button>
 								</a>
 							</div>
@@ -514,7 +510,11 @@ export default function Insights({
 												<p
 													className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
 												>
-													{item?.title}
+													{item?.customHtmlForTitle ? (
+														<ContentFromCms>{item?.title}</ContentFromCms>
+													) : (
+														item?.title
+													)}
 												</p>
 												<div className={`${styles.dateFlex} f_j pt_30`}>
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">

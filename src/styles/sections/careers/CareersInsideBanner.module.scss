@@ -5,11 +5,11 @@
 	}
 	.tag {
 		background-color: var(--color_blue);
-		padding: 12px 20px;
+		padding: 8px 20px;
 		border-radius: 8px;
 		width: max-content;
 		margin-bottom: 30px;
-
+    letter-spacing: 1px;
 		&.isLive {
 			background-color: var(--color_primary);
 		}
@@ -18,6 +18,9 @@
 		width: 70%;
 		@media (max-width: 991px) {
 			width: 100%;
+		}
+		@media (max-width: 767px) {
+			padding-bottom: 10px;
 		}
 	}
 	.dateBox {

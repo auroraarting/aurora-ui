@@ -10,6 +10,7 @@ import Modal, { openModal } from "@/components/Modal";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -37,23 +38,24 @@ export default function GraduateExperiance({
 
 	return (
 		<>
-			<section
-				className={`${styles.TeamAurora} pb_50`}
-				id={id}
-				data-name={sectionName}
-			>
+			<section className={`${styles.TeamAurora}`} id={id} data-name={sectionName}>
 				<div className="containerLarge">
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 							{title}
 						</h2>
-						<div className={`${styles.bookBtn}`}>
+						<p className="text_reg color_dark_gray">
+							Explore first-hand accounts from our graduates, covering everything{" "}
+							<br className="hidden_xs" />
+							from the application journey to their daily experiences on the job.
+						</p>
+						{/* <div className={`${styles.bookBtn}`}>
 							<Link href="/careers/our-team">
 								<Button color="primary" variant="filled" shape="rounded">
 									Our Teams
 								</Button>
 							</Link>
-						</div>
+						</div> */}
 					</div>
 					<div className={`${styles.TeamBoxRow} ${styles.TeamBoxRowOne}`}>
 						{defaultData?.map((item, ind) => {
@@ -78,7 +80,7 @@ export default function GraduateExperiance({
 											</h4>
 											<p className="text_xs color_dark_gray f_w_l">{item?.designation}</p>
 										</div>
-										<img src="/img/icons/plusIcon.png" />
+										<img src="/img/icons/plusIcon.svg" />
 									</div>
 								</div>
 							);
@@ -89,14 +91,19 @@ export default function GraduateExperiance({
 			<div className={`${styles.popup}`} data-lenis-prevent>
 				<Modal id="teamPop">
 					<div className={`${styles.card} d_f`}>
-						<img
-							className={`${styles.thumb}`}
-							src={defaultData[selectId]?.popup?.thumb?.node?.mediaItemUrl}
-							alt={defaultData[selectId]?.name}
-						/>
+						<div className={`${styles.thumbImg}`}>
+							<div className={`${styles.thumFix}`}>
+								<img
+									className={`${styles.thumb}`}
+									src={defaultData[selectId]?.popup?.thumb?.node?.mediaItemUrl}
+									alt={defaultData[selectId]?.name}
+								/>
+							</div>
+						</div>
 						<div className={`${styles.contentWrap} color_white`}>
 							<div className={`${styles.head} color_white text_lg f_w_m`}>
-								Graduate Experience: <br /> {defaultData[selectId]?.name}
+								{/* Graduate Experience: <br />  */}
+								{defaultData[selectId]?.name}
 							</div>
 							<p className={`${styles.designation} text_xs`}>
 								{defaultData[selectId]?.designation}

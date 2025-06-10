@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -31,42 +31,46 @@ import {
 } from "@/services/HowWeHelp.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-/** Fetch Meta Data */
+export const revalidate = 60; // Revalidates every 60 seconds
+
+/** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const data = await getSingleHowWeHelp(params.slug);
-	const post = data?.data?.howwehelpBy;
+	const meta = await getPageSeo(`howwehelpBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.howwehelpBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
 		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const services = await getHowWeHelps();
+	return services.data.howWeHelps.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** Fetch  */
 async function getData({ params }) {
 	const [data, services, regions, bundles] = await Promise.all([
-		getSingleHowWeHelp(params.slug),
-		getHowWeHelps(),
-		getRegions(),
-		getBundlesSection(),
+		await getSingleHowWeHelp(params.slug),
+		await getHowWeHelps(),
+		await getRegions(),
+		await getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
 
@@ -93,14 +97,6 @@ export default async function Transactions({ params }) {
 	// const { link, title } = getLinkAndTitle(key, item);
 	return (
 		<div>
-			{/* Metatags */}
-			{/* <MetaTags
-				Title={data?.title}
-				Desc={""}
-				OgImg={""}
-				Url={`/how-we-help/${data?.slug}`}
-			/> */}
-
 			{/* Header */}
 			{/* <Header /> */}
 

@@ -142,7 +142,7 @@ export default function AuroraInsightsWrap({
 						dynamicData={[
 							{
 								desc: "Expert-led sessions on industry-defining topics",
-								btnText: "View All Webinar",
+								btnText: "View all Webinar",
 								btnLink: "/resources/webinar",
 								img: "/img/contact/cardImg6.jpg",
 								fontColor: "color_black",
@@ -156,7 +156,7 @@ export default function AuroraInsightsWrap({
 							},
 							{
 								desc: "Join events shaping the future of energy",
-								btnText: "View All Events",
+								btnText: "View all events",
 								btnLink: "/events",
 								fontColor: "color_white",
 								img: "/img/contact/cardImg4.jpg",

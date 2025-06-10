@@ -68,7 +68,7 @@ export default function CuttingEdgeModels({ data }) {
 		// if (item?.countries?.nodes?.length > 0) {
 		obj.children = (
 			<>
-				<p className={`${styles.Desc} text_reg  pb_20`}>
+				<p className={`${styles.Desc} text_xs color_dark_gray pb_20`}>
 					{parse(item.description)}
 				</p>
 			</>
@@ -108,7 +108,9 @@ export default function CuttingEdgeModels({ data }) {
 		},
 	];
 
-	if (!data || !data.sectionTitle) return <></>;
+	if (!data || !data.sectionTitle) {
+		return <></>;
+	}
 
 	// console.log(eventSpeakersData);
 	return (

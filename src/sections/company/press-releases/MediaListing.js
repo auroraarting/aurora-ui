@@ -17,6 +17,7 @@ import formatDate, {
 	filterItems,
 	filterItemsBySelectedObj,
 	filterItemsBySelectedObjForPress,
+	isCategory,
 	updateQueryFast,
 } from "@/utils";
 
@@ -51,9 +52,10 @@ export default function MediaListing({
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [dropdowns, setDropdowns] = useState({
 		languageType: { isOpen: false, selected: { title: "Language" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
+		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 	});
 	const [list, setList] = useState(data);
 	const [paginationArr, setPaginationArr] = useState(data);
@@ -87,6 +89,7 @@ export default function MediaListing({
 		languageType: useRef(null),
 		offeringsType: useRef(null),
 		yearsType: useRef(null),
+		eventStatusType: useRef(null),
 	};
 
 	const optionsData = {
@@ -101,6 +104,7 @@ export default function MediaListing({
 		],
 		yearsType: years,
 		countryType: countries,
+		eventStatusType: [{ title: "Upcoming" }, { title: "Past" }],
 	};
 
 	/** Toggle Dropdown */
@@ -149,6 +153,9 @@ export default function MediaListing({
 		}
 		if (key === "languageType") {
 			selectedObj.language = catName;
+		}
+		if (key === "eventStatusType") {
+			selectedObj.status = catName;
 		}
 
 		const filteredArr = filterItems(arr, selectedObj);
@@ -214,7 +221,9 @@ export default function MediaListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
+
+	// console.log(list, "list");
 
 	return (
 		<section className={styles.MediaListing}>
@@ -260,7 +269,7 @@ export default function MediaListing({
 							</div>
 						</div>
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -310,7 +319,7 @@ export default function MediaListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}
@@ -325,7 +334,7 @@ export default function MediaListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected?.year || "Years"}
+										{selected?.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -356,9 +365,8 @@ export default function MediaListing({
 								)}
 							</div>
 						</div>
-
 						{/* Language Dropdown */}
-						<div className={styles.selectBox} ref={dropdownRefs.languageType}>
+						{/* <div className={styles.selectBox} ref={dropdownRefs.languageType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -374,6 +382,16 @@ export default function MediaListing({
 								</div>
 								{dropdowns.languageType.isOpen && (
 									<ul className={styles.selectOptionBox} data-lenis-prevent>
+										<li
+											// className={
+											// 	option.title === dropdowns.languageType.selected.title
+											// 		? "selected"
+											// 		: ""
+											// }
+											onClick={() => handleOptionClick("languageType", "")}
+										>
+											All
+										</li>
 										{optionsData.languageType.map((option) => (
 											<li
 												key={option.title}
@@ -390,7 +408,49 @@ export default function MediaListing({
 									</ul>
 								)}
 							</div>
-						</div>
+						</div> */}
+						{/* Event Status Type Dropdown */}
+						{/* <div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.eventStatusType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("eventStatusType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{selected?.status || "Status"}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.eventStatusType.isOpen && (
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
+										<li
+											className={
+												dropdowns.eventStatusType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventStatusType", "")}
+										>
+											All
+										</li>
+										{optionsData.eventStatusType.map((option) => (
+											<li
+												key={option.title}
+												className={
+													option.title === dropdowns.eventStatusType.selected.title
+														? "selected"
+														: ""
+												}
+												onClick={() => handleOptionClick("eventStatusType", option)}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div> */}
 						{/* Reset */}
 						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
@@ -404,7 +464,7 @@ export default function MediaListing({
 											languageType: { isOpen: false, selected: { title: "Language" } },
 											offeringsType: {
 												isOpen: false,
-												selected: { title: "Products & Services" },
+												selected: { title: "Offerings" },
 											},
 											yearsType: { isOpen: false, selected: { title: "Year" } },
 											countryType: { isOpen: false, selected: { title: "Country" } },
@@ -447,7 +507,7 @@ export default function MediaListing({
 										autoFocus
 										name="search"
 										type="text"
-										placeholder="Search Events"
+										placeholder="Search"
 										onChange={(e) => setSearchInput(e.target.value)}
 									/>
 								</form>
@@ -508,6 +568,17 @@ export default function MediaListing({
 												/>
 												<span>{formatDate(item?.date)}</span>
 											</p>
+											{isCategory(countries, item?.categories?.nodes) && (
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={location.src}
+														className={`${styles.location}`}
+														alt="location"
+													/>
+													{/* <span>WECC</span> */}
+													{isCategory(countries, item?.categories?.nodes)}
+												</p>
+											)}
 										</div>
 									</div>
 								</a>

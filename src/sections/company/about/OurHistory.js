@@ -27,7 +27,9 @@ import history_img from "../../../../public/img/company/about/history_img.jpg";
 
 /** OurHistory Section */
 export default function OurHistory({ data }) {
-	if (!data?.sectionTitle) return <></>;
+	if (!data?.sectionTitle) {
+		return <></>;
+	}
 
 	return (
 		<section

@@ -60,12 +60,27 @@ export function getMapJsonForCountries(data) {
 			?.map((markerItem) => {
 				let node = markerItem?.category?.nodes[0];
 
+				/** keyModule  */
+				const keyModule = () => {
+					if (
+						markerItem?.category?.nodes?.[0]?.contentType?.node?.name === "softwares"
+					) {
+						return "software";
+					}
+					if (
+						markerItem?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+					) {
+						return "service";
+					}
+					return markerItem?.category?.nodes?.[0]?.contentType?.node?.name;
+				};
+
 				let obj = {
 					unique: Math.random(),
 					name: markerItem?.category?.nodes?.[0]?.title || "",
 					lat: parseFloat(markerItem?.coordinates?.lat),
 					lng: parseFloat(markerItem?.coordinates?.lng),
-					url: `/${markerItem?.category?.nodes?.[0]?.contentType?.node?.name}/${markerItem?.category?.nodes?.[0]?.slug}`,
+					url: `/${keyModule()}/${markerItem?.category?.nodes?.[0]?.slug}`,
 					icon:
 						node?.services?.map?.logo?.node?.mediaItemUrl ||
 						node?.products?.map?.logo?.node?.mediaItemUrl ||
@@ -127,6 +142,9 @@ export function getMapJsonForProducts(regions) {
 								if (node?.contentType?.node?.name === "softwares") {
 									return "software";
 								}
+								if (node?.contentType?.node?.name === "services") {
+									return "service";
+								}
 								return node?.contentType?.node?.name;
 							};
 							if (node?.contentType?.node?.name != "products") {
@@ -135,7 +153,8 @@ export function getMapJsonForProducts(regions) {
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${keyModule()}/${node?.slug}`;
+							// obj2.url = `/${keyModule()}/${node?.slug}`;
+							obj2.url = `/global-presence/${item2?.slug}`;
 						}
 
 						return obj2;
@@ -189,6 +208,9 @@ export function getMapJsonForService(regions) {
 								if (node?.contentType?.node?.name === "softwares") {
 									return "software";
 								}
+								if (node?.contentType?.node?.name === "services") {
+									return "service";
+								}
 								return node?.contentType?.node?.name;
 							};
 							if (node?.contentType?.node?.name != "services") {
@@ -197,7 +219,8 @@ export function getMapJsonForService(regions) {
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${keyModule()}/${node?.slug}`;
+							// obj2.url = `/${keyModule()}/${node?.slug}`;
+							obj2.url = `/global-presence/${item2?.slug}`;
 						}
 
 						return obj2;
@@ -251,6 +274,9 @@ export function getMapJsonForSoftware(regions) {
 								if (node?.contentType?.node?.name === "softwares") {
 									return "software";
 								}
+								if (node?.contentType?.node?.name === "services") {
+									return "service";
+								}
 								return node?.contentType?.node?.name;
 							};
 							if (node?.contentType?.node?.name != "softwares") {
@@ -259,7 +285,8 @@ export function getMapJsonForSoftware(regions) {
 							obj2.name = node?.title;
 							obj2.lat = parseFloat(item3?.coordinates?.lat);
 							obj2.lng = parseFloat(item3?.coordinates?.lng);
-							obj2.url = `/${keyModule()}/${node?.slug}`;
+							// obj2.url = `/${keyModule()}/${node?.slug}`;
+							obj2.url = `/global-presence/${item2?.slug}`;
 						}
 
 						return obj2;
@@ -267,6 +294,7 @@ export function getMapJsonForSoftware(regions) {
 					.filter((item) => item),
 				zoom: item2?.countries?.map?.zoom,
 				name: item2?.title,
+				slug: item2?.slug,
 			};
 
 			obj && mapJson.push(obj);
@@ -327,6 +355,9 @@ export function getMapJsonForAllRegions(regions) {
 						const keyModule = () => {
 							if (node.contentType?.node?.name === "softwares") {
 								return "software";
+							}
+							if (node?.contentType?.node?.name === "services") {
+								return "service";
 							}
 							return node.contentType?.node?.name;
 						};
@@ -468,29 +499,44 @@ export const allCategories = [
 ];
 
 /** findFunc  */
-export function isCategory(categoryList, dynamicWords) {
-	const words = dynamicWords
-		?.flatMap((item) => item.name.toLowerCase().split(/\s|&|\/|,/)) // split by space, &, /, comma
-		.map((word) => word?.trim())
-		.filter(Boolean); // remove empty strings
+export function isCategory(categoryList, dynamicWords, forUrl = false) {
+	const names = dynamicWords
+		?.map((item) => item.name.toLowerCase().trim())
+		.filter(Boolean);
 
-	let txt = "";
+	let matchedTitles = [];
 
-	categoryList?.forEach((item) => {
-		const target = (item.alternate || item.title).toLowerCase();
-		const match = words?.some((word) => target.includes(word));
-		// const match = words?.some((word) => target === word.toLowerCase());
+	categoryList?.map((item) => {
+		const target = (item.alternate || item.title).toLowerCase().trim();
 
-		if (match) {
-			if (!txt) {
-				txt += item.title;
+		if (names?.includes(target)) {
+			if (!forUrl) {
+				if (item.title === "Case Studies") {
+					item.title = "Case Study";
+				}
+				if (item.title === "Market Reports") {
+					item.title = "Market Report";
+				}
+				if (item.title === "Articles") {
+					item.title = "Article";
+				}
 			} else {
-				txt += `, ${item.title}`;
+				if (item.title === "Case Study") {
+					item.title = "Case Studies";
+				}
+				if (item.title === "Market Report") {
+					item.title = "Market Reports";
+				}
+				if (item.title === "Article") {
+					item.title = "Articles";
+				}
 			}
+
+			matchedTitles.push(item.title);
 		}
 	});
 
-	return txt;
+	return matchedTitles.join(", ");
 }
 
 /** filterItems for resources */
@@ -519,6 +565,34 @@ export const filterItems = (items, filterObj) => {
 		const matchesLanguage = filterLanguage
 			? itemLanguage === filterLanguage.toLowerCase()
 			: true;
+
+		// 3. Status
+		const filterStatus = filterObj.status;
+		const todaysDate = new Date();
+		const itemDate = new Date(item?.date);
+		/** matchesStatus  */
+		const matchesStatusFunc = () => {
+			if (filterStatus) {
+				if (filterStatus === "Upcoming") {
+					return itemDate >= todaysDate; // Upcoming events
+				} else {
+					return itemDate < todaysDate; // Past events
+				}
+			} else {
+				return true;
+			}
+		};
+		const matchesStatus = matchesStatusFunc();
+
+		//     {
+		// 	key: "status",
+		// 	match: (item, value) => {
+		// 		let todaysDate = new Date();
+		// 		if (value === "Upcoming")
+		// 			return new Date(item.events?.thumbnail?.date) >= todaysDate;
+		// 		return new Date(item.events?.thumbnail?.date) < todaysDate;
+		// 	},
+		// },
 
 		// 4. 🔍 Enhanced Search
 		const matchSearch = filterObj.search
@@ -578,7 +652,11 @@ export const filterItems = (items, filterObj) => {
 			: true;
 
 		return (
-			matchesCategoryFilters && matchesYear && matchesLanguage && matchSearch
+			matchesCategoryFilters &&
+			matchesYear &&
+			matchesLanguage &&
+			matchSearch &&
+			matchesStatus
 		);
 	});
 };
@@ -622,6 +700,24 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 		const matchYear = selected.year
 			? new Date(date).getFullYear() === selected.year
 			: true;
+
+		// 3. Status
+		const filterStatus = selected.status;
+		const todaysDate = new Date();
+		const itemDate = new Date(podcast?.podcastFields?.date);
+		/** matchesStatus  */
+		const matchesStatusFunc = () => {
+			if (filterStatus) {
+				if (filterStatus === "Upcoming") {
+					return itemDate >= todaysDate; // Upcoming events
+				} else {
+					return itemDate < todaysDate; // Past events
+				}
+			} else {
+				return true;
+			}
+		};
+		const matchesStatus = matchesStatusFunc();
 
 		// 🔍 Enhanced Search
 		const matchSearch = selected.search
@@ -667,7 +763,8 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 			matchProduct &&
 			matchService &&
 			matchYear &&
-			matchSearch
+			matchSearch &&
+			matchesStatus
 		);
 	});
 };
@@ -720,6 +817,24 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			? categories.some((c) => c.name === selected.category)
 			: true;
 
+		// 3. Status
+		const filterStatus = selected.status;
+		const todaysDate = new Date();
+		const itemDate = new Date(podcast?.webinarsFields?.endDateAndTime);
+		/** matchesStatus  */
+		const matchesStatusFunc = () => {
+			if (filterStatus) {
+				if (filterStatus === "Upcoming") {
+					return itemDate >= todaysDate; // Upcoming events
+				} else {
+					return itemDate < todaysDate; // Past events
+				}
+			} else {
+				return true;
+			}
+		};
+		const matchesStatus = matchesStatusFunc();
+
 		// 5. 🔍 Enhanced Search
 		const matchSearch = selected.search
 			? (() => {
@@ -769,13 +884,15 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 			matchService &&
 			matchYear &&
 			matchCategory &&
-			matchSearch
+			matchSearch &&
+			matchesStatus
 		);
 	});
 };
 
 /** filterBySearchQuery */
 export const filterBySearchQuery = (items, searchQuery) => {
+	console.log(searchQuery, "searchQuery");
 	if (!searchQuery) return items;
 
 	const lowerSearch = searchQuery.toLowerCase();
@@ -844,13 +961,16 @@ export const dynamicInsightsBtnProps = (
 				typeof window !== "undefined" &&
 				!fallbackUrl.startsWith("/") &&
 				!fallbackUrl.includes(window.location.origin);
+			const isMailTo = fallbackUrl.startsWith("mailto:");
 
 			if (isExternal) {
-				obj.target = "_blank";
-				obj.rel = "noreferrer";
-				obj.onClick = () => {
-					window.open(fallbackUrl, "_blank", "noopener,noreferrer");
-				};
+				if (!isMailTo) {
+					obj.target = "_blank";
+					obj.rel = "noreferrer";
+					obj.onClick = () => {
+						window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+					};
+				}
 			} else {
 				// Internal URL — same tab
 				obj.onClick = () => {
@@ -946,7 +1066,12 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 		},
 		{
 			key: "status",
-			match: (item, value) => item.events?.thumbnail?.status === value,
+			match: (item, value) => {
+				let todaysDate = new Date();
+				if (value === "Upcoming")
+					return new Date(item.events?.thumbnail?.date) >= todaysDate;
+				return new Date(item.events?.thumbnail?.date) < todaysDate;
+			},
 		},
 		// 🔍 Add search filter
 		{
@@ -972,7 +1097,9 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 					item.events?.thumbnail?.category?.nodes?.map((n) => n.title) || [];
 
 				// Get status
-				const status = item.events?.thumbnail?.status || "";
+				let todaysDate = new Date();
+				const status =
+					new Date(item.events?.thumbnail?.date) >= todaysDate ? "Upcoming" : "Past";
 
 				// Get year
 				const date = item.events?.thumbnail?.date;
@@ -1352,5 +1479,5 @@ export const updateQueryFast = (selecObj) => {
 
 /** removeHTML  */
 export function removeHTML(str) {
-	return str.replace(/<[^>]*>/g, "");
+	return str?.replace(/<[^>]*>/g, "");
 }

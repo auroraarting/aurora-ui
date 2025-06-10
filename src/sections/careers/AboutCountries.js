@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 // MODULES //
-import { useRef, useEffect, useState } from "react";
+import { useEffect } from "react";
+
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
@@ -12,7 +14,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+
 // UTILS //
+import EqualHeight from "../../utils/EqualHeight";
 
 // STYLES //
 import styles from "@/styles/sections/careers/AboutCountries.module.scss";
@@ -24,19 +28,43 @@ import teamsIcn02 from "../../../public/img/careers/teamsIcn02.svg";
 import teamsIcn03 from "../../../public/img/careers/teamsIcn03.svg";
 import aboutBerlin from "../../../public/img/careers/aboutBerlin.jpg";
 import aboutBerlinIcn from "../../../public/img/careers/aboutBerlinIcn.svg";
+import slider_arrow from "/public/img/icons/slider_arrow.svg";
+
 // DATA //
 
 /** AboutCountries Section */
 export default function AboutCountries({ data }) {
-	if (!data?.earlyCareers?.collaborationSupport?.sectionTitle) return null;
+	if (!data?.earlyCareers?.collaborationSupport?.sectionTitle) {
+		return null;
+	}
 
+	useEffect(() => {
+		setTimeout(() => {
+			EqualHeight("aboutBoxH");
+		}, 1000);
+		//EqualHeight("aboutBoxH");
+	}, []);
 	return (
-		<section className={`${styles.aboutCountries} pt_100`}>
+		<section
+			className={`${styles.aboutCountries} pt_100`}
+			id="ABOUT"
+			data-name="ABOUT"
+		>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
 						{data?.earlyCareers?.collaborationSupport?.sectionTitle}
 					</h2>
+					{data?.earlyCareers?.collaborationSupport?.list?.length > 0 && (
+						<div className={`${styles.arrowSection} f_w_a_j_center`}>
+							<button className={`${styles.customPrev}`} id="customPrevCountry">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+							<button className={styles.customNext} id="customNextCountry">
+								<img src={slider_arrow.src} alt="icon" />
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 			{data?.earlyCareers?.collaborationSupport?.list?.length > 0 && (
@@ -44,14 +72,14 @@ export default function AboutCountries({ data }) {
 					<div className={`${styles.SliderMain} pt_20`}>
 						<Swiper
 							modules={[Navigation, Autoplay]}
-							slidesPerView={1.1}
+							slidesPerView={1.2}
 							spaceBetween={20}
 							grabCursor={true}
 							speed={500}
 							loop={true}
 							navigation={{
-								prevEl: "#customPrevCollaboration",
-								nextEl: "#customNextCollaboration",
+								prevEl: "#customPrevCountry",
+								nextEl: "#customNextCountry",
 							}}
 							// autoplay={{
 							//   delay: 3000,
@@ -59,7 +87,10 @@ export default function AboutCountries({ data }) {
 							// }}
 							breakpoints={{
 								768: {
-									slidesPerView: 1.3,
+									slidesPerView: 1.6,
+								},
+								992: {
+									slidesPerView: 1.6,
 								},
 							}}
 							className={styles.slider}
@@ -81,7 +112,7 @@ export default function AboutCountries({ data }) {
 												</h4>
 											)}
 
-											<div className={styles.points}>
+											<div className={`${styles.points} aboutBoxH`}>
 												<div className="text_reg m_b_10 color_dark_gray">
 													<ContentFromCms>{item?.desc}</ContentFromCms>
 												</div>

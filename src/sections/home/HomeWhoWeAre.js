@@ -37,7 +37,7 @@ export default function HomeWhoWeAre() {
 						<h4 className="text_md color_white f_w_m pb_20">Financial Sector</h4>
 						<p className="text_reg color_silver_gray">
 							For informed capital allocation in evolving energy landscapes, energy
-							investors trust Aurora&apos;s analytical rigor and regulatory expertise.
+							investors trust Aurora&apos;s analytical rigour and regulatory expertise.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/financial-sector">
@@ -50,12 +50,12 @@ export default function HomeWhoWeAre() {
 					<div className={`${styles.HomeWhoWeAreInfo} ptb_40`}>
 						<h4 className="text_md color_white f_w_m pb_20">Energy Consumers</h4>
 						<p className="text_reg color_silver_gray">
-							Large-scale businesses optimizing energy procurement, balancing
+							Large-scale businesses optimising energy procurement, balancing
 							cost-efficiency, reliability, and sustainability while meeting
 							operational and regulatory requirements.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Link href="/who-are-you/energy-consumer">
+							<Link href="/who-are-you/energy-consumers">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>
@@ -84,7 +84,7 @@ export default function HomeWhoWeAre() {
 							drive the development of renewable energy and infrastructure solutions.
 						</p>
 						<div className={`${styles.btn_box} pt_40`}>
-							<Link href="/who-are-you/developer">
+							<Link href="/who-are-you/developers">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
 									Know more
 								</Button>

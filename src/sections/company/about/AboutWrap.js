@@ -2,7 +2,6 @@
 // MODULES //
 
 // COMPONENTS //
-import MetaTags from "@/components/MetaTags";
 import InnerBanner from "@/components/InnerBanner";
 import GlobalMap from "@/components/GlobalMap";
 import EosIntegratedSystem from "@/components/EosIntegratedSystem";
@@ -51,9 +50,6 @@ export default function AboutWrap({
 
 	return (
 		<div>
-			{/* Metatags */}
-			<MetaTags Title={"About"} Desc={""} OgImg={""} Url={"/about"} />
-
 			{/* Header */}
 			{/* <Header /> */}
 
@@ -92,7 +88,7 @@ export default function AboutWrap({
 					</div>
 				)}
 				{data?.ourEdge?.sectionTitle && (
-					<div className={`${styles.OurEdgeMain} pt_100`}>
+					<div className={`${styles.OurEdgeMain} pt_40`}>
 						<OurEdge data={data?.ourEdge} />
 					</div>
 				)}
@@ -105,28 +101,29 @@ export default function AboutWrap({
 				)}
 				{/* eos */}
 				{mapJson && (
-					<div className="black_bg">
+					<div className="dark_bg">
 						<GlobalMap
 							locationJson={[mapJson]}
 							marqueeText={data?.map?.marqueetext}
 							sectionName="Global Presence"
-							className="black_bg"
+							className="dark_bg"
+							hideOnHover
 						/>
 					</div>
 				)}
 				<div className="">
 					<Counter
-						className="black_bg"
+						className="dark_bg"
 						data={{ stats: { ...data.stats, offices: data.offices.length } }}
 					/>
 				</div>
-				<div className="ptb_100 black_bg relative">
+				<div className="ptb_100 dark_bg relative">
 					{/* <img
 						className={`${styles.bgGradient} bgGradientEos`}
 						src="/img/eos-bg-gradient.png"
 						alt="bg img"
 					/> */}
-					<div className="pb_100">
+					<div className="">
 						<EosIntegratedSystem />
 					</div>
 					<Bundles data={bundles} />
@@ -138,7 +135,7 @@ export default function AboutWrap({
 					</section>
 				</div>
 				{data.ourClient.selectLogos && (
-					<div className="pt_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data.ourClient} />
 					</div>
 				)}

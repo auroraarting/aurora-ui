@@ -165,6 +165,11 @@ export default function Map({
 									) {
 										return "software";
 									}
+									if (
+										marker?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+									) {
+										return "service";
+									}
 									return marker?.category?.nodes?.[0]?.contentType?.node?.name;
 								};
 								return `/${keyModule()}/${marker?.category?.nodes?.[0]?.slug}`;
@@ -210,7 +215,7 @@ export default function Map({
 												}  text_xs f_w_s_b text_uppercase`}
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
-												{marker?.name || marker?.category?.nodes?.[0]?.title}
+												<p>{marker?.name || marker?.category?.nodes?.[0]?.title}</p>
 											</div>
 										</a>
 									</InfoWindow>

@@ -35,9 +35,9 @@ import clock from "../../../public/img/icons/clock.svg";
 export default function Speakers({ data, title, desc }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
-
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
+
 	/** handleSlideClick Function */
 	const handleSlideClick1 = (e, index) => {
 		e.preventDefault();
@@ -51,6 +51,7 @@ export default function Speakers({ data, title, desc }) {
 		setIsPopupOpen(false);
 		setSlideNo(0);
 	};
+
 	useEffect(() => {
 		if (sliderRef.current?.swiper) {
 			sliderRef.current.swiper.slideTo(slideNo);
@@ -81,12 +82,10 @@ export default function Speakers({ data, title, desc }) {
 		<section className={`${styles.Speakers}`} id="speakers" data-name="Speakers">
 			<div className="container">
 				<div className={`${styles.titleWrapper}`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary pb_10">
-						{title}
-					</h2>
+					<h2 className="text_xl font_primary color_secondary pb_10">{title}</h2>
 					<p className={`${styles.label} text_reg color_dark_gray`}>{desc}</p>
 				</div>
-				<div className={`${styles.content_main_wrap} pt_40`}>
+				<div className={`${styles.content_main_wrap} pt_20`}>
 					<div className={`${styles.box_wrap}`}>
 						{eventSpeakersData?.map((item, ind) => {
 							return (
@@ -226,7 +225,7 @@ export default function Speakers({ data, title, desc }) {
 											</SwiperSlide>
 										))}
 									</Swiper>
-									<div className={`${styles.arrowSection} f_w_a_j_center`}>
+									<div className={`${styles.arrowSection} pt_20 f_w_a_j_center`}>
 										<button className={`${styles.customPrev}`} id="customPrev">
 											<img src={slider_arrow.src} alt="icon" />
 										</button>

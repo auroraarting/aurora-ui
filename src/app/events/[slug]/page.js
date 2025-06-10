@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -24,6 +24,8 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // SERVICES //
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -51,16 +53,26 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const dataFetch = await getAllEvents();
+	return dataFetch.data.events.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** Fetch  */
-async function getData({ params }) {
+async function getData({ slug }) {
 	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
-		getEventsInside(params.slug),
+		await getEventsInside(slug),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-		getInsightsCategories(),
+		await getAllEvents("first:9999"), //Upcoming
+		await getInsightsCategories(),
 		// eslint-disable-next-line quotes
-		getAllEvents('first:3, where: { thumbnail: { status: "Past" } }'),
+		await getAllEvents("first:9999"), //Past
 	]);
+
+	let todaysDate = new Date();
 
 	const countries = categoriesForSelect?.data?.countries?.nodes;
 	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
@@ -93,7 +105,7 @@ async function getData({ params }) {
 			},
 		};
 
-		if (item?.slug != params.slug) eventList.push(tempObj);
+		if (item?.slug != slug) eventList.push(tempObj);
 	});
 	pastEvents.data.events.nodes?.map((item) => {
 		let categories = [
@@ -125,26 +137,48 @@ async function getData({ params }) {
 			},
 		};
 
-		if (item?.slug != params.slug) pastEventList.push(tempObj);
+		if (item?.slug != slug) pastEventList.push(tempObj);
 	});
+
+	let isUpcoming =
+		new Date(data?.data?.eventBy.events?.thumbnail?.date) >= todaysDate
+			? "Upcoming"
+			: "Past";
+
+	const dataFromAPI = {
+		...data?.data?.eventBy,
+		events: {
+			...data?.data?.eventBy.events,
+			thumbnail: { ...data?.data?.eventBy.events.thumbnail, status: isUpcoming },
+		},
+	};
 
 	return {
 		props: {
-			data: data?.data?.eventBy || {},
+			data: dataFromAPI,
 			countries,
 			dataForBtn,
 			events: eventList,
-			pastEvents: pastEventList,
-			eventsOriginal: events.data.events.nodes.filter(
-				(item) => item.slug != params.slug
-			),
+			pastEvents: pastEventList
+				?.filter((item) => new Date() > new Date(item?.date))
+				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
+				.slice(0, 3),
+			eventsOriginal: events.data.events.nodes
+				?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
+				?.sort(
+					(a, b) =>
+						new Date(a?.events?.thumbnail?.date) -
+						new Date(b?.events?.thumbnail?.date)
+				)
+				.slice(0, 1),
 		},
 	};
 }
 
 /** EventsInside Page */
 export default async function EventsInside({ params }) {
-	const { props } = await getData({ params });
+	const { slug } = await params;
+	const { props } = await getData({ slug });
 
 	return (
 		<div>

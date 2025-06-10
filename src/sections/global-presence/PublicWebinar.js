@@ -17,7 +17,7 @@ import styles from "@/styles/sections/global-presence/PublicWebinar.module.scss"
 // IMAGES //
 import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
-import formatDate from "@/utils";
+import formatDate, { OpenIframePopup } from "@/utils";
 
 // DATA //
 
@@ -31,8 +31,8 @@ export default function PublicWebinar({ events, webinars }) {
 		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary f_w_m color_secondary">
-						All voices all markets
+					<h2 className="text_xl font_primary color_secondary">
+						All voices, all markets
 					</h2>
 				</div>
 				<div className={`${styles.publicFlex} f_w_j`}>
@@ -41,9 +41,15 @@ export default function PublicWebinar({ events, webinars }) {
 							let hrefObj = {};
 
 							if (item?.events?.thumbnail?.externalUrl) {
-								hrefObj.href = item?.events?.thumbnail?.externalUrl;
-								hrefObj.target = "_blank";
-								hrefObj.rel = "noreferrer";
+								// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+								// hrefObj.target = "_blank";
+								// hrefObj.rel = "noreferrer";
+								hrefObj.onClick = () =>
+									OpenIframePopup(
+										"iframePopup",
+										item?.events?.thumbnail?.externalUrl ||
+											"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+									);
 							} else {
 								hrefObj.href = `/events/${item?.slug}`;
 							}
@@ -51,18 +57,27 @@ export default function PublicWebinar({ events, webinars }) {
 							return (
 								<a {...hrefObj} className={`${styles.ItemBox}`} key={item?.title}>
 									<a href={item?.link} className={`${styles.insideBox}`} role="button">
-										<img
-											src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
-											className={`${styles.case_img} width_100 b_r_10`}
-											alt={item?.cat}
-											height={360}
-											width={640}
-											loading="lazy"
-										/>
+										<div className={`${styles.banner} relative`}>
+											<img
+												src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
+												className={`${styles.case_img} width_100 b_r_10`}
+												alt={item?.cat}
+												height={360}
+												width={640}
+												loading="lazy"
+											/>
+
+											<img
+												src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
+												className={`${styles.case_img_logo}`}
+												alt={item?.cat}
+												loading="lazy"
+											/>
+										</div>
 										<div
-											className={`${styles.tag} text_xxs font_primary text_uppercase color_white`}
+											className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase m_t_20`}
 										>
-											Latest {item?.cat}
+											{item?.eventscategories?.nodes?.map((item2) => item2?.name)}
 										</div>
 										<h4
 											className={`${styles.descTxt} text_md f_w_m color_secondary font_primary pt_10`}
@@ -99,42 +114,10 @@ export default function PublicWebinar({ events, webinars }) {
 								</a>
 							);
 						})}
-
-						{/* <div className={`${styles.ItemBox}`}>
-							<div className={`${styles.contentBox}`}>
-								<p
-									className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
-								>
-									Public Webinar
-								</p>
-								<h4 className={`${styles.descTxt} text_lg color_secondary pt_10`}>
-									Analysing the financial roadmap to Net Zero by 2035. Analysing the
-									financial roadmap to Net Zero by 2035
-								</h4>
-								<div className={`${styles.dateFlex} f_j pt_30`}>
-									<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
-										<img
-											src={calender.src}
-											className={`${styles.calender}`}
-											alt="calender"
-										/>
-										<span>Feb 26, 2025</span>
-									</p>
-									<p className="text_xs f_w_m color_secondary text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="location"
-										/>
-										<span>India</span>
-									</p>
-								</div>
-							</div>
-						</div> */}
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/events">
 								<Button color="primary" variant="filled" shape="rounded">
-									View All Events
+									View all events
 								</Button>
 							</a>
 						</div>
@@ -277,7 +260,7 @@ export default function PublicWebinar({ events, webinars }) {
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/resources/webinar">
 								<Button color="primary" variant="filled" shape="rounded">
-									View All Webinars
+									View all webinars
 								</Button>
 							</a>
 						</div>

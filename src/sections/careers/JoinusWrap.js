@@ -50,7 +50,7 @@ export default function JoinusWrap({ page, otherList, countries, jobs }) {
 				<div>
 					<JobOpenings data={jobs} hideFilters={false} hideRedirect={true} />
 				</div>
-				<div className={`${styles.containerCustom} ptb_100`}>
+				{/* <div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
 						<Insights
 							isPowerBgVisible={true}
@@ -64,8 +64,8 @@ export default function JoinusWrap({ page, otherList, countries, jobs }) {
 							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						/>
 					</div>
-				</div>
-				<div className="pb_100">
+				</div> */}
+				<div className="ptb_100">
 					<IntegratedSystem />
 				</div>
 			</main>

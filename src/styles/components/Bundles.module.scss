@@ -5,15 +5,21 @@
 
 	:global(.CustomSelect) {
 		width: 380px;
-
+		@media (max-width: 1199px) {
+			width: 360px;
+		}
+		@media (max-width: 991px) {
+			width: 320px;
+		}
 		@include sm-down {
 			width: 100%;
 		}
 	}
 
 	:global(.selectedText) {
-		text-transform: uppercase;
-		font-weight: 700;
+		font-weight: 500;
+		color: var(--color_silver_gray);
+		font-family: var(--font_primary);
 	}
 
 	.bg {
@@ -64,6 +70,8 @@
 					.text {
 						text-transform: uppercase;
 						opacity: 0.3;
+						letter-spacing: 1.26px;
+						font-weight: 700;
 					}
 
 					&.active {
@@ -79,7 +87,7 @@
 			}
 		}
 		.tableMain {
-			@media (max-width: 767px) {
+			@media (max-width: 991px) {
 				overflow: auto;
 			}
 		}
@@ -87,16 +95,27 @@
 			width: 100%;
 			table-layout: fixed;
 			border-collapse: collapse; /* optional: makes border cleaner */
+			@media (max-width: 991px) {
+				width: 135vw;
+			}
 			@media (max-width: 767px) {
 				overflow: auto;
-				white-space: nowrap;
-				width: 170vw;
+				//white-space: nowrap;
+				width: 235vw;
 			}
 			td {
-				border: 1px dashed #999;
+				border: 1px dashed var(--color_dark_gray);
 				text-align: center;
 				position: relative;
-
+				letter-spacing: 0.72px;
+				font-family: var(--font_primary);
+				color: var(--color_silver_gray);
+				text-transform: uppercase;
+				line-height: 1.3;
+				padding: 2px 0px;
+				@media (max-width: 767px) {
+					font-size: 10px;
+				}
 				.arr {
 					position: absolute;
 					top: 50%;
@@ -124,15 +143,17 @@
 					height: 100%;
 					width: 100%;
 					object-fit: contain;
-					padding: 8px;
+					padding: 10px;
 				}
 				.text {
 					text-align: start;
-					padding: 20px 8px;
+					padding: 10px 8px;
 					position: relative;
 					z-index: 2;
 					transform: translateX(110%);
 					transition: all 0.3s ease-in-out;
+					line-height: 1.2;
+					text-transform: capitalize;
 				}
 
 				&:hover {

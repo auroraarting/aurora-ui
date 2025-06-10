@@ -42,6 +42,7 @@ export default function Map({
 	setMap,
 	defaultZoom = 4,
 	locationJson,
+	hideOnHover = false,
 }) {
 	const [show, setShow] = useState(false);
 	const [selectedMarker, setSelectedMarker] = useState(null); // Track hovered marker
@@ -174,6 +175,11 @@ export default function Map({
 									) {
 										return "software";
 									}
+									if (
+										marker?.category?.nodes?.[0]?.contentType?.node?.name === "services"
+									) {
+										return "service";
+									}
 									return marker?.category?.nodes?.[0]?.contentType?.node?.name;
 								};
 
@@ -204,7 +210,7 @@ export default function Map({
 									onMouseOver={() => {
 										setSelectedMarker(uniqueName);
 									}}
-									// onMouseOut={() => setSelectedMarker(null)}
+									onMouseOut={() => hideOnHover && setSelectedMarker(null)}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}
@@ -215,6 +221,9 @@ export default function Map({
 											lng: parseFloat(marker?.lng) || parseFloat(marker?.coordinates?.lng),
 										}}
 										onCloseClick={() => setSelectedMarker(null)}
+										options={{
+											disableAutoPan: true,
+										}}
 									>
 										<a href={href()}>
 											<div
@@ -224,7 +233,7 @@ export default function Map({
 												// style={{ fontSize: "14px", fontWeight: "bold" }}
 											>
 												{marker?.hoverImg && <img src={marker.hoverImg} />}
-												{marker?.name || marker?.category?.nodes?.[0]?.title}
+												<p>{marker?.name || marker?.category?.nodes?.[0]?.title}</p>
 											</div>
 										</a>
 									</InfoWindow>

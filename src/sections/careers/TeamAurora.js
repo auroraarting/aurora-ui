@@ -1,5 +1,6 @@
 // MODULES //
 import Link from "next/link";
+import { useRef, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -114,6 +115,23 @@ export default function TeamAurora({
 		},
 	],
 }) {
+	const [hoverIndex, setHoverIndex] = useState(null);
+	const hoverTimeout = useRef(null); // to track timeout
+
+	/** handleMouseEnter  */
+	const handleMouseEnter = (index) => {
+		clearTimeout(hoverTimeout.current);
+		setHoverIndex(index);
+	};
+
+	/** handleMouseLeave  */
+	const handleMouseLeave = () => {
+		// Delay removing z-index to allow animation to finish
+		hoverTimeout.current = setTimeout(() => {
+			setHoverIndex(null);
+		}, 400); // match your SCSS transition duration
+	};
+
 	return (
 		<section
 			className={`${styles.TeamAurora} pb_50`}
@@ -128,21 +146,26 @@ export default function TeamAurora({
 					<div className={`${styles.bookBtn}`}>
 						<Link href="/careers/our-team">
 							<Button color="primary" variant="filled" shape="rounded">
-								Our Teams
+								Our teams
 							</Button>
 						</Link>
 					</div>
 				</div>
 				<div className={`${styles.TeamBoxRow} ${styles.TeamBoxRowOne}`}>
-					{defaultData?.map((item) => {
+					{defaultData?.map((item, ind) => {
 						return (
 							<div
 								className={`${styles.teamItem} ${styles.teamItemOne}`}
 								key={item?.name}
+								onMouseEnter={() => handleMouseEnter(ind)}
+								onMouseLeave={handleMouseLeave}
+								style={{
+									zIndex: hoverIndex === ind ? 3 : 0,
+								}}
 							>
 								<div className={`${styles.teamHoverShow}`}>
 									<img src={quate.src} alt="quate" />
-									<p className="text_sm font_primary f_w_i color_white pt_10">
+									<p className="text_sm font_primary f_w_i f_w_l color_white pt_10">
 										{item?.content}
 									</p>
 								</div>

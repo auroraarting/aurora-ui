@@ -64,7 +64,9 @@ export default function SoftwareMarket({
 	const [map, setMap] = useState(null);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 
-	if (!mapJson) return <></>;
+	if (!mapJson) {
+		return <></>;
+	}
 
 	return (
 		<section
@@ -80,7 +82,7 @@ export default function SoftwareMarket({
 						{data?.team?.nodes?.length > 0 && (
 							<>
 								<div className={`${styles.meetTitle} text_reg f_w_m`}>
-									Meet the Team
+									Meet the team
 								</div>
 								<div className={`${styles.dropdownWrap}`}>
 									{data?.team?.nodes?.map((item, ind) => {

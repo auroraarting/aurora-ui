@@ -35,11 +35,11 @@ export default function EnergyInsideTopSection({ data, socialLinks }) {
 			<div className="container">
 				<div className={`${styles.card} f_w_j`}>
 					<div className={`${styles.content}`}>
-						<h2 className="text_lg color_secondary text_uppercase f_w_m pt_30">
+						<h1 className="text_lg color_secondary text_uppercase f_w_m pt_20">
 							<ContentFromCms>{formatTitleForEpisode(data?.title)}</ContentFromCms>
-						</h2>
+						</h1>
 						<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
-							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 								<img
 									src={calender.src}
 									className={`${styles.calender}`}
@@ -48,7 +48,7 @@ export default function EnergyInsideTopSection({ data, socialLinks }) {
 								<span>{formatDate(data?.podcastFields?.date)}</span>
 							</p>
 							{data?.podcastFields?.time && (
-								<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">
+								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img
 										src={black_clock.src}
 										className={`${styles.calender}`}

@@ -43,15 +43,23 @@
 				border-radius: 20px;
 				transition: 0.5s all;
 				@media (max-width: 767px) {
-					border-radius: 10px;
+					//border-radius: 10px;
 				}
 			}
 			.thumbnailImg {
 				filter: grayscale(1);
 				transition: all 0.4s ease-in-out;
 				img {
+					height: 297px;
+					object-fit: cover;
+					object-position: center;
+					@media (max-width: 1199px) {
+						height: 242px;
+						width: 100%;
+					}
 					@media (max-width: 767px) {
 						width: 100%;
+						height: auto;
 					}
 				}
 			}
@@ -61,7 +69,7 @@
 				padding: 20px 20px;
 				left: 0px;
 				bottom: 0px;
-				z-index: 1;
+				z-index: 2;
 				@media (max-width: 767px) {
 					padding: 10px 10px;
 				}
@@ -71,6 +79,9 @@
 				}
 				p {
 					width: 88%;
+					@media (max-width: 767px) {
+						font-size: 12px;
+					}
 				}
 				a {
 					width: 32px;
@@ -82,6 +93,10 @@
 				right: 0px;
 				opacity: 0;
 				transition: 0.5s all;
+				z-index: 1;
+				@media (max-width: 1199px) {
+					display: none;
+				}
 				img {
 					border-radius: 20px;
 					@media (max-width: 767px) {
@@ -97,7 +112,7 @@
 				.hoverEffect {
 					opacity: 1;
 					transition: 0.5s all;
-					z-index: 2;
+					z-index: 1;
 				}
 				// &::after {
 				// 	content: none;
@@ -133,6 +148,18 @@
 			backdrop-filter: blur(7px);
 			-webkit-backdrop-filter: blur(7px);
 		}
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
+		}
 		.popup_content {
 			position: relative;
 			z-index: 1002;
@@ -154,9 +181,9 @@
 		}
 		.close_btn {
 			padding: 0;
-			position: absolute;
+			position: fixed;
 			right: 20px;
-			top: 20px;
+			top: 35px;
 			z-index: 2;
 			border: none;
 			box-shadow: none;
@@ -172,11 +199,11 @@
 			// 	right: 25px;
 			// 	top: 35px;
 			// }
-			@media only screen and (max-width: 767px) {
-				right: 10px;
-				top: 10px;
-				z-index: 1;
-			}
+			// @media only screen and (max-width: 767px) {
+			// 	right: 10px;
+			// 	top: 10px;
+			// 	z-index: 1;
+			// }
 		}
 	}
 	.PopupItem {
@@ -193,13 +220,13 @@
 				@media (max-width: 767px) {
 					width: 70%;
 				}
-				.popUp{
+				.popUp {
 					position: absolute;
 					bottom: 0;
 					right: 0px;
 					width: 100%;
-    			height: auto;
-					img{
+					height: auto;
+					img {
 						width: 100%;
 					}
 				}
@@ -214,6 +241,9 @@
 				.Desc {
 					position: absolute;
 					padding-right: 20px;
+					@media (max-width: 767px) {
+						position: relative;
+					}
 				}
 
 				@media (max-width: 767px) {

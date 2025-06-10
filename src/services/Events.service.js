@@ -16,8 +16,8 @@ query GetEvents {
         address
         date
         endDate
-        status
         time
+        externalUrl
         logo {
           node {
             altText
@@ -309,7 +309,6 @@ query GetEventInside {
         address
         date
         endDate
-        status
         time
         logo {
           node {
@@ -539,7 +538,7 @@ query GetEventLanding {
       speakers {
         sectionTitle
         sectionDesc
-        speakers {
+        speakers(first: 999) {
           nodes {
             ... on PostSpeaker {
               id
@@ -552,6 +551,27 @@ query GetEventLanding {
                   image {
                     node {
                       mediaItemUrl
+                    }
+                  }
+                }
+                sessions {
+                  address
+                  time
+                  timeSlot
+                  title
+                }
+                articles {
+                  articlesby(first: 999) {
+                    nodes {
+                      ... on Post {
+                        id
+                        slug
+                        title
+                        postFields {
+                          time
+                        }
+                        date
+                      }
                     }
                   }
                 }
@@ -586,8 +606,8 @@ query GetEventLanding {
               thumbnail {
                 address
                 date
-                status
                 time
+                externalUrl
                 logo {
                   node {
                     altText
@@ -688,12 +708,17 @@ query GetEventLanding {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
             mediaItemUrl
           }
         }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
       }
     }
   }

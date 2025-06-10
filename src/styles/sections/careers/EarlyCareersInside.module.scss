@@ -4,12 +4,14 @@
 	.title_wrap {
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
+			width: 70%;
 		}
 		.bookBtn {
 			margin-right: 110px;
 			@media (max-width: 767px) {
 				width: 100%;
 				margin-right: 0px;
+				margin: 20px 0px 10px;
 			}
 		}
 	}
@@ -17,9 +19,9 @@
 		position: relative;
 		padding-left: calc(var(--container_left_space) + 15px);
 		:global(.swiper-slide) {
-			height: 365px;
+			height: 390px;
 			border-radius: 20px;
-			@media (max-width: 767px) {
+			@media (max-width: 1199px) {
 				height: auto;
 			}
 		}
@@ -27,13 +29,13 @@
 			background-color: var(--color_gray);
 			padding: 20px 20px 30px;
 			border-radius: 20px;
-			max-height: 305px;
+			max-height: 330px;
 			transition: 0.5s ease-in-out;
 			overflow: hidden;
 			@media (max-width: 991px) {
-				max-height: 300px;
+				max-height: 320px;
 			}
-			@media (max-width: 767px) {
+			@media (max-width: 1199px) {
 				max-height: unset;
 			}
 			.cardImg {
@@ -43,7 +45,7 @@
 					width: 100%;
 					object-fit: cover;
 					object-position: center;
-					@media (max-width: 767px) {
+					@media (max-width: 1199px) {
 						height: auto;
 					}
 				}
@@ -77,7 +79,7 @@
 						margin-left: 5px;
 					}
 				}
-				h4{
+				h4 {
 					display: -webkit-box;
 					-webkit-line-clamp: 1;
 					-webkit-box-orient: vertical;
@@ -85,7 +87,7 @@
 				}
 			}
 			&:hover {
-				max-height: 370px;
+				max-height: 390px;
 				transition: 0.5s ease-in-out;
 				@media (max-width: 767px) {
 					max-height: unset;
@@ -95,13 +97,13 @@
 	}
 	.arrowSection {
 		position: absolute;
-		right: 0px;
-		top: 20px;
+		right: 10px;
+		top: 10px;
 		bottom: unset;
 		z-index: 1;
 		@media (max-width: 1199px) {
 			right: 0px;
-			top: 12px;
+			top: 0px;
 		}
 		@media (max-width: 767px) {
 			right: 10px;

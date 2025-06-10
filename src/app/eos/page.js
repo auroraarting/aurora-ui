@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -29,22 +29,38 @@ import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Meta Data */
-export const metadata = {
-	title: "Eos | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "eos", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** EOS Page */
 export default async function EOSPage() {
 	const [dataFetch, regions, bundlesFetch, categoriesForSelect, list] =
 		await Promise.all([
-			getEosPage(),
-			getRegions(),
-			getBundlesSection(),
-			getInsightsCategories(),
-			getInsights(
+			await getEosPage(),
+			await getRegions(),
+			await getBundlesSection(),
+			await getInsightsCategories(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
 		]);

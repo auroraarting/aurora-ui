@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 // SECTIONS //
 
@@ -15,8 +16,10 @@ import { useContextProvider } from "@/context/GlobalContext";
 import formatDate, {
 	filterBySearchQueryEvents,
 	filterItemsBySelectedObj,
+	OpenIframePopup,
 	updateQueryFast,
 } from "@/utils";
+import EqualHeight from "@/utils/EqualHeight";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsListing.module.scss";
@@ -29,7 +32,6 @@ import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
 import searchImg from "../../../public/img/icons/search.svg";
 import popup_close from "../../../public/img/icons/popup_close.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
-import EqualHeight from "@/utils/EqualHeight";
 
 // DATA //
 
@@ -49,8 +51,8 @@ export default function EventsListing({
 	const [dropdowns, setDropdowns] = useState({
 		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
-		eventStatusType: { isOpen: false, selected: { title: "Event Status" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
@@ -210,7 +212,7 @@ export default function EventsListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.EventsListing}>
@@ -304,7 +306,7 @@ export default function EventsListing({
 						</div>
 
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -353,7 +355,7 @@ export default function EventsListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 
 						{/* Event Status Type Dropdown */}
 						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
@@ -366,7 +368,7 @@ export default function EventsListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected?.status || "Event Status"}
+										{selected?.status || "Status"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -520,15 +522,21 @@ export default function EventsListing({
 
 						if (item?.events?.thumbnail?.externalUrl) {
 							hrefObj.href = item?.events?.thumbnail?.externalUrl;
-							hrefObj.target = "_blank";
-							hrefObj.rel = "noreferrer";
+							hrefObj.onClick = (e) => {
+								e?.preventDefault(); // Prevent navigation
+								OpenIframePopup(
+									"iframePopup",
+									item?.events?.thumbnail?.externalUrl ||
+										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+								);
+							};
 						} else {
 							hrefObj.href = `/events/${item?.slug}`;
 						}
 
 						return (
 							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<a {...hrefObj}>
+								<Link {...hrefObj}>
 									<div className={`${styles.hoverBox}`}>
 										<img
 											src={hoverBg.src}
@@ -559,13 +567,13 @@ export default function EventsListing({
 												/>
 												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
 											</p>
-											<p className="text_xs f_w_m color_medium_gray f_r_a_center">
+											<p className="text_xs f_w_m color_light_gray f_r_a_center">
 												<img
 													src={location.src}
 													className={`${styles.location}`}
 													alt="location"
 												/>
-												<span>
+												<span className="text_uppercase">
 													{item?.events?.thumbnail?.country?.nodes?.map(
 														(item2) => item2.title
 													)}
@@ -573,7 +581,7 @@ export default function EventsListing({
 											</p>
 										</div>
 									</div>
-								</a>
+								</Link>
 							</div>
 						);
 					})}

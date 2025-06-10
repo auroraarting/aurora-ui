@@ -1,6 +1,10 @@
 @import "../helpers/helpers.scss";
 
 .selected {
+	text-align: center;
+	@media (max-width: 1199px) {
+		padding-top: 20px;
+	}
 	&.hide {
 		opacity: 0;
 	}
@@ -16,13 +20,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0 auto;
 	// overflow: hidden;
 	// box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 	// border: 2px solid #333;
 
 	@include sm-down {
-		width: 300px;
-		height: 300px;
+		width: 320px;
+		height: 320px;
 	}
 }
 .CircleBox:hover .Quadrant:first-child {
@@ -40,6 +45,16 @@
 	border-radius: 50%;
 	border: 2px solid #333;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	display: grid;
+	place-items: center;
+
+	.centerLogo {
+		width: 98px;
+		border-radius: 100%;
+		@include sm-down {
+			width: 60px;
+		}
+	}
 
 	&.white {
 		background-color: var(--color_silver);

@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -30,6 +30,8 @@ import { getOffices } from "@/services/Offices.service";
 
 // DATA //
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getEarlyCareersInside(params.slug);
@@ -56,11 +58,21 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const earlyCareers = await getEarlyCareersListing("first: 99999");
+	return earlyCareers.data.earlyCareers.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** EarlyCareers Page */
 export default async function EarlyCareers({ params }) {
+	const { slug } = await params;
+
 	const [dataFetch, categoriesForSelect, list, officesFetch] = await Promise.all(
 		[
-			getEarlyCareersInside(params.slug),
+			getEarlyCareersInside(slug),
 			getInsightsCategories(),
 			getEarlyCareersListing("first: 10"),
 			getOffices(),
@@ -70,7 +82,7 @@ export default async function EarlyCareers({ params }) {
 	const countries = categoriesForSelect.data.countries.nodes;
 	const data = dataFetch.data.earlyCareerBy;
 	const otherList = list.data.earlyCareers.nodes?.filter(
-		(item) => item.slug !== params.slug
+		(item) => item.slug !== slug
 	);
 	const offices = officesFetch.data.offices.nodes;
 	const dataForBtn = { postFields: data?.earlyCareers || {} };

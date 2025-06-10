@@ -1,5 +1,7 @@
 "use client";
 // MODULES //
+import { useEffect } from "react";
+import { useContextProvider } from "@/context/GlobalContext";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -32,6 +34,7 @@ import styles from "@/styles/pages/global-presence/Australia.module.scss";
 // DATA //
 
 // SERVICES //
+
 /** Australia Page */
 export default function GlobalPresenceInsideWrap({
 	data,
@@ -41,7 +44,17 @@ export default function GlobalPresenceInsideWrap({
 	events,
 	webinars,
 }) {
+	const { setShowLanguages } = useContextProvider();
 	const dataForBtn = { postFields: data?.countries || {} };
+
+	useEffect(() => {
+		if (data?.translations?.length >= 1) {
+			setShowLanguages(true);
+		}
+		return () => {
+			setShowLanguages(false);
+		};
+	}, []);
 
 	return (
 		<div>
@@ -70,7 +83,7 @@ export default function GlobalPresenceInsideWrap({
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionsButton")}
 					/>
 				</div>
-				<div className="pb_40">
+				<div className="">
 					<ProductSlider data={data?.countries?.announcement?.slide} />
 				</div>
 				<SectionsHeader
@@ -114,7 +127,7 @@ export default function GlobalPresenceInsideWrap({
 					<SoftwareMarket
 						mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
 						// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
-						sectionTitle={"Energy intelligence across every key market"}
+						sectionTitle={"Energy intelligence modelled for your market"}
 						mapJson={mapJson}
 						data={data?.countries?.availableRegions}
 						customHtml={
@@ -139,7 +152,7 @@ export default function GlobalPresenceInsideWrap({
 					/>
 				</div>
 				{data?.countries?.ourClients?.selectLogos && (
-					<div className="pb_100">
+					<div className="pb_50">
 						<TrustedLeaders data={data?.countries?.ourClients} />
 					</div>
 				)}

@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -14,7 +14,11 @@ import EnergyTalkInsideWrap from "@/sections/resources/energy-talks/EnergyTalkIn
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps, slugify } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	formatTitleForEpisode,
+	slugify,
+} from "@/utils";
 
 // STYLES //
 
@@ -30,6 +34,8 @@ import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
 // DATA //
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -58,10 +64,10 @@ export async function generateMetadata({ params }) {
 }
 
 /** Fetch  */
-async function getData({ params }) {
+async function getData({ slug }) {
 	const [data, events, categoriesForSelect, list, socialLinksFetch] =
 		await Promise.all([
-			getPodcastInside(params.slug),
+			getPodcastInside(slug),
 			getPodcasts("first: 1"),
 			getInsightsCategories(),
 			getPodcasts(),
@@ -80,7 +86,6 @@ async function getData({ params }) {
 		)
 		?.slice(0, 3);
 
-	console.log(otherList, "otherList");
 	return {
 		props: {
 			data: data.data.podcastBy,
@@ -89,15 +94,30 @@ async function getData({ params }) {
 					(item) => item?.slug !== data?.data?.podcastBy?.slug
 				) || [],
 			countries: categoriesForSelect.data.countries.nodes,
-			otherList,
+			otherList: otherList?.map((item) => {
+				return {
+					...item,
+					title: formatTitleForEpisode(item?.title),
+					customHtmlForTitle: true,
+				};
+			}),
 			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
 		},
 	};
 }
 
+/** generateStaticParams  */
+export async function generateStaticParams() {
+	const podcasts = await getPodcasts();
+	return podcasts?.data?.podcasts?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
+
 /** EnergyInside Page */
 export default async function EnergyInside({ params }) {
-	const { props } = await getData({ params });
+	const { slug } = await params;
+	const { props } = await getData({ slug });
 
 	return (
 		<div>

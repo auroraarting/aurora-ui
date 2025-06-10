@@ -84,7 +84,7 @@
 					padding: 20px 20px;
 				}
 				@media (max-width: 767px) {
-					padding: 20px 20px 100px;
+					padding: 40px 20px 100px;
 				}
 			}
 		}
@@ -106,7 +106,7 @@
 				}
 
 				@media (max-width: 991px) {
-					height: 420px;
+					height: 100%;
 					object-fit: cover;
 					object-position: center;
 				}
@@ -140,6 +140,7 @@
 				background-color: unset;
 				border: none;
 				cursor: pointer;
+				padding: 0px;
 				img {
 					@media (max-width: 767px) {
 						width: 35px;
@@ -148,6 +149,7 @@
 			}
 			.customPrev {
 				rotate: 180deg;
+				margin-right: 10px;
 			}
 		}
 		.flexBox {
@@ -167,6 +169,13 @@
 						opacity: 1;
 					}
 				}
+			}
+		}
+	}
+	.spaceInner {
+		img {
+			@media (max-width: 767px) {
+				height: 40px;
 			}
 		}
 	}

@@ -66,7 +66,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 				<TransactionsBanner
 					data={data?.howWeHelpInside?.banner}
 					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-					btnTxt="Get Started"
+					btnTxt={dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 				/>
 				<SectionsHeader
 					// customHtml={
@@ -99,7 +99,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 				</div>
 
 				{data?.howWeHelpInside?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pt_100 pb_50">
 						<TrustedLeaders
 							data={data?.howWeHelpInside?.ourClient}
 							sectionTitle={data?.howWeHelpInside?.ourClient?.title}
@@ -122,7 +122,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					/>
 				</div>
 				{data?.howWeHelpInside?.stats && (
-					<div className="pb_100 dark_bg">
+					<div className="pb_50 dark_bg">
 						<CounterDynamic className="dark_bg" data={data?.howWeHelpInside?.stats} />
 					</div>
 				)}
@@ -137,10 +137,12 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 					/>
 				</div>
 				<div className="ptb_100 dark_bg relative">
-					<img
-						className={`${styles.bgGradient} bgGradientEos`}
-						src="/img/eos-bg-gradient.png"
-					/>
+					{services?.length > 0 && (
+						<img
+							className={`${styles.bgGradient} bgGradientEos`}
+							src="/img/eos-bg-gradient.png"
+						/>
+					)}
 					<div className="">
 						<EosIntegratedSystem />
 					</div>

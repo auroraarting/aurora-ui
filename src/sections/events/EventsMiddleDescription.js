@@ -27,7 +27,7 @@ import clock from "/public/img/icons/clock.svg";
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
 	return (
-		<>
+		<div className={`${styles.eventsMiddleDescription} `}>
 			{data?.content && (
 				<section
 					className={`${styles.contentBox}`}
@@ -43,20 +43,22 @@ export default function EventsMiddleDescription({ data }) {
 			{data?.events?.hightlights?.hightlights && (
 				<Hightlights data={data?.events?.hightlights} />
 			)}
-		</>
+		</div>
 	);
 }
 
 /** Hightlights  */
 const Hightlights = ({ data }) => {
 	return (
-		<section id="hightlights" data-name="Hightlights">
-			<h2>Hightlights</h2>
-			<ul>
-				{data?.hightlights?.map((item, ind) => {
-					return <li key={(item?.text || "") + ind}>{item?.text}</li>;
-				})}
-			</ul>
+		<section className="pt_20" id="hightlights" data-name="Hightlights">
+			<div className={`${styles.contentBox}`}>
+				<h2>Hightlights</h2>
+				<ul>
+					{data?.hightlights?.map((item, ind) => {
+						return <li key={(item?.text || "") + ind}>{item?.text}</li>;
+					})}
+				</ul>
+			</div>
 		</section>
 	);
 };
@@ -65,16 +67,24 @@ const Hightlights = ({ data }) => {
 const WhyAttend = ({ data }) => {
 	const [open, setOpen] = useState(false);
 	return (
-		<section id="agenda" data-name="Agenda" className="pb_50">
-			<h2>Why attend?</h2>
-			{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-			<div className={styles.btn_box} onClick={() => setOpen(!open)}>
-				<Button color="secondary" variant="filled" shape="rounded">
-					View Full Agenda
-				</Button>
+		<section id="agenda" data-name="Agenda" className="pb_50 pt_20">
+			<div className={`${styles.contentBox}`}>
+				<h2>Why attend?</h2>
+				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
+				<div className={`${styles.btn_box} pt_30`} onClick={() => setOpen(!open)}>
+					<Button color="secondary" variant="filled" shape="rounded">
+						View Full Agenda
+					</Button>
+				</div>
 			</div>
-			<div className={`${styles.agendaPopup} ${open && styles.open}`}>
+			<div
+				className={`${styles.agendaPopup} ${open && styles.open}`}
+				data-lenis-prevent
+			>
 				<div className={`${styles.content}`}>
+					{/* <div className={`${styles.CloseWrap}`}>
+						
+					</div> */}
 					<img
 						className={`${styles.close}`}
 						src={popup_close.src}

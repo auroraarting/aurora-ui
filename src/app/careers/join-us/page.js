@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -34,15 +34,17 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** JoinUs Page */
 export default async function JoinUs() {
 	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([
-		getFetchJobData(),
-		getInsightsCategories(),
-		getInsights(
+		await getFetchJobData(),
+		await getInsightsCategories(),
+		await getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 		),
-		getJoinUsPage(),
+		await getJoinUsPage(),
 	]);
 
 	const page = pageFetch.data.page.joinUs;

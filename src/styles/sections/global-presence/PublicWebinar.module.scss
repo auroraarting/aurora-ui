@@ -12,7 +12,7 @@
 				content: " ";
 				position: absolute;
 				left: 0;
-				top: 5px;
+				top: 8px;
 				width: 4px;
 				height: 4px;
 				background-color: var(--color_white);
@@ -34,6 +34,8 @@
 		}
 		.publicRight {
 			width: 58%;
+			display: flex;
+			flex-direction: column;
 			@media (max-width: 991px) {
 				width: 50%;
 			}
@@ -42,28 +44,49 @@
 				margin-bottom: 60px;
 			}
 			.ItemBox {
-				// height: 485px;
-				// background-image: url("../../../../public/img/global-presence/publicBg.png");
-				// background-repeat: no-repeat;
-				// background-size: cover;
-				// background-position: top center;
+				flex: 1;
 				border-radius: 20px;
 				display: flex;
 				align-items: flex-end;
+				flex-direction: column;
 				padding: 30px 0px;
+				padding-bottom: 0;
+				padding-top: 0;
+				.categoryTxt {
+					&::before {
+						background-color: var(--color_primary);
+					}
+				}
+				.banner {
+					// height: 80%;
+					flex: 1;
+				}
 				.case_img {
-					height: 300px;
+					height: 100%;
 					object-fit: cover;
+				}
+				.case_img_logo {
+					position: absolute;
+					left: 10px;
+					bottom: 10px;
+					width: 30%;
 				}
 				@media (max-width: 991px) {
 					padding: 30px 20px;
+					padding-top: 0;
 					// height: 440px;
 				}
 				@media (max-width: 767px) {
 					// height: 300px;
 				}
-				.hoverBox {
+				.insideBox {
+					height: 100%;
+					display: flex;
+					flex-direction: column;
 				}
+			}
+			.bookBtnOne {
+				margin-top: auto;
 			}
 		}
 		.publicleft {

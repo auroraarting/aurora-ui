@@ -1,184 +1,133 @@
+"use client";
+
 // MODULES //
-import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
-import Button from "@/components/Buttons/Button";
+import TrustedLeaders from "@/components/TrustedLeaders";
+import TestimonialFeedback from "@/components/TestimonialFeedback";
+import Insights from "@/components/Insights";
+import EosIntegratedSystem from "@/components/EosIntegratedSystem";
+import IntegratedSystem from "@/components/IntegratedSystem";
+import ServicesCircleWhite from "@/components/ServicesCircleWhite";
+import IframeModal from "@/components/IframeModal";
+import Bundles from "@/components/Bundles";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
+import {
+	dynamicInsightsBtnProps,
+	getMapJsonForProducts,
+	removeDuplicatesByKeys,
+} from "@/utils";
 
 // STYLES //
-import styles from "@/styles/sections/products/ProductListingWrapper.module.scss";
+import styles from "@/styles/pages/product/Products.module.scss";
+import TransactionSolutions from "@/sections/how-we-help/TransactionSolutions";
+import InnerBanner from "@/components/InnerBanner";
+import GlobalMap from "@/components/GlobalMap";
 
 // IMAGES //
-import product_img from "@/../public/img/products/product_img.jpg";
-import power from "@/../public/img/products/power.svg";
 
 // DATA //
 
-/** ProductListingWrapper Section */
-export default function ProductListingWrapper() {
+// SERVICES //
+
+/** Meta Data */
+export const metadata = {
+	title: "Products | Aurora",
+	description: "Aurora",
+};
+
+/** Products Page */
+export default function ProductListingWrapper({
+	data,
+	products,
+	testimonials,
+	clientLogos,
+	mapJson,
+	bundles,
+	countries,
+	insights,
+}) {
+	const dataForBtn = {
+		postFields: data,
+	};
+
 	return (
-		<section className={`${styles.ProductListingWrapper} `}>
-			<div className="container">
-				<div className={`${styles.flexBox} f_j ptb_60`}>
-					<div className={`${styles.flexItemOne}`}>
-						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
-							Lorem ipsum dolor sit amet consectetur.
-						</h1>
-					</div>
-					<div className={`${styles.flexItemTwo}`}>
-						<p className={`${styles.label} text_reg color_dark_gray`}>
-							Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-							sagittis enim eu sed sed.. Sed pulvinar vestibulum lorem tristique
-							vulputate bibendum.. Accumsan in sed.
-						</p>
-					</div>
+		<div>
+			{/* Metatags */}
+			{/* <MetaTags Title={"Products"} Desc={""} OgImg={""} Url={"/products"} /> */}
+
+			{/* Header */}
+			{/* <Header /> */}
+
+			{/* Page Content starts here */}
+			<main className={styles.ProductsPage}>
+				{/* <ProductListingWrapper /> */}
+				<InnerBanner
+					bannerTitle={data?.banner?.title}
+					bannerDescription={data?.banner?.description}
+					showContentOnly
+				/>
+				<div>
+					<TransactionSolutions data={products.nodes} slugPage="products" />
 				</div>
-				<div className={`${styles.ListingWrapper}`}>
-					<div className={`${styles.ListingBox}`}>
-						<div className={`${styles.thumbnail}`}>
-							<img src={product_img.src} className="width_100 b_r_10" alt="img" />
-						</div>
-						<div className={`${styles.iconContent} pt_20 `}>
-							<div className="f_r_a_center pb_10">
-								<img src={power.src} className={`${styles.icon}`} alt="icon" />
-								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Power & Renewables Service Power & Renewables Service
-								</h5>
-							</div>
-							<p className={`${styles.para} text_reg color_dark_gray`}>
-								Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-								sagittis enim eu sed sed. Lorem ipsum dolor sit amet consectetur. Odio
-								vel tortor lectus sit sagittis enim eu sed sed.
-							</p>
-							<div className={`${styles.btn_box}`}>
-								<Button color="secondary" variant="underline" size="xs">
-									Read More
-								</Button>
-							</div>
-						</div>
+				<GlobalMap locationJson={mapJson} marqueeText={data.mapMarquee} />
+				{/* <div className="ptb_100">
+					<SoftwareMarket />
+				</div> */}
+				<ServicesCircleWhite data={data.keyAdvantages} />
+				{clientLogos?.selectLogos?.nodes?.length > 0 && (
+					<div className="pb_50 pt_100 ">
+						<TrustedLeaders data={clientLogos} />
 					</div>
-					<div className={`${styles.ListingBox}`}>
-						<div className={`${styles.thumbnail}`}>
-							<img src={product_img.src} className="width_100 b_r_10" alt="img" />
-						</div>
-						<div className={`${styles.iconContent} pt_20 `}>
-							<div className="f_r_a_center pb_10">
-								<img src={power.src} className={`${styles.icon}`} alt="icon" />
-								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Flexible Energy Service
-								</h5>
-							</div>
-							<p className={`${styles.para} text_reg color_dark_gray`}>
-								Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-								sagittis enim eu sed sed. Lorem ipsum dolor sit amet consectetur. Odio
-								vel tortor lectus sit sagittis enim eu sed sed.
-							</p>
-							<div className={`${styles.btn_box}`}>
-								<Button color="secondary" variant="underline" size="xs">
-									Read More
-								</Button>
-							</div>
-						</div>
+				)}
+				{testimonials?.testimonials?.nodes?.length > 0 && (
+					<div className="pb_100">
+						<TestimonialFeedback data={testimonials} />
 					</div>
-					<div className={`${styles.ListingBox}`}>
-						<div className={`${styles.thumbnail}`}>
-							<img src={product_img.src} className="width_100 b_r_10" alt="img" />
-						</div>
-						<div className={`${styles.iconContent} pt_20 `}>
-							<div className="f_r_a_center pb_10">
-								<img src={power.src} className={`${styles.icon}`} alt="icon" />
-								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Power & Renewables Service
-								</h5>
-							</div>
-							<p className={`${styles.para} text_reg color_dark_gray`}>
-								Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-								sagittis enim eu sed sed. Lorem ipsum dolor sit amet consectetur. Odio
-								vel tortor lectus sit sagittis enim eu sed sed.
-							</p>
-							<div className={`${styles.btn_box}`}>
-								<Button color="secondary" variant="underline" size="xs">
-									Read More
-								</Button>
-							</div>
-						</div>
+				)}
+				<div className="pt_100 dark_bg relative">
+					<img
+						className={`${styles.bgGradient} bgGradientEos`}
+						src="/img/eos-bg-gradient.png"
+					/>
+					<div className="">
+						<EosIntegratedSystem />
 					</div>
-					<div className={`${styles.ListingBox}`}>
-						<div className={`${styles.thumbnail}`}>
-							<img src={product_img.src} className="width_100 b_r_10" alt="img" />
-						</div>
-						<div className={`${styles.iconContent} pt_20 `}>
-							<div className="f_r_a_center pb_10">
-								<img src={power.src} className={`${styles.icon}`} alt="icon" />
-								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Power & Renewables Service
-								</h5>
-							</div>
-							<p className={`${styles.para} text_reg color_dark_gray`}>
-								Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-								sagittis enim eu sed sed. Lorem ipsum dolor sit amet consectetur. Odio
-								vel tortor lectus sit sagittis enim eu sed sed.
-							</p>
-							<div className={`${styles.btn_box}`}>
-								<Button color="secondary" variant="underline" size="xs">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.ListingBox}`}>
-						<div className={`${styles.thumbnail}`}>
-							<img src={product_img.src} className="width_100 b_r_10" alt="img" />
-						</div>
-						<div className={`${styles.iconContent} pt_20 `}>
-							<div className="f_r_a_center pb_10">
-								<img src={power.src} className={`${styles.icon}`} alt="icon" />
-								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Power & Renewables Service
-								</h5>
-							</div>
-							<p className={`${styles.para} text_reg color_dark_gray`}>
-								Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-								sagittis enim eu sed sed. Lorem ipsum dolor sit amet consectetur. Odio
-								vel tortor lectus sit sagittis enim eu sed sed.
-							</p>
-							<div className={`${styles.btn_box}`}>
-								<Button color="secondary" variant="underline" size="xs">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
-					<div className={`${styles.ListingBox}`}>
-						<div className={`${styles.thumbnail}`}>
-							<img src={product_img.src} className="width_100 b_r_10" alt="img" />
-						</div>
-						<div className={`${styles.iconContent} pt_20 `}>
-							<div className="f_r_a_center pb_10">
-								<img src={power.src} className={`${styles.icon}`} alt="icon" />
-								<h5 className="text_reg font_primary f_w_m color_secondary">
-									Power & Renewables Service
-								</h5>
-							</div>
-							<p className={`${styles.para} text_reg color_dark_gray`}>
-								Lorem ipsum dolor sit amet consectetur. Odio vel tortor lectus sit
-								sagittis enim eu sed sed. Lorem ipsum dolor sit amet consectetur. Odio
-								vel tortor lectus sit sagittis enim eu sed sed.
-							</p>
-							<div className={`${styles.btn_box}`}>
-								<Button color="secondary" variant="underline" size="xs">
-									Read More
-								</Button>
-							</div>
-						</div>
-					</div>
+					<Bundles data={bundles} />
 				</div>
-			</div>
-		</section>
+				<div className={`${styles.insightBg} pt_30`}>
+					<div className={`${styles.boxBg}`}>
+						<div className="pb_100">
+							<Insights
+								formSectionTitle={data?.insights?.sectionTitle}
+								formSectionDesc={data?.insights?.sectionDesc}
+								isPowerBgVisible={true}
+								isInsightsBlogsVisible={true}
+								defaultList={insights}
+								countries={countries}
+								formSectionBtnText={
+									dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+								}
+								formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+							/>
+						</div>
+					</div>
+					{/* <EosIntegratedSystem /> */}
+				</div>
+				{/* <div className="ptb_100">
+					<IntegratedSystem />
+				</div> */}
+			</main>
+			<IframeModal />
+			{/* Page Content ends here */}
+
+			{/* Footer */}
+			{/* <Footer /> */}
+		</div>
 	);
 }

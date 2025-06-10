@@ -25,8 +25,8 @@ import formatDate, {
 import styles from "@/styles/sections/resources/webinar/WebinarListing.module.scss";
 
 // IMAGES //
-import location from "@/../public/img/icons/location.svg";
-import calender from "@/../public/img/icons/calender.svg";
+import location from "@/../public/img/icons/grey_location.svg";
+import calender from "@/../public/img/icons/grey_calendar.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import searchImg from "@/../public/img/icons/search.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
@@ -57,8 +57,9 @@ export default function WebinarListing({
 	const [dropdowns, setDropdowns] = useState({
 		categoryType: { isOpen: false, selected: { title: "Category" } },
 		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Products & Services" } },
+		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
+		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 	});
 	const [paginationArr, setPaginationArr] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
@@ -92,6 +93,7 @@ export default function WebinarListing({
 		countryType: useRef(null),
 		offeringsType: useRef(null),
 		yearsType: useRef(null),
+		eventStatusType: useRef(null),
 	};
 
 	const optionsData = {
@@ -117,6 +119,7 @@ export default function WebinarListing({
 				return { title: 2025 + ind };
 			})
 			.reverse(),
+		eventStatusType: [{ title: "Upcoming" }, { title: "Past" }],
 	};
 
 	/** Toggle Dropdown */
@@ -178,6 +181,10 @@ export default function WebinarListing({
 		if (key === "Service") {
 			selectedObj.service = catName;
 			queryObj.service = catName;
+		}
+		if (key === "eventStatusType") {
+			selectedObj.status = catName;
+			queryObj.status = catName;
 		}
 		setSelected(selectedObj);
 
@@ -244,7 +251,7 @@ export default function WebinarListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list]);
+	}, [list, selected]);
 
 	return (
 		<section className={styles.WebinarListing}>
@@ -328,7 +335,7 @@ export default function WebinarListing({
 							</div>
 						</div>
 						{/* Offerings Dropdown */}
-						{/* <div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
+						<div className={styles.selectBox} ref={dropdownRefs.offeringsType}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} ${
@@ -338,7 +345,7 @@ export default function WebinarListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										Products & Services
+										Offerings
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -378,7 +385,7 @@ export default function WebinarListing({
 									</div>
 								)}
 							</div>
-						</div> */}
+						</div>
 						{/* years Type Dropdown */}
 						<div
 							className={`${styles.selectBox} ${styles.widthCustom}`}
@@ -393,7 +400,7 @@ export default function WebinarListing({
 									tabIndex={0}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
-										{selected.year || "Years"}
+										{selected.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
@@ -414,6 +421,48 @@ export default function WebinarListing({
 												onClick={() => {
 													handleOptionClick("yearsType", option);
 												}}
+											>
+												{option.title}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</div>
+						{/* Event Status Type Dropdown */}
+						<div className={styles.selectBox} ref={dropdownRefs.eventStatusType}>
+							<div className={styles.custom_select}>
+								<div
+									className={`${styles.select_header_wapper} ${
+										dropdowns.eventStatusType.isOpen ? "activeDropDown" : ""
+									}`}
+									onClick={() => toggleDropdown("eventStatusType")}
+									tabIndex={0}
+								>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
+										{selected?.status || "Status"}
+										<img src={dropdown_arrow.src} alt="icon" />
+									</div>
+								</div>
+								{dropdowns.eventStatusType.isOpen && (
+									<ul className={styles.selectOptionBox} data-lenis-prevent>
+										<li
+											className={
+												dropdowns.eventStatusType.selected.title === "" ? "selected" : ""
+											}
+											onClick={() => handleOptionClick("eventStatusType", "")}
+										>
+											All
+										</li>
+										{optionsData.eventStatusType.map((option) => (
+											<li
+												key={option.title}
+												className={
+													option.title === dropdowns.eventStatusType.selected.title
+														? "selected"
+														: ""
+												}
+												onClick={() => handleOptionClick("eventStatusType", option)}
 											>
 												{option.title}
 											</li>
@@ -515,7 +564,7 @@ export default function WebinarListing({
 											<p
 												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 											>
-												Webinar
+												{item?.eventCategories?.nodes?.map((item) => item?.name)}
 												{/* {isCategory(allCategories, item?.categories?.nodes)} */}
 											</p>
 											{/* )} */}

@@ -28,6 +28,21 @@ query GetPageProduct {
           }
         }
       }
+      insights {
+        sectionDesc
+        sectionTitle
+      }
+      insightsSectionButton {
+        buttonText
+        iframe
+        url
+        file {
+          node {
+            mediaItemUrl
+            altText
+          }
+        }
+      }
     }
   }
   products(first: 999) {
@@ -52,7 +67,7 @@ query GetPageProduct {
             from
             to
           }
-                    title
+          title
           shortDescription
           spotlightTitle
           spotlightDesc
@@ -118,13 +133,14 @@ query GetProductBySlug {
           from
           to
         }
-                  title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
+        primaryColor
+        title
+        shortDescription
+        spotlightTitle
+        spotlightDesc
       }
       ourClient {
-        selectLogos {
+        selectLogos(first: 9999) {
           nodes {
             ... on ClientsLogo {
               id
@@ -137,7 +153,7 @@ query GetProductBySlug {
             }
           }
         }
-        testimonials {
+        testimonials(first: 9999) {
           nodes {
             ... on Testimonial {
               id
@@ -182,6 +198,7 @@ query GetProductBySlug {
       middleSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -192,6 +209,7 @@ query GetProductBySlug {
       topSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -202,6 +220,7 @@ query GetProductBySlug {
       insightsSectionButton {
         buttonText
         iframe
+        url
         file {
           node {
             altText
@@ -220,6 +239,12 @@ query GetProductBySlug {
               slug
               content
               date
+                 featuredImage {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
               categories(first: 9999) {
                 nodes {
                   slug
@@ -304,6 +329,12 @@ query GetProductBySlug {
       }
       map {
         marquee
+              headerLogo {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
       }
       whyAurora {
         title
@@ -334,6 +365,10 @@ query GetProductBySlug {
             description
           }
         }
+      }
+      insights {
+        sectionDesc
+        sectionTitle
       }
     }
   }

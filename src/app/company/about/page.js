@@ -1,5 +1,6 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -26,23 +27,47 @@ import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
 import { getEosPage } from "@/services/Eos.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Meta Data */
-export const metadata = {
-	title: "About | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "about", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Fetch  */
 async function getData() {
-	const [data, categoriesForSelect, officesFetch, pageFetch, bundlesFetch] =
-		await Promise.all([
-			getAboutPage(),
-			getInsightsCategories(),
-			getOffices(),
-			getEosPage(),
-			getBundlesSection(),
-		]);
+	// const [data, categoriesForSelect, officesFetch, pageFetch, bundlesFetch] =
+	// 	await Promise.all([
+	// 		await getAboutPage(),
+	// 		await getInsightsCategories(),
+	// 		await getOffices(),
+	// 		await getEosPage(),
+	// 		await getBundlesSection(),
+	// 	]);
+	const data = await getAboutPage();
+	await new Promise((res) => setTimeout(res, 200));
+	const categoriesForSelect = await getInsightsCategories();
+	await new Promise((res) => setTimeout(res, 200));
+	const officesFetch = await getOffices();
+	await new Promise((res) => setTimeout(res, 200));
+	const pageFetch = await getEosPage();
+	await new Promise((res) => setTimeout(res, 200));
+	const bundlesFetch = await getBundlesSection();
+
 	let obj = {
 		data: { ...data.data.page.about, offices: officesFetch.data.offices.nodes },
 	};
@@ -63,7 +88,7 @@ async function getData() {
 			name: item.title,
 			lat: item.offices.map.lat,
 			lng: item.offices.map.lng,
-			url: "/careers/life-at-aurora",
+			url: "",
 			hoverImg: item.offices.thumbnail.node.mediaItemUrl,
 			unique: Math.random(),
 			// icon:
@@ -85,6 +110,8 @@ async function getData() {
 		},
 	};
 }
+
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** About Page */
 export default async function About() {

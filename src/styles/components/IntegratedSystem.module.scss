@@ -3,20 +3,38 @@
 .IntegratedSystem {
 	.integratedSystemFlex {
 		.title_wrap {
-			width: 45%;
+			width: 40%;
+			display: flex;
+			flex-direction: column;
+
+			.bookBtn {
+				margin-top: auto;
+				padding-bottom: 50px;
+				@media (max-width: 991px) {
+					padding-bottom: 0px;
+				}
+			}
 			@media (max-width: 991px) {
 				width: 100%;
 				margin-bottom: 40px;
 			}
 		}
+		:global {
+			.swiper-wrapper {
+				border-radius: 12px;
+				// overflow: hidden;
+			}
+		}
 		.integratedImgMain {
-			width: 50%;
+			width: 55%;
+			position: relative;
+
 			@media (max-width: 991px) {
 				width: 100%;
 			}
 			.integratedImgBox {
-				//border-radius: 10px;
-
+				.slider {
+				}
 				.itemBox {
 					position: relative;
 					width: 100%;
@@ -41,7 +59,9 @@
 						.boxWrap {
 							text-align: center;
 							img {
-								width: 40px;
+								min-width: 40px;
+								// height: 64px;
+								// width: 80px;
 								margin: 0 auto;
 							}
 						}
@@ -77,7 +97,7 @@
 						}
 						.hoverBoxOne {
 							background-color: var(--color_primary);
-							border-bottom-left-radius: 10px;
+							//border-bottom-left-radius: 10px;
 						}
 						.hoverBoxTwo {
 							background-color: #23ae84;

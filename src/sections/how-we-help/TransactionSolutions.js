@@ -49,7 +49,7 @@ export default function TransactionSolutions({
 	const [swiperTwo, setSwiperTwo] = useState(null);
 
 	useEffect(() => {
-		if (data?.length === 0 || !data || isSlider) return null;
+		if (data?.length === 0 || !data || isSlider) return;
 
 		gsap.registerPlugin(ScrollTrigger);
 		const winW = window.innerWidth;
@@ -106,7 +106,9 @@ export default function TransactionSolutions({
 		});
 	}, []);
 
-	if (data?.length === 0 || !data) return <></>;
+	if (data?.length === 0 || !data) {
+		return <></>;
+	}
 
 	return (
 		<section
@@ -158,7 +160,7 @@ export default function TransactionSolutions({
 														alt="solar plant"
 													/>
 												)}
-												<h2 className="text_xl font_primary f_w_m color_white pt_40">
+												<h2 className="text_xl font_primary color_white pt_60 pb_20">
 													{useSpotlight
 														? item?.[contentType]?.thumbnail?.spotlightTitle
 														: item?.[contentType]?.thumbnail?.title}
@@ -168,7 +170,7 @@ export default function TransactionSolutions({
 														? item?.[contentType]?.thumbnail?.spotlightDesc
 														: item?.[contentType]?.thumbnail?.shortDescription}
 												</p>
-												<div className={`${styles.bookBtn} pt_30`}>
+												<div className={`${styles.bookBtn} pt_60`}>
 													<a href={item?.link || `/${slugPage}/${item?.slug}`}>
 														<Button color="secondary" variant="underline" mode="dark">
 															Know more
@@ -203,7 +205,7 @@ export default function TransactionSolutions({
 												alt="solar plant"
 											/>
 										)}
-										<h2 className="text_xl font_primary f_w_m color_white pt_40">
+										<h2 className="text_xl font_primary color_white pt_60 pb_20">
 											{useSpotlight
 												? item?.[contentType]?.thumbnail?.spotlightTitle
 												: item?.[contentType]?.thumbnail?.title}
@@ -213,7 +215,7 @@ export default function TransactionSolutions({
 												? item?.[contentType]?.thumbnail?.spotlightDesc
 												: item?.[contentType]?.thumbnail?.shortDescription}
 										</p>
-										<div className={`${styles.bookBtn} pt_30`}>
+										<div className={`${styles.bookBtn} pt_60`}>
 											<a href={item?.link || `/${slugPage}/${item?.slug}`}>
 												<Button color="secondary" variant="underline" mode="dark">
 													Know more
@@ -225,7 +227,7 @@ export default function TransactionSolutions({
 							);
 						})
 					)}
-					{isSlider && (
+					{isSlider && data.length > 1 && (
 						<div className={`${styles.arrowSection} f_w_a_j_center`}>
 							<button className={`${styles.customPrev}`} id="customPrev">
 								<img src="/img/icons/howwehelpSwiperRight.svg" alt="icon" />

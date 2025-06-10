@@ -13,6 +13,7 @@ import EventSmarterEnergy from "@/components/EventSmarterEnergy";
 import SoftwareCards from "@/components/SoftwareCards";
 import AllVideos from "@/components/AllVideos";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import TopEnergy from "@/sections/resources/energy-talks/TopEnergy";
@@ -33,7 +34,6 @@ import spotify from "/public/img/energy_talks/spotify.svg";
 import apple from "/public/img/energy_talks/apple.svg";
 import google from "/public/img/energy_talks/google.svg";
 import calender from "/public/img/icons/calender.svg";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 // DATA //
 
@@ -150,21 +150,21 @@ export default function EnergyTalksWrap({
 						dynamicData={[
 							{
 								desc: "Expert-led sessions on industry-defining topics",
-								btnText: "View All Webinar",
+								btnText: "View all Webinar",
 								btnLink: "/resources/webinar",
 								img: "/img/contact/cardImg6.jpg",
 								fontColor: "color_black",
 							},
 							{
 								desc: "Expert analysis and case studies on energy markets",
-								btnText: "View All Resources",
+								btnText: "View all Resources",
 								btnLink: "/resources/aurora-insights",
 								img: "/img/contact/cardImg5.jpg",
 								fontColor: "color_white",
 							},
 							{
 								desc: "Join events shaping the future of energy",
-								btnText: "View All Events",
+								btnText: "View all events",
 								btnLink: "/events",
 								fontColor: "color_white",
 								img: "/img/contact/cardImg4.jpg",

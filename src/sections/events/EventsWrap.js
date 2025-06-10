@@ -88,7 +88,7 @@ export default function EventsWrap({
 					/>
 				</div>
 				{page?.speakers?.sectionTitle && (
-					<div className="ptb_100">
+					<div className="pb_100 pt_50">
 						<Speakers
 							data={[{ ...page.speakers }]}
 							title={page?.speakers?.sectionTitle}
@@ -100,7 +100,7 @@ export default function EventsWrap({
 				{page?.audienceSpeak?.sectionTitle && (
 					<div className={`${styles.bottomBg} pb_100`}>
 						<div className="container">
-							<h2 className="text_xl font_primary f_w_m color_secondary pb_20">
+							<h2 className="text_xl font_primary color_secondary pb_20">
 								{page?.audienceSpeak?.sectionTitle}
 							</h2>
 						</div>
@@ -111,8 +111,10 @@ export default function EventsWrap({
 					<div className="container">
 						<Insights
 							isPowerBgVisible={true}
-							formSectionTitle="Interested in partnering with us?"
-							formSectionDesc="We're always looking for new and exciting opportunities to collaborate. For partnership enquiries, please contact <a href='mailto:events@auroraer.com'>events@auroraer.com</a>"
+							// formSectionTitle="Interested in partnering with us?"
+							// formSectionDesc="We're always looking for new and exciting opportunities to collaborate. For partnership enquiries, please contact <a href='mailto:events@auroraer.com'>events@auroraer.com</a>"
+							formSectionTitle={page?.insights?.sectionTitle}
+							formSectionDesc={page?.insights?.sectionDesc}
 							formSectionBtnText={
 								dynamicInsightsBtnProps({ postFields: page }, "insightsSectionButton")
 									.btntext

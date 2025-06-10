@@ -15,7 +15,7 @@ import { Link, scroller } from "react-scroll";
 import styles from "@/styles/components/SectionsHeader.module.scss";
 
 // IMAGES //
-import accarrow from "../../public/img/icons/acc_arrow.svg";
+import accarrow from "../../public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
@@ -137,7 +137,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 								<div
 									key={ind}
 									className={`${styles.box} ${styles.onlyText} ${
-										activeTab >= ind ? "" : "color_medium_gray"
+										activeTab >= ind ? `${styles.activeTxt}` : ""
 									} text_xs text_uppercase`}
 									onClick={() => scrollToSection(item?.id)}
 								>
@@ -149,37 +149,41 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 					<div className={`${styles.progress}`}></div>
 				</div>
 			</div>
-			<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
-				<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
-					<div
-						className={`${styles.dropdownToggle} f_r_aj_between`}
-						onClick={() => setDropdownOpen((prev) => !prev)}
-					>
-						<span>
-							{sectionsList[activeTab]?.name || "Select"} &nbsp;
-							<img
-								src={accarrow.src}
-								className={`${styles.dropArrow} ${
-									dropdownOpen ? styles.dropArrowAct : ""
-								}`}
-								alt=""
-							/>
-						</span>
-						<div className={`${styles.flexInner} d_f`}>{customHtml} </div>
-					</div>
-					{dropdownOpen && (
-						<div className={styles.dropdownList}>
-							{sectionsList?.map((item, ind) => (
-								<div
-									key={ind}
-									className={styles.dropdownItem}
-									onClick={() => handleItemClick(item)}
-								>
-									{typeof item.name === "string" ? item.name : item}
-								</div>
-							))}
+			<div
+				className={`${styles.SectionsHeaderDropdown} ${styles.SectionsHeaderResponsive} SectionsHeaderDropdown`}
+			>
+				<div className="container">
+					<div className={`${styles.SectionsHeaderDropdown} SectionsHeaderDropdown`}>
+						<div
+							className={`${styles.dropdownToggle} f_r_aj_between`}
+							onClick={() => setDropdownOpen((prev) => !prev)}
+						>
+							<span>
+								{sectionsList[activeTab]?.name || "Select"} &nbsp;
+								<img
+									src={accarrow.src}
+									className={`${styles.dropArrow} ${
+										dropdownOpen ? styles.dropArrowAct : ""
+									}`}
+									alt=""
+								/>
+							</span>
+							<div className={`${styles.flexInner} d_f`}>{customHtml} </div>
 						</div>
-					)}
+						{dropdownOpen && (
+							<div className={styles.dropdownList}>
+								{sectionsList?.map((item, ind) => (
+									<div
+										key={ind}
+										className={styles.dropdownItem}
+										onClick={() => handleItemClick(item)}
+									>
+										{typeof item.name === "string" ? item.name : item}
+									</div>
+								))}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</>

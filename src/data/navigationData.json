@@ -4,7 +4,7 @@
 			"title": "Power & Renewables",
 			"slug": "power-renewables",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Power-Renewables-Service-1.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Power-Renewables-Service-1.svg",
 				"altText": ""
 			}
 		},
@@ -12,7 +12,7 @@
 			"title": "Flexible Energy",
 			"slug": "flexible-energy",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-Service.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-Service.svg",
 				"altText": ""
 			}
 		},
@@ -20,7 +20,7 @@
 			"title": "Grid",
 			"slug": "grid",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Grid-Add-On.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Grid-Add-On.svg",
 				"altText": ""
 			}
 		},
@@ -28,7 +28,7 @@
 			"title": "Hydrogen",
 			"slug": "hydrogen",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Hydrogen-Service.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Hydrogen-Service.svg",
 				"altText": ""
 			}
 		}
@@ -38,7 +38,7 @@
 			"title": "Origin",
 			"slug": "origin",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Origin-1.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Origin-1.svg",
 				"altText": ""
 			}
 		},
@@ -46,7 +46,7 @@
 			"title": "Amun",
 			"slug": "amun",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun-1.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Amun-1.svg",
 				"altText": ""
 			}
 		},
@@ -54,7 +54,7 @@
 			"title": "Chronos",
 			"slug": "chronos",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Chronos.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Chronos.svg",
 				"altText": ""
 			}
 		},
@@ -62,7 +62,7 @@
 			"title": "Lumus",
 			"slug": "lumus",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Lumus.svg",
 				"altText": ""
 			}
 		},
@@ -70,7 +70,7 @@
 			"title": "Nodal Explorer",
 			"slug": "nodalexplorer",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Nodal.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Nodal.svg",
 				"altText": ""
 			}
 		}
@@ -79,9 +79,9 @@
 		{
 			"title": "Advisory",
 			"slug": "advisory",
-			"content": "<p>Bespoke advisory offering in-depth strategic recommendation and insights.</p>\n",
+			"content": "<p>Bespoke advisory services and data-driven insights to support strategic decisions in the energy landscape.</p>\n",
 			"logo": {
-				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/03/Advisory.svg",
+				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/03/Advisory.svg",
 				"altText": ""
 			}
 		}
@@ -346,8 +346,8 @@
 			"countries": {
 				"nodes": [
 					{
-						"slug": "noram",
-						"title": "Noram",
+						"slug": "us-canada",
+						"title": "US & Canada",
 						"countries": {
 							"hideonglobalpresence": false
 						}
@@ -423,18 +423,18 @@
 	],
 	"events": [
 		{
-			"title": "Topic 2024 — After the Energy Crisis: Prospects for Renewables and Batteries in Germany",
-			"slug": "topic-2024-after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
+			"title": "New Event 2025—Energy Transition Summit London",
+			"slug": "new-event-2025-energy-transition-summit-london",
 			"featuredImage": null,
 			"events": {
 				"thumbnail": {
-					"date": "2024-05-28T00:00:00+00:00",
-					"status": "Past",
+					"date": "2025-11-19T00:00:00+00:00",
+					"status": "Upcoming",
 					"time": null,
 					"logo": {
 						"node": {
 							"altText": "",
-							"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Renewables-Battery-Summit-1.png"
+							"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Energy-Transition-Summit-london.png"
 						}
 					}
 				},
@@ -442,7 +442,7 @@
 					"desktop": {
 						"node": {
 							"altText": "",
-							"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Aurora-Renewables-Battery-Summit-Berlin-2024-2.jpg"
+							"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/GB-Banner-1280-x-440.jpg"
 						}
 					}
 				}
@@ -458,7 +458,7 @@
 			"featuredImage": {
 				"node": {
 					"altText": "",
-					"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2024/05/Website-Images-Use-This-1.png"
+					"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2024/05/Website-Images-Use-This-1.png"
 				}
 			},
 			"categories": {
@@ -491,8 +491,53 @@
 				"nodes": []
 			},
 			"postFields": {
+				"appleLink": null,
+				"otherLink": null,
+				"googleLink": null,
+				"topSectionButton": {
+					"iframe": null,
+					"buttonText": null,
+					"file": null
+				},
+				"middleSectionButton": {
+					"buttonText": null,
+					"iframe": null,
+					"file": null
+				},
+				"bottomSectionButton": {
+					"buttonText": null,
+					"iframe": null,
+					"file": null
+				},
+				"insightsSectionButton": {
+					"buttonText": null,
+					"iframe": null,
+					"file": null
+				},
+				"spotifyLink": null,
 				"time": null,
-				"speakers": null
+				"youtubeLink": null,
+				"authors": null,
+				"speakers": null,
+				"client": null,
+				"podcast": null,
+				"poweredBy": null,
+				"testimonials": null,
+				"recordingSectionButton": {
+					"buttonText": null,
+					"iframe": null,
+					"file": null
+				},
+				"sections": null,
+				"mediaContact": null,
+				"about": {
+					"content": null,
+					"sectionTitle": null
+				},
+				"insights": {
+					"desc": null,
+					"title": null
+				}
 			}
 		}
 	],

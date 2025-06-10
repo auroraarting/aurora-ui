@@ -1,18 +1,24 @@
 @import "../helpers/helpers.scss";
 
 .globalMap {
-	min-height: 100vh;
+	// min-height: 100vh;
 	max-width: 100vw;
 	background-color: var(--color_secondary);
 	overflow: hidden;
 
+	:global(.swiper-wrapper) {
+		transition-timing-function: linear !important;
+	}
+
 	&:global(.section_spacing) {
+		padding-top: 40px;
 		padding-bottom: 0%;
 	}
 
 	.title {
 		text-align: center;
-		margin-left: 30px;
+		// margin-left: 30px;
+		padding-left: 600px;
 	}
 
 	:global(.container) {

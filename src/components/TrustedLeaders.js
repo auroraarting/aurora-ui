@@ -1,6 +1,7 @@
 "use client";
 
 // MODULES //
+import { useEffect, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -29,7 +30,19 @@ export default function TrustedLeaders({
 	data,
 	sectionTitle = "Trusted by industry leaders",
 }) {
-	if (!data || !data?.selectLogos) return <></>;
+	const [paddingBottom, setPaddingBottom] = useState("");
+	useEffect(() => {
+		const checkIfPagination = document.querySelectorAll(
+			".TrustedLeaders .swiper-pagination span"
+		);
+		if (checkIfPagination?.length > 1) {
+			setPaddingBottom("60px");
+		}
+	}, []);
+
+	if (!data || !data?.selectLogos) {
+		return <></>;
+	}
 
 	return (
 		<section
@@ -40,7 +53,7 @@ export default function TrustedLeaders({
 			title="our Clients"
 		>
 			<div className="container">
-				<div className="pb_40">
+				<div className={`${styles.titleTxt} pb_40`}>
 					<h2 className="text_xl font_primary f_w_s_b color_secondary">
 						{data?.title || sectionTitle}
 					</h2>
@@ -55,10 +68,11 @@ export default function TrustedLeaders({
 					))}
 				</div> */}
 
-				<div className={`${styles.box_wrap}`}>
+				<div className={`${styles.box_wrap} `}>
 					<Swiper
-						slidesPerGroup={5} // scroll 5 columns = 10 items with 2 rows
-						slidesPerView={5}
+						slidesPerGroup={2} // scroll 5 columns = 10 items with 2 rows
+						slidesPerView={2}
+						grabCursor={true}
 						grid={{
 							fill: "row", // This is important for row layout
 							rows: 2,
@@ -86,6 +100,7 @@ export default function TrustedLeaders({
 						}}
 						modules={[Grid, Pagination]}
 						className="mySwiper"
+						style={{ paddingBottom: paddingBottom }}
 					>
 						{data?.selectLogos?.nodes?.map((item, ind) => {
 							const imageUrl = item?.featuredImage?.node?.mediaItemUrl;

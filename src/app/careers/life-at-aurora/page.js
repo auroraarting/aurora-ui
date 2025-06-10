@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -36,18 +36,20 @@ export const metadata = {
 	description: "Aurora",
 };
 
+export const revalidate = 60; // Revalidates every 60 seconds
+
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
 	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =
 		await Promise.all([
-			getLifeAtAurora(),
-			getFetchJobData(),
-			getOffices(),
-			getInsightsCategories(),
-			getInsights(
+			await getLifeAtAurora(),
+			await getFetchJobData(),
+			await getOffices(),
+			await getInsightsCategories(),
+			await getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			getEarlyCareersListing("first: 10"),
+			await getEarlyCareersListing("first: 10"),
 		]);
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: offices.data.offices.nodes },

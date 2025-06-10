@@ -15,12 +15,17 @@ import styles from "@/styles/sections/careers/whatWeLook.module.scss";
 
 // IMAGES //
 import dropdown_arrow from "../../../public/img/icons/dropdown_arrow.svg";
+import checkIcn from "../../../public/img/icons/checkIcn.svg";
 // DATA //
 
 /** WhatWeLook Section */
 export default function WhatWeLook({ data }) {
 	return (
-		<section className={`${styles.whatWeLook}  ptb_100`}>
+		<section
+			className={`${styles.whatWeLook}  ptb_100`}
+			id="CRITERIA"
+			data-name="CRITERIA"
+		>
 			<div className="container">
 				<div className={`${styles.whatWeLookFlx} f_w_j`}>
 					<div className={`${styles.whatWeLookItem}`}>
@@ -42,7 +47,10 @@ export default function WhatWeLook({ data }) {
 											key={item?.accordionTitle}
 											className="font_primary f_w_m text_reg color_secondary pb_20"
 										>
-											{item?.accordionTitle}
+											<span className={`${styles.checkIcn}`}>
+												<img src={checkIcn.src} alt="check icon" />
+											</span>
+											<span>{item?.accordionTitle}</span>
 										</li>
 									);
 								})}

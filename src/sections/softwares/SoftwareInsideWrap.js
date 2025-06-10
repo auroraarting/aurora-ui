@@ -47,8 +47,10 @@ export default function SoftwareInsideWrap({
 	regions,
 	meta,
 	countries,
+	showMap,
 }) {
 	const dataForBtn = { postFields: data || {} };
+	console.log(data, "data");
 
 	return (
 		<div>
@@ -109,14 +111,18 @@ export default function SoftwareInsideWrap({
 						/>
 					</div>
 				)}
-				<GlobalMap locationJson={mapJson} />
+				{showMap && (
+					<div className="m_b_100">
+						<GlobalMap locationJson={mapJson} marqueeData={data?.Map?.Marquee} />
+					</div>
+				)}
 				{/* {data?.caseStudy?.title && ( */}
-				<div className="pt_100">
+				<div className="pb_100">
 					<CaseStudy data={data?.caseStudy} countries={countries} />
 				</div>
 				{/* )} */}
 				{data?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className={`${styles.TrustOurExpertsBg} pb_50`}>
 						<TrustedLeaders data={data?.ourClient} />
 					</div>
 				)}
@@ -125,14 +131,20 @@ export default function SoftwareInsideWrap({
 						<TestimonialFeedback data={data?.ourClient} />
 					</div>
 				)}
-				<ServicesCircle data={data?.keyAdvantages} />
+				<ServicesCircle
+					data={data?.keyAdvantages}
+					customColor={data?.thumbnail?.primaryColor}
+					centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
+				/>
 				<div>
 					<GloballyBankableInsights
 						data={data?.whyAurora}
 						isMultiple={data?.whyAurora?.list?.length > 1}
+						name=""
 					/>
 				</div>
 				<IntuitiveStepProcess
+					removeTopBottom={data?.whyAurora?.title ? false : true}
 					data={data?.fourStepProcess}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext && (
@@ -147,12 +159,12 @@ export default function SoftwareInsideWrap({
 						)
 					}
 				/>
-				<div className="pt_100">
+				<div className="">
 					<SoftwareVideos />
 				</div>
-				<SmarterEnergy data={data?.expertise} />
+				<SmarterEnergy data={data?.expertise} sectionName="" />
 				{data?.expertSupport?.list?.length > 0 && (
-					<div className="ptb_100">
+					<div className="pb_100">
 						<TrustOurExperts data={data?.expertSupport} />
 					</div>
 				)}
@@ -161,6 +173,8 @@ export default function SoftwareInsideWrap({
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
+						formSectionTitle={data?.insights?.sectionTitle}
+						formSectionDesc={data?.insights?.sectionDesc}
 						formSectionBtnText={
 							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
 						}
@@ -168,10 +182,10 @@ export default function SoftwareInsideWrap({
 					/>
 				</div>
 				<div className="pb_100">
-					<IntegratedSystem module="products" />
+					<IntegratedSystem />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal hideLeft />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

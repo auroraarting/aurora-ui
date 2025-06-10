@@ -5,6 +5,11 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: bottom center;
+	:global(.content) {
+		max-height: 80vh;
+		overflow-y: auto;
+	}
+
 	.common_queries_flex {
 		.title_wrap {
 			width: 40%;
@@ -29,18 +34,45 @@
 	:global(.imgIcons) {
 		margin-right: 10px;
 	}
+	:global(.accordionContent) {
+		padding-left: 0px !important;
+	}
 
 	:global {
 		.modal {
 			.content {
 				width: 80%;
+				@media (max-width: 991px) {
+					width: 100% !important;
+					max-height: 100vh;
+					height: 100vh !important;
+					padding: 60px 20px 20px;
+				}
+				p {
+					a {
+						color: var(--color_white);
+					}
+				}
 			}
 		}
 	}
-
+	:global(.closeBtn) {
+		position: fixed;
+		@media (max-width: 767px) {
+			top: 30px;
+		}
+	}
 	.popup {
-		padding: 50px;
-
+		padding: 30px;
+		@media (max-width: 1199px) {
+			padding: 20px;
+		}
+		@media (max-width: 991px) {
+			padding: 10px;
+		}
+		@media (max-width: 767px) {
+			padding: 0px;
+		}
 		:global {
 			.icon {
 				img {
@@ -53,7 +85,7 @@
 		}
 		.accordian_main {
 			border-top: 1px solid #2c2c2c;
-			padding-top: 40px;
+			padding-top: 0px;
 			margin-top: 50px;
 		}
 	}

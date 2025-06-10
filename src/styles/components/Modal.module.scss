@@ -32,6 +32,8 @@
 		@extend %relative_box;
 		background-color: var(--color_secondary);
 		padding: 20px;
+		max-height: 90vh;
+		overflow-y: auto;
 
 		@include md-down {
 			width: 90%;

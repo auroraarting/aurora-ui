@@ -59,7 +59,7 @@ export default function WhoAreYouInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.FinancialSectorPage}>
-				<div className="pb_60">
+				<div className="">
 					<InnerBanner
 						// bannerTitle="Energy solutions for those who see beyond the grid"
 						// bannerDescription="Aurora empowers industries with tailored energy intelligence, helping decision-makers drive impact, manage risks, and seize opportunities in a rapidly changing energy landscape."
@@ -104,7 +104,7 @@ export default function WhoAreYouInsideWrap({
 					/>
 				</div>
 				{data?.whoAreYous?.stats && (
-					<div className="">
+					<div className="pb_50 dark_bg">
 						<CounterDynamic data={data?.whoAreYous?.stats} />
 					</div>
 				)}
@@ -116,7 +116,7 @@ export default function WhoAreYouInsideWrap({
 				</div>
 
 				{data?.whoAreYous?.ourClient?.selectLogos && (
-					<div className="ptb_100">
+					<div className="pb_50 pt_100 ">
 						<TrustedLeaders data={data?.whoAreYous?.ourClient} />
 					</div>
 				)}
