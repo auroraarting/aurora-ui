@@ -517,7 +517,7 @@ export const getHomePageVoices = async () => {
 		arr.push({
 			...item,
 			link: `/resources/aurora-insights/case-studies/${item.slug}`,
-			cat: "Case Study",
+			cat: "LATEST Case Study",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});
@@ -548,7 +548,7 @@ export const getHomePageVoices = async () => {
 			...item,
 			link: `/events/${item.slug}`,
 			thumb: item?.events?.banner?.desktop?.node?.mediaItemUrl,
-			cat: "Event",
+			cat: "UPCOMING Event",
 			categories,
 			date: item?.events?.thumbnail?.date,
 			externalUrl: item?.events?.thumbnail?.externalUrl,
@@ -558,7 +558,7 @@ export const getHomePageVoices = async () => {
 		arr.push({
 			...item,
 			link: `/resources/aurora-insights/articles/${item.slug}`,
-			cat: "Article",
+			cat: " Article",
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 		});
 	});

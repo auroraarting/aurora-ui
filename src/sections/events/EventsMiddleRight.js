@@ -31,7 +31,7 @@ export default function EventsMiddleRight({ data, events }) {
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
 			{data?.events?.interestedDesc && (
-				<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
+				<div className={`${styles.whiteBox}`}>
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_m pb_10">
 							Interested in partnering with us?
