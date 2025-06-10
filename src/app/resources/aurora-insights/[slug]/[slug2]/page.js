@@ -90,11 +90,12 @@ async function getData({ params }) {
 
 /** Articles Page */
 export default async function Articles({ params }) {
+	const { slug2, slug } = await params;
 	const { props } = await getData({ params });
 
 	/** insights */
 	const insights = () => {
-		if (params.slug2 === "article") {
+		if (params.slug === "article" || params.slug === "articles") {
 			return {
 				insights: {
 					title: "Energy insights to your inbox",
@@ -108,7 +109,13 @@ export default async function Articles({ params }) {
 				},
 			};
 		}
+		return {
+			insights: props.data.postFields.insights,
+			insightsSectionButton: props.data.postFields.insightsSectionButton,
+		};
 	};
+
+	console.log(props);
 
 	// data?.postFields?.insights?.title
 
