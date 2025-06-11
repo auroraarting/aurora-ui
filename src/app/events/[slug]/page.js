@@ -175,7 +175,7 @@ async function getData({ slug }) {
 							new Date(a?.events?.thumbnail?.date) -
 							new Date(b?.events?.thumbnail?.date)
 					)
-					.slice(0, 1) || [],
+					.slice(0, 2) || [],
 		},
 	};
 }
