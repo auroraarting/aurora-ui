@@ -235,7 +235,6 @@ export async function fetchNavigationData() {
       events {
         thumbnail {
           date
-          status
           time
           logo {
             node {
@@ -341,6 +340,8 @@ export async function fetchNavigationData() {
 	);
 	const topPages = data?.page?.searchTopics?.topPages;
 	const topSearches = data?.page?.searchTopics?.topSearches;
+
+	console.log(data, "regions");
 
 	return {
 		products,
