@@ -251,7 +251,7 @@ export async function searchData(searchTerm) {
 	const posts = data?.posts?.nodes?.map((item) => {
 		/** href  */
 		const href = () => {
-			let cat = isCategory(allCategories, item?.categories?.nodes);
+			let cat = isCategory(allCategories, item?.categories?.nodes, true);
 			if (cat.includes("Articles")) {
 				return `/resources/aurora-insights/articles/${item?.slug}`;
 			} else if (cat.includes("Case Studies")) {
