@@ -26,10 +26,13 @@ export default function EventsLocation({ data }) {
 	}
 	return (
 		<section
-			className={`${styles.EventsLocation} pb_50`}
+			className={`${styles.EventsLocation} `}
 			id="location"
 			data-name="Location"
 		>
+			{!data?.events?.location?.addres && (
+				<h2 className="text_lg color_secondary pb_10">Location</h2>
+			)}
 			<div className="f_w_j">
 				{data?.events?.location?.addres && (
 					<div className={`${styles.locationLeft}`}>

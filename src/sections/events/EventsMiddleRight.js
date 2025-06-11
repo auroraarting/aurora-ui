@@ -104,7 +104,7 @@ export default function EventsMiddleRight({ data, events }) {
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						UPCOMING EVENT
 					</h5>
-					{events?.slice(0, 1).map((item) => {
+					{events?.map((item) => {
 						let hrefObj = {};
 						if (item?.events?.thumbnail?.externalUrl) {
 							hrefObj.href = item?.events?.thumbnail?.externalUrl;
