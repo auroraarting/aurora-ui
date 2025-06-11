@@ -137,6 +137,11 @@ async function getData({ params, query }) {
 		(webinar) => webinar.webinarsFields?.startDateAndTime
 	);
 
+	// console.log(
+	// 	webinarsRes?.data?.webinars?.nodes,
+	// 	"webinarsRes?.data?.webinars?.nodes"
+	// );
+
 	const webinarsAllSorted = filterAndSortByDate(
 		webinarsRes?.data?.webinars?.nodes,
 		(webinar) => webinar.webinarsFields?.startDateAndTime

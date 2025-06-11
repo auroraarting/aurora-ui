@@ -149,7 +149,7 @@ export default function AuroraInsightsWrap({
 							},
 							{
 								desc: "In-depth insights from global energy leaders",
-								btnText: "View podcasts",
+								btnText: "View all podcasts",
 								btnLink: "/resources/energy-talks",
 								img: "/img/contact/cardImg7.jpg",
 								fontColor: "color_black",
