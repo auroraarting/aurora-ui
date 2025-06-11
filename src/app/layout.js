@@ -1,5 +1,6 @@
-import "@/styles/globals/globals.scss";
+export const revalidate = 86400; // Revalidates every 86400 seconds
 
+import "@/styles/globals/globals.scss";
 import { GlobalContext } from "@/context/GlobalContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
