@@ -546,6 +546,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/risks-for-renewables-in-the-nordics-negative-prices-and-demand",
+				destination: "/resources/webinar/risks-for-renewables-in-the-nordics-negative-prices-demand",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
