@@ -341,8 +341,6 @@ export async function fetchNavigationData() {
 	const topPages = data?.page?.searchTopics?.topPages;
 	const topSearches = data?.page?.searchTopics?.topSearches;
 
-	console.log(data, "regions");
-
 	return {
 		products,
 		softwares,

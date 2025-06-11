@@ -79,20 +79,22 @@ async function getData({ params, query }) {
 	const language = query.language;
 	let data, countryBy, mapJson;
 
-	if (language && language === "jp") {
-		// Fetch Japanese data
-		[data] = await Promise.all([getCountryInsideWithLanguages(params.slug)]);
-		countryBy = {
-			...data?.data?.countryBy?.translations?.[0],
-			translations: data?.data?.countryBy?.translations,
-		};
-		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
-	} else {
-		// Default fetch
-		[data] = await Promise.all([getCountryInside(params.slug)]);
-		countryBy = data?.data?.countryBy;
-		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
-	}
+	// if (language && language === "jp") {
+	// 	// Fetch Japanese data
+	// 	[data] = await Promise.all([getCountryInsideWithLanguages(params.slug)]);
+	// 	console.log(data, "data in jp in if statement");
+	// 	countryBy = {
+	// 		...data?.data?.countryBy?.translations?.[0],
+	// 		translations: data?.data?.countryBy?.translations,
+	// 	};
+	// 	mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	// } else {
+	// 	// Default fetch
+	// 	[data] = await Promise.all([getCountryInside(params.slug)]);
+	// 	console.log(data, "data in en in if statement");
+	// 	countryBy = data?.data?.countryBy;
+	// 	mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	// }
 	const [
 		insights,
 		categoriesForSelect,
@@ -110,6 +112,26 @@ async function getData({ params, query }) {
 			? getCountryInsideWithLanguages(params.slug)
 			: getCountryInside(params.slug),
 	]);
+	if (language === "jp") {
+		countryBy = {
+			...countryData?.data?.countryBy?.translations?.[0],
+			translations: [
+				{
+					slug: "jp",
+					title: "Japan",
+				},
+			],
+		};
+		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	} else {
+		countryBy = countryData?.data?.countryBy;
+		mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	}
+	// countryBy = {
+	// 	...countryData?.data?.countryBy?.translations?.[0],
+	// 	translations: data?.data?.countryBy?.translations,
+	// };
+	// mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const insightsList = insights?.data?.posts?.nodes;
 
 	const events = eventsFetch?.data?.events?.nodes
