@@ -161,8 +161,8 @@ async function getData({ slug }) {
 			dataForBtn,
 			events: eventList,
 			pastEvents: pastEventList
-				?.filter((item) => new Date() < new Date(item?.date))
-				?.sort((a, b) => new Date(a?.date) - new Date(b?.date))
+				?.filter((item) => new Date() > new Date(item?.date))
+				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
 				.slice(0, 3),
 			eventsOriginal:
 				events.data.events.nodes
