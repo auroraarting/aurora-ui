@@ -3,54 +3,59 @@ import { memoizedFetch } from "@/lib/memoizedFetch";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI  */
-export default async function GraphQLAPI(query) {
+export default async function GraphQLAPI(query, ttl = 86400) {
 	let res;
 	let req;
 	try {
-		req = await fetch(`${process.env.API_URL}`, {
+		const options = {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 60 },
-		});
-		res = await req.json();
-		return res;
+			method: "POST",
+		};
+
+		req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+		// res = await req.json();
+		return req;
 	} catch (error) {
 		// req = await req.text();
 		console.log(error, req, "errror");
 	}
 }
 
-
 /** GraphQLAPI Memoized (Redis cache) */
-export async function GraphQLAPIMemoized(query, ttl = 86400) { // default 24h
-    let res;
-    try {
-        const options = {
-            ...ServerHeaders,
-            body: JSON.stringify({ query }),
-            method: "POST",
-        };
-        res = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
-        return res;
-    } catch (error) {
-        console.log(error, "GraphQLAPIMemoized error");
-    }
+export async function GraphQLAPIMemoized(query, ttl = 86400) {
+	// default 24h
+	let res;
+	try {
+		const options = {
+			...ServerHeaders,
+			body: JSON.stringify({ query }),
+			method: "POST",
+		};
+		res = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+		return res;
+	} catch (error) {
+		console.log(error, "GraphQLAPIMemoized error");
+	}
 }
 
-
 /** GraphQLAPI  */
-export async function GraphQLAPINoBottleneck(query) {
+export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
 	let res;
 	let req;
 
 	try {
-		req = await fetch(`${process.env.API_URL}`, {
-			...ServerHeaders,
-			body: JSON.stringify({ query }),
-			next: { revalidate: 60 },
-		});
-		res = await req.json();
-		return res;
+		req = await memoizedFetch(
+			`${process.env.API_URL}`,
+			{
+				...ServerHeaders,
+				body: JSON.stringify({ query }),
+				next: { revalidate: 60 },
+			},
+			ttl
+		);
+		// res = await req.json();
+		return req;
 	} catch (error) {
 		// req = await req.text();
 		console.log(error, req, "errror");
