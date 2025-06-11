@@ -4,7 +4,8 @@
 		"deploymentEnabled": {
 			"nihal": false,
 			"pawan-dev": false,
-			"pramod": false
+			"pramod": false,
+			"dev": false
 		}
 	}
 }
