@@ -22,7 +22,7 @@ export async function GraphQLAPILongerRevalidate(query, variables = {}) {
 		const req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query, variables }), // ✅ Send variables
-			next: { revalidate: 60 }, // 24 hours
+			next: { revalidate: 18000 }, // 5 minutes
 		});
 		const res = await req.json();
 		return res;
