@@ -37,7 +37,7 @@ import {
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 
-// export const revalidate = 60; // Revalidates every 60 seconds
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -97,12 +97,12 @@ async function getData({ params, query }) {
 	}
 	const [insights, categoriesForSelect, eventsFetch, webinarsFetch] =
 		await Promise.all([
-			await getInsights(
+			getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			await getInsightsCategories(),
-			await getAllEvents("first:9999"),
-			await getWebinars("first:9999"),
+			getInsightsCategories(),
+			getAllEvents("first:9999"),
+			getWebinars("first:9999"),
 		]);
 	const insightsList = insights?.data?.posts?.nodes;
 
