@@ -1,4 +1,5 @@
 import { rateLimitedFetch } from "@/lib/rateLimitedFetch.server";
+import { memoizedFetch } from "@/lib/memoizedFetch";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
 /** GraphQLAPI with support for variables */
@@ -29,4 +30,21 @@ export async function GraphQLAPILongerRevalidate(query, variables = {}) {
 	} catch (error) {
 		console.log("GraphQLAPI error:", error);
 	}
+}
+
+
+
+/** GraphQLAPI with memoized Redis cache */
+export async function GraphQLAPIMemoized(query, variables = {}, ttl = 86400) { // default 24h
+    try {
+        const options = {
+            ...ServerHeaders,
+            body: JSON.stringify({ query, variables }),
+            method: "POST",
+        };
+        const res = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+        return res;
+    } catch (error) {
+        console.log("GraphQLAPIMemoized error:", error);
+    }
 }

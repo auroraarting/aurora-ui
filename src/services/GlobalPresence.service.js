@@ -1,5 +1,5 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
-import GraphQLAPI from "./Graphql.service";
+import GraphQLAPI, { GraphQLAPIMemoized } from "./Graphql.service";
 
 /** Fetch Regions Data */
 export const getRegions = async () => {
@@ -452,7 +452,7 @@ query GetCountryInside {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPIMemoized(query);
 	return res;
 };
 

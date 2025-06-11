@@ -1,6 +1,6 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import GraphQLAPI from "./Graphql.service";
-import { GraphQLAPILongerRevalidate } from "./GraphqlAPI.service";
+import { GraphQLAPILongerRevalidate, GraphQLAPIMemoized } from "./GraphqlAPI.service";
 
 /** Fetch Regions Data */
 export const getRegions = async () => {
@@ -440,6 +440,6 @@ query GetCountryInside {
   }
 }
     `;
-	const res = await GraphQLAPILongerRevalidate(query);
+	const res = await GraphQLAPIMemoized(query);
 	return res;
 };
