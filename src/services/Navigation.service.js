@@ -235,7 +235,6 @@ export async function fetchNavigationData() {
       events {
         thumbnail {
           date
-          status
           time
           logo {
             node {

@@ -76,102 +76,93 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ params, query }) {
-	const { language } = query;
-	const { slug } = params;
+	const language = query.language;
+	const isJapanese = language === "jp";
 
-	// Run all API calls in parallel
-	const [
-		insights,
-		categoriesForSelect,
-		eventsFetch,
-		webinarsFetch,
-		countryData,
-	] = await Promise.all([
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-		),
-		getInsightsCategories(),
-		getAllEvents("first:9999"),
-		getWebinars("first:9999"),
-		language === "jp"
-			? getCountryInsideWithLanguages(slug)
-			: getCountryInside(slug),
-	]);
+	const countryDataPromise = isJapanese
+		? getCountryInsideWithLanguages(params.slug)
+		: getCountryInside(params.slug);
 
-	// Country info logic
-	const countryBy =
-		language === "jp"
-			? {
-					...countryData?.data?.countryBy?.translations?.[0],
-					translations: countryData?.data?.countryBy?.translations,
-			  }
-			: countryData?.data?.countryBy;
+	const [insightsRes, categoriesRes, eventsRes, webinarsRes, countryData] =
+		await Promise.all([
+			getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			),
+			getInsightsCategories(),
+			getAllEvents("first:9999"),
+			getWebinars("first:9999"),
+			countryDataPromise,
+		]);
+
+	const countryBy = isJapanese
+		? {
+				...countryData?.data?.countryBy?.translations?.[0],
+				translations: [{ slug: "jp", title: "Japan" }],
+		  }
+		: countryData?.data?.countryBy;
 
 	const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
-	const insightsList = insights?.data?.posts?.nodes || [];
+	const insightsList = insightsRes?.data?.posts?.nodes || [];
+	const countries = categoriesRes?.data?.countries?.nodes || [];
 
-	const allEvents = eventsFetch?.data?.events?.nodes || [];
-	const allWebinars = webinarsFetch?.data?.webinars?.nodes || [];
+	/** Filter and sort helpers  */
+	const filterAndSortByDate = (items, datePath) =>
+		(items || [])
+			.filter((item) => new Date() < new Date(datePath(item)))
+			.sort((a, b) => new Date(datePath(a)) - new Date(datePath(b)));
 
-	/** Utility functions  */
-	const isUpcoming = (date) => new Date() < new Date(date);
-	/** Utility functions  */
-	const sortByDate = (a, b, key) => new Date(a?.[key]) - new Date(b?.[key]);
-	/** Utility functions  */
-	const removeDuplicatesByTitle = (arr) =>
-		arr.filter(
-			(item, idx, self) => idx === self.findIndex((t) => t?.title === item?.title)
+	const eventsFiltered = filterAndSortByDate(
+		eventsRes?.data?.events?.nodes?.filter((event) =>
+			event?.events?.thumbnail?.country?.nodes?.some(
+				(node) => node?.slug === params.slug
+			)
+		),
+		(event) => event.events?.thumbnail?.date
+	);
+
+	const eventsAllSorted = filterAndSortByDate(
+		eventsRes?.data?.events?.nodes,
+		(event) => event.events?.thumbnail?.date
+	);
+
+	const eventsList =
+		eventsFiltered?.length > 0 ? eventsFiltered : eventsAllSorted;
+
+	const webinarsFiltered = filterAndSortByDate(
+		webinarsRes?.data?.webinars?.nodes?.filter((webinar) =>
+			webinar?.webinarsFields?.country?.nodes?.some(
+				(node) => node?.slug === params.slug
+			)
+		),
+		(webinar) => webinar.webinarsFields?.startDateAndTime
+	);
+
+	const webinarsAllSorted = filterAndSortByDate(
+		webinarsRes?.data?.webinars?.nodes,
+		(webinar) => webinar.webinarsFields?.startDateAndTime
+	);
+
+	let webinarList =
+		webinarsFiltered?.length > 0 ? webinarsFiltered : webinarsAllSorted;
+
+	if (webinarList.length < 3) {
+		webinarList = [...webinarList, ...webinarsAllSorted].filter(
+			(item, index, self) =>
+				index === self.findIndex((t) => t?.title === item?.title)
 		);
-
-	/** Utility functions  */
-	const filterAndSort = (items, filterFn, dateKey) =>
-		items
-			.filter((item) => filterFn(item) && isUpcoming(item?.[dateKey]))
-			.sort((a, b) => sortByDate(a, b, dateKey));
-
-	/** Events  */
-	const countryEventFilter = (item) =>
-		item?.events?.thumbnail?.country?.nodes?.some((c) => c?.slug === slug);
-
-	const events = filterAndSort(
-		allEvents,
-		countryEventFilter,
-		"events.thumbnail.date"
-	);
-	const eventsAll = filterAndSort(
-		allEvents,
-		() => true,
-		"events.thumbnail.date"
-	);
-	const eventsList = events.length > 0 ? events : eventsAll;
-
-	/** Webinars  */
-	const countryWebinarFilter = (item) =>
-		item?.webinarsFields?.country?.nodes?.some((c) => c?.slug === slug);
-
-	let webinars = filterAndSort(
-		allWebinars,
-		countryWebinarFilter,
-		"webinarsFields.startDateAndTime"
-	);
-	const webinarsAllSorted = filterAndSort(
-		allWebinars,
-		() => true,
-		"webinarsFields.startDateAndTime"
-	);
-
-	if (webinars.length < 3) {
-		webinars = removeDuplicatesByTitle([...webinars, ...webinarsAllSorted]);
 	}
+
+	// Optional: enable this if fallback 404 is desired
+	// if (!countryBy) return { notFound: true };
 
 	return {
 		props: {
 			data: countryBy,
 			mapJson,
 			insightsList,
-			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			countries,
 			events: eventsList.slice(0, 1),
-			webinars: webinars.slice(0, 3),
+			webinars: webinarList.slice(0, 3),
 		},
 	};
 }

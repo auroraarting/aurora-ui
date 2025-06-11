@@ -23,8 +23,12 @@ export const metadata = {
 
 /** layout page */
 export default async function RootLayout({ children }) {
+	const [navigationFetch, eventsFetch] = await Promise.all([
+		fetchNavigationData(),
+		getAllEvents("first:9999"),
+	]);
 	// const navigationFetch = await fetchNavigationData();
-	const eventsFetch = await getAllEvents("first:9999");
+	// const eventsFetch = await getAllEvents("first:9999");
 	const events = eventsFetch?.data?.events?.nodes
 		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 		?.sort(
@@ -33,7 +37,10 @@ export default async function RootLayout({ children }) {
 		)
 		.slice(0, 1);
 
-	const navigation = { ...navigationJSON, events };
+	const navigation = { ...navigationFetch, events };
+
+	// console.log(navigationFetch, "navigationFetch");
+	// console.log(navigationJSON, "eventsFetch");
 
 	return (
 		<html lang="en">
