@@ -15,3 +15,18 @@ export default async function GraphQLAPI(query, variables = {}) {
 		console.log("GraphQLAPI error:", error);
 	}
 }
+
+/** GraphQLAPI with support for variables */
+export async function GraphQLAPILongerRevalidate(query, variables = {}) {
+	try {
+		const req = await fetch(`${process.env.API_URL}`, {
+			...ServerHeaders,
+			body: JSON.stringify({ query, variables }), // ✅ Send variables
+			next: { revalidate: 86400 }, // 24 hours
+		});
+		const res = await req.json();
+		return res;
+	} catch (error) {
+		console.log("GraphQLAPI error:", error);
+	}
+}
