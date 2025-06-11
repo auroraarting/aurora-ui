@@ -45,6 +45,13 @@ export default async function RootLayout({ children }) {
 
 	return (
 		<html lang="en">
+			<head>
+				<Script
+					id="cookieyes"
+					strategy="beforeInteractive"
+					src="https://cdn-cookieyes.com/client_data/c6fa123059758f90cec26dbf/script.js"
+				/>
+			</head>
 			<body>
 				<Script
 					async
@@ -56,12 +63,6 @@ export default async function RootLayout({ children }) {
                       gtag('js', new Date());
                       gtag('config', 'G-Z75SWZL0J6');`}
 				</Script>
-
-				<Script
-					id="cookieyes"
-					strategy="afterInteractive"
-					src="https://cdn-cookieyes.com/client_data/c6fa123059758f90cec26dbf/script.js"
-				/>
 
 				<GlobalContext>
 					{/* Header */}
