@@ -5,7 +5,8 @@
 			"nihal": false,
 			"pawan-dev": false,
 			"pramod": false,
-			"dev": false
+			"dev": false,
+			"feature/cache": false
 		}
 	}
 }
