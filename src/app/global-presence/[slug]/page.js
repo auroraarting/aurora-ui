@@ -97,12 +97,12 @@ async function getData({ params, query }) {
 	}
 	const [insights, categoriesForSelect, eventsFetch, webinarsFetch] =
 		await Promise.all([
-			await getInsights(
+			getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
 			),
-			await getInsightsCategories(),
-			await getAllEvents("first:9999"),
-			await getWebinars("first:9999"),
+			getInsightsCategories(),
+			getAllEvents("first:9999"),
+			getWebinars("first:9999"),
 		]);
 	const insightsList = insights?.data?.posts?.nodes;
 
