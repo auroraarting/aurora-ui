@@ -2,7 +2,9 @@
 	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"git": {
 		"deploymentEnabled": {
-			"nihal": false
+			"nihal": false,
+			"pawan-dev": false,
+			"pramod": false
 		}
 	}
 }
