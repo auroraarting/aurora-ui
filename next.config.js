@@ -546,6 +546,16 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/risks-for-renewables-in-the-nordics-negative-prices-and-demand",
+				destination: "/resources/webinar/risks-for-renewables-in-the-nordics-negative-prices-demand",
+				permanent: true,
+			},
+			{
+				source: "/insight/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres",
+				destination: "/company/press-releases/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
