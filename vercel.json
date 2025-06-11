@@ -1,12 +1,10 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"git": {
-		"deploymentEnabled": {
-			"nihal": false,
-			"pawan-dev": false,
-			"pramod": false,
-			"feature/cache": false,
-			"sudip": false
-		}
+		"nihal": false,
+		"pawan-dev": false,
+		"pramod": false,
+		"feature/cache": false,
+		"sudip": false
 	}
 }
