@@ -556,6 +556,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/life-at-aurora",
+				destination: "/careers/life-at-aurora",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
