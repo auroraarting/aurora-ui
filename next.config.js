@@ -541,6 +541,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/new-york-energy-transition-forum-2025",
+				destination: "/events/us-energy-at-a-crossroads-dominance-or-disruption",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
