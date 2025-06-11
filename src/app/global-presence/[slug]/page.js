@@ -41,7 +41,8 @@ import { getWebinars } from "@/services/Webinar.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const data = await getCountryInside(params.slug);
+	const { slug } = await params;
+	const data = await getCountryInside(slug);
 	const post = data?.data?.countryBy;
 
 	return {
@@ -187,8 +188,9 @@ async function getData({ params, query }) {
 
 /** Australia Page */
 export default async function Australia({ params, searchParams }) {
+	const { slug } = await params;
 	const query = await searchParams;
-	const { props } = await getData({ params, query });
+	const { props } = await getData({ params: { slug }, query });
 
 	return (
 		<div>
