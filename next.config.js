@@ -691,16 +691,6 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/global-presence/korea",
-				destination: "/global-presence/korea",
-				permanent: true,
-			},
-			{
-				source: "/global-presence/brazil",
-				destination: "/global-presence/brazil",
-				permanent: true,
-			},
-			{
 				source: "/category/country/europe",
 				destination: "/global-presence",
 				permanent: true,
