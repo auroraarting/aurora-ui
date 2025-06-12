@@ -691,16 +691,6 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/global-presence/korea",
-				destination: "/global-presence/korea",
-				permanent: true,
-			},
-			{
-				source: "/global-presence/brazil",
-				destination: "/global-presence/brazil",
-				permanent: true,
-			},
-			{
 				source: "/category/country/europe",
 				destination: "/global-presence",
 				permanent: true,
@@ -1008,6 +998,11 @@ const nextConfig = {
 			{
 				source: "/media/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
 				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				permanent: true,
+			},
+			{
+				source: "/events/spring-forum",
+				destination: "/events/competing-visions-of-progress-the-energy-transition-in-a-polarised-world",
 				permanent: true,
 			},
 			{
