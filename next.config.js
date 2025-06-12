@@ -28,7 +28,7 @@ const nextConfig = {
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maps.googleapis.com https://maps.gstatic.com;
         img-src 'self' data: https://www.google.co.in/ https://cdn-cookieyes.com/ https://www.googletagmanager.com/ https://cms-staging.auroraer.com/  https://aurora-staging.mystagingwebsite.com/ https://cms-production.auroraer.com/ https://img.youtube.com https://i.ytimg.com https://maps.googleapis.com https://maps.gstatic.com https://google.com https://ggpht.com;
         font-src 'self' data: https://fonts.gstatic.com https://storage.googleapis.com/ https://maps.gstatic.com;
-        connect-src 'self' https://vimeo.com/ https://log.cookieyes.com/ https://cdn-cookieyes.com/ https://cms-staging.auroraer.com/ https://audio.api.speechify.com/ https://speechify-api-dot-speechifymobile.uc.r.appspot.com/ https://cdn.jsdelivr.net/ https://auroraer.pinpointhq.com/ https://f.clarity.ms/  https://aurora-staging.mystagingwebsite.com/ https://cms-production.auroraer.com/ https://analytics.google.com/ https://www.youtube.com https://maps.googleapis.com https://www.google.com/;
+        connect-src 'self' https://vimeo.com/ https://www.google-analytics.com/ https://log.cookieyes.com/ https://cdn-cookieyes.com/ https://cms-staging.auroraer.com/ https://audio.api.speechify.com/ https://speechify-api-dot-speechifymobile.uc.r.appspot.com/ https://cdn.jsdelivr.net/ https://auroraer.pinpointhq.com/ https://f.clarity.ms/  https://aurora-staging.mystagingwebsite.com/ https://cms-production.auroraer.com/ https://analytics.google.com/ https://www.youtube.com https://maps.googleapis.com https://www.google.com/;
         frame-src https://www.googletagmanager.com/ https://go.auroraer.com/ https://www-production.auroraer.com https://www-staging.auroraer.com/ https://staging-aurora-ui.vercel.app https://www.youtube.com https://www.youtube-nocookie.com/ https://player.vimeo.com/ https://www.google.com https://maps.google.com https://www.google.com/maps https://www.podbean.com/ https://embed.podcasts.apple.com/;
         object-src 'none';
         base-uri 'self';
@@ -558,6 +558,456 @@ const nextConfig = {
 			{
 				source: "/life-at-aurora",
 				destination: "/careers/life-at-aurora",
+				permanent: true,
+			},
+			{
+				source: "/archive",
+				destination: "/events",
+				permanent: true,
+			},
+			{
+				source: "/nodal",
+				destination: "/software/nodalexplorer",
+				permanent: true,
+			},
+			{
+				source: "/spp",
+				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				permanent: true,
+			},
+			{
+				source: "/india",
+				destination: "/global-presence/india",
+				permanent: true,
+			},
+			{
+				source: "/location/ireland",
+				destination: "/global-presence/ireland",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/alberta",
+				destination: "/global-presence/us-canada",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription",
+				destination: "/products/power-renewables",
+				permanent: true,
+			},
+			{
+				source: "/recruitment-faqs",
+				destination: "/careers/faq",
+				permanent: true,
+			},
+			{
+				source: "/category/media",
+				destination: "/company/press-releases",
+				permanent: true,
+			},
+			{
+				source: "/company/leadership",
+				destination: "/company/team",
+				permanent: true,
+			},
+			{
+				source: "/category/insight",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/insight/2170",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/sector",
+				destination: "/who-are-you/developers",
+				permanent: true,
+			},
+			{
+				source: "/location/serbia",
+				destination: "/global-presence/serbia",
+				permanent: true,
+			},
+			{
+				source: "/location/belgium",
+				destination: "/global-presence/belgium",
+				permanent: true,
+			},
+			{
+				source: "/category/country",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/location/poland",
+				destination: "/global-presence/poland",
+				permanent: true,
+			},
+			{
+				source: "/category/webinar",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/series/chile",
+				destination: "/global-presence/chile",
+				permanent: true,
+			},
+			{
+				source: "/tag/china",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/webinars/category/public",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/hydrogen-at-aurora",
+				destination: "/products/hydrogen",
+				permanent: true,
+			},
+			{
+				source: "/advisory/bidding-strategy",
+				destination: "/resources/aurora-insights/case-studies/strategic-competitive-analysis-for-an-offshore-wind-developer-for-cfd-ar7-and-future-auction-rounds",
+				permanent: true,
+			},
+			{
+				source: "/category/country/global",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/category/insight-type",
+				destination: "https://www-production.auroraer.com/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/global-presence/korea",
+				destination: "/global-presence/korea",
+				permanent: true,
+			},
+			{
+				source: "/global-presence/brazil",
+				destination: "/global-presence/brazil",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/insight/germany-2045",
+				destination: "/resources/aurora-insights?country=Germany",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/hydrogen",
+				destination: "/who-are-you/developers",
+				permanent: true,
+			},
+			{
+				source: "/graduate-programmes-3",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/category/webinar/subscriber",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/ireland",
+				destination: "/global-presence/ireland",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/poland",
+				destination: "/global-presence/poland",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-florence-miller",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/italy",
+				destination: "/global-presence/italy",
+				permanent: true,
+			},
+			{
+				source: "/software/chronos/introducing-chronos",
+				destination: "/software/chronos",
+				permanent: true,
+			},
+			{
+				source: "/category/insight/page/7",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/insight/page/2",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds/showcase-feed",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/france",
+				destination: "/global-presence/france",
+				permanent: true,
+			},
+			{
+				source: "/category/country/north-america",
+				destination: "/global-presence/us-canada",
+				permanent: true,
+			},
+			{
+				source: "/location/north-america-noram",
+				destination: "/global-presence/us-canada",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/germany",
+				destination: "/global-presence/germany",
+				permanent: true,
+			},
+			{
+				source: "/category/insight/page/3",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/insight/page/8",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/country/asia-pacific",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/romania",
+				destination: "/global-presence/romania",
+				permanent: true,
+			},
+			{
+				source: "/category/insight/page/4",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/nordics",
+				destination: "/global-presence/nordics",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/belgium",
+				destination: "/global-presence/belgium",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/greece",
+				destination: "/global-presence/greece",
+				permanent: true,
+			},
+			{
+				source: "/category/insight-type/commentary",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/iberia",
+				destination: "/global-presence/iberia",
+				permanent: true,
+			},
+			{
+				source: "/insight/solaire-en-france",
+				destination: "/resources/aurora-insights/articles/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/hungary",
+				destination: "/global-presence/hungary",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/bulgaria",
+				destination: "/global-presence/bulgaria",
+				permanent: true,
+			},
+			{
+				source: "/insight/french-renewables-forecast",
+				destination: "/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				permanent: true,
+			},
+			{
+				source: "/graduate-programme-mailing-list",
+				destination: "/notification/mailing-list",
+				permanent: true,
+			},
+			{
+				source: "/category/webinar/public-webinar",
+				destination: "/resources/webinar?category=Public",
+				permanent: true,
+			},
+			{
+				source: "/category/country/page/13",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/careers-fairs-uk-2024",
+				destination: "/careers/life-at-aurora",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription/software/amun",
+				destination: "/software/amun",
+				permanent: true,
+			},
+			{
+				source: "/european-careers-fairs-2024",
+				destination: "/careers/life-at-aurora",
+				permanent: true,
+			},
+			{
+				source: "/category/insight/page/10",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/baltics",
+				destination: "/global-presence/baltics",
+				permanent: true,
+			},
+			{
+				source: "/careers-fairs-aus-2024",
+				destination: "/careers/life-at-aurora",
+				permanent: true,
+			},
+			{
+				source: "/spring-forum-2021-presentations",
+				destination: "/company/press-releases/aurora-spring-forum-2025-comes-at-a-defining-moment-to-navigate-geopolitical-uncertainty-and-energy-transition",
+				permanent: true,
+			},
+			{
+				source: "/category/webinar/group-meeting",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/page/4",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/hydrogen/page/2",
+				destination: "/products/hydrogen",
+				permanent: true,
+			},
+			{
+				source: "/category/country/central-south-america",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/page/2",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/analytics/apac-hydrogen-market-service",
+				destination: "/resources/aurora-insights/articles/comment-opportunities-challenges-in-the-korean-energy-market",
+				permanent: true,
+			},
+			{
+				source: "/webinar/battery-storage-in-pjm",
+				destination: "/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				permanent: true,
+			},
+			{
+				source: "/category/country/europe/page/3",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/electric-hydrogen-mobility",
+				destination: "/resources/webinar/hydrogen-market-report-hymar-april-2025",
+				permanent: true,
+			},
+			{
+				source: "/energy-modelling-analyst-george-irving",
+				destination: "/careers/early-careers/oxford-graduate-modelling-programme",
+				permanent: true,
+			},
+			{
+				source: "/media/reaching-40gw-offshore-wind",
+				destination: "/resources/aurora-insights/articles/reaching-40gw-offshore-wind",
+				permanent: true,
+			},
+			{
+				source: "/insight/german-governments-coalition-agreement",
+				destination: "/resources/aurora-insights/articles/coalition-in-progress-energy-in-transition-whats-next-for-germanys-power-future",
+				permanent: true,
+			},
+			{
+				source: "/webinar/auroras-korean-grid-modelling",
+				destination: "/resources/webinar/korean-grid-modelling-power-flow-transmission-modelling-to-determine-loss-and-curtailment-grid-outcomes",
+				permanent: true,
+			},
+			{
+				source: "/insight/brazilian-offshore-wind-landscape",
+				destination: "/company/press-releases/auroras-amun-launches-in-brazil-as-investors-tap-into-the-countrys-wind-potential-and-regulatory-barriers-ease",
+				permanent: true,
+			},
+			{
+				source: "/events/battery-conference-london/archive",
+				destination: "/company/press-releases/europes-battery-storage-investments-in-the-spotlight-at-this-years-aurora-battery-conference",
+				permanent: true,
+			},
+			{
+				source: "/insight/hydrogen-important-uk-decarbonisation",
+				destination: "/company/press-releases/decarbonisation-key-to-alleviating-europes-energy-crisis-aurora-spring-forum-2023-keynotes",
+				permanent: true,
+			},
+			{
+				source: "/software/chronos/chronos-for-iberia",
+				destination: "/software/chronos",
+				permanent: true,
+			},
+			{
+				source: "/insight/gb-ffr-market-summary-september-2020",
+				destination: "/resources/aurora-insights/articles/comment-in-the-zone-understanding-lmp-in-the-gb-electricity-market",
+				permanent: true,
+			},
+			{
+				source: "/insight/european-gas-market-forecast-may-2021",
+				destination: "/resources/webinar/power-renewables-forecast-for-spp",
+				permanent: true,
+			},
+			{
+				source: "/insight/gb-wholesale-power-market-summary-october-2020",
+				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				permanent: true,
+			},
+			{
+				source: "/media/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
 				permanent: true,
 			},
 			{
