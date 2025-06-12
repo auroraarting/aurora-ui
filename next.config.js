@@ -1001,8 +1001,428 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/venue/zoom",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/category/spp",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/webinar/38450",
+				destination: "/resources/webinar/commodities-forecast-annual-update-april-2025",
+				permanent: true,
+			},
+			{
+				source: "/tag/gdp",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/tag/coal",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/tag/ec",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/advisory/policy-modelling",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/webinars/category/subscriber",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/events/hydrogen-conference",
+				destination: "/events/europes-hydrogen-economy-policy-demand-and-investment-insights",
+				permanent: true,
+			},
+			{
+				source: "/advisory/transaction-financing",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/company/leadership-archive",
+				destination: "/company/about",
+				permanent: true,
+			},
+			{
+				source: "/analytics/european-hydrogen",
+				destination: "/products/hydrogen",
+				permanent: true,
+			},
+			{
+				source: "/insight/baltics-webinar",
+				destination: "/global-presence/baltics",
+				permanent: true,
+			},
+			{
+				source: "/careers-fairs-japan",
+				destination: "/careers/early-careers/tokyo-graduate-analyst-programme",
+				permanent: true,
+			},
+			{
+				source: "/advisory/green-power",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/advisory/strategy-development",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
 				source: "/events/spring-forum",
 				destination: "/events/competing-visions-of-progress-the-energy-transition-in-a-polarised-world",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/heating",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/analytics/granular-data",
+				destination: "/products",
+				permanent: true,
+			},
+			{
+				source: "/2023-north-america",
+				destination: "/global-presence/us-canada",
+				permanent: true,
+			},
+			{
+				source: "/graduate-application-tips",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-nicolas",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/tag/webinar-recordings",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/advisory/market-sizing",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/insight/hymar-insights",
+				destination: "/products/hydrogen",
+				permanent: true,
+			},
+			{
+				source: "/category/report-type",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/category/market-reports",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/insight/2022-energiemarkte",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription/software",
+				destination: "/software",
+				permanent: true,
+			},
+			{
+				source: "/careers-fairs-berlin",
+				destination: "/careers/early-careers/berlin-graduate-analyst-programme",
+				permanent: true,
+			},
+			{
+				source: "/careers/vacancy",
+				destination: "/careers/join-us",
+				permanent: true,
+			},
+			{
+				source: "/ppa-early-adopter-programme",
+				destination: "/",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/page/3",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/events/spring-forum-oxford",
+				destination: "/events/navigating-rising-geopolitical-instability-enabling-the-next-wave-of-decarbonisation",
+				permanent: true,
+			},
+			{
+				source: "/energy-transition-forum-2024",
+				destination: "/events/the-state-of-the-u-s-energy-transition-opportunities-and-headwinds",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/renewable-energy",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds/showcase-hero",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/company/media/company-media",
+				destination: "/company/press-releases",
+				permanent: true,
+			},
+			{
+				source: "/grad-experience-john-lee",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/category/report-type/forecasts",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-star-xian",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/carbon-markets",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription/power-markets",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/new-york-new-england",
+				destination: "/global-presence/great-britain",
+				permanent: true,
+			},
+			{
+				source: "/advisory/bespoke-scenario-modelling",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-maya-sagdieva",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/category/insight-type/public",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/events/energy-finance-conference",
+				destination: "/events/closing-the-investment-gap-accelerating-europes-path-to-net-zero-with-private-capital",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds/page/7",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/insight/romanian-ppas-renewables",
+				destination: "/global-presence/romania",
+				permanent: true,
+			},
+			{
+				source: "/events/hydrogen-conference/archive",
+				destination: "/events/europes-hydrogen-economy-policy-demand-and-investment-insights",
+				permanent: true,
+			},
+			{
+				source: "/company/aurora-turns-ten",
+				destination: "/company/about",
+				permanent: true,
+			},
+			{
+				source: "/insight/batteries-case-italy",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/insight/flexible-technologies-netherlands",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/insight/2050-decarbonisation-pathways",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds/page/4",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/media/page/2",
+				destination: "/company/press-releases",
+				permanent: true,
+			},
+			{
+				source: "/category/media/page/3",
+				destination: "/company/press-releases",
+				permanent: true,
+			},
+			{
+				source: "/insight/brazilian-market-outlook",
+				destination: "/global-presence/brazil",
+				permanent: true,
+			},
+			{
+				source: "/analytics/global-energy-forecast",
+				destination: "/products",
+				permanent: true,
+			},
+			{
+				source: "/category/report-type/featured",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription/page/2",
+				destination: "/products",
+				permanent: true,
+			},
+			{
+				source: "/category/insight-type/reports",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/events/renewables-summit-london",
+				destination: "/events/navigating-choppy-waters-can-the-uk-and-europe-overcome-challenges-to-realise-renewable-ambitions",
+				permanent: true,
+			},
+			{
+				source: "/insight/2020-nachhaltiges-konjunkturpaket",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/page/2",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds/page/3",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/events/renewables-summit-berlin",
+				destination: "/events/after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
+				permanent: true,
+			},
+			{
+				source: "/european-hydrogen-market-service",
+				destination: "/products/hydrogen",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription/independent-report",
+				destination: "/resources/aurora-insights/market-reports/european-battery-market-attractiveness-report",
+				permanent: true,
+			},
+			{
+				source: "/events/battery-conference-london",
+				destination: "/events/charging-ahead-unlocking-investments-in-europes-battery-storage-market",
+				permanent: true,
+			},
+			{
+				source: "/insight/german-coalition-agreement",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/insight/auctions-to-action",
+				destination: "/resources/aurora-insights/articles/auctions-to-action",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-akane-iwado",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/insight/poland-cfd-risks",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-isa-dijkstra",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/category/subscription/commodities-markets",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/graduate-experience-william-eastwick",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/insight/spanish-capacity-market",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/events/german-renewables-week",
+				destination: "/events/after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
+				permanent: true,
+			},
+			{
+				source: "/careers-fairs-usa-2024",
+				destination: "/careers/early-careers",
+				permanent: true,
+			},
+			{
+				source: "/insight/gb-renewables-summary",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/webinar/nem-battery-market",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/events/energy-transition-summit-warsaw",
+				destination: "/events/energy-transition-in-central-and-eastern-europe-challenges-and-investments-opportunities",
+				permanent: true,
+			},
+			{
+				source: "/category/report-type/research-notes",
+				destination: "/resources/aurora-insights",
 				permanent: true,
 			},
 			{
