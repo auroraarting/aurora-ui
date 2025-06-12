@@ -79,10 +79,6 @@ async function getData({ params, query }) {
 	const language = query.language;
 	const isJapanese = language === "jp";
 
-	const countryDataPromise = isJapanese
-		? getCountryInsideWithLanguages(params.slug)
-		: getCountryInside(params.slug);
-
 	const [insightsRes, categoriesRes, eventsRes, webinarsRes, countryData] =
 		await Promise.all([
 			getInsights(
@@ -91,7 +87,9 @@ async function getData({ params, query }) {
 			getInsightsCategories(),
 			getAllEvents("first:9999"),
 			getWebinars("first:9999"),
-			countryDataPromise,
+			isJapanese
+				? getCountryInsideWithLanguages(params.slug)
+				: getCountryInside(params.slug),
 		]);
 
 	const countryBy = isJapanese

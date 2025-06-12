@@ -30,7 +30,7 @@ export default function InsightsTop({ data }) {
 			<div className="container">
 				<Link
 					href={`/resources/aurora-insights/${slugify(
-						isCategory(allCategories, data?.categories?.nodes)
+						isCategory(allCategories, data?.categories?.nodes, true)
 					)}/${data?.slug}`}
 					className={`${styles.card} f_w_j`}
 				>
