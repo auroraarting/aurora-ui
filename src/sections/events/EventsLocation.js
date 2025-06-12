@@ -21,9 +21,9 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** EventsLocation Section */
 export default function EventsLocation({ data }) {
-	// if (!data?.events?.location?.mapLink) {
-	// 	return null;
-	// }
+	if (!data?.events?.location?.mapLink && !data?.events?.location?.address) {
+		return null;
+	}
 	return (
 		<section
 			className={`${styles.EventsLocation} `}
