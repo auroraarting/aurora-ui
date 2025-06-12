@@ -93,7 +93,7 @@ export default function PressReleasesInsideWrap({
 									</div>
 								)}
 								{data?.postFields?.mediaContact && (
-									<div className={`${styles.mediaFeedback} pb_40`}>
+									<div className={`${styles.mediaFeedback} `}>
 										<InsideMediaContact data={data} />
 									</div>
 								)}
