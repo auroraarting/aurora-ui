@@ -37,7 +37,7 @@ import {
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 
-export const revalidate = 18000; // Revalidates every 60 seconds
+// export const revalidate = 18000; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -79,10 +79,6 @@ async function getData({ params, query }) {
 	const language = query.language;
 	const isJapanese = language === "jp";
 
-	const countryDataPromise = isJapanese
-		? getCountryInsideWithLanguages(params.slug)
-		: getCountryInside(params.slug);
-
 	const [insightsRes, categoriesRes, eventsRes, webinarsRes, countryData] =
 		await Promise.all([
 			getInsights(
@@ -91,7 +87,9 @@ async function getData({ params, query }) {
 			getInsightsCategories(),
 			getAllEvents("first:9999"),
 			getWebinars("first:9999"),
-			countryDataPromise,
+			isJapanese
+				? getCountryInsideWithLanguages(params.slug)
+				: getCountryInside(params.slug),
 		]);
 
 	const countryBy = isJapanese
