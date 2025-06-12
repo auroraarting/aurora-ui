@@ -18,6 +18,7 @@ import styles from "@/styles/sections/global-presence/PublicWebinar.module.scss"
 import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
 import formatDate, { OpenIframePopup } from "@/utils";
+import Link from "next/link";
 
 // DATA //
 
@@ -39,24 +40,23 @@ export default function PublicWebinar({ events, webinars }) {
 					<div className={`${styles.publicRight}`}>
 						{events?.map((item) => {
 							let hrefObj = {};
-
 							if (item?.events?.thumbnail?.externalUrl) {
-								// hrefObj.href = item?.events?.thumbnail?.externalUrl;
-								// hrefObj.target = "_blank";
-								// hrefObj.rel = "noreferrer";
-								hrefObj.onClick = () =>
+								hrefObj.href = item?.events?.thumbnail?.externalUrl;
+								hrefObj.onClick = (e) => {
+									e?.preventDefault(); // Prevent navigation
 									OpenIframePopup(
 										"iframePopup",
 										item?.events?.thumbnail?.externalUrl ||
 											"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 									);
+								};
 							} else {
 								hrefObj.href = `/events/${item?.slug}`;
 							}
 
 							return (
-								<a {...hrefObj} className={`${styles.ItemBox}`} key={item?.title}>
-									<a href={item?.link} className={`${styles.insideBox}`} role="button">
+								<Link {...hrefObj} className={`${styles.ItemBox}`} key={item?.title}>
+									<div className={`${styles.insideBox}`} role="button">
 										<div className={`${styles.banner} relative`}>
 											<img
 												src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
@@ -110,8 +110,8 @@ export default function PublicWebinar({ events, webinars }) {
 											</p>
 											{/* )} */}
 										</div>
-									</a>
-								</a>
+									</div>
+								</Link>
 							);
 						})}
 						<div className={`${styles.bookBtnOne} pt_40`}>
@@ -127,7 +127,7 @@ export default function PublicWebinar({ events, webinars }) {
 							<div className={`${styles.webinarItem}`}>
 								{webinars?.map((item) => {
 									return (
-										<a href={`/resources/webinar/${item?.slug}`} key={item?.id}>
+										<Link href={`/resources/webinar/${item?.slug}`} key={item?.id}>
 											<div className={`${styles.contentBox}`}>
 												<p
 													className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase`}
@@ -162,7 +162,7 @@ export default function PublicWebinar({ events, webinars }) {
 													)}
 												</div>
 											</div>
-										</a>
+										</Link>
 									);
 								})}
 								{/* <div className={`${styles.contentBox}`}>
