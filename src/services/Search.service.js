@@ -260,7 +260,7 @@ export async function searchData(searchTerm) {
 			} else if (cat.includes("Market Reports")) {
 				return `/resources/aurora-insights/market-reports/${item?.slug}`;
 			} else if (cat.includes("Media")) {
-				return `/company/press-releases/${item?.slug}`;
+				return `/company/press-room/${item?.slug}`;
 			}
 		};
 		return { ...item, slug: href() };
