@@ -447,8 +447,8 @@ export default function Footer({ defaultNavigation }) {
 
 									<ul className={`${styles.footerMenuInnerItem}`}>
 										<li>
-											<a href="/company/press-releases" role="button">
-												Press
+											<a href="/company/press-room" role="button">
+												Press Room
 											</a>
 										</li>
 										<li>

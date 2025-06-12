@@ -49,7 +49,7 @@ export default function PressReleasesInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/company/press-releases/${data?.slug}`}
+				Url={`/company/press-room/${data?.slug}`}
 			/>
 
 			{/* Header */}
@@ -122,7 +122,7 @@ export default function PressReleasesInsideWrap({
 						}
 						insightsTitle="More from Aurora"
 						formdata={dynamicInsightsBtnProps(dataForBtn2, "insightsSectionButton")}
-						insightsLink="/company/press-releases/"
+						insightsLink="/company/press-room/"
 						allTag="Press Releases"
 					/>
 				</div>

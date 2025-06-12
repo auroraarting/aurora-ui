@@ -540,7 +540,7 @@ export default function MediaListing({
 					{list?.map((item, ind) => {
 						return (
 							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<Link href={`/company/press-releases/${item?.slug}`}>
+								<Link href={`/company/press-room/${item?.slug}`}>
 									<div className={`${styles.hoverBox}`}>
 										<img
 											height={179}

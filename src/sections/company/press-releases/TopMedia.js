@@ -57,7 +57,7 @@ export default function TopMedia({ data }) {
 							<SwiperSlide key={item?.title}>
 								<div className={`${styles.card} topMedia f_w_j`} key={item.title}>
 									<Link
-										href={`/company/press-releases/${item?.slug}`}
+										href={`/company/press-room/${item?.slug}`}
 										className={`${styles.content}`}
 									>
 										<div
