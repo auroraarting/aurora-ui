@@ -39,7 +39,7 @@ export default function MediaKitInfo({ data }) {
 									</span>
 									<a>
 										<Button color="primary" variant="filled" shape="rounded">
-											Download Logos
+											Download logos
 										</Button>
 									</a>
 								</a>
