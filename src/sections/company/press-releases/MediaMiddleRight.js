@@ -43,7 +43,7 @@ export default function MediaMiddleRight({ data, dataForBtn }) {
 										<a
 											key={item?.text}
 											className={`${styles.tagLinks} text_xxs f_w_m color_light_gray`}
-											href={`/company/press-releases?search=${item?.text || item?.name}`}
+											href={`/company/press-room?search=${item?.text || item?.name}`}
 										>
 											{item?.text || item?.name}
 										</a>

@@ -945,14 +945,16 @@ export const dynamicInsightsBtnProps = (
 	const finalUrl = fileUrl || fallbackUrl;
 
 	if (finalUrl) {
-		obj.href = finalUrl;
+		// Show this below
+		// obj.href = finalUrl;
 
 		// If fileUrl exists, treat it as external (always open in new tab)
 		if (fileUrl) {
 			obj.target = "_blank";
 			obj.rel = "noreferrer";
 			obj.onClick = () => {
-				window.open(fileUrl, "_blank", "noopener,noreferrer");
+				// Show this below
+				// window.open(fileUrl, "_blank", "noopener,noreferrer");
 			};
 		}
 		// If we're using fallbackUrl, check if it's external
@@ -968,13 +970,15 @@ export const dynamicInsightsBtnProps = (
 					obj.target = "_blank";
 					obj.rel = "noreferrer";
 					obj.onClick = () => {
-						window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+						// Show this below
+						// window.open(fallbackUrl, "_blank", "noopener,noreferrer");
 					};
 				}
 			} else {
 				// Internal URL — same tab
 				obj.onClick = () => {
-					window.location.href = fallbackUrl;
+					// Show this below
+					// window.location.href = fallbackUrl;
 				};
 			}
 		}

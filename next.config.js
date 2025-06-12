@@ -97,7 +97,8 @@ const nextConfig = {
 			},
 			{
 				source: "/graduate-programmes/sao-paulo-graduate-modeling-program",
-				destination: "/careers/early-careers/sao-paulo-graduate-modelling-programme",
+				destination:
+					"/careers/early-careers/sao-paulo-graduate-modelling-programme",
 				permanent: true,
 			},
 			{
@@ -307,7 +308,7 @@ const nextConfig = {
 			},
 			{
 				source: "/company/media",
-				destination: "/company/press-releases",
+				destination: "/company/press-room",
 				permanent: true,
 			},
 			{
@@ -331,23 +332,30 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/webinar/powering-tshe-italian-future-here-comes-the-sun-the-wind-and-the-atom",
-				destination: "/resources/webinar/powering-the-italian-future-here-comes-the-sun-the-wind-and-the-atom",
+				source:
+					"/webinar/powering-tshe-italian-future-here-comes-the-sun-the-wind-and-the-atom",
+				destination:
+					"/resources/webinar/powering-the-italian-future-here-comes-the-sun-the-wind-and-the-atom",
 				permanent: true,
 			},
 			{
-				source: "/country/europe/great-britain/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
-				destination: "/company/press-releases/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
+				source:
+					"/country/europe/great-britain/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
+				destination:
+					"/company/press-room/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
 				permanent: true,
 			},
 			{
 				source: "/country/europe/ais-energy-appetite-can-renewable-ppas-deliver",
-				destination: "/resources/aurora-insights/articles/ais-energy-appetite-can-renewable-ppas-deliver",
+				destination:
+					"/resources/aurora-insights/articles/ais-energy-appetite-can-renewable-ppas-deliver",
 				permanent: true,
 			},
 			{
-				source: "/country/global/tpg-rise-climate-acquires-aurora-energy-research-to-accelerate-strategic-growth",
-				destination: "/company/press-releases/tpg-rise-climate-acquires-aurora-energy-research-to-accelerate-strategic-growth?search=tpg%20rise",
+				source:
+					"/country/global/tpg-rise-climate-acquires-aurora-energy-research-to-accelerate-strategic-growth",
+				destination:
+					"/company/press-room/tpg-rise-climate-acquires-aurora-energy-research-to-accelerate-strategic-growth?search=tpg%20rise",
 				permanent: true,
 			},
 			{
@@ -356,38 +364,46 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/media/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
-				destination: "/company/press-releases/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
+				source:
+					"/media/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
+				destination:
+					"/company/press-room/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
 				permanent: true,
 			},
 			{
-				source: "/media/aurora-launches-lumus-to-bring-clarity-to-ppa-pricing-across-europe",
-				destination: "/company/press-releases/northeast-brazil-netherlands-green-hydrogen-corridor-could-fulfill-dutch-imports-by-2030-new-study-reveals",
+				source:
+					"/media/aurora-launches-lumus-to-bring-clarity-to-ppa-pricing-across-europe",
+				destination:
+					"/company/press-room/northeast-brazil-netherlands-green-hydrogen-corridor-could-fulfill-dutch-imports-by-2030-new-study-reveals",
 				permanent: true,
 			},
 			{
-				source: "/media/evs-data-centers-and-hydrogen-to-quadruple-brazils-power-demand-share-by-2060-study-finds",
-				destination: "/company/press-releases/evs-data-centers-and-hydrogen-to-quadruple-brazils-power-demand-share-by-2060-study-finds",
+				source:
+					"/media/evs-data-centers-and-hydrogen-to-quadruple-brazils-power-demand-share-by-2060-study-finds",
+				destination:
+					"/company/press-room/evs-data-centers-and-hydrogen-to-quadruple-brazils-power-demand-share-by-2060-study-finds",
 				permanent: true,
 			},
 			{
-				source: "/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
-				destination: "/company/press-releases/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
+				source:
+					"/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
+				destination:
+					"/company/press-room/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
 				permanent: true,
 			},
 			{
 				source: "/media/aurora-energy-transition-forum-2025",
-				destination: "/company/press-releases/aurora-energy-transition-forum-2025",
+				destination: "/company/press-room/aurora-energy-transition-forum-2025",
 				permanent: true,
 			},
 			{
 				source: "/media/proposed-texas-legislation/",
-				destination: "/company/press-releases/proposed-texas-legislation",
+				destination: "/company/press-room/proposed-texas-legislation",
 				permanent: true,
 			},
 			{
 				source: "/media/surging-demand-growth-in-texas",
-				destination: "/company/press-releases/surging-demand-growth-in-texas",
+				destination: "/company/press-room/surging-demand-growth-in-texas",
 				permanent: true,
 			},
 			{
@@ -401,23 +417,31 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
-				destination: "/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				source:
+					"/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				destination:
+					"/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
 				permanent: true,
 			},
 			{
-				source: "/media/frances-battery-market-expected-to-expand-rapidly-by-2030-but-faces-saturation-risks-aurora-says/",
-				destination: "/company/press-releases/frances-battery-market-expected-to-expand-rapidly-by-2030-but-faces-saturation-risks-aurora-says",
+				source:
+					"/media/frances-battery-market-expected-to-expand-rapidly-by-2030-but-faces-saturation-risks-aurora-says/",
+				destination:
+					"/company/press-room/frances-battery-market-expected-to-expand-rapidly-by-2030-but-faces-saturation-risks-aurora-says",
 				permanent: true,
 			},
 			{
-				source: "/media/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
-				destination: "https://www-staging.auroraer.com/company/press-releases/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
+				source:
+					"/media/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
+				destination:
+					"https://www-staging.auroraer.com/company/press-room/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
 				permanent: true,
 			},
 			{
-				source: "/country/europe/nordics-and-iberia-step-up-as-europes-hydrogen-frontrunners/",
-				destination: "/company/press-releases/nordics-and-iberia-step-up-as-europes-hydrogen-frontrunners",
+				source:
+					"/country/europe/nordics-and-iberia-step-up-as-europes-hydrogen-frontrunners/",
+				destination:
+					"/company/press-room/nordics-and-iberia-step-up-as-europes-hydrogen-frontrunners",
 				permanent: true,
 			},
 			{
@@ -431,18 +455,24 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/country/north-america/capacity-market-dynamics-and-reforms-in-miso",
-				destination: "/resources/webinar/capacity-market-dynamics-and-reforms-in-miso-2",
+				source:
+					"/country/north-america/capacity-market-dynamics-and-reforms-in-miso",
+				destination:
+					"/resources/webinar/capacity-market-dynamics-and-reforms-in-miso-2",
 				permanent: true,
 			},
 			{
-				source: "/media/texas-consumers-face-10-increase-in-power-bills-and-higher-reliability-risks-without-renewables-expansion-aurora-finds",
-				destination: "/company/press-releases/texas-consumers-face-10-increase-in-power-bills-and-higher-reliability-risks-without-renewables-expansion-aurora-energy-research-finds",
+				source:
+					"/media/texas-consumers-face-10-increase-in-power-bills-and-higher-reliability-risks-without-renewables-expansion-aurora-finds",
+				destination:
+					"/company/press-room/texas-consumers-face-10-increase-in-power-bills-and-higher-reliability-risks-without-renewables-expansion-aurora-energy-research-finds",
 				permanent: true,
 			},
 			{
-				source: "/media/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
-				destination: "/company/press-releases/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
+				source:
+					"/media/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
+				destination:
+					"/company/press-room/community-solar-and-storage-would-save-californians-6-5-billion-in-electricity-costs",
 				permanent: true,
 			},
 			{
@@ -452,92 +482,119 @@ const nextConfig = {
 			},
 			{
 				source: "/country/north-america/impact-of-demand-side-management-in-ercot",
-				destination: "/resources/aurora-insights/articles/impact-of-demand-side-management-in-ercot",
+				destination:
+					"/resources/aurora-insights/articles/impact-of-demand-side-management-in-ercot",
 				permanent: true,
 			},
 			{
-				source: "/country/north-america/implications-of-retroactive-firming-requirements-sb715-hb3356",
-				destination: "/resources/aurora-insights/articles/implications-of-retroactive-firming-requirements-sb715-hb3356",
+				source:
+					"/country/north-america/implications-of-retroactive-firming-requirements-sb715-hb3356",
+				destination:
+					"/resources/aurora-insights/articles/implications-of-retroactive-firming-requirements-sb715-hb3356",
 				permanent: true,
 			},
 			{
 				source: "/country/north-america/miso-capacity-market-2025-26-pra-results",
-				destination: "/resources/aurora-insights/articles/miso-capacity-market-2025-26-pra-results",
+				destination:
+					"/resources/aurora-insights/articles/miso-capacity-market-2025-26-pra-results",
 				permanent: true,
 			},
 			{
-				source: "/country/north-america/new-yorks-energy-needs-reliability-offshore-wind",
-				destination: "/resources/aurora-insights/market-reports/meeting-new-yorks-energy-needs-reliability-offshore-wind",
+				source:
+					"/country/north-america/new-yorks-energy-needs-reliability-offshore-wind",
+				destination:
+					"/resources/aurora-insights/market-reports/meeting-new-yorks-energy-needs-reliability-offshore-wind",
 				permanent: true,
 			},
 			{
 				source: "/webinar/spp-expansion-through-markets-rto-west",
-				destination: "/resources/webinar/go-west-spps-expansion-through-markets-rto-west",
+				destination:
+					"/resources/webinar/go-west-spps-expansion-through-markets-rto-west",
 				permanent: true,
 			},
 			{
-				source: "/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy-concerns",
-				destination: "/resources/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy-concerns-2",
+				source:
+					"/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy-concerns",
+				destination:
+					"/resources/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy-concerns-2",
 				permanent: true,
 			},
 			{
 				source: "/webinar/thermal-generation-in-pjm",
-				destination: "/resources/webinar/thermal-generation-in-pjm-natural-gas-coal-and-decarbonization-2",
+				destination:
+					"/resources/webinar/thermal-generation-in-pjm-natural-gas-coal-and-decarbonization-2",
 				permanent: true,
 			},
 			{
-				source: "/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso/",
-				destination: "/resources/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso",
+				source:
+					"/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso/",
+				destination:
+					"/resources/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso",
 				permanent: true,
 			},
 			{
-				source: "/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso-2/",
-				destination: "/resources/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso-2",
+				source:
+					"/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso-2/",
+				destination:
+					"/resources/webinar/shifting-currents-nodal-price-forecasting-and-grid-congestion-in-nyiso-2",
 				permanent: true,
 			},
 			{
-				source: "/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy/",
-				destination: "/resources/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy-concerns-2",
+				source:
+					"/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy/",
+				destination:
+					"/resources/webinar/miso-market-outlook-coal-retirements-and-resource-adequacy-concerns-2",
 				permanent: true,
 			},
 			{
 				source: "/webinar/albertas-restructured-energy-market",
-				destination: "/resources/webinar/the-path-ahead-analyzing-albertas-restructured-energy-market",
+				destination:
+					"/resources/webinar/the-path-ahead-analyzing-albertas-restructured-energy-market",
 				permanent: true,
 			},
 			{
-				source: "/media/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future/",
-				destination: "/company/press-releases/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
+				source:
+					"/media/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future/",
+				destination:
+					"/company/press-room/aurora-finds-offshore-wind-is-key-to-new-yorks-energy-future",
 				permanent: true,
 			},
 			{
 				source: "/media/proposed-texas-legislation",
-				destination: "/company/press-releases/proposed-texas-legislation",
+				destination: "/company/press-room/proposed-texas-legislation",
 				permanent: true,
 			},
 			{
-				source: "/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets/",
-				destination: "/company/press-releases/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
+				source:
+					"/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets/",
+				destination:
+					"/company/press-room/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
 				permanent: true,
 			},
 			{
-				source: "/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets/",
-				destination: "/company/press-releases/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
+				source:
+					"/country/global/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets/",
+				destination:
+					"/company/press-room/russian-gas-resumption-to-cut-european-energy-prices-by-7-in-the-long-term-while-trade-tariffs-weigh-on-us-growth-global-markets",
 				permanent: true,
 			},
 			{
 				source: "/media/surging-demand-growth-in-texas",
-				destination: "/company/press-releases/surging-demand-growth-in-texas",
+				destination: "/company/press-room/surging-demand-growth-in-texas",
 				permanent: true,
 			},
 			{
-				source: "/webinar/electricity-demand-in-brazil-data-centers-evs-and-hydrogen/",
-				destination: "/resources/webinar/electricity-demand-in-brazil-data-centers-evs-and-hydrogen",
+				source:
+					"/webinar/electricity-demand-in-brazil-data-centers-evs-and-hydrogen/",
+				destination:
+					"/resources/webinar/electricity-demand-in-brazil-data-centers-evs-and-hydrogen",
 				permanent: true,
 			},
 			{
-				source: "/webinar/from-volatility-to-value-negative-prices-and-batteries-in-the-baltics/",
-				destination: "/resources/webinar/from-volatility-to-value-negative-prices-and-batteries-in-the-baltics",
+				source:
+					"/webinar/from-volatility-to-value-negative-prices-and-batteries-in-the-baltics/",
+				destination:
+					"/resources/webinar/from-volatility-to-value-negative-prices-and-batteries-in-the-baltics",
 				permanent: true,
 			},
 			{
@@ -546,13 +603,17 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/insight/risks-for-renewables-in-the-nordics-negative-prices-and-demand",
-				destination: "/resources/webinar/risks-for-renewables-in-the-nordics-negative-prices-demand",
+				source:
+					"/insight/risks-for-renewables-in-the-nordics-negative-prices-and-demand",
+				destination:
+					"/resources/webinar/risks-for-renewables-in-the-nordics-negative-prices-demand",
 				permanent: true,
 			},
 			{
-				source: "/insight/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres",
-				destination: "/company/press-releases/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
+				source:
+					"/insight/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres",
+				destination:
+					"/company/press-room/coordinated-action-could-unlock-35bn-in-green-investment-and-5-gw-of-data-centres-new-aurora-report-says",
 				permanent: true,
 			},
 			{
@@ -572,7 +633,8 @@ const nextConfig = {
 			},
 			{
 				source: "/spp",
-				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				destination:
+					"/company/press-room/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
 				permanent: true,
 			},
 			{
@@ -607,7 +669,7 @@ const nextConfig = {
 			},
 			{
 				source: "/category/media",
-				destination: "/company/press-releases",
+				destination: "/company/press-room",
 				permanent: true,
 			},
 			{
@@ -677,7 +739,8 @@ const nextConfig = {
 			},
 			{
 				source: "/advisory/bidding-strategy",
-				destination: "/resources/aurora-insights/case-studies/strategic-competitive-analysis-for-an-offshore-wind-developer-for-cfd-ar7-and-future-auction-rounds",
+				destination:
+					"/resources/aurora-insights/case-studies/strategic-competitive-analysis-for-an-offshore-wind-developer-for-cfd-ar7-and-future-auction-rounds",
 				permanent: true,
 			},
 			{
@@ -687,7 +750,8 @@ const nextConfig = {
 			},
 			{
 				source: "/category/insight-type",
-				destination: "https://www-production.auroraer.com/resources/aurora-insights",
+				destination:
+					"https://www-production.auroraer.com/resources/aurora-insights",
 				permanent: true,
 			},
 			{
@@ -827,7 +891,8 @@ const nextConfig = {
 			},
 			{
 				source: "/insight/solaire-en-france",
-				destination: "/resources/aurora-insights/articles/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				destination:
+					"/resources/aurora-insights/articles/charging-ahead-navigating-risks-in-french-battery-storage-projects",
 				permanent: true,
 			},
 			{
@@ -842,7 +907,8 @@ const nextConfig = {
 			},
 			{
 				source: "/insight/french-renewables-forecast",
-				destination: "/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				destination:
+					"/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
 				permanent: true,
 			},
 			{
@@ -892,7 +958,8 @@ const nextConfig = {
 			},
 			{
 				source: "/spring-forum-2021-presentations",
-				destination: "/company/press-releases/aurora-spring-forum-2025-comes-at-a-defining-moment-to-navigate-geopolitical-uncertainty-and-energy-transition",
+				destination:
+					"/company/press-room/aurora-spring-forum-2025-comes-at-a-defining-moment-to-navigate-geopolitical-uncertainty-and-energy-transition",
 				permanent: true,
 			},
 			{
@@ -922,12 +989,14 @@ const nextConfig = {
 			},
 			{
 				source: "/analytics/apac-hydrogen-market-service",
-				destination: "/resources/aurora-insights/articles/comment-opportunities-challenges-in-the-korean-energy-market",
+				destination:
+					"/resources/aurora-insights/articles/comment-opportunities-challenges-in-the-korean-energy-market",
 				permanent: true,
 			},
 			{
 				source: "/webinar/battery-storage-in-pjm",
-				destination: "/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
+				destination:
+					"/resources/webinar/charging-ahead-navigating-risks-in-french-battery-storage-projects",
 				permanent: true,
 			},
 			{
@@ -947,32 +1016,38 @@ const nextConfig = {
 			},
 			{
 				source: "/media/reaching-40gw-offshore-wind",
-				destination: "/resources/aurora-insights/articles/reaching-40gw-offshore-wind",
+				destination:
+					"/resources/aurora-insights/articles/reaching-40gw-offshore-wind",
 				permanent: true,
 			},
 			{
 				source: "/insight/german-governments-coalition-agreement",
-				destination: "/resources/aurora-insights/articles/coalition-in-progress-energy-in-transition-whats-next-for-germanys-power-future",
+				destination:
+					"/resources/aurora-insights/articles/coalition-in-progress-energy-in-transition-whats-next-for-germanys-power-future",
 				permanent: true,
 			},
 			{
 				source: "/webinar/auroras-korean-grid-modelling",
-				destination: "/resources/webinar/korean-grid-modelling-power-flow-transmission-modelling-to-determine-loss-and-curtailment-grid-outcomes",
+				destination:
+					"/resources/webinar/korean-grid-modelling-power-flow-transmission-modelling-to-determine-loss-and-curtailment-grid-outcomes",
 				permanent: true,
 			},
 			{
 				source: "/insight/brazilian-offshore-wind-landscape",
-				destination: "/company/press-releases/auroras-amun-launches-in-brazil-as-investors-tap-into-the-countrys-wind-potential-and-regulatory-barriers-ease",
+				destination:
+					"/company/press-room/auroras-amun-launches-in-brazil-as-investors-tap-into-the-countrys-wind-potential-and-regulatory-barriers-ease",
 				permanent: true,
 			},
 			{
 				source: "/events/battery-conference-london/archive",
-				destination: "/company/press-releases/europes-battery-storage-investments-in-the-spotlight-at-this-years-aurora-battery-conference",
+				destination:
+					"/company/press-room/europes-battery-storage-investments-in-the-spotlight-at-this-years-aurora-battery-conference",
 				permanent: true,
 			},
 			{
 				source: "/insight/hydrogen-important-uk-decarbonisation",
-				destination: "/company/press-releases/decarbonisation-key-to-alleviating-europes-energy-crisis-aurora-spring-forum-2023-keynotes",
+				destination:
+					"/company/press-room/decarbonisation-key-to-alleviating-europes-energy-crisis-aurora-spring-forum-2023-keynotes",
 				permanent: true,
 			},
 			{
@@ -982,7 +1057,8 @@ const nextConfig = {
 			},
 			{
 				source: "/insight/gb-ffr-market-summary-september-2020",
-				destination: "/resources/aurora-insights/articles/comment-in-the-zone-understanding-lmp-in-the-gb-electricity-market",
+				destination:
+					"/resources/aurora-insights/articles/comment-in-the-zone-understanding-lmp-in-the-gb-electricity-market",
 				permanent: true,
 			},
 			{
@@ -992,12 +1068,15 @@ const nextConfig = {
 			},
 			{
 				source: "/insight/gb-wholesale-power-market-summary-october-2020",
-				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				destination:
+					"/company/press-room/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
 				permanent: true,
 			},
 			{
-				source: "/media/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
-				destination: "/company/press-releases/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				source:
+					"/media/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
+				destination:
+					"/company/press-room/spps-current-project-pipeline-exceeds-2030-capacity-needs-aurora-finds",
 				permanent: true,
 			},
 			{
@@ -1012,7 +1091,8 @@ const nextConfig = {
 			},
 			{
 				source: "/webinar/38450",
-				destination: "/resources/webinar/commodities-forecast-annual-update-april-2025",
+				destination:
+					"/resources/webinar/commodities-forecast-annual-update-april-2025",
 				permanent: true,
 			},
 			{
@@ -1042,7 +1122,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/hydrogen-conference",
-				destination: "/events/europes-hydrogen-economy-policy-demand-and-investment-insights",
+				destination:
+					"/events/europes-hydrogen-economy-policy-demand-and-investment-insights",
 				permanent: true,
 			},
 			{
@@ -1082,7 +1163,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/spring-forum",
-				destination: "/events/competing-visions-of-progress-the-energy-transition-in-a-polarised-world",
+				destination:
+					"/events/competing-visions-of-progress-the-energy-transition-in-a-polarised-world",
 				permanent: true,
 			},
 			{
@@ -1167,12 +1249,14 @@ const nextConfig = {
 			},
 			{
 				source: "/events/spring-forum-oxford",
-				destination: "/events/navigating-rising-geopolitical-instability-enabling-the-next-wave-of-decarbonisation",
+				destination:
+					"/events/navigating-rising-geopolitical-instability-enabling-the-next-wave-of-decarbonisation",
 				permanent: true,
 			},
 			{
 				source: "/energy-transition-forum-2024",
-				destination: "/events/the-state-of-the-u-s-energy-transition-opportunities-and-headwinds",
+				destination:
+					"/events/the-state-of-the-u-s-energy-transition-opportunities-and-headwinds",
 				permanent: true,
 			},
 			{
@@ -1187,7 +1271,7 @@ const nextConfig = {
 			},
 			{
 				source: "/company/media/company-media",
-				destination: "/company/press-releases",
+				destination: "/company/press-room",
 				permanent: true,
 			},
 			{
@@ -1237,7 +1321,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/energy-finance-conference",
-				destination: "/events/closing-the-investment-gap-accelerating-europes-path-to-net-zero-with-private-capital",
+				destination:
+					"/events/closing-the-investment-gap-accelerating-europes-path-to-net-zero-with-private-capital",
 				permanent: true,
 			},
 			{
@@ -1252,7 +1337,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/hydrogen-conference/archive",
-				destination: "/events/europes-hydrogen-economy-policy-demand-and-investment-insights",
+				destination:
+					"/events/europes-hydrogen-economy-policy-demand-and-investment-insights",
 				permanent: true,
 			},
 			{
@@ -1282,12 +1368,12 @@ const nextConfig = {
 			},
 			{
 				source: "/category/media/page/2",
-				destination: "/company/press-releases",
+				destination: "/company/press-room",
 				permanent: true,
 			},
 			{
 				source: "/category/media/page/3",
-				destination: "/company/press-releases",
+				destination: "/company/press-room",
 				permanent: true,
 			},
 			{
@@ -1317,7 +1403,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/renewables-summit-london",
-				destination: "/events/navigating-choppy-waters-can-the-uk-and-europe-overcome-challenges-to-realise-renewable-ambitions",
+				destination:
+					"/events/navigating-choppy-waters-can-the-uk-and-europe-overcome-challenges-to-realise-renewable-ambitions",
 				permanent: true,
 			},
 			{
@@ -1337,7 +1424,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/renewables-summit-berlin",
-				destination: "/events/after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
+				destination:
+					"/events/after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
 				permanent: true,
 			},
 			{
@@ -1347,12 +1435,14 @@ const nextConfig = {
 			},
 			{
 				source: "/category/subscription/independent-report",
-				destination: "/resources/aurora-insights/market-reports/european-battery-market-attractiveness-report",
+				destination:
+					"/resources/aurora-insights/market-reports/european-battery-market-attractiveness-report",
 				permanent: true,
 			},
 			{
 				source: "/events/battery-conference-london",
-				destination: "/events/charging-ahead-unlocking-investments-in-europes-battery-storage-market",
+				destination:
+					"/events/charging-ahead-unlocking-investments-in-europes-battery-storage-market",
 				permanent: true,
 			},
 			{
@@ -1397,7 +1487,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/german-renewables-week",
-				destination: "/events/after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
+				destination:
+					"/events/after-the-energy-crisis-prospects-for-renewables-and-batteries-in-germany",
 				permanent: true,
 			},
 			{
@@ -1417,7 +1508,8 @@ const nextConfig = {
 			},
 			{
 				source: "/events/energy-transition-summit-warsaw",
-				destination: "/events/energy-transition-in-central-and-eastern-europe-challenges-and-investments-opportunities",
+				destination:
+					"/events/energy-transition-in-central-and-eastern-europe-challenges-and-investments-opportunities",
 				permanent: true,
 			},
 			{
@@ -1426,26 +1518,32 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/ramped-up-a-guide-to-quick-reserve",
+				destination:
+					"/resources/aurora-insights/articles/ramped-up-a-guide-to-quick-reserve",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
 						type: "query",
 						key: "utm_source",
-						value: "Newsletter"
+						value: "Newsletter",
 					},
 					{
 						type: "query",
 						key: "utm_medium",
-						value: "Chronos+Banner"
+						value: "Chronos+Banner",
 					},
 					{
 						type: "query",
 						key: "utm_campaign",
-						value: "Chronos+x+pv+magazine"
-					}
+						value: "Chronos+x+pv+magazine",
+					},
 				],
 				destination: "/software/chronos",
-				permanent: true
+				permanent: true,
 			},
 			{
 				source: "/software/lumus",
@@ -1453,22 +1551,22 @@ const nextConfig = {
 					{
 						type: "query",
 						key: "utm_source",
-						value: "Newsletter"
+						value: "Newsletter",
 					},
 					{
 						type: "query",
 						key: "utm_medium",
-						value: "Lumus+Banner"
+						value: "Lumus+Banner",
 					},
 					{
 						type: "query",
 						key: "utm_campaign",
-						value: "Lumus+x+pv+magazine"
-					}
+						value: "Lumus+x+pv+magazine",
+					},
 				],
 				destination: "/software/lumus",
-				permanent: true
-			}
+				permanent: true,
+			},
 		];
 	},
 };

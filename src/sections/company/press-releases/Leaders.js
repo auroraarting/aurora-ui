@@ -15,6 +15,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
+import formatDate from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/company/press-releases/Learders.module.scss";
@@ -30,7 +31,6 @@ import calender from "@/../public/img/icons/calender.svg";
 import black_down_arrow from "@/../public/img/icons/black_down_arrow.svg";
 import linkedin from "@/../public/img/icons/linkedin.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
-import formatDate from "@/utils";
 
 // DATA //
 
@@ -135,12 +135,11 @@ export default function Leaders({ data }) {
 							{mediaLeadersData.map((item, ind) => {
 								return (
 									<SwiperSlide key={ind}>
-										<div
-											className={`${styles.box_item}`}
-											onClick={(e) => handleSlideClick1(e, ind)}
-											data-slide={ind}
-										>
-											<div className={`${styles.thumbnailImg}`}>
+										<div className={`${styles.box_item}`} data-slide={ind}>
+											<div
+												className={`${styles.thumbnailImg}`}
+												onClick={(e) => handleSlideClick1(e, ind)}
+											>
 												<img src={item.thumbnail} className="b_r_20" alt="story img" />
 											</div>
 											<div className={`${styles.content} pt_20`}>
@@ -148,9 +147,17 @@ export default function Leaders({ data }) {
 													{item.name}
 												</h5>
 												<p className="text_xs color_platinum_gray">{item.designation}</p>
-												{/* <div className={`${styles.downIcon}`}>
-													<img src={black_down_arrow.src} className="" alt="icons" />
-												</div> */}
+												{item.downloadProfileUrl && (
+													<a
+														href={item.downloadProfileUrl}
+														download
+														target="_blank"
+														rel="noreferrer"
+														className={`${styles.downIcon}`}
+													>
+														<img src="/img/arr-down.svg" className="" alt="icons" />
+													</a>
+												)}
 											</div>
 											<div className={`${styles.hoverEffect} pt_20`}>
 												<img src={hoverEffect.src} className="" alt=" img" />
@@ -213,11 +220,10 @@ export default function Leaders({ data }) {
 															{item.downloadProfileUrl && (
 																<div className={`${styles.profileDownload}`}>
 																	<a
-																		href={item.downloadProfileUrl}
 																		className="d_f"
+																		href={item.downloadProfileUrl}
 																		download
 																		target="_blank"
-																		// rel="noopener noreferrer"
 																		rel="noreferrer"
 																	>
 																		Download

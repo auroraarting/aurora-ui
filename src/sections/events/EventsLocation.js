@@ -21,7 +21,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** EventsLocation Section */
 export default function EventsLocation({ data }) {
-	if (!data?.events?.location?.mapLink) {
+	if (!data?.events?.location?.mapLink && !data?.events?.location?.address) {
 		return null;
 	}
 	return (
@@ -30,11 +30,11 @@ export default function EventsLocation({ data }) {
 			id="location"
 			data-name="Location"
 		>
-			{!data?.events?.location?.addres && (
+			{!data?.events?.location?.address && (
 				<h2 className="text_lg color_secondary pb_10">Location</h2>
 			)}
 			<div className="f_w_j">
-				{data?.events?.location?.addres && (
+				{data?.events?.location?.address && (
 					<div className={`${styles.locationLeft}`}>
 						<h2 className="text_lg color_secondary pb_10">Location</h2>
 						<p className="text_reg color_dark_gray f_w_b">
@@ -44,7 +44,7 @@ export default function EventsLocation({ data }) {
 				)}
 				<div
 					className={`${styles.locationRight} ${
-						!data?.events?.location?.addres && styles.fullWidth
+						!data?.events?.location?.address && styles.fullWidth
 					}`}
 				>
 					<ContentFromCms>{data?.events?.location?.mapLink}</ContentFromCms>

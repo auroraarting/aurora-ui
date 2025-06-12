@@ -346,11 +346,12 @@ export default function Header({ defaultNavigation }) {
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 													<Link
-														href="/company/press-releases"
+														href="/company/press-room"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
-														<span>Press</span> <img src={menu_hover_arrow.src} alt="arrow" />
+														<span>Press Room</span>{" "}
+														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 													<Link
 														href="/company/contact"
