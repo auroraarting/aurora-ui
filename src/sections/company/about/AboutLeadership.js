@@ -272,7 +272,11 @@ export default function AboutLeadership({ data, countries }) {
 																				<div className={`${styles.ItemBox} `}>
 																					<a
 																						href={`/resources/aurora-insights/${slugify(
-																							isCategory(allCategories, blogData?.categories?.nodes)
+																							isCategory(
+																								allCategories,
+																								blogData?.categories?.nodes,
+																								true
+																							)
 																						)}/${blogData?.slug}`}
 																						className={`${styles.hoverBox}`}
 																					>
