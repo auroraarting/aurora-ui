@@ -47,9 +47,9 @@ export default async function JoinUs() {
 		await getJoinUsPage(),
 	]);
 
-	const page = pageFetch.data.page.joinUs;
+	const page = pageFetch?.data?.page?.joinUs;
 	const otherList = list?.data?.posts?.nodes;
-	const countries = categoriesForSelect.data.countries.nodes;
+	const countries = categoriesForSelect?.data?.countries?.nodes;
 
 	return (
 		<div>

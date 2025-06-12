@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -67,12 +67,12 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-export async function generateStaticParams() {
-	const countries = await getCountries();
-	return countries?.data?.countries?.nodes?.map((item) => ({
-		slug: item?.slug || "india",
-	}));
-}
+// export async function generateStaticParams() {
+// 	const countries = await getCountries();
+// 	return countries?.data?.countries?.nodes?.map((item) => ({
+// 		slug: item?.slug || "india",
+// 	}));
+// }
 
 /** Fetch  */
 async function getData({ params, query }) {
