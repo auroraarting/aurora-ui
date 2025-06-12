@@ -1001,6 +1001,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/events/spring-forum",
+				destination: "/events/competing-visions-of-progress-the-energy-transition-in-a-polarised-world",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
