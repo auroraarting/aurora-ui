@@ -42,6 +42,8 @@ export default function Sponsors({ data }) {
 		<section
 			id="sponsors"
 			data-name="Sponsors"
+			// id="partners"
+			// data-name="Partners"
 			className={`${styles.Sponsors} pt_60`}
 		>
 			<h2 className={`${styles.sponsorsTitle} text_lg color_secondary`}>
