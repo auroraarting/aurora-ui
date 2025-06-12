@@ -57,9 +57,11 @@
 			p {
 				// min-height: 60px;
 				color: var(--color_white);
+				&:last-child {
+					height: 45px;
+				}
 			}
 			:global(.color_light_gray) {
-				height: 45px;
 				text-align: center;
 			}
 		}
