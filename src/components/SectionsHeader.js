@@ -38,6 +38,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 			spy: true,
 			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 		});
+		window.history.pushState(null, "", id); // <- Adds hash to URL
 	};
 
 	/**  */
@@ -120,6 +121,20 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		if (!hideall) {
 			// Run once on mount
 			handleScroll();
+		}
+
+		// Custom scroll for hash on page load
+		if (typeof window !== "undefined" && window.location.hash) {
+			const hash = window.location.hash.slice(1); // Remove #
+			setTimeout(() => {
+				scroller.scrollTo(hash, {
+					duration: 500,
+					smooth: true,
+					offset: -200,
+					spy: true,
+					onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+				});
+			}, 500); // Wait a bit to ensure sections are mounted
 		}
 
 		return () => {
