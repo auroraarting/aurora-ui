@@ -121,8 +121,9 @@ export default function EarlyCareersInsideWrap({
 				<div className="">
 					<SmarterEnergy data={data?.earlyCareers?.expertise2} sectionName="" />
 				</div>
-				<div className={`${styles.EarlyMain} pt_100`}>
-					<div className={`${styles.containerCustom}`}>
+				{otherList.length > 0 && (
+					<div className={`${styles.EarlyMain} pt_100`}>
+						{/* <div className={`${styles.containerCustom}`}>
 						<div className="container">
 							<Insights
 								isPowerBgVisible={true}
@@ -138,14 +139,15 @@ export default function EarlyCareersInsideWrap({
 								)}
 							/>
 						</div>
-					</div>
+					</div> */}
 
-					{otherList.length > 0 && (
-						<div className="pt_100">
-							<EarlyCareersInside data={otherList} />
-						</div>
-					)}
-				</div>
+						{otherList.length > 0 && (
+							<div className="">
+								<EarlyCareersInside data={otherList} />
+							</div>
+						)}
+					</div>
+				)}
 				<div className="pt_100">
 					<ConnectWithUs data={offices} />
 				</div>
