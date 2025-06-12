@@ -950,7 +950,7 @@ export const dynamicInsightsBtnProps = (
 
 		// If fileUrl exists, treat it as external (always open in new tab)
 		if (fileUrl) {
-			obj.style = { display: "none" };
+			// obj.style = { display: "none" };
 			obj.target = "_blank";
 			obj.rel = "noreferrer";
 			obj.onClick = () => {
