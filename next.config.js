@@ -130,11 +130,11 @@ const nextConfig = {
 				destination: "/careers/early-careers/sydney-graduate-analyst-programme",
 				permanent: true,
 			},
-			{
-				source: "/graduate-programmes/tokyo-graduate-analyst",
-				destination: "/careers/early-careers/tokyo-graduate-analyst-programme",
-				permanent: true,
-			},
+			// {
+			// 	source: "/graduate-programmes/tokyo-graduate-analyst",
+			// 	destination: "/careers/early-careers/tokyo-graduate-analyst-programme",
+			// 	permanent: true,
+			// },
 			{
 				source: "/teams",
 				destination: "/careers/our-team",
