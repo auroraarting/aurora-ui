@@ -1426,6 +1426,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/ramped-up-a-guide-to-quick-reserve",
+				destination: "/resources/aurora-insights/articles/ramped-up-a-guide-to-quick-reserve",
+				permanent: true,
+			},
+			{
 				source: "/software/chronos/chronos-for-germany",
 				has: [
 					{
