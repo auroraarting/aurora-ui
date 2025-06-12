@@ -97,20 +97,20 @@ export default function WebinarInsideWrap({
 					<WebinarInsideTopSection data={data} countries={countries} />
 				</div>
 				<SectionsHeader
-				// hideall={true}
-				// customHtml={
-				// 	dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
-				// 		<a
-				// 			{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-				// 			key="btn"
-				// 			to="Insights"
-				// 		>
-				// 			<Button color="primary" variant="filled" shape="rounded">
-				// 				{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
-				// 			</Button>
-				// 		</a>
-				// 	)
-				// }
+					// hideall={true}
+					customHtml={
+						dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
+							<a
+								{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+								key="btn"
+								to="Insights"
+							>
+								<Button color="primary" variant="filled" shape="rounded">
+									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
+								</Button>
+							</a>
+						)
+					}
 				/>
 				<section className={`${styles.mediaMiddle} pt_40`}>
 					<div className="container">
@@ -141,7 +141,7 @@ export default function WebinarInsideWrap({
 													}}
 												/>
 											)}
-											{/* <div className="cmsButtonsWrap">
+											<div className="cmsButtonsWrap">
 												{item?.buttons?.map((btnItem) => {
 													const dataForBtn = {
 														postFields: { btnItem: btnItem } || {},
@@ -160,7 +160,7 @@ export default function WebinarInsideWrap({
 														</div>
 													);
 												})}
-											</div> */}
+											</div>
 										</section>
 									);
 								})}
@@ -189,11 +189,11 @@ export default function WebinarInsideWrap({
 						formSectionTitle={data?.webinarsFields?.insights?.sectionTitle}
 						formSectionDesc={data?.webinarsFields?.insights?.sectionDesc}
 						insightsLink="/resources/webinar/"
-						// formSectionBtnText={
-						// 	dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
-						// }
+						formSectionBtnText={
+							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+						}
 						insightsTitle="More from Aurora"
-						// formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 						allTag="Webinar"
 					/>
 				</div>
