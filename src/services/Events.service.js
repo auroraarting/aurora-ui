@@ -316,7 +316,7 @@ query GetEventInside {
             mediaItemUrl
           }
         }
-        country {
+        country(first: 999) {
           nodes {
             ... on Country {
               id
@@ -350,7 +350,7 @@ query GetEventInside {
             mediaItemUrl
           }
         }
-        type {
+        type(first: 999) {
           nodes {
             ... on Eventdownload {
               id
@@ -369,7 +369,7 @@ query GetEventInside {
       }
       glimps {
         sectionTitle
-        gallery {
+        gallery(first: 999) {
           nodes {
             altText
             mediaItemUrl
@@ -398,7 +398,7 @@ query GetEventInside {
           }
         }
       }
-    middleSectionButton{
+      middleSectionButton {
         buttonText
         iframe
         url
@@ -424,7 +424,7 @@ query GetEventInside {
             timeSlot
             title
           }
-          speakers {
+          speakers(first: 999) {
             nodes {
               ... on PostSpeaker {
                 id
@@ -452,7 +452,7 @@ query GetEventInside {
         sectionTitle
         sponsors {
           title
-          gallery {
+          gallery(first: 999) {
             nodes {
               altText
               mediaItemUrl
@@ -472,13 +472,13 @@ query GetEventInside {
         }
       }
       whyAttend {
-      desc
+        desc
         agenda {
           address
           time
           timeSlot
           title
-          speaker {
+          speaker(first: 999) {
             nodes {
               ... on PostSpeaker {
                 id
