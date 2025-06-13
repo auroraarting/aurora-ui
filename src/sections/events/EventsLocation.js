@@ -28,7 +28,6 @@ export default function EventsLocation({ data }) {
 	) {
 		return null;
 	}
-
 	return (
 		<section
 			className={`${styles.EventsLocation} `}
