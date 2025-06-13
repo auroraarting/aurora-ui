@@ -41,7 +41,7 @@ export default function TeamWrap({ data, countries }) {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Team"} Desc={""} OgImg={""} Url={"/team"} />
+			{/* <MetaTags Title={"Team"} Desc={""} OgImg={""} Url={"/team"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

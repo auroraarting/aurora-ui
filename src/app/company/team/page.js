@@ -22,6 +22,8 @@ import TeamWrap from "@/sections/company/team/TeamWrap";
 
 // SECTORS //
 import { getTeamSectors } from "@/services/Teams.service";
+
+// SERVICES //
 import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
