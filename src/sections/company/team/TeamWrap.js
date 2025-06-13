@@ -30,7 +30,7 @@ import country_thumb from "/public/img/global-presence/country_thumb.jpg";
 /** Team Page */
 export default function TeamWrap({ data, countries }) {
 	const [activeTab, setActiveTab] = useState("advisory-leadership");
-	const [teams, setTeams] = useState(data?.[0]?.teams?.nodes);
+	const [teams, setTeams] = useState(data);
 
 	/** */
 	const handleTabClick = (tab) => {
@@ -56,6 +56,11 @@ export default function TeamWrap({ data, countries }) {
 					/>
 				</div>
 				<section className={`${styles.tabMain} pt_60`}>
+					<div className={`${styles.categoryContent} `}>
+						<div className="pb_100">
+							<AdvisoryLeadership data={teams} countries={countries} />
+						</div>
+					</div>
 					{/* <div className={`${styles.category}`}>
 						<div className={`${styles.switchBox}`}>
 							{data?.map((item, ind) => {
@@ -73,13 +78,13 @@ export default function TeamWrap({ data, countries }) {
 							})}
 						</div>
 					</div> */}
-					{teams && (
+					{/* {teams && (
 						<div className={`${styles.categoryContent} `}>
 							<div className="pb_100">
 								<AdvisoryLeadership data={teams} countries={countries} />
 							</div>
 						</div>
-					)}
+					)} */}
 				</section>
 			</main>
 			<IframeModal />

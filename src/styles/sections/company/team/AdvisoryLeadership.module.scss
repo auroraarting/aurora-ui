@@ -59,7 +59,13 @@
 				}
 			}
 			.thumbnailImg {
+				display: flex;
+				overflow: hidden;
+				height: 100%;
 				img {
+					height: 100%;
+					object-fit: cover;
+					margin-top: auto;
 					@media (max-width: 767px) {
 						width: 100%;
 					}
@@ -212,11 +218,25 @@
 		}
 		.BoxFlex {
 			align-items: flex-start;
-			.Imgthumbnail {
+			overflow: auto;
+
+			@media (max-width: 1199px) {
+				overflow-y: scroll;
 				position: relative;
+				//height: 260px;
+			}
+			@media (max-width: 767px) {
+				height: auto;
+				overflow-y: auto;
+			}
+			.Imgthumbnail {
+				position: sticky;
+				top: 0;
+				left: 0;
 				width: 25%;
 				@media (max-width: 767px) {
 					width: 100%;
+					position: relative;
 				}
 				img {
 					@media (max-width: 767px) {
@@ -277,7 +297,31 @@
 						margin-top: 20px;
 					}
 				}
+				.DescWrap {
+					position: relative;
+
+					.Desc {
+						position: absolute;
+						top: 0;
+						padding-right: 20px;
+						@media (max-width: 767px) {
+							position: relative;
+						}
+					}
+				}
 			}
+		}
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 5px;
+			background: var(--color_gray);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--color_white);
+			border-radius: 50px;
 		}
 		.blogWapper {
 			position: relative;
@@ -393,7 +437,8 @@
 
 	.arrowSection {
 		justify-content: flex-end;
-		position: absolute;
+		// position: absolute;
+		padding-top: 10px;
 		top: 80px;
 		right: 60px;
 		width: 100%;
