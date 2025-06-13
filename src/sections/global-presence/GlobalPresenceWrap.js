@@ -68,7 +68,6 @@ export default function GlobalPresenceWrap({
 										fontFamily={"font_primary"}
 										fontColor={"color_secondary"}
 										items={data.regionsArr}
-										openAll
 									/>
 								)}
 							</div>
