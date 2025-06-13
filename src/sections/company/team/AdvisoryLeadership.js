@@ -111,7 +111,6 @@ export default function AdvisoryLeadership({ data, countries }) {
 							paginationArr={paginationArr}
 							setCurrentItems={setList}
 							isDark={true}
-							// itemsPerPage={12}
 						/>
 					</div>
 				</div>
