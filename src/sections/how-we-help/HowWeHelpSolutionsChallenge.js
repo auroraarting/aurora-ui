@@ -84,16 +84,16 @@ export default function HowWeHelpSolutionsChallenge() {
 											<img
 												src={asset_citing.src}
 												className={`${styles.imgOne} `}
-												alt="Asset Citing & Optimisation"
+												alt="Asset Siting & Optimisation"
 											/>
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
 											<h4 className={`${styles.centerLogo} color_secondary f_w_s_b`}>
-												Asset Citing & Optimisation
+												Asset Siting & Optimisation
 											</h4>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
 												<a
-													href="/how-we-help/asset-citing-optimisation"
+													href="/how-we-help/asset-siting-optimisation"
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More

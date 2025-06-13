@@ -56,7 +56,7 @@ export default function SolutionsChallenge() {
 							</div>
 							<div className={`${styles.content}`}>
 								<h5 className="text_reg font_primary f_w_s_b color_secondary">
-									Asset Citing & <br />
+									Asset Siting & <br />
 									Optimisation
 								</h5>
 							</div>
