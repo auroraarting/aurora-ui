@@ -45,7 +45,9 @@ export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "careers", idType: URI)');
+	const meta = await getPageSeo(
+		'page(id: "early-careers-landing", idType: URI)'
+	);
 	const seo = meta?.data?.page?.seo;
 
 	return {
