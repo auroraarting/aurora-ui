@@ -79,18 +79,23 @@ async function getData({ params, query }) {
 	const language = query.language;
 	const isJapanese = language === "jp";
 
-	const [insightsRes, categoriesRes, eventsRes, webinarsRes, countryData] =
-		await Promise.all([
-			getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-			),
-			getInsightsCategories(),
-			getAllEvents("first:9999"),
-			getWebinars("first:9999"),
-			isJapanese
-				? getCountryInsideWithLanguages(params.slug)
-				: getCountryInside(params.slug),
-		]);
+	const [
+		insightsRes,
+		categoriesRes,
+		//  eventsRes,
+		//  webinarsRes,
+		countryData,
+	] = await Promise.all([
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+		),
+		getInsightsCategories(),
+		// getAllEvents("first:9999"),
+		// getWebinars("first:9999"),
+		isJapanese
+			? getCountryInsideWithLanguages(params.slug)
+			: getCountryInside(params.slug),
+	]);
 
 	const countryBy = isJapanese
 		? {
@@ -103,53 +108,6 @@ async function getData({ params, query }) {
 	const insightsList = insightsRes?.data?.posts?.nodes || [];
 	const countries = categoriesRes?.data?.countries?.nodes || [];
 
-	/** Filter and sort helpers  */
-	const filterAndSortByDate = (items, datePath) =>
-		(items || [])
-			.filter((item) => new Date() < new Date(datePath(item)))
-			.sort((a, b) => new Date(datePath(a)) - new Date(datePath(b)));
-
-	const eventsFiltered = filterAndSortByDate(
-		eventsRes?.data?.events?.nodes?.filter((event) =>
-			event?.events?.thumbnail?.country?.nodes?.some(
-				(node) => node?.slug === params.slug
-			)
-		),
-		(event) => event.events?.thumbnail?.date
-	);
-
-	const eventsAllSorted = filterAndSortByDate(
-		eventsRes?.data?.events?.nodes,
-		(event) => event.events?.thumbnail?.date
-	);
-
-	const eventsList =
-		eventsFiltered?.length > 0 ? eventsFiltered : eventsAllSorted;
-
-	const webinarsFiltered = filterAndSortByDate(
-		webinarsRes?.data?.webinars?.nodes?.filter((webinar) =>
-			webinar?.webinarsFields?.country?.nodes?.some(
-				(node) => node?.slug === params.slug
-			)
-		),
-		(webinar) => webinar.webinarsFields?.startDateAndTime
-	);
-
-	const webinarsAllSorted = filterAndSortByDate(
-		webinarsRes?.data?.webinars?.nodes,
-		(webinar) => webinar.webinarsFields?.startDateAndTime
-	);
-
-	let webinarList =
-		webinarsFiltered?.length > 0 ? webinarsFiltered : webinarsAllSorted;
-
-	if (webinarList.length < 3) {
-		webinarList = [...webinarList, ...webinarsAllSorted].filter(
-			(item, index, self) =>
-				index === self.findIndex((t) => t?.title === item?.title)
-		);
-	}
-
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };
 
@@ -159,8 +117,8 @@ async function getData({ params, query }) {
 			mapJson,
 			insightsList,
 			countries,
-			events: eventsList.slice(0, 1),
-			webinars: webinarList.slice(0, 3),
+			// events: eventsList.slice(0, 1),
+			// webinars: webinarList.slice(0, 3),
 		},
 	};
 }
@@ -185,7 +143,7 @@ export default async function Australia({ params, searchParams }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<GlobalPresenceInsideWrap {...props} />
+			<GlobalPresenceInsideWrap {...props} slug={slug} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
