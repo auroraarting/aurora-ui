@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -29,12 +30,26 @@ import {
 	getEnergyTalksPageSocialLinks,
 } from "@/services/EnergyTalks.service";
 import { getPodcasts } from "@/services/Podcast.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-/** Meta Data */
-export const metadata = {
-	title: "Energy Talks | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "energy-talks-listing", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 export const revalidate = 60; // Revalidates every 60 seconds
 

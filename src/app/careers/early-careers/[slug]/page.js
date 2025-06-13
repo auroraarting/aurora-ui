@@ -27,31 +27,25 @@ import {
 	getEarlyCareersListing,
 } from "@/services/EarlyCareers.service";
 import { getOffices } from "@/services/Offices.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
 export const revalidate = 60; // Revalidates every 60 seconds
 
-/** Fetch Meta Data */
+/** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const data = await getEarlyCareersInside(params.slug);
-	const post = data?.data?.earlyCareerBy;
+	const meta = await getPageSeo(`earlyCareerBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.earlyCareerBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
 		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
+					url: "https://auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
