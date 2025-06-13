@@ -49,7 +49,7 @@ export async function generateMetadata({ params }) {
 		openGraph: {
 			images: [
 				{
-					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+					url: "https://auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
