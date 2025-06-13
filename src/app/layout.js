@@ -12,6 +12,7 @@ import Loader from "@/components/Loader";
 import navigationJSON from "@/data/navigationData.json";
 import { getAllEvents } from "@/services/Events.service";
 import Script from "next/script";
+import { getWebinars } from "@/services/Webinar.service";
 
 /** Meta Data */
 export const metadata = {
@@ -24,9 +25,10 @@ export const metadata = {
 
 /** layout page */
 export default async function RootLayout({ children }) {
-	const [navigationFetch, eventsFetch] = await Promise.all([
+	const [navigationFetch, eventsFetch, webinarsFetch] = await Promise.all([
 		fetchNavigationData(),
 		getAllEvents("first:9999"),
+		getWebinars("first:9999"),
 	]);
 	// const navigationFetch = await fetchNavigationData();
 	// const eventsFetch = await getAllEvents("first:9999");
@@ -66,7 +68,11 @@ export default async function RootLayout({ children }) {
 
 				<GlobalContext>
 					{/* Header */}
-					<Header defaultNavigation={navigation} />
+					<Header
+						defaultNavigation={navigation}
+						allEvents={eventsFetch}
+						allWebinars={webinarsFetch}
+					/>
 					<HighlightSearched />
 					<Loader hide />
 					{/* <Breadcrumbs /> */}

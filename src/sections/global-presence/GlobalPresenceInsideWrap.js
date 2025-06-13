@@ -1,6 +1,6 @@
 "use client";
 // MODULES //
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useContextProvider } from "@/context/GlobalContext";
 
 // COMPONENTS //
@@ -41,10 +41,14 @@ export default function GlobalPresenceInsideWrap({
 	mapJson,
 	insightsList,
 	countries,
-	events,
-	webinars,
+	slug,
+	// events,
+	// webinars,
 }) {
-	const { setShowLanguages } = useContextProvider();
+	const [events, setEvents] = useState([]);
+	const [webinars, setWebinars] = useState([]);
+	const { setShowLanguages, eventsState, webinarsState } = useContextProvider();
+
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
@@ -55,6 +59,58 @@ export default function GlobalPresenceInsideWrap({
 			setShowLanguages(false);
 		};
 	}, []);
+
+	useEffect(() => {
+		/** Filter and sort helpers  */
+		const filterAndSortByDate = (items, datePath) =>
+			(items || [])
+				.filter((item) => new Date() < new Date(datePath(item)))
+				.sort((a, b) => new Date(datePath(a)) - new Date(datePath(b)));
+
+		const eventsFiltered = filterAndSortByDate(
+			eventsState?.data?.events?.nodes?.filter((event) =>
+				event?.events?.thumbnail?.country?.nodes?.some(
+					(node) => node?.slug === slug
+				)
+			),
+			(event) => event.events?.thumbnail?.date
+		);
+
+		const eventsAllSorted = filterAndSortByDate(
+			eventsState?.data?.events?.nodes,
+			(event) => event.events?.thumbnail?.date
+		);
+
+		const eventsList =
+			eventsFiltered?.length > 0 ? eventsFiltered : eventsAllSorted;
+
+		const webinarsFiltered = filterAndSortByDate(
+			webinarsState?.data?.webinars?.nodes?.filter((webinar) =>
+				webinar?.webinarsFields?.country?.nodes?.some((node) => node?.slug === slug)
+			),
+			(webinar) => webinar.webinarsFields?.startDateAndTime
+		);
+
+		const webinarsAllSorted = filterAndSortByDate(
+			webinarsState?.data?.webinars?.nodes,
+			(webinar) => webinar.webinarsFields?.startDateAndTime
+		);
+
+		let webinarList =
+			webinarsFiltered?.length > 0 ? webinarsFiltered : webinarsAllSorted;
+
+		if (webinarList.length < 3) {
+			webinarList = [...webinarList, ...webinarsAllSorted].filter(
+				(item, index, self) =>
+					index === self.findIndex((t) => t?.title === item?.title)
+			);
+		}
+
+		// events: eventsList.slice(0, 1),
+		// webinars: webinarList.slice(0, 3),
+		setEvents(eventsList.slice(0, 1));
+		setWebinars(webinarList.slice(0, 3));
+	}, [events, webinars]);
 
 	return (
 		<div>

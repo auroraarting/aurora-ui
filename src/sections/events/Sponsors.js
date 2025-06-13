@@ -17,11 +17,12 @@ import styles from "@/styles/sections/events/Sponsors.module.scss";
 
 // IMAGES //
 import national_grid from "@/../public/img/events/national_grid.png";
+import { slugify } from "@/utils";
 
 // DATA //
 
 /** Sponsors Section */
-export default function Sponsors({ data }) {
+export default function Sponsors({ data, sectionName }) {
 	useEffect(() => {
 		// EqualHeight("SponsorsItem");
 		const SponsorsFlex = document.querySelector(".SponsorsFlex");
@@ -40,8 +41,18 @@ export default function Sponsors({ data }) {
 
 	return (
 		<section
-			id="sponsors"
-			data-name="Sponsors"
+			id={
+				data?.events?.sponsors?.sectionTitle
+					? slugify(data?.events?.sponsors?.sectionTitle)
+					: "sponsors"
+			}
+			data-name={
+				data?.events?.sponsors?.sectionTitle
+					? data?.events?.sponsors?.sectionTitle
+					: "Sponsors"
+			}
+			// id="partners"
+			// data-name="Partners"
 			className={`${styles.Sponsors} pt_60`}
 		>
 			<h2 className={`${styles.sponsorsTitle} text_lg color_secondary`}>

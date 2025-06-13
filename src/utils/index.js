@@ -946,15 +946,16 @@ export const dynamicInsightsBtnProps = (
 
 	if (finalUrl) {
 		// Show this below
-		// obj.href = finalUrl;
+		obj.href = finalUrl;
 
 		// If fileUrl exists, treat it as external (always open in new tab)
 		if (fileUrl) {
+			// obj.style = { display: "none" };
 			obj.target = "_blank";
 			obj.rel = "noreferrer";
 			obj.onClick = () => {
 				// Show this below
-				// window.open(fileUrl, "_blank", "noopener,noreferrer");
+				window.open(fileUrl, "_blank", "noopener,noreferrer");
 			};
 		}
 		// If we're using fallbackUrl, check if it's external
@@ -971,24 +972,25 @@ export const dynamicInsightsBtnProps = (
 					obj.rel = "noreferrer";
 					obj.onClick = () => {
 						// Show this below
-						// window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+						window.open(fallbackUrl, "_blank", "noopener,noreferrer");
 					};
 				}
 			} else {
 				// Internal URL — same tab
 				obj.onClick = () => {
 					// Show this below
-					// window.location.href = fallbackUrl;
+					window.location.href = fallbackUrl;
 				};
 			}
 		}
 	} else if (data?.postFields?.[keyVal]?.iframe) {
-		obj.onClick = () =>
+		obj.onClick = () => {
 			OpenIframePopup(
 				"iframePopup",
 				data?.postFields?.[keyVal]?.iframe ||
 					"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 			);
+		};
 	}
 
 	if (data?.postFields?.[keyVal]?.buttonText) {
