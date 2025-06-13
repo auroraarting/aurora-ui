@@ -105,7 +105,7 @@ export default function HowWeHelp() {
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<a href="/how-we-help/asset-citing-optimisation">
+											<a href="/how-we-help/asset-siting-optimisation">
 												<span>
 													<img src={dropdown_arrow.src} alt="icon" />
 												</span>

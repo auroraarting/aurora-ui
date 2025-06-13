@@ -86,7 +86,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 			),
 		},
 		{
-			title: "Asset Citing & Optimisation",
+			title: "Asset Siting & Optimisation",
 			imgIcons: asset.src,
 			children: (
 				<div className={`${styles.content_wrap}`}>
