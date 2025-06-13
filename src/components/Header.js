@@ -49,7 +49,7 @@ import WebinarImg from "/public/img/header_webinar.jpg";
 import languages from "@/data/languages.json";
 
 /** Header Component */
-export default function Header({ defaultNavigation }) {
+export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 	const [data, setData] = useState(defaultNavigation);
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState(null);
@@ -62,7 +62,8 @@ export default function Header({ defaultNavigation }) {
 	const pathname = usePathname();
 	const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 	// const [showLanguages, setShowLanguages] = useState(true);
-	const { showLanguages } = useContextProvider();
+	const { showLanguages, setEventsState, setWebinarsState } =
+		useContextProvider();
 	const [showLanguagesList, setShowLanguagesList] = useState(false);
 	const language = searchParams.get("language");
 
@@ -195,6 +196,11 @@ export default function Header({ defaultNavigation }) {
 			highlightSearchTerm(decodedSearchTerm);
 		}
 	}, [searchQuery]);
+
+	useEffect(() => {
+		setEventsState(allEvents);
+		setWebinarsState(allWebinars);
+	}, []);
 
 	// if (!data) return <div className="stalePage"></div>;
 

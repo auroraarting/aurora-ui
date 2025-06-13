@@ -12,6 +12,8 @@ export default function InnerGlobalContext({ children }) {
 	const searchParams = useSearchParams();
 	const search = searchParams.get("search");
 	const [showLanguages, setShowLanguages] = useState(false);
+	const [eventsState, setEventsState] = useState([]);
+	const [webinarsState, setWebinarsState] = useState([]);
 
 	/** addCssVariables  */
 	const addCssVariables = () => {
@@ -49,7 +51,17 @@ export default function InnerGlobalContext({ children }) {
 	}, []);
 
 	return (
-		<BookmarkContext.Provider value={{ search, showLanguages, setShowLanguages }}>
+		<BookmarkContext.Provider
+			value={{
+				search,
+				showLanguages,
+				setShowLanguages,
+				eventsState,
+				setEventsState,
+				webinarsState,
+				setWebinarsState,
+			}}
+		>
 			{children}
 		</BookmarkContext.Provider>
 	);
