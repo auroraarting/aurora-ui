@@ -1567,6 +1567,11 @@ const nextConfig = {
 				destination: "/software/lumus",
 				permanent: true,
 			},
+			{
+				source: "/company/press-releases/:path*",
+				destination: "/company/press-room/:path*",
+				permanent: true, // or false if it's temporary
+			},
 		];
 	},
 };
