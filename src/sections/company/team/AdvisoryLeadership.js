@@ -145,7 +145,7 @@ export default function AdvisoryLeadership({ data, countries }) {
 										className={styles.slider}
 										ref={sliderRef}
 									>
-										{data?.map((item, ind) => (
+										{list?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
 												<div className={`${styles.PopupItem}`}>
 													<div className={`${styles.BoxFlex} f_w`}>
