@@ -207,9 +207,10 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 	return (
 		<>
 			<header
-				className={`${styles.main_headerBox} ${
-					showLanguages && styles.showLanguages
-				} ${showLanguagesList && styles.showLanguagesList}  main_headerBox`}
+				className={`${
+					styles.main_headerBox
+				} ${"showLanguages && styles.showLanguages"} ${"showLanguagesList && styles.showLanguagesList"}
+                      main_headerBox`}
 			>
 				<div className={`${styles.headerTopBg} f_r_aj_between`}>
 					{/* mobile Global list Wrap */}
@@ -247,7 +248,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 							<img src={login_icon.src} alt="login" />
 							<span>EOS Sign in</span>
 						</Link>
-						{showLanguages && (
+						{/* {showLanguages && (
 							<div className={`${styles.languageFlex}`}>
 								<div
 									className={`${styles.selected} text_xxs f_w_m font_primary`}
@@ -258,7 +259,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 									<img src={dropdown_arrow.src} />
 								</div>
 							</div>
-						)}
+						)} */}
 					</div>
 				</div>
 
@@ -267,7 +268,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 						openSidebar ? styles.sidebar_opened : ""
 					}`}
 				>
-					{showLanguagesList && (
+					{/* {showLanguagesList && (
 						<div className={`${styles.list}`}>
 							<div className={`${styles.listInner}`}>
 								<div className={`${styles.langWrap}`}>
@@ -282,16 +283,14 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 													setShowLanguagesList(!showLanguagesList);
 												}}
 											>
-												{/* <img src={selectedLanguage?.icon} /> */}
 												{item?.shortTitle}-{item?.title}
-												{/* <img src={dropdown_arrow.src} /> */}
 											</div>
 										);
 									})}
 								</div>
 							</div>
 						</div>
-					)}
+					)} */}
 					<div className={`${styles.menuListBox} f_r_aj_between`}>
 						<div className={`${styles.header_inside}`}>
 							{/* Logo wrap */}
