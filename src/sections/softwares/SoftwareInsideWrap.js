@@ -134,6 +134,11 @@ export default function SoftwareInsideWrap({
 					data={data?.keyAdvantages}
 					customColor={data?.thumbnail?.primaryColor}
 					centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
+					removeTopBottom={
+						!data?.whyAurora?.list || data?.whyAurora?.list?.length === 0
+							? true
+							: false
+					}
 				/>
 				<div>
 					<GloballyBankableInsights

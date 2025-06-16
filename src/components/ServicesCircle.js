@@ -38,6 +38,7 @@ export default function ServicesCircle({
 	customColor,
 	centerLogo,
 	sectionName,
+	removeTopBottom,
 }) {
 	let obj = {};
 
@@ -63,7 +64,9 @@ export default function ServicesCircle({
 	}
 	return (
 		<section
-			className={`${styles.ServicesCircleSection} dark_bg `}
+			className={`${styles.ServicesCircleSection} ${
+				removeTopBottom && styles.removeTopBottom
+			} dark_bg`}
 			{...sectionTitle()}
 		>
 			<div className="container">

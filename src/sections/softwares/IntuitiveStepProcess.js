@@ -76,10 +76,12 @@ export default function IntuitiveStepProcess({
 			onMouseLeave={startInterval}
 		>
 			<div className="container">
-				<div className={`${styles.StepProcessTxt} `}>
-					<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
-					{customHtml && customHtml}
-				</div>
+				{(data?.description || customHtml) && (
+					<div className={`${styles.StepProcessTxt} `}>
+						<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
+						{customHtml && customHtml}
+					</div>
+				)}
 				<div className={`${styles.stepsTxt} pt_100`}>
 					<h2 className="text_xl font_primary f_w_s_b text_center color_white ">
 						{data?.processTitle}
