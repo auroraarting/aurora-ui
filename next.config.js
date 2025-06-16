@@ -1572,6 +1572,21 @@ const nextConfig = {
 				destination: "/company/press-room/:path*",
 				permanent: true, // or false if it's temporary
 			},
+			{
+				source: "/software/amun/amun-for-brazil",
+				destination: "/software/amun",
+				permanent: true,
+			},
+			{
+				source: "/software/chronos/chronos-for-australia",
+				destination: "/software/chronos",
+				permanent: true,
+			},
+			{
+				source: "/software/chronos/chronos-in-italy",
+				destination: "/software/chronos",
+				permanent: true,
+			},
 		];
 	},
 };
