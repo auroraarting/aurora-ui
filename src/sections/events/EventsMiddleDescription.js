@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 "use client";
 // MODULES //
 import { useState } from "react";
@@ -119,29 +120,31 @@ const WhyAttend = ({ data }) => {
 										<span>{item?.timeSlot}</span>
 									</p>
 								</div>
-								{item?.speaker?.nodes?.map((item2) => {
-									return (
-										<div
-											className={`${styles.ClientFlex} f_r_a_center`}
-											key={item2?.title}
-										>
-											<div className={`${styles.ClientLogo}`}>
-												<img
-													src={item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
-													alt="pic"
-												/>
+								<div className={`${styles.ClientInfo}`}>
+									{item?.speaker?.nodes?.map((item2) => {
+										return (
+											<div
+												className={`${styles.ClientFlex} f_r_a_center`}
+												key={item2?.title}
+											>
+												<div className={`${styles.ClientLogo}`}>
+													<img
+														src={item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
+														alt="pic"
+													/>
+												</div>
+												<div className={`${styles.ClientDescription}`}>
+													<h5 className="text_xs font_primary color_white f_w_m">
+														{item2?.title}
+													</h5>
+													<p className="text_xxs color_silver_gray f_w_l">
+														{item2?.postSpeakers?.thumbnail?.designation}
+													</p>
+												</div>
 											</div>
-											<div className={`${styles.ClientDescription}`}>
-												<h5 className="text_xs font_primary color_white f_w_m">
-													{item2?.title}
-												</h5>
-												<p className="text_xxs color_silver_gray f_w_l">
-													{item2?.postSpeakers?.thumbnail?.designation}
-												</p>
-											</div>
-										</div>
-									);
-								})}
+										);
+									})}
+								</div>
 							</div>
 						</div>
 					))}
