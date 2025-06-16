@@ -2,8 +2,8 @@
 .ServicesCircleSection {
 	padding: 100px 0;
 
-	@include md-down {
-		padding-bottom: 10vmin;
+	&.removeTopBottom {
+		padding-bottom: 0vmin;
 	}
 
 	.CircleGrid {
