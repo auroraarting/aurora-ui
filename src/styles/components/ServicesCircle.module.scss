@@ -3,7 +3,7 @@
 	padding: 100px 0;
 
 	@include md-down {
-		padding-bottom: 0;
+		padding-bottom: 10vmin;
 	}
 
 	.CircleGrid {
