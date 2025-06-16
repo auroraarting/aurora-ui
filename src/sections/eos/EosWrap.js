@@ -29,6 +29,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // STYLES //
 import styles from "@/styles/pages/Eos.module.scss";
 import Introduction from "../global-presence/Introduction";
+import SoftwareBanner from "../softwares/SoftwareBanner";
 
 // IMAGES //
 
@@ -66,8 +67,19 @@ export default function EOSPageWrap({
 						videoSrc={data?.banner?.vimeoLink}
 						vimeoid={data?.banner?.vimeoLink}
 						logo={data?.banner?.logo?.node?.mediaItemUrl}
-						dataForBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
+					{/* <SoftwareBanner
+						bannerTitle={data?.banner?.title}
+						bannerDescription={data?.banner?.description}
+						desktopImage={data?.banner?.desktopThumbnail?.node?.mediaItemUrl}
+						mobileImage={data?.banner?.mobileThumbnail?.node?.mediaItemUrl}
+						vimeoid={data?.banner?.vimeoLink}
+						btnText={data?.banner?.buttonText}
+						btnLink={data?.banner?.buttonLink}
+						logo={data?.banner?.logo?.node?.mediaItemUrl}
+						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
+					/> */}
 				</div>
 				<SectionsHeader
 					customHtml={
