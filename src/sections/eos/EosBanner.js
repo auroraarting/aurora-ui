@@ -103,11 +103,18 @@ export default function EosBanner({
 						className={`${styles.frame_video}`}
 					/> */}
 						<div className={`${styles.frame_video}`}>
-							<Vimeo
+							{vimeoid && (
+								<Vimeo
+									className={`${styles.vimeoPlayer}`}
+									ref={vimeoRef}
+									{...defaultVimeoObj}
+								/>
+							)}
+							{/* <Vimeo
 								className={`${styles.vimeoPlayer}`}
 								ref={vimeoRef}
 								{...defaultVimeoObj}
-							/>
+							/> */}
 							{/* <video ref={videoRef} playsInline autoPlay muted loop>
 							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
 						</video> */}
@@ -130,7 +137,7 @@ export default function EosBanner({
 						</div>
 					</div>
 				) : (
-					<div className={`${styles.banner_image}`}>
+					<div className={`${styles.banner_image} next_image`}>
 						<picture>
 							<source
 								srcSet={desktopImage ? desktopImage : DefaultBanner.src}
