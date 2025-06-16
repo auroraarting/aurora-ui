@@ -192,8 +192,8 @@ export default function CircularMenu({
 											}
 											// width={iconDefault.width}
 											// height={iconDefault.height}
-											width={40}
-											height={40}
+											width={30}
+											height={30}
 											x={midX - iconDefault.width / 2} // Center the image
 											y={midY - iconDefault.height / 2}
 											style={{
