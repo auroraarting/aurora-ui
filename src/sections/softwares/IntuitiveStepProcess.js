@@ -78,15 +78,7 @@ export default function IntuitiveStepProcess({
 			<div className="container">
 				<div className={`${styles.StepProcessTxt} `}>
 					<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
-					{customHtml ? (
-						customHtml
-					) : (
-						<div className={`${styles.bookBtn} pt_50`}>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Book a Demo
-							</Button>
-						</div>
-					)}
+					{customHtml && customHtml}
 				</div>
 				<div className={`${styles.stepsTxt} pt_100`}>
 					<h2 className="text_xl font_primary f_w_s_b text_center color_white ">
