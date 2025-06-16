@@ -69,9 +69,9 @@ export default function IntuitiveStepProcess({
 		<section
 			id="fourstep"
 			data-name={`${data?.process?.length || "4"} STEP PROCESS`}
-			className={`${styles.IntuitiveStepProcess} dark_bg ${
-				removeTopBottom ? "" : "pt_100"
-			} pb_40`}
+			className={`${styles.IntuitiveStepProcess} dark_bg
+                ${!data?.description ? "" : "pt_100"}
+                pb_40`}
 			onMouseEnter={stopInterval}
 			onMouseLeave={startInterval}
 		>
