@@ -109,12 +109,12 @@ export default function CircularMenu({
 			<div
 				className={`${styles.selected} ${
 					selectedService === null && styles.hide
-				} m_b_15 selectedNew`}
+				}  selectedNew`}
 			>
 				<p
 					className={`${styles.title} ${
 						mode === "light" ? "color_secondary" : "color_white"
-					} text_reg font_secondary text_500 m_b_15`}
+					} text_reg font_secondary text_500 m_b_10`}
 				>
 					{items?.[selectedService]?.title ||
 						items?.[selectedService]?.advantagesTitle ||
