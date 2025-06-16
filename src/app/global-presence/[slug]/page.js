@@ -70,7 +70,7 @@ export async function generateStaticParams() {
 /** Fetch  */
 async function getData({ params, query }) {
 	const language = query.language;
-	const isJapanese = language === "jp";
+	// const isJapanese = language === "jp";
 
 	const [
 		insightsRes,
@@ -85,17 +85,20 @@ async function getData({ params, query }) {
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),
 		// getWebinars("first:9999"),
-		isJapanese
-			? getCountryInsideWithLanguages(params.slug)
-			: getCountryInside(params.slug),
+		// isJapanese
+		// 	? getCountryInsideWithLanguages(params.slug)
+		// 	: getCountryInside(params.slug),
+		getCountryInside(params.slug),
 	]);
 
-	const countryBy = isJapanese
-		? {
-				...countryData?.data?.countryBy?.translations?.[0],
-				translations: [{ slug: "jp", title: "Japan" }],
-		  }
-		: countryData?.data?.countryBy;
+	// const countryBy = isJapanese
+	// 	? {
+	// 			...countryData?.data?.countryBy?.translations?.[0],
+	// 			translations: [{ slug: "jp", title: "Japan" }],
+	// 	  }
+	// 	: countryData?.data?.countryBy;
+
+	const countryBy = countryData?.data?.countryBy;
 
 	const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const insightsList = insightsRes?.data?.posts?.nodes || [];
