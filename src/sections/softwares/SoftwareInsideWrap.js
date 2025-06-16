@@ -50,7 +50,6 @@ export default function SoftwareInsideWrap({
 	showMap,
 }) {
 	const dataForBtn = { postFields: data || {} };
-	console.log(data, "data");
 
 	return (
 		<div>
