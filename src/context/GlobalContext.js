@@ -31,7 +31,8 @@ export const GlobalContext = ({ children }) => {
 			if (
 				link.target === "_blank" ||
 				link.hasAttribute("download") ||
-				link.rel === "noopener noreferrer"
+				link.rel === "noopener noreferrer" ||
+				href.startsWith("#")
 			) {
 				return;
 			}
