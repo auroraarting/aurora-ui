@@ -148,7 +148,7 @@ export default function SoftwareInsideWrap({
 					/>
 				</div>
 				<IntuitiveStepProcess
-					removeTopBottom={data?.whyAurora?.title ? false : true}
+					// removeTopBottom={data?.whyAurora?.title ? false : true}
 					data={data?.fourStepProcess}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext && (
