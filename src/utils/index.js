@@ -371,7 +371,7 @@ export function getMapJsonForAllRegions(regions) {
 				});
 			}
 			let obj = {
-				centerOfCountry: { lat: 18.1307561, lng: 23.554042 },
+				centerOfCountry: { lat: 15.2174093, lng: 27.4291607 },
 				markers: markers,
 				zoom: item2?.countries?.map?.zoom || 4,
 				name: item2?.title,

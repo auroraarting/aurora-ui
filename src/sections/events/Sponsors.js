@@ -23,6 +23,10 @@ import { slugify } from "@/utils";
 
 /** Sponsors Section */
 export default function Sponsors({ data, sectionName }) {
+	let dataToUse = data?.events?.sponsors2?.sectionTitle
+		? data?.events?.sponsors2
+		: data?.events?.sponsors;
+
 	useEffect(() => {
 		// EqualHeight("SponsorsItem");
 		const SponsorsFlex = document.querySelector(".SponsorsFlex");
@@ -32,33 +36,22 @@ export default function Sponsors({ data, sectionName }) {
 		});
 	}, []);
 
-	if (
-		data?.events?.sponsors?.sponsors?.length === 0 ||
-		!data?.events?.sponsors?.sponsors?.length
-	) {
+	if (dataToUse?.sponsors?.length === 0 || !dataToUse?.sponsors?.length) {
 		return <></>;
 	}
 
 	return (
 		<section
-			id={
-				data?.events?.sponsors?.sectionTitle
-					? slugify(data?.events?.sponsors?.sectionTitle)
-					: "sponsors"
-			}
-			data-name={
-				data?.events?.sponsors?.sectionTitle
-					? data?.events?.sponsors?.sectionTitle
-					: "Sponsors"
-			}
+			id={dataToUse?.sectionTitle ? slugify(dataToUse?.sectionTitle) : "sponsors"}
+			data-name={dataToUse?.sectionTitle ? dataToUse?.sectionTitle : "Sponsors"}
 			// id="partners"
 			// data-name="Partners"
 			className={`${styles.Sponsors} pt_60`}
 		>
 			<h2 className={`${styles.sponsorsTitle} text_lg color_secondary`}>
-				{data?.events?.sponsors?.sectionTitle || "Sponsors"}
+				{dataToUse?.sectionTitle || "Sponsors"}
 			</h2>
-			{data?.events?.sponsors?.sponsors?.map((item) => {
+			{dataToUse?.sponsors?.map((item) => {
 				return (
 					<div className={`${styles.SponsorsFlexWrap} d_f`} key={item?.title}>
 						<div className={`${styles.SponsorsItemTitle} SponsorsItem`}>
@@ -69,6 +62,15 @@ export default function Sponsors({ data, sectionName }) {
 								return (
 									<div className={`${styles.SponsorsItem}`} key={item2?.mediaItemUrl}>
 										<img src={item2?.mediaItemUrl} alt="Sponsors Logos" />
+									</div>
+								);
+							})}
+							{item?.list?.map((item2) => {
+								return (
+									<div className={`${styles.SponsorsItem}`} key={item2?.mediaItemUrl}>
+										<a href={item2?.url} target="_blank" rel="noopener noreferrer">
+											<img src={item2?.logo?.node?.mediaItemUrl} alt="Sponsors Logos" />
+										</a>
 									</div>
 								);
 							})}

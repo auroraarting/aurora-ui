@@ -29,6 +29,7 @@ export default function GlobalMap({
 	sectionName = "Available Regions",
 	hideOnHover,
 	marqueeData,
+	defaultZoom,
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
@@ -82,7 +83,7 @@ export default function GlobalMap({
 					valueOfSelect={valueOfSelect}
 					map={map}
 					setMap={setMap}
-					defaultZoom={2.2}
+					defaultZoom={defaultZoom || 3}
 					locationJson={locationJson}
 					hideOnHover={hideOnHover}
 				/>

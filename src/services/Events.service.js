@@ -11,143 +11,63 @@ query GetEvents {
       content
       events {
         interestedDesc
-      pricingDesc
-      thumbnail {
-        address
-        date
-        endDate
-        time
-        externalUrl
-        logo {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        country {
-          nodes {
-            ... on Country {
-              id
-              title
-              slug
+        pricingDesc
+        thumbnail {
+          address
+          date
+          endDate
+          time
+          externalUrl
+          logo {
+            node {
+              altText
+              mediaItemUrl
             }
           }
-        }
-      }
-      breakdown {
-        sectionDesc
-        sectionTitle
-        desktopImage {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        mobileImage {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      downloads {
-        link
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        type {
-          nodes {
-            ... on Eventdownload {
-              id
-              name
-              eventDownloads {
-                icon {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
+          country {
+            nodes {
+              ... on Country {
+                id
+                title
+                slug
               }
             }
           }
         }
-      }
-      glimps {
-        sectionTitle
-        gallery {
-          nodes {
-            altText
-            mediaItemUrl
+        breakdown {
+          sectionDesc
+          sectionTitle
+          desktopImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          mobileImage {
+            node {
+              altText
+              mediaItemUrl
+            }
           }
         }
-        video
-      }
-      hightlights {
-        sectionTitle
-        hightlights {
-          text
-        }
-      }
-      insights {
-        sectionDesc
-        sectionTitle
-      }
-      insightsSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
+        downloads {
+          link
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
           }
-        }
-      }
-    middleSectionButton{
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      location {
-        address
-        mapLink
-        desc
-      }
-      speakers {
-        sectionDesc
-        sectionTitle
-        speakers {
-          sessions {
-            address
-            time
-            timeSlot
-            title
-          }
-          speakers {
+          type {
             nodes {
-              ... on PostSpeaker {
+              ... on Eventdownload {
                 id
-                content
-                title
-                slug
-                postSpeakers {
-                  thumbnail {
-                    designation
-                    linkedinLink
-                    image {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
+                name
+                eventDownloads {
+                  icon {
+                    node {
+                      altText
+                      mediaItemUrl
                     }
                   }
                 }
@@ -155,51 +75,79 @@ query GetEvents {
             }
           }
         }
-      }
-      sponsors {
-        sectionTitle
-        sponsors {
-          title
+        glimps {
+          sectionTitle
           gallery {
             nodes {
               altText
               mediaItemUrl
             }
           }
+          video
         }
-      }
-      topSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
+        hightlights {
+          sectionTitle
+          hightlights {
+            text
           }
         }
-      }
-      whyAttend {
-      desc
-        agenda {
+        insights {
+          sectionDesc
+          sectionTitle
+        }
+        insightsSectionButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        middleSectionButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        location {
           address
-          time
-          timeSlot
-          title
-          speaker {
-            nodes {
-              ... on PostSpeaker {
-                id
-                title
-                slug
-                postSpeakers {
-                  thumbnail {
-                    designation
-                    linkedinLink
-                    image {
-                      node {
-                        altText
-                        mediaItemUrl
+          mapLink
+          desc
+        }
+        speakers {
+          sectionDesc
+          sectionTitle
+          speakers {
+            sessions {
+              address
+              time
+              timeSlot
+              title
+            }
+            speakers {
+              nodes {
+                ... on PostSpeaker {
+                  id
+                  content
+                  title
+                  slug
+                  postSpeakers {
+                    thumbnail {
+                      designation
+                      linkedinLink
+                      image {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
                       }
                     }
                   }
@@ -208,21 +156,88 @@ query GetEvents {
             }
           }
         }
-      }
-      banner {
-        desktop {
-          node {
-            altText
-            mediaItemUrl
+        sponsors {
+          sectionTitle
+          sponsors {
+            title
+            gallery {
+              nodes {
+                altText
+                mediaItemUrl
+              }
+            }
           }
         }
-        mobile {
-          node {
-            altText
-            mediaItemUrl
+        sponsors2 {
+          sectionTitle
+          sponsors {
+            title
+            list {
+              url
+              logo {
+                node {
+                  altText
+                  mediaItemUrl
+                }
+              }
+            }
           }
         }
-      }
+        topSectionButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        whyAttend {
+          desc
+          agenda {
+            address
+            time
+            timeSlot
+            title
+            speaker {
+              nodes {
+                ... on PostSpeaker {
+                  id
+                  title
+                  slug
+                  postSpeakers {
+                    thumbnail {
+                      designation
+                      linkedinLink
+                      image {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        banner {
+          desktop {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          mobile {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
       }
       eventscategories {
         nodes {
@@ -456,6 +471,21 @@ query GetEventInside {
             nodes {
               altText
               mediaItemUrl
+            }
+          }
+        }
+      }
+      sponsors2 {
+        sectionTitle
+        sponsors {
+          title
+          list {
+            url
+            logo {
+              node {
+                altText
+                mediaItemUrl
+              }
             }
           }
         }

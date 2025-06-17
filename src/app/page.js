@@ -122,7 +122,7 @@ export default async function HomePage() {
 						<TestimonialFeedback data={data.ourClient} />
 					</div>
 				)}
-				{mapJson && <GlobalMap locationJson={mapJson} />}
+				{mapJson && <GlobalMap locationJson={mapJson} defaultZoom={3} />}
 				{data?.stats && (
 					<div>
 						<Counter data={{ stats: { ...data.stats } }} />

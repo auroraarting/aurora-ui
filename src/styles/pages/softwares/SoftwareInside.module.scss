@@ -1,17 +1,29 @@
 .SoftwarePage {
 	background-color: var(--color_silver);
-	
-	:global(.TrustedLeaders){
-		.swiper-horizontal{
+
+	:global(.TrustedLeaders) {
+		.swiper-horizontal {
 			padding-bottom: 0px;
 		}
 	}
-.TrustOurExpertsBg{
-	:global(.swiper-horizontal){
+
+	:global(.TrustOurExperts) {
+		background-image: url("/img/softwares/energy_bg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: bottom center;
+	}
+
+	:global(.SmarterEnergy) {
+		background-image: none;
+	}
+
+	.TrustOurExpertsBg {
+		:global(.swiper-horizontal) {
 			padding-bottom: 0px;
 			@media only screen and (max-width: 991px) {
 				padding-bottom: 60px;
 			}
 		}
-	}		
+	}
 }
