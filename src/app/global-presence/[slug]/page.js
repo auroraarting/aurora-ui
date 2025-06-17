@@ -38,7 +38,7 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-// export const revalidate = 18000; // Revalidates every 60 seconds
+export const revalidate = 18000; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
@@ -100,7 +100,8 @@ async function getData({ params, query }) {
 
 	const countryBy = countryData?.data?.countryBy;
 
-	const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
+	const mapJson = [];
 	const insightsList = insightsRes?.data?.posts?.nodes || [];
 	const countries = categoriesRes?.data?.countries?.nodes || [];
 
