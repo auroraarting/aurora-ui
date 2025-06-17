@@ -42,7 +42,8 @@ export const revalidate = 18000; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`countryBy(slug: "${params.slug}")`);
+	const { slug } = await params;
+	const meta = await getPageSeo(`countryBy(slug: "${slug}")`);
 	const seo = meta?.data?.countryBy?.seo;
 
 	return {
