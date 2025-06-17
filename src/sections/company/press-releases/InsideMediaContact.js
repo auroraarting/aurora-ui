@@ -55,7 +55,7 @@ export default function InsideMediaContact({ data }) {
 						{item?.phone?.map((item2) => {
 							return (
 								<p
-									className={`${styles.labelTxt} text_reg color_white f_r_a_center`}
+									className={`${styles.labelTxt} text_reg color_white f_r_a_center pb_10`}
 									key={item2?.text}
 								>
 									<img src={tel_icon.src} alt="icon" />
