@@ -42,7 +42,8 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`countryBy(slug: "${params.slug}")`);
+	const { slug } = await params;
+	const meta = await getPageSeo(`countryBy(slug: "${slug}")`);
 	const seo = meta?.data?.countryBy?.seo;
 
 	return {
@@ -99,7 +100,6 @@ async function getData({ params, query }) {
 	// 	: countryData?.data?.countryBy;
 
 	const countryBy = countryData?.data?.countryBy;
-
 	const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const insightsList = insightsRes?.data?.posts?.nodes || [];
 	const countries = categoriesRes?.data?.countries?.nodes || [];
