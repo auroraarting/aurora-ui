@@ -111,7 +111,7 @@ export default function TrustedLeaders({
 							return (
 								<SwiperSlide key={ind}>
 									<div className={`${styles.box_item}`}>
-										<div className={`${styles.imgBox}`}>
+										<div className={`${styles.imgBox} b_r_10`}>
 											{imageUrl && (
 												<img
 													src={imageUrl}

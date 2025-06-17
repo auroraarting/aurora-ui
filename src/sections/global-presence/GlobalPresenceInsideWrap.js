@@ -47,11 +47,18 @@ export default function GlobalPresenceInsideWrap({
 }) {
 	const [events, setEvents] = useState([]);
 	const [webinars, setWebinars] = useState([]);
+	const [mapJsonState, setMapJsonState] = useState();
 	const { setShowLanguages, eventsState, webinarsState } = useContextProvider();
 
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
+		console.log(
+			getMapJsonForCountries(data?.countries?.map),
+			"getMapJsonForCountries(data?.countries?.map)"
+		);
+		setMapJsonState(getMapJsonForCountries(data?.countries?.map));
+
 		if (data?.translations?.length >= 1) {
 			setShowLanguages(true);
 		}
@@ -61,6 +68,9 @@ export default function GlobalPresenceInsideWrap({
 	}, []);
 
 	useEffect(() => {
+		// if (eventsList?.length > 0 || webinarList?.length > 0) {
+		// 	return;
+		// }
 		/** Filter and sort helpers  */
 		const filterAndSortByDate = (items, datePath) =>
 			(items || [])
@@ -110,7 +120,7 @@ export default function GlobalPresenceInsideWrap({
 		// webinars: webinarList.slice(0, 3),
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
-	}, [events, webinars]);
+	}, [eventsState, webinarsState]);
 
 	return (
 		<div>
@@ -179,34 +189,39 @@ export default function GlobalPresenceInsideWrap({
 						</>
 					}
 				/>
-				<div className="ptb_100">
-					<SoftwareMarket
-						mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
-						// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
-						sectionTitle={"Energy intelligence modelled for your market"}
-						mapJson={mapJson}
-						data={data?.countries?.availableRegions}
-						customHtml={
-							dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
-								?.btntext && (
-								<div
-									{...dynamicInsightsBtnProps(
-										dataForBtn,
-										"availableRegionsSectionsButton"
-									)}
-									className=""
-								>
-									<Button color="primary" variant="filled" shape="rounded">
-										{
-											dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
-												.btntext
-										}
-									</Button>
-								</div>
-							)
-						}
-					/>
-				</div>
+				{mapJsonState && (
+					<div className="ptb_100">
+						<SoftwareMarket
+							mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
+							// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
+							sectionTitle={"Energy intelligence modelled for your market"}
+							mapJson={mapJsonState}
+							data={data?.countries?.availableRegions}
+							customHtml={
+								dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
+									?.btntext && (
+									<div
+										{...dynamicInsightsBtnProps(
+											dataForBtn,
+											"availableRegionsSectionsButton"
+										)}
+										className=""
+									>
+										<Button color="primary" variant="filled" shape="rounded">
+											{
+												dynamicInsightsBtnProps(
+													dataForBtn,
+													"availableRegionsSectionsButton"
+												).btntext
+											}
+										</Button>
+									</div>
+								)
+							}
+						/>
+					</div>
+				)}
+
 				{data?.countries?.ourClients?.selectLogos && (
 					<div className="pb_50">
 						<TrustedLeaders data={data?.countries?.ourClients} />
