@@ -34,12 +34,13 @@ export default function AccordianCommon({
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
 	const pathname = usePathname();
-	const [activeIndex, setActiveIndex] = useState(
-		items?.map((item, ind) => {
-			if (ind === 0) return true;
-			return false;
-		})
-	);
+	// const [activeIndex, setActiveIndex] = useState(
+	// 	items?.map((item, ind) => {
+	// 		if (ind === 0) return true;
+	// 		return false;
+	// 	})
+	// );
+	const [activeIndex, setActiveIndex] = useState(items?.map(() => false));
 	const [heights, setHeights] = useState([]);
 	const [widthOfImg, setWidthOfImg] = useState(0);
 	const contentRefs = useRef([]);

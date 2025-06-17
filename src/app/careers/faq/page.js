@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -21,14 +22,28 @@ import FaqWrap from "@/sections/careers/FaqWrap";
 
 // SERVICES //
 import { getFaqPage } from "@/services/Faq.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 export const revalidate = 60; // Revalidates every 60 seconds
 
-/** Meta Data */
-export const metadata = {
-	title: "FAQ | Aurora",
-	description: "Aurora",
-};
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "faq", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Faq Page */
 export default async function Faq() {

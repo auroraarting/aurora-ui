@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -36,30 +36,23 @@ import {
 } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // export const revalidate = 18000; // Revalidates every 60 seconds
 
-/** Fetch Meta Data */
+/** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const { slug } = await params;
-	const data = await getCountryInside(slug);
-	const post = data?.data?.countryBy;
+	const meta = await getPageSeo(`countryBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.countryBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
 		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
+					url: "https://auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
@@ -67,17 +60,17 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const countries = await getCountries();
-// 	return countries?.data?.countries?.nodes?.map((item) => ({
-// 		slug: item?.slug || "india",
-// 	}));
-// }
+export async function generateStaticParams() {
+	const countries = await getCountries();
+	return countries?.data?.countries?.nodes?.map((item) => ({
+		slug: item?.slug || "india",
+	}));
+}
 
 /** Fetch  */
 async function getData({ params, query }) {
 	const language = query.language;
-	const isJapanese = language === "jp";
+	// const isJapanese = language === "jp";
 
 	const [
 		insightsRes,
@@ -92,17 +85,20 @@ async function getData({ params, query }) {
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),
 		// getWebinars("first:9999"),
-		isJapanese
-			? getCountryInsideWithLanguages(params.slug)
-			: getCountryInside(params.slug),
+		// isJapanese
+		// 	? getCountryInsideWithLanguages(params.slug)
+		// 	: getCountryInside(params.slug),
+		getCountryInside(params.slug),
 	]);
 
-	const countryBy = isJapanese
-		? {
-				...countryData?.data?.countryBy?.translations?.[0],
-				translations: [{ slug: "jp", title: "Japan" }],
-		  }
-		: countryData?.data?.countryBy;
+	// const countryBy = isJapanese
+	// 	? {
+	// 			...countryData?.data?.countryBy?.translations?.[0],
+	// 			translations: [{ slug: "jp", title: "Japan" }],
+	// 	  }
+	// 	: countryData?.data?.countryBy;
+
+	const countryBy = countryData?.data?.countryBy;
 
 	const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const insightsList = insightsRes?.data?.posts?.nodes || [];

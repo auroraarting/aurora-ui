@@ -31,7 +31,8 @@
 			}
 		}
 	}
-	.macFrameBox {
+	.macFrameBox,
+	.banner_image {
 		position: relative;
 		width: 820px;
 		margin: 80px auto 0px;
@@ -49,7 +50,7 @@
 			top: 35%;
 			transform: translateY(-50%);
 			width: 755px;
-			height: 430px;
+			height: 432px;
 			@media (max-width: 991px) {
 				width: 600px;
 				height: 340px;
@@ -72,14 +73,19 @@
 		}
 		.playPauseBtn {
 			position: absolute;
-			right: 20px;
-			bottom: 20px;
+			top: 0;
+			left: 0;
 			cursor: pointer;
+			width: 100%;
+			height: 100%;
 			@media (max-width: 767px) {
 				right: 10px;
 				bottom: 10px;
 			}
 			img {
+				position: absolute;
+				right: 20px;
+				bottom: 20px;
 				@media (max-width: 767px) {
 					width: 30px;
 				}

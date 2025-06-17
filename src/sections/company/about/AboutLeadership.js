@@ -46,6 +46,7 @@ export default function AboutLeadership({ data, countries }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
+	const [list, setList] = useState();
 	const sliderRef = useRef(null);
 
 	/** handleSlideClick Function */
@@ -68,6 +69,22 @@ export default function AboutLeadership({ data, countries }) {
 		}
 	}, [slideNo]);
 
+	useEffect(() => {
+		let teams = [];
+		let ceo = [];
+		data?.leaders?.nodes?.map((item) => {
+			if (item?.title.toLowerCase().includes("feddersen")) {
+				ceo.push(item);
+			} else {
+				teams.push(item);
+			}
+		});
+		teams.sort((a, b) =>
+			a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+		);
+		setList([...ceo, ...teams]);
+	}, []);
+
 	return (
 		<section
 			className={`${styles.AboutLeadership}`}
@@ -84,65 +101,68 @@ export default function AboutLeadership({ data, countries }) {
 					</div>
 				</div>
 				<div className={`${styles.content_main_wrap} pt_20`}>
-					<div className={`${styles.box_wrap}`}>
-						<Swiper
-							modules={[Navigation, Autoplay]}
-							slidesPerView={1.2}
-							spaceBetween={20}
-							grabCursor={true}
-							speed={500}
-							loop={true}
-							navigation={{
-								prevEl: "#aboutsCustomPrevCollaboration",
-								nextEl: "#aboutsCustomNextCollaboration",
-							}}
-							// autoplay={{
-							// 	delay: 3000,
-							// 	disableOnInteraction: false,
-							// }}
-							breakpoints={{
-								768: {
-									slidesPerView: 3,
-								},
-								992: {
-									slidesPerView: 4,
-								},
-							}}
-							className={styles.aboutsliderLeaders}
-						>
-							{data?.leaders?.nodes?.map((item, ind) => {
-								return (
-									<SwiperSlide key={ind}>
-										<div
-											className={`${styles.box_item}`}
-											onClick={(e) => handleSlideClick1(e, ind)}
-											data-slide={ind}
-										>
-											<div className={`${styles.thumbnailImg}`}>
-												<img
-													src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
-													className="b_r_20"
-													alt={item?.title}
-												/>
+					{list?.length > 1 && (
+						<div className={`${styles.box_wrap}`}>
+							<Swiper
+								modules={[Navigation, Autoplay]}
+								slidesPerView={1.2}
+								spaceBetween={20}
+								grabCursor={true}
+								speed={500}
+								loop={true}
+								navigation={{
+									prevEl: "#aboutsCustomPrevCollaboration",
+									nextEl: "#aboutsCustomNextCollaboration",
+								}}
+								// autoplay={{
+								// 	delay: 3000,
+								// 	disableOnInteraction: false,
+								// }}
+								breakpoints={{
+									768: {
+										slidesPerView: 3,
+									},
+									992: {
+										slidesPerView: 4,
+									},
+								}}
+								className={styles.aboutsliderLeaders}
+							>
+								{list?.map((item, ind) => {
+									return (
+										<SwiperSlide key={ind}>
+											<div
+												className={`${styles.box_item}`}
+												onClick={(e) => handleSlideClick1(e, ind)}
+												data-slide={ind}
+											>
+												<div className={`${styles.thumbnailImg}`}>
+													<img
+														src={item?.teams?.thumbnail?.image?.node?.mediaItemUrl}
+														className="b_r_20"
+														alt={item?.title}
+													/>
+												</div>
+												<div className={`${styles.content} pt_20`}>
+													<h5 className="text_reg f_w_m color_white font_secondary">
+														{item?.title}
+													</h5>
+													<p className="text_xs color_platinum_gray">
+														{item?.teams?.thumbnail?.designation}
+													</p>
+												</div>
+												<div className={`${styles.hoverEffect} pt_20`}>
+													<img src={hoverEffect.src} className="" alt=" img" />
+												</div>
 											</div>
-											<div className={`${styles.content} pt_20`}>
-												<h5 className="text_reg f_w_m color_white font_secondary">
-													{item?.title}
-												</h5>
-												<p className="text_xs color_platinum_gray">
-													{item?.teams?.thumbnail?.designation}
-												</p>
-											</div>
-											<div className={`${styles.hoverEffect} pt_20`}>
-												<img src={hoverEffect.src} className="" alt=" img" />
-											</div>
-										</div>
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
-					</div>
-					{data?.leaders?.nodes?.length > 1 && (
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						</div>
+					)}
+
+					{list?.length > 1 && (
 						<div className={`${styles.aboutArrowSectionLeaders} f_w_a_j_center`}>
 							<button
 								className={`${styles.customPrev}`}
@@ -188,7 +208,7 @@ export default function AboutLeadership({ data, countries }) {
 										className={styles.slider}
 										ref={sliderRef}
 									>
-										{data?.leaders?.nodes?.map((item, ind) => (
+										{list?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
 												<div className={`${styles.PopupItem}`}>
 													<div className={`${styles.BoxFlex} f_w`}>

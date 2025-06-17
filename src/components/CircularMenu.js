@@ -109,12 +109,12 @@ export default function CircularMenu({
 			<div
 				className={`${styles.selected} ${
 					selectedService === null && styles.hide
-				} m_b_15 selectedNew`}
+				}  selectedNew`}
 			>
 				<p
 					className={`${styles.title} ${
 						mode === "light" ? "color_secondary" : "color_white"
-					} text_reg font_secondary text_500 m_b_15`}
+					} text_reg font_secondary text_500 m_b_10`}
 				>
 					{items?.[selectedService]?.title ||
 						items?.[selectedService]?.advantagesTitle ||
@@ -192,8 +192,8 @@ export default function CircularMenu({
 											}
 											// width={iconDefault.width}
 											// height={iconDefault.height}
-											width={40}
-											height={40}
+											width={30}
+											height={30}
 											x={midX - iconDefault.width / 2} // Center the image
 											y={midY - iconDefault.height / 2}
 											style={{

@@ -69,25 +69,19 @@ export default function IntuitiveStepProcess({
 		<section
 			id="fourstep"
 			data-name={`${data?.process?.length || "4"} STEP PROCESS`}
-			className={`${styles.IntuitiveStepProcess} dark_bg ${
-				removeTopBottom ? "" : "pt_100"
-			} pb_40`}
+			className={`${styles.IntuitiveStepProcess} dark_bg
+                ${!data?.description ? "" : "pt_100"}
+                pb_40`}
 			onMouseEnter={stopInterval}
 			onMouseLeave={startInterval}
 		>
 			<div className="container">
-				<div className={`${styles.StepProcessTxt} `}>
-					<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
-					{customHtml ? (
-						customHtml
-					) : (
-						<div className={`${styles.bookBtn} pt_50`}>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								Book a Demo
-							</Button>
-						</div>
-					)}
-				</div>
+				{(data?.description || customHtml) && (
+					<div className={`${styles.StepProcessTxt} `}>
+						<h5 className="text_lg color_white f_w_s_b">{data?.description}</h5>
+						{customHtml && customHtml}
+					</div>
+				)}
 				<div className={`${styles.stepsTxt} pt_100`}>
 					<h2 className="text_xl font_primary f_w_s_b text_center color_white ">
 						{data?.processTitle}

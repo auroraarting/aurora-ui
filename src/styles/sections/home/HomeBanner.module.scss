@@ -6,6 +6,11 @@
 		padding-bottom: 80px;
 	}
 	.BannerContentSection {
+		transform: translateX(-15px);
+		:global(.swiper-slide) {
+			margin-left: 0;
+			padding-left: 15px;
+		}
 		.BannerInfo {
 			padding: 120px 0 250px;
 			@media (max-width: 1199px) {

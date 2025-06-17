@@ -97,16 +97,13 @@ export default function ProductSlider({ data }) {
 											</div>
 										)}
 										{slide?.buttonText && (
-											<a
-												href={slide?.buttonLink}
-												target="_blank"
-												rel="noreferrer"
-												className={`${styles.bookBtnOne} pt_20`}
-											>
-												<Button color="primary" variant="filled" shape="rounded">
-													{slide?.buttonText}
-												</Button>
-											</a>
+											<div className={`${styles.bookBtnOne} pt_20`}>
+												<a href={slide?.buttonLink} target="_blank" rel="noreferrer">
+													<Button color="primary" variant="filled" shape="rounded">
+														{slide?.buttonText}
+													</Button>
+												</a>
+											</div>
 										)}
 									</div>
 								</div>

@@ -50,7 +50,6 @@ export default function SoftwareInsideWrap({
 	showMap,
 }) {
 	const dataForBtn = { postFields: data || {} };
-	console.log(data, "data");
 
 	return (
 		<div>
@@ -112,12 +111,12 @@ export default function SoftwareInsideWrap({
 					</div>
 				)}
 				{showMap && (
-					<div className="m_b_100">
+					<div className="pb_100">
 						<GlobalMap locationJson={mapJson} marqueeData={data?.Map?.Marquee} />
 					</div>
 				)}
 				{data?.caseStudy?.title && (
-					<div className="pb_100">
+					<div className="ptb_100">
 						<CaseStudy data={data?.caseStudy} countries={countries} />
 					</div>
 				)}
@@ -135,6 +134,11 @@ export default function SoftwareInsideWrap({
 					data={data?.keyAdvantages}
 					customColor={data?.thumbnail?.primaryColor}
 					centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
+					removeTopBottom={
+						!data?.whyAurora?.list || data?.whyAurora?.list?.length === 0
+							? true
+							: false
+					}
 				/>
 				<div>
 					<GloballyBankableInsights
@@ -144,7 +148,7 @@ export default function SoftwareInsideWrap({
 					/>
 				</div>
 				<IntuitiveStepProcess
-					removeTopBottom={data?.whyAurora?.title ? false : true}
+					// removeTopBottom={data?.whyAurora?.title ? false : true}
 					data={data?.fourStepProcess}
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext && (
@@ -162,12 +166,12 @@ export default function SoftwareInsideWrap({
 				<div className="">
 					<SoftwareVideos />
 				</div>
-				<SmarterEnergy data={data?.expertise} sectionName="" />
 				{data?.expertSupport?.list?.length > 0 && (
-					<div className="pb_100">
+					<div className="pt_100">
 						<TrustOurExperts data={data?.expertSupport} />
 					</div>
 				)}
+				<SmarterEnergy data={data?.expertise} sectionName="" />
 
 				<div className="pb_100">
 					<Insights

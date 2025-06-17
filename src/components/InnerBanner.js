@@ -139,6 +139,7 @@ function InnerBanner({
 									<img
 										src={mobileImage ? mobileImage : DefaultBannerMob.src}
 										alt="Banner Image"
+										className={`${styles.vimeoBanner}`}
 									/>
 								</picture>
 							)}

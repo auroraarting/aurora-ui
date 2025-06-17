@@ -38,7 +38,7 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 export default function Leaders({ data }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
-
+	const [list, setList] = useState();
 	const [openPop1, setOpenPop1] = useState(false);
 	const sliderRef = useRef(null);
 
@@ -92,6 +92,52 @@ export default function Leaders({ data }) {
 		};
 	});
 
+	useEffect(() => {
+		const tempData = data?.leaders?.leaders?.nodes?.map((item) => {
+			return {
+				...item,
+				name: item?.title,
+				designation: item?.teams?.thumbnail?.designation,
+				linkedinUrl: item?.teams?.thumbnail?.linkedinLink,
+				downloadProfileUrl: item?.teams?.file?.node?.mediaItemUrl,
+				desc: item?.content,
+				thumbnail: item?.teams?.thumbnail?.image?.node?.mediaItemUrl,
+				leaderBlogHeading: "Latest Articles by John Feddersen1",
+				blogData: item?.teams?.articles?.articlesby?.nodes?.map((item2) => {
+					let location = "";
+
+					item2?.caseStudies?.selectLocation?.nodes?.map((item3, ind) => {
+						if (ind == 0) {
+							location = item3.title;
+						} else {
+							location += `, ${item3.title}`;
+						}
+					});
+					return {
+						tags: "Case Study",
+						blogSlug: `/resources/aurora-insights/case-studies/${item2?.slug}`,
+						blogDesc: item2?.title,
+						blogDate: formatDate(item2?.date),
+						blogLocation: location,
+					};
+				}),
+			};
+		});
+		let teams = [];
+		let ceo = [];
+		tempData?.map((item) => {
+			if (item?.title.toLowerCase().includes("feddersen")) {
+				ceo.push(item);
+			} else {
+				teams.push(item);
+			}
+		});
+		teams.sort((a, b) =>
+			a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+		);
+		setList([...ceo, ...teams]);
+	}, []);
+
 	console.log(mediaLeadersData, "mediaLeadersData");
 
 	return (
@@ -132,7 +178,7 @@ export default function Leaders({ data }) {
 							}}
 							className={styles.sliderLeaders}
 						>
-							{mediaLeadersData.map((item, ind) => {
+							{list?.map((item, ind) => {
 								return (
 									<SwiperSlide key={ind}>
 										<div className={`${styles.box_item}`} data-slide={ind}>
@@ -208,7 +254,7 @@ export default function Leaders({ data }) {
 										className={styles.slider}
 										ref={sliderRef}
 									>
-										{mediaLeadersData.map((item, ind) => (
+										{list?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
 												<div className={`${styles.PopupItem}`}>
 													<div className={`${styles.BoxFlex} f_w`}>
@@ -361,6 +407,7 @@ export default function Leaders({ data }) {
 											</SwiperSlide>
 										))}
 									</Swiper>
+
 									<div className={`${styles.arrowSection} f_w_a_j_center`}>
 										<button className={`${styles.customPrev}`} id="customPrev">
 											<img src={slider_arrow.src} alt="icon" />

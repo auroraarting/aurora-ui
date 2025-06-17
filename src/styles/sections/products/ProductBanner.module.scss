@@ -29,12 +29,13 @@
 			@media (max-width: 767px) {
 				width: 100%;
 			}
-			.bookBtn{
+			.bookBtn {
 				display: inline-block;
 			}
 		}
 	}
-	.macFrameBox {
+	.macFrameBox,
+	.banner_image {
 		position: relative;
 		width: 820px;
 		margin: 80px auto 0px;
@@ -52,7 +53,7 @@
 			top: 35%;
 			transform: translateY(-50%);
 			width: 755px;
-			height: 430px;
+			height: 432px;
 			@media (max-width: 991px) {
 				width: 600px;
 				height: 340px;

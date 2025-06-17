@@ -5,7 +5,9 @@ export async function getFetchJobData() {
 		const json = await res.json();
 		const tempCountries = [
 			...new Set(
-				json.data.map((item) => item?.location?.name.split(", ")[1] || "")
+				json.data.map(
+					(item) => item?.location?.name.split(", ")[1] || item?.location?.name || ""
+				)
 			),
 		].filter((item) => item);
 		const tempDepartments = [

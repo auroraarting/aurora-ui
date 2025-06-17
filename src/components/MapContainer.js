@@ -211,6 +211,9 @@ export default function Map({
 										setSelectedMarker(uniqueName);
 									}}
 									onMouseOut={() => hideOnHover && setSelectedMarker(null)}
+									onClick={() => {
+										setSelectedMarker(uniqueName);
+									}}
 									// onClick={() => (window.location.href = marker.url || "/contact")}
 								/>
 								{/* Show InfoWindow when hovering */}

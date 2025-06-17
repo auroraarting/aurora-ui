@@ -2,6 +2,10 @@
 .ServicesCircleSection {
 	padding: 100px 0;
 
+	&.removeTopBottom {
+		padding-bottom: 0vmin;
+	}
+
 	.CircleGrid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);

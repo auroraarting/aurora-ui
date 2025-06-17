@@ -22,6 +22,8 @@ import TeamWrap from "@/sections/company/team/TeamWrap";
 
 // SECTORS //
 import { getTeamSectors } from "@/services/Teams.service";
+
+// SERVICES //
 import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
@@ -36,7 +38,7 @@ export async function generateMetadata() {
 		openGraph: {
 			images: [
 				{
-					url: "https://www-staging.auroraer.com/img/og-image.jpg",
+					url: "https://auroraer.com/img/og-image.jpg",
 				},
 			],
 		},
@@ -49,10 +51,19 @@ export const revalidate = 60; // Revalidates every 60 seconds
 async function getData() {
 	const [data] = await Promise.all([await getTeamSectors()]);
 	const countries = data.data.countries.nodes;
+	let teams = [];
+	let ceo = [];
+	data.data.teams.nodes?.map((item) => {
+		if (item?.title.toLowerCase().includes("feddersen")) {
+			ceo.push(item);
+		} else {
+			teams.push(item);
+		}
+	});
 
 	return {
 		props: {
-			data: data.data.teamsectors.nodes,
+			data: [...ceo, ...teams],
 			countries,
 		},
 	};

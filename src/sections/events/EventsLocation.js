@@ -21,16 +21,28 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** EventsLocation Section */
 export default function EventsLocation({ data }) {
-	if (!data?.events?.location?.mapLink && !data?.events?.location?.address) {
+	if (
+		!data?.events?.location?.mapLink &&
+		!data?.events?.location?.address &&
+		!data?.events?.location?.desc
+	) {
 		return null;
 	}
 	return (
 		<section
 			className={`${styles.EventsLocation} `}
-			id="location"
-			data-name="Location"
+			id={
+				data?.events?.location?.address || data?.events?.location?.mapLink
+					? "location"
+					: "contactdetails"
+			}
+			data-name={
+				data?.events?.location?.address || data?.events?.location?.mapLink
+					? "Location"
+					: "Contact Details"
+			}
 		>
-			{!data?.events?.location?.address && (
+			{!data?.events?.location?.address && data?.events?.location?.mapLink && (
 				<h2 className="text_lg color_secondary pb_10">Location</h2>
 			)}
 			<div className="f_w_j">
