@@ -83,7 +83,7 @@ export default function GlobalMap({
 					valueOfSelect={valueOfSelect}
 					map={map}
 					setMap={setMap}
-					defaultZoom={defaultZoom || 3}
+					defaultZoom={defaultZoom || 2.5}
 					locationJson={locationJson}
 					hideOnHover={hideOnHover}
 				/>
