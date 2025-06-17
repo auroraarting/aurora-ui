@@ -637,7 +637,7 @@ const nextConfig = {
 			},
 			{
 				source: "/category/sector",
-				destination: "/who-are-you/developers",
+				destination: "/resources/aurora-insights",
 				permanent: true,
 			},
 			{
@@ -1569,7 +1569,7 @@ const nextConfig = {
 			},
 			{
 				source: "/author/samuel-reidauroraer-com",
-				destination: "/events",
+				destination: "/",
 				permanent: true,
 			},
 			{
@@ -3020,6 +3020,12 @@ const nextConfig = {
 				source: "/webinar/glowing-prospects-the-future-of-polish-nuclear-power",
 				destination:
 					"/resources/webinar/glowing-prospects-the-future-of-polish-nuclear-power",
+				permanent: true,
+			},
+			{
+				source: "/insight/grid-fee-outlook-for-the-netherlands-2045",
+				destination:
+					"/resources/aurora-insights/articles/grid-fee-outlook-for-the-netherlands-2045",
 				permanent: true,
 			},
 			{
