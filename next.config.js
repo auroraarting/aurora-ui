@@ -3338,11 +3338,6 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/Software",
-				destination: "/software",
-				permanent: true,
-			},
-			{
 				source: "/Sector",
 				destination: "/resources/aurora-insights",
 				permanent: true,
@@ -3400,11 +3395,6 @@ const nextConfig = {
 			{
 				source: "/uploads/2022/02/Aurora",
 				destination: "/company/press-room/aurora-advises-ni-government-on-renewables-scheme-auction-design-released",
-				permanent: true,
-			},
-			{
-				source: "/Events",
-				destination: "/events",
 				permanent: true,
 			},
 			{
