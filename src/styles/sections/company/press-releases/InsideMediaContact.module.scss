@@ -7,6 +7,12 @@
 	@media (max-width: 1199px) {
 		width: 100%;
 	}
+	h4 {
+		margin-top: 30px;
+		&:nth-child(2) {
+			margin-top: 0px;
+		}
+	}
 	.labelTxt {
 		img {
 			width: 17px;
