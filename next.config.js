@@ -3023,6 +3023,456 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/media/reform-to-clean-energy-tax-credits",
+				destination: "/company/press-room/reform-to-clean-energy-tax-credits",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-energy-research-launches-bankable-battery-valuations-software-chronos",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/media/global-hydrogen-pipeline-grows-to-957-gw",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/resources/Aurora-Hydrogen-for-a-Net-Zero-GB-An-integrated-energy-market-perspective.pdf",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/media/trump-administration-unlikely-to-meaningfully-slow-energy-transition-or-reduce-energy-costs-for-american-consumers-aurora-finds",
+				destination: "/company/press-room/trump-administration-unlikely-to-meaningfully-slow-energy-transition-or-reduce-energy-costs-for-american-consumers-aurora-finds",
+				permanent: true,
+			},
+			{
+				source: "/category/country/asia-pacific/india",
+				destination: "/global-presence/india",
+				permanent: true,
+			},
+			{
+				source: "/category/country/central-south-america/chile",
+				destination: "/global-presence/chile",
+				permanent: true,
+			},
+			{
+				source: "/sector/flexible-energy-storage/what-goes-wrong-when-modelling-forecasting-grid-scale-battery-investment-cases",
+				destination: "/resources/aurora-insights/articles/what-goes-wrong-when-modelling-forecasting-grid-scale-battery-investment-cases",
+				permanent: true,
+			},
+			{
+				source: "/media/renewable-hydrogen-imports-could-compete-with-eu-production-by-2030",
+				destination: "/resources/aurora-insights/articles/renewable-hydrogen-imports-could-compete-with-eu-production-by-2030",
+				permanent: true,
+			},
+			{
+				source: "/media/reducing-europes-dependency-on-russian-gas",
+				destination: "/company/press-room/reducing-europes-dependency-on-russian-gas",
+				permanent: true,
+			},
+			{
+				source: "/insight/enabling-the-european-hydrogen-economy",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/webinar/speed-and-scale-load-growth-potential-in-alberta-2",
+				destination: "/resources/webinar/speed-and-scale-load-growth-potential-in-alberta-2",
+				permanent: true,
+			},
+			{
+				source: "/media/data-centers-energy-iberian-peninsula-energy-demand-ppa-renewable-energy-industrial-transformation-spain-portugal",
+				destination: "/company/press-room/data-centers-energy-iberian-peninsula-energy-demand-ppa-renewable-energy-industrial-transformation-spain-portugal",
+				permanent: true,
+			},
+			{
+				source: "/webinar/how-attractive-are-battery-economics-in-india",
+				destination: "/resources/webinar/how-attractive-are-battery-economics-in-india",
+				permanent: true,
+			},
+			{
+				source: "/insight/european-renewable-energy-markets-attractiveness-report",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/category/insight-type/aurora-news",
+				destination: "/",
+				permanent: true,
+			},
+			{
+				source: "/insight/resource-adequacy-in-california",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/media/new-global-headquarters-secured-in-the-heart-of-oxford-by-aurora-energy-research",
+				destination: "/company/press-room/new-global-headquarters-secured-in-the-heart-of-oxford-by-aurora-energy-research",
+				permanent: true,
+			},
+			{
+				source: "/insight/decarbonisation-of-heat-in-great-britain",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/webinar/watts-next-for-renewables-in-europe",
+				destination: "/resources/webinar/watts-next-for-renewables-in-europe",
+				permanent: true,
+			},
+			{
+				source: "/market-reports/european-renewables-market-overview-report",
+				destination: "/resources/aurora-insights/market-reports/european-renewables-market-overview-report",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-finds-regional-variation-in-battery-returns-throughout-chile-immediate-opportunities-in-the-south-steady-returns-in-the-north",
+				destination: "/resources/aurora-insights/market-reports/aurora-finds-regional-variation-in-battery-returns-throughout-chile-immediate-opportunities-in-the-south-steady-returns-in-the-north",
+				permanent: true,
+			},
+			{
+				source: "/insight/hydrogen-market-attractiveness-rating-hymar-report-april-2021",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/insight/iberian-energy-demand-data-centers",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/country/europe/great-britain/the-new-economics-of-offshore-wind",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/insight-type/webinar-recording/french-power-market-annual-outlook-and-market-consensus",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/country/europe/aurora-spring-forum-2025-comes-at-a-defining-moment-to-navigate-geopolitical-uncertainty-and-energy-transition",
+				destination: "/company/press-room/aurora-spring-forum-2025-comes-at-a-defining-moment-to-navigate-geopolitical-uncertainty-and-energy-transition",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-officially-kicks-off-graduate-analyst-programme-in-berlin",
+				destination: "/company/press-room/aurora-officially-kicks-off-graduate-analyst-programme-in-berlin",
+				permanent: true,
+			},
+			{
+				source: "/insight/investing-in-european-hydrogen-which-are-the-most-attractive-markets",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/category/sector/renewable-energy/page/5",
+				destination: "/",
+				permanent: true,
+			},
+			{
+				source: "/category/insight-type/public/page/6",
+				destination: "/",
+				permanent: true,
+			},
+			{
+				source: "/country/europe/greece/italy-great-britain-germany-currently-the-most-attractive-battery-markets-in-europe-aurora-finds",
+				destination: "/company/press-room/italy-great-britain-germany-currently-the-most-attractive-battery-markets-in-europe-aurora-finds",
+				permanent: true,
+			},
+			{
+				source: "/category/feeds/showcase-feed/page/6",
+				destination: "/",
+				permanent: true,
+			},
+			{
+				source: "/media/new-report-from-aurora-energy-research-finds-that-battery-storage-facilities-saved-texas-grid-over-750-million-during-peak-demand-days-in-winter-2024",
+				destination: "/company/press-room/new-report-from-aurora-energy-research-finds-that-battery-storage-facilities-saved-texas-grid-over-750-million-during-peak-demand-days-in-winter-2024",
+				permanent: true,
+			},
+			{
+				source: "/insight/the-battery-buildout-in-europe",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/webinar/overview-of-the-tucson-electric-power-resource-plan-and-procurement-activities",
+				destination: "/resources/webinar/overview-of-the-tucson-electric-power-resource-plan-and-procurement-activities",
+				permanent: true,
+			},
+			{
+				source: "/country/europe/corporate-ppas-on-the-rise-a-european-market-overview",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/company/press-releases/frances-battery-market-expected-to-expand-rapidly-by-2030-but-faces-saturation-risks-aurora-says",
+				destination: "/company/press-room/frances-battery-market-expected-to-expand-rapidly-by-2030-but-faces-saturation-risks-aurora-says",
+				permanent: true,
+			},
+			{
+				source: "/media/indias-%E2%82%B910-kwh-price-cap-could-undermine-renewables-investment-slow-down-power-sector-decarbonisation",
+				destination: "/company/press-room/indias-%E2%82%B910-kwh-price-cap-could-undermine-renewables-investment-slow-down-power-sector-decarbonisation",
+				permanent: true,
+			},
+			{
+				source: "/media/auroras-chronos-poised-to-revolutionise-battery-valuations-in-italy",
+				destination: "/company/press-room/auroras-chronos-poised-to-revolutionise-battery-valuations-in-italy",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-sonnedix-energy-renewable-wind-solar-storage-pipeline",
+				destination: "/company/press-room/aurora-sonnedix-energy-renewable-wind-solar-storage-pipeline",
+				permanent: true,
+			},
+			{
+				source: "/media/auroras-first-ever-forecast-in-the-western-balkans-eyes-investor-movement-reaching-tens-of-billions-of-euros-in-the-regions-renewable-energy",
+				destination: "/company/press-room/auroras-first-ever-forecast-in-the-western-balkans-eyes-investor-movement-reaching-tens-of-billions-of-euros-in-the-regions-renewable-energy",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-warns-of-opportunities-and-risks-for-indian-market-amid-rapid-demand-growth-and-rising-merchant-power-liquidity",
+				destination: "/company/press-room/aurora-warns-of-opportunities-and-risks-for-indian-market-amid-rapid-demand-growth-and-rising-merchant-power-liquidity",
+				permanent: true,
+			},
+			{
+				source: "/resources/Aurora-Hydrogen-in-the-Northwest-European-energy-system.pdf",
+				destination: "/",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-expands-in-brazil",
+				destination: "/company/press-room/aurora-expands-in-brazil",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-energy-research-expands-reach-in-philippines",
+				destination: "/company/press-room/aurora-energy-research-expands-reach-in-philippines",
+				permanent: true,
+			},
+			{
+				source: "/media/europe-on-track-to-double-solar-capacity-by-2030",
+				destination: "/company/press-room/europe-on-track-to-double-solar-capacity-by-2030",
+				permanent: true,
+			},
+			{
+				source: "/country/europe/netherlands/dutch-energy-intensive-industry-presents-aurora-report-on-rising-network-costs-to-minister-of-climate-and-green-growth",
+				destination: "/company/press-room/dutch-energy-intensive-industry-presents-aurora-report-on-rising-network-costs-to-minister-of-climate-and-green-growth",
+				permanent: true,
+			},
+			{
+				source: "/insight/long-duration-electricity-storage-in-gb-2",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/insight/hydrogen-for-a-net-zero-gb",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/media/guarantees-of-origin-market-set-for-growth-trajectory-projected-to-reach-3-7-bn-e-by-2030",
+				destination: "/company/press-room/guarantees-of-origin-market-set-for-growth-trajectory-projected-to-reach-3-7-bn-e-by-2030",
+				permanent: true,
+			},
+			{
+				source: "/media/long-duration-electricity-storage-in-gb",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/insight/hydrogen-in-the-northwest-european-energy-system",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/insight/decarbonising-hydrogen-in-a-net-zero-economy",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/media/companies-are-developing-over-200-gw-of-hydrogen-electrolyser-projects-globally-85-of-which-are-in-europe",
+				destination: "/company/press-room/companies-are-developing-over-200-gw-of-hydrogen-electrolyser-projects-globally-85-of-which-are-in-europe",
+				permanent: true,
+			},
+			{
+				source: "/media/hydrogen-could-be-120-billion-industry-in-europe-by-2050",
+				destination: "/company/press-room/hydrogen-could-be-120-billion-industry-in-europe-by-2050",
+				permanent: true,
+			},
+			{
+				source: "/insight/preserving-the-competitiveness-of-european-industry-and-power-prices",
+				destination: "/resources/aurora-insights?category=Market+reports",
+				permanent: true,
+			},
+			{
+				source: "/how-we-help/asset-citing-optimisation",
+				destination: "/how-we-help/asset-siting-optimisation",
+				permanent: true,
+			},
+			{
+				source: "/Company",
+				destination: "/company/about",
+				permanent: true,
+			},
+			{
+				source: "/Locations",
+				destination: "/global-presence",
+				permanent: true,
+			},
+			{
+				source: "/advisory",
+				destination: "/service/advisory",
+				permanent: true,
+			},
+			{
+				source: "/Analytics",
+				destination: "/products",
+				permanent: true,
+			},
+			{
+				source: "/Products",
+				destination: "/products",
+				permanent: true,
+			},
+			{
+				source: "/Software",
+				destination: "/software",
+				permanent: true,
+			},
+			{
+				source: "/Sector",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-energy-transition",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/Legal",
+				destination: "/legal/terms",
+				permanent: true,
+			},
+			{
+				source: "/Careers",
+				destination: "/careers/life-at-aurora",
+				permanent: true,
+			},
+			{
+				source: "/uploads/2025/02/Press",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/media/reform-to-clean-energy",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/media/aurora-energy-research-launches-bankable-battery",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/media/new-aurora-report-finds",
+				destination: "/company/press-room/new-aurora-report-finds-northern-virginia-data-center-demand-could-incentivize-up-to-15-gw-of-additional-natural-gas-generators-by-2030",
+				permanent: true,
+			},
+			{
+				source: "/media/trump-administration-unlikely",
+				destination: "/company/press-room/trump-administration-unlikely-to-meaningfully-slow-energy-transition-or-reduce-energy-costs-for-american-consumers-aurora-finds",
+				permanent: true,
+			},
+			{
+				source: "/company/press-releases/tpg-rise",
+				destination: "/company/press-room/tpg-rise-climate-acquires-aurora-energy-research-to-accelerate-strategic-growth",
+				permanent: true,
+			},
+			{
+				source: "/company/press-releases/aurora-energy-research-finds",
+				destination: "/company/press-room/",
+				permanent: true,
+			},
+			{
+				source: "/uploads/2022/02/Aurora",
+				destination: "/company/press-room/aurora-advises-ni-government-on-renewables-scheme-auction-design-released",
+				permanent: true,
+			},
+			{
+				source: "/Events",
+				destination: "/events",
+				permanent: true,
+			},
+			{
+				source: "/company/press-releases/aurora-launches-lumus",
+				destination: "/company/press-room/aurora-launches-lumus-to-bring-clarity-to-ppa-pricing-across-europe",
+				permanent: true,
+			},
+			{
+				source: "/category/Central%20&%20South%20America",
+				destination: "/resources/aurora-insights",
+				permanent: true,
+			},
+			{
+				source: "/media/global-hydrogen-pipeline",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/uploads/2023/09/Locational",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source: "/events/unpacking-germanys-new",
+				destination: "/events",
+				permanent: true,
+			},
+			{
+				source: "/company/press-releases/evs-data-centers-hydrogen",
+				destination: "/company/press-room/",
+				permanent: true,
+			},
+			{
+				source: "/uploads/2022/07/Aurora",
+				destination: "/company/press-room/aurora-advises-ni-government-on-renewables-scheme-auction-design-released",
+				permanent: true,
+			},
+			{
+				source: "/AER-Media-Brief-2024",
+				destination: "/wp-content/uploads/2024/06/AER-Media-Brief-2024.pdf",
+				permanent: true,
+			},
+			{
+				source: "/uploads/2025/01/Capacity",
+				destination: "/resources/webinar",
+				permanent: true,
+			},
+			{
+				source: "/analytics/gb-power",
+				destination: "/global-presence/great-britain",
+				permanent: true,
+			},
+			{
+				source: "/analytics/gb-renewables",
+				destination: "/global-presence/great-britain",
+				permanent: true,
+			},
+			{
+				source: "/analytics/iberian-power/",
+				destination: "/global-presence/iberia",
+				permanent: true,
+			},
+			{
+				source: "/insight/grid-fee-outlook-for-the-netherlands-2045",
+				destination: "/resources/aurora-insights/articles/grid-fee-outlook-for-the-netherlands-2045",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
