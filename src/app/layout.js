@@ -91,6 +91,15 @@ export default async function RootLayout({ children }) {
 						style={{ display: "none", visibility: "hidden" }}
 					></iframe>
 				</noscript>
+				<noscript>
+					<img
+						height="1"
+						width="1"
+						style={{ display: "none" }}
+						alt=""
+						src="https://px.ads.linkedin.com/collect/?pid=6679418&fmt=gif"
+					/>
+				</noscript>
 
 				<GlobalContext>
 					{/* Header */}
