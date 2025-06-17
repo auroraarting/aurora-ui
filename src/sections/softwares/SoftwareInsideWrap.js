@@ -167,7 +167,7 @@ export default function SoftwareInsideWrap({
 					<SoftwareVideos />
 				</div>
 				{data?.expertSupport?.list?.length > 0 && (
-					<div className="pt_100">
+					<div className="pt_100 TrustOurExperts">
 						<TrustOurExperts data={data?.expertSupport} />
 					</div>
 				)}
