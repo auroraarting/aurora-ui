@@ -166,12 +166,14 @@ export default function SoftwareInsideWrap({
 				<div className="">
 					<SoftwareVideos />
 				</div>
-				{data?.expertSupport?.list?.length > 0 && (
-					<div className="pt_100 TrustOurExperts">
-						<TrustOurExperts data={data?.expertSupport} />
-					</div>
-				)}
-				<SmarterEnergy data={data?.expertise} sectionName="" />
+				<div className="TrustOurExperts">
+					{data?.expertSupport?.list?.length > 0 && (
+						<div className="pt_100">
+							<TrustOurExperts data={data?.expertSupport} />
+						</div>
+					)}
+					<SmarterEnergy data={data?.expertise} sectionName="" />
+				</div>
 
 				<div className="pb_100">
 					<Insights
