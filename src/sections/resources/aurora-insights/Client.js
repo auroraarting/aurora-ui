@@ -321,6 +321,10 @@ export default function Client({ data, countries }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
+										autoplay={{
+											delay: 3000,
+											disableOnInteraction: false,
+										}}
 									>
 										{data?.postFields?.authors?.nodes?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
@@ -426,6 +430,10 @@ export default function Client({ data, countries }) {
 																		},
 																	}}
 																	className={styles.sliderLeaders}
+																	autoplay={{
+																		delay: 3000,
+																		disableOnInteraction: false,
+																	}}
 																>
 																	{item?.postAuthors?.articles?.articlesby?.nodes?.map(
 																		(blogData, index) => (

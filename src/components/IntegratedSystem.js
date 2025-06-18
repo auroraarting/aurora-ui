@@ -131,10 +131,10 @@ export default function IntegratedSystem({ module = "softwares" }) {
 									prevEl: "#customPrev",
 									nextEl: "#customNext",
 								}}
-								// autoplay={{
-								// 	delay: 3000,
-								// 	disableOnInteraction: false,
-								// }}
+								autoplay={{
+									delay: 3000,
+									disableOnInteraction: false,
+								}}
 								pagination={{
 									clickable: true, // Makes it interactive
 								}}

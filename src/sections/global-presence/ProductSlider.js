@@ -57,6 +57,10 @@ export default function ProductSlider({ data }) {
 							nextEl: "#customNext",
 						}}
 						className={styles.slider}
+						autoplay={{
+							delay: 3000,
+							disableOnInteraction: false,
+						}}
 					>
 						{data?.map((slide, index) => (
 							<SwiperSlide key={index}>

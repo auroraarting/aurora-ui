@@ -46,6 +46,10 @@ export default function TopEvents({ list }) {
 						nextEl: "#customNext",
 					}}
 					className={styles.slider}
+					autoplay={{
+						delay: 3000,
+						disableOnInteraction: false,
+					}}
 				>
 					{list?.map((data) => {
 						let hrefObj = {};

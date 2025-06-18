@@ -58,10 +58,10 @@ export default function TestimonialFeedback({ data, hideId }) {
 								prevEl: "#customPrev",
 								nextEl: "#customNext",
 							}}
-							// autoplay={{
-							// 	delay: 3000,
-							// 	disableOnInteraction: false,
-							// }}
+							autoplay={{
+								delay: 3000,
+								disableOnInteraction: false,
+							}}
 							className={styles.slider}
 						>
 							{data?.testimonials?.nodes?.map((item, ind) => {

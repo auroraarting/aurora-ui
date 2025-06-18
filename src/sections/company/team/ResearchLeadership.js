@@ -230,6 +230,10 @@ export default function ResearchLeadership() {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
+										autoplay={{
+											delay: 3000,
+											disableOnInteraction: false,
+										}}
 									>
 										{mediaLeadersData.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
@@ -289,6 +293,10 @@ export default function ResearchLeadership() {
 																		768: {
 																			slidesPerView: 3,
 																		},
+																	}}
+																	autoplay={{
+																		delay: 3000,
+																		disableOnInteraction: false,
 																	}}
 																	className={styles.sliderLeaders}
 																>

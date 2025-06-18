@@ -83,10 +83,10 @@ export default function EarlyCareersInside({ data }) {
 						prevEl: "#customPrev",
 						nextEl: "#customNext",
 					}}
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
+					autoplay={{
+						delay: 3000,
+						disableOnInteraction: false,
+					}}
 					// pagination={{
 					// 	el: ".other-slider", // Attach to a pagination container
 					// 	type: "progressbar", // Choose 'progressbar' type

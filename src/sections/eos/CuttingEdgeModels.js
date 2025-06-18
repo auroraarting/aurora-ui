@@ -166,6 +166,10 @@ export default function CuttingEdgeModels({ data }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
+										autoplay={{
+											delay: 3000,
+											disableOnInteraction: false,
+										}}
 									>
 										{data?.list.map((item, ind) => {
 											const relatedLogo =

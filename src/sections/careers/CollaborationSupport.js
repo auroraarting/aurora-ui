@@ -68,10 +68,10 @@ export default function CollaborationSupport({ data }) {
 						prevEl: "#customPrevCollaboration",
 						nextEl: "#customNextCollaboration",
 					}}
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
+					autoplay={{
+						delay: 3000,
+						disableOnInteraction: false,
+					}}
 					breakpoints={{
 						768: {
 							slidesPerView: 1.6,
