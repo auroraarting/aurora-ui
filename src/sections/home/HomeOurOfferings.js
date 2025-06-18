@@ -43,7 +43,7 @@ export default function HomeOurOfferings() {
 	const lottieAnimations2 = [
 		{ id: "2", src: "/img/home/lottie/SubscriptionCardLottie.json" },
 	];
-	const [svgHeight, setSvgHeight] = useState("347px");
+	const [svgHeight, setSvgHeight] = useState("250px");
 	const [svgHeightSubscription, setsvgHeightSubscription] = useState("260px");
 	// const bgColors = ["#00BE86", "#00B6ED", "#FC0", "#027BD1", "#FFFFFF"];
 	const bgColors = ["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"];
@@ -116,6 +116,10 @@ export default function HomeOurOfferings() {
 						768: {},
 					}}
 					className={styles.slider}
+					// autoplay={{
+					// 	delay: 3000,
+					// 	disableOnInteraction: false,
+					// }}
 				>
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>

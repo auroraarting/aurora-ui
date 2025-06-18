@@ -81,10 +81,10 @@ export default function AboutCountries({ data }) {
 								prevEl: "#customPrevCountry",
 								nextEl: "#customNextCountry",
 							}}
-							// autoplay={{
-							//   delay: 3000,
-							//   disableOnInteraction: false,
-							// }}
+							autoplay={{
+								delay: 3000,
+								disableOnInteraction: false,
+							}}
 							breakpoints={{
 								768: {
 									slidesPerView: 1.6,

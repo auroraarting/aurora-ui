@@ -142,6 +142,10 @@ export default function Speakers({ data, title, desc }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
+										autoplay={{
+											delay: 3000,
+											disableOnInteraction: false,
+										}}
 									>
 										{eventSpeakersData?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>

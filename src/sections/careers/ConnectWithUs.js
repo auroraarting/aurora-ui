@@ -68,10 +68,10 @@ export default function ConnectWithUs({ data }) {
 						prevEl: "#customPrevConnect",
 						nextEl: "#customNextConnect",
 					}}
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
+					autoplay={{
+						delay: 3000,
+						disableOnInteraction: false,
+					}}
 					// pagination={{
 					// 	el: ".other-slider", // Attach to a pagination container
 					// 	type: "progressbar", // Choose 'progressbar' type
