@@ -16,9 +16,11 @@
 
 	:global(.SmarterEnergy) {
 		background-image: none;
+		padding: 0;
 	}
 
 	.TrustOurExpertsBg {
+		padding-bottom: 60px;
 		:global(.swiper-horizontal) {
 			padding-bottom: 0px;
 			@media only screen and (max-width: 991px) {

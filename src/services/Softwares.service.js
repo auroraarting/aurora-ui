@@ -31,7 +31,7 @@ query GetProductBySlug {
           from
           to
         }
-          primaryColor
+        primaryColor
         title
         shortDescription
         spotlightTitle
@@ -144,7 +144,42 @@ query GetProductBySlug {
           }
         }
       }
+      benefits {
+        sectionTitle
+        image {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        list {
+          title
+          description
+          logo {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
       expertise {
+        description
+        tabTitle
+        title
+        expertiseAccordion {
+          accordionDescription
+          accordionTitle
+          buttonLink
+          icon {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+      whatSetsUsApart {
         description
         tabTitle
         title
@@ -198,12 +233,12 @@ query GetProductBySlug {
       }
       map {
         marquee
-            headerLogo {
-            node {
-              altText
-              mediaItemUrl
-            }
+        headerLogo {
+          node {
+            altText
+            mediaItemUrl
           }
+        }
       }
       whyAurora {
         title
