@@ -27,12 +27,14 @@ export default function TrustOurExperts({ data }) {
 	return (
 		<section className={`${styles.TrustOurExperts}`}>
 			<div className="container">
-				<h2 className="text_xl font_primary f_w_s_b color_secondary">
-					{/* Trust our experts, <br className="hidden_xs" />
+				{data?.sectionTitle && (
+					<h2 className="text_xl font_primary f_w_s_b color_secondary">
+						{/* Trust our experts, <br className="hidden_xs" />
 					available to support you */}
-					{parse(data?.sectionTitle)}
-					{/* {data?.sectionTitle} */}
-				</h2>
+						{parse(data?.sectionTitle)}
+						{/* {data?.sectionTitle} */}
+					</h2>
+				)}
 				<div className={`${styles.wrap}`}>
 					<div className={`${styles.trustOurBox} pt_40`}>
 						{data?.list?.map((item, ind) => {

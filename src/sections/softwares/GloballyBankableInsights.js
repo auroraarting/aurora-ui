@@ -39,6 +39,7 @@ export default function GloballyBankableInsights({
 	data,
 	isMultiple,
 	name = "Why Aurora",
+	hideSectionSpacing,
 }) {
 	if (!data?.title || data?.list?.length === 0) {
 		return <></>;
@@ -64,7 +65,7 @@ export default function GloballyBankableInsights({
 	return (
 		<section className={`${styles.GloballyBankableInsights}`} {...sectionTitle()}>
 			{!isMultiple && <img className={`${styles.bg}`} src={Bg.src} alt="Bg" />}
-			<div className="section_spacing">
+			<div className={hideSectionSpacing ? "ptb_100" : "section_spacing"}>
 				<div className="container">
 					<div className={`${styles.wrap}`}>
 						<div className={`${styles.head} f_r_aj_between pb_20`}>

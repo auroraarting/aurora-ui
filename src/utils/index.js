@@ -305,8 +305,8 @@ export function getMapJsonForSoftware(regions) {
 
 /** filterMarkersBySlug  */
 export function filterMarkersBySlug(data, slug) {
-	data.data.regions?.nodes.forEach((region) => {
-		region.countries?.nodes.forEach((country) => {
+	data?.data?.regions?.nodes?.forEach((region) => {
+		region?.countries?.nodes?.forEach((country) => {
 			const markers = country.countries?.map?.markers || [];
 
 			const filteredMarkers = markers.filter((marker) =>

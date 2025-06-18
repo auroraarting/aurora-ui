@@ -51,6 +51,18 @@ export default function SoftwareInsideWrap({
 }) {
 	const dataForBtn = { postFields: data || {} };
 
+	/** removeTopPaddingForServiceCircle  */
+	const removeTopPaddingForServiceCircle = () => {
+		let value = true;
+		if (data?.whyAurora?.title) {
+			value = false;
+		}
+		if (data?.benefits?.list?.length > 0 || data?.whatSetsUsApart?.title) {
+			value = false;
+		}
+		return value;
+	};
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -101,7 +113,7 @@ export default function SoftwareInsideWrap({
 					}
 				/>
 				{data?.introduction?.title && (
-					<div className="ptb_100">
+					<div className="pt_100">
 						<Redefining
 							title={data?.introduction?.title}
 							description={data?.introduction?.description}
@@ -111,71 +123,100 @@ export default function SoftwareInsideWrap({
 					</div>
 				)}
 				{showMap && (
-					<div className="pb_100">
+					<div className="pt_100">
 						<GlobalMap locationJson={mapJson} marqueeData={data?.Map?.Marquee} />
 					</div>
 				)}
 				{data?.caseStudy?.title && (
-					<div className="ptb_100">
+					<div className="pt_100">
 						<CaseStudy data={data?.caseStudy} countries={countries} />
 					</div>
 				)}
-				{data?.ourClient?.selectLogos && (
-					<div className={`${styles.TrustOurExpertsBg} pb_50`}>
-						<TrustedLeaders data={data?.ourClient} />
+				{(data?.ourClient?.selectLogos || data?.ourClient?.testimonials) && (
+					<div className="ptb_100">
+						{data?.ourClient?.selectLogos && (
+							<div className={`${styles.TrustOurExpertsBg} `}>
+								<TrustedLeaders data={data?.ourClient} />
+							</div>
+						)}
+						{data?.ourClient?.testimonials && (
+							<div className="">
+								<TestimonialFeedback data={data?.ourClient} />
+							</div>
+						)}
 					</div>
 				)}
-				{data?.ourClient?.testimonials && (
-					<div className="pb_100">
-						<TestimonialFeedback data={data?.ourClient} />
-					</div>
-				)}
-				<ServicesCircle
-					data={data?.keyAdvantages}
-					customColor={data?.thumbnail?.primaryColor}
-					centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
-					removeTopBottom={
-						!data?.whyAurora?.list || data?.whyAurora?.list?.length === 0
-							? true
-							: false
-					}
-				/>
-				<div>
-					<GloballyBankableInsights
-						data={data?.whyAurora}
-						isMultiple={data?.whyAurora?.list?.length > 1}
-						name=""
+				<div className="">
+					<ServicesCircle
+						data={data?.keyAdvantages}
+						customColor={data?.thumbnail?.primaryColor}
+						centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
+						removeTopBottom={removeTopPaddingForServiceCircle()}
 					/>
 				</div>
-				<IntuitiveStepProcess
-					// removeTopBottom={data?.whyAurora?.title ? false : true}
-					data={data?.fourStepProcess}
-					customHtml={
-						dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext && (
-							<div
-								className={`${styles.bookBtn} pt_50`}
-								{...dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton")}
-							>
-								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									{dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext}
-								</Button>
+				{data?.whyAurora?.title && (
+					<div className="">
+						<div>
+							<GloballyBankableInsights
+								data={data?.whyAurora}
+								isMultiple={data?.whyAurora?.list?.length > 1}
+								name=""
+								hideSectionSpacing={true}
+							/>
+						</div>
+					</div>
+				)}
+				{(data?.benefits?.list?.length > 0 || data?.whatSetsUsApart?.title) && (
+					<div className="TrustOurExperts pb_100">
+						{data?.benefits?.list?.length > 0 && (
+							<div className="pt_100">
+								<TrustOurExperts data={data?.benefits} />
 							</div>
-						)
-					}
-				/>
+						)}
+						{data?.whatSetsUsApart?.title && (
+							<div className="pt_100">
+								<SmarterEnergy data={data?.whatSetsUsApart} sectionName="" />
+							</div>
+						)}
+					</div>
+				)}
+				<div className="">
+					<IntuitiveStepProcess
+						// removeTopBottom={data?.whyAurora?.title ? false : true}
+						data={data?.fourStepProcess}
+						customHtml={
+							dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext && (
+								<div
+									className={`${styles.bookBtn} pt_50`}
+									{...dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton")}
+								>
+									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+										{dynamicInsightsBtnProps(dataForBtn, "stepsSectionButton").btntext}
+									</Button>
+								</div>
+							)
+						}
+					/>
+				</div>
 				<div className="">
 					<SoftwareVideos />
 				</div>
-				<div className="TrustOurExperts">
-					{data?.expertSupport?.list?.length > 0 && (
-						<div className="pt_100">
-							<TrustOurExperts data={data?.expertSupport} />
-						</div>
-					)}
-					<SmarterEnergy data={data?.expertise} sectionName="" />
-				</div>
+				{(data?.expertSupport?.list?.length > 0 || data?.expertise?.title) && (
+					<div className="TrustOurExperts">
+						{data?.expertSupport?.list?.length > 0 && (
+							<div className="pt_100">
+								<TrustOurExperts data={data?.expertSupport} />
+							</div>
+						)}
+						{data?.expertise?.title && (
+							<div className="pt_100">
+								<SmarterEnergy data={data?.expertise} sectionName="" />
+							</div>
+						)}
+					</div>
+				)}
 
-				<div className="pb_100">
+				<div className="pt_100">
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
@@ -187,7 +228,7 @@ export default function SoftwareInsideWrap({
 						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
 					/>
 				</div>
-				<div className="pb_100">
+				<div className="ptb_100">
 					<IntegratedSystem />
 				</div>
 			</main>
