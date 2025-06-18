@@ -217,7 +217,7 @@ export default function ResearchLeadership() {
 							{openPop1 && (
 								<div data-lenis-prevent>
 									<Swiper
-										modules={[Navigation]}
+										modules={[Navigation, Autoplay]}
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
@@ -280,7 +280,7 @@ export default function ResearchLeadership() {
 															<h3 className="text_lg color_white">{item.leaderBlogHeading}</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
 																<Swiper
-																	modules={[Navigation]}
+																	modules={[Navigation, Autoplay]}
 																	slidesPerView={1.1}
 																	grabCursor={true}
 																	speed={500}

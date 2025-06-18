@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 
 // UTILS //
 
@@ -47,7 +47,7 @@ export default function HomeEvents({ data }) {
 				</div>
 				<div className={`${styles.sliderMain}`}>
 					<Swiper
-						modules={[Navigation]}
+						modules={[Navigation, Autoplay]}
 						slidesPerView={1}
 						spaceBetween={15}
 						grabCursor={true}

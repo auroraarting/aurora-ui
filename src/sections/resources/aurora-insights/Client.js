@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
@@ -308,7 +308,7 @@ export default function Client({ data, countries }) {
 							{selectedAuthor != undefined && (
 								<div data-lenis-prevent>
 									<Swiper
-										modules={[Navigation]}
+										modules={[Navigation, Autoplay]}
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
@@ -415,7 +415,7 @@ export default function Client({ data, countries }) {
 															</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
 																<Swiper
-																	modules={[Navigation]}
+																	modules={[Navigation, Autoplay]}
 																	slidesPerView={1.1}
 																	grabCursor={true}
 																	speed={500}
