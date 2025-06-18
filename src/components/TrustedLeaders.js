@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Grid, Pagination } from "swiper/modules";
+import { Autoplay, Grid, Pagination } from "swiper/modules";
 
 // UTILS //
 
@@ -98,7 +98,7 @@ export default function TrustedLeaders({
 								},
 							},
 						}}
-						modules={[Grid, Pagination]}
+						modules={[Grid, Pagination, Autoplay]}
 						className="mySwiper"
 						style={{ paddingBottom: paddingBottom }}
 						autoplay={{

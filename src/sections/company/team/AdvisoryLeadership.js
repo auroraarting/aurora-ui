@@ -130,7 +130,7 @@ export default function AdvisoryLeadership({ data, countries }) {
 							{openPop1 && (
 								<div data-lenis-prevent>
 									<Swiper
-										modules={[Navigation]}
+										modules={[Navigation, Autoplay]}
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
@@ -213,7 +213,7 @@ export default function AdvisoryLeadership({ data, countries }) {
 															</h3>
 															<div className={`${styles.insightsItemFlex} m_t_30`}>
 																<Swiper
-																	modules={[Navigation]}
+																	modules={[Navigation, Autoplay]}
 																	slidesPerView={1.1}
 																	grabCursor={true}
 																	speed={500}

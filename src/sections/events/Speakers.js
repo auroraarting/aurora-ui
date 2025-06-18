@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import parse from "html-react-parser";
 
 // UTILS //
@@ -129,7 +129,7 @@ export default function Speakers({ data, title, desc }) {
 							{openPop1 && (
 								<div data-lenis-prevent>
 									<Swiper
-										modules={[Navigation]}
+										modules={[Navigation, Autoplay]}
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
