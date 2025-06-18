@@ -59,6 +59,10 @@ export default function HomeEvents({ data }) {
 							nextEl: "#customNext",
 						}}
 						className={styles.slider}
+						autoplay={{
+							delay: 3000,
+							disableOnInteraction: false,
+						}}
 					>
 						{data?.map((item) => {
 							let hrefObj = {};

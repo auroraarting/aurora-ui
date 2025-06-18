@@ -116,10 +116,10 @@ export default function HomeOurOfferings() {
 						768: {},
 					}}
 					className={styles.slider}
-					// autoplay={{
-					// 	delay: 3000,
-					// 	disableOnInteraction: false,
-					// }}
+					autoplay={{
+						delay: 3000,
+						disableOnInteraction: false,
+					}}
 				>
 					<SwiperSlide>
 						<div className={`${styles.itemBox} cardHBg`}>

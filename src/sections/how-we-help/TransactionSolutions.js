@@ -131,10 +131,10 @@ export default function TransactionSolutions({
 								prevEl: "#customPrev",
 								nextEl: "#customNext",
 							}}
-							// autoplay={{
-							// 	delay: 3000,
-							// 	disableOnInteraction: false,
-							// }}
+							autoplay={{
+								delay: 3000,
+								disableOnInteraction: false,
+							}}
 							onSwiper={setSwiperOne}
 							controller={{ control: swiperTwo }}
 							className={styles.slider}
@@ -252,10 +252,10 @@ export default function TransactionSolutions({
 							// 	prevEl: "#customPrev",
 							// 	nextEl: "#customNext",
 							// }}
-							// autoplay={{
-							// 	delay: 3000,
-							// 	disableOnInteraction: false,
-							// }}
+							autoplay={{
+								delay: 3000,
+								disableOnInteraction: false,
+							}}
 							onSwiper={setSwiperTwo}
 							controller={{ control: swiperOne }}
 							className={styles.slider}
