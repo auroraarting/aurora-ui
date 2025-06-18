@@ -3522,7 +3522,7 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/analytics/iberian-power/",
+				source: "/analytics/iberian-power",
 				destination: "/global-presence/iberia",
 				permanent: true,
 			},
