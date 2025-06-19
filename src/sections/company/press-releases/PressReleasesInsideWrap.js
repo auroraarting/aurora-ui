@@ -42,6 +42,7 @@ export default function PressReleasesInsideWrap({
 	page,
 }) {
 	const dataForBtn2 = { postFields: page || {} };
+	console.log(page, "page");
 	return (
 		<div>
 			{/* Metatags */}
@@ -97,9 +98,13 @@ export default function PressReleasesInsideWrap({
 										<InsideMediaContact data={data} />
 									</div>
 								)}
-								{data?.postFields?.about?.sectionTitle && (
+								{/* {(data?.postFields?.about?.sectionTitle || page?.about?.title) && ( */}
+								{page?.about?.title && (
 									<div className={`${styles.mediaFeedback} pt_60`}>
-										<MediaAbout data={data} />
+										<MediaAbout
+											// data={data?.postFields?.about || page?.about}
+											data={page?.about}
+										/>
 									</div>
 								)}
 							</div>
