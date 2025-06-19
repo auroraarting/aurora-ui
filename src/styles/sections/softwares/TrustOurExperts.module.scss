@@ -1,6 +1,6 @@
 @import "../../helpers/helpers.scss";
 .TrustOurExperts {
-	h2{
+	h2 {
 		width: 48%;
 		@include lg-down {
 			width: 100%;
@@ -26,6 +26,12 @@
 				border-bottom: 1px solid #e5e5e5;
 				display: flex;
 				gap: 20px;
+
+				img {
+					margin: auto 0;
+					height: max-content;
+					height: 50px;
+				}
 
 				&:first-child {
 					padding-top: 0;
