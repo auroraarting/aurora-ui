@@ -466,6 +466,10 @@ query GetPressMediaKit {
           }
         }
       }
+      about {
+        content
+        title
+      }
     }
   }
 }
@@ -483,6 +487,10 @@ query GetPressMediaKit {
       insights {
         sectionDesc
         sectionTitle
+      }
+        about {
+        content
+        title
       }
       insightsSectionButton {
         buttonText

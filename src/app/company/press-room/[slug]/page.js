@@ -22,7 +22,7 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 
 // SERVICES //
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
-import { getPressPageInsights } from "@/services/Press.service";
+import { getPressPage, getPressPageInsights } from "@/services/Press.service";
 
 export const revalidate = 60; // Revalidates every 60 seconds
 
@@ -70,6 +70,7 @@ async function getData({ slug }) {
 			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
 		),
 		await getPressPageInsights(),
+		await getPressPage(),
 	]);
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
