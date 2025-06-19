@@ -169,9 +169,9 @@ export default function SoftwareInsideWrap({
 				{(data?.benefits?.list?.length > 0 || data?.whatSetsUsApart?.title) && (
 					<div className="TrustOurExperts pb_100">
 						{data?.benefits?.list?.length > 0 && (
-							<div className="pt_100">
+							<section id="benefits" data-name="Benefits" className="pt_100">
 								<TrustOurExperts data={data?.benefits} />
-							</div>
+							</section>
 						)}
 						{data?.whatSetsUsApart?.title && (
 							<div className="pt_100">
