@@ -3533,6 +3533,18 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/company/media/press-release-subscription",
+				destination: "/company/press-room",
+				permanent: true,
+			},
+			{
+				source:
+					"/insight/decarbonisation-of-the-german-power-system-our-study-shows-savings-potential-of-between-e300-and-e700-billion-by-2045",
+				destination:
+					"/resources/aurora-insights/market-reports/decarbonisation-of-the-german-power-system-our-study-shows-savings-potential-of-between-e300-and-e700-billion-by-2045",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
