@@ -69,42 +69,6 @@ export default function InsightsInsideWrap({
 				Url={`/resources/aurora-insights/${data?.slug}`}
 			/> */}
 
-			<Script id="show-banner" strategy="afterInteractive">
-				{`
-    let speechifyWidgetInstance;
-
-    import("https://storage.googleapis.com/speechify-api-cdn/speechifyapi.min.mjs")
-      .then(async (speechifyWidget) => {
-        const articleRootElement = document.querySelector(".dynamic_content");
-        const articleHeading = document.querySelector(".speechify_wrap");
-
-        const widget = speechifyWidget.makeSpeechifyExperience({
-          rootElement: articleRootElement,
-          inlinePlayerElement: articleHeading,
-          visibility: {
-            showWidget: false,
-            showWidgetOnPlay: false,
-          },
-        });
-
-        await widget.mount();
-        speechifyWidgetInstance = widget;
-      });
-
-    // Optional: Expose functions to window for easy button binding
-    window.speechifyPlay = function() {
-      if (speechifyWidgetInstance) {
-        speechifyWidgetInstance.play();
-      }
-    };
-    window.speechifyPause = function() {
-      if (speechifyWidgetInstance) {
-        speechifyWidgetInstance.pause();
-      }
-    };
-  `}
-			</Script>
-
 			{/* Header */}
 			{/* <Header /> */}
 
@@ -190,6 +154,9 @@ export default function InsightsInsideWrap({
 										</section>
 									);
 								})}
+								<div className="pb_100 pt_50">
+									<TestimonialFeedback data={data?.postFields} hideContainer />
+								</div>
 							</div>
 							<div className={`${styles.CaseStudiesMiddleRight}`}>
 								<Client data={data} countries={countries} />
@@ -197,9 +164,7 @@ export default function InsightsInsideWrap({
 						</div>
 					</div>
 				</section>
-				<div className="pb_100">
-					<TestimonialFeedback data={data?.postFields} />
-				</div>
+
 				<div className="pb_100">
 					<Insights
 						isPowerBgVisible={true}
