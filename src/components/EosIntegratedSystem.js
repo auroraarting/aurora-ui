@@ -61,7 +61,7 @@ export default function EosIntegratedSystem({ name }) {
 							their use case.
 						</p>
 						<div className={`${styles.bookBtnOne} pt_60`}>
-							<a href="/software">
+							<a href="/eos">
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
 									Explore now
 								</Button>
