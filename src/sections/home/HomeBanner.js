@@ -55,10 +55,10 @@ export default function HomeBanner() {
 							clickable: true,
 						}}
 						className={styles.slider}
-						autoplay={{
-							delay: 3000,
-							disableOnInteraction: false,
-						}}
+						// autoplay={{
+						// 	delay: 3000,
+						// 	disableOnInteraction: false,
+						// }}
 					>
 						<SwiperSlide>
 							<div className={`${styles.BannerInfo} f_w_j`}>

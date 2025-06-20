@@ -158,7 +158,7 @@ export default function ProductInsideWrap({ data, mapJson, bundles }) {
 							/>
 						</div>
 					</div>
-					<EosIntegratedSystem />
+					<EosIntegratedSystem name="" />
 				</div>
 				<div className="ptb_100">
 					<IntegratedSystem module="products" />
