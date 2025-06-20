@@ -42,7 +42,7 @@ export default function HomeWhoWeAre() {
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/financial-sector">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
-									Read More
+									Read more
 								</Button>
 							</Link>
 						</div>
@@ -57,7 +57,7 @@ export default function HomeWhoWeAre() {
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/energy-consumers">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
-									Know more
+									Read more
 								</Button>
 							</Link>
 						</div>
@@ -72,7 +72,7 @@ export default function HomeWhoWeAre() {
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/utilities">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
-									Know more
+									Read more
 								</Button>
 							</Link>
 						</div>
@@ -86,7 +86,7 @@ export default function HomeWhoWeAre() {
 						<div className={`${styles.btn_box} pt_40`}>
 							<Link href="/who-are-you/developers">
 								<Button color="secondary" variant="underline" mode="dark" role="button">
-									Know more
+									Read more
 								</Button>
 							</Link>
 						</div>
