@@ -452,7 +452,7 @@ query GetCountryInside {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPILongerRevalidate(query);
 	return res;
 };
 
