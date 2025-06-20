@@ -89,12 +89,12 @@ export default function PressReleasesInsideWrap({
 							<div className={`${styles.mediaMiddleLeft}`}>
 								<MediaMiddleDescription data={data} />
 								{data?.postFields?.testimonials?.nodes?.length > 0 && (
-									<div className={`${styles.mediaFeedback} pt_40 pb_60`}>
+									<div className={`${styles.mediaFeedback} pt_40`}>
 										<TestimonialFeedback data={data?.postFields} />
 									</div>
 								)}
 								{data?.postFields?.mediaContact && (
-									<div className={`${styles.mediaFeedback} `}>
+									<div className={`${styles.mediaFeedback} pt_60`}>
 										<InsideMediaContact data={data} />
 									</div>
 								)}

@@ -19,6 +19,9 @@
 					margin-bottom: 40px;
 				}
 			}
+			:global(.cmsButtonsWrap) {
+				// margin-bottom: 40px;
+			}
 			.mediaMiddleRight {
 				width: 25%;
 				@media (max-width: 1199px) {

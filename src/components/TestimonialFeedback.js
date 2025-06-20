@@ -27,7 +27,7 @@ import slider_arrow from "/public/img/icons/slider_arrow.svg";
 // DATA //
 
 /** TestimonialFeedback Section */
-export default function TestimonialFeedback({ data, hideId }) {
+export default function TestimonialFeedback({ data, hideId, hideContainer }) {
 	let obj = {};
 	// if (!hideId) {
 	// 	obj.id = "testimonial";
@@ -44,7 +44,7 @@ export default function TestimonialFeedback({ data, hideId }) {
 			aria-label="testimonial"
 			title="testimonial"
 		>
-			<div className="container">
+			<div className={hideContainer ? "" : "container"}>
 				<div className={`${styles.testimonialBox}`}>
 					<div className={`${styles.testimonialWhiteBox}`}>
 						<Swiper
