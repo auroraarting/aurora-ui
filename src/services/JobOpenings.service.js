@@ -21,7 +21,7 @@ export async function getFetchJobData() {
 		].filter((item) => item);
 
 		const data = {
-			countries: tempCountries,
+			countries: tempCountries.sort((a, b) => a.localeCompare(b)),
 			departments: tempDepartments,
 			jobs: json,
 		};
