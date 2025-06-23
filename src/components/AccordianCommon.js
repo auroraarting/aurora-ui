@@ -113,7 +113,7 @@ export default function AccordianCommon({
 								/>
 							)}
 
-							<div>
+							<div className={item?.tag ? "" : "m_auto_0"}>
 								{item?.tag && (
 									<p className="text_xs text_uppercase color_light_gray m_b_10">
 										{item?.tag} <br />
