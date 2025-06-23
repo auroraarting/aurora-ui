@@ -201,7 +201,7 @@ export default async function ContactPage() {
 					<div className="container">
 						<div className={`${styles.accordian_main}`}>
 							<h2 className="text_xl font_primary f_w_s_b color_secondary pb_20">
-								Our Presence
+								Our office locations
 							</h2>
 							{data && (
 								<AccordianCommon
