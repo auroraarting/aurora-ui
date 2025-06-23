@@ -3545,6 +3545,12 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/power-market-impact-of-splitting-the-german-bidding-zone",
+				destination:
+					"/resources/aurora-insights/market-reports/power-market-impact-of-splitting-the-german-bidding-zone",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
