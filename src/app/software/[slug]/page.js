@@ -62,8 +62,7 @@ async function getData({ params }) {
 		filterMarkersBySlug(regions, params.slug)
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
-
-	const countries = data.data.countries.nodes;
+	const countries = data?.data?.countries?.nodes;
 
 	return {
 		props: {
@@ -71,7 +70,7 @@ async function getData({ params }) {
 			mapJson,
 			regions,
 			showMap,
-			meta: data.data.softwareBy,
+			meta: data?.data?.softwareBy,
 			countries,
 		},
 	};

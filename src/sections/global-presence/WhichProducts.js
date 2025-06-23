@@ -66,7 +66,7 @@ export default function WhichProducts({ data }) {
 							<div className={`${styles.content_wrap}`}>
 								<div className="text_reg color_dark_gray">
 									<ContentFromCms>
-										{marker?.category?.nodes?.[0]?.content}
+										{marker?.customDesc || marker?.category?.nodes?.[0]?.content}
 									</ContentFromCms>
 								</div>
 								<a
@@ -94,7 +94,6 @@ export default function WhichProducts({ data }) {
 				// 	groupedBySlug[slug].locationData =
 				// 		groupedBySlug[slug].locationData + " |  " + marker.bottomText;
 				// }
-
 				if (
 					marker.locationtitle &&
 					!groupedBySlug[slug]?.locationData?.includes(marker?.locationtitle)

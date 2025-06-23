@@ -53,10 +53,6 @@ export default function GlobalPresenceInsideWrap({
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
-		console.log(
-			getMapJsonForCountries(data?.countries?.map),
-			"getMapJsonForCountries(data?.countries?.map)"
-		);
 		setMapJsonState(getMapJsonForCountries(data?.countries?.map));
 
 		if (data?.translations?.length >= 1) {

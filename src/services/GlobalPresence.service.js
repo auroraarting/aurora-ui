@@ -290,7 +290,7 @@ query GetCountryInside {
           lng
         }
         markers {
-
+         customDesc
           mapThumbnail {
             node {
               altText
