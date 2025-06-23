@@ -41,6 +41,8 @@
 					// width: 60px;
 					// height: 60px;
 					overflow: hidden;
+					max-width: fit-content;
+					flex: 1;
 
 					@media (max-width: 991px) {
 						width: 26%;
@@ -56,6 +58,7 @@
 				}
 				.ClientDescription {
 					width: 78%;
+					width: max-content;
 					.social {
 						margin-top: 5px;
 					}
