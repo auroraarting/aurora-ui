@@ -32,6 +32,7 @@ import {
 } from "@/services/Insights.service";
 import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
@@ -39,24 +40,24 @@ export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const data = await getPodcastInside(params.slug);
-	const post = data?.data?.podcastBy;
+	const meta = await getPageSeo(`podcastBy(slug: "${params?.slug}")`);
+	const seo = meta?.data?.podcastBy?.seo;
 
 	return {
-		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		title: seo?.title || "Default Title",
+		description: seo?.metaDesc || "Default description",
 		openGraph: {
-			title: post?.title,
+			title: seo?.title,
 			// description: post?.excerpt,
 			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			images: [
 				{
 					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
+						seo?.featuredImage?.node?.mediaItemUrl ||
 						"https://www-production.auroraer.com/img/og-image.jpg",
 					width: 1200,
 					height: 630,
-					alt: post?.title,
+					alt: seo?.title,
 				},
 			],
 		},
