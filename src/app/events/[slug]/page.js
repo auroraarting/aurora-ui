@@ -56,7 +56,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const dataFetch = await getAllEvents();
-	return dataFetch.data.events.nodes.map((item) => ({
+	return dataFetch?.data?.events?.nodes?.map((item) => ({
 		slug: item.slug,
 	}));
 }
@@ -80,7 +80,7 @@ async function getData({ slug }) {
 	const eventList = [];
 	const pastEventList = [];
 
-	events.data.events.nodes?.map((item) => {
+	events?.data?.events?.nodes?.map((item) => {
 		const tempObj = {
 			title: item?.title,
 			slug: item?.slug,
@@ -107,7 +107,7 @@ async function getData({ slug }) {
 
 		if (item?.slug != slug) eventList.push(tempObj);
 	});
-	pastEvents.data.events.nodes?.map((item) => {
+	pastEvents?.data?.events?.nodes?.map((item) => {
 		let categories = [
 			{
 				slug: "event",
@@ -115,7 +115,7 @@ async function getData({ slug }) {
 			},
 		];
 
-		item?.events?.thumbnail?.country.nodes?.map((item) => {
+		item?.events?.thumbnail?.country?.nodes?.map((item) => {
 			categories.push({ ...item, name: item.title });
 		});
 		const tempObj = {
@@ -165,7 +165,7 @@ async function getData({ slug }) {
 				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
 				.slice(0, 3),
 			eventsOriginal:
-				events.data.events.nodes
+				events?.data?.events?.nodes
 					?.filter(
 						(item) =>
 							new Date() < new Date(item.events?.thumbnail?.date) && item.slug !== slug
