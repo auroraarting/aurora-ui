@@ -545,6 +545,10 @@ query GetEventInside {
           }
         }
       }
+      sections {
+        content
+        sectionTitle
+      }
     }
   }
 }

@@ -25,10 +25,11 @@ import CountdownTimer from "@/sections/events/CountdownTimer";
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps } from "@/utils";
+import { dynamicInsightsBtnProps, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/events/EventsInside.module.scss";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // IMAGES //
 
@@ -100,6 +101,17 @@ export default function EventsInsideWrap({
 									</div>
 								)}
 								<Sponsors data={data} />
+								{data?.events?.sections?.map((item) => {
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+										>
+											<ContentFromCms>{item?.content}</ContentFromCms>
+										</section>
+									);
+								})}
 								{data?.events?.glimps?.video && (
 									<div className="">
 										<EventInsideVideo data={data} />
