@@ -185,12 +185,12 @@ export default function HowWeHelpSolutionsChallenge() {
 										</div>
 										<div className={`${styles.itemBoxWrap}`}>
 											<h4 className={`${styles.centerLogo} color_secondary f_w_s_b`}>
-												Transactions <br />
+												Transaction <br />
 												Support
 											</h4>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
 												<a
-													href="/how-we-help/transaction-support"
+													href="/how-we-help/transactions-support"
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
