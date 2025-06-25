@@ -595,8 +595,7 @@ export default function EventsListing({
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && (
 						<p className={`${styles.nodataText} nodataText`}>
-							No resources available for this selection. Please choose a different
-							option.
+							No events available for this selection. Please choose a different option.
 						</p>
 					)}
 				</div>

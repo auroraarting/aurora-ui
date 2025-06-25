@@ -572,7 +572,7 @@ export default function EnergyListing({
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && (
 						<p className={`${styles.nodataText} nodataText`}>
-							No resources available for this selection. Please choose a different
+							No podcasts available for this selection. Please choose a different
 							option.
 						</p>
 					)}

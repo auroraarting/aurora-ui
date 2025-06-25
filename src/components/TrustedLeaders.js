@@ -101,10 +101,10 @@ export default function TrustedLeaders({
 						modules={[Grid, Pagination, Autoplay]}
 						className="mySwiper"
 						style={{ paddingBottom: paddingBottom }}
-						autoplay={{
-							delay: 3000,
-							disableOnInteraction: false,
-						}}
+						// autoplay={{
+						// 	delay: 3000,
+						// 	disableOnInteraction: false,
+						// }}
 					>
 						{data?.selectLogos?.nodes?.map((item, ind) => {
 							const imageUrl = item?.featuredImage?.node?.mediaItemUrl;
