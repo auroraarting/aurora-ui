@@ -8,6 +8,7 @@
 // MODULES //
 
 // COMPONENTS //
+import MetaTags from "@/components/MetaTags";
 
 // SECTIONS //
 import GlobalPresenceInsideWrap from "@/sections/global-presence/GlobalPresenceInsideWrap";
@@ -41,24 +42,24 @@ import { getPageSeo } from "@/services/Seo.service";
 export const revalidate = 18000; // Revalidates every 60 seconds
 
 /** generateMetadata  */
-export async function generateMetadata({ params }) {
-	const { slug } = await params;
-	const meta = await getPageSeo(`countryBy(slug: "${slug}")`);
-	const seo = meta?.data?.countryBy?.seo;
+// export async function generateMetadata({ params }) {
+// 	const { slug } = await params;
+// 	const meta = await getPageSeo(`countryBy(slug: "${slug}")`);
+// 	const seo = meta?.data?.countryBy?.seo;
 
-	return {
-		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
-		openGraph: {
-			images: [
-				{
-					url: "https://auroraer.com/img/og-image.jpg",
-				},
-			],
-		},
-	};
-}
+// 	return {
+// 		title: seo?.title || "Default Title",
+// 		description: seo?.metaDesc || "Default description",
+// 		keywords: seo?.metaKeywords || "Default description",
+// 		openGraph: {
+// 			images: [
+// 				{
+// 					url: "https://auroraer.com/img/og-image.jpg",
+// 				},
+// 			],
+// 		},
+// 	};
+// }
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
@@ -79,6 +80,7 @@ async function getData({ params, query }) {
 		//  eventsRes,
 		//  webinarsRes,
 		countryData,
+		meta,
 	] = await Promise.all([
 		getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
@@ -90,6 +92,7 @@ async function getData({ params, query }) {
 		// 	? getCountryInsideWithLanguages(params.slug)
 		// 	: getCountryInside(params.slug),
 		getCountryInside(params.slug),
+		getPageSeo(`countryBy(slug: "${params.slug}")`),
 	]);
 
 	// const countryBy = isJapanese
@@ -100,7 +103,7 @@ async function getData({ params, query }) {
 	// 	: countryData?.data?.countryBy;
 
 	const countryBy = countryData?.data?.countryBy;
-
+	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
 	const insightsList = insightsRes?.data?.posts?.nodes || [];
@@ -115,6 +118,7 @@ async function getData({ params, query }) {
 			mapJson,
 			insightsList,
 			countries,
+			seo,
 			// events: eventsList.slice(0, 1),
 			// webinars: webinarList.slice(0, 3),
 		},
@@ -130,12 +134,13 @@ export default async function Australia({ params, searchParams }) {
 	return (
 		<div>
 			{/* Metatags */}
-			{/* <MetaTags
-				Title={data.title}
-				Desc={""}
-				OgImg={""}
-				Url={`/global-presense/${data.slug}`}
-			/> */}
+			<MetaTags
+				Title={props.seo.title}
+				Desc={props.seo.metaDesc}
+				OgImg={"https://auroraer.com/img/og-image.jpg"}
+				Url={`/global-presense/${slug}`}
+				Keywords={props.seo.metaKeywords}
+			/>
 
 			{/* Header */}
 			{/* <Header /> */}

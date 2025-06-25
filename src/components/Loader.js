@@ -18,7 +18,7 @@ import styles from "@/styles/components/Loader.module.scss";
 /** Loader Component */
 export default function Loader({ hide }) {
 	return (
-		<div className={`loaderWrap ${styles.loaderWrap1} ${hide && "hide"}`}>
+		<div className={`loaderWrap ${styles.loaderWrap} ${hide && "hide"}`}>
 			{/* <div className={styles.loader}></div> */}
 		</div>
 	);
