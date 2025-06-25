@@ -30,7 +30,7 @@ export default function EventsLocation({ data }) {
 	}
 	return (
 		<section
-			className={`${styles.EventsLocation} `}
+			className={`${styles.EventsLocation} pt_50`}
 			id={
 				data?.events?.location?.address || data?.events?.location?.mapLink
 					? "location"
