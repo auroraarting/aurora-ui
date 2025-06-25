@@ -89,6 +89,9 @@
 				@media (max-width: 1199px) {
 					height: 120px;
 				}
+				@media (max-width: 700px) {
+					width: auto;
+				}
 				&:hover {
 					background-color: var(--color_white);
 					transition: 0.5s all;
