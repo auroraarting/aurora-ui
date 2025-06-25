@@ -51,7 +51,7 @@ export default function EventsMiddleDescription({ data }) {
 /** Hightlights  */
 const Hightlights = ({ data }) => {
 	return (
-		<section className="pt_20" id="hightlights" data-name="Hightlights">
+		<section className="pt_50" id="hightlights" data-name="Hightlights">
 			<div className={`${styles.contentBox}`}>
 				<h2>Hightlights</h2>
 				<ul>
@@ -68,7 +68,7 @@ const Hightlights = ({ data }) => {
 const WhyAttend = ({ data }) => {
 	const [open, setOpen] = useState(false);
 	return (
-		<section id="agenda" data-name="Agenda" className="pb_50 pt_20">
+		<section id="agenda" data-name="Agenda" className=" pt_20">
 			<div className={`${styles.contentBox}`}>
 				<h2>Why attend?</h2>
 				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
