@@ -52,12 +52,12 @@ export default function EventsInsideWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/events/${data?.slug}`}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

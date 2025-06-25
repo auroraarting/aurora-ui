@@ -82,12 +82,12 @@ export default function LifeAtAuroraWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={"Life At Aurora"}
 				Desc={""}
 				OgImg={""}
 				Url={"/life-at-aurora"}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

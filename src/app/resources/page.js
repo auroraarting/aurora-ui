@@ -58,7 +58,7 @@ export default function Resources() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Resources"} Desc={""} OgImg={""} Url={"/resources"} />
+			{/* <MetaTags Title={"Resources"} Desc={""} OgImg={""} Url={"/resources"} /> */}
 			{/* Header */}
 			{/* <Header /> */}
 			{/* Page Content starts here */}

@@ -59,7 +59,7 @@ export default function SoftwaresLanding({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/software"} />
+			{/* <MetaTags Title={"Softwares"} Desc={""} OgImg={""} Url={"/software"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

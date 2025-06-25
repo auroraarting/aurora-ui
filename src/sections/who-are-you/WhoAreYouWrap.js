@@ -44,7 +44,7 @@ export default function WhoAreYou() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Who Are You"} Desc={""} OgImg={""} Url={"/who-are-you"} />
+			{/* <MetaTags Title={"Who Are You"} Desc={""} OgImg={""} Url={"/who-are-you"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

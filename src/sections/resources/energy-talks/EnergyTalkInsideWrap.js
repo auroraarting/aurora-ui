@@ -62,12 +62,12 @@ export default function EnergyTalkInsideWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/energy-talks/${data?.slug}`}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}
