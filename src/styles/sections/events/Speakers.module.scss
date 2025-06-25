@@ -1,5 +1,10 @@
 @import "../../helpers/helpers.scss";
 .Speakers {
+	.content_main_wrap {
+		@include sm-down {
+			padding-top: 20px;
+		}
+	}
 	.titleWrapper {
 		width: 55%;
 		@media (max-width: 1199px) {

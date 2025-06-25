@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from "react";
 import Button from "@/components/Buttons/Button";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Pagination from "@/components/Pagination";
 
 // SECTIONS //
 
@@ -56,6 +57,7 @@ export default function EventsListing({
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
 	const [list, setList] = useState(data);
+	const [paginationArr, setPaginationArr] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
 	/** Debounced search when typing */
 	useEffect(() => {
@@ -154,6 +156,7 @@ export default function EventsListing({
 
 		const filteredArr = filterItemsBySelectedObj(arr, selectedObj);
 		setList(filteredArr);
+		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
 
 		// Code to Change Query in Url Start
@@ -195,6 +198,7 @@ export default function EventsListing({
 			setSelected(selecObj);
 			const filteredArr = filterItemsBySelectedObj(data, selecObj);
 			setList(filteredArr);
+			setPaginationArr(filteredArr);
 			setLoading(false);
 		}
 		// Get Search Query From URl End
@@ -206,6 +210,7 @@ export default function EventsListing({
 		if (search) {
 			const filtered = filterBySearchQueryEvents(data, search);
 			setList(filtered);
+			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [search]);
@@ -453,6 +458,9 @@ export default function EventsListing({
 									onClick={() => {
 										setSelected({});
 										setList(data);
+										setPaginationArr(data);
+										const newUrl = `${window.location.pathname}`;
+										window.history.pushState({}, "", newUrl); // Fast and smooth
 									}}
 								>
 									<div className={`${styles.select_header} select_bg text_sm text_500`}>
@@ -586,12 +594,19 @@ export default function EventsListing({
 					})}
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && (
-						<p>
+						<p className={`${styles.nodataText} nodataText`}>
 							No resources available for this selection. Please choose a different
 							option.
 						</p>
 					)}
 				</div>
+				<Pagination
+					data={list}
+					paginationArr={paginationArr}
+					setCurrentItems={setList}
+					isDark={true}
+					// itemsPerPage={12}
+				/>
 			</div>
 		</section>
 	);

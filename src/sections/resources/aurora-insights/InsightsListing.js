@@ -608,7 +608,7 @@ export default function InsightsListing({
 						})}
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && (
-						<p>
+						<p className={`${styles.nodataText} nodataText`}>
 							No resources available for this selection. Please choose a different
 							option.
 						</p>
