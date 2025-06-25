@@ -60,12 +60,12 @@ export default function PressReleasesWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={"Media Center"}
 				Desc={""}
 				OgImg={""}
 				Url={"/media-center"}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

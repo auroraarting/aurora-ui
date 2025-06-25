@@ -46,12 +46,12 @@ export default function PressReleasesInsideWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/company/press-room/${data?.slug}`}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

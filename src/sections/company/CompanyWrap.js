@@ -45,7 +45,7 @@ export default function Company() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Company"} Desc={""} OgImg={""} Url={"/company"} />
+			{/* <MetaTags Title={"Company"} Desc={""} OgImg={""} Url={"/company"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

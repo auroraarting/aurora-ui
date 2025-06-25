@@ -40,7 +40,7 @@ export default function ServicesListingWrap() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Services"} Desc={""} OgImg={""} Url={"/service"} />
+			{/* <MetaTags Title={"Services"} Desc={""} OgImg={""} Url={"/service"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

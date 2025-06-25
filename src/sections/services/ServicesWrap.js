@@ -51,12 +51,12 @@ export default function ServicesWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/service/${data.slug}`}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

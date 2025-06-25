@@ -66,12 +66,12 @@ export default function SoftwareInsideWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={meta?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/software/${meta?.slug}`}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

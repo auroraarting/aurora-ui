@@ -34,7 +34,7 @@ export default function Cookies() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Cookies"} Desc={""} OgImg={""} Url={"/cookies"} />
+			{/* <MetaTags Title={"Cookies"} Desc={""} OgImg={""} Url={"/cookies"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}
