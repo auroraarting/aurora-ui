@@ -1,5 +1,10 @@
 @import "../../../helpers/helpers.scss";
 .MediaListing {
+	:global(.maxWidth) {
+		@include sm-down {
+			width: 100% !important;
+		}
+	}
 	.filterMain {
 		border-top: 1px solid var(--color_platinum_gray);
 		border-bottom: 1px solid var(--color_platinum_gray);
@@ -41,6 +46,7 @@
 						@media screen and (max-width: 767px) {
 							border-right: none;
 							padding: 10px 0px;
+							padding-bottom: 0;
 						}
 						.select_header {
 							position: relative;
@@ -62,6 +68,9 @@
 								position: absolute;
 								right: 10px;
 								top: 15px;
+								@include sm-down {
+									top: 14px;
+								}
 							}
 							&:hover {
 								background-color: var(--color_white);

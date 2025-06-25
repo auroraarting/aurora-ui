@@ -23,6 +23,7 @@ import DownloadList from "@/sections/events/DownloadList";
 import CountdownTimer from "@/sections/events/CountdownTimer";
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 import { dynamicInsightsBtnProps, slugify } from "@/utils";
@@ -107,9 +108,10 @@ export default function EventsInsideWrap({
 											key={item?.sectionTitle}
 											id={slugify(item?.sectionTitle)}
 											data-name={item?.sectionTitle}
-											className="pt_50"
+											className={`pt_50 ${styles.contentBox} contentBox`}
 										>
-											<ContentFromCms>{item?.content}</ContentFromCms>
+											{parse(item?.content)}
+											{/* <ContentFromCms>{item?.content}</ContentFromCms> */}
 										</section>
 									);
 								})}

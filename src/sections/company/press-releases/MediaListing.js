@@ -587,7 +587,7 @@ export default function MediaListing({
 						);
 					})}
 					{list.length === 0 && (
-						<p>
+						<p className={`${styles.nodataText} nodataText`}>
 							No resources available for this selection. Please choose a different
 							option.
 						</p>
