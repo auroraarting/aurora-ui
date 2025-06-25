@@ -107,6 +107,7 @@ export default function EventsInsideWrap({
 											key={item?.sectionTitle}
 											id={slugify(item?.sectionTitle)}
 											data-name={item?.sectionTitle}
+											className="pt_50"
 										>
 											<ContentFromCms>{item?.content}</ContentFromCms>
 										</section>
