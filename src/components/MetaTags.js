@@ -1,3 +1,4 @@
+"use client";
 // MODULES //
 
 // COMPONENTS //
@@ -18,11 +19,12 @@ import Favicon from "public/img/favicon.png";
 // DATA //
 
 /** Meta Tags */
-export default function MetaTags({ Title, Desc, OgImg, Url }) {
+export default function MetaTags({ Title, Desc, Keywords, OgImg, Url }) {
 	// Metas for all page
 	const defaultMetas = {
 		title: "Title",
 		desc: "Description",
+		keywords: "default, keywords, here",
 		url: "http://localhost:3000",
 		ogImg: `${OgImage.src}`,
 	};
@@ -31,13 +33,15 @@ export default function MetaTags({ Title, Desc, OgImg, Url }) {
 	// If not then use the default
 	const title = Title ? Title : defaultMetas.title;
 	const desc = Desc ? Desc : defaultMetas.desc;
+	const keywords = Keywords || defaultMetas.keywords;
 	const ogImg = OgImg ? OgImg : defaultMetas.ogImg;
 	const url = Url ? Url : defaultMetas.url;
 
 	return (
-		<Head>
+		<head>
 			<title>{title}</title>
 			<meta name="description" content={desc} />
+			<meta name="keywords" content={keywords} />
 			<meta name="theme-color" content="#000" />
 
 			{/* OG Tags  */}
@@ -59,6 +63,6 @@ export default function MetaTags({ Title, Desc, OgImg, Url }) {
 
 			{/* Favicon */}
 			<link rel="icon" href={`${Favicon.src}`} />
-		</Head>
+		</head>
 	);
 }
