@@ -190,7 +190,7 @@ export default function HowWeHelpSolutionsChallenge() {
 											</h4>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
 												<a
-													href="/how-we-help/transactions-support"
+													href="/how-we-help/transaction-support"
 													className="text_xs text_uppercase f_w_m"
 												>
 													Know More
