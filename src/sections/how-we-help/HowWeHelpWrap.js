@@ -71,7 +71,7 @@ export default function HowWeHelp() {
 								<div className={`${styles.common_queries_faq}`}>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<a href="/how-we-help/transaction-support">
+											<a href="/how-we-help/transactions-support">
 												<span>
 													<img src={dropdown_arrow.src} alt="icon" />
 												</span>
