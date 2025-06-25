@@ -588,7 +588,7 @@ export default function MediaListing({
 					})}
 					{list.length === 0 && (
 						<p className={`${styles.nodataText} nodataText`}>
-							No resources available for this selection. Please choose a different
+							No press releases available for this selection. Please choose a different
 							option.
 						</p>
 					)}
