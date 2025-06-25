@@ -22,7 +22,7 @@ export async function getFetchJobData() {
 
 		const data = {
 			countries: tempCountries.sort((a, b) => a.localeCompare(b)),
-			departments: tempDepartments,
+			departments: tempDepartments.sort((a, b) => a.localeCompare(b)),
 			jobs: json,
 		};
 

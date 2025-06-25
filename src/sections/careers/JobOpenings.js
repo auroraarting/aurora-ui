@@ -111,6 +111,9 @@ export default function JobOpenings({
 	const toggleDropdown = (key) => {
 		setDropdowns((prev) => ({
 			...prev,
+			eventNameType: { isOpen: false, selected: { title: "" } },
+			offeringsType: { isOpen: false, selected: { title: defaultSelected || "" } },
+			search: { isOpen: false, selected: { title: "" } },
 			[key]: { ...prev[key], isOpen: !prev[key].isOpen },
 		}));
 	};
@@ -145,6 +148,11 @@ export default function JobOpenings({
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
+		setDropdowns((prev) => ({
+			eventNameType: { isOpen: false, selected: { title: "" } },
+			offeringsType: { isOpen: false, selected: { title: defaultSelected || "" } },
+			search: { isOpen: false, selected: { title: "" } },
+		}));
 		setIsSearchVisible((prev) => !prev);
 	};
 
@@ -356,19 +364,19 @@ export default function JobOpenings({
 										Position
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										
+
 										Country
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										
+
 										Department
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										
+
 										Employment Type
 									</td>
 									<td className="text_xxs color_light_gray text_uppercase">
-										
+
 									</td>
 								</tr>
 							)} */}
