@@ -123,13 +123,13 @@ const StyleGuide = () => {
 				<div className={styles.color_palette}>
 					<div className={styles.btn_box}>
 						<Button color="primary" variant="filled" shape="rounded">
-							Read More
+							Read more
 						</Button>
 						<Button color="primary" variant="filled" shape="squared">
-							Read More
+							Read more
 						</Button>
 						<Button color="primary" variant="filled">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -140,13 +140,13 @@ const StyleGuide = () => {
 				>
 					<div className={styles.btn_box}>
 						<Button color="primary" variant="filled" shape="rounded" mode="dark">
-							Read More
+							Read more
 						</Button>
 						<Button color="primary" variant="filled" shape="squared" mode="dark">
-							Read More
+							Read more
 						</Button>
 						<Button color="primary" variant="filled" mode="dark">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -154,13 +154,13 @@ const StyleGuide = () => {
 				<div className={styles.color_palette}>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="filled" shape="rounded">
-							Read More
+							Read more
 						</Button>
 						<Button color="secondary" variant="filled" shape="squared">
-							Read More
+							Read more
 						</Button>
 						<Button color="secondary" variant="filled">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -171,13 +171,13 @@ const StyleGuide = () => {
 				>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="filled" shape="rounded" mode="dark">
-							Read More
+							Read more
 						</Button>
 						<Button color="secondary" variant="filled" shape="squared" mode="dark">
-							Read More
+							Read more
 						</Button>
 						<Button color="secondary" variant="filled" mode="dark">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -185,7 +185,7 @@ const StyleGuide = () => {
 				<div className={styles.color_palette}>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="underline">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -196,7 +196,7 @@ const StyleGuide = () => {
 				>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="underline" mode="dark">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -204,7 +204,7 @@ const StyleGuide = () => {
 				<div className={styles.color_palette}>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="underline" size="xs">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
@@ -215,7 +215,7 @@ const StyleGuide = () => {
 				>
 					<div className={styles.btn_box}>
 						<Button color="secondary" variant="underline" mode="dark" size="xs">
-							Read More
+							Read more
 						</Button>
 					</div>
 				</div>
