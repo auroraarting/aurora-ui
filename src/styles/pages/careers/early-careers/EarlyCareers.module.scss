@@ -4,6 +4,9 @@
 	.EarlyMain {
 		background-color: var(--color_secondary);
 	}
+	:global(.SmarterEnergy) {
+		background-image: none !important;
+	}
 	.containerCustom {
 		:global(.containerLarge) {
 			width: auto !important;
