@@ -1,6 +1,4 @@
-export const dynamic = "force-static"; // Use when data is highly cacheable
-
-export const revalidate = 18000; // Revalidates every 86400 seconds
+export const revalidate = 86400; // Revalidates every 86400 seconds
 
 import "@/styles/globals/globals.scss";
 import { GlobalContext } from "@/context/GlobalContext";
