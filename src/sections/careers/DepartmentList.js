@@ -233,7 +233,7 @@ export default function DepartmentList({ data, jobs, departments }) {
 										{data?.categories?.[selectedDepartment]?.leaderDesc?.length > 2 && (
 											<div onClick={() => setShowAll(!showAll)}>
 												<Button color="secondary" variant="underline" mode="dark">
-													{showAll ? "Read Less" : "Read More"}
+													{showAll ? "Read Less" : "Read more"}
 												</Button>
 											</div>
 										)}

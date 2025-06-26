@@ -143,7 +143,7 @@ export default function EarlyCareersInside({ data }) {
 											</h4>
 											<div className={`${styles.btn_box} pt_30`}>
 												<Button color="secondary" variant="underline" mode="dark">
-													Read More
+													Read more
 												</Button>
 												{/* <a href={`/careers/early-careers/${item?.slug}`}>
 

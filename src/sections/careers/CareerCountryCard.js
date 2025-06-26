@@ -342,7 +342,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 									<div className={`${styles.btn_box} pt_40`}>
 										<a href={`/careers/early-careers/${item?.slug}`}>
 											<Button color="secondary" variant="underline" mode="dark">
-												Read More
+												Read more
 											</Button>
 										</a>
 									</div>
