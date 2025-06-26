@@ -40,7 +40,7 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 18000; // Revalidates every 60 seconds
+export const revalidate = 1800; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
