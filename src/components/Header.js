@@ -1182,7 +1182,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
-														<span>Join Us</span>{" "}
+														<span>Join us</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 

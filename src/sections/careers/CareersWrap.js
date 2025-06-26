@@ -131,7 +131,7 @@ export default function Careers({ otherList, countries }) {
 											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">Join Us</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">Join us</h4>
 											<p className="text_reg color_dark_gray">
 												Be part of a vibrant, dynamic, and transformative organisation
 												driving the global energy transition.
