@@ -17,6 +17,7 @@ export default function Error({ error, reset }) {
 			<div className={styles.not_found_wrap}>
 				<h2 className={styles.title}>Error</h2>
 				<p className={`${styles.desp} text_center`}>Something went wrong!</p>
+				{error && <p>{JSON.stringify(error)}</p>}
 			</div>
 		</main>
 	);

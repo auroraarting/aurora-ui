@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
