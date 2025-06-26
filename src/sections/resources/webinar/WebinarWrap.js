@@ -142,7 +142,7 @@ export default function WebinarTalksWrap({
 							},
 							{
 								desc: "Expert analysis and case studies on energy markets",
-								btnText: "View all Resources",
+								btnText: "View all resources",
 								btnLink: "/resources/aurora-insights",
 								img: "/img/contact/cardImg5.jpg",
 								fontColor: "color_white",
