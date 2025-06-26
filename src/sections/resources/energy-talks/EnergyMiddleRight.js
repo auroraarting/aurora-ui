@@ -117,7 +117,7 @@ export default function EnergyMiddleRight({ data, events }) {
                                 /> */}
 
 												<span className="f_r_aj_between text_xxs text_uppercase">
-													Know More
+													Know more
 													<img src={white_arrow.src} className="" alt="amun_logo" />
 												</span>
 											</div>
