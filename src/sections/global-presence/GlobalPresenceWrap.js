@@ -39,12 +39,12 @@ export default function GlobalPresenceWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={"Global Presence"}
 				Desc={""}
 				OgImg={""}
 				Url={"/global-presence"}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

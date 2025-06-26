@@ -33,7 +33,7 @@ export default function FaqWrap({ page }) {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Faq"} Desc={""} OgImg={""} Url={"/careers/faq"} />
+			{/* <MetaTags Title={"Faq"} Desc={""} OgImg={""} Url={"/careers/faq"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

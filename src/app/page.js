@@ -105,7 +105,7 @@ export default async function HomePage() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags />
+			{/* <MetaTags /> */}
 			{/* Header */}
 			{/* <Header /> */}
 

@@ -49,7 +49,7 @@ export default function EOSPageWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"EOS"} Desc={""} OgImg={""} Url={"/eos"} />
+			{/* <MetaTags Title={"EOS"} Desc={""} OgImg={""} Url={"/eos"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

@@ -29,12 +29,12 @@ export default function NotFoundPage() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={"Page Not Found"}
 				Desc={"Page Not Found Desp"}
 				OgImg={""}
 				Url={"/404"}
-			/>
+			/> */}
 
 			{/* Page Content starts here */}
 			<main className={`${styles.not_found_page}`}>

@@ -44,12 +44,12 @@ export default function WebinarInsideWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
 				Url={`/webinar/${data?.slug}`}
-			/>
+			/> */}
 
 			<Script id="show-banner" strategy="afterInteractive">
 				{`

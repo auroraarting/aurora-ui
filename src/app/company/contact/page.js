@@ -161,7 +161,7 @@ export default async function ContactPage() {
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Contact"} Desc={""} OgImg={""} Url={"/contact"} />
+			{/* <MetaTags Title={"Contact"} Desc={""} OgImg={""} Url={"/contact"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}

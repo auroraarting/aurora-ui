@@ -56,12 +56,12 @@ export default function EnergyTalksWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={"Energy Talks"}
 				Desc={""}
 				OgImg={""}
 				Url={"/energy-talks"}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

@@ -46,12 +46,12 @@ export default function OurTeamWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags
+			{/* <MetaTags
 				Title={"Our Team"}
 				Desc={""}
 				OgImg={""}
 				Url={"/careers/our-team"}
-			/>
+			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}

@@ -16,10 +16,17 @@ import { getWebinars } from "@/services/Webinar.service";
 
 /** Meta Data */
 export const metadata = {
-	title: "Aurora",
-	description: "Aurora",
+	// title: "Aurora",
+	// description: "Aurora",
 	icons: {
 		icon: "/img/favicon.png",
+	},
+	openGraph: {
+		images: [
+			{
+				url: "https://auroraer.com/img/og-image.jpg",
+			},
+		],
 	},
 };
 

@@ -56,7 +56,7 @@ export default function WebinarTalksWrap({
 	return (
 		<div>
 			{/* Metatags */}
-			<MetaTags Title={"Webinar"} Desc={""} OgImg={""} Url={"/webinar"} />
+			{/* <MetaTags Title={"Webinar"} Desc={""} OgImg={""} Url={"/webinar"} /> */}
 
 			{/* Header */}
 			{/* <Header /> */}
