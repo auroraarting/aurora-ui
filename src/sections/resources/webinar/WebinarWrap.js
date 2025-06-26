@@ -135,14 +135,14 @@ export default function WebinarTalksWrap({
 						dynamicData={[
 							{
 								desc: "In-depth insights from global energy leaders",
-								btnText: "View Energy Talks",
+								btnText: "View all podcasts",
 								btnLink: "/resources/energy-talks",
 								img: "/img/contact/cardImg7.jpg",
 								fontColor: "color_black",
 							},
 							{
 								desc: "Expert analysis and case studies on energy markets",
-								btnText: "View all Resources",
+								btnText: "View all resources",
 								btnLink: "/resources/aurora-insights",
 								img: "/img/contact/cardImg5.jpg",
 								fontColor: "color_white",
