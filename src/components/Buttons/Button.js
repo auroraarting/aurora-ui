@@ -39,12 +39,8 @@ export default function Button({
 				`}
 		>
 			<div className={`${styles.textWrap}`}>
-				<p className={`${styles.animatedText1} text_600`}>
-					{formatFirstWordOnly(children)}
-				</p>
-				<p className={`${styles.animatedText2} text_600`}>
-					{formatFirstWordOnly(children)}
-				</p>
+				<p className={`${styles.animatedText1} text_600`}>{children}</p>
+				<p className={`${styles.animatedText2} text_600`}>{children}</p>
 			</div>
 		</button>
 	);
