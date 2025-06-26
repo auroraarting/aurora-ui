@@ -44,7 +44,7 @@ export default function AllVideos({
 		sectionName = "Latest Videos";
 	}
 	if (id === "") {
-		sectionName = "Auroras-career-series";
+		sectionName = "AURORA'S CAREER SERIES";
 	}
 	if (!title) {
 		return <></>;
