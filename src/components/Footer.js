@@ -255,7 +255,7 @@ export default function Footer({ defaultNavigation }) {
 												</p>
 												<p>
 													<a href="/careers/join-us" role="button">
-														<span className="">Join Us</span>
+														<span className="">Join us</span>
 													</a>
 													<img
 														src={black_right.src}

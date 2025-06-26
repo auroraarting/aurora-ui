@@ -111,7 +111,7 @@ export default function EarlyCareersWrap({
 						<div key="btn" to="Insights">
 							<a href="/careers/join-us">
 								<Button color="primary" variant="filled" shape="rounded">
-									Join Us
+									Join us
 								</Button>
 							</a>
 						</div>
