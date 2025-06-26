@@ -8,7 +8,7 @@ export default function Loading() {
 	// return <Loader />;
 	return (
 		<div className="Skeleton">
-			<Skeleton count={1} height={"100vh"} duration={0.8} />
+			<Skeleton count={1} height={"100vh"} duration={0.5} />
 		</div>
 	);
 }
