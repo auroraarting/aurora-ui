@@ -1,4 +1,4 @@
-export const dynamic = "force-static"; // Use when data is highly cacheable
+// export const dynamic = "force-static"; // Use when data is highly cacheable
 
 export const revalidate = 18000; // Revalidates every 86400 seconds
 
