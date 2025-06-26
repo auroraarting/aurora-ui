@@ -190,7 +190,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 															// href={`/${module}/${item?.slug}`}
 															className="text_xs text_uppercase f_w_m"
 														>
-															Know More
+															Know more
 															<img src={hover_arrow.src} className="" alt="icon" />
 														</div>
 													</div>
@@ -216,7 +216,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 											/>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxOne}`}>
 												<a href="#" className="text_xs text_uppercase f_w_m">
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="img" />
 												</a>
 											</div>
@@ -240,7 +240,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 											/>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxTwo}`}>
 												<a href="#" className="text_xs text_uppercase f_w_m">
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="img" />
 												</a>
 											</div>
@@ -260,7 +260,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 											/>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxThree}`}>
 												<a href="#" className="text_xs text_uppercase f_w_m">
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="img" />
 												</a>
 											</div>
@@ -280,7 +280,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 											/>
 											<div className={`${styles.hoverBox} ${styles.hoverBoxThree}`}>
 												<a href="#" className="text_xs text_uppercase f_w_m">
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="img" />
 												</a>
 											</div>

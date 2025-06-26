@@ -387,7 +387,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<div className={`${styles.btn_box} pt_20`}>
 															<Link href="/eos" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
-																	Know More
+																	Know more
 																</Button>
 															</Link>
 														</div>
@@ -1013,7 +1013,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<div className={`${styles.btn_box} pt_20`}>
 															<Link href="/eos" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
-																	Know More
+																	Know more
 																</Button>
 															</Link>
 														</div>
@@ -1213,7 +1213,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<div className={`${styles.btn_box} pt_20`}>
 															<Link href="/careers/join-us" role="button">
 																<Button color="primary" variant="filled" shape="rounded">
-																	See Open Positions
+																	See open positions
 																</Button>
 															</Link>
 														</div>

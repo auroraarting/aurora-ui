@@ -96,7 +96,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													href="/how-we-help/asset-siting-optimisation"
 													className="text_xs text_uppercase f_w_m"
 												>
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
@@ -117,7 +117,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													href="/how-we-help/ppas"
 													className="text_xs text_uppercase f_w_m"
 												>
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
@@ -142,7 +142,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													href="/how-we-help/strategy"
 													className="text_xs text_uppercase f_w_m"
 												>
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
@@ -167,7 +167,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													href="/how-we-help/portfolio-valuation"
 													className="text_xs text_uppercase f_w_m"
 												>
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
@@ -193,7 +193,7 @@ export default function HowWeHelpSolutionsChallenge() {
 													href="/how-we-help/transactions-support"
 													className="text_xs text_uppercase f_w_m"
 												>
-													Know More
+													Know more
 													<img src={hover_arrow.src} className="" alt="icon" />
 												</a>
 											</div>
