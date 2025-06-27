@@ -215,6 +215,25 @@ query GetProductBySlug {
       insights {
         sectionDesc
         sectionTitle
+        list(first: 999) {
+          nodes {
+            ... on Post {
+              id
+              date
+              title
+              slug
+              categories(first: 999) {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              postFields {
+                time
+              }
+            }
+          }
+        }
       }
       keyAdvantageSectionButton {
         buttonText

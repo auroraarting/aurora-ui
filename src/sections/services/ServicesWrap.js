@@ -150,8 +150,8 @@ export default function ServicesWrap({
 					<Insights
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
-						defaultList={otherList}
 						countries={countries}
+						defaultList={data?.services?.insights?.list?.nodes}
 						formSectionTitle={data?.services?.insights?.sectionTitle}
 						formSectionDesc={data?.services?.insights?.sectionDesc}
 						formSectionBtnText={

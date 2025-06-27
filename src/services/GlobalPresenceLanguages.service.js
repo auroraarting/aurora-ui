@@ -260,6 +260,25 @@ query GetCountryInside {
         insights {
           sectionTitle
           sectionDesc
+             list(first: 999) {
+          nodes {
+            ... on Post {
+              id
+              date
+              title
+              slug
+              categories(first: 999) {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              postFields {
+                time
+              }
+            }
+          }
+        }
         }
         subscribeSection {
           description

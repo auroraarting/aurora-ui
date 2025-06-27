@@ -38,7 +38,12 @@ import styles from "@/styles/pages/product/ProductInside.module.scss";
 // SERVICES //
 
 /** ProductInside Page */
-export default function ProductInsideWrap({ data, mapJson, bundles }) {
+export default function ProductInsideWrap({
+	data,
+	mapJson,
+	bundles,
+	countries,
+}) {
 	const dataForBtn = { postFields: data?.products || {} };
 
 	console.log(data, "data");
@@ -147,6 +152,8 @@ export default function ProductInsideWrap({ data, mapJson, bundles }) {
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
 							<Insights
+								countries={countries}
+								defaultList={data?.products?.insights?.list?.nodes}
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
 								formSectionTitle={data?.products?.insights?.sectionTitle}

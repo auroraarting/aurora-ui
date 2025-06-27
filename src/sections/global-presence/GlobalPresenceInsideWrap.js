@@ -239,7 +239,7 @@ export default function GlobalPresenceInsideWrap({
 								hideall
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
-								defaultList={insightsList}
+								defaultList={data?.countries?.insights?.list?.nodes}
 								countries={countries}
 								formSectionTitle={data?.countries?.insights?.sectionTitle}
 								formSectionDesc={data?.countries?.insights?.sectionDesc}
