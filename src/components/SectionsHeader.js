@@ -87,7 +87,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 
 		const sectionElements = list
 			.filter((item) => typeof item.id === "string")
-			.map((item) => document.querySelector(item.id));
+			.map((item) => document?.querySelector(item?.id));
 
 		/** handleScroll  */
 		const handleScroll = () => {
