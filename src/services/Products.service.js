@@ -112,6 +112,12 @@ query GetPageProduct {
 export const getProductBySlug = async (slug) => {
 	const query = `
 query GetProductBySlug {
+countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
+    nodes {
+      title
+      slug
+    }
+  }
   productBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
@@ -239,12 +245,12 @@ query GetProductBySlug {
               slug
               content
               date
-                 featuredImage {
-                          node {
-                            altText
-                            mediaItemUrl
-                          }
-                        }
+              featuredImage {
+                node {
+                  altText
+                  mediaItemUrl
+                }
+              }
               categories(first: 9999) {
                 nodes {
                   slug
@@ -329,12 +335,12 @@ query GetProductBySlug {
       }
       map {
         marquee
-              headerLogo {
-            node {
-              altText
-              mediaItemUrl
-            }
+        headerLogo {
+          node {
+            altText
+            mediaItemUrl
           }
+        }
       }
       whyAurora {
         title
@@ -369,6 +375,25 @@ query GetProductBySlug {
       insights {
         sectionDesc
         sectionTitle
+        list(first: 999) {
+          nodes {
+            ... on Post {
+              id
+              date
+              title
+              slug
+              categories(first: 999) {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              postFields {
+                time
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -66,12 +66,14 @@ async function getData({ params }) {
 	const mapJson = getMapJsonForProducts(
 		filterMarkersBySlug(regions, params.slug)
 	);
+	const countries = data?.data?.countries?.nodes;
 
 	return {
 		props: {
 			data: data.data.productBy,
 			mapJson,
 			bundles: bundles.data.page.bundles,
+			countries,
 		},
 	};
 }

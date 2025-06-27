@@ -218,6 +218,8 @@ export default function SoftwareInsideWrap({
 
 				<div className="pt_100">
 					<Insights
+						countries={countries}
+						defaultList={data?.insights?.list?.nodes}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						formSectionTitle={data?.insights?.sectionTitle}
