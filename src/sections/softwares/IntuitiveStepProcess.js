@@ -21,6 +21,7 @@ import styles from "@/styles/sections/softwares/IntuitiveStepProcess.module.scss
 
 // IMAGES //
 import steps_img from "../../../public/img/softwares/steps_img.jpg";
+import { slugify } from "@/utils";
 
 // DATA //
 
@@ -65,10 +66,22 @@ export default function IntuitiveStepProcess({
 		},
 	};
 
+	/** sectionTitle  */
+	const sectionTitle = () => {
+		if (data.tabTitle) {
+			/** removeNumbers  */
+			const removeNumbers = (str) => {
+				return str.replace(/[0-9]/g, "");
+			};
+			return { title: data.tabTitle, id: slugify(removeNumbers(data?.tabTitle)) };
+		}
+		return { title: `${data?.process?.length || "4"} STEP PROCESS`, id: "steps" };
+	};
+
 	return (
 		<section
-			id="fourstep"
-			data-name={`${data?.process?.length || "4"} STEP PROCESS`}
+			id={sectionTitle()?.id}
+			data-name={sectionTitle()?.title}
 			className={`${styles.IntuitiveStepProcess} dark_bg
                 ${!data?.description ? "" : ""}
                 pb_100`}
