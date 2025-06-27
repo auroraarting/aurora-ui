@@ -96,6 +96,8 @@ export default function InsightsListing({
 			{ title: "Articles", alternate: "Commentary" },
 			{ title: "Case studies", alternate: "Case studies" },
 			{ title: "Market reports", alternate: "Market reports" },
+			{ title: "Policy Notes", alternate: "Policy Notes" },
+			{ title: "Newsletters", alternate: "Newsletters" },
 			// { title: "Public", alternate: "Public" },
 		],
 		countryType: [
