@@ -48,7 +48,7 @@ export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
 		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 },
+			next: { revalidate: 1800, tags: ["alldata"] },
 		});
 		res = await req.json();
 		return res;
