@@ -3551,6 +3551,30 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/country/north-america/pjm-capacity-market-policy-note",
+				destination:
+					"/resources/aurora-insights/market-reports/pjm-capacity-market-policy-note",
+				permanent: true,
+			},
+			{
+				source: "/insight/federal-policy-update-trumps-first-three-weeks-in-office",
+				destination:
+					"/resources/aurora-insights/market-reports/federal-policy-update-trumps-first-three-weeks-in-office",
+				permanent: true,
+			},
+			{
+				source: "/insight/data-centers-and-their-impact-on-the-us-power-market",
+				destination:
+					"/resources/aurora-insights/market-reports/data-centers-and-their-impact-on-the-us-power-market",
+				permanent: true,
+			},
+			{
+				source: "/insight/impact-of-reform-to-clean-energy-tax-credits-on-investment-jobs-and-consumer-bills",
+				destination:
+					"/resources/aurora-insights/market-reports/impact-of-reform-to-clean-energy-tax-credits-on-investment-jobs-and-consumer-bills-2",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
