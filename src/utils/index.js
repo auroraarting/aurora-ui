@@ -513,6 +513,8 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 
 		if (names?.includes(target)) {
 			if (!forUrl) {
+				// { title: "Policy Notes", alternate: "Policy Notes" },
+				// { title: "Newsletters", alternate: "Newsletters" },
 				if (item.title === "Case Studies") {
 					item.title = "Case Study";
 				}
@@ -521,6 +523,12 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				}
 				if (item.title === "Articles") {
 					item.title = "Article";
+				}
+				if (item.title === "Policy Notes") {
+					item.title = "Policy Note";
+				}
+				if (item.title === "Newsletters") {
+					item.title = "Newsletter";
 				}
 			} else {
 				if (item.title === "Case Study") {
@@ -531,6 +539,12 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				}
 				if (item.title === "Article") {
 					item.title = "Articles";
+				}
+				if (item.title === "Policy Note") {
+					item.title = "Policy Notes";
+				}
+				if (item.title === "Newsletter") {
+					item.title = "Newsletters";
 				}
 			}
 
