@@ -111,9 +111,15 @@ export default function JobOpenings({
 	const toggleDropdown = (key) => {
 		setDropdowns((prev) => ({
 			...prev,
-			eventNameType: { isOpen: false, selected: { title: "" } },
-			offeringsType: { isOpen: false, selected: { title: defaultSelected || "" } },
-			search: { isOpen: false, selected: { title: "" } },
+			eventNameType: { ...prev.eventNameType, isOpen: prev.eventNameType.isOpen },
+			offeringsType: {
+				...prev.offeringsType,
+				isOpen: prev.offeringsType.isOpen,
+			},
+			search: {
+				...prev.search,
+				isOpen: prev.search.isOpen,
+			},
 			[key]: { ...prev[key], isOpen: !prev[key].isOpen },
 		}));
 	};

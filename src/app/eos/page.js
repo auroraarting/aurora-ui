@@ -56,11 +56,11 @@ export const revalidate = 60; // Revalidates every 60 seconds
 export default async function EOSPage() {
 	const [dataFetch, regions, bundlesFetch, categoriesForSelect, list] =
 		await Promise.all([
-			await getEosPage(),
-			await getRegions(),
-			await getBundlesSection(),
-			await getInsightsCategories(),
-			await getInsights(
+			getEosPage(),
+			getRegions(),
+			getBundlesSection(),
+			getInsightsCategories(),
+			getInsights(
 				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
 			),
 		]);

@@ -1,4 +1,3 @@
-import { rateLimitedFetch } from "@/lib/rateLimitedFetch.server";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 // import memoizedFetch from "@/lib/memoizedFetch";
 
