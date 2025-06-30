@@ -260,6 +260,8 @@ export default function InsightsListing({
 		EqualHeight(`${styles.ItemBox}`);
 	}, [list, selected]);
 
+	console.log(list, "list");
+
 	return (
 		<section className={styles.InsightsListing}>
 			<div className={styles.filterMain}>

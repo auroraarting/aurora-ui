@@ -12,7 +12,7 @@ export async function GET(req, res) {
 		const [categoriesForSelect, list] = await Promise.all([
 			getInsightsCategories(),
 			getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
 			),
 		]);
 		const defaultList = list?.data?.posts?.nodes;

@@ -124,7 +124,7 @@ export async function searchData(searchTerm) {
       }
     }
   }
-  posts(first: 9999,where: {search: "${searchTerm}", categoryName: "case-studies,commentary,market-reports,media"}) {
+  posts(first: 9999,where: {search: "${searchTerm}", categoryName: "case-studies,commentary,market-reports,media,policy-notes,newsletters"}) {
     nodes {
       title
       slug
@@ -261,7 +261,12 @@ export async function searchData(searchTerm) {
 				return `/resources/aurora-insights/market-reports/${item?.slug}`;
 			} else if (cat.includes("Media")) {
 				return `/company/press-room/${item?.slug}`;
+			} else if (cat.includes("Policy Notes")) {
+				return `/company/policy-notes/${item?.slug}`;
+			} else if (cat.includes("Newsletters")) {
+				return `/company/newsletters/${item?.slug}`;
 			}
+			// ,policy-notes,newsletters
 		};
 		return { ...item, slug: href() };
 	});

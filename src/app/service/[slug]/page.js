@@ -58,7 +58,7 @@ async function getData({ params }) {
 		await getRegions(),
 		await getBundlesSection(),
 		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
 		),
 	]);
 	const mapJson = getMapJsonForService(

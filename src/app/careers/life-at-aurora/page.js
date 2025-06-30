@@ -62,7 +62,7 @@ export default async function LifeAtAurora() {
 			await getOffices(),
 			await getInsightsCategories(),
 			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
 			),
 			await getEarlyCareersListing("first: 10"),
 		]);
