@@ -3551,7 +3551,7 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/insight/country/north-america/pjm-capacity-market-policy-note",
+				source: "/country/north-america/pjm-capacity-market-policy-note",
 				destination:
 					"/resources/aurora-insights/market-reports/pjm-capacity-market-policy-note",
 				permanent: true,
@@ -3569,7 +3569,8 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/insight/impact-of-reform-to-clean-energy-tax-credits-on-investment-jobs-and-consumer-bills",
+				source:
+					"/insight/impact-of-reform-to-clean-energy-tax-credits-on-investment-jobs-and-consumer-bills",
 				destination:
 					"/resources/aurora-insights/market-reports/impact-of-reform-to-clean-energy-tax-credits-on-investment-jobs-and-consumer-bills-2",
 				permanent: true,
