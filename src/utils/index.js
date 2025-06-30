@@ -496,6 +496,8 @@ export const allCategories = [
 	{ title: "Subscriber", alternate: "Subscriber" },
 	// { title: "Energy Talks", alternate: "Energy Talks" },
 	{ title: "Media", alternate: "Media" },
+	{ title: "Policy Notes", alternate: "Policy Notes" },
+	{ title: "Newsletters", alternate: "Newsletters" },
 ];
 
 /** findFunc  */

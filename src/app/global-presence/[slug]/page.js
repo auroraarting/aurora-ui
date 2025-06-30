@@ -84,7 +84,7 @@ async function getData({ params, query }) {
 		meta,
 	] = await Promise.all([
 		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
 		),
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),
