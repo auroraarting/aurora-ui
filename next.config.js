@@ -3576,6 +3576,55 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source:
+					"/2025/05/07/green-dreams-bankable-schemes-how-to-thrive-in-the-philippine-power-market",
+				destination:
+					"/resources/aurora-insights/newsletters/green-dreams-bankable-schemes-how-to-thrive-in-the-philippine-power-market",
+				permanent: true,
+			},
+			{
+				source:
+					"/2025/03/06/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				destination:
+					"/resources/aurora-insights/newsletters/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				permanent: true,
+			},
+			{
+				source:
+					"/2025/02/05/no-more-russian-gas-via-ukraine",
+				destination:
+					"/resources/aurora-insights/newsletters/no-more-russian-gas-via-ukraine",
+				permanent: true,
+			},
+			{
+				source:
+					"/2025/01/08/the-battery-buildout-in-europe",
+				destination:
+					"/resources/aurora-insights/newsletters/the-battery-buildout-in-europe",
+				permanent: true,
+			},
+			{
+				source:
+					"/2024/12/09/will-trump-delay-americas-energy-transition",
+				destination:
+					"/resources/aurora-insights/newsletters/will-trump-delay-americas-energy-transition",
+				permanent: true,
+			},
+			{
+				source:
+					"/2024/11/06/what-does-chiles-solar-powered-future-look-like",
+				destination:
+					"/resources/aurora-insights/newsletters/what-does-chiles-solar-powered-future-look-like",
+				permanent: true,
+			},
+			{
+				source:
+					"/2024/10/07/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
+				destination:
+					"/resources/aurora-insights/newsletters/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
