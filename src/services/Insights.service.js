@@ -22,12 +22,6 @@ query GetInsights {
         name
       }
     }
-    language {
-      id
-      code
-      language_code
-      native_name
-    }
     tags(first: 9999) {
       nodes {
         name
@@ -386,12 +380,6 @@ query GetInsightsInside {
         slug
         name
       }
-    }
-    language {
-      id
-      code
-      language_code
-      native_name
     }
     tags(first: 9999) {
       nodes {
