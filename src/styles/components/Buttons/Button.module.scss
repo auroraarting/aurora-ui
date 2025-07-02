@@ -45,7 +45,7 @@
 		.animatedText1,
 		.animatedText2 {
 			transition: transform 0.5s ease-in-out;
-			text-transform: lowercase;
+			// text-transform: lowercase;
 			&::first-letter {
 				text-transform: uppercase;
 			}

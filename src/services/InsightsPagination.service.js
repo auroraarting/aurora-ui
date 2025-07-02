@@ -19,12 +19,6 @@ export const getInsights = async ({ first = 36, after = null } = {}) => {
               name
             }
           }
-          language {
-            id
-            code
-            language_code
-            native_name
-          }
           tags(first: 10) {
             nodes {
               name
