@@ -152,7 +152,7 @@ export default function GlobalPresenceInsideWrap({
 					customHtml={
 						dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")?.btntext && (
 							<div {...dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")}>
-								<Button color="primary" variant="filled" shape="rounded">
+								<Button color="primary" variant="filled" shape="rounded" textlowercase>
 									{dynamicInsightsBtnProps(dataForBtn, "middleSectionsButton")?.btntext}
 								</Button>
 							</div>

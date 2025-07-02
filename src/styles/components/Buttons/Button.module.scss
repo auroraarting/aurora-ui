@@ -55,6 +55,12 @@
 	&.mode_max {
 		width: max-content;
 	}
+	&.textlowercase {
+		.animatedText1,
+		.animatedText2 {
+			text-transform: lowercase;
+		}
+	}
 }
 
 // Filled Button

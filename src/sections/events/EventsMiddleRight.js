@@ -77,7 +77,7 @@ export default function EventsMiddleRight({ data, events }) {
 											key="btn"
 											to="Insights"
 										>
-											<Button color="secondary" variant="underline">
+											<Button color="secondary" variant="underline" textlowercase>
 												{
 													dynamicInsightsBtnProps(
 														{ postFields: data?.events },

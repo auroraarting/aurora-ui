@@ -90,7 +90,7 @@ export default function ProductBanner({
 						)}
 						{dynamicBtn?.btntext && (
 							<a href={btnLink} {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
-								<Button color="primary" variant="filled" shape="rounded">
+								<Button color="primary" variant="filled" shape="rounded" textlowercase>
 									{dynamicBtn?.btntext}
 								</Button>
 							</a>
