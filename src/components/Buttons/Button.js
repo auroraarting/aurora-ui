@@ -25,6 +25,7 @@ export default function Button({
 	mode,
 	hoverBg,
 	size = "text_sm",
+	textlowercase,
 }) {
 	return (
 		<button
@@ -36,6 +37,7 @@ export default function Button({
 				${styles[shape]}
 				${styles[`mode_${mode}`]}
                 ${styles[`hover_${hoverBg}`]}
+				${textlowercase ? styles.textlowercase : ""}
 				`}
 		>
 			<div className={`${styles.textWrap}`}>

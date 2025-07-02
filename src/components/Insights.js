@@ -427,7 +427,13 @@ export default function Insights({
 											// href={defaultPathname()}
 											{...BtnProps()}
 										>
-											<Button color="primary" variant="filled" shape="rounded" mode="dark">
+											<Button
+												color="primary"
+												variant="filled"
+												shape="rounded"
+												mode="dark"
+												textlowercase
+											>
 												{formSectionBtnText}
 											</Button>
 										</a>
@@ -482,7 +488,13 @@ export default function Insights({
 									// {...BtnProps()}
 									className={`${styles.bookBtn}`}
 								>
-									<Button color="primary" variant="filled" shape="rounded" mode="dark">
+									<Button
+										color="primary"
+										variant="filled"
+										shape="rounded"
+										mode="dark"
+										textlowercase
+									>
 										View all
 									</Button>
 								</a>

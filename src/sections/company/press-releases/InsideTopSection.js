@@ -77,7 +77,7 @@ export default function InsideTopSection({
 									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext && (
 										<a
 											{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-											className="text_sm f_w_m font_primary f_r_a_center"
+											className="text_sm f_w_m font_primary f_r_a_center textlowercase"
 										>
 											<img src={download.src} alt="download" />
 											<span>
