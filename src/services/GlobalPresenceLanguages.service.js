@@ -1,5 +1,5 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
-import GraphQLAPI from "./Graphql.service";
+import GraphQLAPI, { GraphQLAPICache } from "./Graphql.service";
 import { GraphQLAPILongerRevalidate } from "./Graphql.service";
 
 /** Fetch Regions Data */
@@ -113,7 +113,7 @@ export const getRegions = async () => {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPICache(query);
 	return res;
 };
 
@@ -130,7 +130,7 @@ export const getGlobalPresencePage = async () => {
     }
   }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPICache(query);
 	return res;
 };
 
@@ -459,6 +459,6 @@ query GetCountryInside {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPICache(query);
 	return res;
 };
