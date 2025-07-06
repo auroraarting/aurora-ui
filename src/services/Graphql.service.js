@@ -25,10 +25,18 @@ export async function GraphQLAPICache(query, refreshInterval = 30000) {
 	let res;
 	let req;
 	try {
+		// const backendRes = await fetch(url, {
+		// 	method: backendMethod,
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		...(headers && headers),
+		// 	},
+		// 	body: backendBody ? JSON.stringify(backendBody) : undefined,
+		// });
 		const data = {
 			url: `${process.env.API_URL}`,
 			method: "POST",
-			body: query,
+			body: { query },
 			refreshInterval: refreshInterval,
 			headers: {
 				...ServerHeaders.headers,
@@ -45,7 +53,7 @@ export async function GraphQLAPICache(query, refreshInterval = 30000) {
 			}
 		);
 		res = await req.json();
-		console.log(res, "asdasdasdadas");
+		console.log(data, "asdasdasdadas");
 		return res;
 	} catch (error) {
 		// req = await req.text();
