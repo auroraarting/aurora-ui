@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 // import memoizedFetch from "@/lib/memoizedFetch";
 
 /** GraphQLAPI  */
-export default async function GraphQLAPI(query, ttl = 86400) {
+export default async function GraphQLAPINoCache(query, ttl = 86400) {
 	let res;
 	let req;
 	try {
@@ -21,18 +21,12 @@ export default async function GraphQLAPI(query, ttl = 86400) {
 }
 
 /** GraphQLAPI  */
-export async function GraphQLAPICache(query, refreshInterval = 30000) {
+export async function GraphQLAPI(query, refreshInterval = 30000) {
 	let res;
 	let req;
 	try {
-		// const backendRes = await fetch(url, {
-		// 	method: backendMethod,
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		...(headers && headers),
-		// 	},
-		// 	body: backendBody ? JSON.stringify(backendBody) : undefined,
-		// });
+		const startTime = new Date(); // Start time
+
 		const data = {
 			url: `${process.env.API_URL}`,
 			method: "POST",
@@ -45,18 +39,21 @@ export async function GraphQLAPICache(query, refreshInterval = 30000) {
 		req = await fetch(
 			"https://aurora-sync-git-main-mvishu405s-projects.vercel.app/api/cache",
 			{
-				// ...ServerHeaders,
 				"Content-Type": "application/json",
 				method: "POST",
 				body: JSON.stringify({ ...data }),
-				next: { revalidate: 1800 },
 			}
 		);
 		res = await req.json();
-		console.log(data, "asdasdasdadas");
+
+		const endTime = new Date(); // End time
+		const fetchDuration = endTime - startTime; // Duration in milliseconds
+		console.log(
+			`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
+		);
+
 		return res;
 	} catch (error) {
-		// req = await req.text();
 		console.log(error, req, "errror");
 	}
 }

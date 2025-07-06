@@ -113,7 +113,7 @@ export const getRegions = async () => {
   }
 }
     `;
-	const res = await GraphQLAPICache(query);
+	const res = await GraphQLAPI(query);
 	return res;
 };
 
@@ -130,7 +130,7 @@ export const getGlobalPresencePage = async () => {
     }
   }
     `;
-	const res = await GraphQLAPICache(query);
+	const res = await GraphQLAPI(query);
 	return res;
 };
 
@@ -459,6 +459,6 @@ query GetCountryInside {
   }
 }
     `;
-	const res = await GraphQLAPICache(query);
+	const res = await GraphQLAPI(query);
 	return res;
 };
