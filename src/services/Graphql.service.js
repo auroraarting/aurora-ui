@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 // import memoizedFetch from "@/lib/memoizedFetch";
 
 /** GraphQLAPI  */
-export default async function GraphQLAPINoCache(query, ttl = 86400) {
+export async function GraphQLAPINoCache(query, ttl = 86400) {
 	let res;
 	let req;
 	try {
@@ -21,7 +21,7 @@ export default async function GraphQLAPINoCache(query, ttl = 86400) {
 }
 
 /** GraphQLAPI  */
-export async function GraphQLAPI(query, refreshInterval = 30000) {
+export default async function GraphQLAPI(query, refreshInterval = 30000) {
 	let res;
 	let req;
 	try {
