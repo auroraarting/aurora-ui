@@ -397,4 +397,11 @@ section {
 
 .textlowercase {
 	text-transform: lowercase;
+	span,
+	a,
+	p {
+		&::first-letter {
+			text-transform: uppercase;
+		}
+	}
 }
