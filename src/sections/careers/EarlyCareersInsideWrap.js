@@ -76,7 +76,7 @@ export default function EarlyCareersInsideWrap({
 								key="btn"
 								to="Insights"
 							>
-								<Button color="primary" variant="filled" shape="rounded">
+								<Button color="primary" variant="filled" shape="rounded" textlowercase>
 									{dynamicInsightsBtnProps(dataForBtn, "topSectionButton").btntext}
 								</Button>
 							</div>
