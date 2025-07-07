@@ -99,16 +99,18 @@ export default function GlobalPresenceInsideWrap({
 			(event) => event.events?.thumbnail?.date
 		);
 
-		const eventsList =
+		let eventsList =
 			eventsFiltered?.length > 0
 				? eventsFiltered.sort(
 						(a, b) =>
 							new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
 				  )
-				: eventsAllSorted.sort(
-						(a, b) =>
-							new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
-				  );
+				: eventsAllSorted
+						.filter((item) => new Date() < new Date(item.events.thumbnail.date))
+						.sort(
+							(a, b) =>
+								new Date(a.events.thumbnail.date) - new Date(b.events.thumbnail.date)
+						);
 
 		const webinarsFiltered = filterAndSortByDate(
 			webinarsState?.data?.webinars?.nodes
@@ -167,8 +169,13 @@ export default function GlobalPresenceInsideWrap({
 					index === self.findIndex((t) => t?.title === item?.title)
 			);
 		}
-
-		console.log(eventsList, "webinarsFiltered");
+		if (eventsList.length === 0) {
+			eventsList =
+				eventsState?.data?.events?.nodes.sort(
+					(a, b) =>
+						new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+				) || [];
+		}
 
 		// events: eventsList.slice(0, 1),
 		// webinars: webinarList.slice(0, 3),
