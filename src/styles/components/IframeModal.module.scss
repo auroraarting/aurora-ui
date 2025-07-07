@@ -19,6 +19,10 @@
 				background-color: var(--color_white);
 				width: 80%;
 				height: 70%;
+				@media screen and (max-width: 767px) {
+					width: 90%;
+				}
+
 				.wrap {
 					display: flex;
 					justify-content: center;
