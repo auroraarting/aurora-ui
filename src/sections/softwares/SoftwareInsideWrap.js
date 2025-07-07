@@ -105,7 +105,7 @@ export default function SoftwareInsideWrap({
 								key="btn"
 								to="Insights"
 							>
-								<Button color="primary" variant="filled" shape="rounded">
+								<Button color="primary" variant="filled" shape="rounded" textlowercase>
 									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
 								</Button>
 							</div>

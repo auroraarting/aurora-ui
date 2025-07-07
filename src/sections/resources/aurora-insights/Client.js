@@ -249,7 +249,7 @@ export default function Client({ data, countries }) {
 						<div className={`${styles.DownBtn} `}>
 							<a
 								{...dynamicInsightsBtnProps(data, "bottomSectionButton")}
-								className="text_sm f_w_m font_primary f_r_a_center"
+								className="text_sm f_w_m font_primary f_r_a_center textlowercase"
 							>
 								<img src={tag_download_icon.src} alt="download" />
 								<span>

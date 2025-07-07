@@ -39,7 +39,13 @@ export default function TransactionsBanner({ data, dynamicBtn, btnTxt }) {
 							<ContentFromCms>{data?.description}</ContentFromCms>
 						</div>
 						<div {...dynamicBtn} className={`${styles.bookBtn} pt_30`}>
-							<Button color="primary" variant="filled" shape="rounded" mode="dark">
+							<Button
+								color="primary"
+								variant="filled"
+								shape="rounded"
+								mode="dark"
+								textlowercase
+							>
 								{btnTxt}
 							</Button>
 						</div>
