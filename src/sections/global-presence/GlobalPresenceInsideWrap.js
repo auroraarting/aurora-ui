@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable indent */
 "use client";
 // MODULES //
 import { useEffect, useState } from "react";
@@ -74,13 +76,23 @@ export default function GlobalPresenceInsideWrap({
 				.sort((a, b) => new Date(datePath(a)) - new Date(datePath(b)));
 
 		const eventsFiltered = filterAndSortByDate(
-			eventsState?.data?.events?.nodes?.filter((event) =>
-				event?.events?.thumbnail?.country?.nodes?.some(
-					(node) => node?.slug === slug
+			eventsState?.data?.events?.nodes
+				?.filter((event) =>
+					event?.events?.thumbnail?.country?.nodes?.some(
+						(node) => node?.slug === slug
+					)
 				)
-			),
+				.sort(
+					(a, b) =>
+						new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+				),
 			(event) => event.events?.thumbnail?.date
-		);
+		)
+			.filter((item) => new Date() < new Date(item.events.thumbnail.date))
+			.sort(
+				(a, b) =>
+					new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+			);
 
 		const eventsAllSorted = filterAndSortByDate(
 			eventsState?.data?.events?.nodes,
@@ -88,7 +100,15 @@ export default function GlobalPresenceInsideWrap({
 		);
 
 		const eventsList =
-			eventsFiltered?.length > 0 ? eventsFiltered : eventsAllSorted;
+			eventsFiltered?.length > 0
+				? eventsFiltered.sort(
+						(a, b) =>
+							new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+				  )
+				: eventsAllSorted.sort(
+						(a, b) =>
+							new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+				  );
 
 		const webinarsFiltered = filterAndSortByDate(
 			webinarsState?.data?.webinars?.nodes
@@ -115,16 +135,40 @@ export default function GlobalPresenceInsideWrap({
 		);
 
 		let webinarList =
-			webinarsFiltered?.length > 0 ? webinarsFiltered : webinarsAllSorted;
+			webinarsFiltered?.length > 0
+				? webinarsFiltered
+				: webinarsAllSorted.sort(
+						(a, b) =>
+							new Date(b.webinarsFields.startDateAndTime) -
+							new Date(a.webinarsFields.startDateAndTime)
+				  );
 
 		if (webinarList.length < 3) {
-			webinarList = [...webinarList, ...webinarsAllSorted].filter(
+			webinarList = [
+				...webinarList
+					.filter(
+						(removeYearItem) =>
+							new Date(
+								removeYearItem.webinarsFields.startDateAndTime
+							).getFullYear() === new Date().getFullYear()
+					)
+					.sort(
+						(a, b) =>
+							new Date(b.webinarsFields.startDateAndTime) -
+							new Date(a.webinarsFields.startDateAndTime)
+					),
+				...webinarsAllSorted.sort(
+					(a, b) =>
+						new Date(b.webinarsFields.startDateAndTime) -
+						new Date(a.webinarsFields.startDateAndTime)
+				),
+			].filter(
 				(item, index, self) =>
 					index === self.findIndex((t) => t?.title === item?.title)
 			);
 		}
 
-		console.log(webinarList, "webinarsFiltered");
+		console.log(eventsList, "webinarsFiltered");
 
 		// events: eventsList.slice(0, 1),
 		// webinars: webinarList.slice(0, 3),
