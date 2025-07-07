@@ -34,12 +34,12 @@ export default function EventsLocation({ data }) {
 			id={
 				data?.events?.location?.address || data?.events?.location?.mapLink
 					? "location"
-					: "contactdetails"
+					: "contact"
 			}
 			data-name={
 				data?.events?.location?.address || data?.events?.location?.mapLink
 					? "Location"
-					: "Contact Details"
+					: "Contact"
 			}
 		>
 			{!data?.events?.location?.address && data?.events?.location?.mapLink && (

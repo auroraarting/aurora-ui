@@ -70,7 +70,7 @@ export default function GlobalPresenceInsideWrap({
 		/** Filter and sort helpers  */
 		const filterAndSortByDate = (items, datePath) =>
 			(items || [])
-				.filter((item) => new Date() < new Date(datePath(item)))
+				// .filter((item) => new Date() < new Date(datePath(item)))
 				.sort((a, b) => new Date(datePath(a)) - new Date(datePath(b)));
 
 		const eventsFiltered = filterAndSortByDate(
@@ -91,10 +91,22 @@ export default function GlobalPresenceInsideWrap({
 			eventsFiltered?.length > 0 ? eventsFiltered : eventsAllSorted;
 
 		const webinarsFiltered = filterAndSortByDate(
-			webinarsState?.data?.webinars?.nodes?.filter((webinar) =>
-				webinar?.webinarsFields?.country?.nodes?.some((node) => node?.slug === slug)
-			),
+			webinarsState?.data?.webinars?.nodes
+				?.filter((webinar) =>
+					webinar?.webinarsFields?.country?.nodes?.some(
+						(node) => node?.slug === slug
+					)
+				)
+				.sort(
+					(a, b) =>
+						new Date(b.webinarsFields.startDateAndTime) -
+						new Date(a.webinarsFields.startDateAndTime)
+				),
 			(webinar) => webinar.webinarsFields?.startDateAndTime
+		).sort(
+			(a, b) =>
+				new Date(b.webinarsFields.startDateAndTime) -
+				new Date(a.webinarsFields.startDateAndTime)
 		);
 
 		const webinarsAllSorted = filterAndSortByDate(
@@ -111,6 +123,8 @@ export default function GlobalPresenceInsideWrap({
 					index === self.findIndex((t) => t?.title === item?.title)
 			);
 		}
+
+		console.log(webinarList, "webinarsFiltered");
 
 		// events: eventsList.slice(0, 1),
 		// webinars: webinarList.slice(0, 3),
