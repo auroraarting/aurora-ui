@@ -65,6 +65,74 @@ export default function GlobalPresenceInsideWrap({
 		};
 	}, []);
 
+	// useEffect(() => {
+	// 	if (!eventsState || !webinarsState) {
+	// 		return;
+	// 	}
+	// 	/** Filter and sort helpers  */
+	// 	const filterAndSortByDate = (items, datePath) =>
+	// 		(items || [])
+	// 			.filter((item) => new Date() < new Date(datePath(item)))
+	// 			.sort((a, b) => new Date(datePath(a)) - new Date(datePath(b)));
+
+	// 	const eventsFiltered = filterAndSortByDate(
+	// 		eventsState?.data?.events?.nodes?.filter((event) =>
+	// 			event?.events?.thumbnail?.country?.nodes?.some(
+	// 				(node) => node?.slug === slug
+	// 			)
+	// 		),
+	// 		(event) => event.events?.thumbnail?.date
+	// 	);
+
+	// 	const eventsAllSorted = filterAndSortByDate(
+	// 		eventsState?.data?.events?.nodes,
+	// 		(event) => event.events?.thumbnail?.date
+	// 	);
+
+	// 	const eventsList =
+	// 		eventsFiltered?.length > 0 ? eventsFiltered : eventsAllSorted;
+
+	// 	const allwebinars =
+	// 		webinarsState?.data?.webinars?.nodes?.sort(
+	// 			(a, b) =>
+	// 				new Date(b.webinarsFields?.startDateAndTime) -
+	// 				new Date(a.webinarsFields?.startDateAndTime)
+	// 		) || [];
+
+	// 	const webinarsFiltered = filterAndSortByDate(
+	// 		webinarsState?.data?.webinars?.nodes?.filter((webinar) =>
+	// 			webinar?.webinarsFields?.country?.nodes?.some((node) => node?.slug === slug)
+	// 		),
+	// 		(webinar) => webinar.webinarsFields?.startDateAndTime
+	// 	);
+
+	// 	const webinarsAllSorted = filterAndSortByDate(
+	// 		webinarsState?.data?.webinars?.nodes,
+	// 		(webinar) => webinar.webinarsFields?.startDateAndTime
+	// 	);
+
+	// 	let webinarList =
+	// 		webinarsFiltered?.length > 0 ? webinarsFiltered : webinarsAllSorted;
+
+	// 	if (webinarList.length < 3) {
+	// 		webinarList = [...webinarList, ...webinarsAllSorted].filter(
+	// 			(item, index, self) =>
+	// 				index === self.findIndex((t) => t?.title === item?.title)
+	// 		);
+	// 		if (webinarList.length < 3) {
+	// 			webinarList = [...webinarList, ...allwebinars].filter(
+	// 				(item, index, self) =>
+	// 					index === self.findIndex((t) => t?.title === item?.title)
+	// 			);
+	// 		}
+	// 	}
+
+	// 	// events: eventsList.slice(0, 1),
+	// 	// webinars: webinarList.slice(0, 3),
+	// 	setEvents(eventsList.slice(0, 1));
+	// 	setWebinars(webinarList.slice(0, 3));
+	// }, [eventsState, webinarsState]);
+
 	useEffect(() => {
 		// if (eventsList?.length > 0 || webinarList?.length > 0) {
 		// 	return;
