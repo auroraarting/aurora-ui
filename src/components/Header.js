@@ -408,6 +408,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																item?.events?.thumbnail?.externalUrl ||
 																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 															);
+														if (item?.events?.thumbnail?.openExternalInNewTab) {
+															delete hrefObj.onClick;
+															hrefObj.target = "_blank"; // Open in new tab
+															hrefObj.rel = "noopener noreferrer"; // Security best practice
+														}
 													} else {
 														hrefObj.href = `/events/${item?.slug}`;
 													}
@@ -570,6 +575,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																item?.events?.thumbnail?.externalUrl ||
 																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 															);
+														if (item?.events?.thumbnail?.openExternalInNewTab) {
+															delete hrefObj.onClick;
+															hrefObj.target = "_blank"; // Open in new tab
+															hrefObj.rel = "noopener noreferrer"; // Security best practice
+														}
 													} else {
 														hrefObj.href = `/events/${item?.slug}`;
 													}
@@ -732,6 +742,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																item?.events?.thumbnail?.externalUrl ||
 																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 															);
+														if (item?.events?.thumbnail?.openExternalInNewTab) {
+															delete hrefObj.onClick;
+															hrefObj.target = "_blank"; // Open in new tab
+															hrefObj.rel = "noopener noreferrer"; // Security best practice
+														}
 													} else {
 														hrefObj.href = `/events/${item?.slug}`;
 													}
@@ -1034,6 +1049,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																item?.events?.thumbnail?.externalUrl ||
 																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 															);
+														if (item?.events?.thumbnail?.openExternalInNewTab) {
+															delete hrefObj.onClick;
+															hrefObj.target = "_blank"; // Open in new tab
+															hrefObj.rel = "noopener noreferrer"; // Security best practice
+														}
 													} else {
 														hrefObj.href = `/events/${item?.slug}`;
 													}
@@ -1234,6 +1254,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																item?.events?.thumbnail?.externalUrl ||
 																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 															);
+														if (item?.events?.thumbnail?.openExternalInNewTab) {
+															delete hrefObj.onClick;
+															hrefObj.target = "_blank"; // Open in new tab
+															hrefObj.rel = "noopener noreferrer"; // Security best practice
+														}
 													} else {
 														hrefObj.href = `/events/${item?.slug}`;
 													}
@@ -1411,7 +1436,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 								<img src={white_close.src} alt="search" />
 							</button>
 						</div>
-						<GlobalSearch data={defaultNavigation} />
+						<GlobalSearch data={defaultNavigation} setShowSearch={setShowSearch} />
 					</div>
 				</>
 			)}

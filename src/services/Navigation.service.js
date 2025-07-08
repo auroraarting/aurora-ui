@@ -234,6 +234,7 @@ export async function fetchNavigationData() {
       }
       events {
         thumbnail {
+          openExternalInNewTab
           date
           time
           logo {
