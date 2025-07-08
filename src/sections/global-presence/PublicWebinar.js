@@ -50,6 +50,11 @@ export default function PublicWebinar({ events, webinars }) {
 											"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 									);
 								};
+								if (item?.events?.thumbnail?.openExternalInNewTab) {
+									delete hrefObj.onClick;
+									hrefObj.target = "_blank"; // Open in new tab
+									hrefObj.rel = "noopener noreferrer"; // Security best practice
+								}
 							} else {
 								hrefObj.href = `/events/${item?.slug}`;
 							}

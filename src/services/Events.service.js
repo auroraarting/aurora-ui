@@ -13,6 +13,7 @@ query GetEvents {
         interestedDesc
         pricingDesc
         thumbnail {
+          openExternalInNewTab
           address
           date
           endDate
@@ -321,6 +322,7 @@ query GetEventInside {
       interestedDesc
       pricingDesc
       thumbnail {
+        openExternalInNewTab
         address
         date
         endDate
@@ -638,6 +640,7 @@ query GetEventLanding {
               interestedDesc
               pricingDesc
               thumbnail {
+                openExternalInNewTab
                 address
                 date
                 time

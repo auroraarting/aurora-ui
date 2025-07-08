@@ -140,6 +140,12 @@ export async function searchData(searchTerm) {
     nodes {
       title
       slug
+      events{
+         thumbnail {
+        externalUrl
+        openExternalInNewTab
+      }
+      }
     }
   }
   earlyCareers(first: 9999, where: {search: "${searchTerm}"}) {

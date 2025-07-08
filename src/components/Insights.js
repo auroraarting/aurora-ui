@@ -512,6 +512,11 @@ export default function Insights({
 													"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 											);
 										};
+										if (item.openExternalInNewTab) {
+											delete hrefObj.onClick;
+											hrefObj.target = "_blank"; // Open in new tab
+											hrefObj.rel = "noopener noreferrer"; // Security best practice
+										}
 									} else {
 										hrefObj.href = `${defaultPathname(item?.categories?.nodes)}${
 											item?.slug

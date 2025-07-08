@@ -74,6 +74,11 @@ export default function HomeResources({ data, countries, voices }) {
 											item?.externalUrl ||
 												"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 										);
+									if (item?.openExternalInNewTab) {
+										delete hrefObj.onClick;
+										hrefObj.target = "_blank"; // Open in new tab
+										hrefObj.rel = "noopener noreferrer"; // Security best practice
+									}
 								} else {
 									hrefObj.href = item?.link;
 								}
@@ -150,6 +155,11 @@ export default function HomeResources({ data, countries, voices }) {
 												item?.externalUrl ||
 													"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
 											);
+										if (item?.openExternalInNewTab) {
+											delete hrefObj.onClick;
+											hrefObj.target = "_blank"; // Open in new tab
+											hrefObj.rel = "noopener noreferrer"; // Security best practice
+										}
 									} else {
 										hrefObj.href = item?.link;
 									}

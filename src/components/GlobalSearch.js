@@ -21,13 +21,14 @@ import styles from "@/styles/components/GlobalSearch.module.scss";
 // IMAGES //
 import searchIcon from "../../public/img/icons/searchIcon.svg";
 import search_hover from "@/../public/img/icons/search_hover.svg";
+import { OpenIframePopup } from "@/utils";
 
 // SERVICES //
 
 // DATA //
 
 /** GlobalSearch Component */
-export default function GlobalSearch({ data }) {
+export default function GlobalSearch({ data, setShowSearch }) {
 	// STATE //
 	const [searchTerm, setSearchTerm] = useState("");
 	const [results, setResults] = useState(null);
@@ -211,6 +212,7 @@ export default function GlobalSearch({ data }) {
 				};
 			case "events":
 				return {
+					...item,
 					link: `/events/${item.slug}?search=${encodeURIComponent(searchTerm)}`,
 					title: item.title,
 				};
@@ -295,14 +297,44 @@ export default function GlobalSearch({ data }) {
 									const items = Array.isArray(value) ? value : [value];
 									return items.map((item, idx) => {
 										const { link, title } = getLinkAndTitle(key, item);
+										let hrefObj = {};
+
+										if (item?.events) {
+											if (item?.events?.thumbnail?.externalUrl) {
+												// hrefObj.href = item?.events?.thumbnail?.externalUrl;
+												// hrefObj.target = "_blank";
+												// hrefObj.rel = "noreferrer";
+												hrefObj.onClick = () => {
+													setShowSearch(false);
+													OpenIframePopup(
+														"iframePopup",
+														item?.events?.thumbnail?.externalUrl ||
+															"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+													);
+												};
+												if (item?.events?.thumbnail?.openExternalInNewTab) {
+													delete hrefObj.onClick;
+													hrefObj.target = "_blank"; // Open in new tab
+													hrefObj.rel = "noopener noreferrer"; // Security best practice
+												}
+											} else {
+												hrefObj.href = `/events/${item?.slug}`;
+											}
+										} else {
+											hrefObj.href = link;
+											hrefObj.target = "_blank"; // Open in new tab
+											hrefObj.rel = "noopener noreferrer"; // Security best practice
+										}
+
 										return (
 											<div className={styles.title_link} key={`${key}-${idx}`}>
 												<a
 													// href={/projects/${contentObj?.slug}?search=${encodeURIComponent(searchTerm)}}
 													className="text_xs d_f"
-													href={link}
+													// href={link}
 													target="_blank"
 													rel="noreferrer"
+													{...hrefObj}
 												>
 													<h3 className="text_sm">{title}</h3>
 												</a>
