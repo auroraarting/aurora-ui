@@ -550,10 +550,19 @@ export default function WebinarListing({
 				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
 					{!loading &&
 						list.map((item, ind) => {
+							const isLive =
+								new Date(item?.webinarsFields?.startDateAndTime) >= new Date();
 							return (
 								<div className={`${styles.ItemBox}`} key={item?.title + ind}>
 									<Link href={`/resources/webinar/${item?.slug}`}>
 										<div className={`${styles.hoverBox}`}>
+											{isLive && (
+												<p
+													className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
+												>
+													Live
+												</p>
+											)}
 											<img
 												src={hoverBg.src}
 												height="172"
