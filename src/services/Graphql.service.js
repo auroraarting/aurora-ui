@@ -21,13 +21,13 @@ export default async function GraphQLAPI(query, ttl = 86400) {
 	let res;
 	let req;
 	try {
-		req = await fetchWithRetry(`${process.env.API_URL}`, {
+		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
 			next: { revalidate: 1800 },
 		});
-		// res = await req.json();
-		res = req;
+		res = await req.json();
+		// res = req;
 		return res;
 	} catch (error) {
 		// req = await req.text();
