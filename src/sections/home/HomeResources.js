@@ -36,7 +36,7 @@ export default function HomeResources({ data, countries, voices }) {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const CATEGORY_DISPLAY = {
 		"Case Studies": "LATEST CASE STUDY",
-		"Energy Talks": "LATEST PODCAST",
+		"Energy Unplugged": "LATEST PODCAST",
 		Events: "UPcoming EVENT",
 	};
 

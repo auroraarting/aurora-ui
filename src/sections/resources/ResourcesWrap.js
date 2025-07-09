@@ -95,7 +95,9 @@ export default function Resources() {
 											</a>
 										</div>
 										<div className={`${styles.Desc}`}>
-											<h4 className="text_md f_w_m font_primary pb_10">Energy Talks</h4>
+											<h4 className="text_md f_w_m font_primary pb_10">
+												Energy Unplugged
+											</h4>
 											<p className="text_reg color_dark_gray">
 												Podcasts featuring exclusive conversations with industry leaders
 												shaping the future of energy.

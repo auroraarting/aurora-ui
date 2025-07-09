@@ -480,7 +480,7 @@ export default function EnergyListing({
 										autoFocus
 										name="search"
 										type="text"
-										placeholder="Search Energy Talks"
+										placeholder="Search Energy Unplugged"
 										onChange={(e) => setSearchInput(e.target.value)}
 									/>
 								</form>

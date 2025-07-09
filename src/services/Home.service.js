@@ -532,7 +532,7 @@ export const getHomePageVoices = async () => {
 			...item,
 			link: `/resources/energy-unplugged/${item.slug}`,
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
-			cat: "Energy Talks",
+			cat: "Energy Unplugged",
 			categories,
 			date: item?.podcastFields?.date,
 		});

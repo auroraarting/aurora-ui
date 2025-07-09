@@ -57,7 +57,7 @@ export default function EnergyTalksWrap({
 		<div>
 			{/* Metatags */}
 			{/* <MetaTags
-				Title={"Energy Talks"}
+				Title={"Energy unplugged"}
 				Desc={""}
 				OgImg={""}
 				Url={"/energy-unplugged"}
