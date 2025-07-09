@@ -284,7 +284,7 @@ export default function Client({ data, countries }) {
 							</div>
 							<div className={`${styles.ClientDescription}`}>
 								<p className="text_reg font_primary">Energy Unplugged by Aurora</p>
-								<a href="/resources/energy-talks" className={`${styles.btn_box} `}>
+								<a href="/resources/energy-unplugged" className={`${styles.btn_box} `}>
 									<Button color="secondary" variant="underline">
 										View all podcasts
 									</Button>

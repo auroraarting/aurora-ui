@@ -992,11 +992,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 													<Link
-														href="/resources/energy-talks"
+														href="/resources/energy-unplugged"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
-														<span>Energy Talks</span>{" "}
+														<span>Energy Unplugged</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
 													<Link

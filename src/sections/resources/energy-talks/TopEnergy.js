@@ -36,7 +36,7 @@ export default function TopEnergy({ data }) {
 		<section className={`${styles.TopEnergy}`}>
 			<div className="container">
 				<Link
-					href={`/resources/energy-talks/${data?.slug}`}
+					href={`/resources/energy-unplugged/${data?.slug}`}
 					className={`${styles.card} f_w_j`}
 				>
 					<div className={`${styles.content}`}>
