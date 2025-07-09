@@ -88,7 +88,7 @@ export default function Resources() {
 									</div>
 									<div className={`${styles.linksItem}`}>
 										<div className={`${styles.arrowLinks}`}>
-											<a href="/resources/energy-talks">
+											<a href="/resources/energy-unplugged">
 												<span>
 													<img src={dropdown_arrow.src} alt="icon" />
 												</span>

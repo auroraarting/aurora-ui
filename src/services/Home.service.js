@@ -530,7 +530,7 @@ export const getHomePageVoices = async () => {
 		});
 		arr.push({
 			...item,
-			link: `/resources/energy-talks/${item.slug}`,
+			link: `/resources/energy-unplugged/${item.slug}`,
 			thumb: item?.featuredImage?.node?.mediaItemUrl,
 			cat: "Energy Talks",
 			categories,

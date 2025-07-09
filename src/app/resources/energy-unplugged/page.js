@@ -89,7 +89,7 @@ export default async function EnergyTalks() {
 				Title={"Energy Talks"}
 				Desc={""}
 				OgImg={""}
-				Url={"/energy-talks"}
+				Url={"/energy-unplugged"}
 			/> */}
 
 			{/* Header */}

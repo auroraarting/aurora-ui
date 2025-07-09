@@ -513,7 +513,7 @@ export default function EnergyListing({
 							return (
 								<div className={`${styles.ItemBox} gridItem`} key={item?.title + ind}>
 									<Link
-										href={`/resources/energy-talks/${item?.slug}`}
+										href={`/resources/energy-unplugged/${item?.slug}`}
 										className={`${styles.itemInside}`}
 									>
 										<div className={`${styles.hoverBox}`}>

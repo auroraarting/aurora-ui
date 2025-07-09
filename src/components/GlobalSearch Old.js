@@ -124,7 +124,7 @@ export default function GlobalSearch() {
 				case "event-landing":
 					return "/events";
 				case "energy-talks-listing":
-					return "/resources/energy-talks";
+					return "/resources/energy-unplugged";
 				case "insight-listing":
 					return "/resources/aurora-insights";
 				case "webinar-listing":
@@ -219,9 +219,9 @@ export default function GlobalSearch() {
 				};
 			case "podcasts":
 				return {
-					link: `/resources/energy-talks/${item?.slug}?search=${encodeURIComponent(
-						searchTerm
-					)}`,
+					link: `/resources/energy-unplugged/${
+						item?.slug
+					}?search=${encodeURIComponent(searchTerm)}`,
 					title: item.title,
 				};
 

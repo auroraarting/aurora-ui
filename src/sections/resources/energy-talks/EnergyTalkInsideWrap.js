@@ -66,7 +66,7 @@ export default function EnergyTalkInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/energy-talks/${data?.slug}`}
+				Url={`/energy-unplugged/${data?.slug}`}
 			/> */}
 
 			{/* Header */}
@@ -165,7 +165,7 @@ export default function EnergyTalkInsideWrap({
 						countries={countries}
 						formSectionTitle="Subscribe to our podcast on your favourite streaming platform and never miss an episode!"
 						insightsTitle="Previous Podcasts"
-						insightsLink="/resources/energy-talks/"
+						insightsLink="/resources/energy-unplugged/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 						customHtml={
 							<div className={`${styles.downloadListen} downloadListen`}>

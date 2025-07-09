@@ -60,7 +60,7 @@ export default function EnergyTalksWrap({
 				Title={"Energy Talks"}
 				Desc={""}
 				OgImg={""}
-				Url={"/energy-talks"}
+				Url={"/energy-unplugged"}
 			/> */}
 
 			{/* Header */}

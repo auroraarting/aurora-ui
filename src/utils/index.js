@@ -1358,7 +1358,7 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 			case "event-landing":
 				return "/events";
 			case "energy-talks-listing":
-				return "/resources/energy-talks";
+				return "/resources/energy-unplugged";
 			case "insight-listing":
 				return "/resources/aurora-insights";
 			case "webinar-listing":
@@ -1453,7 +1453,7 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 			};
 		case "podcasts":
 			return {
-				link: `/resources/energy-talks/${item?.slug}${searchQuery}`,
+				link: `/resources/energy-unplugged/${item?.slug}${searchQuery}`,
 				title: item.title,
 			};
 		case "howwehelp":

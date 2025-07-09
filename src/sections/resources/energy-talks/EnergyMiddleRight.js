@@ -166,7 +166,7 @@ export default function EnergyMiddleRight({ data, events }) {
 						{events?.map((item, ind) => {
 							return (
 								<a
-									href={`/resources/energy-talks/${item.slug}`}
+									href={`/resources/energy-unplugged/${item.slug}`}
 									className={`${styles.ClientFlex}`}
 									key={item?.title}
 								>
