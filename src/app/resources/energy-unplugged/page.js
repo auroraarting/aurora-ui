@@ -86,7 +86,7 @@ export default async function EnergyTalks() {
 		<div>
 			{/* Metatags */}
 			{/* <MetaTags
-				Title={"Energy Talks"}
+				Title={"Energy Unplugged"}
 				Desc={""}
 				OgImg={""}
 				Url={"/energy-unplugged"}
