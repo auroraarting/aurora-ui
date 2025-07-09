@@ -23,35 +23,6 @@ query GetWebinarListing {
           }
         }
       }
-      featured(first: 9999) {
-        nodes {
-          ... on Podcast {
-            title
-      slug
-      date
-      content
-      podcastFields {
-        time
-        date
-        country(first: 9999) {
-          nodes {
-            ... on Country {
-              id
-              title
-              slug
-            }
-          }
-        }
-      }
-      featuredImage {
-        node {
-          altText
-          mediaItemUrl
-        }
-      }
-          }
-        }
-      }
     }
   }
 }
