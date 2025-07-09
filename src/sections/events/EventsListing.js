@@ -546,10 +546,19 @@ export default function EventsListing({
 							hrefObj.href = `/events/${item?.slug}`;
 						}
 
+						const isLive = new Date(item?.events?.thumbnail?.date) >= new Date();
+
 						return (
 							<div className={`${styles.ItemBox}`} key={item?.title}>
 								<Link {...hrefObj}>
 									<div className={`${styles.hoverBox}`}>
+										{isLive && (
+											<p
+												className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
+											>
+												Live
+											</p>
+										)}
 										<img
 											src={hoverBg.src}
 											className={`${styles.hoverBg} width_100 b_r_10`}
@@ -560,11 +569,13 @@ export default function EventsListing({
 											className={`${styles.productLogo} `}
 											alt="Events Logo"
 										/>
-										<p
-											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
-										>
-											{item?.eventscategories?.nodes?.map((item2) => item2.name)}
-										</p>
+										{item?.eventscategories?.nodes?.length > 0 && (
+											<p
+												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
+											>
+												{item?.eventscategories?.nodes?.map((item2) => item2.name)}
+											</p>
+										)}
 										<p
 											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
 										>

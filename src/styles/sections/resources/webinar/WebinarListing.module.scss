@@ -1,5 +1,30 @@
 @import "../../../helpers/helpers.scss";
 .WebinarListing {
+	.liveTag {
+		// position: absolute;
+		// top: 20px;
+		// left: 20px;
+		padding-left: 10px;
+		background-color: var(--color_primary);
+		border-radius: 8px;
+		padding: 10px 20px;
+		width: max-content;
+		margin-bottom: 20px;
+		position: relative;
+
+		&::before {
+			content: " ";
+			position: absolute;
+			left: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 4px;
+			height: 4px;
+			background-color: var(--color_secondary);
+			border-radius: 50%;
+		}
+	}
+
 	:global(.maxWidth) {
 		@include sm-down {
 			width: 100% !important;
