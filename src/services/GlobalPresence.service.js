@@ -148,7 +148,7 @@ export const getCountryInside = async (slug) => {
 	const query = `
 query GetCountryInside {
   countryBy(slug: "${decodeURIComponent(slug)}") {
-  translations {
+    translations {
       slug
       title
     }
@@ -266,7 +266,6 @@ query GetCountryInside {
         }
       }
       eventsAndWebinars {
-        sectionTitle
         tabTitle
       }
       insights {
@@ -292,16 +291,6 @@ query GetCountryInside {
           }
         }
       }
-      subscribeSection {
-        description
-        sectionTitle
-        image {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
       map {
         zoom
         countryPin {
@@ -309,7 +298,7 @@ query GetCountryInside {
           lng
         }
         markers {
-         customDesc
+          customDesc
           mapThumbnail {
             node {
               altText
@@ -330,12 +319,12 @@ query GetCountryInside {
                 content
                 services {
                   map {
-                     headerLogo{
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
+                    headerLogo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                     logo {
                       node {
                         altText
@@ -352,12 +341,12 @@ query GetCountryInside {
                 content
                 softwares {
                   map {
-                     headerLogo{
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
+                    headerLogo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                     logo {
                       node {
                         altText
@@ -374,12 +363,12 @@ query GetCountryInside {
                 content
                 products {
                   map {
-                     headerLogo{
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
+                    headerLogo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                     logo {
                       node {
                         altText

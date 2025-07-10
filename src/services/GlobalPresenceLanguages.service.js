@@ -255,7 +255,6 @@ query GetCountryInsideByTranslation {
         }
       }
       eventsAndWebinars {
-        sectionTitle
         tabTitle
       }
       insights {
@@ -281,16 +280,6 @@ query GetCountryInsideByTranslation {
           }
         }
       }
-      subscribeSection {
-        description
-        sectionTitle
-        image {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
       map {
         zoom
         countryPin {
@@ -298,7 +287,7 @@ query GetCountryInsideByTranslation {
           lng
         }
         markers {
-         customDesc
+          customDesc
           mapThumbnail {
             node {
               altText
@@ -319,12 +308,12 @@ query GetCountryInsideByTranslation {
                 content
                 services {
                   map {
-                     headerLogo{
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
+                    headerLogo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                     logo {
                       node {
                         altText
@@ -341,12 +330,12 @@ query GetCountryInsideByTranslation {
                 content
                 softwares {
                   map {
-                     headerLogo{
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
+                    headerLogo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                     logo {
                       node {
                         altText
@@ -363,12 +352,12 @@ query GetCountryInsideByTranslation {
                 content
                 products {
                   map {
-                     headerLogo{
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
+                    headerLogo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                     logo {
                       node {
                         altText
