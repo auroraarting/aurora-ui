@@ -47,8 +47,8 @@ export default function SoftwareMarket({
 	let centerOfCountry = () => {
 		if (mapJson) {
 			return {
-				lat: parseFloat(mapJson.countryPin.lat),
-				lng: parseFloat(mapJson.countryPin.lng),
+				lat: parseFloat(mapJson?.countryPin?.lat),
+				lng: parseFloat(mapJson?.countryPin?.lng),
 			};
 		}
 	};

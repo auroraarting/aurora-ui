@@ -3,7 +3,7 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
+// export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -31,7 +31,10 @@ import {
 	getCountryInside,
 	getRegions,
 } from "@/services/GlobalPresence.service";
-import { getCountryInside as getCountryInsideWithLanguages } from "@/services/GlobalPresenceLanguages.service";
+import {
+	getAllLanguages,
+	getCountryInside as getCountryInsideWithLanguages,
+} from "@/services/GlobalPresenceLanguages.service";
 import {
 	getInsights,
 	getInsightsCategories,
@@ -65,9 +68,20 @@ export const revalidate = 1800; // Revalidates every 60 seconds
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const countries = await getCountries();
-	return countries?.data?.countries?.nodes?.map((item) => ({
-		slug: item?.slug || "india",
-	}));
+	const languages = await getAllLanguages();
+	const staticParams = [];
+
+	countries?.data?.countries?.nodes?.map((country) => {
+		const slug = country?.slug || "india";
+
+		languages?.data?.languages?.nodes?.forEach((lang) => {
+			const language = lang?.code || "en";
+
+			staticParams.push({ slug, language });
+		});
+	});
+
+	return staticParams;
 }
 
 /** Fetch  */
@@ -92,7 +106,8 @@ async function getData({ params, query }) {
 		// isJapanese
 		// 	? getCountryInsideWithLanguages(params.slug)
 		// 	: getCountryInside(params.slug),
-		getCountryInside(params.slug),
+		// getCountryInside(params.slug),
+		getCountryInsideWithLanguages(params.slug),
 		getPageSeo(`countryBy(slug: "${params.slug}")`),
 	]);
 
@@ -102,8 +117,12 @@ async function getData({ params, query }) {
 	// 			translations: [{ slug: "jp", title: "Japan" }],
 	// 	  }
 	// 	: countryData?.data?.countryBy;
+	const countryBy =
+		countryData?.data?.countryBy?.translations?.filter(
+			(countryItem) => countryItem.languageCode === language
+		)[0] || countryData?.data?.countryBy;
 
-	const countryBy = countryData?.data?.countryBy;
+	// const countryBy = countryData?.data?.countryBy;
 	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
@@ -128,8 +147,8 @@ async function getData({ params, query }) {
 
 /** Australia Page */
 export default async function Australia({ params, searchParams }) {
-	const { slug } = await params;
-	const query = await searchParams;
+	const { slug, language } = await params;
+	const query = { language };
 	const { props } = await getData({ params: { slug }, query });
 
 	return (
