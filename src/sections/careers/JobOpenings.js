@@ -419,7 +419,8 @@ export default function JobOpenings({
 							{filterdJob?.length === 0 && (
 								<tr>
 									<td className="text_md font_primary color_white f_w_m">
-										No openings as per current filters and search. Please reset filters.
+										There are currently no opportunities based on your filters. Please try
+										again, or register your interest.
 									</td>
 								</tr>
 							)}
