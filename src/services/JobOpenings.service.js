@@ -15,7 +15,6 @@ export async function getFetchJobData() {
 		const json = await res.json();
 		const locationsJson = await locationsRes.json();
 
-		console.log(locationsJson, "locationsJson");
 		const tempCountries = [
 			...new Set(
 				// json.data.map(
