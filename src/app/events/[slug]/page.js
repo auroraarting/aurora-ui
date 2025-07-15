@@ -143,15 +143,15 @@ async function getData({ slug }) {
 	});
 
 	let isUpcoming =
-		new Date(data?.data?.eventBy.events?.thumbnail?.date) >= todaysDate
+		new Date(data?.data?.eventBy?.events?.thumbnail?.date) >= todaysDate
 			? "Upcoming"
 			: "Past";
 
 	const dataFromAPI = {
 		...data?.data?.eventBy,
 		events: {
-			...data?.data?.eventBy.events,
-			thumbnail: { ...data?.data?.eventBy.events.thumbnail, status: isUpcoming },
+			...data?.data?.eventBy?.events,
+			thumbnail: { ...data?.data?.eventBy?.events?.thumbnail, status: isUpcoming },
 		},
 	};
 
@@ -169,7 +169,8 @@ async function getData({ slug }) {
 				events?.data?.events?.nodes
 					?.filter(
 						(item) =>
-							new Date() < new Date(item.events?.thumbnail?.date) && item.slug !== slug
+							new Date() < new Date(item?.events?.thumbnail?.date) &&
+							item.slug !== slug
 					)
 					?.sort(
 						(a, b) =>
