@@ -57,9 +57,7 @@ export const revalidate = 60; // Revalidates every 60 seconds
 /** Fetch */
 async function getData() {
 	const [data, filters, languages, page] = await Promise.all([
-		await getInsights(
-			'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
-		),
+		await getInsights('first: 9999, where: {categoryName: "media"}'),
 		await getAllEventCountries(),
 		await getPressesLanguages(),
 		await getPressPage(),
