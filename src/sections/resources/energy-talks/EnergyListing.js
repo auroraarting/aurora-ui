@@ -63,6 +63,7 @@ export default function EnergyListing({
 	});
 	const [paginationArr, setPaginationArr] = useState(data);
 	const [searchInput, setSearchInput] = useState(null);
+	console.log(list, "list");
 	/** Debounced search when typing */
 	useEffect(() => {
 		const delay = setTimeout(() => {

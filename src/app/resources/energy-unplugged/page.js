@@ -66,7 +66,10 @@ async function getData() {
 	return {
 		props: {
 			pagination: data.data?.posts?.pageInfo || {},
-			data: data?.data?.podcasts?.nodes || [],
+			data:
+				data?.data?.podcasts?.nodes?.sort(
+					(a, b) => new Date(b.podcastFields.date) - new Date(a.podcastFields.date)
+				) || [],
 			tags: categoriesForSelect.data.tags.nodes,
 			categories: categoriesForSelect.data.categories.nodes,
 			countries: categoriesForSelect.data.countries.nodes,
