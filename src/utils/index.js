@@ -714,7 +714,7 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 
 		// Year
 		const matchYear = selected.year
-			? new Date(date).getFullYear() === selected.year
+			? new Date(podcast?.podcastFields?.date).getFullYear() === selected.year
 			: true;
 
 		// 3. Status
