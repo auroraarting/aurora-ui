@@ -69,7 +69,7 @@ async function getData({ slug }) {
 	const [data, events, categoriesForSelect, list, socialLinksFetch] =
 		await Promise.all([
 			getPodcastInside(slug),
-			getPodcasts("first: 1"),
+			getPodcasts(),
 			getInsightsCategories(),
 			getPodcasts(),
 			getEnergyTalksPageSocialLinks(),
@@ -91,9 +91,13 @@ async function getData({ slug }) {
 		props: {
 			data: data.data.podcastBy,
 			events:
-				events?.data?.podcasts?.nodes?.filter(
-					(item) => item?.slug !== data?.data?.podcastBy?.slug
-				) || [],
+				events?.data?.podcasts?.nodes
+					?.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
+					?.sort(
+						(a, b) =>
+							new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date)
+					)
+					.slice(0, 1) || [],
 			countries: categoriesForSelect.data.countries.nodes,
 			otherList: otherList?.map((item) => {
 				return {
