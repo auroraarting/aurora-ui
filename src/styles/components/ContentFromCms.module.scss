@@ -1,6 +1,9 @@
 @import "../helpers/helpers.scss";
 
 .contentFromCms {
+	sup {
+		font-size: 10px;
+	}
 	a {
 		// color: #0070f3;
 		color: var(--color_secondary);
