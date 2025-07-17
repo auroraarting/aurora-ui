@@ -61,9 +61,11 @@ export default function Client({ data, countries }) {
 	const handleAuthorClick = (slideNo) => {
 		setSelectedAuthor(slideNo);
 
-		if (sliderRef.current?.swiper) {
-			sliderRef.current.swiper.slideTo(slideNo);
-		}
+		setTimeout(() => {
+			if (sliderRef.current?.swiper) {
+				sliderRef.current.swiper.slideTo(slideNo);
+			}
+		}, 500);
 	};
 
 	/** handleClosePopup Function */
@@ -321,10 +323,10 @@ export default function Client({ data, countries }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
-										autoplay={{
-											delay: 3000,
-											disableOnInteraction: false,
-										}}
+										// autoplay={{
+										// 	delay: 3000,
+										// 	disableOnInteraction: false,
+										// }}
 									>
 										{data?.postFields?.authors?.nodes?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
@@ -430,10 +432,10 @@ export default function Client({ data, countries }) {
 																		},
 																	}}
 																	className={styles.sliderLeaders}
-																	autoplay={{
-																		delay: 3000,
-																		disableOnInteraction: false,
-																	}}
+																	// autoplay={{
+																	// 	delay: 3000,
+																	// 	disableOnInteraction: false,
+																	// }}
 																>
 																	{item?.postAuthors?.articles?.articlesby?.nodes?.map(
 																		(blogData, index) => (

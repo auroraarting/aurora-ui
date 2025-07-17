@@ -129,7 +129,10 @@ export default function Speakers({ data, title, desc }) {
 							{openPop1 && (
 								<div data-lenis-prevent>
 									<Swiper
-										modules={[Navigation, Autoplay]}
+										modules={[
+											Navigation,
+											// Autoplay
+										]}
 										slidesPerView={1}
 										spaceBetween={15}
 										grabCursor={true}
@@ -142,10 +145,10 @@ export default function Speakers({ data, title, desc }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
-										autoplay={{
-											delay: 3000,
-											disableOnInteraction: false,
-										}}
+										// autoplay={{
+										// 	delay: 3000,
+										// 	disableOnInteraction: false,
+										// }}
 									>
 										{eventSpeakersData?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>

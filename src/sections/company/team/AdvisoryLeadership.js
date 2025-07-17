@@ -143,10 +143,10 @@ export default function AdvisoryLeadership({ data, countries }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
-										autoplay={{
-											delay: 3000,
-											disableOnInteraction: false,
-										}}
+										// autoplay={{
+										// 	delay: 3000,
+										// 	disableOnInteraction: false,
+										// }}
 									>
 										{list?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
@@ -228,10 +228,10 @@ export default function AdvisoryLeadership({ data, countries }) {
 																		},
 																	}}
 																	className={styles.sliderLeaders}
-																	autoplay={{
-																		delay: 3000,
-																		disableOnInteraction: false,
-																	}}
+																	// autoplay={{
+																	// 	delay: 3000,
+																	// 	disableOnInteraction: false,
+																	// }}
 																>
 																	{item?.teams?.articles?.articlesby?.nodes?.map(
 																		(blogData, index) => (
