@@ -164,10 +164,10 @@ export default function Leaders({ data }) {
 								prevEl: "#customPrevCollaboration",
 								nextEl: "#customNextCollaboration",
 							}}
-							autoplay={{
-								delay: 3000,
-								disableOnInteraction: false,
-							}}
+							// autoplay={{
+							// 	delay: 3000,
+							// 	disableOnInteraction: false,
+							// }}
 							breakpoints={{
 								768: {
 									slidesPerView: 3,
@@ -253,10 +253,10 @@ export default function Leaders({ data }) {
 										}}
 										className={styles.slider}
 										ref={sliderRef}
-										autoplay={{
-											delay: 3000,
-											disableOnInteraction: false,
-										}}
+										// autoplay={{
+										// 	delay: 3000,
+										// 	disableOnInteraction: false,
+										// }}
 									>
 										{list?.map((item, ind) => (
 											<SwiperSlide className={`${styles.item}`} key={ind}>
@@ -335,10 +335,10 @@ export default function Leaders({ data }) {
 																		},
 																	}}
 																	className={styles.sliderLeaders}
-																	autoplay={{
-																		delay: 3000,
-																		disableOnInteraction: false,
-																	}}
+																	// autoplay={{
+																	// 	delay: 3000,
+																	// 	disableOnInteraction: false,
+																	// }}
 																>
 																	{item?.blogData?.map((blogData, index) => (
 																		<SwiperSlide key={index}>
