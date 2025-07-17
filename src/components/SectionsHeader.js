@@ -52,12 +52,17 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	useEffect(() => {
 		const winH = window.innerWidth;
 		const getAllSections = document.querySelectorAll("section[id][data-name]");
-		const sections = [...getAllSections].map((section) => {
+		const sectionsArray = [...getAllSections].map((section) => {
 			return {
 				id: "#" + section.id,
 				name: section.dataset.name,
 			};
 		});
+		// Deduplicate based on `id`
+		const sections = Array.from(
+			new Map(sectionsArray.map((item) => [item.id, item])).values()
+		);
+
 		if (customHtml) {
 			if (winH > 992) {
 				sections.push(customHtml);
@@ -150,7 +155,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 						{sectionsList?.map((item, ind) => {
 							return (
 								<div
-									key={ind}
+									key={item?.id}
 									className={`${styles.box} ${styles.onlyText} ${
 										activeTab >= ind ? `${styles.activeTxt}` : ""
 									} text_xs text_uppercase`}
