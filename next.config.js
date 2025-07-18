@@ -3621,6 +3621,31 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/products/flexible-energy-service",
+				destination: "/products/flexible-energy",
+				permanent: true,
+			},
+			{
+				source: "/products/hydrogen-service",
+				destination: "/products/hydrogen",
+				permanent: true,
+			},
+			{
+				source: "/products/power-renewables-service",
+				destination: "/products/power-renewables",
+				permanent: true,
+			},
+			{
+				source: "/products/lumus-ppa-valuations-software",
+				destination: "/software/lumus",
+				permanent: true,
+			},
+			{
+				source: "/products/grid-add-on",
+				destination: "/products/grid",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
