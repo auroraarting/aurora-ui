@@ -101,7 +101,7 @@ export default function PoliciesAndCompliance() {
 							<h2>Whistleblowing Policy</h2>
 							<p>
 								<a
-									href="/img/pdf/Whistleblowing-Policy-FINAL-April-2025.pdf"
+									href="/pdf/Whistleblowing-Policy-FINAL-April-2025-1.pdf"
 									target="_blank"
 									rel="noreferrer"
 								>
