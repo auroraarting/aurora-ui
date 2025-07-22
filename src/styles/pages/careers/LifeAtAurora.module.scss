@@ -36,5 +36,10 @@
 	}
 	:global(.contentFlex) {
 		background-color: var(--color_blue) !important;
+		button {
+			p {
+				text-transform: none !important;
+			}
+		}
 	}
 }

@@ -216,6 +216,7 @@ query GetAbout {
           }
         }
         buttonText
+        buttonLink
       }
     }
   }

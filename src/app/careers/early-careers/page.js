@@ -74,6 +74,7 @@ export default async function EarlyCareers() {
 			getInsightsCategories(),
 			getOffices(),
 		]);
+	console.log(dataFetch, "dataFetch");
 
 	return (
 		<div>

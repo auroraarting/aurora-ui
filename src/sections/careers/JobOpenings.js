@@ -30,9 +30,10 @@ export default function JobOpenings({
 	hideRedirect = false,
 	defaultSelected,
 }) {
+	console.log(data, "data");
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
-	const [jobs, setJobs] = useState(data.jobs.data);
-	const [filterdJob, setFilterdJob] = useState(data.jobs.data);
+	const [jobs, setJobs] = useState(data?.jobs?.data);
+	const [filterdJob, setFilterdJob] = useState(data?.jobs?.data);
 	const [filters, setFilters] = useState({
 		countries: data.countries,
 		departments: data.departments,
@@ -42,7 +43,7 @@ export default function JobOpenings({
 		offeringsType: { isOpen: false, selected: { title: defaultSelected || "" } },
 		search: { isOpen: false, selected: { title: "" } },
 	});
-	const [paginationArr, setPaginationArr] = useState(data.jobs.data);
+	const [paginationArr, setPaginationArr] = useState(data?.jobs?.data);
 	const [searchInput, setSearchInput] = useState(null);
 	/** Debounced search when typing */
 	useEffect(() => {
@@ -286,7 +287,7 @@ export default function JobOpenings({
 												<div
 													className={`${styles.select_header_wapper} "activeDropDown"`}
 													onClick={() => {
-														setPaginationArr(data.jobs.data);
+														setPaginationArr(data?.jobs?.data);
 														setDropdowns({
 															eventNameType: { isOpen: false, selected: { title: "" } },
 															offeringsType: { isOpen: false, selected: { title: "" } },
