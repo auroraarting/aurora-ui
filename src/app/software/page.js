@@ -62,7 +62,7 @@ async function getData() {
 			await getSoftwarePage(),
 			await getRegions(),
 			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 			),
 			await getInsightsCategories(),
 			await getBundlesSection(),

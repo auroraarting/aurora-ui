@@ -63,11 +63,11 @@ async function getData() {
 	// 	getInsightsPage(),
 	// ]);
 	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 	);
 	const categoriesForSelect = await getInsightsCategories();
 	const list = await getInsights(
-		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 	);
 	const insightsPage = await getInsightsPage();
 	const otherList = list?.data?.posts?.nodes;

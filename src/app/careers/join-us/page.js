@@ -57,7 +57,7 @@ export default async function JoinUs() {
 		await getFetchJobData(),
 		await getInsightsCategories(),
 		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 		),
 		await getJoinUsPage(),
 	]);

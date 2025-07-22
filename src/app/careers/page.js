@@ -46,7 +46,7 @@ export default async function Careers() {
 	const [categoriesForSelect, list] = await Promise.all([
 		await getInsightsCategories(),
 		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 		),
 	]);
 	const otherList = list?.data?.posts?.nodes;

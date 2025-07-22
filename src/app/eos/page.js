@@ -61,7 +61,7 @@ export default async function EOSPage() {
 			getBundlesSection(),
 			getInsightsCategories(),
 			getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 			),
 		]);
 	const mapJson = getMapJsonForAllRegions(regions);

@@ -498,6 +498,7 @@ export const allCategories = [
 	{ title: "Media", alternate: "Media" },
 	{ title: "Policy Notes", alternate: "Policy Notes" },
 	{ title: "Newsletters", alternate: "Newsletters" },
+	{ title: "New Launches", alternate: "New Launches" },
 ];
 
 /** findFunc  */
@@ -530,6 +531,9 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				if (item.title === "Newsletters") {
 					item.title = "Newsletter";
 				}
+				if (item.title === "New Launches") {
+					item.title = "New Launch";
+				}
 			} else {
 				if (item.title === "Case Study") {
 					item.title = "Case Studies";
@@ -545,6 +549,9 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				}
 				if (item.title === "Newsletter") {
 					item.title = "Newsletters";
+				}
+				if (item.title === "New Launch") {
+					item.title = "New Launches";
 				}
 			}
 

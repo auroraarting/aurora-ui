@@ -124,7 +124,7 @@ export async function searchData(searchTerm) {
       }
     }
   }
-  posts(first: 9999,where: {search: "${searchTerm}", categoryName: "case-studies,commentary,market-reports,media,policy-notes,newsletters"}) {
+  posts(first: 9999,where: {search: "${searchTerm}", categoryName: "case-studies,commentary,market-reports,media,policy-notes,newsletters,new-launches"}) {
     nodes {
       title
       slug
