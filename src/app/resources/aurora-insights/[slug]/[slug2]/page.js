@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -31,7 +31,7 @@ import {
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-// export const revalidate = 1800; // Revalidates every 60 seconds
+export const revalidate = 1800; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -60,14 +60,14 @@ export async function generateMetadata({ params }) {
 }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const data = await getInsights(
-// 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
-// 	);
-// 	return data?.data?.posts?.nodes.map((item) => ({
-// 		slug: item.slug,
-// 	}));
-// }
+export async function generateStaticParams() {
+	const data = await getInsights(
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+	);
+	return data?.data?.posts?.nodes.map((item) => ({
+		slug: item.slug,
+	}));
+}
 
 /** Fetch  */
 async function getData({ params }) {
