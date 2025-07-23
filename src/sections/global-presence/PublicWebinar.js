@@ -17,24 +17,27 @@ import styles from "@/styles/sections/global-presence/PublicWebinar.module.scss"
 // IMAGES //
 import location from "../../../public/img/icons/location.svg";
 import calender from "../../../public/img/icons/calender.svg";
-import formatDate, { OpenIframePopup } from "@/utils";
+import formatDate, { OpenIframePopup, slugify } from "@/utils";
 import Link from "next/link";
 
 // DATA //
 
 /** PublicWebinar Section */
-export default function PublicWebinar({ events, webinars }) {
+export default function PublicWebinar({
+	events,
+	webinars,
+	sectionTitle,
+	sectionid,
+}) {
 	return (
 		<section
 			className={`${styles.PublicWebinar}`}
-			id="events-webinars"
-			data-name="Events & Webinars"
+			id={"events-webinars"}
+			data-name={sectionid || "Events & Webinars"}
 		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_30`}>
-					<h2 className="text_xl font_primary color_secondary">
-						All voices, all markets
-					</h2>
+					<h2 className="text_xl font_primary color_secondary">{sectionTitle}</h2>
 				</div>
 				<div className={`${styles.publicFlex} f_w_j`}>
 					<div className={`${styles.publicRight}`}>

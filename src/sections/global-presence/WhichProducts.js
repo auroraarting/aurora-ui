@@ -12,6 +12,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // PLUGINS //
 
 // UTILS //
+import { slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/global-presence/WhichProducts.module.scss";
@@ -25,7 +26,7 @@ import valuation from "../../../public/img/global-presence/valuation.svg";
 // DATA //
 
 /** WhichProducts Section */
-export default function WhichProducts({ data }) {
+export default function WhichProducts({ data, section }) {
 	const [accordianArr, setAccordianArr] = useState();
 
 	/** getAllData  */
@@ -121,13 +122,13 @@ export default function WhichProducts({ data }) {
 	return (
 		<section
 			className={`${styles.WhichProducts}`}
-			id="products-services"
-			data-name="Products & Services"
+			id={section?.tabTitle ? slugify(section?.tabTitle) : "products-services"}
+			data-name={section?.tabTitle || "Products & Services"}
 		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_20`}>
 					<h2 className="text_xl font_primary color_secondary">
-						Our fleet of products
+						{section?.sectionTitle || "Our fleet of products"}
 					</h2>
 				</div>
 				<div className={`${styles.common_queries_faq}`}>

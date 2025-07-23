@@ -153,8 +153,9 @@ query GetCountryInside {
       title
     }
     slug
-    title
-    countries {
+      title
+      languageCode
+      countries {
       hideonglobalpresence
       bannerSection {
         description
@@ -451,12 +452,12 @@ query GetCountryInside {
         }
       }
     }
-    featuredImage {
-      node {
-        altText
-        mediaItemUrl
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
       }
-    }
   }
 }
     `;

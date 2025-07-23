@@ -117,10 +117,18 @@ async function getData({ params, query }) {
 	// 			translations: [{ slug: "jp", title: "Japan" }],
 	// 	  }
 	// 	: countryData?.data?.countryBy;
-	const countryBy =
+	let countryBy =
 		countryData?.data?.countryBy?.translations?.filter(
 			(countryItem) => countryItem.languageCode === language
 		)[0] || countryData?.data?.countryBy;
+
+	countryBy.countries.availableRegions.team.nodes =
+		countryBy.countries.availableRegions.team.nodes.map((item) => ({
+			...item,
+			...item.translations?.[0],
+		}));
+	// countryBy.countries.map.markers = countryBy.countries.map.markers;
+	console.log(countryBy, "countryBy");
 
 	// const countryBy = countryData?.data?.countryBy;
 	const seo = meta?.data?.countryBy?.seo;

@@ -450,7 +450,342 @@ query GetCountryInsideByTranslation {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const query2 = `
+  query GetCountryInsideByTranslation {
+  countryBy(slug: "japan") {
+    translations {
+      slug
+      title
+      languageCode
+      countries {
+        hideonglobalpresence
+        bannerSection {
+          description
+          title
+          videoLink
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          mobileImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        announcement {
+          slide {
+            thumbnailImage {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            videoLink
+            heading
+            description
+            buttonText
+            buttonLink
+          }
+        }
+        introduction {
+          sectionTitle
+          tabTitle
+          description
+        }
+        ourOfferings {
+          sectionTitle
+          tabTitle
+        }
+        keyAdvantages {
+          title
+          tabTitle
+          description
+          advantages {
+            icon {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            advantagesTitle
+            advantagesDescription
+          }
+        }
+        availableRegions {
+          sectionTitle
+          tabTitle
+          team(first: 9999) {
+            nodes {
+              ... on Team {
+                id
+                translations {
+                  title
+                  languageCode
+                  teams {
+                    thumbnail {
+                      designation
+                      linkedinLink
+                      image {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        ourClients {
+          sectionTitle
+          tabTitle
+          selectLogos(first: 999) {
+            nodes {
+              ... on ClientsLogo {
+                id
+                featuredImage {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+          testimonials(first: 999) {
+            nodes {
+              ... on Testimonial {
+                id
+                translations {
+                  title
+                  content
+                  languageCode
+                  testimonials {
+                    designation
+                  }
+                }
+              }
+            }
+          }
+        }
+        eventsAndWebinars {
+          tabTitle
+        }
+        insights {
+          sectionTitle
+          sectionDesc
+          list(first: 999) {
+            nodes {
+              ... on Post {
+                id
+                translations {
+                  date
+                  title
+                  slug
+                  languageCode
+                  categories(first: 999) {
+                    nodes {
+                      name
+                      slug
+                    }
+                  }
+                  postFields {
+                    time
+                  }
+                }
+              }
+            }
+          }
+        }
+        map {
+          zoom
+          countryPin {
+            lat
+            lng
+          }
+          markers {
+            customDesc
+            mapThumbnail {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            category(first: 999) {
+              nodes {
+                contentType {
+                  node {
+                    name
+                  }
+                }
+                ... on Service {
+                  id
+                  translations {
+                    slug
+                    title
+                    content
+                    services {
+                      map {
+                        headerLogo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        logo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on Software {
+                  id
+                  translations {
+                    title
+                    slug
+                    content
+                    softwares {
+                      map {
+                        headerLogo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        logo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on Product {
+                  id
+                  translations {
+                    title
+                    slug
+                    content
+                    products {
+                      map {
+                        headerLogo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        logo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                slug
+              }
+            }
+            coordinates {
+              lat
+              lng
+            }
+            locationtitle
+            bottomText
+          }
+        }
+        mapThumb {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        topSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        middleSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        keyAdvantageSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        availableRegionsSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        insightsSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        fleetOfProducts {
+          sectionTitle
+          tabTitle
+        }
+      }
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
+    }
+  }
+}
+  `;
+	const res = await GraphQLAPI(query2);
+	// const res2 = await GraphQLAPI(query2);
+	// console.log(res2, "res2");
 	return res;
 };
 

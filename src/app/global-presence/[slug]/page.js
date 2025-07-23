@@ -104,6 +104,7 @@ async function getData({ params, query }) {
 	// 	: countryData?.data?.countryBy;
 
 	const countryBy = countryData?.data?.countryBy;
+	console.log(countryBy);
 	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];

@@ -51,7 +51,6 @@ export default function GlobalPresenceInsideWrap({
 	const [webinars, setWebinars] = useState([]);
 	const [mapJsonState, setMapJsonState] = useState();
 	const { setShowLanguages, eventsState, webinarsState } = useContextProvider();
-
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
@@ -292,9 +291,15 @@ export default function GlobalPresenceInsideWrap({
 						)
 					}
 				/>
-				<Introduction data={data?.countries?.introduction} />
+				<Introduction
+					data={data?.countries?.introduction}
+					sectionid={data?.countries?.introduction?.tabTitle}
+				/>
 				<div className="pb_100">
-					<WhichProducts data={data?.countries?.map} />
+					<WhichProducts
+						data={data?.countries?.map}
+						section={data?.countries?.fleetOfProducts}
+					/>
 				</div>
 				<ServicesCircle
 					hideId
@@ -323,7 +328,13 @@ export default function GlobalPresenceInsideWrap({
 						<SoftwareMarket
 							mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
 							// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
-							sectionTitle={"Energy intelligence modelled for your market"}
+							sectionTitle={
+								data?.countries?.availableRegions?.sectionTitle ||
+								"Energy intelligence modelled for your market"
+							}
+							teamTitle={
+								data?.countries?.availableRegions?.teamTitle || "Meet the team"
+							}
 							mapJson={mapJsonState}
 							data={data?.countries?.availableRegions}
 							customHtml={
@@ -353,7 +364,14 @@ export default function GlobalPresenceInsideWrap({
 
 				{data?.countries?.ourClients?.selectLogos && (
 					<div className="pb_50">
-						<TrustedLeaders data={data?.countries?.ourClients} />
+						<TrustedLeaders
+							data={data?.countries?.ourClients}
+							sectionTitle={
+								data?.countries?.ourClients?.sectionTitle ||
+								"Trusted by industry leaders"
+							}
+							sectionid={data?.countries?.ourClients?.tabTitle}
+						/>
 					</div>
 				)}
 				{data?.countries?.ourClients?.testimonials && (
@@ -362,13 +380,22 @@ export default function GlobalPresenceInsideWrap({
 					</div>
 				)}
 				<div className="pb_100">
-					<PublicWebinar events={events} webinars={webinars} />
+					<PublicWebinar
+						events={events}
+						webinars={webinars}
+						sectionid={data?.countries?.eventsAndWebinars?.tabTitle}
+						sectionTitle={
+							data?.countries?.eventsAndWebinars?.sectionTitle ||
+							"All voices, all markets"
+						}
+					/>
 				</div>
 
 				<div className={`${styles.insightBg} pb_100 pt_30`}>
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
 							<Insights
+								insightsTitle={data?.countries?.insights?.insightsTitle}
 								hideall
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
@@ -383,7 +410,10 @@ export default function GlobalPresenceInsideWrap({
 							/>
 						</div>
 					</div>
-					<EosIntegratedSystem />
+					<EosIntegratedSystem
+						data={data?.countries?.integratedEnergy}
+						name={data?.countries?.integratedEnergy?.tabTitle}
+					/>
 				</div>
 			</main>
 			<IframeModal hideLeft />

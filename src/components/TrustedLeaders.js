@@ -22,6 +22,7 @@ import styles from "@/styles/components/TrustedLeaders.module.scss";
 
 // IMAGES //
 import erste from "../../public/img/softwares/erste.png";
+import { slugify } from "@/utils";
 
 // DATA //
 
@@ -29,6 +30,7 @@ import erste from "../../public/img/softwares/erste.png";
 export default function TrustedLeaders({
 	data,
 	sectionTitle = "Trusted by industry leaders",
+	sectionid,
 }) {
 	const [paddingBottom, setPaddingBottom] = useState("");
 	useEffect(() => {
@@ -47,10 +49,10 @@ export default function TrustedLeaders({
 	return (
 		<section
 			className={`${styles.TrustedLeaders} TrustedLeaders`}
-			id="ourClients"
-			data-name="Our Clients"
-			aria-label="our Clients"
-			title="our Clients"
+			id={"ourClients"}
+			data-name={sectionid || "Our Clients"}
+			aria-label={sectionid || "our Clients"}
+			title={sectionid || "our Clients"}
 		>
 			<div className="container">
 				<div className={`${styles.titleTxt} pb_40`}>

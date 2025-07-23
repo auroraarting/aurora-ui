@@ -10,6 +10,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // PLUGINS //
 
 // UTILS //
+import { slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/global-presence/Introduction.module.scss";
@@ -19,15 +20,15 @@ import styles from "@/styles/sections/global-presence/Introduction.module.scss";
 // DATA //
 
 /** Introduction Section */
-export default function Introduction({ data }) {
+export default function Introduction({ data, sectionid }) {
 	if (!data) {
 		return <></>;
 	}
 	return (
 		<section
 			className={`${styles.Introduction}`}
-			id="introduction"
-			data-name="Introduction"
+			id={"introduction"}
+			data-name={sectionid || "Introduction"}
 		>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j ptb_100`}>
