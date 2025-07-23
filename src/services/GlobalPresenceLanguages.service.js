@@ -452,7 +452,7 @@ query GetCountryInsideByTranslation {
     `;
 	const query2 = `
   query GetCountryInsideByTranslation {
-  countryBy(slug: "japan") {
+  countryBy(slug: "${decodeURIComponent(slug)}") {
     translations {
       slug
       title
@@ -783,7 +783,7 @@ query GetCountryInsideByTranslation {
   }
 }
   `;
-	const res = await GraphQLAPI(query2);
+	const res = await GraphQLAPI(query);
 	// const res = await GraphQLAPI(query2);
 	// console.log(res2, "res2");
 	return res;
