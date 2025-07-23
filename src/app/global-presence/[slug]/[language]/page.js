@@ -123,10 +123,12 @@ async function getData({ params, query }) {
 		)[0] || countryData?.data?.countryBy;
 
 	countryBy.countries.availableRegions.team.nodes =
-		countryBy.countries.availableRegions.team.nodes.map((item) => ({
-			...item,
-			...item.translations?.[0],
-		}));
+		countryBy.countries.availableRegions.team.nodes.map((item) => {
+			return {
+				...item,
+				...item?.translations?.[0],
+			};
+		});
 	// countryBy.countries.map.markers = countryBy.countries.map.markers;
 	console.log(countryBy, "countryBy");
 

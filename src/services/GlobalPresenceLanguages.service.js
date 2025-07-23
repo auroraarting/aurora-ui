@@ -784,7 +784,7 @@ query GetCountryInsideByTranslation {
 }
   `;
 	const res = await GraphQLAPI(query2);
-	// const res2 = await GraphQLAPI(query2);
+	// const res = await GraphQLAPI(query2);
 	// console.log(res2, "res2");
 	return res;
 };
