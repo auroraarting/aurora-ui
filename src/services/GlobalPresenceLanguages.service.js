@@ -780,11 +780,209 @@ query GetCountryInsideByTranslation {
         }
       }
     }
+    countries {
+      availableRegions {
+        sectionTitle
+        tabTitle
+        team(first: 9999) {
+          nodes {
+            ... on Team {
+              id
+              translations {
+                title
+                languageCode
+                teams {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      ourClients {
+        sectionTitle
+        tabTitle
+        selectLogos(first: 999) {
+          nodes {
+            ... on ClientsLogo {
+              id
+              featuredImage {
+                node {
+                  altText
+                  mediaItemUrl
+                }
+              }
+            }
+          }
+        }
+        testimonials(first: 999) {
+          nodes {
+            ... on Testimonial {
+              id
+              translations {
+                title
+                content
+                languageCode
+                testimonials {
+                  designation
+                }
+              }
+            }
+          }
+        }
+      }
+      eventsAndWebinars {
+        tabTitle
+      }
+      insights {
+        sectionTitle
+        sectionDesc
+        list(first: 999) {
+          nodes {
+            ... on Post {
+              id
+              translations {
+                date
+                title
+                slug
+                languageCode
+                categories(first: 999) {
+                  nodes {
+                    name
+                    slug
+                  }
+                }
+                postFields {
+                  time
+                }
+              }
+            }
+          }
+        }
+      }
+      map {
+        zoom
+        countryPin {
+          lat
+          lng
+        }
+        markers {
+          customDesc
+          mapThumbnail {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          category(first: 999) {
+            nodes {
+              contentType {
+                node {
+                  name
+                }
+              }
+              ... on Service {
+                id
+                translations {
+                  slug
+                  title
+                  content
+                  services {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Software {
+                id
+                translations {
+                  title
+                  slug
+                  content
+                  softwares {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Product {
+                id
+                translations {
+                  title
+                  slug
+                  content
+                  products {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              slug
+            }
+          }
+          coordinates {
+            lat
+            lng
+          }
+          locationtitle
+          bottomText
+        }
+      }
+      fleetOfProducts {
+        sectionTitle
+        tabTitle
+      }
+    }
   }
 }
   `;
-	const res = await GraphQLAPI(query);
-	// const res = await GraphQLAPI(query2);
+	// const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query2);
 	// console.log(res2, "res2");
 	return res;
 };

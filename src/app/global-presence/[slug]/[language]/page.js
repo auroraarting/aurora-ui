@@ -122,6 +122,11 @@ async function getData({ params, query }) {
 			(countryItem) => countryItem.languageCode === language
 		)[0] || countryData?.data?.countryBy;
 
+	countryBy.countries = {
+		...countryBy.countries,
+		...countryData?.data?.countryBy.countries,
+	};
+
 	countryBy.countries.availableRegions.team.nodes =
 		countryBy.countries.availableRegions.team.nodes.map((item) => {
 			return {
@@ -129,6 +134,19 @@ async function getData({ params, query }) {
 				...item?.translations?.[0],
 			};
 		});
+	countryBy.countries.map.markers = countryBy.countries.map.markers.map(
+		(item) => {
+			let category = {
+				nodes: item?.category?.nodes?.map((item2) => {
+					return { ...item2, ...item2?.translations?.[0], slug: item2?.slug };
+				}),
+			};
+			return {
+				...item,
+				category,
+			};
+		}
+	);
 	// countryBy.countries.map.markers = countryBy.countries.map.markers;
 	console.log(countryBy, "countryBy");
 
