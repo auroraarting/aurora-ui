@@ -93,14 +93,6 @@ export default function EventsInsideWrap({
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
 								<EventsMiddleDescription data={data} />
-								{data?.events?.thumbnail?.status === "Upcoming" && (
-									<EventsLocation data={data} />
-								)}
-								{data?.events?.glimps?.gallery?.nodes && (
-									<div className="">
-										<EventsGallery data={data} />
-									</div>
-								)}
 								<Sponsors data={data} />
 								{data?.events?.sections?.map((item) => {
 									return (
@@ -111,10 +103,30 @@ export default function EventsInsideWrap({
 											className={`pt_50 ${styles.contentBox} contentBox`}
 										>
 											{parse(item?.content)}
-											{/* <ContentFromCms>{item?.content}</ContentFromCms> */}
 										</section>
 									);
 								})}
+								{data?.events?.thumbnail?.status === "Upcoming" && (
+									<EventsLocation data={data} />
+								)}
+								{data?.events?.glimps?.gallery?.nodes && (
+									<div className="">
+										<EventsGallery data={data} />
+									</div>
+								)}
+								{/* <Sponsors data={data} /> */}
+								{/* {data?.events?.sections?.map((item) => {
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+											className={`pt_50 ${styles.contentBox} contentBox`}
+										>
+											{parse(item?.content)}
+										</section>
+									);
+								})} */}
 								{data?.events?.glimps?.video && (
 									<div className="">
 										<EventInsideVideo data={data} />
