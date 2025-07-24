@@ -246,6 +246,7 @@ export default function GlobalPresenceInsideWrap({
 
 		// events: eventsList.slice(0, 1),
 		// webinars: webinarList.slice(0, 3),
+		console.log(eventsList, "eventsList");
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
@@ -397,6 +398,7 @@ export default function GlobalPresenceInsideWrap({
 						<div className="pb_100">
 							<Insights
 								insightsTitle={data?.countries?.insights?.insightsTitle}
+								insightsListButtonText={data?.countries?.insights?.listButtonText}
 								hideall
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
@@ -414,6 +416,7 @@ export default function GlobalPresenceInsideWrap({
 					<EosIntegratedSystem
 						data={data?.countries?.integratedEnergy}
 						name={data?.countries?.integratedEnergy?.tabTitle}
+						buttonText={data?.countries?.integratedEnergy?.buttonText}
 					/>
 				</div>
 			</main>

@@ -6,6 +6,10 @@ export const getAllEvents = async (filters = "first:9999") => {
 query GetEvents {
   events(${filters}) {
     nodes {
+      translations{
+        title
+        languageCode
+      }
       title
       slug
       content
@@ -21,6 +25,11 @@ query GetEvents {
           externalUrl
           logo {
             node {
+              translations{
+                altText
+                mediaItemUrl
+                languageCode
+              }
               altText
               mediaItemUrl
             }
@@ -31,6 +40,10 @@ query GetEvents {
                 id
                 title
                 slug
+                translations{
+                  title
+                  languageCode
+                }
               }
             }
           }
@@ -228,12 +241,22 @@ query GetEvents {
         banner {
           desktop {
             node {
+              translations{
+                altText
+                mediaItemUrl
+                languageCode
+              }
               altText
               mediaItemUrl
             }
           }
           mobile {
             node {
+              translations{
+                altText
+                mediaItemUrl
+                languageCode
+              }
               altText
               mediaItemUrl
             }
@@ -244,6 +267,10 @@ query GetEvents {
         nodes {
           name
           slug
+          translations{
+            name
+            languageCode
+          }
         }
       }
     }

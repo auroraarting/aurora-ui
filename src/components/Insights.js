@@ -331,6 +331,7 @@ export default function Insights({
 	customHtml,
 	hideall,
 	allTag,
+	insightsListButtonText = "View all",
 }) {
 	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
@@ -495,7 +496,7 @@ export default function Insights({
 										mode="dark"
 										textlowercase
 									>
-										View all
+										{insightsListButtonText || "View all"}
 									</Button>
 								</a>
 							</div>

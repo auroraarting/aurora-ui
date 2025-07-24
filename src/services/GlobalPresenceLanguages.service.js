@@ -581,8 +581,9 @@ query GetCountryInsideByTranslation {
         }
         insights {
           insightsTitle
-        sectionTitle
-        sectionDesc
+          sectionTitle
+          sectionDesc
+          listButtonText
           list(first: 999) {
             nodes {
               ... on Post {
@@ -772,6 +773,12 @@ query GetCountryInsideByTranslation {
           }
         }
         fleetOfProducts {
+          sectionTitle
+          tabTitle
+          buttonText
+        }
+        integratedEnergy {
+          content
           sectionTitle
           tabTitle
           buttonText

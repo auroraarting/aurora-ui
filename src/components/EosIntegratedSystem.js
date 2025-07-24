@@ -22,7 +22,7 @@ import ContentFromCms from "./ContentFromCms";
 // DATA //
 
 /** EosIntegratedSystem Section */
-export default function EosIntegratedSystem({ name, data }) {
+export default function EosIntegratedSystem({ name, data, buttonText }) {
 	/** sectionTitle  */
 	const sectionTitle = () => {
 		if (name === undefined) {
@@ -73,7 +73,7 @@ export default function EosIntegratedSystem({ name, data }) {
 						<div className={`${styles.bookBtnOne} pt_60`}>
 							<a href="/eos">
 								<Button color="primary" variant="filled" shape="rounded" mode="dark">
-									Explore now
+									{buttonText || "Explore now"}
 								</Button>
 							</a>
 						</div>
