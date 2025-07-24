@@ -6,10 +6,15 @@ export const getInsights = async (filterString = "first:9999") => {
 query GetInsights {
   posts(${filterString}) {
     nodes {
-          title
+    title
     slug
     date
     content
+    translations{
+    title
+    content
+    languageCode
+    }
     featuredImage {
       node {
         altText
@@ -20,6 +25,10 @@ query GetInsights {
       nodes {
         slug
         name
+        translations{
+    name
+    languageCode
+    }
       }
     }
     tags(first: 9999) {
@@ -303,7 +312,7 @@ export const getInsightsTranslations = async (filterString = "first:9999") => {
 query GetInsights {
   posts(${filterString}) {
     nodes {
-      translations{
+      translations {
         title
         date
         content

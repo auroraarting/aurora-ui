@@ -44,6 +44,7 @@ export default function GlobalPresenceInsideWrap({
 	insightsList,
 	countries,
 	slug,
+	language,
 	// events,
 	// webinars,
 }) {
@@ -246,7 +247,47 @@ export default function GlobalPresenceInsideWrap({
 
 		// events: eventsList.slice(0, 1),
 		// webinars: webinarList.slice(0, 3),
-		console.log(eventsList, "eventsList");
+		eventsList = eventsList?.map((item) => {
+			let title = item?.translations?.filter(
+				(item2) => item2?.languageCode === language
+			)?.[0]?.title;
+			return { ...item, title: title || item?.title };
+		});
+		webinarList = webinarList?.map((item) => {
+			let title = item?.translations?.filter(
+				(item2) => item2?.languageCode === language
+			)?.[0]?.title;
+			let eventCategories = {
+				nodes: item?.eventCategories?.nodes?.map((item2) => {
+					return {
+						...item2,
+						...item2?.translations?.filter(
+							(item3) => item3?.languageCode === language
+						)?.[0],
+					};
+				}),
+			};
+			let webinarsFields = {
+				...item?.webinarsFields,
+				country: {
+					nodes: item?.webinarsFields?.country?.nodes?.map((item2) => {
+						return {
+							...item2,
+							...item2?.translations?.filter(
+								(item3) => item3?.languageCode === language
+							)?.[0],
+						};
+					}),
+				},
+			};
+			return {
+				...item,
+				title: title || item?.title,
+				eventCategories,
+				webinarsFields,
+			};
+		});
+
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);

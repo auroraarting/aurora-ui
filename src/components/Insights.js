@@ -368,6 +368,7 @@ export default function Insights({
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
 		const resjson = await resdata.json();
+		console.log(resjson, "resjson");
 		setData(resjson);
 	};
 

@@ -185,9 +185,8 @@ async function getData({ params, query }) {
 			] || [];
 	}
 
-	console.log(countryData?.data?.countryBy, "countryBy");
-
 	const countries = categoriesRes?.data?.countries?.nodes || [];
+	console.log(countryBy, "countryBy");
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };
@@ -228,7 +227,7 @@ export default async function Australia({ params, searchParams }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<GlobalPresenceInsideWrap {...props} slug={slug} />
+			<GlobalPresenceInsideWrap {...props} slug={slug} language={language} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

@@ -24,7 +24,7 @@ export default async function GraphQLAPI(query, ttl = 86400) {
 		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 },
+			// next: { revalidate: 1800 },
 		});
 		res = await req.json();
 		// res = req;

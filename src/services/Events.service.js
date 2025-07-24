@@ -55,12 +55,22 @@ query GetEvents {
             node {
               altText
               mediaItemUrl
+              translations{
+              languageCode
+              altText
+              mediaItemUrl
+              }
             }
           }
           mobileImage {
             node {
               altText
               mediaItemUrl
+              translations{
+              languageCode
+              altText
+              mediaItemUrl
+              }
             }
           }
         }
