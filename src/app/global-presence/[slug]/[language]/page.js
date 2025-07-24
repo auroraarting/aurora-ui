@@ -38,6 +38,7 @@ import {
 import {
 	getInsights,
 	getInsightsCategories,
+	getInsightsTranslations,
 } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
@@ -97,8 +98,8 @@ async function getData({ params, query }) {
 		countryData,
 		meta,
 	] = await Promise.all([
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+		getInsightsTranslations(
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 		),
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),
@@ -124,7 +125,7 @@ async function getData({ params, query }) {
 
 	countryBy.countries = {
 		...countryBy.countries,
-		...countryData?.data?.countryBy.countries,
+		// ...countryData?.data?.countryBy.countries,
 	};
 
 	countryBy.countries.availableRegions.team.nodes =
@@ -138,7 +139,7 @@ async function getData({ params, query }) {
 		(item) => {
 			let category = {
 				nodes: item?.category?.nodes?.map((item2) => {
-					return { ...item2, ...item2?.translations?.[0], slug: item2?.slug };
+					return { ...item2, ...item2?.translations?.[0] };
 				}),
 			};
 			return {
@@ -147,14 +148,32 @@ async function getData({ params, query }) {
 			};
 		}
 	);
+	if (countryData?.data?.countryBy?.countries?.ourClients?.testimonials?.nodes) {
+		countryBy.countries.ourClients.testimonials.nodes =
+			countryData?.data?.countryBy.countries.ourClients.testimonials.nodes;
+	}
+	if (countryData?.data?.countryBy?.countries?.insights?.list?.nodes) {
+		countryBy.countries.insights.list.nodes =
+			countryData.data.countryBy.countries.insights.list.nodes;
+	}
+
 	// countryBy.countries.map.markers = countryBy.countries.map.markers;
-	console.log(countryBy, "countryBy");
 
 	// const countryBy = countryData?.data?.countryBy;
 	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
-	const insightsList = insightsRes?.data?.posts?.nodes || [];
+	let insightsList = insightsRes.data.posts.nodes;
+	if (insightsRes.data.posts.nodes.translations) {
+		insightsList =
+			[
+				...insightsRes.data.posts.nodes,
+				...insightsRes.data.posts.nodes.translations[0],
+			] || [];
+	}
+
+	console.log(countryBy, "countryBy");
+
 	const countries = categoriesRes?.data?.countries?.nodes || [];
 
 	// Optional: enable this if fallback 404 is desired
@@ -164,7 +183,9 @@ async function getData({ params, query }) {
 		props: {
 			data: countryBy,
 			mapJson,
-			insightsList,
+			insightsList: insightsList?.sort(
+				(a, b) => new Date(a.date) - new Date(b.date)
+			),
 			countries,
 			seo,
 			// events: eventsList.slice(0, 1),

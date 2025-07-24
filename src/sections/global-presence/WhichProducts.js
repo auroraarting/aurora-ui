@@ -122,7 +122,7 @@ export default function WhichProducts({ data, section }) {
 	return (
 		<section
 			className={`${styles.WhichProducts}`}
-			id={section?.tabTitle ? slugify(section?.tabTitle) : "products-services"}
+			id={"products-services"}
 			data-name={section?.tabTitle || "Products & Services"}
 		>
 			<div className="container">

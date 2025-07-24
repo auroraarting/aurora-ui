@@ -518,6 +518,7 @@ query GetCountryInsideByTranslation {
         availableRegions {
           sectionTitle
           tabTitle
+          teamTitle
           team(first: 9999) {
             nodes {
               ... on Team {
@@ -576,6 +577,7 @@ query GetCountryInsideByTranslation {
         }
         eventsAndWebinars {
           tabTitle
+          sectionTitle
         }
         insights {
           sectionTitle
@@ -584,10 +586,11 @@ query GetCountryInsideByTranslation {
             nodes {
               ... on Post {
                 id
+                slug
                 translations {
                   date
                   title
-                  slug
+                  
                   languageCode
                   categories(first: 999) {
                     nodes {
@@ -626,8 +629,9 @@ query GetCountryInsideByTranslation {
                 }
                 ... on Service {
                   id
+                  slug
                   translations {
-                    slug
+                    
                     title
                     content
                     services {
@@ -650,9 +654,10 @@ query GetCountryInsideByTranslation {
                 }
                 ... on Software {
                   id
+                  slug
                   translations {
                     title
-                    slug
+                    
                     content
                     softwares {
                       map {
@@ -674,9 +679,10 @@ query GetCountryInsideByTranslation {
                 }
                 ... on Product {
                   id
+                  slug
                   translations {
                     title
-                    slug
+                    
                     content
                     products {
                       map {
@@ -782,8 +788,6 @@ query GetCountryInsideByTranslation {
     }
     countries {
       availableRegions {
-        sectionTitle
-        tabTitle
         team(first: 9999) {
           nodes {
             ... on Team {
@@ -809,8 +813,6 @@ query GetCountryInsideByTranslation {
         }
       }
       ourClients {
-        sectionTitle
-        tabTitle
         selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
@@ -840,20 +842,15 @@ query GetCountryInsideByTranslation {
           }
         }
       }
-      eventsAndWebinars {
-        tabTitle
-      }
       insights {
-        sectionTitle
-        sectionDesc
         list(first: 999) {
           nodes {
             ... on Post {
               id
+              slug
               translations {
                 date
                 title
-                slug
                 languageCode
                 categories(first: 999) {
                   nodes {
@@ -866,34 +863,18 @@ query GetCountryInsideByTranslation {
                 }
               }
             }
+            ... on Event {
+              id
+            }
           }
         }
       }
       map {
-        zoom
-        countryPin {
-          lat
-          lng
-        }
         markers {
-          customDesc
-          mapThumbnail {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
           category(first: 999) {
             nodes {
-              contentType {
-                node {
-                  name
-                }
-              }
               ... on Service {
-                id
                 translations {
-                  slug
                   title
                   content
                   services {
@@ -915,10 +896,9 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Software {
-                id
+                
                 translations {
                   title
-                  slug
                   content
                   softwares {
                     map {
@@ -939,10 +919,10 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Product {
-                id
+               
                 translations {
                   title
-                  slug
+                  
                   content
                   products {
                     map {
@@ -965,17 +945,7 @@ query GetCountryInsideByTranslation {
               slug
             }
           }
-          coordinates {
-            lat
-            lng
-          }
-          locationtitle
-          bottomText
         }
-      }
-      fleetOfProducts {
-        sectionTitle
-        tabTitle
       }
     }
   }

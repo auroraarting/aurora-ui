@@ -304,6 +304,7 @@ export default function GlobalPresenceInsideWrap({
 				<ServicesCircle
 					hideId
 					data={data?.countries?.keyAdvantages}
+					onlySectionName={data?.countries?.keyAdvantages?.tabTitle}
 					customHtml={
 						<>
 							{dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
