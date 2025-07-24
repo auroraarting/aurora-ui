@@ -495,7 +495,11 @@ export const getHomePageVoices = async () => {
 
 	const obj = {
 		events: events,
-		podcasts: resAllData.data.podcasts.nodes.slice(0, 1),
+		podcasts: resAllData.data.podcasts.nodes
+			.sort(
+				(a, b) => new Date(b.podcastFields?.date) - new Date(a.podcastFields.date)
+			)
+			.slice(0, 1),
 		webinars: resAllData.data.webinars.nodes
 			?.filter(
 				(item) => new Date() < new Date(item?.webinarsFields?.startDateAndTime)
