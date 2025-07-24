@@ -3646,6 +3646,53 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source:
+					"https://auroraer.com/country/asia-pacific/green-dreams-bankable-schemes-how-to-thrive-in-the-philippine-power-market",
+				destination:
+					"/resources/aurora-insights/newsletters/green-dreams-bankable-schemes-how-to-thrive-in-the-philippine-power-market",
+				permanent: true,
+			},
+			{
+				source:
+					"https://auroraer.com/insight/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution/?utm_source=Newsletter&utm_medium=LinkedIn+Newsletter&utm_campaign=Aurora_March+2025_LinkedIn_Commentary&utm_id=March_2025+-+Aurora_LinkedIn_Commentary",
+				destination:
+					"/resources/aurora-insights/newsletters/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				permanent: true,
+			},
+			{
+				source: "https://auroraer.com/?p=36996&preview=true",
+				destination:
+					"/resources/aurora-insights/newsletters/no-more-russian-gas-via-ukraine",
+				permanent: true,
+			},
+			{
+				source:
+					"https://auroraer.com/resources/aurora-insights/newsletters/no-more-russian-gas-via-ukraine",
+				destination:
+					"/resources/aurora-insights/newsletters/the-battery-buildout-in-europe",
+				permanent: true,
+			},
+			{
+				source:
+					"https://auroraer.com/insight/will-trump-delay-americas-energy-transition",
+				destination:
+					"/resources/aurora-insights/newsletters/will-trump-delay-americas-energy-transition",
+				permanent: true,
+			},
+			{
+				source: "https://auroraer.com/?p=35055&preview=true",
+				destination:
+					"/resources/aurora-insights/newsletters/what-does-chiles-solar-powered-future-look-like",
+				permanent: true,
+			},
+			{
+				source:
+					"https://auroraer.com/insight/the-future-of-energy-in-the-western-balkans-a-renewables-revolution?utm_source=Newsletter&utm_medium=LinkedIn%20Newsletter&utm_campaign=Commentary_Western_Balkans_Newsletter&utm_id=October%202024%20-%20Commentary%20-%20Wester_Balkans",
+				destination:
+					"/resources/aurora-insights/newsletters/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
