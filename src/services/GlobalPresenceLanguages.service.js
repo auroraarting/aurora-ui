@@ -452,7 +452,7 @@ query GetCountryInsideByTranslation {
     `;
 	const query2 = `
   query GetCountryInsideByTranslation {
-  countryBy(slug: "${decodeURIComponent(slug)}") {
+  countryBy(slug: "japan") {
     translations {
       slug
       title
@@ -544,7 +544,6 @@ query GetCountryInsideByTranslation {
           }
         }
         ourClients {
-          sectionTitle
           tabTitle
           selectLogos(first: 999) {
             nodes {
@@ -574,14 +573,16 @@ query GetCountryInsideByTranslation {
               }
             }
           }
+          sectionTitle
         }
         eventsAndWebinars {
           tabTitle
           sectionTitle
         }
         insights {
-          sectionTitle
-          sectionDesc
+          insightsTitle
+        sectionTitle
+        sectionDesc
           list(first: 999) {
             nodes {
               ... on Post {
@@ -590,7 +591,6 @@ query GetCountryInsideByTranslation {
                 translations {
                   date
                   title
-                  
                   languageCode
                   categories(first: 999) {
                     nodes {
@@ -631,7 +631,6 @@ query GetCountryInsideByTranslation {
                   id
                   slug
                   translations {
-                    
                     title
                     content
                     services {
@@ -657,7 +656,6 @@ query GetCountryInsideByTranslation {
                   slug
                   translations {
                     title
-                    
                     content
                     softwares {
                       map {
@@ -682,7 +680,6 @@ query GetCountryInsideByTranslation {
                   slug
                   translations {
                     title
-                    
                     content
                     products {
                       map {
@@ -777,6 +774,7 @@ query GetCountryInsideByTranslation {
         fleetOfProducts {
           sectionTitle
           tabTitle
+          buttonText
         }
       }
       featuredImage {
@@ -819,8 +817,10 @@ query GetCountryInsideByTranslation {
               id
               featuredImage {
                 node {
-                  altText
-                  mediaItemUrl
+                  translations {
+                    altText
+                    mediaItemUrl
+                  }
                 }
               }
             }
@@ -896,7 +896,6 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Software {
-                
                 translations {
                   title
                   content
@@ -919,10 +918,8 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Product {
-               
                 translations {
                   title
-                  
                   content
                   products {
                     map {

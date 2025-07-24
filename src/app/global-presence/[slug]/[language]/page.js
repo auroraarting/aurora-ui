@@ -129,12 +129,14 @@ async function getData({ params, query }) {
 	};
 
 	countryBy.countries.availableRegions.team.nodes =
-		countryBy.countries.availableRegions.team.nodes.map((item) => {
-			return {
-				...item,
-				...item?.translations?.[0],
-			};
-		});
+		countryData.data.countryBy.countries.availableRegions.team.nodes.map(
+			(item) => {
+				return {
+					...item,
+					...item?.translations?.[0],
+				};
+			}
+		);
 	countryBy.countries.map.markers = countryBy.countries.map.markers.map(
 		(item) => {
 			let category = {
@@ -151,6 +153,17 @@ async function getData({ params, query }) {
 	if (countryData?.data?.countryBy?.countries?.ourClients?.testimonials?.nodes) {
 		countryBy.countries.ourClients.testimonials.nodes =
 			countryData?.data?.countryBy.countries.ourClients.testimonials.nodes;
+	}
+	if (countryData?.data?.countryBy?.countries?.ourClients?.selectLogos?.nodes) {
+		countryBy.countries.ourClients.selectLogos.nodes =
+			countryData?.data?.countryBy.countries.ourClients.selectLogos.nodes?.map(
+				(item) => {
+					return {
+						...item,
+						featuredImage: { node: item?.featuredImage?.node?.translations?.[0] },
+					};
+				}
+			);
 	}
 	if (countryData?.data?.countryBy?.countries?.insights?.list?.nodes) {
 		countryBy.countries.insights.list.nodes =
@@ -172,7 +185,7 @@ async function getData({ params, query }) {
 			] || [];
 	}
 
-	console.log(countryBy, "countryBy");
+	console.log(countryData?.data?.countryBy, "countryBy");
 
 	const countries = categoriesRes?.data?.countries?.nodes || [];
 

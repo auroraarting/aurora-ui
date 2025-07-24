@@ -75,7 +75,7 @@ export default function WhichProducts({ data, section }) {
 									className={`${styles.bookBtn} pt_20`}
 								>
 									<Button color="secondary" variant="underline">
-										Know more
+										{section?.buttonText || "Know more"}
 									</Button>
 								</a>
 							</div>
