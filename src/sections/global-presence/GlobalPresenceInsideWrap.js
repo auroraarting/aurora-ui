@@ -426,10 +426,18 @@ export default function GlobalPresenceInsideWrap({
 					<PublicWebinar
 						events={events}
 						webinars={webinars}
-						sectionid={data?.countries?.eventsAndWebinars?.tabTitle}
+						sectionid={data?.countries?.eventsWebinarSection?.tabTitle}
 						sectionTitle={
-							data?.countries?.eventsAndWebinars?.sectiontitle ||
+							data?.countries?.eventsWebinarSection?.sectionHeading ||
 							"All voices, all markets"
+						}
+						eventButtonText={
+							data?.countries?.eventsWebinarSection?.eventButtonText ||
+							"View all events"
+						}
+						webinarButtonText={
+							data?.countries?.eventsWebinarSection?.webinarButtonText ||
+							"View all webinars"
 						}
 					/>
 				</div>
@@ -438,6 +446,7 @@ export default function GlobalPresenceInsideWrap({
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
 							<Insights
+								language={language}
 								insightsTitle={data?.countries?.insights?.insightsTitle}
 								insightsListButtonText={data?.countries?.insights?.listButtonText}
 								hideall

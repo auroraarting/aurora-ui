@@ -575,9 +575,11 @@ query GetCountryInsideByTranslation {
           }
           sectionTitle
         }
-        eventsAndWebinars {
+        eventsWebinarSection{
           tabTitle
-          
+          sectionHeading
+          eventButtonText
+          webinarButtonText
         }
         insights {
           insightsTitle
@@ -855,16 +857,20 @@ query GetCountryInsideByTranslation {
             ... on Post {
               id
               slug
-              translations {
-                date
-                title
-                languageCode
-                categories(first: 999) {
+              title
+              date
+              categories(first: 999) {
                   nodes {
                     name
                     slug
+                    translations{
+                    name
+                    }
                   }
                 }
+              translations {
+                title
+                languageCode
                 postFields {
                   time
                 }

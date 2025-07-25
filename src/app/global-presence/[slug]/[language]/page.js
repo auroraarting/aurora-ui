@@ -77,7 +77,6 @@ export async function generateStaticParams() {
 
 		languages?.data?.languages?.nodes?.forEach((lang) => {
 			const language = lang?.code || "en";
-
 			staticParams.push({ slug, language });
 		});
 	});
@@ -167,7 +166,19 @@ async function getData({ params, query }) {
 	}
 	if (countryData?.data?.countryBy?.countries?.insights?.list?.nodes) {
 		countryBy.countries.insights.list.nodes =
-			countryData.data.countryBy.countries.insights.list.nodes;
+			countryData.data.countryBy.countries.insights.list.nodes?.map((item) => {
+				return {
+					...item,
+					...item?.translations?.[0],
+					categories: {
+						nodes: item?.categories?.nodes?.map((item2) => ({
+							...item2,
+							// ...item2?.translations?.[0],
+							alternateName: item2?.translations?.[0]?.name,
+						})),
+					},
+				};
+			});
 	}
 
 	// countryBy.countries.map.markers = countryBy.countries.map.markers;
@@ -207,7 +218,7 @@ async function getData({ params, query }) {
 }
 
 /** Australia Page */
-export default async function Australia({ params, searchParams }) {
+export default async function Australia({ params }) {
 	const { slug, language } = await params;
 	const query = { language };
 	const { props } = await getData({ params: { slug }, query });

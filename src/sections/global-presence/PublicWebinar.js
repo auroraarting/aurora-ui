@@ -28,6 +28,8 @@ export default function PublicWebinar({
 	webinars,
 	sectionTitle,
 	sectionid,
+	eventButtonText,
+	webinarButtonText,
 }) {
 	return (
 		<section
@@ -125,7 +127,7 @@ export default function PublicWebinar({
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/events">
 								<Button color="primary" variant="filled" shape="rounded">
-									View all events
+									{eventButtonText || "View all events"}
 								</Button>
 							</a>
 						</div>
@@ -268,7 +270,7 @@ export default function PublicWebinar({
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/resources/webinar">
 								<Button color="primary" variant="filled" shape="rounded">
-									View all webinars
+									{webinarButtonText || "View all webinars"}
 								</Button>
 							</a>
 						</div>
