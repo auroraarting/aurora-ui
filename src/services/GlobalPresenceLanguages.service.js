@@ -577,7 +577,7 @@ query GetCountryInsideByTranslation {
         }
         eventsAndWebinars {
           tabTitle
-          sectionTitle
+          
         }
         insights {
           insightsTitle

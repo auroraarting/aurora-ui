@@ -428,7 +428,7 @@ export default function GlobalPresenceInsideWrap({
 						webinars={webinars}
 						sectionid={data?.countries?.eventsAndWebinars?.tabTitle}
 						sectionTitle={
-							data?.countries?.eventsAndWebinars?.sectionTitle ||
+							data?.countries?.eventsAndWebinars?.sectiontitle ||
 							"All voices, all markets"
 						}
 					/>

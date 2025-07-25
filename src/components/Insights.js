@@ -367,7 +367,18 @@ export default function Insights({
 	/** fetchdata  */
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
-		const resjson = await resdata.json();
+		let resjson = await resdata.json();
+		resjson.data = resjson.data?.map((item) => ({
+			...item,
+			...item?.translations?.[0],
+			categories: {
+				nodes: item?.categories?.nodes?.map((item2) => ({
+					...item2,
+					// ...item2?.translations?.[0],
+					alternateName: item2?.translations?.[0]?.name,
+				})),
+			},
+		}));
 		console.log(resjson, "resjson");
 		setData(resjson);
 	};
