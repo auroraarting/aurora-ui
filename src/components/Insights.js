@@ -382,7 +382,6 @@ export default function Insights({
 				},
 			}));
 		}
-
 		console.log(resjson, "resjson");
 		setData(resjson);
 	};

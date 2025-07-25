@@ -222,6 +222,7 @@ export default async function Australia({ params }) {
 	const { slug, language } = await params;
 	const query = { language };
 	const { props } = await getData({ params: { slug }, query });
+	console.log(props, "props");
 
 	return (
 		<div>
