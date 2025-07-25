@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"prebuild": "node scripts/createRobots.js",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
@@ -19,6 +20,7 @@
 		"@upstash/redis": "^1.35.0",
 		"bottleneck": "^2.19.5",
 		"commander": "^11.1.0",
+		"dotenv": "^17.2.0",
 		"framer-motion": "^12.4.7",
 		"fs-extra": "^11.2.0",
 		"html-react-parser": "^5.0.6",

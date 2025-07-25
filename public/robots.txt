@@ -1,6 +1,2 @@
-
 User-agent: *
-Disallow: /wp-content/uploads/
-Disallow: /wp-admin/
-Disallow: /wp-login.php
-Disallow: /xmlrpc.php
+Disallow: /
