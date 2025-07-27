@@ -30,6 +30,7 @@ export default function PublicWebinar({
 	sectionid,
 	eventButtonText,
 	webinarButtonText,
+	language,
 }) {
 	return (
 		<section
@@ -84,11 +85,13 @@ export default function PublicWebinar({
 												loading="lazy"
 											/>
 										</div>
-										<div
-											className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase m_t_20`}
-										>
-											{item?.eventscategories?.nodes?.map((item2) => item2?.name)}
-										</div>
+										{item?.eventscategories?.nodes?.length > 0 && (
+											<div
+												className={`${styles.categoryTxt} text_xs color_dark_gray font_primary text_uppercase m_t_20`}
+											>
+												{item?.eventscategories?.nodes?.map((item2) => item2?.name)}
+											</div>
+										)}
 										<h4
 											className={`${styles.descTxt} text_md f_w_m color_secondary font_primary pt_10`}
 										>
@@ -102,7 +105,7 @@ export default function PublicWebinar({
 													alt="calender"
 													loading="lazy"
 												/>
-												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+												<span>{formatDate(item?.events?.thumbnail?.date, language)}</span>
 											</p>
 											{/* {isCategory(countries, item?.categories?.nodes) && ( */}
 											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
@@ -156,7 +159,9 @@ export default function PublicWebinar({
 															className={`${styles.calender}`}
 															alt="calender"
 														/>
-														<span>{formatDate(item?.webinarsFields?.startDateAndTime)}</span>
+														<span>
+															{formatDate(item?.webinarsFields?.startDateAndTime, language)}
+														</span>
 													</p>
 													{item?.webinarsFields?.country?.nodes?.length > 0 && (
 														<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">

@@ -5,10 +5,10 @@ import { openModal } from "@/components/Modal";
 // import { Link, scroller } from "react-scroll";
 
 /** formatDate  */
-export default function formatDate(isoString) {
+export default function formatDate(isoString, language = "en-US") {
 	const date = new Date(isoString);
 	const options = { month: "short", day: "numeric", year: "numeric" };
-	return date.toLocaleDateString("en-US", options);
+	return date.toLocaleDateString(language, options);
 }
 
 /** getClientLogosForAllProducts  */

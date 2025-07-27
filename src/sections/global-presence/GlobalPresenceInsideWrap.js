@@ -424,6 +424,7 @@ export default function GlobalPresenceInsideWrap({
 				)}
 				<div className="pb_100">
 					<PublicWebinar
+						language={language}
 						events={events}
 						webinars={webinars}
 						sectionid={data?.countries?.eventsWebinarSection?.tabTitle}

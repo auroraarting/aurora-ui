@@ -382,7 +382,6 @@ export default function Insights({
 				},
 			}));
 		}
-		console.log(resjson, "resjson");
 		setData(resjson);
 	};
 
@@ -574,7 +573,7 @@ export default function Insights({
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
 														<img src={white_calendar.src} alt="calendar" />
 														<span>
-															{formatDate(item?.date || item?.presses?.banner?.date)}
+															{formatDate(item?.date || item?.presses?.banner?.date, language)}
 														</span>
 													</p>
 													{isCategory(data?.countries, item?.categories?.nodes) && (

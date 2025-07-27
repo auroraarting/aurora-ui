@@ -132,7 +132,9 @@ async function getData({ params, query }) {
 			(item) => {
 				return {
 					...item,
-					...item?.translations?.[0],
+					...item?.translations?.filter(
+						(item2) => item2?.languageCode === language
+					)?.[0],
 				};
 			}
 		);
@@ -140,9 +142,15 @@ async function getData({ params, query }) {
 		(item) => {
 			let category = {
 				nodes: item?.category?.nodes?.map((item2) => {
-					return { ...item2, ...item2?.translations?.[0] };
+					return {
+						...item2,
+						...item2?.translations?.filter(
+							(item3) => item3?.languageCode === language
+						)?.[0],
+					};
 				}),
 			};
+			console.log(category, "category");
 			return {
 				...item,
 				category,
@@ -159,7 +167,11 @@ async function getData({ params, query }) {
 				(item) => {
 					return {
 						...item,
-						featuredImage: { node: item?.featuredImage?.node?.translations?.[0] },
+						featuredImage: {
+							node: item?.featuredImage?.node?.translations?.filter(
+								(item2) => item2?.languageCode === language
+							)?.[0],
+						},
 					};
 				}
 			);
@@ -167,14 +179,20 @@ async function getData({ params, query }) {
 	if (countryData?.data?.countryBy?.countries?.insights?.list?.nodes) {
 		countryBy.countries.insights.list.nodes =
 			countryData.data.countryBy.countries.insights.list.nodes?.map((item) => {
+				let temp1 =
+					item?.translations?.filter(
+						(item2) => item2?.languageCode === language
+					)?.[0] || [];
 				return {
 					...item,
-					...item?.translations?.[0],
+					...temp1,
 					categories: {
-						nodes: item?.categories?.nodes?.map((item2) => ({
-							...item2,
+						nodes: item?.categories?.nodes?.map((item3) => ({
+							...item3,
 							// ...item2?.translations?.[0],
-							alternateName: item2?.translations?.[0]?.name,
+							alternateName: item3?.translations?.filter(
+								(item4) => item4?.languageCode === language
+							)?.[0]?.name,
 						})),
 					},
 				};
@@ -189,11 +207,11 @@ async function getData({ params, query }) {
 	const mapJson = [];
 	let insightsList = insightsRes.data.posts.nodes;
 	if (insightsRes.data.posts.nodes.translations) {
-		insightsList =
-			[
-				...insightsRes.data.posts.nodes,
-				...insightsRes.data.posts.nodes.translations[0],
-			] || [];
+		let insightsResData =
+			insightsRes.data.posts.nodes.translations?.filter(
+				(item2) => item2.languageCode === language
+			)?.[0] || [];
+		insightsList = [...insightsRes.data.posts.nodes, ...insightsResData] || [];
 	}
 
 	const countries = categoriesRes?.data?.countries?.nodes || [];

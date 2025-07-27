@@ -636,6 +636,7 @@ query GetCountryInsideByTranslation {
                   translations {
                     title
                     content
+                    languageCode
                     services {
                       map {
                         headerLogo {
@@ -660,6 +661,7 @@ query GetCountryInsideByTranslation {
                   translations {
                     title
                     content
+                    languageCode
                     softwares {
                       map {
                         headerLogo {
@@ -684,6 +686,7 @@ query GetCountryInsideByTranslation {
                   translations {
                     title
                     content
+                    languageCode
                     products {
                       map {
                         headerLogo {
@@ -827,6 +830,7 @@ query GetCountryInsideByTranslation {
               featuredImage {
                 node {
                   translations {
+                  languageCode
                     altText
                     mediaItemUrl
                   }
@@ -890,6 +894,7 @@ query GetCountryInsideByTranslation {
                 translations {
                   title
                   content
+                  languageCode
                   services {
                     map {
                       headerLogo {
@@ -912,6 +917,7 @@ query GetCountryInsideByTranslation {
                 translations {
                   title
                   content
+                  languageCode
                   softwares {
                     map {
                       headerLogo {
@@ -934,6 +940,7 @@ query GetCountryInsideByTranslation {
                 translations {
                   title
                   content
+                  languageCode
                   products {
                     map {
                       headerLogo {
