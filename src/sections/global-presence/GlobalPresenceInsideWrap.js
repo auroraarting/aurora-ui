@@ -51,13 +51,15 @@ export default function GlobalPresenceInsideWrap({
 	const [events, setEvents] = useState([]);
 	const [webinars, setWebinars] = useState([]);
 	const [mapJsonState, setMapJsonState] = useState();
-	const { setShowLanguages, eventsState, webinarsState } = useContextProvider();
+	const { setShowLanguages, eventsState, webinarsState, setLanguage } =
+		useContextProvider();
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
 		setMapJsonState(getMapJsonForCountries(data?.countries?.map));
+		setLanguage(language);
 
-		if (data?.translations?.length >= 1) {
+		if (data?.countries?.showTranslation) {
 			setShowLanguages(true);
 		}
 		return () => {
@@ -283,11 +285,12 @@ export default function GlobalPresenceInsideWrap({
 			return {
 				...item,
 				title: title || item?.title,
-				eventCategories,
-				webinarsFields,
+				// eventCategories,
+				// webinarsFields,
 			};
 		});
 
+		console.log(webinarList, "webinarList");
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
