@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -24,7 +24,7 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
 import { getPressPage, getPressPageInsights } from "@/services/Press.service";
 
-export const revalidate = 1800; // Revalidates every 60 seconds
+// export const revalidate = 1800; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -34,33 +34,33 @@ export async function generateMetadata({ params }) {
 	return {
 		title: post?.title || "Default Title",
 		description: post?.excerpt || "Default description",
-		openGraph: {
-			title: post?.title,
-			// description: post?.excerpt,
-			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
-			images: [
-				{
-					url:
-						post?.featuredImage?.node?.mediaItemUrl ||
-						"https://www-production.auroraer.com/img/og-image.jpg",
-					width: 1200,
-					height: 630,
-					alt: post?.title,
-				},
-			],
-		},
+		// openGraph: {
+		// 	title: post?.title,
+		// 	// description: post?.excerpt,
+		// 	// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
+		// 	images: [
+		// 		{
+		// 			url:
+		// 				post?.featuredImage?.node?.mediaItemUrl ||
+		// 				"https://www-production.auroraer.com/img/og-image.jpg",
+		// 			width: 1200,
+		// 			height: 630,
+		// 			alt: post?.title,
+		// 		},
+		// 	],
+		// },
 	};
 }
 
 /** generateStaticParams  */
-export async function generateStaticParams() {
-	const data = await await getInsights(
-		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
-	);
-	return data.data.posts.nodes.map((item) => ({
-		slug: item.slug,
-	}));
-}
+// export async function generateStaticParams() {
+// 	const data = await await getInsights(
+// 		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+// 	);
+// 	return data.data.posts.nodes.map((item) => ({
+// 		slug: item.slug,
+// 	}));
+// }
 
 /** Fetch  */
 async function getData({ slug }) {

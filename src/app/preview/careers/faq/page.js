@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -25,7 +25,7 @@ import FaqWrap from "@/sections/careers/FaqWrap";
 import { getFaqPage } from "@/services/Faq.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 60; // Revalidates every 60 seconds
+// export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata() {
@@ -35,14 +35,14 @@ export async function generateMetadata() {
 	return {
 		title: seo?.title || "Default Title",
 		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
-		openGraph: {
-			images: [
-				{
-					url: "https://auroraer.com/img/og-image.jpg",
-				},
-			],
-		},
+		// keywords: seo?.metaKeywords || "Default description",
+		// openGraph: {
+		// 	images: [
+		// 		{
+		// 			url: "https://auroraer.com/img/og-image.jpg",
+		// 		},
+		// 	],
+		// },
 	};
 }
 

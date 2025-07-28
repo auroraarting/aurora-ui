@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -39,7 +39,7 @@ export const metadata = {
 	description: "Aurora",
 };
 
-export const revalidate = 60; // Revalidates every 60 seconds
+// export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Careers Page */
 export default async function Careers() {
