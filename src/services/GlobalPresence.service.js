@@ -266,9 +266,12 @@ query GetCountryInside {
           }
         }
       }
-      eventsAndWebinars {
-        tabTitle
-      }
+       eventsWebinarSection{
+          tabTitle
+          sectionHeading
+          eventButtonText
+          webinarButtonText
+        }
       insights {
         sectionTitle
         sectionDesc

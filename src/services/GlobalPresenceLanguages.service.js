@@ -452,7 +452,7 @@ query GetCountryInsideByTranslation {
     `;
 	const query2 = `
   query GetCountryInsideByTranslation {
-  countryBy(slug: "${decodeURIComponent(slug)}") {
+  countryBy(slug: "japan") {
     translations {
       slug
       title
@@ -518,6 +518,7 @@ query GetCountryInsideByTranslation {
         availableRegions {
           sectionTitle
           tabTitle
+          teamTitle
           team(first: 9999) {
             nodes {
               ... on Team {
@@ -543,7 +544,6 @@ query GetCountryInsideByTranslation {
           }
         }
         ourClients {
-          sectionTitle
           tabTitle
           selectLogos(first: 999) {
             nodes {
@@ -573,21 +573,27 @@ query GetCountryInsideByTranslation {
               }
             }
           }
+          sectionTitle
         }
-        eventsAndWebinars {
+        eventsWebinarSection{
           tabTitle
+          sectionHeading
+          eventButtonText
+          webinarButtonText
         }
         insights {
+          insightsTitle
           sectionTitle
           sectionDesc
+          listButtonText
           list(first: 999) {
             nodes {
               ... on Post {
                 id
+                slug
                 translations {
                   date
                   title
-                  slug
                   languageCode
                   categories(first: 999) {
                     nodes {
@@ -626,10 +632,11 @@ query GetCountryInsideByTranslation {
                 }
                 ... on Service {
                   id
+                  slug
                   translations {
-                    slug
                     title
                     content
+                    languageCode
                     services {
                       map {
                         headerLogo {
@@ -650,10 +657,11 @@ query GetCountryInsideByTranslation {
                 }
                 ... on Software {
                   id
+                  slug
                   translations {
                     title
-                    slug
                     content
+                    languageCode
                     softwares {
                       map {
                         headerLogo {
@@ -674,10 +682,11 @@ query GetCountryInsideByTranslation {
                 }
                 ... on Product {
                   id
+                  slug
                   translations {
                     title
-                    slug
                     content
+                    languageCode
                     products {
                       map {
                         headerLogo {
@@ -771,6 +780,13 @@ query GetCountryInsideByTranslation {
         fleetOfProducts {
           sectionTitle
           tabTitle
+          buttonText
+        }
+        integratedEnergy {
+          content
+          sectionTitle
+          tabTitle
+          buttonText
         }
       }
       featuredImage {
@@ -780,11 +796,180 @@ query GetCountryInsideByTranslation {
         }
       }
     }
+    countries {
+      availableRegions {
+        team(first: 9999) {
+          nodes {
+            ... on Team {
+              id
+              translations {
+                title
+                languageCode
+                teams {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      ourClients {
+        selectLogos(first: 999) {
+          nodes {
+            ... on ClientsLogo {
+              id
+              featuredImage {
+                node {
+                  translations {
+                  languageCode
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+        testimonials(first: 999) {
+          nodes {
+            ... on Testimonial {
+              id
+              translations {
+                title
+                content
+                languageCode
+                testimonials {
+                  designation
+                }
+              }
+            }
+          }
+        }
+      }
+      insights {
+        list(first: 999) {
+          nodes {
+            ... on Post {
+              id
+              slug
+              title
+              date
+              categories(first: 999) {
+                  nodes {
+                    name
+                    slug
+                    translations{
+                    name
+                    }
+                  }
+                }
+              translations {
+                title
+                languageCode
+                postFields {
+                  time
+                }
+              }
+            }
+            ... on Event {
+              id
+            }
+          }
+        }
+      }
+      map {
+        markers {
+          category(first: 999) {
+            nodes {
+              ... on Service {
+                translations {
+                  title
+                  content
+                  languageCode
+                  services {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Software {
+                translations {
+                  title
+                  content
+                  languageCode
+                  softwares {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Product {
+                translations {
+                  title
+                  content
+                  languageCode
+                  products {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              slug
+            }
+          }
+        }
+      }
+    }
   }
 }
   `;
-	const res = await GraphQLAPI(query);
-	// const res = await GraphQLAPI(query2);
+	// const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query2);
 	// console.log(res2, "res2");
 	return res;
 };

@@ -5,10 +5,10 @@ import { openModal } from "@/components/Modal";
 // import { Link, scroller } from "react-scroll";
 
 /** formatDate  */
-export default function formatDate(isoString) {
+export default function formatDate(isoString, language = "en-US") {
 	const date = new Date(isoString);
 	const options = { month: "short", day: "numeric", year: "numeric" };
-	return date.toLocaleDateString("en-US", options);
+	return date.toLocaleDateString(language, options);
 }
 
 /** getClientLogosForAllProducts  */
@@ -491,7 +491,10 @@ export function buildQueryFromContext(context) {
 export const allCategories = [
 	{ title: "Articles", alternate: "Commentary" },
 	{ title: "Case Studies", alternate: "Case Studies" },
-	{ title: "Market Reports", alternate: "Market Reports" },
+	{
+		title: "Market Reports",
+		alternate: "Market Reports",
+	},
 	// { title: "Public", alternate: "Public" },
 	{ title: "Subscriber", alternate: "Subscriber" },
 	// { title: "Energy Talks", alternate: "Energy Talks" },
@@ -511,6 +514,7 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 
 	categoryList?.map((item) => {
 		const target = (item.alternate || item.title).toLowerCase().trim();
+		let alternateName = "";
 
 		if (names?.includes(target)) {
 			if (!forUrl) {
@@ -534,6 +538,12 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				if (item.title === "New Launches") {
 					item.title = "New Launch";
 				}
+
+				alternateName = dynamicWords?.filter(
+					(item2) =>
+						item2?.name.toLowerCase() ===
+						(item?.alternate?.toLowerCase() || item?.title?.toLowerCase())
+				)?.[0]?.alternateName;
 			} else {
 				if (item.title === "Case Study") {
 					item.title = "Case Studies";
@@ -555,7 +565,7 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				}
 			}
 
-			matchedTitles.push(item.title);
+			matchedTitles.push(alternateName || item.title);
 		}
 	});
 

@@ -316,6 +316,7 @@ const tempdata = {
 
 /** Insights Section */
 export default function Insights({
+	language,
 	isFormVisible,
 	setIsFormVisible,
 	isPowerBgVisible,
@@ -331,6 +332,7 @@ export default function Insights({
 	customHtml,
 	hideall,
 	allTag,
+	insightsListButtonText = "View all",
 }) {
 	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
@@ -366,7 +368,20 @@ export default function Insights({
 	/** fetchdata  */
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
-		const resjson = await resdata.json();
+		let resjson = await resdata.json();
+		if (language) {
+			resjson.data = resjson.data?.map((item) => ({
+				...item,
+				...item?.translations?.[0],
+				categories: {
+					nodes: item?.categories?.nodes?.map((item2) => ({
+						...item2,
+						// ...item2?.translations?.[0],
+						alternateName: item2?.translations?.[0]?.name,
+					})),
+				},
+			}));
+		}
 		setData(resjson);
 	};
 
@@ -495,7 +510,7 @@ export default function Insights({
 										mode="dark"
 										textlowercase
 									>
-										View all
+										{insightsListButtonText || "View all"}
 									</Button>
 								</a>
 							</div>
@@ -558,7 +573,7 @@ export default function Insights({
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
 														<img src={white_calendar.src} alt="calendar" />
 														<span>
-															{formatDate(item?.date || item?.presses?.banner?.date)}
+															{formatDate(item?.date || item?.presses?.banner?.date, language)}
 														</span>
 													</p>
 													{isCategory(data?.countries, item?.categories?.nodes) && (

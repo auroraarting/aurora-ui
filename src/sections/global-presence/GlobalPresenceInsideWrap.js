@@ -44,6 +44,7 @@ export default function GlobalPresenceInsideWrap({
 	insightsList,
 	countries,
 	slug,
+	language,
 	// events,
 	// webinars,
 }) {
@@ -246,6 +247,47 @@ export default function GlobalPresenceInsideWrap({
 
 		// events: eventsList.slice(0, 1),
 		// webinars: webinarList.slice(0, 3),
+		eventsList = eventsList?.map((item) => {
+			let title = item?.translations?.filter(
+				(item2) => item2?.languageCode === language
+			)?.[0]?.title;
+			return { ...item, title: title || item?.title };
+		});
+		webinarList = webinarList?.map((item) => {
+			let title = item?.translations?.filter(
+				(item2) => item2?.languageCode === language
+			)?.[0]?.title;
+			let eventCategories = {
+				nodes: item?.eventCategories?.nodes?.map((item2) => {
+					return {
+						...item2,
+						...item2?.translations?.filter(
+							(item3) => item3?.languageCode === language
+						)?.[0],
+					};
+				}),
+			};
+			let webinarsFields = {
+				...item?.webinarsFields,
+				country: {
+					nodes: item?.webinarsFields?.country?.nodes?.map((item2) => {
+						return {
+							...item2,
+							...item2?.translations?.filter(
+								(item3) => item3?.languageCode === language
+							)?.[0],
+						};
+					}),
+				},
+			};
+			return {
+				...item,
+				title: title || item?.title,
+				eventCategories,
+				webinarsFields,
+			};
+		});
+
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
@@ -304,6 +346,7 @@ export default function GlobalPresenceInsideWrap({
 				<ServicesCircle
 					hideId
 					data={data?.countries?.keyAdvantages}
+					onlySectionName={data?.countries?.keyAdvantages?.tabTitle}
 					customHtml={
 						<>
 							{dynamicInsightsBtnProps(dataForBtn, "keyAdvantageSectionsButton")
@@ -381,12 +424,21 @@ export default function GlobalPresenceInsideWrap({
 				)}
 				<div className="pb_100">
 					<PublicWebinar
+						language={language}
 						events={events}
 						webinars={webinars}
-						sectionid={data?.countries?.eventsAndWebinars?.tabTitle}
+						sectionid={data?.countries?.eventsWebinarSection?.tabTitle}
 						sectionTitle={
-							data?.countries?.eventsAndWebinars?.sectionTitle ||
+							data?.countries?.eventsWebinarSection?.sectionHeading ||
 							"All voices, all markets"
+						}
+						eventButtonText={
+							data?.countries?.eventsWebinarSection?.eventButtonText ||
+							"View all events"
+						}
+						webinarButtonText={
+							data?.countries?.eventsWebinarSection?.webinarButtonText ||
+							"View all webinars"
 						}
 					/>
 				</div>
@@ -395,7 +447,9 @@ export default function GlobalPresenceInsideWrap({
 					<div className={`${styles.boxBg}`}>
 						<div className="pb_100">
 							<Insights
+								language={language}
 								insightsTitle={data?.countries?.insights?.insightsTitle}
+								insightsListButtonText={data?.countries?.insights?.listButtonText}
 								hideall
 								isPowerBgVisible={true}
 								isInsightsBlogsVisible={true}
@@ -413,6 +467,7 @@ export default function GlobalPresenceInsideWrap({
 					<EosIntegratedSystem
 						data={data?.countries?.integratedEnergy}
 						name={data?.countries?.integratedEnergy?.tabTitle}
+						buttonText={data?.countries?.integratedEnergy?.buttonText}
 					/>
 				</div>
 			</main>

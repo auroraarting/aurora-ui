@@ -75,7 +75,7 @@ export default function WhichProducts({ data, section }) {
 									className={`${styles.bookBtn} pt_20`}
 								>
 									<Button color="secondary" variant="underline">
-										Know more
+										{section?.buttonText || "Know more"}
 									</Button>
 								</a>
 							</div>
@@ -122,7 +122,7 @@ export default function WhichProducts({ data, section }) {
 	return (
 		<section
 			className={`${styles.WhichProducts}`}
-			id={section?.tabTitle ? slugify(section?.tabTitle) : "products-services"}
+			id={"products-services"}
 			data-name={section?.tabTitle || "Products & Services"}
 		>
 			<div className="container">

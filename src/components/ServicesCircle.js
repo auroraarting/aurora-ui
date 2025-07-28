@@ -39,6 +39,7 @@ export default function ServicesCircle({
 	centerLogo,
 	sectionName,
 	removeTopBottom,
+	onlySectionName,
 }) {
 	let obj = {};
 
@@ -47,7 +48,7 @@ export default function ServicesCircle({
 		if (sectionName === undefined) {
 			return {
 				id: "keyAdvantages",
-				"data-name": "Key Advantages",
+				"data-name": onlySectionName || "Key Advantages",
 			};
 		} else if (sectionName === "") {
 			return {};

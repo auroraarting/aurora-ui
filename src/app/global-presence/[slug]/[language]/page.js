@@ -38,6 +38,7 @@ import {
 import {
 	getInsights,
 	getInsightsCategories,
+	getInsightsTranslations,
 } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
@@ -76,7 +77,6 @@ export async function generateStaticParams() {
 
 		languages?.data?.languages?.nodes?.forEach((lang) => {
 			const language = lang?.code || "en";
-
 			staticParams.push({ slug, language });
 		});
 	});
@@ -97,8 +97,8 @@ async function getData({ params, query }) {
 		countryData,
 		meta,
 	] = await Promise.all([
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+		getInsightsTranslations(
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
 		),
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),
@@ -122,22 +122,100 @@ async function getData({ params, query }) {
 			(countryItem) => countryItem.languageCode === language
 		)[0] || countryData?.data?.countryBy;
 
+	countryBy.countries = {
+		...countryBy.countries,
+		// ...countryData?.data?.countryBy.countries,
+	};
+
 	countryBy.countries.availableRegions.team.nodes =
-		countryBy.countries.availableRegions.team.nodes.map((item) => {
+		countryData.data.countryBy.countries.availableRegions.team.nodes.map(
+			(item) => {
+				return {
+					...item,
+					...item?.translations?.filter(
+						(item2) => item2?.languageCode === language
+					)?.[0],
+				};
+			}
+		);
+	countryBy.countries.map.markers = countryBy.countries.map.markers.map(
+		(item) => {
+			let category = {
+				nodes: item?.category?.nodes?.map((item2) => {
+					return {
+						...item2,
+						...item2?.translations?.filter(
+							(item3) => item3?.languageCode === language
+						)?.[0],
+					};
+				}),
+			};
+			console.log(category, "category");
 			return {
 				...item,
-				...item?.translations?.[0],
+				category,
 			};
-		});
+		}
+	);
+	if (countryData?.data?.countryBy?.countries?.ourClients?.testimonials?.nodes) {
+		countryBy.countries.ourClients.testimonials.nodes =
+			countryData?.data?.countryBy.countries.ourClients.testimonials.nodes;
+	}
+	if (countryData?.data?.countryBy?.countries?.ourClients?.selectLogos?.nodes) {
+		countryBy.countries.ourClients.selectLogos.nodes =
+			countryData?.data?.countryBy.countries.ourClients.selectLogos.nodes?.map(
+				(item) => {
+					return {
+						...item,
+						featuredImage: {
+							node: item?.featuredImage?.node?.translations?.filter(
+								(item2) => item2?.languageCode === language
+							)?.[0],
+						},
+					};
+				}
+			);
+	}
+	if (countryData?.data?.countryBy?.countries?.insights?.list?.nodes) {
+		countryBy.countries.insights.list.nodes =
+			countryData.data.countryBy.countries.insights.list.nodes?.map((item) => {
+				let temp1 =
+					item?.translations?.filter(
+						(item2) => item2?.languageCode === language
+					)?.[0] || [];
+				return {
+					...item,
+					...temp1,
+					categories: {
+						nodes: item?.categories?.nodes?.map((item3) => ({
+							...item3,
+							// ...item2?.translations?.[0],
+							alternateName: item3?.translations?.filter(
+								(item4) => item4?.languageCode === language
+							)?.[0]?.name,
+						})),
+					},
+				};
+			});
+	}
+
 	// countryBy.countries.map.markers = countryBy.countries.map.markers;
-	console.log(countryBy, "countryBy");
 
 	// const countryBy = countryData?.data?.countryBy;
 	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
-	const insightsList = insightsRes?.data?.posts?.nodes || [];
+	let insightsList = insightsRes.data.posts.nodes;
+	if (insightsRes.data.posts.nodes.translations) {
+		let insightsResData =
+			insightsRes.data.posts.nodes.translations?.filter(
+				(item2) => item2.languageCode === language
+			)?.[0] || [];
+		insightsList = [...insightsRes.data.posts.nodes, ...insightsResData] || [];
+	}
+
 	const countries = categoriesRes?.data?.countries?.nodes || [];
+	console.log(countryBy, "countryBy");
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };
@@ -146,7 +224,9 @@ async function getData({ params, query }) {
 		props: {
 			data: countryBy,
 			mapJson,
-			insightsList,
+			insightsList: insightsList?.sort(
+				(a, b) => new Date(a.date) - new Date(b.date)
+			),
 			countries,
 			seo,
 			// events: eventsList.slice(0, 1),
@@ -156,10 +236,11 @@ async function getData({ params, query }) {
 }
 
 /** Australia Page */
-export default async function Australia({ params, searchParams }) {
+export default async function Australia({ params }) {
 	const { slug, language } = await params;
 	const query = { language };
 	const { props } = await getData({ params: { slug }, query });
+	console.log(props, "props");
 
 	return (
 		<div>
@@ -176,7 +257,7 @@ export default async function Australia({ params, searchParams }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<GlobalPresenceInsideWrap {...props} slug={slug} />
+			<GlobalPresenceInsideWrap {...props} slug={slug} language={language} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}
