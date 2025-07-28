@@ -13,6 +13,11 @@
 		.itemBox {
 			border-bottom: 1px solid var(--color_platinum_gray);
 			margin-bottom: 20px;
+			&.client {
+				.ClientFlex {
+					cursor: default;
+				}
+			}
 			&:last-child {
 				border-bottom: none;
 				margin-bottom: 0px;

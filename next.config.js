@@ -683,8 +683,7 @@ const nextConfig = {
 			},
 			{
 				source: "/category/insight-type",
-				destination:
-					"https://www-production.auroraer.com/resources/aurora-insights",
+				destination: "/resources/aurora-insights",
 				permanent: true,
 			},
 			{
@@ -3643,6 +3642,152 @@ const nextConfig = {
 			{
 				source: "/products/grid-add-on",
 				destination: "/products/grid",
+				permanent: true,
+			},
+			{
+				source:
+					"/country/asia-pacific/green-dreams-bankable-schemes-how-to-thrive-in-the-philippine-power-market",
+				destination:
+					"/resources/aurora-insights/newsletters/green-dreams-bankable-schemes-how-to-thrive-in-the-philippine-power-market",
+				permanent: true,
+			},
+			{
+				source: "/insight/will-trump-delay-americas-energy-transition",
+				destination:
+					"/resources/aurora-insights/newsletters/will-trump-delay-americas-energy-transition",
+				permanent: true,
+			},
+			{
+				source:
+					"/insight/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
+				destination:
+					"/resources/aurora-insights/newsletters/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
+				permanent: true,
+			},
+			{
+				source:
+					"/insight/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				destination:
+					"/resources/aurora-insights/newsletters/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				permanent: true,
+			},
+			{
+				source:
+					"/feeds/portugal-renewable-wind-energy-transition-onshore-repowering",
+				destination:
+					"/company/press-room/portugal-renewable-wind-energy-transition-onshore-repowering",
+				permanent: true,
+			},
+			{
+				source:
+					"/insight/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				has: [
+					{
+						type: "query",
+						key: "utm_source",
+						value: "Newsletter",
+					},
+					{
+						type: "query",
+						key: "utm_medium",
+						value: "LinkedIn+Newsletter",
+					},
+					{
+						type: "query",
+						key: "utm_campaign",
+						value: "Aurora_March+2025_LinkedIn_Commentary",
+					},
+					{
+						type: "query",
+						key: "utm_id",
+						value: "March_2025+-+Aurora_LinkedIn_Commentary",
+					},
+				],
+				destination:
+					"/resources/aurora-insights/newsletters/inside-the-us-data-center-boom-whats-powering-the-next-tech-revolution",
+				permanent: true,
+			},
+			{
+				source: "/",
+				has: [
+					{
+						type: "query",
+						key: "p",
+						value: "36996",
+					},
+					{
+						type: "query",
+						key: "preview",
+						value: "true",
+					},
+				],
+				destination:
+					"/resources/aurora-insights/newsletters/no-more-russian-gas-via-ukraine",
+				permanent: true,
+			},
+			{
+				source: "/",
+				has: [
+					{
+						type: "query",
+						key: "p",
+						value: "36434",
+					},
+					{
+						type: "query",
+						key: "preview",
+						value: "true",
+					},
+				],
+				destination:
+					"/resources/aurora-insights/newsletters/the-battery-buildout-in-europe",
+				permanent: false,
+			},
+			{
+				source: "/",
+				has: [
+					{
+						type: "query",
+						key: "p",
+						value: "35055",
+					},
+					{
+						type: "query",
+						key: "preview",
+						value: "true",
+					},
+				],
+				destination:
+					"/resources/aurora-insights/newsletters/what-does-chiles-solar-powered-future-look-like",
+				permanent: false,
+			},
+			{
+				source:
+					"/insight/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
+				has: [
+					{
+						type: "query",
+						key: "utm_source",
+						value: "Newsletter",
+					},
+					{
+						type: "query",
+						key: "utm_medium",
+						value: "LinkedIn Newsletter",
+					},
+					{
+						type: "query",
+						key: "utm_campaign",
+						value: "Commentary_Western_Balkans_Newsletter",
+					},
+					{
+						type: "query",
+						key: "utm_id",
+						value: "October 2024 - Commentary - Wester_Balkans",
+					},
+				],
+				destination:
+					"/resources/aurora-insights/newsletters/the-future-of-energy-in-the-western-balkans-a-renewables-revolution",
 				permanent: true,
 			},
 			{

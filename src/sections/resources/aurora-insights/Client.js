@@ -81,7 +81,7 @@ export default function Client({ data, countries }) {
 					data?.postFields?.poweredBy?.nodes) && (
 					<div className={`${styles.whiteBox}`}>
 						{data?.postFields?.client && (
-							<div className={`${styles.itemBox}`}>
+							<div className={`${styles.itemBox} ${styles.client}`}>
 								<h5 className="text_reg color_gray f_w_b pb_10">Client</h5>
 								{data?.postFields?.client?.map((item, ind) => {
 									return (

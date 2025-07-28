@@ -133,7 +133,7 @@ export default function SoftwareInsideWrap({
 					</div>
 				)}
 				{(data?.ourClient?.selectLogos || data?.ourClient?.testimonials) && (
-					<div className="ptb_100">
+					<div className="pt_100">
 						{data?.ourClient?.selectLogos && (
 							<div className={`${styles.TrustOurExpertsBg} `}>
 								<TrustedLeaders data={data?.ourClient} />
@@ -146,7 +146,7 @@ export default function SoftwareInsideWrap({
 						)}
 					</div>
 				)}
-				<div className="">
+				<div className="pt_100">
 					<ServicesCircle
 						data={data?.keyAdvantages}
 						customColor={data?.thumbnail?.primaryColor}
