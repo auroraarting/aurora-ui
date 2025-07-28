@@ -458,6 +458,7 @@ query GetCountryInsideByTranslation {
       title
       languageCode
       countries {
+      showTranslation
         hideonglobalpresence
         bannerSection {
           description
@@ -797,6 +798,7 @@ query GetCountryInsideByTranslation {
       }
     }
     countries {
+    showTranslation
       availableRegions {
         team(first: 9999) {
           nodes {

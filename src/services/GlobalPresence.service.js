@@ -156,6 +156,7 @@ query GetCountryInside {
       title
       languageCode
       countries {
+      showTranslation
       hideonglobalpresence
       bannerSection {
         description

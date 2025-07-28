@@ -57,7 +57,7 @@ export default function GlobalPresenceInsideWrap({
 	useEffect(() => {
 		setMapJsonState(getMapJsonForCountries(data?.countries?.map));
 
-		if (data?.translations?.length >= 1) {
+		if (data?.countries?.showTranslation) {
 			setShowLanguages(true);
 		}
 		return () => {

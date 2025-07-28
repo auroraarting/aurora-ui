@@ -122,10 +122,10 @@ async function getData({ params, query }) {
 			(countryItem) => countryItem.languageCode === language
 		)[0] || countryData?.data?.countryBy;
 
-	countryBy.countries = {
-		...countryBy.countries,
-		// ...countryData?.data?.countryBy.countries,
-	};
+	// countryBy.countries = {
+	// 	...countryBy.countries,
+	// 	// ...countryData?.data?.countryBy.countries,
+	// };
 
 	countryBy.countries.availableRegions.team.nodes =
 		countryData.data.countryBy.countries.availableRegions.team.nodes.map(
@@ -215,7 +215,6 @@ async function getData({ params, query }) {
 	}
 
 	const countries = categoriesRes?.data?.countries?.nodes || [];
-	console.log(countryBy, "countryBy");
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };
@@ -240,7 +239,6 @@ export default async function Australia({ params }) {
 	const { slug, language } = await params;
 	const query = { language };
 	const { props } = await getData({ params: { slug }, query });
-	console.log(props, "props");
 
 	return (
 		<div>
