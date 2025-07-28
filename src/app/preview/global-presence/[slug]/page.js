@@ -2,8 +2,8 @@
 /* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -40,7 +40,7 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 1800; // Revalidates every 60 seconds
+// export const revalidate = 1800; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -63,12 +63,12 @@ export const revalidate = 1800; // Revalidates every 60 seconds
 // }
 
 /** generateStaticParams  */
-export async function generateStaticParams() {
-	const countries = await getCountries();
-	return countries?.data?.countries?.nodes?.map((item) => ({
-		slug: item?.slug || "india",
-	}));
-}
+// export async function generateStaticParams() {
+// 	const countries = await getCountries();
+// 	return countries?.data?.countries?.nodes?.map((item) => ({
+// 		slug: item?.slug || "india",
+// 	}));
+// }
 
 /** Fetch  */
 async function getData({ params, query }) {

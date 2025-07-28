@@ -1,12 +1,13 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
 
 // COMPONENTS //
+import Link from "next/link";
 
 // SECTIONS //
 import GlobalPresenceWrap from "@/sections/global-presence/GlobalPresenceWrap";
@@ -29,7 +30,6 @@ import {
 	getGlobalPresencePage,
 	getRegions,
 } from "@/services/GlobalPresence.service";
-import Link from "next/link";
 import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
@@ -40,14 +40,14 @@ export async function generateMetadata() {
 	return {
 		title: seo?.title || "Default Title",
 		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
-		openGraph: {
-			images: [
-				{
-					url: "https://auroraer.com/img/og-image.jpg",
-				},
-			],
-		},
+		// keywords: seo?.metaKeywords || "Default description",
+		// openGraph: {
+		// 	images: [
+		// 		{
+		// 			url: "https://auroraer.com/img/og-image.jpg",
+		// 		},
+		// 	],
+		// },
 	};
 }
 

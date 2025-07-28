@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -13,6 +13,7 @@ import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
 import Script from "next/script";
 import IframeModal from "@/components/IframeModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // SECTIONS //
 import WebinarInsideTopSection from "@/sections/resources/webinar/WebinarInsideTopSection";
@@ -38,11 +39,9 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
-export const revalidate = 60; // Revalidates every 60 seconds
+// export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {

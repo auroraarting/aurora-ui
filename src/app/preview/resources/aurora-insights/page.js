@@ -1,5 +1,5 @@
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
@@ -37,18 +37,18 @@ export async function generateMetadata() {
 	return {
 		title: seo?.title || "Default Title",
 		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
-		openGraph: {
-			images: [
-				{
-					url: "https://auroraer.com/img/og-image.jpg",
-				},
-			],
-		},
+		// keywords: seo?.metaKeywords || "Default description",
+		// openGraph: {
+		// 	images: [
+		// 		{
+		// 			url: "https://auroraer.com/img/og-image.jpg",
+		// 		},
+		// 	],
+		// },
 	};
 }
 
-export const revalidate = 60; // Revalidates every 60 seconds
+// export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Fetch  getStaticProps*/
 async function getData() {
