@@ -890,9 +890,36 @@ query GetCountryInsideByTranslation {
       }
       map {
         markers {
+        mapThumbnail {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
           category(first: 999) {
             nodes {
+            contentType {
+                  node {
+                    name
+                  }
+                }
               ... on Service {
+              services {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
                 translations {
                   title
                   content
@@ -916,6 +943,22 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Software {
+              softwares {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
                 translations {
                   title
                   content
@@ -939,6 +982,22 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Product {
+              products {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
                 translations {
                   title
                   content
