@@ -60,12 +60,18 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 	const searchParams = useSearchParams();
 	const searchQuery = searchParams.get("search");
 	const pathname = usePathname();
-	const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+	// const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 	// const [showLanguages, setShowLanguages] = useState(true);
-	const { showLanguages, setEventsState, setWebinarsState } =
-		useContextProvider();
+	const {
+		showLanguages,
+		setEventsState,
+		setWebinarsState,
+		selectedLanguage,
+		setSelectedLanguage,
+		language,
+	} = useContextProvider();
 	const [showLanguagesList, setShowLanguagesList] = useState(false);
-	const language = searchParams.get("language");
+	// const language = searchParams.get("language");
 
 	/** toggle */
 	const toggleTab = (index) => {
@@ -186,9 +192,9 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 			const selectedLang = languages.find(
 				(lang) => lang.shortTitle.toLowerCase() === language?.toLowerCase()
 			);
-			setSelectedLanguage(selectedLang);
+			setSelectedLanguage(selectedLang || "");
 		}
-	}, [pathname]);
+	}, [pathname, language]);
 
 	useEffect(() => {
 		if (searchQuery) {
@@ -255,7 +261,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 									onClick={() => setShowLanguagesList(!showLanguagesList)}
 								>
 									<img src={selectedLanguage?.icon} />
-									{selectedLanguage?.shortTitle}
+									{/* {selectedLanguage?.shortTitle} */}
 									<img src={dropdown_arrow.src} />
 								</div>
 							</div>
@@ -283,12 +289,13 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 												className={`${styles.item} text_xxs f_w_m font_primary`}
 												key={item?.title}
 												onClick={() => {
+													console.log(item, "item");
 													window.location.href = `${hrefLink}`;
 													setSelectedLanguage(item);
 													setShowLanguagesList(!showLanguagesList);
 												}}
 											>
-												{item?.shortTitle}-{item?.title}
+												{item?.title}
 											</div>
 										);
 									})}
