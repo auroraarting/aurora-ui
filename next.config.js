@@ -8,6 +8,7 @@ const nextConfig = {
 	// experimental: {
 	// 	dynamicIO: true,
 	// },
+	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	images: {
 		domains: [
 			"img.youtube.com",

@@ -214,15 +214,15 @@ async function getData({ params, query }) {
 	}
 
 	const countries = categoriesRes?.data?.countries?.nodes || [];
-	if (language === "ja") {
-		countryBy.countries.eventsWebinarSection.sectionHeading =
-			"あらゆる声、あらゆる市場";
-		countryBy.countries.eventsWebinarSection.eventButtonText =
-			"すべてのイベントを見る";
-		countryBy.countries.eventsWebinarSection.webinarButtonText =
-			"すべてのウェビナーを見る";
-		countryBy.countries.eventsWebinarSection.tabTitle = "イベントとウェビナー";
-	}
+	// if (language === "ja") {
+	// 	countryBy.countries.eventsWebinarSection.sectionHeading =
+	// 		"あらゆる声、あらゆる市場";
+	// 	countryBy.countries.eventsWebinarSection.eventButtonText =
+	// 		"すべてのイベントを見る";
+	// 	countryBy.countries.eventsWebinarSection.webinarButtonText =
+	// 		"すべてのウェビナーを見る";
+	// 	countryBy.countries.eventsWebinarSection.tabTitle = "イベントとウェビナー";
+	// }
 
 	countryBy.countries.showTranslation = true;
 
