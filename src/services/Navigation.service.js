@@ -123,6 +123,29 @@ query GetRegions {
 
 /** fetchNavigationData  */
 export async function fetchNavigationData() {
+	/** removeDuplicateCountries */
+	function removeDuplicateCountries(regions) {
+		const seenSlugs = new Set();
+
+		return regions.map((region) => {
+			const uniqueCountries = [];
+
+			for (const country of region.countries.nodes) {
+				if (!seenSlugs.has(country.slug)) {
+					seenSlugs.add(country.slug);
+					uniqueCountries.push(country);
+				}
+			}
+
+			return {
+				...region,
+				countries: {
+					nodes: uniqueCountries,
+				},
+			};
+		});
+	}
+
 	const combinedQuery = `
  query GetAllNavigationData {
   softwares(first: 9999,where: {orderby: {field: DATE, order: DESC}}) {
@@ -346,7 +369,7 @@ export async function fetchNavigationData() {
 		products,
 		softwares,
 		services,
-		regions,
+		regions: removeDuplicateCountries(regions),
 		whoareyous,
 		howWeHelps,
 		events,
