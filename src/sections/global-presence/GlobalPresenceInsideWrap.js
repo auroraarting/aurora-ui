@@ -283,8 +283,8 @@ export default function GlobalPresenceInsideWrap({
 			return {
 				...item,
 				title: title || item?.title,
-				eventCategories,
-				webinarsFields,
+				// eventCategories,
+				// webinarsFields,
 			};
 		});
 
