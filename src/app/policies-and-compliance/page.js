@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -23,12 +24,34 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 
 // SERVICES //
 import { getPolicy } from "@/services/Policy.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Meta Data */
-export const metadata = {
-	title: "Policies and Compliance | Aurora",
-	description: "Aurora",
-};
+// export const metadata = {
+// 	title: "Policies and Compliance | Aurora",
+// 	description: "Aurora",
+// };
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo(
+		'page(id: "policies-and-compliance", idType: URI)'
+	);
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Policies and Compliance | Aurora",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Policies and compliance Page */
 export default async function PoliciesAndCompliance() {

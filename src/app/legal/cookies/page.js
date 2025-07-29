@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -26,12 +27,32 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // SERVICES //
 import { getCookies } from "@/services/Cookies.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Meta Data */
-export const metadata = {
-	title: "Cookies | Aurora",
-	description: "Aurora",
-};
+// export const metadata = {
+// 	title: "Cookies | Aurora",
+// 	description: "Aurora",
+// };
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "cookies", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Cookies | Aurora",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Cookies Page */
 export default async function Cookies() {
