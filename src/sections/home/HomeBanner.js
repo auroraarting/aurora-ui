@@ -75,7 +75,7 @@ export default function HomeBanner() {
 										in due diligence, transactions, and major BESS project financings.
 									</p>
 									<div className={`${styles.bookBtnOne} pt_40`}>
-										<a href="/software/lumus" role="button">
+										<a href="/software/chronos" role="button">
 											<Button color="primary" variant="filled" shape="rounded" mode="dark">
 												Discover Chronos
 											</Button>
