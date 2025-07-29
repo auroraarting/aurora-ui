@@ -258,6 +258,7 @@ export async function searchData(searchTerm) {
 		/** href  */
 		const href = () => {
 			let cat = isCategory(allCategories, item?.categories?.nodes, true);
+			console.log(item.categories.nodes, "cat");
 
 			if (cat.includes("Articles")) {
 				return `/resources/aurora-insights/articles/${item?.slug}`;
@@ -265,12 +266,14 @@ export async function searchData(searchTerm) {
 				return `/resources/aurora-insights/case-studies/${item?.slug}`;
 			} else if (cat.includes("Market Reports")) {
 				return `/resources/aurora-insights/market-reports/${item?.slug}`;
+			} else if (cat.includes("New Launches")) {
+				return `/resources/aurora-insights/new-launches/${item?.slug}`;
+			} else if (cat.includes("Newsletters")) {
+				return `/resources/aurora-insights/newsletters/${item?.slug}`;
+			} else if (cat.includes("Policy Notes")) {
+				return `/resources/aurora-insights/policy-notes/${item?.slug}`;
 			} else if (cat.includes("Media")) {
 				return `/company/press-room/${item?.slug}`;
-			} else if (cat.includes("Policy Notes")) {
-				return `/company/policy-notes/${item?.slug}`;
-			} else if (cat.includes("Newsletters")) {
-				return `/company/newsletters/${item?.slug}`;
 			}
 			// ,policy-notes,newsletters
 		};

@@ -52,6 +52,10 @@ export const getWebinars = async (filters = "first: 9999") => {
 query GetWebinars {
   webinars(${filters}) {
     nodes {
+    translations{
+        title
+        languageCode
+      }
       title
       slug
       content(format: RAW)
@@ -65,12 +69,20 @@ query GetWebinars {
         nodes {
           name
           slug
+          translations{
+          languageCode
+          name
+          }
         }
       }
       eventCategories(first: 9999) {
         nodes {
           name
           slug
+          translations{
+          languageCode
+          name
+          }
         }
       }
       webinarsFields {
@@ -80,6 +92,10 @@ query GetWebinars {
               id
               title
               slug
+              translations{
+              languageCode
+              title
+              }
             }
           }
         }

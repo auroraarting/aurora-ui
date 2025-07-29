@@ -6,6 +6,8 @@ import { BookmarkContext } from "./GlobalContext"; // import from above
 import SmoothScrolling from "@/utils/SmoothScrolling";
 import ScrollOut from "scroll-out";
 import { setTimeout } from "timers";
+// DATA //
+import languages from "@/data/languages.json";
 
 /** InnerGlobalContext  */
 export default function InnerGlobalContext({ children }) {
@@ -14,6 +16,8 @@ export default function InnerGlobalContext({ children }) {
 	const [showLanguages, setShowLanguages] = useState(false);
 	const [eventsState, setEventsState] = useState([]);
 	const [webinarsState, setWebinarsState] = useState([]);
+	const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+	const [language, setLanguage] = useState();
 
 	/** addCssVariables  */
 	const addCssVariables = () => {
@@ -60,6 +64,10 @@ export default function InnerGlobalContext({ children }) {
 				setEventsState,
 				webinarsState,
 				setWebinarsState,
+				selectedLanguage,
+				setSelectedLanguage,
+				language,
+				setLanguage,
 			}}
 		>
 			{children}

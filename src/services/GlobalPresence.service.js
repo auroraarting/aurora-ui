@@ -156,6 +156,7 @@ query GetCountryInside {
       title
       languageCode
       countries {
+      showTranslation
       hideonglobalpresence
       bannerSection {
         description
@@ -266,9 +267,12 @@ query GetCountryInside {
           }
         }
       }
-      eventsAndWebinars {
-        tabTitle
-      }
+       eventsWebinarSection{
+          tabTitle
+          sectionHeading
+          eventButtonText
+          webinarButtonText
+        }
       insights {
         sectionTitle
         sectionDesc

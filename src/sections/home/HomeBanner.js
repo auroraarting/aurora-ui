@@ -64,27 +64,26 @@ export default function HomeBanner() {
 							<div className={`${styles.BannerInfo} f_w_j`}>
 								<div className={`${styles.BannerContent}`}>
 									<h1 className="text_xl f_w_m color_white pb_10 text_uppercase">
-										LUMUS <br />
-										PPA pricing made transparent
+										CHRONOS <br />
+										BATTERY VALUATIONS, PERFECTED
 									</h1>
 									{/* <p className="text_xl f_w_m color_white pb_15 text_uppercase">
 
 									</p> */}
 									<p className="text_reg color_silver_gray">
-										Our advanced valuation software for Power Purchase Agreements,
-										delivers unparalleled pricing transparency powered by deep market
-										intelligence.
+										Chronos provides fast, bankable valuations for storage assets, trusted
+										in due diligence, transactions, and major BESS project financings.
 									</p>
 									<div className={`${styles.bookBtnOne} pt_40`}>
 										<a href="/software/lumus" role="button">
 											<Button color="primary" variant="filled" shape="rounded" mode="dark">
-												Discover Lumus
+												Discover Chronos
 											</Button>
 										</a>
 									</div>
 								</div>
 								<div className={`${styles.VimeoBanner}`}>
-									<Vimeo video="1087755868" width="100%" autoplay={false} responsive />
+									<Vimeo video="882811837" width="100%" autoplay={false} responsive />
 								</div>
 							</div>
 						</SwiperSlide>

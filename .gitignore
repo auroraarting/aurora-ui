@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Package
 package-lock.json
+
+# Public
+/public/robots.txt
