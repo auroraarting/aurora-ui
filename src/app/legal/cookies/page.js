@@ -12,6 +12,7 @@ import MetaTags from "@/components/MetaTags";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -23,6 +24,9 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+// SERVICES //
+import { getCookies } from "@/services/Cookies.service";
+
 /** Meta Data */
 export const metadata = {
 	title: "Cookies | Aurora",
@@ -30,7 +34,13 @@ export const metadata = {
 };
 
 /** Cookies Page */
-export default function Cookies() {
+export default async function Cookies() {
+	const {
+		data: {
+			page: { title, content },
+		},
+	} = await getCookies();
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -43,11 +53,12 @@ export default function Cookies() {
 			<main className={styles.TermsPage}>
 				<section className={`${styles.TermsInside} pt_60 pb_100`}>
 					<div className="container">
-						<h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
+						{/* <h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
 							Cookies Policy
-						</h1>
+						</h1> */}
 						<div className={`${styles.termsContent}`}>
-							<h2>1. What are Cookies?</h2>
+							{content && parse(content)}
+							{/* <h2>1. What are Cookies?</h2>
 							<p>
 								Our website uses small electronic files of letters and numbers called
 								cookies. Cookies help us to tell you apart from other visitors, to
@@ -184,7 +195,7 @@ export default function Cookies() {
 								All cookies over which we have control will expire after one month. The
 								third-party cookies on our website, which we do not have control over,
 								expire after two years.
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</section>

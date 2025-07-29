@@ -10,6 +10,7 @@ import MetaTags from "@/components/MetaTags";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -20,6 +21,9 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 
 // DATA //
 
+// SERVICES //
+import { getPolicy } from "@/services/Policy.service";
+
 /** Meta Data */
 export const metadata = {
 	title: "Policies and Compliance | Aurora",
@@ -27,7 +31,12 @@ export const metadata = {
 };
 
 /** Policies and compliance Page */
-export default function PoliciesAndCompliance() {
+export default async function PoliciesAndCompliance() {
+	const {
+		data: {
+			page: { title, content },
+		},
+	} = await getPolicy();
 	return (
 		<div>
 			{/* Metatags */}
@@ -45,11 +54,12 @@ export default function PoliciesAndCompliance() {
 			<main className={styles.TermsPage}>
 				<section className={`${styles.TermsInside} pt_60 pb_100`}>
 					<div className="container">
-						<h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
+						{/* <h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
 							POLICIES AND COMPLIANCE
-						</h1>
+						</h1> */}
 						<div className={`${styles.termsContent}`}>
-							<h2>Privacy Documents</h2>
+							{content && parse(content)}
+							{/* <h2>Privacy Documents</h2>
 							<p>
 								<a
 									href="/img/pdf/Aurora-Privacy-Notice.pdf"
@@ -117,7 +127,7 @@ export default function PoliciesAndCompliance() {
 								>
 									Gender Pay Gap 2024
 								</a>
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</section>

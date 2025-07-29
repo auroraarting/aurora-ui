@@ -10,6 +10,7 @@
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -21,6 +22,9 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+// SERVICES //
+import { getTerms } from "@/services/Terms.service";
+
 /** Meta Data */
 export const metadata = {
 	title: "Terms | Aurora",
@@ -28,7 +32,12 @@ export const metadata = {
 };
 
 /** Terms Page */
-export default function Terms() {
+export default async function Terms() {
+	const {
+		data: {
+			page: { title, content },
+		},
+	} = await getTerms();
 	return (
 		<div>
 			{/* Metatags */}
@@ -41,11 +50,12 @@ export default function Terms() {
 			<main className={styles.TermsPage}>
 				<section className={`${styles.TermsInside} pt_60 pb_100`}>
 					<div className="container">
-						<h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
+						{/* <h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
 							Terms of use
-						</h1>
+						</h1> */}
 						<div className={`${styles.termsContent}`}>
-							<h2>Introduction</h2>
+							{content && parse(content)}
+							{/* <h2>Introduction</h2>
 							<p>
 								This website (the “Site”) is operated by Aurora Energy Research Limited
 								(“Aurora”). Throughout the Site, the terms “we,” “us” and “our” refer to
@@ -320,7 +330,7 @@ export default function Terms() {
 							<p>
 								These terms and conditions are governed by English law and the parties
 								agree to submit to the exclusive jurisdiction of the English courts.
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</section>
