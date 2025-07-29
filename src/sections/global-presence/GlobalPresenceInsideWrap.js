@@ -290,7 +290,6 @@ export default function GlobalPresenceInsideWrap({
 			};
 		});
 
-		console.log(webinarList, "webinarList");
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);

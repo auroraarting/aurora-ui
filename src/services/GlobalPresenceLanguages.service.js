@@ -10,7 +10,7 @@ export const getRegions = async () => {
     nodes {
       name
       slug
-      countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
+      countries(first: 999, where: {orderby: {field: TITLE, order: ASC}}) {
         nodes {
           content
           slug
@@ -204,7 +204,7 @@ query GetCountryInsideByTranslation {
       availableRegions {
         sectionTitle
         tabTitle
-        team(first: 9999) {
+        team(first: 999) {
           nodes {
             ... on Team {
               id
@@ -520,7 +520,7 @@ query GetCountryInsideByTranslation {
           sectionTitle
           tabTitle
           teamTitle
-          team(first: 9999) {
+          team(first: 999) {
             nodes {
               ... on Team {
                 id
@@ -800,7 +800,7 @@ query GetCountryInsideByTranslation {
     countries {
     showTranslation
       availableRegions {
-        team(first: 9999) {
+        team(first: 999) {
           nodes {
             ... on Team {
               id
@@ -890,9 +890,36 @@ query GetCountryInsideByTranslation {
       }
       map {
         markers {
+        mapThumbnail {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
           category(first: 999) {
             nodes {
+            contentType {
+                  node {
+                    name
+                  }
+                }
               ... on Service {
+              services {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
                 translations {
                   title
                   content
@@ -916,6 +943,22 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Software {
+              softwares {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
                 translations {
                   title
                   content
@@ -939,6 +982,22 @@ query GetCountryInsideByTranslation {
                 }
               }
               ... on Product {
+              products {
+                    map {
+                      headerLogo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                      logo {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
                 translations {
                   title
                   content

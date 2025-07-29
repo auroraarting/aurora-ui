@@ -55,6 +55,12 @@ export default function WhichProducts({ data, section }) {
 						}
 						return marker?.category?.nodes?.[0]?.contentType?.node?.name;
 					};
+					console.log(
+						marker?.category?.nodes?.[0]?.[
+							marker?.category?.nodes?.[0]?.contentType?.node?.name
+						],
+						"node"
+					);
 					groupedBySlug[slug] = {
 						...node,
 						locationData: marker.locationtitle,

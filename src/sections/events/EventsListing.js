@@ -615,13 +615,15 @@ export default function EventsListing({
 						</p>
 					)}
 				</div>
-				<Pagination
-					data={list}
-					paginationArr={paginationArr}
-					setCurrentItems={setList}
-					isDark={true}
-					// itemsPerPage={12}
-				/>
+				{list?.length > 0 && (
+					<Pagination
+						data={list}
+						paginationArr={paginationArr}
+						setCurrentItems={setList}
+						isDark={true}
+						// itemsPerPage={12}
+					/>
+				)}
 			</div>
 		</section>
 	);

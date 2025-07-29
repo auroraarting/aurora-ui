@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
 // export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
@@ -44,7 +44,7 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-// export const revalidate = 1800; // Revalidates every 60 seconds
+export const revalidate = 1800; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -67,22 +67,22 @@ import { getPageSeo } from "@/services/Seo.service";
 // }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const countries = await getCountries();
-// 	const languages = await getAllLanguages();
-// 	const staticParams = [];
+export async function generateStaticParams() {
+	const countries = await getCountries();
+	const languages = await getAllLanguages();
+	const staticParams = [];
 
-// 	countries?.data?.countries?.nodes?.map((country) => {
-// 		const slug = country?.slug || "india";
+	countries?.data?.countries?.nodes?.map((country) => {
+		const slug = country?.slug || "india";
 
-// 		languages?.data?.languages?.nodes?.forEach((lang) => {
-// 			const language = lang?.code || "en";
-// 			staticParams.push({ slug, language });
-// 		});
-// 	});
+		languages?.data?.languages?.nodes?.forEach((lang) => {
+			const language = lang?.code || "en";
+			staticParams.push({ slug, language });
+		});
+	});
 
-// 	return staticParams;
-// }
+	return staticParams;
+}
 
 /** Fetch  */
 async function getData({ params, query }) {
@@ -214,17 +214,19 @@ async function getData({ params, query }) {
 	}
 
 	const countries = categoriesRes?.data?.countries?.nodes || [];
-	if (language === "ja") {
-		countryBy.countries.eventsWebinarSection.sectionHeading =
-			"あらゆる声、あらゆる市場";
-		countryBy.countries.eventsWebinarSection.eventButtonText =
-			"すべてのイベントを見る";
-		countryBy.countries.eventsWebinarSection.webinarButtonText =
-			"すべてのウェビナーを見る";
-		countryBy.countries.eventsWebinarSection.tabTitle = "イベントとウェビナー";
-	}
+	// if (language === "ja") {
+	// 	countryBy.countries.eventsWebinarSection.sectionHeading =
+	// 		"あらゆる声、あらゆる市場";
+	// 	countryBy.countries.eventsWebinarSection.eventButtonText =
+	// 		"すべてのイベントを見る";
+	// 	countryBy.countries.eventsWebinarSection.webinarButtonText =
+	// 		"すべてのウェビナーを見る";
+	// 	countryBy.countries.eventsWebinarSection.tabTitle = "イベントとウェビナー";
+	// }
 
 	countryBy.countries.showTranslation = true;
+
+	console.log(countryData, "countryData");
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };

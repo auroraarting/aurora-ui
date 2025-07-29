@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
@@ -12,6 +13,7 @@ import MetaTags from "@/components/MetaTags";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -23,14 +25,43 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
 // DATA //
 
+// SERVICES //
+import { getCookies } from "@/services/Cookies.service";
+import { getPageSeo } from "@/services/Seo.service";
+
 /** Meta Data */
-export const metadata = {
-	title: "Cookies | Aurora",
-	description: "Aurora",
-};
+// export const metadata = {
+// 	title: "Cookies | Aurora",
+// 	description: "Aurora",
+// };
+
+/** generateMetadata  */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "cookies", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title: seo?.title || "Cookies | Aurora",
+		description: seo?.metaDesc || "Default description",
+		keywords: seo?.metaKeywords || "Default description",
+		openGraph: {
+			images: [
+				{
+					url: "https://auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** Cookies Page */
-export default function Cookies() {
+export default async function Cookies() {
+	const {
+		data: {
+			page: { title, content },
+		},
+	} = await getCookies();
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -43,11 +74,12 @@ export default function Cookies() {
 			<main className={styles.TermsPage}>
 				<section className={`${styles.TermsInside} pt_60 pb_100`}>
 					<div className="container">
-						<h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
+						{/* <h1 className="text_xl font_primary f_w_s_b color_secondary pb_20 text_uppercase">
 							Cookies Policy
-						</h1>
+						</h1> */}
 						<div className={`${styles.termsContent}`}>
-							<h2>1. What are Cookies?</h2>
+							{content && parse(content)}
+							{/* <h2>1. What are Cookies?</h2>
 							<p>
 								Our website uses small electronic files of letters and numbers called
 								cookies. Cookies help us to tell you apart from other visitors, to
@@ -184,7 +216,7 @@ export default function Cookies() {
 								All cookies over which we have control will expire after one month. The
 								third-party cookies on our website, which we do not have control over,
 								expire after two years.
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</section>

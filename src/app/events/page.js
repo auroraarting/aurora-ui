@@ -44,7 +44,7 @@ export default async function Events() {
 		await getAllEventCountries(),
 		await getEventLandingPage(),
 	]);
-	const data = dataFetch.data.events.nodes.sort(
+	const data = dataFetch?.data?.events?.nodes?.sort(
 		(a, b) =>
 			new Date(b?.events?.thumbnail?.date) - new Date(a?.events?.thumbnail?.date)
 	);
