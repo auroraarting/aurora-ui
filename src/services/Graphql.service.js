@@ -49,7 +49,7 @@ export default async function GraphQLAPI(query, refreshInterval = 30000) {
 				...ServerHeaders.headers,
 			},
 		};
-		req = await fetch("https://aurora-sync-mocha.vercel.app/api/cache", {
+		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
 			"Content-Type": "application/json",
 			method: "POST",
 			body: JSON.stringify({ ...data }),
