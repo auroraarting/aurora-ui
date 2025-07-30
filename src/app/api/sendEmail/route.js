@@ -1,25 +1,50 @@
-/* eslint-disable require-jsdoc */
-import { EmailTemplate } from "@/components/email/EmailTemplate.jsx";
-import { Resend } from "resend";
+export const runtime = "nodejs";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { NextResponse } from "next/server";
+import sgMail from "@sendgrid/mail";
+// import ReactDOMServer from "react-dom/server";
+import EmailTemplate from "@/components/email/EmailTemplate";
 
-export async function POST(req, res) {
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+/**  */
+export async function POST(req) {
 	try {
-		// const { name, email } = JSON.parse(req.body);
-		const name = "developer name";
-		const email = "developer email";
+		const { name, email } = await req.json();
 
-		const data = await resend.emails.send({
-			from: "Ting Base Template <onboarding@resend.dev>",
-			to: "developer@ting.in",
-			subject: "New submission to your contact form!",
-			// html: "<h1>hello</h1>",
-			react: EmailTemplate({ name, email }),
-		});
+		if (!name || !email) {
+			return NextResponse.json(
+				{ error: "Missing name or email" },
+				{ status: 400 }
+			);
+		}
 
-		res.status(200).json(data);
+		// Convert JSX to static HTML
+		const htmlContent = `
+		<div>
+			<p>Name: ${name} </p>
+			<p>Email: ${email} </p>
+		</div>
+		`;
+
+		const msg = {
+			to: email,
+			from: "nihal.padwal@ting.in", // Must be verified
+			subject: "Welcome",
+			html: htmlContent,
+		};
+
+		await sgMail.send(msg);
+
+		return NextResponse.json(
+			{ message: "Email sent successfully." },
+			{ status: 200 }
+		);
 	} catch (error) {
-		res.status(400).json(error);
+		console.error(error);
+		return NextResponse.json(
+			{ error: error.message || "Failed to send email." },
+			{ status: 500 }
+		);
 	}
 }
