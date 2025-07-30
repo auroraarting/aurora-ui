@@ -17,6 +17,7 @@ import {
 	dynamicInsightsBtnProps,
 	filterMarkersBySlug,
 	getMapJsonForProducts,
+	slugify,
 } from "@/utils";
 
 // STYLES //
@@ -43,6 +44,7 @@ export default function SoftwareMarket({
 	data,
 	mapThumb,
 	teamTitle,
+	tabTitle = "Available Regions",
 }) {
 	/** centerOfCountry  */
 	let centerOfCountry = () => {
@@ -72,8 +74,8 @@ export default function SoftwareMarket({
 	return (
 		<section
 			className={`${styles.SoftwareMarket} `}
-			id="availableregions"
-			data-name="Available Regions"
+			id={"availableregions"}
+			data-name={tabTitle || "Available Regions"}
 		>
 			<div className="container">
 				<div className={`${styles.inner}`}>

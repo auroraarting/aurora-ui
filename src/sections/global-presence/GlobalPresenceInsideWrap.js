@@ -377,6 +377,9 @@ export default function GlobalPresenceInsideWrap({
 							data?.countries?.availableRegions?.sectionTitle ||
 							"Energy intelligence modelled for your market"
 						}
+						tabTitle={
+							data?.countries?.availableRegions?.tabTitle || "Available Regions"
+						}
 						teamTitle={
 							data?.countries?.availableRegions?.teamTitle || "Meet the team"
 						}
