@@ -60,7 +60,7 @@ export async function generateMetadata() {
 	};
 }
 
-// export const revalidate = 1800; // Revalidates every 60 seconds
+// export const revalidate = 60; // Revalidates every 60 seconds
 
 /** Home Page */
 export default async function HomePage() {

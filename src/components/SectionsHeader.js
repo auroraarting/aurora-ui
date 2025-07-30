@@ -58,6 +58,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 				name: section.dataset.name,
 			};
 		});
+		console.log(getAllSections, "sectionsArray");
 		// Deduplicate based on `id`
 		const sections = Array.from(
 			new Map(sectionsArray.map((item) => [item.id, item])).values()
@@ -77,18 +78,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		}
 
 		setSectionsList(list);
-
-		// const headerArray = [
-		// 	{ name: "Expertise", id: "#expertise" },
-		// 	{ name: "Available Regions", id: "#availableregions" },
-		// 	{ name: "Why Aurora", id: "#whyaurora" },
-		// 	{ name: "Clients", id: "#clients" },
-		// 	<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-		// 		<Button color="primary" variant="filled" shape="rounded">
-		// 			Book a Demo
-		// 		</Button>
-		// 	</div>,
-		// ];
 
 		const sectionElements = list
 			.filter((item) => typeof item.id === "string")

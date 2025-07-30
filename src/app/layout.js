@@ -1,4 +1,4 @@
-export const revalidate = 86400; // Revalidates every 86400 seconds
+export const revalidate = 60; // Revalidates every 86400 seconds
 
 import "@/styles/globals/globals.scss";
 import { GlobalContext } from "@/context/GlobalContext";
