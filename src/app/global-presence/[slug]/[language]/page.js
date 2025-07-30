@@ -227,8 +227,6 @@ async function getData({ params, query }) {
 
 	countryBy.countries.showTranslation = true;
 
-	console.log(countryData, "countryData");
-
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };
 

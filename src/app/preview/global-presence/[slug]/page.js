@@ -40,7 +40,7 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-// export const revalidate = 1800; // Revalidates every 60 seconds
+// export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -63,12 +63,12 @@ import { getPageSeo } from "@/services/Seo.service";
 // }
 
 /** generateStaticParams  */
-// export async function generateStaticParams() {
-// 	const countries = await getCountries();
-// 	return countries?.data?.countries?.nodes?.map((item) => ({
-// 		slug: item?.slug || "india",
-// 	}));
-// }
+export async function generateStaticParams() {
+	const countries = await getCountries();
+	return countries?.data?.countries?.nodes?.map((item) => ({
+		slug: item?.slug || "india",
+	}));
+}
 
 /** Fetch  */
 async function getData({ params, query }) {
@@ -104,7 +104,6 @@ async function getData({ params, query }) {
 	// 	: countryData?.data?.countryBy;
 
 	const countryBy = countryData?.data?.countryBy;
-	console.log(countryBy);
 	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
