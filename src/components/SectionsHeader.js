@@ -58,7 +58,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 				name: section.dataset.name,
 			};
 		});
-		console.log(getAllSections, "sectionsArray");
 		// Deduplicate based on `id`
 		const sections = Array.from(
 			new Map(sectionsArray.map((item) => [item.id, item])).values()
