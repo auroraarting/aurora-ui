@@ -74,11 +74,11 @@ async function getData({ params }) {
 	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
 	const [data, list, categoriesForSelect] = await Promise.all([
 		await getInsightsInside(params.slug2),
-		await getInsights(`first: 3, where: {categoryName: "${resourceCat}"}`),
+		await getInsights(`first: 9999, where: {categoryName: "${resourceCat}"}`),
 		await getInsightsCategories(),
 	]);
 
-	const otherList = list?.data?.posts?.nodes || [];
+	const otherList = list?.data?.posts?.nodes?.slice(0, 3) || [];
 	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	return {
 		props: {
