@@ -896,6 +896,13 @@ query GetCountryInsideByTranslation {
                 mediaItemUrl
               }
             }
+              locationtitle
+              bottomText
+              customDesc
+              coordinates{
+              lat
+              lng
+              }
           category(first: 999) {
             nodes {
             contentType {
