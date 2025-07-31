@@ -67,7 +67,10 @@ query GetOffices {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };
 
@@ -96,6 +99,9 @@ query GetOffices {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };

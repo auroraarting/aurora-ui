@@ -41,6 +41,9 @@ query GetWebinarListing {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "aurora-insights",
+		pageID: "/aurora-insights",
+	});
 	return res;
 };

@@ -249,7 +249,10 @@ query GetProductBySlug {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "service",
+		pageID: `/service/${slug}`,
+	});
 	return res;
 };
 
@@ -265,6 +268,9 @@ query GetProductBySlug {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "service",
+		pageID: `/service/${slug}`,
+	});
 	return res;
 };

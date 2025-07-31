@@ -132,7 +132,10 @@ export const getSingleWhoAreYou = async (slug) => {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "who-are-you",
+		pageID: `/who-are-you/${slug}`,
+	});
 	return res;
 };
 
@@ -229,6 +232,9 @@ query GetAllHowWeHelps {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "who-are-you",
+		pageID: "/who-are-you",
+	});
 	return res;
 };

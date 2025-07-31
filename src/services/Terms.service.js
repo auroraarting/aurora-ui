@@ -11,6 +11,9 @@ query GetTerms {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "terms",
+		pageID: "/legal/terms",
+	});
 	return res;
 };

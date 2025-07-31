@@ -287,7 +287,7 @@ query GetEvents {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, { apiID: "events", pageID: "/events" });
 	return res;
 };
 
@@ -303,7 +303,7 @@ query GetEventCategories {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, { apiID: "events", pageID: "/events" });
 	return res;
 };
 
@@ -337,7 +337,7 @@ query GetEventInside {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, { apiID: "events", pageID: "/events" });
 	return res;
 };
 
@@ -592,7 +592,10 @@ query GetEventInside {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "events",
+		pageID: `/events/${slug}`,
+	});
 	return res;
 };
 
@@ -798,6 +801,6 @@ query GetEventLanding {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, { apiID: "events", pageID: "/events" });
 	return res;
 };

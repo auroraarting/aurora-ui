@@ -95,6 +95,9 @@ export default function EventsInsideWrap({
 								<EventsMiddleDescription data={data} />
 								<Sponsors data={data} />
 								{data?.events?.sections?.map((item) => {
+									if (!item?.content) {
+										return <></>;
+									}
 									return (
 										<section
 											key={item?.sectionTitle}
@@ -116,6 +119,9 @@ export default function EventsInsideWrap({
 								)}
 								{/* <Sponsors data={data} /> */}
 								{/* {data?.events?.sections?.map((item) => {
+									if (!item?.content) {
+											return <></>;
+										}
 									return (
 										<section
 											key={item?.sectionTitle}

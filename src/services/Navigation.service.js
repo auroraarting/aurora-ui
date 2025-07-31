@@ -33,7 +33,10 @@ query GetSoftwares {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };
 
@@ -68,7 +71,10 @@ query GetProducts {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };
 
@@ -95,7 +101,10 @@ query GetServices {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };
 
@@ -117,7 +126,10 @@ query GetRegions {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };
 
@@ -294,7 +306,10 @@ export async function fetchNavigationData() {
     `;
 
 	const [navdata, webinardata] = await Promise.all([
-		GraphQLAPI(combinedQuery),
+		GraphQLAPI(combinedQuery, {
+			apiID: "common",
+			pageID: "/common",
+		}),
 		getInsights(
 			// eslint-disable-next-line quotes
 			'first:1, where: { categoryName: "public-webinar,webinar,webinar-recording" }'

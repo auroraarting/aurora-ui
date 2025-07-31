@@ -42,7 +42,10 @@ query GetWebinarListing {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "webinar",
+		pageID: "/resources/webinar",
+	});
 	return res;
 };
 
@@ -136,7 +139,10 @@ query GetWebinars {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "webinar",
+		pageID: "/resources/webinar",
+	});
 	return res;
 };
 
@@ -310,6 +316,9 @@ query GetWebinarInside {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "webinar",
+		pageID: `/resources/webinar/${slug}`,
+	});
 	return res;
 };

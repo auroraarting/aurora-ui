@@ -302,7 +302,10 @@ query GetInsights {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "aurora-insights",
+		pageID: "/resources/aurora-insights",
+	});
 	return res;
 };
 
@@ -602,7 +605,10 @@ query GetInsights {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "aurora-insights",
+		pageID: "/resources/aurora-insights",
+	});
 	return res;
 };
 
@@ -619,7 +625,10 @@ query GetInsights {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "aurora-insights",
+		pageID: "/resources/aurora-insights",
+	});
 	return res;
 };
 
@@ -665,7 +674,10 @@ query GetInsightsDropDowns {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "aurora-insights",
+		pageID: "/resources/aurora-insights",
+	});
 	return res;
 };
 
@@ -984,7 +996,10 @@ query GetInsightsInside {
 
 	let res = {};
 	try {
-		res = await GraphQLAPI(query);
+		res = await GraphQLAPI(query, {
+			apiID: "aurora-insights",
+			pageID: `/resources/aurora-insights/${slug}`,
+		});
 		return res;
 	} catch (error) {
 		console.log("error", error);

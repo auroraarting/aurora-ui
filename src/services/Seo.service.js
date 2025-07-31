@@ -14,9 +14,6 @@ ${page} {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, { apiID: "common", pageID: "/common" });
 	return res;
 };
-
-// getSinglePageSeo("about");
-// getDynamicPageSeo('softwareBy(slug: "origin")');

@@ -59,6 +59,9 @@ query GetTeamSectors {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "our-team",
+		pageID: "/careers/our-team",
+	});
 	return res;
 };

@@ -27,7 +27,10 @@ query GetWebinarListing {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "energy-unplugged",
+		pageID: "/resources/energy-unplugged",
+	});
 	return res;
 };
 
@@ -50,6 +53,9 @@ query GetSocialLinks {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "energy-unplugged",
+		pageID: "/resources/energy-unplugged",
+	});
 	return res;
 };

@@ -110,7 +110,10 @@ query GetEarlyCareersLanding {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "early-careers",
+		pageID: "/early-careers",
+	});
 	return res;
 };
 
@@ -156,7 +159,10 @@ query GetEarlyCareersListing {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "early-careers",
+		pageID: "/early-careers",
+	});
 	return res;
 };
 
@@ -344,6 +350,9 @@ query GetCareers {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "early-careers",
+		pageID: `/early-careers/${slug}`,
+	});
 	return res;
 };

@@ -113,7 +113,10 @@ export const getRegions = async () => {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "global-presence",
+		pageID: "/global-presence",
+	});
 	return res;
 };
 
@@ -130,13 +133,16 @@ export const getGlobalPresencePage = async () => {
     }
   }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "global-presence",
+		pageID: "/global-presence",
+	});
 	return res;
 };
 
 /** Fetch Country Inside */
 export const getCountryInside = async (slug) => {
-	const query2 = `
+	const query = `
   query GetCountryInsideByTranslation {
   countryBy(slug: "${decodeURIComponent(slug)}") {
     translations {
@@ -722,9 +728,10 @@ export const getCountryInside = async (slug) => {
   }
 }
   `;
-	// const res = await GraphQLAPI(query);
-	const res = await GraphQLAPI(query2);
-	// console.log(res2, "res2");
+	const res = await GraphQLAPI(query, {
+		apiID: "global-presence",
+		pageID: "/global-presence",
+	});
 	return res;
 };
 
@@ -741,6 +748,9 @@ export const getAllLanguages = async () => {
   }
 }
   `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
 	return res;
 };
