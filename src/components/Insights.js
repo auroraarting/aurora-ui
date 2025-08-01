@@ -515,7 +515,7 @@ export default function Insights({
 								</a>
 							</div>
 							<div className={`${styles.insightsItemFlex} d_f m_t_30`}>
-								{data?.data?.map((item, ind) => {
+								{data?.data?.slice(0, 3)?.map((item, ind) => {
 									let hrefObj = {};
 									if (item?.externalUrl) {
 										hrefObj.href = item?.externalUrl;

@@ -104,7 +104,10 @@ query GetPageProduct {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "products",
+		pageID: "/products",
+	});
 	return res;
 };
 
@@ -399,6 +402,9 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "products",
+		pageID: `/products/${slug}`,
+	});
 	return res;
 };

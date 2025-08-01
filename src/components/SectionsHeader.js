@@ -78,18 +78,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 
 		setSectionsList(list);
 
-		// const headerArray = [
-		// 	{ name: "Expertise", id: "#expertise" },
-		// 	{ name: "Available Regions", id: "#availableregions" },
-		// 	{ name: "Why Aurora", id: "#whyaurora" },
-		// 	{ name: "Clients", id: "#clients" },
-		// 	<div key="btn" to="Insights" onClick={() => scrollToSection("Insights")}>
-		// 		<Button color="primary" variant="filled" shape="rounded">
-		// 			Book a Demo
-		// 		</Button>
-		// 	</div>,
-		// ];
-
 		const sectionElements = list
 			.filter((item) => typeof item.id === "string")
 			.map((item) => document?.querySelector(item?.id));

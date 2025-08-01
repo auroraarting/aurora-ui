@@ -129,10 +129,7 @@ export default function EarlyCareersWrap({
 				<div>
 					<SmarterEnergy data={page.expertise} />
 				</div>
-				<ServicesCircleWhite
-					data={page.keyAdvantages}
-					sectionName="Opportunities"
-				/>
+				<ServicesCircleWhite data={page.keyAdvantages} sectionName="Careers" />
 				<div className="ptb_100 dark_bg">
 					<AllVideos
 						title={page?.careerSeries?.title}

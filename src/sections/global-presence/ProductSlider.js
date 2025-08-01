@@ -100,7 +100,7 @@ export default function ProductSlider({ data }) {
 												<ContentFromCms>{slide?.description}</ContentFromCms>
 											</div>
 										)}
-										{slide?.buttonText && (
+										{slide?.buttonLink && (
 											<div className={`${styles.bookBtnOne} pt_20`}>
 												<a href={slide?.buttonLink} target="_blank" rel="noreferrer">
 													<Button color="primary" variant="filled" shape="rounded">

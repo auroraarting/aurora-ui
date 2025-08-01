@@ -17,6 +17,7 @@ import styles from "@/styles/components/ServicesCircle.module.scss";
 
 // IMAGES //
 import IconStrategy from "../../public/img/softwares/Icon-Strategy.svg";
+import { slugify } from "@/utils";
 
 // DATA //
 const services = [
@@ -36,8 +37,8 @@ export default function ServicesCircleWhite({ data, sectionName }) {
 	return (
 		<section
 			className={`${styles.ServicesCircleSection} ServicesCircleSection white_bg `}
-			id={sectionName}
-			data-name={sectionName}
+			id={sectionName ? slugify(sectionName) : ""}
+			data-name={sectionName || ""}
 		>
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>

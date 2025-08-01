@@ -347,12 +347,15 @@ query GetProductBySlug {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "software",
+		pageID: `/software/${slug}`,
+	});
 	return res;
 };
 
 /** Fetch Page */
-export const getSoftwarePage = async (slug) => {
+export const getSoftwarePage = async () => {
 	const query = `
 query GetPageSoftwares {
   page(id: "software", idType: URI) {
@@ -453,6 +456,9 @@ query GetPageSoftwares {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "software",
+		pageID: "/software",
+	});
 	return res;
 };

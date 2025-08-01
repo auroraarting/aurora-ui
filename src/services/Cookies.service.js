@@ -11,6 +11,9 @@ query GetCookies {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "cookies",
+		pageID: "/legal/cookies",
+	});
 	return res;
 };

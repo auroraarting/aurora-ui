@@ -17,7 +17,9 @@ async function fetchWithRetry(url, options = {}, retries = 3, delay = 5000) {
 }
 
 /** GraphQLAPI  */
-export default async function GraphQLAPI(query, refreshInterval = 30000) {
+export default async function GraphQLAPI(query, dataObj) {
+	const refreshInterval = 30000;
+
 	// let res;
 	// let req;
 	// try {
@@ -48,8 +50,9 @@ export default async function GraphQLAPI(query, refreshInterval = 30000) {
 			headers: {
 				...ServerHeaders.headers,
 			},
+			...dataObj,
 		};
-		req = await fetch("https://aurora-sync-mocha.vercel.app/api/cache", {
+		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
 			"Content-Type": "application/json",
 			method: "POST",
 			body: JSON.stringify({ ...data }),

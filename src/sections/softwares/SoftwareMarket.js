@@ -17,6 +17,7 @@ import {
 	dynamicInsightsBtnProps,
 	filterMarkersBySlug,
 	getMapJsonForProducts,
+	slugify,
 } from "@/utils";
 
 // STYLES //
@@ -43,6 +44,7 @@ export default function SoftwareMarket({
 	data,
 	mapThumb,
 	teamTitle,
+	tabTitle = "Available Regions",
 }) {
 	/** centerOfCountry  */
 	let centerOfCountry = () => {
@@ -65,15 +67,15 @@ export default function SoftwareMarket({
 	const [map, setMap] = useState(null);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 
-	if (!mapJson) {
+	if (!sectionTitle) {
 		return <></>;
 	}
 
 	return (
 		<section
 			className={`${styles.SoftwareMarket} `}
-			id="availableregions"
-			data-name="Available Regions"
+			id={"availableregions"}
+			data-name={tabTitle || "Available Regions"}
 		>
 			<div className="container">
 				<div className={`${styles.inner}`}>
@@ -111,26 +113,28 @@ export default function SoftwareMarket({
 						)}
 						<div className="m_t_30">{customHtml}</div>
 					</div>
-					<div className={`${styles.right}`}>
-						{mapThumb ? (
-							<img className={`${styles.map}`} src={mapThumb} alt="Map" />
-						) : (
-							<Map
-								mapCenter={mapCenter}
-								setValueOfSelect={setValueOfSelect}
-								valueOfSelect={valueOfSelect}
-								map={map}
-								setMap={setMap}
-								defaultZoom={mapJson?.zoom || 4}
-								locationJson={[customMapJson]}
-							/>
-						)}
+					{mapJson && (
+						<div className={`${styles.right}`}>
+							{mapThumb ? (
+								<img className={`${styles.map}`} src={mapThumb} alt="Map" />
+							) : (
+								<Map
+									mapCenter={mapCenter}
+									setValueOfSelect={setValueOfSelect}
+									valueOfSelect={valueOfSelect}
+									map={map}
+									setMap={setMap}
+									defaultZoom={mapJson?.zoom || 4}
+									locationJson={[customMapJson]}
+								/>
+							)}
 
-						{/* <div className={`${styles.markerDetail}`}>
+							{/* <div className={`${styles.markerDetail}`}>
 							<div className={`${styles.detailText} text_xs`}>Upcoming</div>
 							<div className={`${styles.detailText} text_xs`}>Available Locations</div>
 						</div> */}
-					</div>
+						</div>
+					)}
 				</div>
 			</div>
 		</section>

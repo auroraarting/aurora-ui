@@ -30,7 +30,6 @@ export default function JobOpenings({
 	hideRedirect = false,
 	defaultSelected,
 }) {
-	console.log(data, "data");
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [jobs, setJobs] = useState(data?.jobs?.data);
 	const [filterdJob, setFilterdJob] = useState(data?.jobs?.data);

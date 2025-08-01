@@ -97,7 +97,10 @@ query GetPresses {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "press-room",
+		pageID: `/company/press-room/${slug}`,
+	});
 	return res;
 };
 
@@ -199,7 +202,10 @@ query GetPresses {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "press-room",
+		pageID: "/company/press-room",
+	});
 	return res;
 };
 
@@ -300,7 +306,10 @@ query GetPressesCards {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "press-room",
+		pageID: "/company/press-room",
+	});
 	return res;
 };
 
@@ -316,7 +325,10 @@ query GetPressesLanguages {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "press-room",
+		pageID: "/company/press-room",
+	});
 	return res;
 };
 
@@ -474,7 +486,10 @@ query GetPressMediaKit {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "press-room",
+		pageID: "/company/press-room",
+	});
 	return res;
 };
 
@@ -507,6 +522,9 @@ query GetPressMediaKit {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "press-room",
+		pageID: "/company/press-room",
+	});
 	return res;
 };

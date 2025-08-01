@@ -283,7 +283,10 @@ query GetSingleHowWeHelp {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "how-we-help",
+		pageID: `/how-we-help/${slug}`,
+	});
 	return res;
 };
 
@@ -382,6 +385,9 @@ query GetAllHowWeHelps {
   }
 }
       `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "how-we-help",
+		pageID: "/how-we-help",
+	});
 	return res;
 };

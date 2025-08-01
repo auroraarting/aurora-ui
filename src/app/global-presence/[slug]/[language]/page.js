@@ -44,7 +44,7 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 1800; // Revalidates every 60 seconds
+export const revalidate = 60; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -138,8 +138,9 @@ async function getData({ params, query }) {
 				};
 			}
 		);
-	countryBy.countries.map.markers = countryBy.countries.map.markers.map(
-		(item) => {
+
+	countryBy.countries.map.markers =
+		countryData.data.countryBy.countries.map.markers.map((item) => {
 			let category = {
 				nodes: item?.category?.nodes?.map((item2) => {
 					return {
@@ -154,8 +155,8 @@ async function getData({ params, query }) {
 				...item,
 				category,
 			};
-		}
-	);
+		});
+
 	if (countryData?.data?.countryBy?.countries?.ourClients?.testimonials?.nodes) {
 		countryBy.countries.ourClients.testimonials.nodes =
 			countryData?.data?.countryBy.countries.ourClients.testimonials.nodes;
@@ -225,8 +226,6 @@ async function getData({ params, query }) {
 	// }
 
 	countryBy.countries.showTranslation = true;
-
-	console.log(countryData, "countryData");
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };

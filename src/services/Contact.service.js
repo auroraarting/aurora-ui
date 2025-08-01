@@ -14,6 +14,9 @@ query GetContact {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "contact",
+		pageID: "/company/contact",
+	});
 	return res;
 };

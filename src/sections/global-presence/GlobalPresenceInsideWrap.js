@@ -368,44 +368,45 @@ export default function GlobalPresenceInsideWrap({
 						</>
 					}
 				/>
-				{mapJsonState && (
-					<div className="ptb_100">
-						<SoftwareMarket
-							mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
-							// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
-							sectionTitle={
-								data?.countries?.availableRegions?.sectionTitle ||
-								"Energy intelligence modelled for your market"
-							}
-							teamTitle={
-								data?.countries?.availableRegions?.teamTitle || "Meet the team"
-							}
-							mapJson={mapJsonState}
-							data={data?.countries?.availableRegions}
-							customHtml={
-								dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
-									?.btntext && (
-									<div
-										{...dynamicInsightsBtnProps(
-											dataForBtn,
-											"availableRegionsSectionsButton"
-										)}
-										className=""
-									>
-										<Button color="primary" variant="filled" shape="rounded">
-											{
-												dynamicInsightsBtnProps(
-													dataForBtn,
-													"availableRegionsSectionsButton"
-												).btntext
-											}
-										</Button>
-									</div>
-								)
-							}
-						/>
-					</div>
-				)}
+				{/* {mapJsonState && ( */}
+				<div className="ptb_100">
+					<SoftwareMarket
+						mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
+						// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
+						sectionTitle={
+							data?.countries?.availableRegions?.sectionTitle ||
+							"Energy intelligence modelled for your market"
+						}
+						tabTitle={
+							data?.countries?.availableRegions?.tabTitle || "Available Regions"
+						}
+						teamTitle={
+							data?.countries?.availableRegions?.teamTitle || "Meet the team"
+						}
+						mapJson={mapJsonState}
+						data={data?.countries?.availableRegions}
+						customHtml={
+							dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
+								?.btntext && (
+								<div
+									{...dynamicInsightsBtnProps(
+										dataForBtn,
+										"availableRegionsSectionsButton"
+									)}
+									className=""
+								>
+									<Button color="primary" variant="filled" shape="rounded">
+										{
+											dynamicInsightsBtnProps(dataForBtn, "availableRegionsSectionsButton")
+												.btntext
+										}
+									</Button>
+								</div>
+							)
+						}
+					/>
+				</div>
+				{/* )} */}
 
 				{data?.countries?.ourClients?.selectLogos && (
 					<div className="pb_50">

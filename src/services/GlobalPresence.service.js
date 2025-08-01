@@ -122,7 +122,10 @@ export const getRegions = async () => {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "global-presence",
+		pageID: "/global-presence",
+	});
 	return res;
 };
 
@@ -139,116 +142,65 @@ export const getGlobalPresencePage = async () => {
     }
   }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "global-presence",
+		pageID: "/global-presence",
+	});
 	return res;
 };
 
 /** Fetch Country Inside */
 export const getCountryInside = async (slug) => {
 	const query = `
-query GetCountryInside {
+  query GetCountryInside {
   countryBy(slug: "${decodeURIComponent(slug)}") {
+    featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
     translations {
       slug
       title
+      languageCode
     }
     slug
-      title
-      languageCode
-      countries {
+    title
+    countries {
       showTranslation
       hideonglobalpresence
-      bannerSection {
-        description
-        title
-        videoLink
-        image {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        mobileImage {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      announcement {
-        slide {
-          thumbnailImage {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          videoLink
-          heading
-          description
-          buttonText
-          buttonLink
-        }
-      }
-      introduction {
-        sectionTitle
-        tabTitle
-        description
-      }
-      ourOfferings {
-        sectionTitle
-        tabTitle
-      }
-      keyAdvantages {
-        title
-        tabTitle
-        description
-        advantages {
-          icon {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          advantagesTitle
-          advantagesDescription
-        }
-      }
       availableRegions {
-        sectionTitle
-        tabTitle
-        team(first: 9999) {
+        team(first: 999) {
           nodes {
             ... on Team {
               id
               title
               teams {
-                thumbnail {
-                  designation
-                  linkedinLink
-                  image {
-                    node {
-                      altText
-                      mediaItemUrl
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
                     }
                   }
                 }
-              }
             }
           }
         }
       }
       ourClients {
-        sectionTitle
-        tabTitle
         selectLogos(first: 999) {
           nodes {
             ... on ClientsLogo {
               id
               featuredImage {
                 node {
-                  altText
-                  mediaItemUrl
+                    altText
+                    mediaItemUrl
                 }
               }
             }
@@ -267,22 +219,14 @@ query GetCountryInside {
           }
         }
       }
-       eventsWebinarSection{
-          tabTitle
-          sectionHeading
-          eventButtonText
-          webinarButtonText
-        }
       insights {
-        sectionTitle
-        sectionDesc
         list(first: 999) {
           nodes {
             ... on Post {
               id
-              date
-              title
               slug
+              title
+              date
               categories(first: 999) {
                 nodes {
                   name
@@ -290,25 +234,29 @@ query GetCountryInside {
                 }
               }
               postFields {
-                time
-              }
+                  time
+                }
+            }
+            ... on Event {
+              id
             }
           }
         }
       }
       map {
-        zoom
-        countryPin {
-          lat
-          lng
-        }
         markers {
-          customDesc
           mapThumbnail {
             node {
               altText
               mediaItemUrl
             }
+          }
+          locationtitle
+          bottomText
+          customDesc
+          coordinates {
+            lat
+            lng
           }
           category(first: 999) {
             nodes {
@@ -318,8 +266,6 @@ query GetCountryInside {
                 }
               }
               ... on Service {
-                id
-                slug
                 title
                 content
                 services {
@@ -340,9 +286,7 @@ query GetCountryInside {
                 }
               }
               ... on Software {
-                id
                 title
-                slug
                 content
                 softwares {
                   map {
@@ -362,9 +306,7 @@ query GetCountryInside {
                 }
               }
               ... on Product {
-                id
                 title
-                slug
                 content
                 products {
                   map {
@@ -386,86 +328,330 @@ query GetCountryInside {
               slug
             }
           }
-          coordinates {
+        }
+      }
+      bannerSection {
+          description
+          title
+          videoLink
+          image {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          mobileImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      announcement {
+          slide {
+            thumbnailImage {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            videoLink
+            heading
+            description
+            buttonText
+            buttonLink
+          }
+        }
+        introduction {
+          sectionTitle
+          tabTitle
+          description
+        }
+        ourOfferings {
+          sectionTitle
+          tabTitle
+        }
+        keyAdvantages {
+          title
+          tabTitle
+          description
+          advantages {
+            icon {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            advantagesTitle
+            advantagesDescription
+          }
+        }
+        availableRegions {
+          sectionTitle
+          tabTitle
+          teamTitle
+          team(first: 999) {
+            nodes {
+              ... on Team {
+                id
+                title
+                teams {
+                    thumbnail {
+                      designation
+                      linkedinLink
+                      image {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+              }
+            }
+          }
+        }
+        ourClients {
+          tabTitle
+          selectLogos(first: 999) {
+            nodes {
+              ... on ClientsLogo {
+                id
+                featuredImage {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+          }
+          testimonials(first: 999) {
+            nodes {
+              ... on Testimonial {
+                id
+                title
+                content
+                testimonials {
+                    designation
+                  }
+              }
+            }
+          }
+          sectionTitle
+        }
+        eventsWebinarSection {
+          tabTitle
+          sectionHeading
+          eventButtonText
+          webinarButtonText
+        }
+        insights {
+          insightsTitle
+          sectionTitle
+          sectionDesc
+          listButtonText
+          list(first: 999) {
+            nodes {
+              ... on Post {
+                id
+                slug
+                date
+                title
+                categories(first: 999) {
+                    nodes {
+                      name
+                      slug
+                    }
+                  }
+                postFields {
+                    time
+                  }
+                
+              }
+            }
+          }
+        }
+        map {
+          zoom
+          countryPin {
             lat
             lng
           }
-          locationtitle
-          bottomText
+          markers {
+            customDesc
+            mapThumbnail {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            category(first: 999) {
+              nodes {
+                slug
+                contentType {
+                  node {
+                    name
+                  }
+                }
+                ... on Service {
+                  id
+                  slug
+                  title
+                  content
+                  services {
+                      map {
+                        headerLogo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        logo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                      }
+                    }
+                }
+                ... on Software {
+                  id
+                  slug
+                  title
+                  content
+                  softwares {
+                      map {
+                        headerLogo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        logo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                      }
+                    }
+                }
+                ... on Product {
+                  id
+                  slug
+                  title
+                  content
+                  products {
+                      map {
+                        headerLogo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        logo {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                      }
+                    }
+                }
+                
+              }
+            }
+            coordinates {
+              lat
+              lng
+            }
+            locationtitle
+            bottomText
+          }
         }
-      }
-      mapThumb {
-        node {
-          altText
-          mediaItemUrl
-        }
-      }
-      topSectionsButton {
-        buttonText
-        iframe
-        url
-        file {
+        mapThumb {
           node {
             altText
             mediaItemUrl
           }
         }
-      }
-      middleSectionsButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
+        topSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
           }
         }
-      }
-      keyAdvantageSectionsButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
+        middleSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
           }
         }
-      }
-      availableRegionsSectionsButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
+        keyAdvantageSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
           }
         }
-      }
-      insightsSectionsButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
+        availableRegionsSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
           }
         }
-      }
+        insightsSectionsButton {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+        fleetOfProducts {
+          sectionTitle
+          tabTitle
+          buttonText
+        }
+        integratedEnergy {
+          content
+          sectionTitle
+          tabTitle
+          buttonText
+        }
     }
-      featuredImage {
-        node {
-          altText
-          mediaItemUrl
-        }
-      }
   }
 }
-    `;
-	const res = await GraphQLAPILongerRevalidate(query);
+
+  `;
+	const res = await GraphQLAPILongerRevalidate(query, {
+		apiID: "global-presence",
+		pageID: `/global-presence/${slug}`,
+	});
 	return res;
 };
 
@@ -481,6 +667,9 @@ export const getCountries = async () => {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "global-presence",
+		pageID: "/global-presence",
+	});
 	return res;
 };

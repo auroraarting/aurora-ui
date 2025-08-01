@@ -11,6 +11,9 @@ query GetPolicy {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "policies-and-compliance",
+		pageID: "/policies-and-compliance",
+	});
 	return res;
 };

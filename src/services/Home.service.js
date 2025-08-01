@@ -51,7 +51,10 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "home",
+		pageID: "/",
+	});
 	return res;
 };
 
@@ -478,9 +481,18 @@ export const getHomePageVoices = async () => {
     }`;
 	const [resFetchAll, resFetchCaseStudies, resFetchCommentary] =
 		await Promise.all([
-			await GraphQLAPI(pageVoices),
-			await GraphQLAPI(pageCaseStudies),
-			await GraphQLAPI(pageCommentary),
+			await GraphQLAPI(pageVoices, {
+				apiID: "home",
+				pageID: "/",
+			}),
+			await GraphQLAPI(pageCaseStudies, {
+				apiID: "home",
+				pageID: "/",
+			}),
+			await GraphQLAPI(pageCommentary, {
+				apiID: "home",
+				pageID: "/",
+			}),
 		]);
 	const resAllData = resFetchAll;
 	const resCaseStudiesData = resFetchCaseStudies;

@@ -30,6 +30,9 @@ query OurJoinPage {
   }
 }
     `;
-	const res = await GraphQLAPI(query);
+	const res = await GraphQLAPI(query, {
+		apiID: "join-us",
+		pageID: "/careers/join-us",
+	});
 	return res;
 };

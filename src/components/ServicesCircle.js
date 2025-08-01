@@ -45,6 +45,9 @@ export default function ServicesCircle({
 
 	/** sectionTitle  */
 	const sectionTitle = () => {
+		if (hideId) {
+			return {};
+		}
 		if (sectionName === undefined) {
 			return {
 				id: "keyAdvantages",
