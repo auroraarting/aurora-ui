@@ -33,6 +33,7 @@ export default async function GraphQLAPI(query, refreshInterval = 30000) {
 	// 	// req = await req.text();
 	// 	console.log(error, req, "errror");
 	// }
+
 	// Cache
 	let startTime = null; // Start time
 	let res;
