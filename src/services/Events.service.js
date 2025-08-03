@@ -801,6 +801,6 @@ query GetEventLanding {
   }
 }
       `;
-	const res = await GraphQLAPI(query, { apiID: "events", pageID: "/events" });
+	const res = await GraphQLAPI(query, { apiID: "event", pageID: "/events" });
 	return res;
 };
