@@ -337,6 +337,7 @@ query GetEventInside {
   }
 }
     `;
+	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
 		pageID: "/events",

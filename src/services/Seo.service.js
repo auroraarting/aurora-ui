@@ -14,6 +14,10 @@ ${page} {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "common", pageID: "/common" });
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+		// taxonomies
+	});
 	return res;
 };

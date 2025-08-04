@@ -113,6 +113,7 @@ export const getRegions = async () => {
   }
 }
     `;
+	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
 		pageID: "/global-presence",
@@ -748,6 +749,7 @@ export const getAllLanguages = async () => {
   }
 }
   `;
+	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
 		pageID: "/common",

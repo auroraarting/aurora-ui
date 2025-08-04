@@ -484,6 +484,7 @@ export const getHomePageVoices = async () => {
 			await GraphQLAPI(pageVoices, {
 				apiID: "post",
 				pageID: "/",
+				// taxonomies
 			}),
 			await GraphQLAPI(pageCaseStudies, {
 				apiID: "post",

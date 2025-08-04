@@ -328,6 +328,7 @@ query GetPressesLanguages {
 	const res = await GraphQLAPI(query, {
 		apiID: "press-room",
 		pageID: "/company/press-room",
+		// taxonomies
 	});
 	return res;
 };

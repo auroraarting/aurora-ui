@@ -122,6 +122,7 @@ export const getRegions = async () => {
   }
 }
     `;
+	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
 		pageID: "/global-presence",

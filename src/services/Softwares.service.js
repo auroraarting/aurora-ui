@@ -350,6 +350,7 @@ query GetProductBySlug {
 	const res = await GraphQLAPI(query, {
 		apiID: "softwares",
 		pageID: `/software/${slug}`,
+		// taxonomies
 	});
 	return res;
 };

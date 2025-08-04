@@ -309,6 +309,7 @@ export async function fetchNavigationData() {
 		GraphQLAPI(combinedQuery, {
 			apiID: "common",
 			pageID: "/common",
+			// taxonomies
 		}),
 		getInsights(
 			// eslint-disable-next-line quotes

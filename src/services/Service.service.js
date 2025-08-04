@@ -252,6 +252,7 @@ query GetProductBySlug {
 	const res = await GraphQLAPI(query, {
 		apiID: "services",
 		pageID: `/service/${slug}`,
+		// taxonomies
 	});
 	return res;
 };

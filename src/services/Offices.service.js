@@ -70,6 +70,7 @@ query GetOffices {
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
 		pageID: "/common",
+		// taxonomies
 	});
 	return res;
 };

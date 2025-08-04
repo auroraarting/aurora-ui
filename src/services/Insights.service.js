@@ -677,6 +677,7 @@ query GetInsightsDropDowns {
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
 		pageID: "/resources/aurora-insights",
+		// taxonomies
 	});
 	return res;
 };

@@ -107,6 +107,7 @@ query GetPageProduct {
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
 		pageID: "/products",
+		// taxonomies
 	});
 	return res;
 };
