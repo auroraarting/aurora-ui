@@ -52,7 +52,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "home",
+		apiID: "page",
 		pageID: "/",
 	});
 	return res;
@@ -482,15 +482,15 @@ export const getHomePageVoices = async () => {
 	const [resFetchAll, resFetchCaseStudies, resFetchCommentary] =
 		await Promise.all([
 			await GraphQLAPI(pageVoices, {
-				apiID: "home",
+				apiID: "post",
 				pageID: "/",
 			}),
 			await GraphQLAPI(pageCaseStudies, {
-				apiID: "home",
+				apiID: "post",
 				pageID: "/",
 			}),
 			await GraphQLAPI(pageCommentary, {
-				apiID: "home",
+				apiID: "post",
 				pageID: "/",
 			}),
 		]);

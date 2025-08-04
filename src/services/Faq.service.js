@@ -21,6 +21,6 @@ query FaqPage {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "faq", pageID: "/careers/faq" });
+	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/careers/faq" });
 	return res;
 };

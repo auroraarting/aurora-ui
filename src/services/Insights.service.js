@@ -303,7 +303,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "aurora-insights",
+		apiID: "post",
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -606,7 +606,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "aurora-insights",
+		apiID: "post",
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -626,7 +626,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "aurora-insights",
+		apiID: "post",
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -675,7 +675,7 @@ query GetInsightsDropDowns {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "aurora-insights",
+		apiID: "common",
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -997,7 +997,7 @@ query GetInsightsInside {
 	let res = {};
 	try {
 		res = await GraphQLAPI(query, {
-			apiID: "aurora-insights",
+			apiID: "post",
 			pageID: `/resources/aurora-insights/${slug}`,
 		});
 		return res;

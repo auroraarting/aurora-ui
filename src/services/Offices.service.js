@@ -68,7 +68,7 @@ query GetOffices {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "common",
+		apiID: "country",
 		pageID: "/common",
 	});
 	return res;
@@ -100,8 +100,8 @@ query GetOffices {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "common",
-		pageID: "/common",
+		apiID: "offices",
+		pageID: "/careers",
 	});
 	return res;
 };

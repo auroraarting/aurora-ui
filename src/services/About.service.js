@@ -241,6 +241,6 @@ query GetAbout {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "about", pageID: "/about" });
+	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/about" });
 	return res;
 };

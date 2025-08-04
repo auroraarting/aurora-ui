@@ -348,7 +348,7 @@ query GetProductBySlug {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "software",
+		apiID: "softwares",
 		pageID: `/software/${slug}`,
 	});
 	return res;
@@ -457,7 +457,7 @@ query GetPageSoftwares {
 }
       `;
 	const res = await GraphQLAPI(query, {
-		apiID: "software",
+		apiID: "common",
 		pageID: "/software",
 	});
 	return res;

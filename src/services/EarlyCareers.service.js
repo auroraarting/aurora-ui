@@ -111,7 +111,7 @@ query GetEarlyCareersLanding {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "early-careers",
+		apiID: "page",
 		pageID: "/early-careers",
 	});
 	return res;
@@ -160,7 +160,7 @@ query GetEarlyCareersListing {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "early-careers",
+		apiID: "early-career",
 		pageID: "/early-careers",
 	});
 	return res;
@@ -351,7 +351,7 @@ query GetCareers {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "early-careers",
+		apiID: "early-career",
 		pageID: `/early-careers/${slug}`,
 	});
 	return res;

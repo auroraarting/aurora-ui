@@ -60,7 +60,7 @@ query GetTeamSectors {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "our-team",
+		apiID: "team",
 		pageID: "/careers/our-team",
 	});
 	return res;

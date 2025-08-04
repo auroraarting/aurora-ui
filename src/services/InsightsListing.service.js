@@ -42,7 +42,7 @@ query GetWebinarListing {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "aurora-insights",
+		apiID: "page",
 		pageID: "/aurora-insights",
 	});
 	return res;

@@ -31,7 +31,7 @@ query OurJoinPage {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "join-us",
+		apiID: "page",
 		pageID: "/careers/join-us",
 	});
 	return res;

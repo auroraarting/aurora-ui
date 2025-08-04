@@ -123,7 +123,7 @@ export const getRegions = async () => {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "global-presence",
+		apiID: "country",
 		pageID: "/global-presence",
 	});
 	return res;
@@ -143,7 +143,7 @@ export const getGlobalPresencePage = async () => {
   }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "global-presence",
+		apiID: "page",
 		pageID: "/global-presence",
 	});
 	return res;
@@ -649,7 +649,7 @@ export const getCountryInside = async (slug) => {
 
   `;
 	const res = await GraphQLAPILongerRevalidate(query, {
-		apiID: "global-presence",
+		apiID: "country",
 		pageID: `/global-presence/${slug}`,
 	});
 	return res;
@@ -668,7 +668,7 @@ export const getCountries = async () => {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "global-presence",
+		apiID: "country",
 		pageID: "/global-presence",
 	});
 	return res;

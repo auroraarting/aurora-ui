@@ -250,7 +250,7 @@ query GetProductBySlug {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "service",
+		apiID: "services",
 		pageID: `/service/${slug}`,
 	});
 	return res;
@@ -269,7 +269,7 @@ query GetProductBySlug {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "service",
+		apiID: "services",
 		pageID: `/service/${slug}`,
 	});
 	return res;

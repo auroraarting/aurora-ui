@@ -487,7 +487,7 @@ query GetPressMediaKit {
 }
       `;
 	const res = await GraphQLAPI(query, {
-		apiID: "press-room",
+		apiID: "page",
 		pageID: "/company/press-room",
 	});
 	return res;
@@ -523,7 +523,7 @@ query GetPressMediaKit {
 }
       `;
 	const res = await GraphQLAPI(query, {
-		apiID: "press-room",
+		apiID: "page",
 		pageID: "/company/press-room",
 	});
 	return res;

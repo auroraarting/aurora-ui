@@ -105,7 +105,7 @@ query GetPageProduct {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "products",
+		apiID: "common",
 		pageID: "/products",
 	});
 	return res;
