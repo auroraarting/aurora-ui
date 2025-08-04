@@ -85,17 +85,17 @@ async function getData() {
 
 	officesFetch.data.offices.nodes?.slice(0, 17).map((item) => {
 		let obj = {
-			name: item.title,
-			lat: item.offices.map.lat,
-			lng: item.offices.map.lng,
+			name: item?.title,
+			lat: item?.offices?.map?.lat,
+			lng: item?.offices?.map?.lng,
 			url: "",
-			hoverImg: item.offices.thumbnail.node.mediaItemUrl,
+			hoverImg: item?.offices?.thumbnail?.node?.mediaItemUrl,
 			unique: Math.random(),
 			// icon:
 			// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",
 		};
 
-		tempMapJson.markers.push(obj);
+		tempMapJson?.markers?.push(obj);
 	});
 	const pageEos = pageFetch.data.page.eos;
 	const bundles = bundlesFetch.data.page.bundles;

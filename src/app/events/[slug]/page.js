@@ -57,9 +57,11 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const dataFetch = await getAllEvents();
-	return dataFetch?.data?.events?.nodes?.map((item) => ({
-		slug: item.slug,
-	}));
+	return (
+		dataFetch?.data?.events?.nodes?.map((item) => ({
+			slug: item.slug,
+		})) || []
+	);
 }
 
 /** Fetch  */
