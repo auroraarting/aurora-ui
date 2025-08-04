@@ -55,10 +55,12 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const earlyCareers = await getEarlyCareersListing("first: 99999");
-	return earlyCareers.data.earlyCareers.nodes.map((item) => ({
-		slug: item.slug,
-	}));
+	const earlyCareers = await getEarlyCareersListing("first: 9999");
+	return (
+		earlyCareers?.data?.earlyCareers?.nodes?.map((item) => ({
+			slug: item?.slug,
+		})) || []
+	);
 }
 
 /** EarlyCareers Page */
