@@ -219,6 +219,8 @@ export default function EventsListing({
 		EqualHeight(`${styles.ItemBox}`);
 	}, [list, selected]);
 
+	console.log(list, "list");
+
 	return (
 		<section className={styles.EventsListing}>
 			<div className={styles.filterMain}>
@@ -552,23 +554,36 @@ export default function EventsListing({
 							<div className={`${styles.ItemBox}`} key={item?.title}>
 								<Link {...hrefObj}>
 									<div className={`${styles.hoverBox}`}>
-										{isLive && (
-											<p
-												className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
-											>
-												Live
-											</p>
-										)}
 										<img
 											src={hoverBg.src}
 											className={`${styles.hoverBg} width_100 b_r_10`}
 											alt="img"
 										/>
-										<img
-											src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
-											className={`${styles.productLogo} `}
-											alt="Events Logo"
-										/>
+										<div className={`${styles.thumb}`}>
+											<div className={`${styles.logoWrap}`}>
+												{isLive ? (
+													<p
+														className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
+													>
+														Live
+													</p>
+												) : (
+													<div></div>
+												)}
+												<img
+													src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
+													className={`${styles.productLogo} `}
+													alt="Events Logo"
+												/>
+											</div>
+											{item?.events?.banner?.desktop?.node?.mediaItemUrl && (
+												<img
+													src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
+													className={`${styles.productLogoBanner} `}
+													alt="Events Banner"
+												/>
+											)}
+										</div>
 										{item?.eventscategories?.nodes?.length > 0 && (
 											<p
 												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
