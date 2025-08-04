@@ -3792,6 +3792,12 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/careers/early-careers/graduate-analyst-opportunity",
+				destination:
+					"/careers/early-careers/singapore-graduate-analyst-opportunity",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
