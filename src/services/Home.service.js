@@ -482,7 +482,7 @@ export const getHomePageVoices = async () => {
 	const [resFetchAll, resFetchCaseStudies, resFetchCommentary] =
 		await Promise.all([
 			await GraphQLAPI(pageVoices, {
-				apiID: "post",
+				apiID: "common",
 				pageID: "/",
 				// taxonomies
 			}),

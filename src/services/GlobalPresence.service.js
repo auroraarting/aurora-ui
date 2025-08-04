@@ -649,7 +649,7 @@ export const getCountryInside = async (slug) => {
 }
 
   `;
-	const res = await GraphQLAPILongerRevalidate(query, {
+	const res = await GraphQLAPI(query, {
 		apiID: "country",
 		pageID: `/global-presence/${slug}`,
 	});

@@ -10,7 +10,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 /**  */
 export async function POST(req) {
 	try {
-		const { name, email } = await req.json();
+		const { name, email, subject } = await req.json();
 
 		if (!name || !email) {
 			return NextResponse.json(
@@ -29,8 +29,8 @@ export async function POST(req) {
 
 		const msg = {
 			to: email,
-			from: "nihal.padwal@ting.in", // Must be verified
-			subject: "Welcome",
+			from: "reception.noreply@auroraer.com", // Must be verified
+			subject: subject || "Aurora Energy Research - Contact us Query",
 			html: htmlContent,
 		};
 
