@@ -121,7 +121,7 @@ async function getData({ params, query }) {
 		countryData?.data?.countryBy?.translations?.filter(
 			(countryItem) => countryItem.languageCode === language
 		)[0] || countryData?.data?.countryBy;
-
+	console.log(countryData, "countryData");
 	// countryBy.countries = {
 	// 	...countryBy.countries,
 	// 	// ...countryData?.data?.countryBy.countries,

@@ -131,7 +131,7 @@ export default function CompanyContact() {
 					body: JSON.stringify({
 						...data,
 						name: data?.name,
-						email: "nihal.padwal@ting.in",
+						email: officeEmail,
 						toOffice: true,
 					}),
 				}),
