@@ -168,7 +168,10 @@ export async function searchData(searchTerm) {
   }
 }
     `;
-	const { data } = await GraphQLAPI(combinedQuery);
+	const { data } = await GraphQLAPI(combinedQuery, {
+		apiID: "common",
+		pageID: "/common",
+	});
 
 	/** removeDuplicatesByTitle  */
 	function removeDuplicatesByTitle(arr) {
