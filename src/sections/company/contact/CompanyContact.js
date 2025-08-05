@@ -302,16 +302,18 @@ export default function CompanyContact() {
 					<div className={`${styles.radioBox}`}>
 						<p className={styles.label}>Office*</p>
 						<div className={`${styles.radioGroup} ${styles.fullWidthBox}`}>
-							{options.map((option) => (
-								<label key={option} className={styles.radioOption}>
-									<input
-										type="radio"
-										value={option}
-										{...register("office", { required: "Please select an office" })}
-									/>
-									<span>{option}</span>
-								</label>
-							))}
+							{options
+								.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+								.map((option) => (
+									<label key={option} className={styles.radioOption}>
+										<input
+											type="radio"
+											value={option}
+											{...register("office", { required: "Please select an office" })}
+										/>
+										<span>{option}</span>
+									</label>
+								))}
 						</div>
 						{errors.office && (
 							<label className="error">{errors.office.message}</label>
