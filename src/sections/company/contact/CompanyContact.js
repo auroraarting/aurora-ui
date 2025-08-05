@@ -121,7 +121,8 @@ export default function CompanyContact() {
 				fetch("/api/sendEmail", {
 					method: "POST",
 					body: JSON.stringify({
-						name: data?.name + " " + data?.lastname,
+						...data,
+						name: data?.name,
 						email: data?.email,
 						subject: "Aurora Energy Research - Contact us Query",
 					}),
@@ -129,7 +130,8 @@ export default function CompanyContact() {
 				fetch("/api/sendEmail", {
 					method: "POST",
 					body: JSON.stringify({
-						name: data?.name + " " + data?.lastname,
+						...data,
+						name: data?.name,
 						email: officeEmail,
 						subject: "Aurora Energy Research - Contact us Query",
 						toOffice: true,
