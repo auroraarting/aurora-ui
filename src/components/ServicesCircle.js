@@ -9,6 +9,7 @@ import Button from "./Buttons/Button";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -63,6 +64,8 @@ export default function ServicesCircle({
 		}
 	};
 
+	const heading = data?.sectionTitle || data?.title;
+
 	if (!data?.advantages || !data) {
 		return <></>;
 	}
@@ -76,9 +79,7 @@ export default function ServicesCircle({
 			<div className="container">
 				<div className={`${styles.CircleGrid}`}>
 					<div className={`${styles.CircleInfo}`}>
-						<h3 className="text_xl color_white pb_20">
-							{data?.sectionTitle || data?.title}
-						</h3>
+						<h3 className="text_xl color_white pb_20">{heading && parse(heading)}</h3>
 						{(data?.descripition || data?.desciption || data?.description) && (
 							<div className="text_reg color_platinum_gray">
 								<ContentFromCms>

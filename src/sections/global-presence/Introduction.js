@@ -8,6 +8,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // SECTIONS //
 
 // PLUGINS //
+import parse from "html-react-parser";
 
 // UTILS //
 import { slugify } from "@/utils";
@@ -34,7 +35,7 @@ export default function Introduction({ data, sectionid }) {
 				<div className={`${styles.flexBox} f_j ptb_100`}>
 					<div className={`${styles.flexItemOne}`}>
 						<h2 className="text_xl font_primary color_secondary ">
-							{data?.sectionTitle}
+							{data?.sectionTitle && parse(data?.sectionTitle)}
 						</h2>
 					</div>
 					<div className={`${styles.flexItemTwo} text_reg color_dark_gray`}>
