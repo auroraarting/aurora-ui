@@ -40,7 +40,10 @@ export async function POST(req) {
 		if (toOffice) {
 			htmlContent = `
 			<div>
-				<p>Someone has reached out with a query/accessibility request ahead of their visit to the office — please connect with them to assist further.</p>
+				<p>A user has reached out with a query/accessibility request ahead of their upcoming office visit.</p>
+				<p>Request you to please connect with them at the earliest and assist further.</p>
+
+				<p>Details:</p>
 				<p>Name: ${name} ${lastname}</p>
 				<p>Email: ${email}</p>
 				<p>Company: ${company}</p>
@@ -55,7 +58,7 @@ export async function POST(req) {
 		const msg = {
 			to: email,
 			from: "reception.noreply@auroraer.com", // Must be verified
-			subject: subject || "Aurora Energy Research - Contact us Query",
+			subject: subject || "Aurora Energy Research - Contact Us Query",
 			html: htmlContent,
 		};
 

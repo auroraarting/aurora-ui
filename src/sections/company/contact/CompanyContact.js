@@ -124,7 +124,6 @@ export default function CompanyContact() {
 						...data,
 						name: data?.name,
 						email: data?.email,
-						subject: "Aurora Energy Research - Contact us Query",
 					}),
 				}),
 				fetch("/api/sendEmail", {
@@ -132,8 +131,7 @@ export default function CompanyContact() {
 					body: JSON.stringify({
 						...data,
 						name: data?.name,
-						email: officeEmail,
-						subject: "Aurora Energy Research - Contact us Query",
+						email: "nihal.padwal@ting.in",
 						toOffice: true,
 					}),
 				}),
