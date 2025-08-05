@@ -12,6 +12,7 @@ import styles from "@/styles/components/InnerBanner.module.scss";
 
 // PLUGINS //
 import Vimeo from "@u-wave/react-vimeo";
+import parse from "html-react-parser";
 
 // IMAGES //
 import DefaultBanner from "@/../public/img/banner/defaultDesktopBanner.jpg";
@@ -34,6 +35,7 @@ function InnerBanner({
 	vimeoid,
 	logo,
 	dynamicBtn,
+	showHeadingWithHTML,
 }) {
 	const defaultVimeoObj = {
 		video: vimeoid,
@@ -58,6 +60,15 @@ function InnerBanner({
 		setIsPlaying(!isPlaying);
 	};
 
+	/** headingTitle */
+	const headingTitle = () => {
+		if (showHeadingWithHTML && bannerTitle) {
+			return parse(bannerTitle);
+		}
+
+		return removeHTML(bannerTitle);
+	};
+
 	return (
 		<section className={`${styles.BannerMain} BannerMain`}>
 			<div className="container">
@@ -66,7 +77,7 @@ function InnerBanner({
 					<div className={`${styles.flexItemOne}`}>
 						<h1 className="text_xl font_primary f_w_m color_secondary text_uppercase">
 							{/* <ContentFromCms>{bannerTitle}</ContentFromCms> */}
-							{removeHTML(bannerTitle)}
+							{headingTitle()}
 						</h1>
 					</div>
 					<div className={`${styles.flexItemTwo}`}>

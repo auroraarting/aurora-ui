@@ -294,6 +294,8 @@ export default function GlobalPresenceInsideWrap({
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
 
+	console.log(data?.countries, "data?.countries");
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -319,6 +321,7 @@ export default function GlobalPresenceInsideWrap({
 							data?.countries?.bannerSection?.mobileImage?.node?.mediaItemUrl
 						}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionsButton")}
+						showHeadingWithHTML={true}
 					/>
 				</div>
 				<div className="">
