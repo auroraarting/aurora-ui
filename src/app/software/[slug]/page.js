@@ -30,7 +30,7 @@ import {
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 60; // Revalidates every 60 seconds
+export const revalidate = 30; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {

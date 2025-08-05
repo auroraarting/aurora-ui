@@ -34,7 +34,7 @@ export const metadata = {
 	description: "Aurora",
 };
 
-export const revalidate = 60; // Revalidates every 60 seconds
+export const revalidate = 30; // Revalidates every 60 seconds
 
 /** events Page */
 export default async function Events() {
