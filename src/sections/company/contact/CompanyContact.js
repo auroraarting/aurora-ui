@@ -280,14 +280,6 @@ export default function CompanyContact() {
 							name="phone"
 							{...register("phone", {
 								required: { value: true, message: "This field is required" },
-								maxLength: {
-									value: 10,
-									message: "Phone number should not exceed 10 digits",
-								},
-								minLength: {
-									value: 10,
-									message: "Phone number should be 10 digits",
-								},
 							})}
 							onKeyDown={(e) => {
 								// Prevent the "E" key (keyCode 69) from being pressed
