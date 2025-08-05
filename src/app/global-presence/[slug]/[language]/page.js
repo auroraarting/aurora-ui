@@ -107,7 +107,7 @@ async function getData({ params, query }) {
 		// 	? getCountryInsideWithLanguages(params.slug)
 		// 	: getCountryInside(params.slug),
 		// getCountryInside(params.slug),
-		getCountryInsideWithLanguages(params.slug),
+		getCountryInsideWithLanguages(params.slug, language),
 		getPageSeo(`countryBy(slug: "${params.slug}")`),
 	]);
 

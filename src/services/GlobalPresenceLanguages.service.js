@@ -142,7 +142,7 @@ export const getGlobalPresencePage = async () => {
 };
 
 /** Fetch Country Inside */
-export const getCountryInside = async (slug) => {
+export const getCountryInside = async (slug, language) => {
 	const query = `
   query GetCountryInsideByTranslation {
   countryBy(slug: "${decodeURIComponent(slug)}") {
@@ -731,7 +731,7 @@ export const getCountryInside = async (slug) => {
   `;
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
-		pageID: "/global-presence",
+		pageID: `/global-presence/${slug}/${language}`,
 	});
 	return res;
 };
