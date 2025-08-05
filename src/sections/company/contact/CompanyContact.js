@@ -37,6 +37,7 @@ const options = [
 	"Stockholm",
 	"Sydney",
 	"Tokyo",
+	"Santiago, Chile",
 ];
 
 /** CompanyContact Component */
@@ -69,7 +70,7 @@ export default function CompanyContact() {
 		// console.log(result);
 		setLoading(true);
 		try {
-			const res = await fetch("/api/contact", {
+			await fetch("/api/contact", {
 				method: "POST",
 				body: JSON.stringify({
 					data: data,
@@ -78,6 +79,63 @@ export default function CompanyContact() {
 			reset();
 			setthankYouMessage(true);
 			setLoading(false);
+
+			let officeEmail = "";
+			if (data?.office === "Oxford") {
+				officeEmail = "contact.oxford@auroraer.com";
+			} else if (data?.office === "Athens") {
+				officeEmail = "contact.athens@auroraer.com";
+			} else if (data?.office === "Austin, TX") {
+				officeEmail = "contact.austin@auroraer.com";
+			} else if (data?.office === "Berlin") {
+				officeEmail = "contact.berlin@auroraer.com";
+			} else if (data?.office === "Gurugram, India") {
+				officeEmail = "contact.gurugram@auroraer.com";
+			} else if (data?.office === "Madrid") {
+				officeEmail = "contact.madrid@auroraer.com";
+			} else if (data?.office === "Melbourne") {
+				officeEmail = "contact.melbourne@auroraer.com";
+			} else if (data?.office === "New York") {
+				officeEmail = "contact.newyork@auroraer.com";
+			} else if (data?.office === "Oakland, CA") {
+				officeEmail = "contact.oakland@auroraer.com";
+			} else if (data?.office === "Paris") {
+				officeEmail = "contact.paris@auroraer.com";
+			} else if (data?.office === "Rome") {
+				officeEmail = "contact.rome@auroraer.com";
+			} else if (data?.office === "Santiago, Chile") {
+				officeEmail = "contact.santiago@auroraer.com";
+			} else if (data?.office === "Sao Paulo") {
+				officeEmail = "contact.saopaulo@auroraer.com";
+			} else if (data?.office === "Singapore") {
+				officeEmail = "contact.singapore@auroraer.com";
+			} else if (data?.office === "Stockholm") {
+				officeEmail = "contact.stockholm@auroraer.com";
+			} else if (data?.office === "Sydney") {
+				officeEmail = "contact.sydney@auroraer.com";
+			} else if (data?.office === "Tokyo") {
+				officeEmail = "contact.tokyo@auroraer.com";
+			}
+
+			await Promise.all([
+				fetch("/api/sendEmail", {
+					method: "POST",
+					body: JSON.stringify({
+						name: data?.name + " " + data?.lastname,
+						email: data?.email,
+						subject: "Aurora Energy Research - Contact us Query",
+					}),
+				}),
+				fetch("/api/sendEmail", {
+					method: "POST",
+					body: JSON.stringify({
+						name: data?.name + " " + data?.lastname,
+						email: officeEmail,
+						subject: "Aurora Energy Research - Contact us Query",
+						toOffice: true,
+					}),
+				}),
+			]);
 
 			setTimeout(() => {
 				setthankYouMessage(false);

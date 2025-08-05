@@ -10,7 +10,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 /**  */
 export async function POST(req) {
 	try {
-		const { name, email, subject } = await req.json();
+		const { name, email, subject, toOffice } = await req.json();
 
 		if (!name || !email) {
 			return NextResponse.json(
@@ -20,12 +20,16 @@ export async function POST(req) {
 		}
 
 		// Convert JSX to static HTML
-		const htmlContent = `
+		let htmlContent = `
 		<div>
-			<p>Name: ${name} </p>
-			<p>Email: ${email} </p>
+			<p>Thank You. Our team will get in touch to understand how we can support you. </p>
 		</div>
 		`;
+
+		if (toOffice) {
+			htmlContent = `<div><p>Someone has reached out with a query/accessibility request ahead of their visit to the office — 
+			please connect with them to assist further.</p></div>`;
+		}
 
 		const msg = {
 			to: email,
