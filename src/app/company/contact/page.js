@@ -187,7 +187,7 @@ export default async function ContactPage() {
 								</p>
 								<p className="text_reg color_silver_gray">
 									For commercial queries, please connect with our experts for the{" "}
-									<span className="f_w_b">
+									<span className="f_w_b text_underline">
 										<Link href="/global-presence">countries</Link>
 									</span>{" "}
 									you are interested in.
