@@ -38,6 +38,7 @@ import hoverBg from "@/../public/img/contact/hoverBg.png";
 import { getPageSeo } from "@/services/Seo.service";
 import { getOfficesByRegions } from "@/services/Offices.service";
 import { getContact } from "@/services/Contact.service";
+import Link from "next/link";
 
 /** generateMetadata  */
 export async function generateMetadata() {
@@ -179,10 +180,17 @@ export default async function ContactPage() {
 						<div className={`${styles.formFlex} f_j`}>
 							<div className={`${styles.form_title}`}>
 								<h2 className="text_lg font_primary f_w_s_b color_white pb_30">
-									Have a question?
+									Have a question before your visit?
 								</h2>
+								<p className="text_reg color_silver_gray pb_20">
+									Our reception looks forward to your message.
+								</p>
 								<p className="text_reg color_silver_gray">
-									We look forward to your message. Contact us today.
+									For commercial queries, please connect with our experts for the{" "}
+									<span className="f_w_b">
+										<Link href="/global-presence">countries</Link>
+									</span>{" "}
+									you are interested in.
 								</p>
 							</div>
 							<div className={`${styles.formBox}`}>
