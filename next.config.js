@@ -3798,6 +3798,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/insight/the-future-of-ppas-in-poland",
+				destination: "/resources/webinar/the-future-of-ppas-in-poland",
+				permanent: true,
+			},
+			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
 				permanent: true,
