@@ -7,6 +7,7 @@
 
 // COMPONENTS //
 import Script from "next/script";
+import { notFound } from "next/navigation";
 
 // SECTIONS //
 import EnergyTalkInsideWrap from "@/sections/resources/energy-talks/EnergyTalkInsideWrap";

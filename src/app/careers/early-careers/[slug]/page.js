@@ -7,6 +7,7 @@ export const dynamic = "force-static"; // Use when data is highly cacheable
 // MODULES //
 
 // COMPONENTS //
+import { notFound } from "next/navigation";
 
 // SECTIONS //
 import EarlyCareersInsideWrap from "@/sections/careers/EarlyCareersInsideWrap";
@@ -78,6 +79,12 @@ export default async function EarlyCareers({ params }) {
 
 	const countries = categoriesForSelect.data.countries.nodes;
 	const data = dataFetch.data.earlyCareerBy;
+
+	// 🚫 Redirect to 404 if status is DRAFT or data is null
+	if (!data || data?.status === "DRAFT") {
+		notFound(); // shows Next.js 404 page
+	}
+
 	const otherList = list.data.earlyCareers.nodes?.filter(
 		(item) => item.slug !== slug
 	);

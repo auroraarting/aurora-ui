@@ -6,6 +6,7 @@ export const getPageSeo = async (page) => {
 	const query = `
 query GetSeo {
 ${page} {
+status
     seo {
       title
       metaDesc

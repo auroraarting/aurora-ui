@@ -691,6 +691,7 @@ query GetInsightsInside {
     slug
     date
     content
+    status
     featuredImage {
       node {
         altText

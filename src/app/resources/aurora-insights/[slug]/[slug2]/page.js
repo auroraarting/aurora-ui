@@ -7,6 +7,7 @@
 
 // COMPONENTS //
 import Script from "next/script";
+import { notFound } from "next/navigation";
 
 // SECTIONS //
 import InsightsInsideWrap from "@/sections/resources/aurora-insights/InsightsInsideWrap";
@@ -37,6 +38,11 @@ export const revalidate = 30; // Revalidates every 60 seconds
 export async function generateMetadata({ params }) {
 	const data = await getInsightsInside(params.slug2);
 	const post = data?.data?.postBy;
+
+	// 🚫 Redirect to 404 if status is DRAFT or data is null
+	if (!data?.data?.postBy || data?.data?.postBy?.status === "draft") {
+		notFound(); // shows Next.js 404 page
+	}
 
 	return {
 		title: post?.title || "Default Title",
@@ -77,6 +83,12 @@ async function getData({ params }) {
 		await getInsights(`first: 9999, where: {categoryName: "${resourceCat}"}`),
 		await getInsightsCategories(),
 	]);
+
+	console.log(data, "data");
+	// 🚫 Redirect to 404 if status is DRAFT or data is null
+	if (!data?.data?.postBy || data?.data?.postBy?.status === "draft") {
+		notFound(); // shows Next.js 404 page
+	}
 
 	const otherList = list?.data?.posts?.nodes?.slice(0, 3) || [];
 	const countries = categoriesForSelect?.data?.countries?.nodes || [];

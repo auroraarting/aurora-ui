@@ -173,6 +173,7 @@ query GetCareers {
   earlyCareerBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
+    status
     earlyCareers {
       banner {
       city
