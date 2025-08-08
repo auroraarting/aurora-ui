@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "./ContentFromCms";
+import { useForm } from "react-hook-form";
 
 // SECTIONS //
 
@@ -337,6 +338,19 @@ export default function Insights({
 	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
 
+	const formRef = useRef();
+	const [thankYouMessage, setthankYouMessage] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	const {
+		register,
+		handleSubmit,
+		watch,
+		reset,
+		trigger,
+		formState: { errors },
+	} = useForm({ mode: "onChange" });
+
 	/** handleOpenForm Section */
 	const handleOpenForm = () => {
 		setIsFormVisible(true);
@@ -402,6 +416,8 @@ export default function Insights({
 			setData(tempdata);
 			fetchdata();
 		}
+
+		trigger("privacy"); // Trigger validation for privacy checkbox
 	}, []);
 
 	let sectionId = {};
@@ -409,6 +425,11 @@ export default function Insights({
 	// 	sectionId.id = "insights";
 	// 	sectionId["data-name"] = "Insights";
 	// }
+
+	/** Function to handle submit */
+	const onSubmit = async (data, e) => {
+		// Write form submission codes here
+	};
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
@@ -420,71 +441,221 @@ export default function Insights({
 				<div className={`${styles.insightsBg} insightsBg dark_bg`}>
 					{isPowerBgVisible && (
 						<div className={`${styles.powerBg} powerBg`}>
-							{!isFormVisible && (
-								<div className={`${styles.contentFlex} contentFlex f_j`}>
-									<div className={`${styles.title_wrap}`}>
-										{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
+							<div
+								className={`${styles.contentFlex} contentFlex f_j ${
+									isFormVisible ? styles.isFormVisible : ""
+								}`}
+							>
+								<div className={`${styles.title_wrap}`}>
+									{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
 											{insightsTitle}
 										</h2> */}
-										<p className="text_lg font_primary f_w_s_b color_white pb_10">
-											{formSectionTitle}
-										</p>
-										<div className={`${styles.desc} text_reg color_silver_gray`}>
-											<ContentFromCms>{formSectionDesc}</ContentFromCms>
-										</div>
+									<p className="text_lg font_primary f_w_s_b color_white pb_10">
+										{formSectionTitle}
+									</p>
+									<div className={`${styles.desc} text_reg color_silver_gray`}>
+										<ContentFromCms>{formSectionDesc}</ContentFromCms>
 									</div>
-									{customHtml && customHtml}
-									{!customHtml && (
-										<a
-											className={`${styles.bookBtn}`}
-											onClick={() => handleOpenForm()}
-											// {...formdata}
-											// href={defaultPathname()}
-											{...BtnProps()}
-										>
-											<Button
-												color="primary"
-												variant="filled"
-												shape="rounded"
-												mode="dark"
-												textlowercase
-											>
-												{formSectionBtnText}
-											</Button>
-										</a>
-									)}
 								</div>
-							)}
+								{customHtml && customHtml}
+								{!customHtml && !isFormVisible && (
+									<a
+										className={`${styles.bookBtn}`}
+										onClick={() => handleOpenForm()}
+										// {...formdata}
+										// href={defaultPathname()}
+										{...BtnProps()}
+									>
+										<Button
+											color="primary"
+											variant="filled"
+											shape="rounded"
+											mode="dark"
+											textlowercase
+										>
+											{formSectionBtnText}
+										</Button>
+									</a>
+								)}
+							</div>
 
 							{isFormVisible && (
-								<div className={`${styles.formFlex} f_j`}>
-									<div className={`${styles.close}`} onClick={handleCloseForm}>
-										<img src={close.src} className={`${styles.closeIcon}`} alt="close" />
-									</div>
-									<div className={`${styles.form_title}`}>
-										<h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
-											{insightsTitle}
-										</h2>
-										<p className="text_reg font_primary color_silver_gray">
-											{formSectionTitle}
-										</p>
-										<div className={`${styles.desc} text_reg color_silver_gray`}>
-											<ContentFromCms>{formSectionDesc}</ContentFromCms>
+								<form
+									className={`${styles.form}`}
+									onSubmit={handleSubmit(onSubmit)}
+									ref={formRef}
+								>
+									<div className={`${styles.ContactMain}`}>
+										<div className={styles.formGroup}>
+											<label className={styles.label} htmlFor="name">
+												First Name*
+											</label>
+											<input
+												className={styles.input}
+												type="text"
+												id="name"
+												name="name"
+												{...register("name", {
+													required: true,
+													validate: (value) =>
+														!/<[^>]*script|<[^>]+>/gi.test(value) ||
+														"Invalid characters detected",
+												})}
+											/>
+											{errors.name && errors.name.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.name && errors.name.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.name && errors.name.type == "validate" && (
+												<label className="error">Invalid characters detected!</label>
+											)}
+										</div>
+										<div className={styles.formGroup}>
+											<label className={styles.label} htmlFor="last">
+												Last Name*
+											</label>
+											<input
+												className={styles.input}
+												type="text"
+												id="last"
+												name="last"
+												{...register("last", {
+													required: true,
+													validate: (value) =>
+														!/<[^>]*script|<[^>]+>/gi.test(value) ||
+														"Invalid characters detected",
+												})}
+											/>
+											{errors.last && errors.last.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.last && errors.last.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.last && errors.last.type == "validate" && (
+												<label className="error">Invalid characters detected!</label>
+											)}
+										</div>
+										<div className={styles.formGroup}>
+											<label className={styles.label} htmlFor="email">
+												Email*
+											</label>
+											<input
+												className={styles.input}
+												type="email"
+												id="email"
+												name="email"
+												{...register("email", {
+													required: true,
+													pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+													validate: (value) =>
+														!/<[^>]*script|<[^>]+>/gi.test(value) ||
+														"Invalid characters detected",
+												})}
+											/>
+											{errors.email && errors.email.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.email && errors.email.type == "pattern" && (
+												<label className="error">Enter valid email</label>
+											)}
+											{errors.email && errors.email.type == "validate" && (
+												<label className="error">Invalid characters detected!</label>
+											)}
+										</div>
+										<div className={styles.formGroup}>
+											<label className={styles.label} htmlFor="outlet">
+												Media Outlet
+											</label>
+											<input
+												className={styles.input}
+												type="text"
+												id="outlet"
+												name="outlet"
+												{...register("outlet", {
+													validate: (value) =>
+														!/<[^>]*script|<[^>]+>/gi.test(value) ||
+														"Invalid characters detected",
+												})}
+											/>
+											{errors.outlet && errors.outlet.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+										</div>
+										<div className={styles.formGroup}>
+											<label className={styles.label} htmlFor="role">
+												Role/Title
+											</label>
+											<input
+												className={styles.input}
+												type="email"
+												id="role"
+												name="role"
+												{...register("role", {
+													validate: (value) =>
+														!/<[^>]*script|<[^>]+>/gi.test(value) ||
+														"Invalid characters detected",
+												})}
+											/>
+											{errors.role && errors.role.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.role && errors.role.type == "validate" && (
+												<label className="error">Invalid characters detected!</label>
+											)}
+										</div>
+										<div className={styles.formGroup}>
+											<label className={styles.label} htmlFor="interest">
+												Region of Interest*
+											</label>
+											<input
+												className={styles.input}
+												type="text"
+												id="interest"
+												name="interest"
+												{...register("interest", {
+													required: true,
+													validate: (value) =>
+														!/<[^>]*script|<[^>]+>/gi.test(value) ||
+														"Invalid characters detected",
+												})}
+											/>
+											{errors.interest && errors.interest.type == "required" && (
+												<label className="error">This field is required</label>
+											)}
+											{errors.interest && errors.interest.type == "validate" && (
+												<label className="error">Invalid characters detected!</label>
+											)}
+										</div>
+										<div className={`${styles.formGroup} ${styles.fullWidthBox} m_t_20`}>
+											<div className={`${styles.formRow}`}>
+												<input
+													className={styles.input}
+													type="checkbox"
+													id="privacy"
+													name="privacy"
+													{...register("privacy", {
+														required: true,
+													})}
+												/>
+												<label className={styles.label} htmlFor="privacy">
+													I understand that Aurora Energy Research uses and protects any
+													personal data that I provide in line with its Privacy Policy and
+													Privacy Notice.
+												</label>
+											</div>
 										</div>
 									</div>
-									<div className={`${styles.formBox}`}>
-										{/* <img
-										src={form_img.src}
-										className={`${styles.form_img}`}
-										alt="form_img"
-									/> */}
-										<iframe
-											src="https://go.auroraer.com/l/885013/2025-01-30/p1g4m"
-											className={`${styles.form_img}`}
-											title="Form"
-										></iframe>
+									<div
+										className={`${styles.submit} ${errors.privacy && "disabled"} m_t_20`}
+									>
+										<Button color="primary" variant="filled" shape="rounded" mode="dark">
+											{formSectionBtnText}
+										</Button>
 									</div>
-								</div>
+								</form>
 							)}
 						</div>
 					)}

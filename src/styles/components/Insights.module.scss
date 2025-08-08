@@ -46,6 +46,11 @@
 				border-radius: 20px;
 				padding: 40px 40px;
 				gap: 50px;
+
+				&.isFormVisible {
+					border-bottom-left-radius: 0;
+					border-bottom-right-radius: 0;
+				}
 				@media (max-width: 1199px) {
 					padding: 30px 30px;
 				}
@@ -261,6 +266,154 @@
 							}
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+.form {
+	background-color: var(--color_gray);
+	border-radius: 20px;
+	padding: 40px 40px;
+	padding-top: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.ContactMain {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	.formRow {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		justify-content: start;
+		input {
+			width: max-content !important;
+		}
+	}
+	.formGroup {
+		width: 48%;
+		margin-bottom: 10px;
+		position: relative;
+		@media (max-width: 767px) {
+			width: 100%;
+		}
+		.input {
+			border-radius: 12px;
+			background-color: var(--color_secondary);
+			border: 1px solid var(--color_dark_gray);
+			font-size: 14px;
+			font-family: var(--font_secondary);
+			font-weight: 400;
+			line-height: 160%;
+			color: var(--color_platinum_gray);
+			padding: 10px 15px;
+			width: 100%;
+		}
+		.textarea {
+			border-radius: 12px;
+			background-color: var(--color_secondary);
+			border: 1px solid var(--color_dark_gray);
+			font-size: 14px;
+			font-family: var(--font_secondary);
+			font-weight: 400;
+			line-height: 160%;
+			color: var(--color_platinum_gray);
+			padding: 10px 15px;
+			width: 100%;
+			resize: none;
+		}
+		/* For Chrome, Safari, Edge, Opera */
+		input[type="number"]::-webkit-outer-spin-button,
+		input[type="number"]::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* For Firefox */
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+	}
+
+	.fullWidthBox {
+		width: 100%;
+	}
+
+	.label {
+		color: var(--color_platinum_gray);
+		font-size: 14px;
+		font-family: var(--font_primary);
+		font-weight: 400;
+	}
+
+	.radioBox {
+		width: 100%;
+		margin-bottom: 10px;
+
+		.radioGroup {
+			background-color: var(--color_secondary);
+			border: 1px solid var(--color_dark_gray);
+			border-radius: 12px;
+			padding: 15px 15px;
+			// display: flex;
+			// flex-wrap: wrap;
+			// justify-content: space-between;
+			display: grid;
+			grid-auto-flow: column;
+			grid-template-rows: repeat(9, auto);
+		}
+
+		.radioOption {
+			display: flex;
+			align-items: center;
+			margin-bottom: 0.75rem;
+			cursor: pointer;
+			font-size: 14px;
+			font-family: var(--font_primary);
+			font-weight: 400;
+			width: 100%;
+			color: var(--color_medium_gray);
+
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+
+			input[type="radio"] {
+				appearance: none;
+				width: 16px;
+				height: 16px;
+				margin-right: 10px;
+				border: 2px solid var(--color_medium_gray);
+				border-radius: 50%;
+				background-color: transparent;
+				position: relative;
+				cursor: pointer;
+				transition: all 0.2s ease;
+
+				&:checked {
+					border-color: #ffd700;
+					background-color: #ffd700;
+
+					&::before {
+						content: "";
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						width: 8px;
+						height: 8px;
+						background-color: #2a2a2a;
+						border-radius: 50%;
+					}
+				}
+
+				&:checked + span {
+					color: var(--color_white); // Or any color you want for the label
 				}
 			}
 		}
