@@ -337,7 +337,6 @@ export default function Insights({
 }) {
 	const pathname = usePathname();
 	const [data, setData] = useState({ data: defaultList, countries });
-
 	const formRef = useRef();
 	const [thankYouMessage, setthankYouMessage] = useState(false);
 	const [loading, setLoading] = useState(false);

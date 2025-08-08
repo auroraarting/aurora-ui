@@ -408,7 +408,7 @@ export default function SoftwareMarket({
 											);
 										})}
 									</Swiper>
-									<div className={`${styles.arrowSection} f_w_a_j_center`}>
+									<div className={`${styles.arrowSection} `}>
 										<button className={`${styles.customPrev}`} id="customPrev">
 											<img src={slider_arrow.src} alt="icon" />
 										</button>
