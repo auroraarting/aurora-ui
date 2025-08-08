@@ -84,7 +84,6 @@ async function getData({ params }) {
 		await getInsightsCategories(),
 	]);
 
-	console.log(data, "data");
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
 	if (!data?.data?.postBy || data?.data?.postBy?.status === "draft") {
 		notFound(); // shows Next.js 404 page

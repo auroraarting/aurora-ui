@@ -219,8 +219,6 @@ export default function EventsListing({
 		EqualHeight(`${styles.ItemBox}`);
 	}, [list, selected]);
 
-	console.log(list, "list");
-
 	return (
 		<section className={styles.EventsListing}>
 			<div className={styles.filterMain}>

@@ -46,7 +46,6 @@ export default function ProductInsideWrap({
 }) {
 	const dataForBtn = { postFields: data?.products || {} };
 
-	console.log(data, "data");
 	return (
 		<div>
 			{/* Metatags */}

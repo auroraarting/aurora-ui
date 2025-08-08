@@ -177,7 +177,47 @@ export const getCountryInside = async (slug) => {
             ... on Team {
               id
               title
+              content
               teams {
+              articles {
+                  articlesby {
+                    nodes {
+                      ... on Post {
+                        id
+                        title
+                        slug
+                        featuredImage {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        postFields {
+                          time
+                        }
+                        date
+                        categories(first: 9999) {
+                          nodes {
+                            name
+                            slug
+                          }
+                        }
+                      }
+                      slug
+                      contentType {
+                        node {
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+                file {
+                  node {
+                    mediaItemUrl
+                    altText
+                  }
+                }
                   thumbnail {
                     designation
                     linkedinLink
@@ -396,7 +436,47 @@ export const getCountryInside = async (slug) => {
               ... on Team {
                 id
                 title
+                content
                 teams {
+                articles {
+                  articlesby {
+                    nodes {
+                      ... on Post {
+                        id
+                        title
+                        slug
+                        featuredImage {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        postFields {
+                          time
+                        }
+                        date
+                        categories(first: 9999) {
+                          nodes {
+                            name
+                            slug
+                          }
+                        }
+                      }
+                      slug
+                      contentType {
+                        node {
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+                file {
+                  node {
+                    mediaItemUrl
+                    altText
+                  }
+                }
                     thumbnail {
                       designation
                       linkedinLink

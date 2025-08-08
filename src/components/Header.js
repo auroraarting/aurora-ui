@@ -289,7 +289,6 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 												className={`${styles.item} text_xxs f_w_m font_primary`}
 												key={item?.title}
 												onClick={() => {
-													console.log(item, "item");
 													window.location.href = `${hrefLink}`;
 													setSelectedLanguage(item);
 													setShowLanguagesList(!showLanguagesList);

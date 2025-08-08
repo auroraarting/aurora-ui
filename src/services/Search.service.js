@@ -261,7 +261,6 @@ export async function searchData(searchTerm) {
 		/** href  */
 		const href = () => {
 			let cat = isCategory(allCategories, item?.categories?.nodes, true);
-			console.log(item.categories.nodes, "cat");
 
 			if (cat.includes("Articles")) {
 				return `/resources/aurora-insights/articles/${item?.slug}`;
