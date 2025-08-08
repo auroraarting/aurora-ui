@@ -116,7 +116,7 @@ export default function PressReleasesInsideWrap({
 
 				<div className="ptb_100">
 					<Insights
-						isFormVisible={true}
+						// isFormVisible={true}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={moreRelated}
