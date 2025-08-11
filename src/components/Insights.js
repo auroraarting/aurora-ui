@@ -589,7 +589,7 @@ export default function Insights({
 											</label>
 											<input
 												className={styles.input}
-												type="email"
+												type="text"
 												id="role"
 												name="role"
 												{...register("role", {
