@@ -686,6 +686,11 @@ export default function Insights({
 											{loading ? "Subscribing..." : "Subscribe"}
 										</Button>
 									</div>
+									{thankYouMessage && (
+										<h2 className="text_sm font_primary color_primary pt_20">
+											Thank you for your details, we will get back to you soon
+										</h2>
+									)}
 								</form>
 							)}
 						</div>
