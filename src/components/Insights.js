@@ -428,6 +428,36 @@ export default function Insights({
 	/** Function to handle submit */
 	const onSubmit = async (data, e) => {
 		// Write form submission codes here
+		setLoading(true);
+		try {
+			await fetch("/api/press-room-subscribe-leads", {
+				method: "POST",
+				body: JSON.stringify({
+					data: data,
+				}),
+			});
+			reset();
+			setthankYouMessage(true);
+			setLoading(false);
+
+			// await Promise.all([
+			// 	fetch("/api/sendEmail", {
+			// 		method: "POST",
+			// 		body: JSON.stringify({
+			// 			...data,
+			// 			name: data?.name,
+			// 			email: data?.email,
+			// 		}),
+			// 	}),
+			// ]);
+
+			setTimeout(() => {
+				setthankYouMessage(false);
+			}, 5000);
+			// const result = await res.json();
+		} catch (error) {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
@@ -648,10 +678,12 @@ export default function Insights({
 										</div>
 									</div>
 									<div
-										className={`${styles.submit} ${errors.privacy && "disabled"} m_t_20`}
+										className={`${styles.submit} ${
+											(errors.privacy || loading) && "disabled"
+										} m_t_20`}
 									>
 										<Button color="primary" variant="filled" shape="rounded" mode="dark">
-											{formSectionBtnText}
+											{loading ? "Subscribing..." : "Subscribe"}
 										</Button>
 									</div>
 								</form>
