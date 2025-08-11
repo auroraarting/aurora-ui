@@ -440,16 +440,16 @@ export default function Insights({
 			setthankYouMessage(true);
 			setLoading(false);
 
-			// await Promise.all([
-			// 	fetch("/api/sendEmail", {
-			// 		method: "POST",
-			// 		body: JSON.stringify({
-			// 			...data,
-			// 			name: data?.name,
-			// 			email: data?.email,
-			// 		}),
-			// 	}),
-			// ]);
+			await Promise.all([
+				fetch("/api/sendEmail", {
+					method: "POST",
+					body: JSON.stringify({
+						...data,
+						name: data?.name,
+						email: data?.email,
+					}),
+				}),
+			]);
 
 			setTimeout(() => {
 				setthankYouMessage(false);

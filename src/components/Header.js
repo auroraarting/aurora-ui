@@ -25,7 +25,7 @@ import styles from "@/styles/components/Header.module.scss";
 
 // IMAGES //
 import Arrow from "@/../public/img/icons/dropdown_arrow.svg";
-import logo from "@/../public/img/logo.svg";
+import logo from "@/../public/img/logo-1.svg";
 import searchImg from "@/../public/img/icons/search.svg";
 import login_icon from "@/../public/img/icons/login_icon.svg";
 import location from "@/../public/img/icons/location.svg";
