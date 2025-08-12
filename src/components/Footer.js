@@ -18,7 +18,7 @@ import Link from "next/link";
 import styles from "@/styles/components/Footer.module.scss";
 
 // IMAGES //
-import footer_logo from "../../public/img/footer_logo.svg";
+import footer_logo from "../../public/img/footer-logo-1.svg";
 import ting_logo from "../../public/img/ting_logo.svg";
 import white_plus_arrow from "../../public/img/icons/white_plus_arrow_new.svg";
 import white_minus_arrow from "../../public/img/icons/white_minus_arrow.svg";
