@@ -138,7 +138,8 @@ export default function PressReleasesInsideWrap({
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={moreRelated}
-						formSectionTitle={page?.insights?.sectionTitle}
+						// formSectionTitle={page?.insights?.sectionTitle}
+						formSectionTitle={"Join our press mailing List"}
 						formSectionDesc={page?.insights?.sectionDesc}
 						formSectionBtnText={
 							dynamicInsightsBtnProps(dataForBtn2, "insightsSectionButton")?.btntext
