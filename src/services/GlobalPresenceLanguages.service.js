@@ -822,10 +822,11 @@ export const getAllLanguages = async () => {
   query GetAllLanguages {
   languages {
     code
-    id
-    language_code
+    country_flag_url
     default_locale
+    language_code
     native_name
+    translated_name
   }
 }
   `;

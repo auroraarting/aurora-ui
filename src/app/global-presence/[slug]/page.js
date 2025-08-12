@@ -31,7 +31,10 @@ import {
 	getCountryInside,
 	getRegions,
 } from "@/services/GlobalPresence.service";
-import { getCountryInside as getCountryInsideWithLanguages } from "@/services/GlobalPresenceLanguages.service";
+import {
+	getAllLanguages,
+	getCountryInside as getCountryInsideWithLanguages,
+} from "@/services/GlobalPresenceLanguages.service";
 import {
 	getInsights,
 	getInsightsCategories,
@@ -82,6 +85,7 @@ async function getData({ params, query }) {
 		//  webinarsRes,
 		countryData,
 		meta,
+		languages,
 	] = await Promise.all([
 		getInsights(
 			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
@@ -94,6 +98,7 @@ async function getData({ params, query }) {
 		// 	: getCountryInside(params.slug),
 		getCountryInside(params.slug),
 		getPageSeo(`countryBy(slug: "${params.slug}")`),
+		getAllLanguages(),
 	]);
 
 	// const countryBy = isJapanese
@@ -109,6 +114,30 @@ async function getData({ params, query }) {
 	const mapJson = [];
 	const insightsList = insightsRes?.data?.posts?.nodes || [];
 	const countries = categoriesRes?.data?.countries?.nodes || [];
+	const countryTranslations = countryBy?.translations || [];
+	let selectedAllLanguages = [
+		{
+			title: "English",
+			shortTitle: "",
+			icon: "/img/en-flag.svg",
+		},
+	];
+	languages?.data?.languages?.map((item) => {
+		countryTranslations?.filter((item2) => {
+			if (item2.languageCode === item?.language_code) {
+				let title = item?.translated_name;
+				if (item?.native_name) {
+					title = `${title} (${item?.native_name})`;
+				}
+				selectedAllLanguages.push({
+					...item,
+					title: title,
+					shortTitle: item?.language_code,
+					icon: item?.country_flag_url || "/img/en-flag.svg",
+				});
+			}
+		});
+	});
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };
@@ -120,6 +149,7 @@ async function getData({ params, query }) {
 			insightsList,
 			countries,
 			seo,
+			selectedAllLanguages,
 			// events: eventsList.slice(0, 1),
 			// webinars: webinarList.slice(0, 3),
 		},

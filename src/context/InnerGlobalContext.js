@@ -18,6 +18,7 @@ export default function InnerGlobalContext({ children }) {
 	const [webinarsState, setWebinarsState] = useState([]);
 	const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 	const [language, setLanguage] = useState();
+	const [allLanguage, setAllLanguage] = useState(languages);
 
 	/** addCssVariables  */
 	const addCssVariables = () => {
@@ -68,6 +69,8 @@ export default function InnerGlobalContext({ children }) {
 				setSelectedLanguage,
 				language,
 				setLanguage,
+				allLanguage,
+				setAllLanguage,
 			}}
 		>
 			{children}

@@ -96,6 +96,7 @@ async function getData({ params, query }) {
 		//  webinarsRes,
 		countryData,
 		meta,
+		languages,
 	] = await Promise.all([
 		getInsightsTranslations(
 			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
@@ -109,6 +110,7 @@ async function getData({ params, query }) {
 		// getCountryInside(params.slug),
 		getCountryInsideWithLanguages(params.slug, language),
 		getPageSeo(`countryBy(slug: "${params.slug}")`),
+		getAllLanguages(),
 	]);
 
 	// const countryBy = isJapanese
@@ -224,6 +226,31 @@ async function getData({ params, query }) {
 	// 	countryBy.countries.eventsWebinarSection.tabTitle = "イベントとウェビナー";
 	// }
 
+	const countryTranslations = countryData?.data?.countryBy?.translations || [];
+	let selectedAllLanguages = [
+		{
+			title: "English",
+			shortTitle: "",
+			icon: "/img/en-flag.svg",
+		},
+	];
+	languages?.data?.languages?.map((item) => {
+		countryTranslations?.filter((item2) => {
+			if (item2.languageCode === item?.language_code) {
+				let title = item?.translated_name;
+				if (item?.native_name) {
+					title = `${title} (${item?.native_name})`;
+				}
+				selectedAllLanguages.push({
+					...item,
+					title: title,
+					shortTitle: item?.language_code,
+					icon: item?.country_flag_url || "/img/en-flag.svg",
+				});
+			}
+		});
+	});
+
 	countryBy.countries.showTranslation = true;
 
 	// Optional: enable this if fallback 404 is desired
@@ -238,6 +265,7 @@ async function getData({ params, query }) {
 			),
 			countries,
 			seo,
+			selectedAllLanguages,
 			// events: eventsList.slice(0, 1),
 			// webinars: webinarList.slice(0, 3),
 		},

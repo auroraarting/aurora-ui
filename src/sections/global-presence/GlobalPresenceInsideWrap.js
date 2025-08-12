@@ -45,19 +45,26 @@ export default function GlobalPresenceInsideWrap({
 	countries,
 	slug,
 	language,
+	selectedAllLanguages,
 	// events,
 	// webinars,
 }) {
 	const [events, setEvents] = useState([]);
 	const [webinars, setWebinars] = useState([]);
 	const [mapJsonState, setMapJsonState] = useState();
-	const { setShowLanguages, eventsState, webinarsState, setLanguage } =
-		useContextProvider();
+	const {
+		setShowLanguages,
+		eventsState,
+		webinarsState,
+		setLanguage,
+		setAllLanguage,
+	} = useContextProvider();
 	const dataForBtn = { postFields: data?.countries || {} };
 
 	useEffect(() => {
 		setMapJsonState(getMapJsonForCountries(data?.countries?.map));
 		setLanguage(language);
+		setAllLanguage(selectedAllLanguages);
 
 		if (data?.countries?.showTranslation) {
 			setShowLanguages(true);

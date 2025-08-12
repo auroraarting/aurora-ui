@@ -69,6 +69,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 		selectedLanguage,
 		setSelectedLanguage,
 		language,
+		allLanguage,
 	} = useContextProvider();
 	const [showLanguagesList, setShowLanguagesList] = useState(false);
 	// const language = searchParams.get("language");
@@ -189,12 +190,12 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 		setOpenSidebar(false);
 
 		if (language) {
-			const selectedLang = languages.find(
+			const selectedLang = allLanguage?.find(
 				(lang) => lang.shortTitle.toLowerCase() === language?.toLowerCase()
 			);
 			setSelectedLanguage(selectedLang || "");
 		}
-	}, [pathname, language]);
+	}, [pathname, language, allLanguage]);
 
 	useEffect(() => {
 		if (searchQuery) {
@@ -278,7 +279,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 						<div className={`${styles.list}`}>
 							<div className={`${styles.listInner}`}>
 								<div className={`${styles.langWrap}`}>
-									{languages?.map((item) => {
+									{allLanguage?.map((item) => {
 										const tempArr = pathname?.split("/");
 										let hrefLink = `/global-presence/${
 											tempArr[2]
