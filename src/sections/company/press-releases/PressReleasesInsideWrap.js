@@ -20,6 +20,7 @@ import MediaAbout from "@/sections/company/press-releases/MediaAbout";
 import MediaMiddleRight from "@/sections/company/press-releases/MediaMiddleRight";
 
 // PLUGINS //
+import { Link, scroller } from "react-scroll";
 
 // UTILS //
 import { dynamicInsightsBtnProps } from "@/utils";
@@ -69,17 +70,34 @@ export default function PressReleasesInsideWrap({
 				</div>
 				<SectionsHeader
 					customHtml={
-						dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
-							<div
-								{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
-								key="btn"
-								to="Insights"
-							>
-								<Button color="primary" variant="filled" shape="rounded" textlowercase>
-									{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
-								</Button>
-							</div>
-						)
+						// dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext && (
+						// 	<div
+						// 		{...dynamicInsightsBtnProps(dataForBtn, "middleSectionButton")}
+						// 		key="btn"
+						// 		to="Insights"
+						// 	>
+						// 		<Button color="primary" variant="filled" shape="rounded" textlowercase>
+						// 			{dynamicInsightsBtnProps(dataForBtn, "middleSectionButton").btntext}
+						// 		</Button>
+						// 	</div>
+						// )
+						<div
+							onClick={() => {
+								scroller.scrollTo("pressRoomForm", {
+									duration: 500,
+									smooth: true,
+									offset: -50,
+									spy: true,
+									onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+								});
+							}}
+							key="btn"
+							to="Insights"
+						>
+							<Button color="primary" variant="filled" shape="rounded" textlowercase>
+								Subscribe
+							</Button>
+						</div>
 					}
 				/>
 				<section className={`${styles.mediaMiddle} pt_40`}>
@@ -114,7 +132,7 @@ export default function PressReleasesInsideWrap({
 					</div>
 				</section>
 
-				<div className="ptb_100">
+				<div className="pressRoomForm ptb_100">
 					<Insights
 						isFormVisible={true}
 						isPowerBgVisible={true}

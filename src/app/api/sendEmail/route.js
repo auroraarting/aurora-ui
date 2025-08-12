@@ -21,6 +21,7 @@ export async function POST(req) {
 			phone,
 			office,
 			message,
+			customHTML,
 		} = await req.json();
 
 		if (!name || !email) {
@@ -53,6 +54,10 @@ export async function POST(req) {
 				<p>Message: ${message}</p>			
 			</div>
 			`;
+		}
+
+		if (customHTML) {
+			htmlContent = customHTML;
 		}
 
 		const msg = {

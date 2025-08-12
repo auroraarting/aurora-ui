@@ -156,6 +156,7 @@ export default function PressReleasesWrap({
 				<div className={`${styles.containerCustom} ptb_100`}>
 					<div className="container">
 						<Insights
+							isFormVisible={true}
 							isPowerBgVisible={true}
 							formSectionTitle={page?.insights?.sectionTitle}
 							formSectionDesc={page?.insights?.sectionDesc}

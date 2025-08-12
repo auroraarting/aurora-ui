@@ -447,6 +447,13 @@ export default function Insights({
 						...data,
 						name: data?.name,
 						email: data?.email,
+						subject: "Aurora Energy Research - Press Room Subscription Query",
+						customHTML: `
+			<div>
+				<p>Thank you for subscribing to our press releases!</p>
+				<p>For media-related questions, please contact our <a href="mailto:aurora-press@auroraer.com">Media Relations Team</a></p>
+				<p>For more information on our products and services, please browse our website <a href="www.auroraer.com" target="_blank" rel="noreferrer">www.auroraer.com</a></p>
+			</div>`,
 					}),
 				}),
 			]);
