@@ -128,8 +128,8 @@ async function getData({ params, query }) {
 	// 	// ...countryData?.data?.countryBy.countries,
 	// };
 
-	countryBy.countries.availableRegions.team.nodes =
-		countryData.data.countryBy.countries.availableRegions.team.nodes.map(
+	countryBy.countries.availableRegions.team.nodes = [
+		...countryData.data.countryBy.countries.availableRegions.team.nodes.map(
 			(item) => {
 				return {
 					...item,
@@ -138,7 +138,9 @@ async function getData({ params, query }) {
 					)?.[0],
 				};
 			}
-		);
+		),
+	];
+	console.log(countryData.data, "countryData.data");
 
 	countryBy.countries.map.markers =
 		countryData.data.countryBy.countries.map.markers.map((item) => {
@@ -169,9 +171,10 @@ async function getData({ params, query }) {
 					return {
 						...item,
 						featuredImage: {
-							node: item?.featuredImage?.node?.translations?.filter(
-								(item2) => item2?.languageCode === language
-							)?.[0],
+							node:
+								item?.featuredImage?.node?.translations?.filter(
+									(item2) => item2?.languageCode === language
+								)?.[0] || item?.featuredImage?.node,
 						},
 					};
 				}

@@ -144,7 +144,7 @@ export const getGlobalPresencePage = async () => {
 /** Fetch Country Inside */
 export const getCountryInside = async (slug, language) => {
 	const query = `
-  query GetCountryInsideByTranslation {
+ query GetCountryInsideByTranslation {
   countryBy(slug: "${decodeURIComponent(slug)}") {
     translations {
       slug
@@ -217,14 +217,12 @@ export const getCountryInside = async (slug, language) => {
             nodes {
               ... on Team {
                 id
-                translations {
-                  title
-                  languageCode
-                  content
-                  teams {
+                title
+                content
+                teams {
                   articles {
-                  articlesby {
-                    nodes {
+                    articlesby {
+                     nodes {
                       ... on Post {
                         id
                         title
@@ -253,15 +251,70 @@ export const getCountryInside = async (slug, language) => {
                         }
                       }
                     }
-                  }
-                }
-                file {
+                   }
+                 }
+                  file {
                   node {
                     mediaItemUrl
                     altText
                   }
                 }
-                    thumbnail {
+                  thumbnail {
+                      designation
+                      linkedinLink
+                      image {
+                        node {
+                          altText
+                          mediaItemUrl
+                        }
+                      }
+                    }
+                  }
+                translations {
+                  title
+                  languageCode
+                  content
+                  teams {
+                  articles {
+                    articlesby {
+                     nodes {
+                      ... on Post {
+                        id
+                        title
+                        slug
+                        featuredImage {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        postFields {
+                          time
+                        }
+                        date
+                        categories(first: 9999) {
+                          nodes {
+                            name
+                            slug
+                          }
+                        }
+                      }
+                      slug
+                      contentType {
+                        node {
+                          name
+                        }
+                      }
+                    }
+                   }
+                 }
+                  file {
+                  node {
+                    mediaItemUrl
+                    altText
+                  }
+                }
+                  thumbnail {
                       designation
                       linkedinLink
                       image {
@@ -537,6 +590,59 @@ export const getCountryInside = async (slug, language) => {
           nodes {
             ... on Team {
               id
+              title
+              content
+              teams {
+                articles {
+                  articlesby {
+                    nodes {
+                      ... on Post {
+                        id
+                        title
+                        slug
+                        featuredImage {
+                          node {
+                            altText
+                            mediaItemUrl
+                          }
+                        }
+                        postFields {
+                          time
+                        }
+                        date
+                        categories(first: 9999) {
+                          nodes {
+                            name
+                            slug
+                          }
+                        }
+                      }
+                      slug
+                      contentType {
+                        node {
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+                file {
+                  node {
+                    mediaItemUrl
+                    altText
+                  }
+                }
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
               translations {
                 title
                 languageCode
@@ -604,6 +710,8 @@ export const getCountryInside = async (slug, language) => {
               id
               featuredImage {
                 node {
+                  altText
+                    mediaItemUrl
                   translations {
                   languageCode
                     altText
@@ -618,6 +726,11 @@ export const getCountryInside = async (slug, language) => {
           nodes {
             ... on Testimonial {
               id
+              title
+              content
+              testimonials {
+                  designation
+                }
               translations {
                 title
                 content
@@ -678,13 +791,13 @@ export const getCountryInside = async (slug, language) => {
               }
           category(first: 999) {
             nodes {
-            contentType {
+            	contentType {
                   node {
                     name
                   }
                 }
               ... on Service {
-              services {
+              	services {
                     map {
                       headerLogo {
                         node {
@@ -700,7 +813,9 @@ export const getCountryInside = async (slug, language) => {
                       }
                     }
                   }
-                translations {
+                title
+                  content
+                	translations {
                   title
                   content
                   languageCode
@@ -721,9 +836,9 @@ export const getCountryInside = async (slug, language) => {
                     }
                   }
                 }
-              }
+              	}
               ... on Software {
-              softwares {
+              	softwares {
                     map {
                       headerLogo {
                         node {
@@ -739,7 +854,9 @@ export const getCountryInside = async (slug, language) => {
                       }
                     }
                   }
-                translations {
+                title
+                  content
+                	translations {
                   title
                   content
                   languageCode
@@ -760,9 +877,11 @@ export const getCountryInside = async (slug, language) => {
                     }
                   }
                 }
-              }
+              	}
               ... on Product {
-              products {
+                title
+                  content
+              	products {
                     map {
                       headerLogo {
                         node {
@@ -778,7 +897,7 @@ export const getCountryInside = async (slug, language) => {
                       }
                     }
                   }
-                translations {
+                	translations {
                   title
                   content
                   languageCode
@@ -799,7 +918,7 @@ export const getCountryInside = async (slug, language) => {
                     }
                   }
                 }
-              }
+              	}
               slug
             }
           }

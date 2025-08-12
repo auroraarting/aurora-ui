@@ -694,9 +694,33 @@ export default function Insights({
 										</Button>
 									</div>
 									{thankYouMessage && (
-										<h2 className="text_sm font_primary color_primary pt_20">
-											Thank you for your details, we will get back to you soon.
-										</h2>
+										// <h2 >
+										// 	Thank you for your details, we will get back to you soon.
+										// </h2>
+										<div className="text_sm font_primary color_primary pt_20">
+											<p>Thank you for subscribing to our press releases!</p>
+											<p>
+												For media-related questions, please contact our{" "}
+												<a
+													className="text_underline"
+													href="mailto:aurora-press@auroraer.com"
+												>
+													Media Relations Team
+												</a>
+											</p>
+											<p>
+												For more information on our products and services, please browse our
+												website{" "}
+												<a
+													className="text_underline"
+													href="www.auroraer.com"
+													target="_blank"
+													rel="noreferrer"
+												>
+													www.auroraer.com
+												</a>
+											</p>
+										</div>
 									)}
 								</form>
 							)}
