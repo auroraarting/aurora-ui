@@ -38,7 +38,7 @@ export async function POST(req) {
 		</br>
 		<p>Thank you for your message. Our reception team will get back to you shortly. </p>
 		<p>If your query is commercial/business related, please speak to our experts. </p>
-		<p>Visit our <a href="https://auroraer.com/global-presence" target="_blank" rel="noreferrer">Global Presence page</a> to connect with the desired regional team.</p>
+		<p>Visit our <a href="https://auroraer.com/global-presence" target="_blank" rel="noreferrer">Global Presence</a> page to connect with the desired regional team.</p>
 		</br>
 		<p>Thank you,</p>
 		<p>Team Aurora Energy Research</p>

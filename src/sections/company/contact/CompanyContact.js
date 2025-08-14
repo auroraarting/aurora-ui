@@ -364,9 +364,9 @@ export default function CompanyContact() {
 								rel="noreferrer"
 								className="text_underline"
 							>
-								Global Presence page
+								Global Presence
 							</a>{" "}
-							to connect with the desired regional team.
+							page to connect with the desired regional team.
 						</p>
 						<br />
 						<p>Thank you,</p>
