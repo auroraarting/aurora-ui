@@ -456,7 +456,7 @@ export default function Insights({
 				<p>For media-related questions, please contact our <a href="mailto:aurora-press@auroraer.com">Media Relations Team</a></p>
 				<p>For more information on our products and services, please browse our website <a href="www.auroraer.com" target="_blank" rel="noreferrer">www.auroraer.com</a></p>
 				</br>
-				<p>Thank You,</p>
+				<p>Thank you,</p>
 				<p>Team Aurora Energy Research</p>
 			</div>`,
 					}),

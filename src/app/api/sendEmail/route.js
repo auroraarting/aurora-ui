@@ -34,7 +34,12 @@ export async function POST(req) {
 		// Convert JSX to static HTML
 		let htmlContent = `
 		<div>
-			<p>Thank You. Our team will get in touch to understand how we can support you. </p>
+		<p>Hi Ummehani</p>
+		</br>
+		<p>Our team will get in touch to understand how we can support you.</p>
+		</br>
+		<p>Thank you,</p>
+		<p>Team Aurora Energy Research</p>
 		</div>
 		`;
 
