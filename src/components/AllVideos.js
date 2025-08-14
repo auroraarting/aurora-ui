@@ -61,7 +61,9 @@ export default function AllVideos({
 						</h4>
 
 						<h2 className="text_xl font_primary color_white pb_20">{title}</h2>
-						<p className="text_reg color_dark_gray pb_40">{desc}</p>
+						<div className="text_reg color_dark_gray pb_40">
+							{desc && <ContentFromCms>{desc}</ContentFromCms>}
+						</div>
 						<a
 							href={redirectLink}
 							target="_blank"
