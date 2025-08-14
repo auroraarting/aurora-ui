@@ -347,9 +347,34 @@ export default function CompanyContact() {
 					</Button>
 				</div>
 				{thankYouMessage && (
-					<h2 className="text_sm font_primary color_primary pt_20">
-						Thank you for your details, we will get back to you soon.
-					</h2>
+					<div className="text_sm font_primary color_primary pt_20">
+						<p>
+							Thank you for your message. Our reception team will get back to you
+							shortly.{" "}
+						</p>
+						<p>
+							If your query is commercial/business related, please speak to our
+							experts.{" "}
+						</p>
+						<p>
+							Visit our{" "}
+							<a
+								href="https://auroraer.com/global-presence"
+								target="_blank"
+								rel="noreferrer"
+								className="text_underline"
+							>
+								Global Presence page
+							</a>{" "}
+							to connect with the desired regional team.
+						</p>
+						<br />
+						<p>Thank you,</p>
+						<p>Team Aurora Energy Research</p>
+					</div>
+					// <h2 className="text_sm font_primary color_primary pt_20">
+					// 	Thank you for your details, we will get back to you soon.
+					// </h2>
 				)}
 			</form>
 		</div>
