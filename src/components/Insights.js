@@ -450,9 +450,14 @@ export default function Insights({
 						subject: "Aurora Energy Research - Press Room Subscription Query",
 						customHTML: `
 			<div>
+				<p>Hi ${data?.name},</p>
+				</br>
 				<p>Thank you for subscribing to our press releases!</p>
 				<p>For media-related questions, please contact our <a href="mailto:aurora-press@auroraer.com">Media Relations Team</a></p>
 				<p>For more information on our products and services, please browse our website <a href="www.auroraer.com" target="_blank" rel="noreferrer">www.auroraer.com</a></p>
+				</br>
+				<p>Thank You,</p>
+				<p>Team Aurora Energy Research</p>
 			</div>`,
 					}),
 				}),
