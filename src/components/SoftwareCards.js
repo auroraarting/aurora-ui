@@ -51,14 +51,18 @@ export default function SoftwareCards({ dynamicData }) {
 		<section className={`${styles.SoftwareCards}`}>
 			<div className="container">
 				<div className={`${styles.SoftwareCardsFlex}`}>
-					{data?.map((item) => {
+					{data?.map((item, ind) => {
 						return (
 							<a
 								href={item?.btnLink}
 								className={`${styles.CardsItem}`}
 								key={item?.desc}
 							>
-								<img src={item?.img} className="width_100 b_r_20" alt={item?.desc} />
+								<img
+									src={item?.img}
+									className="width_100 b_r_20"
+									alt={item?.desc || `software_Card_${ind}`}
+								/>
 								<div className={`${styles.hoverBox}`}></div>
 								<div className={`${styles.CardsDesc}`}>
 									<h2 className={`text_lg  ${item?.fontColor || "color_secondary"}`}>
