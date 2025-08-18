@@ -22,6 +22,7 @@ export async function POST(req) {
 			office,
 			message,
 			customHTML,
+			useremail,
 		} = await req.json();
 
 		if (!name || !email) {
@@ -53,7 +54,7 @@ export async function POST(req) {
 
 				<p>Details:</p>
 				<p>Name: ${name} ${lastname}</p>
-				<p>Email: ${email}</p>
+				<p>Email: ${useremail}</p>
 				<p>Company: ${company}</p>
 				<p>Job Title: ${jobtitle}</p>
 				<p>Phone: ${phone}</p>
