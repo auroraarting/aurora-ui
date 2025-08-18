@@ -95,12 +95,13 @@ export default function HomeBanner() {
 											fetchPriority="high"
 										/>
 									)}
+									{/* https://vimeo.com/api/v2/video/882811837.json */}
 									<Vimeo
 										video="882811837"
 										width="100%"
 										autoplay={false}
 										responsive
-										onLoaded={() => setVimeoLoaded(true)}
+										onReady={() => setVimeoLoaded(true)}
 									/>
 								</div>
 							</div>
