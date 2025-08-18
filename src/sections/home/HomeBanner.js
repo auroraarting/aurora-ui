@@ -8,6 +8,7 @@ import Link from "next/link";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import LottieRenderer from "@/components/LottieRenderer";
+import Image from "next/image";
 
 // SECTIONS //
 
@@ -36,6 +37,7 @@ import bannerGraph from "../../../public/img/home/banner-graph.png";
 
 /** HomeBanner Section */
 export default function HomeBanner() {
+	const [vimeoLoaded, setVimeoLoaded] = useState(false);
 	const lottieAnimations = [
 		{ id: "1", src: "/img/home/lottie/bannerRightSide.json" },
 	];
@@ -83,7 +85,23 @@ export default function HomeBanner() {
 									</div>
 								</div>
 								<div className={`${styles.VimeoBanner}`}>
-									<Vimeo video="882811837" width="100%" autoplay={false} responsive />
+									{!vimeoLoaded && (
+										<Image
+											src="https://i.vimeocdn.com/video/1751040853-d4ba16e4940230f76e62bbfc80a99b9cbced1d76f3c9d24207a563c6a4deb979-d_640?region=us"
+											alt="Hero Poster"
+											fill
+											className={`${styles.BannerPoster} width_100`}
+											priority
+											fetchPriority="high"
+										/>
+									)}
+									<Vimeo
+										video="882811837"
+										width="100%"
+										autoplay={false}
+										responsive
+										onLoaded={() => setVimeoLoaded(true)}
+									/>
 								</div>
 							</div>
 						</SwiperSlide>

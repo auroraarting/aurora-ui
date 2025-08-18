@@ -14,6 +14,7 @@ const nextConfig = {
 			"img.youtube.com",
 			"aurora-staging.mystagingwebsite.com",
 			"cms-production.auroraer.com",
+			"i.vimeocdn.com",
 		],
 	},
 	async headers() {
