@@ -26,7 +26,7 @@ const nextConfig = {
 						value: `
         default-src 'self';
         media-src 'self'  data: https://aurora-staging.mystagingwebsite.com/ https://cms-production.auroraer.com/ https://cms-staging.auroraer.com/;
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.clarity.ms/ https://snap.licdn.com/ https://cdn-cookieyes.com https://*.cookieyes.com https://storage.googleapis.com/ https://googleads.g.doubleclick.net/ https://connect.facebook.net/ https://www.googletagmanager.com/ https://www.youtube.com https://s.ytimg.com https://maps.googleapis.com https://maps.gstatic.com;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.clarity.ms/ https://*.clarity.ms/ https://snap.licdn.com/ https://cdn-cookieyes.com https://*.cookieyes.com https://storage.googleapis.com/ https://googleads.g.doubleclick.net/ https://connect.facebook.net/ https://www.googletagmanager.com/ https://www.youtube.com https://s.ytimg.com https://maps.googleapis.com https://maps.gstatic.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maps.googleapis.com https://maps.gstatic.com;
         img-src 'self' data: https://www.google.co.in/ https://*.clarity.ms/ https://c.bing.com/ https://px.ads.linkedin.com/ https://cdn-cookieyes.com https://*.cookieyes.com https://www.googletagmanager.com/ https://cms-staging.auroraer.com/  https://aurora-staging.mystagingwebsite.com/ https://cms-production.auroraer.com/ https://img.youtube.com https://i.ytimg.com https://maps.googleapis.com https://maps.gstatic.com https://google.com https://ggpht.com;
         font-src 'self' data: https://fonts.gstatic.com https://storage.googleapis.com/ https://maps.gstatic.com;
