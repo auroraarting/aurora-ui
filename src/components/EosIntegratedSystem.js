@@ -34,7 +34,7 @@ export default function EosIntegratedSystem({ name, data, buttonText }) {
 			return {};
 		} else if (name) {
 			return {
-				id: slugify(name),
+				id: "eos",
 				"data-name": name,
 			};
 		}
