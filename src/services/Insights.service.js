@@ -606,7 +606,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "post",
+		apiID: "post-translations",
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
