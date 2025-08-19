@@ -29,7 +29,8 @@ import { slugify } from "@/utils";
 /** TrustedLeaders Section */
 export default function TrustedLeaders({
 	data,
-	sectionTitle = "Trusted by industry leaders",
+	// sectionTitle = "Trusted by industry leaders",
+	sectionTitle,
 	sectionid,
 }) {
 	const [paddingBottom, setPaddingBottom] = useState("");

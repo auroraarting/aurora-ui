@@ -380,17 +380,19 @@ export default function GlobalPresenceInsideWrap({
 				<div className="ptb_100">
 					<SoftwareMarket
 						mapThumb={data?.countries?.mapThumb?.node?.mediaItemUrl}
-						// sectionTitle={data?.countries?.availableRegions?.sectionTitle}
-						sectionTitle={
-							data?.countries?.availableRegions?.sectionTitle ||
-							"Energy intelligence modelled for your market"
-						}
-						tabTitle={
-							data?.countries?.availableRegions?.tabTitle || "Available Regions"
-						}
-						teamTitle={
-							data?.countries?.availableRegions?.teamTitle || "Meet the team"
-						}
+						// sectionTitle={
+						// 	data?.countries?.availableRegions?.sectionTitle ||
+						// 	"Energy intelligence modelled for your market"
+						// }
+						// tabTitle={
+						// 	data?.countries?.availableRegions?.tabTitle || "Available Regions"
+						// }
+						// teamTitle={
+						// 	data?.countries?.availableRegions?.teamTitle || "Meet the team"
+						// }
+						sectionTitle={data?.countries?.availableRegions?.sectionTitle}
+						tabTitle={data?.countries?.availableRegions?.tabTitle}
+						teamTitle={data?.countries?.availableRegions?.teamTitle}
 						mapJson={mapJsonState}
 						data={data?.countries?.availableRegions}
 						customHtml={
@@ -420,10 +422,11 @@ export default function GlobalPresenceInsideWrap({
 					<div className="pb_50">
 						<TrustedLeaders
 							data={data?.countries?.ourClients}
-							sectionTitle={
-								data?.countries?.ourClients?.sectionTitle ||
-								"Trusted by industry leaders"
-							}
+							// sectionTitle={
+							// 	data?.countries?.ourClients?.sectionTitle ||
+							// 	"Trusted by industry leaders"
+							// }
+							sectionTitle={data?.countries?.ourClients?.sectionTitle}
 							sectionid={data?.countries?.ourClients?.tabTitle}
 						/>
 					</div>
@@ -439,17 +442,22 @@ export default function GlobalPresenceInsideWrap({
 						events={events}
 						webinars={webinars}
 						sectionid={data?.countries?.eventsWebinarSection?.tabTitle}
-						sectionTitle={
-							data?.countries?.eventsWebinarSection?.sectionHeading ||
-							"All voices, all markets"
-						}
-						eventButtonText={
-							data?.countries?.eventsWebinarSection?.eventButtonText ||
-							"View all events"
-						}
+						// sectionTitle={
+						// 	data?.countries?.eventsWebinarSection?.sectionHeading ||
+						// 	"All voices, all markets"
+						// }
+						// eventButtonText={
+						// 	data?.countries?.eventsWebinarSection?.eventButtonText ||
+						// 	"View all events"
+						// }
+						// webinarButtonText={
+						// 	data?.countries?.eventsWebinarSection?.webinarButtonText ||
+						// 	"View all webinars"
+						// }
+						sectionTitle={data?.countries?.eventsWebinarSection?.sectionHeading}
+						eventButtonText={data?.countries?.eventsWebinarSection?.eventButtonText}
 						webinarButtonText={
-							data?.countries?.eventsWebinarSection?.webinarButtonText ||
-							"View all webinars"
+							data?.countries?.eventsWebinarSection?.webinarButtonText
 						}
 					/>
 				</div>

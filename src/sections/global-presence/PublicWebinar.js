@@ -130,7 +130,8 @@ export default function PublicWebinar({
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/events">
 								<Button color="primary" variant="filled" shape="rounded">
-									{eventButtonText || "View all events"}
+									{/* {eventButtonText || "View all events"} */}
+									{eventButtonText || ""}
 								</Button>
 							</a>
 						</div>
@@ -275,7 +276,8 @@ export default function PublicWebinar({
 						<div className={`${styles.bookBtnOne} pt_40`}>
 							<a href="/resources/webinar">
 								<Button color="primary" variant="filled" shape="rounded">
-									{webinarButtonText || "View all webinars"}
+									{/* {webinarButtonText || "View all webinars"} */}
+									{webinarButtonText || ""}
 								</Button>
 							</a>
 						</div>

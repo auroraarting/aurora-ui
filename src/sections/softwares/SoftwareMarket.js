@@ -54,7 +54,7 @@ import locationJson from "@/data/locations.json";
 
 /** SoftwareBanner Section */
 export default function SoftwareMarket({
-	sectionTitle = "From your market to the world",
+	sectionTitle,
 	mapJson,
 	customHtml,
 	data,
@@ -112,7 +112,7 @@ export default function SoftwareMarket({
 			<section
 				className={`${styles.SoftwareMarket} `}
 				id={"availableregions"}
-				data-name={tabTitle || "Available Regions"}
+				data-name={tabTitle}
 			>
 				<div className="container">
 					<div className={`${styles.inner}`}>
