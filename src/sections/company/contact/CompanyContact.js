@@ -58,27 +58,22 @@ export default function CompanyContact() {
 
 	/** Function to handle submit */
 	const onSubmit = async (data) => {
-		// Write form submission codes here
-		// const result = await sendContactData(JSON.stringify({ data: data }));
-		// if (result.data) {
-		// 	reset();
-		// 	setthankYouMessage(true);
-		// 	setTimeout(() => {
-		// 		setthankYouMessage(false);
-		// 	}, 5000);
-		// }
-		// console.log(result);
 		setLoading(true);
 		try {
-			await fetch("/api/contact", {
+			const res = await fetch("/api/contact", {
 				method: "POST",
 				body: JSON.stringify({
 					data: data,
 				}),
 			});
+			if (!res?.ok) {
+				throw new Error("Network response was not ok");
+			}
+			console.log("Response from contact API:", res);
+			// const result = await res.json();
+
 			reset();
 			setthankYouMessage(true);
-			setLoading(false);
 
 			let officeEmail = "";
 			if (data?.office === "Oxford") {
@@ -138,10 +133,10 @@ export default function CompanyContact() {
 				}),
 			]);
 
+			setLoading(false);
 			setTimeout(() => {
 				setthankYouMessage(false);
 			}, 5000);
-			// const result = await res.json();
 		} catch (error) {
 			setLoading(false);
 		}

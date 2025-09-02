@@ -545,6 +545,7 @@ query GetEventInside {
         }
       }
       whyAttend {
+      sectionTitle
         desc
         agenda {
           address

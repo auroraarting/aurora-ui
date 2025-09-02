@@ -13,7 +13,11 @@ export async function POST(req) {
 				...data,
 			}),
 		});
-		return Response.json(response);
+		if (!response?.ok) {
+			throw new Error("Network response was not ok");
+		}
+		const responseData = await response.json();
+		return Response.json(responseData);
 	} catch (error) {
 		return new Response(`Webhook error: ${error.message}`, {
 			status: 500,

@@ -70,7 +70,7 @@ const WhyAttend = ({ data }) => {
 	return (
 		<section id="agenda" data-name="Agenda" className=" pt_20">
 			<div className={`${styles.contentBox}`}>
-				<h2>Why attend?</h2>
+				<h2>{data?.sectionTitle || "Why attend?"}</h2>
 				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
 				<div className={`${styles.btn_box} pt_0`} onClick={() => setOpen(!open)}>
 					<Button color="primary" variant="filled" shape="rounded">
