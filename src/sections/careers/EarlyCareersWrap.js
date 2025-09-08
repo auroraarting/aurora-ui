@@ -84,6 +84,18 @@ export default function EarlyCareersWrap({
 
 	countries = countries.sort((a, b) => a.title.localeCompare(b.title));
 
+	const sortedArr1 = [...data]
+		.filter((item) => item?.earlyCareers?.thumbnail?.islive)
+		.sort((a, b) =>
+			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+		);
+	const sortedArr2 = [...data]
+		.filter((item) => !item?.earlyCareers?.thumbnail?.islive)
+		.sort((a, b) =>
+			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+		);
+	const sortedArr = [...sortedArr1, ...sortedArr2];
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -121,7 +133,7 @@ export default function EarlyCareersWrap({
 				<div className="">
 					<CareerCountryCard
 						page={page}
-						data={data}
+						data={sortedArr}
 						countries={countries}
 						programs={programs}
 					/>

@@ -51,6 +51,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		countryType: { isOpen: false, selected: { title: "Country" } },
 		programsType: { isOpen: false, selected: { title: "Program" } },
 	});
+	const [sortedArray, setSortedArray] = useState([]);
 
 	/** Toggle Search Input */
 	const toggleSearchInput = () => {
@@ -106,9 +107,22 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		if (key === "countryType") {
 			selectedObj.country = catName;
 		}
+
 		const filteredArr = filterItemsBySelectedObjForCareers(arr, selectedObj);
-		setFilteredData(filteredArr);
-		setPaginationArr(filteredArr);
+		const sortedArr1 = [...filteredArr]
+			.filter((item) => item?.earlyCareers?.thumbnail?.islive)
+			.sort((a, b) =>
+				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+			);
+		const sortedArr2 = [...filteredArr]
+			.filter((item) => !item?.earlyCareers?.thumbnail?.islive)
+			.sort((a, b) =>
+				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+			);
+		const sortedArr = [...sortedArr1, ...sortedArr2];
+		console.log("sortedArr", sortedArr);
+		setFilteredData(sortedArr);
+		setPaginationArr(sortedArr);
 		setSelected(selectedObj);
 	};
 
