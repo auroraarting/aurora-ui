@@ -351,6 +351,301 @@ export const getHomePageVoices = async () => {
   }
 }
     `;
+	const pageVoices1 = `query GetHomePageVoices1 {
+  posts(first: 9999, where: {categoryName: "market-reports", orderby: {field: DATE, order: DESC}}) {
+    nodes {
+      title
+      slug
+      date
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
+      categories(first: 9999) {
+        nodes {
+          slug
+          name
+        }
+      }
+      language {
+        id
+        code
+        language_code
+        native_name
+      }
+      tags(first: 9999) {
+        nodes {
+          name
+          slug
+        }
+      }
+      postFields {
+        time
+        speakers {
+          nodes {
+            ... on PostSpeaker {
+              id
+              title
+              slug
+              postSpeakers {
+                sessions {
+                  address
+                  time
+                  timeSlot
+                  title
+                }
+                thumbnail {
+                  designation
+                  linkedinLink
+                  image {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+              content
+            }
+          }
+        }
+      }
+    }
+  }
+}`;
+	const pageVoices2 = `query GetHomePageVoices2 {
+  podcasts(first: 9999) {
+    nodes {
+      title
+      slug
+      date
+      content
+      podcastFields {
+        time
+        date
+        country(first: 9999) {
+          nodes {
+            ... on Country {
+              id
+              title
+              slug
+            }
+          }
+        }
+        poweredBy {
+          nodes {
+            contentType {
+              node {
+                id
+                label
+                name
+                uri
+              }
+            }
+            ... on Product {
+              id
+              title
+              slug
+            }
+            ... on Service {
+              id
+              title
+              slug
+            }
+            ... on Software {
+              id
+              title
+              slug
+            }
+          }
+        }
+      }
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
+    }
+  }
+}`;
+	const pageVoices3 = `query GetHomePageVoices3 {
+  webinars(first: 9999) {
+    nodes {
+      title
+      slug
+      featuredImage {
+        node {
+          altText
+          mediaItemUrl
+        }
+      }
+      webinarTags(first: 9999) {
+        nodes {
+          name
+          slug
+        }
+      }
+      eventCategories(first: 9999) {
+        nodes {
+          name
+          slug
+        }
+      }
+      webinarsFields {
+        country(first: 9999) {
+          nodes {
+            ... on Country {
+              id
+              title
+              slug
+            }
+          }
+        }
+        startDateAndTime
+        endDateAndTime
+        timezone
+        serviceBy(first: 99999) {
+          nodes {
+            contentType {
+              node {
+                name
+              }
+            }
+            slug
+            ... on Product {
+              id
+              slug
+              title
+            }
+            ... on Service {
+              id
+              title
+              slug
+            }
+            ... on Software {
+              id
+              title
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}`;
+	const pageVoices4 = `query GetHomePageVoices4 {
+  events(first: 9999) {
+    nodes {
+      title
+      slug
+      events {
+        interestedDesc
+        pricingDesc
+        thumbnail {
+          address
+          date
+          time
+          externalUrl
+          logo {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          country {
+            nodes {
+              ... on Country {
+                id
+                title
+                slug
+              }
+            }
+          }
+          category(first: 999) {
+            nodes {
+              contentType {
+                node {
+                  name
+                }
+              }
+              ... on Service {
+                id
+                slug
+                title
+                content
+                services {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Software {
+                id
+                title
+                slug
+                content
+                softwares {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+              ... on Product {
+                id
+                title
+                slug
+                content
+                products {
+                  map {
+                    logo {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        banner {
+          desktop {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          mobile {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
+      eventscategories {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  }
+}`;
 	const pageCaseStudies = `query GetHomePageVoicesCaseStudies {
   posts(first: 1, where: {categoryName: "case-studies", orderby: {field: DATE, order: DESC}}) {
     nodes {
@@ -479,23 +774,53 @@ export const getHomePageVoices = async () => {
     }
   }
     }`;
-	const [resFetchAll, resFetchCaseStudies, resFetchCommentary] =
-		await Promise.all([
-			await GraphQLAPI(pageVoices, {
-				apiID: "common",
-				pageID: "/",
-				// taxonomies
-			}),
-			await GraphQLAPI(pageCaseStudies, {
-				apiID: "post",
-				pageID: "/",
-			}),
-			await GraphQLAPI(pageCommentary, {
-				apiID: "post",
-				pageID: "/",
-			}),
-		]);
-	const resAllData = resFetchAll;
+	const [
+		// resFetchAll,
+		resFetchCaseStudies,
+		resFetchCommentary,
+		pageVoicesRes1,
+		pageVoicesRes2,
+		pageVoicesRes3,
+		pageVoicesRes4,
+	] = await Promise.all([
+		// await GraphQLAPI(pageVoices, {
+		// 	apiID: "common",
+		// 	pageID: "/",
+		// 	// taxonomies
+		// }),
+		await GraphQLAPI(pageCaseStudies, {
+			apiID: "post",
+			pageID: "/",
+		}),
+		await GraphQLAPI(pageCommentary, {
+			apiID: "post",
+			pageID: "/",
+		}),
+		await GraphQLAPI(pageVoices1, {
+			apiID: "common",
+			pageID: "/",
+		}),
+		await GraphQLAPI(pageVoices2, {
+			apiID: "common",
+			pageID: "/",
+		}),
+		await GraphQLAPI(pageVoices3, {
+			apiID: "common",
+			pageID: "/",
+		}),
+		await GraphQLAPI(pageVoices4, {
+			apiID: "common",
+			pageID: "/",
+		}),
+	]);
+	const resAllData = {
+		data: {
+			...pageVoicesRes1.data,
+			...pageVoicesRes2.data,
+			...pageVoicesRes3.data,
+			...pageVoicesRes4.data,
+		},
+	};
 	const resCaseStudiesData = resFetchCaseStudies;
 	const resCommentaryData = resFetchCommentary;
 	const events = resAllData?.data?.events?.nodes
@@ -508,7 +833,7 @@ export const getHomePageVoices = async () => {
 
 	const obj = {
 		events: events,
-		podcasts: resAllData.data.podcasts.nodes
+		podcasts: resAllData?.data?.podcasts?.nodes
 			.sort(
 				(a, b) => new Date(b.podcastFields?.date) - new Date(a.podcastFields.date)
 			)
