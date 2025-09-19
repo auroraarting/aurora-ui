@@ -36,6 +36,9 @@ export async function generateMetadata() {
 		title: seo?.title || "Default Title",
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
+		alternates: {
+			canonical: "/careers/faq", // 👈 canonical URL
+		},
 		openGraph: {
 			images: [
 				{

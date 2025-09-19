@@ -37,6 +37,9 @@ import {
 export const metadata = {
 	title: "Careers | Aurora",
 	description: "Aurora",
+	alternates: {
+		canonical: "/careers", // 👈 canonical URL
+	},
 };
 
 export const revalidate = 60; // Revalidates every 60 seconds

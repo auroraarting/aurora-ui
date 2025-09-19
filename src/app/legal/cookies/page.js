@@ -44,6 +44,9 @@ export async function generateMetadata() {
 		title: seo?.title || "Cookies | Aurora",
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
+		alternates: {
+			canonical: "/legal/cookies", // 👈 canonical URL
+		},
 		openGraph: {
 			images: [
 				{

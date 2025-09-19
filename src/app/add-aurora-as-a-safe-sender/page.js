@@ -24,6 +24,9 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 export const metadata = {
 	title: "Add Aurora as a safe sender | Aurora",
 	description: "Aurora",
+	alternates: {
+		canonical: "/add-aurora-as-a-safe-sender", // 👈 canonical URL
+	},
 };
 
 /** Policies and compliance Page */

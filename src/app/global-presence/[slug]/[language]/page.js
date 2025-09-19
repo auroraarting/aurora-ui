@@ -290,7 +290,7 @@ export default async function Australia({ params }) {
 				Title={props?.seo?.title}
 				Desc={props?.seo?.metaDesc}
 				OgImg={"https://auroraer.com/img/og-image.jpg"}
-				Url={`/global-presense/${slug}`}
+				Url={`/global-presense/${slug}/${language}`}
 				Keywords={props?.seo?.metaKeywords}
 			/>
 

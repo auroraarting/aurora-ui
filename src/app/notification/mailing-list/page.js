@@ -27,6 +27,9 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 export const metadata = {
 	title: "Thank You | Aurora",
 	description: "Aurora",
+	alternates: {
+		canonical: "/notification/mailing-list", // 👈 canonical URL
+	},
 };
 
 /** Cookies Page */

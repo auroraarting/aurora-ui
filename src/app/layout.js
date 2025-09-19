@@ -21,12 +21,16 @@ export const metadata = {
 	icons: {
 		icon: "/img/favicon.png",
 	},
+	metadataBase: new URL("https://auroraer.com"),
 	openGraph: {
 		images: [
 			{
 				url: "https://auroraer.com/img/og-image.jpg",
 			},
 		],
+	},
+	alternates: {
+		canonical: "/", // 👈 canonical URL
 	},
 };
 

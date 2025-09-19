@@ -56,6 +56,9 @@ export async function generateMetadata({ params }) {
 			title: post?.title,
 			// description: post?.excerpt,
 			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
+			alternates: {
+				canonical: `/resources/webinar/${params.slug}`, // 👈 canonical URL
+			},
 			images: [
 				{
 					url:

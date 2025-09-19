@@ -42,6 +42,9 @@ export async function generateMetadata() {
 		title: seo?.title || "Terms | Aurora",
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
+		alternates: {
+			canonical: "/legal/terms", // 👈 canonical URL
+		},
 		openGraph: {
 			images: [
 				{
