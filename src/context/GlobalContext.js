@@ -10,6 +10,7 @@ import {
 import InnerGlobalContext from "./InnerGlobalContext"; // we'll move logic here
 import Loader from "@/components/Loader";
 import { usePathname } from "next/navigation";
+import GTMClientTracker from "@/lib/gtm";
 
 const BookmarkContext = createContext();
 
@@ -76,7 +77,10 @@ export const GlobalContext = ({ children }) => {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<InnerGlobalContext>{children}</InnerGlobalContext>
+			<InnerGlobalContext>
+				<GTMClientTracker />
+				{children}
+			</InnerGlobalContext>
 		</Suspense>
 	);
 };
