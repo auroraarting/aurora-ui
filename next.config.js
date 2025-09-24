@@ -1733,13 +1733,13 @@ const nextConfig = {
 					"/resources/aurora-insights/articles/comment-bankability-and-hpas",
 				permanent: true,
 			},
-			{
-				source:
-					"/insight/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-2",
-				destination:
-					"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-3",
-				permanent: true,
-			},
+			// {
+			// 	source:
+			// 		"/insight/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-2",
+			// 	destination:
+			// 		"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-3",
+			// 	permanent: true,
+			// },
 			{
 				source:
 					"/country/europe/analysis-10-point-plan-green-industrial-revolution",
@@ -1895,13 +1895,13 @@ const nextConfig = {
 					"/resources/aurora-insights/articles/unlocking-the-future-takeaways-from-the-aurora-hydrogen-conference-2023",
 				permanent: true,
 			},
-			{
-				source:
-					"/media/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario",
-				destination:
-					"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-3",
-				permanent: true,
-			},
+			// {
+			// 	source:
+			// 		"/media/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario",
+			// 	destination:
+			// 		"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-3",
+			// 	permanent: true,
+			// },
 			{
 				source: "/category/insight-type/commentary/page/2",
 				destination: "/resources/aurora-insights?category=Commentary",
