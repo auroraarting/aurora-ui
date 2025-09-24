@@ -3803,13 +3803,13 @@ const nextConfig = {
 				destination: "/resources/webinar/the-future-of-ppas-in-poland",
 				permanent: true,
 			},
-			{
-				source:
-					"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-2",
-				destination:
-					"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-3",
-				permanent: true,
-			},
+			// {
+			// 	source:
+			// 		"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-2",
+			// 	destination:
+			// 		"/resources/aurora-insights/market-reports/uks-hydrogen-strategy-confirms-the-launch-of-a-hydrogen-production-subsidy-scheme-in-2023-and-expects-hydrogen-demand-to-grow-twenty-fold-by-2050-higher-than-auroras-high-scenario-3",
+			// 	permanent: true,
+			// },
 			{
 				source: "/company/press-releases/:path*",
 				destination: "/company/press-room/:path*",
