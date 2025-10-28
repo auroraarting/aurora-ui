@@ -55,7 +55,7 @@ export default function HowWeHelpInside({ data, services, mapJson, bundles }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/how-we-help/${data?.slug}`}
+				Url={`https://auroraer.com/how-we-help/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

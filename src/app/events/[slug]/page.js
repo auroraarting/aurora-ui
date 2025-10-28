@@ -199,7 +199,7 @@ export default async function EventsInside({ params }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/events/${data?.slug}`}
+				Url={`https://auroraer.com/events/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

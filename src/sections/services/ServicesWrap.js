@@ -55,7 +55,7 @@ export default function ServicesWrap({
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/service/${data.slug}`}
+				Url={`https://auroraer.com/service/${data.slug}`}
 			/> */}
 
 			{/* Header */}

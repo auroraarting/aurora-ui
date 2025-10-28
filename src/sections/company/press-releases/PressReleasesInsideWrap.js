@@ -50,7 +50,7 @@ export default function PressReleasesInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/company/press-room/${data?.slug}`}
+				Url={`https://auroraer.com/company/press-room/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

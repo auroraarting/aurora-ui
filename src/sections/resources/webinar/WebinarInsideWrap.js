@@ -48,7 +48,7 @@ export default function WebinarInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/webinar/${data?.slug}`}
+				Url={`https://auroraer.com/webinar/${data?.slug}`}
 			/> */}
 
 			<Script id="show-banner" strategy="afterInteractive">

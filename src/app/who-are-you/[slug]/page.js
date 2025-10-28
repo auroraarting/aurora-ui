@@ -94,7 +94,7 @@ export default async function Advisory({ params }) {
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/who-are-you/${data.slug}`}
+				Url={`https://auroraer.com/who-are-you/${data.slug}`}
 			/> */}
 
 			{/* Header */}

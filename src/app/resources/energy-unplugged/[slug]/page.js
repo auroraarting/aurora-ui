@@ -135,7 +135,7 @@ export default async function EnergyInside({ params }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/energy-unplugged/${data?.slug}`}
+				Url={`https://auroraer.com/energy-unplugged/${data?.slug}`}
 			/> */}
 
 			<Script id="show-banner" strategy="afterInteractive">

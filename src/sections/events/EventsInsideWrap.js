@@ -56,7 +56,7 @@ export default function EventsInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/events/${data?.slug}`}
+				Url={`https://auroraer.com/events/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

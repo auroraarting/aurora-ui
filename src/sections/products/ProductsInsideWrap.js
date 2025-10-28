@@ -53,7 +53,7 @@ export default function ProductInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/products/${data?.slug}`}
+				Url={`https://auroraer.com/products/${data?.slug}`}
 			/> */}
 
 			{/* Header */}
