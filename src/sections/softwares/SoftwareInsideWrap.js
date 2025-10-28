@@ -72,7 +72,7 @@ export default function SoftwareInsideWrap({
 				Title={meta?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/software/${meta?.slug}`}
+				Url={`https://auroraer.com/software/${meta?.slug}`}
 			/> */}
 
 			{/* Header */}

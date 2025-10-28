@@ -42,7 +42,7 @@ export async function generateMetadata({ params }) {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: `/who-are-you/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/who-are-you/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			images: [
@@ -94,7 +94,7 @@ export default async function Advisory({ params }) {
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/who-are-you/${data.slug}`}
+				Url={`https://auroraer.com/who-are-you/${data.slug}`}
 			/> */}
 
 			{/* Header */}

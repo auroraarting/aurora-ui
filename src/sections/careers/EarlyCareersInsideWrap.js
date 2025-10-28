@@ -56,7 +56,7 @@ export default function EarlyCareersInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/careers/early-careers/${data?.slug}`}
+				Url={`https://auroraer.com/careers/early-careers/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

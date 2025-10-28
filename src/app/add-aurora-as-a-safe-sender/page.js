@@ -25,7 +25,7 @@ export const metadata = {
 	title: "Add Aurora as a safe sender | Aurora",
 	description: "Aurora",
 	alternates: {
-		canonical: "/add-aurora-as-a-safe-sender", // 👈 canonical URL
+		canonical: "https://auroraer.com/add-aurora-as-a-safe-sender", // 👈 canonical URL
 	},
 };
 

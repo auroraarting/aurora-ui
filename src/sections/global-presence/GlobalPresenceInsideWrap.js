@@ -308,7 +308,7 @@ export default function GlobalPresenceInsideWrap({
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/global-presense/${data.slug}`}
+				Url={`https://auroraer.com/global-presense/${data.slug}`}
 			/> */}
 
 			{/* Header */}

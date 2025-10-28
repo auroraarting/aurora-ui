@@ -47,7 +47,7 @@ export async function generateMetadata({ params }) {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: `/how-we-help/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/how-we-help/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			images: [

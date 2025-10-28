@@ -31,7 +31,7 @@ export const metadata = {
 		],
 	},
 	alternates: {
-		canonical: "/", // 👈 canonical URL
+		// canonical: "https://auroraer.com/", // 👈 canonical URL
 	},
 };
 

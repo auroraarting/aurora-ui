@@ -45,7 +45,7 @@ export async function generateMetadata({ params }) {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: `/careers/early-careers/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/careers/early-careers/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			images: [
@@ -101,7 +101,7 @@ export default async function EarlyCareers({ params }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/careers/early-careers/${data?.slug}`}
+				Url={`https://auroraer.com/careers/early-careers/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

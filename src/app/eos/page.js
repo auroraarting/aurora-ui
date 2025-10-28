@@ -41,7 +41,7 @@ export async function generateMetadata() {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: "/eos", // 👈 canonical URL
+			canonical: "https://auroraer.com/eos", // 👈 canonical URL
 		},
 		openGraph: {
 			images: [

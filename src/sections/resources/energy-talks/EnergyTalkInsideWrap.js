@@ -66,7 +66,7 @@ export default function EnergyTalkInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/energy-unplugged/${data?.slug}`}
+				Url={`https://auroraer.com/energy-unplugged/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

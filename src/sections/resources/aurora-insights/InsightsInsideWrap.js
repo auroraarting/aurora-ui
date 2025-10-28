@@ -66,7 +66,7 @@ export default function InsightsInsideWrap({
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/resources/aurora-insights/${data?.slug}`}
+				Url={`https://auroraer.com/resources/aurora-insights/${data?.slug}`}
 			/> */}
 
 			{/* Header */}

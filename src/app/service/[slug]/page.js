@@ -42,7 +42,7 @@ export async function generateMetadata({ params }) {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: `/service/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/service/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			images: [
@@ -100,7 +100,7 @@ export default async function Advisory({ params }) {
 				Title={data.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/service/${data.slug}`}
+				Url={`https://auroraer.com/service/${data.slug}`}
 			/> */}
 
 			{/* Header */}

@@ -38,7 +38,7 @@ export const metadata = {
 	title: "Careers | Aurora",
 	description: "Aurora",
 	alternates: {
-		canonical: "/careers", // 👈 canonical URL
+		canonical: "https://auroraer.com/careers", // 👈 canonical URL
 	},
 };
 

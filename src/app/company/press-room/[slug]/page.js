@@ -35,7 +35,7 @@ export async function generateMetadata({ params }) {
 		title: post?.title || "Default Title",
 		description: post?.excerpt || "Default description",
 		alternates: {
-			canonical: `/company/press-room/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/company/press-room/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			title: post?.title,
@@ -101,7 +101,7 @@ export default async function PressInside({ params }) {
 				Title={data?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`/company/press-releases/${data?.slug}`}
+				Url={`https://auroraer.com/company/press-releases/${data?.slug}`}
 			/> */}
 
 			{/* Header */}
