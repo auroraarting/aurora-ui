@@ -16,6 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import parse from "html-react-parser";
 
 // UTILS //
 
@@ -39,12 +40,21 @@ import integratedSoftware from "@/data/integratedSoftwareJson.json";
 import integratedProducts from "@/data/integratedProductsJson.json";
 
 /** IntegratedSystem Section */
-export default function IntegratedSystem({ module = "softwares" }) {
+export default function IntegratedSystem({
+	module = "softwares",
+	tabTitle,
+	desc,
+	buttonText,
+	buttonLink,
+}) {
 	const [data, setData] = useState();
 	const link = module === "softwares" ? "/software" : "/products";
 
 	/** keyModule  */
 	const keyModule = () => {
+		if (buttonLink) {
+			return buttonLink;
+		}
 		if (module === "softwares") {
 			return "software";
 		}
@@ -95,7 +105,7 @@ export default function IntegratedSystem({ module = "softwares" }) {
 				<div className={`${styles.integratedSystemFlex} f_w_j`}>
 					<div className={`${styles.title_wrap}`}>
 						<h2 className="text_lg font_primary color_secondary pb_20">
-							Integrated system, endless possibilities
+							{tabTitle || "Integrated system, endless possibilities"}
 						</h2>
 						<p className="text_reg color_dark_gray">
 							{/* Aurora empowers you to analyse power markets and assets with
@@ -103,16 +113,18 @@ export default function IntegratedSystem({ module = "softwares" }) {
 							edge in a crowded market. Aurora’s{" "}
 							{module === "softwares" ? "software" : "product"} delivers precision
 							analytics for complex energy systems. */}
-							Aurora empowers you to analyse power markets and assets with
+							{desc
+								? parse(desc || "")
+								: `Aurora empowers you to analyse power markets and assets with
 							unprecedented sophistication, ease, and portability, helping you build an
 							edge in a crowded market. Our{" "}
-							{module === "softwares" ? "software" : "product"} delivers precision
-							analytics for complex energy systems.
+							${module === "softwares" ? "software" : "product"} delivers precision
+							analytics for complex energy systems.`}
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
 							<a href={`/${keyModule()}`}>
 								<Button color="secondary" variant="filled" shape="rounded">
-									Explore now
+									{buttonText || "Explore now"}
 								</Button>
 							</a>
 						</div>
