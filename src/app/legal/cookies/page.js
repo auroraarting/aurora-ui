@@ -45,7 +45,7 @@ export async function generateMetadata() {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: "/legal/cookies", // 👈 canonical URL
+			canonical: "https://auroraer.com/legal/cookies", // 👈 canonical URL
 		},
 		openGraph: {
 			images: [

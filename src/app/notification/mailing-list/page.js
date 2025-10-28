@@ -28,7 +28,7 @@ export const metadata = {
 	title: "Thank You | Aurora",
 	description: "Aurora",
 	alternates: {
-		canonical: "/notification/mailing-list", // 👈 canonical URL
+		canonical: "https://auroraer.com/notification/mailing-list", // 👈 canonical URL
 	},
 };
 

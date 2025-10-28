@@ -33,7 +33,7 @@ export const metadata = {
 	title: "Events | Aurora",
 	description: "Aurora",
 	alternates: {
-		canonical: "/events", // 👈 canonical URL
+		canonical: "https://auroraer.com/events", // 👈 canonical URL
 	},
 };
 

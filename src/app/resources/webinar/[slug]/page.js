@@ -57,7 +57,7 @@ export async function generateMetadata({ params }) {
 			// description: post?.excerpt,
 			// url: `https://your-domain.com/company/press-releases/${post?.slug}`,
 			alternates: {
-				canonical: `/resources/webinar/${params.slug}`, // 👈 canonical URL
+				canonical: `https://auroraer.com/resources/webinar/${params.slug}`, // 👈 canonical URL
 			},
 			images: [
 				{

@@ -42,7 +42,7 @@ export async function generateMetadata() {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: "/careers/life-at-aurora", // 👈 canonical URL
+			canonical: "https://auroraer.com/careers/life-at-aurora", // 👈 canonical URL
 		},
 		openGraph: {
 			images: [

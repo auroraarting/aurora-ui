@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
 		title: seo?.title || "Default Title",
 		description: seo?.metaDesc || "Default description",
 		alternates: {
-			canonical: `/resources/energy-unplugged/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/resources/energy-unplugged/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			title: seo?.title,
