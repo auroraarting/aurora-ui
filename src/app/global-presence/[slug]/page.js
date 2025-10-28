@@ -55,6 +55,9 @@ export const revalidate = 30; // Revalidates every 60 seconds
 // 		title: seo?.title || "Default Title",
 // 		description: seo?.metaDesc || "Default description",
 // 		keywords: seo?.metaKeywords || "Default description",
+// 		alternates: {
+// 			canonical: `https://auroraer.com/global-presense/${slug}`, // 👈 canonical URL
+// 		},
 // 		openGraph: {
 // 			images: [
 // 				{
@@ -169,7 +172,7 @@ export default async function Australia({ params, searchParams }) {
 				Title={props?.seo?.title}
 				Desc={props?.seo?.metaDesc}
 				OgImg={"https://auroraer.com/img/og-image.jpg"}
-				Url={`/global-presense/${slug}`}
+				Url={`https://auroraer.com/global-presense/${slug}`}
 				Keywords={props?.seo?.metaKeywords}
 			/>
 
