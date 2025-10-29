@@ -63,7 +63,6 @@ export default function SoftwareInsideWrap({
 		}
 		return value;
 	};
-	console.log(data, "data");
 
 	return (
 		<div>
@@ -237,6 +236,8 @@ export default function SoftwareInsideWrap({
 					<Insights
 						language={language}
 						countries={countries}
+						insightsTitle={data?.insights?.insightsTitle}
+						insightsListButtonText={data?.insights?.listButtonText}
 						defaultList={data?.insights?.list?.nodes}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}

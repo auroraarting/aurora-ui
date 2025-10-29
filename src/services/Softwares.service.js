@@ -172,6 +172,7 @@ query GetProductBySlug {
           accordionDescription
           accordionTitle
           buttonLink
+          buttonText
           icon {
             node {
               altText
@@ -704,6 +705,7 @@ query GetProductBySlug {
           accordionDescription
           accordionTitle
           buttonLink
+          buttonText
           icon {
             node {
               altText
@@ -856,6 +858,8 @@ query GetProductBySlug {
       insights {
         sectionDesc
         sectionTitle
+        insightsTitle
+        listButtonText
         list(first: 9999) {
           nodes {
             ... on Post {
@@ -1066,6 +1070,7 @@ query GetProductBySlug {
             accordionDescription
             accordionTitle
             buttonLink
+            buttonText
             icon {
               node {
                 altText
@@ -1218,6 +1223,8 @@ query GetProductBySlug {
         insights {
           sectionDesc
           sectionTitle
+          insightsTitle
+        listButtonText
           list(first: 9999) {
             nodes {
               ... on Post {
@@ -1331,8 +1338,6 @@ query GetProductBySlug {
 			},
 		},
 	};
-
-	console.log(res.data.softwareBy.translations, "newObj");
 
 	return newObj;
 };

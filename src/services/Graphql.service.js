@@ -20,58 +20,58 @@ async function fetchWithRetry(url, options = {}, retries = 3, delay = 5000) {
 export default async function GraphQLAPI(query, dataObj) {
 	const refreshInterval = 30000;
 
-	let res;
-	let req;
-	try {
-		req = await fetch(`${process.env.API_URL}`, {
-			...ServerHeaders,
-			body: JSON.stringify({ query }),
-			// next: { revalidate: 1800 },
-		});
-		res = await req.json();
-		// res = req;
-		return res;
-	} catch (error) {
-		// req = await req.text();
-		console.log(error, req, "errror");
-	}
-
-	// Cache
-	// let startTime = null; // Start time
 	// let res;
 	// let req;
 	// try {
-	// 	startTime = new Date(); // Start time
-	// 	const data = {
-	// 		url: `${process.env.API_URL}`,
-	// 		method: "POST",
-	// 		body: { query },
-	// 		refreshInterval: refreshInterval,
-	// 		headers: {
-	// 			...ServerHeaders.headers,
-	// 		},
-	// 		...dataObj,
-	// 	};
-	// 	req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
-	// 		"Content-Type": "application/json",
-	// 		method: "POST",
-	// 		body: JSON.stringify({ ...data }),
+	// 	req = await fetch(`${process.env.API_URL}`, {
+	// 		...ServerHeaders,
+	// 		body: JSON.stringify({ query }),
+	// 		// next: { revalidate: 1800 },
 	// 	});
 	// 	res = await req.json();
-	// 	const endTime = new Date(); // End time
-	// 	const fetchDuration = endTime - startTime; // Duration in milliseconds
-	// 	// console.log(
-	// 	// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
-	// 	// );
+	// 	// res = req;
 	// 	return res;
 	// } catch (error) {
-	// 	const endTime = new Date(); // End time
-	// 	const fetchDuration = endTime - startTime; // Duration in milliseconds
-	// 	console.log(
-	// 		`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
-	// 	);
+	// 	// req = await req.text();
 	// 	console.log(error, req, "errror");
 	// }
+
+	// Cache
+	let startTime = null; // Start time
+	let res;
+	let req;
+	try {
+		startTime = new Date(); // Start time
+		const data = {
+			url: `${process.env.API_URL}`,
+			method: "POST",
+			body: { query },
+			refreshInterval: refreshInterval,
+			headers: {
+				...ServerHeaders.headers,
+			},
+			...dataObj,
+		};
+		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
+			"Content-Type": "application/json",
+			method: "POST",
+			body: JSON.stringify({ ...data }),
+		});
+		res = await req.json();
+		const endTime = new Date(); // End time
+		const fetchDuration = endTime - startTime; // Duration in milliseconds
+		// console.log(
+		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
+		// );
+		return res;
+	} catch (error) {
+		const endTime = new Date(); // End time
+		const fetchDuration = endTime - startTime; // Duration in milliseconds
+		console.log(
+			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
+		);
+		console.log(error, req, "errror");
+	}
 }
 
 /** GraphQLAPI  */
