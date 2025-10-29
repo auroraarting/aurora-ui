@@ -56,7 +56,7 @@ export const revalidate = 30; // Revalidates every 60 seconds
 // 		description: seo?.metaDesc || "Default description",
 // 		keywords: seo?.metaKeywords || "Default description",
 // 		alternates: {
-// 			canonical: `https://auroraer.com/global-presense/${slug}`, // 👈 canonical URL
+// 			canonical: `https://auroraer.com/global-presence/${slug}`, // 👈 canonical URL
 // 		},
 // 		openGraph: {
 // 			images: [
