@@ -33,6 +33,8 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
+import { useContextProvider } from "@/context/GlobalContext";
+import { useEffect } from "react";
 
 // IMAGES //
 
@@ -49,8 +51,29 @@ export default function SoftwareInsideWrap({
 	countries,
 	showMap,
 	language,
+	selectedAllLanguages,
 }) {
+	const {
+		setShowLanguages,
+		eventsState,
+		webinarsState,
+		setLanguage,
+		setAllLanguage,
+	} = useContextProvider();
 	const dataForBtn = { postFields: data || {} };
+
+	console.log(data, "data?.showTranslation");
+	useEffect(() => {
+		setLanguage(language);
+		setAllLanguage(selectedAllLanguages);
+
+		if (data?.showTranslation) {
+			setShowLanguages(true);
+		}
+		return () => {
+			setShowLanguages(false);
+		};
+	}, []);
 
 	/** removeTopPaddingForServiceCircle  */
 	const removeTopPaddingForServiceCircle = () => {

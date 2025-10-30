@@ -14,7 +14,20 @@ query GetProductBySlug {
   softwareBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
+    translations {
+      language {
+        code
+        country_flag_url
+        default_locale
+        id
+        language_code
+        translated_name
+        native_name
+        url
+}
+        }
     softwares {
+    showTranslation
       thumbnail {
         banner {
           node {
@@ -483,6 +496,7 @@ query GetProductBySlug {
     title
     slug
     softwares {
+    showTranslation
       thumbnail {
         banner {
           node {
@@ -881,6 +895,16 @@ query GetProductBySlug {
               }
               date
               translations{
+              language {
+                  code
+                  country_flag_url
+                  default_locale
+                  id
+                  language_code
+                  translated_name
+                  native_name
+                  url
+                }
                 slug
                 title
                 date
@@ -1291,8 +1315,8 @@ query GetProductBySlug {
 	}
 
 	if (res?.data?.softwareBy?.softwares?.insights?.list?.nodes) {
-		newRes.softwares.insights.list.nodes =
-			res.data.softwareBy.softwares.insights.list.nodes?.map((item) => {
+		newRes.softwares.insights.list = {
+			nodes: res.data.softwareBy.softwares.insights.list.nodes?.map((item) => {
 				if (item?.translations?.length === 0) {
 					return item;
 				}
@@ -1313,7 +1337,8 @@ query GetProductBySlug {
 						})),
 					},
 				};
-			});
+			}),
+		};
 	}
 
 	if (res?.data?.softwareBy?.softwares?.caseStudy.selectCaseStudies.nodes) {

@@ -56,13 +56,13 @@ export default function IntegratedSystem({
 			return buttonLink;
 		}
 		if (module === "softwares") {
-			return "software";
+			return "/software";
 		}
 		if (module === "services") {
-			return "service";
+			return "/service";
 		}
 
-		return module;
+		return `/${module}`;
 	};
 
 	/** fetchdata  */
@@ -122,7 +122,7 @@ export default function IntegratedSystem({
 							analytics for complex energy systems.`}
 						</p>
 						<div className={`${styles.bookBtn} pt_30`}>
-							<a href={`/${keyModule()}`}>
+							<a href={`${keyModule()}`}>
 								<Button color="secondary" variant="filled" shape="rounded">
 									{buttonText || "Explore now"}
 								</Button>

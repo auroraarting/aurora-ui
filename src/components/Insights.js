@@ -382,19 +382,28 @@ export default function Insights({
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
 		let resjson = await resdata.json();
+
 		if (language) {
-			resjson.data = resjson.data?.map((item) => ({
-				...item,
-				...item?.translations?.[0],
-				categories: {
-					nodes: item?.categories?.nodes?.map((item2) => ({
-						...item2,
-						// ...item2?.translations?.[0],
-						alternateName: item2?.translations?.[0]?.name,
-					})),
-				},
-			}));
+			resjson.data = resjson.data?.map((item) => {
+				let translationsFilter = item.translations.filter(
+					(item2) => item2?.languageCode === language
+				)?.[0];
+				return {
+					...item,
+					...translationsFilter,
+					categories: {
+						nodes: item?.categories?.nodes?.map((item2) => ({
+							...item2,
+							// ...item2?.translations?.[0],
+							alternateName: item2?.translations?.filter(
+								(item3) => item3?.languageCode === language
+							)?.[0]?.name,
+						})),
+					},
+				};
+			});
 		}
+
 		setData(resjson);
 	};
 
@@ -412,7 +421,7 @@ export default function Insights({
 
 	useEffect(() => {
 		if (!defaultList || defaultList.length === 0) {
-			setData(tempdata);
+			// setData(tempdata);
 			fetchdata();
 		}
 

@@ -29,6 +29,7 @@ import {
 } from "@/services/Softwares.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
+import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
 
 export const revalidate = 30; // Revalidates every 60 seconds
 
@@ -67,6 +68,31 @@ async function getData({ params }) {
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
 	const countries = data?.data?.countries?.nodes;
+	const languages = await getAllLanguages();
+	let selectedAllLanguages = [
+		{
+			title: "English",
+			shortTitle: "",
+			icon: "/img/en-flag.svg",
+		},
+	];
+
+	languages?.data?.languages?.map((item) => {
+		data?.data?.softwareBy.translations?.filter((item2) => {
+			if (item2.language.language_code === item?.language_code) {
+				let title = item?.translated_name;
+				if (item?.native_name) {
+					title = `${title} (${item?.native_name})`;
+				}
+				selectedAllLanguages.push({
+					...item,
+					title: title,
+					shortTitle: item?.language_code,
+					icon: item?.country_flag_url || "/img/en-flag.svg",
+				});
+			}
+		});
+	});
 
 	return {
 		props: {
@@ -76,6 +102,7 @@ async function getData({ params }) {
 			showMap,
 			meta: data?.data?.softwareBy,
 			countries,
+			selectedAllLanguages,
 		},
 	};
 }

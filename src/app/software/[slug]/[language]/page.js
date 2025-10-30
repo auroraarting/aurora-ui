@@ -70,14 +70,41 @@ async function getData({ params }) {
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
 	const countries = data?.data?.countries?.nodes;
 
+	const languages = await getAllLanguages();
+	let selectedAllLanguages = [
+		{
+			title: "English",
+			shortTitle: "",
+			icon: "/img/en-flag.svg",
+		},
+	];
+
+	languages?.data?.languages?.map((item) => {
+		data?.data?.softwareBy.translations?.filter((item2) => {
+			if (item2.language.language_code === item?.language_code) {
+				let title = item?.translated_name;
+				if (item?.native_name) {
+					title = `${title} (${item?.native_name})`;
+				}
+				selectedAllLanguages.push({
+					...item,
+					title: title,
+					shortTitle: item?.language_code,
+					icon: item?.country_flag_url || "/img/en-flag.svg",
+				});
+			}
+		});
+	});
+
 	return {
 		props: {
-			data: data?.data?.softwareBy?.softwares || {},
+			data: { ...data?.data?.softwareBy?.softwares, showTranslation: true } || {},
 			mapJson,
 			regions,
 			showMap,
 			meta: data?.data?.softwareBy,
 			countries,
+			selectedAllLanguages,
 		},
 	};
 }
