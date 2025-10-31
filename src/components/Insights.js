@@ -808,7 +808,8 @@ export default function Insights({
 													<p
 														className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 													>
-														{allTag || isCategory(allCategories, item?.categories?.nodes)}
+														{allTag ||
+															isCategory(allCategories, item?.categories?.nodes, language)}
 													</p>
 												)}
 

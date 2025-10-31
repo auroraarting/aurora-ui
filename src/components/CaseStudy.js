@@ -51,7 +51,7 @@ export default function CaseStudy({
 							<p
 								className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 							>
-								{data?.title}
+								{/* {data?.title} */}Case Study
 							</p>
 							<h3
 								className={`${styles.descTxt} ${styles.descTxtNew} text_xl color_secondary pt_10`}
@@ -100,7 +100,7 @@ export default function CaseStudy({
 									<p
 										className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 									>
-										{translatedSectionName || "Case Study"}
+										{/* {translatedSectionName || "Case Study"} */}Case Study
 									</p>
 									<p
 										className={`${styles.descTxt} text_reg color_dark_gray font_primary pt_10`}
