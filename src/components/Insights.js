@@ -395,9 +395,9 @@ export default function Insights({
 						nodes: item?.categories?.nodes?.map((item2) => ({
 							...item2,
 							// ...item2?.translations?.[0],
-							alternateName: item2?.translations?.filter(
-								(item3) => item3?.languageCode === language
-							)?.[0]?.name,
+							// alternateName: item2?.translations?.filter(
+							// 	(item3) => item3?.languageCode === language
+							// )?.[0]?.name,
 						})),
 					},
 				};
@@ -825,7 +825,7 @@ export default function Insights({
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
 														<img src={white_calendar.src} alt="calendar" />
 														<span>
-															{formatDate(item?.date || item?.presses?.banner?.date, language)}
+															{formatDate(item?.date || item?.presses?.banner?.date)}
 														</span>
 													</p>
 													{isCategory(data?.countries, item?.categories?.nodes) && (
