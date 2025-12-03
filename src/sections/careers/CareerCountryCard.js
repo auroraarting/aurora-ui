@@ -120,7 +120,6 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
 			);
 		const sortedArr = [...sortedArr1, ...sortedArr2];
-		console.log("sortedArr", sortedArr);
 		setFilteredData(sortedArr);
 		setPaginationArr(sortedArr);
 		setSelected(selectedObj);

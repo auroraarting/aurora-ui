@@ -140,7 +140,6 @@ async function getData({ params, query }) {
 			}
 		),
 	];
-	console.log(countryData.data, "countryData.data");
 
 	countryBy.countries.map.markers =
 		countryData.data.countryBy.countries.map.markers.map((item) => {
@@ -255,8 +254,6 @@ async function getData({ params, query }) {
 	});
 
 	countryBy.countries.showTranslation = true;
-
-	console.log(countryData);
 
 	// Optional: enable this if fallback 404 is desired
 	// if (!countryBy) return { notFound: true };

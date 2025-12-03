@@ -42,6 +42,11 @@ export default async function GraphQLAPI(query, dataObj) {
 	let req;
 	try {
 		startTime = new Date(); // Start time
+		const stagingDataObj = {
+			...dataObj,
+			apiID: `${dataObj.apiID}`,
+			pageID: `staging${dataObj.pageID}`,
+		};
 		const data = {
 			url: `${process.env.API_URL}`,
 			method: "POST",
@@ -50,7 +55,8 @@ export default async function GraphQLAPI(query, dataObj) {
 			headers: {
 				...ServerHeaders.headers,
 			},
-			...dataObj,
+			// ...dataObj,
+			...stagingDataObj,
 		};
 		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
 			"Content-Type": "application/json",

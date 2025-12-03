@@ -382,19 +382,28 @@ export default function Insights({
 	const fetchdata = async () => {
 		const resdata = await fetch("/api/shortInsights");
 		let resjson = await resdata.json();
+
 		if (language) {
-			resjson.data = resjson.data?.map((item) => ({
-				...item,
-				...item?.translations?.[0],
-				categories: {
-					nodes: item?.categories?.nodes?.map((item2) => ({
-						...item2,
-						// ...item2?.translations?.[0],
-						alternateName: item2?.translations?.[0]?.name,
-					})),
-				},
-			}));
+			resjson.data = resjson.data?.map((item) => {
+				let translationsFilter = item.translations.filter(
+					(item2) => item2?.languageCode === language
+				)?.[0];
+				return {
+					...item,
+					...translationsFilter,
+					categories: {
+						nodes: item?.categories?.nodes?.map((item2) => ({
+							...item2,
+							// ...item2?.translations?.[0],
+							// alternateName: item2?.translations?.filter(
+							// 	(item3) => item3?.languageCode === language
+							// )?.[0]?.name,
+						})),
+					},
+				};
+			});
 		}
+
 		setData(resjson);
 	};
 
@@ -412,7 +421,7 @@ export default function Insights({
 
 	useEffect(() => {
 		if (!defaultList || defaultList.length === 0) {
-			setData(tempdata);
+			// setData(tempdata);
 			fetchdata();
 		}
 
@@ -799,7 +808,8 @@ export default function Insights({
 													<p
 														className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
 													>
-														{allTag || isCategory(allCategories, item?.categories?.nodes)}
+														{allTag ||
+															isCategory(allCategories, item?.categories?.nodes, language)}
 													</p>
 												)}
 
@@ -816,7 +826,7 @@ export default function Insights({
 													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
 														<img src={white_calendar.src} alt="calendar" />
 														<span>
-															{formatDate(item?.date || item?.presses?.banner?.date, language)}
+															{formatDate(item?.date || item?.presses?.banner?.date)}
 														</span>
 													</p>
 													{isCategory(data?.countries, item?.categories?.nodes) && (

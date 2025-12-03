@@ -30,6 +30,7 @@ export default function GlobalMap({
 	hideOnHover,
 	marqueeData,
 	defaultZoom,
+	translatedSectionName,
 }) {
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
@@ -63,7 +64,7 @@ export default function GlobalMap({
 		<section
 			className={`${styles.globalMap} section_spacing ${className}`}
 			id={slugify(sectionName)}
-			data-name={sectionName}
+			data-name={translatedSectionName || sectionName}
 			aria-label="map"
 			title="map"
 		>

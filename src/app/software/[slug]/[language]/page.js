@@ -25,6 +25,7 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 // SERVICES //
 import {
 	getSingleSoftware,
+	getSingleSoftwareByLanguage,
 	getSoftwarePage,
 } from "@/services/Softwares.service";
 import { getRegions } from "@/services/GlobalPresence.service";
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }) {
 		description: seo?.metaDesc || "Default description",
 		keywords: seo?.metaKeywords || "Default description",
 		alternates: {
-			canonical: `https://auroraer.com/software/${params.slug}`, // 👈 canonical URL
+			canonical: `/software/${params.slug}`, // 👈 canonical URL
 		},
 		openGraph: {
 			images: [
@@ -61,13 +62,14 @@ async function getData({ params }) {
 	// 	getSingleSoftware(params.slug),
 	// 	getRegions(),
 	// ]);
-	const data = await getSingleSoftware(params.slug);
+	const data = await getSingleSoftwareByLanguage(params.slug, params.language);
 	const regions = await getRegions();
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug)
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
 	const countries = data?.data?.countries?.nodes;
+
 	const languages = await getAllLanguages();
 	let selectedAllLanguages = [
 		{
@@ -96,7 +98,7 @@ async function getData({ params }) {
 
 	return {
 		props: {
-			data: data?.data?.softwareBy?.softwares || {},
+			data: { ...data?.data?.softwareBy?.softwares, showTranslation: true } || {},
 			mapJson,
 			regions,
 			showMap,
@@ -109,10 +111,20 @@ async function getData({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
+	const languages = await getAllLanguages();
 	const data = await getSoftwarePage();
-	return data?.data?.softwares?.nodes.map((item) => ({
-		slug: item.slug,
-	}));
+	const staticParams = [];
+
+	data?.data?.softwares?.nodes.map((item) => {
+		const slug = item?.slug;
+
+		languages?.data?.languages?.nodes?.forEach((lang) => {
+			const language = lang?.code || "en";
+			staticParams.push({ slug, language });
+		});
+	});
+
+	return staticParams;
 }
 
 /** Chronos Page */
@@ -126,14 +138,14 @@ export default async function SoftwarePage({ params }) {
 				Title={meta?.title}
 				Desc={""}
 				OgImg={""}
-				Url={`https://auroraer.com/software/${meta?.slug}`}
+				Url={`/software/${meta?.slug}`}
 			/> */}
 
 			{/* Header */}
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<SoftwareInsideWrap {...props} />
+			<SoftwareInsideWrap {...props} language={params.language} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

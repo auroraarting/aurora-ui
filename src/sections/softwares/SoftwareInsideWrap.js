@@ -33,6 +33,8 @@ import { dynamicInsightsBtnProps } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/softwares/SoftwareInside.module.scss";
+import { useContextProvider } from "@/context/GlobalContext";
+import { useEffect } from "react";
 
 // IMAGES //
 
@@ -48,8 +50,30 @@ export default function SoftwareInsideWrap({
 	meta,
 	countries,
 	showMap,
+	language,
+	selectedAllLanguages,
 }) {
+	const {
+		setShowLanguages,
+		eventsState,
+		webinarsState,
+		setLanguage,
+		setAllLanguage,
+	} = useContextProvider();
 	const dataForBtn = { postFields: data || {} };
+
+	console.log(data, "data?.showTranslation");
+	useEffect(() => {
+		setLanguage(language);
+		setAllLanguage(selectedAllLanguages);
+
+		if (data?.showTranslation) {
+			setShowLanguages(true);
+		}
+		return () => {
+			setShowLanguages(false);
+		};
+	}, []);
 
 	/** removeTopPaddingForServiceCircle  */
 	const removeTopPaddingForServiceCircle = () => {
@@ -115,6 +139,7 @@ export default function SoftwareInsideWrap({
 				{data?.introduction?.title && (
 					<div className="pt_100">
 						<Redefining
+							tabTitle={data?.introduction?.tabTitle}
 							title={data?.introduction?.title}
 							description={data?.introduction?.description}
 							image={data?.introduction?.image?.node?.mediaItemUrl}
@@ -124,19 +149,32 @@ export default function SoftwareInsideWrap({
 				)}
 				{showMap && (
 					<div className="pt_100">
-						<GlobalMap locationJson={mapJson} marqueeData={data?.Map?.Marquee} />
+						<GlobalMap
+							translatedSectionName={data?.availableRegions?.tabTitle}
+							locationJson={mapJson}
+							marqueeData={data?.map?.marquee}
+							marqueeText={data?.map?.marquee}
+						/>
 					</div>
 				)}
 				{data?.caseStudy?.title && (
 					<div className="pt_100">
-						<CaseStudy data={data?.caseStudy} countries={countries} />
+						<CaseStudy
+							data={data?.caseStudy}
+							countries={countries}
+							translatedSectionName={data?.caseStudy?.tabTitle}
+						/>
 					</div>
 				)}
 				{(data?.ourClient?.selectLogos || data?.ourClient?.testimonials) && (
 					<div className="pt_100">
 						{data?.ourClient?.selectLogos && (
 							<div className={`${styles.TrustOurExpertsBg} `}>
-								<TrustedLeaders data={data?.ourClient} />
+								<TrustedLeaders
+									data={data?.ourClient}
+									sectionTitle={data?.ourClient?.sectionTitle}
+									sectionid={data?.ourClient?.tabTitle}
+								/>
 							</div>
 						)}
 						{data?.ourClient?.testimonials && (
@@ -152,6 +190,7 @@ export default function SoftwareInsideWrap({
 						customColor={data?.thumbnail?.primaryColor}
 						centerLogo={data?.map?.headerLogo?.node?.mediaItemUrl}
 						removeTopBottom={removeTopPaddingForServiceCircle()}
+						onlySectionName={data?.keyAdvantages?.tabTitle}
 					/>
 				</div>
 				{data?.whyAurora?.title && (
@@ -218,7 +257,10 @@ export default function SoftwareInsideWrap({
 
 				<div className="pt_100">
 					<Insights
+						language={language}
 						countries={countries}
+						insightsTitle={data?.insights?.insightsTitle}
+						insightsListButtonText={data?.insights?.listButtonText}
 						defaultList={data?.insights?.list?.nodes}
 						isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
@@ -231,7 +273,12 @@ export default function SoftwareInsideWrap({
 					/>
 				</div>
 				<div className="ptb_100">
-					<IntegratedSystem />
+					<IntegratedSystem
+						tabTitle={data?.integratedSystem?.tabTitle}
+						desc={data?.integratedSystem?.desc}
+						buttonText={data?.integratedSystem?.buttonText}
+						buttonLink={data?.integratedSystem?.buttonLink}
+					/>
 				</div>
 			</main>
 			<IframeModal hideLeft />
