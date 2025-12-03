@@ -34,7 +34,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		scroller.scrollTo(removeStartingHash(id), {
 			duration: 500,
 			smooth: true,
-			offset: -200,
+			offset: -230,
 			spy: true,
 			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 		});
