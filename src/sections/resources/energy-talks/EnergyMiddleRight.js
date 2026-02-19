@@ -146,7 +146,7 @@ export default function EnergyMiddleRight({ data, events }) {
                                            </span>`} */}
 									{`We’re always looking for new and exciting thought leadership.
                                            For enquiries, please contact <span className="f_w_b">
-                                           <a href="mailto:angelina.scialla@auroraer.com"><strong>Angelina Scialla</strong></a>
+                                           <a href="mailto:steve.downing@aurora.com"><strong>Steve Downing</strong></a>
                                            </span>`}
 								</ContentFromCms>
 							</div>
