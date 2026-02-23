@@ -6,7 +6,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HighlightSearched from "@/components/HighlightSearched";
 import "@/styles/globals/globals.scss";
-import { fetchNavigationData } from "@/services/Navigation.service";
+import {
+	fetchHeader,
+	fetchNavigationData,
+} from "@/services/Navigation.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Loader from "@/components/Loader";
 import navigationJSON from "@/data/navigationData.json";
@@ -48,11 +51,17 @@ export default async function RootLayout({ children }) {
 		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 		?.sort(
 			(a, b) =>
-				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
 		)
 		.slice(0, 1);
 
-	const navigation = { ...navigationFetch, events };
+	const headerData = await fetchHeader();
+
+	const navigation = {
+		...navigationFetch,
+		events,
+		topSearches: headerData.data?.page?.headerFields?.topSearches,
+	};
 
 	// console.log(navigationFetch, "navigationFetch");
 	// console.log(navigationJSON, "eventsFetch");
