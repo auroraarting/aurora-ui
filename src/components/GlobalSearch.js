@@ -85,8 +85,8 @@ export default function GlobalSearch({ data, setShowSearch }) {
 	useEffect(() => {
 		const hasResults = results
 			? Object.values(results).some((items) =>
-					Array.isArray(items) ? items.length > 0 : !!items
-			  )
+					Array.isArray(items) ? items.length > 0 : !!items,
+				)
 			: false;
 		setNoResults(!hasResults);
 	}, [results]);
@@ -231,21 +231,21 @@ export default function GlobalSearch({ data, setShowSearch }) {
 			case "webinars":
 				return {
 					link: `/resources/webinar/${item?.slug}?search=${encodeURIComponent(
-						searchTerm
+						searchTerm,
 					)}`,
 					title: item.title,
 				};
 			case "earlyCareers":
 				return {
 					link: `/careers/early-careers/${item?.slug}?search=${encodeURIComponent(
-						searchTerm
+						searchTerm,
 					)}`,
 					title: item.title,
 				};
 			case "countries":
 				return {
 					link: `/global-presence//${item?.slug}?search=${encodeURIComponent(
-						searchTerm
+						searchTerm,
 					)}`,
 					title: item.title,
 				};
@@ -257,6 +257,8 @@ export default function GlobalSearch({ data, setShowSearch }) {
 				};
 		}
 	};
+
+	console.log(data, "data");
 
 	return (
 		<div className={styles.GlobalSearch}>
@@ -309,7 +311,7 @@ export default function GlobalSearch({ data, setShowSearch }) {
 													OpenIframePopup(
 														"iframePopup",
 														item?.events?.thumbnail?.externalUrl ||
-															"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+															"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 													);
 												};
 												if (item?.events?.thumbnail?.openExternalInNewTab) {
