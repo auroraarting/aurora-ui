@@ -54,8 +54,8 @@ export const revalidate = 30; // Revalidates every 60 seconds
 
 // 	return {
 // 		title: seo?.title || "Default Title",
-// 		description: seo?.metaDesc || "Default description",
-// 		keywords: seo?.metaKeywords || "Default description",
+// 		description: seo?.metaDesc || "",
+// 		keywords: seo?.metaKeywords || "",
 // 		openGraph: {
 // 			images: [
 // 				{
@@ -99,7 +99,7 @@ async function getData({ params, query }) {
 		languages,
 	] = await Promise.all([
 		getInsightsTranslations(
-			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 		),
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),
@@ -121,7 +121,7 @@ async function getData({ params, query }) {
 	// 	: countryData?.data?.countryBy;
 	let countryBy =
 		countryData?.data?.countryBy?.translations?.filter(
-			(countryItem) => countryItem.languageCode === language
+			(countryItem) => countryItem.languageCode === language,
 		)[0] || countryData?.data?.countryBy;
 	// countryBy.countries = {
 	// 	...countryBy.countries,
@@ -134,10 +134,10 @@ async function getData({ params, query }) {
 				return {
 					...item,
 					...item?.translations?.filter(
-						(item2) => item2?.languageCode === language
+						(item2) => item2?.languageCode === language,
 					)?.[0],
 				};
-			}
+			},
 		),
 	];
 	console.log(countryData.data, "countryData.data");
@@ -149,7 +149,7 @@ async function getData({ params, query }) {
 					return {
 						...item2,
 						...item2?.translations?.filter(
-							(item3) => item3?.languageCode === language
+							(item3) => item3?.languageCode === language,
 						)?.[0],
 					};
 				}),
@@ -173,11 +173,11 @@ async function getData({ params, query }) {
 						featuredImage: {
 							node:
 								item?.featuredImage?.node?.translations?.filter(
-									(item2) => item2?.languageCode === language
+									(item2) => item2?.languageCode === language,
 								)?.[0] || item?.featuredImage?.node,
 						},
 					};
-				}
+				},
 			);
 	}
 	if (countryData?.data?.countryBy?.countries?.insights?.list?.nodes) {
@@ -185,7 +185,7 @@ async function getData({ params, query }) {
 			countryData.data.countryBy.countries.insights.list.nodes?.map((item) => {
 				let temp1 =
 					item?.translations?.filter(
-						(item2) => item2?.languageCode === language
+						(item2) => item2?.languageCode === language,
 					)?.[0] || [];
 				return {
 					...item,
@@ -195,7 +195,7 @@ async function getData({ params, query }) {
 							...item3,
 							// ...item2?.translations?.[0],
 							alternateName: item3?.translations?.filter(
-								(item4) => item4?.languageCode === language
+								(item4) => item4?.languageCode === language,
 							)?.[0]?.name,
 						})),
 					},
@@ -213,7 +213,7 @@ async function getData({ params, query }) {
 	if (insightsRes.data.posts.nodes.translations) {
 		let insightsResData =
 			insightsRes.data.posts.nodes.translations?.filter(
-				(item2) => item2.languageCode === language
+				(item2) => item2.languageCode === language,
 			)?.[0] || [];
 		insightsList = [...insightsRes.data.posts.nodes, ...insightsResData] || [];
 	}
@@ -266,7 +266,7 @@ async function getData({ params, query }) {
 			data: countryBy,
 			mapJson,
 			insightsList: insightsList?.sort(
-				(a, b) => new Date(a.date) - new Date(b.date)
+				(a, b) => new Date(a.date) - new Date(b.date),
 			),
 			countries,
 			seo,

@@ -42,8 +42,8 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: `https://auroraer.com/careers/early-careers/${params.slug}`, // 👈 canonical URL
 		},
@@ -77,7 +77,7 @@ export default async function EarlyCareers({ params }) {
 			getInsightsCategories(),
 			getEarlyCareersListing("first: 10"),
 			getOffices(),
-		]
+		],
 	);
 
 	const countries = categoriesForSelect.data.countries.nodes;
@@ -89,7 +89,7 @@ export default async function EarlyCareers({ params }) {
 	}
 
 	const otherList = list.data.earlyCareers.nodes?.filter(
-		(item) => item.slug !== slug
+		(item) => item.slug !== slug,
 	);
 	const offices = officesFetch.data.offices.nodes;
 	const dataForBtn = { postFields: data?.earlyCareers || {} };

@@ -53,8 +53,8 @@ export const revalidate = 30; // Revalidates every 60 seconds
 
 // 	return {
 // 		title: seo?.title || "Default Title",
-// 		description: seo?.metaDesc || "Default description",
-// 		keywords: seo?.metaKeywords || "Default description",
+// 		description: seo?.metaDesc || "",
+// 		keywords: seo?.metaKeywords || "",
 // 		alternates: {
 // 			canonical: `https://auroraer.com/global-presence/${slug}`, // 👈 canonical URL
 // 		},
@@ -91,7 +91,7 @@ async function getData({ params, query }) {
 		languages,
 	] = await Promise.all([
 		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 		),
 		getInsightsCategories(),
 		// getAllEvents("first:9999"),

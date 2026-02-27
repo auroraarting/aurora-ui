@@ -36,8 +36,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/resources/aurora-insights", // 👈 canonical URL
 		},
@@ -66,11 +66,11 @@ async function getData() {
 	// 	getInsightsPage(),
 	// ]);
 	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
 	const categoriesForSelect = await getInsightsCategories();
 	const list = await getInsights(
-		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
 	const insightsPage = await getInsightsPage();
 	const otherList = list?.data?.posts?.nodes;

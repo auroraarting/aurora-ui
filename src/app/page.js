@@ -48,8 +48,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		openGraph: {
 			images: [
 				{
@@ -91,7 +91,8 @@ export default async function HomePage() {
 			?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 			?.sort(
 				(a, b) =>
-					new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+					new Date(a?.events?.thumbnail?.date) -
+					new Date(b?.events?.thumbnail?.date),
 			)
 			.slice(0, 1);
 		voices = voicesFetch;

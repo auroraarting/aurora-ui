@@ -47,8 +47,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/company/contact", // 👈 canonical URL
 		},
@@ -132,7 +132,7 @@ async function getData() {
 													)}
 												</div>
 											);
-										}
+										},
 									);
 								})}
 						</div>

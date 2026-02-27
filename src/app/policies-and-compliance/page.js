@@ -35,14 +35,14 @@ import { getPageSeo } from "@/services/Seo.service";
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo(
-		'page(id: "policies-and-compliance", idType: URI)'
+		'page(id: "policies-and-compliance", idType: URI)',
 	);
 	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Policies and Compliance | Aurora",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/policies-and-compliance", // 👈 canonical URL
 		},

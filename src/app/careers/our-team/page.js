@@ -41,8 +41,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/careers/our-team", // 👈 canonical URL
 		},
@@ -67,7 +67,7 @@ export default async function LifeAtAurora() {
 			await getOurTeamsPage(),
 			await getInsightsCategories(),
 			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 			),
 			await getOffices(),
 		]);
