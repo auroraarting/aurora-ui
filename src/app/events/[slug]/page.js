@@ -35,7 +35,7 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		description: post?.excerpt || "",
 		alternates: {
 			canonical: `https://auroraer.com/events/${params.slug}`, // 👈 canonical URL
 		},
@@ -175,12 +175,12 @@ async function getData({ slug }) {
 					?.filter(
 						(item) =>
 							new Date() < new Date(item?.events?.thumbnail?.date) &&
-							item.slug !== slug
+							item.slug !== slug,
 					)
 					?.sort(
 						(a, b) =>
 							new Date(a?.events?.thumbnail?.date) -
-							new Date(b?.events?.thumbnail?.date)
+							new Date(b?.events?.thumbnail?.date),
 					)
 					.slice(0, 2) || [],
 		},

@@ -47,14 +47,14 @@ export const revalidate = 30; // Revalidates every 60 seconds
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo(
-		'page(id: "early-careers-landing", idType: URI)'
+		'page(id: "early-careers-landing", idType: URI)',
 	);
 	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/careers/early-careers", // 👈 canonical URL
 		},

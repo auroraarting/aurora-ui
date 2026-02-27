@@ -33,7 +33,7 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		description: post?.excerpt || "",
 		alternates: {
 			canonical: `https://auroraer.com/company/press-room/${params.slug}`, // 👈 canonical URL
 		},
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await await getInsights(
-		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
 	);
 	return data.data.posts.nodes.map((item) => ({
 		slug: item.slug,
@@ -70,7 +70,7 @@ async function getData({ slug }) {
 	const [data, moreRelated, page] = await Promise.all([
 		await getInsightsInside(slug),
 		await getInsights(
-			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'
+			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
 		),
 		await getPressPageInsights(),
 		await getPressPage(),

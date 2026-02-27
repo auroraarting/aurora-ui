@@ -39,8 +39,8 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: `https://auroraer.com/service/${params.slug}`, // 👈 canonical URL
 		},
@@ -61,11 +61,11 @@ async function getData({ params }) {
 		await getRegions(),
 		await getBundlesSection(),
 		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 		),
 	]);
 	const mapJson = getMapJsonForService(
-		filterMarkersBySlug(regions, params.slug)
+		filterMarkersBySlug(regions, params.slug),
 	);
 	const countries = data.data.countries.nodes;
 	const otherList = list?.data?.posts?.nodes || [];
