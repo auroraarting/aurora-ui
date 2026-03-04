@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
 		title: post?.title || "Default Title",
 		description: post?.excerpt || "",
 		alternates: {
-			canonical: `https://auroraer.com/resources/aurora-insights/${params.slug2}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/resources/aurora-insights/${params.slug}/${params.slug2}`, // 👈 canonical URL
 		},
 		openGraph: {
 			title: post?.title,
