@@ -357,3 +357,63 @@ query GetCareers {
 	});
 	return res;
 };
+
+/** getEarlyCareersListingByRegions */
+export const getEarlyCareersListingByRegions = async (
+	filters = "first: 999",
+) => {
+	const query = `
+  query GetEarlyCareersListing {
+    regions(${filters}) {
+      nodes {
+        name
+        slug
+        regionsFields{
+          sequence
+        }
+        earlyCareers(${filters}) {
+          nodes {
+            title
+            slug
+            content
+            earlyCareers {
+              banner {
+                city
+              }
+              thumbnail {
+                islive
+                country {
+                  node {
+                    ... on Country {
+                      id
+                      slug
+                      title
+                    }
+                  }
+                }
+                thumb {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
+              }
+            }
+            programs(first: 99999) {
+              nodes {
+                slug
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  `;
+	const res = await GraphQLAPI(query, {
+		apiID: "early-career-regions",
+		pageID: "/early-careers",
+	});
+	return res;
+};

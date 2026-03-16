@@ -37,9 +37,16 @@ import searchImg from "../../../public/img/icons/search.svg";
 
 // CONTEXT //
 import { GlobalContext, useContextProvider } from "@/context/GlobalContext";
+import AccordianCommon from "@/components/AccordianCommon";
 
 /** CareerCountryCard Section */
-export default function CareerCountryCard({ page, data, programs, countries }) {
+export default function CareerCountryCard({
+	page,
+	data,
+	programs,
+	countries,
+	regionsArr,
+}) {
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [filteredData, setFilteredData] = useState(data);
@@ -112,12 +119,12 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		const sortedArr1 = [...filteredArr]
 			.filter((item) => item?.earlyCareers?.thumbnail?.islive)
 			.sort((a, b) =>
-				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
 			);
 		const sortedArr2 = [...filteredArr]
 			.filter((item) => !item?.earlyCareers?.thumbnail?.islive)
 			.sort((a, b) =>
-				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
 			);
 		const sortedArr = [...sortedArr1, ...sortedArr2];
 		console.log("sortedArr", sortedArr);
@@ -163,7 +170,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 		>
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
-					<h2 className="text_xl font_primary f_w_s_b color_white pb_20">
+					<h2 className="text_xl font_primary f_w_s_b color_white pb_30">
 						Building tomorrow’s energy leaders
 					</h2>
 				</div>
@@ -315,7 +322,7 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 					</div>
 				</div>
 
-				<div className={`${styles.SliderMain} pt_20`}>
+				{/* <div className={`${styles.SliderMain} pt_20`}>
 					{filteredData?.map((item) => {
 						return (
 							<a
@@ -372,7 +379,17 @@ export default function CareerCountryCard({ page, data, programs, countries }) {
 					paginationArr={paginationArr}
 					itemsPerPage={9}
 					setCurrentItems={setFilteredData}
-				/>
+				/> */}
+
+				{regionsArr && (
+					<AccordianCommon
+						fontStyle={"text_lg"}
+						fontWeight={"f_w_s_b"}
+						fontFamily={"font_primary"}
+						fontColor={"color_secondary"}
+						items={regionsArr}
+					/>
+				)}
 			</div>
 		</section>
 	);
