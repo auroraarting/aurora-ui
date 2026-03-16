@@ -43,8 +43,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/products", // 👈 canonical URL
 		},
@@ -69,7 +69,7 @@ async function getData() {
 			await getBundlesSection(),
 			await getInsightsCategories(),
 			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 			),
 		]);
 	const products = data.data.products;
@@ -93,14 +93,14 @@ async function getData() {
 				...testimonials.testimonials.nodes,
 				...(item.products.ourClient.testimonials?.nodes || []),
 			],
-			["id"]
+			["id"],
 		);
 		clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
 			[
 				...clientLogos.selectLogos.nodes,
 				...(item.products.ourClient.selectLogos?.nodes || []),
 			],
-			["id"]
+			["id"],
 		);
 	});
 	// const clientLogos = getClientLogosForAllProducts(data.data?.clientsLogos);

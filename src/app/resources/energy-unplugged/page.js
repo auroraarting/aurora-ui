@@ -39,8 +39,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/resources/energy-unplugged", // 👈 canonical URL
 		},
@@ -71,7 +71,7 @@ async function getData() {
 			pagination: data.data?.posts?.pageInfo || {},
 			data:
 				data?.data?.podcasts?.nodes?.sort(
-					(a, b) => new Date(b.podcastFields.date) - new Date(a.podcastFields.date)
+					(a, b) => new Date(b.podcastFields.date) - new Date(a.podcastFields.date),
 				) || [],
 			tags: categoriesForSelect.data.tags.nodes,
 			categories: categoriesForSelect.data.categories.nodes,

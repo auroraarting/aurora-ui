@@ -468,4 +468,19 @@
 			rotate: 180deg;
 		}
 	}
+	:global(.accordionContent) {
+		padding-left: 0 !important;
+	}
+
+	:global(.accordionItem) {
+		* {
+			color: var(--color_white);
+		}
+
+		:global(.icon) {
+			img {
+				filter: invert(1);
+			}
+		}
+	}
 }

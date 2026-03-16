@@ -43,3 +43,89 @@
 		}
 	}
 }
+
+.SliderMain {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 20px;
+
+	// @media (max-width: 1199px) {
+	// 	grid-template-columns: repeat(2, 1fr);
+	// }
+	@media (max-width: 991px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (max-width: 767px) {
+		grid-template-columns: repeat(1, 1fr);
+	}
+	.cardItem {
+		background-color: var(--color_gray);
+		padding: 20px 20px 30px;
+		border-radius: 20px;
+		// max-height: 330px;
+		transition: 0.5s ease-in-out;
+		overflow: hidden;
+		@media (max-width: 1199px) {
+			max-height: unset;
+		}
+		.cardImg {
+			position: relative;
+			img {
+				height: 182px;
+				width: 100%;
+				object-fit: cover;
+				object-position: center;
+				@media (max-width: 1199px) {
+					height: auto;
+				}
+			}
+			.categoryTxt {
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				padding-left: 10px;
+				background-color: var(--color_primary);
+				border-radius: 8px;
+				padding: 10px 20px;
+				&::before {
+					content: " ";
+					position: absolute;
+					left: 10px;
+					top: 50%;
+					transform: translateY(-50%);
+					width: 4px;
+					height: 4px;
+					background-color: var(--color_secondary);
+					border-radius: 50%;
+				}
+			}
+		}
+		.cardDesc {
+			.title {
+				font-size: 20px;
+			}
+			p {
+				img {
+					filter: invert(1);
+				}
+				span {
+					margin-left: 5px;
+				}
+			}
+			h4 {
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+		}
+		&:hover {
+			max-height: 390px;
+			transition: 0.5s ease-in-out;
+			@media (max-width: 1199px) {
+				max-height: unset;
+			}
+		}
+	}
+}

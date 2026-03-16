@@ -46,9 +46,9 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: post?.title || "Default Title",
-		description: post?.excerpt || "Default description",
+		description: post?.excerpt || "",
 		alternates: {
-			canonical: `https://auroraer.com/resources/aurora-insights/${params.slug2}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/resources/aurora-insights/${params.slug}/${params.slug2}`, // 👈 canonical URL
 		},
 		openGraph: {
 			title: post?.title,
@@ -71,7 +71,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
 	return data?.data?.posts?.nodes.map((item) => ({
 		slug: item.slug,
