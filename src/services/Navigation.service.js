@@ -313,7 +313,7 @@ export async function fetchNavigationData() {
 		}),
 		getInsights(
 			// eslint-disable-next-line quotes
-			'first:1, where: { categoryName: "public-webinar,webinar,webinar-recording" }'
+			'first:1, where: { categoryName: "public-webinar,webinar,webinar-recording" }',
 		),
 	]);
 
@@ -369,14 +369,14 @@ export async function fetchNavigationData() {
 	const regions = data?.regions.nodes?.sort(
 		(a, b) =>
 			parseFloat(a.regionsFields?.sequence || 0) -
-			parseFloat(b.regionsFields?.sequence || 0)
+			parseFloat(b.regionsFields?.sequence || 0),
 	);
 	const events = data?.events?.nodes;
 	const whoareyous = data?.whoareyous.nodes.sort((a, b) =>
-		a.title.localeCompare(b.title)
+		a.title.localeCompare(b.title),
 	);
 	const howWeHelps = data?.howWeHelps.nodes.sort((a, b) =>
-		a.title.localeCompare(b.title)
+		a.title.localeCompare(b.title),
 	);
 	const topPages = data?.page?.searchTopics?.topPages;
 	const topSearches = data?.page?.searchTopics?.topSearches;
@@ -394,4 +394,25 @@ export async function fetchNavigationData() {
 		topSearches,
 		ok: true,
 	};
+}
+
+/** fetchHeader  */
+export async function fetchHeader() {
+	const query = `
+  query GetHeader {
+  page(id: "header", idType: URI) {
+    headerFields {
+      topSearches {
+        title
+        url
+      }
+    }
+  }
+}
+  `;
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/common",
+	});
+	return res;
 }

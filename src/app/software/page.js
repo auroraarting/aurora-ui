@@ -62,7 +62,7 @@ async function getData() {
 			await getSoftwarePage(),
 			await getRegions(),
 			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 			),
 			await getInsightsCategories(),
 			await getBundlesSection(),
@@ -88,14 +88,14 @@ async function getData() {
 				...testimonials.testimonials.nodes,
 				...(item.softwares.ourClient.testimonials?.nodes || []),
 			],
-			["id"]
+			["id"],
 		);
 		clientLogos.selectLogos.nodes = removeDuplicatesByKeys(
 			[
 				...clientLogos.selectLogos.nodes,
 				...(item.softwares.ourClient.selectLogos?.nodes || []),
 			],
-			["id"]
+			["id"],
 		);
 	});
 
@@ -123,8 +123,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: `https://auroraer.com/software`, // 👈 canonical URL
 		},

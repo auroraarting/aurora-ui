@@ -67,7 +67,7 @@ export default function LifeAtAuroraWrap({
 				lat: item.offices.map.lat,
 				lng: item.offices.map.lng,
 				url: "",
-				hoverImg: item.offices.thumbnail.node.mediaItemUrl,
+				hoverImg: item?.offices?.thumbnail?.node?.mediaItemUrl,
 				unique: Math.random(),
 				// icon:
 				// 	"https://aurora.mystagingwebsite.com/wp-content/uploads/2025/03/serviceIcon.png",

@@ -40,8 +40,8 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: `https://auroraer.com/software/${params.slug}`, // 👈 canonical URL
 		},
@@ -64,7 +64,7 @@ async function getData({ params }) {
 	const data = await getSingleSoftware(params.slug);
 	const regions = await getRegions();
 	const mapJson = getMapJsonForSoftware(
-		filterMarkersBySlug(regions, params.slug)
+		filterMarkersBySlug(regions, params.slug),
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
 	const countries = data?.data?.countries?.nodes;

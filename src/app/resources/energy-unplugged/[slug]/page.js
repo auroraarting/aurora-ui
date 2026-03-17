@@ -46,7 +46,7 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
+		description: seo?.metaDesc || "",
 		alternates: {
 			canonical: `https://auroraer.com/resources/energy-unplugged/${params.slug}`, // 👈 canonical URL
 		},
@@ -84,10 +84,11 @@ async function getData({ slug }) {
 			(item) =>
 				item?.slug !== data?.data?.podcastBy?.slug &&
 				new Date(item?.podcastFields?.date) <
-					new Date(data.data.podcastBy.podcastFields.date) // published before now
+					new Date(data.data.podcastBy.podcastFields.date), // published before now
 		)
 		?.sort(
-			(a, b) => new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date)
+			(a, b) =>
+				new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date),
 		)
 		?.slice(0, 3);
 
@@ -99,7 +100,7 @@ async function getData({ slug }) {
 					?.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
 					?.sort(
 						(a, b) =>
-							new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date)
+							new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date),
 					)
 					.slice(0, 1) || [],
 			countries: categoriesForSelect.data.countries.nodes,

@@ -38,8 +38,8 @@ export async function generateMetadata() {
 
 	return {
 		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "Default description",
-		keywords: seo?.metaKeywords || "Default description",
+		description: seo?.metaDesc || "",
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: "https://auroraer.com/eos", // 👈 canonical URL
 		},
@@ -64,7 +64,7 @@ export default async function EOSPage() {
 			getBundlesSection(),
 			getInsightsCategories(),
 			getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 			),
 		]);
 	const mapJson = getMapJsonForAllRegions(regions);
