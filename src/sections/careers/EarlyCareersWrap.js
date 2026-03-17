@@ -25,6 +25,7 @@ import ConnectWithUs from "@/sections/careers/ConnectWithUs";
 
 // STYLES //
 import styles from "@/styles/pages/careers/early-careers/EarlyCareers.module.scss";
+import AccordianCommon from "@/components/AccordianCommon";
 
 // IMAGES //
 
@@ -38,6 +39,7 @@ export default function EarlyCareersWrap({
 	pageFetch,
 	categoriesForSelect,
 	officesFetch,
+	regionsArr,
 }) {
 	// const [dataFetch, pageFetch, categoriesForSelect, officesFetch] =
 	// 	await Promise.all([
@@ -87,12 +89,12 @@ export default function EarlyCareersWrap({
 	const sortedArr1 = [...data]
 		.filter((item) => item?.earlyCareers?.thumbnail?.islive)
 		.sort((a, b) =>
-			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
 		);
 	const sortedArr2 = [...data]
 		.filter((item) => !item?.earlyCareers?.thumbnail?.islive)
 		.sort((a, b) =>
-			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city)
+			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
 		);
 	const sortedArr = [...sortedArr1, ...sortedArr2];
 
@@ -136,6 +138,7 @@ export default function EarlyCareersWrap({
 						data={sortedArr}
 						countries={countries}
 						programs={programs}
+						regionsArr={regionsArr}
 					/>
 				</div>
 				<div>
