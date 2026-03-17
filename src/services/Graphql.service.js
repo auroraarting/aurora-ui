@@ -74,7 +74,7 @@ export default async function GraphQLAPI(query, dataObj) {
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
 		console.log(
-			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
+			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
 		);
 		console.log(error, req, "errror");
 	}
