@@ -135,7 +135,7 @@ export default async function EarlyCareers() {
 										>
 											{item?.title}
 										</h4>
-										<div className={`${styles.btn_box} pt_40`}>
+										<div className={`${styles.btn_box} pt_15`}>
 											<a href={`/careers/early-careers/${item?.slug}`}>
 												<Button color="secondary" variant="underline" mode="dark">
 													Read more
