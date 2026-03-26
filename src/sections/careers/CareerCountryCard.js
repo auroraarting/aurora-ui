@@ -170,7 +170,7 @@ export default function CareerCountryCard({
 			<div className="container">
 				<div className={`${styles.title_wrap} f_r_aj_between`}>
 					<h2 className="text_xl font_primary f_w_s_b color_white pb_30">
-						Building tomorrow’s energy leaders
+						Explore Aurora&apos;s opportunities by region
 					</h2>
 				</div>
 				<div
