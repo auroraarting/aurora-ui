@@ -387,6 +387,7 @@ export default function CareerCountryCard({
 						fontFamily={"font_primary"}
 						fontColor={"color_secondary"}
 						items={regionsArr}
+						firstActive={true}
 					/>
 				)}
 			</div>
