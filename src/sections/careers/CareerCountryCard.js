@@ -322,7 +322,7 @@ export default function CareerCountryCard({
 					</div>
 				</div>
 
-				{/* <div className={`${styles.SliderMain} pt_20`}>
+				<div className={`${styles.SliderMain} pt_20`}>
 					{filteredData?.map((item) => {
 						return (
 							<a
@@ -379,9 +379,9 @@ export default function CareerCountryCard({
 					paginationArr={paginationArr}
 					itemsPerPage={9}
 					setCurrentItems={setFilteredData}
-				/> */}
+				/>
 
-				{regionsArr && (
+				{/* {regionsArr && (
 					<AccordianCommon
 						fontStyle={"text_lg"}
 						fontWeight={"f_w_s_b"}
@@ -389,7 +389,7 @@ export default function CareerCountryCard({
 						fontColor={"color_secondary"}
 						items={regionsArr}
 					/>
-				)}
+				)} */}
 			</div>
 		</section>
 	);
