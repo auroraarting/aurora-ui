@@ -10,6 +10,11 @@ import ContentFromCms from "@/components/ContentFromCms";
 // SECTIONS //
 
 // PLUGINS //
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 // UTILS //
 
@@ -22,13 +27,71 @@ import graph_img from "/public/img/resources/aurora_insights/graph_img.png";
 import popup_close from "/public/img/icons/popup_close.svg";
 import location from "/public/img/icons/location.svg";
 import clock from "/public/img/icons/clock.svg";
+import Image from "next/image";
+import Modal, { openModal } from "@/components/Modal";
 
 // DATA //
 
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
+	console.log(data, "data in middle description");
 	return (
-		<div className={`${styles.eventsMiddleDescription} `}>
+		<div
+			className={`${styles.eventsMiddleDescription} `}
+			onClick={() => openModal("demo")}
+		>
+			<div className={`${styles.modal_content_wrap}`}>
+				<Modal
+					id={"demo"}
+					open={
+						data.events?.landingPopup?.text || data.events?.landingPopup?.banner
+							? true
+							: false
+					}
+				>
+					{data.events?.landingPopup?.banner?.node?.mediaItemUrl && (
+						<img src={data.events?.landingPopup?.banner?.node?.mediaItemUrl} />
+					)}
+					{data.events?.landingPopup?.text && (
+						<div className={`${styles.modal_content}`}>
+							<p className="color_white">{data.events?.landingPopup?.text}</p>
+						</div>
+					)}
+				</Modal>
+			</div>
+			{data?.events?.promotionalBanner?.length > 0 && (
+				<div className={`${styles.promotionalBanner} `}>
+					<Swiper
+						modules={[Autoplay]}
+						slidesPerView={1}
+						slidesPerGroup={1}
+						spaceBetween={50}
+						grabCursor={true}
+						speed={500}
+						autoplay={{
+							delay: 3000,
+							disableOnInteraction: false,
+						}}
+						className={`${styles.slider} custom-swiper`}
+					>
+						{data?.events?.promotionalBanner?.map((item, ind) => {
+							return (
+								<SwiperSlide key={ind}>
+									{item?.banner?.node?.mediaItemUrl && (
+										<a href={item?.url || "/"} className={`${styles.itemBox}`}>
+											<img
+												src={item?.banner?.node?.mediaItemUrl}
+												alt="Promotional Banner"
+											/>
+										</a>
+									)}
+									{item?.text && <p className={`${styles.title}`}>{item?.text}</p>}
+								</SwiperSlide>
+							);
+						})}
+					</Swiper>
+				</div>
+			)}
 			{data?.content && (
 				<section
 					className={`${styles.contentBox}`}
@@ -72,7 +135,10 @@ const WhyAttend = ({ data }) => {
 			<div className={`${styles.contentBox}`}>
 				<h2>{data?.sectionTitle || "Why attend?"}</h2>
 				{data?.desc && <ContentFromCms>{data?.desc}</ContentFromCms>}
-				<div className={`${styles.btn_box} pt_0`} onClick={() => setOpen(!open)}>
+				<div
+					className={`${styles.btn_box} agenda_btn pt_0`}
+					onClick={() => setOpen(!open)}
+				>
 					<Button color="primary" variant="filled" shape="rounded">
 						View full agenda
 					</Button>

@@ -49,6 +49,7 @@ export default function EventsInsideWrap({
 	pastEvents,
 }) {
 	const dataForBtn = { postFields: data?.events || {} };
+	console.log(data, "data in inside wrap");
 	return (
 		<div>
 			{/* Metatags */}
@@ -93,6 +94,15 @@ export default function EventsInsideWrap({
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
 								<EventsMiddleDescription data={data} />
+								{data?.events?.speakers?.speakers && (
+									<div className="pb_40 pt_60">
+										<Speakers
+											data={data?.events?.speakers?.speakers}
+											title={data?.events?.speakers?.sectionTitle}
+											desc={data?.events?.speakers?.sectionDesc}
+										/>
+									</div>
+								)}
 								<Sponsors data={data} />
 								{data?.events?.sections?.map((item) => {
 									if (!item?.content) {
@@ -150,7 +160,7 @@ export default function EventsInsideWrap({
 						<AudienceBreakdown data={data} />
 					</div>
 				)}
-				{data?.events?.speakers?.speakers && (
+				{/* {data?.events?.speakers?.speakers && (
 					<div className="pb_40">
 						<Speakers
 							data={data?.events?.speakers?.speakers}
@@ -158,7 +168,7 @@ export default function EventsInsideWrap({
 							desc={data?.events?.speakers?.sectionDesc}
 						/>
 					</div>
-				)}
+				)} */}
 				{data?.events?.downloads && (
 					<div className="pb_60">
 						<DownloadList data={data} />

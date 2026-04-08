@@ -18,9 +18,12 @@ import CrossIcon from "public/img/icons/close.svg";
 // DATA //
 
 /** Modal Component */
-export default function Modal({ children, id }) {
+export default function Modal({ children, id, open }) {
 	return (
-		<div className={`modal ${styles.modal}`} id={id ? id : "modal"}>
+		<div
+			className={`modal ${styles.modal} ${open ? styles.open : ""}`}
+			id={id ? id : "modal"}
+		>
 			{/** Modal Backdrop */}
 			<div onClick={() => closeModal(id)} className={styles.overlay}></div>
 			<div className={`${styles.content} content`} data-lenis-prevent>
