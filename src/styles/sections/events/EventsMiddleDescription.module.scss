@@ -1,4 +1,29 @@
 @import "../../helpers/helpers.scss";
+.eventsMiddleDescription {
+	.promotionalBanner {
+		padding-bottom: 20px;
+		.itemBox {
+			img {
+				border-radius: 10px;
+				overflow: hidden;
+			}
+		}
+		.title {
+			margin-top: 10px;
+		}
+	}
+	.modal_content_wrap {
+		:global(.modal .content) {
+			border: 1px solid var(--color_primary);
+		}
+		.modal_content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
 .contentBox {
 	iframe {
 		body {
@@ -94,7 +119,7 @@
 
 	.content {
 		margin-left: auto;
-		width: 80%;
+		width: 95%;
 		height: 100vh;
 		background-color: var(--color_secondary);
 		padding: 40px 50px;
@@ -183,7 +208,7 @@
 						}
 					}
 				}
-				.ClientInfo{
+				.ClientInfo {
 					display: grid;
 					grid-template-columns: repeat(2, 1fr);
 					grid-gap: 30px;

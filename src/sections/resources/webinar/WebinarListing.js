@@ -590,7 +590,13 @@ export default function WebinarListing({
 														className={`${styles.calender}`}
 														alt="calender"
 													/>
-													<span>{formatDate(item?.webinarsFields?.startDateAndTime)}</span>
+													<span>
+														{formatDate(
+															item?.webinarsFields?.startDateAndTime,
+															"en-US",
+															item?.webinarsFields?.timezone,
+														)}
+													</span>
 												</p>
 												{/* {isCategory(countries, item?.categories?.nodes) && ( */}
 												{item?.webinarsFields?.country?.nodes?.length > 0 && (

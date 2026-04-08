@@ -27,6 +27,10 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 
 	/** scrollToSection */
 	const scrollToSection = (id) => {
+		if (id === "#agenda") {
+			document.querySelector(".agenda_btn").click();
+			console.log("agenda clicked", "item");
+		}
 		/** removeStartingHash  */
 		function removeStartingHash(str) {
 			return str.startsWith("#") ? str?.slice(1) : str;
@@ -43,6 +47,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 
 	/**  */
 	const handleItemClick = (item) => {
+		console.log(item, "clicked item");
 		if (item?.id) {
 			document.querySelector(item.id)?.scrollIntoView({ behavior: "smooth" });
 		}
@@ -60,7 +65,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		});
 		// Deduplicate based on `id`
 		const sections = Array.from(
-			new Map(sectionsArray.map((item) => [item.id, item])).values()
+			new Map(sectionsArray.map((item) => [item.id, item])).values(),
 		);
 
 		if (customHtml) {
@@ -81,7 +86,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		const sectionElements = list
 			.filter(
 				(item) =>
-					typeof item.id === "string" && item.id.trim() !== "" && item.id !== "#"
+					typeof item.id === "string" && item.id.trim() !== "" && item.id !== "#",
 			)
 			.map((item) => {
 				const selector = item.id.startsWith("#") ? item.id : `#${item.id}`;

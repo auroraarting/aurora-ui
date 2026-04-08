@@ -1,6 +1,8 @@
 @import "../../helpers/helpers.scss";
 .Speakers {
 	.content_main_wrap {
+		.btnWrapper {
+		}
 		@include sm-down {
 			padding-top: 20px;
 		}
@@ -16,7 +18,7 @@
 	}
 	.box_wrap {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 20px;
 		@media (max-width: 991px) {
 			grid-template-columns: repeat(3, 1fr);

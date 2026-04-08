@@ -5,10 +5,19 @@ import { openModal } from "@/components/Modal";
 // import { Link, scroller } from "react-scroll";
 
 /** formatDate  */
-export default function formatDate(isoString, language = "en-US") {
+export default function formatDate(isoString, language = "en-US", timezone) {
 	const date = new Date(isoString);
 	const options = { month: "short", day: "numeric", year: "numeric" };
-	return date.toLocaleDateString(language, options);
+	// If admin has set a timezone, the UTC date is correct — show in user's local timezone
+	// If no timezone is set, force UTC to avoid off-by-one date issues
+	if (!timezone) {
+		options.timeZone = "UTC";
+	}
+	try {
+		return date.toLocaleDateString(language, options);
+	} catch {
+		return date.toLocaleDateString(language, { ...options, timeZone: "UTC" });
+	}
 }
 
 /** getClientLogosForAllProducts  */
@@ -310,7 +319,7 @@ export function filterMarkersBySlug(data, slug) {
 			const markers = country.countries?.map?.markers || [];
 
 			const filteredMarkers = markers.filter((marker) =>
-				marker.category?.nodes?.some((cat) => cat.slug === slug)
+				marker.category?.nodes?.some((cat) => cat.slug === slug),
 			);
 
 			if (country.countries?.map) {
@@ -469,7 +478,7 @@ export function buildQueryFromContext(context) {
 	["category", "country", "product", "software", "service", "search"].forEach(
 		(key) => {
 			if (query[key]) categoryInList.push(query[key]);
-		}
+		},
 	);
 
 	// Construct `where` if needed
@@ -542,7 +551,7 @@ export function isCategory(categoryList, dynamicWords, forUrl = false) {
 				alternateName = dynamicWords?.filter(
 					(item2) =>
 						item2?.name.toLowerCase() ===
-						(item?.alternate?.toLowerCase() || item?.title?.toLowerCase())
+						(item?.alternate?.toLowerCase() || item?.title?.toLowerCase()),
 				)?.[0]?.alternateName;
 			} else {
 				if (item.title === "Case Study") {
@@ -645,7 +654,7 @@ export const filterItems = (items, filterObj) => {
 						item?.postFields?.testimonials?.nodes?.map((p) => p?.content) || [];
 					const testimonialsDesignation =
 						item?.postFields?.testimonials?.nodes?.map(
-							(p) => p?.testimonials?.designation
+							(p) => p?.testimonials?.designation,
 						) || [];
 					const authorsTitle =
 						item?.postFields?.authors?.nodes?.map((p) => p?.title) || [];
@@ -653,7 +662,7 @@ export const filterItems = (items, filterObj) => {
 						item?.postFields?.authors?.nodes?.map((p) => p?.content) || [];
 					const authorsDesignation =
 						item?.postFields?.authors?.nodes?.map(
-							(p) => p?.postAuthors?.thumbnail?.designation
+							(p) => p?.postAuthors?.thumbnail?.designation,
 						) || [];
 
 					const searchText = [
@@ -681,7 +690,7 @@ export const filterItems = (items, filterObj) => {
 						.toLowerCase();
 
 					return searchText.includes(lowerSearch);
-			  })()
+				})()
 			: true;
 
 		return (
@@ -711,22 +720,22 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 		const matchSoftware = selected.software
 			? poweredBy.some(
 					(p) =>
-						p.contentType.node.name === "softwares" && p.title === selected.software
-			  )
+						p.contentType.node.name === "softwares" && p.title === selected.software,
+				)
 			: true;
 
 		const matchProduct = selected.product
 			? poweredBy.some(
 					(p) =>
-						p.contentType.node.name === "products" && p.title === selected.product
-			  )
+						p.contentType.node.name === "products" && p.title === selected.product,
+				)
 			: true;
 
 		const matchService = selected.service
 			? poweredBy.some(
 					(p) =>
-						p.contentType.node.name === "services" && p.title === selected.service
-			  )
+						p.contentType.node.name === "services" && p.title === selected.service,
+				)
 			: true;
 
 		// Year
@@ -787,7 +796,7 @@ export const filterItemsForPodcast = (podcasts, selected) => {
 						.toLowerCase();
 
 					return searchableText.includes(lowerSearch);
-			  })()
+				})()
 			: true;
 
 		return (
@@ -821,22 +830,22 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 		const matchSoftware = selected.software
 			? poweredBy.some(
 					(p) =>
-						p.contentType.node.name === "softwares" && p.title === selected.software
-			  )
+						p.contentType.node.name === "softwares" && p.title === selected.software,
+				)
 			: true;
 
 		const matchProduct = selected.product
 			? poweredBy.some(
 					(p) =>
-						p.contentType.node.name === "products" && p.title === selected.product
-			  )
+						p.contentType.node.name === "products" && p.title === selected.product,
+				)
 			: true;
 
 		const matchService = selected.service
 			? poweredBy.some(
 					(p) =>
-						p.contentType.node.name === "services" && p.title === selected.service
-			  )
+						p.contentType.node.name === "services" && p.title === selected.service,
+				)
 			: true;
 
 		// 3. Match year
@@ -886,7 +895,7 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 					const webinarTagsTitles = webinarTags.nodes.map((p) => p.name);
 					const year = date ? new Date(date).getFullYear().toString() : "";
 					const sectionTitles = webinarsFields?.sections?.map(
-						(p) => p?.sectionTitle
+						(p) => p?.sectionTitle,
 					);
 					const sectionContent = webinarsFields?.sections?.map((p) => p?.content);
 
@@ -907,7 +916,7 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 						.toLowerCase();
 
 					return searchableText.includes(lowerSearch);
-			  })()
+				})()
 			: true;
 
 		return (
@@ -969,7 +978,7 @@ const defaultBtnProps = {
 /** dynamicInsightsBtnProps  */
 export const dynamicInsightsBtnProps = (
 	data = defaultBtnProps,
-	keyVal = "topSectionButton"
+	keyVal = "topSectionButton",
 ) => {
 	let obj = {};
 
@@ -1021,7 +1030,7 @@ export const dynamicInsightsBtnProps = (
 			OpenIframePopup(
 				"iframePopup",
 				data?.postFields?.[keyVal]?.iframe ||
-					"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+					"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 			);
 		};
 	}
@@ -1146,17 +1155,17 @@ export function filterItemsBySelectedObj(arr, selectedObj) {
 
 				const speakersTitle =
 					item.events?.speakers?.speakers?.flatMap((item) =>
-						item?.speakers?.nodes?.map((item2) => item2?.title)
+						item?.speakers?.nodes?.map((item2) => item2?.title),
 					) || [];
 				const speakersContent =
 					item.events?.speakers?.speakers?.flatMap((item) =>
-						item?.speakers?.nodes?.map((item2) => item2?.content)
+						item?.speakers?.nodes?.map((item2) => item2?.content),
 					) || [];
 				const speakersDesignation =
 					item.events?.speakers?.speakers?.flatMap((item) =>
 						item?.speakers?.nodes?.map(
-							(item2) => item2?.postSpeakers?.thumbnail?.designation
-						)
+							(item2) => item2?.postSpeakers?.thumbnail?.designation,
+						),
 					) || [];
 
 				// Combine all fields into a single string for search
@@ -1245,7 +1254,7 @@ export function filterItemsBySelectedObjForPress(arr, selectedObj) {
 	if (selectedObj.search) {
 		const searchValue = selectedObj.search.toLowerCase();
 		filteredArr = filteredArr.filter((item) =>
-			item.title?.toLowerCase().includes(searchValue)
+			item.title?.toLowerCase().includes(searchValue),
 		);
 	}
 
@@ -1282,7 +1291,7 @@ export function filterItemsBySelectedObjForCareers(arr, selectedObj) {
 	if (selectedObj.search) {
 		const searchValue = selectedObj.search.toLowerCase();
 		filteredArr = filteredArr.filter((item) =>
-			item.title?.toLowerCase().includes(searchValue)
+			item.title?.toLowerCase().includes(searchValue),
 		);
 	}
 
