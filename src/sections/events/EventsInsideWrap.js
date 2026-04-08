@@ -50,6 +50,7 @@ export default function EventsInsideWrap({
 }) {
 	const dataForBtn = { postFields: data?.events || {} };
 	console.log(data, "data in inside wrap");
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -93,8 +94,64 @@ export default function EventsInsideWrap({
 					<div className="container">
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
+								{/* {sectionsKeys.map(([key, value]) => {
+									if (key === "speakers") {
+										return (
+											data?.events?.speakers?.speakers && (
+												<div className="pb_40 pt_60">
+													<Speakers
+														data={data?.events?.speakers?.speakers}
+														title={data?.events?.speakers?.sectionTitle}
+														desc={data?.events?.speakers?.sectionDesc}
+													/>
+												</div>
+											)
+										);
+									} else if (key === "sections") {
+										return data?.events?.sections?.map((item) => {
+											if (!item?.content) {
+												return <></>;
+											}
+											return (
+												<section
+													key={item?.sectionTitle}
+													id={slugify(item?.sectionTitle)}
+													data-name={item?.sectionTitle}
+													className={`pt_50 ${styles.contentBox} contentBox`}
+												>
+													{parse(item?.content)}
+												</section>
+											);
+										});
+									} else if (key === "sponsors" || key === "partners") {
+										return <Sponsors key={key} data={data} />;
+									} else if (key === "thumbnail") {
+										return (
+											data?.events?.thumbnail?.status === "Upcoming" && (
+												<EventsLocation data={data} />
+											)
+										);
+									} else if (key === "glimps") {
+										return (
+											<>
+												{data?.events?.glimps?.gallery?.nodes && (
+													<div className="">
+														<EventsGallery data={data} />
+													</div>
+												)}
+												{data?.events?.glimps?.video && (
+													<div className="">
+														<EventInsideVideo data={data} />
+													</div>
+												)}
+											</>
+										);
+									} else {
+										return <EventsMiddleDescription key={key} data={data} />;
+									}
+								})} */}
 								<EventsMiddleDescription data={data} />
-								{data?.events?.speakers?.speakers && (
+								{/* {data?.events?.speakers?.speakers && (
 									<div className="pb_40 pt_60">
 										<Speakers
 											data={data?.events?.speakers?.speakers}
@@ -127,27 +184,11 @@ export default function EventsInsideWrap({
 										<EventsGallery data={data} />
 									</div>
 								)}
-								{/* <Sponsors data={data} /> */}
-								{/* {data?.events?.sections?.map((item) => {
-									if (!item?.content) {
-											return <></>;
-										}
-									return (
-										<section
-											key={item?.sectionTitle}
-											id={slugify(item?.sectionTitle)}
-											data-name={item?.sectionTitle}
-											className={`pt_50 ${styles.contentBox} contentBox`}
-										>
-											{parse(item?.content)}
-										</section>
-									);
-								})} */}
 								{data?.events?.glimps?.video && (
 									<div className="">
 										<EventInsideVideo data={data} />
 									</div>
-								)}
+								)} */}
 							</div>
 							<div className={`${styles.eventsMiddleRight}`}>
 								<EventsMiddleRight data={data} events={eventsOriginal} />

@@ -362,10 +362,15 @@ query GetEventInside {
     }
     events {
       sectionOrders{
+        glimps
+        hightlights
         overview
-        agenda
+        promotionalbanner
         speakers
-        partners
+        sponsors
+        thumbnail
+        whyattend
+        sections
       }
       landingPopup{
         text
