@@ -166,7 +166,7 @@ export default function EventsMiddleDescription({ data }) {
 																	media="(min-width:767px)"
 																/>
 																<img
-																	src={item?.mobileBanner?.node?.mediaItemUrl}
+																	src={item?.bannerMobile?.node?.mediaItemUrl}
 																	alt="Promotional Banner"
 																	className={`${styles.vimeoBanner}`}
 																/>
