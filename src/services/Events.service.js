@@ -379,9 +379,19 @@ query GetEventInside {
             mediaItemUrl
           }
         }
+        bannerMobile{
+          node{
+            mediaItemUrl
+          }
+        }
       }
       promotionalBanner{
         banner{
+          node{
+            mediaItemUrl
+          }
+        }
+        bannerMobile{
           node{
             mediaItemUrl
           }

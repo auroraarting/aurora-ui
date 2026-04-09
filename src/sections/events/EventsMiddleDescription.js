@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 "use client";
 // MODULES //
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -48,7 +48,7 @@ export default function EventsMiddleDescription({ data }) {
 			)
 		: [];
 
-	console.log(sectionsKeys, "sectionsKeys");
+	console.log(data?.events?.promotionalBanner, "sectionsKeys");
 
 	return (
 		<div className={`${styles.eventsMiddleDescription} `}>
@@ -62,7 +62,18 @@ export default function EventsMiddleDescription({ data }) {
 					}
 				>
 					{data.events?.landingPopup?.banner?.node?.mediaItemUrl && (
-						<img src={data.events?.landingPopup?.banner?.node?.mediaItemUrl} />
+						<picture>
+							<source
+								srcSet={data.events?.landingPopup?.banner?.node?.mediaItemUrl}
+								alt="Promotional Banner"
+								media="(min-width:767px)"
+							/>
+							<img
+								src={data.events?.landingPopup?.bannerMobile?.node?.mediaItemUrl}
+								alt="Promotional Banner"
+								className={`${styles.vimeoBanner}`}
+							/>
+						</picture>
 					)}
 					{data.events?.landingPopup?.text && (
 						<div className={`${styles.modal_content}`}>
@@ -148,10 +159,18 @@ export default function EventsMiddleDescription({ data }) {
 												<SwiperSlide key={ind}>
 													{item?.banner?.node?.mediaItemUrl && (
 														<a href={item?.url || "/"} className={`${styles.itemBox}`}>
-															<img
-																src={item?.banner?.node?.mediaItemUrl}
-																alt="Promotional Banner"
-															/>
+															<picture>
+																<source
+																	srcSet={item?.banner?.node?.mediaItemUrl}
+																	alt="Promotional Banner"
+																	media="(min-width:767px)"
+																/>
+																<img
+																	src={item?.mobileBanner?.node?.mediaItemUrl}
+																	alt="Promotional Banner"
+																	className={`${styles.vimeoBanner}`}
+																/>
+															</picture>
 														</a>
 													)}
 													{item?.text && <p className={`${styles.title}`}>{item?.text}</p>}
