@@ -48,7 +48,7 @@ export default function Sponsors({ data, sectionName }) {
 	}, []);
 
 	const selected =
-		dataToUse?.sponsors[selectedSponsorCat]?.list[selectedSponsor];
+		dataToUse?.sponsors?.[selectedSponsorCat]?.list?.[selectedSponsor];
 
 	if (dataToUse?.sponsors?.length === 0 || !dataToUse?.sponsors?.length) {
 		return <></>;

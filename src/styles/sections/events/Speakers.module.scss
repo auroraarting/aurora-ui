@@ -128,6 +128,11 @@
 			}
 		}
 	}
+	&:global(.container) {
+		.box_wrap {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
 	.popup {
 		position: fixed;
 		top: 0;
