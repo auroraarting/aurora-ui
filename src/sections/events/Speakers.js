@@ -32,7 +32,7 @@ import clock from "../../../public/img/icons/clock.svg";
 // DATA //
 
 /** Speakers Section */
-export default function Speakers({ data, title, desc }) {
+export default function Speakers({ data, title, desc, iseventInside }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
@@ -80,7 +80,11 @@ export default function Speakers({ data, title, desc }) {
 	});
 
 	return (
-		<section className={`${styles.Speakers}`} id="speakers" data-name="Speakers">
+		<section
+			className={`${styles.Speakers} ${iseventInside ? "" : "container"}`}
+			id="speakers"
+			data-name="Speakers"
+		>
 			<div className="">
 				<div className={`${styles.titleWrapper}`}>
 					<h2 className="text_xl font_primary color_secondary pb_10">{title}</h2>

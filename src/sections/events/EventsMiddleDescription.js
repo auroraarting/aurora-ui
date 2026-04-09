@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 "use client";
 // MODULES //
@@ -41,9 +42,11 @@ import EventInsideVideo from "./EventInsideVideo";
 
 /** EventsMiddleDescription Section */
 export default function EventsMiddleDescription({ data }) {
-	const sectionsKeys = Object.entries(data?.events?.sectionOrders).sort(
-		([, a], [, b]) => (a ?? 9999) - (b ?? 9999),
-	);
+	const sectionsKeys = data?.events?.sectionOrders
+		? Object?.entries(data?.events?.sectionOrders).sort(
+				([, a], [, b]) => (a ?? 9999) - (b ?? 9999),
+			)
+		: [];
 
 	console.log(sectionsKeys, "sectionsKeys");
 
@@ -69,12 +72,13 @@ export default function EventsMiddleDescription({ data }) {
 				</Modal>
 			</div>
 			<div className="">
-				{sectionsKeys.map(([key, value]) => {
+				{sectionsKeys?.map(([key, value]) => {
 					if (key === "speakers") {
 						return (
 							data?.events?.speakers?.speakers && (
 								<div className="pb_60">
 									<Speakers
+										iseventInside={true}
 										data={data?.events?.speakers?.speakers}
 										title={data?.events?.speakers?.sectionTitle}
 										desc={data?.events?.speakers?.sectionDesc}
@@ -93,7 +97,7 @@ export default function EventsMiddleDescription({ data }) {
 											data-name={item?.sectionTitle}
 											className={`pb_60 ${styles.contentBox} contentBox`}
 										>
-											{parse(item?.content)}
+											{parse(item?.content || "")}
 										</section>
 									);
 								})}
