@@ -78,6 +78,7 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 			});
 		});
 	});
+	const speakerslength = eventSpeakersData?.length;
 
 	return (
 		<section
@@ -117,7 +118,7 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 						})}
 					</div>
 					{/*  */}
-					{showLength != 999 && (
+					{speakerslength >= showLength && (
 						<div
 							className={`${styles.btnWrapper} pt_20 f_w_a_j_center`}
 							onClick={() => setShowLength(999)}
