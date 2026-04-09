@@ -161,9 +161,13 @@
 	.BoxFlex {
 		position: relative;
 		.Imgthumbnail {
-			width: 25%;
+			// width: 25%;
 			height: 400px;
 			position: relative;
+
+			img {
+				background-color: white;
+			}
 
 			button {
 				margin-top: 40px;
@@ -184,6 +188,7 @@
 			}
 		}
 		.Details {
+			flex: 1;
 			width: 75%;
 			padding-left: 40px;
 			overflow: hidden;

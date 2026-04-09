@@ -36,7 +36,7 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
-	const [showLength, setShowLength] = useState(3);
+	const [showLength, setShowLength] = useState(9);
 	const sliderRef = useRef(null);
 
 	/** handleSlideClick Function */
@@ -123,7 +123,7 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 							onClick={() => setShowLength(999)}
 						>
 							<Button color="secondary" variant="underline" mode="">
-								Read more
+								View all
 							</Button>
 						</div>
 					)}
