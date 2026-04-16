@@ -359,19 +359,28 @@ const WhyAttend = ({ data }) => {
 								<h4 className="text_xs font_primary color_white f_w_s_b">
 									{item?.title}
 								</h4>
+								{item?.description && (
+									<p className="text_xs font_primary color_white ">
+										{parse(item?.description)}
+									</p>
+								)}
 								<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
-									<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="clock"
-										/>
-										<span>{item?.address}</span>
-									</p>
-									<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
-										<img src={clock.src} className={`${styles.clock}`} alt="location" />
-										<span>{item?.timeSlot}</span>
-									</p>
+									{item?.address && (
+										<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
+											<img
+												src={location.src}
+												className={`${styles.location}`}
+												alt="clock"
+											/>
+											<span>{item?.address}</span>
+										</p>
+									)}
+									{item?.timeSlot && (
+										<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
+											<img src={clock.src} className={`${styles.clock}`} alt="location" />
+											<span>{item?.timeSlot}</span>
+										</p>
+									)}
 								</div>
 								<div className={`${styles.ClientInfo}`}>
 									{item?.speaker?.nodes?.map((item2) => {
@@ -380,12 +389,14 @@ const WhyAttend = ({ data }) => {
 												className={`${styles.ClientFlex} f_r_a_center`}
 												key={item2?.title}
 											>
-												<div className={`${styles.ClientLogo}`}>
-													<img
-														src={item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
-														alt="pic"
-													/>
-												</div>
+												{item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
+													<div className={`${styles.ClientLogo}`}>
+														<img
+															src={item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
+															alt="pic"
+														/>
+													</div>
+												)}
 												<div className={`${styles.ClientDescription}`}>
 													<h5 className="text_xs font_primary color_white f_w_m">
 														{item2?.title}
