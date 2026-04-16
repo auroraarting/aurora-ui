@@ -360,7 +360,9 @@ const WhyAttend = ({ data }) => {
 									{item?.title}
 								</h4>
 								{item?.description && (
-									<p className="text_xs font_primary color_white ">
+									<p
+										className={`${styles.description} text_xs f_w_m color_silver_gray font_primary`}
+									>
 										{parse(item?.description)}
 									</p>
 								)}
