@@ -591,6 +591,7 @@ query GetEventInside {
           time
           timeSlot
           title
+          description
           speaker(first: 999) {
             nodes {
               ... on PostSpeaker {
