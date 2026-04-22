@@ -36,7 +36,8 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
-	const [showLength, setShowLength] = useState(9);
+	const [showLength, setShowLength] = useState(999);
+
 	const sliderRef = useRef(null);
 
 	/** handleSlideClick Function */
