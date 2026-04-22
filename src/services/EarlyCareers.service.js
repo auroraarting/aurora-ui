@@ -363,7 +363,7 @@ export const getEarlyCareersListingByRegions = async (
 	filters = "first: 999",
 ) => {
 	const query = `
-  query GetEarlyCareersListing {
+  query GetEarlyCareersList {
     regions(${filters}) {
       nodes {
         name
