@@ -371,7 +371,7 @@ export const getEarlyCareersListingByRegions = async (
         regionsFields{
           sequence
         }
-        earlyCareers(${filters}) {
+        earlyCareers(where: {status: PUBLISH}, first: 999) {
           nodes {
             title
             slug
