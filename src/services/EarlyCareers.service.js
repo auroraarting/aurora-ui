@@ -412,7 +412,7 @@ export const getEarlyCareersListingByRegions = async (
   }
   `;
 	const res = await GraphQLAPI(query, {
-		apiID: "early-career-regions-2",
+		apiID: "early-career-regions-3",
 		pageID: "/early-careers",
 	});
 	return res;
