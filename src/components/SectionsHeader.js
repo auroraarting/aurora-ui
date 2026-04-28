@@ -60,7 +60,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		});
 		// Deduplicate based on `id`
 		const sections = Array.from(
-			new Map(sectionsArray.map((item) => [item.id, item])).values()
+			new Map(sectionsArray.map((item) => [item.id, item])).values(),
 		);
 
 		if (customHtml) {
@@ -81,10 +81,22 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 		const sectionElements = list
 			.filter(
 				(item) =>
-					typeof item.id === "string" && item.id.trim() !== "" && item.id !== "#"
+					typeof item.id === "string" && item.id.trim() !== "" && item.id !== "#",
 			)
+			// old code
+			// .map((item) => {
+			// 	const selector = item.id.startsWith("#") ? item.id : `#${item.id}`;
+			// 	const el = document?.querySelector(selector);
+			// 	return el || null;
+			// })
 			.map((item) => {
-				const selector = item.id.startsWith("#") ? item.id : `#${item.id}`;
+				const id = item.id.startsWith("#") ? item.id.slice(1) : item.id;
+
+				// Escape if ID starts with a digit
+				const selector = /^\d/.test(id)
+					? `#\\3${id.charAt(0)} ${id.slice(1)}`
+					: `#${id}`;
+
 				const el = document?.querySelector(selector);
 				return el || null;
 			})
