@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // MODULES //
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -54,6 +55,9 @@ import ContentFromCms from "@/components/ContentFromCms";
 
 /** Client Section */
 export default function Client({ data, countries }) {
+	const pathname = usePathname();
+	const currentUrl = `${"https://auroraer.com"}${pathname}`;
+
 	const [selectedAuthor, setSelectedAuthor] = useState(undefined);
 	const sliderRef = useRef(null);
 
@@ -121,7 +125,7 @@ export default function Client({ data, countries }) {
 												const indexOfSelectedAuthor = data?.postFields?.authors?.nodes
 													?.filter(
 														(item2) =>
-															item2?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl
+															item2?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl,
 													)
 													.findIndex((item3) => item3.title === item.title);
 												handleAuthorClick(indexOfSelectedAuthor);
@@ -240,13 +244,13 @@ export default function Client({ data, countries }) {
 							<h5 className="text_reg color_gray f_w_b pb_10">Share</h5>
 							<div className={`${styles.ClientFlex} f_r_a_center`}>
 								<a className={`${styles.shareIcon}`}>
-									<LinkedinShareButton url={window && window.location.href}>
+									<LinkedinShareButton url={currentUrl}>
 										<img src={linkedin.src} alt="linkedin" />
 									</LinkedinShareButton>
 								</a>
 
 								<a className={`${styles.shareIcon}`}>
-									<TwitterShareButton url={window && window.location.href}>
+									<TwitterShareButton url={currentUrl}>
 										<img src={twitter.src} alt="twitter" />
 									</TwitterShareButton>
 								</a>
@@ -458,8 +462,8 @@ export default function Client({ data, countries }) {
 																								isCategory(
 																									allCategories,
 																									blogData?.categories?.nodes,
-																									true
-																								)
+																									true,
+																								),
 																							)}/${blogData?.slug}`}
 																							className={`${styles.hoverBox}`}
 																						>
@@ -507,7 +511,7 @@ export default function Client({ data, countries }) {
 																						</a>
 																					</div>
 																				</SwiperSlide>
-																			)
+																			),
 																		)}
 																	</Swiper>
 																</div>
