@@ -4,7 +4,7 @@
 			"title": "Power & Renewables",
 			"slug": "power-renewables",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Power-Renewables-Service-1.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Power-Renewables-Service-1.svg",
 				"altText": ""
 			}
 		},
@@ -12,7 +12,7 @@
 			"title": "Flexible Energy",
 			"slug": "flexible-energy",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-Service.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-Service.svg",
 				"altText": ""
 			}
 		},
@@ -20,7 +20,7 @@
 			"title": "Grid",
 			"slug": "grid",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Grid-Add-On.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Grid-Add-On.svg",
 				"altText": ""
 			}
 		},
@@ -28,7 +28,7 @@
 			"title": "Hydrogen",
 			"slug": "hydrogen",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Hydrogen-Service.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Hydrogen-Service.svg",
 				"altText": ""
 			}
 		}
@@ -38,7 +38,7 @@
 			"title": "Origin",
 			"slug": "origin",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Origin-1.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Origin-1.svg",
 				"altText": ""
 			}
 		},
@@ -46,7 +46,7 @@
 			"title": "Amun",
 			"slug": "amun",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Amun-1.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Amun-1.svg",
 				"altText": ""
 			}
 		},
@@ -54,7 +54,7 @@
 			"title": "Chronos",
 			"slug": "chronos",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Chronos.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Chronos.svg",
 				"altText": ""
 			}
 		},
@@ -62,7 +62,7 @@
 			"title": "Lumus",
 			"slug": "lumus",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Lumus.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.svg",
 				"altText": ""
 			}
 		},
@@ -70,7 +70,7 @@
 			"title": "Nodal Explorer",
 			"slug": "nodalexplorer",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Nodal.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Nodal.svg",
 				"altText": ""
 			}
 		}
@@ -81,7 +81,7 @@
 			"slug": "advisory",
 			"content": "<p>Bespoke advisory services and data-driven insights to support strategic decisions in the energy landscape.</p>\n",
 			"logo": {
-				"logo": "https://cms-staging.auroraer.com/wp-content/uploads/2025/03/Advisory.svg",
+				"logo": "https://cms-production.auroraer.com/wp-content/uploads/2025/03/Advisory.svg",
 				"altText": ""
 			}
 		}
@@ -434,7 +434,7 @@
 					"logo": {
 						"node": {
 							"altText": "",
-							"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/05/Energy-Transition-Summit-london.png"
+							"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/05/Energy-Transition-Summit-london.png"
 						}
 					}
 				},
@@ -442,7 +442,7 @@
 					"desktop": {
 						"node": {
 							"altText": "",
-							"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/GB-Banner-1280-x-440.jpg"
+							"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/GB-Banner-1280-x-440.jpg"
 						}
 					}
 				}
@@ -458,7 +458,7 @@
 			"featuredImage": {
 				"node": {
 					"altText": "",
-					"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2024/05/Website-Images-Use-This-1.png"
+					"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2024/05/Website-Images-Use-This-1.png"
 				}
 			},
 			"categories": {
