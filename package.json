@@ -21,6 +21,7 @@
 		"@upstash/redis": "^1.35.0",
 		"bottleneck": "^2.19.5",
 		"commander": "^11.1.0",
+		"deep-email-validator": "^0.1.27",
 		"dotenv": "^17.2.0",
 		"framer-motion": "^12.4.7",
 		"fs-extra": "^11.2.0",
