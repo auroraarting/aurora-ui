@@ -42,6 +42,7 @@ query GetWebinarListing {
   }
 }
     `;
+
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
 		pageID: "/resources/webinar",
