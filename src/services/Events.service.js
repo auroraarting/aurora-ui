@@ -347,6 +347,7 @@ query GetEventInside {
 
 /** Fetch Page */
 export const getEventsInside = async (slug) => {
+	// eventBy(slug: "${decodeURIComponent(slug)}") {
 	const query = `
 query GetEventInside {
   eventBy(slug: "${decodeURIComponent(slug)}") {
@@ -360,6 +361,43 @@ query GetEventInside {
       }
     }
     events {
+      sectionOrders{
+        glimps
+        hightlights
+        overview
+        promotionalbanner
+        speakers
+        sponsors
+        thumbnail
+        whyattend
+        sections
+      }
+      landingPopup{
+        text
+        banner{
+          node{
+            mediaItemUrl
+          }
+        }
+        bannerMobile{
+          node{
+            mediaItemUrl
+          }
+        }
+      }
+      promotionalBanner{
+        banner{
+          node{
+            mediaItemUrl
+          }
+        }
+        bannerMobile{
+          node{
+            mediaItemUrl
+          }
+        }
+        text
+      }
       interestedDesc
       pricingDesc
       thumbnail {
@@ -524,6 +562,7 @@ query GetEventInside {
           title
           list {
             url
+            description
             logo {
               node {
                 altText
@@ -545,13 +584,14 @@ query GetEventInside {
         }
       }
       whyAttend {
-      sectionTitle
+        sectionTitle
         desc
         agenda {
           address
           time
           timeSlot
           title
+          description
           speaker(first: 999) {
             nodes {
               ... on PostSpeaker {

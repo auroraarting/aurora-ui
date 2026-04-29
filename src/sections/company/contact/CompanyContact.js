@@ -69,7 +69,6 @@ export default function CompanyContact() {
 			if (!res?.ok) {
 				throw new Error("Network response was not ok");
 			}
-			console.log("Response from contact API:", res);
 			// const result = await res.json();
 
 			reset();

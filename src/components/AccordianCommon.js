@@ -31,6 +31,7 @@ export default function AccordianCommon({
 	bottomTextData,
 	defaultActiveId = 0,
 	openAll,
+	firstActive,
 }) {
 	// const [activeIndex, setActiveIndex] = useState(null);
 	const pathname = usePathname();
@@ -40,7 +41,18 @@ export default function AccordianCommon({
 	// 		return false;
 	// 	})
 	// );
-	const [activeIndex, setActiveIndex] = useState(items?.map(() => false));
+	// const [activeIndex, setActiveIndex] = useState(items?.map(() => false));
+	const [activeIndex, setActiveIndex] = useState(() => {
+		if (!items) return [];
+
+		// If firstActive is true → open first accordion
+		if (firstActive) {
+			return items.map((_, i) => i === 0);
+		}
+
+		// Otherwise → all closed
+		return items.map(() => false);
+	});
 	const [heights, setHeights] = useState([]);
 	const [widthOfImg, setWidthOfImg] = useState(0);
 	const contentRefs = useRef([]);
@@ -49,7 +61,7 @@ export default function AccordianCommon({
 		/** handleAccordionClick function */
 		const calculateHeights = () => {
 			const calculatedHeights = contentRefs.current.map(
-				(el) => el?.scrollHeight || 0
+				(el) => el?.scrollHeight || 0,
 			);
 			setHeights(calculatedHeights);
 		};

@@ -142,7 +142,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 								{item?.buttonLink && (
 									<a href={item?.buttonLink} className={`${styles.bookBtn} pt_10`}>
 										<Button color="secondary" variant="underline">
-											Know more
+											{item.buttonText || "Know more"}
 										</Button>
 									</a>
 								)}
@@ -152,7 +152,7 @@ export default function SmarterEnergy({ data, sectionName }) {
 										className={`${styles.bookBtn} pt_10`}
 									>
 										<Button color="secondary" variant="underline">
-											Know more
+											{item.buttonText || "Know more"}
 										</Button>
 									</div>
 								)}

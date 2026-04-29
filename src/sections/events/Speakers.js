@@ -32,10 +32,12 @@ import clock from "../../../public/img/icons/clock.svg";
 // DATA //
 
 /** Speakers Section */
-export default function Speakers({ data, title, desc }) {
+export default function Speakers({ data, title, desc, iseventInside }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [slideNo, setSlideNo] = useState(0);
 	const [openPop1, setOpenPop1] = useState(false);
+	const [showLength, setShowLength] = useState(999);
+
 	const sliderRef = useRef(null);
 
 	/** handleSlideClick Function */
@@ -77,17 +79,22 @@ export default function Speakers({ data, title, desc }) {
 			});
 		});
 	});
+	const speakerslength = eventSpeakersData?.length;
 
 	return (
-		<section className={`${styles.Speakers}`} id="speakers" data-name="Speakers">
-			<div className="container">
+		<section
+			className={`${styles.Speakers} ${iseventInside ? "" : "container"}`}
+			id="speakers"
+			data-name="Speakers"
+		>
+			<div className="">
 				<div className={`${styles.titleWrapper}`}>
 					<h2 className="text_xl font_primary color_secondary pb_10">{title}</h2>
 					<p className={`${styles.label} text_reg color_dark_gray`}>{desc}</p>
 				</div>
 				<div className={`${styles.content_main_wrap} pt_20`}>
 					<div className={`${styles.box_wrap}`}>
-						{eventSpeakersData?.map((item, ind) => {
+						{eventSpeakersData?.slice(0, showLength).map((item, ind) => {
 							return (
 								<div
 									className={`${styles.box_item}`}
@@ -112,6 +119,16 @@ export default function Speakers({ data, title, desc }) {
 						})}
 					</div>
 					{/*  */}
+					{speakerslength >= showLength && (
+						<div
+							className={`${styles.btnWrapper} pt_20 f_w_a_j_center`}
+							onClick={() => setShowLength(999)}
+						>
+							<Button color="secondary" variant="underline" mode="">
+								View all
+							</Button>
+						</div>
+					)}
 				</div>
 			</div>
 

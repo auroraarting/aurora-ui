@@ -183,6 +183,21 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 		setShowSearch(false);
 	};
 
+	/** Utility function */
+	const sanitizePathname = (pathname) => {
+		if (!pathname) return "";
+
+		const parts = pathname.split("/").filter(Boolean); // removes empty strings
+
+		// Check if last part is a 2-letter language code (like 'en', 'ja', 'fr', etc.)
+		const lastPart = parts[parts.length - 1];
+		if (lastPart && lastPart.length === 2) {
+			parts.pop(); // remove the language code
+		}
+
+		return `/${parts.join("/")}`;
+	};
+
 	useEffect(() => {
 		toggleDropdown();
 		setShowSearch(false);
@@ -280,10 +295,11 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 							<div className={`${styles.listInner}`}>
 								<div className={`${styles.langWrap}`}>
 									{allLanguage?.map((item) => {
-										const tempArr = pathname?.split("/");
-										let hrefLink = `/global-presence/${
-											tempArr[2]
-										}/${item?.shortTitle?.toLowerCase()}`;
+										const cleanPath = sanitizePathname(pathname);
+										const tempArr = cleanPath.split("/");
+
+										// Adjust this depending on your URL structure
+										const hrefLink = `${cleanPath}/${item?.shortTitle?.toLowerCase()}`;
 
 										return (
 											<div
