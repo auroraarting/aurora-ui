@@ -16,7 +16,7 @@
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Lumus.jpg"
 					}
 				}
 			}
@@ -39,7 +39,7 @@
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-1.jpg"
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Flexible-Energy-1.jpg"
 					}
 				}
 			}
@@ -85,7 +85,7 @@
 				"banner": {
 					"node": {
 						"altText": "",
-						"mediaItemUrl": "https://cms-staging.auroraer.com/wp-content/uploads/2025/04/Hydrogen.jpg"
+						"mediaItemUrl": "https://cms-production.auroraer.com/wp-content/uploads/2025/04/Hydrogen.jpg"
 					}
 				}
 			}
