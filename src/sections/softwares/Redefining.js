@@ -22,12 +22,18 @@ import ContentFromCms from "@/components/ContentFromCms";
 // DATA //
 
 /** redefining Section */
-export default function Redefining({ title, description, image, lottie }) {
+export default function Redefining({
+	title,
+	description,
+	image,
+	lottie,
+	tabTitle,
+}) {
 	return (
 		<section
 			className={`${styles.redefining}`}
 			id="introduction"
-			data-name="Introduction"
+			data-name={tabTitle || "Introduction"}
 		>
 			<div className="container">
 				<div className={`${styles.flexBox} f_r_aj_between`}>

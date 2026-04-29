@@ -88,7 +88,7 @@ export default function PressReleasesInsideWrap({
 									smooth: true,
 									offset: -50,
 									spy: true,
-									onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+									// onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 								});
 							}}
 							key="btn"

@@ -127,7 +127,6 @@ export default function CareerCountryCard({
 				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
 			);
 		const sortedArr = [...sortedArr1, ...sortedArr2];
-		console.log("sortedArr", sortedArr);
 		setFilteredData(sortedArr);
 		setPaginationArr(sortedArr);
 		setSelected(selectedObj);
@@ -388,6 +387,7 @@ export default function CareerCountryCard({
 						fontFamily={"font_primary"}
 						fontColor={"color_secondary"}
 						items={regionsArr}
+						firstActive={true}
 					/>
 				)}
 			</div>

@@ -25,7 +25,11 @@ import formatDate, { allCategories, isCategory, slugify } from "@/utils";
 // DATA //
 
 /** CaseStudy Section */
-export default function CaseStudy({ data, countries = [] }) {
+export default function CaseStudy({
+	data,
+	countries = [],
+	translatedSectionName,
+}) {
 	// if (!data || !data?.title) return <></>;
 
 	const first = data?.selectCaseStudies?.nodes?.slice(0, 1);
@@ -35,7 +39,7 @@ export default function CaseStudy({ data, countries = [] }) {
 		<section
 			className={`${styles.CaseStudy}`}
 			id="case-study"
-			data-name="Case Studies"
+			data-name={translatedSectionName || "Case Studies"}
 		>
 			<div className="container">
 				<div className={`${styles.contentImgFlex} f_w_j`}>
@@ -47,7 +51,7 @@ export default function CaseStudy({ data, countries = [] }) {
 							<p
 								className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 							>
-								{data?.title}
+								{/* {data?.title} */}Case Study
 							</p>
 							<h3
 								className={`${styles.descTxt} ${styles.descTxtNew} text_xl color_secondary pt_10`}
@@ -96,7 +100,7 @@ export default function CaseStudy({ data, countries = [] }) {
 									<p
 										className={`${styles.categoryTxt} text_xs color_dark_gray text_uppercase`}
 									>
-										Case Study
+										{/* {translatedSectionName || "Case Study"} */}Case Study
 									</p>
 									<p
 										className={`${styles.descTxt} text_reg color_dark_gray font_primary pt_10`}

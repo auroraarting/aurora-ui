@@ -319,6 +319,16 @@ query GetInsights {
         title
         date
         content
+        language {
+                  code
+                  country_flag_url
+                  default_locale
+                  id
+                  language_code
+                  translated_name
+                  native_name
+                  url
+                }
       }
         slug
          title
@@ -334,6 +344,18 @@ query GetInsights {
         nodes {
           slug
           name
+          translations{
+           language {
+                  code
+                  country_flag_url
+                  default_locale
+                  id
+                  language_code
+                  translated_name
+                  native_name
+                  url
+                }
+          }
         }
       }
       tags(first: 9999) {
