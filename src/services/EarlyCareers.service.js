@@ -363,7 +363,7 @@ export const getEarlyCareersListingByRegions = async (
 	filters = "first: 999",
 ) => {
 	const query = `
-  query GetEarlyCareersListing {
+  query GetEarlyCareersList {
     regions(${filters}) {
       nodes {
         name
@@ -371,7 +371,7 @@ export const getEarlyCareersListingByRegions = async (
         regionsFields{
           sequence
         }
-        earlyCareers(${filters}) {
+        earlyCareers(where: {status: PUBLISH}, first: 999) {
           nodes {
             title
             slug
@@ -412,7 +412,7 @@ export const getEarlyCareersListingByRegions = async (
   }
   `;
 	const res = await GraphQLAPI(query, {
-		apiID: "early-career-regions",
+		apiID: "early-career-regions-3",
 		pageID: "/early-careers",
 	});
 	return res;

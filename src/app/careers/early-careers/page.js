@@ -98,7 +98,20 @@ export default async function EarlyCareers() {
 			if (regionItem?.earlyCareers?.nodes?.length > 0) {
 				obj.children = (
 					<div className={`${styles.SliderMain} pt_20`} key={regionItem?.slug}>
-						{regionItem?.earlyCareers?.nodes?.map((item) => {
+						{[
+							...(
+								regionItem?.earlyCareers?.nodes?.filter(
+									(n) => n?.earlyCareers?.thumbnail?.islive,
+								) || []
+							).sort((a, b) =>
+								a?.earlyCareers?.thumbnail?.country?.node?.title?.localeCompare(
+									b?.earlyCareers?.thumbnail?.country?.node?.title,
+								),
+							),
+							...(regionItem?.earlyCareers?.nodes?.filter(
+								(n) => !n?.earlyCareers?.thumbnail?.islive,
+							) || []),
+						].map((item) => {
 							return (
 								<a
 									href={`/careers/early-careers/${item?.slug}`}
