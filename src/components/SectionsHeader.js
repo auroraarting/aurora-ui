@@ -28,7 +28,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	/** scrollToSection */
 	const scrollToSection = (id) => {
 		if (id === "#agenda") {
-			document.querySelector(".agenda_btn").click();
+			// document.querySelector(".agenda_btn").click();
 			console.log("agenda clicked", "item");
 		}
 		/** removeStartingHash  */
@@ -88,8 +88,19 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 				(item) =>
 					typeof item.id === "string" && item.id.trim() !== "" && item.id !== "#",
 			)
+			// old code
+			// .map((item) => {
+			// 	const selector = item.id.startsWith("#") ? item.id : `#${item.id}`;
+			// 	const el = document?.querySelector(selector);
+			// 	return el || null;
+			// })
 			.map((item) => {
-				const selector = item.id.startsWith("#") ? item.id : `#${item.id}`;
+				const id = item.id.startsWith("#") ? item.id.slice(1) : item.id;
+
+				const selector = /^\d/.test(id)
+					? `#\\3${id.charAt(0)} ${id.slice(1)}`
+					: `#${id}`;
+
 				const el = document?.querySelector(selector);
 				return el || null;
 			})

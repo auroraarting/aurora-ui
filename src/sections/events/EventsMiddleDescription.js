@@ -52,7 +52,23 @@ export default function EventsMiddleDescription({ data }) {
 
 	return (
 		<div className={`${styles.eventsMiddleDescription} `}>
-			<div className={`${styles.modal_content_wrap}`}>
+			{data?.content && (
+				<section
+					className={`${styles.contentBox} pb_60`}
+					id="overview"
+					data-name="Overview"
+				>
+					<ContentFromCms>{data?.content}</ContentFromCms>
+				</section>
+			)}
+			{data?.events?.whyAttend?.agenda && (
+				<WhyAttend data={data?.events?.whyAttend} />
+			)}
+			{data?.events?.hightlights?.hightlights && (
+				<Hightlights data={data?.events?.hightlights} />
+			)}
+
+			{/*<div className={`${styles.modal_content_wrap}`}>
 				<Modal
 					id={"demo"}
 					open={
@@ -208,7 +224,7 @@ export default function EventsMiddleDescription({ data }) {
 					}
 				})}
 			</div>
-			{/* {data?.events?.promotionalBanner?.length > 0 && (
+			 {data?.events?.promotionalBanner?.length > 0 && (
 				<div className={`${styles.promotionalBanner} `}>
 					<Swiper
 						modules={[Autoplay]}
