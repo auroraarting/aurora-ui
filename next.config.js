@@ -79,6 +79,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: "/company/team",
+				destination: "/company/about",
+				permanent: true,
+			},
+			{
 				source: "/insights",
 				destination: "/resources/aurora-insights",
 				permanent: true,
