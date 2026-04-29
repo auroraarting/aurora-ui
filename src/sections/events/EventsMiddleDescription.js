@@ -54,7 +54,7 @@ export default function EventsMiddleDescription({ data }) {
 		<div className={`${styles.eventsMiddleDescription} `}>
 			{data?.content && (
 				<section
-					className={`${styles.contentBox}`}
+					className={`${styles.contentBox} pb_60`}
 					id="overview"
 					data-name="Overview"
 				>
