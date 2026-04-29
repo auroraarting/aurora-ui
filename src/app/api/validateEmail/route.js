@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
@@ -8,10 +9,7 @@ export async function POST(req) {
 		const { email } = await req.json();
 
 		if (!email) {
-			return NextResponse.json(
-				{ error: "Email is required" },
-				{ status: 400 }
-			);
+			return NextResponse.json({ error: "Email is required" }, { status: 400 });
 		}
 
 		const result = await validate(email);
@@ -25,7 +23,7 @@ export async function POST(req) {
 		console.error(error);
 		return NextResponse.json(
 			{ error: error.message || "Validation failed." },
-			{ status: 500 }
+			{ status: 500 },
 		);
 	}
 }
