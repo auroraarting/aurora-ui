@@ -3,7 +3,7 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Page */
 export const getAllEvents = async (filters = "first:9999") => {
 	const query = `
-query GetEvents {
+query GetEventsListing {
   events(${filters}) {
     nodes {
       translations{
@@ -349,7 +349,7 @@ query GetEventInside {
 export const getEventsInside = async (slug) => {
 	// eventBy(slug: "${decodeURIComponent(slug)}") {
 	const query = `
-query GetEventInside {
+query GetEventInsideNew {
   eventBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
