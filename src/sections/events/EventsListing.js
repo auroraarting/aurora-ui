@@ -534,7 +534,7 @@ export default function EventsListing({
 								OpenIframePopup(
 									"iframePopup",
 									item?.events?.thumbnail?.externalUrl ||
-										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 								);
 							};
 							if (item?.events?.thumbnail?.openExternalInNewTab) {
@@ -611,7 +611,7 @@ export default function EventsListing({
 												/>
 												<span className="text_uppercase">
 													{item?.events?.thumbnail?.country?.nodes?.map(
-														(item2) => item2.title
+														(item2) => item2.title,
 													)}
 												</span>
 											</p>

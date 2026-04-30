@@ -123,7 +123,7 @@ export default function EventsWrap({
 							}
 							formdata={dynamicInsightsBtnProps(
 								{ postFields: page },
-								"insightsSectionButton"
+								"insightsSectionButton",
 							)}
 						/>
 					</div>

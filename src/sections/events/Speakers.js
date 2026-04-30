@@ -218,14 +218,16 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 																				/>
 																				<span>{session.timeDateSession}</span>
 																			</p>
-																			<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
-																				<img
-																					src={location.src}
-																					className={`${styles.location}`}
-																					alt="location"
-																				/>
-																				<span>{session.locationSession}</span>
-																			</p>
+																			{session.locationSession && (
+																				<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
+																					<img
+																						src={location.src}
+																						className={`${styles.location}`}
+																						alt="location"
+																					/>
+																					<span>{session.locationSession}</span>
+																				</p>
+																			)}
 																		</div>
 																		<div className={`${styles.ClientFlex} f_r_a_center`}>
 																			<div className={`${styles.ClientLogo}`}>
