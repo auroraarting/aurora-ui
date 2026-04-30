@@ -49,8 +49,6 @@ export default function EventsInsideWrap({
 	pastEvents,
 }) {
 	const dataForBtn = { postFields: data?.events || {} };
-	console.log(data, "data in inside wrap");
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -119,6 +117,22 @@ export default function EventsInsideWrap({
 										<EventsGallery data={data} />
 									</div>
 								)}
+								{/* <Sponsors data={data} /> */}
+								{/* {data?.events?.sections?.map((item) => {
+									if (!item?.content) {
+											return <></>;
+										}
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+											className={`pt_50 ${styles.contentBox} contentBox`}
+										>
+											{parse(item?.content)}
+										</section>
+									);
+								})} */}
 								{data?.events?.glimps?.video && (
 									<div className="">
 										<EventInsideVideo data={data} />
