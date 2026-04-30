@@ -107,14 +107,16 @@ const WhyAttend = ({ data }) => {
 									{item?.title}
 								</h4>
 								<div className={`${styles.dateFlex} f_r_a_center pt_10`}>
-									<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
-										<img
-											src={location.src}
-											className={`${styles.location}`}
-											alt="clock"
-										/>
-										<span>{item?.address}</span>
-									</p>
+									{item?.address && (
+										<p className="text_xs f_w_m color_silver_gray text_uppercase f_r_a_center">
+											<img
+												src={location.src}
+												className={`${styles.location}`}
+												alt="clock"
+											/>
+											<span>{item?.address}</span>
+										</p>
+									)}
 									<p className="text_xs f_w_m color_silver_gray  f_r_a_center">
 										<img src={clock.src} className={`${styles.clock}`} alt="location" />
 										<span>{item?.timeSlot}</span>
