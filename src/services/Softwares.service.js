@@ -482,7 +482,7 @@ query GetPageSoftwares {
 /** Fetch Page */
 export const getSingleSoftwareByLanguage = async (slug, language) => {
 	const query = `
-query GetProductBySlug {
+query GetProductBySlug2 {
   countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
@@ -1287,14 +1287,14 @@ query GetProductBySlug {
 	});
 	let newRes =
 		res?.data?.softwareBy?.translations?.filter(
-			(countryItem) => countryItem.language.code === language
+			(countryItem) => countryItem.language.code === language,
 		)[0] || res?.data?.softwareBy;
 
 	if (res?.data?.softwareBy?.softwares?.ourClient?.testimonials?.nodes) {
 		newRes.softwares.ourClient.testimonials.nodes =
 			res?.data?.softwareBy.softwares.ourClient.testimonials.nodes.map((item) => {
 				const dataByLang = item.translations.filter(
-					(item2) => item2.language.language_code === language
+					(item2) => item2.language.language_code === language,
 				)?.[0];
 				return { ...item, ...dataByLang };
 			});
@@ -1307,7 +1307,7 @@ query GetProductBySlug {
 					featuredImage: {
 						node:
 							item?.featuredImage?.node?.translations?.filter(
-								(item2) => item2?.language.code === language
+								(item2) => item2?.language.code === language,
 							)?.[0] || item?.featuredImage?.node,
 					},
 				};
@@ -1322,7 +1322,7 @@ query GetProductBySlug {
 				}
 				let temp1 =
 					item?.translations?.filter(
-						(item2) => item2?.language?.language_code === language
+						(item2) => item2?.language?.language_code === language,
 					)?.[0] || [];
 				return {
 					...item,
@@ -1332,7 +1332,7 @@ query GetProductBySlug {
 							...item3,
 							// ...item2?.translations?.[0],
 							alternateName: item3?.translations?.filter(
-								(item4) => item4?.language?.language_code === language
+								(item4) => item4?.language?.language_code === language,
 							)?.[0]?.name,
 						})),
 					},
@@ -1346,10 +1346,10 @@ query GetProductBySlug {
 			res?.data?.softwareBy.softwares.caseStudy.selectCaseStudies.nodes.map(
 				(item) => {
 					const dataByLang = item.translations.filter(
-						(item2) => item2.language.language_code === language
+						(item2) => item2.language.language_code === language,
 					)?.[0];
 					return { ...item, ...dataByLang };
-				}
+				},
 			);
 	}
 	// newRes.data.softwareBy.softwares.caseStudy.selectCaseStudies.nodes =
