@@ -47,7 +47,9 @@ export default function TopEnergy({ data }) {
 							{/* {isCategory(allCategories, data?.podcastFields?.country?.nodes || [])} */}
 						</div>
 						<h2 className="text_lg color_white text_uppercase f_w_m pt_40">
-							<ContentFromCms>{formatTitleForEpisode(data?.title)}</ContentFromCms>
+							<ContentFromCms>
+								{formatTitleForEpisode(data?.title || "")}
+							</ContentFromCms>
 						</h2>
 						<div className={`${styles.dateFlex} f_r_a_center pt_30`}>
 							<p className="text_xs f_w_m color_medium_gray text_uppercase f_r_a_center">

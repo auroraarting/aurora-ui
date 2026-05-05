@@ -84,7 +84,7 @@ async function getData({ slug }) {
 			(item) =>
 				item?.slug !== data?.data?.podcastBy?.slug &&
 				new Date(item?.podcastFields?.date) <
-					new Date(data.data.podcastBy.podcastFields.date), // published before now
+					new Date(data.data.podcastBy?.podcastFields.date), // published before now
 		)
 		?.sort(
 			(a, b) =>

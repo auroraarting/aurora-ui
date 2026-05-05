@@ -1503,7 +1503,7 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 
 /** formatTitleForEpisode  */
 export function formatTitleForEpisode(title) {
-	return title.replace(/(EP\.\d+)/, '<span class="ep-label">$1</span>');
+	return title?.replace(/(EP\.\d+)/, '<span class="ep-label">$1</span>');
 }
 
 /** updateQueryFast  */

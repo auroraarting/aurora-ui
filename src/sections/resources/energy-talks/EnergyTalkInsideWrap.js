@@ -57,7 +57,7 @@ export default function EnergyTalkInsideWrap({
 	otherList,
 	socialLinks,
 }) {
-	const dataForBtn = { postFields: data.podcastFields || {} };
+	const dataForBtn = { postFields: data?.podcastFields || {} };
 
 	return (
 		<div>
