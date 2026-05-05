@@ -153,7 +153,7 @@ export const getGlobalPresencePage = async () => {
 /** Fetch Country Inside */
 export const getCountryInside = async (slug) => {
 	const query = `
-  query GetCountryInside {
+  query GetCountryInside2 {
   countryBy(slug: "${decodeURIComponent(slug)}") {
     featuredImage {
         node {
