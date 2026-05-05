@@ -120,7 +120,7 @@ query GetEarlyCareersLanding {
 /** About Page */
 export const getEarlyCareersListing = async (filters = "first: 99999") => {
 	const query = `
-query GetEarlyCareersListing {
+query GetEarlyCareersListing2 {
   earlyCareers(${filters}) {
     nodes {
       title
@@ -363,7 +363,7 @@ export const getEarlyCareersListingByRegions = async (
 	filters = "first: 999",
 ) => {
 	const query = `
-  query GetEarlyCareersList {
+  query GetEarlyCareersList2 {
     regions(${filters}) {
       nodes {
         name
