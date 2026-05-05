@@ -366,7 +366,7 @@ export default function Insights({
 	const defaultPathname = (categories) => {
 		if (categories && insightsLink.includes("/resources/aurora-insights/")) {
 			return `${insightsLink}${slugify(
-				isCategory(allCategories, categories, true)
+				isCategory(allCategories, categories, true),
 			)}/`;
 		}
 		if (insightsLink) {
@@ -386,7 +386,7 @@ export default function Insights({
 		if (language) {
 			resjson.data = resjson.data?.map((item) => {
 				let translationsFilter = item.translations.filter(
-					(item2) => item2?.languageCode === language
+					(item2) => item2?.languageCode === language,
 				)?.[0];
 				return {
 					...item,
@@ -776,7 +776,7 @@ export default function Insights({
 											OpenIframePopup(
 												"iframePopup",
 												item?.externalUrl ||
-													"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+													"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 											);
 										};
 										if (item.openExternalInNewTab) {
@@ -837,12 +837,12 @@ export default function Insights({
 															</span>
 														</p>
 													)}
-													{item.podcastFields?.country?.nodes && (
+													{item?.podcastFields?.country?.nodes && (
 														<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
 															<img src={white_location.src} alt="location" />
 															<span>
 																{item.podcastFields?.country?.nodes?.map(
-																	(item2) => item2.title
+																	(item2) => item2.title,
 																)}
 															</span>
 														</p>
