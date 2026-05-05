@@ -144,7 +144,7 @@ export const getGlobalPresencePage = async () => {
 /** Fetch Country Inside */
 export const getCountryInside = async (slug, language) => {
 	const query = `
- query GetCountryInsideByTranslation {
+ query GetCountryInsideByTranslation2 {
   countryBy(slug: "${decodeURIComponent(slug)}") {
     translations {
       slug
