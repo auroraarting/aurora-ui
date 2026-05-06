@@ -1,7 +1,8 @@
+import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
 
 /** Fetch Page */
-export const getAllEvents = async (filters = "first:9999") => {
+export const getAllEvents = cache(async (filters = "first:9999") => {
 	const query = `
 query GetEventsListing {
   events(${filters}) {
@@ -289,7 +290,7 @@ query GetEventsListing {
     `;
 	const res = await GraphQLAPI(query, { apiID: "event", pageID: "/events" });
 	return res;
-};
+});
 
 /** Fetch Page */
 export const getAllEventCategories = async () => {

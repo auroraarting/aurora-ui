@@ -32,6 +32,7 @@ import styles from "@/styles/sections/home/HomeBanner.module.scss";
 
 // IMAGES //
 import bannerGraph from "../../../public/img/home/banner-graph.png";
+import bannerBg from "../../../public/img/home/banner-bg.jpg";
 
 // DATA //
 
@@ -44,6 +45,17 @@ export default function HomeBanner() {
 
 	return (
 		<div className={styles.HomeBanner} aria-label="banner" title="banner">
+			<Image
+				src={bannerBg}
+				alt=""
+				fill
+				priority
+				fetchPriority="high"
+				quality={100}
+				sizes="100vw"
+				placeholder="blur"
+				className={styles.BannerBg}
+			/>
 			<div className={`${styles.BannerContentSection}`}>
 				<div className="container">
 					<Swiper

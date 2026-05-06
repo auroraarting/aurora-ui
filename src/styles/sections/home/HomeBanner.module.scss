@@ -1,12 +1,17 @@
 .HomeBanner {
-	background-image: url("../../../../public/img/home/banner-bg.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
+	position: relative;
+	overflow: hidden;
 	@media (max-width: 767px) {
 		padding-bottom: 80px;
 	}
+	.BannerBg {
+		// object-fit: cover;
+		// z-index: 1;
+	}
 	.BannerContentSection {
-		transform: translateX(-15px);
+		position: relative;
+		z-index: 1;
+		// transform: translateX(-15px);
 		:global(.swiper-slide) {
 			margin-left: 0;
 			padding-left: 15px;
@@ -48,6 +53,7 @@
 
 				@media (max-width: 767px) {
 					width: 100%;
+					min-height: 195px;
 				}
 			}
 			.BannerImg {

@@ -5,17 +5,16 @@ const nextConfig = {
 	swcMinify: true,
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
-	// experimental: {
-	// 	dynamicIO: true,
-	// },
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	images: {
+		formats: ["image/avif", "image/webp"],
 		domains: [
 			"img.youtube.com",
 			"aurora-staging.mystagingwebsite.com",
 			"cms-production.auroraer.com",
 			"i.vimeocdn.com",
 		],
+		minimumCacheTTL: 3600,
 	},
 	async headers() {
 		return [
