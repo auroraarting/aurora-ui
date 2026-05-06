@@ -16,6 +16,21 @@ import { getAllEvents } from "@/services/Events.service";
 import Script from "next/script";
 import { getWebinars } from "@/services/Webinar.service";
 import { GTM_ID } from "@/lib/tags";
+import { Inter, Lato } from "next/font/google";
+
+export const inter = Inter({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"],
+	display: "swap",
+	variable: "--font_primary",
+});
+
+export const lato = Lato({
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	display: "swap",
+	variable: "--font_secondary",
+});
 
 /** Meta Data */
 export const metadata = {
@@ -124,7 +139,7 @@ export default async function RootLayout({ children }) {
 					})(window, document, "clarity", "script", "s5h7yx11f3");`}
 				</Script>
 			</head>
-			<body>
+			<body className={`${inter.variable} ${lato.variable}`}>
 				<noscript>
 					<iframe
 						src="https://www.googletagmanager.com/ns.html?id=GTM-T74CK9L2"
