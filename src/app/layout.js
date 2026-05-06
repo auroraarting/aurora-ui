@@ -1,11 +1,10 @@
-export const revalidate = 30; // Revalidates every 86400 seconds
+export const revalidate = 3600; // Revalidates every 1 hour
 
 import "@/styles/globals/globals.scss";
 import { GlobalContext } from "@/context/GlobalContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HighlightSearched from "@/components/HighlightSearched";
-import "@/styles/globals/globals.scss";
 import {
 	fetchHeader,
 	fetchNavigationData,
@@ -69,8 +68,22 @@ export default async function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<head>
+				{/* Preconnect to key third-party origins */}
+				<link rel="preconnect" href="https://www.googletagmanager.com" />
+				<link
+					rel="preconnect"
+					href="https://i.vimeocdn.com"
+					crossOrigin="anonymous"
+				/>
+				<link
+					rel="preconnect"
+					href="https://fonts.gstatic.com"
+					crossOrigin="anonymous"
+				/>
+				<link rel="preconnect" href="https://cdn-cookieyes.com" />
+
 				{/* Google Tag Manager */}
-				<Script id="google-tag-manager" strategy="beforeInteractive">
+				<Script id="google-tag-manager" strategy="afterInteractive">
 					{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -80,12 +93,12 @@ export default async function RootLayout({ children }) {
 				</Script>
 				{/* End Google Tag Manager */}
 
-				<Script id="linkedin-insight" strategy="beforeInteractive">
+				<Script id="linkedin-insight" strategy="afterInteractive">
 					{`_linkedin_partner_id = "6679418"; window._linkedin_data_partner_ids =
 					window._linkedin_data_partner_ids || [];
 					window._linkedin_data_partner_ids.push(_linkedin_partner_id);`}
 				</Script>
-				<Script id="linkedin-insight-tag" strategy="beforeInteractive">
+				<Script id="linkedin-insight-tag" strategy="afterInteractive">
 					{`(function(l) {
                         if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
                         window.lintrk.q=[]}
