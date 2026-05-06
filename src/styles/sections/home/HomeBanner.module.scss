@@ -40,6 +40,14 @@
 				margin: auto 0;
 				background-color: var(--color_black);
 				position: relative;
+				.PlayBtn {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					z-index: 3;
+					pointer-events: none;
+				}
 
 				.BannerPoster {
 					position: absolute;
