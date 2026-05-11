@@ -64,6 +64,36 @@ export default function EventsMiddleDescription({ data }) {
 			{data?.events?.hightlights?.hightlights && (
 				<Hightlights data={data?.events?.hightlights} />
 			)} */}
+			<div className={`${styles.modal_content_wrap}`}>
+				<Modal
+					id={"demo"}
+					open={
+						data.events?.landingPopup?.text || data.events?.landingPopup?.banner
+							? true
+							: false
+					}
+				>
+					{data.events?.landingPopup?.banner?.node?.mediaItemUrl && (
+						<picture>
+							<source
+								srcSet={data.events?.landingPopup?.banner?.node?.mediaItemUrl}
+								alt="Promotional Banner"
+								media="(min-width:767px)"
+							/>
+							<img
+								src={data.events?.landingPopup?.bannerMobile?.node?.mediaItemUrl}
+								alt="Promotional Banner"
+								className={`${styles.vimeoBanner}`}
+							/>
+						</picture>
+					)}
+					{data.events?.landingPopup?.text && (
+						<div className={`${styles.modal_content}`}>
+							<p className="color_white">{data.events?.landingPopup?.text}</p>
+						</div>
+					)}
+				</Modal>
+			</div>
 			<div className="">
 				{sectionsKeys?.map(([key, value]) => {
 					if (key === "speakers") {
