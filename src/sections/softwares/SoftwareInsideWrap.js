@@ -62,7 +62,7 @@ export default function SoftwareInsideWrap({
 	} = useContextProvider();
 	const dataForBtn = { postFields: data || {} };
 
-	console.log(data, "data?.showTranslation");
+	console.log(selectedAllLanguages, "data?.showTranslation");
 	useEffect(() => {
 		setLanguage(language);
 		setAllLanguage(selectedAllLanguages);

@@ -4,7 +4,7 @@ import GraphQLAPI from "./Graphql.service";
 /** Fetch Page */
 export const getSingleSoftware = async (slug) => {
 	const query = `
-query GetProductBySlug {
+query GetProductBySlug2 {
   countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title
@@ -1341,7 +1341,7 @@ query GetProductBySlug2 {
 		};
 	}
 
-	if (res?.data?.softwareBy?.softwares?.caseStudy.selectCaseStudies.nodes) {
+	if (res?.data?.softwareBy?.softwares?.caseStudy?.selectCaseStudies?.nodes) {
 		newRes.softwares.caseStudy.selectCaseStudies.nodes =
 			res?.data?.softwareBy.softwares.caseStudy.selectCaseStudies.nodes.map(
 				(item) => {
