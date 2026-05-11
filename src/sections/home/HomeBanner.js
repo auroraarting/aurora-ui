@@ -32,18 +32,31 @@ import styles from "@/styles/sections/home/HomeBanner.module.scss";
 
 // IMAGES //
 import bannerGraph from "../../../public/img/home/banner-graph.png";
+import bannerBg from "../../../public/img/home/banner-bg.jpg";
 
 // DATA //
 
 /** HomeBanner Section */
 export default function HomeBanner() {
 	const [vimeoLoaded, setVimeoLoaded] = useState(false);
+	const [showVimeo, setShowVimeo] = useState(true);
 	const lottieAnimations = [
 		{ id: "1", src: "/img/home/lottie/bannerRightSide.json" },
 	];
 
 	return (
 		<div className={styles.HomeBanner} aria-label="banner" title="banner">
+			<Image
+				src={bannerBg}
+				alt=""
+				fill
+				priority
+				fetchPriority="high"
+				quality={100}
+				sizes="100vw"
+				placeholder="blur"
+				className={styles.BannerBg}
+			/>
 			<div className={`${styles.BannerContentSection}`}>
 				<div className="container">
 					<Swiper
@@ -84,7 +97,11 @@ export default function HomeBanner() {
 										</a>
 									</div>
 								</div>
-								<div className={`${styles.VimeoBanner}`}>
+								<div
+									className={`${styles.VimeoBanner}`}
+									onClick={() => setShowVimeo(true)}
+									style={{ cursor: showVimeo ? "default" : "pointer" }}
+								>
 									{!vimeoLoaded && (
 										<Image
 											src="https://i.vimeocdn.com/video/1751040853-d4ba16e4940230f76e62bbfc80a99b9cbced1d76f3c9d24207a563c6a4deb979-d_640?region=us"
@@ -95,14 +112,26 @@ export default function HomeBanner() {
 											fetchPriority="high"
 										/>
 									)}
+									{!showVimeo && (
+										<div className={styles.PlayBtn}>
+											<Image
+												src="/img/icons/video_play.svg"
+												alt="Play"
+												width={60}
+												height={60}
+											/>
+										</div>
+									)}
 									{/* https://vimeo.com/api/v2/video/882811837.json */}
-									<Vimeo
-										video="882811837"
-										width="100%"
-										autoplay={false}
-										responsive
-										onReady={() => setVimeoLoaded(true)}
-									/>
+									{showVimeo && (
+										<Vimeo
+											video="882811837"
+											width="100%"
+											// autoplay={true}
+											responsive
+											onReady={() => setVimeoLoaded(true)}
+										/>
+									)}
 								</div>
 							</div>
 						</SwiperSlide>

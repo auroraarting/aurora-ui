@@ -2,6 +2,7 @@
 "use client";
 // MODULES //
 import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 // COMPONENTS //
 
@@ -35,6 +36,7 @@ export default function GlobalMap({
 	const [mapCenter, setMapCenter] = useState(locationJson[0]?.centerOfCountry);
 	const [valueOfSelect, setValueOfSelect] = useState(0);
 	const [map, setMap] = useState(null);
+	const { ref: sectionRef, inView } = useInView({ triggerOnce: true, rootMargin: "300px" });
 
 	const [marqueeSpeed, setMarqueeSpeed] = useState(200);
 
@@ -62,6 +64,7 @@ export default function GlobalMap({
 
 	return (
 		<section
+			ref={sectionRef}
 			className={`${styles.globalMap} section_spacing ${className}`}
 			id={slugify(sectionName)}
 			data-name={translatedSectionName || sectionName}
@@ -78,16 +81,18 @@ export default function GlobalMap({
 			</Marquee>
 
 			<div className="">
-				<Map
-					mapCenter={mapCenter}
-					setValueOfSelect={setValueOfSelect}
-					valueOfSelect={valueOfSelect}
-					map={map}
-					setMap={setMap}
-					defaultZoom={defaultZoom || 2.5}
-					locationJson={locationJson}
-					hideOnHover={hideOnHover}
-				/>
+				{inView && (
+					<Map
+						mapCenter={mapCenter}
+						setValueOfSelect={setValueOfSelect}
+						valueOfSelect={valueOfSelect}
+						map={map}
+						setMap={setMap}
+						defaultZoom={defaultZoom || 2.5}
+						locationJson={locationJson}
+						hideOnHover={hideOnHover}
+					/>
+				)}
 			</div>
 			{/* </div> */}
 		</section>

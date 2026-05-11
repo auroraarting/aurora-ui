@@ -482,7 +482,7 @@ query GetPageSoftwares {
 /** Fetch Page */
 export const getSingleSoftwareByLanguage = async (slug, language) => {
 	const query = `
-query GetProductBySlug {
+query GetProductBySlug2 {
   countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       title

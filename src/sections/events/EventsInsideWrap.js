@@ -49,8 +49,6 @@ export default function EventsInsideWrap({
 	pastEvents,
 }) {
 	const dataForBtn = { postFields: data?.events || {} };
-	console.log(data, "data in inside wrap");
-
 	return (
 		<div>
 			{/* Metatags */}
@@ -95,7 +93,7 @@ export default function EventsInsideWrap({
 						<div className={`${styles.eventsMiddleFlex} f_j`}>
 							<div className={`${styles.eventsMiddleLeft}`}>
 								<EventsMiddleDescription data={data} />
-								<Sponsors data={data} />
+								{/* <Sponsors data={data} />
 								{data?.events?.sections?.map((item) => {
 									if (!item?.content) {
 										return <></>;
@@ -118,12 +116,28 @@ export default function EventsInsideWrap({
 									<div className="">
 										<EventsGallery data={data} />
 									</div>
-								)}
-								{data?.events?.glimps?.video && (
+								)} */}
+								{/* <Sponsors data={data} /> */}
+								{/* {data?.events?.sections?.map((item) => {
+									if (!item?.content) {
+											return <></>;
+										}
+									return (
+										<section
+											key={item?.sectionTitle}
+											id={slugify(item?.sectionTitle)}
+											data-name={item?.sectionTitle}
+											className={`pt_50 ${styles.contentBox} contentBox`}
+										>
+											{parse(item?.content)}
+										</section>
+									);
+								})} */}
+								{/* {data?.events?.glimps?.video && (
 									<div className="">
 										<EventInsideVideo data={data} />
 									</div>
-								)}
+								)} */}
 							</div>
 							<div className={`${styles.eventsMiddleRight}`}>
 								<EventsMiddleRight data={data} events={eventsOriginal} />
@@ -136,7 +150,7 @@ export default function EventsInsideWrap({
 						<AudienceBreakdown data={data} />
 					</div>
 				)}
-				{data?.events?.speakers?.speakers && (
+				{/* {data?.events?.speakers?.speakers && (
 					<div className="pb_40">
 						<Speakers
 							data={data?.events?.speakers?.speakers}
@@ -144,7 +158,7 @@ export default function EventsInsideWrap({
 							desc={data?.events?.speakers?.sectionDesc}
 						/>
 					</div>
-				)}
+				)} */}
 				{data?.events?.downloads && (
 					<div className="pb_60">
 						<DownloadList data={data} />

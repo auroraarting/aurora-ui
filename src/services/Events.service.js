@@ -1,9 +1,10 @@
+import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
 
 /** Fetch Page */
-export const getAllEvents = async (filters = "first:9999") => {
+export const getAllEvents = cache(async (filters = "first:9999") => {
 	const query = `
-query GetEvents {
+query GetEventsListing {
   events(${filters}) {
     nodes {
       translations{
@@ -289,7 +290,7 @@ query GetEvents {
     `;
 	const res = await GraphQLAPI(query, { apiID: "event", pageID: "/events" });
 	return res;
-};
+});
 
 /** Fetch Page */
 export const getAllEventCategories = async () => {
@@ -349,7 +350,7 @@ query GetEventInside {
 export const getEventsInside = async (slug) => {
 	// eventBy(slug: "${decodeURIComponent(slug)}") {
 	const query = `
-query GetEventInside {
+query GetEventInsideNew {
   eventBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug

@@ -101,7 +101,7 @@ export default async function HomePage() {
 		console.log(error, "Error");
 	}
 
-	if (errorMsg) return <div>{errorMsg}</div>;
+	// if (errorMsg) return <div>{errorMsg}</div>;
 
 	return (
 		<div>

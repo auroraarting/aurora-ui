@@ -28,9 +28,10 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	/** scrollToSection */
 	const scrollToSection = (id) => {
 		if (id === "#agenda") {
-			// document.querySelector(".agenda_btn").click();
+			document.querySelector(".agenda_btn").click();
 			console.log("agenda clicked", "item");
 		}
+
 		/** removeStartingHash  */
 		function removeStartingHash(str) {
 			return str.startsWith("#") ? str?.slice(1) : str;
@@ -40,14 +41,13 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 			smooth: true,
 			offset: -230,
 			spy: true,
-			// onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 		});
 		window.history.pushState(null, "", id); // <- Adds hash to URL
 	};
 
 	/**  */
 	const handleItemClick = (item) => {
-		console.log(item, "clicked item");
 		if (item?.id) {
 			document.querySelector(item.id)?.scrollIntoView({ behavior: "smooth" });
 		}
@@ -149,7 +149,7 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 					smooth: true,
 					offset: -200,
 					spy: true,
-					// onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
+					onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 				});
 			}, 500); // Wait a bit to ensure sections are mounted
 		}

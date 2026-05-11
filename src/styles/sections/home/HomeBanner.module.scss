@@ -1,12 +1,17 @@
 .HomeBanner {
-	background-image: url("../../../../public/img/home/banner-bg.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
+	position: relative;
+	overflow: hidden;
 	@media (max-width: 767px) {
 		padding-bottom: 80px;
 	}
+	.BannerBg {
+		// object-fit: cover;
+		// z-index: 1;
+	}
 	.BannerContentSection {
-		transform: translateX(-15px);
+		position: relative;
+		z-index: 1;
+		// transform: translateX(-15px);
 		:global(.swiper-slide) {
 			margin-left: 0;
 			padding-left: 15px;
@@ -35,6 +40,14 @@
 				margin: auto 0;
 				background-color: var(--color_black);
 				position: relative;
+				.PlayBtn {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					z-index: 3;
+					pointer-events: none;
+				}
 
 				.BannerPoster {
 					position: absolute;
@@ -48,6 +61,7 @@
 
 				@media (max-width: 767px) {
 					width: 100%;
+					min-height: 195px;
 				}
 			}
 			.BannerImg {
