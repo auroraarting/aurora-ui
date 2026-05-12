@@ -56,13 +56,22 @@
 			@media (max-width: 1199px) {
 				padding: 10px 10px;
 			}
+			a {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+			}
 			&:first-child {
 				// padding-left: 0px;
 				justify-content: flex-start;
 			}
 			img {
+				object-fit: contain;
+				height: 100%;
 				margin: 0 auto;
 				border-radius: 8px;
+				background-color: white;
 			}
 		}
 	}
@@ -162,12 +171,15 @@
 	.BoxFlex {
 		position: relative;
 		.Imgthumbnail {
-			width: 50%;
+			// max-width: 30%;
 			height: 400px;
 			position: relative;
 
 			img {
 				background-color: white;
+				width: 155px;
+				height: 155px;
+				object-fit: contain;
 			}
 
 			button {
