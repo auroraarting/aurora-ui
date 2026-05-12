@@ -610,9 +610,9 @@ export default function EventsListing({
 													alt="location"
 												/>
 												<span className="text_uppercase">
-													{item?.events?.thumbnail?.country?.nodes?.map(
-														(item2) => item2.title,
-													)}
+													{item?.events?.thumbnail?.country?.nodes
+														?.map((item2) => item2.title)
+														.join(", ")}
 												</span>
 											</p>
 										</div>
