@@ -77,6 +77,7 @@ export async function generateStaticParams() {
 
 		languages?.data?.languages?.nodes?.forEach((lang) => {
 			const language = lang?.code || "en";
+			if (language === "ko" && slug === "japan") return;
 			staticParams.push({ slug, language });
 		});
 	});
@@ -238,6 +239,7 @@ async function getData({ params, query }) {
 	];
 	languages?.data?.languages?.map((item) => {
 		countryTranslations?.filter((item2) => {
+			if (item?.language_code === "ko" && params.slug === "japan") return;
 			if (item2.languageCode === item?.language_code) {
 				let title = item?.translated_name;
 				if (item?.native_name) {
