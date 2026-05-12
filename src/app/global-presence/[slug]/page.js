@@ -127,6 +127,8 @@ async function getData({ params, query }) {
 	];
 	languages?.data?.languages?.map((item) => {
 		countryTranslations?.filter((item2) => {
+			if (item?.language_code === "ko" && params.slug === "japan") return; // Skip Ko for Japan as it's already added
+
 			if (item2.languageCode === item?.language_code) {
 				let title = item?.translated_name;
 				if (item?.native_name) {
