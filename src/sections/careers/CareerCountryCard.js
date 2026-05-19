@@ -119,12 +119,12 @@ export default function CareerCountryCard({
 		const sortedArr1 = [...filteredArr]
 			.filter((item) => item?.earlyCareers?.thumbnail?.islive)
 			.sort((a, b) =>
-				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
+				a?.earlyCareers?.banner?.city?.localeCompare(b?.earlyCareers?.banner?.city),
 			);
 		const sortedArr2 = [...filteredArr]
 			.filter((item) => !item?.earlyCareers?.thumbnail?.islive)
 			.sort((a, b) =>
-				a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
+				a?.earlyCareers?.banner?.city?.localeCompare(b?.earlyCareers?.banner?.city),
 			);
 		const sortedArr = [...sortedArr1, ...sortedArr2];
 		setFilteredData(sortedArr);
