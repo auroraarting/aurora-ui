@@ -89,12 +89,12 @@ export default function EarlyCareersWrap({
 	const sortedArr1 = [...data]
 		.filter((item) => item?.earlyCareers?.thumbnail?.islive)
 		.sort((a, b) =>
-			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
+			a?.earlyCareers?.banner?.city?.localeCompare(b?.earlyCareers?.banner?.city),
 		);
 	const sortedArr2 = [...data]
 		.filter((item) => !item?.earlyCareers?.thumbnail?.islive)
 		.sort((a, b) =>
-			a.earlyCareers.banner.city.localeCompare(b.earlyCareers.banner.city),
+			a?.earlyCareers?.banner?.city?.localeCompare(b?.earlyCareers?.banner?.city),
 		);
 	const sortedArr = [...sortedArr1, ...sortedArr2];
 
