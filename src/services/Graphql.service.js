@@ -1,5 +1,24 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
+import { proxyMediaUrl } from "@/utils";
 // import memoizedFetch from "@/lib/memoizedFetch";
+
+/** Recursively replace all WordPress upload URLs in a GraphQL response object */
+function proxyAllMediaUrls(obj) {
+	if (!obj || typeof obj !== "object") return obj;
+	if (Array.isArray(obj)) return obj.map(proxyAllMediaUrls);
+	const result = {};
+	for (const key of Object.keys(obj)) {
+		const val = obj[key];
+		if (typeof val === "string") {
+			result[key] = proxyMediaUrl(val);
+		} else if (typeof val === "object") {
+			result[key] = proxyAllMediaUrls(val);
+		} else {
+			result[key] = val;
+		}
+	}
+	return result;
+}
 
 /** fetchWithRetry  */
 async function fetchWithRetry(url, options = {}, retries = 3, delay = 5000) {
@@ -30,7 +49,7 @@ export default async function GraphQLAPI(query, dataObj) {
 	// 	});
 	// 	res = await req.json();
 	// 	// res = req;
-	// 	return res;
+	// 	return proxyAllMediaUrls(res);
 	// } catch (error) {
 	// 	// req = await req.text();
 	// 	console.log(error, req, "errror");
@@ -69,7 +88,7 @@ export default async function GraphQLAPI(query, dataObj) {
 		// console.log(
 		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
 		// );
-		return res;
+		return proxyAllMediaUrls(res);
 	} catch (error) {
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
@@ -101,7 +120,7 @@ export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
 			next: { revalidate: 1800 },
 		});
 		res = await req.json();
-		return res;
+		return proxyAllMediaUrls(res);
 	} catch (error) {
 		// req = await req.text();
 		console.log(error, req, "errror");
@@ -128,7 +147,7 @@ export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
 			next: { revalidate: 1800 }, // 30 minutes
 		});
 		res = await req.json();
-		return res;
+		return proxyAllMediaUrls(res);
 	} catch (error) {
 		// req = await req.text();
 		console.log(error, req, "errror");
