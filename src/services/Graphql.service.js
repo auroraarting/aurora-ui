@@ -64,7 +64,7 @@ export default async function GraphQLAPI(query, dataObj) {
 		const stagingDataObj = {
 			...dataObj,
 			apiID: `${dataObj.apiID}`,
-			pageID: `2staging${dataObj.pageID}`,
+			pageID: `newstaging${dataObj.pageID}`,
 		};
 		const data = {
 			url: `${process.env.API_URL}`,
