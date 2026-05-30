@@ -32,7 +32,7 @@ import {
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {

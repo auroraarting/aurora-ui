@@ -29,7 +29,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	const scrollToSection = (id) => {
 		if (id === "#agenda") {
 			document.querySelector(".agenda_btn").click();
-			console.log("agenda clicked", "item");
 		}
 
 		/** removeStartingHash  */
@@ -41,7 +40,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 			smooth: true,
 			offset: -230,
 			spy: true,
-			onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 		});
 		window.history.pushState(null, "", id); // <- Adds hash to URL
 	};
@@ -149,7 +147,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 					smooth: true,
 					offset: -200,
 					spy: true,
-					onEnd: () => console.log("Scrolling finished!"), // ❌ Not available directly
 				});
 			}, 500); // Wait a bit to ensure sections are mounted
 		}

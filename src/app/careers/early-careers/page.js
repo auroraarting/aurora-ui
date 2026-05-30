@@ -1,7 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -47,7 +46,7 @@ import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata() {
@@ -165,8 +164,6 @@ export default async function EarlyCareers() {
 
 			return obj;
 		});
-
-	console.log(careersRegions, "careersRegions");
 
 	return (
 		<div>

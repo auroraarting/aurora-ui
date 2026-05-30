@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const revalidate = 3600;
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
