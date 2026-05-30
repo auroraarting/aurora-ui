@@ -5,7 +5,6 @@ import redisClient from "@/lib/redis";
 export async function GET(req, res) {
 	try {
 		const data = await redisClient.get(`getInsights:{"filterString":""}`);
-		console.log(data);
 		return Response.json(JSON.parse(data));
 	} catch (error) {
 		console.error("Error fetching search results:", error);
