@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const services = await getHowWeHelps();
-	return services.data.howWeHelps.nodes.map((item) => ({
+	return services?.data?.howWeHelps?.nodes?.map((item) => ({
 		slug: item.slug,
 	}));
 }
