@@ -1501,6 +1501,23 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 	}
 };
 
+const WP_UPLOAD_BASES = [
+	{ base: "https://cms-production.auroraer.com/wp-content/uploads", env: "production" },
+	{ base: "https://cms-staging.auroraer.com/wp-content/uploads", env: "staging" },
+	{ base: "https://aurora-staging.mystagingwebsite.com/wp-content/uploads", env: "staging" },
+];
+
+/** proxyMediaUrl — rewrites WordPress upload URLs to the local /cms-assets/{env}/ proxy path */
+export function proxyMediaUrl(url) {
+	if (!url || typeof url !== "string") return url;
+	for (const { base, env } of WP_UPLOAD_BASES) {
+		if (url.startsWith(base)) {
+			return `/cms-assets/${env}` + url.slice(base.length);
+		}
+	}
+	return url;
+}
+
 /** formatTitleForEpisode  */
 export function formatTitleForEpisode(title) {
 	return title?.replace(/(EP\.\d+)/, '<span class="ep-label">$1</span>');
