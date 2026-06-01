@@ -39,7 +39,7 @@ function proxyAllMediaUrls(obj) {
 
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
- *  Runtime cache: Next.js ISR revalidates every 30 seconds.
+ *  Runtime cache: Next.js ISR revalidates every 1 hour.
  *  dataObj param is accepted but unused — kept so callers need no changes.
  */
 export default async function GraphQLAPI(query) {
