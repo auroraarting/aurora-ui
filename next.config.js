@@ -7,7 +7,10 @@ const nextConfig = {
 	swcMinify: true,
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
-	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
+	staticPageGenerationTimeout: 1000,
+	sassOptions: {
+		silenceDeprecations: ["import"],
+	},
 	images: {
 		formats: ["image/avif", "image/webp"],
 		domains: [
