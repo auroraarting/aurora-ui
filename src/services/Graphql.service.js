@@ -104,6 +104,7 @@ export async function GraphQLAPI(query, dataObj) {
 			body: JSON.stringify({ ...data }),
 		});
 		res = await req.json();
+		console.log(res, "res");
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
 		// console.log(
