@@ -2,6 +2,7 @@
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
+export const revalidate = 3600; // Revalidates every 1 hour
 
 // MODULES //
 
