@@ -1,16 +1,11 @@
 /* eslint-disable no-sparse-arrays */
 /** @type {import('next').NextConfig} */
-
-
 const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
-	staticPageGenerationTimeout: 1000,
-	sassOptions: {
-		silenceDeprecations: ["import"],
-	},
+	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	images: {
 		formats: ["image/avif", "image/webp"],
 		domains: [
@@ -3828,20 +3823,6 @@ const nextConfig = {
 				source: "/resources/energy-talks/:path*",
 				destination: "/resources/energy-unplugged/:path*",
 				permanent: true,
-			},
-		];
-	},
-	async rewrites() {
-		return [
-			{
-				source: "/cms-assets/production/:path*",
-				destination:
-					"https://cms-production.auroraer.com/wp-content/uploads/:path*",
-			},
-			{
-				source: "/cms-assets/staging/:path*",
-				destination:
-					"https://cms-staging.auroraer.com/wp-content/uploads/:path*",
 			},
 		];
 	},
