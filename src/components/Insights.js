@@ -481,6 +481,8 @@ export default function Insights({
 		}
 	};
 
+	console.log(data?.data, "data?.data");
+
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
 	}, [data]);
@@ -767,91 +769,95 @@ export default function Insights({
 								</a>
 							</div>
 							<div className={`${styles.insightsItemFlex} d_f m_t_30`}>
-								{data?.data?.slice(0, 3)?.map((item, ind) => {
-									let hrefObj = {};
-									if (item?.externalUrl) {
-										hrefObj.href = item?.externalUrl;
-										hrefObj.onClick = (e) => {
-											e?.preventDefault(); // Prevent navigation
-											OpenIframePopup(
-												"iframePopup",
-												item?.externalUrl ||
-													"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
-											);
-										};
-										if (item.openExternalInNewTab) {
-											delete hrefObj.onClick;
-											hrefObj.target = "_blank"; // Open in new tab
-											hrefObj.rel = "noopener noreferrer"; // Security best practice
+								{data?.data
+									?.filter((i) => i?.date)
+									.slice(0, 3)
+									?.map((item, ind) => {
+										let hrefObj = {};
+										if (item?.externalUrl) {
+											hrefObj.href = item?.externalUrl;
+											hrefObj.onClick = (e) => {
+												e?.preventDefault(); // Prevent navigation
+												OpenIframePopup(
+													"iframePopup",
+													item?.externalUrl ||
+														"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
+												);
+											};
+											if (item.openExternalInNewTab) {
+												delete hrefObj.onClick;
+												hrefObj.target = "_blank"; // Open in new tab
+												hrefObj.rel = "noopener noreferrer"; // Security best practice
+											}
+										} else {
+											hrefObj.href = `${defaultPathname(item?.categories?.nodes)}${
+												item?.slug
+											}`;
 										}
-									} else {
-										hrefObj.href = `${defaultPathname(item?.categories?.nodes)}${
-											item?.slug
-										}`;
-									}
-									return (
-										<Link
-											{...hrefObj}
-											// href={`${defaultPathname(item?.categories?.nodes)}${item?.slug}`}
-											className={`${styles.ItemBox} boxH`}
-											key={item?.title}
-										>
-											<div className={`${styles.hoverBox}`}>
-												<img
-													height={179}
-													width={446}
-													src={hoverBg.src}
-													className={`${styles.hoverBg} width_100 b_r_10`}
-													alt="img"
-												/>
-												{(isCategory(allCategories, item?.categories?.nodes) || allTag) && (
-													<p
-														className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
-													>
-														{allTag ||
-															isCategory(allCategories, item?.categories?.nodes, language)}
-													</p>
-												)}
+										return (
+											<Link
+												{...hrefObj}
+												// href={`${defaultPathname(item?.categories?.nodes)}${item?.slug}`}
+												className={`${styles.ItemBox} boxH`}
+												key={item?.title}
+											>
+												<div className={`${styles.hoverBox}`}>
+													<img
+														height={179}
+														width={446}
+														src={hoverBg.src}
+														className={`${styles.hoverBg} width_100 b_r_10`}
+														alt="img"
+													/>
+													{(isCategory(allCategories, item?.categories?.nodes) ||
+														allTag) && (
+														<p
+															className={`${styles.categoryTxt} text_xs color_medium_gray text_uppercase`}
+														>
+															{allTag ||
+																isCategory(allCategories, item?.categories?.nodes, language)}
+														</p>
+													)}
 
-												<p
-													className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
-												>
-													{item?.customHtmlForTitle ? (
-														<ContentFromCms>{item?.title}</ContentFromCms>
-													) : (
-														item?.title
-													)}
-												</p>
-												<div className={`${styles.dateFlex} f_j pt_30`}>
-													<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-														<img src={white_calendar.src} alt="calendar" />
-														<span>
-															{formatDate(item?.date || item?.presses?.banner?.date)}
-														</span>
+													<p
+														className={`${styles.descTxt} text_reg color_platinum_gray pt_10`}
+													>
+														{item?.customHtmlForTitle ? (
+															<ContentFromCms>{item?.title}</ContentFromCms>
+														) : (
+															item?.title
+														)}
 													</p>
-													{isCategory(data?.countries, item?.categories?.nodes) && (
+													<div className={`${styles.dateFlex} f_j pt_30`}>
 														<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-															<img src={white_location.src} alt="location" />
+															<img src={white_calendar.src} alt="calendar" />
 															<span>
-																{isCategory(data?.countries, item?.categories?.nodes)}
+																{formatDate(item?.date || item?.presses?.banner?.date)}
 															</span>
 														</p>
-													)}
-													{item?.podcastFields?.country?.nodes && (
-														<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
-															<img src={white_location.src} alt="location" />
-															<span>
-																{item.podcastFields?.country?.nodes?.map(
-																	(item2) => item2.title,
-																)}
-															</span>
-														</p>
-													)}
+														{isCategory(data?.countries, item?.categories?.nodes) && (
+															<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+																<img src={white_location.src} alt="location" />
+																<span>
+																	{isCategory(data?.countries, item?.categories?.nodes)}
+																</span>
+															</p>
+														)}
+														{item?.podcastFields?.country?.nodes && (
+															<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+																<img src={white_location.src} alt="location" />
+																<span>
+																	{item.podcastFields?.country?.nodes?.map(
+																		(item2) => item2.title,
+																	)}
+																</span>
+															</p>
+														)}
+													</div>
 												</div>
-											</div>
-										</Link>
-									);
-								})}
+											</Link>
+										);
+									})}
 							</div>
 						</div>
 					)}
