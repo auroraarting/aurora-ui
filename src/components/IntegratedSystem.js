@@ -117,7 +117,7 @@ export default function IntegratedSystem({
 								? parse(desc || "")
 								: `Aurora empowers you to analyse power markets and assets with
 							unprecedented sophistication, ease, and portability, helping you build an
-							edge in a crowded market. Our{" "}
+							edge in a crowded market. Our 
 							${module === "softwares" ? "software" : "product"} delivers precision
 							analytics for complex energy systems.`}
 						</p>
