@@ -131,6 +131,12 @@ export default async function RootLayout({ children }) {
 					src="https://cdn-cookieyes.com/client_data/c6fa123059758f90cec26dbf/script.js"
 				/> */}
 
+				<Script
+					id="cookieyes"
+					strategy="beforeInteractive"
+					src="https://cdn-cookieyes.com/client_data/f971c92b2c14539965d855b5d1b92158/script.js"
+				/>
+
 				<Script id="ms-clarity" strategy="afterInteractive">
 					{`(function(c,l,a,r,i,t,y){
 						c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
