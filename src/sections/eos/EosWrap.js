@@ -99,9 +99,11 @@ export default function EOSPageWrap({
 					}
 				/>
 				{data?.introduction && <Introduction data={data?.introduction} />}
-				<div className="pb_100">
-					<EOSAI />
-				</div>
+				{data?.eosAi && (
+					<div className="pb_100">
+						<EOSAI data={data?.eosAi} />
+					</div>
+				)}
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>

@@ -484,14 +484,20 @@ export default function GlobalPresenceInsideWrap({
 							/>
 						</div>
 					</div>
-					{/* <EosIntegratedSystem
-						data={data?.countries?.integratedEnergy}
-						name={data?.countries?.integratedEnergy?.tabTitle}
-						buttonText={data?.countries?.integratedEnergy?.buttonText}
-					/> */}
-					<div className="">
-						<EOSAI isGlobalPage={true} />
-					</div>
+					{data?.countries?.integratedEnergy?.tabTitle && (
+						<EosIntegratedSystem
+							data={data?.countries?.integratedEnergy}
+							name={data?.countries?.integratedEnergy?.tabTitle}
+							buttonText={data?.countries?.integratedEnergy?.buttonText}
+						/>
+					)}
+					{data?.countries?.eosAi && (
+						<div
+							className={data?.countries?.integratedEnergy?.tabTitle ? "pt_100" : ""}
+						>
+							<EOSAI isGlobalPage={true} data={data?.countries?.eosAi} />
+						</div>
+					)}
 				</div>
 			</main>
 			<IframeModal hideLeft />

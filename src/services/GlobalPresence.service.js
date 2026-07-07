@@ -171,6 +171,27 @@ export const getCountryInside = async (slug) => {
     countries {
       showTranslation
       hideonglobalpresence
+      eosAi {
+        logo {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        title
+        description
+        button {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
       availableRegions {
         team(first: 999) {
           nodes {

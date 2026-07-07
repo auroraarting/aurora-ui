@@ -25,7 +25,16 @@ import logoDark from "/public/img/eos/eosAIDark.png";
 
 /** EOS Page */
 export default function EOSAI({ data, isGlobalPage }) {
-	const dataForBtn = { postFields: data || {} };
+	const btnProps = dynamicInsightsBtnProps(
+		{ postFields: { button: data?.button } },
+		"button",
+	);
+
+	const defaultDescription = `
+                            <p>EOS AI is Aurora’s AI assistant, embedded in EOS to help clients extract more from subscribed research. It delivers fast, source-linked answers grounded in Aurora’s analysis.</p>
+                            <br/>
+                            <p>*Available in select regions</p>
+                            `;
 
 	return (
 		<div className={styles.eosai}>
@@ -34,8 +43,11 @@ export default function EOSAI({ data, isGlobalPage }) {
 					<div className={`${styles.flexItemOne}`}>
 						<img
 							className={`${styles.logo}`}
-							src={data?.logo || (isGlobalPage ? logoDark.src : logo.src)}
-							alt="EOS AI Image"
+							src={
+								data?.logo?.node?.mediaItemUrl ||
+								(isGlobalPage ? logoDark.src : logo.src)
+							}
+							alt={data?.logo?.node?.altText || "EOS AI Image"}
 						/>
 					</div>
 					<div
@@ -44,20 +56,13 @@ export default function EOSAI({ data, isGlobalPage }) {
 						<div
 							className={`${styles.title} ${isGlobalPage ? "text_xl" : "text_md"} font_500 m_b_20`}
 						>
-							Unlock more value with EOS AI
+							{data?.title || "Unlock more value with EOS AI"}
 						</div>
 						<ContentFromCms>
-							{`
-                            <p>EOS AI is Aurora’s AI assistant, embedded in EOS to help clients extract more from subscribed research. It delivers fast, source-linked answers grounded in Aurora’s analysis.</p>
-                            <br/>
-                            <p>*Available in select regions</p>
-                            `}
+							{data?.description || defaultDescription}
 						</ContentFromCms>
 
-						<div
-							className={`${styles.button}`}
-							{...dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
-						>
+						<div className={`${styles.button}`} {...btnProps}>
 							<Button
 								color="primary"
 								mode={isGlobalPage ? "dark" : "light"}
@@ -65,7 +70,7 @@ export default function EOSAI({ data, isGlobalPage }) {
 								shape="rounded"
 								textlowercase
 							>
-								Book a Demo
+								{btnProps.btntext || "Book a Demo"}
 							</Button>
 						</div>
 					</div>
