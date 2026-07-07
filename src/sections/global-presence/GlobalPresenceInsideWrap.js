@@ -302,6 +302,8 @@ export default function GlobalPresenceInsideWrap({
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
 
+	console.log("data?.countries?", data?.countries);
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -491,7 +493,7 @@ export default function GlobalPresenceInsideWrap({
 							buttonText={data?.countries?.integratedEnergy?.buttonText}
 						/>
 					)}
-					{data?.countries?.eosAi && (
+					{data?.countries?.eosAi?.title && (
 						<div
 							className={data?.countries?.integratedEnergy?.tabTitle ? "pt_100" : ""}
 						>
