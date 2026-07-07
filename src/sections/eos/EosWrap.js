@@ -30,6 +30,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 import styles from "@/styles/pages/Eos.module.scss";
 import Introduction from "../global-presence/Introduction";
 import SoftwareBanner from "../softwares/SoftwareBanner";
+import EOSAI from "./EOSAI";
 
 // IMAGES //
 
@@ -97,6 +98,9 @@ export default function EOSPageWrap({
 					}
 				/>
 				{data?.introduction && <Introduction data={data?.introduction} />}
+				<div className="pb_100">
+					<EOSAI />
+				</div>
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>

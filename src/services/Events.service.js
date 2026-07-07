@@ -304,7 +304,11 @@ query GetEventCategories {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "common", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		pageID: "/events",
+		tags: ["event", "listing"],
+	});
 	return res;
 };
 
@@ -342,6 +346,7 @@ query GetEventInside {
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
 		pageID: "/events",
+		tags: ["event", "home"],
 	});
 	return res;
 };
