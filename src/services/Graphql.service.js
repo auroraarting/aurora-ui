@@ -1,83 +1,25 @@
-import Bottleneck from "bottleneck";
 import { ServerHeaders } from "@/utils/RequestHeaders";
-import { proxyMediaUrl } from "@/utils";
+// import memoizedFetch from "@/lib/memoizedFetch";
 
-// Limits concurrent outbound calls to WordPress during builds
-const limiter = new Bottleneck({ maxConcurrent: 5, minTime: 150 });
-
-// Build-time in-process cache: identical queries during `next build` hit the
-// network once — e.g. getInsightsCategories called per-page resolves from cache.
-const buildCache = new Map();
-
-const refreshInterval = 3600;
-
-/** @param {string} key @param {() => Promise<any>} fn */
-function cachedSchedule(key, fn) {
-	if (buildCache.has(key)) return buildCache.get(key);
-	const p = limiter.schedule(fn);
-	buildCache.set(key, p);
-	return p;
-}
-
-/** Recursively replace all WordPress upload URLs in a GraphQL response object */
-function proxyAllMediaUrls(obj) {
-	if (!obj || typeof obj !== "object") return obj;
-	if (Array.isArray(obj)) return obj.map(proxyAllMediaUrls);
-	const result = {};
-	for (const key of Object.keys(obj)) {
-		const val = obj[key];
-		if (typeof val === "string") {
-			result[key] = proxyMediaUrl(val);
-		} else if (typeof val === "object") {
-			result[key] = proxyAllMediaUrls(val);
-		} else {
-			result[key] = val;
+/** fetchWithRetry  */
+async function fetchWithRetry(url, options = {}, retries = 3, delay = 5000) {
+	for (let i = 0; i < retries; i++) {
+		try {
+			const res = await fetch(url, options);
+			if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+			return await res.json();
+		} catch (err) {
+			if (i === retries - 1) throw err;
+			console.warn(`Fetch failed for ${url}, retrying in ${delay}ms...`);
+			await new Promise((res) => setTimeout(res, delay));
 		}
 	}
-	return result;
 }
 
-/** Hits WordPress directly — no Redis.
- *  Deduplicates identical build-time queries and throttles concurrency.
- *  Runtime cache: Next.js ISR revalidates every 1 hour.
- *  dataObj param is accepted but unused — kept so callers need no changes.
- */
-export default async function GraphQLAPI(query) {
-	return cachedSchedule(`direct:${query}`, async () => {
-		try {
-			const req = await fetch(`${process.env.API_URL}`, {
-				...ServerHeaders,
-				body: JSON.stringify({ query }),
-				next: { revalidate: refreshInterval },
-			});
-			const res = await req.json();
-			return proxyAllMediaUrls(res);
-		} catch (error) {
-			console.log(error, "errror");
-		}
-	});
-}
+/** GraphQLAPI  */
+export default async function GraphQLAPI(query, dataObj) {
+	const refreshInterval = 30000;
 
-/** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPIOld(query, dataObj) {
-	// let res;
-	// let req;
-	// try {
-	// 	req = await fetch(`${process.env.API_URL}`, {
-	// 		...ServerHeaders,
-	// 		body: JSON.stringify({ query }),
-	// 		// next: { revalidate: 1800 },
-	// 	});
-	// 	res = await req.json();
-	// 	// res = req;
-	// 	return proxyAllMediaUrls(res);
-	// } catch (error) {
-	// 	// req = await req.text();
-	// 	console.log(error, req, "errror");
-	// }
-
-	// Cache
-	let startTime = null; // Start time
 	let res;
 	let req;
 	try {
@@ -87,13 +29,8 @@ export async function GraphQLAPIOld(query, dataObj) {
 			// next: { revalidate: 1800 },
 		});
 		res = await req.json();
-		console.log(res, "res");
-		const endTime = new Date(); // End time
-		const fetchDuration = endTime - startTime; // Duration in milliseconds
-		// console.log(
-		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
-		// );
-		return proxyAllMediaUrls(res);
+		// res = req;
+		return res;
 	} catch (error) {
 		// req = await req.text();
 		console.log(error, req, "errror");
@@ -143,12 +80,57 @@ export async function GraphQLAPIOld(query, dataObj) {
 	// }
 }
 
-/** @deprecated Use default GraphQLAPI instead */
-export async function GraphQLAPINoBottleneck(query) {
-	return GraphQLAPI(query);
+/** GraphQLAPI  */
+export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
+	let res;
+	let req;
+
+	try {
+		// const options = {
+		// 	...ServerHeaders,
+		// 	body: JSON.stringify({ query }),
+		// 	method: "POST",
+		// };
+
+		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+		// return req;
+
+		req = await fetch(`${process.env.API_URL}`, {
+			...ServerHeaders,
+			body: JSON.stringify({ query }),
+			next: { revalidate: 1800 },
+		});
+		res = await req.json();
+		return res;
+	} catch (error) {
+		// req = await req.text();
+		console.log(error, req, "errror");
+	}
 }
 
-/** @deprecated Use default GraphQLAPI instead */
-export async function GraphQLAPILongerRevalidate(query) {
-	return GraphQLAPI(query);
+/** GraphQLAPI  */
+export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
+	let res;
+	let req;
+	try {
+		// const options = {
+		// 	...ServerHeaders,
+		// 	body: JSON.stringify({ query }),
+		// 	method: "POST",
+		// };
+
+		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+		// return req;
+
+		req = await fetch(`${process.env.API_URL}`, {
+			...ServerHeaders,
+			body: JSON.stringify({ query }),
+			next: { revalidate: 1800 }, // 30 minutes
+		});
+		res = await req.json();
+		return res;
+	} catch (error) {
+		// req = await req.text();
+		console.log(error, req, "errror");
+	}
 }

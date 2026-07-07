@@ -1,4 +1,4 @@
-import GraphQLAPI from "./Graphql.service";
+import GraphQLAPI, { GraphQLAPINoBottleneck } from "./Graphql.service";
 
 /** Insights Page */
 export const getInsights = async (filterString = "first:9999") => {

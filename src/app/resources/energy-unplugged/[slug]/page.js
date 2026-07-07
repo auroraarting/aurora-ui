@@ -37,7 +37,7 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-export const revalidate = 3600; // Revalidates every 1 hour
+export const revalidate = 30; // Revalidates every 60 seconds
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
