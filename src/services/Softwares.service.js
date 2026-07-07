@@ -94,6 +94,17 @@ query GetProductBySlug2 {
         description
         title
         vimeoLink
+        videos {
+          videoType
+          videoFile {
+            node {
+              mediaItemUrl
+              mimeType
+            }
+          }
+          vimeoLink
+          youtubeLink
+        }
         desktopThumbnail {
           node {
             altText
@@ -599,6 +610,17 @@ query GetProductBySlug2 {
         description
         title
         vimeoLink
+        videos {
+          videoType
+          videoFile {
+            node {
+              mediaItemUrl
+              mimeType
+            }
+          }
+          vimeoLink
+          youtubeLink
+        }
         desktopThumbnail {
           node {
             altText
@@ -1003,6 +1025,17 @@ query GetProductBySlug2 {
           description
           title
           vimeoLink
+          videos {
+            videoType
+            videoFile {
+              node {
+                mediaItemUrl
+                mimeType
+              }
+            }
+            vimeoLink
+            youtubeLink
+          }
           desktopThumbnail {
             node {
               altText

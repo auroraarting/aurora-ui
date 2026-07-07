@@ -116,6 +116,7 @@ export default function SoftwareInsideWrap({
 					desktopImage={data?.banner?.desktopThumbnail?.node?.mediaItemUrl}
 					mobileImage={data?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 					vimeoid={data?.banner?.vimeoLink}
+					videos={data?.banner?.videos}
 					btnText={data?.banner?.buttonText}
 					btnLink={data?.banner?.buttonLink}
 					logo={data?.banner?.logo?.node?.mediaItemUrl}

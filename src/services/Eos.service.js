@@ -12,6 +12,17 @@ query EOSPage {
         description
         title
         vimeoLink
+        videos {
+          videoType
+          videoFile {
+            node {
+              mediaItemUrl
+              mimeType
+            }
+          }
+          vimeoLink
+          youtubeLink
+        }
         desktopThumbnail {
           node {
             altText
