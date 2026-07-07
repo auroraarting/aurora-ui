@@ -30,6 +30,7 @@ import { dynamicInsightsBtnProps } from "@/utils";
 import styles from "@/styles/pages/Eos.module.scss";
 import Introduction from "../global-presence/Introduction";
 import SoftwareBanner from "../softwares/SoftwareBanner";
+import EOSAI from "./EOSAI";
 
 // IMAGES //
 
@@ -66,6 +67,7 @@ export default function EOSPageWrap({
 						mobileImage={data?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 						videoSrc={data?.banner?.vimeoLink}
 						vimeoid={data?.banner?.vimeoLink}
+						videos={data?.banner?.videos}
 						logo={data?.banner?.logo?.node?.mediaItemUrl}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>
@@ -97,6 +99,11 @@ export default function EOSPageWrap({
 					}
 				/>
 				{data?.introduction && <Introduction data={data?.introduction} />}
+				{data?.eosAi && (
+					<div className="pb_100">
+						<EOSAI data={data?.eosAi} />
+					</div>
+				)}
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>
