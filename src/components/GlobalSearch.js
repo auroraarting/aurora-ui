@@ -258,8 +258,6 @@ export default function GlobalSearch({ data, setShowSearch }) {
 		}
 	};
 
-	console.log(data, "data");
-
 	return (
 		<div className={styles.GlobalSearch}>
 			{/* Search Bar */}

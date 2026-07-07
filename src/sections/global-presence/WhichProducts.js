@@ -27,7 +27,7 @@ import valuation from "../../../public/img/global-presence/valuation.svg";
 
 /** WhichProducts Section */
 export default function WhichProducts({ data, section }) {
-	const [accordianArr, setAccordianArr] = useState();
+	const [accordianArr, setAccordianArr] = useState([]);
 
 	/** getAllData  */
 	const getAllData = () => {

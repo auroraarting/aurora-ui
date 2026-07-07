@@ -139,7 +139,7 @@ export async function fetchNavigationData() {
 	function removeDuplicateCountries(regions) {
 		const seenSlugs = new Set();
 
-		return regions.map((region) => {
+		return regions?.map((region) => {
 			const uniqueCountries = [];
 
 			for (const country of region.countries.nodes) {

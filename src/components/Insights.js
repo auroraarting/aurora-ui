@@ -49,7 +49,7 @@ const tempdata = {
 				node: {
 					altText: "",
 					mediaItemUrl:
-						"https://cms-production.auroraer.com/wp-content/uploads/2025/05/Frame-8.jpg",
+						"/cms-assets/2025/05/Frame-8.jpg",
 				},
 			},
 			categories: {
@@ -88,7 +88,7 @@ const tempdata = {
 				node: {
 					altText: "",
 					mediaItemUrl:
-						"https://cms-production.auroraer.com/wp-content/uploads/2025/05/Grid-curtailment-estimation-Image.jpg",
+						"/cms-assets/2025/05/Grid-curtailment-estimation-Image.jpg",
 				},
 			},
 			categories: {
@@ -127,7 +127,7 @@ const tempdata = {
 				node: {
 					altText: "",
 					mediaItemUrl:
-						"https://cms-production.auroraer.com/wp-content/uploads/2025/05/Frame-3-1.jpg",
+						"/cms-assets/2025/05/Frame-3-1.jpg",
 				},
 			},
 			categories: {

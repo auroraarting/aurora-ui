@@ -124,7 +124,7 @@ export const getRegions = async () => {
     `;
 	// taxonomies
 	const res = await GraphQLAPI(query, {
-		apiID: "country",
+		apiID: "country-regions",
 		pageID: "/global-presence",
 	});
 	return res;
@@ -751,7 +751,7 @@ export const getCountryInside = async (slug) => {
 
   `;
 	const res = await GraphQLAPI(query, {
-		apiID: "country",
+		apiID: "country-inside",
 		pageID: `/global-presence/${slug}`,
 	});
 	return res;
@@ -770,7 +770,7 @@ export const getCountries = async () => {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "country",
+		apiID: "country-titles",
 		pageID: "/global-presence",
 	});
 	return res;

@@ -1,6 +1,5 @@
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -37,7 +36,7 @@ export const metadata = {
 	},
 };
 
-export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** events Page */
 export default async function Events() {

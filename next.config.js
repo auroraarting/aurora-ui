@@ -70,6 +70,18 @@ const nextConfig = {
 			},
 		];
 	},
+	async rewrites() {
+		return [
+			{
+				source: "/cms-assets/staging/:path*",
+				destination: "https://cms-staging.auroraer.com/wp-content/uploads/:path*",
+			},
+			{
+				source: "/cms-assets/production/:path*",
+				destination: "https://cms-production.auroraer.com/wp-content/uploads/:path*",
+			},
+		];
+	},
 	async redirects() {
 		return [
 			{
