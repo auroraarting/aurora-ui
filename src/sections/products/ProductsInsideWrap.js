@@ -74,6 +74,7 @@ export default function ProductInsideWrap({
 						mobileImage={data?.products?.banner?.mobileThumbnail?.node?.mediaItemUrl}
 						videoSrc={data?.products?.banner?.vimeoLink}
 						vimeoid={data?.products?.banner?.vimeoLink}
+						videos={data?.products?.banner?.videos}
 						logo={data?.products?.banner?.logo?.node?.mediaItemUrl}
 						dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 					/>

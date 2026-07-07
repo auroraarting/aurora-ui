@@ -6,12 +6,44 @@ export const getEosPage = async () => {
 query EOSPage {
   page(id: "eos", idType: URI) {
     eos {
+      eosAi {
+        logo {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        title
+        description
+        button {
+          buttonText
+          iframe
+          url
+          file {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+        }
+      }
       banner {
         buttonLink
         buttonText
         description
         title
         vimeoLink
+        videos {
+          videoType
+          videoFile {
+            node {
+              mediaItemUrl
+              mimeType
+            }
+          }
+          vimeoLink
+          youtubeLink
+        }
         desktopThumbnail {
           node {
             altText
