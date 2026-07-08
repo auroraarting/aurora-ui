@@ -18,6 +18,7 @@ import styles from "@/styles/sections/eos/EOSAI.module.scss";
 // IMAGES //
 import logo from "/public/img/eos/eosAI.png";
 import logoDark from "/public/img/eos/eosAIDark.png";
+import eosaidarkbg from "/public/img/eosaidark-bg.jpg";
 
 // DATA //
 
@@ -37,7 +38,14 @@ export default function EOSAI({ data, isGlobalPage }) {
                             `;
 
 	return (
-		<div className={styles.eosai}>
+		<div className={`${styles.eosai} ${isGlobalPage ? "pt_80 pb_80" : ""}`}>
+			{isGlobalPage && (
+				<img
+					src={isGlobalPage ? eosaidarkbg.src : ""}
+					alt="EOS AI Background"
+					className={styles.background}
+				/>
+			)}
 			<div className="container">
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
@@ -58,9 +66,7 @@ export default function EOSAI({ data, isGlobalPage }) {
 						>
 							{data?.title || "Unlock more value with EOS AI"}
 						</div>
-						<ContentFromCms>
-							{data?.description || defaultDescription}
-						</ContentFromCms>
+						<ContentFromCms>{data?.description || defaultDescription}</ContentFromCms>
 
 						<div className={`${styles.button}`} {...btnProps}>
 							<Button
