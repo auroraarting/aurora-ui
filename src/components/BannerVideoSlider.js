@@ -183,7 +183,16 @@ export default function BannerVideoSlider({
 	const items = normalizeVideos(videos, vimeoLink);
 	// Index of the video currently playing (null = all paused).
 	const [activeIndex, setActiveIndex] = useState(null);
+	// Whether the slider is at the first / last slide (used to dim the nav arrows).
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
 	const swiperRef = useRef(null);
+
+	/** Sync the beginning/end flags from the Swiper instance. */
+	const syncEdges = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
 
 	if (!items.length) {
 		return (
@@ -218,9 +227,13 @@ export default function BannerVideoSlider({
 					grabCursor={hasMultiple}
 					onSwiper={(swiper) => {
 						swiperRef.current = swiper;
+						syncEdges(swiper);
 					}}
 					// Pause playback whenever the user moves to another slide.
-					onSlideChange={() => setActiveIndex(null)}
+					onSlideChange={(swiper) => {
+						setActiveIndex(null);
+						syncEdges(swiper);
+					}}
 					className={`${styles.videoSlider}`}
 				>
 					{items.map((item, ind) => (
@@ -238,16 +251,22 @@ export default function BannerVideoSlider({
 					<div className={`${styles.videoNav}`}>
 						<button
 							type="button"
-							className={`${styles.navBtn}`}
+							className={`${styles.navBtn} ${
+								isBeginning ? styles.navDisabled : ""
+							}`}
 							onClick={() => swiperRef.current?.slidePrev()}
+							disabled={isBeginning}
 							aria-label="Previous video"
 						>
 							<img src={slider_arr.src} alt="Previous" />
 						</button>
 						<button
 							type="button"
-							className={`${styles.navBtn} ${styles.navNext}`}
+							className={`${styles.navBtn} ${styles.navNext} ${
+								isEnd ? styles.navDisabled : ""
+							}`}
 							onClick={() => swiperRef.current?.slideNext()}
+							disabled={isEnd}
 							aria-label="Next video"
 						>
 							<img src={slider_arr.src} alt="Next" />
