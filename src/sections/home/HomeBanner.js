@@ -106,7 +106,7 @@ export default function HomeBanner() {
 									onClick={() => setShowVimeo(true)}
 									style={{ cursor: showVimeo ? "default" : "pointer" }}
 								>
-									{!vimeoLoaded && (
+									{/* {!vimeoLoaded && (
 										<Image
 											src="https://i.vimeocdn.com/video/1751040853-d4ba16e4940230f76e62bbfc80a99b9cbced1d76f3c9d24207a563c6a4deb979-d_640?region=us"
 											alt="Hero Poster"
@@ -115,7 +115,7 @@ export default function HomeBanner() {
 											priority
 											fetchPriority="high"
 										/>
-									)}
+									)} */}
 									{!showVimeo && (
 										<div className={styles.PlayBtn}>
 											<Image
