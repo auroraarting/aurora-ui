@@ -78,21 +78,25 @@ export default function HomeBanner() {
 						<SwiperSlide>
 							<div className={`${styles.BannerInfo} f_w_j`}>
 								<div className={`${styles.BannerContent}`}>
-									<h1 className="text_xl f_w_m color_white pb_10 text_uppercase">
-										CHRONOS <br />
-										BATTERY VALUATIONS, PERFECTED
+									<h1 className="text_lg f_w_m color_white pb_10 text_uppercase">
+										FLEXPLORER <br />
+										THE GLOBAL STANDARD IN
+										<br />
+										BATTERY BENCHMARKING
 									</h1>
 									{/* <p className="text_xl f_w_m color_white pb_15 text_uppercase">
 
 									</p> */}
 									<p className="text_reg color_silver_gray">
-										Chronos provides fast, bankable valuations for storage assets, trusted
-										in due diligence, transactions, and major BESS project financings.
+										Flexplorer turns Aurora&apos;s deep battery intelligence into
+										immediate action. Benchmark your assets against peers and
+										Aurora&apos;s trusted indices, validate historical returns and secure
+										investment decisions across 40+ markets.
 									</p>
 									<div className={`${styles.bookBtnOne} pt_40`}>
-										<a href="/software/chronos" role="button">
+										<a href="/products/flexible-energy" role="button">
 											<Button color="primary" variant="filled" shape="rounded" mode="dark">
-												Discover Chronos
+												Discover Flexplorer
 											</Button>
 										</a>
 									</div>
@@ -125,7 +129,7 @@ export default function HomeBanner() {
 									{/* https://vimeo.com/api/v2/video/882811837.json */}
 									{showVimeo && (
 										<Vimeo
-											video="882811837"
+											video="https://vimeo.com/1208038046/54eef817cd"
 											width="100%"
 											// autoplay={true}
 											responsive
@@ -138,8 +142,9 @@ export default function HomeBanner() {
 						<SwiperSlide>
 							<div className={`${styles.BannerInfo} f_w_j`}>
 								<div className={`${styles.BannerContent}`}>
-									<h2 className="text_xl f_w_m color_white pb_10 text_uppercase">
-										Bankable energy analytics that power investment decisions
+									<h2 className="text_lg f_w_m color_white pb_10 text_uppercase">
+										Bankable energy <br /> analytics that <br /> power investment <br />
+										decisions
 									</h2>
 									<p className="text_reg color_silver_gray">
 										From long-term forecasts to on-demand software and strategic advisory,

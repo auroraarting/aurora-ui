@@ -93,6 +93,11 @@
 					&.navNext img {
 						transform: rotate(180deg);
 					}
+					&.navDisabled {
+						opacity: 0.4;
+						cursor: default;
+						pointer-events: none;
+					}
 				}
 			}
 			.videoSlider {
