@@ -47,7 +47,7 @@ export default function EOSAI({ data, isGlobalPage }) {
 				/>
 			)}
 			<div className="container">
-				<div className={`${styles.flexBox} f_j`}>
+				<div className={`${isGlobalPage ? styles.flexBox2 : styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>
 						<img
 							className={`${styles.logo}`}
