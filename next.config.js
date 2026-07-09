@@ -6,6 +6,12 @@ const nextConfig = {
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
+	sassOptions: {
+		// Sass @import is deprecated in Dart Sass; silence the ~2600 warnings
+		//so they don't flood (and truncate) the Vercel build log.
+		silenceDeprecations: ["import", "global-builtin", "legacy-js-api"],
+		quietDeps: true,
+	},
 	images: {
 		formats: ["image/avif", "image/webp"],
 		domains: [
@@ -78,7 +84,8 @@ const nextConfig = {
 			},
 			{
 				source: "/cms-assets/production/:path*",
-				destination: "https://cms-production.auroraer.com/wp-content/uploads/:path*",
+				destination:
+					"https://cms-production.auroraer.com/wp-content/uploads/:path*",
 			},
 		];
 	},
