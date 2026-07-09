@@ -1,123 +1,25 @@
-import Bottleneck from "bottleneck";
 import { ServerHeaders } from "@/utils/RequestHeaders";
-import { proxyMediaUrl } from "@/utils";
+// import memoizedFetch from "@/lib/memoizedFetch";
 
-// Limits concurrent outbound calls to WordPress during builds. Kept gentle
-// because Pressable is slow and throttles under load — fewer parallel calls and
-// more spacing between them trades a slower build for far fewer dropped calls.
-const limiter = new Bottleneck({ maxConcurrent: 2, minTime: 400 });
-
-// Build-time in-process cache: identical queries during `next build` hit the
-// network once — e.g. getInsightsCategories called per-page resolves from cache.
-const buildCache = new Map();
-
-const refreshInterval = 3600;
-
-// Max extra seconds added on top of refreshInterval to stagger revalidations.
-// Without this, every query expires at the same moment (worst case: right after
-// a deploy, when all pages are built together) and stampedes WordPress at once.
-const jitterWindow = 1800;
-
-// Abort a WordPress request that takes longer than this, so a hanging upstream
-// can't stall a background revalidation indefinitely. Set well above the
-// slowest legitimate query (some insights queries take ~15s) so this only
-// trips on a real hang, not a slow-but-working response.
-const requestTimeoutMs = 60000;
-
-// Retry-with-backoff for calls WordPress (Pressable) drops under load. The
-// Bottleneck limiter above only caps concurrency; it does NOT retry, so a
-// single failed/slow response would otherwise fail the whole page/build.
-const maxAttempts = 3;
-const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
-
-/** Resolve after `ms` milliseconds. @param {number} ms */
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-/** Stable per-query TTL in [refreshInterval, refreshInterval + jitterWindow).
- *  Same query always gets the same TTL, so cache entries aren't fragmented,
- *  but different queries expire at spread-out times. */
-function revalidateFor(query) {
-	let hash = 0;
-	for (let i = 0; i < query.length; i++) {
-		hash = (hash * 31 + query.charCodeAt(i)) | 0;
-	}
-	return refreshInterval + (Math.abs(hash) % jitterWindow);
-}
-
-/** @param {string} key @param {() => Promise<any>} fn */
-function cachedSchedule(key, fn) {
-	if (buildCache.has(key)) return buildCache.get(key);
-	// Evict on failure so a single failed fetch isn't cached and replayed to
-	// every later caller — the next request gets a fresh attempt instead.
-	const p = limiter.schedule(fn).catch((err) => {
-		buildCache.delete(key);
-		throw err;
-	});
-	buildCache.set(key, p);
-	return p;
-}
-
-/** Recursively replace all WordPress upload URLs in a GraphQL response object */
-function proxyAllMediaUrls(obj) {
-	if (!obj || typeof obj !== "object") return obj;
-	if (Array.isArray(obj)) return obj.map(proxyAllMediaUrls);
-	const result = {};
-	for (const key of Object.keys(obj)) {
-		const val = obj[key];
-		if (typeof val === "string") {
-			result[key] = proxyMediaUrl(val);
-		} else if (typeof val === "object") {
-			result[key] = proxyAllMediaUrls(val);
-		} else {
-			result[key] = val;
+/** fetchWithRetry  */
+async function fetchWithRetry(url, options = {}, retries = 3, delay = 5000) {
+	for (let i = 0; i < retries; i++) {
+		try {
+			const res = await fetch(url, options);
+			if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+			return await res.json();
+		} catch (err) {
+			if (i === retries - 1) throw err;
+			console.warn(`Fetch failed for ${url}, retrying in ${delay}ms...`);
+			await new Promise((res) => setTimeout(res, delay));
 		}
 	}
-	return result;
 }
 
-/** Hits WordPress directly — no Redis.
- *  Deduplicates identical build-time queries and throttles concurrency.
- *  Runtime cache: Next.js ISR revalidates every 1 hour.
- *  dataObj param is accepted but unused — kept so callers need no changes.
- */
-export default async function GraphQLAPINEW(query) {
-	return cachedSchedule(`direct:${query}`, async () => {
-		let lastError;
-		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-			try {
-				const req = await fetch(`${process.env.API_URL}`, {
-					...ServerHeaders,
-					body: JSON.stringify({ query }),
-					signal: AbortSignal.timeout(requestTimeoutMs),
-					next: { revalidate: revalidateFor(query) },
-				});
-				if (!req.ok) {
-					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
-				}
-				const res = await req.json();
-				return proxyAllMediaUrls(res);
-			} catch (error) {
-				lastError = error;
-				console.error(
-					`GraphQLAPI attempt ${attempt}/${maxAttempts} failed:`,
-					error?.message || error,
-				);
-				// Back off and retry — Pressable dropping one call shouldn't fail the
-				// whole page/build. Last attempt falls through to the throw below.
-				if (attempt < maxAttempts) {
-					await sleep(retryBaseDelayMs * 2 ** (attempt - 1));
-				}
-			}
-		}
-		// All attempts exhausted. Rethrow (rather than returning undefined) so that
-		// on a background revalidation Next.js keeps serving the last good page and
-		// retries next time, instead of the caller crashing on `data.data.…`.
-		throw lastError;
-	});
-}
+/** GraphQLAPI  */
+export default async function GraphQLAPI(query, dataObj) {
+	const refreshInterval = 30000;
 
-/** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPI(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
@@ -128,7 +30,7 @@ export async function GraphQLAPI(query, dataObj) {
 	// 	});
 	// 	res = await req.json();
 	// 	// res = req;
-	// 	return proxyAllMediaUrls(res);
+	// 	return res;
 	// } catch (error) {
 	// 	// req = await req.text();
 	// 	console.log(error, req, "errror");
@@ -162,13 +64,12 @@ export async function GraphQLAPI(query, dataObj) {
 			body: JSON.stringify({ ...data }),
 		});
 		res = await req.json();
-		console.log(res, "res");
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
 		// console.log(
 		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
 		// );
-		return proxyAllMediaUrls(res);
+		return res;
 	} catch (error) {
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
@@ -179,12 +80,57 @@ export async function GraphQLAPI(query, dataObj) {
 	}
 }
 
-/** @deprecated Use default GraphQLAPI instead */
-export async function GraphQLAPINoBottleneck(query) {
-	return GraphQLAPI(query);
+/** GraphQLAPI  */
+export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
+	let res;
+	let req;
+
+	try {
+		// const options = {
+		// 	...ServerHeaders,
+		// 	body: JSON.stringify({ query }),
+		// 	method: "POST",
+		// };
+
+		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+		// return req;
+
+		req = await fetch(`${process.env.API_URL}`, {
+			...ServerHeaders,
+			body: JSON.stringify({ query }),
+			next: { revalidate: 1800 },
+		});
+		res = await req.json();
+		return res;
+	} catch (error) {
+		// req = await req.text();
+		console.log(error, req, "errror");
+	}
 }
 
-/** @deprecated Use default GraphQLAPI instead */
-export async function GraphQLAPILongerRevalidate(query) {
-	return GraphQLAPI(query);
+/** GraphQLAPI  */
+export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
+	let res;
+	let req;
+	try {
+		// const options = {
+		// 	...ServerHeaders,
+		// 	body: JSON.stringify({ query }),
+		// 	method: "POST",
+		// };
+
+		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
+		// return req;
+
+		req = await fetch(`${process.env.API_URL}`, {
+			...ServerHeaders,
+			body: JSON.stringify({ query }),
+			next: { revalidate: 1800 }, // 30 minutes
+		});
+		res = await req.json();
+		return res;
+	} catch (error) {
+		// req = await req.text();
+		console.log(error, req, "errror");
+	}
 }
