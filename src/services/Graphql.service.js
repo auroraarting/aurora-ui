@@ -11,10 +11,37 @@ const buildCache = new Map();
 
 const refreshInterval = 3600;
 
+// Max extra seconds added on top of refreshInterval to stagger revalidations.
+// Without this, every query expires at the same moment (worst case: right after
+// a deploy, when all pages are built together) and stampedes WordPress at once.
+const jitterWindow = 1800;
+
+// Abort a WordPress request that takes longer than this, so a hanging upstream
+// can't stall a background revalidation indefinitely. Set well above the
+// slowest legitimate query (some insights queries take ~15s) so this only
+// trips on a real hang, not a slow-but-working response.
+const requestTimeoutMs = 60000;
+
+/** Stable per-query TTL in [refreshInterval, refreshInterval + jitterWindow).
+ *  Same query always gets the same TTL, so cache entries aren't fragmented,
+ *  but different queries expire at spread-out times. */
+function revalidateFor(query) {
+	let hash = 0;
+	for (let i = 0; i < query.length; i++) {
+		hash = (hash * 31 + query.charCodeAt(i)) | 0;
+	}
+	return refreshInterval + (Math.abs(hash) % jitterWindow);
+}
+
 /** @param {string} key @param {() => Promise<any>} fn */
 function cachedSchedule(key, fn) {
 	if (buildCache.has(key)) return buildCache.get(key);
-	const p = limiter.schedule(fn);
+	// Evict on failure so a single failed fetch isn't cached and replayed to
+	// every later caller — the next request gets a fresh attempt instead.
+	const p = limiter.schedule(fn).catch((err) => {
+		buildCache.delete(key);
+		throw err;
+	});
 	buildCache.set(key, p);
 	return p;
 }
@@ -48,12 +75,20 @@ export default async function GraphQLAPI(query) {
 			const req = await fetch(`${process.env.API_URL}`, {
 				...ServerHeaders,
 				body: JSON.stringify({ query }),
-				next: { revalidate: refreshInterval },
+				signal: AbortSignal.timeout(requestTimeoutMs),
+				next: { revalidate: revalidateFor(query) },
 			});
+			if (!req.ok) {
+				throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
+			}
 			const res = await req.json();
 			return proxyAllMediaUrls(res);
 		} catch (error) {
-			console.log(error, "errror");
+			// Rethrow instead of returning undefined: on a background revalidation
+			// Next.js will keep serving the last good page and retry next time,
+			// rather than the caller crashing on `data.data.…` of undefined.
+			console.error("GraphQLAPI error:", error);
+			throw error;
 		}
 	});
 }
