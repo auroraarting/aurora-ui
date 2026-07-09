@@ -2,8 +2,10 @@ import Bottleneck from "bottleneck";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import { proxyMediaUrl } from "@/utils";
 
-// Limits concurrent outbound calls to WordPress during builds
-const limiter = new Bottleneck({ maxConcurrent: 5, minTime: 150 });
+// Limits concurrent outbound calls to WordPress during builds. Kept gentle
+// because Pressable is slow and throttles under load — fewer parallel calls and
+// more spacing between them trades a slower build for far fewer dropped calls.
+const limiter = new Bottleneck({ maxConcurrent: 2, minTime: 400 });
 
 // Build-time in-process cache: identical queries during `next build` hit the
 // network once — e.g. getInsightsCategories called per-page resolves from cache.
@@ -21,6 +23,15 @@ const jitterWindow = 1800;
 // slowest legitimate query (some insights queries take ~15s) so this only
 // trips on a real hang, not a slow-but-working response.
 const requestTimeoutMs = 60000;
+
+// Retry-with-backoff for calls WordPress (Pressable) drops under load. The
+// Bottleneck limiter above only caps concurrency; it does NOT retry, so a
+// single failed/slow response would otherwise fail the whole page/build.
+const maxAttempts = 3;
+const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
+
+/** Resolve after `ms` milliseconds. @param {number} ms */
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /** Stable per-query TTL in [refreshInterval, refreshInterval + jitterWindow).
  *  Same query always gets the same TTL, so cache entries aren't fragmented,
@@ -71,25 +82,37 @@ function proxyAllMediaUrls(obj) {
  */
 export default async function GraphQLAPI(query) {
 	return cachedSchedule(`direct:${query}`, async () => {
-		try {
-			const req = await fetch(`${process.env.API_URL}`, {
-				...ServerHeaders,
-				body: JSON.stringify({ query }),
-				signal: AbortSignal.timeout(requestTimeoutMs),
-				next: { revalidate: revalidateFor(query) },
-			});
-			if (!req.ok) {
-				throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
+		let lastError;
+		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+			try {
+				const req = await fetch(`${process.env.API_URL}`, {
+					...ServerHeaders,
+					body: JSON.stringify({ query }),
+					signal: AbortSignal.timeout(requestTimeoutMs),
+					next: { revalidate: revalidateFor(query) },
+				});
+				if (!req.ok) {
+					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
+				}
+				const res = await req.json();
+				return proxyAllMediaUrls(res);
+			} catch (error) {
+				lastError = error;
+				console.error(
+					`GraphQLAPI attempt ${attempt}/${maxAttempts} failed:`,
+					error?.message || error,
+				);
+				// Back off and retry — Pressable dropping one call shouldn't fail the
+				// whole page/build. Last attempt falls through to the throw below.
+				if (attempt < maxAttempts) {
+					await sleep(retryBaseDelayMs * 2 ** (attempt - 1));
+				}
 			}
-			const res = await req.json();
-			return proxyAllMediaUrls(res);
-		} catch (error) {
-			// Rethrow instead of returning undefined: on a background revalidation
-			// Next.js will keep serving the last good page and retry next time,
-			// rather than the caller crashing on `data.data.…` of undefined.
-			console.error("GraphQLAPI error:", error);
-			throw error;
 		}
+		// All attempts exhausted. Rethrow (rather than returning undefined) so that
+		// on a background revalidation Next.js keeps serving the last good page and
+		// retries next time, instead of the caller crashing on `data.data.…`.
+		throw lastError;
 	});
 }
 
