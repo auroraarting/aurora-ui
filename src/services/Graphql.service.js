@@ -80,7 +80,7 @@ function proxyAllMediaUrls(obj) {
  *  Runtime cache: Next.js ISR revalidates every 1 hour.
  *  dataObj param is accepted but unused — kept so callers need no changes.
  */
-export default async function GraphQLAPI(query) {
+export default async function GraphQLAPINEW(query) {
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -117,7 +117,7 @@ export default async function GraphQLAPI(query) {
 }
 
 /** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPIOld(query, dataObj) {
+export async function GraphQLAPI(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
