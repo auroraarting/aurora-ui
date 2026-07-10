@@ -30,6 +30,7 @@ import { dynamicInsightsBtnProps, getMapJsonForCountries } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/global-presence/Australia.module.scss";
+import EOSAI from "../eos/EOSAI";
 
 // IMAGES //
 
@@ -156,61 +157,61 @@ export default function GlobalPresenceInsideWrap({
 			eventsState?.data?.events?.nodes
 				?.filter((event) =>
 					event?.events?.thumbnail?.country?.nodes?.some(
-						(node) => node?.slug === slug
-					)
+						(node) => node?.slug === slug,
+					),
 				)
 				.sort(
 					(a, b) =>
-						new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+						new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date),
 				),
-			(event) => event.events?.thumbnail?.date
+			(event) => event.events?.thumbnail?.date,
 		)
 			.filter((item) => new Date() < new Date(item.events.thumbnail.date))
 			.sort(
 				(a, b) =>
-					new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+					new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date),
 			);
 
 		const eventsAllSorted = filterAndSortByDate(
 			eventsState?.data?.events?.nodes,
-			(event) => event.events?.thumbnail?.date
+			(event) => event.events?.thumbnail?.date,
 		);
 
 		let eventsList =
 			eventsFiltered?.length > 0
 				? eventsFiltered.sort(
 						(a, b) =>
-							new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
-				  )
+							new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date),
+					)
 				: eventsAllSorted
 						.filter((item) => new Date() < new Date(item.events.thumbnail.date))
 						.sort(
 							(a, b) =>
-								new Date(a.events.thumbnail.date) - new Date(b.events.thumbnail.date)
+								new Date(a.events.thumbnail.date) - new Date(b.events.thumbnail.date),
 						);
 
 		const webinarsFiltered = filterAndSortByDate(
 			webinarsState?.data?.webinars?.nodes
 				?.filter((webinar) =>
 					webinar?.webinarsFields?.country?.nodes?.some(
-						(node) => node?.slug === slug
-					)
+						(node) => node?.slug === slug,
+					),
 				)
 				.sort(
 					(a, b) =>
 						new Date(b.webinarsFields.startDateAndTime) -
-						new Date(a.webinarsFields.startDateAndTime)
+						new Date(a.webinarsFields.startDateAndTime),
 				),
-			(webinar) => webinar.webinarsFields?.startDateAndTime
+			(webinar) => webinar.webinarsFields?.startDateAndTime,
 		).sort(
 			(a, b) =>
 				new Date(b.webinarsFields.startDateAndTime) -
-				new Date(a.webinarsFields.startDateAndTime)
+				new Date(a.webinarsFields.startDateAndTime),
 		);
 
 		const webinarsAllSorted = filterAndSortByDate(
 			webinarsState?.data?.webinars?.nodes,
-			(webinar) => webinar.webinarsFields?.startDateAndTime
+			(webinar) => webinar.webinarsFields?.startDateAndTime,
 		);
 
 		let webinarList =
@@ -219,8 +220,8 @@ export default function GlobalPresenceInsideWrap({
 				: webinarsAllSorted.sort(
 						(a, b) =>
 							new Date(b.webinarsFields.startDateAndTime) -
-							new Date(a.webinarsFields.startDateAndTime)
-				  );
+							new Date(a.webinarsFields.startDateAndTime),
+					);
 
 		if (webinarList.length < 3) {
 			webinarList = [
@@ -228,29 +229,29 @@ export default function GlobalPresenceInsideWrap({
 					.filter(
 						(removeYearItem) =>
 							new Date(
-								removeYearItem.webinarsFields.startDateAndTime
-							).getFullYear() === new Date().getFullYear()
+								removeYearItem.webinarsFields.startDateAndTime,
+							).getFullYear() === new Date().getFullYear(),
 					)
 					.sort(
 						(a, b) =>
 							new Date(b.webinarsFields.startDateAndTime) -
-							new Date(a.webinarsFields.startDateAndTime)
+							new Date(a.webinarsFields.startDateAndTime),
 					),
 				...webinarsAllSorted.sort(
 					(a, b) =>
 						new Date(b.webinarsFields.startDateAndTime) -
-						new Date(a.webinarsFields.startDateAndTime)
+						new Date(a.webinarsFields.startDateAndTime),
 				),
 			].filter(
 				(item, index, self) =>
-					index === self.findIndex((t) => t?.title === item?.title)
+					index === self.findIndex((t) => t?.title === item?.title),
 			);
 		}
 		if (eventsList.length === 0) {
 			eventsList =
 				eventsState?.data?.events?.nodes.sort(
 					(a, b) =>
-						new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date)
+						new Date(b.events.thumbnail.date) - new Date(a.events.thumbnail.date),
 				) || [];
 		}
 
@@ -258,20 +259,20 @@ export default function GlobalPresenceInsideWrap({
 		// webinars: webinarList.slice(0, 3),
 		eventsList = eventsList?.map((item) => {
 			let title = item?.translations?.filter(
-				(item2) => item2?.languageCode === language
+				(item2) => item2?.languageCode === language,
 			)?.[0]?.title;
 			return { ...item, title: title || item?.title };
 		});
 		webinarList = webinarList?.map((item) => {
 			let title = item?.translations?.filter(
-				(item2) => item2?.languageCode === language
+				(item2) => item2?.languageCode === language,
 			)?.[0]?.title;
 			let eventCategories = {
 				nodes: item?.eventCategories?.nodes?.map((item2) => {
 					return {
 						...item2,
 						...item2?.translations?.filter(
-							(item3) => item3?.languageCode === language
+							(item3) => item3?.languageCode === language,
 						)?.[0],
 					};
 				}),
@@ -283,7 +284,7 @@ export default function GlobalPresenceInsideWrap({
 						return {
 							...item2,
 							...item2?.translations?.filter(
-								(item3) => item3?.languageCode === language
+								(item3) => item3?.languageCode === language,
 							)?.[0],
 						};
 					}),
@@ -300,6 +301,8 @@ export default function GlobalPresenceInsideWrap({
 		setEvents(eventsList.slice(0, 1));
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
+
+	console.log("data?.countries?", data?.countries);
 
 	return (
 		<div>
@@ -401,7 +404,7 @@ export default function GlobalPresenceInsideWrap({
 								<div
 									{...dynamicInsightsBtnProps(
 										dataForBtn,
-										"availableRegionsSectionsButton"
+										"availableRegionsSectionsButton",
 									)}
 									className=""
 								>
@@ -483,12 +486,19 @@ export default function GlobalPresenceInsideWrap({
 							/>
 						</div>
 					</div>
-					<EosIntegratedSystem
-						data={data?.countries?.integratedEnergy}
-						name={data?.countries?.integratedEnergy?.tabTitle}
-						buttonText={data?.countries?.integratedEnergy?.buttonText}
-					/>
+					{data?.countries?.integratedEnergy?.tabTitle && (
+						<EosIntegratedSystem
+							data={data?.countries?.integratedEnergy}
+							name={data?.countries?.integratedEnergy?.tabTitle}
+							buttonText={data?.countries?.integratedEnergy?.buttonText}
+						/>
+					)}
 				</div>
+				{data?.countries?.eosAi?.title && (
+					<div className={data?.countries?.integratedEnergy?.tabTitle ? "" : ""}>
+						<EOSAI isGlobalPage={true} data={data?.countries?.eosAi} />
+					</div>
+				)}
 			</main>
 			<IframeModal hideLeft />
 			{/* Page Content ends here */}
