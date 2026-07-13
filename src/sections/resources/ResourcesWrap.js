@@ -121,6 +121,22 @@ export default function Resources() {
 										</div>
 									</div>
 								</div>
+								<div className={`${styles.linksItem}`}>
+									<div className={`${styles.arrowLinks}`}>
+										<a href="/resources/videos">
+											<span>
+												<img src={dropdown_arrow.src} alt="icon" />
+											</span>
+										</a>
+									</div>
+									<div className={`${styles.Desc}`}>
+										<h4 className="text_md f_w_m font_primary pb_10">Videos</h4>
+										<p className="text_reg color_dark_gray">
+											Watch expert discussions and presentations on the latest energy
+											market developments.
+										</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</section>
