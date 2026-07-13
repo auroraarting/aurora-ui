@@ -103,7 +103,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 		const shouldOpen = openDropdown === dropdownKey ? null : dropdownKey;
 		handleCloseClick();
 		setOpenDropdown((prevOpenDropdown) =>
-			prevOpenDropdown === dropdownKey ? null : dropdownKey
+			prevOpenDropdown === dropdownKey ? null : dropdownKey,
 		);
 		if (window.innerWidth > 1200) {
 			return;
@@ -116,10 +116,10 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 		});
 		if (shouldOpen) {
 			const megaMenuHtml = document.querySelector(
-				`#${dropdownKey} .${styles.megaMenuBox}`
+				`#${dropdownKey} .${styles.megaMenuBox}`,
 			);
 			const wrapHtml = document.querySelector(
-				`#${dropdownKey} .${styles.dropdown_wrap}`
+				`#${dropdownKey} .${styles.dropdown_wrap}`,
 			);
 			wrapHtml.style.maxHeight = `${
 				megaMenuHtml.getBoundingClientRect().height + 50
@@ -127,7 +127,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 			wrapHtml.style.paddingTop = "15px";
 		} else {
 			const wrapHtml = document.querySelector(
-				`#${dropdownKey} .${styles.dropdown_wrap}`
+				`#${dropdownKey} .${styles.dropdown_wrap}`,
 			);
 			if (wrapHtml) {
 				wrapHtml.style.maxHeight = "0px";
@@ -206,7 +206,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 
 		if (language) {
 			const selectedLang = allLanguage?.find(
-				(lang) => lang.shortTitle.toLowerCase() === language?.toLowerCase()
+				(lang) => lang.shortTitle.toLowerCase() === language?.toLowerCase(),
 			);
 			setSelectedLanguage(selectedLang || "");
 		}
@@ -434,7 +434,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															OpenIframePopup(
 																"iframePopup",
 																item?.events?.thumbnail?.externalUrl ||
-																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 															);
 														if (item?.events?.thumbnail?.openExternalInNewTab) {
 															delete hrefObj.onClick;
@@ -497,7 +497,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																					/>
 																					<span>
 																						{item?.events?.thumbnail?.country?.nodes?.map(
-																							(item2) => item2.title
+																							(item2) => item2.title,
 																						)}
 																					</span>
 																				</p>
@@ -601,7 +601,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															OpenIframePopup(
 																"iframePopup",
 																item?.events?.thumbnail?.externalUrl ||
-																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 															);
 														if (item?.events?.thumbnail?.openExternalInNewTab) {
 															delete hrefObj.onClick;
@@ -664,7 +664,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																					/>
 																					<span>
 																						{item?.events?.thumbnail?.country?.nodes?.map(
-																							(item2) => item2.title
+																							(item2) => item2.title,
 																						)}
 																					</span>
 																				</p>
@@ -768,7 +768,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															OpenIframePopup(
 																"iframePopup",
 																item?.events?.thumbnail?.externalUrl ||
-																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 															);
 														if (item?.events?.thumbnail?.openExternalInNewTab) {
 															delete hrefObj.onClick;
@@ -831,7 +831,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																					/>
 																					<span>
 																						{item?.events?.thumbnail?.country?.nodes?.map(
-																							(item2) => item2.title
+																							(item2) => item2.title,
 																						)}
 																					</span>
 																				</p>
@@ -1035,6 +1035,13 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<span>Webinars</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
+													<Link
+														href="/resources/videos"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
+													>
+														<span>Videos</span> <img src={menu_hover_arrow.src} alt="arrow" />
+													</Link>
 												</div>
 												<div className={`${styles.weAreHiring} f_w_j`}>
 													<div className={`${styles.imgBox}`}>
@@ -1075,7 +1082,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															OpenIframePopup(
 																"iframePopup",
 																item?.events?.thumbnail?.externalUrl ||
-																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 															);
 														if (item?.events?.thumbnail?.openExternalInNewTab) {
 															delete hrefObj.onClick;
@@ -1138,7 +1145,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																					/>
 																					<span>
 																						{item?.events?.thumbnail?.country?.nodes?.map(
-																							(item2) => item2.title
+																							(item2) => item2.title,
 																						)}
 																					</span>
 																				</p>
@@ -1280,7 +1287,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															OpenIframePopup(
 																"iframePopup",
 																item?.events?.thumbnail?.externalUrl ||
-																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+																	"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 															);
 														if (item?.events?.thumbnail?.openExternalInNewTab) {
 															delete hrefObj.onClick;
@@ -1342,7 +1349,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																				/>
 																				<span>
 																					{item?.events?.thumbnail?.country?.nodes?.map(
-																						(item2) => item2.title
+																						(item2) => item2.title,
 																					)}
 																				</span>
 																			</p>
