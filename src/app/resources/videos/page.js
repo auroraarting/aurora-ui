@@ -15,6 +15,7 @@ import VideosWrap from "@/sections/resources/videos/VideosWrap";
 
 // SERVICES //
 import { getAllVideos } from "@/services/Videos.service";
+import { getVideosLandingPage } from "@/services/VideosLanding.service";
 
 // DATA //
 
@@ -31,7 +32,12 @@ export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Videos Page */
 export default async function Videos() {
-	const dataFetch = await getAllVideos();
+	const [dataFetch, landingFetch] = await Promise.all([
+		getAllVideos(),
+		getVideosLandingPage(),
+	]);
+	const videosLanding = landingFetch?.data?.page?.videosLanding || {};
+	console.log(videosLanding, "videosLanding");
 	const data =
 		dataFetch?.data?.videos?.nodes?.sort(
 			(a, b) => new Date(b?.videoFields?.date) - new Date(a?.videoFields?.date),
@@ -61,7 +67,12 @@ export default async function Videos() {
 
 	return (
 		<div>
-			<VideosWrap data={data} topics={topics} countries={countries} />
+			<VideosWrap
+				data={data}
+				topics={topics}
+				countries={countries}
+				videosLanding={videosLanding}
+			/>
 		</div>
 	);
 }
