@@ -5,7 +5,7 @@ import { proxyMediaUrl } from "@/utils";
 // Limits concurrent outbound calls to WordPress during builds. Kept gentle
 // because Pressable is slow and throttles under load — fewer parallel calls and
 // more spacing between them trades a slower build for far fewer dropped calls.
-const limiter = new Bottleneck({ maxConcurrent: 5, minTime: 150 });
+const limiter = new Bottleneck({ maxConcurrent: 4, minTime: 300 });
 
 // Build-time in-process cache: identical queries during `next build` hit the
 // network once — e.g. getInsightsCategories called per-page resolves from cache.
