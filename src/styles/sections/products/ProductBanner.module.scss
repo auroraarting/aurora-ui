@@ -66,6 +66,82 @@
 				width: 100%;
 				height: 100%;
 			}
+			.videoNav {
+				position: absolute;
+				left: 50%;
+				bottom: -20%;
+				transform: translateX(-50%);
+				display: flex;
+				gap: 16px;
+				z-index: 4;
+				@media (max-width: 767px) {
+					bottom: -20%;
+					gap: 10px;
+				}
+				.navBtn {
+					padding: 0;
+					border: 0;
+					background: transparent;
+					cursor: pointer;
+					line-height: 0;
+					img {
+						width: 40px;
+						@media (max-width: 767px) {
+							width: 15px;
+						}
+					}
+					&.navNext img {
+						transform: rotate(180deg);
+					}
+					&.navDisabled {
+						opacity: 0.4;
+						cursor: default;
+						pointer-events: none;
+					}
+				}
+			}
+			.videoSlider {
+				width: 100%;
+				height: 100%;
+				:global(.swiper-wrapper),
+				:global(.swiper-slide) {
+					height: 100%;
+				}
+				iframe,
+				video,
+				.vimeoPlayer {
+					width: 100%;
+					height: 100%;
+					border: 0;
+					object-fit: cover;
+				}
+				.videoSlide {
+					position: relative;
+					width: 100%;
+					height: 100%;
+				}
+				.playPauseBtn {
+					position: absolute;
+					right: 20px;
+					bottom: 20px;
+					top: auto;
+					left: auto;
+					width: auto;
+					height: auto;
+					z-index: 3;
+					padding: 0;
+					border: 0;
+					line-height: 0;
+					background: transparent;
+					cursor: pointer;
+					img {
+						width: 48px;
+						@media (max-width: 767px) {
+							width: 30px;
+						}
+					}
+				}
+			}
 		}
 		.playPauseBtn {
 			position: absolute;

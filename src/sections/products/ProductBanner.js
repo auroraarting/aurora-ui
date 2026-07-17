@@ -1,14 +1,13 @@
 "use client";
 // MODULES //
-import { useEffect, useState, useRef } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
+import BannerVideoSlider from "@/components/BannerVideoSlider";
 
 // SECTIONS //
 
 // PLUGINS //
-import Vimeo from "@u-wave/react-vimeo";
 
 // UTILS //
 
@@ -16,11 +15,6 @@ import Vimeo from "@u-wave/react-vimeo";
 import styles from "@/styles/sections/products/ProductBanner.module.scss";
 
 // IMAGES //
-import flexible_energy from "../../../public/img/products/flexible_energy.png";
-import mac_img from "../../../public/img/softwares/mac_img.png";
-import frame_video from "../../../public/img/softwares/frame_video.png";
-import pause_button from "../../../public/img/icons/pause_button.svg";
-import play_button from "../../../public/img/icons/video_play.svg";
 import ContentFromCms from "@/components/ContentFromCms";
 import { dynamicInsightsBtnProps } from "@/utils";
 
@@ -37,32 +31,10 @@ export default function ProductBanner({
 	btnLink,
 	showContentOnly = false, // New prop to toggle visibility
 	vimeoid,
+	videos,
 	logo,
 	dynamicBtn,
 }) {
-	const defaultVimeoObj = {
-		video: vimeoid,
-		controls: false,
-		paused: false,
-		autoplay: false,
-		loop: true,
-		responsive: true,
-		muted: true,
-	};
-	const [isPlaying, setIsPlaying] = useState(false);
-	const vimeoRef = useRef(null);
-
-	/** togglePlayPause */
-	const togglePlayPause = () => {
-		vimeoRef.current.player.setVolume(1);
-		if (isPlaying) {
-			vimeoRef.current.player.pause();
-		} else {
-			vimeoRef.current.player.play();
-		}
-		setIsPlaying(!isPlaying);
-	};
-
 	return (
 		<section className={`${styles.ProductBanner} pt_60`}>
 			<div className="container">
@@ -97,51 +69,13 @@ export default function ProductBanner({
 						)}
 					</div>
 				</div>
-				{vimeoid ? (
-					<div className={`${styles.macFrameBox} f_r_aj_center`}>
-						<img src={mac_img.src} alt="mac img" className={`${styles.mac_img}`} />
-						{/* <img
-						src={frame_video.src}
-						alt="mac img"
-						className={`${styles.frame_video}`}
-					/> */}
-						<div className={`${styles.frame_video}`}>
-							{/* <video ref={videoRef} playsInline autoPlay muted loop>
-							<source src="../../../img/softwares/frame_video.mp4" type="video/mp4" />
-						</video> */}
-							<div className={`${styles.VideoBox}`}>
-								<Vimeo
-									className={`${styles.vimeoPlayer}`}
-									ref={vimeoRef}
-									{...defaultVimeoObj}
-								/>
-								{/* Play/Pause Button */}
-								<div className={`${styles.playPauseBtn}`} onClick={togglePlayPause}>
-									{isPlaying ? (
-										<img
-											src={pause_button.src}
-											className={`${styles.pause_button}`}
-											alt="Pause"
-										/>
-									) : (
-										<img
-											src={play_button.src}
-											className={`${styles.play_button}`}
-											alt="Play"
-										/>
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
-				) : (
-					<div className={`${styles.banner_image}`}>
-						<picture>
-							<source srcSet={desktopImage} media="(min-width:767px)" />
-							<img src={mobileImage} alt="Banner Image" />
-						</picture>
-					</div>
-				)}
+				<BannerVideoSlider
+					styles={styles}
+					videos={videos}
+					vimeoLink={vimeoid}
+					desktopImage={desktopImage}
+					mobileImage={mobileImage}
+				/>
 			</div>
 		</section>
 	);
