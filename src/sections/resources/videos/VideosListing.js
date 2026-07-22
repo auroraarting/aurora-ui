@@ -19,7 +19,6 @@ import "lightgallery/css/lg-video.css";
 
 // UTILS //
 import formatDate from "@/utils";
-import EqualHeight from "@/utils/EqualHeight";
 
 // STYLES //
 import styles from "@/styles/sections/resources/videos/VideosListing.module.scss";
@@ -40,9 +39,7 @@ function filterVideos(arr, selectedObj) {
 
 	if (selectedObj?.topic) {
 		filtered = filtered.filter((item) =>
-			item?.videoFields?.topic?.nodes?.some(
-				(t) => t.title === selectedObj.topic,
-			),
+			item?.videoFields?.topic?.nodes?.some((t) => t.title === selectedObj.topic),
 		);
 	}
 	if (selectedObj?.country) {
@@ -62,9 +59,7 @@ function filterVideos(arr, selectedObj) {
 	}
 	if (selectedObj?.search) {
 		const q = selectedObj.search.toLowerCase();
-		filtered = filtered.filter((item) =>
-			item?.title?.toLowerCase().includes(q),
-		);
+		filtered = filtered.filter((item) => item?.title?.toLowerCase().includes(q));
 	}
 
 	return filtered;
@@ -171,10 +166,6 @@ export default function VideosListing({ countries, data, years, topics }) {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	useEffect(() => {
-		EqualHeight(`${styles.ItemBox}`);
-	}, [list, selected]);
-
 	return (
 		<section className={styles.VideosListing}>
 			<div className={styles.filterMain}>
@@ -190,27 +181,19 @@ export default function VideosListing({ countries, data, years, topics }) {
 									onClick={() => toggleDropdown("topicType")}
 									tabIndex={0}
 								>
-									<div
-										className={`${styles.select_header} select_bg text_sm text_500`}
-									>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
 										{selected?.topic || "Topic"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.topicType.isOpen && (
 									<ul className={styles.selectOptionBox} data-lenis-prevent>
-										<li onClick={() => handleOptionClick("topicType", "")}>
-											All
-										</li>
+										<li onClick={() => handleOptionClick("topicType", "")}>All</li>
 										{topics.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === selected?.topic ? "selected" : ""
-												}
-												onClick={() =>
-													handleOptionClick("topicType", option)
-												}
+												className={option.title === selected?.topic ? "selected" : ""}
+												onClick={() => handleOptionClick("topicType", option)}
 											>
 												{option.title}
 											</li>
@@ -230,29 +213,19 @@ export default function VideosListing({ countries, data, years, topics }) {
 									onClick={() => toggleDropdown("countryType")}
 									tabIndex={0}
 								>
-									<div
-										className={`${styles.select_header} select_bg text_sm text_500`}
-									>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
 										{selected?.country || "Country"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.countryType.isOpen && (
 									<ul className={styles.selectOptionBox} data-lenis-prevent>
-										<li onClick={() => handleOptionClick("countryType", "")}>
-											All
-										</li>
+										<li onClick={() => handleOptionClick("countryType", "")}>All</li>
 										{countries.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === selected?.country
-														? "selected"
-														: ""
-												}
-												onClick={() =>
-													handleOptionClick("countryType", option)
-												}
+												className={option.title === selected?.country ? "selected" : ""}
+												onClick={() => handleOptionClick("countryType", option)}
 											>
 												{option.title}
 											</li>
@@ -275,29 +248,19 @@ export default function VideosListing({ countries, data, years, topics }) {
 									onClick={() => toggleDropdown("yearsType")}
 									tabIndex={0}
 								>
-									<div
-										className={`${styles.select_header} select_bg text_sm text_500`}
-									>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
 										{selected?.year || "Year"}
 										<img src={dropdown_arrow.src} alt="icon" />
 									</div>
 								</div>
 								{dropdowns.yearsType.isOpen && (
 									<ul className={styles.selectOptionBox} data-lenis-prevent>
-										<li onClick={() => handleOptionClick("yearsType", "")}>
-											All
-										</li>
+										<li onClick={() => handleOptionClick("yearsType", "")}>All</li>
 										{years.map((option) => (
 											<li
 												key={option.title}
-												className={
-													option.title === selected?.year
-														? "selected"
-														: ""
-												}
-												onClick={() =>
-													handleOptionClick("yearsType", option)
-												}
+												className={option.title === selected?.year ? "selected" : ""}
+												onClick={() => handleOptionClick("yearsType", option)}
 											>
 												{option.title}
 											</li>
@@ -308,9 +271,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 						</div>
 
 						{/* Reset */}
-						<div
-							className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}
-						>
+						<div className={`${styles.selectBox} ${styles.widthCustom} maxWidth`}>
 							<div className={styles.custom_select}>
 								<div
 									className={`${styles.select_header_wapper} "activeDropDown"`}
@@ -320,9 +281,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 										setPaginationArr(data);
 									}}
 								>
-									<div
-										className={`${styles.select_header} select_bg text_sm text_500`}
-									>
+									<div className={`${styles.select_header} select_bg text_sm text_500`}>
 										Reset
 									</div>
 								</div>
@@ -365,9 +324,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 									<img
 										src={searchImg.src}
 										alt="icon"
-										onClick={() =>
-											applyFilter({ ...selected, search: searchInput })
-										}
+										onClick={() => applyFilter({ ...selected, search: searchInput })}
 									/>
 									<div
 										className={`${styles.closeBox}`}
@@ -391,12 +348,12 @@ export default function VideosListing({ countries, data, years, topics }) {
 						speed={500}
 						plugins={[lgThumbnail, lgZoom, lgVideo]}
 						mobileSettings={{ closable: true }}
+						exThumbImage="data-thumb"
 						elementClassNames={`${styles.lightGalleryWrap} d_f f_w`}
 					>
 						{list?.map((item) => {
 							const videoUrl = item?.videoFields?.videoLink;
-							const thumbnailImg =
-								item?.videoFields?.thumbnail?.node?.mediaItemUrl;
+							const thumbnailImg = item?.videoFields?.thumbnail?.node?.mediaItemUrl;
 							const topic = item?.videoFields?.topic?.nodes
 								?.map((t) => t.title)
 								.join(", ");
@@ -411,6 +368,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 									key={item?.slug || item?.title}
 									href={videoUrl || "#"}
 									data-src={videoUrl || ""}
+									data-thumb={thumbnailImg || ""}
 								>
 									<div className={`${styles.hoverBox}`}>
 										<img
@@ -485,8 +443,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && (
 						<p className={`${styles.nodataText} nodataText`}>
-							No videos available for this selection. Please choose a
-							different option.
+							No videos available for this selection. Please choose a different option.
 						</p>
 					)}
 				</div>

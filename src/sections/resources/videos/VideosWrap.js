@@ -26,7 +26,13 @@ import styles from "@/styles/pages/resources/videos/Videos.module.scss";
 // DATA //
 
 /** Videos Page */
-export default function VideosWrap({ data, topics, countries, videosLanding }) {
+export default function VideosWrap({
+	data,
+	topics,
+	countries,
+	videosLanding,
+	socialLinks,
+}) {
 	return (
 		<div>
 			{/* Page Content starts here */}
@@ -59,13 +65,9 @@ export default function VideosWrap({ data, topics, countries, videosLanding }) {
 						countries={countries}
 					/>
 				</div>
-				<div className={`${styles.containerCustom} pb_100`}>
-					<div className="container">
-						<Insights isPowerBgVisible={true} />
-					</div>
-				</div>
+
 				{videosLanding?.video?.sectionTitle && (
-					<div className="pb_100">
+					<div className="ptb_100">
 						<AllVideos
 							title={videosLanding?.video?.sectionTitle}
 							desc={videosLanding?.video?.sectionDesc}
@@ -76,6 +78,30 @@ export default function VideosWrap({ data, topics, countries, videosLanding }) {
 						/>
 					</div>
 				)}
+				<div className={`${styles.containerCustom} pb_100`}>
+					<div className="container">
+						<Insights
+							formSectionTitle="Stay up to date with Aurora's latest videos and expert insights"
+							isPowerBgVisible={true}
+							customHtml={
+								<div className={`${styles.downloadListen} downloadListen`}>
+									<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
+										{socialLinks?.map((item) => {
+											return (
+												<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+													<img
+														src={item?.logo?.node?.mediaItemUrl}
+														alt={item?.logo?.node?.altText}
+													/>
+												</a>
+											);
+										})}
+									</div>
+								</div>
+							}
+						/>
+					</div>
+				</div>
 				<div className="pb_100">
 					<SoftwareCards
 						dynamicData={[

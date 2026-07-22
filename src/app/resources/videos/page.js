@@ -64,6 +64,8 @@ export default async function Videos() {
 		});
 	});
 	const countries = Object.values(countriesMap);
+	const socialLinks = videosLanding?.socialLinks;
+	console.log(socialLinks, "socialLinks");
 
 	return (
 		<div>
@@ -72,6 +74,7 @@ export default async function Videos() {
 				topics={topics}
 				countries={countries}
 				videosLanding={videosLanding}
+				socialLinks={socialLinks}
 			/>
 		</div>
 	);
