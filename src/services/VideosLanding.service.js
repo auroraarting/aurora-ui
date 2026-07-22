@@ -10,6 +10,15 @@ query GetVideosLanding {
         desc
         title
       }
+        socialLinks {
+        url
+        logo {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
       video {
         redirectLink
         sectionDesc
