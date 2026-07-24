@@ -481,8 +481,6 @@ export default function Insights({
 		}
 	};
 
-	console.log(data?.data, "data?.data");
-
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
 	}, [data]);
