@@ -29,7 +29,6 @@ export default function SectionsHeader({ data, hideall, customHtml }) {
 	const scrollToSection = (id) => {
 		if (id === "#agenda") {
 			document.querySelector(".agenda_btn").click();
-			console.log("agenda clicked", "item");
 		}
 
 		/** removeStartingHash  */

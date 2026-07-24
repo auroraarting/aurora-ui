@@ -302,8 +302,6 @@ export default function GlobalPresenceInsideWrap({
 		setWebinars(webinarList.slice(0, 3));
 	}, [eventsState, webinarsState]);
 
-	console.log("data?.countries?", data?.countries);
-
 	return (
 		<div>
 			{/* Metatags */}

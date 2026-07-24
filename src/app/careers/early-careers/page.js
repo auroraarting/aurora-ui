@@ -166,8 +166,6 @@ export default async function EarlyCareers() {
 			return obj;
 		});
 
-	console.log(careersRegions, "careersRegions");
-
 	return (
 		<div>
 			{/* Metatags */}
