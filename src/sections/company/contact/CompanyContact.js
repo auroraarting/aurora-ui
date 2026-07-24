@@ -110,7 +110,7 @@ export default function CompanyContact() {
 				officeEmail = "contact.sydney@auroraer.com";
 			} else if (data?.office === "Tokyo") {
 				officeEmail = "contact.tokyo@auroraer.com";
-			} else if (data?.office === "Tokyo") {
+			} else if (data?.office === "Mexico") {
 				officeEmail = "contact.mexicocity@auroraer.com";
 			}
 
