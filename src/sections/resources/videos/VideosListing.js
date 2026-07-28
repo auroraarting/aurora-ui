@@ -9,12 +9,10 @@ import Pagination from "@/components/Pagination";
 
 // PLUGINS //
 import LightGallery from "lightgallery/react";
-import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import lgVideo from "lightgallery/plugins/video";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
 import "lightgallery/css/lg-video.css";
 
 // UTILS //
@@ -28,10 +26,38 @@ import location from "@/../public/img/icons/location.svg";
 import calender from "@/../public/img/icons/calender.svg";
 import dropdown_arrow from "@/../public/img/icons/dropdown_arrow.svg";
 import searchImg from "@/../public/img/icons/search.svg";
-import video_play from "@/../public/img/icons/video_play.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
+/** Fallback rich text shown in the video popup when the CMS has no custom text */
+const DEFAULT_CUSTOM_TEXT = "<p>Click here to watch the full video</p>";
+
+/**
+ * lightGallery closes the popup on any click that bubbles up to `.lg-outer`,
+ * which would swallow clicks on links inside the custom text. Stopping
+ * propagation on the caption keeps the popup open while links, mailto's and
+ * text selection keep working.
+ */
+const setupPopupCaption = () => {
+	document.querySelectorAll(".videoPopupCaption .lg-sub-html").forEach((el) => {
+		if (!el.dataset.captionBound) {
+			el.dataset.captionBound = "true";
+			["mousedown", "mouseup", "click", "touchstart", "touchend"].forEach((evt) =>
+				el.addEventListener(evt, (e) => e.stopPropagation()),
+			);
+		}
+
+		// Web links open in a new tab so the video is not interrupted,
+		// mailto / tel links are left alone. Re-applied on every render because
+		// lightGallery rewrites the caption markup each time it is appended.
+		el.querySelectorAll("a[href]").forEach((link) => {
+			const href = link.getAttribute("href") || "";
+			if (/^(mailto:|tel:|#)/i.test(href)) return;
+			link.setAttribute("target", "_blank");
+			link.setAttribute("rel", "noreferrer");
+		});
+	});
+};
 
 /** Filter videos by selected filters */
 function filterVideos(arr, selectedObj) {
@@ -344,31 +370,36 @@ export default function VideosListing({ countries, data, years, topics }) {
 			</div>
 			<div className="container">
 				<div className={`${styles.videosItemFlex} d_f m_t_20`}>
-					<LightGallery
-						speed={500}
-						plugins={[lgThumbnail, lgZoom, lgVideo]}
-						mobileSettings={{ closable: true }}
-						exThumbImage="data-thumb"
-						elementClassNames={`${styles.lightGalleryWrap} d_f f_w`}
-					>
-						{list?.map((item) => {
-							const videoUrl = item?.videoFields?.videoLink;
-							const thumbnailImg = item?.videoFields?.thumbnail?.node?.mediaItemUrl;
-							const topic = item?.videoFields?.topic?.nodes
-								?.map((t) => t.title)
-								.join(", ");
-							const date = item?.videoFields?.date;
-							const country = item?.videoFields?.country?.nodes
-								?.map((c) => c.title)
-								.join(", ");
+					{list?.map((item) => {
+						const videoUrl = item?.videoFields?.videoLink;
+						const customText = item?.videoFields?.customText || DEFAULT_CUSTOM_TEXT;
+						const topic = item?.videoFields?.topic?.nodes
+							?.map((t) => t.title)
+							.join(", ");
+						const date = item?.videoFields?.date;
+						const country = item?.videoFields?.country?.nodes
+							?.map((c) => c.title)
+							.join(", ");
 
-							return (
+						return (
+							/* One gallery per video so the popup never becomes a slider */
+							<LightGallery
+								key={item?.slug || item?.title}
+								speed={500}
+								plugins={[lgZoom, lgVideo]}
+								mobileSettings={{ closable: true }}
+								thumbnail={false}
+								animateThumb={false}
+								counter={false}
+								addClass="videoPopupCaption"
+								elementClassNames={`${styles.ItemBox}`}
+								onAfterOpen={setupPopupCaption}
+								onAfterAppendSubHtml={setupPopupCaption}
+							>
 								<a
-									className={`${styles.ItemBox}`}
-									key={item?.slug || item?.title}
 									href={videoUrl || "#"}
 									data-src={videoUrl || ""}
-									data-thumb={thumbnailImg || ""}
+									data-sub-html={customText}
 								>
 									<div className={`${styles.hoverBox}`}>
 										<img
@@ -376,24 +407,6 @@ export default function VideosListing({ countries, data, years, topics }) {
 											className={`${styles.hoverBg} width_100 b_r_10`}
 											alt="img"
 										/>
-										{/* Thumbnail */}
-										<div className={styles.thumbnailWrap}>
-											{thumbnailImg && (
-												<img
-													src={thumbnailImg}
-													className={styles.thumbnailImg}
-													alt={item?.title || "Video thumbnail"}
-												/>
-											)}
-											{videoUrl && (
-												<img
-													src={video_play.src}
-													className={styles.playIcon}
-													alt="Play video"
-												/>
-											)}
-										</div>
-
 										{/* Topic */}
 										{topic && (
 											<p
@@ -437,9 +450,9 @@ export default function VideosListing({ countries, data, years, topics }) {
 										)}
 									</div>
 								</a>
-							);
-						})}
-					</LightGallery>
+							</LightGallery>
+						);
+					})}
 					{loading && <p>Loading...</p>}
 					{list?.length === 0 && !loading && (
 						<p className={`${styles.nodataText} nodataText`}>

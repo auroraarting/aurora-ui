@@ -37,6 +37,10 @@ query GetVideosListing {
           }
         }
         date
+        # TODO: enable once the "customText" (WYSIWYG) field is added to the
+        # Video Fields group in the CMS - the listing already renders it and
+        # falls back to a default line while it is missing.
+        # customText
         country {
           nodes {
             ... on Country {

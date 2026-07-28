@@ -1,0 +1,130 @@
+@import "../../helpers/helpers.scss";
+
+/* ── Flexplorer promo / CTA card ─────────────────── */
+.card {
+	flex: 0 0 250px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	background: var(--color_gray);
+	border-radius: 6px;
+	padding: 20px;
+	@media (max-width: 991px) {
+		flex: 1 1 100%;
+		width: 100%;
+	}
+}
+
+/* ── Heading ─────────────────────────────────────── */
+.head {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.brandLogo {
+	width: 45px;
+	height: 34px;
+	object-fit: cover;
+	flex-shrink: 0;
+}
+
+.eyebrow {
+	font-family: var(--font_secondary);
+	font-size: 14px;
+	line-height: 1;
+	letter-spacing: 0.84px;
+	text-transform: uppercase;
+	color: var(--color_white);
+}
+
+.title {
+	margin: 0;
+	font-family: var(--font_primary);
+	font-size: 18px;
+	line-height: 1.2;
+	color: var(--color_white);
+}
+
+/* ── Feature list ────────────────────────────────── */
+.features {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.feature {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+
+	&:not(:first-child) {
+		margin-top: 14px;
+		padding-top: 14px;
+		border-top: 1px solid var(--color_dark_gray);
+	}
+}
+
+.featureIcon {
+	width: 12px;
+	height: 22px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+
+.featureText {
+	font-family: var(--font_secondary);
+	font-size: 12px;
+	line-height: 1.2;
+	color: var(--color_silver);
+}
+
+/* ── Actions ─────────────────────────────────────── */
+.actions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.cta {
+	width: 100%;
+	min-width: 120px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 20px;
+	border-radius: 40px;
+	font-family: var(--font_primary);
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.2;
+	cursor: pointer;
+	transition: var(--transition);
+}
+
+.ctaPrimary {
+	background: var(--color_primary);
+	border: 1px solid var(--color_primary);
+	color: var(--color_gray);
+
+	&:hover {
+		box-shadow: 0 0 17px 0 rgba(255, 204, 0, 0.45);
+	}
+}
+
+.ctaSecondary {
+	background: transparent;
+	border: 1px solid var(--color_silver_gray);
+	color: var(--color_platinum_gray);
+
+	&:hover {
+		border-color: var(--color_white);
+		color: var(--color_white);
+	}
+}
