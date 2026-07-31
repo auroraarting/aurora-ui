@@ -30,7 +30,25 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
 /** Fallback rich text shown in the video popup when the CMS has no custom text */
-const DEFAULT_CUSTOM_TEXT = "<p>Click here to watch the full video</p>";
+const DEFAULT_CUSTOM_TEXT =
+	"<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil debitis facere expedita laudantium quam molestiae pariatur ad vitae cum ea consectetur nobis ex, iste dolor! Aperiam ipsam ducimus animi unde.</p>";
+
+/**
+ * lightGallery sizes the video container at runtime, so the caption width can
+ * only be matched from JS. Keeps the custom text from spilling past the video.
+ */
+const syncCaptionWidth = () => {
+	document.querySelectorAll(".videoPopupCaption").forEach((gallery) => {
+		const caption = gallery.querySelector(".lg-sub-html");
+		const video =
+			gallery.querySelector(".lg-current .lg-video-cont") ||
+			gallery.querySelector(".lg-video-cont");
+		if (!caption || !video) return;
+
+		const width = video.getBoundingClientRect().width;
+		if (width > 0) caption.style.maxWidth = `${Math.round(width)}px`;
+	});
+};
 
 /**
  * lightGallery closes the popup on any click that bubbles up to `.lg-outer`,
@@ -57,6 +75,10 @@ const setupPopupCaption = () => {
 			link.setAttribute("rel", "noreferrer");
 		});
 	});
+
+	// The video container is not measurable on the same frame the popup opens.
+	requestAnimationFrame(syncCaptionWidth);
+	setTimeout(syncCaptionWidth, 300);
 };
 
 /** Filter videos by selected filters */
@@ -115,6 +137,12 @@ export default function VideosListing({ countries, data, years, topics }) {
 
 		return () => clearTimeout(delay);
 	}, [searchInput]);
+
+	/** Keep the popup caption matched to the video width on resize */
+	useEffect(() => {
+		window.addEventListener("resize", syncCaptionWidth);
+		return () => window.removeEventListener("resize", syncCaptionWidth);
+	}, []);
 
 	/** Apply filters */
 	const applyFilter = (selectedObj) => {

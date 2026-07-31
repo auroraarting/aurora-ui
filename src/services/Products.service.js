@@ -350,6 +350,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
       }
       map {
         marquee
+        active
         headerLogo {
           node {
             altText
