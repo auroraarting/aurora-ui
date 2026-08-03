@@ -76,6 +76,9 @@ export default function VideosInsideWrap({
 									</section>
 								)}
 								{data?.videoFields?.sectionsCopy?.map((item) => {
+									const dataForBtn = {
+										postFields: { btnItem: item?.button2 } || {},
+									};
 									return (
 										<section
 											key={item?.sectionTitle}
@@ -95,24 +98,16 @@ export default function VideosInsideWrap({
 												/>
 											)}
 											<div className="cmsButtonsWrap">
-												{item?.buttons?.map((btnItem) => {
-													const dataForBtn = {
-														postFields: { btnItem: btnItem } || {},
-													};
-
-													return (
-														<div
-															{...dynamicInsightsBtnProps(dataForBtn, "btnItem")}
-															key="btn"
-															to="Insights"
-															className="cmsbuttons"
-														>
-															<Button color="primary" variant="filled" shape="rounded">
-																{dynamicInsightsBtnProps(dataForBtn, "btnItem").btntext}
-															</Button>
-														</div>
-													);
-												})}
+												<div
+													{...dynamicInsightsBtnProps(dataForBtn, "btnItem")}
+													key="btn"
+													to="Insights"
+													className="cmsbuttons pt_20"
+												>
+													<Button color="primary" variant="filled" shape="rounded">
+														{dynamicInsightsBtnProps(dataForBtn, "btnItem").btntext}
+													</Button>
+												</div>
 											</div>
 										</section>
 									);
