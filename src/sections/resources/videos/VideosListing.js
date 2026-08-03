@@ -336,6 +336,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 			<div className="container">
 				<div className={`${styles.videosItemFlex} d_f m_t_20`}>
 					{list?.map((item) => {
+						const thumbnailImg = item?.videoFields?.thumbnail?.node?.mediaItemUrl;
 						const topic = item?.videoFields?.topic?.nodes
 							?.map((t) => t.title)
 							.join(", ");
@@ -356,6 +357,15 @@ export default function VideosListing({ countries, data, years, topics }) {
 										className={`${styles.hoverBg} width_100 b_r_10`}
 										alt="img"
 									/>
+									<div className={styles.thumbnailWrap}>
+										{thumbnailImg && (
+											<img
+												src={thumbnailImg}
+												className={styles.thumbnailImg}
+												alt={item?.title || "Video thumbnail"}
+											/>
+										)}
+									</div>
 									{/* Topic */}
 									{topic && (
 										<p

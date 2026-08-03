@@ -1,0 +1,88 @@
+@import "../../../helpers/helpers.scss";
+.VideosInsideTopSection {
+	.content {
+		display: flex;
+		flex-direction: column;
+	}
+	.card {
+		@media (max-width: 767px) {
+			flex-direction: column-reverse;
+		}
+		.content {
+			width: 50%;
+			@media (max-width: 767px) {
+				width: 100%;
+				margin-top: 30px;
+			}
+
+			.dateFlex {
+				align-items: center;
+				p {
+					margin-right: 40px;
+					span {
+						margin-left: 5px;
+						margin-top: 2px;
+					}
+				}
+			}
+		}
+		.imageWrapper {
+			width: 44%;
+			overflow: hidden;
+
+			@media (max-width: 767px) {
+				width: 100%;
+			}
+			img {
+				height: 287px;
+				width: 500px;
+				aspect-ratio: 500 / 287;
+				object-fit: cover;
+				object-position: center;
+				@media (max-width: 1199px) {
+					width: 100%;
+				}
+				@media (max-width: 991px) {
+					height: 220px;
+				}
+				@media (max-width: 767px) {
+					height: 200px;
+				}
+			}
+		}
+	}
+	.dateBox {
+		margin-top: auto;
+		.downloadListenBox {
+			padding: 10px 0;
+			margin-top: 20px;
+			border-top: 1px solid var(--color_platinum_gray);
+			border-bottom: 1px solid var(--color_platinum_gray);
+			@media (max-width: 767px) {
+				flex-wrap: wrap;
+			}
+			.downloadListen {
+				.downloadBox {
+					@media (max-width: 767px) {
+						padding: 15px 0px;
+					}
+					a {
+						margin-left: 15px;
+					}
+				}
+			}
+			.downloadListenShare {
+				padding: 15px 0px;
+				border-left: 1px solid var(--color_platinum_gray);
+				@media (max-width: 767px) {
+					width: 100%;
+					border-left: none;
+					border-top: 1px solid var(--color_platinum_gray);
+				}
+				a {
+					padding-left: 20px;
+				}
+			}
+		}
+	}
+}

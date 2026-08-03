@@ -54,7 +54,7 @@ import ContentFromCms from "@/components/ContentFromCms";
 // DATA //
 
 /** Client Section */
-export default function Client({ data, countries, keyName = "postFields" }) {
+export default function Client({ data, countries }) {
 	const pathname = usePathname();
 	const currentUrl = `${"https://auroraer.com"}${pathname}`;
 
@@ -80,14 +80,14 @@ export default function Client({ data, countries, keyName = "postFields" }) {
 	return (
 		<>
 			<div className={`${styles.ClientBox}`}>
-				{(data?.[keyName]?.client ||
-					data?.[keyName]?.authors?.nodes ||
-					data?.[keyName]?.poweredBy?.nodes) && (
+				{(data?.postFields?.client ||
+					data?.postFields?.authors?.nodes ||
+					data?.postFields?.poweredBy?.nodes) && (
 					<div className={`${styles.whiteBox}`}>
-						{data?.[keyName]?.client && (
+						{data?.postFields?.client && (
 							<div className={`${styles.itemBox} ${styles.client}`}>
 								<h5 className="text_reg color_gray f_w_b pb_10">Client</h5>
-								{data?.[keyName]?.client?.map((item, ind) => {
+								{data?.postFields?.client?.map((item, ind) => {
 									return (
 										<div
 											className={`${styles.ClientFlex} f_r_a_center`}
@@ -106,12 +106,12 @@ export default function Client({ data, countries, keyName = "postFields" }) {
 								})}
 							</div>
 						)}
-						{data?.[keyName]?.authors?.nodes && (
+						{data?.postFields?.authors?.nodes && (
 							<div className={`${styles.itemBox}`}>
 								<h5 className="text_reg color_gray f_w_b pb_10">
-									{data?.[keyName]?.authors?.nodes?.length > 1 ? "Authors" : "Author"}
+									{data?.postFields?.authors?.nodes?.length > 1 ? "Authors" : "Author"}
 								</h5>
-								{data?.[keyName]?.authors?.nodes?.map((item, ind) => {
+								{data?.postFields?.authors?.nodes?.map((item, ind) => {
 									return (
 										<div
 											className={`${styles.ClientFlex} f_r_a_center ${
@@ -122,7 +122,7 @@ export default function Client({ data, countries, keyName = "postFields" }) {
 											onClick={() => {
 												if (!item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl)
 													return;
-												const indexOfSelectedAuthor = data?.[keyName]?.authors?.nodes
+												const indexOfSelectedAuthor = data?.postFields?.authors?.nodes
 													?.filter(
 														(item2) =>
 															item2?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl,
@@ -162,10 +162,10 @@ export default function Client({ data, countries, keyName = "postFields" }) {
 								})}
 							</div>
 						)}
-						{data?.[keyName]?.poweredBy?.nodes && (
+						{data?.postFields?.poweredBy?.nodes && (
 							<div className={`${styles.itemBox}`}>
 								<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-								{data?.[keyName]?.poweredBy?.nodes?.map((item, ind) => {
+								{data?.postFields?.poweredBy?.nodes?.map((item, ind) => {
 									/**keyModule  */
 									const keyModule = () => {
 										if (item?.contentType?.node?.name === "softwares") {
@@ -271,28 +271,6 @@ export default function Client({ data, countries, keyName = "postFields" }) {
 						</div>
 					)}
 				</div>
-				{data?.videoFields?.interestedIn && (
-					<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
-						<div className={`${styles.itemBox}`}>
-							<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
-								Interested in coming on as a Podcast guest?
-							</h5>
-							<div className={`${styles.ClientFlex} f_r_a_center`}>
-								<div className={`${styles.ClientDescription}`}>
-									<div className="text_xs color_dark_gray font_primary">
-										<ContentFromCms>
-											{data?.videoFields?.interestedIn?.description ||
-												`We’re always looking for new and exciting thought leadership.
-                                           For enquiries, please contact <span className="f_w_b">
-                                           <a href="mailto:steve.downing@aurora.com"><strong>Steve Downing</strong></a>
-                                           </span>`}
-										</ContentFromCms>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				)}
 				<div className={`${styles.whiteBox}`}>
 					<div className={`${styles.itemBox}`}>
 						<div className={`${styles.ClientFlex} f_r_a_center`}>
@@ -360,7 +338,7 @@ export default function Client({ data, countries, keyName = "postFields" }) {
 										// 	disableOnInteraction: false,
 										// }}
 									>
-										{data?.[keyName]?.authors?.nodes?.map((item, ind) => {
+										{data?.postFields?.authors?.nodes?.map((item, ind) => {
 											if (!item?.postAuthors?.thumbnail?.image?.node?.mediaItemUrl) {
 												return <></>;
 											}

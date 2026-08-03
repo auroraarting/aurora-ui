@@ -10,12 +10,11 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 
 // SECTIONS //
-import InsightsInsideWrap from "@/sections/resources/aurora-insights/InsightsInsideWrap";
+import VideosInsideWrap from "@/sections/resources/videos/VideosInsideWrap";
 
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/video/video.module.scss";
@@ -25,13 +24,13 @@ import styles from "@/styles/pages/video/video.module.scss";
 // DATA //
 
 // SERVICES //
+import { getInsightsCategories } from "@/services/Insights.service";
 import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
-import { getPageSeo } from "@/services/Seo.service";
-import { getAllVideos, getVideosInside } from "@/services/Videos.service";
+	getAllVideos,
+	getPreviousVideos,
+	getVideosInside,
+} from "@/services/Videos.service";
+import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
@@ -79,58 +78,35 @@ export async function generateStaticParams() {
 }
 
 /** Fetch  */
-async function getData({ params }) {
-	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
-	const [data, list, categoriesForSelect] = await Promise.all([
-		await getVideosInside(params.slug2),
-		await getInsights(`first: 9999, where: {categoryName: "${resourceCat}"}`),
-		await getInsightsCategories(),
-	]);
+async function getData({ slug }) {
+	const [data, previousVideos, categoriesForSelect, socialLinksFetch] =
+		await Promise.all([
+			getVideosInside(slug),
+			getPreviousVideos(slug),
+			getInsightsCategories(),
+			getEnergyTalksPageSocialLinks(),
+		]);
 
-	// 🚫 Redirect to 404 if status is DRAFT or data is null
-	if (!data?.data?.videoBy || data?.data?.videoBy?.status === "draft") {
+	// 🚫 Redirect to 404 if data is null
+	if (!data?.data?.videoBy) {
 		notFound(); // shows Next.js 404 page
 	}
 
-	const otherList = list?.data?.posts?.nodes?.slice(0, 3) || [];
-	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	return {
 		props: {
-			data: data?.data?.videoBy || [],
-			otherList,
-			countries,
+			data: data?.data?.videoBy,
+			videos: previousVideos?.slice(0, 1) || [],
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			otherList: previousVideos?.slice(0, 3) || [],
+			socialLinks: socialLinksFetch?.data?.page?.energyTalksListing?.socialLinks,
 		},
 	};
 }
 
-/** Articles Page */
-export default async function Articles({ params }) {
-	const { props } = await getData({ params });
-	console.log(props, "props");
-
-	/** insights */
-	const insights = () => {
-		if (params.slug === "article" || params.slug === "articles") {
-			return {
-				insights: {
-					title: "Energy insights to your inbox",
-					desc:
-						"Subscribe to get our most recent energy insights delivered straight to your inbox.",
-					iframe: "https://go.auroraer.com/mailinglist",
-				},
-				insightsSectionButton: {
-					buttonText: "Subscribe",
-					iframe: "https://go.auroraer.com/mailinglist",
-				},
-			};
-		}
-		return {
-			insights: props.data.videoFields.insights,
-			insightsSectionButton: props.data.videoFields.insightsSectionButton,
-		};
-	};
-
-	// data?.videoFields?.insights?.title
+/** VideosInside Page */
+export default async function VideosInside({ params }) {
+	const { slug2 } = await params;
+	const { props } = await getData({ slug: slug2 });
 
 	return (
 		<div className={styles.page}>
@@ -174,7 +150,7 @@ export default async function Articles({ params }) {
 			{/* <Header /> */}
 
 			{/* Page Content starts here */}
-			<InsightsInsideWrap {...props} {...insights()} keyName="videoFields" />
+			<VideosInsideWrap {...props} />
 			{/* Page Content ends here */}
 
 			{/* Footer */}

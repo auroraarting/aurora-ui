@@ -1,55 +1,42 @@
 // MODULES //
 
 // COMPONENTS //
-import Button from "@/components/Buttons/Button";
+import ContentFromCms from "@/components/ContentFromCms";
 
 // SECTIONS //
 
 // PLUGINS //
 
 // UTILS //
+import formatDate from "@/utils";
 
 // STYLES //
-import styles from "@/styles/sections/resources/energy-talks/EnergyMiddleRight.module.scss";
+import styles from "@/styles/sections/resources/videos/VideosMiddleRight.module.scss";
 
 // IMAGES //
-import author_logo from "@/../public/img/resources/aurora_insights/author_logo.png";
 import social_icon from "@/../public/img/resources/aurora_insights/social_icon.svg";
-import amun_logo from "@/../public/img/energy_talks/amun_logo.png";
 import white_arrow from "@/../public/img/energy_talks/white_arrow.svg";
-import amun_hover_logo from "@/../public/img/energy_talks/amun_hover_logo.png";
-import spring_forum from "@/../public/img/events/spring_forum.png";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
 import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
-import formatDate, { formatTitleForEpisode } from "@/utils";
-import ContentFromCms from "@/components/ContentFromCms";
 
 // DATA //
 
-/** EnergyMiddleRight Section */
-export default function EnergyMiddleRight({ data, events }) {
+/** VideosMiddleRight Section */
+export default function VideosMiddleRight({ data, videos }) {
 	return (
-		<div className={`${styles.EnergyMiddleRightBox}`}>
-			{(data?.podcastFields?.speakers ||
-				data?.podcastFields?.poweredBy?.nodes) && (
+		<div className={`${styles.VideosMiddleRightBox}`}>
+			{(data?.videoFields?.speakers?.nodes ||
+				data?.videoFields?.poweredBy?.nodes) && (
 				<div className={`${styles.whiteBox} ${styles.speaker}`}>
-					{data?.podcastFields?.speakers?.nodes && (
+					{data?.videoFields?.speakers?.nodes && (
 						<div className={`${styles.itemBox}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Guests</h5>
-							{data?.podcastFields?.speakers?.nodes?.map((item, ind) => {
+							{data?.videoFields?.speakers?.nodes?.map((item) => {
 								return (
 									<div
 										className={`${styles.ClientFlex} ${styles.speakerFlex}  f_r_a_center`}
 										key={item?.title}
 									>
-										{/* {item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl && (
-											<div className={`${styles.ClientLogo}`}>
-												<img
-													src={item?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl}
-													alt="pic"
-												/>
-											</div>
-										)} */}
 										<div className={`${styles.ClientDescription}`}>
 											<h5 className="text_reg font_primary color_gray f_w_m font_primary">
 												{item?.title}
@@ -73,22 +60,15 @@ export default function EnergyMiddleRight({ data, events }) {
 							})}
 						</div>
 					)}
-					{data?.podcastFields?.poweredBy?.nodes && (
+					{data?.videoFields?.poweredBy?.nodes && (
 						<div className={`${styles.itemBox} ${styles.power}`}>
 							<h5 className="text_reg color_gray f_w_b pb_10">Powered by</h5>
-							{data?.podcastFields?.poweredBy?.nodes?.map((item, ind) => {
+							{data?.videoFields?.poweredBy?.nodes?.map((item) => {
 								/**keyModule  */
 								const keyModule = () => {
 									if (item?.contentType?.node?.name === "softwares") {
 										return "software";
 									}
-									if (item?.contentType?.node?.name === "services") {
-										return "service";
-									}
-									return item?.contentType?.node?.name;
-								};
-								/** hregModule  */
-								const hrefModule = () => {
 									if (item?.contentType?.node?.name === "services") {
 										return "service";
 									}
@@ -110,11 +90,6 @@ export default function EnergyMiddleRight({ data, events }) {
 													className={`${styles.amun_logo}`}
 													alt={`${item?.contentType?.node?.name}_logo`}
 												/>
-												{/* <img
-                                    src={amun_hover_logo.src}
-                                    className={`${styles.amun_hover_logo}`}
-                                    alt="amun_logo"
-                                /> */}
 
 												<span className="f_r_aj_between text_xxs text_uppercase">
 													Know more
@@ -132,19 +107,15 @@ export default function EnergyMiddleRight({ data, events }) {
 			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
 				<div className={`${styles.itemBox}`}>
 					<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
-						Interested in coming on as a Podcast guest?
+						Interested in featuring in a video?
 					</h5>
 					<div className={`${styles.ClientFlex} f_r_a_center`}>
 						<div className={`${styles.ClientDescription}`}>
 							<div className="text_xs color_dark_gray font_primary">
 								<ContentFromCms>
-									{/* {data?.podcastFields?.interested
-										? data?.podcastFields?.interested
+									{data?.videoFields?.interested
+										? data?.videoFields?.interested
 										: `We’re always looking for new and exciting thought leadership.
-                                           For enquiries, please contact <span className="f_w_b">
-                                           <a href="mailto:angelina.scialla@auroraer.com">Angelina Scialla</a>
-                                           </span>`} */}
-									{`We’re always looking for new and exciting thought leadership.
                                            For enquiries, please contact <span className="f_w_b">
                                            <a href="mailto:steve.downing@aurora.com"><strong>Steve Downing</strong></a>
                                            </span>`}
@@ -155,25 +126,23 @@ export default function EnergyMiddleRight({ data, events }) {
 				</div>
 			</div>
 
-			{events?.length > 0 && (
+			{videos?.length > 0 && (
 				<div className={`${styles.whiteBox} ${styles.podcast}`}>
 					<h5
 						className={`${styles.subTxt} text_reg color_gray f_w_b pb_10 font_primary`}
 					>
-						Latest Podcast
+						Latest Video
 					</h5>
 					<div className={`${styles.itemBox}`}>
-						{events?.map((item, ind) => {
+						{videos?.map((item) => {
 							return (
 								<a
-									href={`/resources/energy-unplugged/${item.slug}`}
+									href={`/resources/videos/${item.slug}`}
 									className={`${styles.ClientFlex}`}
 									key={item?.title}
 								>
 									<div className={`${styles.ClientLogo}`}>
-										{/* <img src={spring_forum.src} alt="logo" /> */}
-										{/* <p>{item?.title}</p> */}
-										<ContentFromCms>{formatTitleForEpisode(item?.title)}</ContentFromCms>
+										<ContentFromCms>{item?.title}</ContentFromCms>
 									</div>
 									<div className={`${styles.dateFlex} pt_10`}>
 										<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center pb_10">
@@ -182,16 +151,16 @@ export default function EnergyMiddleRight({ data, events }) {
 												className={`${styles.calender}`}
 												alt="calender"
 											/>
-											<span>{formatDate(item?.podcastFields?.date)}</span>
+											<span>{formatDate(item?.videoFields?.date)}</span>
 										</p>
-										{item?.podcastFields?.time && (
+										{item?.videoFields?.time && (
 											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 												<img
 													src={grey_clock.src}
 													className={`${styles.location}`}
 													alt="location"
 												/>
-												<span>{item?.podcastFields?.time}</span>
+												<span>{item?.videoFields?.time}</span>
 											</p>
 										)}
 									</div>
