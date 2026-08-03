@@ -175,19 +175,33 @@ query GetVideosInside {
           }
         }
       }
-      speakers {
-        nodes {
-          ... on PostSpeaker {
+      newSpeakers {
+        desc
+        title
+        speakers {
+          sessions {
+            address
+            time
+            timeSlot
             title
-            slug
-            postSpeakers {
-              thumbnail {
-                designation
-                linkedinLink
-                image {
-                  node {
-                    altText
-                    mediaItemUrl
+          }
+          speakers {
+            nodes {
+              ... on PostSpeaker {
+                id
+                content
+                title
+                slug
+                postSpeakers {
+                  thumbnail {
+                    designation
+                    linkedinLink
+                    image {
+                      node {
+                        altText
+                        mediaItemUrl
+                      }
+                    }
                   }
                 }
               }
@@ -405,7 +419,7 @@ query GetVideosInside {
         }
       }
       videoLink
-      interestedIn{
+      interestedIn {
         description
       }
     }

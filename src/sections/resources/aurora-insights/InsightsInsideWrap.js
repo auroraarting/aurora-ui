@@ -31,6 +31,7 @@ import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
+import Speakers from "@/sections/events/Speakers";
 
 // IMAGES //
 
@@ -60,7 +61,7 @@ export default function InsightsInsideWrap({
 		postFields: { insightsSectionButton: { ...insightsSectionButton } } || {},
 	};
 
-	console.log(data?.[keyName]?.sections, "data?.[keyName]?.sections?");
+	console.log(data?.[keyName], "data?.[keyName]?.sections?");
 
 	return (
 		<div>
@@ -119,6 +120,7 @@ export default function InsightsInsideWrap({
 											key={item?.sectionTitle}
 											id={slugify(item?.sectionTitle)}
 											data-name={item?.sectionTitle}
+											className="pb_40"
 										>
 											<ContentFromCms>{item?.content || ""}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
@@ -135,7 +137,7 @@ export default function InsightsInsideWrap({
 													// }}
 												/>
 											)}
-											<div className="cmsButtonsWrap">
+											<div className="cmsButtonsWrap pt_10">
 												{item?.buttons?.map((btnItem) => {
 													const dataForBtn = {
 														postFields: { btnItem: btnItem } || {},
@@ -158,6 +160,16 @@ export default function InsightsInsideWrap({
 										</section>
 									);
 								})}
+								{data?.[keyName]?.newSpeakers?.speakers && (
+									<div className="pb_40">
+										<Speakers
+											data={data?.[keyName]?.newSpeakers?.speakers}
+											title={data?.[keyName]?.newSpeakers?.title}
+											desc={data?.[keyName]?.newSpeakers?.desc}
+											iseventInside={true}
+										/>
+									</div>
+								)}
 								<div className="pb_100 pt_50">
 									<TestimonialFeedback data={data?.[keyName]} hideContainer />
 								</div>
