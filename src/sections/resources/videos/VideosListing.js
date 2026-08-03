@@ -8,12 +8,6 @@ import Pagination from "@/components/Pagination";
 // SECTIONS //
 
 // PLUGINS //
-import LightGallery from "lightgallery/react";
-import lgZoom from "lightgallery/plugins/zoom";
-import lgVideo from "lightgallery/plugins/video";
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-video.css";
 
 // UTILS //
 import formatDate from "@/utils";
@@ -29,57 +23,6 @@ import searchImg from "@/../public/img/icons/search.svg";
 import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
-/** Fallback rich text shown in the video popup when the CMS has no custom text */
-const DEFAULT_CUSTOM_TEXT =
-	"<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil debitis facere expedita laudantium quam molestiae pariatur ad vitae cum ea consectetur nobis ex, iste dolor! Aperiam ipsam ducimus animi unde.</p>";
-
-/**
- * lightGallery sizes the video container at runtime, so the caption width can
- * only be matched from JS. Keeps the custom text from spilling past the video.
- */
-const syncCaptionWidth = () => {
-	document.querySelectorAll(".videoPopupCaption").forEach((gallery) => {
-		const caption = gallery.querySelector(".lg-sub-html");
-		const video =
-			gallery.querySelector(".lg-current .lg-video-cont") ||
-			gallery.querySelector(".lg-video-cont");
-		if (!caption || !video) return;
-
-		const width = video.getBoundingClientRect().width;
-		if (width > 0) caption.style.maxWidth = `${Math.round(width)}px`;
-	});
-};
-
-/**
- * lightGallery closes the popup on any click that bubbles up to `.lg-outer`,
- * which would swallow clicks on links inside the custom text. Stopping
- * propagation on the caption keeps the popup open while links, mailto's and
- * text selection keep working.
- */
-const setupPopupCaption = () => {
-	document.querySelectorAll(".videoPopupCaption .lg-sub-html").forEach((el) => {
-		if (!el.dataset.captionBound) {
-			el.dataset.captionBound = "true";
-			["mousedown", "mouseup", "click", "touchstart", "touchend"].forEach((evt) =>
-				el.addEventListener(evt, (e) => e.stopPropagation()),
-			);
-		}
-
-		// Web links open in a new tab so the video is not interrupted,
-		// mailto / tel links are left alone. Re-applied on every render because
-		// lightGallery rewrites the caption markup each time it is appended.
-		el.querySelectorAll("a[href]").forEach((link) => {
-			const href = link.getAttribute("href") || "";
-			if (/^(mailto:|tel:|#)/i.test(href)) return;
-			link.setAttribute("target", "_blank");
-			link.setAttribute("rel", "noreferrer");
-		});
-	});
-
-	// The video container is not measurable on the same frame the popup opens.
-	requestAnimationFrame(syncCaptionWidth);
-	setTimeout(syncCaptionWidth, 300);
-};
 
 /** Filter videos by selected filters */
 function filterVideos(arr, selectedObj) {
@@ -137,12 +80,6 @@ export default function VideosListing({ countries, data, years, topics }) {
 
 		return () => clearTimeout(delay);
 	}, [searchInput]);
-
-	/** Keep the popup caption matched to the video width on resize */
-	useEffect(() => {
-		window.addEventListener("resize", syncCaptionWidth);
-		return () => window.removeEventListener("resize", syncCaptionWidth);
-	}, []);
 
 	/** Apply filters */
 	const applyFilter = (selectedObj) => {
@@ -399,8 +336,6 @@ export default function VideosListing({ countries, data, years, topics }) {
 			<div className="container">
 				<div className={`${styles.videosItemFlex} d_f m_t_20`}>
 					{list?.map((item) => {
-						const videoUrl = item?.videoFields?.videoLink;
-						const customText = item?.videoFields?.customText || DEFAULT_CUSTOM_TEXT;
 						const topic = item?.videoFields?.topic?.nodes
 							?.map((t) => t.title)
 							.join(", ");
@@ -410,75 +345,60 @@ export default function VideosListing({ countries, data, years, topics }) {
 							.join(", ");
 
 						return (
-							/* One gallery per video so the popup never becomes a slider */
-							<LightGallery
+							<a
 								key={item?.slug || item?.title}
-								speed={500}
-								plugins={[lgZoom, lgVideo]}
-								mobileSettings={{ closable: true }}
-								thumbnail={false}
-								animateThumb={false}
-								counter={false}
-								addClass="videoPopupCaption"
-								elementClassNames={`${styles.ItemBox}`}
-								onAfterOpen={setupPopupCaption}
-								onAfterAppendSubHtml={setupPopupCaption}
+								className={`${styles.ItemBox}`}
+								href={`/resources/videos/${item?.slug}`}
 							>
-								<a
-									href={videoUrl || "#"}
-									data-src={videoUrl || ""}
-									data-sub-html={customText}
-								>
-									<div className={`${styles.hoverBox}`}>
-										<img
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										{/* Topic */}
-										{topic && (
-											<p
-												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
-											>
-												{topic}
-											</p>
-										)}
-
-										{/* Video Title */}
+								<div className={`${styles.hoverBox}`}>
+									<img
+										src={hoverBg.src}
+										className={`${styles.hoverBg} width_100 b_r_10`}
+										alt="img"
+									/>
+									{/* Topic */}
+									{topic && (
 										<p
-											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
+											className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase`}
 										>
-											{item?.title}
+											{topic}
 										</p>
+									)}
 
-										{/* Date & Country */}
-										{(date || country) && (
-											<div className={`${styles.dateFlex} f_j pt_40`}>
-												{date && (
-													<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-														<img
-															src={calender.src}
-															className={`${styles.calender}`}
-															alt="calendar"
-														/>
-														<span>{formatDate(date)}</span>
-													</p>
-												)}
-												{country && (
-													<p className="text_xs f_w_m color_light_gray f_r_a_center">
-														<img
-															src={location.src}
-															className={`${styles.location}`}
-															alt="location"
-														/>
-														<span className="text_uppercase">{country}</span>
-													</p>
-												)}
-											</div>
-										)}
-									</div>
-								</a>
-							</LightGallery>
+									{/* Video Title */}
+									<p
+										className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
+									>
+										{item?.title}
+									</p>
+
+									{/* Date & Country */}
+									{(date || country) && (
+										<div className={`${styles.dateFlex} f_j pt_40`}>
+											{date && (
+												<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+													<img
+														src={calender.src}
+														className={`${styles.calender}`}
+														alt="calendar"
+													/>
+													<span>{formatDate(date)}</span>
+												</p>
+											)}
+											{country && (
+												<p className="text_xs f_w_m color_light_gray f_r_a_center">
+													<img
+														src={location.src}
+														className={`${styles.location}`}
+														alt="location"
+													/>
+													<span className="text_uppercase">{country}</span>
+												</p>
+											)}
+										</div>
+									)}
+								</div>
+							</a>
 						);
 					})}
 					{loading && <p>Loading...</p>}
