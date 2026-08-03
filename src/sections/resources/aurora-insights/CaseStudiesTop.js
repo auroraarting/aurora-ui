@@ -28,7 +28,7 @@ import black_clock from "/public/img/icons/black_clock.svg";
 // DATA //
 
 /** CaseStudiesTop Section */
-export default function CaseStudiesTop({ data }) {
+export default function CaseStudiesTop({ data, keyName = "postFields" }) {
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	/** Speechify  */
@@ -41,6 +41,8 @@ export default function CaseStudiesTop({ data }) {
 			setIsPlaying(false);
 		}
 	};
+
+	console.log(data, "data");
 
 	return (
 		<section className={`${styles.CaseStudiesTop} pt_50`}>
@@ -60,14 +62,14 @@ export default function CaseStudiesTop({ data }) {
 								{/* <span>mar 2025</span> */}
 								<span>{formatDate(data?.date)}</span>
 							</p>
-							{data?.postFields?.time && (
+							{data?.[keyName]?.time && (
 								<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
 									<img
 										src={black_clock.src}
 										className={`${styles.calender}`}
 										alt="calender"
 									/>
-									<span>{data?.postFields?.time}</span>
+									<span>{data?.[keyName]?.time}</span>
 								</p>
 							)}
 						</div>
@@ -107,6 +109,15 @@ export default function CaseStudiesTop({ data }) {
 						<div className={`${styles.imageWrapper}`}>
 							<img
 								src={data?.featuredImage?.node?.mediaItemUrl}
+								className="width_100 b_r_20"
+								alt={data?.title}
+							/>
+						</div>
+					)}
+					{data?.[keyName]?.thumbnail?.node?.mediaItemUrl && (
+						<div className={`${styles.imageWrapper}`}>
+							<img
+								src={data?.[keyName]?.thumbnail?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
 								alt={data?.title}
 							/>
