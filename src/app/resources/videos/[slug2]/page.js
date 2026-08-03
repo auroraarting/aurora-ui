@@ -18,7 +18,7 @@ import InsightsInsideWrap from "@/sections/resources/aurora-insights/InsightsIns
 import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
-import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
+import styles from "@/styles/pages/video/video.module.scss";
 
 // IMAGES //
 
@@ -133,7 +133,7 @@ export default async function Articles({ params }) {
 	// data?.videoFields?.insights?.title
 
 	return (
-		<div>
+		<div className={styles.page}>
 			<Script id="show-banner" strategy="afterInteractive">
 				{`
     let speechifyWidgetInstance;
