@@ -46,7 +46,6 @@ export default function InsightsInsideWrap({
 	countries,
 	insights,
 	insightsSectionButton,
-	keyName = "postFields",
 }) {
 	const isArticle = data?.categories?.nodes?.some(
 		(item) => item.slug === "commentary",
@@ -60,8 +59,6 @@ export default function InsightsInsideWrap({
 	const dataForBtn = {
 		postFields: { insightsSectionButton: { ...insightsSectionButton } } || {},
 	};
-
-	console.log(data?.[keyName], "data?.[keyName]?.sections?");
 
 	return (
 		<div>
@@ -81,7 +78,6 @@ export default function InsightsInsideWrap({
 				{/* <Breadcrumbs /> */}
 				<div className="pb_60">
 					<CaseStudiesTop
-						keyName={keyName}
 						data={data}
 						isArticle={isArticle}
 						isCaseStudy={isCaseStudy}
@@ -114,7 +110,7 @@ export default function InsightsInsideWrap({
 										<ContentFromCms>{data?.content}</ContentFromCms>
 									</section>
 								)}
-								{data?.[keyName]?.sections?.map((item) => {
+								{data?.postFields?.sections?.map((item) => {
 									return (
 										<section
 											key={item?.sectionTitle}
@@ -160,22 +156,22 @@ export default function InsightsInsideWrap({
 										</section>
 									);
 								})}
-								{data?.[keyName]?.newSpeakers?.speakers && (
+								{data?.postFields?.newSpeakers?.speakers && (
 									<div className="pb_40">
 										<Speakers
-											data={data?.[keyName]?.newSpeakers?.speakers}
-											title={data?.[keyName]?.newSpeakers?.title}
-											desc={data?.[keyName]?.newSpeakers?.desc}
+											data={data?.postFields?.newSpeakers?.speakers}
+											title={data?.postFields?.newSpeakers?.title}
+											desc={data?.postFields?.newSpeakers?.desc}
 											iseventInside={true}
 										/>
 									</div>
 								)}
 								<div className="pb_100 pt_50">
-									<TestimonialFeedback data={data?.[keyName]} hideContainer />
+									<TestimonialFeedback data={data?.postFields} hideContainer />
 								</div>
 							</div>
 							<div className={`${styles.CaseStudiesMiddleRight}`}>
-								<Client data={data} countries={countries} keyName={keyName} />
+								<Client data={data} countries={countries} />
 							</div>
 						</div>
 					</div>

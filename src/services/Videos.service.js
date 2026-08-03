@@ -37,6 +37,7 @@ query GetVideosListing {
           }
         }
         date
+        time
         # TODO: enable once the "customText" (WYSIWYG) field is added to the
         # Video Fields group in the CMS - the listing already renders it and
         # falls back to a default line while it is missing.
@@ -63,44 +64,84 @@ query GetVideosListing {
 	return res;
 };
 
+/** Fetch Previous Videos - videos published before the given one, newest first */
+export const getPreviousVideos = async (slug, filters = "first:9999") => {
+	const query = `
+query GetPreviousVideos {
+  videos(${filters}) {
+    nodes {
+      title
+      slug
+      date
+      videoFields {
+        date
+        time
+        thumbnail {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        country {
+          nodes {
+            ... on Country {
+              id
+              title
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+	const res = await GraphQLAPI(query, {
+		apiID: "previousVideos",
+		pageID: "/resources/videos",
+	});
+
+	const nodes = res?.data?.videos?.nodes || [];
+	/** videoDate - the CMS date, falling back to the published date */
+	const videoDate = (item) => item?.videoFields?.date || item?.date;
+	const current = nodes?.find(
+		(item) => item?.slug === decodeURIComponent(slug || ""),
+	);
+
+	return nodes
+		?.filter((item) => {
+			if (item?.slug === current?.slug) return false;
+			if (!videoDate(current)) return true;
+			return new Date(videoDate(item)) < new Date(videoDate(current)); // published before this one
+		})
+		?.sort((a, b) => new Date(videoDate(b)) - new Date(videoDate(a)))
+		?.map((item) => ({ ...item, date: videoDate(item) }));
+};
+
 /** Videos Page */
 export const getVideosInside = async (slug) => {
 	const query = `
-query GetVideosInside {
+query GetPodcastBy {
   videoBy(slug: "${decodeURIComponent(slug)}") {
     title
     slug
-    date
     content
-    status
     featuredImage {
       node {
         altText
         mediaItemUrl
       }
     }
-    videoCategories(first: 9999) {
-      nodes {
-        slug
-        name
-      }
-    }
-    videoTags(first: 9999) {
-      nodes {
-        name
-        slug
-      }
-    }
     videoFields {
-      topSectionButton {
-        iframe
-        buttonText
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
+      date
+      appleLink
+      otherLink
+      googleLink
+      thumbnail{
+      node {
+        altText
+        mediaItemUrl
+      }
       }
       middleSectionButton {
         buttonText
@@ -112,37 +153,18 @@ query GetVideosInside {
           }
         }
       }
-      bottomSectionButton {
-        buttonText
-        iframe
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      insightsSectionButton {
-        buttonText
-        iframe
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
+      spotifyLink
       time
-      authors {
+      youtubeLink
+      speakers {
         nodes {
-          ... on PostAuthor {
-            content
+          ... on PostSpeaker {
             title
             slug
-            postAuthors {
+            postSpeakers {
               thumbnail {
-                linkedinLink
                 designation
+                linkedinLink
                 image {
                   node {
                     altText
@@ -150,71 +172,7 @@ query GetVideosInside {
                   }
                 }
               }
-              articles {
-                articlesby(first: 9999) {
-                  nodes {
-                    ... on Post {
-                      id
-                      slug
-                      title
-                      date
-                      postFields {
-                        time
-                      }
-                      categories(first: 9999) {
-                        nodes {
-                          name
-                          slug
-                        }
-                      }
-                    }
-                  }
-                }
-              }
             }
-          }
-        }
-      }
-      newSpeakers {
-        desc
-        title
-        speakers {
-          sessions {
-            address
-            time
-            timeSlot
-            title
-          }
-          speakers {
-            nodes {
-              ... on PostSpeaker {
-                id
-                content
-                title
-                slug
-                postSpeakers {
-                  thumbnail {
-                    designation
-                    linkedinLink
-                    image {
-                      node {
-                        altText
-                        mediaItemUrl
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      client {
-        title
-        image {
-          node {
-            altText
-            mediaItemUrl
           }
         }
       }
@@ -335,26 +293,10 @@ query GetVideosInside {
           }
         }
       }
-      recordingSectionButton {
-        buttonText
-        iframe
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      sections {
+      sectionsCopy{
         content
         sectionTitle
-        lottie {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        buttons {
+        button2 {
           buttonText
           iframe
           url
@@ -366,50 +308,7 @@ query GetVideosInside {
           }
         }
       }
-      mediaContact {
-        designation
-        name
-        email {
-          text
-        }
-        phone {
-          text
-        }
-      }
-      about {
-        content
-        sectionTitle
-      }
-      insights {
-        desc
-        title
-      }
-      thumbnail {
-        node {
-          altText
-          mediaItemUrl
-        }
-      }
-      topic {
-        nodes {
-          ... on Page {
-            id
-            title
-            slug
-          }
-          ... on Software {
-            id
-            title
-            slug
-          }
-          ... on Product {
-            id
-            title
-            slug
-          }
-        }
-      }
-      country {
+      country(first: 9999) {
         nodes {
           ... on Country {
             id
@@ -418,10 +317,7 @@ query GetVideosInside {
           }
         }
       }
-      videoLink
-      interestedIn {
-        description
-      }
+      interested
     }
   }
 }
