@@ -45,19 +45,22 @@ export default function InsightsInsideWrap({
 	countries,
 	insights,
 	insightsSectionButton,
+	keyName = "postFields",
 }) {
 	const isArticle = data?.categories?.nodes?.some(
-		(item) => item.slug === "commentary"
+		(item) => item.slug === "commentary",
 	);
 	const isCaseStudy = data?.categories?.nodes?.some(
-		(item) => item.slug === "case-study"
+		(item) => item.slug === "case-study",
 	);
 	const isReports = data?.categories?.nodes?.some((item) =>
-		item.slug.includes("report")
+		item.slug.includes("report"),
 	);
 	const dataForBtn = {
 		postFields: { insightsSectionButton: { ...insightsSectionButton } } || {},
 	};
+
+	console.log(data?.[keyName]?.sections, "data?.[keyName]?.sections?");
 
 	return (
 		<div>
@@ -77,6 +80,7 @@ export default function InsightsInsideWrap({
 				{/* <Breadcrumbs /> */}
 				<div className="pb_60">
 					<CaseStudiesTop
+						keyName={keyName}
 						data={data}
 						isArticle={isArticle}
 						isCaseStudy={isCaseStudy}
@@ -109,14 +113,14 @@ export default function InsightsInsideWrap({
 										<ContentFromCms>{data?.content}</ContentFromCms>
 									</section>
 								)}
-								{data?.postFields?.sections?.map((item) => {
+								{data?.[keyName]?.sections?.map((item) => {
 									return (
 										<section
 											key={item?.sectionTitle}
 											id={slugify(item?.sectionTitle)}
 											data-name={item?.sectionTitle}
 										>
-											<ContentFromCms>{item?.content}</ContentFromCms>
+											<ContentFromCms>{item?.content || ""}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
 												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
@@ -155,31 +159,33 @@ export default function InsightsInsideWrap({
 									);
 								})}
 								<div className="pb_100 pt_50">
-									<TestimonialFeedback data={data?.postFields} hideContainer />
+									<TestimonialFeedback data={data?.[keyName]} hideContainer />
 								</div>
 							</div>
 							<div className={`${styles.CaseStudiesMiddleRight}`}>
-								<Client data={data} countries={countries} />
+								<Client data={data} countries={countries} keyName={keyName} />
 							</div>
 						</div>
 					</div>
 				</section>
 
-				<div className="pb_100">
-					<Insights
-						isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={otherList}
-						countries={countries}
-						formSectionTitle={insights?.title}
-						formSectionDesc={insights?.desc}
-						formSectionBtnText={
-							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
-						}
-						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
-					/>
-				</div>
+				{data?.postFields && (
+					<div className="pb_100">
+						<Insights
+							isPowerBgVisible={true}
+							isInsightsBlogsVisible={true}
+							defaultList={otherList}
+							countries={countries}
+							formSectionTitle={insights?.title}
+							formSectionDesc={insights?.desc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+							}
+							insightsTitle="More from Aurora"
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						/>
+					</div>
+				)}
 
 				<IframeModal hideLeft />
 			</main>
