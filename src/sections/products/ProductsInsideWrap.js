@@ -46,6 +46,8 @@ export default function ProductInsideWrap({
 }) {
 	const dataForBtn = { postFields: data?.products || {} };
 
+	console.log(data?.products?.map, "data?.products?.map");
+
 	return (
 		<div>
 			{/* Metatags */}
@@ -99,10 +101,12 @@ export default function ProductInsideWrap({
 						<MarketIntelligence data={data?.products?.introduction} />
 					</div>
 				)}
-				<GlobalMap
-					locationJson={mapJson}
-					marqueeText={data?.products?.map?.marquee}
-				/>
+				{data?.products?.map?.active && (
+					<GlobalMap
+						locationJson={mapJson}
+						marqueeText={data?.products?.map?.marquee}
+					/>
+				)}
 				{data?.products?.caseStudy?.selectCaseStudies?.nodes && (
 					<div className="pt_100">
 						<CaseStudy data={data?.products?.caseStudy} />

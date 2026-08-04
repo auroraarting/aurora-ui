@@ -416,3 +416,35 @@ section {
 		width: 100%;
 	}
 }
+
+/* Custom rich text inside the video popup - lightGallery mounts on body,
+   so this cannot live in the VideosListing css module */
+.videoPopupCaption {
+	.lg-sub-html {
+		color: var(--color_white);
+		padding: 20px 40px;
+		cursor: auto;
+		user-select: text;
+		/* max-width is set from JS to the rendered video width */
+		box-sizing: border-box;
+		margin-left: auto;
+		margin-right: auto;
+		overflow-wrap: break-word;
+		padding: 20px 0px !important;
+		p {
+			font-size: 16px;
+			line-height: 1.4;
+			font-family: var(--font_primary);
+			margin: 5px 0 0;
+			@media screen and (max-width: 767px) {
+				font-size: 14px;
+			}
+		}
+		a {
+			color: var(--color_primary);
+			text-decoration: underline;
+			cursor: pointer;
+			pointer-events: auto;
+		}
+	}
+}
