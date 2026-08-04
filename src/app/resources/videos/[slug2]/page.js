@@ -79,18 +79,30 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, previousVideos, categoriesForSelect, socialLinksFetch] =
-		await Promise.all([
-			getVideosInside(slug),
-			getPreviousVideos(slug),
-			getInsightsCategories(),
-			getEnergyTalksPageSocialLinks(),
-		]);
+	const [data, previousVideos, categoriesForSelect] = await Promise.all([
+		getVideosInside(slug),
+		getPreviousVideos(slug),
+		getInsightsCategories(),
+	]);
 
 	// 🚫 Redirect to 404 if data is null
 	if (!data?.data?.videoBy) {
 		notFound(); // shows Next.js 404 page
 	}
+
+	const socialLinksFetch = [
+		{
+			url:
+				data?.data?.videoBy?.videoFields?.youtubeLink ||
+				"https://youtube.com/playlist?list=PLVL1WPkN_GwmntaUW4VIKds14K1PGJKgl",
+			logo: {
+				node: {
+					altText: "",
+					mediaItemUrl: "/cms-assets/staging/2025/05/youtube-icon.svg",
+				},
+			},
+		},
+	];
 
 	return {
 		props: {
@@ -98,7 +110,7 @@ async function getData({ slug }) {
 			videos: previousVideos?.slice(0, 1) || [],
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
 			otherList: previousVideos?.slice(0, 3) || [],
-			socialLinks: socialLinksFetch?.data?.page?.energyTalksListing?.socialLinks,
+			socialLinks: socialLinksFetch,
 		},
 	};
 }
