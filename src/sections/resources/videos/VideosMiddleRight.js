@@ -104,27 +104,24 @@ export default function VideosMiddleRight({ data, videos }) {
 					)}
 				</div>
 			)}
-			<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
-				<div className={`${styles.itemBox}`}>
-					<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
-						Interested in featuring in a video?
-					</h5>
-					<div className={`${styles.ClientFlex} f_r_a_center`}>
-						<div className={`${styles.ClientDescription}`}>
-							<div className="text_xs color_dark_gray font_primary">
-								<ContentFromCms>
-									{data?.videoFields?.interested
-										? data?.videoFields?.interested
-										: `We’re always looking for new and exciting thought leadership.
-                                           For enquiries, please contact <span className="f_w_b">
-                                           <a href="mailto:steve.downing@aurora.com"><strong>Steve Downing</strong></a>
-                                           </span>`}
-								</ContentFromCms>
+			{data?.videoFields?.interested && (
+				<div className={`${styles.whiteBox} ${styles.yellowBox}`}>
+					<div className={`${styles.itemBox}`}>
+						<h5 className="text_reg color_gray f_w_m pb_10 font_primary">
+							Interested in featuring in a video?
+						</h5>
+						<div className={`${styles.ClientFlex} f_r_a_center`}>
+							<div className={`${styles.ClientDescription}`}>
+								<div className="text_xs color_dark_gray font_primary">
+									<ContentFromCms>
+										{data?.videoFields?.interested ? data?.videoFields?.interested : ""}
+									</ContentFromCms>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			)}
 
 			{videos?.length > 0 && (
 				<div className={`${styles.whiteBox} ${styles.podcast}`}>

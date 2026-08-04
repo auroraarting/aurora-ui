@@ -51,7 +51,6 @@ query GetVideosListing {
             }
           }
         }
-        videoLink
       }
     }
   }
@@ -134,9 +133,6 @@ query GetPodcastBy {
     }
     videoFields {
       date
-      appleLink
-      otherLink
-      googleLink
       thumbnail{
       node {
         altText
@@ -153,7 +149,6 @@ query GetPodcastBy {
           }
         }
       }
-      spotifyLink
       time
       youtubeLink
       speakers {
