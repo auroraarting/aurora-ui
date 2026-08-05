@@ -13,19 +13,35 @@
 	/* ── Sidebar / region selector ─────────────────── */
 	.sidebar {
 		flex: 0 0 250px;
+		position: relative;
 		background: var(--color_silver);
 		border: 1px solid var(--color_platinum_gray);
 		border-radius: 12px;
-		padding: 14px 16px;
-		overflow-y: auto;
+		overflow: hidden;
 		@media (max-width: 991px) {
 			flex: 1 1 100%;
 			width: 100%;
 		}
 	}
 
+	/* Taken out of flow so a long market list can't stretch the row: the panel
+	   sets the height, the sidebar matches it and scrolls its list instead. */
+	.sidebarInner {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		padding: 14px 16px;
+		overflow: hidden;
+		@media (max-width: 991px) {
+			position: static;
+			max-height: 500px;
+		}
+	}
+
 	.sidebarHead {
 		display: flex;
+		flex: 0 0 auto;
 		align-items: baseline;
 		justify-content: space-between;
 		margin-bottom: 14px;
@@ -93,7 +109,10 @@
 		margin: 0;
 		padding: 0;
 		padding-top: 9px;
+		flex: 1 1 auto;
+		min-height: 0; // lets the list shrink so its own scrollbar kicks in
 		overflow-y: auto;
+		overscroll-behavior: contain;
 		border-top: 1px solid var(--color_platinum_gray);
 	}
 

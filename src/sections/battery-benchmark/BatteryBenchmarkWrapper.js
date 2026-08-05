@@ -48,7 +48,7 @@ export const metadata = {
 };
 
 /** Products Page */
-export default function BatteryBenchmarkWrapper({ data }) {
+export default function BatteryBenchmarkWrapper({ data, regions }) {
 	const dataForBtn = { postFields: data?.products || {} };
 	const [benchmarkType, setBenchmarkType] = useState("backcast");
 
@@ -79,7 +79,10 @@ export default function BatteryBenchmarkWrapper({ data }) {
 					/>
 				</div>
 				<div className="pt_40">
-					<BatteryBenchmarkExplorer benchmarkType={benchmarkType} />
+					<BatteryBenchmarkExplorer
+						benchmarkType={benchmarkType}
+						regionCodes={regions}
+					/>
 				</div>
 				<div className="pt_40">
 					<div className="container">

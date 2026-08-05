@@ -56,24 +56,140 @@ const DURATION_BASE = {
 	"1-hour": { base: 250, peak: 500 },
 };
 
-/** Markets shown in the region selector */
-export const regions = [
-	{ key: "great-britain", label: "Great Britain", multiplier: 1 },
-	{ key: "germany", label: "Germany", multiplier: 0.82 },
-	{ key: "france", label: "France", multiplier: 0.68 },
-	{ key: "italy", label: "Italy", multiplier: 0.9, soon: true },
-	{ key: "belgium", label: "Belgium", multiplier: 0.74 },
-	{ key: "netherlands", label: "Netherlands", multiplier: 0.79 },
-	{ key: "iberia", label: "Iberia", multiplier: 0.6 },
-	{ key: "norway", label: "Norway", multiplier: 0.52 },
-	{ key: "sweden", label: "Sweden", multiplier: 0.57 },
-	{ key: "denmark", label: "Denmark", multiplier: 0.63 },
-	{ key: "finland", label: "Finland", multiplier: 0.55 },
-	{ key: "poland", label: "Poland", multiplier: 0.71 },
-	{ key: "ercot", label: "ERCOT", multiplier: 1.12 },
-	{ key: "caiso", label: "CAISO", multiplier: 1.05 },
-	{ key: "australia-nem", label: "Australia NEM", multiplier: 0.95, soon: true },
+/** Display names for the region codes returned by the API (/regions/all) */
+export const REGION_LABELS = {
+	// Europe
+	gbr: "Great Britain",
+	deu: "Germany",
+	fra: "France",
+	ita: "Italy",
+	bel: "Belgium",
+	nld: "Netherlands",
+	ibe: "Iberia",
+	irx: "Ireland",
+	nod: "Nordics",
+	swe: "Sweden",
+	dnk: "Denmark",
+	fin: "Finland",
+	bal: "Baltics",
+	est: "Estonia",
+	ltu: "Lithuania",
+	pol: "Poland",
+	hun: "Hungary",
+	rou: "Romania",
+	bgr: "Bulgaria",
+	grc: "Greece",
+	// Americas
+	erc: "ERCOT",
+	cas: "CAISO",
+	pjm: "PJM",
+	mis: "MISO",
+	spp: "SPP",
+	ny: "NYISO",
+	ne: "ISO-NE",
+	aies: "Alberta",
+	chl: "Chile",
+	// APAC
+	aus: "Australia NEM",
+	waa: "Western Australia",
+	jpn: "Japan",
+	kor: "South Korea",
+	ind: "India",
+	phl: "Philippines",
+};
+
+/** Order the selector renders in — codes outside this list follow, A → Z */
+const REGION_ORDER = [
+	"gbr",
+	"deu",
+	"fra",
+	"ita",
+	"bel",
+	"nld",
+	"ibe",
+	"irx",
+	"nod",
+	"swe",
+	"dnk",
+	"fin",
+	"bal",
+	"est",
+	"ltu",
+	"pol",
+	"hun",
+	"rou",
+	"bgr",
+	"grc",
+	"erc",
+	"cas",
+	"pjm",
+	"mis",
+	"spp",
+	"ny",
+	"ne",
+	"aies",
+	"chl",
+	"aus",
+	"waa",
+	"jpn",
+	"kor",
+	"ind",
+	"phl",
 ];
+
+/** Markets announced in the selector but not yet selectable */
+const REGION_SOON = ["ita"];
+
+/** Per-region scaling for the placeholder chart series */
+const REGION_MULTIPLIERS = {
+	gbr: 1,
+	deu: 0.82,
+	fra: 0.68,
+	ita: 0.9,
+	bel: 0.74,
+	nld: 0.79,
+	ibe: 0.6,
+	nod: 0.54,
+	swe: 0.57,
+	dnk: 0.63,
+	fin: 0.55,
+	pol: 0.71,
+	erc: 1.12,
+	cas: 1.05,
+	aus: 0.95,
+};
+const DEFAULT_MULTIPLIER = 0.7;
+
+/** regionLabel - display name for a code, falling back to the code itself */
+export function regionLabel(code) {
+	return REGION_LABELS[code] || String(code || "").toUpperCase();
+}
+
+/** buildRegions - turns the API's region codes into selector items, in display
+ *  order. Called with nothing (or an empty list) it returns every known market,
+ *  so the selector still renders if the API call fails. */
+export function buildRegions(codes) {
+	const list = codes?.length ? codes : REGION_ORDER;
+
+	return [...new Set(list)]
+		.map((code) => ({
+			key: code,
+			label: regionLabel(code),
+			multiplier: REGION_MULTIPLIERS[code] ?? DEFAULT_MULTIPLIER,
+			soon: REGION_SOON.includes(code),
+		}))
+		.sort((a, b) => {
+			const aIndex = REGION_ORDER.indexOf(a.key);
+			const bIndex = REGION_ORDER.indexOf(b.key);
+			if (aIndex === -1 && bIndex === -1) return a.label.localeCompare(b.label);
+			if (aIndex === -1) return 1;
+			if (bIndex === -1) return -1;
+			return aIndex - bIndex;
+		});
+}
+
+/** Markets shown in the region selector when the API list is unavailable */
+export const regions = buildRegions();
 
 /** Benchmark index types shown in the top toggle */
 export const benchmarkTypes = [
@@ -106,14 +222,14 @@ export const units = [
  * (realised revenue < idealised backcast).
  */
 export function getChartSeries(regionKey, benchmarkType = "backcast") {
-	const region = regions.find((r) => r.key === regionKey) || regions[0];
+	const multiplier = REGION_MULTIPLIERS[regionKey] ?? DEFAULT_MULTIPLIER;
 	const typeFactor = benchmarkType === "real" ? 0.78 : 1;
 
 	return durations.map((d) => {
 		const { base, peak } = DURATION_BASE[d.key];
 		return {
 			...d,
-			data: generateSeries(base, peak, region.multiplier * typeFactor),
+			data: generateSeries(base, peak, multiplier * typeFactor),
 		};
 	});
 }
