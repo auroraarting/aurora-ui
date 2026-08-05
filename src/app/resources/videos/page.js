@@ -64,7 +64,6 @@ export default async function Videos() {
 	});
 	const countries = Object.values(countriesMap);
 	const socialLinks = videosLanding?.socialLinks;
-
 	return (
 		<div>
 			<VideosWrap
