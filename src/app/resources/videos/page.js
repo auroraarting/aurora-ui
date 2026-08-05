@@ -37,7 +37,6 @@ export default async function Videos() {
 		getVideosLandingPage(),
 	]);
 	const videosLanding = landingFetch?.data?.page?.videosLanding || {};
-	console.log(dataFetch, "videosLanding");
 	const data =
 		dataFetch?.data?.videos?.nodes?.sort(
 			(a, b) => new Date(b?.videoFields?.date) - new Date(a?.videoFields?.date),

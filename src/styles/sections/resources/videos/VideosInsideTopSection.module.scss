@@ -34,9 +34,8 @@
 				width: 100%;
 			}
 			img {
-				height: 287px;
-				width: 500px;
-				aspect-ratio: 500 / 287;
+				height: 100%;
+				width: 100%;
 				object-fit: cover;
 				object-position: center;
 				@media (max-width: 1199px) {
