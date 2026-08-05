@@ -853,6 +853,16 @@ export default function Insights({
 																</span>
 															</p>
 														)}
+														{item?.videoFields?.country?.nodes?.length > 0 && (
+															<p className="text_xs f_w_m color_medium_gray d_f text_uppercase">
+																<img src={white_location.src} alt="location" />
+																<span>
+																	{item.videoFields?.country?.nodes
+																		?.map((item2) => item2.title)
+																		.join(", ")}
+																</span>
+															</p>
+														)}
 													</div>
 												</div>
 											</Link>

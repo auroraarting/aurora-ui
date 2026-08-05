@@ -357,7 +357,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 										className={`${styles.hoverBg} width_100 b_r_10`}
 										alt="img"
 									/>
-									<div className={styles.thumbnailWrap}>
+									{/* <div className={styles.thumbnailWrap}>
 										{thumbnailImg && (
 											<img
 												src={thumbnailImg}
@@ -365,7 +365,7 @@ export default function VideosListing({ countries, data, years, topics }) {
 												alt={item?.title || "Video thumbnail"}
 											/>
 										)}
-									</div>
+									</div> */}
 									{/* Topic */}
 									{topic && (
 										<p

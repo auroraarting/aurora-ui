@@ -25,6 +25,7 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 import { getProductBySlug, getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
+import { getAllRegions } from "@/services/rest/BatteryBenchmark.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
@@ -38,20 +39,17 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, regions, bundles] = await Promise.all([
+	const [data, bundles] = await Promise.all([
 		await getProductBySlug(params.slug),
-		await getRegions(),
 		await getBundlesSection(),
 	]);
-	const mapJson = getMapJsonForProducts(
-		filterMarkersBySlug(regions, params.slug),
-	);
 	const countries = data?.data?.countries?.nodes;
+	const regions = await getAllRegions();
 
 	return {
 		props: {
 			data: data.data.productBy,
-			mapJson,
+			regions,
 			bundles: bundles.data.page.bundles,
 			countries,
 		},
@@ -61,6 +59,7 @@ async function getData({ params }) {
 /** Products Page */
 export default async function Products() {
 	const { props } = await getData({ params: { slug: "grid" } });
+	console.log("props", props);
 
 	return (
 		<div>
