@@ -989,7 +989,6 @@ export const dynamicInsightsBtnProps = (
 	if (finalUrl) {
 		// Show this below
 		obj.href = finalUrl;
-
 		// If fileUrl exists, treat it as external (always open in new tab)
 		if (fileUrl) {
 			// obj.style = { display: "none" };
@@ -1502,9 +1501,18 @@ export const getLinkAndTitle = (key, item = {}, searchTerm) => {
 };
 
 const wpUploadBases = [
-	{ base: "https://cms-production.auroraer.com/wp-content/uploads", env: "production" },
-	{ base: "https://cms-staging.auroraer.com/wp-content/uploads", env: "staging" },
-	{ base: "https://aurora-staging.mystagingwebsite.com/wp-content/uploads", env: "staging" },
+	{
+		base: "https://cms-production.auroraer.com/wp-content/uploads",
+		env: "production",
+	},
+	{
+		base: "https://cms-staging.auroraer.com/wp-content/uploads",
+		env: "staging",
+	},
+	{
+		base: "https://aurora-staging.mystagingwebsite.com/wp-content/uploads",
+		env: "staging",
+	},
 ];
 
 /** proxyMediaUrl — rewrites WordPress upload URLs to the local /cms-assets/{env}/ proxy path */
