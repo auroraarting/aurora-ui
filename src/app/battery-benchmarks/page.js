@@ -59,7 +59,6 @@ async function getData({ params }) {
 /** Products Page */
 export default async function Products() {
 	const { props } = await getData({ params: { slug: "grid" } });
-	console.log("props", props);
 
 	return (
 		<div>

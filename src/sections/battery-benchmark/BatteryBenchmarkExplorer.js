@@ -15,21 +15,25 @@ import downloadIcon from "../../../public/img/battery-benchmark/download-svg.svg
 
 // DATA //
 import {
+	buildRegions,
 	durations,
 	getChartSeries,
 	monthLabels,
-	regions,
 	units,
 } from "./benchmarkData";
 
 /** BatteryBenchmarkExplorer Section — region selector + benchmark chart */
 export default function BatteryBenchmarkExplorer({
 	benchmarkType = "backcast",
+	regionCodes,
 }) {
 	const [mode, setMode] = useState("single"); // "single" | "compare"
-	const [region, setRegion] = useState("great-britain");
+	const [region, setRegion] = useState("gbr");
 	const [unitKey, setUnitKey] = useState(units[0].key);
 	const [activeKeys, setActiveKeys] = useState(durations.map((d) => d.key));
+
+	// The API returns codes only ("gbr", "deu", …) - labelled and ordered here
+	const regions = useMemo(() => buildRegions(regionCodes), [regionCodes]);
 
 	const activeRegion = regions.find((r) => r.key === region) || regions[0];
 
@@ -37,13 +41,13 @@ export default function BatteryBenchmarkExplorer({
 
 	// Series scaled to the selected unit
 	const series = useMemo(() => {
-		const base = getChartSeries(region, benchmarkType);
+		const base = getChartSeries(activeRegion?.key, benchmarkType);
 		if (unit.factor === 1) return base;
 		return base.map((s) => ({
 			...s,
 			data: s.data.map((v) => Math.round(v * unit.factor * 100) / 100),
 		}));
-	}, [region, benchmarkType, unit]);
+	}, [activeRegion, benchmarkType, unit]);
 
 	const toggleDuration = (key) => {
 		setActiveKeys((prev) =>
@@ -61,12 +65,13 @@ export default function BatteryBenchmarkExplorer({
 				<div className={styles.layout}>
 					{/* ── Region selector ───────────────────────── */}
 					<aside className={styles.sidebar}>
-						<div className={styles.sidebarHead}>
-							<span className={`${styles.eyebrow} text_xxs color_light_gray text_600`}>
-								Regions
-							</span>
-							<span className={styles.hint}>Select a market</span>
-						</div>
+						<div className={styles.sidebarInner} data-lenis-prevent>
+							<div className={styles.sidebarHead}>
+								<span className={`${styles.eyebrow} text_xxs color_light_gray text_600`}>
+									Regions
+								</span>
+								<span className={styles.hint}>Select a market</span>
+							</div>
 
 						{/* <div className={styles.modeToggle}>
 							<button
@@ -85,23 +90,24 @@ export default function BatteryBenchmarkExplorer({
 							</button>
 						</div> */}
 
-						<ul className={styles.regionList}>
-							{regions.map((r) => (
-								<li key={r.key}>
-									<button
-										type="button"
-										disabled={r.soon}
-										onClick={() => !r.soon && setRegion(r.key)}
-										className={`${styles.regionBtn} ${
-											r.key === region ? `${styles.regionActive} text_600` : ""
-										} ${r.soon ? styles.regionSoon : ""} text_xxs text_400`}
-									>
-										<span>{r.label}</span>
-										{r.soon && <span className={styles.soonBadge}>Soon</span>}
-									</button>
-								</li>
-							))}
-						</ul>
+							<ul className={styles.regionList}>
+								{regions.map((r) => (
+									<li key={r.key}>
+										<button
+											type="button"
+											disabled={r.soon}
+											onClick={() => !r.soon && setRegion(r.key)}
+											className={`${styles.regionBtn} ${
+												r.key === region ? `${styles.regionActive} text_600` : ""
+											} ${r.soon ? styles.regionSoon : ""} text_xxs text_400`}
+										>
+											<span>{r.label}</span>
+											{r.soon && <span className={styles.soonBadge}>Soon</span>}
+										</button>
+									</li>
+								))}
+							</ul>
+						</div>
 					</aside>
 
 					{/* ── Chart panel ──────────────────────────── */}
@@ -109,7 +115,7 @@ export default function BatteryBenchmarkExplorer({
 						<div className={styles.panelHead}>
 							<div>
 								<h3 className={`${styles.panelTitle} text_md text_600`}>
-									{activeRegion.label} Battery Benchmark
+									{activeRegion?.label} Battery Benchmark
 								</h3>
 								<p className={`${styles.panelSub} text_xxs`}>
 									Modelled revenue · {unit.label}
