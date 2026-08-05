@@ -25,7 +25,17 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 import { getProductBySlug, getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
-import { getAllRegions } from "@/services/rest/BatteryBenchmark.service";
+import {
+	getAllBenchmarks,
+	getAllRegions,
+	getBenchmarkSeriesByUuid,
+} from "@/services/rest/BatteryBenchmark.service";
+import {
+	benchmarksFor,
+	buildRegions,
+	firstAvailableRegion,
+	zonesFor,
+} from "@/sections/battery-benchmark/benchmarkData";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
@@ -39,17 +49,28 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, bundles] = await Promise.all([
-		await getProductBySlug(params.slug),
-		await getBundlesSection(),
+	const [data, bundles, regions, benchmarks] = await Promise.all([
+		getProductBySlug(params.slug),
+		getBundlesSection(),
+		getAllRegions(),
+		getAllBenchmarks(),
 	]);
 	const countries = data?.data?.countries?.nodes;
-	const regions = await getAllRegions();
+
+	// The benchmark data endpoints take ~3s each, so only the market the explorer
+	// opens on is fetched here — the rest load client-side on selection.
+	const openingRegion = firstAvailableRegion(buildRegions(regions, benchmarks));
+	const openingZone = zonesFor(benchmarks, openingRegion)[0] || null;
+	const initialSeries = await getBenchmarkSeriesByUuid(
+		benchmarksFor(benchmarks, openingRegion, openingZone).map((item) => item.uuid),
+	);
 
 	return {
 		props: {
 			data: data.data.productBy,
 			regions,
+			benchmarks,
+			initialSeries,
 			bundles: bundles.data.page.bundles,
 			countries,
 		},
