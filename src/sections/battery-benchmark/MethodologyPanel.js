@@ -228,18 +228,23 @@ function ItemBadge({ scope, regionName = "Great Britain" }) {
 	return null;
 }
 
-/** The CMS row to render: the selected market's, else the first one published */
-function activeSection(sections, region) {
-	const usable = (Array.isArray(sections) ? sections : [])
+/** CMS rows that carry content, keyed on the market they were written for */
+function usableSections(sections) {
+	return (Array.isArray(sections) ? sections : [])
 		.map((section) => ({
 			...section,
 			tabs: (section?.tabs || []).filter((tab) => tab?.title || tab?.description),
 		}))
-		.filter((section) => section.description || section.tabs.length);
+		.filter(
+			(section) =>
+				section.regionCode && (section.description || section.tabs.length),
+		);
+}
 
-	return (
-		usable.find((section) => section.regionCode === region) || usable[0] || null
-	);
+/** ["Great Britain", "Germany", "France"] → "Great Britain, Germany and France" */
+function listNames(names = []) {
+	if (names.length < 2) return names[0] || "";
+	return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
 }
 
 /** Tabs grouped under their `section_tag` heading, both in CMS order */
@@ -258,16 +263,22 @@ function groupTabs(tabs = []) {
  *  `sections` is the CMS methodology repeater, one row per market; `region` is
  *  the market the explorer is showing. */
 export default function MethodologyPanel({ sections, region, updated }) {
+	const published = useMemo(() => usableSections(sections), [sections]);
+	// `region_code` is the identifier: the panel only ever shows the row written
+	// for the selected market, never another market's copy.
 	const section = useMemo(
-		() => activeSection(sections, region),
-		[sections, region],
+		() => published.find((item) => item.regionCode === region) || null,
+		[published, region],
 	);
 	const fromCms = Boolean(section);
+	// Markets the CMS has methodology for, named for the empty state
+	const publishedNames = useMemo(
+		() => published.map((item) => regionLabel(item.regionCode)),
+		[published],
+	);
+	const missing = !section && published.length > 0;
 	const groups = useMemo(() => groupTabs(section?.tabs), [section]);
-	// The copy is written for the row's own market, which is the selected one
-	// unless that market has no methodology published yet.
-	const regionName =
-		regionLabel(section?.regionCode || region) || "Great Britain";
+	const regionName = regionLabel(region) || "Great Britain";
 	const meta = updatedLabel(updated) || "Updated Jul 2026";
 
 	const [activeId, setActiveId] = useState(null);
@@ -301,13 +312,12 @@ export default function MethodologyPanel({ sections, region, updated }) {
 			</div>
 
 			{/* ── Intro ──────────────────────────────────── */}
-			{fromCms ? (
-				section.description && (
-					<div className={styles.intro}>
-						<ContentFromCms>{rewriteCmsClasses(section.description)}</ContentFromCms>
-					</div>
-				)
-			) : (
+			{fromCms && section.description && (
+				<div className={styles.intro}>
+					<ContentFromCms>{rewriteCmsClasses(section.description)}</ContentFromCms>
+				</div>
+			)}
+			{!fromCms && !missing && (
 				<p className={styles.intro}>
 					The <b>Aurora Backcast Benchmark</b> models the gross revenue a reference
 					storage asset could have earned from the wholesale, capacity and ancillary
@@ -318,127 +328,161 @@ export default function MethodologyPanel({ sections, region, updated }) {
 				</p>
 			)}
 
+			{/* ── Nothing written for this market yet ────── */}
+			{missing && (
+				<div className={styles.main}>
+					<div className={styles.items}>
+						<section className={`${styles.item} ${styles.itemLast}`}>
+							<div className={styles.itemHead}>
+								<h4 className={`${styles.itemTitle} font_secondary`}>
+									{regionName} methodology is not published yet
+								</h4>
+							</div>
+							<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
+								<p className={styles.itemBoxText}>
+									Aurora publishes the benchmark methodology market by market
+									{publishedNames.length
+										? ` — available so far for ${listNames(publishedNames)}`
+										: ""}
+									.
+								</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			)}
+
 			{/* ── Assumptions row ────────────────────────── */}
-			<div className={styles.assumptions}>
-				<div className={styles.assumptionLabel}>
-					<span className={styles.chipGray}>Universal</span>
-					<span className={styles.assumptionText}>Same in every market</span>
-				</div>
-				<div className={styles.assumptionLabel}>
-					<span className={styles.chipYellow}>Region</span>
-					<span className={styles.assumptionText}>
-						Follows the selector - currently {regionName}
-					</span>
-				</div>
-			</div>
+			{!missing && (
+				<>
+					<div className={styles.assumptions}>
+						<div className={styles.assumptionLabel}>
+							<span className={styles.chipGray}>Universal</span>
+							<span className={styles.assumptionText}>Same in every market</span>
+						</div>
+						<div className={styles.assumptionLabel}>
+							<span className={styles.chipYellow}>Region</span>
+							<span className={styles.assumptionText}>
+								Follows the selector - currently {regionName}
+							</span>
+						</div>
+					</div>
 
-			{/* ── Main content: nav + items ──────────────── */}
-			<div className={styles.main}>
-				<nav className={styles.nav} aria-label="Methodology sections">
-					{fromCms
-						? groups.map((group) => (
-								<div key={group.heading} className={styles.navGroup}>
-									{group.heading && <p className={styles.navHeading}>{group.heading}</p>}
-									{group.tabs.map((tab) => (
-										<button
-											key={tab.id}
-											type="button"
-											onClick={() => goToSection(tab.id)}
-											className={`${styles.navLink} ${
-												currentId === tab.id ? styles.navLinkActive : ""
-											}`}
-										>
-											<span className={styles.navLabel}>{tab.title}</span>
-											<NavBadge scope={scopeKeys(tab).nav} />
-										</button>
-									))}
-								</div>
-							))
-						: navGroups.map((group) => (
-								<div key={group.heading} className={styles.navGroup}>
-									<p className={styles.navHeading}>{group.heading}</p>
-									{group.links.map((link) => (
-										<button
-											key={link.id}
-											type="button"
-											onClick={() => goToSection(link.id)}
-											className={`${styles.navLink} ${
-												currentId === link.id ? styles.navLinkActive : ""
-											}`}
-										>
-											<span className={styles.navLabel}>{link.label}</span>
-											<NavBadge scope={link.scope} />
-										</button>
-									))}
-								</div>
-							))}
-				</nav>
-
-				<div className={styles.items}>
-					{fromCms
-						? section.tabs.map((tab, i) => {
-								const body = rewriteCmsClasses(tab.description);
-								// Copy that opens with a lead-in sits on the tinted card, the
-								// way the placeholder blocks do in the design.
-								const silver = body?.includes(styles.itemLead);
-								return (
-									<section
-										key={tab.id}
-										id={`method-${tab.id}`}
-										className={`${styles.item} ${
-											i === section.tabs.length - 1 ? styles.itemLast : ""
-										}`}
-									>
-										<div className={styles.itemHead}>
-											<h4 className={`${styles.itemTitle} font_secondary`}>{tab.title}</h4>
-											<ItemBadge scope={scopeKeys(tab).item} regionName={regionName} />
+					{/* ── Main content: nav + items ──────────────── */}
+					<div className={styles.main}>
+						<nav className={styles.nav} aria-label="Methodology sections">
+							{fromCms
+								? groups.map((group) => (
+										<div key={group.heading} className={styles.navGroup}>
+											{group.heading && (
+												<p className={styles.navHeading}>{group.heading}</p>
+											)}
+											{group.tabs.map((tab) => (
+												<button
+													key={tab.id}
+													type="button"
+													onClick={() => goToSection(tab.id)}
+													className={`${styles.navLink} ${
+														currentId === tab.id ? styles.navLinkActive : ""
+													}`}
+												>
+													<span className={styles.navLabel}>{tab.title}</span>
+													<NavBadge scope={scopeKeys(tab).nav} />
+												</button>
+											))}
 										</div>
+									))
+								: navGroups.map((group) => (
+										<div key={group.heading} className={styles.navGroup}>
+											<p className={styles.navHeading}>{group.heading}</p>
+											{group.links.map((link) => (
+												<button
+													key={link.id}
+													type="button"
+													onClick={() => goToSection(link.id)}
+													className={`${styles.navLink} ${
+														currentId === link.id ? styles.navLinkActive : ""
+													}`}
+												>
+													<span className={styles.navLabel}>{link.label}</span>
+													<NavBadge scope={link.scope} />
+												</button>
+											))}
+										</div>
+									))}
+						</nav>
 
-										{body && (
-											<div
-												className={`${styles.itemBox} ${
-													silver ? styles.itemBoxSilver : styles.itemBoxWhite
+						<div className={styles.items}>
+							{fromCms
+								? section.tabs.map((tab, i) => {
+										const body = rewriteCmsClasses(tab.description);
+										// Copy that opens with a lead-in sits on the tinted card, the
+										// way the placeholder blocks do in the design.
+										const silver = body?.includes(styles.itemLead);
+										return (
+											<section
+												key={tab.id}
+												id={`method-${tab.id}`}
+												className={`${styles.item} ${
+													i === section.tabs.length - 1 ? styles.itemLast : ""
 												}`}
 											>
-												<div className={styles.itemBoxText}>
-													<ContentFromCms>{body}</ContentFromCms>
+												<div className={styles.itemHead}>
+													<h4 className={`${styles.itemTitle} font_secondary`}>
+														{tab.title}
+													</h4>
+													<ItemBadge scope={scopeKeys(tab).item} regionName={regionName} />
 												</div>
-											</div>
-										)}
-									</section>
-								);
-							})
-						: items.map((item, i) => (
-								<section
-									key={item.id}
-									id={`method-${item.id}`}
-									className={`${styles.item} ${
-										i === items.length - 1 ? styles.itemLast : ""
-									}`}
-								>
-									<div className={styles.itemHead}>
-										<h4 className={`${styles.itemTitle} font_secondary`}>{item.title}</h4>
-										<ItemBadge scope={item.scope} regionName={regionName} />
-									</div>
 
-									{item.box === "none" ? (
-										<p className={styles.itemPlain}>{item.body}</p>
-									) : (
-										<div
-											className={`${styles.itemBox} ${
-												item.box === "silver" ? styles.itemBoxSilver : styles.itemBoxWhite
+												{body && (
+													<div
+														className={`${styles.itemBox} ${
+															silver ? styles.itemBoxSilver : styles.itemBoxWhite
+														}`}
+													>
+														<div className={styles.itemBoxText}>
+															<ContentFromCms>{body}</ContentFromCms>
+														</div>
+													</div>
+												)}
+											</section>
+										);
+									})
+								: items.map((item, i) => (
+										<section
+											key={item.id}
+											id={`method-${item.id}`}
+											className={`${styles.item} ${
+												i === items.length - 1 ? styles.itemLast : ""
 											}`}
 										>
-											<p className={styles.itemBoxText}>
-												{item.lead && <b className={styles.itemLead}>{item.lead}</b>}
-												{item.body}
-											</p>
-										</div>
-									)}
-								</section>
-							))}
-				</div>
-			</div>
+											<div className={styles.itemHead}>
+												<h4 className={`${styles.itemTitle} font_secondary`}>
+													{item.title}
+												</h4>
+												<ItemBadge scope={item.scope} regionName={regionName} />
+											</div>
+
+											{item.box === "none" ? (
+												<p className={styles.itemPlain}>{item.body}</p>
+											) : (
+												<div
+													className={`${styles.itemBox} ${
+														item.box === "silver" ? styles.itemBoxSilver : styles.itemBoxWhite
+													}`}
+												>
+													<p className={styles.itemBoxText}>
+														{item.lead && <b className={styles.itemLead}>{item.lead}</b>}
+														{item.body}
+													</p>
+												</div>
+											)}
+										</section>
+									))}
+						</div>
+					</div>
+				</>
+			)}
 
 			{/* ── Common questions ───────────────────────── */}
 			<div className={styles.faqSection}>
