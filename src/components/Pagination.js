@@ -26,6 +26,7 @@ export default function Pagination({
 	itemsPerPage = 12,
 	setCurrentItems,
 	isDark,
+	onPageChange,
 }) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
@@ -35,6 +36,7 @@ export default function Pagination({
 		const totalPages = Math.ceil(paginationArr.length / itemsPerPage);
 		setTotalPages(totalPages);
 		setCurrentPage(1);
+		onPageChange?.(1);
 	}, [paginationArr, itemsPerPage]);
 
 	useEffect(() => {
@@ -44,6 +46,7 @@ export default function Pagination({
 	/** handlePageClick  */
 	const handlePageClick = (page) => {
 		setCurrentPage(page);
+		onPageChange?.(page);
 		setCurrentItems(
 			paginationArr.slice((page - 1) * itemsPerPage, page * itemsPerPage)
 		);
