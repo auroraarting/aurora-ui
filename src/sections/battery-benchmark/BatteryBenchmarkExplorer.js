@@ -31,6 +31,8 @@ export default function BatteryBenchmarkExplorer({
 	regionCodes,
 	benchmarks = [],
 	initialSeries = {},
+	region: selectedRegion,
+	onRegionChange,
 }) {
 	// The API returns codes only ("gbr", "deu", …) - labelled and ordered here,
 	// with markets that have nothing published yet flagged as "soon"
@@ -39,7 +41,9 @@ export default function BatteryBenchmarkExplorer({
 		[regionCodes, benchmarks],
 	);
 
-	const [region, setRegion] = useState(() => firstAvailableRegion(regions));
+	// The selected market lives in the wrapper, so the methodology panel can
+	// follow it too; falls back to the first published one.
+	const region = selectedRegion || firstAvailableRegion(regions);
 	const [zone, setZone] = useState(null);
 	const [unitKey, setUnitKey] = useState("kw-month");
 	const [hiddenDurations, setHiddenDurations] = useState([]);
@@ -49,7 +53,10 @@ export default function BatteryBenchmarkExplorer({
 	// uuids already fetched (or in flight) so a re-selection doesn't refetch
 	const requested = useRef(new Set(Object.keys(initialSeries)));
 
-	const zones = useMemo(() => zonesFor(benchmarks, region), [benchmarks, region]);
+	const zones = useMemo(
+		() => zonesFor(benchmarks, region),
+		[benchmarks, region],
+	);
 	const activeZone = zone && zones.includes(zone) ? zone : zones[0] || null;
 
 	const selection = useMemo(
@@ -138,7 +145,10 @@ export default function BatteryBenchmarkExplorer({
 	/** Download the visible series as CSV */
 	const downloadCsv = () => {
 		const visible = series.filter((item) => activeKeys.includes(item.key));
-		const header = ["Month", ...visible.map((item) => `${item.label} (${unit.label})`)];
+		const header = [
+			"Month",
+			...visible.map((item) => `${item.label} (${unit.label})`),
+		];
 		const rows = chart.xLabels.map((label, index) => [
 			label,
 			...visible.map((item) => item.data[index] ?? ""),
@@ -164,7 +174,9 @@ export default function BatteryBenchmarkExplorer({
 					<aside className={styles.sidebar}>
 						<div className={styles.sidebarInner} data-lenis-prevent>
 							<div className={styles.sidebarHead}>
-								<span className={`${styles.eyebrow} text_xxs color_light_gray text_600`}>
+								<span
+									className={`${styles.eyebrow} text_xxs color_light_gray text_600`}
+								>
 									Regions
 								</span>
 								<span className={styles.hint}>Select a market</span>
@@ -178,7 +190,7 @@ export default function BatteryBenchmarkExplorer({
 											disabled={r.soon}
 											onClick={() => {
 												if (r.soon) return;
-												setRegion(r.key);
+												onRegionChange?.(r.key);
 												setZone(null);
 												setHiddenDurations([]);
 											}}
@@ -203,8 +215,7 @@ export default function BatteryBenchmarkExplorer({
 									{regionLabel(region)} Battery Benchmark
 								</h3>
 								<p className={`${styles.panelSub} text_xxs`}>
-									{isBackcast ? "Modelled revenue" : "Realised revenue"} ·{" "}
-									{unit.label}
+									{isBackcast ? "Modelled revenue" : "Realised revenue"} · {unit.label}
 								</p>
 							</div>
 
@@ -244,8 +255,8 @@ export default function BatteryBenchmarkExplorer({
 									Real Performance benchmarks are not published yet
 								</p>
 								<p className="text_xxs">
-									Aurora has no published Real Performance index for this market so far
-									— switch to the Backcast Benchmark to explore modelled revenue.
+									Aurora has no published Real Performance index for this market so far —
+									switch to the Backcast Benchmark to explore modelled revenue.
 								</p>
 							</div>
 						) : (

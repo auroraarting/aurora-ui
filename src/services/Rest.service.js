@@ -78,15 +78,19 @@ function proxyAllMediaUrls(obj) {
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
  *  Runtime cache: Next.js ISR revalidates every 1 hour.
- *  dataObj param is accepted but unused — kept so callers need no changes.
+ *  dataObj param is accepted but mostly unused — kept so callers need no
+ *  changes. Only `method` is read from it, so read-only endpoints (wp/v2/pages
+ *  and friends, which reject POST with a 401) can ask for GET.
  */
-export default async function RESTAPI(query) {
-	return cachedSchedule(`direct:${query}`, async () => {
+export default async function RESTAPI(query, dataObj = {}) {
+	const method = dataObj?.method || ServerHeaders.method;
+	return cachedSchedule(`direct:${method}:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			try {
 				const req = await fetch(`${process.env.REST_API_URL}${query}`, {
 					...ServerHeaders,
+					method,
 					signal: AbortSignal.timeout(requestTimeoutMs),
 					next: { revalidate: revalidateFor(query) },
 				});

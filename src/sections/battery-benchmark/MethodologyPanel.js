@@ -1,18 +1,29 @@
 "use client";
 
 // MODULES //
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
+// COMPONENTS //
+import ContentFromCms from "@/components/ContentFromCms";
 
 // STYLES //
 import styles from "@/styles/sections/battery-benchmark/MethodologyPanel.module.scss";
 
 // DATA //
+import { regionLabel } from "./benchmarkData";
+
+// Fallback copy, used when the Battery Benchmarks page in WordPress has no
+// methodology rows (or none for any market the explorer can select).
 const navGroups = [
 	{
 		heading: "The benchmark",
 		links: [
 			{ id: "overview", label: "Overview", scope: null },
-			{ id: "benchmark-construction", label: "Benchmark construction", scope: "U" },
+			{
+				id: "benchmark-construction",
+				label: "Benchmark construction",
+				scope: "U",
+			},
 		],
 	},
 	{
@@ -38,7 +49,8 @@ const items = [
 		title: "Overview",
 		scope: null,
 		box: "white",
-		body: "Modelled reference-asset revenue from observed monthly prices; assumes the year is twelve repetitions of the month to isolate that month's price effect. Non-euro markets are converted to euros at the ECB monthly average rate.",
+		body:
+			"Modelled reference-asset revenue from observed monthly prices; assumes the year is twelve repetitions of the month to isolate that month's price effect. Non-euro markets are converted to euros at the ECB monthly average rate.",
 	},
 	{
 		id: "benchmark-construction",
@@ -46,7 +58,8 @@ const items = [
 		scope: "universal",
 		box: "silver",
 		lead: "Placeholder - universal construction.",
-		body: " Reference-asset definition, duration cohorts (1h · 2h · 4h), and how Chronos runs the imperfect-foresight dispatch simulation. To be authored in the Backcast methodology doc.",
+		body:
+			" Reference-asset definition, duration cohorts (1h · 2h · 4h), and how Chronos runs the imperfect-foresight dispatch simulation. To be authored in the Backcast methodology doc.",
 	},
 	{
 		id: "input-assumptions",
@@ -54,7 +67,8 @@ const items = [
 		scope: "region",
 		box: "silver",
 		lead: "Placeholder - Great Britain inputs.",
-		body: " Region-specific Chronos assumptions (efficiency, cycling, prequalification). Follows the region selector.",
+		body:
+			" Region-specific Chronos assumptions (efficiency, cycling, prequalification). Follows the region selector.",
 	},
 	{
 		id: "calculation",
@@ -68,7 +82,8 @@ const items = [
 		title: "Governance & updates",
 		scope: "universal",
 		box: "white",
-		body: "Largely shared with the RPB universal text: annual review, out-of-cycle triggers, change notification and version log.",
+		body:
+			"Largely shared with the RPB universal text: annual review, out-of-cycle triggers, change notification and version log.",
 	},
 	{
 		id: "limitations",
@@ -76,14 +91,16 @@ const items = [
 		scope: "mixed",
 		box: "silver",
 		lead: "Placeholder - limitations.",
-		body: " General (gross revenues, annualisation as ×12 scaling) plus any GB-specific notes.",
+		body:
+			" General (gross revenues, annualisation as ×12 scaling) plus any GB-specific notes.",
 	},
 	{
 		id: "contact",
 		title: "Contact & feedback",
 		scope: "universal",
 		box: "none",
-		body: "For questions, coverage, or to report an inconsistency, contact your Aurora account manager. Feedback feeds the annual methodology review.",
+		body:
+			"For questions, coverage, or to report an inconsistency, contact your Aurora account manager. Feedback feeds the annual methodology review.",
 	},
 ];
 
@@ -120,12 +137,65 @@ const faqs = [
 		q: "Which durations are shown?",
 		a: (
 			<>
-				1-hour, 2-hour and 4-hour reference assets, matching the duration cohorts
-				in the chart's duration toggles.
+				1-hour, 2-hour and 4-hour reference assets, matching the duration cohorts in
+				the chart's duration toggles.
 			</>
 		),
 	},
 ];
+
+const MONTH_SHORT = [
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec",
+];
+
+/** "Updated Jul 2026" from the page's modified date. Formatted by hand rather
+ *  than through toLocaleDateString so the server and client always agree. */
+function updatedLabel(updated) {
+	if (!updated) return "";
+	const date = new Date(updated);
+	if (Number.isNaN(date.getTime())) return "";
+	return `Updated ${MONTH_SHORT[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+/** Editors paste copy out of the rendered page, so it can carry CSS-module class
+ *  names from an older build ("MethodologyPanel_itemLead__9p_DB"). Re-point them
+ *  at this build's hashes, and drop the ones that no longer exist. */
+function rewriteCmsClasses(html) {
+	if (!html) return html;
+	return html.replace(
+		/MethodologyPanel_([A-Za-z0-9]+)__[A-Za-z0-9_-]+/g,
+		(match, key) => styles[key] || match,
+	);
+}
+
+/** Slugs of a tab's scope terms ("universal" / "region") */
+function scopeSlugs(tab) {
+	return (tab?.scopes || [])
+		.map((term) => term?.slug || term?.name?.toLowerCase() || "")
+		.filter(Boolean);
+}
+
+/** Scope terms → the badge keys the two badge components take */
+function scopeKeys(tab) {
+	const slugs = scopeSlugs(tab);
+	const universal = slugs.includes("universal");
+	const region = slugs.includes("region");
+	if (universal && region) return { nav: "UR", item: "mixed" };
+	if (universal) return { nav: "U", item: "universal" };
+	if (region) return { nav: "R", item: "region" };
+	return { nav: null, item: null };
+}
 
 /** Small scope badge — "U" (universal) / "R" (region) used in the side navigation */
 function NavBadge({ scope }) {
@@ -143,11 +213,11 @@ function NavBadge({ scope }) {
 }
 
 /** Full-width scope badge shown next to a content item's title */
-function ItemBadge({ scope }) {
+function ItemBadge({ scope, regionName = "Great Britain" }) {
 	if (scope === "universal")
 		return <span className={styles.badgeGray}>Universal</span>;
 	if (scope === "region")
-		return <span className={styles.badgeYellow}>Region · Great Britain</span>;
+		return <span className={styles.badgeYellow}>Region · {regionName}</span>;
 	if (scope === "mixed")
 		return (
 			<span className={styles.badgeMixed}>
@@ -158,10 +228,57 @@ function ItemBadge({ scope }) {
 	return null;
 }
 
-/** MethodologyPanel — right-side methodology reference for the Battery Benchmark */
-export default function MethodologyPanel() {
-	const [activeId, setActiveId] = useState("overview");
+/** The CMS row to render: the selected market's, else the first one published */
+function activeSection(sections, region) {
+	const usable = (Array.isArray(sections) ? sections : [])
+		.map((section) => ({
+			...section,
+			tabs: (section?.tabs || []).filter((tab) => tab?.title || tab?.description),
+		}))
+		.filter((section) => section.description || section.tabs.length);
+
+	return (
+		usable.find((section) => section.regionCode === region) || usable[0] || null
+	);
+}
+
+/** Tabs grouped under their `section_tag` heading, both in CMS order */
+function groupTabs(tabs = []) {
+	const groups = [];
+	tabs.forEach((tab) => {
+		const heading = tab?.section?.name || "";
+		const existing = groups.find((group) => group.heading === heading);
+		if (existing) existing.tabs.push(tab);
+		else groups.push({ heading, tabs: [tab] });
+	});
+	return groups;
+}
+
+/** MethodologyPanel — right-side methodology reference for the Battery Benchmark.
+ *  `sections` is the CMS methodology repeater, one row per market; `region` is
+ *  the market the explorer is showing. */
+export default function MethodologyPanel({ sections, region, updated }) {
+	const section = useMemo(
+		() => activeSection(sections, region),
+		[sections, region],
+	);
+	const fromCms = Boolean(section);
+	const groups = useMemo(() => groupTabs(section?.tabs), [section]);
+	// The copy is written for the row's own market, which is the selected one
+	// unless that market has no methodology published yet.
+	const regionName =
+		regionLabel(section?.regionCode || region) || "Great Britain";
+	const meta = updatedLabel(updated) || "Updated Jul 2026";
+
+	const [activeId, setActiveId] = useState(null);
 	const [openFaq, setOpenFaq] = useState(0);
+
+	// Tab ids are per market, so a switch of region drops the highlight back to
+	// the first tab of the market now being shown.
+	const tabIds = fromCms
+		? section.tabs.map((tab) => tab.id)
+		: items.map((item) => item.id);
+	const currentId = tabIds.includes(activeId) ? activeId : tabIds[0];
 
 	const goToSection = (id) => {
 		setActiveId(id);
@@ -175,22 +292,31 @@ export default function MethodologyPanel() {
 			<div className={styles.header}>
 				<div className={styles.titleGroup}>
 					<p className={`${styles.title} font_secondary`}>Methodology</p>
-					<span className={styles.meta}>Updated Jul 2026</span>
+					<span className={styles.meta}>{meta}</span>
 				</div>
 				<span className={styles.regionTag}>
 					<i className={styles.regionDot} aria-hidden="true" />
-					Great Britain
+					{regionName}
 				</span>
 			</div>
 
 			{/* ── Intro ──────────────────────────────────── */}
-			<p className={styles.intro}>
-				The <b>Aurora Backcast Benchmark</b> models the gross revenue a reference
-				storage asset could have earned from the wholesale, capacity and ancillary
-				prices observed in a given month, via Aurora's <b>Chronos</b> dispatch
-				engine - using imperfect foresight to simulate realistic performance. It is a
-				modelled, like-for-like measure of what a battery <b>could</b> have earned.
-			</p>
+			{fromCms ? (
+				section.description && (
+					<div className={styles.intro}>
+						<ContentFromCms>{rewriteCmsClasses(section.description)}</ContentFromCms>
+					</div>
+				)
+			) : (
+				<p className={styles.intro}>
+					The <b>Aurora Backcast Benchmark</b> models the gross revenue a reference
+					storage asset could have earned from the wholesale, capacity and ancillary
+					prices observed in a given month, via Aurora's <b>Chronos</b> dispatch
+					engine - using imperfect foresight to simulate realistic performance. It is
+					a modelled, like-for-like measure of what a battery <b>could</b> have
+					earned.
+				</p>
+			)}
 
 			{/* ── Assumptions row ────────────────────────── */}
 			<div className={styles.assumptions}>
@@ -201,7 +327,7 @@ export default function MethodologyPanel() {
 				<div className={styles.assumptionLabel}>
 					<span className={styles.chipYellow}>Region</span>
 					<span className={styles.assumptionText}>
-						Follows the selector - currently Great Britain
+						Follows the selector - currently {regionName}
 					</span>
 				</div>
 			</div>
@@ -209,58 +335,108 @@ export default function MethodologyPanel() {
 			{/* ── Main content: nav + items ──────────────── */}
 			<div className={styles.main}>
 				<nav className={styles.nav} aria-label="Methodology sections">
-					{navGroups.map((group) => (
-						<div key={group.heading} className={styles.navGroup}>
-							<p className={styles.navHeading}>{group.heading}</p>
-							{group.links.map((link) => (
-								<button
-									key={link.id}
-									type="button"
-									onClick={() => goToSection(link.id)}
-									className={`${styles.navLink} ${
-										activeId === link.id ? styles.navLinkActive : ""
-									}`}
-								>
-									<span className={styles.navLabel}>{link.label}</span>
-									<NavBadge scope={link.scope} />
-								</button>
+					{fromCms
+						? groups.map((group) => (
+								<div key={group.heading} className={styles.navGroup}>
+									{group.heading && <p className={styles.navHeading}>{group.heading}</p>}
+									{group.tabs.map((tab) => (
+										<button
+											key={tab.id}
+											type="button"
+											onClick={() => goToSection(tab.id)}
+											className={`${styles.navLink} ${
+												currentId === tab.id ? styles.navLinkActive : ""
+											}`}
+										>
+											<span className={styles.navLabel}>{tab.title}</span>
+											<NavBadge scope={scopeKeys(tab).nav} />
+										</button>
+									))}
+								</div>
+							))
+						: navGroups.map((group) => (
+								<div key={group.heading} className={styles.navGroup}>
+									<p className={styles.navHeading}>{group.heading}</p>
+									{group.links.map((link) => (
+										<button
+											key={link.id}
+											type="button"
+											onClick={() => goToSection(link.id)}
+											className={`${styles.navLink} ${
+												currentId === link.id ? styles.navLinkActive : ""
+											}`}
+										>
+											<span className={styles.navLabel}>{link.label}</span>
+											<NavBadge scope={link.scope} />
+										</button>
+									))}
+								</div>
 							))}
-						</div>
-					))}
 				</nav>
 
 				<div className={styles.items}>
-					{items.map((item, i) => (
-						<section
-							key={item.id}
-							id={`method-${item.id}`}
-							className={`${styles.item} ${
-								i === items.length - 1 ? styles.itemLast : ""
-							}`}
-						>
-							<div className={styles.itemHead}>
-								<h4 className={`${styles.itemTitle} font_secondary`}>
-									{item.title}
-								</h4>
-								<ItemBadge scope={item.scope} />
-							</div>
+					{fromCms
+						? section.tabs.map((tab, i) => {
+								const body = rewriteCmsClasses(tab.description);
+								// Copy that opens with a lead-in sits on the tinted card, the
+								// way the placeholder blocks do in the design.
+								const silver = body?.includes(styles.itemLead);
+								return (
+									<section
+										key={tab.id}
+										id={`method-${tab.id}`}
+										className={`${styles.item} ${
+											i === section.tabs.length - 1 ? styles.itemLast : ""
+										}`}
+									>
+										<div className={styles.itemHead}>
+											<h4 className={`${styles.itemTitle} font_secondary`}>{tab.title}</h4>
+											<ItemBadge scope={scopeKeys(tab).item} regionName={regionName} />
+										</div>
 
-							{item.box === "none" ? (
-								<p className={styles.itemPlain}>{item.body}</p>
-							) : (
-								<div
-									className={`${styles.itemBox} ${
-										item.box === "silver" ? styles.itemBoxSilver : styles.itemBoxWhite
+										{body && (
+											<div
+												className={`${styles.itemBox} ${
+													silver ? styles.itemBoxSilver : styles.itemBoxWhite
+												}`}
+											>
+												<div className={styles.itemBoxText}>
+													<ContentFromCms>{body}</ContentFromCms>
+												</div>
+											</div>
+										)}
+									</section>
+								);
+							})
+						: items.map((item, i) => (
+								<section
+									key={item.id}
+									id={`method-${item.id}`}
+									className={`${styles.item} ${
+										i === items.length - 1 ? styles.itemLast : ""
 									}`}
 								>
-									<p className={styles.itemBoxText}>
-										{item.lead && <b className={styles.itemLead}>{item.lead}</b>}
-										{item.body}
-									</p>
-								</div>
-							)}
-						</section>
-					))}
+									<div className={styles.itemHead}>
+										<h4 className={`${styles.itemTitle} font_secondary`}>{item.title}</h4>
+										<ItemBadge scope={item.scope} regionName={regionName} />
+									</div>
+
+									{item.box === "none" ? (
+										<p className={styles.itemPlain}>{item.body}</p>
+									) : (
+										<div
+											className={`${styles.itemBox} ${
+												item.box === "silver" ? styles.itemBoxSilver : styles.itemBoxWhite
+											}`}
+										>
+											<p className={styles.itemBoxText}>
+												{item.lead && <b className={styles.itemLead}>{item.lead}</b>}
+												{item.body}
+											</p>
+										</div>
+									)}
+								</section>
+							))}
 				</div>
 			</div>
 
