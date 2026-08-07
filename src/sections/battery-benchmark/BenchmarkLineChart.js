@@ -11,13 +11,16 @@ const WIDTH = 900;
 const HEIGHT = 420;
 const PAD = { top: 24, right: 24, bottom: 44, left: 56 };
 
-/** A "nice" gridline step (1, 2, 2.5 or 5 x a power of ten) for a given max */
+/** A "nice" gridline step (1, 2, 2.5 or 5 x a power of ten) for a given max.
+ *  The smallest one that keeps the axis to six intervals — picking off the
+ *  rough max/5 instead let some units land on three coarse gridlines, so the
+ *  same series looked differently spaced from one unit to the next. */
 function niceStep(max) {
-	const rough = max / 5;
-	const magnitude = Math.pow(10, Math.floor(Math.log10(rough || 1)));
-	const normalised = rough / magnitude;
-	const step = [1, 2, 2.5, 5, 10].find((s) => normalised <= s) || 10;
-	return step * magnitude;
+	const magnitude = Math.pow(10, Math.floor(Math.log10(max > 0 ? max : 1)));
+	const steps = [0.1, 0.2, 0.25, 0.5, 1, 2, 2.5, 5, 10].map(
+		(s) => s * magnitude,
+	);
+	return steps.find((step) => Math.ceil(max / step) <= 6) || max || 1;
 }
 
 /**
