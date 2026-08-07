@@ -3,7 +3,6 @@
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
-import BannerVideoSlider from "@/components/BannerVideoSlider";
 
 // SECTIONS //
 
@@ -16,23 +15,15 @@ import styles from "@/styles/sections/products/ProductBanner.module.scss";
 
 // IMAGES //
 import ContentFromCms from "@/components/ContentFromCms";
-import { dynamicInsightsBtnProps } from "@/utils";
 
 // DATA //
 
 /** BatteryBenchmarkBanner Section */
 export default function BatteryBenchmarkBanner({
-	data,
-	desktopImage,
 	bannerTitle,
 	bannerDescription,
-	mobileImage,
 	btnTxt,
 	btnLink,
-	showContentOnly = false, // New prop to toggle visibility
-	vimeoid,
-	videos,
-	logo,
 	dynamicBtn,
 }) {
 	return (

@@ -11,13 +11,28 @@ const WIDTH = 900;
 const HEIGHT = 420;
 const PAD = { top: 24, right: 24, bottom: 44, left: 56 };
 
+/** A "nice" gridline step (1, 2, 2.5 or 5 x a power of ten) for a given max */
+function niceStep(max) {
+	const rough = max / 5;
+	const magnitude = Math.pow(10, Math.floor(Math.log10(rough || 1)));
+	const normalised = rough / magnitude;
+	const step = [1, 2, 2.5, 5, 10].find((s) => normalised <= s) || 10;
+	return step * magnitude;
+}
+
 /**
  * Lightweight, dependency-free SVG line chart.
- * @param {Array} series - [{ key, label, color, data: number[] }]
+ * @param {Array} series - [{ key, label, color, data: Array<number|null> }]
  * @param {string[]} xLabels - label for every data point
  * @param {number[]} activeKeys - which series keys are visible
+ * @param {number} decimals - decimal places on the axis and tooltip
  */
-export default function BenchmarkLineChart({ series = [], xLabels = [], activeKeys }) {
+export default function BenchmarkLineChart({
+	series = [],
+	xLabels = [],
+	activeKeys,
+	decimals = 1,
+}) {
 	const [hover, setHover] = useState(null);
 
 	const innerW = WIDTH - PAD.left - PAD.right;
@@ -29,20 +44,23 @@ export default function BenchmarkLineChart({ series = [], xLabels = [], activeKe
 		[series, activeKeys],
 	);
 
-	// Y axis: round the max up to a clean ceiling with 5 gridlines
-	const maxValue = useMemo(() => {
-		const all = visibleSeries.flatMap((s) => s.data);
-		const raw = all.length ? Math.max(...all) : 1000;
-		const step = 400;
-		return Math.max(step, Math.ceil(raw / step) * step);
+	// Y axis: round the max up to a clean ceiling with 5 gridlines. The step is
+	// derived from the data because values range from ~2 (€/kW/month) to
+	// thousands (€/MW/month) depending on the selected unit.
+	const { maxValue, step } = useMemo(() => {
+		const all = visibleSeries
+			.flatMap((s) => s.data)
+			.filter((v) => v !== null && Number.isFinite(v));
+		const raw = all.length ? Math.max(...all) : 1;
+		const size = niceStep(raw);
+		return { maxValue: Math.max(size, Math.ceil(raw / size) * size), step: size };
 	}, [visibleSeries]);
 
 	const yTicks = useMemo(() => {
 		const ticks = [];
-		const step = maxValue / 5;
-		for (let v = 0; v <= maxValue; v += step) ticks.push(v);
+		for (let v = 0; v <= maxValue + step / 2; v += step) ticks.push(v);
 		return ticks;
-	}, [maxValue]);
+	}, [maxValue, step]);
 
 	const pointCount = xLabels.length || 1;
 	const xAt = (i) => PAD.left + (innerW * i) / Math.max(1, pointCount - 1);
@@ -77,7 +95,7 @@ export default function BenchmarkLineChart({ series = [], xLabels = [], activeKe
 							textAnchor="end"
 							dominantBaseline="middle"
 						>
-							{v.toFixed(1)}
+							{v.toFixed(decimals)}
 						</text>
 					</g>
 				))}
@@ -97,11 +115,13 @@ export default function BenchmarkLineChart({ series = [], xLabels = [], activeKe
 					) : null,
 				)}
 
-				{/* Series lines + markers */}
+				{/* Series lines + markers — months without a value are skipped so a
+				    partial series draws as far as it goes instead of dropping to 0 */}
 				{visibleSeries.map((s) => {
-					const points = s.data
-						.map((v, i) => `${xAt(i)},${yAt(v)}`)
-						.join(" ");
+					const drawn = s.data
+						.map((v, i) => ({ v, i }))
+						.filter(({ v }) => v !== null && Number.isFinite(v));
+					const points = drawn.map(({ v, i }) => `${xAt(i)},${yAt(v)}`).join(" ");
 					return (
 						<g key={s.key}>
 							<polyline
@@ -112,7 +132,7 @@ export default function BenchmarkLineChart({ series = [], xLabels = [], activeKe
 								strokeLinejoin="round"
 								strokeLinecap="round"
 							/>
-							{s.data.map((v, i) => (
+							{drawn.map(({ v, i }) => (
 								<circle
 									key={i}
 									cx={xAt(i)}
@@ -162,7 +182,11 @@ export default function BenchmarkLineChart({ series = [], xLabels = [], activeKe
 						<span key={s.key} className={styles.tooltipRow}>
 							<i style={{ background: s.color }} />
 							{s.label}
-							<b>{s.data[hover]}</b>
+							<b>
+								{s.data[hover] === null || s.data[hover] === undefined
+									? "—"
+									: s.data[hover].toFixed(decimals)}
+							</b>
 						</span>
 					))}
 				</div>

@@ -1,9 +1,10 @@
 // UTILS / DATA for the Battery Benchmark module //
 
-/** Months rendered on the X axis (Jan 2023 → Apr 2026) */
-const START_YEAR = 2023;
-const MONTHS_COUNT = 40; // Jan-23 .. Apr-26
+/** Colours per battery duration, keyed by the API's `batteryDuration` (hours) */
+const DURATION_COLORS = { 1: "#1d1d1d", 2: "#7030a0", 4: "#ffcc00" };
+const DEFAULT_DURATION_COLOR = "#00a3a1";
 
+/** Short month names used to label the x axis */
 const MONTH_SHORT = [
 	"Jan",
 	"Feb",
@@ -18,43 +19,6 @@ const MONTH_SHORT = [
 	"Nov",
 	"Dec",
 ];
-
-/** Build the full list of monthly labels */
-export const monthLabels = Array.from({ length: MONTHS_COUNT }, (_, i) => {
-	const month = i % 12;
-	const year = START_YEAR + Math.floor(i / 12);
-	return `${MONTH_SHORT[month]} ${String(year).slice(2)}`;
-});
-
-/**
- * Deterministic bell-shaped revenue curve peaking mid-2024 with a
- * declining tail — mirrors the historical battery-revenue shape.
- */
-function generateSeries(base, peak, multiplier = 1) {
-	const peakIndex = 16; // ~May 2024
-	return Array.from({ length: MONTHS_COUNT }, (_, i) => {
-		const bump = Math.exp(-Math.pow((i - peakIndex) / 7, 2));
-		const trend =
-			i <= peakIndex ? 1 : 1 - ((i - peakIndex) / (MONTHS_COUNT - peakIndex)) * 0.6;
-		const noise = Math.sin(i * 1.3) * base * 0.05;
-		const value = (base + (peak - base) * bump) * trend + noise;
-		return Math.max(0, Math.round(value * multiplier));
-	});
-}
-
-/** The three duration series shown on the chart */
-export const durations = [
-	{ key: "4-hour", label: "4-hour", color: "#ffcc00" },
-	{ key: "2-hour", label: "2-hour", color: "#7030a0" },
-	{ key: "1-hour", label: "1-hour", color: "#1d1d1d" },
-];
-
-/** Base figures per duration (before per-region scaling) */
-const DURATION_BASE = {
-	"4-hour": { base: 380, peak: 1000 },
-	"2-hour": { base: 350, peak: 880 },
-	"1-hour": { base: 250, peak: 500 },
-};
 
 /** Display names for the region codes returned by the API (/regions/all) */
 export const REGION_LABELS = {
@@ -137,46 +101,24 @@ const REGION_ORDER = [
 	"phl",
 ];
 
-/** Markets announced in the selector but not yet selectable */
-const REGION_SOON = ["ita"];
-
-/** Per-region scaling for the placeholder chart series */
-const REGION_MULTIPLIERS = {
-	gbr: 1,
-	deu: 0.82,
-	fra: 0.68,
-	ita: 0.9,
-	bel: 0.74,
-	nld: 0.79,
-	ibe: 0.6,
-	nod: 0.54,
-	swe: 0.57,
-	dnk: 0.63,
-	fin: 0.55,
-	pol: 0.71,
-	erc: 1.12,
-	cas: 1.05,
-	aus: 0.95,
-};
-const DEFAULT_MULTIPLIER = 0.7;
-
 /** regionLabel - display name for a code, falling back to the code itself */
 export function regionLabel(code) {
 	return REGION_LABELS[code] || String(code || "").toUpperCase();
 }
 
 /** buildRegions - turns the API's region codes into selector items, in display
- *  order. Called with nothing (or an empty list) it returns every known market,
- *  so the selector still renders if the API call fails. */
-export function buildRegions(codes) {
+ *  order. A market is flagged "soon" when the benchmark catalogue has nothing
+ *  published for it yet. Called with no codes it lists every known market, so
+ *  the selector still renders if /regions/all fails. */
+export function buildRegions(codes, benchmarks = []) {
 	const list = codes?.length ? codes : REGION_ORDER;
+	const published = new Set(benchmarks.map((item) => item.region));
 
 	return [...new Set(list)]
 		.map((code) => ({
 			key: code,
 			label: regionLabel(code),
-			multiplier: REGION_MULTIPLIERS[code] ?? DEFAULT_MULTIPLIER,
-			soon: REGION_SOON.includes(code),
+			soon: !published.has(code),
 		}))
 		.sort((a, b) => {
 			const aIndex = REGION_ORDER.indexOf(a.key);
@@ -188,8 +130,114 @@ export function buildRegions(codes) {
 		});
 }
 
-/** Markets shown in the region selector when the API list is unavailable */
-export const regions = buildRegions();
+/** firstAvailableRegion - the market the selector opens on */
+export function firstAvailableRegion(regions = []) {
+	return regions.find((item) => !item.soon)?.key || regions[0]?.key || null;
+}
+
+/** zonesFor - price zones published for a region ([] when it has none) */
+export function zonesFor(benchmarks = [], region) {
+	return [
+		...new Set(
+			benchmarks
+				.filter((item) => item.region === region && item.priceZone)
+				.map((item) => item.priceZone),
+		),
+	].sort((a, b) => a.localeCompare(b));
+}
+
+/** benchmarksFor - the published benchmarks behind the current selection */
+export function benchmarksFor(benchmarks = [], region, zone) {
+	return benchmarks
+		.filter(
+			(item) => item.region === region && (!zone || item.priceZone === zone),
+		)
+		.sort((a, b) => a.duration - b.duration);
+}
+
+/** durationsFor - duration chips available for the current selection */
+export function durationsFor(benchmarks = [], region, zone) {
+	return benchmarksFor(benchmarks, region, zone).map((item) => ({
+		key: item.duration,
+		label: `${item.duration}-hour`,
+		color: DURATION_COLORS[item.duration] || DEFAULT_DURATION_COLOR,
+		uuid: item.uuid,
+	}));
+}
+
+/** Currency the chart is denominated in — the API leaves it unset on some
+ *  benchmarks, in which case the axis is labelled without a symbol. */
+const CURRENCY_SYMBOLS = { eur: "€", gbp: "£", usd: "$" };
+
+/** currencyLabel - "€", "$" or the uppercased code ("PLN") */
+export function currencyLabel(currency) {
+	if (!currency) return "";
+	const code = String(currency).toLowerCase();
+	return CURRENCY_SYMBOLS[code] || code.toUpperCase();
+}
+
+/** unitsFor - the unit dropdown for a currency. The API publishes monthly
+ *  revenue per kW, so /MW is a x1000 restatement and the yearly option is an
+ *  annualised rate (x12), labelled as such. */
+export function unitsFor(currency) {
+	const prefix = currencyLabel(currency);
+	const per = (unit) => (prefix ? `${prefix}/${unit}` : `per ${unit}`);
+
+	return [
+		{ key: "kw-month", label: per("kW/month"), factor: 1, decimals: 2 },
+		{ key: "mw-month", label: per("MW/month"), factor: 1000, decimals: 0 },
+		{
+			key: "kw-year",
+			label: `${per("kW/year")} (annualised)`,
+			factor: 12,
+			decimals: 1,
+		},
+	];
+}
+
+/** buildChart - aligns the selected benchmarks' monthly series onto one axis.
+ *  Series can cover different months, so the axis is the union of all of them
+ *  and a series without a value for a month gets a null (gap in the line). */
+export function buildChart(selection = [], seriesByUuid = {}, factor = 1) {
+	const months = [
+		...new Set(
+			selection.flatMap((item) =>
+				(seriesByUuid[item.uuid]?.points || []).map((point) => point.key),
+			),
+		),
+	].sort();
+
+	const xLabels = months.map((month) => {
+		const [year, index] = month.split("-");
+		return `${MONTH_SHORT[Number(index) - 1]} ${year.slice(2)}`;
+	});
+
+	const series = selection.map((item) => {
+		const points = seriesByUuid[item.uuid]?.points || [];
+		const byMonth = new Map(points.map((point) => [point.key, point.value]));
+		return {
+			key: item.duration,
+			label: `${item.duration}-hour`,
+			color: DURATION_COLORS[item.duration] || DEFAULT_DURATION_COLOR,
+			uuid: item.uuid,
+			data: months.map((month) =>
+				byMonth.has(month)
+					? Math.round(byMonth.get(month) * factor * 100) / 100
+					: null,
+			),
+		};
+	});
+
+	const currency =
+		selection
+			.map((item) => seriesByUuid[item.uuid]?.currency)
+			.find(Boolean) ||
+		selection.map((item) => item.currency).find(Boolean) ||
+		null;
+
+	return { months, xLabels, series, currency };
+}
+
 
 /** Benchmark index types shown in the top toggle */
 export const benchmarkTypes = [
