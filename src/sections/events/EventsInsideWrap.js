@@ -173,6 +173,8 @@ export default function EventsInsideWrap({
 							data?.events?.thumbnail?.status === "Past" ? false : true
 						}
 						isInsightsBlogsVisible={true}
+						// Live / upcoming events keep only the title + button, no events list
+						hideInsightsList={data?.events?.thumbnail?.status === "Upcoming"}
 						defaultList={pastEvents}
 						countries={countries}
 						formSectionTitle={data?.events?.insights?.sectionTitle}

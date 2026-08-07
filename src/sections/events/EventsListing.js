@@ -1,6 +1,6 @@
 "use client";
 // MODULES //
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -36,6 +36,31 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
 
+/** Split events into live/upcoming ones and past (or undated) ones */
+const splitEvents = (arr = []) => {
+	const now = new Date();
+	const upcoming = [];
+	const past = [];
+
+	(arr || []).forEach((item) => {
+		const rawDate = item?.events?.thumbnail?.date;
+		const date = rawDate ? new Date(rawDate) : null;
+		if (date && !isNaN(date.getTime()) && date >= now) {
+			upcoming.push(item);
+		} else {
+			past.push(item);
+		}
+	});
+
+	// Soonest event first
+	upcoming.sort(
+		(a, b) =>
+			new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
+	);
+
+	return { upcoming, past };
+};
+
 /** EventsListing Section */
 export default function EventsListing({
 	countries,
@@ -56,8 +81,21 @@ export default function EventsListing({
 		eventStatusType: { isOpen: false, selected: { title: "Status" } },
 		yearsType: { isOpen: false, selected: { title: "Year" } },
 	});
-	const [list, setList] = useState(data);
+	// `list` holds the current page of past events, `paginationArr` the full filtered set
+	const [list, setList] = useState(() => splitEvents(data).past);
 	const [paginationArr, setPaginationArr] = useState(data);
+
+	// Current page of the past events pagination
+	const [currentPage, setCurrentPage] = useState(1);
+
+	/** Live / upcoming events are always shown in full, above the past ones */
+	const { upcoming: upcomingEvents, past: pastEvents } = useMemo(
+		() => splitEvents(paginationArr),
+		[paginationArr],
+	);
+
+	// Upcoming events only belong on the first page
+	const showUpcoming = currentPage === 1 && upcomingEvents?.length > 0;
 	const [searchInput, setSearchInput] = useState(null);
 	/** Debounced search when typing */
 	useEffect(() => {
@@ -155,7 +193,7 @@ export default function EventsListing({
 		setLoading(false);
 
 		const filteredArr = filterItemsBySelectedObj(arr, selectedObj);
-		setList(filteredArr);
+		setList(splitEvents(filteredArr).past);
 		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
 
@@ -197,7 +235,7 @@ export default function EventsListing({
 			setLoading(true);
 			setSelected(selecObj);
 			const filteredArr = filterItemsBySelectedObj(data, selecObj);
-			setList(filteredArr);
+			setList(splitEvents(filteredArr).past);
 			setPaginationArr(filteredArr);
 			setLoading(false);
 		}
@@ -209,15 +247,116 @@ export default function EventsListing({
 	useEffect(() => {
 		if (search) {
 			const filtered = filterBySearchQueryEvents(data, search);
-			setList(filtered);
+			setList(splitEvents(filtered).past);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [search]);
 
+	/** Any new filter result starts back at page one */
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [paginationArr]);
+
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list, selected]);
+	}, [list, showUpcoming, selected]);
+
+	/** Render a single event card */
+	const renderEventCard = (item, isLive) => {
+		let hrefObj = {};
+		if (item?.events?.thumbnail?.externalUrl) {
+			hrefObj.href = item?.events?.thumbnail?.externalUrl;
+			hrefObj.onClick = (e) => {
+				e?.preventDefault(); // Prevent navigation
+				OpenIframePopup(
+					"iframePopup",
+					item?.events?.thumbnail?.externalUrl ||
+						"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
+				);
+			};
+			if (item?.events?.thumbnail?.openExternalInNewTab) {
+				delete hrefObj.onClick;
+				hrefObj.target = "_blank"; // Open in new tab
+				hrefObj.rel = "noopener noreferrer"; // Security best practice
+			}
+		} else {
+			hrefObj.href = `/events/${item?.slug}`;
+		}
+
+		return (
+			<div className={`${styles.ItemBox}`} key={item?.title}>
+				<Link {...hrefObj}>
+					<div className={`${styles.hoverBox}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.thumb}`}>
+							<div className={`${styles.logoWrap}`}>
+								{isLive ? (
+									<p
+										className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
+									>
+										Live
+									</p>
+								) : (
+									<div></div>
+								)}
+								<img
+									src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
+									className={`${styles.productLogo} `}
+									alt="Events Logo"
+								/>
+							</div>
+							{item?.events?.banner?.desktop?.node?.mediaItemUrl && (
+								<img
+									src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
+									className={`${styles.productLogoBanner} `}
+									alt="Events Banner"
+								/>
+							)}
+						</div>
+						{item?.eventscategories?.nodes?.length > 0 && (
+							<p
+								className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
+							>
+								{item?.eventscategories?.nodes?.map((item2) => item2.name)}
+							</p>
+						)}
+						<p
+							className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
+						>
+							{item?.title}
+						</p>
+						<div className={`${styles.dateFlex} f_j pt_40`}>
+							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+								<img
+									src={calender.src}
+									className={`${styles.calender}`}
+									alt="calender"
+								/>
+								<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+							</p>
+							<p className="text_xs f_w_m color_light_gray f_r_a_center">
+								<img
+									src={location.src}
+									className={`${styles.location}`}
+									alt="location"
+								/>
+								<span className="text_uppercase">
+									{item?.events?.thumbnail?.country?.nodes
+										?.map((item2) => item2.title)
+										.join(", ")}
+								</span>
+							</p>
+						</div>
+					</div>
+				</Link>
+			</div>
+		);
+	};
 
 	return (
 		<section className={styles.EventsListing}>
@@ -457,7 +596,7 @@ export default function EventsListing({
 									className={`${styles.select_header_wapper} "activeDropDown"`}
 									onClick={() => {
 										setSelected({});
-										setList(data);
+										setList(splitEvents(data).past);
 										setPaginationArr(data);
 										const newUrl = `${window.location.pathname}`;
 										window.history.pushState({}, "", newUrl); // Fast and smooth
@@ -524,115 +663,43 @@ export default function EventsListing({
 				</div>
 			</div>
 			<div className="container">
-				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					{list?.map((item, ind) => {
-						let hrefObj = {};
-						if (item?.events?.thumbnail?.externalUrl) {
-							hrefObj.href = item?.events?.thumbnail?.externalUrl;
-							hrefObj.onClick = (e) => {
-								e?.preventDefault(); // Prevent navigation
-								OpenIframePopup(
-									"iframePopup",
-									item?.events?.thumbnail?.externalUrl ||
-										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
-								);
-							};
-							if (item?.events?.thumbnail?.openExternalInNewTab) {
-								delete hrefObj.onClick;
-								hrefObj.target = "_blank"; // Open in new tab
-								hrefObj.rel = "noopener noreferrer"; // Security best practice
-							}
-						} else {
-							hrefObj.href = `/events/${item?.slug}`;
-						}
+				{/* Upcoming / Live Events — first page only */}
+				{showUpcoming && (
+					<>
+						<h2
+							className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
+						>
+							Upcoming Events
+						</h2>
+						<div className={`${styles.insightsItemFlex} d_f`}>
+							{upcomingEvents.map((item) => renderEventCard(item, true))}
+						</div>
+					</>
+				)}
 
-						const isLive = new Date(item?.events?.thumbnail?.date) >= new Date();
-
-						return (
-							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<Link {...hrefObj}>
-									<div className={`${styles.hoverBox}`}>
-										<img
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										<div className={`${styles.thumb}`}>
-											<div className={`${styles.logoWrap}`}>
-												{isLive ? (
-													<p
-														className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
-													>
-														Live
-													</p>
-												) : (
-													<div></div>
-												)}
-												<img
-													src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
-													className={`${styles.productLogo} `}
-													alt="Events Logo"
-												/>
-											</div>
-											{item?.events?.banner?.desktop?.node?.mediaItemUrl && (
-												<img
-													src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
-													className={`${styles.productLogoBanner} `}
-													alt="Events Banner"
-												/>
-											)}
-										</div>
-										{item?.eventscategories?.nodes?.length > 0 && (
-											<p
-												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
-											>
-												{item?.eventscategories?.nodes?.map((item2) => item2.name)}
-											</p>
-										)}
-										<p
-											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
-										>
-											{item?.title}
-										</p>
-										<div className={`${styles.dateFlex} f_j pt_40`}>
-											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-												<img
-													src={calender.src}
-													className={`${styles.calender}`}
-													alt="calender"
-												/>
-												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
-											</p>
-											<p className="text_xs f_w_m color_light_gray f_r_a_center">
-												<img
-													src={location.src}
-													className={`${styles.location}`}
-													alt="location"
-												/>
-												<span className="text_uppercase">
-													{item?.events?.thumbnail?.country?.nodes
-														?.map((item2) => item2.title)
-														.join(", ")}
-												</span>
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
-						);
-					})}
+				{/* Past & Other Events */}
+				{pastEvents?.length > 0 && (
+					<h2
+						className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
+					>
+						Past Events
+					</h2>
+				)}
+				<div className={`${styles.insightsItemFlex} d_f`}>
+					{list?.map((item) => renderEventCard(item, false))}
 					{loading && <p>Loading...</p>}
-					{list?.length === 0 && !loading && (
+					{upcomingEvents?.length === 0 && pastEvents?.length === 0 && !loading && (
 						<p className={`${styles.nodataText} nodataText`}>
 							No events available for this selection. Please choose a different option.
 						</p>
 					)}
 				</div>
-				{list?.length > 0 && (
+				{pastEvents?.length > 0 && (
 					<Pagination
-						data={list}
-						paginationArr={paginationArr}
+						data={pastEvents}
+						paginationArr={pastEvents}
 						setCurrentItems={setList}
+						onPageChange={setCurrentPage}
 						isDark={true}
 						// itemsPerPage={12}
 					/>
