@@ -8,6 +8,7 @@ import Link from "next/link";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import LottieRenderer from "@/components/LottieRenderer";
+import Vimeo from "@/components/VimeoPlayer";
 import Image from "next/image";
 
 // SECTIONS //
@@ -21,7 +22,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import Vimeo from "@u-wave/react-vimeo";
 
 // UTILS //
 import { dynamicInsightsBtnProps } from "@/utils";
