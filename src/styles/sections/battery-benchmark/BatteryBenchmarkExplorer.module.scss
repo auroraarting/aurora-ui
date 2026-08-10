@@ -37,6 +37,11 @@
 			position: static;
 			max-height: 500px;
 		}
+		/* A 440px inner scroller holding ~1200px of markets traps phone scrolling.
+		   Cap it to roughly half the viewport so the page scroll stays dominant. */
+		@media (max-width: 767px) {
+			max-height: 52vh;
+		}
 	}
 
 	.sidebarHead {
@@ -167,6 +172,9 @@
 		border-radius: 12px;
 		padding: 26px 28px 22px;
 		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+		@media (max-width: 767px) {
+			padding: 18px 14px 16px;
+		}
 	}
 
 	.panelHead {
@@ -175,7 +183,8 @@
 		justify-content: space-between;
 		gap: 16px;
 		margin-bottom: 18px;
-		@media (max-width: 575px) {
+		min-width: 0;
+		@media (max-width: 767px) {
 			flex-wrap: wrap;
 		}
 	}
@@ -203,6 +212,14 @@
 		gap: 12px;
 		flex: 0 0 auto;
 		flex-wrap: wrap;
+		/* Without this the selects size to their longest option ("England and
+		   Wales") and push the whole page ~42px wider than the viewport. */
+		min-width: 0;
+		max-width: 100%;
+		@media (max-width: 767px) {
+			flex: 1 1 100%;
+			width: 100%;
+		}
 	}
 
 	.unitSelect {
@@ -210,6 +227,11 @@
 		flex-direction: column;
 		gap: 6px;
 		flex: 0 0 auto;
+		min-width: 0;
+		@media (max-width: 767px) {
+			/* Share the row evenly and allow shrinking below content width. */
+			flex: 1 1 0;
+		}
 
 		span {
 			font-size: 11px;
@@ -232,6 +254,11 @@
 			background-repeat: no-repeat;
 			background-position: right 12px center;
 			cursor: pointer;
+			min-width: 0;
+			@media (max-width: 767px) {
+				width: 100%;
+				text-overflow: ellipsis;
+			}
 		}
 	}
 
@@ -321,6 +348,11 @@
 		fill: var(--color_medium_gray);
 		font-size: 12px;
 		font-family: var(--font_primary);
+	}
+
+	/* The compact chart draws 1:1 with CSS pixels, so this is the real size. */
+	.chartCompact .axisLabel {
+		font-size: 10px;
 	}
 
 	.hoverLine {

@@ -1,15 +1,36 @@
 "use client";
 
 // MODULES //
-import { useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 // STYLES //
 import styles from "@/styles/sections/battery-benchmark/BatteryBenchmarkExplorer.module.scss";
 
-// Chart geometry (SVG user units — scaled responsively via viewBox)
-const WIDTH = 900;
-const HEIGHT = 420;
-const PAD = { top: 24, right: 24, bottom: 44, left: 56 };
+// Width assumed for the very first (server) render, before the container is
+// measured. Everything below is derived from the real measured width.
+const FALLBACK_WIDTH = 900;
+
+// useLayoutEffect measures before paint so the chart never flashes at the
+// fallback size, but it must not run during SSR.
+const useIsomorphicLayoutEffect =
+	typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+/** Geometry for a given rendered width. The viewBox is kept 1:1 with the
+ *  on-screen pixel size so nothing is downscaled — at a fixed 900x420 viewBox
+ *  a phone squeezed the chart to ~0.32 scale, which rendered the 12px axis
+ *  labels at under 4px and the series strokes as hairlines. */
+function geometryFor(width) {
+	const compact = width < 560;
+	return {
+		width,
+		// Portrait-ish on phones so the plot keeps usable height at narrow widths.
+		height: compact ? Math.round(Math.max(200, width * 0.78)) : 420,
+		compact,
+		pad: compact
+			? { top: 16, right: 14, bottom: 34, left: 40 }
+			: { top: 24, right: 24, bottom: 44, left: 56 },
+	};
+}
 
 /** A "nice" gridline step (1, 2, 2.5 or 5 x a power of ten) for a given max.
  *  The smallest one that keeps the axis to six intervals — picking off the
@@ -37,6 +58,29 @@ export default function BenchmarkLineChart({
 	decimals = 1,
 }) {
 	const [hover, setHover] = useState(null);
+	const wrapRef = useRef(null);
+	const [measuredWidth, setMeasuredWidth] = useState(FALLBACK_WIDTH);
+
+	// Track the container width so the SVG can be drawn at its true pixel size.
+	useIsomorphicLayoutEffect(() => {
+		const el = wrapRef.current;
+		if (!el) return;
+		const apply = (w) => {
+			if (w > 0) setMeasuredWidth(Math.round(w));
+		};
+		apply(el.getBoundingClientRect().width);
+		if (typeof ResizeObserver === "undefined") return;
+		const ro = new ResizeObserver(([entry]) => apply(entry.contentRect.width));
+		ro.observe(el);
+		return () => ro.disconnect();
+	}, []);
+
+	const {
+		width: WIDTH,
+		height: HEIGHT,
+		pad: PAD,
+		compact,
+	} = useMemo(() => geometryFor(Math.max(240, measuredWidth)), [measuredWidth]);
 
 	const innerW = WIDTH - PAD.left - PAD.right;
 	const innerH = HEIGHT - PAD.top - PAD.bottom;
@@ -69,17 +113,42 @@ export default function BenchmarkLineChart({
 	const xAt = (i) => PAD.left + (innerW * i) / Math.max(1, pointCount - 1);
 	const yAt = (v) => PAD.top + innerH - (innerH * v) / maxValue;
 
-	// Show ~10 x-axis labels so they don't collide
-	const labelStride = Math.max(1, Math.round(pointCount / 10));
+	// Fit the x-axis labels to the space actually available (~52px each) instead
+	// of always aiming for 10, which overlapped badly on narrow screens.
+	const maxLabels = Math.max(2, Math.floor(innerW / 52));
+	const labelStride = Math.max(1, Math.ceil(pointCount / maxLabels));
+
+	/** Nearest data point to a clientX, for touch scrubbing. */
+	const indexFromClientX = (clientX) => {
+		const svg = wrapRef.current?.querySelector("svg");
+		if (!svg) return null;
+		const box = svg.getBoundingClientRect();
+		if (!box.width) return null;
+		const x = ((clientX - box.left) / box.width) * WIDTH;
+		const ratio = (x - PAD.left) / Math.max(1, innerW);
+		const i = Math.round(ratio * Math.max(1, pointCount - 1));
+		return Math.min(pointCount - 1, Math.max(0, i));
+	};
+
+	const onTouch = (e) => {
+		const touch = e.touches?.[0];
+		if (!touch) return;
+		const i = indexFromClientX(touch.clientX);
+		if (i !== null) setHover(i);
+	};
 
 	return (
-		<div className={styles.chartWrap}>
+		<div className={styles.chartWrap} ref={wrapRef}>
 			<svg
-				className={styles.chartSvg}
+				className={`${styles.chartSvg} ${compact ? styles.chartCompact : ""}`}
 				viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+				style={{ height: HEIGHT }}
 				role="img"
 				aria-label="Battery benchmark modelled revenue over time"
 				preserveAspectRatio="xMidYMid meet"
+				onTouchStart={onTouch}
+				onTouchMove={onTouch}
+				onTouchEnd={() => setHover(null)}
 			>
 				{/* Horizontal gridlines + Y labels */}
 				{yTicks.map((v) => (
@@ -109,9 +178,13 @@ export default function BenchmarkLineChart({
 						<text
 							key={label + i}
 							x={xAt(i)}
-							y={HEIGHT - PAD.bottom + 22}
+							y={HEIGHT - PAD.bottom + (compact ? 18 : 22)}
 							className={styles.axisLabel}
-							textAnchor="middle"
+							/* Anchor the end labels inward so they can't spill past the
+							   plot area and widen the page on narrow screens. */
+							textAnchor={
+								i === 0 ? "start" : i === pointCount - 1 ? "end" : "middle"
+							}
 						>
 							{label}
 						</text>
@@ -177,7 +250,8 @@ export default function BenchmarkLineChart({
 				<div
 					className={styles.tooltip}
 					style={{
-						left: `${(xAt(hover) / WIDTH) * 100}%`,
+						// Clamped so the bubble stays inside the panel near the axis ends.
+						left: `${Math.min(82, Math.max(18, (xAt(hover) / WIDTH) * 100))}%`,
 					}}
 				>
 					<span className={styles.tooltipDate}>{xLabels[hover]}</span>
