@@ -40,6 +40,13 @@ $gold_deep: #5c4a00;
 	display: flex;
 	align-items: center;
 	gap: 16px;
+	/* The nowrap `.meta` pill can't shrink, so on narrow phones the row
+	   overflowed the viewport instead of stacking. */
+	min-width: 0;
+	flex-wrap: wrap;
+	@media (max-width: 767px) {
+		gap: 8px;
+	}
 }
 
 .title {
