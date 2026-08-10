@@ -417,6 +417,9 @@
 		display: flex;
 		align-items: center;
 		gap: 18px;
+		@media (max-width: 767px) {
+			flex-direction: column;
+		}
 	}
 
 	.footDivider {

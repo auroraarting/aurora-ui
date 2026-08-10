@@ -98,6 +98,10 @@
 			margin-left: auto;
 			padding-top: 22px;
 
+			@media (max-width: 991px) {
+				width: 100%;
+			}
+
 			strong {
 				font-weight: 700;
 				color: var(--color_secondary);

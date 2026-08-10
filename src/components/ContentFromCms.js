@@ -8,6 +8,7 @@
 import parse from "html-react-parser";
 
 // UTILS //
+import { replaceCmsEmbeds } from "@/utils/embeds";
 
 // STYLES //
 import styles from "@/styles/components/ContentFromCms.module.scss";
@@ -21,5 +22,9 @@ export default function ContentFromCms({ children }) {
 	if (!children) {
 		return "";
 	}
-	return <div className={`${styles.contentFromCms}`}>{parse(children)}</div>;
+	return (
+		<div className={`${styles.contentFromCms}`}>
+			{parse(children, { replace: replaceCmsEmbeds })}
+		</div>
+	);
 }
