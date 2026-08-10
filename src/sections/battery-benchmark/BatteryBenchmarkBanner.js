@@ -11,7 +11,7 @@ import Button from "@/components/Buttons/Button";
 // UTILS //
 
 // STYLES //
-import styles from "@/styles/sections/products/ProductBanner.module.scss";
+import styles from "@/styles/sections/battery-benchmark/BatteryBenchmarkBanner.module.scss";
 
 // IMAGES //
 import ContentFromCms from "@/components/ContentFromCms";
