@@ -1,3 +1,7 @@
+// UTILS //
+import { OpenIframePopup } from "@/utils";
+import { EOS_LOGIN_URL, FLEXPLORER_DEMO_FORM } from "./eosLinks";
+
 // STYLES //
 import styles from "@/styles/sections/battery-benchmark/FlexplorerCta.module.scss";
 
@@ -60,12 +64,21 @@ export default function FlexplorerCta() {
 						</div>
 
 						<div className={styles.actions}>
-							<button type="button" className={`${styles.btn} ${styles.btnPrimary}`}>
+							<button
+								type="button"
+								className={`${styles.btn} ${styles.btnPrimary}`}
+								onClick={() => OpenIframePopup("iframePopup", FLEXPLORER_DEMO_FORM)}
+							>
 								Request a Flexplorer demo
 							</button>
-							<button type="button" className={`${styles.btn} ${styles.btnSecondary}`}>
+							<a
+								href={EOS_LOGIN_URL}
+								target="_blank"
+								rel="noreferrer"
+								className={`${styles.btn} ${styles.btnSecondary}`}
+							>
 								Sign in to EOS
-							</button>
+							</a>
 						</div>
 					</div>
 

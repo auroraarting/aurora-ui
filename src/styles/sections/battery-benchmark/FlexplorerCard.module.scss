@@ -106,6 +106,9 @@
 	line-height: 1.2;
 	cursor: pointer;
 	transition: var(--transition);
+	/* "Sign in to EOS" is an anchor, so keep it looking like the button. */
+	text-decoration: none;
+	text-align: center;
 }
 
 .ctaPrimary {

@@ -26,6 +26,7 @@ import styles from "@/styles/pages/product/Products.module.scss";
 
 // DATA //
 import { buildRegions, firstAvailableRegion } from "./benchmarkData";
+import { flexplorerChartUrl } from "./eosLinks";
 
 // SERVICES //
 
@@ -49,6 +50,15 @@ export default function BatteryBenchmarkWrapper({
 		[regions, benchmarks],
 	);
 	const [region, setRegion] = useState(openingRegion);
+	const activeRegion = region || openingRegion;
+
+	// Real Performance isn't published on this site, so its card is a link out
+	// to the EOS leaderboards for the market currently in view — it does not
+	// switch the on-page index.
+	const indexLinks = useMemo(
+		() => ({ real: flexplorerChartUrl(activeRegion, "real") }),
+		[activeRegion],
+	);
 
 	return (
 		<div>
@@ -65,6 +75,7 @@ export default function BatteryBenchmarkWrapper({
 					<BatteryBenchmarkIndices
 						selected={benchmarkType}
 						onSelect={setBenchmarkType}
+						externalLinks={indexLinks}
 					/>
 				</div>
 				<div className="pt_40">
@@ -73,7 +84,7 @@ export default function BatteryBenchmarkWrapper({
 						regionCodes={regions}
 						benchmarks={benchmarks}
 						initialSeries={initialSeries}
-						region={region || openingRegion}
+						region={activeRegion}
 						onRegionChange={setRegion}
 					/>
 				</div>
@@ -83,7 +94,7 @@ export default function BatteryBenchmarkWrapper({
 							<FlexplorerCard />
 							<MethodologyPanel
 								sections={pageContent?.methodology}
-								region={region || openingRegion}
+								region={activeRegion}
 								updated={pageContent?.updated}
 							/>
 						</div>
