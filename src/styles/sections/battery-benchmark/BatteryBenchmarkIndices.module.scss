@@ -44,6 +44,10 @@
 			background: var(--color_platinum_gray);
 			cursor: pointer;
 			transition: var(--transition);
+			/* The Real Performance card is an anchor out to EOS, so keep it
+			   looking identical to the button card beside it. */
+			text-decoration: none;
+			color: inherit;
 
 			&:hover {
 				border-color: var(--color_silver_gray);

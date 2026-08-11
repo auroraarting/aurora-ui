@@ -24,6 +24,7 @@ import {
 	unitsFor,
 	zonesFor,
 } from "./benchmarkData";
+import { flexplorerChartUrl } from "./eosLinks";
 
 /** BatteryBenchmarkExplorer Section — region selector + benchmark chart */
 export default function BatteryBenchmarkExplorer({
@@ -318,7 +319,12 @@ export default function BatteryBenchmarkExplorer({
 									: "Monthly granularity"}
 							</p>
 							<div className={styles.footActions}>
-								<a href="#flexplorer" className={styles.flexBtn}>
+								<a
+									href={flexplorerChartUrl(region, benchmarkType)}
+									target="_blank"
+									rel="noreferrer"
+									className={styles.flexBtn}
+								>
 									<img
 										src={flexplorerIcon.src}
 										className={styles.flexIcon}
