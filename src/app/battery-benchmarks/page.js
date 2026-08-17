@@ -59,6 +59,8 @@ async function getData() {
 		getBatteryBenchmarkPage(),
 	]);
 
+	console.log(pageContent, "pageContent");
+
 	// Every published benchmark is fetched here, not just the market the explorer
 	// opens on. The upstream endpoint costs a flat ~2.8s per benchmark however
 	// small the response (all 32 come to ~17 KB), so that latency is worth paying

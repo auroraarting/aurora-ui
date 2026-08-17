@@ -12,6 +12,7 @@ import BatteryBenchmarkIndices from "./BatteryBenchmarkIndices";
 import BatteryBenchmarkExplorer from "./BatteryBenchmarkExplorer";
 import FlexplorerCard from "./FlexplorerCard";
 import MethodologyPanel from "./MethodologyPanel";
+import MethodologyPanelV2 from "./MethodologyPanelV2";
 import FlexplorerCta from "./FlexplorerCta";
 
 // PLUGINS //
@@ -51,6 +52,19 @@ export default function BatteryBenchmarkWrapper({
 	);
 	const [region, setRegion] = useState(openingRegion);
 	const activeRegion = region || openingRegion;
+
+	// Which methodology model to render. Any published v2 row wins; with the v2
+	// field empty this is false and the page behaves exactly as it does today.
+	const hasMethodologyV2 = useMemo(
+		() =>
+			(pageContent?.methodologyV2 || []).some(
+				(row) =>
+					row?.regionCode &&
+					row.status !== "draft" &&
+					(row.description || row.sections?.length),
+			),
+		[pageContent],
+	);
 
 	// Real Performance isn't published on this site, so its card is a link out
 	// to the EOS leaderboards for the market currently in view — it does not
@@ -92,11 +106,22 @@ export default function BatteryBenchmarkWrapper({
 					<div className="container">
 						<div className={styles.flexplorerLayout}>
 							<FlexplorerCard />
-							<MethodologyPanel
-								sections={pageContent?.methodology}
-								region={activeRegion}
-								updated={pageContent?.updated}
-							/>
+							{/* The v2 methodology model takes over as soon as it has a
+							    published row, otherwise the original panel renders exactly as
+							    before — so filling in the v2 field is the whole switch, and
+							    emptying it is the whole way back. */}
+							{hasMethodologyV2 ? (
+								<MethodologyPanelV2
+									sections={pageContent?.methodologyV2}
+									region={activeRegion}
+								/>
+							) : (
+								<MethodologyPanel
+									sections={pageContent?.methodology}
+									region={activeRegion}
+									updated={pageContent?.updated}
+								/>
+							)}
 						</div>
 					</div>
 				</div>

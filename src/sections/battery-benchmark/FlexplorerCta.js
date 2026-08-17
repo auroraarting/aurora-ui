@@ -1,6 +1,17 @@
+"use client";
+
+// COMPONENTS //
+// Forces Vimeo's DNT mode, which is what keeps the embed alive before cookie
+// consent — never import @u-wave/react-vimeo directly.
+import Vimeo from "@/components/VimeoPlayer";
+
 // UTILS //
 import { OpenIframePopup } from "@/utils";
-import { EOS_LOGIN_URL, FLEXPLORER_DEMO_FORM } from "./eosLinks";
+import {
+	EOS_LOGIN_URL,
+	FLEXPLORER_DEMO_FORM,
+	FLEXPLORER_VIDEO_ID,
+} from "./eosLinks";
 
 // STYLES //
 import styles from "@/styles/sections/battery-benchmark/FlexplorerCta.module.scss";
@@ -82,20 +93,31 @@ export default function FlexplorerCta() {
 						</div>
 					</div>
 
-					{/* ── Right: feature grid ─────────────────── */}
-					<ul className={styles.features}>
-						{features.map((feature) => (
-							<li key={feature.title} className={styles.feature}>
-								<span className={styles.featureIcon}>
-									<img src={feature.icon.src} alt="" aria-hidden="true" />
-								</span>
-								<div className={styles.featureBody}>
-									<p className={styles.featureTitle}>{feature.title}</p>
-									<p className={styles.featureText}>{feature.text}</p>
-								</div>
-							</li>
-						))}
-					</ul>
+					{/* ── Right: product video, or the feature grid until it lands ── */}
+					{FLEXPLORER_VIDEO_ID ? (
+						<div className={styles.video}>
+							<Vimeo
+								video={FLEXPLORER_VIDEO_ID}
+								responsive
+								controls
+								title="Flexplorer product video"
+							/>
+						</div>
+					) : (
+						<ul className={styles.features}>
+							{features.map((feature) => (
+								<li key={feature.title} className={styles.feature}>
+									<span className={styles.featureIcon}>
+										<img src={feature.icon.src} alt="" aria-hidden="true" />
+									</span>
+									<div className={styles.featureBody}>
+										<p className={styles.featureTitle}>{feature.title}</p>
+										<p className={styles.featureText}>{feature.text}</p>
+									</div>
+								</li>
+							))}
+						</ul>
+					)}
 				</div>
 			</div>
 		</section>

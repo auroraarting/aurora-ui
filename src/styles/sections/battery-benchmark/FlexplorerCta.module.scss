@@ -127,6 +127,35 @@
 	}
 }
 
+/* ── Right column: product video ─────────────────── */
+.video {
+	width: 570px;
+	max-width: 100%;
+	flex: 0 0 auto;
+	border-radius: 12px;
+	overflow: hidden;
+	// Holds the 16:9 box before the player reports its own size, so the band
+	// doesn't jump as the embed loads.
+	aspect-ratio: 16 / 9;
+	background: var(--color_gray);
+
+	@media (max-width: 1199px) {
+		width: 100%;
+	}
+
+	// @u-wave/react-vimeo in responsive mode wraps the iframe in a padded div
+	:global(> div),
+	iframe {
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	iframe {
+		display: block;
+		border: 0;
+	}
+}
+
 /* ── Right column: feature grid ──────────────────── */
 .features {
 	list-style: none;

@@ -142,6 +142,16 @@ const faqs = [
 			</>
 		),
 	},
+	{
+		q: "Can I personalise the benchmark to fit my asset?",
+		a: (
+			<>
+				Yes — the benchmark can be customised to your specific asset, so you can see
+				exactly how it would have performed across different markets. For more
+				information, please contact your Aurora account manager.
+			</>
+		),
+	},
 ];
 
 const MONTH_SHORT = [

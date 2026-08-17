@@ -92,10 +92,13 @@ $gold_deep: #5c4a00;
 
 /* ── Intro ───────────────────────────────────────── */
 .intro {
+	@extend %cmsTables;
 	margin: 0;
 	font-size: 18px;
 	line-height: 1.6;
 	color: var(--color_light_gray);
+	// Only bites when a table is wider than the column; prose is unaffected.
+	overflow-x: auto;
 
 	b {
 		font-weight: 600;
@@ -145,9 +148,17 @@ $gold_deep: #5c4a00;
 	display: flex;
 	align-items: flex-start;
 	gap: 26px;
+	// Flex items default to min-width:auto, so without this a wide CMS table's
+	// min-content width propagates all the way up and scrolls the page
+	// horizontally rather than scrolling inside .itemBoxText.
+	min-width: 0;
 	@media (max-width: 767px) {
 		flex-direction: column;
 		gap: 8px;
+		// Once stacked the cross axis is horizontal, so `align-items: flex-start`
+		// above would size the children to their content instead of the column —
+		// a wide table then widened the page rather than scrolling in its box.
+		align-items: stretch;
 	}
 }
 
@@ -223,6 +234,7 @@ $gold_deep: #5c4a00;
 .item {
 	display: flex;
 	flex-direction: column;
+	min-width: 0;
 	gap: 14px;
 	padding: 20px 0 22px;
 	border-bottom: 1px solid $hairline;
@@ -282,6 +294,8 @@ $gold_deep: #5c4a00;
 	border: 1px dashed var(--color_silver_gray);
 	border-radius: 6px;
 	padding: 14px 16px;
+	// Lets the box shrink to the column so .itemBoxText's overflow-x can engage
+	min-width: 0;
 }
 
 .itemBoxWhite {
@@ -293,10 +307,13 @@ $gold_deep: #5c4a00;
 }
 
 .itemBoxText {
+	@extend %cmsTables;
 	margin: 0;
 	font-size: 14px;
 	line-height: 1.6;
 	color: var(--color_light_gray);
+	// Only bites when a table is wider than the column; prose is unaffected.
+	overflow-x: auto;
 }
 
 .itemLead {
@@ -310,6 +327,180 @@ $gold_deep: #5c4a00;
 	line-height: 1.6;
 	color: var(--color_light_gray);
 }
+
+/* ── Methodology v2 only ─────────────────────────────
+   Used by MethodologyPanelV2, which shares this stylesheet. Additive: the v1
+   panel never emits these classes, so nothing above changes. */
+
+/* Printed section numbers ("3.1"), kept visually quieter than the title */
+.itemNumber,
+.subNumber,
+.navNumber {
+	color: var(--color_light_gray);
+	font-weight: 600;
+	margin-right: 8px;
+}
+
+.navNumber {
+	font-size: 12px;
+}
+
+/* Sub-sections nested inside a level 1 section */
+.subLevel2 {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	min-width: 0;
+	padding-left: 16px;
+	border-left: 2px solid $hairline;
+
+	@media (max-width: 575px) {
+		padding-left: 12px;
+	}
+}
+
+.subLevel3 {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+	padding-left: 14px;
+	border-left: 1px dotted var(--color_silver_gray);
+
+	@media (max-width: 575px) {
+		padding-left: 10px;
+	}
+}
+
+.subHead {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+}
+
+.subTitle {
+	margin: 0;
+	font-weight: 700;
+	line-height: 1.35;
+	color: var(--color_dark_gray);
+
+	// h5 (level 2) and h6 (level 3) both land here, so the step down in size
+	// comes from the wrapper rather than the tag.
+	.subLevel2 > .subHead > & {
+		font-size: 16px;
+	}
+	.subLevel3 > .subHead > & {
+		font-size: 14px;
+	}
+}
+
+/* Version log, rendered from its own repeater rather than pasted prose */
+.versionLog {
+	padding-top: 20px;
+	border-top: 1px solid $hairline;
+}
+
+/* Scroll container for the tables this panel builds itself. The CMS-pasted
+   tables get their scrolling from .itemBoxText instead. */
+.tableScroll {
+	overflow-x: auto;
+	min-width: 0;
+}
+
+/* ── Tables inside CMS copy ──────────────────────────
+   The methodology documentation is table-heavy (key parameters, market price
+   sources, the version log), and those arrive as raw HTML from the editor with
+   no classes to hook onto — so these are element selectors, applied to both
+   places CMS copy renders. Mixed into a placeholder to keep one definition. */
+%cmsTables {
+	table {
+		width: 100%;
+		// Deliberately no min-width. The `white-space: nowrap` on header cells
+		// below gives each table a natural minimum proportional to its column
+		// count: a two-column parameter table still fits a phone and wraps, while
+		// a five- or six-column one exceeds the box and scrolls instead of being
+		// crushed. A blanket min-width would make even narrow tables scroll.
+		margin: 16px 0 4px;
+		border-collapse: collapse;
+		border-spacing: 0;
+		font-size: 13px;
+		line-height: 1.5;
+		text-align: left;
+
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	caption {
+		caption-side: top;
+		margin-bottom: 8px;
+		font-size: 11.5px;
+		font-weight: 700;
+		letter-spacing: 0.6px;
+		text-transform: uppercase;
+		color: var(--color_light_gray);
+		text-align: left;
+	}
+
+	th,
+	td {
+		padding: 9px 12px;
+		border-bottom: 1px solid $border;
+		vertical-align: top;
+		text-align: left;
+
+		&:first-child {
+			padding-left: 0;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+
+	// Header row. Word and the block editor both emit tables without a <thead>,
+	// in which case the table simply reads as unheaded rows — still legible.
+	thead th,
+	thead td {
+		padding-top: 0;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.6px;
+		text-transform: uppercase;
+		color: var(--color_dark_gray);
+		border-bottom: 1px solid var(--color_light_gray);
+		white-space: nowrap;
+	}
+
+	// A <th> used as a row label rather than a column header
+	tbody th {
+		font-weight: 600;
+		color: var(--color_dark_gray);
+	}
+
+	tbody tr:last-child {
+		th,
+		td {
+			border-bottom: 0;
+		}
+	}
+
+	// WordPress wraps block-editor tables in a figure
+	:global(figure.wp-block-table) {
+		margin: 16px 0 4px;
+		overflow-x: auto;
+
+		table {
+			margin: 0;
+		}
+	}
+}
+
 
 /* ── Common questions ────────────────────────────── */
 .faqSection {

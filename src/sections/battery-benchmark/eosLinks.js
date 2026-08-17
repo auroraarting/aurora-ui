@@ -12,6 +12,16 @@ export const FLEXPLORER_DEMO_FORM =
 export const FLEXPLORER_PRODUCT_URL =
 	"https://auroraer.com/products/flexible-energy";
 
+/**
+ * Vimeo id for the Flexplorer product video shown in the closing CTA band —
+ * the full cut, not the version with Mike. Numbers only, e.g. "123456789";
+ * for an unlisted video Vimeo also needs the hash, as "123456789/abcdef1234".
+ *
+ * Left empty until Aurora supply the video: while it is blank the CTA band
+ * falls back to the feature grid rather than rendering an empty column.
+ */
+export const FLEXPLORER_VIDEO_ID = "";
+
 const FLEXPLORER_BASE = "https://eos.auroraer.com/dragonfly/flexplorer";
 
 /**

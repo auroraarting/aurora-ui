@@ -82,12 +82,121 @@ function toMethodologySection(row, index, termsBySection, termsByScope) {
 	};
 }
 
+/** Parse a `table_tsv` textarea into a table.
+ *  Editors paste straight out of Word or Excel, which yields tab-separated cells,
+ *  one row per line. The first line is the header. Ragged rows are padded so the
+ *  rendered table never has short rows. */
+function toTable(tsv, caption) {
+	const lines = String(tsv || "")
+		.split(/\r?\n/)
+		.map((line) => line.replace(/\s+$/, ""))
+		.filter((line) => line.trim() !== "");
+	if (!lines.length) return null;
+
+	const grid = lines.map((line) => line.split("\t").map((cell) => cell.trim()));
+	const width = Math.max(...grid.map((cells) => cells.length));
+	const padded = grid.map((cells) => [
+		...cells,
+		...Array(width - cells.length).fill(""),
+	]);
+
+	return {
+		caption: orNull(caption),
+		head: padded[0],
+		rows: padded.slice(1),
+	};
+}
+
+/** Flat outline rows → a nested tree, using each row's `level` (1/2/3).
+ *  The outline is authored linearly, the way the source Word document is written,
+ *  so depth comes from the level field rather than nested repeaters. A level that
+ *  arrives without its parent (a stray level 3, say) is lifted to the deepest
+ *  open ancestor rather than dropped. */
+function toOutlineTree(outline, idPrefix) {
+	const sections = [];
+	let currentGroup = "";
+	let counter = 0;
+
+	(Array.isArray(outline) ? outline : [])
+		.filter((row) => row?.title || row?.body || row?.table_tsv)
+		.forEach((row) => {
+			const level = Number(row?.level) || 1;
+			// A blank nav group continues the previous one, so editors name a group
+			// once rather than repeating it on every row.
+			if (orNull(row?.nav_group)) currentGroup = row.nav_group;
+
+			counter += 1;
+			const node = {
+				id: `${idPrefix}-s${counter}`,
+				number: orNull(row?.number),
+				title: row?.title || "",
+				scope: orNull(row?.scope) || "none",
+				body: orNull(row?.body),
+				table: toTable(row?.table_tsv, row?.table_caption),
+				children: [],
+			};
+
+			const last = sections[sections.length - 1];
+			if (level === 1 || !last) {
+				sections.push({ ...node, navGroup: currentGroup, children: [] });
+				return;
+			}
+			if (level === 2) {
+				last.children.push(node);
+				return;
+			}
+			// level 3
+			const parent = last.children[last.children.length - 1];
+			(parent ? parent.children : last.children).push(node);
+		});
+
+	return sections;
+}
+
+/** Repeater row → one market's methodology, v2 shape.
+ *  Kept entirely separate from `toMethodologySection` so the original field and
+ *  its panel keep working untouched while the two are compared. */
+function toMethodologyV2Section(row, index) {
+	const regionCode = orNull(row?.region_code);
+	const idPrefix = regionCode || `section-${index + 1}`;
+	const log = Array.isArray(row?.version_log) ? row.version_log : [];
+	const faqs = Array.isArray(row?.faqs) ? row.faqs : [];
+
+	return {
+		id: idPrefix,
+		regionCode,
+		// Draft rows are written up before they go live, so the panel skips them.
+		status: orNull(row?.status) || "published",
+		version: orNull(row?.methodology_version),
+		lastReviewed: orNull(row?.last_reviewed),
+		description: orNull(row?.description),
+		sections: toOutlineTree(row?.outline, idPrefix),
+		versionLog: log
+			.filter((entry) => entry?.version || entry?.change_summary)
+			.map((entry) => ({
+				version: orNull(entry?.version),
+				effectiveDate: orNull(entry?.effective_date),
+				changeSummary: orNull(entry?.change_summary),
+				sectionsAffected: orNull(entry?.sections_affected),
+			})),
+		faqs: faqs
+			.filter((faq) => faq?.question)
+			.map((faq) => ({
+				question: faq.question,
+				answer: orNull(faq?.answer),
+			})),
+	};
+}
+
 /** ACF's snake_case payload → the camelCase shape the sections consume */
 function normalise(page, termsBySection, termsByScope) {
 	if (!page) return null;
 	const acf = page.acf || {};
 	const button = acf.top_section_button || {};
 	const methodology = Array.isArray(acf.methodology) ? acf.methodology : [];
+	const methodologyV2 = Array.isArray(acf.methodology_v2)
+		? acf.methodology_v2
+		: [];
 
 	return {
 		id: page.id,
@@ -105,6 +214,11 @@ function normalise(page, termsBySection, termsByScope) {
 		},
 		methodology: methodology.map((row, index) =>
 			toMethodologySection(row, index, termsBySection, termsByScope),
+		),
+		// The proposed replacement, read alongside the original so both can be
+		// compared on the page. Empty until the v2 field is filled in.
+		methodologyV2: methodologyV2.map((row, index) =>
+			toMethodologyV2Section(row, index),
 		),
 		updated: page.modified || null,
 		seo: {
