@@ -401,6 +401,16 @@ query GetEventInsideNew {
       }
       interestedDesc
       pricingDesc
+      # Company logo carousel above the upcoming event card (EventsMiddleRight.js).
+      # ACF repeater: one row per logo.
+      sidebarLogos {
+        logo {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
       thumbnail {
         openExternalInNewTab
         address
@@ -529,6 +539,13 @@ query GetEventInsideNew {
                 title
                 slug
                 postSpeakers {
+                  # Rendered opposite the speaker's name in the popup (Speakers.js)
+                  companyLogo {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
                   thumbnail {
                     designation
                     linkedinLink
@@ -667,6 +684,13 @@ query GetEventLanding {
               content
               title
               postSpeakers {
+                # Rendered opposite the speaker's name in the popup (Speakers.js)
+                companyLogo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
                 thumbnail {
                   designation
                   linkedinLink

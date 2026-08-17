@@ -2,10 +2,16 @@
 // Docs (from Aurora): /regions/all, /benchmarks/all,
 // /benchmarks/<uuid>/data/total, /leaderboards/<region>
 
-const REFRESH_INTERVAL = 3600;
+// Benchmarks are republished monthly (see `latestReleaseMonth`), so the series
+// data is cached for a week. The upstream endpoint costs a flat ~2.8s per
+// benchmark and does not get faster on repeat — it has no caching of its own —
+// so a short window here just means visitors pay that latency again for nothing.
+const REFRESH_INTERVAL = 604800; // 1 week
 
-// The benchmark endpoints are slow (~3s each), so a whole region's worth of
+// The benchmark endpoints are slow (~2.8s each), so a whole region's worth of
 // series is fetched in small parallel batches rather than one at a time.
+// Do NOT raise this: measured against the live API, 6 at a time returns 32/32,
+// while 12 at a time reliably fails 4 of 32 with HTTP 500.
 const BATCH_SIZE = 6;
 
 const MONTHS = [

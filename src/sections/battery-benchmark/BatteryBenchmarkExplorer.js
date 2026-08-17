@@ -143,26 +143,76 @@ export default function BatteryBenchmarkExplorer({
 			? `${chart.xLabels[0]} – ${chart.xLabels[chart.xLabels.length - 1]}`
 			: chart.xLabels[0] || "";
 
-	/** Download the visible series as CSV */
+	/** Download the whole market as CSV — every price zone and duration it
+	 *  publishes, with each unit option as its own column, so the file covers
+	 *  what the on-screen toggles would otherwise take several downloads to get.
+	 *  One row per zone / duration / month keeps zones with differing date ranges
+	 *  from padding each other out. */
 	const downloadCsv = () => {
-		const visible = series.filter((item) => activeKeys.includes(item.key));
-		const header = [
-			"Month",
-			...visible.map((item) => `${item.label} (${unit.label})`),
-		];
-		const rows = chart.xLabels.map((label, index) => [
-			label,
-			...visible.map((item) => item.data[index] ?? ""),
-		]);
-		const csv = [header, ...rows].map((row) => row.join(",")).join("\n");
+		const quote = (value) => {
+			const text = String(value ?? "");
+			return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+		};
 
-		const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+		// Every zone of this market, not just the selected one. Markets with no
+		// price zones still produce a single unzoned pass.
+		const marketItems = benchmarksFor(benchmarks, region);
+		const zoneList = zones.length ? zones : [null];
+
+		// The chart's currency comes from the current selection only, so read it
+		// across the whole market instead — a zone may not be loaded yet.
+		const marketCurrency =
+			marketItems.map((item) => seriesByUuid[item.uuid]?.currency).find(Boolean) ||
+			marketItems.map((item) => item.currency).find(Boolean) ||
+			null;
+		const unitList = unitsFor(marketCurrency);
+
+		const header = [
+			"Market",
+			"Price zone",
+			"Duration",
+			"Month",
+			...unitList.map((item) => item.label),
+		];
+
+		const rows = [];
+		zoneList.forEach((zoneName) => {
+			benchmarksFor(benchmarks, region, zoneName).forEach((item) => {
+				const points = seriesByUuid[item.uuid]?.points || [];
+				points.forEach((point) => {
+					rows.push([
+						regionLabel(region),
+						zoneName || "",
+						`${item.duration}-hour`,
+						point.label,
+						// Rounded the same way the chart rounds, so the file agrees with
+						// what is plotted, then fixed to each unit's precision.
+						...unitList.map((unitItem) =>
+							(
+								Math.round(point.value * unitItem.factor * 100) / 100
+							).toFixed(unitItem.decimals),
+						),
+					]);
+				});
+			});
+		});
+
+		if (!rows.length) return;
+
+		const csv = [header, ...rows]
+			.map((row) => row.map(quote).join(","))
+			.join("\n");
+
+		// Leading BOM so Excel reads the file as UTF-8. Without it Excel falls back
+		// to the system codepage and the currency symbols in the unit headers come
+		// out mangled ("Â£/kW/month"); the charset in the MIME type is ignored when
+		// opening a local file.
+		const url = URL.createObjectURL(
+			new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }),
+		);
 		const link = document.createElement("a");
 		link.href = url;
-		const zoneSlug = activeZone
-			? `-${activeZone.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
-			: "";
-		link.download = `${region}${zoneSlug}-battery-benchmark.csv`;
+		link.download = `${region}-battery-benchmark.csv`;
 		link.click();
 		URL.revokeObjectURL(url);
 	};
@@ -343,6 +393,9 @@ export default function BatteryBenchmarkExplorer({
 									className={styles.downloadBtn}
 									onClick={downloadCsv}
 									disabled={!hasData}
+									title={`Download every price zone, duration and unit for ${regionLabel(
+										region,
+									)}`}
 								>
 									<img
 										src={downloadIcon.src}

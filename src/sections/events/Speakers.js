@@ -68,6 +68,8 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 				designation: item2?.postSpeakers?.thumbnail?.designation,
 				desc: item2?.content || "",
 				thumbnail: item2?.postSpeakers?.thumbnail?.image?.node?.mediaItemUrl,
+				companyLogo: item2?.postSpeakers?.companyLogo?.node?.mediaItemUrl,
+				companyLogoAlt: item2?.postSpeakers?.companyLogo?.node?.altText,
 				sessions: item?.sessions?.map((item3) => {
 					return {
 						time: item3?.time,
@@ -179,14 +181,24 @@ export default function Speakers({ data, title, desc, iseventInside }) {
 														</div>
 														<div className={`${styles.Details}`}>
 															<div className={`${styles.boxName}`}>
-																<h5
-																	className={`${styles.Name} text_reg f_w_m color_white font_secondary`}
-																>
-																	{item.name}
-																</h5>
-																<p className="text_xs color_silver_gray l_h_6">
-																	{item.designation}
-																</p>
+																<div className={`${styles.nameBlock}`}>
+																	<h5
+																		className={`${styles.Name} text_reg f_w_m color_white font_secondary`}
+																	>
+																		{item.name}
+																	</h5>
+																	<p className="text_xs color_silver_gray l_h_6">
+																		{item.designation}
+																	</p>
+																</div>
+																{item.companyLogo && (
+																	<div className={`${styles.companyLogo}`}>
+																		<img
+																			src={item.companyLogo}
+																			alt={item.companyLogoAlt || `${item.name} company logo`}
+																		/>
+																	</div>
+																)}
 															</div>
 															<p className={`${styles.Desc} text_xs color_silver_gray`}>
 																{parse(item?.desc || "")}

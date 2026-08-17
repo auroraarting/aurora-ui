@@ -104,7 +104,7 @@ export default function BatteryBenchmarkWrapper({
 					<FlexplorerCta />
 				</div>
 			</main>
-			<IframeModal />
+			<IframeModal centred />
 			{/* Page Content ends here */}
 		</div>
 	);

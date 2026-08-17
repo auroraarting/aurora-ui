@@ -8,6 +8,10 @@ import ContentFromCms from "@/components/ContentFromCms";
 // SECTIONS //
 
 // PLUGINS //
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
 
 // UTILS //
 import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
@@ -16,18 +20,23 @@ import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 import styles from "@/styles/sections/events/EventsMiddleRight.module.scss";
 
 // IMAGES //
-import spring_forum from "@/../public/img/events/spring_forum.png";
 import grey_location from "../../../public/img/icons/grey_location.svg";
 import grey_calendar from "../../../public/img/icons/grey_calendar.svg";
-
-import author_logo from "@/../public/img/resources/aurora_insights/author_logo.png";
-import social_icon from "@/../public/img/resources/aurora_insights/social_icon.svg";
-import origin from "@/../public/img/resources/aurora_insights/origin.png";
 
 // DATA //
 
 /** Client Section */
 export default function EventsMiddleRight({ data, events }) {
+	// Company logos for the carousel above the upcoming event card. `sidebarLogos`
+	// is an ACF repeater, so it arrives as one row per logo.
+	const companyLogos = (data?.events?.sidebarLogos || [])
+		.map((item) => item?.logo?.node)
+		.filter((node) => node?.mediaItemUrl);
+	// Two logos per view. Dots, autoplay and dragging only appear once there are
+	// more logos than fit on screen — otherwise there is nothing to navigate to.
+	const logosPerView = 2;
+	const logosScrollable = companyLogos.length > logosPerView;
+
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
 			{data?.events?.interestedDesc && (
@@ -96,6 +105,36 @@ export default function EventsMiddleRight({ data, events }) {
 							</div>
 						</div>
 					</div>
+				</div>
+			)}
+
+			{companyLogos.length > 0 && (
+				<div className={`${styles.whiteBox} ${styles.logoBox}`}>
+					<Swiper
+						modules={[Pagination, Autoplay]}
+						slidesPerView={logosPerView}
+						spaceBetween={16}
+						grabCursor={logosScrollable}
+						loop={logosScrollable}
+						speed={600}
+						pagination={logosScrollable ? { clickable: true } : false}
+						autoplay={
+							logosScrollable ? { delay: 3000, disableOnInteraction: false } : false
+						}
+						className={styles.logoSlider}
+					>
+						{companyLogos.map((item, ind) => (
+							<SwiperSlide key={item?.mediaItemUrl || ind}>
+								<div className={`${styles.logoItem}`}>
+									<img
+										src={item?.mediaItemUrl}
+										alt={item?.altText || "Company logo"}
+										loading="lazy"
+									/>
+								</div>
+							</SwiperSlide>
+						))}
+					</Swiper>
 				</div>
 			)}
 

@@ -52,3 +52,26 @@
 		}
 	}
 }
+
+// Centred variant, applied alongside .iframeModal via <IframeModal centred />.
+// It must come after the block above: the selectors below match its specificity
+// exactly, so source order is what makes these win. Keep this last in the file.
+.iframeModalCentred {
+	:global {
+		.modal {
+			justify-content: center;
+
+			// Rise in from just below centre rather than sliding in from the right.
+			// The 0.5s ease-in-out transition is inherited from the base block.
+			.content {
+				transform: translateY(30px);
+			}
+
+			&.open {
+				.content {
+					transform: translateY(0);
+				}
+			}
+		}
+	}
+}

@@ -267,6 +267,39 @@
 					border-bottom: 1px solid rgba(206, 206, 206, 0.2);
 					margin-bottom: 20px;
 					padding-bottom: 20px;
+					// Name on the left, company logo opposite it on the right
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					gap: 20px;
+					.nameBlock {
+						flex: 1 1 auto;
+						min-width: 0;
+					}
+					// Logos arrive at mixed aspect ratios, so the box is a bounding
+					// area the artwork is contained within rather than sized to.
+					.companyLogo {
+						flex: 0 0 auto;
+						display: flex;
+						align-items: center;
+						justify-content: flex-end;
+						width: auto;
+						max-width: 160px;
+						img {
+							max-width: 160px;
+							max-height: 56px;
+							width: auto;
+							height: auto;
+							object-fit: contain;
+						}
+						@media (max-width: 767px) {
+							max-width: 110px;
+							img {
+								max-width: 110px;
+								max-height: 40px;
+							}
+						}
+					}
 				}
 			}
 			::-webkit-scrollbar {

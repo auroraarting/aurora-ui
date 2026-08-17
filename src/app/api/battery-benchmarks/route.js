@@ -21,7 +21,19 @@ export async function GET(req) {
 
 	try {
 		const series = await getBenchmarkSeriesByUuid(uuids);
-		return Response.json({ series });
+		// The page now seeds every series server-side, so this route is only a
+		// fallback. Benchmarks change monthly, so let the CDN and browser hold the
+		// response for a day and serve it stale for a week while it refreshes —
+		// otherwise every request pays the upstream's flat ~2.8s per benchmark.
+		return Response.json(
+			{ series },
+			{
+				headers: {
+					"Cache-Control":
+						"public, s-maxage=86400, stale-while-revalidate=604800",
+				},
+			},
+		);
 	} catch (error) {
 		console.error("Error fetching benchmark series:", error);
 		return Response.json({ error: "Failed to fetch series" }, { status: 500 });

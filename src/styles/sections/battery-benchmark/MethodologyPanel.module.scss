@@ -119,12 +119,6 @@ $gold_deep: #5c4a00;
 	gap: 7px;
 }
 
-.assumptionText {
-	font-size: 11.5px;
-	font-weight: 700;
-	color: var(--color_light_gray);
-}
-
 .chipGray,
 .chipYellow {
 	font-size: 9.5px;
@@ -218,40 +212,6 @@ $gold_deep: #5c4a00;
 	.navLabel {
 		color: var(--color_dark_gray);
 	}
-}
-
-.navTagU,
-.navTagR {
-	font-size: 9.5px;
-	font-weight: 700;
-	line-height: 1;
-	padding: 3px 7px;
-	border-radius: 3px;
-	white-space: nowrap;
-	flex-shrink: 0;
-}
-
-.navTagU {
-	background: $chip_soft;
-	color: var(--color_light_gray);
-}
-
-.navTagR {
-	background: var(--color_primary_tint);
-	color: $gold;
-}
-
-.navTagGroup {
-	display: inline-flex;
-	align-items: center;
-	gap: 4px;
-	flex-shrink: 0;
-}
-
-.navPlus {
-	font-size: 12.5px;
-	font-weight: 700;
-	color: var(--color_light_gray);
 }
 
 /* ── Content items ───────────────────────────────── */
