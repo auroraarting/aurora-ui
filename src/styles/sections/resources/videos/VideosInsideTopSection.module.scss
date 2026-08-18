@@ -9,9 +9,11 @@
 			flex-direction: column-reverse;
 		}
 		.content {
-			width: 50%;
+			// Full width: the thumbnail that used to sit beside this at 44% has been
+			// removed from the inside page, so a 50% column would leave the right
+			// half of the band empty.
+			width: 100%;
 			@media (max-width: 767px) {
-				width: 100%;
 				margin-top: 30px;
 			}
 
@@ -23,29 +25,6 @@
 						margin-left: 5px;
 						margin-top: 2px;
 					}
-				}
-			}
-		}
-		.imageWrapper {
-			width: 44%;
-			overflow: hidden;
-
-			@media (max-width: 767px) {
-				width: 100%;
-			}
-			img {
-				height: 100%;
-				width: 100%;
-				object-fit: cover;
-				object-position: center;
-				@media (max-width: 1199px) {
-					width: 100%;
-				}
-				@media (max-width: 991px) {
-					height: 220px;
-				}
-				@media (max-width: 767px) {
-					height: 200px;
 				}
 			}
 		}

@@ -49,7 +49,7 @@ export default function VideosInsideTopSection({ data, socialLinks }) {
 								</p>
 							)}
 						</div>
-						{socialLinks?.length > 0 && (
+						{/* {socialLinks?.length > 0 && (
 							<div className={`${styles.dateBox}`}>
 								<div className={`${styles.downloadListenBox}  f_w_j a_center`}>
 									<div className={`${styles.downloadListen} downloadListen`}>
@@ -71,17 +71,8 @@ export default function VideosInsideTopSection({ data, socialLinks }) {
 									</div>
 								</div>
 							</div>
-						)}
+						)} */}
 					</div>
-					{/* {data?.videoFields?.thumbnail?.node?.mediaItemUrl && ( */}
-					<div className={`${styles.imageWrapper}`}>
-						<img
-							src={data?.videoFields?.thumbnail?.node?.mediaItemUrl}
-							className="width_100 b_r_20"
-							alt="featured Image"
-						/>
-					</div>
-					{/* )} */}
 				</div>
 			</div>
 		</section>

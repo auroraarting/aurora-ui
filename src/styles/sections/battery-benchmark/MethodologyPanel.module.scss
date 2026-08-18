@@ -396,8 +396,14 @@ $gold_deep: #5c4a00;
 	}
 }
 
-/* Version log, rendered from its own repeater rather than pasted prose */
+/* Version log, rendered from its own repeater rather than pasted prose.
+   Spaced like .item so the heading sits the same distance from its box as every
+   section heading does. */
 .versionLog {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	min-width: 0;
 	padding-top: 20px;
 	border-top: 1px solid $hairline;
 }
@@ -407,6 +413,14 @@ $gold_deep: #5c4a00;
 .tableScroll {
 	overflow-x: auto;
 	min-width: 0;
+
+	// The table inside is always this wrapper's first child, so the
+	// `table:first-child { margin-top: 0 }` rule below always fires and the table
+	// would butt straight up against the prose above it. Space the wrapper
+	// instead — and only when something precedes it.
+	&:not(:first-child) {
+		margin-top: 16px;
+	}
 }
 
 /* ── Tables inside CMS copy ──────────────────────────
