@@ -58,4 +58,40 @@
 	.yellowBox {
 		background-color: var(--color_primary);
 	}
+	// Company logo carousel, sat above the upcoming event card
+	.logoBox {
+		// Bottom padding is light because the pagination adds its own gap below;
+		// without pagination the slider sits flush and the padding evens out.
+		padding: 20px 20px 20px;
+		.logoSlider {
+			:global(.swiper-pagination) {
+				position: static;
+				margin-top: 12px;
+				margin-bottom: -10px;
+				line-height: 1;
+			}
+			:global(.swiper-pagination-bullet) {
+				background: var(--color_platinum_gray);
+				opacity: 1;
+			}
+			:global(.swiper-pagination-bullet-active) {
+				background: var(--color_secondary);
+			}
+		}
+		// Logos come in mixed aspect ratios, so each slide is a fixed-height box
+		// the artwork is centred and contained within.
+		.logoItem {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 60px;
+			img {
+				max-width: 100%;
+				max-height: 100%;
+				width: auto;
+				height: auto;
+				object-fit: contain;
+			}
+		}
+	}
 }

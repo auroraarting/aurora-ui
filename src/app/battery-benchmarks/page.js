@@ -27,12 +27,6 @@ import {
 	getBenchmarkSeriesByUuid,
 } from "@/services/rest/BatteryBenchmark.service";
 import { getBatteryBenchmarkPage } from "@/services/rest/BatteryBenchmarkPage.service";
-import {
-	benchmarksFor,
-	buildRegions,
-	firstAvailableRegion,
-	zonesFor,
-} from "@/sections/battery-benchmark/benchmarkData";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
@@ -65,14 +59,16 @@ async function getData() {
 		getBatteryBenchmarkPage(),
 	]);
 
-	// The benchmark data endpoints take ~3s each, so only the market the explorer
-	// opens on is fetched here — the rest load client-side on selection.
-	const openingRegion = firstAvailableRegion(buildRegions(regions, benchmarks));
-	const openingZone = zonesFor(benchmarks, openingRegion)[0] || null;
+	console.log(pageContent, "pageContent");
+
+	// Every published benchmark is fetched here, not just the market the explorer
+	// opens on. The upstream endpoint costs a flat ~2.8s per benchmark however
+	// small the response (all 32 come to ~17 KB), so that latency is worth paying
+	// once per revalidate window on the server rather than making every visitor
+	// wait ~3s each time they change market. The explorer only requests uuids it
+	// wasn't handed, so seeding them all means it never fetches on selection.
 	const initialSeries = await getBenchmarkSeriesByUuid(
-		benchmarksFor(benchmarks, openingRegion, openingZone).map(
-			(item) => item.uuid,
-		),
+		(benchmarks || []).map((item) => item.uuid),
 	);
 
 	return {

@@ -142,6 +142,16 @@ const faqs = [
 			</>
 		),
 	},
+	{
+		q: "Can I personalise the benchmark to fit my asset?",
+		a: (
+			<>
+				Yes — the benchmark can be customised to your specific asset, so you can see
+				exactly how it would have performed across different markets. For more
+				information, please contact your Aurora account manager.
+			</>
+		),
+	},
 ];
 
 const MONTH_SHORT = [
@@ -186,43 +196,28 @@ function scopeSlugs(tab) {
 		.filter(Boolean);
 }
 
-/** Scope terms → the badge keys the two badge components take */
+/** Scope terms → the badge key ItemBadge takes */
 function scopeKeys(tab) {
 	const slugs = scopeSlugs(tab);
 	const universal = slugs.includes("universal");
 	const region = slugs.includes("region");
-	if (universal && region) return { nav: "UR", item: "mixed" };
-	if (universal) return { nav: "U", item: "universal" };
-	if (region) return { nav: "R", item: "region" };
-	return { nav: null, item: null };
+	if (universal && region) return { item: "mixed" };
+	if (universal) return { item: "universal" };
+	if (region) return { item: "region" };
+	return { item: null };
 }
 
-/** Small scope badge — "U" (universal) / "R" (region) used in the side navigation */
-function NavBadge({ scope }) {
-	if (scope === "U") return <span className={styles.navTagU}>U</span>;
-	if (scope === "R") return <span className={styles.navTagR}>R</span>;
-	if (scope === "UR")
-		return (
-			<span className={styles.navTagGroup}>
-				<span className={styles.navTagU}>U</span>
-				<span className={styles.navPlus}>+</span>
-				<span className={styles.navTagR}>R</span>
-			</span>
-		);
-	return null;
-}
-
-/** Full-width scope badge shown next to a content item's title */
-function ItemBadge({ scope, regionName = "Great Britain" }) {
+/** Scope badge shown next to a content item's title */
+function ItemBadge({ scope }) {
 	if (scope === "universal")
 		return <span className={styles.badgeGray}>Universal</span>;
 	if (scope === "region")
-		return <span className={styles.badgeYellow}>Region · {regionName}</span>;
+		return <span className={styles.badgeYellow}>Regional</span>;
 	if (scope === "mixed")
 		return (
 			<span className={styles.badgeMixed}>
-				<span className={styles.badgeGray}>U</span>
-				<span className={styles.badgeYellow}>+ R</span>
+				<span className={styles.badgeGray}>Universal</span>
+				<span className={styles.badgeYellow}>Regional</span>
 			</span>
 		);
 	return null;
@@ -355,16 +350,13 @@ export default function MethodologyPanel({ sections, region, updated }) {
 			{/* ── Assumptions row ────────────────────────── */}
 			{!missing && (
 				<>
+					{/* Key for the scope badges against each section below */}
 					<div className={styles.assumptions}>
 						<div className={styles.assumptionLabel}>
 							<span className={styles.chipGray}>Universal</span>
-							<span className={styles.assumptionText}>Same in every market</span>
 						</div>
 						<div className={styles.assumptionLabel}>
-							<span className={styles.chipYellow}>Region</span>
-							<span className={styles.assumptionText}>
-								Follows the selector - currently {regionName}
-							</span>
+							<span className={styles.chipYellow}>Regional</span>
 						</div>
 					</div>
 
@@ -387,7 +379,6 @@ export default function MethodologyPanel({ sections, region, updated }) {
 													}`}
 												>
 													<span className={styles.navLabel}>{tab.title}</span>
-													<NavBadge scope={scopeKeys(tab).nav} />
 												</button>
 											))}
 										</div>
@@ -405,7 +396,6 @@ export default function MethodologyPanel({ sections, region, updated }) {
 													}`}
 												>
 													<span className={styles.navLabel}>{link.label}</span>
-													<NavBadge scope={link.scope} />
 												</button>
 											))}
 										</div>
@@ -431,7 +421,7 @@ export default function MethodologyPanel({ sections, region, updated }) {
 													<h4 className={`${styles.itemTitle} font_secondary`}>
 														{tab.title}
 													</h4>
-													<ItemBadge scope={scopeKeys(tab).item} regionName={regionName} />
+													<ItemBadge scope={scopeKeys(tab).item} />
 												</div>
 
 												{body && (
@@ -460,7 +450,7 @@ export default function MethodologyPanel({ sections, region, updated }) {
 												<h4 className={`${styles.itemTitle} font_secondary`}>
 													{item.title}
 												</h4>
-												<ItemBadge scope={item.scope} regionName={regionName} />
+												<ItemBadge scope={item.scope} />
 											</div>
 
 											{item.box === "none" ? (

@@ -58,7 +58,34 @@ const splitEvents = (arr = []) => {
 			new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
 	);
 
+	// Most recent event first. Undated entries can't be compared, so they sink to
+	// the bottom rather than landing wherever the comparator happens to leave them.
+	past.sort((a, b) => {
+		const aTime = new Date(a?.events?.thumbnail?.date).getTime();
+		const bTime = new Date(b?.events?.thumbnail?.date).getTime();
+		if (isNaN(aTime)) return isNaN(bTime) ? 0 : 1;
+		if (isNaN(bTime)) return -1;
+		return bTime - aTime;
+	});
+
 	return { upcoming, past };
+};
+
+/** Pristine state of the filter bar dropdowns */
+const DEFAULT_DROPDOWNS = {
+	eventNameType: { isOpen: false, selected: { title: "Event Name" } },
+	countryType: { isOpen: false, selected: { title: "Country" } },
+	offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+	eventStatusType: { isOpen: false, selected: { title: "Status" } },
+	yearsType: { isOpen: false, selected: { title: "Year" } },
+};
+
+/** Url query param -> dropdown it drives */
+const QUERY_TO_DROPDOWN = {
+	type: "eventNameType",
+	country: "countryType",
+	status: "eventStatusType",
+	year: "yearsType",
 };
 
 /** EventsListing Section */
@@ -74,13 +101,7 @@ export default function EventsListing({
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
-	const [dropdowns, setDropdowns] = useState({
-		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
-		eventStatusType: { isOpen: false, selected: { title: "Status" } },
-		yearsType: { isOpen: false, selected: { title: "Year" } },
-	});
+	const [dropdowns, setDropdowns] = useState(DEFAULT_DROPDOWNS);
 	// `list` holds the current page of past events, `paginationArr` the full filtered set
 	const [list, setList] = useState(() => splitEvents(data).past);
 	const [paginationArr, setPaginationArr] = useState(data);
@@ -94,8 +115,18 @@ export default function EventsListing({
 		[paginationArr],
 	);
 
+	/** Does the full (unfiltered) dataset have anything to show on the past listing? */
+	const hasPastEvents = useMemo(() => splitEvents(data).past.length > 0, [data]);
+
+	// Past events are their own listing, reached through the "View Previous Events"
+	// button or a `?status=Past` url. It also stands in whenever the current
+	// selection leaves no upcoming events, so filtered past results stay reachable.
+	const viewingPast = selected?.status === "Past";
+	const showPast = viewingPast || upcomingEvents?.length === 0;
+
 	// Upcoming events only belong on the first page
-	const showUpcoming = currentPage === 1 && upcomingEvents?.length > 0;
+	const showUpcoming =
+		!viewingPast && currentPage === 1 && upcomingEvents?.length > 0;
 	const [searchInput, setSearchInput] = useState(null);
 	/** Debounced search when typing */
 	useEffect(() => {
@@ -121,6 +152,8 @@ export default function EventsListing({
 	const handleChange = (option) => {
 		setSelected(option); // Only one selected option at a time
 	};
+
+	const sectionRef = useRef(null);
 
 	const dropdownRefs = {
 		eventNameType: useRef(null),
@@ -158,6 +191,13 @@ export default function EventsListing({
 			[key]: { isOpen: false, selected: option },
 		}));
 		filter(option.title, key);
+	};
+
+	/** Switch over to the past events listing (same route, `?status=Past`) */
+	const viewPreviousEvents = (e) => {
+		e?.preventDefault();
+		handleOptionClick("eventStatusType", { title: "Past" });
+		sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 	};
 
 	/** filter  */
@@ -234,6 +274,16 @@ export default function EventsListing({
 		if (params.size > 0) {
 			setLoading(true);
 			setSelected(selecObj);
+			// Mirror the query params onto the dropdowns so they read as selected
+			setDropdowns((prev) => {
+				const next = { ...prev };
+				Object.entries(QUERY_TO_DROPDOWN).forEach(([param, key]) => {
+					if (selecObj[param] !== undefined) {
+						next[key] = { isOpen: false, selected: { title: selecObj[param] } };
+					}
+				});
+				return next;
+			});
 			const filteredArr = filterItemsBySelectedObj(data, selecObj);
 			setList(splitEvents(filteredArr).past);
 			setPaginationArr(filteredArr);
@@ -260,7 +310,7 @@ export default function EventsListing({
 
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list, showUpcoming, selected]);
+	}, [list, showUpcoming, showPast, selected]);
 
 	/** Render a single event card */
 	const renderEventCard = (item, isLive) => {
@@ -359,7 +409,7 @@ export default function EventsListing({
 	};
 
 	return (
-		<section className={styles.EventsListing}>
+		<section className={styles.EventsListing} ref={sectionRef}>
 			<div className={styles.filterMain}>
 				<div className="container">
 					<div className={styles.filterflex}>
@@ -596,6 +646,7 @@ export default function EventsListing({
 									className={`${styles.select_header_wapper} "activeDropDown"`}
 									onClick={() => {
 										setSelected({});
+										setDropdowns(DEFAULT_DROPDOWNS);
 										setList(splitEvents(data).past);
 										setPaginationArr(data);
 										const newUrl = `${window.location.pathname}`;
@@ -677,32 +728,50 @@ export default function EventsListing({
 					</>
 				)}
 
-				{/* Past & Other Events */}
-				{pastEvents?.length > 0 && (
-					<h2
-						className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
-					>
-						Past Events
-					</h2>
+				{/* Gateway to the past events listing, at the end of the upcoming ones */}
+				{!showPast && hasPastEvents && (
+					<div className={`${styles.viewPastWrap} f_r_aj_center`}>
+						{/* A plain anchor, not next/link: the href keeps the past listing
+						    linkable, while the handler filters in place without letting the
+						    router remount this section mid-update. */}
+						<a href="/events?status=Past" onClick={viewPreviousEvents}>
+							<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								View Previous Events
+							</Button>
+						</a>
+					</div>
 				)}
-				<div className={`${styles.insightsItemFlex} d_f`}>
-					{list?.map((item) => renderEventCard(item, false))}
-					{loading && <p>Loading...</p>}
-					{upcomingEvents?.length === 0 && pastEvents?.length === 0 && !loading && (
-						<p className={`${styles.nodataText} nodataText`}>
-							No events available for this selection. Please choose a different option.
-						</p>
-					)}
-				</div>
-				{pastEvents?.length > 0 && (
-					<Pagination
-						data={pastEvents}
-						paginationArr={pastEvents}
-						setCurrentItems={setList}
-						onPageChange={setCurrentPage}
-						isDark={true}
-						// itemsPerPage={12}
-					/>
+
+				{/* Past & Other Events */}
+				{showPast && (
+					<>
+						{pastEvents?.length > 0 && (
+							<h2
+								className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
+							>
+								Past Events
+							</h2>
+						)}
+						<div className={`${styles.insightsItemFlex} d_f`}>
+							{list?.map((item) => renderEventCard(item, false))}
+							{loading && <p>Loading...</p>}
+							{upcomingEvents?.length === 0 && pastEvents?.length === 0 && !loading && (
+								<p className={`${styles.nodataText} nodataText`}>
+									No events available for this selection. Please choose a different option.
+								</p>
+							)}
+						</div>
+						{pastEvents?.length > 0 && (
+							<Pagination
+								data={pastEvents}
+								paginationArr={pastEvents}
+								setCurrentItems={setList}
+								onPageChange={setCurrentPage}
+								isDark={true}
+								// itemsPerPage={12}
+							/>
+						)}
+					</>
 				)}
 			</div>
 		</section>

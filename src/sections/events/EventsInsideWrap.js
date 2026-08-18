@@ -46,9 +46,16 @@ export default function EventsInsideWrap({
 	events,
 	countries,
 	eventsOriginal,
-	pastEvents,
 }) {
 	const dataForBtn = { postFields: data?.events || {} };
+	const insightsBtn = dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton");
+	// The dark CTA panel is editorial: without a title, body or button from the
+	// backend it renders as an empty grey card, so it is gated on having content.
+	const hasInsightsContent = Boolean(
+		data?.events?.insights?.sectionTitle ||
+			data?.events?.insights?.sectionDesc ||
+			insightsBtn.btntext,
+	);
 	return (
 		<div>
 			{/* Metatags */}
@@ -168,22 +175,21 @@ export default function EventsInsideWrap({
 				<div className="pb_100">
 					<Insights
 						allTag="Past Event"
-						insightsLink="/events/"
+						// "View all" goes to the past events listing, not the events landing page
+						insightsLink="/events?status=Past"
 						isPowerBgVisible={
-							data?.events?.thumbnail?.status === "Past" ? false : true
+							data?.events?.thumbnail?.status === "Past" ? false : hasInsightsContent
 						}
 						isInsightsBlogsVisible={true}
-						// Live / upcoming events keep only the title + button, no events list
-						hideInsightsList={data?.events?.thumbnail?.status === "Upcoming"}
-						defaultList={pastEvents}
+						// Title + button only. The three event cards were removed; the listing
+						// behind "View all" is where past events are browsed.
+						hideInsightsList={true}
 						countries={countries}
 						formSectionTitle={data?.events?.insights?.sectionTitle}
 						formSectionDesc={data?.events?.insights?.sectionDesc}
-						formSectionBtnText={
-							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
-						}
+						formSectionBtnText={insightsBtn.btntext}
 						insightsTitle="Previous Events from Aurora"
-						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						formdata={insightsBtn}
 					/>
 				</div>
 				{/* )} */}

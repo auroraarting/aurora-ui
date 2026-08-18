@@ -374,6 +374,15 @@
 			margin: 20px 0px 0px 0px;
 		}
 	}
+	.viewPastWrap {
+		padding: 20px 20px 60px;
+		@media (max-width: 1199px) {
+			padding: 20px 15px 50px;
+		}
+		@media (max-width: 767px) {
+			padding: 10px 0px 40px;
+		}
+	}
 	.insightsItemFlex {
 		flex-wrap: wrap;
 		//border-bottom: 1px solid var(--color_platinum_gray);
