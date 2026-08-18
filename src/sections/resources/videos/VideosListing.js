@@ -357,15 +357,16 @@ export default function VideosListing({ countries, data, years, topics }) {
 										className={`${styles.hoverBg} width_100 b_r_10`}
 										alt="img"
 									/>
-									{/* <div className={styles.thumbnailWrap}>
-										{thumbnailImg && (
+									{thumbnailImg && (
+										<div className={styles.thumbnailWrap}>
 											<img
 												src={thumbnailImg}
 												className={styles.thumbnailImg}
 												alt={item?.title || "Video thumbnail"}
+												loading="lazy"
 											/>
-										)}
-									</div> */}
+										</div>
+									)}
 									{/* Topic */}
 									{topic && (
 										<p

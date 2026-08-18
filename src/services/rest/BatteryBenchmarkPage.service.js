@@ -160,7 +160,6 @@ function toMethodologyV2Section(row, index) {
 	const regionCode = orNull(row?.region_code);
 	const idPrefix = regionCode || `section-${index + 1}`;
 	const log = Array.isArray(row?.version_log) ? row.version_log : [];
-	const faqs = Array.isArray(row?.faqs) ? row.faqs : [];
 
 	return {
 		id: idPrefix,
@@ -178,12 +177,6 @@ function toMethodologyV2Section(row, index) {
 				effectiveDate: orNull(entry?.effective_date),
 				changeSummary: orNull(entry?.change_summary),
 				sectionsAffected: orNull(entry?.sections_affected),
-			})),
-		faqs: faqs
-			.filter((faq) => faq?.question)
-			.map((faq) => ({
-				question: faq.question,
-				answer: orNull(faq?.answer),
 			})),
 	};
 }

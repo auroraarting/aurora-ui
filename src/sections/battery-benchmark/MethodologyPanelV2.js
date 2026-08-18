@@ -13,6 +13,7 @@ import styles from "@/styles/sections/battery-benchmark/MethodologyPanel.module.
 
 // DATA //
 import { regionLabel } from "./benchmarkData";
+import methodologyFaqs from "./methodologyFaqs";
 
 const MONTH_SHORT = [
 	"Jan",
@@ -134,14 +135,12 @@ function SubSection({ node, level }) {
 				</Tag>
 				<ScopeBadge scope={node.scope} />
 			</div>
-			{node.body && (
-				<div className={styles.itemBoxText}>
-					<ContentFromCms>{node.body}</ContentFromCms>
-				</div>
-			)}
-			{node.table && (
-				<div className={styles.itemBoxText}>
-					<CmsTable table={node.table} />
+			{(node.body || node.table) && (
+				<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
+					<div className={styles.itemBoxText}>
+						{node.body && <ContentFromCms>{node.body}</ContentFromCms>}
+						{node.table && <CmsTable table={node.table} />}
+					</div>
 				</div>
 			)}
 			{node.children?.map((child) => (
@@ -170,7 +169,10 @@ function groupSections(sections = []) {
  *  of a flat list of tabs tagged against two taxonomies. Both components are kept
  *  so the two can be compared on the same page.
  *
- *  `sections` is `pageContent.methodologyV2`; `region` is the selected market. */
+ *  `sections` is `pageContent.methodologyV2` and `region` is the selected market.
+ *  The "Common questions" list is not a prop: the same questions are shown for
+ *  every market, so they are not part of a market's methodology and are not
+ *  editable per region. They come from methodologyFaqs.js. */
 export default function MethodologyPanelV2({ sections, region }) {
 	const published = useMemo(
 		() =>
@@ -314,18 +316,14 @@ export default function MethodologyPanelV2({ sections, region }) {
 										<ScopeBadge scope={item.scope} />
 									</div>
 
-									{item.body && (
+									{/* One box per heading, holding its prose and then its table —
+									    a table is content like any other, so it gets the same
+									    treatment wherever in the outline it appears. */}
+									{(item.body || item.table) && (
 										<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
 											<div className={styles.itemBoxText}>
-												<ContentFromCms>{item.body}</ContentFromCms>
-											</div>
-										</div>
-									)}
-
-									{item.table && (
-										<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
-											<div className={styles.itemBoxText}>
-												<CmsTable table={item.table} />
+												{item.body && <ContentFromCms>{item.body}</ContentFromCms>}
+												{item.table && <CmsTable table={item.table} />}
 											</div>
 										</div>
 									)}
@@ -342,28 +340,32 @@ export default function MethodologyPanelV2({ sections, region }) {
 					{section.versionLog?.length > 0 && (
 						<div className={styles.versionLog}>
 							<p className={`${styles.faqHeading} font_secondary`}>Version log</p>
-							<div className={styles.itemBoxText}>
-								<div className={styles.tableScroll}>
-									<table>
-										<thead>
-											<tr>
-												<th scope="col">Version</th>
-												<th scope="col">Effective date</th>
-												<th scope="col">Change summary</th>
-												<th scope="col">Sections affected</th>
-											</tr>
-										</thead>
-										<tbody>
-											{section.versionLog.map((entry, i) => (
-												<tr key={`${entry.version}-${i}`}>
-													<td>{entry.version || "—"}</td>
-													<td>{shortDate(entry.effectiveDate)}</td>
-													<td>{entry.changeSummary || "—"}</td>
-													<td>{entry.sectionsAffected || "—"}</td>
+							{/* Boxed like every other block in the panel — a bare table read as
+							    a stray, unstyled one floating between the sections and the FAQs. */}
+							<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
+								<div className={styles.itemBoxText}>
+									<div className={styles.tableScroll}>
+										<table>
+											<thead>
+												<tr>
+													<th scope="col">Version</th>
+													<th scope="col">Effective date</th>
+													<th scope="col">Change summary</th>
+													<th scope="col">Sections affected</th>
 												</tr>
-											))}
-										</tbody>
-									</table>
+											</thead>
+											<tbody>
+												{section.versionLog.map((entry, i) => (
+													<tr key={`${entry.version}-${i}`}>
+														<td>{entry.version || "—"}</td>
+														<td>{shortDate(entry.effectiveDate)}</td>
+														<td>{entry.changeSummary || "—"}</td>
+														<td>{entry.sectionsAffected || "—"}</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -371,12 +373,12 @@ export default function MethodologyPanelV2({ sections, region }) {
 				</>
 			)}
 
-			{/* ── Common questions ───────────────────────── */}
-			{section?.faqs?.length > 0 && (
+			{/* ── Common questions — shared across every market ── */}
+			{methodologyFaqs.length > 0 && (
 				<div className={styles.faqSection}>
 					<p className={`${styles.faqHeading} font_secondary`}>Common questions</p>
 					<div className={styles.faqList}>
-						{section.faqs.map((faq, i) => {
+						{methodologyFaqs.map((faq, i) => {
 							const open = openFaq === i;
 							return (
 								<div key={faq.question} className={styles.faqItem}>
