@@ -414,12 +414,15 @@ $gold_deep: #5c4a00;
 	overflow-x: auto;
 	min-width: 0;
 
-	// The table inside is always this wrapper's first child, so the
-	// `table:first-child { margin-top: 0 }` rule below always fires and the table
-	// would butt straight up against the prose above it. Space the wrapper
-	// instead — and only when something precedes it.
+	// The table inside is always this wrapper's first and last child, so the
+	// `table:first-child / :last-child { margin: 0 }` rules below always fire and
+	// the table would butt straight up against any prose around it. Space the
+	// wrapper instead — and only on the sides that have a neighbour.
 	&:not(:first-child) {
 		margin-top: 16px;
+	}
+	&:not(:last-child) {
+		margin-bottom: 16px;
 	}
 }
 
