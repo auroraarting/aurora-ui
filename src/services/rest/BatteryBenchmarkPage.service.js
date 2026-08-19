@@ -150,7 +150,7 @@ function toOutlineTree(outline, idPrefix) {
 				last.children.push(node);
 				return;
 			}
-			// level 3
+			// level3
 			const parent = last.children[last.children.length - 1];
 			(parent ? parent.children : last.children).push(node);
 		});
