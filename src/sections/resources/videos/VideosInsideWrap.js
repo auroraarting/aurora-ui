@@ -121,30 +121,30 @@ export default function VideosInsideWrap({
 				</section>
 				<div className="ptb_100">
 					<Insights
-						isPowerBgVisible={true}
+						// isPowerBgVisible={true}
 						isInsightsBlogsVisible={true}
 						defaultList={otherList}
 						countries={countries}
-						formSectionTitle="Watch our latest videos and never miss an update from Aurora!"
+						// formSectionTitle="Watch our latest videos and never miss an update from Aurora!"
 						insightsTitle="Previous Videos"
 						insightsLink="/resources/videos/"
 						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
-						customHtml={
-							<div className={`${styles.downloadListen} downloadListen`}>
-								<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
-									{socialLinks?.map((item) => {
-										return (
-											<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
-												<img
-													src={item?.logo?.node?.mediaItemUrl}
-													alt={item?.logo?.node?.altText}
-												/>
-											</a>
-										);
-									})}
-								</div>
-							</div>
-						}
+						// customHtml={
+						// 	<div className={`${styles.downloadListen} downloadListen`}>
+						// 		<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
+						// 			{socialLinks?.map((item) => {
+						// 				return (
+						// 					<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+						// 						<img
+						// 							src={item?.logo?.node?.mediaItemUrl}
+						// 							alt={item?.logo?.node?.altText}
+						// 						/>
+						// 					</a>
+						// 				);
+						// 			})}
+						// 		</div>
+						// 	</div>
+						// }
 						allTag="Video"
 					/>
 				</div>
