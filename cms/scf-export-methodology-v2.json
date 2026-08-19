@@ -219,7 +219,7 @@
                         "name": "outline",
                         "aria-label": "",
                         "type": "repeater",
-                        "instructions": "The methodology written as a linear outline, in document order — one row per heading, mirroring the Word document. Depth comes from the Level field, not from nested repeaters, so add rows top to bottom and set each one's Level. Drag to reorder. Worked example: Level 1 \/ number 5 \/ \"Germany specific backcast methodology\", then Level 2 \/ 5.1 \/ \"Revenue streams\", then Level 3 \/ (no number) \/ \"Wholesale Market (WM)\", Level 3 \/ \"Day-Ahead (DA)\", and so on, then Level 2 \/ 5.2 \/ \"Excluded revenue streams\".",
+                        "instructions": "The methodology written as a linear outline, in document order — one row per heading, mirroring the Word document. Depth comes from the Level field, not from nested repeaters, so add rows top to bottom and set each one's Level. Drag to reorder. Worked example: Level 1 / number 5 / \"Germany specific backcast methodology\", then Level 2 / 5.1 / \"Revenue streams\", then Level 3 / (no number) / \"Wholesale Market (WM)\", Level 3 / \"Day-Ahead (DA)\", and so on, then Level 2 / 5.2 / \"Excluded revenue streams\".",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -337,7 +337,7 @@
                                 "name": "scope",
                                 "aria-label": "",
                                 "type": "select",
-                                "instructions": "Drives the Universal \/ Regional badge. \"Both\" renders the two badges side by side.",
+                                "instructions": "Drives the Universal / Regional badge. \"Both\" renders the two badges side by side.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -451,7 +451,7 @@
                             },
                             {
                                 "key": "field_6a680009v2",
-                                "label": "Table (paste from Word\/Excel)",
+                                "label": "Table (paste from Word/Excel)",
                                 "name": "table_tsv",
                                 "aria-label": "",
                                 "type": "textarea",
@@ -482,7 +482,7 @@
                                 "name": "body_after",
                                 "aria-label": "",
                                 "type": "wysiwyg",
-                                "instructions": "Prose that follows the table — notes, caveats or a closing sentence. Leave blank when the heading has nothing after its table. Ignored when there is no table, so use the field above for ordinary prose.",
+                                "instructions": "A second prose block, shown after the table when this heading has one, and directly after the body when it does not. Use it for notes, caveats or a closing sentence. Leave blank if the heading needs only one block of prose.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {

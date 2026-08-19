@@ -133,9 +133,11 @@ function toOutlineTree(outline, idPrefix) {
 				scope: orNull(row?.scope) || "none",
 				body: orNull(row?.body),
 				table: toTable(row?.table_tsv, row?.table_caption),
-				// Prose that follows the table. Only meaningful alongside one, so it is
-				// dropped when the row has no table rather than silently moving above it.
-				bodyAfter: row?.table_tsv ? orNull(row?.body_after) : null,
+				// The second prose block: renders after the table when the row has one,
+				// otherwise straight after `body`. Deliberately not gated on there being
+				// a table — silently discarding copy an editor has typed and saved is
+				// worse than letting it show as a trailing paragraph.
+				bodyAfter: orNull(row?.body_after),
 				children: [],
 			};
 
