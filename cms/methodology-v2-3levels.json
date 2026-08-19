@@ -1,0 +1,253 @@
+{
+  "acf": {
+    "methodology_v2": [
+      {
+        "region_code": "gbr",
+        "methodology_version": "",
+        "last_reviewed": "",
+        "status": "published",
+        "description": "<p class=\"p1\">The <b>Backcast Benchmark</b> models the revenue a reference battery, dispatched to simulate actual performance and imperfect foresight, would have captured against historical wholesale and balancing prices — a clean, like-for-like measure of how attractive each market <b>could</b> have been.</p>\r\n<p class=\"p3\"><b>Why publishing a backcast and how to use it? </b></p>\r\n<p class=\"p4\">In many markets, detailed operational data for battery assets is either unavailable, incomplete, or not publicly disclosed. As a result, it is often impossible to construct representative market benchmarks directly from real asset performance. Backcast benchmarks fill this gap by creating a reference point based on a consistent optimisation framework and market data.</p>\r\n<p class=\"p4\">The benchmark should be viewed as an independent market reference. It is designed to illustrate the revenue opportunity available to a representative battery operating in a given market, location and duration category under historical conditions.</p>\r\n<p class=\"p3\"><b>What the backcast is not</b></p>\r\n<p class=\"p3\">The Chronos Backcast Benchmark is not a record of actual revenues earned by a battery or portfolio of batteries. It is a modelled representation of what a representative asset could have earned under Aurora's dispatch algorithm, <b>Chronos</b>.</p>\r\n<p class=\"p3\">The benchmark does not capture every asset-specific characteristic, such as unique operational constraints, optimiser strategies, contractual arrangements, degradation, availability assumptions, trading preferences, or site-specific restrictions. As a result, individual assets may outperform or underperform the benchmark in any given period.</p>",
+        "outline": [
+          {
+            "level": "1",
+            "nav_group": "Reference",
+            "number": "2",
+            "scope": "universal",
+            "title": "Governance & Updates",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "2.1",
+            "scope": "universal",
+            "title": "Methodology review process",
+            "body": "Aurora reviews this methodology on an annual basis to ensure it remains aligned with evolving market conditions, regulatory requirements, and data availability.",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "2.2",
+            "scope": "universal",
+            "title": "Notification of changes",
+            "body": "Significant methodology changes will be communicated to clients with advance notice prior to implementation.\r\n\r\nMinor clarifications that do not affect the calculation methodology will be incorporated into this document without prior notice and logged in the version log.",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "2.3",
+            "scope": "universal",
+            "title": "Methodology version log",
+            "body": "All methodology changes are tracked in the table below. This log is maintained from the initial publication date and records every change to ensure historical comparability.",
+            "table_caption": "",
+            "table_tsv": "Version\tEffective date\tChange summary\tSections affected\r\n1.0\t[Date of first publication]\tInitial publication — Germany methodology.\tAll\r\n[x.x]\t[Date]\t[Description of change]\t[Section reference]"
+          },
+          {
+            "level": "1",
+            "nav_group": "Great Britain",
+            "number": "3",
+            "scope": "regional",
+            "title": "Input assumptions",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "3.1",
+            "scope": "regional",
+            "title": "Key parameters",
+            "body": "The following sections describe the key assumptions underpinning the published Aurora Backcast Benchmarks.",
+            "table_caption": "",
+            "table_tsv": "Parameter\tAssumption\r\nIndex Name\tAER DEU 1h\tAER DEU 2h\r\n\r\nGeography \tGermany\r\n\r\nBattery size(s)\t50MW\r\nDuration\t1h\t2h\r\nRound-trip efficiency (RTE)\t86% (DC-DC)\r\n\r\nDegradation\tNo degradation factor applied\r\n\r\nDaily cycle limit\t1.5 cycles/day \r\nState of Charge (SoC)\tManaged as a rolling variable based on prior day activities, without reset.\r\nMin/Max SoC limits\t0% (minimum) and 100% (maximum).\r\n\r\nAvailability\t98%\r\n\r\nMarket behaviour assumptioms\tBESS is treated as a price-taker, submitting bids based on internal costs, constraints, and strategies with the market prices not being influenced. (this is the example given by Re-twin)\r\nOperational constraints\tThe standard benchmark is unconstraint, meaning that grid restrictions, ramp rates, or ancillary limitations are not considered for standard Backcast Benchmarks.\r\n"
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "3.2",
+            "scope": "universal",
+            "title": "Market inputs",
+            "body": "<strong>3.2.1 Market prices</strong>",
+            "table_caption": "",
+            "table_tsv": "Revenue stream\tData source and granularity\r\nWholesale Market (WM) \tENTSO-E 15mn\r\nDay-Ahead (DA)\tENTSO-E 15mn\r\nIntraday Market (ID1)\tEPEX SPOT DE -15mn\r\nContinuous Intraday Market (ID??)\r\nStatistical calibration\r\nFCR\t\r\naFRR capacity\tENTSO-E Activated Balancing Energy Prices\r\nAFRR energy\t\r\n"
+          },
+          {
+            "level": "1",
+            "nav_group": "",
+            "number": "4",
+            "scope": "both",
+            "title": "Calculation methodology",
+            "body": "The Chronos Backcast Benchmark uses the same core methodology as Aurora’s bankable Chronos battery forecasts, but replaces forecasted price data with actual realised historical price data.\r\n\r\n&nbsp;",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "4.1",
+            "scope": "universal",
+            "title": "Two-stage optimization",
+            "body": "Chronos operates in daily blocks and solves each day in two phases: a scheduling phase and a dispatch phase.In simple terms, the scheduling phase asks: “Given everything known about tomorrow’s wholesale and reserve prices, how much capacity should be allocated to each",
+            "table_caption": "",
+            "table_tsv": "Phase\tWhat it determines\tKey modelling point\r\nScheduling phase\tDay-Ahead positions, FCR capacity commitments and aFRR capacity commitments.\tUses up to 32 hours of foresight for Day-Ahead, FCR and aFRR capacity prices.\r\n\r\nDispatch phase\tIntraday and aFRR energy charging/discharging, plus fulfilment of DA, FCR and aFRR capacity commitments.\tCapacity obligations are fulfilled first; remaining flexibility is used in Intraday and aFRR energy markets.\r\n"
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "4.2",
+            "scope": "universal",
+            "title": "Imperfect foresight",
+            "body": "A key modelling assumption is that the trader does not know future Intraday or e.g. aFRR energy prices perfectly, so some profitable opportunities are missed to imitate realistic trading behavior. This is implemented by assuming expected prices for these markets",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "4.3",
+            "scope": "universal",
+            "title": "State of charge and penalties",
+            "body": "The model tracks battery State of Charge (SoC) throughout the simulated dispatch and applies p when commitments cannot be fulfilled.",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "1",
+            "nav_group": "",
+            "number": "5",
+            "scope": "regional",
+            "title": "Germany specific backcast methodology",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "5.1",
+            "scope": "regional",
+            "title": "Revenue streams",
+            "body": "<strong><span lang=\"EN-US\">Wholesale Market (WM) </span></strong>\r\n\r\n<strong><span lang=\"EN-US\">Day-Ahead (DA)</span></strong>\r\n\r\n<strong><span lang=\"EN-US\">Intraday Market (ID1)</span></strong>\r\n\r\n<strong><span lang=\"EN-US\">Continuous Intraday Market (ID??)</span></strong>\r\n\r\n<strong><span lang=\"EN-US\">FCR</span></strong>\r\n\r\n<strong><span lang=\"EN-US\">aFRR capacity</span></strong>",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "3",
+            "nav_group": "",
+            "number": "",
+            "scope": "regional",
+            "title": "Wholesale Market (WM)",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "3",
+            "nav_group": "",
+            "number": "",
+            "scope": "regional",
+            "title": "Day-Ahead (DA)",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "3",
+            "nav_group": "",
+            "number": "",
+            "scope": "regional",
+            "title": "Intraday Market (ID1)",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "3",
+            "nav_group": "",
+            "number": "",
+            "scope": "regional",
+            "title": "Continuous Intraday Market",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "3",
+            "nav_group": "",
+            "number": "",
+            "scope": "regional",
+            "title": "FCR",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "3",
+            "nav_group": "",
+            "number": "",
+            "scope": "regional",
+            "title": "aFRR capacity",
+            "body": "",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "5.2",
+            "scope": "regional",
+            "title": "Excluded revenue streams",
+            "body": "The following revenue types are excluded from the Germany benchmark, with rationale:\r\n<ul>\r\n \t<li><strong>Inertia</strong>: This is a new market and, so far, no asset is prequalified yet. Therefore, we exclude it from the index.</li>\r\n \t<li><strong>Reactive power</strong>: This is a highly regional market and for most assets not profitable, therefore we do not consider it in the index.</li>\r\n \t<li><strong>mFRR</strong></li>\r\n \t<li><strong>Capacity market revenues</strong>: The German capacity market will be launched in 2027 and it is still uncertain how competitive BESS will be. Therefore, we don’t include it here.</li>\r\n \t<li><strong>Blackstart capability</strong>: Highly case specific and only relevant for very large batteries. Therefore, we do not include it.</li>\r\n</ul>\r\n&nbsp;",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "5.3",
+            "scope": "regional",
+            "title": "Sophisticated trading behaviour",
+            "body": "The methodology can capture several trading behaviours highlighted in the source material.",
+            "table_caption": "",
+            "table_tsv": "Behaviour\tDescription\r\nBuying back DA commitments\tIf the battery has sold power Day-Ahead and Intraday later becomes more attractive, it may buy energy back on Intraday, settle the DA position and preserve the battery for more profitable opportunities.\r\n\r\nAdditional cycling\tIf Intraday spreads emerge after DA trading, the battery may charge and discharge again, effectively adding extra cycles where profitable.\r\nContinuous Intraday trading\tIn regions with very liquid Intraday markets, such as Germany, Chronos considers additional revenue through purely financial continuous intraday trading.\r\n"
+          },
+          {
+            "level": "2",
+            "nav_group": "",
+            "number": "5.4",
+            "scope": "regional",
+            "title": "Treatment of penalties",
+            "body": "Penalties are not included as commitment is enforced.",
+            "table_caption": "",
+            "table_tsv": ""
+          },
+          {
+            "level": "1",
+            "nav_group": "",
+            "number": "6",
+            "scope": "universal",
+            "title": "General Limitations",
+            "body": "The following limitations apply to the backcast methodology across all markets:\r\n<ol>\r\n \t<li><strong> Annualisation is a simple scaling. </strong>The annualised view multiplies monthly figures by 12 to provide an indicative run-rate. This does not account for seasonal variation in market conditions and should not be interpreted as a forecast of annual revenues.</li>\r\n \t<li><strong> Historical price inputs only. </strong>The backcast uses realised historical price data; it is not a forecast.</li>\r\n \t<li><strong> Modelled dispatch, not actual asset behaviour. </strong>Results are simulated using Chronos and may differ from actual revenues earned by individual assets.</li>\r\n</ol>",
+            "table_caption": "",
+            "table_tsv": ""
+          }
+        ],
+        "version_log": [
+          {
+            "version": "1.0",
+            "effective_date": "20260817",
+            "sections_affected": "All",
+            "change_summary": "Initial publication - Great Britain methodology."
+          }
+        ]
+      }
+    ]
+  }
+}

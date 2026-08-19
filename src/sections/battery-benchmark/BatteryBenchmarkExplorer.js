@@ -143,59 +143,70 @@ export default function BatteryBenchmarkExplorer({
 			? `${chart.xLabels[0]} – ${chart.xLabels[chart.xLabels.length - 1]}`
 			: chart.xLabels[0] || "";
 
-	/** Download the whole market as CSV — every price zone and duration it
-	 *  publishes, with each unit option as its own column, so the file covers
-	 *  what the on-screen toggles would otherwise take several downloads to get.
-	 *  One row per zone / duration / month keeps zones with differing date ranges
-	 *  from padding each other out. */
+	/** Download every market as CSV — for each one, every price zone and duration
+	 *  it publishes, with each unit option as its own column. That covers in one
+	 *  file what the market selector and the on-screen toggles would otherwise take
+	 *  dozens of downloads to get.
+	 *
+	 *  One row per market / zone / duration / month, so markets and zones covering
+	 *  different date ranges don't pad each other out.
+	 *
+	 *  Markets are denominated differently (GBP, EUR, USD, and unset on a few), so
+	 *  the unit columns are currency-neutral and the currency is its own column —
+	 *  a "£/kW/month" header would be wrong for most rows in a combined file.
+	 *
+	 *  No fetching: the page hands the explorer every published benchmark's series
+	 *  up front, so all of this is already in memory. */
 	const downloadCsv = () => {
 		const quote = (value) => {
 			const text = String(value ?? "");
 			return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 		};
 
-		// Every zone of this market, not just the selected one. Markets with no
-		// price zones still produce a single unzoned pass.
-		const marketItems = benchmarksFor(benchmarks, region);
-		const zoneList = zones.length ? zones : [null];
-
-		// The chart's currency comes from the current selection only, so read it
-		// across the whole market instead — a zone may not be loaded yet.
-		const marketCurrency =
-			marketItems.map((item) => seriesByUuid[item.uuid]?.currency).find(Boolean) ||
-			marketItems.map((item) => item.currency).find(Boolean) ||
-			null;
-		const unitList = unitsFor(marketCurrency);
+		// Factors are the same whatever the currency; only the labels would differ,
+		// and those are deliberately neutral here.
+		const unitList = unitsFor(null);
 
 		const header = [
 			"Market",
 			"Price zone",
 			"Duration",
+			"Currency",
 			"Month",
 			...unitList.map((item) => item.label),
 		];
 
 		const rows = [];
-		zoneList.forEach((zoneName) => {
-			benchmarksFor(benchmarks, region, zoneName).forEach((item) => {
-				const points = seriesByUuid[item.uuid]?.points || [];
-				points.forEach((point) => {
-					rows.push([
-						regionLabel(region),
-						zoneName || "",
-						`${item.duration}-hour`,
-						point.label,
-						// Rounded the same way the chart rounds, so the file agrees with
-						// what is plotted, then fixed to each unit's precision.
-						...unitList.map((unitItem) =>
-							(
-								Math.round(point.value * unitItem.factor * 100) / 100
-							).toFixed(unitItem.decimals),
-						),
-					]);
+		// `regions` is already in display order, with markets that have nothing
+		// published flagged `soon` — those are skipped rather than emitted empty.
+		regions
+			.filter((item) => !item.soon)
+			.forEach((market) => {
+				const zoneList = zonesFor(benchmarks, market.key);
+				(zoneList.length ? zoneList : [null]).forEach((zoneName) => {
+					benchmarksFor(benchmarks, market.key, zoneName).forEach((item) => {
+						const benchmarkSeries = seriesByUuid[item.uuid];
+						const points = benchmarkSeries?.points || [];
+						const currency = benchmarkSeries?.currency || item.currency || "";
+						points.forEach((point) => {
+							rows.push([
+								market.label,
+								zoneName || "",
+								`${item.duration}-hour`,
+								currency.toUpperCase(),
+								point.label,
+								// Rounded the same way the chart rounds, so the file agrees with
+								// what is plotted, then fixed to each unit's precision.
+								...unitList.map((unitItem) =>
+									(
+										Math.round(point.value * unitItem.factor * 100) / 100
+									).toFixed(unitItem.decimals),
+								),
+							]);
+						});
+					});
 				});
 			});
-		});
 
 		if (!rows.length) return;
 
@@ -204,15 +215,14 @@ export default function BatteryBenchmarkExplorer({
 			.join("\n");
 
 		// Leading BOM so Excel reads the file as UTF-8. Without it Excel falls back
-		// to the system codepage and the currency symbols in the unit headers come
-		// out mangled ("Â£/kW/month"); the charset in the MIME type is ignored when
-		// opening a local file.
+		// to the system codepage and any non-ASCII in the data comes out mangled;
+		// the charset in the MIME type is ignored when opening a local file.
 		const url = URL.createObjectURL(
 			new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }),
 		);
 		const link = document.createElement("a");
 		link.href = url;
-		link.download = `${region}-battery-benchmark.csv`;
+		link.download = "battery-benchmark-all-markets.csv";
 		link.click();
 		URL.revokeObjectURL(url);
 	};
@@ -393,9 +403,7 @@ export default function BatteryBenchmarkExplorer({
 									className={styles.downloadBtn}
 									onClick={downloadCsv}
 									disabled={!hasData}
-									title={`Download every price zone, duration and unit for ${regionLabel(
-										region,
-									)}`}
+									title="Download every market, price zone, duration and unit"
 								>
 									<img
 										src={downloadIcon.src}
