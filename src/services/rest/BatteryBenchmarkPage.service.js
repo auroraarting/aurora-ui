@@ -133,6 +133,9 @@ function toOutlineTree(outline, idPrefix) {
 				scope: orNull(row?.scope) || "none",
 				body: orNull(row?.body),
 				table: toTable(row?.table_tsv, row?.table_caption),
+				// Prose that follows the table. Only meaningful alongside one, so it is
+				// dropped when the row has no table rather than silently moving above it.
+				bodyAfter: row?.table_tsv ? orNull(row?.body_after) : null,
 				children: [],
 			};
 

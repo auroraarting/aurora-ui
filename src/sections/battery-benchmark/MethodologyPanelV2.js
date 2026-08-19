@@ -140,6 +140,7 @@ function SubSection({ node, level }) {
 					<div className={styles.itemBoxText}>
 						{node.body && <ContentFromCms>{node.body}</ContentFromCms>}
 						{node.table && <CmsTable table={node.table} />}
+						{node.bodyAfter && <ContentFromCms>{node.bodyAfter}</ContentFromCms>}
 					</div>
 				</div>
 			)}
@@ -324,6 +325,9 @@ export default function MethodologyPanelV2({ sections, region }) {
 											<div className={styles.itemBoxText}>
 												{item.body && <ContentFromCms>{item.body}</ContentFromCms>}
 												{item.table && <CmsTable table={item.table} />}
+												{item.bodyAfter && (
+													<ContentFromCms>{item.bodyAfter}</ContentFromCms>
+												)}
 											</div>
 										</div>
 									)}
