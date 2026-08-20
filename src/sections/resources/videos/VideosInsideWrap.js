@@ -119,35 +119,44 @@ export default function VideosInsideWrap({
 						</div>
 					</div>
 				</section>
-				<div className="ptb_100">
-					<Insights
-						// isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={otherList}
-						countries={countries}
-						// formSectionTitle="Watch our latest videos and never miss an update from Aurora!"
-						insightsTitle="Previous Videos"
-						insightsLink="/resources/videos/"
-						formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
-						// customHtml={
-						// 	<div className={`${styles.downloadListen} downloadListen`}>
-						// 		<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
-						// 			{socialLinks?.map((item) => {
-						// 				return (
-						// 					<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
-						// 						<img
-						// 							src={item?.logo?.node?.mediaItemUrl}
-						// 							alt={item?.logo?.node?.altText}
-						// 						/>
-						// 					</a>
-						// 				);
-						// 			})}
-						// 		</div>
-						// 	</div>
-						// }
-						allTag="Video"
-					/>
-				</div>
+				{/* Only shown when this video actually has earlier ones to list.
+				    Insights falls back to /api/shortInsights when `defaultList` is
+				    empty, which put generic resource cards under "Previous Videos" —
+				    wrong here, and it happens on the oldest video, whose
+				    getPreviousVideos result is always empty. */}
+				{otherList?.length > 0 ? (
+					<div className="ptb_100">
+						<Insights
+							// isPowerBgVisible={true}
+							isInsightsBlogsVisible={true}
+							defaultList={otherList}
+							countries={countries}
+							// formSectionTitle="Watch our latest videos and never miss an update from Aurora!"
+							insightsTitle="Previous Videos"
+							insightsLink="/resources/videos/"
+							formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
+							// customHtml={
+							// 	<div className={`${styles.downloadListen} downloadListen`}>
+							// 		<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
+							// 			{socialLinks?.map((item) => {
+							// 				return (
+							// 					<a key={item.url} href={item.url} target="_blank" rel="noreferrer">
+							// 						<img
+							// 							src={item?.logo?.node?.mediaItemUrl}
+							// 							alt={item?.logo?.node?.altText}
+							// 						/>
+							// 					</a>
+							// 				);
+							// 			})}
+							// 		</div>
+							// 	</div>
+							// }
+							allTag="Video"
+						/>
+					</div>
+				) : (
+					<div className="pt_100"></div>
+				)}
 				<IframeModal />
 			</main>
 			{/* Page Content ends here */}
