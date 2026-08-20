@@ -119,11 +119,9 @@ export default function VideosInsideWrap({
 						</div>
 					</div>
 				</section>
-				{/* Only shown when this video actually has earlier ones to list.
-				    Insights falls back to /api/shortInsights when `defaultList` is
-				    empty, which put generic resource cards under "Previous Videos" —
-				    wrong here, and it happens on the oldest video, whose
-				    getPreviousVideos result is always empty. */}
+				{/* Only shown when there are other videos to list. Insights falls
+				    back to /api/shortInsights when `defaultList` is empty, which put
+				    generic resource cards under the heading — wrong here. */}
 				{otherList?.length > 0 ? (
 					<div className="ptb_100">
 						<Insights
@@ -132,7 +130,7 @@ export default function VideosInsideWrap({
 							defaultList={otherList}
 							countries={countries}
 							// formSectionTitle="Watch our latest videos and never miss an update from Aurora!"
-							insightsTitle="Previous Videos"
+							insightsTitle="Latest Videos"
 							insightsLink="/resources/videos/"
 							formdata={dynamicInsightsBtnProps(data, "insightsSectionButton")}
 							// customHtml={
