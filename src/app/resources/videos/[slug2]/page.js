@@ -27,7 +27,7 @@ import styles from "@/styles/pages/video/video.module.scss";
 import { getInsightsCategories } from "@/services/Insights.service";
 import {
 	getAllVideos,
-	getPreviousVideos,
+	getLatestVideos,
 	getVideosInside,
 } from "@/services/Videos.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
@@ -79,9 +79,9 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, previousVideos, categoriesForSelect] = await Promise.all([
+	const [data, latestVideos, categoriesForSelect] = await Promise.all([
 		getVideosInside(slug),
-		getPreviousVideos(slug),
+		getLatestVideos(slug),
 		getInsightsCategories(),
 	]);
 
@@ -107,9 +107,9 @@ async function getData({ slug }) {
 	return {
 		props: {
 			data: data?.data?.videoBy,
-			videos: previousVideos?.slice(0, 1) || [],
+			videos: latestVideos?.slice(0, 1) || [],
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
-			otherList: previousVideos?.slice(0, 3) || [],
+			otherList: latestVideos?.slice(0, 3) || [],
 			socialLinks: socialLinksFetch,
 		},
 	};

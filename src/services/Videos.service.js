@@ -63,10 +63,10 @@ query GetVideosListing {
 	return res;
 };
 
-/** Fetch Previous Videos - videos published before the given one, newest first */
-export const getPreviousVideos = async (slug, filters = "first:9999") => {
+/** Fetch Latest Videos - the most recent videos, newest first, excluding the given one */
+export const getLatestVideos = async (slug, filters = "first:9999") => {
 	const query = `
-query GetPreviousVideos2 {
+query GetLatestVideos {
   videos(${filters}) {
     nodes {
       title
@@ -96,31 +96,17 @@ query GetPreviousVideos2 {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "previousVideos",
+		apiID: "latestVideos",
 		pageID: "/resources/videos",
 	});
 
 	const nodes = res?.data?.videos?.nodes || [];
 	/** videoDate - the CMS date, falling back to the published date */
 	const videoDate = (item) => item?.videoFields?.date || item?.date;
-	/** videoDay - the date without its time, so same-day videos compare as equal */
-	const videoDay = (item) => {
-		const date = new Date(videoDate(item));
-		return isNaN(date) ? null : date.setHours(0, 0, 0, 0);
-	};
-	const current = nodes?.find(
-		(item) => item?.slug === decodeURIComponent(slug || ""),
-	);
-	const currentDay = videoDay(current);
+	const currentSlug = decodeURIComponent(slug || "");
 
 	return nodes
-		?.filter((item) => {
-			if (item?.slug === current?.slug) return false;
-			if (currentDay === null) return true;
-			const day = videoDay(item);
-			if (day === null) return false;
-			return day <= currentDay; // published on the same day or before this one
-		})
+		?.filter((item) => item?.slug !== currentSlug)
 		?.sort((a, b) => new Date(videoDate(b)) - new Date(videoDate(a)))
 		?.map((item) => ({ ...item, date: videoDate(item) }));
 };
