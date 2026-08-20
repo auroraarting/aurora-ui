@@ -66,7 +66,7 @@ query GetVideosListing {
 /** Fetch Previous Videos - videos published before the given one, newest first */
 export const getPreviousVideos = async (slug, filters = "first:9999") => {
 	const query = `
-query GetPreviousVideos {
+query GetPreviousVideos2 {
   videos(${filters}) {
     nodes {
       title
