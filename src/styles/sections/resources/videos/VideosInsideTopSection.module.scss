@@ -1,0 +1,66 @@
+@import "../../../helpers/helpers.scss";
+.VideosInsideTopSection {
+	.content {
+		display: flex;
+		flex-direction: column;
+	}
+	.card {
+		@media (max-width: 767px) {
+			flex-direction: column-reverse;
+		}
+		.content {
+			// Full width: the thumbnail that used to sit beside this at 44% has been
+			// removed from the inside page, so a 50% column would leave the right
+			// half of the band empty.
+			width: 100%;
+			@media (max-width: 767px) {
+				margin-top: 30px;
+			}
+
+			.dateFlex {
+				align-items: center;
+				p {
+					margin-right: 40px;
+					span {
+						margin-left: 5px;
+						margin-top: 2px;
+					}
+				}
+			}
+		}
+	}
+	.dateBox {
+		margin-top: auto;
+		.downloadListenBox {
+			padding: 10px 0;
+			margin-top: 20px;
+			border-top: 1px solid var(--color_platinum_gray);
+			border-bottom: 1px solid var(--color_platinum_gray);
+			@media (max-width: 767px) {
+				flex-wrap: wrap;
+			}
+			.downloadListen {
+				.downloadBox {
+					@media (max-width: 767px) {
+						padding: 15px 0px;
+					}
+					a {
+						margin-left: 15px;
+					}
+				}
+			}
+			.downloadListenShare {
+				padding: 15px 0px;
+				border-left: 1px solid var(--color_platinum_gray);
+				@media (max-width: 767px) {
+					width: 100%;
+					border-left: none;
+					border-top: 1px solid var(--color_platinum_gray);
+				}
+				a {
+					padding-left: 20px;
+				}
+			}
+		}
+	}
+}

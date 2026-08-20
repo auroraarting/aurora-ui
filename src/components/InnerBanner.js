@@ -6,12 +6,12 @@ import { useState, useRef, useEffect } from "react";
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "./ContentFromCms";
+import Vimeo from "@/components/VimeoPlayer";
 
 // STYLES //
 import styles from "@/styles/components/InnerBanner.module.scss";
 
 // PLUGINS //
-import Vimeo from "@u-wave/react-vimeo";
 import parse from "html-react-parser";
 
 // IMAGES //
