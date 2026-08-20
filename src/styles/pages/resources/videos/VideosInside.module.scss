@@ -1,0 +1,48 @@
+@import "../../../helpers/helpers.scss";
+.VideosInsidePage {
+	background-color: var(--color_silver);
+	.mediaMiddle {
+		.mediaMiddleFlex {
+			@media (max-width: 767px) {
+				flex-wrap: wrap;
+			}
+			.mediaMiddleLeft {
+				width: 67%;
+				.video {
+					iframe {
+						width: 100%;
+					}
+				}
+				@media (max-width: 1199px) {
+					width: 63%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+					margin-bottom: 40px;
+				}
+			}
+			.mediaMiddleRight {
+				width: 25%;
+				@media (max-width: 1199px) {
+					width: 30%;
+				}
+				@media (max-width: 991px) {
+					width: 35%;
+				}
+				@media (max-width: 767px) {
+					width: 100%;
+				}
+			}
+		}
+	}
+	.downloadListen {
+		.downloadBox {
+			@media (max-width: 767px) {
+				padding: 15px 0px;
+			}
+			a {
+				margin-left: 15px;
+			}
+		}
+	}
+}
