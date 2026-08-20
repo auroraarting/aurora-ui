@@ -82,7 +82,7 @@ export default function VideosWrap({
 					<div className="container">
 						<Insights
 							formSectionTitle="Stay up to date with Aurora's latest videos and expert insights"
-							isPowerBgVisible={true}
+							// isPowerBgVisible={true}
 							customHtml={
 								<div className={`${styles.downloadListen} downloadListen`}>
 									<div className={`${styles.downloadBox} downloadBox f_r_a_center`}>
