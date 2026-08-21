@@ -1,7 +1,7 @@
 "use client";
 
 // MODULES //
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // COMPONENTS //
 import ContentFromCms from "@/components/ContentFromCms";
@@ -123,30 +123,75 @@ function CmsTable({ table }) {
 	);
 }
 
-/** Heading + body + table for one outline node, at level 2 or 3 */
-function SubSection({ node, level }) {
+/** Heading + body + table for one outline node, at level 2 or 3.
+ *
+ *  Collapsible: the methodology runs long enough that reading one part meant
+ *  scrolling past all the others, so each sub-heading folds its own content
+ *  away. Open state lives in the panel rather than here, so "Expand all" can
+ *  reach every node at once. A node with nothing to show is not a button. */
+function SubSection({ node, level, isOpen, onToggle }) {
 	const Tag = level === 2 ? "h5" : "h6";
+	const hasBox = Boolean(node.body || node.table || node.bodyAfter);
+	const hasContent = hasBox || node.children?.length > 0;
+	const open = isOpen(node.id);
+	const panelId = `methodv2-sub-${node.id}`;
+
+	const heading = (
+		<Tag className={`${styles.subTitle} font_secondary`}>
+			{node.number && <span className={styles.subNumber}>{node.number}</span>}
+			{node.title}
+		</Tag>
+	);
+
 	return (
 		<div className={level === 2 ? styles.subLevel2 : styles.subLevel3}>
-			<div className={styles.subHead}>
-				<Tag className={`${styles.subTitle} font_secondary`}>
-					{node.number && <span className={styles.subNumber}>{node.number}</span>}
-					{node.title}
-				</Tag>
-				<ScopeBadge scope={node.scope} />
-			</div>
-			{(node.body || node.table) && (
-				<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
-					<div className={styles.itemBoxText}>
-						{node.body && <ContentFromCms>{node.body}</ContentFromCms>}
-						{node.table && <CmsTable table={node.table} />}
-						{node.bodyAfter && <ContentFromCms>{node.bodyAfter}</ContentFromCms>}
-					</div>
+			{hasContent ? (
+				<button
+					type="button"
+					className={styles.subToggle}
+					aria-expanded={open}
+					aria-controls={panelId}
+					onClick={() => onToggle(node.id)}
+				>
+					{heading}
+					<ScopeBadge scope={node.scope} />
+					<span
+						className={`${styles.subIcon} ${open ? styles.subIconOpen : ""}`}
+						aria-hidden="true"
+					/>
+				</button>
+			) : (
+				<div className={styles.subHead}>
+					{heading}
+					<ScopeBadge scope={node.scope} />
 				</div>
 			)}
-			{node.children?.map((child) => (
-				<SubSection key={child.id} node={child} level={3} />
-			))}
+
+			{hasContent && open && (
+				<div
+					id={panelId}
+					className={level === 2 ? styles.subBody2 : styles.subBody3}
+				>
+					{hasBox && (
+						<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
+							<div className={styles.itemBoxText}>
+								{node.body && <ContentFromCms>{node.body}</ContentFromCms>}
+								{node.table && <CmsTable table={node.table} />}
+								{node.bodyAfter && <ContentFromCms>{node.bodyAfter}</ContentFromCms>}
+							</div>
+						</div>
+					)}
+					{node.children?.map((child) => (
+						<SubSection
+							key={child.id}
+							node={child}
+							level={3}
+							isOpen={isOpen}
+							onToggle={onToggle}
+						/>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }
@@ -203,13 +248,75 @@ export default function MethodologyPanelV2({ sections, region }) {
 	const [activeId, setActiveId] = useState(null);
 	const [openFaq, setOpenFaq] = useState(0);
 
+	// Which headings are expanded. Sections collapse so the panel can be scanned
+	// without scrolling past everything; the first one is left open so the panel
+	// still opens on content rather than a bare list of titles.
+	const [openNodes, setOpenNodes] = useState(() => new Set());
+	const isOpen = (id) => openNodes.has(id);
+	const toggleNode = (id) =>
+		setOpenNodes((prev) => {
+			const next = new Set(prev);
+			if (next.has(id)) next.delete(id);
+			else next.add(id);
+			return next;
+		});
+
+	const firstSectionId = section?.sections?.[0]?.id;
+
+	// Every heading id at any depth, for the expand/collapse-all control.
+	const allNodeIds = useMemo(() => {
+		const ids = [];
+		const walk = (nodes) =>
+			(nodes || []).forEach((node) => {
+				ids.push(node.id);
+				walk(node.children);
+			});
+		walk(section?.sections);
+		return ids;
+	}, [section]);
+
+	const allOpen =
+		allNodeIds.length > 0 && allNodeIds.every((id) => openNodes.has(id));
+
+	// The intro is clamped to three lines with a Load more / Load less toggle.
+	// `introOverflows` gates the button so a description that already fits in
+	// three lines doesn't get one.
+	const introRef = useRef(null);
+	const [introOpen, setIntroOpen] = useState(false);
+	const [introOverflows, setIntroOverflows] = useState(false);
+
+	useEffect(() => {
+		setOpenNodes(firstSectionId ? new Set([firstSectionId]) : new Set());
+		setIntroOpen(false);
+	}, [firstSectionId]);
+
+	useEffect(() => {
+		// Only measurable while clamped — expanded, scrollHeight equals
+		// clientHeight, which would read as "fits" and hide the way back.
+		if (introOpen) return undefined;
+		const el = introRef.current;
+		if (!el) return undefined;
+		const check = () => setIntroOverflows(el.scrollHeight > el.clientHeight + 2);
+		check();
+		if (typeof ResizeObserver === "undefined") return undefined;
+		const ro = new ResizeObserver(check);
+		ro.observe(el);
+		return () => ro.disconnect();
+	}, [section?.description, introOpen]);
+
 	const ids = section?.sections?.map((item) => item.id) || [];
 	const currentId = ids.includes(activeId) ? activeId : ids[0];
 
 	const goToSection = (id) => {
 		setActiveId(id);
-		const el = document.getElementById(`methodv2-${id}`);
-		if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+		// Expand it first — jumping to a collapsed section would land on nothing
+		// but its heading. Scroll after paint so the target is at its full height.
+		setOpenNodes((prev) => new Set(prev).add(id));
+		requestAnimationFrame(() => {
+			document
+				.getElementById(`methodv2-${id}`)
+				?.scrollIntoView({ behavior: "smooth", block: "start" });
+		});
 	};
 
 	// Nothing authored for any market — the caller falls back to v1, so render
@@ -255,9 +362,28 @@ export default function MethodologyPanelV2({ sections, region }) {
 			{section && (
 				<>
 					{section.description && (
-						<div className={styles.intro}>
-							<ContentFromCms>{section.description}</ContentFromCms>
-						</div>
+						<>
+							<div
+								ref={introRef}
+								className={`${styles.intro} ${
+									introOpen ? "" : styles.introClamped
+								}`}
+							>
+								<ContentFromCms>{section.description}</ContentFromCms>
+							</div>
+							{introOverflows && (
+								<div className={styles.loadMore}>
+									<button
+										type="button"
+										className={introOpen ? styles.loadLessBtn : styles.loadMoreBtn}
+										aria-expanded={introOpen}
+										onClick={() => setIntroOpen((open) => !open)}
+									>
+										{introOpen ? "Load less" : "Load more"}
+									</button>
+								</div>
+							)}
+						</>
 					)}
 
 					{/* Key for the scope badges against each section below */}
@@ -268,6 +394,15 @@ export default function MethodologyPanelV2({ sections, region }) {
 						<div className={styles.assumptionLabel}>
 							<span className={styles.chipYellow}>Regional</span>
 						</div>
+						{allNodeIds.length > 0 && (
+							<button
+								type="button"
+								className={styles.expandAll}
+								onClick={() => setOpenNodes(allOpen ? new Set() : new Set(allNodeIds))}
+							>
+								{allOpen ? "Collapse all" : "Expand all"}
+							</button>
+						)}
 					</div>
 
 					<div className={styles.main}>
@@ -299,44 +434,83 @@ export default function MethodologyPanelV2({ sections, region }) {
 						</nav>
 
 						<div className={styles.items}>
-							{section.sections.map((item, i) => (
-								<section
-									key={item.id}
-									id={`methodv2-${item.id}`}
-									className={`${styles.item} ${
-										i === section.sections.length - 1 ? styles.itemLast : ""
-									}`}
-								>
-									<div className={styles.itemHead}>
-										<h4 className={`${styles.itemTitle} font_secondary`}>
-											{item.number && (
-												<span className={styles.itemNumber}>{item.number}</span>
-											)}
-											{item.title}
-										</h4>
-										<ScopeBadge scope={item.scope} />
-									</div>
+							{section.sections.map((item, i) => {
+								const hasBox = Boolean(item.body || item.table || item.bodyAfter);
+								const hasContent = hasBox || item.children?.length > 0;
+								const open = isOpen(item.id);
+								const bodyId = `methodv2-body-${item.id}`;
+								const heading = (
+									<h4 className={`${styles.itemTitle} font_secondary`}>
+										{item.number && (
+											<span className={styles.itemNumber}>{item.number}</span>
+										)}
+										{item.title}
+									</h4>
+								);
 
-									{/* One box per heading, holding its prose and then its table —
-									    a table is content like any other, so it gets the same
-									    treatment wherever in the outline it appears. */}
-									{(item.body || item.table) && (
-										<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
-											<div className={styles.itemBoxText}>
-												{item.body && <ContentFromCms>{item.body}</ContentFromCms>}
-												{item.table && <CmsTable table={item.table} />}
-												{item.bodyAfter && (
-													<ContentFromCms>{item.bodyAfter}</ContentFromCms>
-												)}
+								return (
+									<section
+										key={item.id}
+										id={`methodv2-${item.id}`}
+										className={`${styles.item} ${
+											i === section.sections.length - 1 ? styles.itemLast : ""
+										}`}
+									>
+										{hasContent ? (
+											<button
+												type="button"
+												className={styles.itemToggle}
+												aria-expanded={open}
+												aria-controls={bodyId}
+												onClick={() => toggleNode(item.id)}
+											>
+												{heading}
+												<ScopeBadge scope={item.scope} />
+												<span
+													className={`${styles.subIcon} ${
+														open ? styles.subIconOpen : ""
+													}`}
+													aria-hidden="true"
+												/>
+											</button>
+										) : (
+											<div className={styles.itemHead}>
+												{heading}
+												<ScopeBadge scope={item.scope} />
 											</div>
-										</div>
-									)}
+										)}
 
-									{item.children?.map((child) => (
-										<SubSection key={child.id} node={child} level={2} />
-									))}
-								</section>
-							))}
+										{hasContent && open && (
+											<div id={bodyId} className={styles.itemBody}>
+												{/* One box per heading, holding its prose and then its
+												    table — a table is content like any other, so it gets
+												    the same treatment wherever in the outline it appears. */}
+												{hasBox && (
+													<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
+														<div className={styles.itemBoxText}>
+															{item.body && <ContentFromCms>{item.body}</ContentFromCms>}
+															{item.table && <CmsTable table={item.table} />}
+															{item.bodyAfter && (
+																<ContentFromCms>{item.bodyAfter}</ContentFromCms>
+															)}
+														</div>
+													</div>
+												)}
+
+												{item.children?.map((child) => (
+													<SubSection
+														key={child.id}
+														node={child}
+														level={2}
+														isOpen={isOpen}
+														onToggle={toggleNode}
+													/>
+												))}
+											</div>
+										)}
+									</section>
+								);
+							})}
 						</div>
 					</div>
 
