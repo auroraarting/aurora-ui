@@ -982,6 +982,22 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 								</div>
 
 								<div
+									className={`${styles.links} ${
+										pathname.includes("/battery-benchmarks") && styles.active
+									}`}
+									role="button"
+									onClick={() => setOpenSidebar(false)}
+								>
+									<Link href="/battery-benchmarks" role="button">
+										<div
+											className={`${styles.link_title} text_xs font_primary color_dark_gray`}
+										>
+											<p>Battery Benchmarks</p>
+										</div>
+									</Link>
+								</div>
+
+								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
 										openDropdown === "Resources" ? styles.dropdown_opened : ""
 									} ${pathname.includes("/resources") && styles.active} dropdown`}

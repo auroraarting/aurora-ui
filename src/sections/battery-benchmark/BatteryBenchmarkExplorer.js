@@ -18,10 +18,12 @@ import {
 	benchmarksFor,
 	buildChart,
 	buildRegions,
+	currencyForRegion,
 	durationsFor,
 	firstAvailableRegion,
 	regionLabel,
 	unitsFor,
+	zoneLabel,
 	zonesFor,
 } from "./benchmarkData";
 import { flexplorerChartUrl } from "./eosLinks";
@@ -108,7 +110,10 @@ export default function BatteryBenchmarkExplorer({
 		[selection, seriesByUuid],
 	);
 
-	const units = useMemo(() => unitsFor(chart.currency), [chart.currency]);
+	// The API omits `baseCurrencyCode` on some benchmarks (Italy today), which
+	// left the units unlabelled — fall back to the market's own currency.
+	const currency = chart.currency || currencyForRegion(region);
+	const units = useMemo(() => unitsFor(currency), [currency]);
 	const unit = units.find((item) => item.key === unitKey) || units[0];
 
 	// Scaled to the selected unit
@@ -187,11 +192,15 @@ export default function BatteryBenchmarkExplorer({
 					benchmarksFor(benchmarks, market.key, zoneName).forEach((item) => {
 						const benchmarkSeries = seriesByUuid[item.uuid];
 						const points = benchmarkSeries?.points || [];
-						const currency = benchmarkSeries?.currency || item.currency || "";
+						const currency =
+							benchmarkSeries?.currency ||
+							item.currency ||
+							currencyForRegion(market.key) ||
+							"";
 						points.forEach((point) => {
 							rows.push([
 								market.label,
-								zoneName || "",
+								zoneLabel(zoneName),
 								`${item.duration}-hour`,
 								currency.toUpperCase(),
 								point.label,
@@ -290,7 +299,7 @@ export default function BatteryBenchmarkExplorer({
 										>
 											{zones.map((item) => (
 												<option key={item} value={item}>
-													{item}
+													{zoneLabel(item)}
 												</option>
 											))}
 										</select>

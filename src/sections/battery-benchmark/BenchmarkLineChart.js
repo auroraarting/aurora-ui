@@ -32,6 +32,13 @@ function geometryFor(width) {
 	};
 }
 
+/** Rendered width of an axis label, in the SVG's 1:1 pixel space. Measured
+ *  against the real font: a 6-character label ("Jun 25") comes out at ~46px at
+ *  the 12px desktop size, so ~7.7px per character, ~6.4px at the compact 10px. */
+function labelWidth(text, compact) {
+	return String(text ?? "").length * (compact ? 6.4 : 7.7);
+}
+
 /** A "nice" gridline step (1, 2, 2.5 or 5 x a power of ten) for a given max.
  *  The smallest one that keeps the axis to six intervals — picking off the
  *  rough max/5 instead let some units land on three coarse gridlines, so the
@@ -82,7 +89,19 @@ export default function BenchmarkLineChart({
 		compact,
 	} = useMemo(() => geometryFor(Math.max(240, measuredWidth)), [measuredWidth]);
 
-	const innerW = WIDTH - PAD.left - PAD.right;
+	// X labels are centred on their point, so the outermost two need half a
+	// label of room outside the plot or they would clip at the viewBox edge.
+	const labelHalf = useMemo(
+		() =>
+			Math.ceil(
+				Math.max(0, ...xLabels.map((l) => labelWidth(l, compact))) / 2,
+			),
+		[xLabels, compact],
+	);
+	const PADL = Math.max(PAD.left, labelHalf);
+	const PADR = Math.max(PAD.right, labelHalf);
+
+	const innerW = WIDTH - PADL - PADR;
 	const innerH = HEIGHT - PAD.top - PAD.bottom;
 
 	const visibleSeries = useMemo(
@@ -110,13 +129,32 @@ export default function BenchmarkLineChart({
 	}, [maxValue, step]);
 
 	const pointCount = xLabels.length || 1;
-	const xAt = (i) => PAD.left + (innerW * i) / Math.max(1, pointCount - 1);
+	const xAt = (i) => PADL + (innerW * i) / Math.max(1, pointCount - 1);
 	const yAt = (v) => PAD.top + innerH - (innerH * v) / maxValue;
 
-	// Fit the x-axis labels to the space actually available (~52px each) instead
-	// of always aiming for 10, which overlapped badly on narrow screens.
-	const maxLabels = Math.max(2, Math.floor(innerW / 52));
-	const labelStride = Math.max(1, Math.ceil(pointCount / maxLabels));
+	// Which x labels to draw. Spacing comes from the widest label rather than a
+	// fixed allowance, so labels never collide: at 13 monthly points the pitch
+	// was 68px against ~46px-wide labels, which fit — but the end labels used to
+	// be anchored inward, leaning a whole label width into their neighbour and
+	// closing the gap to 1-3px. They are centred now, and the stride below keeps
+	// a real gap between every pair.
+	const labelIndices = useMemo(() => {
+		const last = pointCount - 1;
+		if (last <= 0) return [0];
+		const widest = Math.max(0, ...xLabels.map((l) => labelWidth(l, compact)));
+		const pitch = widest + (compact ? 8 : 12); // label + minimum clear gap
+		const slots = Math.max(2, Math.floor(innerW / pitch) + 1);
+		const stride = Math.max(1, Math.ceil(last / Math.max(1, slots - 1)));
+		const idx = [];
+		for (let i = 0; i <= last; i += stride) idx.push(i);
+		// Anchor the axis to its final point, but not so close to the previous
+		// label that the two run together.
+		if (idx[idx.length - 1] !== last) {
+			if ((last - idx[idx.length - 1]) * (innerW / last) < pitch) idx.pop();
+			idx.push(last);
+		}
+		return idx;
+	}, [pointCount, xLabels, innerW, compact]);
 
 	/** Nearest data point to a clientX, for touch scrubbing. */
 	const indexFromClientX = (clientX) => {
@@ -125,7 +163,7 @@ export default function BenchmarkLineChart({
 		const box = svg.getBoundingClientRect();
 		if (!box.width) return null;
 		const x = ((clientX - box.left) / box.width) * WIDTH;
-		const ratio = (x - PAD.left) / Math.max(1, innerW);
+		const ratio = (x - PADL) / Math.max(1, innerW);
 		const i = Math.round(ratio * Math.max(1, pointCount - 1));
 		return Math.min(pointCount - 1, Math.max(0, i));
 	};
@@ -154,14 +192,14 @@ export default function BenchmarkLineChart({
 				{yTicks.map((v) => (
 					<g key={v}>
 						<line
-							x1={PAD.left}
-							x2={WIDTH - PAD.right}
+							x1={PADL}
+							x2={WIDTH - PADR}
 							y1={yAt(v)}
 							y2={yAt(v)}
 							className={styles.gridLine}
 						/>
 						<text
-							x={PAD.left - 12}
+							x={PADL - 12}
 							y={yAt(v)}
 							className={styles.axisLabel}
 							textAnchor="end"
@@ -173,23 +211,17 @@ export default function BenchmarkLineChart({
 				))}
 
 				{/* X labels */}
-				{xLabels.map((label, i) =>
-					i % labelStride === 0 || i === pointCount - 1 ? (
-						<text
-							key={label + i}
-							x={xAt(i)}
-							y={HEIGHT - PAD.bottom + (compact ? 18 : 22)}
-							className={styles.axisLabel}
-							/* Anchor the end labels inward so they can't spill past the
-							   plot area and widen the page on narrow screens. */
-							textAnchor={
-								i === 0 ? "start" : i === pointCount - 1 ? "end" : "middle"
-							}
-						>
-							{label}
-						</text>
-					) : null,
-				)}
+				{labelIndices.map((i) => (
+					<text
+						key={xLabels[i] + i}
+						x={xAt(i)}
+						y={HEIGHT - PAD.bottom + (compact ? 18 : 22)}
+						className={styles.axisLabel}
+						textAnchor="middle"
+					>
+						{xLabels[i]}
+					</text>
+				))}
 
 				{/* Series lines + markers — months without a value are skipped so a
 				    partial series draws as far as it goes instead of dropping to 0 */}

@@ -106,6 +106,33 @@ $gold_deep: #5c4a00;
 	}
 }
 
+/* Three lines of the intro, with the rest behind "Load more". A max-height
+   rather than -webkit-line-clamp, because the description is CMS HTML made of
+   several block elements and line-clamp only counts lines within one block. */
+.introClamped {
+	max-height: calc(18px * 1.6 * 3);
+	overflow: hidden;
+	position: relative;
+
+	// Softens the cut so the text reads as continuing rather than as stopping
+	// mid-sentence. Kept to half a line — a full line-height of gradient washed
+	// out the whole third line and cost more legibility than it bought.
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 14px;
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0),
+			var(--color_white)
+		);
+		pointer-events: none;
+	}
+}
+
 /* ── Assumptions row ─────────────────────────────── */
 .assumptions {
 	display: flex;
@@ -164,15 +191,36 @@ $gold_deep: #5c4a00;
 
 /* ── Side navigation ─────────────────────────────── */
 .nav {
+	// The site header is sticky, not fixed, and sits 121px tall at desktop
+	// (101px under 1200, 97px under 992). Pinning the nav at 20px slid it under
+	// that header, cutting off the lower groups — this offset parks it just
+	// below the header instead. `--nav_offset` is declared once and reused by
+	// the max-height so the two can't drift apart.
+	--nav_offset: 137px;
+	@media (max-width: 1199px) {
+		--nav_offset: 117px;
+	}
+	@media (max-width: 991px) {
+		--nav_offset: 113px;
+	}
+
 	flex: 0 0 186px;
 	width: 186px;
 	position: sticky;
-	top: 20px;
+	top: var(--nav_offset);
 	align-self: flex-start;
+	// A nav taller than the space left below the header would still lose its
+	// last entries, so it scrolls within itself rather than being clipped.
+	max-height: calc(100vh - var(--nav_offset) - 20px);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+
 	@media (max-width: 767px) {
 		position: static;
 		flex: 1 1 100%;
 		width: 100%;
+		max-height: none;
+		overflow-y: visible;
 	}
 }
 
@@ -238,6 +286,15 @@ $gold_deep: #5c4a00;
 	gap: 14px;
 	padding: 20px 0 22px;
 	border-bottom: 1px solid $hairline;
+	// goToSection() scrolls the section to the top of the viewport, which put it
+	// behind the sticky header. Same offset as the nav above.
+	scroll-margin-top: 137px;
+	@media (max-width: 1199px) {
+		scroll-margin-top: 117px;
+	}
+	@media (max-width: 991px) {
+		scroll-margin-top: 113px;
+	}
 }
 
 .itemLast {
@@ -251,6 +308,101 @@ $gold_deep: #5c4a00;
 	justify-content: space-between;
 	gap: 12px;
 	width: 100%;
+}
+
+/* A level 1 heading that collapses its own section. Same row as .itemHead, reset
+   as a button. */
+.itemToggle {
+	@extend .itemHead;
+	border: 0;
+	background: transparent;
+	padding: 0;
+	cursor: pointer;
+	text-align: left;
+	appearance: none;
+
+	&:hover .itemTitle,
+	&:focus-visible .itemTitle {
+		color: var(--color_blue);
+	}
+}
+
+/* The chevron is the last thing in the row whatever else is present */
+.itemToggle .subIcon,
+.subToggle .subIcon {
+	margin-left: auto;
+}
+
+/* The collapsed content is wrapped in one element so a single node can be shown
+   or hidden, which would otherwise swallow the column gap its parent provided. */
+.itemBody {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	min-width: 0;
+}
+
+.subBody2 {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	min-width: 0;
+}
+
+.subBody3 {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+}
+
+/* ── Load more / less ────────────────────────────── */
+.loadMore {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+	padding-top: 14px;
+}
+
+.loadMoreBtn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	border: 1px solid var(--color_dark_gray);
+	border-radius: 40px;
+	background: var(--color_dark_gray);
+	padding: 9px 18px;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	color: var(--color_white);
+	cursor: pointer;
+	transition: background 0.2s ease, border-color 0.2s ease;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--color_blue);
+		border-color: var(--color_blue);
+	}
+}
+
+.loadLessBtn {
+	border: 1px solid $hairline;
+	border-radius: 40px;
+	background: transparent;
+	padding: 9px 18px;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	color: var(--color_medium_gray);
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		color: var(--color_dark_gray);
+		border-color: var(--color_medium_gray);
+	}
 }
 
 .itemTitle {
@@ -378,6 +530,71 @@ $gold_deep: #5c4a00;
 	justify-content: space-between;
 	gap: 12px;
 	width: 100%;
+}
+
+/* The sub-heading doubles as the collapse control, so the whole row is the hit
+   target. Reset as a button but laid out exactly like .subHead above. */
+.subToggle {
+	@extend .subHead;
+	border: 0;
+	background: transparent;
+	padding: 2px 0;
+	cursor: pointer;
+	text-align: left;
+	appearance: none;
+
+	&:hover .subTitle,
+	&:focus-visible .subTitle {
+		color: var(--color_blue);
+	}
+}
+
+/* Chevron, rotating a quarter turn when the section opens */
+.subIcon {
+	position: relative;
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	margin-left: auto;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 7px;
+		height: 7px;
+		border-right: 2px solid var(--color_medium_gray);
+		border-bottom: 2px solid var(--color_medium_gray);
+		transform: translate(-50%, -65%) rotate(45deg);
+		transition: transform 0.25s ease;
+	}
+}
+
+.subIconOpen::after {
+	transform: translate(-50%, -35%) rotate(225deg);
+}
+
+/* Sits beside the scope key, toggling every sub-section at once */
+.expandAll {
+	margin-left: auto;
+	border: 1px solid $hairline;
+	border-radius: 40px;
+	background: transparent;
+	padding: 5px 14px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
+	color: var(--color_medium_gray);
+	cursor: pointer;
+	white-space: nowrap;
+
+	&:hover,
+	&:focus-visible {
+		color: var(--color_dark_gray);
+		border-color: var(--color_medium_gray);
+	}
 }
 
 .subTitle {

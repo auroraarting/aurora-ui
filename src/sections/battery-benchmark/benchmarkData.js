@@ -135,6 +135,34 @@ export function firstAvailableRegion(regions = []) {
 	return regions.find((item) => !item.soon)?.key || regions[0]?.key || null;
 }
 
+/** Readable names for the API's price-zone codes. The Nordic and Iberian codes
+ *  ("nod_fi", "esp") are internal shorthand, so they are spelled out to match
+ *  how every other market names its zones. CAISO's NP15 / SP15 / ZP26 are
+ *  industry-standard terms and deliberately left as they are. */
+const ZONE_LABELS = {
+	esp: "Spain",
+	prt: "Portugal",
+	nod_fi: "Finland",
+	nod_dk1: "Denmark 1",
+	nod_dk2: "Denmark 2",
+	nod_no1: "Norway 1",
+	nod_no2: "Norway 2",
+	nod_no3: "Norway 3",
+	nod_no4: "Norway 4",
+	nod_no5: "Norway 5",
+	nod_se1: "Sweden 1",
+	nod_se2: "Sweden 2",
+	nod_se3: "Sweden 3",
+	nod_se4: "Sweden 4",
+};
+
+/** zoneLabel - display name for a price-zone code, falling back to the code */
+export function zoneLabel(zone) {
+	if (!zone) return "";
+	const key = String(zone).toLowerCase().replace(/-/g, "_");
+	return ZONE_LABELS[key] || zone;
+}
+
 /** zonesFor - price zones published for a region ([] when it has none) */
 export function zonesFor(benchmarks = [], region) {
 	return [
@@ -143,7 +171,7 @@ export function zonesFor(benchmarks = [], region) {
 				.filter((item) => item.region === region && item.priceZone)
 				.map((item) => item.priceZone),
 		),
-	].sort((a, b) => a.localeCompare(b));
+	].sort((a, b) => zoneLabel(a).localeCompare(zoneLabel(b)));
 }
 
 /** benchmarksFor - the published benchmarks behind the current selection */
@@ -165,9 +193,55 @@ export function durationsFor(benchmarks = [], region, zone) {
 	}));
 }
 
-/** Currency the chart is denominated in — the API leaves it unset on some
- *  benchmarks, in which case the axis is labelled without a symbol. */
+/** Currency the chart is denominated in. */
 const CURRENCY_SYMBOLS = { eur: "€", gbp: "£", usd: "$" };
+
+/** Currency per market, used when the API sends no `baseCurrencyCode` — it
+ *  currently omits it for Italy, which left the unit dropdown reading
+ *  "per kW/month" with no symbol. Only markets whose currency is unambiguous
+ *  are listed; anything else still falls back to no symbol. */
+const REGION_CURRENCY = {
+	gbr: "gbp",
+	deu: "eur",
+	fra: "eur",
+	ita: "eur",
+	bel: "eur",
+	nld: "eur",
+	ibe: "eur",
+	irx: "eur",
+	nod: "eur",
+	swe: "eur",
+	dnk: "eur",
+	fin: "eur",
+	bal: "eur",
+	est: "eur",
+	ltu: "eur",
+	grc: "eur",
+	pol: "pln",
+	hun: "huf",
+	rou: "ron",
+	bgr: "bgn",
+	erc: "usd",
+	cas: "usd",
+	pjm: "usd",
+	mis: "usd",
+	spp: "usd",
+	ny: "usd",
+	ne: "usd",
+	aies: "cad",
+	chl: "clp",
+	aus: "aud",
+	waa: "aud",
+	jpn: "jpy",
+	kor: "krw",
+	ind: "inr",
+	phl: "php",
+};
+
+/** currencyForRegion - the market's currency when the API doesn't supply one */
+export function currencyForRegion(region) {
+	return REGION_CURRENCY[region] || null;
+}
 
 /** currencyLabel - "€", "$" or the uppercased code ("PLN") */
 export function currencyLabel(currency) {
