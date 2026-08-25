@@ -89,7 +89,7 @@ export default function BatteryBenchmarkWrapper({
 					<BatteryBenchmarkIndices
 						selected={benchmarkType}
 						onSelect={setBenchmarkType}
-						externalLinks={indexLinks}
+						// externalLinks={indexLinks}
 					/>
 				</div>
 				<div className="pt_40">
@@ -112,7 +112,11 @@ export default function BatteryBenchmarkWrapper({
 							    emptying it is the whole way back. */}
 							{hasMethodologyV2 ? (
 								<MethodologyPanelV2
-									sections={pageContent?.methodologyV2}
+									sections={
+										benchmarkType === "backcast"
+											? pageContent?.methodologyV2
+											: pageContent?.realPMethodologyV2
+									}
 									region={activeRegion}
 								/>
 							) : (

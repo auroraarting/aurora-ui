@@ -195,6 +195,9 @@ function normalise(page, termsBySection, termsByScope) {
 	const methodologyV2 = Array.isArray(acf.methodology_v2)
 		? acf.methodology_v2
 		: [];
+	const realPMethodologyV2 = Array.isArray(acf.realPMethodology_v2)
+		? acf.realPMethodology_v2
+		: [];
 
 	return {
 		id: page.id,
@@ -216,6 +219,9 @@ function normalise(page, termsBySection, termsByScope) {
 		// The proposed replacement, read alongside the original so both can be
 		// compared on the page. Empty until the v2 field is filled in.
 		methodologyV2: methodologyV2.map((row, index) =>
+			toMethodologyV2Section(row, index),
+		),
+		realPMethodologyV2: realPMethodologyV2.map((row, index) =>
 			toMethodologyV2Section(row, index),
 		),
 		updated: page.modified || null,

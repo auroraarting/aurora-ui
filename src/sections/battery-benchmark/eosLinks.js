@@ -20,7 +20,7 @@ export const FLEXPLORER_PRODUCT_URL =
  * Left empty until Aurora supply the video: while it is blank the CTA band
  * falls back to the feature grid rather than rendering an empty column.
  */
-export const FLEXPLORER_VIDEO_ID = "";
+export const FLEXPLORER_VIDEO_ID = "https://vimeo.com/1208038046/54eef817cd";
 
 const FLEXPLORER_BASE = "https://eos.auroraer.com/dragonfly/flexplorer";
 
