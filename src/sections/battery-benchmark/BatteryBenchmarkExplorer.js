@@ -74,36 +74,65 @@ export default function BatteryBenchmarkExplorer({
 
 	const isBackcast = benchmarkType === "backcast";
 
-	/** Pull any series for the current selection we don't hold yet */
-	const fetchSeries = useCallback(async (items) => {
-		const missing = items
-			.map((item) => item.uuid)
-			.filter((uuid) => !requested.current.has(uuid));
-		if (!missing.length) return;
-
-		missing.forEach((uuid) => requested.current.add(uuid));
-		setLoading(true);
-		try {
-			const res = await fetch(
-				`/api/battery-benchmarks?uuids=${missing.join(",")}`,
-			);
-			const json = await res.json();
-			if (json?.series) {
-				setSeriesByUuid((prev) => ({ ...prev, ...json.series }));
-			} else {
-				// let a later selection retry a failed fetch
-				missing.forEach((uuid) => requested.current.delete(uuid));
-			}
-		} catch (error) {
-			missing.forEach((uuid) => requested.current.delete(uuid));
-		} finally {
-			setLoading(false);
+	// Sync initial series when benchmark catalogue / initialSeries changes
+	useEffect(() => {
+		if (initialSeries && Object.keys(initialSeries).length > 0) {
+			setSeriesByUuid((prev) => ({ ...prev, ...initialSeries }));
+			Object.keys(initialSeries).forEach((uuid) => requested.current.add(uuid));
 		}
-	}, []);
+	}, [initialSeries]);
+
+	/** Pull any series for the current selection we don't hold yet */
+	const fetchSeries = useCallback(
+		async (items) => {
+			const missing = items
+				.map((item) => item.uuid)
+				.filter((uuid) => !requested.current.has(uuid));
+			if (!missing.length) return;
+
+			missing.forEach((uuid) => requested.current.add(uuid));
+			setLoading(true);
+			try {
+				if (isBackcast) {
+					const res = await fetch(
+						`/api/battery-benchmarks?uuids=${missing.join(",")}`,
+					);
+					const json = await res.json();
+					if (json?.series) {
+						setSeriesByUuid((prev) => ({ ...prev, ...json.series }));
+					} else {
+						// let a later selection retry a failed fetch
+						missing.forEach((uuid) => requested.current.delete(uuid));
+					}
+				} else {
+					await Promise.all(
+						items
+							.filter((item) => missing.includes(item.uuid))
+							.map(async (item) => {
+								const res = await fetch(
+									`/api/battery-benchmarks?type=real&region=${item.region}&index=${item.uuid}`,
+								);
+								const json = await res.json();
+								if (json?.series) {
+									setSeriesByUuid((prev) => ({ ...prev, ...json.series }));
+								} else {
+									requested.current.delete(item.uuid);
+								}
+							}),
+					);
+				}
+			} catch (error) {
+				missing.forEach((uuid) => requested.current.delete(uuid));
+			} finally {
+				setLoading(false);
+			}
+		},
+		[isBackcast],
+	);
 
 	useEffect(() => {
-		if (isBackcast && selection.length) fetchSeries(selection);
-	}, [isBackcast, selection, fetchSeries]);
+		if (selection.length) fetchSeries(selection);
+	}, [selection, fetchSeries]);
 
 	const chart = useMemo(
 		() => buildChart(selection, seriesByUuid, 1),
@@ -319,73 +348,62 @@ export default function BatteryBenchmarkExplorer({
 							</div>
 						</div>
 
-						{!isBackcast ? (
+						{durations.length > 0 && (
+							<div className={styles.durationToggles}>
+								{durations.map((d) => {
+									const on = activeKeys.includes(d.key);
+									return (
+										<button
+											key={d.key}
+											type="button"
+											onClick={() => toggleDuration(d.key)}
+											className={`${styles.durationChip} ${
+												on ? styles.durationOn : styles.durationOff
+											}`}
+											aria-pressed={on}
+										>
+											<i
+												style={{
+													background: on ? d.color : "transparent",
+													borderColor: d.color,
+												}}
+											/>
+											{d.label}
+										</button>
+									);
+								})}
+							</div>
+						)}
+
+						{hasData ? (
+							<BenchmarkLineChart
+								series={series}
+								xLabels={chart.xLabels}
+								activeKeys={activeKeys}
+								decimals={unit.decimals}
+							/>
+						) : (
 							<div className={styles.emptyState}>
 								<p className="text_reg text_600">
-									Real Performance benchmarks are not published yet
+									{loading
+										? "Loading benchmark data…"
+										: isBackcast
+											? "No published data for this market yet"
+											: `Real Performance benchmark is not published for ${regionLabel(region)} yet`}
 								</p>
-								<p className="text_xxs">
-									Aurora has no published Real Performance index for this market so far —
-									switch to the Backcast Benchmark to explore modelled revenue.
-								</p>
-							</div>
-						) : (
-							<>
-								<div className={styles.durationToggles}>
-									{durations.map((d) => {
-										const on = activeKeys.includes(d.key);
-										return (
-											<button
-												key={d.key}
-												type="button"
-												onClick={() => toggleDuration(d.key)}
-												className={`${styles.durationChip} ${
-													on ? styles.durationOn : styles.durationOff
-												}`}
-												aria-pressed={on}
-											>
-												<i
-													style={{
-														background: on ? d.color : "transparent",
-														borderColor: d.color,
-													}}
-												/>
-												{d.label}
-											</button>
-										);
-									})}
-								</div>
-
-								{hasData ? (
-									<BenchmarkLineChart
-										series={series}
-										xLabels={chart.xLabels}
-										activeKeys={activeKeys}
-										decimals={unit.decimals}
-									/>
-								) : (
-									<div className={styles.emptyState}>
-										<p className="text_reg text_600">
-											{loading
-												? "Loading benchmark data…"
-												: "No published data for this market yet"}
-										</p>
-										{!loading && (
-											<p className="text_xxs">
-												{regionLabel(region)} has a benchmark in the catalogue, but Aurora
-												has not released monthly figures for it yet.
-											</p>
-										)}
-									</div>
+								{!loading && (
+									<p className="text_xxs">
+										{isBackcast
+											? `${regionLabel(region)} has a benchmark in the catalogue, but Aurora has not released monthly figures for it yet.`
+											: "Real Performance benchmarks are currently published for Great Britain, Italy, and Australia. Aurora is expanding coverage soon."}
+									</p>
 								)}
-							</>
+							</div>
 						)}
 
 						<div className={styles.panelFoot}>
 							<p className={styles.footNote}>
-								{isBackcast && range
-									? `Monthly granularity · ${range}`
-									: "Monthly granularity"}
+								{range ? `Monthly granularity · ${range}` : "Monthly granularity"}
 							</p>
 							<div className={styles.footActions}>
 								<a

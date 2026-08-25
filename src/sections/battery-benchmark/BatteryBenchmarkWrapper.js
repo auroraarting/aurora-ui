@@ -37,6 +37,8 @@ export default function BatteryBenchmarkWrapper({
 	regions,
 	benchmarks,
 	initialSeries,
+	realBenchmarks = [],
+	initialRealSeries = {},
 }) {
 	// Banner copy and its button come from the Battery Benchmarks page in
 	// WordPress (wp/v2/pages?slug=battery-benchmarks).
@@ -44,11 +46,21 @@ export default function BatteryBenchmarkWrapper({
 	const dataForBtn = { postFields: { topSectionButton: cmsButton } };
 	const [benchmarkType, setBenchmarkType] = useState("backcast");
 
+	// Active benchmark catalogue and initial series based on benchmark type
+	const activeBenchmarks =
+		benchmarkType === "real" && realBenchmarks.length > 0
+			? realBenchmarks
+			: benchmarks;
+	const activeInitialSeries =
+		benchmarkType === "real" && Object.keys(initialRealSeries).length > 0
+			? initialRealSeries
+			: initialSeries;
+
 	// The selected market is held here so the explorer and the methodology
 	// panel (whose CMS rows are per region) stay on the same one.
 	const openingRegion = useMemo(
-		() => firstAvailableRegion(buildRegions(regions, benchmarks)),
-		[regions, benchmarks],
+		() => firstAvailableRegion(buildRegions(regions, activeBenchmarks)),
+		[regions, activeBenchmarks],
 	);
 	const [region, setRegion] = useState(openingRegion);
 	const activeRegion = region || openingRegion;
@@ -96,8 +108,8 @@ export default function BatteryBenchmarkWrapper({
 					<BatteryBenchmarkExplorer
 						benchmarkType={benchmarkType}
 						regionCodes={regions}
-						benchmarks={benchmarks}
-						initialSeries={initialSeries}
+						benchmarks={activeBenchmarks}
+						initialSeries={activeInitialSeries}
 						region={activeRegion}
 						onRegionChange={setRegion}
 					/>
