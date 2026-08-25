@@ -1,0 +1,5 @@
+Contact: mailto:security@auroraer.com
+Expires: 2028-08-03T14:00:00.000Z
+Preferred-Languages: en
+Canonical: https://auroraer.com/.well-known/security.txt
+Hiring: https://auroraer.com/careers/join-us
