@@ -178,13 +178,205 @@ export const getBenchmarkSeriesByUuid = async (uuids = []) => {
 	return Object.fromEntries(list.map((item) => [item.uuid, item]));
 };
 
-/** Fetch the real-performance leaderboard for a region. Aurora has no published
- *  index yet — wired up so it only needs an index UUID once they publish one.
- *  Returns the raw CSV; the response is large (several MB per region). */
+/** Split CSV line taking quotes into account */
+function splitCsvLine(text) {
+	const result = [];
+	let curr = "";
+	let inQuotes = false;
+	for (let i = 0; i < text.length; i++) {
+		const char = text[i];
+		if (char === '"') {
+			inQuotes = !inQuotes;
+		} else if (char === "," && !inQuotes) {
+			result.push(curr.trim());
+			curr = "";
+		} else {
+			curr += char;
+		}
+	}
+	result.push(curr.trim());
+	return result;
+}
+
+/** Real Performance markets currently supported */
+export const REAL_PERFORMANCE_REGIONS = ["gbr", "ita", "aus", "erc"];
+
+/** Normalize a leaderboard index from /leaderboards/<region>/indices */
+export function normalizeLeaderboardIndex(item) {
+	if (!item) return null;
+	const name = item.name || "";
+	let duration = null;
+	const durationMatch =
+		name.match(/(\d+)H/i) ||
+		name.match(/(\d+)\s*hr/i) ||
+		name.match(/(\d+)\s*hour/i);
+	if (durationMatch) {
+		duration = parseInt(durationMatch[1], 10);
+	} else if (item.filters?.batteryDurationH) {
+		const val = item.filters.batteryDurationH.find((f) => f.startsWith(">="));
+		if (val) duration = Math.round(parseFloat(val.replace(">=", "")));
+	}
+
+	let priceZone = null;
+	if (item.filters?.region?.[0]) {
+		priceZone = item.filters.region[0].replace(/^Italy\s+/i, "").trim();
+	} else {
+		const zones = [
+			"Sardina",
+			"Sardinia",
+			"North",
+			"South",
+			"NSW",
+			"New South Wales",
+			"QLD",
+			"Queensland",
+			"SA",
+			"South Australia",
+			"VIC",
+			"Victoria",
+		];
+		for (const z of zones) {
+			if (new RegExp(`\\b${z}\\b`, "i").test(name)) {
+				priceZone = z;
+				break;
+			}
+		}
+	}
+
+	return {
+		uuid: item.leaderboardIndexUuid,
+		title: item.name,
+		description: item.description || "",
+		region: item.region,
+		priceZone,
+		duration: duration || 2,
+		status: "Published",
+		isRealPerformance: true,
+	};
+}
+
+/** Fetch available indices for a real performance region */
+export const getLeaderboardIndices = async (region) => {
+	try {
+		const res = await RESTAPI(`/leaderboards/${region}/indices`);
+		const list = Array.isArray(res) ? res : res?.data || [];
+		return list.map(normalizeLeaderboardIndex).filter(Boolean);
+	} catch (error) {
+		console.error(
+			`getLeaderboardIndices(${region}) failed:`,
+			error?.message || error,
+		);
+		return [];
+	}
+};
+
+/** Fetch all published indices across real performance regions */
+export const getAllLeaderboardIndices = async (
+	regions = REAL_PERFORMANCE_REGIONS,
+) => {
+	const results = await Promise.all(
+		regions.map(async (region) => {
+			const indices = await getLeaderboardIndices(region);
+			return indices;
+		}),
+	);
+	return results.flat();
+};
+
+/** Default date range for leaderboards: last 12 completed months */
+export function getDefaultLeaderboardDateRange() {
+	return { start: "2025-08-01", end: "2026-07-31" };
+}
+
+/** Parse a /leaderboards/<region> CSV response into monthly time series.
+ *  Aggregates total net revenue (cashflow discharge + cashflow charge) per unit,
+ *  then calculates fleet average per kW for each month. */
+export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
+	const lines = String(csv || "")
+		.split("\n")
+		.map((line) => line.trim())
+		.filter(Boolean);
+
+	if (lines.length < 2) {
+		return { currency: fallbackCurrency, points: [] };
+	}
+
+	const header = splitCsvLine(lines[0]);
+	const dateCol = header.indexOf("local_date");
+	const unitCol =
+		header.indexOf("unit") !== -1
+			? header.indexOf("unit")
+			: header.indexOf("unit id");
+	const chargeCol = header.findIndex((h) => h.includes("cashflow charge"));
+	const dischargeCol = header.findIndex((h) =>
+		h.includes("cashflow discharge"),
+	);
+
+	let detectedCurrency = fallbackCurrency;
+	if (chargeCol !== -1) {
+		const match = header[chargeCol].match(/,\s*([a-z]{3})\/kw/i);
+		if (match) detectedCurrency = match[1].toLowerCase();
+	}
+
+	if (
+		dateCol === -1 ||
+		unitCol === -1 ||
+		chargeCol === -1 ||
+		dischargeCol === -1
+	) {
+		return { currency: detectedCurrency, points: [] };
+	}
+
+	const monthlyUnits = new Map();
+
+	for (let i = 1; i < lines.length; i++) {
+		const row = splitCsvLine(lines[i]);
+		const dateStr = row[dateCol];
+		if (!dateStr || dateStr.length < 7) continue;
+
+		const monthKey = dateStr.slice(0, 7);
+		const unit = row[unitCol];
+		const charge = parseFloat(row[chargeCol]) || 0;
+		const discharge = parseFloat(row[dischargeCol]) || 0;
+		const net = charge + discharge;
+
+		if (!monthlyUnits.has(monthKey)) {
+			monthlyUnits.set(monthKey, new Map());
+		}
+		const unitMap = monthlyUnits.get(monthKey);
+		unitMap.set(unit, (unitMap.get(unit) || 0) + net);
+	}
+
+	const sortedMonths = Array.from(monthlyUnits.keys()).sort();
+	const points = sortedMonths.map((monthKey) => {
+		const unitMap = monthlyUnits.get(monthKey);
+		let total = 0;
+		for (const val of unitMap.values()) {
+			total += val;
+		}
+		const avg = unitMap.size > 0 ? total / unitMap.size : 0;
+		const [year, monthNum] = monthKey.split("-");
+		const mIdx = parseInt(monthNum, 10) - 1;
+		return {
+			key: monthKey,
+			label: `${MONTH_SHORT[mIdx] || monthNum} ${year.slice(2)}`,
+			value: Math.round(avg * 100) / 100,
+		};
+	});
+
+	return {
+		currency: detectedCurrency,
+		points,
+	};
+}
+
+/** Fetch the real-performance leaderboard for a region.
+ *  Returns the raw CSV. */
 export const getLeaderboard = async (region, { start, end, index } = {}) => {
+	const range = getDefaultLeaderboardDateRange();
 	const params = new URLSearchParams();
-	if (start) params.set("start", start);
-	if (end) params.set("end", end);
+	params.set("start", start || range.start);
+	params.set("end", end || range.end);
 	if (index) params.set("index", index);
 
 	try {
@@ -194,3 +386,37 @@ export const getLeaderboard = async (region, { start, end, index } = {}) => {
 		return "";
 	}
 };
+
+/** Fetch one real performance index monthly series */
+export const getLeaderboardSeries = async (
+	region,
+	{ start, end, index, currency } = {},
+) => {
+	try {
+		const csv = await getLeaderboard(region, { start, end, index });
+		return { uuid: index, ...parseLeaderboardCsv(csv, currency) };
+	} catch (error) {
+		console.error(
+			`getLeaderboardSeries(${region}, ${index}) failed:`,
+			error?.message || error,
+		);
+		return { uuid: index, currency: null, points: [] };
+	}
+};
+
+/** Fetch several real performance indices series in parallel batches */
+export const getLeaderboardSeriesByIndices = async (
+	indices = [],
+	{ start, end } = {},
+) => {
+	const list = await inBatches(indices.filter(Boolean), (item) =>
+		getLeaderboardSeries(item.region, {
+			start,
+			end,
+			index: item.uuid,
+			currency: item.currency,
+		}),
+	);
+	return Object.fromEntries(list.map((item) => [item.uuid, item]));
+};
+

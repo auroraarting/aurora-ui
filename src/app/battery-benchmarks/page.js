@@ -23,8 +23,10 @@ import BatteryBenchmarkWrapper from "@/sections/battery-benchmark/BatteryBenchma
 // SERVICES //
 import {
 	getAllBenchmarks,
+	getAllLeaderboardIndices,
 	getAllRegions,
 	getBenchmarkSeriesByUuid,
+	getLeaderboardSeriesByIndices,
 } from "@/services/rest/BatteryBenchmark.service";
 import { getBatteryBenchmarkPage } from "@/services/rest/BatteryBenchmarkPage.service";
 
@@ -53,23 +55,18 @@ export async function generateMetadata() {
 
 /** Fetch  */
 async function getData() {
-	const [regions, benchmarks, pageContent] = await Promise.all([
+	const [regions, benchmarks, realBenchmarks, pageContent] = await Promise.all([
 		getAllRegions(),
 		getAllBenchmarks(),
+		getAllLeaderboardIndices(),
 		getBatteryBenchmarkPage(),
 	]);
 
-	console.log(pageContent, "pageContent");
-
-	// Every published benchmark is fetched here, not just the market the explorer
-	// opens on. The upstream endpoint costs a flat ~2.8s per benchmark however
-	// small the response (all 32 come to ~17 KB), so that latency is worth paying
-	// once per revalidate window on the server rather than making every visitor
-	// wait ~3s each time they change market. The explorer only requests uuids it
-	// wasn't handed, so seeding them all means it never fetches on selection.
-	const initialSeries = await getBenchmarkSeriesByUuid(
-		(benchmarks || []).map((item) => item.uuid),
-	);
+	// Pre-seed both Backcast and Real Performance series on the server
+	const [initialSeries, initialRealSeries] = await Promise.all([
+		getBenchmarkSeriesByUuid((benchmarks || []).map((item) => item.uuid)),
+		getLeaderboardSeriesByIndices(realBenchmarks || []),
+	]);
 
 	return {
 		props: {
@@ -77,6 +74,8 @@ async function getData() {
 			regions,
 			benchmarks,
 			initialSeries,
+			realBenchmarks,
+			initialRealSeries,
 		},
 	};
 }

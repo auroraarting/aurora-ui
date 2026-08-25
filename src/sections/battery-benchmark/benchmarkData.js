@@ -176,11 +176,19 @@ export function zonesFor(benchmarks = [], region) {
 
 /** benchmarksFor - the published benchmarks behind the current selection */
 export function benchmarksFor(benchmarks = [], region, zone) {
-	return benchmarks
-		.filter(
-			(item) => item.region === region && (!zone || item.priceZone === zone),
-		)
-		.sort((a, b) => a.duration - b.duration);
+	const filtered = benchmarks.filter(
+		(item) => item.region === region && (!zone || item.priceZone === zone),
+	);
+	const seen = new Set();
+	const unique = [];
+	for (const item of filtered) {
+		const key = `${item.duration}`;
+		if (!seen.has(key)) {
+			seen.add(key);
+			unique.push(item);
+		}
+	}
+	return unique.sort((a, b) => a.duration - b.duration);
 }
 
 /** durationsFor - duration chips available for the current selection */
