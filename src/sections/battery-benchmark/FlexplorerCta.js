@@ -62,7 +62,7 @@ export default function FlexplorerCta() {
 								<h2 className={`${styles.heading} text_600`}>
 									You&apos;ve seen the benchmark.
 									<br />
-									Now see the assets.
+									Now see the assets
 								</h2>
 								<p className={styles.desc}>
 									The Aurora Battery Benchmark gives you the headline.{" "}
