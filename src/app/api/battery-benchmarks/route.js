@@ -23,7 +23,15 @@ export async function GET(req) {
 	if (type === "indices" && region) {
 		try {
 			const indices = await getLeaderboardIndices(region);
-			return Response.json({ indices });
+			return Response.json(
+				{ indices },
+				{
+					headers: {
+						"Cache-Control":
+							"public, s-maxage=3600, stale-while-revalidate=1800",
+					},
+				},
+			);
 		} catch (error) {
 			console.error("Error fetching leaderboard indices:", error);
 			return Response.json(
@@ -54,7 +62,9 @@ export async function GET(req) {
 				{
 					headers: {
 						"Cache-Control":
-							"public, s-maxage=86400, stale-while-revalidate=604800",
+							"no-store, no-cache, must-revalidate, proxy-revalidate",
+						Pragma: "no-cache",
+						Expires: "0",
 					},
 				},
 			);

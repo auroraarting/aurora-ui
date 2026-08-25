@@ -283,9 +283,21 @@ export const getAllLeaderboardIndices = async (
 	return results.flat();
 };
 
-/** Default date range for leaderboards: last 12 completed months */
+/** Default date range for live leaderboards: rolling 12 months up to today */
 export function getDefaultLeaderboardDateRange() {
-	return { start: "2025-08-01", end: "2026-07-31" };
+	const now = new Date();
+	const endYear = now.getFullYear();
+	const endMonth = String(now.getMonth() + 1).padStart(2, "0");
+	const endDay = String(now.getDate()).padStart(2, "0");
+	const end = `${endYear}-${endMonth}-${endDay}`;
+
+	// 12 months rolling window from 1st of month 11 months prior to current date
+	const startDate = new Date(now.getFullYear(), now.getMonth() - 11, 1);
+	const startYear = startDate.getFullYear();
+	const startMonth = String(startDate.getMonth() + 1).padStart(2, "0");
+	const start = `${startYear}-${startMonth}-01`;
+
+	return { start, end };
 }
 
 /** Parse a /leaderboards/<region> CSV response into monthly time series.
@@ -372,7 +384,11 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 
 /** Fetch the real-performance leaderboard for a region.
  *  Returns the raw CSV. */
-export const getLeaderboard = async (region, { start, end, index } = {}) => {
+export const getLeaderboard = async (
+	region,
+	{ start, end, index } = {},
+	options = {},
+) => {
 	const range = getDefaultLeaderboardDateRange();
 	const params = new URLSearchParams();
 	params.set("start", start || range.start);
@@ -380,7 +396,10 @@ export const getLeaderboard = async (region, { start, end, index } = {}) => {
 	if (index) params.set("index", index);
 
 	try {
-		return await RESTAPICsv(`/leaderboards/${region}?${params.toString()}`);
+		return await RESTAPICsv(`/leaderboards/${region}?${params.toString()}`, {
+			cache: "no-store",
+			...options,
+		});
 	} catch (error) {
 		console.error(`getLeaderboard(${region}) failed:`, error?.message || error);
 		return "";

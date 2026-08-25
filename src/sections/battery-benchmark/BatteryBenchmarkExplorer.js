@@ -82,12 +82,15 @@ export default function BatteryBenchmarkExplorer({
 		}
 	}, [initialSeries]);
 
-	/** Pull any series for the current selection we don't hold yet */
+	/** Pull series for the current selection */
 	const fetchSeries = useCallback(
-		async (items) => {
-			const missing = items
-				.map((item) => item.uuid)
-				.filter((uuid) => !requested.current.has(uuid));
+		async (items, forceRefresh = false) => {
+			const missing = forceRefresh
+				? items.map((item) => item.uuid)
+				: items
+						.map((item) => item.uuid)
+						.filter((uuid) => !requested.current.has(uuid));
+
 			if (!missing.length) return;
 
 			missing.forEach((uuid) => requested.current.add(uuid));
@@ -105,12 +108,14 @@ export default function BatteryBenchmarkExplorer({
 						missing.forEach((uuid) => requested.current.delete(uuid));
 					}
 				} else {
+					// Real performance: fetch fresh live real-time data on demand
 					await Promise.all(
 						items
 							.filter((item) => missing.includes(item.uuid))
 							.map(async (item) => {
 								const res = await fetch(
-									`/api/battery-benchmarks?type=real&region=${item.region}&index=${item.uuid}`,
+									`/api/battery-benchmarks?type=real&region=${item.region}&index=${item.uuid}&_t=${Date.now()}`,
+									{ cache: "no-store" },
 								);
 								const json = await res.json();
 								if (json?.series) {
@@ -131,8 +136,11 @@ export default function BatteryBenchmarkExplorer({
 	);
 
 	useEffect(() => {
-		if (selection.length) fetchSeries(selection);
-	}, [selection, fetchSeries]);
+		if (selection.length) {
+			// For real performance, always fetch live data on selection
+			fetchSeries(selection, !isBackcast);
+		}
+	}, [selection, isBackcast, fetchSeries]);
 
 	const chart = useMemo(
 		() => buildChart(selection, seriesByUuid, 1),
