@@ -404,11 +404,9 @@ query GetEventInsideNew {
       # Company logo carousel above the upcoming event card (EventsMiddleRight.js).
       # ACF repeater: one row per logo.
       sidebarLogos {
-        logo {
-          node {
-            altText
-            mediaItemUrl
-          }
+        nodes {
+          altText
+          mediaItemUrl
         }
       }
       thumbnail {

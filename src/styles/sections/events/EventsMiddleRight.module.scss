@@ -66,8 +66,8 @@
 		.logoSlider {
 			:global(.swiper-pagination) {
 				position: static;
-				margin-top: 12px;
-				margin-bottom: -10px;
+				margin-top: 0px;
+				margin-bottom: 0px;
 				line-height: 1;
 			}
 			:global(.swiper-pagination-bullet) {
@@ -84,7 +84,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			height: 60px;
+			height: 100px;
+
 			img {
 				max-width: 100%;
 				max-height: 100%;
