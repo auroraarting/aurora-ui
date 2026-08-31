@@ -29,13 +29,15 @@ import grey_calendar from "../../../public/img/icons/grey_calendar.svg";
 export default function EventsMiddleRight({ data, events }) {
 	// Company logos for the carousel above the upcoming event card. `sidebarLogos`
 	// is an ACF repeater, so it arrives as one row per logo.
-	const companyLogos = (data?.events?.sidebarLogos || [])
-		.map((item) => item?.logo?.node)
+	const companyLogos = (data?.events?.sidebarLogos?.nodes || [])
+		// .map((item) => item?.companyLogo?.node)
 		.filter((node) => node?.mediaItemUrl);
 	// Two logos per view. Dots, autoplay and dragging only appear once there are
 	// more logos than fit on screen — otherwise there is nothing to navigate to.
-	const logosPerView = 2;
+	const logosPerView = 1;
 	const logosScrollable = companyLogos.length > logosPerView;
+
+	console.log("EventsMiddleRight data:", data?.events?.sidebarLogos);
 
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
@@ -76,12 +78,12 @@ export default function EventsMiddleRight({ data, events }) {
 									<ContentFromCms>{data?.events?.pricingDesc}</ContentFromCms>
 									{dynamicInsightsBtnProps(
 										{ postFields: data?.events },
-										"middleSectionButton"
+										"middleSectionButton",
 									).btntext && (
 										<div
 											{...dynamicInsightsBtnProps(
 												{ postFields: data?.events },
-												"middleSectionButton"
+												"middleSectionButton",
 											)}
 											key="btn"
 											to="Insights"
@@ -90,7 +92,7 @@ export default function EventsMiddleRight({ data, events }) {
 												{
 													dynamicInsightsBtnProps(
 														{ postFields: data?.events },
-														"middleSectionButton"
+														"middleSectionButton",
 													).btntext
 												}
 											</Button>
@@ -152,7 +154,7 @@ export default function EventsMiddleRight({ data, events }) {
 								OpenIframePopup(
 									"iframePopup",
 									item?.events?.thumbnail?.externalUrl ||
-										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 								);
 							};
 							if (item?.events?.thumbnail?.openExternalInNewTab) {
@@ -195,7 +197,7 @@ export default function EventsMiddleRight({ data, events }) {
 											/>
 											<span>
 												{item?.events?.thumbnail?.country?.nodes?.map(
-													(item) => item?.title
+													(item) => item?.title,
 												) || "London"}
 											</span>
 										</p>

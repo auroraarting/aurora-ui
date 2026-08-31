@@ -1,1031 +1,237 @@
-import RESTAPI from "../Rest.service";
-import GraphQLAPI from "./Graphql.service";
+// Software listing page (/software) content from WordPress over the REST API.
+//
+// Drop-in replacement for the GraphQL `getSoftwarePage` query: the object this
+// returns is field-for-field what GraphQL returned, so `src/app/software/page.js`
+// and the sections under it need no changes — same `{ data: { page, softwares } }`
+// envelope, same camelCase names, same `{ node: … }` media wrappers and
+// `{ nodes: [ … ] }` relation wrappers.
+//
+// Three things REST does not hand over the way GraphQL did:
+//   * ACF relation fields (client logos, testimonials) arrive as bare post ids,
+//     so the referenced posts are fetched in one batched `include=` call per
+//     post type rather than one call per row.
+//   * Core REST HTML-encodes post titles and percent-encodes non-ASCII slugs
+//     where GraphQL returned both readable.
+//   * An ACF relation the editor left empty is null in GraphQL, not an empty
+//     connection.
+//
+// The single-software pages still run on GraphQL (src/services/Softwares.service.js).
 
-/** Fetch Page */
+import RESTAPI from "../Rest.service";
+import {
+	GET,
+	PER_PAGE,
+	asList,
+	group,
+	loadByIds,
+	orNull,
+	renderedHtml,
+	renderedTitle,
+	rest as restCall,
+	toConnection,
+	toFeaturedImage,
+	toGlobalId,
+	toIds,
+	toMediaNode,
+	toRelation,
+	toRows,
+	toSlug,
+} from "./GraphqlShape";
+
+const PAGE_ID = "/software";
+
+/** `featured_image_url` is only populated when `featured_media` is requested
+ *  alongside it, and alt text only comes from /media, so logos carry the
+ *  attachment id and the media rows are fetched separately. */
+const SOFTWARE_FIELDS = "id,slug,title,acf";
+const LOGO_FIELDS = "id,featured_media";
+const TESTIMONIAL_FIELDS = "id,title,content,acf.designation";
+
+const rest = (path, apiID) => restCall(path, { apiID, pageID: PAGE_ID });
+
+const byIds = (base, ids, fields) =>
+	loadByIds(base, ids, fields, { pageID: PAGE_ID });
+
+/** The logos, testimonials and featured-image media referenced by every
+ *  software's ACF, fetched in one batched call per type. */
+async function loadContext(acfBlocks) {
+	const logoIds = [];
+	const testimonialIds = [];
+	for (const acf of acfBlocks) {
+		if (!acf) continue;
+		logoIds.push(...toIds(acf.our_client?.select_logos));
+		testimonialIds.push(...toIds(acf.our_client?.testimonials));
+	}
+
+	const [logos, testimonials] = await Promise.all([
+		byIds("clients-logo", logoIds, LOGO_FIELDS),
+		byIds("testimonial", testimonialIds, TESTIMONIAL_FIELDS),
+	]);
+
+	// Alt text and URLs for the logos' featured images are only knowable once
+	// the logos above are in.
+	const mediaIds = [];
+	for (const logo of logos.values()) {
+		if (logo.featured_media) mediaIds.push(logo.featured_media);
+	}
+	const media = await byIds("media", mediaIds, "id,source_url,alt_text");
+
+	return { logos, testimonials, media };
+}
+
+// ---------------------------------------------------------------------------
+// Mappers
+// ---------------------------------------------------------------------------
+
+function mapButton(field) {
+	const button = orNull(field);
+	if (!button) return null;
+	return {
+		buttonText: orNull(button.button_text),
+		iframe: orNull(button.iframe),
+		url: orNull(button.url),
+		file: toMediaNode(button.file),
+	};
+}
+
+/** The thumbnail selection the listing page asked for — no `primaryColor`. */
+function mapThumbnail(acf) {
+	const thumbnail = group(acf, "thumbnail");
+	if (!thumbnail) return null;
+	const gradient = orNull(thumbnail.gradient);
+	return {
+		banner: toMediaNode(thumbnail.banner),
+		logo: toMediaNode(thumbnail.logo),
+		gradient: gradient
+			? { from: orNull(gradient.from), to: orNull(gradient.to) }
+			: null,
+		title: orNull(thumbnail.title),
+		shortDescription: orNull(thumbnail.short_description),
+		spotlightTitle: orNull(thumbnail.spotlight_title),
+		spotlightDesc: orNull(thumbnail.spotlight_desc),
+	};
+}
+
+function mapOurClient(acf, ctx) {
+	const ourClient = group(acf, "our_client");
+	if (!ourClient) return null;
+
+	const logoIds = toIds(ourClient.select_logos);
+	const logos = logoIds
+		.map((id) => ctx.logos.get(id))
+		.filter(Boolean)
+		.map((logo) => ({
+			id: toGlobalId(logo.id),
+			featuredImage: toFeaturedImage(ctx.media.get(logo.featured_media)),
+		}));
+
+	const testimonialIds = toIds(ourClient.testimonials);
+	const testimonials = testimonialIds
+		.map((id) => ctx.testimonials.get(id))
+		.filter(Boolean)
+		.map((testimonial) => ({
+			id: toGlobalId(testimonial.id),
+			content: renderedHtml(testimonial.content),
+			title: renderedTitle(testimonial.title),
+			testimonials: { designation: orNull(testimonial.acf?.designation) },
+		}));
+
+	return {
+		selectLogos: toRelation(logoIds, logos),
+		testimonials: toRelation(testimonialIds, testimonials),
+	};
+}
+
+function mapWhyAurora(acf) {
+	const whyAurora = group(acf, "why_aurora");
+	if (!whyAurora) return null;
+	const list = toRows(whyAurora.list);
+	return {
+		endPoint: orNull(whyAurora.end_point),
+		description: orNull(whyAurora.description),
+		endText: orNull(whyAurora.end_text),
+		startText: orNull(whyAurora.start_text),
+		title: orNull(whyAurora.title),
+		list:
+			list?.map((row) => ({
+				caption: orNull(row.caption),
+				description: orNull(row.description),
+				title: orNull(row.title),
+				value: orNull(row.value),
+			})) ?? null,
+	};
+}
+
+function mapSoftwareLanding(acf) {
+	const banner = group(acf, "banner");
+	const insights = group(acf, "insights");
+	return {
+		banner: banner
+			? { title: orNull(banner.title), description: orNull(banner.description) }
+			: null,
+		mapMarquee: orNull(acf.map_marquee),
+		// The field name carries the typo the CMS shipped with, on both sides.
+		inisghtsSectionButton: mapButton(acf.inisghts_section_button),
+		insights: insights
+			? {
+					sectionDesc: orNull(insights.section_desc),
+					sectionTitle: orNull(insights.section_title),
+				}
+			: null,
+		whyAurora: mapWhyAurora(acf),
+	};
+}
+
+// ---------------------------------------------------------------------------
+// Public API
+// ---------------------------------------------------------------------------
+
+/** Fetch All Softwares */
 export const getALLSoftware = async (slug) => {
-	const query = "/softwares";
-	const res = await RESTAPI(query, {
+	const res = await RESTAPI("/softwares", {
+		...GET,
 		apiID: "softwares",
 		pageID: `/software/${slug}`,
 	});
 	return res;
 };
 
-/** Fetch Page */
+/** Fetch the /software landing page: the page's own fields, plus the thumbnail
+ *  and client-proof blocks of every software. */
 export const getSoftwarePage = async () => {
-	const query = `
-query GetPageSoftwares {
-  page(id: "software", idType: URI) {
-    title
-    slug
-    softwareLanding {
-      banner {
-        title
-        description
-      }
-      mapMarquee
-      inisghtsSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      insights {
-        sectionDesc
-        sectionTitle
-      }
-      whyAurora {
-        endPoint
-        description
-        endText
-        startText
-        title
-        list {
-          caption
-          description
-          title
-          value
-        }
-      }
-    }
-  }
-  softwares(first: 999) {
-    nodes {
-      title
-      slug
-      softwares {
-        thumbnail {
-          banner {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          logo {
-            node {
-              mediaItemUrl
-              altText
-            }
-          }
-          gradient {
-            from
-            to
-          }
-          title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
-        }
-        ourClient {
-          selectLogos(first: 999) {
-            nodes {
-              ... on ClientsLogo {
-                id
-                featuredImage {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
-              }
-            }
-          }
-          testimonials(first: 999) {
-            nodes {
-              ... on Testimonial {
-                id
-                content
-                title
-                testimonials {
-                  designation
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-      `;
-	const res = await GraphQLAPI(query, {
-		apiID: "common",
-		pageID: "/software",
-	});
-	return res;
-};
+	const [pageRes, softwaresRes] = await Promise.all([
+		rest("/pages?slug=software&_fields=id,slug,title,acf", "pages"),
+		rest(
+			`/softwares?per_page=${PER_PAGE}&_fields=${SOFTWARE_FIELDS}`,
+			"softwares",
+		),
+	]);
 
-/** Fetch Page */
-export const getSingleSoftwareByLanguage = async (slug, language) => {
-	const query = `
-query GetProductBySlug2 {
-  countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
-    nodes {
-      title
-      slug
-      translations{
-        title
-      }
-    }
-  }
-  softwareBy(slug: "${decodeURIComponent(slug)}") {
-    title
-    slug
-    softwares {
-    showTranslation
-      thumbnail {
-        banner {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        logo {
-          node {
-            mediaItemUrl
-            altText
-          }
-        }
-        gradient {
-          from
-          to
-        }
-        primaryColor
-        title
-        shortDescription
-        spotlightTitle
-        spotlightDesc
-      }
-      ourClient {
-      tabTitle
-        selectLogos(first: 999) {
-          nodes {
-            ... on ClientsLogo {
-              id
-              featuredImage {
-                node {
-                  altText
-                  mediaItemUrl
-                }
-              }
-              translations{
-                language {
-                  code
-                  country_flag_url
-                  default_locale
-                  id
-                  language_code
-                  translated_name
-                  native_name
-                  url
-                }
-                featuredImage {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
-              }
-            }
-          }
-        }
-        testimonials(first: 999) {
-          nodes {
-            ... on Testimonial {
-              id
-              content
-              title
-              testimonials {
-                designation
-              }
-              translations{
-                language {
-                  code
-                  country_flag_url
-                  default_locale
-                  id
-                  language_code
-                  translated_name
-                  native_name
-                  url
-                }
-              content
-              title
-                testimonials {
-                designation
-              }
-              }
-            }
-          }
-        }
-      }
-      availableRegions {
-        marqueeText
-        tabTitle
-      }
-      banner {
-        logo {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        buttonText
-        buttonLink
-        description
-        title
-        vimeoLink
-        videos {
-          videoType
-          videoFile {
-            node {
-              mediaItemUrl
-              mimeType
-            }
-          }
-          vimeoLink
-          youtubeLink
-        }
-        desktopThumbnail {
-          node {
-            altText
-            mediaItemUrl
-            mediaItemUrl
-          }
-        }
-        mobileThumbnail {
-          node {
-            altText
-            mediaItemUrl
-            mediaItemUrl
-          }
-        }
-      }
-      caseStudy {
-        tabTitle
-        title
-        selectCaseStudies {
-          nodes {
-            ... on Post {
-              id
-              title
-              slug
-              content
-              date
-              categories(first: 9999) {
-                nodes {
-                  slug
-                  name
-                  translations{
-                    slug
-                    name
-                  }
-                }
-              }
-              postFields {
-                time
-              }
-              featuredImage {
-                node {
-                  altText
-                  mediaItemUrl
-                }
-              }
-              translations{
-                language {
-                  code
-                  country_flag_url
-                  default_locale
-                  id
-                  language_code
-                  translated_name
-                  native_name
-                  url
-                }
-                title
-                slug
-                content
-                date
-                featuredImage {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
-                postFields {
-                  time
-                }
-              }
-            }
-          }
-        }
-      }
-      expertSupport {
-        sectionTitle
-        image {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        list {
-          title
-          description
-          logo {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
-      benefits {
-        sectionTitle
-        image {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-        list {
-          title
-          description
-          logo {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
-      expertise {
-        description
-        tabTitle
-        title
-        expertiseAccordion {
-          accordionDescription
-          accordionTitle
-          buttonLink
-          buttonText
-          icon {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
-      whatSetsUsApart {
-        description
-        tabTitle
-        title
-        expertiseAccordion {
-          accordionDescription
-          accordionTitle
-          buttonLink
-          icon {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
-      introduction {
-        description
-        tabTitle
-        title
-        image {
-          node {
-            altText
-            mediaItemUrl
-            mediaItemUrl
-          }
-        }
-        lottie {
-          node {
-            altText
-            mediaItemUrl
-            mediaItemUrl
-          }
-        }
-      }
-      keyAdvantages {
-        desciption
-        tabTitle
-        title
-        buttonLink
-        buttonText
-        advantages {
-          advantagesTitle
-          advantagesDescription
-          icon {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-      }
-      map {
-        marquee
-        headerLogo {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      whyAurora {
-        title
-        description
-        startText
-        endText
-        endPoint
-        list {
-          title
-          description
-          caption
-          value
-        }
-      }
-      fourStepProcess {
-        buttonLink
-        description
-        processTitle
-        tabTitle
-        process {
-          image {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          video {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          processDetails {
-            description
-          }
-        }
-      }
-      topSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      middleSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      stepsSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      insightsSectionButton {
-        buttonText
-        iframe
-        url
-        file {
-          node {
-            altText
-            mediaItemUrl
-          }
-        }
-      }
-      insights {
-        sectionDesc
-        sectionTitle
-        insightsTitle
-        listButtonText
-        list(first: 9999) {
-          nodes {
-            ... on Post {
-              id
-              title
-              slug
-              postFields {
-                time
-              }
-              categories(first: 9999) {
-                nodes {
-                  slug
-                  name
-                  translations{
-                    slug
-                    name
-                  }
-                }
-              }
-              date
-              translations{
-              language {
-                  code
-                  country_flag_url
-                  default_locale
-                  id
-                  language_code
-                  translated_name
-                  native_name
-                  url
-                }
-                slug
-                title
-                date
-                postFields {
-                time
-              }
-              }
-            }
-          }
-        }
-      }
-      integratedSystem{
-        tabTitle
-        desc
-        buttonText
-        buttonLink
-      }
-    }
-    translations {
-      language {
-        code
-        country_flag_url
-        default_locale
-        id
-        language_code
-        translated_name
-        native_name
-        url
-      }
-      title
-      softwares {
-        thumbnail {
-          banner {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          logo {
-            node {
-              mediaItemUrl
-              altText
-            }
-          }
-          gradient {
-            from
-            to
-          }
-          primaryColor
-          title
-          shortDescription
-          spotlightTitle
-          spotlightDesc
-        }
-        ourClient {
-        tabTitle
-          selectLogos(first: 999) {
-            nodes {
-              ... on ClientsLogo {
-                id
-                featuredImage {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
-              }
-            }
-          }
-          testimonials(first: 999) {
-            nodes {
-              ... on Testimonial {
-                id
-                content
-                title
-                testimonials {
-                  designation
-                }
-              }
-            }
-          }
-        }
-        availableRegions {
-          marqueeText
-          tabTitle
-        }
-        banner {
-          logo {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          buttonText
-          buttonLink
-          description
-          title
-          vimeoLink
-          videos {
-            videoType
-            videoFile {
-              node {
-                mediaItemUrl
-                mimeType
-              }
-            }
-            vimeoLink
-            youtubeLink
-          }
-          desktopThumbnail {
-            node {
-              altText
-              mediaItemUrl
-              mediaItemUrl
-            }
-          }
-          mobileThumbnail {
-            node {
-              altText
-              mediaItemUrl
-              mediaItemUrl
-            }
-          }
-        }
-        caseStudy {
-          tabTitle
-          title
-          selectCaseStudies {
-            nodes {
-              ... on Post {
-                id
-                title
-                slug
-                content
-                date
-                categories(first: 9999) {
-                  nodes {
-                    slug
-                    name
-                  }
-                }
-                postFields {
-                  time
-                }
-                featuredImage {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
-              }
-            }
-          }
-        }
-        expertSupport {
-          sectionTitle
-          image {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          list {
-            title
-            description
-            logo {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-        }
-        benefits {
-          sectionTitle
-          image {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-          list {
-            title
-            description
-            logo {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-        }
-        expertise {
-          description
-          tabTitle
-          title
-          expertiseAccordion {
-            accordionDescription
-            accordionTitle
-            buttonLink
-            buttonText
-            icon {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-        }
-        whatSetsUsApart {
-          description
-          tabTitle
-          title
-          expertiseAccordion {
-            accordionDescription
-            accordionTitle
-            buttonLink
-            icon {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-        }
-        introduction {
-          description
-          tabTitle
-          title
-          image {
-            node {
-              altText
-              mediaItemUrl
-              mediaItemUrl
-            }
-          }
-          lottie {
-            node {
-              altText
-              mediaItemUrl
-              mediaItemUrl
-            }
-          }
-        }
-        keyAdvantages {
-          desciption
-          tabTitle
-          title
-          buttonLink
-          buttonText
-          advantages {
-            advantagesTitle
-            advantagesDescription
-            icon {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-          }
-        }
-        map {
-          marquee
-          headerLogo {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-        whyAurora {
-          title
-          description
-          startText
-          endText
-          endPoint
-          list {
-            title
-            description
-            caption
-            value
-          }
-        }
-        fourStepProcess {
-          buttonLink
-          description
-          processTitle
-          tabTitle
-          process {
-            image {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-            video {
-              node {
-                altText
-                mediaItemUrl
-              }
-            }
-            processDetails {
-              description
-            }
-          }
-        }
-        topSectionButton {
-          buttonText
-          iframe
-          url
-          file {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-        middleSectionButton {
-          buttonText
-          iframe
-          url
-          file {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-        stepsSectionButton {
-          buttonText
-          iframe
-          url
-          file {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-        insightsSectionButton {
-          buttonText
-          iframe
-          url
-          file {
-            node {
-              altText
-              mediaItemUrl
-            }
-          }
-        }
-        insights {
-          sectionDesc
-          sectionTitle
-          insightsTitle
-        listButtonText
-          list(first: 9999) {
-            nodes {
-              ... on Post {
-                id
-                title
-                slug
-                postFields {
-                  time
-                }
-                categories(first: 9999) {
-                  nodes {
-                    slug
-                    name
-                  }
-                }
-                date
-              }
-            }
-          }
-        }
-        integratedSystem{
-        tabTitle
-        desc
-        buttonText
-        buttonLink
-      }
-      }
-    }
-  }
-}
-    `;
-	const res = await GraphQLAPI(query, {
-		apiID: "softwares",
-		pageID: `/software/${slug}/${language}`,
-		// taxonomies
-	});
-	let newRes =
-		res?.data?.softwareBy?.translations?.filter(
-			(countryItem) => countryItem.language.code === language,
-		)[0] || res?.data?.softwareBy;
+	const pageRow = asList(pageRes)[0] || null;
+	const softwares = asList(softwaresRes);
+	const ctx = await loadContext(softwares.map((software) => software.acf));
 
-	if (res?.data?.softwareBy?.softwares?.ourClient?.testimonials?.nodes) {
-		newRes.softwares.ourClient.testimonials.nodes =
-			res?.data?.softwareBy.softwares.ourClient.testimonials.nodes.map((item) => {
-				const dataByLang = item.translations.filter(
-					(item2) => item2.language.language_code === language,
-				)?.[0];
-				return { ...item, ...dataByLang };
-			});
-	}
-	if (res?.data?.softwareBy?.softwares?.ourClient?.selectLogos?.nodes) {
-		newRes.softwares.ourClient.selectLogos.nodes =
-			res?.data?.softwareBy.softwares.ourClient.selectLogos.nodes?.map((item) => {
-				return {
-					...item,
-					featuredImage: {
-						node:
-							item?.featuredImage?.node?.translations?.filter(
-								(item2) => item2?.language.code === language,
-							)?.[0] || item?.featuredImage?.node,
-					},
-				};
-			});
-	}
-
-	if (res?.data?.softwareBy?.softwares?.insights?.list?.nodes) {
-		newRes.softwares.insights.list = {
-			nodes: res.data.softwareBy.softwares.insights.list.nodes?.map((item) => {
-				if (item?.translations?.length === 0) {
-					return item;
-				}
-				let temp1 =
-					item?.translations?.filter(
-						(item2) => item2?.language?.language_code === language,
-					)?.[0] || [];
-				return {
-					...item,
-					...temp1,
-					categories: {
-						nodes: item?.categories?.nodes?.map((item3) => ({
-							...item3,
-							// ...item2?.translations?.[0],
-							alternateName: item3?.translations?.filter(
-								(item4) => item4?.language?.language_code === language,
-							)?.[0]?.name,
-						})),
-					},
-				};
-			}),
-		};
-	}
-
-	if (res?.data?.softwareBy?.softwares?.caseStudy?.selectCaseStudies?.nodes) {
-		newRes.softwares.caseStudy.selectCaseStudies.nodes =
-			res?.data?.softwareBy.softwares.caseStudy.selectCaseStudies.nodes.map(
-				(item) => {
-					const dataByLang = item.translations.filter(
-						(item2) => item2.language.language_code === language,
-					)?.[0];
-					return { ...item, ...dataByLang };
-				},
-			);
-	}
-	// newRes.data.softwareBy.softwares.caseStudy.selectCaseStudies.nodes =
-	// 	res.data.softwareBy.softwares.caseStudy.selectCaseStudies.nodes;
-	const newObj = {
+	return {
 		data: {
-			countries: res.data.countries,
-			softwareBy: {
-				...res.data.softwareBy,
-				...newRes,
-			},
+			page: pageRow
+				? {
+						title: renderedTitle(pageRow.title),
+						slug: toSlug(pageRow.slug),
+						softwareLanding: mapSoftwareLanding(pageRow.acf || {}),
+					}
+				: null,
+			softwares: toConnection(
+				softwares.map((software) => ({
+					title: renderedTitle(software.title),
+					slug: toSlug(software.slug),
+					softwares: software.acf
+						? {
+								thumbnail: mapThumbnail(software.acf),
+								ourClient: mapOurClient(software.acf, ctx),
+							}
+						: null,
+				})),
+			),
 		},
 	};
-
-	return newObj;
 };
