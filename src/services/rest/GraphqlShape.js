@@ -417,6 +417,20 @@ export const asList = (res) => (Array.isArray(res) ? res : []);
 export const rest = (path, { apiID, pageID } = {}) =>
 	RESTAPI(path, { ...GET, apiID, pageID });
 
+/** The base URL for a namespace other than the `wp/v2` one REST_API_URL points
+ *  at, e.g. the `aurora/v1` routes the mu-plugins register. */
+export const wpJsonNamespace = (namespace) =>
+	`${String(process.env.REST_API_URL || "").replace(/\/wp\/v2\/?$/, "")}/${namespace}`;
+
+/** One REST call against another namespace. */
+export const restNamespaced = (namespace, path, { apiID, pageID } = {}) =>
+	RESTAPI(path, {
+		...GET,
+		apiID,
+		pageID,
+		baseUrl: wpJsonNamespace(namespace),
+	});
+
 /** Batch-fetch posts of one type by id, keyed by id. `orderby=include` keeps
  *  the response in the order the ids were given, which is the order the editor
  *  arranged the ACF relation in. */
