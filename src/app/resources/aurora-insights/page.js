@@ -26,12 +26,12 @@ import {
 	getInsightsCategories,
 	getInsightsPath,
 } from "@/services/Insights.service";
-import { getInsightsPage } from "@/services/InsightsListing.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getInsightsPage } from "@/services/rest/InsightsListing.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "insight-listing", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "insight-listing" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

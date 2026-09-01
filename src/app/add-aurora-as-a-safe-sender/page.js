@@ -23,14 +23,15 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 // DATA //
 
 // SERVICES //
-import { getSafeSender } from "@/services/SafeSender.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getSafeSender } from "@/services/rest/ContentPage.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo(
-		'page(id: "add-aurora-as-a-safe-sender", idType: URI)',
-	);
+	const meta = await getPageSeo({
+		postType: "pages",
+		slug: "add-aurora-as-a-safe-sender",
+	});
 	const seo = meta?.data?.page?.seo;
 
 	return {

@@ -417,6 +417,23 @@ export const asList = (res) => (Array.isArray(res) ? res : []);
 export const rest = (path, { apiID, pageID } = {}) =>
 	RESTAPI(path, { ...GET, apiID, pageID });
 
+/** One WordPress page with its ACF, by slug or by numeric id — the REST
+ *  equivalent of `page(id: …, idType: URI | DATABASE_ID)`. Returns null when the
+ *  page does not exist, which is what GraphQL returned too.
+ *
+ *  `fields` is deliberately narrow: ACF groups on these pages are small, but
+ *  asking for the whole `acf` object is still cheaper than one request per group. */
+export async function loadPage(idOrSlug, { apiID = "page", pageID, fields = "id,slug,title,acf" } = {}) {
+	const byId = typeof idOrSlug === "number" || /^\d+$/.test(String(idOrSlug));
+	const path = byId
+		? `/pages/${idOrSlug}?_fields=${fields}`
+		: `/pages?slug=${encodeURIComponent(idOrSlug)}&_fields=${fields}`;
+	const res = await rest(path, { apiID, pageID });
+	// A by-id request returns the object itself; a slug query returns a list.
+	const row = byId ? res : asList(res)[0];
+	return row && row.id ? row : null;
+}
+
 /** The base URL for a namespace other than the `wp/v2` one REST_API_URL points
  *  at, e.g. the `aurora/v1` routes the mu-plugins register. */
 export const wpJsonNamespace = (namespace) =>

@@ -32,8 +32,8 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
-import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getEnergyTalksPageSocialLinks } from "@/services/rest/EnergyTalks.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 // DATA //
 
@@ -41,7 +41,7 @@ export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`podcastBy(slug: "${params?.slug}")`);
+	const meta = await getPageSeo({ postType: "podcast", slug: params?.slug });
 	const seo = meta?.data?.podcastBy?.seo;
 
 	return {

@@ -15,7 +15,7 @@ import VideosWrap from "@/sections/resources/videos/VideosWrap";
 
 // SERVICES //
 import { getAllVideos } from "@/services/Videos.service";
-import { getVideosLandingPage } from "@/services/VideosLanding.service";
+import { getVideosLandingPage } from "@/services/rest/VideosLanding.service";
 
 // DATA //
 

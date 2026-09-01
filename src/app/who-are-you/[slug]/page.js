@@ -26,14 +26,14 @@ import {
 	getWhoAreYous,
 } from "@/services/WhoAreYou.service";
 import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`whoareyouBy(slug: "${params.slug}")`);
+	const meta = await getPageSeo({ postType: "whoareyou", slug: params.slug });
 	const seo = meta?.data?.whoareyouBy?.seo;
 
 	return {

@@ -30,7 +30,7 @@ import {
 	getPreviousVideos,
 	getVideosInside,
 } from "@/services/Videos.service";
-import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
+import { getEnergyTalksPageSocialLinks } from "@/services/rest/EnergyTalks.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 

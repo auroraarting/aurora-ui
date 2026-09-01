@@ -26,13 +26,13 @@ import {
 	getInsightsCategories,
 } from "@/services/Insights.service";
 import { getWebinarPage, getWebinars } from "@/services/Webinar.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 // DATA //
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "webinar-listing", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "webinar-listing" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

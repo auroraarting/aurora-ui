@@ -42,14 +42,14 @@ import {
 } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
 // 	const { slug } = await params;
-// 	const meta = await getPageSeo(`countryBy(slug: "${slug}")`);
+// 	const meta = await getPageSeo({ postType: "country", slug: slug });
 // 	const seo = meta?.data?.countryBy?.seo;
 
 // 	return {
@@ -110,7 +110,7 @@ async function getData({ params, query }) {
 		// 	: getCountryInside(params.slug),
 		// getCountryInside(params.slug),
 		getCountryInsideWithLanguages(params.slug, language),
-		getPageSeo(`countryBy(slug: "${params.slug}")`),
+		getPageSeo({ postType: "country", slug: params.slug }),
 		getAllLanguages(),
 	]);
 

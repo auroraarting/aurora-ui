@@ -28,13 +28,13 @@ import {
 import {
 	getEnergyTalksPage,
 	getEnergyTalksPageSocialLinks,
-} from "@/services/EnergyTalks.service";
+} from "@/services/rest/EnergyTalks.service";
 import { getPodcasts } from "@/services/Podcast.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "energy-talks-listing", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "energy-talks-listing" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

@@ -31,11 +31,11 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "service", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "service" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

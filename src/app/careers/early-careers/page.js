@@ -44,15 +44,13 @@ import {
 } from "@/services/EarlyCareers.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo(
-		'page(id: "early-careers-landing", idType: URI)',
-	);
+	const meta = await getPageSeo({ postType: "pages", slug: "early-careers-landing" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

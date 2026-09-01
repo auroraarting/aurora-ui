@@ -29,11 +29,11 @@ import {
 	getRegions,
 } from "@/services/GlobalPresence.service";
 import Link from "next/link";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "global-presence", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "global-presence" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

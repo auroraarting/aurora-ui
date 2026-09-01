@@ -24,14 +24,14 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 // SERVICES //
 import { getProductBySlug, getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`productBy(slug: "${params.slug}")`);
+	const meta = await getPageSeo({ postType: "products", slug: params.slug });
 	const seo = meta?.data?.productBy?.seo;
 
 	return {

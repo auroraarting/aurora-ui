@@ -30,11 +30,11 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "resources", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "resources" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

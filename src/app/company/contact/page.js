@@ -35,14 +35,14 @@ import hoverBg from "@/../public/img/contact/hoverBg.png";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 import { getOfficesByRegions } from "@/services/Offices.service";
-import { getContact } from "@/services/Contact.service";
+import { getContact } from "@/services/rest/Contact.service";
 import Link from "next/link";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "contact", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "contact" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

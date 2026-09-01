@@ -23,6 +23,13 @@ const PAGE_ID = "/common";
 const ROOT_FIELD = {
 	pages: "page",
 	softwares: "softwareBy",
+	products: "productBy",
+	services: "serviceBy",
+	country: "countryBy",
+	podcast: "podcastBy",
+	whoareyou: "whoareyouBy",
+	howwehelp: "howwehelpBy",
+	"early-career": "earlyCareerBy",
 };
 
 /** Yoast omits `description` entirely when it is unset, where WPGraphQL's

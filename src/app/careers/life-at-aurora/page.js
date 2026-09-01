@@ -29,11 +29,11 @@ import {
 } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
 import { getEarlyCareersListing } from "@/services/EarlyCareers.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "life-at-aurora", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "life-at-aurora" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

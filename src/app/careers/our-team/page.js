@@ -31,11 +31,11 @@ import {
 } from "@/services/Insights.service";
 import { getOurTeamsPage } from "@/services/OurTeams.service";
 import { getOffices } from "@/services/Offices.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "our-team", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "our-team" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

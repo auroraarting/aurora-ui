@@ -25,15 +25,15 @@ import { filterMarkersBySlug, getMapJsonForService } from "@/utils";
 // SERVICES //
 import { getAllServiceData, getServiceData } from "@/services/Service.service";
 import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
 import { getInsights } from "@/services/Insights.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`serviceBy(slug: "${params.slug}")`);
+	const meta = await getPageSeo({ postType: "services", slug: params.slug });
 	const seo = meta?.data?.serviceBy?.seo;
 
 	return {

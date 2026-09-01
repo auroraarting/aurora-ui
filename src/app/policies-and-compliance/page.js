@@ -23,8 +23,8 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 // DATA //
 
 // SERVICES //
-import { getPolicy } from "@/services/Policy.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPolicy } from "@/services/rest/ContentPage.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** Meta Data */
 // export const metadata = {
@@ -34,9 +34,10 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo(
-		'page(id: "policies-and-compliance", idType: URI)',
-	);
+	const meta = await getPageSeo({
+		postType: "pages",
+		slug: "policies-and-compliance",
+	});
 	const seo = meta?.data?.page?.seo;
 
 	return {

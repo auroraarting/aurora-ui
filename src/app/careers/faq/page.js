@@ -21,14 +21,14 @@ import FaqWrap from "@/sections/careers/FaqWrap";
 // DATA //
 
 // SERVICES //
-import { getFaqPage } from "@/services/Faq.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getFaqPage } from "@/services/rest/Faq.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "faq", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "faq" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

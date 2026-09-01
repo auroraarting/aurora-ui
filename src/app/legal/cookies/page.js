@@ -27,8 +27,8 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getCookies } from "@/services/Cookies.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getCookies } from "@/services/rest/ContentPage.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** Meta Data */
 // export const metadata = {
@@ -38,7 +38,7 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "cookies", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "cookies" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

@@ -38,11 +38,11 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getHomePage, getHomePageVoices } from "@/services/Home.service";
 import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "homepage", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "homepage" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

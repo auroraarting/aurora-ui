@@ -24,11 +24,11 @@ import TeamWrap from "@/sections/company/team/TeamWrap";
 import { getTeamSectors } from "@/services/Teams.service";
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "team", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "team" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

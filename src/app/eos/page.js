@@ -24,16 +24,16 @@ import { getMapJsonForAllRegions } from "@/utils";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getEosPage } from "@/services/Eos.service";
-import { getBundlesSection } from "@/services/Bundles.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
 import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "eos", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "eos" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

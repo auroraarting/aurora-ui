@@ -29,16 +29,16 @@ import styles from "@/styles/pages/product/Products.module.scss";
 // SERVICES //
 import { getProductPage } from "@/services/Products.service";
 import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
 import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "product", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "product" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

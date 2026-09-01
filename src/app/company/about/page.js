@@ -26,12 +26,12 @@ import { getAboutPage } from "@/services/About.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices } from "@/services/Offices.service";
 import { getEosPage } from "@/services/Eos.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "about", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "about" });
 	const seo = meta?.data?.page?.seo;
 
 	return {

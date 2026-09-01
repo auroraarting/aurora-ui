@@ -30,7 +30,7 @@ import {
 	getInsightsCategories,
 	getInsightsInside,
 } from "@/services/Insights.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour
 
