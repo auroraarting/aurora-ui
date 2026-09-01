@@ -22,6 +22,13 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 // DATA //
 
 // SERVICES //
+// import {
+// 	getSingleSoftware,
+// 	getSoftwarePage,
+// } from "@/services/rest/Softwares.service";
+// import { getRegions } from "@/services/rest/GlobalPresence.service";
+// import { getPageSeo } from "@/services/rest/Seo.service";
+// import { getAllLanguages } from "@/services/rest/GlobalPresenceLanguages.service";
 import {
 	getSingleSoftware,
 	getSoftwarePage,
@@ -34,6 +41,10 @@ export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
+	// const meta = await getPageSeo({
+	// 	postType: "softwares",
+	// 	slug: params.slug,
+	// });
 	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.softwareBy?.seo;
 

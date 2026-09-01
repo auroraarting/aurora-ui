@@ -45,13 +45,11 @@ import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
-import { getRegions } from "@/services/rest/GlobalPresence.service";
-import { getSoftwarePage } from "@/services/rest/Softwares.service";
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/rest/Insights.service";
-import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getSoftwarePage } from "@/services/Softwares.service";
+import { getInsights } from "@/services/Insights.service";
+import { getInsightsCategories } from "@/services/Insights.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
 
 /** Fetch */
@@ -60,20 +58,30 @@ async function getData() {
 		await Promise.all([
 			await getSoftwarePage(),
 			await getRegions(),
-			await getInsights({
-				first: 3,
-				categories: [
-					"case-studies",
-					"commentary",
-					"market-reports",
-					"policy-notes",
-					"newsletters",
-					"new-launches",
-				],
-			}),
+			await getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+			),
 			await getInsightsCategories(),
 			await getBundlesSection(),
 		]);
+	// const [data, regions, insightsFetch, categoriesForSelect, bundles] =
+	// 	await Promise.all([
+	// 		await getSoftwarePage(),
+	// 		await getRegions(),
+	// 		await getInsights({
+	// 			first: 3,
+	// 			categories: [
+	// 				"case-studies",
+	// 				"commentary",
+	// 				"market-reports",
+	// 				"policy-notes",
+	// 				"newsletters",
+	// 				"new-launches",
+	// 			],
+	// 		}),
+	// 		await getInsightsCategories(),
+	// 		await getBundlesSection(),
+	// 	]);
 	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 

@@ -22,6 +22,14 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 // DATA //
 
 // SERVICES //
+// import {
+// 	getSingleSoftware,
+// 	getSingleSoftwareByLanguage,
+// 	getSoftwarePage,
+// } from "@/services/rest/Softwares.service";
+// import { getRegions } from "@/services/rest/GlobalPresence.service";
+// import { getPageSeo } from "@/services/rest/Seo.service";
+// import { getAllLanguages } from "@/services/rest/GlobalPresenceLanguages.service";
 import {
 	getSingleSoftware,
 	getSingleSoftwareByLanguage,
@@ -35,6 +43,10 @@ export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
+	// const meta = await getPageSeo({
+	// 	postType: "softwares",
+	// 	slug: params.slug,
+	// });
 	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.softwareBy?.seo;
 
@@ -64,7 +76,7 @@ async function getData({ params }) {
 	const data = await getSingleSoftwareByLanguage(params.slug, params.language);
 	const regions = await getRegions();
 	const mapJson = getMapJsonForSoftware(
-		filterMarkersBySlug(regions, params.slug)
+		filterMarkersBySlug(regions, params.slug),
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
 	const countries = data?.data?.countries?.nodes;

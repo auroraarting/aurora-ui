@@ -20,6 +20,11 @@
  * populated on live posts — ja, ko, pt-br) and the single-software language
  * pages. Once installed, the translated object is fetched by id with
  * `?wpml_language=<code>`.
+ *
+ * It also registers GET /wp-json/aurora/v1/languages, the site's active
+ * languages in WPML's configured order. WPML exposes no public endpoint for
+ * this, and it cannot be derived from wp/v2 — a post's `translations` only name
+ * the languages that post happens to be translated into, not every active one.
  */
 
 if (! defined('ABSPATH')) {
@@ -123,4 +128,28 @@ add_action('rest_api_init', function () {
 			'schema'       => $schema,
 		]);
 	}
+});
+
+add_action('rest_api_init', function () {
+	// The active languages, in WPML's configured order. Public and read-only:
+	// the same list the site's own language switcher renders.
+	register_rest_route('aurora/v1', '/languages', [
+		'methods'             => 'GET',
+		'permission_callback' => '__return_true',
+		'callback'            => function () {
+			if (! has_filter('wpml_active_languages')) {
+				return [];
+			}
+			$languages = apply_filters('wpml_active_languages', null, ['skip_missing' => 0]);
+			if (! is_array($languages)) {
+				return [];
+			}
+
+			$out = [];
+			foreach (array_keys($languages) as $code) {
+				$out[] = aurora_wpml_language_details($code);
+			}
+			return $out;
+		},
+	]);
 });
