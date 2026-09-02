@@ -24,8 +24,8 @@ import styles from "@/styles/pages/company/About.module.scss";
 // SERVICES //
 import { getAboutPage } from "@/services/About.service";
 import { getInsightsCategories } from "@/services/Insights.service";
-import { getOffices } from "@/services/Offices.service";
-import { getEosPage } from "@/services/Eos.service";
+import { getOffices } from "@/services/rest/Offices.service";
+import { getEosPage } from "@/services/rest/Eos.service";
 import { getBundlesSection } from "@/services/rest/Bundles.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 

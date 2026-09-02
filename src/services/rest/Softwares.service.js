@@ -20,6 +20,7 @@
 
 import RESTAPI from "../Rest.service";
 import {
+	ACF_EXPAND,
 	GET,
 	PER_PAGE,
 	asList,
@@ -29,11 +30,12 @@ import {
 	loadByIds,
 	orNull,
 	orderTermsLikeGraphql,
-	renderedHtml,
 	renderedTitle,
 	rest as restCall,
 	toConnection,
-	toFeaturedImage,
+	toExpanded,
+	expandedTitle,
+	toExpandedImage,
 	toGlobalId,
 	toIds,
 	toMediaNode,
@@ -59,147 +61,10 @@ const rest = (path, apiID) => restCall(path, { apiID, pageID: PAGE_ID });
 const byIds = (base, ids, fields) =>
 	loadByIds(base, ids, fields, { pageID: PAGE_ID });
 
-/** The logos, testimonials, posts and featured-image media referenced by a set
- *  of software ACF blocks, fetched in one batched call per type.
- *
- *  `withPosts` pulls in the case studies and insights the detail page lists;
- *  the listing page's query never asked for them. */
-async function loadContext(
-	acfBlocks,
-	{ withPosts = false, withTranslations = false } = {},
-) {
-	const t = withTranslations ? ",translations" : "";
-	const logoIds = [];
-	const testimonialIds = [];
-	const postIds = [];
-	for (const acf of acfBlocks) {
-		if (!acf) continue;
-		logoIds.push(...toIds(acf.our_client?.select_logos));
-		testimonialIds.push(...toIds(acf.our_client?.testimonials));
-		if (withPosts) {
-			postIds.push(...toIds(acf.case_study?.select_case_studies));
-			postIds.push(...toIds(acf.insights?.list));
-		}
-	}
-
-	const [logos, testimonials, posts] = await Promise.all([
-		byIds("clients-logo", logoIds, LOGO_FIELDS + t),
-		byIds("testimonial", testimonialIds, TESTIMONIAL_FIELDS + t),
-		withPosts
-			? byIds("posts", postIds, POST_FIELDS + t)
-			: Promise.resolve(new Map()),
-	]);
-
-	// Featured images and the names behind a post's category ids are only
-	// knowable once the rows above are in.
-	const mediaIds = [];
-	const categoryIds = [];
-	for (const logo of logos.values()) {
-		if (logo.featured_media) mediaIds.push(logo.featured_media);
-	}
-	for (const post of posts.values()) {
-		if (post.featured_media) mediaIds.push(post.featured_media);
-		categoryIds.push(...(post.categories || []));
-	}
-
-	const [media, categories] = await Promise.all([
-		byIds("media", mediaIds, "id,source_url,alt_text"),
-		categoryIds.length
-			? loadAll(
-					"categories",
-					`include=${[...new Set(categoryIds)].join(",")}&_fields=id,slug,name${t}`,
-					{ apiID: "categories", pageID: PAGE_ID },
-				).then((rows) => new Map(rows.map((row) => [row.id, row])))
-			: Promise.resolve(new Map()),
-	]);
-
-	if (!withTranslations) {
-		return { logos, testimonials, posts, media, categories };
-	}
-
-	// The translated counterparts of everything above, one batched call per type
-	// per language. Keyed by the *translated* id, which is what the
-	// `translations` field on each default-language row hands back.
-	const [logoTr, testimonialTr, postTr, categoryTr] = await Promise.all([
-		loadTranslated(logos, "clients-logo", LOGO_FIELDS),
-		loadTranslated(testimonials, "testimonial", TESTIMONIAL_FIELDS),
-		loadTranslated(posts, "posts", POST_FIELDS),
-		loadTranslated(categories, "categories", "id,slug,name"),
-	]);
-
-	// A translated row's featured image is a *different* attachment, visible only
-	// in that row's own language — so these are grouped by language rather than
-	// fetched in one call.
-	const mediaIdsByLanguage = new Map();
-	for (const bundle of [logoTr, postTr]) {
-		for (const [id, row] of bundle.byId) {
-			if (!row.featured_media) continue;
-			const code = bundle.languageOf.get(id);
-			if (!mediaIdsByLanguage.has(code)) mediaIdsByLanguage.set(code, []);
-			mediaIdsByLanguage.get(code).push(row.featured_media);
-		}
-	}
-	await Promise.all(
-		[...mediaIdsByLanguage].map(async ([code, ids]) => {
-			const found = await loadByIds(
-				"media",
-				ids,
-				"id,source_url,alt_text",
-				{ apiID: "media", pageID: PAGE_ID, language: code },
-			);
-			for (const [id, row] of found) media.set(id, row);
-		}),
-	);
-
-	return {
-		logos,
-		testimonials,
-		posts,
-		media,
-		categories,
-		translatedLogos: logoTr.byId,
-		translatedTestimonials: testimonialTr.byId,
-		translatedPosts: postTr.byId,
-		translatedCategories: categoryTr.byId,
-	};
-}
-
-/** Every translation of the given rows, batched one call per language.
- *
- *  Returns the rows keyed by their translated id, plus which language each one
- *  came from — the caller needs that to fetch a translated row's own
- *  attachments, which WPML duplicates per language and which are therefore
- *  invisible from the default language context.
- *
- *  Translated rows only exist inside their own language, which is what
- *  `language` on the loader switches to. */
-async function loadTranslated(rows, base, fields) {
-	const idsByLanguage = new Map();
-	for (const row of rows.values()) {
-		for (const translation of row.translations || []) {
-			const code = translation.language?.code;
-			if (!code) continue;
-			if (!idsByLanguage.has(code)) idsByLanguage.set(code, []);
-			idsByLanguage.get(code).push(translation.id);
-		}
-	}
-	const byId = new Map();
-	const languageOf = new Map();
-	await Promise.all(
-		[...idsByLanguage].map(async ([code, ids]) => {
-			const found = await loadByIds(base, ids, fields, {
-				apiID: base,
-				pageID: PAGE_ID,
-				language: code,
-			});
-			for (const [id, row] of found) {
-				byId.set(id, row);
-				languageOf.set(id, code);
-			}
-		}),
-	);
-	return { byId, languageOf };
-}
+// Relations (logos, testimonials, case studies, insights) now arrive expanded
+// inside the software payload, courtesy of cms/aurora-acf-expand.php, so there is
+// no context to assemble and no request per relation. Categories come with each
+// expanded post under `terms.category`.
 
 // ---------------------------------------------------------------------------
 // Mappers
@@ -240,103 +105,47 @@ function mapThumbnail(acf, { withPrimaryColor = false } = {}) {
 
 // --- detail page only -------------------------------------------------------
 
-/** A post's terms as GraphQL listed them: by name, ties broken by descending id.
- *
- *  `withTranslations` adds the translated `{ slug, name }` pairs. Note the
- *  GraphQL query selected no `language` inside those, which is why the
- *  `alternateName` lookup in the language merge never matches — kept as-is
- *  rather than quietly changed. */
-function mapCategories(post, ctx, { withTranslations = false } = {}) {
+/** An expanded post's terms, as GraphQL listed them: by name, ties broken by
+ *  descending id. They arrive with the post under `terms.category`, so naming
+ *  them costs no extra request. */
+function mapCategories(post) {
 	const terms = orderTermsLikeGraphql(
-		(post.categories || [])
-			.map((id) => ctx.categories.get(id))
-			.filter(Boolean)
-			.sort((a, b) => String(a.name).localeCompare(String(b.name))),
+		[...(post.terms?.category || [])].sort((a, b) =>
+			String(a.name).localeCompare(String(b.name)),
+		),
 	);
 	return toConnection(
-		terms.map((term) => {
-			const node = {
-				slug: toSlug(term.slug),
-				name: decodeEntities(term.name),
-			};
-			if (withTranslations) {
-				node.translations = (term.translations || []).map((translation) => {
-					const row = ctx.translatedCategories?.get(translation.id);
-					return {
-						slug: row ? toSlug(row.slug) : null,
-						name: row ? decodeEntities(row.name) : null,
-					};
-				});
-			}
-			return node;
-		}),
+		terms.map((term) => ({
+			slug: toSlug(term.slug),
+			name: decodeEntities(term.name),
+		})),
 	);
-}
-
-/** The translated fields of a case study, as its `translations` entry carried. */
-function mapCaseStudyTranslation(translation, ctx) {
-	const row = ctx.translatedPosts?.get(translation.id);
-	return {
-		language: translation.language,
-		title: row ? renderedTitle(row.title) : null,
-		slug: row ? toSlug(row.slug) : null,
-		content: row ? renderedHtml(row.content) : null,
-		date: row ? row.date : null,
-		featuredImage: row
-			? toFeaturedImage(ctx.media.get(row.featured_media))
-			: null,
-		postFields: { time: row ? orNull(row.acf?.time) : null },
-	};
-}
-
-/** The translated fields of an insight — a narrower selection. */
-function mapInsightTranslation(translation, ctx) {
-	const row = ctx.translatedPosts?.get(translation.id);
-	return {
-		language: translation.language,
-		slug: row ? toSlug(row.slug) : null,
-		title: row ? renderedTitle(row.title) : null,
-		date: row ? row.date : null,
-		postFields: { time: row ? orNull(row.acf?.time) : null },
-	};
 }
 
 /** A case study, as the `caseStudy` relation returned it. */
-function mapCaseStudyNode(post, ctx, { withTranslations = false } = {}) {
-	const node = {
+function mapCaseStudyNode(post) {
+	return {
 		id: toGlobalId(post.id),
-		title: renderedTitle(post.title),
+		title: expandedTitle(post),
 		slug: toSlug(post.slug),
-		content: renderedHtml(post.content),
+		content: orNull(post.content),
 		date: post.date,
-		categories: mapCategories(post, ctx, { withTranslations }),
+		categories: mapCategories(post),
 		postFields: { time: orNull(post.acf?.time) },
-		featuredImage: toFeaturedImage(ctx.media.get(post.featured_media)),
+		featuredImage: toExpandedImage(post),
 	};
-	if (withTranslations) {
-		node.translations = (post.translations || []).map((translation) =>
-			mapCaseStudyTranslation(translation, ctx),
-		);
-	}
-	return node;
 }
 
 /** An insight, whose selection is narrower than a case study's. */
-function mapInsightNode(post, ctx, { withTranslations = false } = {}) {
-	const node = {
+function mapInsightNode(post) {
+	return {
 		id: toGlobalId(post.id),
-		title: renderedTitle(post.title),
+		title: expandedTitle(post),
 		slug: toSlug(post.slug),
 		postFields: { time: orNull(post.acf?.time) },
-		categories: mapCategories(post, ctx, { withTranslations }),
+		categories: mapCategories(post),
 		date: post.date,
 	};
-	if (withTranslations) {
-		node.translations = (post.translations || []).map((translation) =>
-			mapInsightTranslation(translation, ctx),
-		);
-	}
-	return node;
 }
 
 function mapAvailableRegions(acf) {
@@ -371,7 +180,7 @@ function mapBanner(acf) {
 	};
 }
 
-function mapCaseStudy(acf, ctx, options = {}) {
+function mapCaseStudy(acf) {
 	const caseStudy = group(acf, "case_study");
 	if (!caseStudy) return null;
 	const ids = toIds(caseStudy.select_case_studies);
@@ -380,10 +189,7 @@ function mapCaseStudy(acf, ctx, options = {}) {
 		title: orNull(caseStudy.title),
 		selectCaseStudies: toRelation(
 			ids,
-			ids
-				.map((id) => ctx.posts.get(id))
-				.filter(Boolean)
-				.map((post) => mapCaseStudyNode(post, ctx, options)),
+			toExpanded(caseStudy.select_case_studies).map(mapCaseStudyNode),
 		),
 	};
 }
@@ -491,7 +297,7 @@ function mapFourStepProcess(acf) {
 	};
 }
 
-function mapInsights(acf, ctx, { extended = false, withTranslations = false } = {}) {
+function mapInsights(acf, { extended = false } = {}) {
 	const insights = group(acf, "insights");
 	if (!insights) return null;
 	const ids = toIds(insights.list);
@@ -505,13 +311,7 @@ function mapInsights(acf, ctx, { extended = false, withTranslations = false } = 
 					listButtonText: orNull(insights.list_button_text),
 				}
 			: {}),
-		list: toRelation(
-			ids,
-			ids
-				.map((id) => ctx.posts.get(id))
-				.filter(Boolean)
-				.map((post) => mapInsightNode(post, ctx, { withTranslations })),
-		),
+		list: toRelation(ids, toExpanded(insights.list).map(mapInsightNode)),
 	};
 }
 
@@ -534,28 +334,17 @@ function mapIntegratedSystem(acf) {
  *  `withTranslations` adds the per-node `translations` arrays that route's merge
  *  reads. `withShowTranslation` is off inside a `translations[]` entry, whose
  *  sub-query never selected it. */
-function mapSoftwares(
-	acf,
-	ctx,
-	{
-		extended = false,
-		withTranslations = false,
-		withShowTranslation = true,
-	} = {},
-) {
+function mapSoftwares(acf, { extended = false, withShowTranslation = true } = {}) {
 	if (!acf) return null;
 	return {
 		...(withShowTranslation
 			? { showTranslation: acf.show_translation ?? null }
 			: {}),
 		thumbnail: mapThumbnail(acf, { withPrimaryColor: true }),
-		ourClient: mapOurClient(acf, ctx, {
-			withTabTitle: extended,
-			withTranslations,
-		}),
+		ourClient: mapOurClient(acf, { withTabTitle: extended }),
 		availableRegions: mapAvailableRegions(acf),
 		banner: mapBanner(acf),
-		caseStudy: mapCaseStudy(acf, ctx, { withTranslations }),
+		caseStudy: mapCaseStudy(acf),
 		expertSupport: mapIconList(acf, "expert_support"),
 		benefits: mapIconList(acf, "benefits"),
 		expertise: mapAccordionSection(acf, "expertise", { withButtonText: true }),
@@ -571,66 +360,28 @@ function mapSoftwares(
 		middleSectionButton: mapButton(acf.middle_section_button),
 		stepsSectionButton: mapButton(acf.steps_section_button),
 		insightsSectionButton: mapButton(acf.insights_section_button),
-		insights: mapInsights(acf, ctx, { extended, withTranslations }),
+		insights: mapInsights(acf, { extended }),
 		...(extended ? { integratedSystem: mapIntegratedSystem(acf) } : {}),
 	};
 }
 
-function mapOurClient(acf, ctx, { withTabTitle = false, withTranslations = false } = {}) {
+function mapOurClient(acf, { withTabTitle = false } = {}) {
 	const ourClient = group(acf, "our_client");
 	if (!ourClient) return null;
 
 	const logoIds = toIds(ourClient.select_logos);
-	const logos = logoIds
-		.map((id) => ctx.logos.get(id))
-		.filter(Boolean)
-		.map((logo) => {
-			const node = {
-				id: toGlobalId(logo.id),
-				featuredImage: toFeaturedImage(ctx.media.get(logo.featured_media)),
-			};
-			if (withTranslations) {
-				node.translations = (logo.translations || []).map((translation) => {
-					const row = ctx.translatedLogos?.get(translation.id);
-					return {
-						language: translation.language,
-						featuredImage: row
-							? toFeaturedImage(ctx.media.get(row.featured_media))
-							: null,
-					};
-				});
-			}
-			return node;
-		});
+	const logos = toExpanded(ourClient.select_logos).map((logo) => ({
+		id: toGlobalId(logo.id),
+		featuredImage: toExpandedImage(logo),
+	}));
 
 	const testimonialIds = toIds(ourClient.testimonials);
-	const testimonials = testimonialIds
-		.map((id) => ctx.testimonials.get(id))
-		.filter(Boolean)
-		.map((testimonial) => {
-			const node = {
-				id: toGlobalId(testimonial.id),
-				content: renderedHtml(testimonial.content),
-				title: renderedTitle(testimonial.title),
-				testimonials: { designation: orNull(testimonial.acf?.designation) },
-			};
-			if (withTranslations) {
-				node.translations = (testimonial.translations || []).map(
-					(translation) => {
-						const row = ctx.translatedTestimonials?.get(translation.id);
-						return {
-							language: translation.language,
-							content: row ? renderedHtml(row.content) : null,
-							title: row ? renderedTitle(row.title) : null,
-							testimonials: {
-								designation: row ? orNull(row.acf?.designation) : null,
-							},
-						};
-					},
-				);
-			}
-			return node;
-		});
+	const testimonials = toExpanded(ourClient.testimonials).map((testimonial) => ({
+		id: toGlobalId(testimonial.id),
+		content: orNull(testimonial.content),
+		title: expandedTitle(testimonial),
+		testimonials: { designation: orNull(testimonial.acf?.designation) },
+	}));
 
 	return {
 		// Only the language query selected `tabTitle`.
@@ -700,15 +451,13 @@ export const getSoftwarePage = async () => {
 	const [pageRes, softwaresRes] = await Promise.all([
 		rest("/pages?slug=software&_fields=id,slug,title,acf", "pages"),
 		rest(
-			`/softwares?per_page=${PER_PAGE}&_fields=${SOFTWARE_FIELDS}`,
+			`/softwares?per_page=${PER_PAGE}&_fields=${SOFTWARE_FIELDS}&${ACF_EXPAND}`,
 			"softwares",
 		),
 	]);
 
 	const pageRow = asList(pageRes)[0] || null;
 	const softwares = asList(softwaresRes);
-	const ctx = await loadContext(softwares.map((software) => software.acf));
-
 	return {
 		data: {
 			page: pageRow
@@ -725,7 +474,7 @@ export const getSoftwarePage = async () => {
 					softwares: software.acf
 						? {
 								thumbnail: mapThumbnail(software.acf),
-								ourClient: mapOurClient(software.acf, ctx),
+								ourClient: mapOurClient(software.acf),
 							}
 						: null,
 				})),
@@ -781,15 +530,12 @@ export const getSingleSoftware = async (slug) => {
 	const software =
 		asList(
 			await rest(
-				`/softwares?slug=${encodeURIComponent(decoded)}&_fields=${SOFTWARE_FIELDS},translations`,
+				`/softwares?slug=${encodeURIComponent(decoded)}&_fields=${SOFTWARE_FIELDS},translations&${ACF_EXPAND}`,
 				"softwares",
 			),
 		)[0] || null;
 
-	const [countries, ctx] = await Promise.all([
-		getCountries(),
-		loadContext([software?.acf], { withPosts: true }),
-	]);
+	const countries = await getCountries();
 
 	return {
 		data: {
@@ -801,170 +547,14 @@ export const getSingleSoftware = async (slug) => {
 						translations: (software.translations || []).map((translation) => ({
 							language: translation.language,
 						})),
-						softwares: mapSoftwares(software.acf, ctx),
+						softwares: mapSoftwares(software.acf),
 					}
 				: null,
 		},
 	};
 };
 
-/** Fetch one software's detail page in a given language
- *  (/software/[slug]/[language]).
- *
- *  Builds the same object the GraphQL query produced — including each
- *  translation's own full `softwares` group and the per-node `translations`
- *  arrays — and then runs the original merge over it untouched, so the routes
- *  receive exactly what they received before, quirks included. */
-export const getSingleSoftwareByLanguage = async (slug, language) => {
-	const decoded = decodeURIComponent(slug);
-	const software =
-		asList(
-			await rest(
-				`/softwares?slug=${encodeURIComponent(decoded)}&_fields=${SOFTWARE_FIELDS},translations`,
-				"softwares",
-			),
-		)[0] || null;
-
-	const [countries, ctx] = await Promise.all([
-		getCountries({ withTranslations: true }),
-		loadContext([software?.acf], { withPosts: true, withTranslations: true }),
-	]);
-
-	if (!software) return { data: { countries, softwareBy: null } };
-
-	// Each translation of the software itself, with its own related entities —
-	// a Japanese software post references Japanese logos, posts and terms.
-	const softwareTranslations = software.translations || [];
-	const bundles = new Map();
-	for (const translation of softwareTranslations) {
-		const code = translation.language?.code;
-		if (!code || bundles.has(code)) continue;
-		const rows = await loadByIds(
-			"softwares",
-			softwareTranslations
-				.filter((other) => other.language?.code === code)
-				.map((other) => other.id),
-			SOFTWARE_FIELDS,
-			{ apiID: "softwares", pageID: PAGE_ID, language: code },
-		);
-		const translatedCtx = await loadContext(
-			[...rows.values()].map((row) => row.acf),
-			{ withPosts: true },
-		);
-		bundles.set(code, { rows, ctx: translatedCtx });
-	}
-
-	const res = {
-		data: {
-			countries,
-			softwareBy: {
-				title: renderedTitle(software.title),
-				slug: toSlug(software.slug),
-				softwares: mapSoftwares(software.acf, ctx, {
-					extended: true,
-					withTranslations: true,
-				}),
-				translations: softwareTranslations.map((translation) => {
-					const bundle = bundles.get(translation.language?.code);
-					const row = bundle?.rows?.get(translation.id);
-					return {
-						language: translation.language,
-						title: row ? renderedTitle(row.title) : null,
-						// A translation's sub-query selected neither `showTranslation`
-						// nor any nested `translations`.
-						softwares: row
-							? mapSoftwares(row.acf, bundle.ctx, {
-									extended: true,
-									withShowTranslation: false,
-								})
-							: null,
-					};
-				}),
-			},
-		},
-	};
-
-	// ---- unchanged from the GraphQL implementation ----
-	// Kept byte-for-byte so the object the route receives is the same one it
-	// received before. It reads the requested language's `softwares` as the base,
-	// then writes the default-language relation nodes back over it.
-
-	let newRes =
-		res?.data?.softwareBy?.translations?.filter(
-			(countryItem) => countryItem.language.code === language,
-		)[0] || res?.data?.softwareBy;
-
-	if (res?.data?.softwareBy?.softwares?.ourClient?.testimonials?.nodes) {
-		newRes.softwares.ourClient.testimonials.nodes =
-			res?.data?.softwareBy.softwares.ourClient.testimonials.nodes.map((item) => {
-				const dataByLang = item.translations.filter(
-					(item2) => item2.language.language_code === language,
-				)?.[0];
-				return { ...item, ...dataByLang };
-			});
-	}
-	if (res?.data?.softwareBy?.softwares?.ourClient?.selectLogos?.nodes) {
-		newRes.softwares.ourClient.selectLogos.nodes =
-			res?.data?.softwareBy.softwares.ourClient.selectLogos.nodes?.map((item) => {
-				return {
-					...item,
-					featuredImage: {
-						node:
-							item?.featuredImage?.node?.translations?.filter(
-								(item2) => item2?.language.code === language,
-							)?.[0] || item?.featuredImage?.node,
-					},
-				};
-			});
-	}
-
-	if (res?.data?.softwareBy?.softwares?.insights?.list?.nodes) {
-		newRes.softwares.insights.list = {
-			nodes: res.data.softwareBy.softwares.insights.list.nodes?.map((item) => {
-				if (item?.translations?.length === 0) {
-					return item;
-				}
-				let temp1 =
-					item?.translations?.filter(
-						(item2) => item2?.language?.language_code === language,
-					)?.[0] || [];
-				return {
-					...item,
-					...temp1,
-					categories: {
-						nodes: item?.categories?.nodes?.map((item3) => ({
-							...item3,
-							alternateName: item3?.translations?.filter(
-								(item4) => item4?.language?.language_code === language,
-							)?.[0]?.name,
-						})),
-					},
-				};
-			}),
-		};
-	}
-
-	if (res?.data?.softwareBy?.softwares?.caseStudy?.selectCaseStudies?.nodes) {
-		newRes.softwares.caseStudy.selectCaseStudies.nodes =
-			res?.data?.softwareBy.softwares.caseStudy.selectCaseStudies.nodes.map(
-				(item) => {
-					const dataByLang = item.translations.filter(
-						(item2) => item2.language.language_code === language,
-					)?.[0];
-					return { ...item, ...dataByLang };
-				},
-			);
-	}
-
-	const newObj = {
-		data: {
-			countries: res.data.countries,
-			softwareBy: {
-				...res.data.softwareBy,
-				...newRes,
-			},
-		},
-	};
-
-	return newObj;
-};
+// `getSingleSoftwareByLanguage` is intentionally absent. The language route needs
+// each relation's WPML *translation*, which one-level ACF expansion does not
+// reach — resolving it still costs a request per language per relation type, so
+// /software/[slug]/[language] stays on the GraphQL service.

@@ -5,25 +5,24 @@
 // (getMapJsonForSoftware, filterMarkersBySlug) and the sections that read them
 // need no changes.
 //
-// Two things REST does not hand over the way GraphQL did:
-//   * Countries hang off the `region` taxonomy, so each region's countries come
-//     from a filtered `/country` collection rather than a nested connection.
-//   * A marker's `category` is a bare post id with no hint of which post type
-//     owns it, so all three candidate types are asked at once and the id is
-//     matched against whichever answers.
+// Countries hang off the `region` taxonomy, so they come from one `/country`
+// collection grouped by region rather than a nested connection. Each country's
+// map markers arrive with their `category` relation already expanded by
+// cms/aurora-acf-expand.php, which is what used to cost three extra requests
+// (one per candidate post type) plus one for the marker thumbnails.
 
 import {
+	ACF_EXPAND,
 	asList,
 	decodeEntities,
+	expandedTitle,
 	loadByIds,
 	orNull,
-	renderedHtml,
-	renderedTitle,
 	rest as restCall,
 	toConnection,
+	toExpanded,
 	toFeaturedImage,
 	toGlobalId,
-	toIds,
 	toMediaNode,
 	toRows,
 	toSlug,
@@ -34,15 +33,14 @@ import {
 const PAGE_ID = "/global-presence";
 const API_ID = "country-regions";
 
-/** The post types a map marker's `category` can point at. GraphQL resolved this
- *  through inline fragments on Service / Software / Product; here the id is
- *  looked up in each collection and the one that answers wins. Each entry maps
- *  the REST post type to the field name GraphQL nested its ACF under. */
-const MARKER_TYPES = [
-	{ postType: "products", field: "products" },
-	{ postType: "softwares", field: "softwares" },
-	{ postType: "services", field: "services" },
-];
+/** The GraphQL query nested each marker target's ACF under a key named after
+ *  its post type. The expanded row reports that type, so the key comes from the
+ *  data rather than from a lookup table. */
+const MARKER_FIELD = {
+	products: "products",
+	softwares: "softwares",
+	services: "services",
+};
 
 const rest = (path) => restCall(path, { apiID: API_ID, pageID: PAGE_ID });
 
@@ -53,35 +51,28 @@ function toLatLng(point) {
 	return { lat: orNull(value.lat), lng: orNull(value.lng) };
 }
 
-/** One marker's `category` connection. The ACF field currently holds a single
- *  post id, but `toIds` also copes with it being an array or an expanded object,
- *  so a change to the field's return format does not blank every marker. */
-function mapMarkerCategory(field, targets) {
-	const ids = toIds(field);
-	if (!ids.length) return toConnection([]);
-
+/** One marker's `category` connection, built from the expanded relation. */
+function mapMarkerCategory(field) {
 	const nodes = [];
-	for (const id of ids) {
-		const target = targets.get(id);
-		if (!target) continue;
+	for (const target of toExpanded(field)) {
+		const key = MARKER_FIELD[target.type];
+		if (!key) continue;
 		nodes.push({
-			contentType: { node: { name: target.postType } },
-			id: toGlobalId(target.row.id),
-			title: renderedTitle(target.row.title),
-			slug: toSlug(target.row.slug),
-			content: renderedHtml(target.row.content),
+			contentType: { node: { name: target.type } },
+			id: toGlobalId(target.id),
+			title: expandedTitle(target),
+			slug: toSlug(target.slug),
+			content: orNull(target.content),
 			// Only the group for this marker's own post type — GraphQL's inline
 			// fragments never added the other two.
-			[target.field]: {
-				map: { logo: toMediaNode((target.row.acf?.map || {}).logo) },
-			},
+			[key]: { map: { logo: toMediaNode((target.acf?.map || {}).logo) } },
 		});
 	}
 	return toConnection(nodes);
 }
 
 /** The `map` field group on a country. */
-function mapCountryMap(acf, targets) {
+function mapCountryMap(acf) {
 	const map = orNull(acf.map);
 	if (!map) return null;
 	const markers = toRows(map.markers);
@@ -91,7 +82,7 @@ function mapCountryMap(acf, targets) {
 		markers:
 			markers?.map((marker) => ({
 				mapThumbnail: toMediaNode(marker.map_thumbnail),
-				category: mapMarkerCategory(marker.category, targets),
+				category: mapMarkerCategory(marker.category),
 				coordinates: toLatLng(marker.coordinates),
 			})) ?? null,
 	};
@@ -111,95 +102,60 @@ function mapBannerSection(acf) {
 }
 
 /** One country node, in the shape the GraphQL connection returned it. */
-function mapCountry(row, { targets, media }) {
+function mapCountry(row, media) {
 	const acf = row.acf || {};
 	return {
-		content: renderedHtml(row.content),
+		content: orNull(row.content?.rendered ?? null),
 		slug: toSlug(row.slug),
-		title: renderedTitle(row.title),
+		title: expandedTitle({ title: row.title?.rendered }),
 		// GraphQL nested the country ACF group under `countries`.
 		countries: {
 			hideonglobalpresence: acf.hideonglobalpresence ?? null,
 			bannerSection: mapBannerSection(acf),
-			map: mapCountryMap(acf, targets),
+			map: mapCountryMap(acf),
 		},
 		featuredImage: toFeaturedImage(media.get(row.featured_media)),
 	};
 }
 
-/** Resolve marker ids across the three candidate post types, one call each. */
-async function loadMarkerTargets(ids) {
-	const unique = [...new Set(ids)];
-	const targets = new Map();
-	if (!unique.length) return targets;
-
-	const results = await Promise.all(
-		MARKER_TYPES.map(({ postType }) =>
-			loadByIds(postType, unique, "id,slug,title,content,acf.map", {
-				apiID: postType,
-				pageID: PAGE_ID,
-			}),
-		),
-	);
-
-	results.forEach((rows, index) => {
-		const { postType, field } = MARKER_TYPES[index];
-		for (const [id, row] of rows) {
-			// An id can only belong to one post type, so first answer wins.
-			if (!targets.has(id)) targets.set(id, { postType, field, row });
-		}
-	});
-	return targets;
-}
-
-/** Fetch Regions Data */
+/** Fetch Regions Data
+ *
+ *  Two requests: the regions, and every country in one go with its ACF expanded.
+ *  The countries come back title-ascending, and filtering a sorted list per
+ *  region keeps each region sorted — so grouping client-side gives the same
+ *  order the four separate per-region queries did.
+ *
+ *  A third request happens only if a country has a featured image (one does), to
+ *  pick up its alt text, which `featured_image_url` does not carry. */
 export const getRegions = async () => {
-	// Regions come back ordered by name, which is what the GraphQL connection did.
-	const regions = asList(
-		await rest(`/region?per_page=${PER_PAGE}&_fields=id,name,slug`),
-	);
-
-	// Each region's countries, ordered by title the way the query asked.
-	const countriesByRegion = await Promise.all(
-		regions.map((region) =>
-			rest(
-				`/country?region=${region.id}&orderby=title&order=asc&per_page=${PER_PAGE}` +
-					"&_fields=id,slug,title,content,featured_media,acf",
-			).then(asList),
-		),
-	);
-
-	// Marker targets and country featured images are only knowable once the
-	// countries are in, and both batch across every region.
-	const markerIds = [];
-	const mediaIds = [];
-	for (const countries of countriesByRegion) {
-		for (const row of countries) {
-			if (row.featured_media) mediaIds.push(row.featured_media);
-			for (const marker of toRows((row.acf?.map || {}).markers) || []) {
-				markerIds.push(...toIds(marker.category));
-			}
-		}
-	}
-
-	const [targets, media] = await Promise.all([
-		loadMarkerTargets(markerIds),
-		loadByIds("media", mediaIds, "id,source_url,alt_text", {
-			apiID: "media",
-			pageID: PAGE_ID,
-		}),
+	const [regions, countries] = await Promise.all([
+		rest(`/region?per_page=${PER_PAGE}&_fields=id,name,slug`),
+		rest(
+			`/country?per_page=${PER_PAGE}&orderby=title&order=asc` +
+				`&_fields=id,slug,title,content,featured_media,region,acf&${ACF_EXPAND}`,
+		).then(asList),
 	]);
+
+	const mediaIds = countries
+		.map((country) => country.featured_media)
+		.filter(Boolean);
+	const media = mediaIds.length
+		? await loadByIds("media", mediaIds, "id,source_url,alt_text", {
+				apiID: "media",
+				pageID: PAGE_ID,
+			})
+		: new Map();
 
 	return {
 		data: {
 			regions: toConnection(
-				regions.map((region, index) => ({
+				asList(regions).map((region) => ({
 					name: decodeEntities(region.name),
 					slug: toSlug(region.slug),
 					countries: toConnection(
-						countriesByRegion[index].map((row) =>
-							mapCountry(row, { targets, media }),
-						),
+						countries
+							.filter((country) => (country.region || []).includes(region.id))
+							.map((country) => mapCountry(country, media)),
 					),
 				})),
 			),

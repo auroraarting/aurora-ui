@@ -21,7 +21,7 @@ import TeamWrap from "@/sections/company/team/TeamWrap";
 // DATA //
 
 // SECTORS //
-import { getTeamSectors } from "@/services/Teams.service";
+import { getTeamSectors } from "@/services/rest/Teams.service";
 
 // SERVICES //
 import { getPageSeo } from "@/services/rest/Seo.service";

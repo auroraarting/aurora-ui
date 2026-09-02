@@ -21,13 +21,13 @@ import LifeAtAuroraWrap from "@/sections/careers/LifeAtAuroraWrap";
 // DATA //
 
 // SERVICES //
-import { getLifeAtAurora } from "@/services/Careers.service";
+import { getLifeAtAurora } from "@/services/rest/Careers.service";
 import { getFetchJobData } from "@/services/JobOpenings.service";
 import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import { getOffices } from "@/services/Offices.service";
+import { getOffices } from "@/services/rest/Offices.service";
 import { getEarlyCareersListing } from "@/services/EarlyCareers.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 

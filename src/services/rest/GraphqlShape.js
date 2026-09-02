@@ -363,7 +363,13 @@ export const toGlobalId = (id) => Buffer.from(`post:${id}`).toString("base64");
 /** ACF image/file field → the `{ node: … }` wrapper GraphQL returned. */
 export function toMediaNode(field, { withMimeType = false } = {}) {
 	const file = orNull(field);
-	if (!file || typeof file !== "object") return null;
+	if (!file) return null;
+	// An ACF image field set to return "URL" rather than "Array" gives a bare
+	// string; there is no alt text to be had in that case.
+	if (typeof file === "string") {
+		return { node: { altText: "", mediaItemUrl: file } };
+	}
+	if (typeof file !== "object") return null;
 	const url = file.url || file.source_url || null;
 	if (!url) return null;
 	const node = { altText: file.alt ?? "", mediaItemUrl: url };
@@ -416,6 +422,38 @@ export const asList = (res) => (Array.isArray(res) ? res : []);
  *  build, throttles concurrency and retries what Pressable drops. */
 export const rest = (path, { apiID, pageID } = {}) =>
 	RESTAPI(path, { ...GET, apiID, pageID });
+
+// Asks the ACF relation-expansion mu-plugin (cms/aurora-acf-expand.php) to
+// resolve relation ids into objects one level deep, so a page's related posts
+// arrive in the same request instead of one request per relation.
+export const ACF_EXPAND = "_acf_expand=1";
+
+/** An expanded ACF relation → the rows it holds.
+ *
+ *  With the expansion plugin a relation is an array of objects; without it, bare
+ *  ids. Only the expanded form is usable here, so unexpanded values are skipped
+ *  rather than silently rendered as blanks — the caller asked for expansion, and
+ *  a missing plugin should show up as absent data, not wrong data. */
+export function toExpanded(field) {
+	const value = orNull(field);
+	if (!value) return [];
+	const rows = Array.isArray(value) ? value : [value];
+	return rows.filter((row) => row && typeof row === "object" && row.id);
+}
+
+/** An expanded row's title. The plugin uses get_the_title(), which leaves the
+ *  entities WordPress escapes; GraphQL decoded them. Its `content` is left alone,
+ *  because GraphQL kept the entities inside rendered HTML. */
+export const expandedTitle = (row) => orNull(decodeEntities(row?.title ?? null));
+
+/** An expanded row's featured image → the `{ node: … }` wrapper GraphQL used.
+ *  The plugin supplies url and alt together, which is what previously needed a
+ *  separate /media request. */
+export function toExpandedImage(row) {
+	const image = row?.featured_image;
+	if (!image?.url) return null;
+	return { node: { altText: image.alt ?? "", mediaItemUrl: image.url } };
+}
 
 /** One WordPress page with its ACF, by slug or by numeric id — the REST
  *  equivalent of `page(id: …, idType: URI | DATABASE_ID)`. Returns null when the
@@ -486,14 +524,17 @@ export async function loadAll(base, params, { apiID, pageID, maxPages = 20 } = {
 	return items;
 }
 
-/** WPGraphQL ordered terms by name and broke ties by **descending** term id;
- *  REST breaks the same ties ascending. Only equal-name runs are touched, so
- *  REST's own collation for the primary sort is preserved. */
-export function orderTermsLikeGraphql(terms) {
+/** WPGraphQL broke ties on its sort field by **descending** id where REST breaks
+ *  them ascending — true for terms ordered by name and for posts ordered by
+ *  title. Only equal-key runs are touched, so REST's own collation for the
+ *  primary sort is preserved.
+ *
+ *  `keyOf` defaults to a term's `name`; pass an accessor for anything else. */
+export function orderTermsLikeGraphql(terms, keyOf = (item) => item.name) {
 	const ordered = [...terms];
 	for (let start = 0; start < ordered.length; ) {
 		let end = start + 1;
-		while (end < ordered.length && ordered[end].name === ordered[start].name) {
+		while (end < ordered.length && keyOf(ordered[end]) === keyOf(ordered[start])) {
 			end++;
 		}
 		if (end - start > 1) {

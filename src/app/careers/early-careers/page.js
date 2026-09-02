@@ -43,7 +43,8 @@ import {
 	getEarlyCareersPage,
 } from "@/services/EarlyCareers.service";
 import { getInsightsCategories } from "@/services/Insights.service";
-import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
+import { getOffices } from "@/services/rest/Offices.service";
+import { getOfficesByRegions } from "@/services/Offices.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
 export const revalidate = 3600; // Revalidates every 1 hour

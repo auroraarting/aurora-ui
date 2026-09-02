@@ -23,14 +23,14 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getLifeAtAurora } from "@/services/Careers.service";
+import { getLifeAtAurora } from "@/services/rest/Careers.service";
 import { getFetchJobData } from "@/services/JobOpenings.service";
 import {
 	getInsights,
 	getInsightsCategories,
 } from "@/services/Insights.service";
-import { getOurTeamsPage } from "@/services/OurTeams.service";
-import { getOffices } from "@/services/Offices.service";
+import { getOurTeamsPage } from "@/services/rest/OurTeams.service";
+import { getOffices } from "@/services/rest/Offices.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */

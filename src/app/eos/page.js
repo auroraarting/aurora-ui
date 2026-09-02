@@ -23,7 +23,7 @@ import { getMapJsonForAllRegions } from "@/utils";
 
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
-import { getEosPage } from "@/services/Eos.service";
+import { getEosPage } from "@/services/rest/Eos.service";
 import { getBundlesSection } from "@/services/rest/Bundles.service";
 import {
 	getInsights,

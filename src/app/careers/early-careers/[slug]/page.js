@@ -27,7 +27,7 @@ import {
 	getEarlyCareersInside,
 	getEarlyCareersListing,
 } from "@/services/EarlyCareers.service";
-import { getOffices } from "@/services/Offices.service";
+import { getOffices } from "@/services/rest/Offices.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
 // DATA //
