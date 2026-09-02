@@ -745,7 +745,7 @@ export default function Insights({
 					)}
 					{isInsightsBlogsVisible && (
 						<div className={`${styles.insightsItemBox} insightsItemBox`}>
-							<div className={`${styles.titleFlex} pb_20 f_j`}>
+							<div className={`${styles.titleFlex} pb_20 f_j a_center`}>
 								<div className={`${styles.title} `}>
 									<h2 className="text_xl font_primary f_w_s_b color_white ">
 										{insightsTitle}
