@@ -13,6 +13,7 @@ query GetCookies {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:cookies",
 		pageID: "/legal/cookies",
 	});
 	return res;

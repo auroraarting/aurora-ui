@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Podcasts Page */
 export const getPodcasts = async (filterString = "first:9999") => {
@@ -66,6 +67,7 @@ query GetPodcasts {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "podcast",
+		tag: ["podcast", "country", "product", "service", "software"],
 		pageID: "/resources/energy-unplugged",
 	});
 	return res;
@@ -263,6 +265,15 @@ query GetPodcastBy {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "podcast",
+			tag: [
+				entryTag("podcast", slug),
+				"country",
+				"post-speaker",
+				"product",
+				"service",
+				"software",
+				"testimonial",
+			],
 			pageID: `/resources/energy-unplugged/${slug}`,
 		});
 		return res;

@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getProductPage = async (slug) => {
@@ -106,6 +107,7 @@ query GetPageProduct {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: ["page:product", "clients-logo", "product", "testimonial"],
 		pageID: "/products",
 		// taxonomies
 	});
@@ -417,6 +419,14 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "products",
+		tag: [
+			entryTag("product", slug),
+			"category",
+			"clients-logo",
+			"country",
+			"post",
+			"testimonial",
+		],
 		pageID: `/products/${slug}`,
 	});
 	return res;

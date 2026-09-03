@@ -38,6 +38,7 @@ query GetVideosLanding {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:videos-landing", "page:66697"],
 		pageID: "/resources/videos",
 	});
 	return res;
@@ -64,6 +65,7 @@ query GetVideosLandingSocialLinks {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:videos-landing", "page:66697"],
 		pageID: "/resources/videos",
 	});
 	return res;

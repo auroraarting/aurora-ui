@@ -61,6 +61,7 @@ query GetTeamSectors {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "team",
+		tag: ["country", "team", "category", "post"],
 		pageID: "/careers/our-team",
 		// taxonomies
 	});

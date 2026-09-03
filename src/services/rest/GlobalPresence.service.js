@@ -30,6 +30,7 @@ import {
 	wpautop,
 	PER_PAGE,
 } from "./GraphqlShape";
+import { restTag } from "../CacheTags";
 
 const PAGE_ID = "/global-presence";
 const API_ID = "country-regions";
@@ -44,7 +45,10 @@ const MARKER_TYPES = [
 	{ postType: "services", field: "services" },
 ];
 
-const rest = (path) => restCall(path, { apiID: API_ID, pageID: PAGE_ID });
+/** `tag` names the collection the path reads, so a country save does not drop
+ *  the region list too. */
+const rest = (path, tag) =>
+	restCall(path, { apiID: API_ID, pageID: PAGE_ID, tag });
 
 /** `{ lat, lng }` — ACF stores both as strings and GraphQL passed them through. */
 function toLatLng(point) {
@@ -137,6 +141,7 @@ async function loadMarkerTargets(ids) {
 		MARKER_TYPES.map(({ postType }) =>
 			loadByIds(postType, unique, "id,slug,title,content,acf.map", {
 				apiID: postType,
+				tag: restTag(postType),
 				pageID: PAGE_ID,
 			}),
 		),
@@ -156,7 +161,7 @@ async function loadMarkerTargets(ids) {
 export const getRegions = async () => {
 	// Regions come back ordered by name, which is what the GraphQL connection did.
 	const regions = asList(
-		await rest(`/region?per_page=${PER_PAGE}&_fields=id,name,slug`),
+		await rest(`/region?per_page=${PER_PAGE}&_fields=id,name,slug`, "region"),
 	);
 
 	// Each region's countries, ordered by title the way the query asked.
@@ -165,6 +170,7 @@ export const getRegions = async () => {
 			rest(
 				`/country?region=${region.id}&orderby=title&order=asc&per_page=${PER_PAGE}` +
 					"&_fields=id,slug,title,content,featured_media,acf",
+				"country",
 			).then(asList),
 		),
 	);
@@ -186,6 +192,7 @@ export const getRegions = async () => {
 		loadMarkerTargets(markerIds),
 		loadByIds("media", mediaIds, "id,source_url,alt_text", {
 			apiID: "media",
+			tag: "media",
 			pageID: PAGE_ID,
 		}),
 	]);

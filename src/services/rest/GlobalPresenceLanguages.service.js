@@ -26,6 +26,7 @@ export const getAllLanguages = async () => {
 	try {
 		res = await restNamespaced(NAMESPACE, "/languages", {
 			apiID: "common",
+			tag: "language",
 			pageID: PAGE_ID,
 		});
 	} catch (error) {

@@ -42,6 +42,7 @@ import {
 	toSlug,
 	wpautop,
 } from "./GraphqlShape";
+import { entryTag, restTag } from "../CacheTags";
 
 const PAGE_ID = "/software";
 
@@ -54,7 +55,10 @@ const TESTIMONIAL_FIELDS = "id,title,content,acf.designation";
 const POST_FIELDS =
 	"id,slug,title,date,content,featured_media,categories,acf.time";
 
-const rest = (path, apiID) => restCall(path, { apiID, pageID: PAGE_ID });
+/** `tag` defaults to the collection the path reads; single-entry calls pass
+ *  their own so one software's save does not drop every software page. */
+const rest = (path, apiID, tag) =>
+	restCall(path, { apiID, pageID: PAGE_ID, tag: tag ?? restTag(apiID) });
 
 const byIds = (base, ids, fields) =>
 	loadByIds(base, ids, fields, { pageID: PAGE_ID });
@@ -108,7 +112,7 @@ async function loadContext(
 			? loadAll(
 					"categories",
 					`include=${[...new Set(categoryIds)].join(",")}&_fields=id,slug,name${t}`,
-					{ apiID: "categories", pageID: PAGE_ID },
+					{ apiID: "categories", tag: "category", pageID: PAGE_ID },
 				).then((rows) => new Map(rows.map((row) => [row.id, row])))
 			: Promise.resolve(new Map()),
 	]);
@@ -145,7 +149,7 @@ async function loadContext(
 				"media",
 				ids,
 				"id,source_url,alt_text",
-				{ apiID: "media", pageID: PAGE_ID, language: code },
+				{ apiID: "media", tag: "media", pageID: PAGE_ID, language: code },
 			);
 			for (const [id, row] of found) media.set(id, row);
 		}),
@@ -189,6 +193,7 @@ async function loadTranslated(rows, base, fields) {
 		[...idsByLanguage].map(async ([code, ids]) => {
 			const found = await loadByIds(base, ids, fields, {
 				apiID: base,
+				tag: restTag(base),
 				pageID: PAGE_ID,
 				language: code,
 			});
@@ -689,6 +694,7 @@ export const getALLSoftware = async (slug) => {
 	const res = await RESTAPI("/softwares", {
 		...GET,
 		apiID: "softwares",
+		tag: "software",
 		pageID: `/software/${slug}`,
 	});
 	return res;
@@ -698,7 +704,11 @@ export const getALLSoftware = async (slug) => {
  *  and client-proof blocks of every software. */
 export const getSoftwarePage = async () => {
 	const [pageRes, softwaresRes] = await Promise.all([
-		rest("/pages?slug=software&_fields=id,slug,title,acf", "pages"),
+		rest(
+			"/pages?slug=software&_fields=id,slug,title,acf",
+			"pages",
+			"page:software",
+		),
 		rest(
 			`/softwares?per_page=${PER_PAGE}&_fields=${SOFTWARE_FIELDS}`,
 			"softwares",
@@ -743,7 +753,7 @@ async function getCountries({ withTranslations = false } = {}) {
 	const rows = await loadAll(
 		"country",
 		`orderby=title&order=asc&_fields=id,slug,title${withTranslations ? ",translations" : ""}`,
-		{ apiID: "country", pageID: PAGE_ID },
+		{ apiID: "country", tag: "country", pageID: PAGE_ID },
 	);
 
 	if (!withTranslations) {
@@ -783,6 +793,7 @@ export const getSingleSoftware = async (slug) => {
 			await rest(
 				`/softwares?slug=${encodeURIComponent(decoded)}&_fields=${SOFTWARE_FIELDS},translations`,
 				"softwares",
+				entryTag("software", decoded),
 			),
 		)[0] || null;
 
@@ -822,6 +833,7 @@ export const getSingleSoftwareByLanguage = async (slug, language) => {
 			await rest(
 				`/softwares?slug=${encodeURIComponent(decoded)}&_fields=${SOFTWARE_FIELDS},translations`,
 				"softwares",
+				entryTag("software", decoded),
 			),
 		)[0] || null;
 
@@ -845,7 +857,7 @@ export const getSingleSoftwareByLanguage = async (slug, language) => {
 				.filter((other) => other.language?.code === code)
 				.map((other) => other.id),
 			SOFTWARE_FIELDS,
-			{ apiID: "softwares", pageID: PAGE_ID, language: code },
+			{ apiID: "softwares", tag: "software", pageID: PAGE_ID, language: code },
 		);
 		const translatedCtx = await loadContext(
 			[...rows.values()].map((row) => row.acf),

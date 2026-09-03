@@ -16,6 +16,7 @@ query GetContact {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:contact",
 		pageID: "/company/contact",
 	});
 	return res;

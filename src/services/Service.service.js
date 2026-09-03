@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getServiceData = async (slug) => {
@@ -251,6 +252,14 @@ query GetProductBySlug {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "services",
+		tag: [
+			entryTag("service", slug),
+			"category",
+			"clients-logo",
+			"country",
+			"post",
+			"testimonial",
+		],
 		pageID: `/service/${slug}`,
 		// taxonomies
 	});
@@ -271,6 +280,7 @@ query GetProductBySlug {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "services",
+		tag: "service",
 		pageID: `/service/${slug}`,
 	});
 	return res;

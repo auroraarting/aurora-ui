@@ -241,6 +241,7 @@ async function getTerms(taxonomy) {
 		const res = await RESTAPI(`/${taxonomy}?per_page=100`, {
 			method: "GET",
 			apiID: taxonomy,
+			tag: taxonomy,
 			pageID: `/${SLUG}`,
 		});
 		const list = Array.isArray(res) ? res : [];
@@ -265,6 +266,7 @@ export const getBatteryBenchmarkPage = async () => {
 			RESTAPI(`/pages?slug=${SLUG}`, {
 				method: "GET",
 				apiID: "pages",
+				tag: `page:${SLUG}`,
 				pageID: `/${SLUG}`,
 			}),
 			getTerms(SECTION_TAXONOMY),

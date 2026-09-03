@@ -1,6 +1,7 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import GraphQLAPI from "./Graphql.service";
 import { GraphQLAPILongerRevalidate } from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Regions Data */
 export const getRegions = async () => {
@@ -116,6 +117,7 @@ export const getRegions = async () => {
 	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
+		tag: ["region", "country", "product", "service", "software"],
 		pageID: "/global-presence",
 	});
 	return res;
@@ -136,6 +138,7 @@ export const getGlobalPresencePage = async () => {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:global-presence",
 		pageID: "/global-presence",
 	});
 	return res;
@@ -930,6 +933,18 @@ export const getCountryInside = async (slug, language) => {
   `;
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
+		tag: [
+			entryTag("country", slug),
+			"category",
+			"clients-logo",
+			"event",
+			"post",
+			"product",
+			"service",
+			"software",
+			"team",
+			"testimonial",
+		],
 		pageID: `/global-presence/${slug}/${language}`,
 	});
 	return res;
@@ -952,6 +967,7 @@ export const getAllLanguages = async () => {
 	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "language",
 		pageID: "/common",
 	});
 	return res;

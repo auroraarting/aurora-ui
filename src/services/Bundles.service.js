@@ -50,6 +50,10 @@ query BundlesPage {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/page" });
+	const res = await GraphQLAPI(query, {
+		apiID: "page",
+		tag: "page:bundles",
+		pageID: "/page",
+	});
 	return res;
 };

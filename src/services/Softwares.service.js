@@ -1,5 +1,17 @@
 import { count } from "console";
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
+
+/** The relations a single software page renders alongside the software itself:
+ *  the country list, its client logos and testimonials, and the case studies /
+ *  insights it links to (with their categories). */
+const SOFTWARE_TAGS = [
+	"country",
+	"clients-logo",
+	"testimonial",
+	"post",
+	"category",
+];
 
 /** Fetch Page */
 export const getSingleSoftware = async (slug) => {
@@ -375,6 +387,7 @@ query GetProductBySlug2 {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "softwares",
+		tag: [entryTag("software", slug), ...SOFTWARE_TAGS],
 		pageID: `/software/${slug}`,
 		// taxonomies
 	});
@@ -485,6 +498,7 @@ query GetPageSoftwares {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: ["page:software", "clients-logo", "software", "testimonial"],
 		pageID: "/software",
 	});
 	return res;
@@ -1315,6 +1329,7 @@ query GetProductBySlug2 {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "softwares",
+		tag: [entryTag("software", slug), ...SOFTWARE_TAGS],
 		pageID: `/software/${slug}/${language}`,
 		// taxonomies
 	});
