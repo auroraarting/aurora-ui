@@ -44,7 +44,6 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {

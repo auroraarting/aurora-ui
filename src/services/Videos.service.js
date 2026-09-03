@@ -1,5 +1,6 @@
 import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch All Videos */
 export const getAllVideos = async (filters = "first:9999") => {
@@ -58,6 +59,7 @@ query GetVideosListing {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "video",
+		tag: ["video", "country", "page", "product", "software"],
 		pageID: "/resources/videos",
 	});
 	return res;
@@ -97,6 +99,7 @@ query GetPreviousVideos {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "previousVideos",
+		tag: ["video", "country"],
 		pageID: "/resources/videos",
 	});
 
@@ -342,6 +345,15 @@ query GetPodcastBy {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "videos",
+			tag: [
+				entryTag("video", slug),
+				"country",
+				"post-speaker",
+				"product",
+				"service",
+				"software",
+				"testimonial",
+			],
 			pageID: `/resources/videos`,
 		});
 		return res;

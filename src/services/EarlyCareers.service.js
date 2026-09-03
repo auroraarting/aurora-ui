@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** About Page */
 export const getEarlyCareersPage = async () => {
@@ -112,6 +113,7 @@ query GetEarlyCareersLanding {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:early-careers-landing", "program"],
 		pageID: "/early-careers",
 	});
 	return res;
@@ -161,6 +163,7 @@ query GetEarlyCareersListing2 {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "early-career",
+		tag: ["early-career", "country", "program"],
 		pageID: "/early-careers",
 	});
 	return res;
@@ -353,6 +356,7 @@ query GetCareers {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "early-career",
+		tag: [entryTag("early-career", slug), "country"],
 		pageID: `/early-careers/${slug}`,
 	});
 	return res;
@@ -413,6 +417,7 @@ export const getEarlyCareersListingByRegions = async (
   `;
 	const res = await GraphQLAPI(query, {
 		apiID: "early-career-regions-3",
+		tag: ["region", "country", "early-career", "program"],
 		pageID: "/early-careers",
 	});
 	return res;

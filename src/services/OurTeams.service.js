@@ -71,6 +71,7 @@ query OurTeamPage {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:our-team", "team"],
 		pageID: "/careers/our-team",
 	});
 	return res;

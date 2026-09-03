@@ -51,7 +51,6 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** JoinUs Page */
 export default async function JoinUs() {

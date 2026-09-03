@@ -17,6 +17,7 @@ status
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "seo",
 		pageID: "/common",
 		// taxonomies
 	});

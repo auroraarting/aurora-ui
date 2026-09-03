@@ -37,7 +37,6 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
 import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {

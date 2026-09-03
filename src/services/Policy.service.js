@@ -13,6 +13,7 @@ query GetPolicy {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:policies-and-compliance",
 		pageID: "/policies-and-compliance",
 	});
 	return res;

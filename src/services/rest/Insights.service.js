@@ -35,6 +35,7 @@ import {
 	wpautop,
 	PER_PAGE,
 } from "./GraphqlShape";
+import { restTag } from "../CacheTags";
 
 const PAGE_ID = "/resources/aurora-insights";
 
@@ -43,6 +44,7 @@ const PAGE_ID = "/resources/aurora-insights";
 async function getTerms(taxonomy) {
 	const terms = await loadAll(taxonomy, "_fields=id,name,slug", {
 		apiID: taxonomy,
+		tag: restTag(taxonomy),
 		pageID: PAGE_ID,
 	});
 	return toConnection(
@@ -60,7 +62,7 @@ async function getPostTypeTitles(postType, { orderBy = "", keyOrder } = {}) {
 	const rows = await loadAll(
 		postType,
 		`${orderBy}_fields=id,title,slug`.replace(/^&/, ""),
-		{ apiID: postType, pageID: PAGE_ID },
+		{ apiID: postType, tag: restTag(postType), pageID: PAGE_ID },
 	);
 	return toConnection(
 		rows.map((row) =>
@@ -322,6 +324,7 @@ async function loadTranslated(items, base, fields, pageID) {
 			// The translated items only exist in their own language context.
 			const rows = await loadByIds(base, ids, fields, {
 				apiID: base,
+				tag: restTag(base),
 				pageID,
 				language: code,
 			});
@@ -356,7 +359,7 @@ export const getInsights = async ({
 		const terms = asList(
 			await rest(
 				`/categories?slug=${categorySlugs.join(",")}&per_page=${PER_PAGE}&_fields=id,slug`,
-				{ apiID: "categories", pageID: PAGE_ID },
+				{ apiID: "categories", tag: "category", pageID: PAGE_ID },
 			),
 		);
 		// None of the slugs exist — no posts can match.
@@ -371,7 +374,7 @@ export const getInsights = async ({
 		const rows = asList(
 			await rest(
 				`/posts?per_page=${perPage}&page=${page}${categoryFilter}&_fields=${POST_FIELDS}`,
-				{ apiID: "post", pageID: PAGE_ID },
+				{ apiID: "post", tag: "post", pageID: PAGE_ID },
 			),
 		);
 		posts.push(...rows);

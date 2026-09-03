@@ -1,4 +1,20 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
+
+/** Everything a full insight selection reaches: the post itself, its taxonomies
+ *  and every ACF relation on it (authors, speakers, testimonials and the
+ *  products / services / software a post is filed under). */
+const POST_TAGS = [
+	"post",
+	"category",
+	"post-tag",
+	"post-author",
+	"post-speaker",
+	"testimonial",
+	"product",
+	"service",
+	"software",
+];
 
 /** Insights Page */
 export const getInsights = async (filterString = "first:9999") => {
@@ -304,6 +320,7 @@ query GetInsights {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "post",
+		tag: POST_TAGS,
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -629,6 +646,7 @@ query GetInsights {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "post-translations",
+		tag: POST_TAGS,
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -649,6 +667,7 @@ query GetInsights {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "post",
+		tag: "post",
 		pageID: "/resources/aurora-insights",
 	});
 	return res;
@@ -698,6 +717,7 @@ query GetInsightsDropDowns {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: ["post-tag", "category", "country", "product", "software", "service"],
 		pageID: "/resources/aurora-insights",
 		// taxonomies
 	});
@@ -1022,6 +1042,8 @@ query GetInsightsInside {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "post",
+			// The entry itself, plus the related-article list the page renders.
+			tag: [entryTag("post", slug), ...POST_TAGS],
 			pageID: `/resources/aurora-insights/${slug}`,
 		});
 		return res;

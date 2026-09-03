@@ -69,6 +69,7 @@ query GetOffices {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
+		tag: ["region", "country", "office"],
 		pageID: "/common",
 		// taxonomies
 	});
@@ -102,6 +103,7 @@ query GetOffices {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "offices",
+		tag: "office",
 		pageID: "/careers",
 	});
 	return res;

@@ -1,6 +1,8 @@
 import Bottleneck from "bottleneck";
+import { AsyncResource } from "node:async_hooks";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import { proxyMediaUrl } from "@/utils";
+import { toCacheTags } from "./CacheTags";
 
 // Limits concurrent outbound calls to WordPress during builds. Kept gentle
 // because Pressable is slow and throttles under load — fewer parallel calls and
@@ -9,14 +11,8 @@ const limiter = new Bottleneck({ maxConcurrent: 4, minTime: 300 });
 
 // Build-time in-process cache: identical queries during `next build` hit the
 // network once — e.g. getInsightsCategories called per-page resolves from cache.
+// Only populated during a build; see cachedSchedule below for why.
 const buildCache = new Map();
-
-const refreshInterval = 3600;
-
-// Max extra seconds added on top of refreshInterval to stagger revalidations.
-// Without this, every query expires at the same moment (worst case: right after
-// a deploy, when all pages are built together) and stampedes WordPress at once.
-const jitterWindow = 1800;
 
 // Abort a WordPress request that takes longer than this, so a hanging upstream
 // can't stall a background revalidation indefinitely. Set well above the
@@ -33,23 +29,44 @@ const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
 /** Resolve after `ms` milliseconds. @param {number} ms */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-/** Stable per-query TTL in [refreshInterval, refreshInterval + jitterWindow).
- *  Same query always gets the same TTL, so cache entries aren't fragmented,
- *  but different queries expire at spread-out times. */
-function revalidateFor(query) {
-	let hash = 0;
-	for (let i = 0; i < query.length; i++) {
-		hash = (hash * 31 + query.charCodeAt(i)) | 0;
-	}
-	return refreshInterval + (Math.abs(hash) % jitterWindow);
-}
+// There is no time-based revalidation. Every response is cached indefinitely
+// (`cache: "force-cache"` plus `revalidate: false`) and leaves the cache only
+// when POST /api/revalidate flushes one of its tags. Both are stated
+// explicitly because these requests carry an Authorization header, which Next
+// treats as a signal not to cache unless a cache config says otherwise.
+//
+// The consequence: a tag that no query carries, or a webhook that never fires,
+// means content stays stale until the next deploy. There is no timer to fall
+// back on, so a change to the tag vocabulary has to be matched on the
+// WordPress side (see services/CacheTags.js).
+
+// The memo below is build-only. It is a permanent promise cache, and it sits in
+// *front* of Next's Data Cache — so in a long-lived server process a query
+// would resolve once and never run again, leaving both the TTL and
+// revalidateTag() with no visible effect (the webhook answers 200, the page
+// rebuilds with the old data). At runtime Next already de-duplicates identical
+// fetches within a render, so dropping the memo there costs nothing.
+const isBuild = process.env.NEXT_PHASE === "phase-production-build";
+
+// Bottleneck runs a queued job from whichever async context happened to drain
+// the queue — the *previous* job's, not the caller's. Next.js keeps its render
+// store in an AsyncLocalStorage, so an unbound job either sees another page's
+// store or none at all, and `next: { tags }` is then recorded against the wrong
+// route (or dropped entirely, because patch-fetch falls straight through to the
+// unpatched fetch when there is no store). The pages still render, so nothing
+// looks broken — but their prerendered HTML carries the wrong tags and
+// revalidateTag() never matches it. AsyncResource.bind pins each job to the
+// context that scheduled it.
+/** @param {() => Promise<any>} fn */
+const schedule = (fn) => limiter.schedule(AsyncResource.bind(fn));
 
 /** @param {string} key @param {() => Promise<any>} fn */
 function cachedSchedule(key, fn) {
+	if (!isBuild) return schedule(fn);
 	if (buildCache.has(key)) return buildCache.get(key);
 	// Evict on failure so a single failed fetch isn't cached and replayed to
 	// every later caller — the next request gets a fresh attempt instead.
-	const p = limiter.schedule(fn).catch((err) => {
+	const p = schedule(fn).catch((err) => {
 		buildCache.delete(key);
 		throw err;
 	});
@@ -77,16 +94,21 @@ function proxyAllMediaUrls(obj) {
 
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
- *  Runtime cache: Next.js ISR revalidates every 1 hour.
+ *  Runtime cache: held indefinitely, flushed by tag on demand.
  *  dataObj param is accepted but mostly unused — kept so callers need no
- *  changes. Only `method` is read from it, so read-only endpoints (wp/v2/pages
+ *  changes. `method` is read from it, so read-only endpoints (wp/v2/pages
  *  and friends, which reject POST with a 401) can ask for GET, plus `baseUrl`
  *  for the few routes that live outside the wp/v2 namespace REST_API_URL points
- *  at (see wpJsonNamespace in services/rest/GraphqlShape.js).
+ *  at (see wpJsonNamespace in services/rest/GraphqlShape.js), and `tag` — the
+ *  cache tags this response can be revalidated by on demand (see
+ *  services/CacheTags.js). `apiID` and `pageID` are ignored.
+ *  @param {string} query
+ *  @param {{ method?: string, baseUrl?: string, tag?: string|string[] }} [dataObj]
  */
 export default async function RESTAPI(query, dataObj = {}) {
 	const method = dataObj?.method || ServerHeaders.method;
 	const baseUrl = dataObj?.baseUrl || process.env.REST_API_URL;
+	const tags = toCacheTags(dataObj?.tag);
 	return cachedSchedule(`direct:${method}:${baseUrl}${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -95,7 +117,8 @@ export default async function RESTAPI(query, dataObj = {}) {
 					...ServerHeaders,
 					method,
 					signal: AbortSignal.timeout(requestTimeoutMs),
-					next: { revalidate: revalidateFor(query) },
+					cache: "force-cache",
+					next: { revalidate: false, tags },
 				});
 				if (!req.ok) {
 					throw new Error(

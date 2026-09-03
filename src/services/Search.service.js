@@ -1,6 +1,29 @@
 import { allCategories, isCategory } from "@/utils";
 import GraphQLAPI from "./Graphql.service";
 
+/** Search spans every searchable type at once, so its cached results go stale
+ *  on a save to any of them. */
+const SEARCH_TAGS = [
+	"software",
+	"product",
+	"service",
+	"region",
+	"country",
+	"who-are-you",
+	"how-we-help",
+	"webinar",
+	"office",
+	"page",
+	"team-sector",
+	"team",
+	"testimonial",
+	"post",
+	"category",
+	"event",
+	"early-career",
+	"podcast",
+];
+
 /** Search Data  */
 export async function searchData(searchTerm) {
 	const combinedQuery = `
@@ -170,6 +193,7 @@ export async function searchData(searchTerm) {
     `;
 	const { data } = await GraphQLAPI(combinedQuery, {
 		apiID: "common",
+		tag: SEARCH_TAGS,
 		pageID: "/common",
 	});
 

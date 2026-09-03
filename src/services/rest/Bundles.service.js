@@ -77,6 +77,7 @@ function mapTabs(field) {
 export const getBundlesSection = async () => {
 	const res = await rest("/pages?slug=bundles&_fields=id,acf", {
 		apiID: "page",
+		tag: "page:bundles",
 		pageID: PAGE_ID,
 	});
 	const pageRow = asList(res)[0] || null;
