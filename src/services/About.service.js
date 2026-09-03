@@ -254,5 +254,6 @@ query GetAbout {
 		],
 		pageID: "/about",
 	});
+
 	return res;
 };
