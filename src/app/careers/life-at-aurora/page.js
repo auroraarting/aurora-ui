@@ -53,7 +53,6 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {

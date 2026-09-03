@@ -30,7 +30,6 @@ import {
 } from "@/services/rest/BatteryBenchmark.service";
 import { getBatteryBenchmarkPage } from "@/services/rest/BatteryBenchmarkPage.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata */
 export async function generateMetadata() {

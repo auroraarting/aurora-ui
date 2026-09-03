@@ -54,7 +54,6 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch getStaticProps */
 async function getData() {

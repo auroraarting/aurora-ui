@@ -28,7 +28,6 @@ export const metadata = {
 	},
 };
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Videos Page */
 export default async function Videos() {

@@ -13,13 +13,6 @@ const limiter = new Bottleneck({ maxConcurrent: 4, minTime: 300 });
 // Only populated during a build; see cachedSchedule below for why.
 const buildCache = new Map();
 
-const refreshInterval = 3600;
-
-// Max extra seconds added on top of refreshInterval to stagger revalidations.
-// Without this, every query expires at the same moment (worst case: right after
-// a deploy, when all pages are built together) and stampedes WordPress at once.
-const jitterWindow = 1800;
-
 // Abort a WordPress request that takes longer than this, so a hanging upstream
 // can't stall a background revalidation indefinitely. Set well above the
 // slowest legitimate query (some insights queries take ~15s) so this only
@@ -35,16 +28,16 @@ const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
 /** Resolve after `ms` milliseconds. @param {number} ms */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-/** Stable per-query TTL in [refreshInterval, refreshInterval + jitterWindow).
- *  Same query always gets the same TTL, so cache entries aren't fragmented,
- *  but different queries expire at spread-out times. */
-function revalidateFor(query) {
-	let hash = 0;
-	for (let i = 0; i < query.length; i++) {
-		hash = (hash * 31 + query.charCodeAt(i)) | 0;
-	}
-	return refreshInterval + (Math.abs(hash) % jitterWindow);
-}
+// There is no time-based revalidation. Every response is cached indefinitely
+// (`cache: "force-cache"` plus `revalidate: false`) and leaves the cache only
+// when POST /api/revalidate flushes one of its tags. Both are stated
+// explicitly because these requests carry an Authorization header, which Next
+// treats as a signal not to cache unless a cache config says otherwise.
+//
+// The consequence: a tag that no query carries, or a webhook that never fires,
+// means content stays stale until the next deploy. There is no timer to fall
+// back on, so a change to the tag vocabulary has to be matched on the
+// WordPress side (see services/CacheTags.js).
 
 // The memo below is build-only. It is a permanent promise cache, and it sits in
 // *front* of Next's Data Cache — so in a long-lived server process a query
@@ -88,7 +81,7 @@ function proxyAllMediaUrls(obj) {
 
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
- *  Runtime cache: Next.js ISR revalidates every 1 hour.
+ *  Runtime cache: held indefinitely, flushed by tag on demand.
  *  dataObj param is accepted but mostly unused — kept so callers need no
  *  changes. `method` is read from it, so read-only endpoints (wp/v2/pages
  *  and friends, which reject POST with a 401) can ask for GET, plus `baseUrl`
@@ -111,7 +104,8 @@ export default async function RESTAPI(query, dataObj = {}) {
 					...ServerHeaders,
 					method,
 					signal: AbortSignal.timeout(requestTimeoutMs),
-					next: { revalidate: revalidateFor(query), tags },
+					cache: "force-cache",
+					next: { revalidate: false, tags },
 				});
 				if (!req.ok) {
 					throw new Error(

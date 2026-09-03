@@ -15,7 +15,13 @@ import InsightsInsideWrap from "@/sections/resources/aurora-insights/InsightsIns
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
+import {
+	allCategories,
+	dynamicInsightsBtnProps,
+	isCategory,
+	OpenIframePopup,
+	slugify,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
@@ -32,7 +38,6 @@ import {
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -68,22 +73,40 @@ export async function generateMetadata({ params }) {
 	};
 }
 
-/** generateStaticParams  */
+/** generateStaticParams
+ *
+ *  The route has two dynamic segments, so both have to be returned. This used
+ *  to return `{ slug }` alone — with `slug2` missing, Next silently prerendered
+ *  *nothing* for this route (the build passes, prerender-manifest lists no
+ *  routes) and every article rendered on demand on its first visit.
+ *
+ *  `slug` is the category segment and is built with the same
+ *  `slugify(isCategory(...))` pair the links use (see InsightsListing.js and
+ *  components/Insights.js) — reused rather than reimplemented, so a prebuilt
+ *  path always matches the URL that is linked to. Posts matching none of the
+ *  known categories have no linkable category segment, so they are skipped. */
 export async function generateStaticParams() {
 	const data = await getInsights(
 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
-	return data?.data?.posts?.nodes.map((item) => ({
-		slug: item.slug,
-	}));
+	return (data?.data?.posts?.nodes || [])
+		.map((item) => ({
+			slug: slugify(isCategory(allCategories, item?.categories?.nodes, true)),
+			slug2: item?.slug,
+		}))
+		.filter((params) => params.slug && params.slug2);
 }
 
 /** Fetch  */
 async function getData({ params }) {
 	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
+	// `list` only ever supplies the three "other insights" cards below the
+	// article. It used to ask for `first: 9999` — 747KB and 7.3s from the CMS —
+	// and then slice(0, 3). Four are fetched so that three remain after the
+	// article itself is dropped from its own related list.
 	const [data, list, categoriesForSelect] = await Promise.all([
 		await getInsightsInside(params.slug2),
-		await getInsights(`first: 9999, where: {categoryName: "${resourceCat}"}`),
+		await getInsights(`first: 4, where: {categoryName: "${resourceCat}"}`),
 		await getInsightsCategories(),
 	]);
 
@@ -92,7 +115,10 @@ async function getData({ params }) {
 		notFound(); // shows Next.js 404 page
 	}
 
-	const otherList = list?.data?.posts?.nodes?.slice(0, 3) || [];
+	const otherList =
+		list?.data?.posts?.nodes
+			?.filter((item) => item?.slug !== params.slug2)
+			?.slice(0, 3) || [];
 	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	return {
 		props: {
