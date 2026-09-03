@@ -1,4 +1,5 @@
 import Bottleneck from "bottleneck";
+import { AsyncResource } from "node:async_hooks";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import { proxyMediaUrl } from "@/utils";
 import { toCacheTags } from "./CacheTags";
@@ -47,13 +48,25 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // fetches within a render, so dropping the memo there costs nothing.
 const isBuild = process.env.NEXT_PHASE === "phase-production-build";
 
+// Bottleneck runs a queued job from whichever async context happened to drain
+// the queue — the *previous* job's, not the caller's. Next.js keeps its render
+// store in an AsyncLocalStorage, so an unbound job either sees another page's
+// store or none at all, and `next: { tags }` is then recorded against the wrong
+// route (or dropped entirely, because patch-fetch falls straight through to the
+// unpatched fetch when there is no store). The pages still render, so nothing
+// looks broken — but their prerendered HTML carries the wrong tags and
+// revalidateTag() never matches it. AsyncResource.bind pins each job to the
+// context that scheduled it.
+/** @param {() => Promise<any>} fn */
+const schedule = (fn) => limiter.schedule(AsyncResource.bind(fn));
+
 /** @param {string} key @param {() => Promise<any>} fn */
 function cachedSchedule(key, fn) {
-	if (!isBuild) return limiter.schedule(fn);
+	if (!isBuild) return schedule(fn);
 	if (buildCache.has(key)) return buildCache.get(key);
 	// Evict on failure so a single failed fetch isn't cached and replayed to
 	// every later caller — the next request gets a fresh attempt instead.
-	const p = limiter.schedule(fn).catch((err) => {
+	const p = schedule(fn).catch((err) => {
 		buildCache.delete(key);
 		throw err;
 	});
