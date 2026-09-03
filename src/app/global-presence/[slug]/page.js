@@ -75,9 +75,12 @@ export async function generateStaticParams() {
 }
 
 /** Fetch  */
-async function getData({ params, query }) {
-	const language = query.language;
-	// const isJapanese = language === "jp";
+async function getData({ params }) {
+	// No `query` any more: the only thing read off searchParams was
+	// `query.language`, which fed the commented-out `isJapanese` branch below.
+	// Language variants have their own route (/global-presence/[slug]/[language]),
+	// and awaiting searchParams here opted the whole page out of static
+	// rendering — so every visit re-ran all six CMS queries.
 
 	const [
 		insightsRes,
@@ -160,10 +163,9 @@ async function getData({ params, query }) {
 }
 
 /** Australia Page */
-export default async function Australia({ params, searchParams }) {
+export default async function Australia({ params }) {
 	const { slug } = await params;
-	const query = await searchParams;
-	const { props } = await getData({ params: { slug }, query });
+	const { props } = await getData({ params: { slug } });
 
 	return (
 		<div>
