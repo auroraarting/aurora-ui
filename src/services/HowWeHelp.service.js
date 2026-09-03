@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getSingleHowWeHelp = async (slug) => {
@@ -285,6 +286,15 @@ query GetSingleHowWeHelp {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "howwehelp",
+		tag: [
+			entryTag("how-we-help", slug),
+			"clients-logo",
+			"how-we-help",
+			"product",
+			"service",
+			"software",
+			"testimonial",
+		],
 		pageID: `/how-we-help/${slug}`,
 	});
 	return res;
@@ -387,6 +397,7 @@ query GetAllHowWeHelps {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "howwehelp",
+		tag: ["how-we-help", "clients-logo", "testimonial"],
 		pageID: "/how-we-help",
 	});
 	return res;

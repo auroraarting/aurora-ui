@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Webinar  Page */
 export const getWebinarPage = async () => {
@@ -44,6 +45,7 @@ query GetWebinarListing {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:webinar-listing",
 		pageID: "/resources/webinar",
 	});
 	return res;
@@ -141,6 +143,15 @@ query GetWebinars {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "tribe_events",
+		tag: [
+			"webinar",
+			"country",
+			"webinar-category",
+			"product",
+			"service",
+			"software",
+			"webinar-tag",
+		],
 		pageID: "/resources/webinar",
 	});
 	return res;
@@ -318,6 +329,16 @@ query GetWebinarInside {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "tribe_events",
+		tag: [
+			entryTag("webinar", slug),
+			"country",
+			"webinar-category",
+			"post-speaker",
+			"product",
+			"service",
+			"software",
+			"webinar-tag",
+		],
 		pageID: `/resources/webinar/${slug}`,
 	});
 	return res;

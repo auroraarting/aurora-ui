@@ -7,6 +7,7 @@
 // equivalent — none of them are cosmetic.
 
 import RESTAPI from "../Rest.service";
+import { restTag } from "../CacheTags";
 
 // Read-only wp/v2 collections reject POST with a 401, so every call is a GET.
 export const GET = { method: "GET" };
@@ -413,9 +414,10 @@ export const toRelation = (ids, nodes) => (ids.length ? { nodes } : null);
 export const asList = (res) => (Array.isArray(res) ? res : []);
 
 /** One REST call. RESTAPI already de-duplicates identical queries during a
- *  build, throttles concurrency and retries what Pressable drops. */
-export const rest = (path, { apiID, pageID } = {}) =>
-	RESTAPI(path, { ...GET, apiID, pageID });
+ *  build, throttles concurrency and retries what Pressable drops.
+ *  `tag` is the on-demand revalidation key (see services/CacheTags.js). */
+export const rest = (path, { apiID, pageID, tag } = {}) =>
+	RESTAPI(path, { ...GET, apiID, pageID, tag });
 
 /** The base URL for a namespace other than the `wp/v2` one REST_API_URL points
  *  at, e.g. the `aurora/v1` routes the mu-plugins register. */
@@ -423,11 +425,12 @@ export const wpJsonNamespace = (namespace) =>
 	`${String(process.env.REST_API_URL || "").replace(/\/wp\/v2\/?$/, "")}/${namespace}`;
 
 /** One REST call against another namespace. */
-export const restNamespaced = (namespace, path, { apiID, pageID } = {}) =>
+export const restNamespaced = (namespace, path, { apiID, pageID, tag } = {}) =>
 	RESTAPI(path, {
 		...GET,
 		apiID,
 		pageID,
+		tag,
 		baseUrl: wpJsonNamespace(namespace),
 	});
 
@@ -438,7 +441,7 @@ export async function loadByIds(
 	base,
 	ids,
 	fields,
-	{ apiID, pageID, language } = {},
+	{ apiID, pageID, language, tag } = {},
 ) {
 	const unique = [...new Set(ids)];
 	if (!unique.length) return new Map();
@@ -448,19 +451,23 @@ export async function loadByIds(
 	const languageParam = language ? `&${LANG_PARAM}=${language}` : "";
 	const res = await rest(
 		`/${base}?include=${unique.join(",")}&orderby=include&per_page=${PER_PAGE}${languageParam}&_fields=${fields}`,
-		{ apiID: apiID || base, pageID },
+		{ apiID: apiID || base, pageID, tag: tag || restTag(base) },
 	);
 	return new Map(asList(res).map((item) => [item.id, item]));
 }
 
 /** Every page of a collection, for the sets GraphQL asked for in full
  *  (`first: 9999`). Stops as soon as a short page comes back. */
-export async function loadAll(base, params, { apiID, pageID, maxPages = 20 } = {}) {
+export async function loadAll(
+	base,
+	params,
+	{ apiID, pageID, tag, maxPages = 20 } = {},
+) {
 	const items = [];
 	for (let page = 1; page <= maxPages; page++) {
 		const res = await rest(
 			`/${base}?per_page=${PER_PAGE}&page=${page}&${params}`,
-			{ apiID: apiID || base, pageID },
+			{ apiID: apiID || base, pageID, tag: tag || restTag(base) },
 		);
 		const rows = asList(res);
 		items.push(...rows);

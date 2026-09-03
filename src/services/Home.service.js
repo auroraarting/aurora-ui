@@ -1,5 +1,9 @@
 import GraphQLAPI from "./Graphql.service";
 
+/** The three homepage post strips (market reports, case studies, commentary)
+ *  all read the same slice: the post, its taxonomies and its speakers. */
+const HOME_POST_TAGS = ["post", "category", "post-tag", "post-speaker"];
+
 /** Home Page */
 export const getHomePage = async () => {
 	const query = `
@@ -53,6 +57,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:homepage", "country", "clients-logo", "testimonial"],
 		pageID: "/",
 	});
 	return res;
@@ -790,26 +795,40 @@ export const getHomePageVoices = async () => {
 		// }),
 		await GraphQLAPI(pageCaseStudies, {
 			apiID: "post",
+			tag: HOME_POST_TAGS,
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageCommentary, {
 			apiID: "post",
+			tag: HOME_POST_TAGS,
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices1, {
 			apiID: "common",
+			tag: HOME_POST_TAGS,
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices2, {
 			apiID: "common",
+			tag: ["podcast", "country", "product", "service", "software"],
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices3, {
 			apiID: "common",
+			tag: [
+				"webinar",
+				"webinar-tag",
+				"webinar-category",
+				"country",
+				"product",
+				"service",
+				"software",
+			],
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices4, {
 			apiID: "common",
+			tag: ["event", "country", "product", "service", "software"],
 			pageID: "/",
 		}),
 	]);

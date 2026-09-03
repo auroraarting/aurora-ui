@@ -13,6 +13,7 @@ query GetSafeSender {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:add-aurora-as-a-safe-sender",
 		pageID: "/add-aurora-as-a-safe-sender",
 	});
 	return res;

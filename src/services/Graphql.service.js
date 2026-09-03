@@ -1,6 +1,7 @@
 import Bottleneck from "bottleneck";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import { proxyMediaUrl } from "@/utils";
+import { toCacheTags } from "./CacheTags";
 
 // Limits concurrent outbound calls to WordPress during builds. Kept gentle
 // because Pressable is slow and throttles under load — fewer parallel calls and
@@ -9,6 +10,7 @@ const limiter = new Bottleneck({ maxConcurrent: 4, minTime: 300 });
 
 // Build-time in-process cache: identical queries during `next build` hit the
 // network once — e.g. getInsightsCategories called per-page resolves from cache.
+// Only populated during a build; see cachedSchedule below for why.
 const buildCache = new Map();
 
 const refreshInterval = 3600;
@@ -44,8 +46,17 @@ function revalidateFor(query) {
 	return refreshInterval + (Math.abs(hash) % jitterWindow);
 }
 
+// The memo below is build-only. It is a permanent promise cache, and it sits in
+// *front* of Next's Data Cache — so in a long-lived server process a query
+// would resolve once and never run again, leaving both the TTL and
+// revalidateTag() with no visible effect (the webhook answers 200, the page
+// rebuilds with the old data). At runtime Next already de-duplicates identical
+// fetches within a render, so dropping the memo there costs nothing.
+const isBuild = process.env.NEXT_PHASE === "phase-production-build";
+
 /** @param {string} key @param {() => Promise<any>} fn */
 function cachedSchedule(key, fn) {
+	if (!isBuild) return limiter.schedule(fn);
 	if (buildCache.has(key)) return buildCache.get(key);
 	// Evict on failure so a single failed fetch isn't cached and replayed to
 	// every later caller — the next request gets a fresh attempt instead.
@@ -78,9 +89,14 @@ function proxyAllMediaUrls(obj) {
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
  *  Runtime cache: Next.js ISR revalidates every 1 hour.
- *  dataObj param is accepted but unused — kept so callers need no changes.
+ *  Only `tag` is read from dataObj — the cache tags this response can be
+ *  revalidated by on demand (see services/CacheTags.js). `apiID` and `pageID`
+ *  are still accepted and ignored, so callers need no changes.
+ *  @param {string} query
+ *  @param {{ tag?: string|string[] }} [dataObj]
  */
-export default async function GraphQLAPI(query) {
+export default async function GraphQLAPI(query, dataObj = {}) {
+	const tags = toCacheTags(dataObj?.tag);
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -89,7 +105,7 @@ export default async function GraphQLAPI(query) {
 					...ServerHeaders,
 					body: JSON.stringify({ query }),
 					signal: AbortSignal.timeout(requestTimeoutMs),
-					next: { revalidate: revalidateFor(query) },
+					next: { revalidate: revalidateFor(query), tags },
 				});
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);

@@ -13,6 +13,7 @@
 // Yoast supplies the values through `yoast_head_json`.
 
 import { asList, rest } from "./GraphqlShape";
+import { entryTag, restTag } from "../CacheTags";
 
 const PAGE_ID = "/common";
 
@@ -48,7 +49,12 @@ export const getPageSeo = async ({ postType, slug } = {}) => {
 	const res = await rest(
 		`/${postType}?slug=${encodeURIComponent(decodeURIComponent(slug))}` +
 			"&_fields=id,slug,status,yoast_head_json",
-		{ apiID: "common", pageID: PAGE_ID },
+		{
+			apiID: "common",
+			// The entry's own tag, plus "seo" for a Yoast-wide change.
+			tag: ["seo", entryTag(restTag(postType), slug)],
+			pageID: PAGE_ID,
+		},
 	);
 	const row = asList(res)[0] || null;
 
