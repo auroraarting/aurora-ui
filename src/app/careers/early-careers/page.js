@@ -46,7 +46,6 @@ import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata() {

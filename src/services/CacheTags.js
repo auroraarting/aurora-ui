@@ -34,7 +34,7 @@
 // About page selects the page plus its leadership (team), their posts and
 // categories, the client logos and the testimonials — so it carries all seven
 // tags. Miss one and editing a testimonial leaves the About page showing the
-// old text until the TTL expires.
+// old text until the next deploy.
 //
 // The signal for this is the query text: root fields, taxonomy connections
 // (`categories(first:)`, `tags(first:)`) and every `... on Type` inline
@@ -51,7 +51,8 @@
 // who-are-you, insight and country page. That is correct, those pages do render
 // it, but it is the number to look at before widening a tag further, and the
 // reason the hot types are the ones worth pruning first if revalidation
-// traffic becomes a problem.
+// traffic becomes a problem. Pruning trades rebuild traffic for staleness that
+// nothing will now correct on its own.
 
 /** Added to every fetch, so /api/revalidate can flush everything at once. */
 export const GLOBAL_TAG = "alldata";

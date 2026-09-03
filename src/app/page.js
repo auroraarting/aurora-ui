@@ -59,7 +59,6 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Home Page */
 export default async function HomePage() {

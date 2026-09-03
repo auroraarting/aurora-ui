@@ -44,7 +44,13 @@ const MONTH_SHORT = [
 	"Dec",
 ];
 
-/** Shared request for the JSON endpoints */
+/** Shared request for the JSON endpoints.
+ *
+ *  The one place in the app that still revalidates on a timer, deliberately:
+ *  this is the benchmark vendor's API, not WordPress, so no CMS webhook can
+ *  ever flush it and a tag would never be invalidated. Everything sourced from
+ *  WordPress is cached indefinitely and flushed on demand instead — see
+ *  services/CacheTags.js. */
 const RESTAPI = async (query, options) => {
 	const res = await fetch(`${process.env.BATTERY_BENCHMARK_API_URL}${query}`, {
 		method: "GET",

@@ -51,28 +51,24 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch  getStaticProps*/
 async function getData() {
-	// const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
-	// 	getInsights(
-	// 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
-	// 	),
-	// 	getInsightsCategories(),
-	// 	getInsights(
-	// 		'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-	// 	),
-	// 	getInsightsPage(),
-	// ]);
-	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-	);
-	const categoriesForSelect = await getInsightsCategories();
-	const list = await getInsights(
-		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-	);
-	const insightsPage = await getInsightsPage();
+	// Started together rather than one after the other: these four were 28.7s
+	// in series against the CMS, which every visitor paid on the first request
+	// after a revalidation. Outbound concurrency is still capped centrally by
+	// the Bottleneck limiter in services/Graphql.service.js (4 at a time,
+	// 300ms apart), so this cannot flood WordPress.
+	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
+		getInsights(
+			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		),
+		getInsightsCategories(),
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		),
+		getInsightsPage(),
+	]);
 	const otherList = list?.data?.posts?.nodes;
 
 	return {
