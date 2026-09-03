@@ -163,6 +163,62 @@ const TAG_BY_CONTENT_TYPE = {
 	"video-tag": "video-tag",
 };
 
+/** Site-wide tag kept on every SEO query, so `?tag=seo` can flush all of the
+ *  Yoast metadata at once. No webhook emits it — it is a manual escape hatch,
+ *  which is why `tagsForSeoRoot` below also derives the real content tag. */
+export const SEO_TAG = "seo";
+
+/** GraphQL root field -> canonical tag, for `getPageSeo`.
+ *
+ *  Seo.service.js is handed its root field verbatim by the caller
+ *  (`page(id: "about", idType: URI)`, `softwareBy(slug: "chronos")`), so the
+ *  query text is the only place the content type is recorded. Without reading
+ *  it back out, every SEO query would carry nothing but `seo` and no webhook
+ *  could ever refresh a page title or meta description. */
+const TAG_BY_SEO_ROOT = {
+	page: "page",
+	pageBy: "page",
+	post: "post",
+	postBy: "post",
+	country: "country",
+	countryBy: "country",
+	earlyCareerBy: "early-career",
+	howwehelpBy: "how-we-help",
+	whoareyouBy: "who-are-you",
+	podcastBy: "podcast",
+	productBy: "product",
+	serviceBy: "service",
+	softwareBy: "software",
+	eventBy: "event",
+	videoBy: "video",
+	pressBy: "press",
+	webinarBy: "webinar",
+	teamBy: "team",
+	officeBy: "office",
+};
+
+/** Tags for one `getPageSeo` root field. The entry tag alone is used, not the
+ *  bare type: a SEO query reads exactly one entry, and tagging it `page` too
+ *  would rebuild all 26 static pages — every query on them, not just the cheap
+ *  metadata one — every time any page is saved.
+ *
+ *  Both `page(id: "about", idType: URI)` and `softwareBy(slug: "chronos")`
+ *  carry their identifier as the first quoted argument. URIs are reduced to
+ *  their last segment, because that is what WordPress sends as `post_name`.
+ *  @param {string} root @returns {string[]} */
+export function tagsForSeoRoot(root) {
+	const tags = [SEO_TAG];
+	const name = /^\s*([A-Za-z_][\w]*)/.exec(String(root || ""));
+	const tag = name && TAG_BY_SEO_ROOT[name[1]];
+	if (!tag) return tags;
+	const arg = /"([^"]*)"/.exec(String(root));
+	const slug = arg && arg[1].split("/").filter(Boolean).pop();
+	// An unparseable identifier still gets the bare type, so the page is at
+	// least refreshed by a save of something of its kind rather than never.
+	tags.push(slug ? entryTag(tag, slug) : tag);
+	return tags;
+}
+
 /** Types the CMS can save that no page reads — form submissions, editor
  *  internals, WPML plumbing. A webhook for one of these is answered politely
  *  and does nothing, rather than raising the alarm an unknown type raises. */
