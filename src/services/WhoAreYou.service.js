@@ -134,6 +134,7 @@ export const getSingleWhoAreYou = async (slug) => {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "whoareyou",
+		tags: ["whoareyou", decodeURIComponent(slug)],
 		pageID: `/who-are-you/${slug}`,
 	});
 	return res;

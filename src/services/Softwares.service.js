@@ -375,6 +375,7 @@ query GetProductBySlug2 {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "softwares",
+		tags: ["software", decodeURIComponent(slug)],
 		pageID: `/software/${slug}`,
 		// taxonomies
 	});
@@ -484,7 +485,8 @@ query GetPageSoftwares {
 }
       `;
 	const res = await GraphQLAPI(query, {
-		apiID: "common",
+		apiID: "softwares",
+		tags: ["software", "page"],
 		pageID: "/software",
 	});
 	return res;
@@ -1315,6 +1317,7 @@ query GetProductBySlug2 {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "softwares",
+		tags: ["software", decodeURIComponent(slug)],
 		pageID: `/software/${slug}/${language}`,
 		// taxonomies
 	});

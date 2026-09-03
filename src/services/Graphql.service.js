@@ -1,22 +1,27 @@
-import Bottleneck from "bottleneck";
+import { wordpressLimiter } from "./limiter";
 import { ServerHeaders } from "@/utils/RequestHeaders";
+import { cacheTagsFor } from "./cacheTags";
 import { proxyMediaUrl } from "@/utils";
 
-// Limits concurrent outbound calls to WordPress during builds. Kept gentle
-// because Pressable is slow and throttles under load — fewer parallel calls and
-// more spacing between them trades a slower build for far fewer dropped calls.
-const limiter = new Bottleneck({ maxConcurrent: 4, minTime: 300 });
+// Paces outbound calls to WordPress. The queue lives in ./limiter and is shared
+// with the REST service, so the two cannot overlap each other — by default one
+// call is in flight at a time with a pause after each.
+const limiter = wordpressLimiter;
 
 // Build-time in-process cache: identical queries during `next build` hit the
 // network once — e.g. getInsightsCategories called per-page resolves from cache.
 const buildCache = new Map();
 
-const refreshInterval = 3600;
+// Content now refreshes on demand: WordPress calls /api/revalidate with the
+// tags it changed. This is only a safety net for a webhook that never arrives —
+// a day rather than an hour, so a missed hook self-heals without paying for
+// hourly regeneration of every page.
+const refreshInterval = 86400;
 
 // Max extra seconds added on top of refreshInterval to stagger revalidations.
 // Without this, every query expires at the same moment (worst case: right after
 // a deploy, when all pages are built together) and stampedes WordPress at once.
-const jitterWindow = 1800;
+const jitterWindow = 21600;
 
 // Abort a WordPress request that takes longer than this, so a hanging upstream
 // can't stall a background revalidation indefinitely. Set well above the
@@ -77,10 +82,11 @@ function proxyAllMediaUrls(obj) {
 
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
- *  Runtime cache: Next.js ISR revalidates every 1 hour.
- *  dataObj param is accepted but unused — kept so callers need no changes.
+ *  Runtime cache: tag-based, revalidated on demand by the WordPress webhook.
+ *  `dataObj` carries the caller's apiID/tags, which become the fetch's cache
+ *  tags so a WordPress webhook can revalidate exactly the pages that read it.
  */
-export default async function GraphQLAPI(query) {
+export default async function GraphQLAPI(query, dataObj = {}) {
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -89,7 +95,10 @@ export default async function GraphQLAPI(query) {
 					...ServerHeaders,
 					body: JSON.stringify({ query }),
 					signal: AbortSignal.timeout(requestTimeoutMs),
-					next: { revalidate: revalidateFor(query) },
+					next: {
+						revalidate: revalidateFor(query),
+						tags: cacheTagsFor(dataObj),
+					},
 				});
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);

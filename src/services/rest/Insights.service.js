@@ -15,20 +15,22 @@
 // (cms/aurora-wpml-rest-translations.php).
 
 import {
+	ACF_EXPAND,
 	asList,
 	decodeEntities,
+	expandedTitle,
 	imageIdsIn,
-	loadAll,
 	loadByIds,
 	orNull,
 	orderTermsLikeGraphql,
 	renderedHtml,
 	renderedTitle,
 	rest,
+	toEmbeddedImage,
+	toExpanded,
+	restNamespaced,
 	toConnection,
-	toFeaturedImage,
 	toGlobalId,
-	toIds,
 	toMediaNode,
 	toRows,
 	toSlug,
@@ -36,59 +38,60 @@ import {
 	PER_PAGE,
 } from "./GraphqlShape";
 
+const NAMESPACE = "aurora/v1";
 const PAGE_ID = "/resources/aurora-insights";
 
-/** A taxonomy's terms as GraphQL listed them: `{ name, slug }`, ordered by name
- *  with ties broken by descending term id. */
-async function getTerms(taxonomy) {
-	const terms = await loadAll(taxonomy, "_fields=id,name,slug", {
-		apiID: taxonomy,
+/** getInsights Categories — the option lists behind the insights filters.
+ *
+ *  One request. These six lists are independent full collections, not relations,
+ *  so the ACF expansion plugin cannot help: over plain wp/v2 they cost nine
+ *  requests (tags and categories need three and two pages of their own).
+ *  cms/aurora-filter-options.php serves them together, already ordered the way
+ *  the GraphQL query returned them — terms by name with ties broken by
+ *  descending id, countries by title, the rest in WP's default order.
+ *
+ *  Titles and names come back HTML-escaped, as core REST escapes them, so they
+ *  are decoded here the way WPGraphQL decoded them. */
+export const getInsightsCategories = async () => {
+	// One request returning six taxonomies/collections, so its scope needs the
+	// explicit list — a single apiID cannot express it.
+	const options = await restNamespaced(NAMESPACE, "/filter-options", {
+		apiID: "post",
+		tags: ["post", "category", "tag", "product", "service", "software", "country"],
 		pageID: PAGE_ID,
 	});
-	return toConnection(
-		orderTermsLikeGraphql(terms).map((term) => ({
-			name: decodeEntities(term.name),
-			slug: toSlug(term.slug),
-		})),
-	);
-}
 
-/** A post type's entries as `{ title, slug }`. `orderBy` mirrors the ordering
- *  the GraphQL connection used — WP's own default (date, newest first) unless
- *  the query asked for something else. */
-async function getPostTypeTitles(postType, { orderBy = "", keyOrder } = {}) {
-	const rows = await loadAll(
-		postType,
-		`${orderBy}_fields=id,title,slug`.replace(/^&/, ""),
-		{ apiID: postType, pageID: PAGE_ID },
-	);
-	return toConnection(
-		rows.map((row) =>
-			keyOrder === "slugFirst"
-				? { slug: toSlug(row.slug), title: renderedTitle(row.title) }
-				: { title: renderedTitle(row.title), slug: toSlug(row.slug) },
-		),
-	);
-}
-
-/** getInsights Categories — the option lists behind the insights filters. */
-export const getInsightsCategories = async () => {
-	const [tags, categories, countries, products, softwares, services] =
-		await Promise.all([
-			getTerms("tags"),
-			getTerms("categories"),
-			// The only list the GraphQL query ordered explicitly.
-			getPostTypeTitles("country", { orderBy: "orderby=title&order=asc&" }),
-			getPostTypeTitles("products"),
-			getPostTypeTitles("softwares", { keyOrder: "slugFirst" }),
-			getPostTypeTitles("services", { keyOrder: "slugFirst" }),
-		]);
+	// The endpoint returns MySQL's name ordering; equal names still need their
+	// tie broken by descending id, the way WPGraphQL did.
+	const terms = (list) =>
+		toConnection(
+			orderTermsLikeGraphql(asList(list)).map((term) => ({
+				name: decodeEntities(term.name),
+				slug: toSlug(term.slug),
+			})),
+		);
+	/** `slugFirst` mirrors the key order the softwares and services selections
+	 *  used; it makes no difference to consumers, only to a strict diff. */
+	const titles = (list, { slugFirst = false } = {}) =>
+		toConnection(
+			asList(list).map((row) =>
+				slugFirst
+					? { slug: toSlug(row.slug), title: decodeEntities(row.title) }
+					: { title: decodeEntities(row.title), slug: toSlug(row.slug) },
+			),
+		);
 
 	return {
-		data: { tags, categories, countries, products, softwares, services },
+		data: {
+			tags: terms(options?.tags),
+			categories: terms(options?.categories),
+			countries: titles(options?.countries),
+			products: titles(options?.products),
+			softwares: titles(options?.softwares, { slugFirst: true }),
+			services: titles(options?.services, { slugFirst: true }),
+		},
 	};
 };
-
 
 // ---------------------------------------------------------------------------
 // getInsights
@@ -109,8 +112,12 @@ const RELATION_FIELDS = {
 	poweredBy: "id,slug,title,acf.thumbnail.primary_color,acf.map.logo,acf.banner.logo",
 };
 
+// `_embed` folds the post's terms and featured image into the same response, and
+// `_acf_expand` resolves its relations, so a post costs one request rather than
+// six. `_links` has to be requested for `_embed` to work at all.
 const POST_FIELDS =
-	"id,slug,title,date,content,featured_media,categories,tags,acf,translations";
+	"id,slug,title,date,content,acf,translations,_links,_embedded";
+const POST_QUERY = `_embed=wp:term,wp:featuredmedia&${ACF_EXPAND}`;
 
 /** One of the button groups on a post. Unlike the software buttons, the
  *  insights query never selected `url`. */
@@ -144,65 +151,66 @@ function mapPersonThumbnail(acf) {
 
 /** `postFields.authors` / `.speakers`. GraphQL selected `content` on authors
  *  only, and named the ACF wrapper after the post type. */
-function mapPeople(ids, people, { withContent, wrapper }) {
-	if (!ids.length) return null;
-	const nodes = ids
-		.map((id) => people.get(id))
-		.filter(Boolean)
-		.map((person) => ({
-			...(withContent ? { content: renderedHtml(person.content) } : {}),
-			title: renderedTitle(person.title),
+function mapPeople(field, { withContent, wrapper }) {
+	const people = toExpanded(field);
+	if (!people.length) return null;
+	return toConnection(
+		people.map((person) => ({
+			...(withContent ? { content: orNull(person.content) } : {}),
+			title: expandedTitle(person),
 			slug: toSlug(person.slug),
 			[wrapper]: { thumbnail: mapPersonThumbnail(person.acf) },
-		}));
-	return toConnection(nodes);
+		})),
+	);
 }
 
 /** `postFields.poweredBy` — a relation that can land on any of three post
  *  types, which GraphQL resolved through inline fragments. */
-function mapPoweredBy(ids, targets) {
-	if (!ids.length) return null;
-	const nodes = [];
-	for (const id of ids) {
-		const target = targets.get(id);
-		if (!target) continue;
-		const acf = target.row.acf || {};
-		nodes.push({
-			contentType: {
-				node: {
-					id: Buffer.from(`post_type:${target.postType}`).toString("base64"),
-					label: target.label,
-					name: target.postType,
-					uri: null,
+function mapPoweredBy(field) {
+	const targets = toExpanded(field);
+	if (!targets.length) return null;
+	return toConnection(
+		targets.map((target) => {
+			const acf = target.acf || {};
+			return {
+				contentType: {
+					node: {
+						id: Buffer.from(`post_type:${target.type}`).toString("base64"),
+						// The expanded row reports its own post type and label, so
+						// neither needs a /types lookup any more.
+						label: target.type_label,
+						name: target.type,
+						uri: null,
+					},
 				},
-			},
-			id: toGlobalId(target.row.id),
-			title: renderedTitle(target.row.title),
-			slug: toSlug(target.row.slug),
-			[target.field]: {
-				thumbnail: { primaryColor: orNull((acf.thumbnail || {}).primary_color) },
-				banner: { logo: toMediaNode((acf.banner || {}).logo) },
-				map: { logo: toMediaNode((acf.map || {}).logo) },
-			},
-		});
-	}
-	return toConnection(nodes);
+				id: toGlobalId(target.id),
+				title: expandedTitle(target),
+				slug: toSlug(target.slug),
+				[target.type]: {
+					thumbnail: {
+						primaryColor: orNull((acf.thumbnail || {}).primary_color),
+					},
+					banner: { logo: toMediaNode((acf.banner || {}).logo) },
+					map: { logo: toMediaNode((acf.map || {}).logo) },
+				},
+			};
+		}),
+	);
 }
 
 /** `postFields.testimonials`. */
-function mapPostTestimonials(ids, testimonials) {
-	if (!ids.length) return null;
-	const nodes = ids
-		.map((id) => testimonials.get(id))
-		.filter(Boolean)
-		.map((row) => ({
+function mapPostTestimonials(field) {
+	const rows = toExpanded(field);
+	if (!rows.length) return null;
+	return toConnection(
+		rows.map((row) => ({
 			id: toGlobalId(row.id),
-			content: renderedHtml(row.content),
-			title: renderedTitle(row.title),
+			content: orNull(row.content),
+			title: expandedTitle(row),
 			slug: toSlug(row.slug),
 			testimonials: { designation: orNull(row.acf?.designation) },
-		}));
-	return toConnection(nodes);
+		})),
+	);
 }
 
 /** `postFields.sections` — a repeater of prose blocks with their own buttons. */
@@ -232,11 +240,11 @@ function mapPostFields(acf, ctx) {
 		bottomSectionButton: mapPostButton(acf.bottom_section_button),
 		insightsSectionButton: mapPostButton(acf.insights_section_button),
 		time: orNull(acf.time),
-		authors: mapPeople(toIds(acf.authors), ctx.authors, {
+		authors: mapPeople(acf.authors, {
 			withContent: true,
 			wrapper: "postAuthors",
 		}),
-		speakers: mapPeople(toIds(acf.speakers), ctx.speakers, {
+		speakers: mapPeople(acf.speakers, {
 			withContent: false,
 			wrapper: "postSpeakers",
 		}),
@@ -249,11 +257,8 @@ function mapPostFields(acf, ctx) {
 			};
 		})(),
 		podcast: orNull(acf.podcast),
-		poweredBy: mapPoweredBy(toIds(acf.powered_by), ctx.poweredBy),
-		testimonials: mapPostTestimonials(
-			toIds(acf.testimonials),
-			ctx.testimonials,
-		),
+		poweredBy: mapPoweredBy(acf.powered_by),
+		testimonials: mapPostTestimonials(acf.testimonials),
 		recordingSectionButton: mapPostButton(acf.recording_section_button),
 		sections: mapSections(acf.sections, ctx.imageMedia),
 		mediaContact:
@@ -281,27 +286,29 @@ function mapPostFields(acf, ctx) {
 
 /** A post's terms, named from the batched fetch and carrying their WPML
  *  translations. GraphQL ordered them by name. */
-function mapPostTerms(ids, terms, translated, { withTranslations }) {
+function mapPostTerms(terms, { withTranslations }) {
 	const nodes = orderTermsLikeGraphql(
-		(ids || [])
-			.map((id) => terms.get(id))
-			.filter(Boolean)
-			.sort((a, b) => String(a.name).localeCompare(String(b.name))),
-	)
-		.map((term) => {
-			const node = { slug: toSlug(term.slug), name: decodeEntities(term.name) };
-			if (withTranslations) {
-				node.translations = (term.translations || []).map((translation) => {
-					const row = translated.get(translation.id);
-					return {
-						name: row ? decodeEntities(row.name) : null,
-						languageCode: translation.language?.language_code ?? null,
-					};
-				});
-			}
-			return node;
-		});
+		[...terms].sort((a, b) => String(a.name).localeCompare(String(b.name))),
+	).map((term) => {
+		const node = { slug: toSlug(term.slug), name: decodeEntities(term.name) };
+		if (withTranslations) {
+			// The translated name now travels with the translation entry, so
+			// reading it costs no request per language.
+			node.translations = (term.translations || []).map((translation) => ({
+				name: translation.name ? decodeEntities(translation.name) : null,
+				languageCode: translation.language?.language_code ?? null,
+			}));
+		}
+		return node;
+	});
 	return toConnection(nodes);
+}
+
+/** A post's embedded terms for one taxonomy. `_embed` returns them grouped, one
+ *  group per taxonomy, in no guaranteed order. */
+function embeddedTerms(post, taxonomy) {
+	const groups = post._embedded?.["wp:term"] || [];
+	return groups.flat().filter((term) => term?.taxonomy === taxonomy);
 }
 
 /** `translated id -> row` for every translation of the given items, one batched
@@ -370,7 +377,8 @@ export const getInsights = async ({
 		const perPage = Math.min(PER_PAGE, first - posts.length);
 		const rows = asList(
 			await rest(
-				`/posts?per_page=${perPage}&page=${page}${categoryFilter}&_fields=${POST_FIELDS}`,
+				`/posts?per_page=${perPage}&page=${page}${categoryFilter}` +
+					`&_fields=${POST_FIELDS}&${POST_QUERY}`,
 				{ apiID: "post", pageID: PAGE_ID },
 			),
 		);
@@ -378,90 +386,27 @@ export const getInsights = async ({
 		if (rows.length < perPage) break;
 	}
 
-	// Everything the posts reference, batched one call per type.
-	const termIds = [];
-	const tagIds = [];
-	const mediaIds = [];
-	const authorIds = [];
-	const speakerIds = [];
-	const testimonialIds = [];
-	const poweredByIds = [];
-	// Attachments embedded in the WYSIWYG bodies, whose registered sizes decide
-	// the srcset WP would have added.
+	// The one thing still worth a request: registered sizes for images embedded in
+	// the WYSIWYG bodies, which decide the srcset WP would have added. Only fires
+	// when a body actually embeds an image.
 	const embeddedImageIds = [];
 	for (const post of posts) {
-		termIds.push(...(post.categories || []));
-		tagIds.push(...(post.tags || []));
-		if (post.featured_media) mediaIds.push(post.featured_media);
 		const acf = post.acf || {};
-		authorIds.push(...toIds(acf.authors));
-		speakerIds.push(...toIds(acf.speakers));
-		testimonialIds.push(...toIds(acf.testimonials));
-		poweredByIds.push(...toIds(acf.powered_by));
 		for (const section of toRows(acf.sections) || []) {
 			embeddedImageIds.push(...imageIdsIn(section.content));
 		}
 		embeddedImageIds.push(...imageIdsIn(orNull(acf.about)?.content));
 	}
-
-	const [
-		categories,
-		tags,
-		media,
-		authors,
-		speakers,
-		testimonials,
-		poweredByRows,
-		embeddedImages,
-	] = await Promise.all([
-			loadByIds("categories", termIds, "id,slug,name,translations", {
+	const embeddedImages = embeddedImageIds.length
+		? await loadByIds("media", embeddedImageIds, "id,media_details", {
 				pageID: PAGE_ID,
-			}),
-			loadByIds("tags", tagIds, "id,slug,name", { pageID: PAGE_ID }),
-			loadByIds("media", mediaIds, "id,source_url,alt_text", {
-				pageID: PAGE_ID,
-			}),
-			loadByIds("post-author", authorIds, RELATION_FIELDS.author, {
-				pageID: PAGE_ID,
-			}),
-			loadByIds("post-speaker", speakerIds, RELATION_FIELDS.speaker, {
-				pageID: PAGE_ID,
-			}),
-			loadByIds("testimonial", testimonialIds, RELATION_FIELDS.testimonial, {
-				pageID: PAGE_ID,
-			}),
-			Promise.all(
-				POWERED_BY_TYPES.map(({ postType }) =>
-					loadByIds(postType, poweredByIds, RELATION_FIELDS.poweredBy, {
-						pageID: PAGE_ID,
-					}),
-				),
-			),
-			loadByIds("media", embeddedImageIds, "id,media_details", {
-				pageID: PAGE_ID,
-			}),
-		]);
-
+			})
+		: new Map();
 	const imageMedia = new Map(
 		[...embeddedImages].map(([id, row]) => [id, row.media_details]),
 	);
 
-	const poweredBy = new Map();
-	poweredByRows.forEach((rows, index) => {
-		const { postType, field, label } = POWERED_BY_TYPES[index];
-		for (const [id, row] of rows) {
-			// An id belongs to one post type only, so the first answer wins.
-			if (!poweredBy.has(id)) poweredBy.set(id, { postType, field, label, row });
-		}
-	});
-
-	// WPML translations of the posts and of their categories.
-	const [translatedPosts, translatedTerms] = await Promise.all([
-		loadTranslated(posts, "posts", "id,title,content", PAGE_ID),
-		loadTranslated([...categories.values()], "categories", "id,name", PAGE_ID),
-	]);
-
-	const ctx = { authors, speakers, testimonials, poweredBy, imageMedia };
+	const ctx = { imageMedia };
 
 	return {
 		data: {
@@ -471,22 +416,21 @@ export const getInsights = async ({
 					slug: toSlug(post.slug),
 					date: post.date,
 					content: renderedHtml(post.content),
-					translations: (post.translations || []).map((translation) => {
-						const row = translatedPosts.get(translation.id);
-						return {
-							title: row ? renderedTitle(row.title) : null,
-							content: row ? renderedHtml(row.content) : null,
-							languageCode: translation.language?.language_code ?? null,
-						};
+					translations: (post.translations || []).map((translation) => ({
+						title: translation.title
+							? decodeEntities(translation.title)
+							: null,
+						// A translated post's body is not carried inline — nothing
+						// reading this list renders it, and fetching it would cost a
+						// request per language.
+						content: null,
+						languageCode: translation.language?.language_code ?? null,
+					})),
+					featuredImage: toEmbeddedImage(post),
+					categories: mapPostTerms(embeddedTerms(post, "category"), {
+						withTranslations: true,
 					}),
-					featuredImage: toFeaturedImage(media.get(post.featured_media)),
-					categories: mapPostTerms(
-						post.categories,
-						categories,
-						translatedTerms,
-						{ withTranslations: true },
-					),
-					tags: mapPostTerms(post.tags, tags, translatedTerms, {
+					tags: mapPostTerms(embeddedTerms(post, "post_tag"), {
 						withTranslations: false,
 					}),
 					postFields: mapPostFields(post.acf || {}, ctx),

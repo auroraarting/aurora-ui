@@ -45,12 +45,14 @@ import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getSoftwarePage } from "@/services/Softwares.service";
-import { getInsights } from "@/services/Insights.service";
-import { getInsightsCategories } from "@/services/Insights.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getRegions } from "@/services/rest/GlobalPresence.service";
+import { getSoftwarePage } from "@/services/rest/Softwares.service";
+import {
+	getInsights,
+	getInsightsCategories,
+} from "@/services/rest/Insights.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** Fetch */
 async function getData() {
@@ -58,9 +60,17 @@ async function getData() {
 		await Promise.all([
 			await getSoftwarePage(),
 			await getRegions(),
-			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-			),
+			await getInsights({
+				first: 3,
+				categories: [
+					"case-studies",
+					"commentary",
+					"market-reports",
+					"policy-notes",
+					"newsletters",
+					"new-launches",
+				],
+			}),
 			await getInsightsCategories(),
 			await getBundlesSection(),
 		]);
@@ -133,7 +143,7 @@ async function getData() {
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "software", idType: URI)');
+	const meta = await getPageSeo({ postType: "pages", slug: "software" });
 	const seo = meta?.data?.page?.seo;
 
 	return {
@@ -153,7 +163,9 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** Chronos Page */
 export default async function Softwares() {

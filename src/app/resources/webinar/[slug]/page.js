@@ -42,7 +42,9 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -76,7 +78,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getWebinars();
-	return data?.data?.webinars?.nodes.map((item) => ({
+	return (data?.data?.webinars?.nodes || []).map((item) => ({
 		slug: item.slug,
 	}));
 }

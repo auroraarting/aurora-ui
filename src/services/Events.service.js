@@ -304,7 +304,11 @@ query GetEventCategories {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "common", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		apiID: "event",
+		tags: ["event"],
+		pageID: "/events",
+	});
 	return res;
 };
 
@@ -338,9 +342,10 @@ query GetEventInside {
   }
 }
     `;
-	// taxonomies
+	// One query reading four collections, so its scope needs the explicit list.
 	const res = await GraphQLAPI(query, {
-		apiID: "common",
+		apiID: "event",
+		tags: ["event", "country", "service", "software"],
 		pageID: "/events",
 	});
 	return res;
@@ -655,6 +660,7 @@ query GetEventInsideNew {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "event",
+		tags: ["event", decodeURIComponent(slug)],
 		pageID: `/events/${slug}`,
 	});
 	return res;

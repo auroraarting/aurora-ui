@@ -6,6 +6,20 @@ const nextConfig = {
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
+
+	// Pacing the WordPress calls only works if there is one queue, and the queue
+	// in services/limiter.js is per-process. By default Next fans static
+	// generation out across a worker per ~25 pages (up to one per CPU) and
+	// renders 8 pages at a time inside each, so ~700 pages meant dozens of
+	// independent queues all hitting Pressable at once — which is what produced
+	// the 429s and 403s. One worker, one page at a time, one queue.
+	experimental: {
+		cpus: 1,
+		workerThreads: false,
+		staticGenerationMaxConcurrency: 1,
+		// Keep every page in a single worker rather than splitting per 25 pages.
+		staticGenerationMinPagesPerWorker: 100000,
+	},
 	sassOptions: {
 		// Sass @import is deprecated in Dart Sass; silence the ~2600 warnings
 		//so they don't flood (and truncate) the Vercel build log.

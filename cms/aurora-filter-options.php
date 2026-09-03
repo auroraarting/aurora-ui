@@ -21,7 +21,8 @@
  *
  * Ordering mirrors what the GraphQL query returned, because the front end feeds
  * these straight into <select> elements:
- *   * terms      — by name, ties broken by descending term id
+ *   * terms      — by name (MySQL's collation); the caller breaks equal-name
+ *                  ties by descending term id
  *   * countries  — by title ascending
  *   * others     — WP's default (newest first)
  */
@@ -73,11 +74,13 @@ function aurora_filter_options() {
 			$out[$key] = [];
 			continue;
 		}
-		// Equal names are ordered by descending id, the way WPGraphQL did.
-		usort($terms, function ($a, $b) {
-			$byName = strcmp($a->name, $b->name);
-			return 0 !== $byName ? $byName : ($b->term_id - $a->term_id);
-		});
+		/*
+		 * Left in the order MySQL returned, which is the case-insensitive
+		 * collation WPGraphQL inherited ("Advisory" before "AI"). Re-sorting here
+		 * with PHP's byte-wise strcmp got that backwards. Equal names still need
+		 * their tie broken by descending id — the caller does that, since it
+		 * already has the helper and the ids are in the payload.
+		 */
 		$out[$key] = array_map(function ($term) {
 			return [
 				'id'   => (int) $term->term_id,
@@ -93,6 +96,13 @@ function aurora_filter_options() {
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 			'no_found_rows'  => true,
+			/*
+			 * get_posts() defaults this to true, which bypasses WPML's language
+			 * filter and returns every translation — 8 products instead of 4,
+			 * 10 softwares instead of 5. The GraphQL queries returned only the
+			 * current language, so the filters have to run.
+			 */
+			'suppress_filters' => false,
 		];
 		if ($config['orderby']) {
 			$args['orderby'] = $config['orderby'];

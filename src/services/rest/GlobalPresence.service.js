@@ -129,10 +129,14 @@ function mapCountry(row, media) {
  *  pick up its alt text, which `featured_image_url` does not carry. */
 export const getRegions = async () => {
 	const [regions, countries] = await Promise.all([
-		rest(`/region?per_page=${PER_PAGE}&_fields=id,name,slug`),
+		rest(`/region?per_page=${PER_PAGE}&_fields=id,name,slug`, {
+			apiID: "country-regions",
+			pageID: "/global-presence",
+		}),
 		rest(
 			`/country?per_page=${PER_PAGE}&orderby=title&order=asc` +
 				`&_fields=id,slug,title,content,featured_media,region,acf&${ACF_EXPAND}`,
+			{ apiID: "country", pageID: "/global-presence" },
 		).then(asList),
 	]);
 

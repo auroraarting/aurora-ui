@@ -930,6 +930,7 @@ export const getCountryInside = async (slug, language) => {
   `;
 	const res = await GraphQLAPI(query, {
 		apiID: "country",
+		tags: ["country", decodeURIComponent(slug)],
 		pageID: `/global-presence/${slug}/${language}`,
 	});
 	return res;

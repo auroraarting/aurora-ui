@@ -285,6 +285,7 @@ query GetSingleHowWeHelp {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "howwehelp",
+		tags: ["howwehelp", decodeURIComponent(slug)],
 		pageID: `/how-we-help/${slug}`,
 	});
 	return res;

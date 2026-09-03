@@ -18,8 +18,9 @@
  *
  * Needed by: getInsights (post.translations and categories[].translations are
  * populated on live posts — ja, ko, pt-br) and the single-software language
- * pages. Once installed, the translated object is fetched by id with
- * `?wpml_language=<code>`.
+ * pages. Each entry also carries the translated item's own name/title and slug,
+ * so reading a translated label costs no extra request; anything more than that
+ * is still fetched by id with `?wpml_language=<code>`.
  *
  * It also registers GET /wp-json/aurora/v1/languages, the site's active
  * languages in WPML's configured order. WPML exposes no public endpoint for
@@ -86,10 +87,32 @@ function aurora_wpml_translations_for($element_id, $element_type) {
 		if (! $translated_id || $translated_id === (int) $element_id) {
 			continue;
 		}
-		$out[] = [
+		$entry = [
 			'id'       => $translated_id,
 			'language' => aurora_wpml_language_details($code),
 		];
+
+		/*
+		 * The translated item's own name/title, inline. Without it every caller
+		 * needs a follow-up request per language just to read a translated
+		 * category name — three extra requests on a single insights query. The
+		 * lookup is local, so serving it here is close to free.
+		 */
+		if (0 === strpos($element_type, 'tax_')) {
+			$term = get_term($translated_id);
+			if ($term && ! is_wp_error($term)) {
+				$entry['name'] = $term->name;
+				$entry['slug'] = $term->slug;
+			}
+		} else {
+			$translated_post = get_post($translated_id);
+			if ($translated_post) {
+				$entry['title'] = get_the_title($translated_id);
+				$entry['slug'] = $translated_post->post_name;
+			}
+		}
+
+		$out[] = $entry;
 	}
 
 	return $out;
@@ -104,7 +127,13 @@ add_action('rest_api_init', function () {
 	$schema = [
 		'description' => 'WPML translations of this item.',
 		'type'        => 'array',
-		'context'     => ['view', 'edit'],
+		/*
+		 * `embed` matters: WordPress reduces `?_embed`-ed objects to the embed
+		 * context, which drops registered fields. Without it, a post embedding
+		 * its terms gets them back with no translations, and the caller is forced
+		 * into a second request just to read a translated name.
+		 */
+		'context'     => ['view', 'edit', 'embed'],
 		'readonly'    => true,
 	];
 

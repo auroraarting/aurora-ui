@@ -353,6 +353,7 @@ query GetCareers {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "early-career",
+		tags: ["early-career", decodeURIComponent(slug)],
 		pageID: `/early-careers/${slug}`,
 	});
 	return res;

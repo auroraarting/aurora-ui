@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Aurora ACF relation expansion
- * Description: Optionally expands ACF relation fields one level in wp/v2 responses, so the front end can read related posts without a request per relation.
- * Version:     1.0.0
+ * Description: Optionally expands ACF relation fields, to a requested depth, in wp/v2 responses, so the front end can read related posts without a request per relation.
+ * Version:     2.0.0
  *
  * Install as an mu-plugin: /srv/htdocs/wp-content/mu-plugins/aurora-acf-expand.php
  * (an mu-plugin rather than the theme's functions.php, because the front end
@@ -26,6 +26,11 @@
  * Usage
  * -----
  *     GET /wp-json/wp/v2/softwares?slug=chronos&_acf_expand=1
+ *     GET /wp-json/wp/v2/event?slug=some-event&_acf_expand=2
+ *
+ * The value is the depth: 1 expands a post's relations, 2 also expands the
+ * relations of those relations, and so on up to AURORA_ACF_EXPAND_MAX_DEPTH.
+ * `_acf_expand=1` behaves exactly as it did before.
  *
  * Opt-in on purpose. Expanding unconditionally would inflate every existing
  * response — an insights query with poweredBy, authors, speakers, testimonials
@@ -36,8 +41,29 @@
  * point: the front end needs values like `products.map.logo` and
  * `post-author.thumbnail.designation`, and a plain post object has neither.
  *
- * Strictly one level. Two would let post → related → related recurse without a
- * natural floor.
+ * Depth
+ * -----
+ * Depth is bounded three ways, because relations in this content model do form
+ * cycles (an event points at speakers, and a speaker's `articles` point back at
+ * posts that point at events):
+ *
+ *   * the requested depth, capped by AURORA_ACF_EXPAND_MAX_DEPTH;
+ *   * AURORA_ACF_EXPAND_LIMIT, a whole-request ceiling on posts expanded;
+ *   * an ancestry set, so a branch never expands a post already open above it.
+ *
+ * Media
+ * -----
+ * Image, file and gallery fields are normalised to `{ id, url, alt, … }`
+ * whatever their return format, because the formats are inconsistent across
+ * this site's field groups and two of them lose information:
+ *
+ *   * a field set to return "URL" gives a bare string, so alt text is gone;
+ *   * `get_fields()` returns null for some image sub-fields that ACF's own REST
+ *     layer resolves, which is why a nested speaker's `company_logo` used to
+ *     come back empty here while /wp/v2/post-speaker had it.
+ *
+ * Normalising means a consumer never needs a follow-up /media request for alt
+ * text, at any depth.
  */
 
 if (! defined('ABSPATH')) {
@@ -55,6 +81,19 @@ const AURORA_ACF_TERM_TYPES = ['taxonomy'];
 
 /** Field types whose sub_fields have to be walked to reach the relations. */
 const AURORA_ACF_CONTAINER_TYPES = ['group', 'repeater', 'flexible_content'];
+
+/** ACF field types that hold a single attachment reference. */
+const AURORA_ACF_MEDIA_TYPES = ['image', 'file'];
+
+/** ACF field types that hold a list of attachment references. */
+const AURORA_ACF_GALLERY_TYPES = ['gallery'];
+
+/**
+ * Hard ceiling on the requested depth. Depth 2 is what this content model
+ * actually needs (event → speaker → the speaker's own images); anything beyond
+ * 3 is a mistake in the query string rather than a real requirement.
+ */
+const AURORA_ACF_EXPAND_MAX_DEPTH = 3;
 
 /**
  * Ceiling on how many posts one request will expand. A relation set to
@@ -84,7 +123,8 @@ add_action('rest_api_init', function () {
  * @return WP_REST_Response
  */
 function aurora_acf_expand_response($response, $post, $request) {
-	if (! $request->get_param(AURORA_ACF_EXPAND_PARAM)) {
+	$requested = $request->get_param(AURORA_ACF_EXPAND_PARAM);
+	if (! $requested) {
 		return $response;
 	}
 
@@ -93,18 +133,42 @@ function aurora_acf_expand_response($response, $post, $request) {
 		return $response;
 	}
 
+	// `_acf_expand=1` is the historical form and stays the default, so a caller
+	// that has not asked for more depth sees exactly what it saw before.
+	$depth = is_numeric($requested) ? (int) $requested : 1;
+	$depth = max(1, min(AURORA_ACF_EXPAND_MAX_DEPTH, $depth));
+
+	$budget = AURORA_ACF_EXPAND_LIMIT;
+	$data['acf'] = aurora_acf_walk_fields(
+		aurora_acf_field_definitions($post->ID),
+		$data['acf'],
+		$post->ID,
+		$budget,
+		$depth,
+		[(int) $post->ID => true]
+	);
+	$response->set_data($data);
+
+	return $response;
+}
+
+/**
+ * Every top-level ACF field definition that applies to a post.
+ *
+ * @param int $post_id
+ * @return array
+ */
+function aurora_acf_field_definitions($post_id) {
+	if (! function_exists('acf_get_field_groups')) {
+		return [];
+	}
 	$fields = [];
-	foreach (acf_get_field_groups(['post_id' => $post->ID]) as $group) {
+	foreach (acf_get_field_groups(['post_id' => $post_id]) as $group) {
 		foreach ((array) acf_get_fields($group) as $field) {
 			$fields[] = $field;
 		}
 	}
-
-	$budget = AURORA_ACF_EXPAND_LIMIT;
-	$data['acf'] = aurora_acf_walk_fields($fields, $data['acf'], $post->ID, $budget);
-	$response->set_data($data);
-
-	return $response;
+	return $fields;
 }
 
 /**
@@ -117,11 +181,13 @@ function aurora_acf_expand_response($response, $post, $request) {
  *
  * @param array $fields  ACF field definitions.
  * @param array $values  The values as they appear in the REST response.
- * @param int   $owner   Post whose fields these are, for cycle avoidance.
- * @param int   $budget  Remaining posts this request may expand (by reference).
+ * @param int   $owner    Post whose fields these are, for cycle avoidance.
+ * @param int   $budget   Remaining posts this request may expand (by reference).
+ * @param int   $depth    Remaining levels of relation expansion.
+ * @param array $ancestry Post ids already open above this branch, as a set.
  * @return array
  */
-function aurora_acf_walk_fields($fields, $values, $owner, &$budget) {
+function aurora_acf_walk_fields($fields, $values, $owner, &$budget, $depth = 1, $ancestry = []) {
 	if (! is_array($values)) {
 		return $values;
 	}
@@ -134,7 +200,9 @@ function aurora_acf_walk_fields($fields, $values, $owner, &$budget) {
 			$field,
 			$values[$field['name']],
 			$owner,
-			$budget
+			$budget,
+			$depth,
+			$ancestry
 		);
 	}
 
@@ -149,14 +217,16 @@ function aurora_acf_walk_fields($fields, $values, $owner, &$budget) {
  * @param mixed $value
  * @param int   $owner
  * @param int   $budget
+ * @param int   $depth
+ * @param array $ancestry
  * @return mixed
  */
-function aurora_acf_walk_value($field, $value, $owner, &$budget) {
+function aurora_acf_walk_value($field, $value, $owner, &$budget, $depth = 1, $ancestry = []) {
 	$type = isset($field['type']) ? $field['type'] : '';
 
 	if ('group' === $type) {
 		$sub = isset($field['sub_fields']) ? $field['sub_fields'] : [];
-		return aurora_acf_walk_fields($sub, $value, $owner, $budget);
+		return aurora_acf_walk_fields($sub, $value, $owner, $budget, $depth, $ancestry);
 	}
 
 	if ('repeater' === $type) {
@@ -165,7 +235,7 @@ function aurora_acf_walk_value($field, $value, $owner, &$budget) {
 		}
 		$sub = isset($field['sub_fields']) ? $field['sub_fields'] : [];
 		foreach ($value as $index => $row) {
-			$value[$index] = aurora_acf_walk_fields($sub, $row, $owner, $budget);
+			$value[$index] = aurora_acf_walk_fields($sub, $row, $owner, $budget, $depth, $ancestry);
 		}
 		return $value;
 	}
@@ -183,18 +253,44 @@ function aurora_acf_walk_value($field, $value, $owner, &$budget) {
 		foreach ($value as $index => $row) {
 			$name = is_array($row) && isset($row['acf_fc_layout']) ? $row['acf_fc_layout'] : '';
 			if (isset($layouts[$name])) {
-				$value[$index] = aurora_acf_walk_fields($layouts[$name], $row, $owner, $budget);
+				$value[$index] = aurora_acf_walk_fields($layouts[$name], $row, $owner, $budget, $depth, $ancestry);
 			}
 		}
 		return $value;
 	}
 
 	if (in_array($type, AURORA_ACF_POST_TYPES, true)) {
-		return aurora_acf_expand_posts($value, $owner, $budget);
+		return aurora_acf_expand_posts($value, $owner, $budget, $depth, $ancestry);
 	}
 
 	if (in_array($type, AURORA_ACF_TERM_TYPES, true)) {
 		return aurora_acf_expand_terms($value);
+	}
+
+	// Media is normalised at every depth. It costs no budget: an attachment has
+	// no relations of its own, so it cannot deepen or widen the walk.
+	if (in_array($type, AURORA_ACF_MEDIA_TYPES, true)) {
+		if (empty($value)) {
+			$value = aurora_acf_raw_value($field, $owner);
+		}
+		return aurora_acf_media_object($value);
+	}
+
+	if (in_array($type, AURORA_ACF_GALLERY_TYPES, true)) {
+		if (empty($value)) {
+			$value = aurora_acf_raw_value($field, $owner);
+		}
+		if (empty($value) || ! is_array($value)) {
+			return $value;
+		}
+		$out = [];
+		foreach ($value as $item) {
+			$image = aurora_acf_media_object($item);
+			if (null !== $image) {
+				$out[] = $image;
+			}
+		}
+		return $out;
 	}
 
 	return $value;
@@ -207,10 +303,12 @@ function aurora_acf_walk_value($field, $value, $owner, &$budget) {
  * @param mixed $value
  * @param int   $owner
  * @param int   $budget
+ * @param int   $depth
+ * @param array $ancestry
  * @return mixed
  */
-function aurora_acf_expand_posts($value, $owner, &$budget) {
-	if (empty($value)) {
+function aurora_acf_expand_posts($value, $owner, &$budget, $depth = 1, $ancestry = []) {
+	if (empty($value) || $depth < 1) {
 		return $value;
 	}
 
@@ -220,8 +318,9 @@ function aurora_acf_expand_posts($value, $owner, &$budget) {
 
 	foreach ($ids as $item) {
 		$id = aurora_acf_reference_id($item);
-		// Leave it alone past the cap, or if it would point back at its owner.
-		if (! $id || $id === (int) $owner || $budget < 1) {
+		// Leave it as an id past the cap, or where expanding would revisit a post
+		// already open further up this branch — that is what makes cycles safe.
+		if (! $id || $id === (int) $owner || isset($ancestry[$id]) || $budget < 1) {
 			$out[] = $item;
 			continue;
 		}
@@ -231,7 +330,7 @@ function aurora_acf_expand_posts($value, $owner, &$budget) {
 			continue;
 		}
 		$budget--;
-		$out[] = aurora_acf_post_summary($post);
+		$out[] = aurora_acf_post_summary($post, $budget, $depth - 1, $ancestry + [$id => true]);
 	}
 
 	return $single ? $out[0] : $out;
@@ -248,10 +347,16 @@ function aurora_acf_expand_posts($value, $owner, &$budget) {
  *   * `type_label` — the post type's plural label, which otherwise costs a
  *     /types lookup.
  *
+ * At depth 0 the related post's own ACF is still normalised — media resolved,
+ * terms expanded — but its relations are left as ids.
+ *
  * @param WP_Post $post
+ * @param int     $budget
+ * @param int     $depth
+ * @param array   $ancestry
  * @return array
  */
-function aurora_acf_post_summary($post) {
+function aurora_acf_post_summary($post, &$budget = null, $depth = 0, $ancestry = []) {
 	$thumbnail_id = (int) get_post_thumbnail_id($post->ID);
 	$post_type = get_post_type_object($post->post_type);
 	$summary = [
@@ -267,9 +372,7 @@ function aurora_acf_post_summary($post) {
 		'terms'          => aurora_acf_post_terms($post),
 		'featured_media' => $thumbnail_id,
 		'featured_image' => null,
-		'acf'            => function_exists('get_fields')
-			? (get_fields($post->ID) ?: [])
-			: [],
+		'acf'            => aurora_acf_post_acf($post, $budget, $depth, $ancestry),
 	];
 
 	if ($thumbnail_id) {
@@ -283,6 +386,151 @@ function aurora_acf_post_summary($post) {
 	}
 
 	return $summary;
+}
+
+/**
+ * A related post's own ACF, walked against its field definitions.
+ *
+ * Walking rather than returning `get_fields()` verbatim is what fixes nested
+ * media: `get_fields()` hands back whatever each field's return format happens
+ * to be, and for some image sub-fields on this site it hands back nothing at
+ * all. The walk resolves every image, file and gallery to the same object shape
+ * and expands any relations still within the remaining depth.
+ *
+ * @param WP_Post $post
+ * @param int     $budget
+ * @param int     $depth
+ * @param array   $ancestry
+ * @return array
+ */
+function aurora_acf_post_acf($post, &$budget, $depth, $ancestry) {
+	if (! function_exists('get_fields')) {
+		return [];
+	}
+	$values = get_fields($post->ID);
+	if (! is_array($values)) {
+		return [];
+	}
+	// A null budget means an older caller invoked the summary directly; give the
+	// walk a local budget so media still gets normalised.
+	if (null === $budget) {
+		$local = AURORA_ACF_EXPAND_LIMIT;
+		return aurora_acf_walk_fields(
+			aurora_acf_field_definitions($post->ID),
+			$values,
+			$post->ID,
+			$local,
+			$depth,
+			$ancestry
+		);
+	}
+	return aurora_acf_walk_fields(
+		aurora_acf_field_definitions($post->ID),
+		$values,
+		$post->ID,
+		$budget,
+		$depth,
+		$ancestry
+	);
+}
+
+/**
+ * The unformatted value of a top-level field, read straight from meta.
+ *
+ * This exists because `get_fields()` returns nothing for some image fields that
+ * ACF's own REST layer resolves — a nested speaker's `company_logo` was empty
+ * here while /wp/v2/post-speaker had it. The raw read recovers the attachment
+ * id in that case.
+ *
+ * Restricted to top-level fields on purpose: ACF identifies a repeater row's
+ * sub-field by the same key in every row, so a raw read inside a repeater would
+ * return the first row's value for all of them. `parent` is the field group's
+ * numeric id for a top-level field and a `field_…` key for a sub-field, which
+ * is how the two are told apart.
+ *
+ * @param array $field
+ * @param int   $owner
+ * @return mixed
+ */
+function aurora_acf_raw_value($field, $owner) {
+	if (! $owner || empty($field['key']) || ! function_exists('get_field')) {
+		return null;
+	}
+	if (! isset($field['parent']) || ! is_numeric($field['parent'])) {
+		return null;
+	}
+	return get_field($field['key'], (int) $owner, false);
+}
+
+/**
+ * An attachment reference → a consistent object, whatever the field's return
+ * format was.
+ *
+ * ACF may hand over an id, an attachment array, or a bare url. The url form has
+ * lost the attachment id, so it is looked back up — that is the only way to
+ * recover alt text for a field set to return "URL", and it is what let a nested
+ * speaker photo arrive without one.
+ *
+ * @param mixed $value
+ * @return array|null
+ */
+function aurora_acf_media_object($value) {
+	if (empty($value)) {
+		return null;
+	}
+
+	// Already an attachment array from ACF: keep it, but guarantee url and alt.
+	if (is_array($value) && (isset($value['url']) || isset($value['ID']) || isset($value['id']))) {
+		$id = aurora_acf_reference_id($value);
+		$url = isset($value['url']) ? $value['url'] : ($id ? wp_get_attachment_url($id) : '');
+		if (! $url) {
+			return null;
+		}
+		if (! isset($value['alt']) || '' === $value['alt']) {
+			$value['alt'] = $id
+				? (string) get_post_meta($id, '_wp_attachment_image_alt', true)
+				: '';
+		}
+		$value['url'] = $url;
+		if ($id) {
+			$value['id'] = (int) $id;
+			$value['ID'] = (int) $id;
+		}
+		return $value;
+	}
+
+	$id = 0;
+	if (is_numeric($value)) {
+		$id = (int) $value;
+	} elseif (is_string($value)) {
+		// A "URL" return format. attachment_url_to_postid costs a query, so it
+		// only runs for this format, and only when the url is local.
+		$id = (int) attachment_url_to_postid($value);
+		if (! $id) {
+			return ['id' => 0, 'url' => $value, 'alt' => '', 'title' => ''];
+		}
+	} else {
+		$id = aurora_acf_reference_id($value);
+	}
+
+	if (! $id) {
+		return null;
+	}
+	$url = wp_get_attachment_url($id);
+	if (! $url) {
+		return null;
+	}
+	$attachment = get_post($id);
+
+	return [
+		'id'        => $id,
+		'ID'        => $id,
+		'url'       => $url,
+		'alt'       => (string) get_post_meta($id, '_wp_attachment_image_alt', true),
+		'title'     => $attachment ? $attachment->post_title : '',
+		'filename'  => wp_basename($url),
+		'mime_type' => $attachment ? $attachment->post_mime_type : '',
+	];
 }
 
 /**
@@ -331,7 +579,11 @@ function aurora_acf_post_terms($post) {
 }
 
 /**
- * Term references → `{ id, name, slug, taxonomy }`.
+ * Term references → `{ id, name, slug, taxonomy, acf }`.
+ *
+ * The `acf` is what makes the download-type icons reachable: the icon lives on
+ * the `eventdownload` term, not on the event, so without it a caller had to
+ * fetch /wp/v2/eventdownload separately.
  *
  * @param mixed $value
  * @return mixed
@@ -346,17 +598,11 @@ function aurora_acf_expand_terms($value) {
 	$out = [];
 
 	foreach ($refs as $item) {
-		if ($item instanceof WP_Term) {
-			$out[] = [
-				'id'       => (int) $item->term_id,
-				'name'     => $item->name,
-				'slug'     => $item->slug,
-				'taxonomy' => $item->taxonomy,
-			];
-			continue;
+		$term = $item instanceof WP_Term ? $item : null;
+		if (! $term) {
+			$id = aurora_acf_reference_id($item);
+			$term = $id ? get_term($id) : null;
 		}
-		$id = aurora_acf_reference_id($item);
-		$term = $id ? get_term($id) : null;
 		if (! $term || is_wp_error($term)) {
 			$out[] = $item;
 			continue;
@@ -366,10 +612,40 @@ function aurora_acf_expand_terms($value) {
 			'name'     => $term->name,
 			'slug'     => $term->slug,
 			'taxonomy' => $term->taxonomy,
+			'acf'      => aurora_acf_term_acf($term),
 		];
 	}
 
 	return $single ? $out[0] : $out;
+}
+
+/**
+ * A term's own ACF, with its media normalised the same way a post's is.
+ *
+ * Terms cannot hold relations in this content model, so there is no depth to
+ * carry here — only the media normalisation, which is what the icons need.
+ *
+ * @param WP_Term $term
+ * @return array
+ */
+function aurora_acf_term_acf($term) {
+	if (! function_exists('get_fields')) {
+		return [];
+	}
+	$values = get_fields('term_' . $term->term_id);
+	if (! is_array($values)) {
+		return [];
+	}
+	$fields = [];
+	if (function_exists('acf_get_field_groups')) {
+		foreach (acf_get_field_groups(['taxonomy' => $term->taxonomy]) as $group) {
+			foreach ((array) acf_get_fields($group) as $field) {
+				$fields[] = $field;
+			}
+		}
+	}
+	$budget = 0; // No relations are expanded from a term; media costs nothing.
+	return aurora_acf_walk_fields($fields, $values, 0, $budget, 0, []);
 }
 
 /**

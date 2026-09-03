@@ -263,6 +263,7 @@ query GetPodcastBy {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "podcast",
+			tags: ["podcast", decodeURIComponent(slug)],
 			pageID: `/resources/energy-unplugged/${slug}`,
 		});
 		return res;

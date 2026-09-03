@@ -22,10 +22,13 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // DATA //
 
 // SERVICES //
-import { getAllEvents, getEventsInside } from "@/services/Events.service";
+import { getAllEvents } from "@/services/Events.service";
+import { getEventsInside } from "@/services/rest/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -59,11 +62,9 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const dataFetch = await getAllEvents();
-	return (
-		dataFetch?.data?.events?.nodes?.map((item) => ({
-			slug: item.slug,
-		})) || []
-	);
+	return (dataFetch?.data?.events?.nodes || []).map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 /** Fetch  */

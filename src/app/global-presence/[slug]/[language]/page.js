@@ -44,7 +44,9 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {

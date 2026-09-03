@@ -32,7 +32,9 @@ import {
 } from "@/services/Videos.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/rest/EnergyTalks.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -72,8 +74,10 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getAllVideos();
-	return data?.data?.videos?.nodes.map((item) => ({
-		slug: item.slug,
+	// The segment is [slug2], so the key must be `slug2`; returning `slug` made
+	// Next silently prebuild nothing and leave every video page on demand.
+	return (data?.data?.videos?.nodes || []).map((item) => ({
+		slug2: item.slug,
 	}));
 }
 

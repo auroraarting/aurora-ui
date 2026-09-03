@@ -419,9 +419,16 @@ export const toRelation = (ids, nodes) => (ids.length ? { nodes } : null);
 export const asList = (res) => (Array.isArray(res) ? res : []);
 
 /** One REST call. RESTAPI already de-duplicates identical queries during a
- *  build, throttles concurrency and retries what Pressable drops. */
-export const rest = (path, { apiID, pageID } = {}) =>
-	RESTAPI(path, { ...GET, apiID, pageID });
+ *  build, throttles concurrency and retries what Pressable drops.
+ *
+ *  The options may be a bare `apiID` string. Two call sites passed one, which
+ *  destructured to `apiID: undefined` and silently left the fetch tagged only
+ *  `alldata` — cheap to accept properly rather than to keep re-finding. */
+export const rest = (path, options = {}) => {
+	const { apiID, pageID, tags } =
+		typeof options === "string" ? { apiID: options } : options;
+	return RESTAPI(path, { ...GET, apiID, pageID, tags });
+};
 
 // Asks the ACF relation-expansion mu-plugin (cms/aurora-acf-expand.php) to
 // resolve relation ids into objects one level deep, so a page's related posts
@@ -439,6 +446,16 @@ export function toExpanded(field) {
 	if (!value) return [];
 	const rows = Array.isArray(value) ? value : [value];
 	return rows.filter((row) => row && typeof row === "object" && row.id);
+}
+
+/** A post's `_embed`-ed featured image → the `{ node: … }` wrapper GraphQL used.
+ *  Embedding it avoids the separate /media request that alt text otherwise needs. */
+export function toEmbeddedImage(post) {
+	const media = post?._embedded?.["wp:featuredmedia"]?.[0];
+	if (!media?.source_url) return null;
+	return {
+		node: { altText: media.alt_text ?? "", mediaItemUrl: media.source_url },
+	};
 }
 
 /** An expanded row's title. The plugin uses get_the_title(), which leaves the
@@ -461,12 +478,15 @@ export function toExpandedImage(row) {
  *
  *  `fields` is deliberately narrow: ACF groups on these pages are small, but
  *  asking for the whole `acf` object is still cheaper than one request per group. */
-export async function loadPage(idOrSlug, { apiID = "page", pageID, fields = "id,slug,title,acf" } = {}) {
+export async function loadPage(
+	idOrSlug,
+	{ apiID = "page", pageID, tags, fields = "id,slug,title,acf" } = {},
+) {
 	const byId = typeof idOrSlug === "number" || /^\d+$/.test(String(idOrSlug));
 	const path = byId
 		? `/pages/${idOrSlug}?_fields=${fields}`
 		: `/pages?slug=${encodeURIComponent(idOrSlug)}&_fields=${fields}`;
-	const res = await rest(path, { apiID, pageID });
+	const res = await rest(path, { apiID, pageID, tags });
 	// A by-id request returns the object itself; a slug query returns a list.
 	const row = byId ? res : asList(res)[0];
 	return row && row.id ? row : null;
@@ -478,11 +498,12 @@ export const wpJsonNamespace = (namespace) =>
 	`${String(process.env.REST_API_URL || "").replace(/\/wp\/v2\/?$/, "")}/${namespace}`;
 
 /** One REST call against another namespace. */
-export const restNamespaced = (namespace, path, { apiID, pageID } = {}) =>
+export const restNamespaced = (namespace, path, { apiID, pageID, tags } = {}) =>
 	RESTAPI(path, {
 		...GET,
 		apiID,
 		pageID,
+		tags,
 		baseUrl: wpJsonNamespace(namespace),
 	});
 
@@ -493,7 +514,7 @@ export async function loadByIds(
 	base,
 	ids,
 	fields,
-	{ apiID, pageID, language } = {},
+	{ apiID, pageID, tags, language } = {},
 ) {
 	const unique = [...new Set(ids)];
 	if (!unique.length) return new Map();
@@ -503,19 +524,23 @@ export async function loadByIds(
 	const languageParam = language ? `&${LANG_PARAM}=${language}` : "";
 	const res = await rest(
 		`/${base}?include=${unique.join(",")}&orderby=include&per_page=${PER_PAGE}${languageParam}&_fields=${fields}`,
-		{ apiID: apiID || base, pageID },
+		{ apiID: apiID || base, pageID, tags },
 	);
 	return new Map(asList(res).map((item) => [item.id, item]));
 }
 
 /** Every page of a collection, for the sets GraphQL asked for in full
  *  (`first: 9999`). Stops as soon as a short page comes back. */
-export async function loadAll(base, params, { apiID, pageID, maxPages = 20 } = {}) {
+export async function loadAll(
+	base,
+	params,
+	{ apiID, pageID, tags, maxPages = 20 } = {},
+) {
 	const items = [];
 	for (let page = 1; page <= maxPages; page++) {
 		const res = await rest(
 			`/${base}?per_page=${PER_PAGE}&page=${page}&${params}`,
-			{ apiID: apiID || base, pageID },
+			{ apiID: apiID || base, pageID, tags },
 		);
 		const rows = asList(res);
 		items.push(...rows);

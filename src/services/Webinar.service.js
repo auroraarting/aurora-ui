@@ -318,6 +318,7 @@ query GetWebinarInside {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "tribe_events",
+		tags: ["webinar", decodeURIComponent(slug)],
 		pageID: `/resources/webinar/${slug}`,
 	});
 	return res;

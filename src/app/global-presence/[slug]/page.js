@@ -42,7 +42,9 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -69,17 +71,17 @@ export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
+	// Every country is prebuilt, not just the newest few: there are only ~38 of
+	// them, they change rarely, and four of this page's five fetches are shared
+	// across all of them, so the build cache collapses them into two per page.
 	const countries = await getCountries();
-	return countries?.data?.countries?.nodes?.map((item) => ({
-		slug: item?.slug || "india",
-	}));
+	return (countries?.data?.countries?.nodes || [])
+		.map((item) => ({ slug: item?.slug }))
+		.filter((params) => params.slug);
 }
 
 /** Fetch  */
-async function getData({ params, query }) {
-	const language = query.language;
-	// const isJapanese = language === "jp";
-
+async function getData({ params }) {
 	const [
 		insightsRes,
 		categoriesRes,
@@ -161,10 +163,9 @@ async function getData({ params, query }) {
 }
 
 /** Australia Page */
-export default async function Australia({ params, searchParams }) {
+export default async function Australia({ params }) {
 	const { slug } = await params;
-	const query = await searchParams;
-	const { props } = await getData({ params: { slug }, query });
+	const { props } = await getData({ params: { slug } });
 
 	return (
 		<div>

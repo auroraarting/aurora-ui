@@ -32,12 +32,14 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 import {
 	getSingleSoftware,
 	getSoftwarePage,
-} from "@/services/Softwares.service";
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getPageSeo } from "@/services/Seo.service";
-import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
+} from "@/services/rest/Softwares.service";
+import { getRegions } from "@/services/rest/GlobalPresence.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
+import { getAllLanguages } from "@/services/rest/GlobalPresenceLanguages.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
@@ -45,7 +47,7 @@ export async function generateMetadata({ params }) {
 	// 	postType: "softwares",
 	// 	slug: params.slug,
 	// });
-	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
+	const meta = await getPageSeo({ postType: "softwares", slug: params.slug });
 	const seo = meta?.data?.softwareBy?.seo;
 
 	return {

@@ -440,6 +440,7 @@ export const getALLSoftware = async (slug) => {
 	const res = await RESTAPI("/softwares", {
 		...GET,
 		apiID: "softwares",
+		tags: ["software", decodeURIComponent(slug)],
 		pageID: `/software/${slug}`,
 	});
 	return res;
@@ -449,10 +450,13 @@ export const getALLSoftware = async (slug) => {
  *  and client-proof blocks of every software. */
 export const getSoftwarePage = async () => {
 	const [pageRes, softwaresRes] = await Promise.all([
-		rest("/pages?slug=software&_fields=id,slug,title,acf", "pages"),
+		rest("/pages?slug=software&_fields=id,slug,title,acf", {
+			apiID: "pages",
+			pageID: "/software",
+		}),
 		rest(
 			`/softwares?per_page=${PER_PAGE}&_fields=${SOFTWARE_FIELDS}&${ACF_EXPAND}`,
-			"softwares",
+			{ apiID: "softwares", pageID: "/software" },
 		),
 	]);
 
@@ -531,7 +535,11 @@ export const getSingleSoftware = async (slug) => {
 		asList(
 			await rest(
 				`/softwares?slug=${encodeURIComponent(decoded)}&_fields=${SOFTWARE_FIELDS},translations&${ACF_EXPAND}`,
-				"softwares",
+				{
+					apiID: "softwares",
+					pageID: `/software/${slug}`,
+					tags: ["software", decoded],
+				},
 			),
 		)[0] || null;
 

@@ -797,19 +797,19 @@ export const getHomePageVoices = async () => {
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices1, {
-			apiID: "common",
+			apiID: "post",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices2, {
-			apiID: "common",
+			apiID: "podcast",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices3, {
-			apiID: "common",
+			apiID: "webinar",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices4, {
-			apiID: "common",
+			apiID: "event",
 			pageID: "/",
 		}),
 	]);

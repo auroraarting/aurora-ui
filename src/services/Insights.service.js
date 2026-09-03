@@ -697,7 +697,8 @@ query GetInsightsDropDowns {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "common",
+		apiID: "post",
+		tags: ["post", "category", "tag", "product", "service", "software"],
 		pageID: "/resources/aurora-insights",
 		// taxonomies
 	});
@@ -1022,6 +1023,7 @@ query GetInsightsInside {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "post",
+			tags: ["post", decodeURIComponent(slug)],
 			pageID: `/resources/aurora-insights/${slug}`,
 		});
 		return res;

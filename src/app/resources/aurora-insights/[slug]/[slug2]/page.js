@@ -15,7 +15,12 @@ import InsightsInsideWrap from "@/sections/resources/aurora-insights/InsightsIns
 // PLUGINS //
 
 // UTILS //
-import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
+import {
+	dynamicInsightsBtnProps,
+	isCategory,
+	OpenIframePopup,
+	slugify,
+} from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
@@ -32,7 +37,9 @@ import {
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -68,14 +75,43 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+// The `[slug]` segment is a *category*, not the post slug — the same list
+// InsightsListing's `optionsData.categoryType` builds its links from, so the two
+// must stay in step. `alternate` is the WordPress category name and `title` is
+// what the URL uses, which is why the Commentary category lives at /articles/.
+const URL_CATEGORIES = [
+	{ title: "New Launches", alternate: "New Launches" },
+	{ title: "Articles", alternate: "Commentary" },
+	{ title: "Case studies", alternate: "Case studies" },
+	{ title: "Market reports", alternate: "Market reports" },
+	{ title: "Policy Notes", alternate: "Policy Notes" },
+	{ title: "Newsletters", alternate: "Newsletters" },
+];
+
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getInsights(
 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
-	return data?.data?.posts?.nodes.map((item) => ({
-		slug: item.slug,
-	}));
+
+	// Both segments are required. Returning only `slug` made Next.js silently
+	// prebuild nothing, which is why every insight page used to render on demand.
+	// The category segment is derived with the same two helpers the listing links
+	// use, so a prebuilt path is always a path something actually links to.
+	return (data?.data?.posts?.nodes || [])
+		.map((item) => ({
+			slug: slugify(
+				isCategory(
+					// `isCategory` rewrites `title` on the rows it is given, so it gets
+					// copies rather than the shared list.
+					URL_CATEGORIES.map((category) => ({ ...category })),
+					item?.categories?.nodes,
+					true,
+				),
+			),
+			slug2: item?.slug,
+		}))
+		.filter((params) => params.slug && params.slug2);
 }
 
 /** Fetch  */

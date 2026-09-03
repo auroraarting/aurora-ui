@@ -99,6 +99,7 @@ query GetPresses {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "press-room",
+		tags: ["press", decodeURIComponent(slug)],
 		pageID: `/company/press-room/${slug}`,
 	});
 	return res;

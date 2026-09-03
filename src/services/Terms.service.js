@@ -13,6 +13,7 @@ query GetTerms {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tags: ["page", decodeURIComponent(slug)],
 		pageID: "/legal/terms",
 	});
 	return res;

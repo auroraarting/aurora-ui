@@ -1,6 +1,8 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const revalidate = 3600;
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //

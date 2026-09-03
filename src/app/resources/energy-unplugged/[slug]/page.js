@@ -37,7 +37,9 @@ import { getPageSeo } from "@/services/rest/Seo.service";
 
 // DATA //
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// No page-level timer: content refreshes when WordPress calls /api/revalidate
+// with the tags it changed. The fetches keep a 24h safety net for a webhook that
+// never arrives (see services/cacheTags.js).
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -119,7 +121,7 @@ async function getData({ slug }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const podcasts = await getPodcasts();
-	return podcasts?.data?.podcasts?.nodes.map((item) => ({
+	return (podcasts?.data?.podcasts?.nodes || []).map((item) => ({
 		slug: item.slug,
 	}));
 }
