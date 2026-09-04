@@ -53,7 +53,6 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
 
 /** EOS Page */
 export default async function EOSPage() {

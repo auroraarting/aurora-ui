@@ -29,6 +29,7 @@ query GetWebinarListing {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:energy-talks-listing",
 		pageID: "/resources/energy-unplugged",
 	});
 	return res;
@@ -55,6 +56,7 @@ query GetSocialLinks {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:energy-talks-listing",
 		pageID: "/resources/energy-unplugged",
 	});
 	return res;

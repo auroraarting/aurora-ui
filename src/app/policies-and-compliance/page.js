@@ -1,6 +1,5 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -147,7 +146,7 @@ export default async function PoliciesAndCompliance() {
 							<h2>Gender Pay Gap</h2>
 							<p>
 								<a
-									href="https://cms-production.auroraer.com/wp-content/uploads/2025/05/Gender-Pay-Gap-Report-2024.pdf"
+									href="/cms-assets/2025/05/Gender-Pay-Gap-Report-2024.pdf"
 									target="_blank"
 									rel="noreferrer"
 								>

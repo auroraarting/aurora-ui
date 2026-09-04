@@ -95,34 +95,42 @@ function proxyAllMediaUrls(obj) {
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
  *  Runtime cache: held indefinitely, flushed by tag on demand.
- *  Only `tag` is read from dataObj — the cache tags this response can be
- *  revalidated by on demand (see services/CacheTags.js). `apiID` and `pageID`
- *  are still accepted and ignored, so callers need no changes.
+ *  dataObj param is accepted but mostly unused — kept so callers need no
+ *  changes. `method` is read from it, so read-only endpoints (wp/v2/pages
+ *  and friends, which reject POST with a 401) can ask for GET, plus `baseUrl`
+ *  for the few routes that live outside the wp/v2 namespace REST_API_URL points
+ *  at (see wpJsonNamespace in services/rest/GraphqlShape.js), and `tag` — the
+ *  cache tags this response can be revalidated by on demand (see
+ *  services/CacheTags.js). `apiID` and `pageID` are ignored.
  *  @param {string} query
- *  @param {{ tag?: string|string[] }} [dataObj]
+ *  @param {{ method?: string, baseUrl?: string, tag?: string|string[] }} [dataObj]
  */
-export default async function GraphQLAPI(query, dataObj = {}) {
+export default async function RESTAPI(query, dataObj = {}) {
+	const method = dataObj?.method || ServerHeaders.method;
+	const baseUrl = dataObj?.baseUrl || process.env.REST_API_URL;
 	const tags = toCacheTags(dataObj?.tag);
-	return cachedSchedule(`direct:${query}`, async () => {
+	return cachedSchedule(`direct:${method}:${baseUrl}${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			try {
-				const req = await fetch(`${process.env.API_URL}`, {
+				const req = await fetch(`${baseUrl}${query}`, {
 					...ServerHeaders,
-					body: JSON.stringify({ query }),
+					method,
 					signal: AbortSignal.timeout(requestTimeoutMs),
 					cache: "force-cache",
 					next: { revalidate: false, tags },
 				});
 				if (!req.ok) {
-					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
+					throw new Error(
+						`REST API request failed: ${req.status} ${req.statusText}`,
+					);
 				}
 				const res = await req.json();
 				return proxyAllMediaUrls(res);
 			} catch (error) {
 				lastError = error;
 				console.error(
-					`GraphQLAPI attempt ${attempt}/${maxAttempts} failed:`,
+					`REST API attempt ${attempt}/${maxAttempts} failed:`,
 					error?.message || error,
 				);
 				// Back off and retry — Pressable dropping one call shouldn't fail the
@@ -137,77 +145,4 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 		// retries next time, instead of the caller crashing on `data.data.…`.
 		throw lastError;
 	});
-}
-
-/** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPIOld(query, dataObj) {
-	// let res;
-	// let req;
-	// try {
-	// 	req = await fetch(`${process.env.API_URL}`, {
-	// 		...ServerHeaders,
-	// 		body: JSON.stringify({ query }),
-	// 		// next: { revalidate: 1800 },
-	// 	});
-	// 	res = await req.json();
-	// 	// res = req;
-	// 	return proxyAllMediaUrls(res);
-	// } catch (error) {
-	// 	// req = await req.text();
-	// 	console.log(error, req, "errror");
-	// }
-
-	// Cache
-	let startTime = null; // Start time
-	let res;
-	let req;
-	try {
-		startTime = new Date(); // Start time
-		const stagingDataObj = {
-			...dataObj,
-			apiID: `${dataObj.apiID}`,
-			pageID: `${process.env.NEXT_PUBLIC_SITE_ENV}${dataObj.pageID}`,
-		};
-		const data = {
-			url: `${process.env.API_URL}`,
-			method: "POST",
-			body: { query },
-			refreshInterval: refreshInterval,
-			headers: {
-				...ServerHeaders.headers,
-			},
-			// ...dataObj,
-			...stagingDataObj,
-		};
-		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
-			"Content-Type": "application/json",
-			method: "POST",
-			body: JSON.stringify({ ...data }),
-		});
-		res = await req.json();
-		console.log(res, "res");
-		const endTime = new Date(); // End time
-		const fetchDuration = endTime - startTime; // Duration in milliseconds
-		// console.log(
-		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
-		// );
-		return proxyAllMediaUrls(res);
-	} catch (error) {
-		const endTime = new Date(); // End time
-		const fetchDuration = endTime - startTime; // Duration in milliseconds
-		console.log(
-			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
-		);
-		console.log(error, req, "errror");
-	}
-}
-
-/** @deprecated Use default GraphQLAPI instead */
-export async function GraphQLAPINoBottleneck(query) {
-	return GraphQLAPI(query);
-}
-
-/** @deprecated Use default GraphQLAPI instead */
-export async function GraphQLAPILongerRevalidate(query) {
-	return GraphQLAPI(query);
 }

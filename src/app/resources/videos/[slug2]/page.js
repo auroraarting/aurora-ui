@@ -27,12 +27,11 @@ import styles from "@/styles/pages/video/video.module.scss";
 import { getInsightsCategories } from "@/services/Insights.service";
 import {
 	getAllVideos,
-	getLatestVideos,
+	getPreviousVideos,
 	getVideosInside,
 } from "@/services/Videos.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -72,16 +71,18 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getAllVideos();
-	return data?.data?.videos?.nodes.map((item) => ({
-		slug: item.slug,
-	}));
+	// The segment is [slug2]; returning `slug` left this route with nothing
+	// prerendered, so every video rendered on demand on its first visit.
+	return (data?.data?.videos?.nodes || [])
+		.map((item) => ({ slug2: item?.slug }))
+		.filter((params) => params.slug2);
 }
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, latestVideos, categoriesForSelect] = await Promise.all([
+	const [data, previousVideos, categoriesForSelect] = await Promise.all([
 		getVideosInside(slug),
-		getLatestVideos(slug),
+		getPreviousVideos(slug),
 		getInsightsCategories(),
 	]);
 
@@ -107,9 +108,9 @@ async function getData({ slug }) {
 	return {
 		props: {
 			data: data?.data?.videoBy,
-			videos: latestVideos?.slice(0, 1) || [],
+			videos: previousVideos?.slice(0, 1) || [],
 			countries: categoriesForSelect?.data?.countries?.nodes || [],
-			otherList: latestVideos?.slice(0, 3) || [],
+			otherList: previousVideos?.slice(0, 3) || [],
 			socialLinks: socialLinksFetch,
 		},
 	};

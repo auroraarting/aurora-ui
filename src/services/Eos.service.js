@@ -33,6 +33,17 @@ query EOSPage {
         description
         title
         vimeoLink
+        videos {
+          videoType
+          videofile {
+            node {
+              mediaItemUrl
+              mimeType
+            }
+          }
+          vimeoLink
+          youtubeLink
+        }
         desktopThumbnail {
           node {
             altText
@@ -147,6 +158,10 @@ query EOSPage {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "eos" });
+	const res = await GraphQLAPI(query, {
+		apiID: "page",
+		tag: ["page:eos", "clients-logo", "testimonial"],
+		pageID: "eos",
+	});
 	return res;
 };

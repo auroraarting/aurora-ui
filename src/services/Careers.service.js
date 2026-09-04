@@ -156,6 +156,7 @@ query MyQuery {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:life-at-aurora", "office"],
 		pageID: "/careers/life-at-arora",
 	});
 	return res;

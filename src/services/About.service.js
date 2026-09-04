@@ -241,6 +241,19 @@ query GetAbout {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/about" });
+	const res = await GraphQLAPI(query, {
+		apiID: "page",
+		tag: [
+			"page:about",
+			"category",
+			"clients-logo",
+			"office",
+			"post",
+			"team",
+			"testimonial",
+		],
+		pageID: "/about",
+	});
+
 	return res;
 };

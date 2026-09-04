@@ -75,28 +75,18 @@ async function getData() {
 			let obj = {};
 			obj.title = item?.name;
 			if (item?.countries?.nodes?.length > 0) {
-				// Track addresses already rendered in this region so offices
-				// sharing the same address are only shown once.
-				const seenAddresses = new Set();
 				obj.children = (
 					<div className={`${styles.CountryWrapper}`}>
 						<div className={`${styles.CountryBox}`}>
 							{item?.countries?.nodes
 								?.sort((a, b) => b?.countries?.sequence - a?.countries?.sequence)
 								.map((item2, ind2) => {
-									return item2?.countries?.offices?.offices?.nodes
-										?.filter((item3) => {
-											const address = item3?.offices?.contact?.address;
-											if (!address) return true;
-											if (seenAddresses.has(address)) return false;
-											seenAddresses.add(address);
-											return true;
-										})
-										.map((item3, ind3) => {
+									return item2?.countries?.offices?.offices?.nodes?.map(
+										(item3, ind3) => {
 											// console.log(item3);
 											// if (item2?.countries?.hideonglobalpresence) return null;
 											return (
-												<div className={`${styles.CountryItem}`} key={item2?.title + ind3}>
+												<div className={`${styles.CountryItem}`} key={item2?.title}>
 													<img
 														height={179}
 														width={446}
@@ -142,7 +132,8 @@ async function getData() {
 													)}
 												</div>
 											);
-										});
+										},
+									);
 								})}
 						</div>
 					</div>
@@ -160,7 +151,6 @@ async function getData() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
 
 /** Contact Page */
 export default async function ContactPage() {

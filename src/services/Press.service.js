@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getSinglePress = async (slug) => {
@@ -99,6 +100,7 @@ query GetPresses {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "press-room",
+		tag: entryTag("press", slug),
 		pageID: `/company/press-room/${slug}`,
 	});
 	return res;
@@ -204,6 +206,7 @@ query GetPresses {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "press-room",
+		tag: "press",
 		pageID: "/company/press-room",
 	});
 	return res;
@@ -308,6 +311,7 @@ query GetPressesCards {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "press-room",
+		tag: ["press", "product", "service", "software"],
 		pageID: "/company/press-room",
 	});
 	return res;
@@ -327,6 +331,7 @@ query GetPressesLanguages {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "press-room",
+		tag: "language",
 		pageID: "/company/press-room",
 		// taxonomies
 	});
@@ -489,6 +494,7 @@ query GetPressMediaKit {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: ["page:press-landing", "category", "post", "team"],
 		pageID: "/company/press-room",
 	});
 	return res;
@@ -525,6 +531,7 @@ query GetPressMediaKit {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
+		tag: "page:press-landing",
 		pageID: "/company/press-room",
 	});
 	return res;

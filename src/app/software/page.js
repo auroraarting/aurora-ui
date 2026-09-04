@@ -1,7 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -48,10 +47,8 @@ import locationJson from "@/data/globalMap.json";
 // SERVICES //
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getSoftwarePage } from "@/services/Softwares.service";
-import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
+import { getInsights } from "@/services/Insights.service";
+import { getInsightsCategories } from "@/services/Insights.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
 
@@ -67,6 +64,24 @@ async function getData() {
 			await getInsightsCategories(),
 			await getBundlesSection(),
 		]);
+	// const [data, regions, insightsFetch, categoriesForSelect, bundles] =
+	// 	await Promise.all([
+	// 		await getSoftwarePage(),
+	// 		await getRegions(),
+	// 		await getInsights({
+	// 			first: 3,
+	// 			categories: [
+	// 				"case-studies",
+	// 				"commentary",
+	// 				"market-reports",
+	// 				"policy-notes",
+	// 				"newsletters",
+	// 				"new-launches",
+	// 			],
+	// 		}),
+	// 		await getInsightsCategories(),
+	// 		await getBundlesSection(),
+	// 	]);
 	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 
@@ -138,7 +153,6 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
 
 /** Chronos Page */
 export default async function Softwares() {

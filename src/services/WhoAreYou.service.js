@@ -1,4 +1,5 @@
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getSingleWhoAreYou = async (slug) => {
@@ -134,6 +135,7 @@ export const getSingleWhoAreYou = async (slug) => {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "whoareyou",
+		tag: [entryTag("who-are-you", slug), "clients-logo", "testimonial"],
 		pageID: `/who-are-you/${slug}`,
 	});
 	return res;
@@ -234,6 +236,9 @@ query GetAllHowWeHelps {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "whoareyou",
+		// Despite the name, this query reads `howWeHelps` — the tag follows the
+		// query, not the function.
+		tag: ["how-we-help", "clients-logo", "testimonial"],
 		pageID: "/who-are-you",
 	});
 	return res;

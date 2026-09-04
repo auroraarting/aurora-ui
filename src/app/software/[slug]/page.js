@@ -1,6 +1,5 @@
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const dynamic = "force-static"; // Use when data is highly cacheable
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -23,6 +22,13 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 // DATA //
 
 // SERVICES //
+// import {
+// 	getSingleSoftware,
+// 	getSoftwarePage,
+// } from "@/services/rest/Softwares.service";
+// import { getRegions } from "@/services/rest/GlobalPresence.service";
+// import { getPageSeo } from "@/services/rest/Seo.service";
+// import { getAllLanguages } from "@/services/rest/GlobalPresenceLanguages.service";
 import {
 	getSingleSoftware,
 	getSoftwarePage,
@@ -31,10 +37,13 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
 import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
+	// const meta = await getPageSeo({
+	// 	postType: "softwares",
+	// 	slug: params.slug,
+	// });
 	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.softwareBy?.seo;
 

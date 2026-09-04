@@ -31,7 +31,7 @@ const getYouTubeEmbed = (link) => {
 	if (!link) return null;
 	const clean = String(link).trim();
 	const match = clean.match(
-		/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([\w-]+)/
+		/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([\w-]+)/,
 	);
 	const id = match ? match[1] : /^[\w-]{6,}$/.test(clean) ? clean : null;
 	if (!id) return null;
@@ -49,7 +49,7 @@ const normalizeVideos = (videos, vimeoLink) => {
 		.map((row) => {
 			const type = String(row?.videoType || "").toLowerCase();
 			if (type === "upload" || type === "file") {
-				return { kind: "file", src: row?.videoFile?.node?.mediaItemUrl };
+				return { kind: "file", src: row?.videofile?.node?.mediaItemUrl };
 			}
 			if (type === "vimeo") {
 				return { kind: "vimeo", src: row?.vimeoLink };
@@ -75,7 +75,7 @@ const postYouTube = (iframe, func) => {
 	try {
 		iframe?.contentWindow?.postMessage(
 			JSON.stringify({ event: "command", func, args: [] }),
-			"*"
+			"*",
 		);
 	} catch (e) {
 		/* iframe not ready yet – ignored */
@@ -251,9 +251,7 @@ export default function BannerVideoSlider({
 					<div className={`${styles.videoNav}`}>
 						<button
 							type="button"
-							className={`${styles.navBtn} ${
-								isBeginning ? styles.navDisabled : ""
-							}`}
+							className={`${styles.navBtn} ${isBeginning ? styles.navDisabled : ""}`}
 							onClick={() => swiperRef.current?.slidePrev()}
 							disabled={isBeginning}
 							aria-label="Previous video"

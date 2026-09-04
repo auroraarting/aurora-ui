@@ -33,7 +33,15 @@ export const getInsights = async ({ first = 36, after = null } = {}) => {
 	const variables = { first, after };
 
 	try {
-		const res = await GraphQLAPI(query, variables);
+		// The query reads posts plus their categories and tags, so all three have
+		// to be flushed. (Note: `variables` is not actually forwarded as GraphQL
+		// variables — Graphql.service only sends `query` — so $first/$after never
+		// reach WordPress. This module has no importers; see Insights.service.js
+		// for the version that is used.)
+		const res = await GraphQLAPI(query, {
+			...variables,
+			tag: ["post", "category", "post-tag"],
+		});
 
 		// Check if response contains the expected data
 		if (res && res.data && res.data.posts) {

@@ -1,5 +1,6 @@
 import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch All Videos */
 export const getAllVideos = async (filters = "first:9999") => {
@@ -58,15 +59,16 @@ query GetVideosListing {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "video",
+		tag: ["video", "country", "page", "product", "software"],
 		pageID: "/resources/videos",
 	});
 	return res;
 };
 
-/** Fetch Latest Videos - the most recent videos, newest first, excluding the given one */
-export const getLatestVideos = async (slug, filters = "first:9999") => {
+/** Fetch Previous Videos - videos published before the given one, newest first */
+export const getPreviousVideos = async (slug, filters = "first:9999") => {
 	const query = `
-query GetLatestVideos {
+query GetPreviousVideos {
   videos(${filters}) {
     nodes {
       title
@@ -96,17 +98,32 @@ query GetLatestVideos {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		apiID: "latestVideos",
+		apiID: "previousVideos",
+		tag: ["video", "country"],
 		pageID: "/resources/videos",
 	});
 
 	const nodes = res?.data?.videos?.nodes || [];
 	/** videoDate - the CMS date, falling back to the published date */
 	const videoDate = (item) => item?.videoFields?.date || item?.date;
-	const currentSlug = decodeURIComponent(slug || "");
+	/** videoDay - the date without its time, so same-day videos compare as equal */
+	const videoDay = (item) => {
+		const date = new Date(videoDate(item));
+		return isNaN(date) ? null : date.setHours(0, 0, 0, 0);
+	};
+	const current = nodes?.find(
+		(item) => item?.slug === decodeURIComponent(slug || ""),
+	);
+	const currentDay = videoDay(current);
 
 	return nodes
-		?.filter((item) => item?.slug !== currentSlug)
+		?.filter((item) => {
+			if (item?.slug === current?.slug) return false;
+			if (currentDay === null) return true;
+			const day = videoDay(item);
+			if (day === null) return false;
+			return day <= currentDay; // published on the same day or before this one
+		})
 		?.sort((a, b) => new Date(videoDate(b)) - new Date(videoDate(a)))
 		?.map((item) => ({ ...item, date: videoDate(item) }));
 };
@@ -328,6 +345,15 @@ query GetPodcastBy {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "videos",
+			tag: [
+				entryTag("video", slug),
+				"country",
+				"post-speaker",
+				"product",
+				"service",
+				"software",
+				"testimonial",
+			],
 			pageID: `/resources/videos`,
 		});
 		return res;

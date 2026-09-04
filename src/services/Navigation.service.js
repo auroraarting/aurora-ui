@@ -2,6 +2,21 @@ import { getAllEvents } from "./Events.service";
 import GraphQLAPI from "./Graphql.service";
 import { getInsights } from "./Insights.service";
 
+/** Every content type the one combined navigation query reads, so a save to any
+ *  of them drops the nav out of cache. The nav renders on every route, so this
+ *  is the widest tag set in the app on purpose. */
+const NAVIGATION_TAGS = [
+	"software",
+	"product",
+	"service",
+	"region",
+	"country",
+	"who-are-you",
+	"how-we-help",
+	"event",
+	"page:search-topics",
+];
+
 /** Softwares */
 export const getSoftwares = async () => {
 	const query = `
@@ -35,6 +50,7 @@ query GetSoftwares {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "software",
 		pageID: "/common",
 	});
 	return res;
@@ -73,6 +89,7 @@ query GetProducts {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "product",
 		pageID: "/common",
 	});
 	return res;
@@ -103,6 +120,7 @@ query GetServices {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "service",
 		pageID: "/common",
 	});
 	return res;
@@ -128,6 +146,7 @@ query GetRegions {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "region",
 		pageID: "/common",
 	});
 	return res;
@@ -139,7 +158,7 @@ export async function fetchNavigationData() {
 	function removeDuplicateCountries(regions) {
 		const seenSlugs = new Set();
 
-		return regions.map((region) => {
+		return regions?.map((region) => {
 			const uniqueCountries = [];
 
 			for (const country of region.countries.nodes) {
@@ -308,6 +327,7 @@ export async function fetchNavigationData() {
 	const [navdata, webinardata] = await Promise.all([
 		GraphQLAPI(combinedQuery, {
 			apiID: "common",
+			tag: NAVIGATION_TAGS,
 			pageID: "/common",
 			// taxonomies
 		}),
@@ -412,6 +432,7 @@ export async function fetchHeader() {
   `;
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: "page:header",
 		pageID: "/common",
 	});
 	return res;

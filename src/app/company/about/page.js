@@ -114,7 +114,6 @@ async function getData() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
 
 /** About Page */
 export default async function About() {
