@@ -36,6 +36,7 @@ export default function IntuitiveStepProcess({
 
 	/** startInterval  */
 	const startInterval = () => {
+		if (!data) return;
 		intervalRef.current = setInterval(() => {
 			setActive((prev) => (prev < data.process.length - 1 ? prev + 1 : 0));
 		}, 2000);
@@ -68,7 +69,7 @@ export default function IntuitiveStepProcess({
 
 	/** sectionTitle  */
 	const sectionTitle = () => {
-		if (data.tabTitle) {
+		if (data?.tabTitle) {
 			/** removeNumbers  */
 			const removeNumbers = (str) => {
 				return str.replace(/[0-9]/g, "");

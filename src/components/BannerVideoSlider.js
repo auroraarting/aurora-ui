@@ -49,7 +49,11 @@ const normalizeVideos = (videos, vimeoLink) => {
 		.map((row) => {
 			const type = String(row?.videoType || "").toLowerCase();
 			if (type === "upload" || type === "file") {
-				return { kind: "file", src: row?.videofile?.node?.mediaItemUrl };
+				return {
+					kind: "file",
+					src:
+						row?.videofile?.node?.mediaItemUrl || row?.videoFile?.node?.mediaItemUrl,
+				};
 			}
 			if (type === "vimeo") {
 				return { kind: "vimeo", src: row?.vimeoLink };

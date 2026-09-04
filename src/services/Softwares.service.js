@@ -108,7 +108,7 @@ query GetProductBySlug2 {
         vimeoLink
         videos {
           videoType
-          videofile {
+          videoFile {
             node {
               mediaItemUrl
               mimeType
@@ -391,6 +391,7 @@ query GetProductBySlug2 {
 		pageID: `/software/${slug}`,
 		// taxonomies
 	});
+	console.log("resresresres", res);
 	return res;
 };
 
@@ -626,7 +627,7 @@ query GetProductBySlug2 {
         vimeoLink
         videos {
           videoType
-          videofile {
+          videoFile {
             node {
               mediaItemUrl
               mimeType
@@ -1041,7 +1042,7 @@ query GetProductBySlug2 {
           vimeoLink
           videos {
             videoType
-            videofile {
+            videoFile {
               node {
                 mediaItemUrl
                 mimeType

@@ -196,7 +196,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
         vimeoLink
         videos {
           videoType
-          videofile {
+          videoFile {
             node {
               mediaItemUrl
               mimeType
