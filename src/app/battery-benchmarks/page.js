@@ -29,6 +29,7 @@ import {
 	getLeaderboardSeriesByIndices,
 } from "@/services/rest/BatteryBenchmark.service";
 import { getBatteryBenchmarkPage } from "@/services/rest/BatteryBenchmarkPage.service";
+import { getRealPerformanceMethodology } from "@/services/rest/Methodology.service";
 
 
 /** generateMetadata */
@@ -54,12 +55,16 @@ export async function generateMetadata() {
 
 /** Fetch  */
 async function getData() {
-	const [regions, benchmarks, realBenchmarks, pageContent] = await Promise.all([
-		getAllRegions(),
-		getAllBenchmarks(),
-		getAllLeaderboardIndices(),
-		getBatteryBenchmarkPage(),
-	]);
+	const [regions, benchmarks, realBenchmarks, pageContent, realMethodology] =
+		await Promise.all([
+			getAllRegions(),
+			getAllBenchmarks(),
+			getAllLeaderboardIndices(),
+			getBatteryBenchmarkPage(),
+			// Real Performance methodology comes from the Methodologies API rather
+			// than WordPress; the Backcast one is still part of pageContent.
+			getRealPerformanceMethodology(),
+		]);
 
 	// Pre-seed both Backcast and Real Performance series on the server
 	const [initialSeries, initialRealSeries] = await Promise.all([
@@ -75,6 +80,7 @@ async function getData() {
 			initialSeries,
 			realBenchmarks,
 			initialRealSeries,
+			realMethodology,
 		},
 	};
 }

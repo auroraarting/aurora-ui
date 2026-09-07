@@ -39,6 +39,7 @@ export default function BatteryBenchmarkWrapper({
 	initialSeries,
 	realBenchmarks = [],
 	initialRealSeries = {},
+	realMethodology = [],
 }) {
 	// Banner copy and its button come from the Battery Benchmarks page in
 	// WordPress (wp/v2/pages?slug=battery-benchmarks).
@@ -65,17 +66,29 @@ export default function BatteryBenchmarkWrapper({
 	const [region, setRegion] = useState(openingRegion);
 	const activeRegion = region || openingRegion;
 
-	// Which methodology model to render. Any published v2 row wins; with the v2
-	// field empty this is false and the page behaves exactly as it does today.
+	// The methodology rows for the tab in view. Backcast still comes from ACF;
+	// Real Performance comes from the Methodologies API, falling back to the ACF
+	// field for as long as that is still filled in, so an unreachable API costs
+	// freshness rather than the whole panel.
+	const isReal = benchmarkType === "real";
+	const methodologySections = useMemo(() => {
+		if (!isReal) return pageContent?.methodologyV2;
+		return realMethodology?.length
+			? realMethodology
+			: pageContent?.realPMethodologyV2;
+	}, [isReal, pageContent, realMethodology]);
+
+	// Which methodology model to render. Any published v2 row wins; with no v2
+	// rows this is false and the page behaves exactly as it does today.
 	const hasMethodologyV2 = useMemo(
 		() =>
-			(pageContent?.methodologyV2 || []).some(
+			(methodologySections || []).some(
 				(row) =>
 					row?.regionCode &&
 					row.status !== "draft" &&
 					(row.description || row.sections?.length),
 			),
-		[pageContent],
+		[methodologySections],
 	);
 
 	// Real Performance isn't published on this site, so its card is a link out
@@ -121,14 +134,13 @@ export default function BatteryBenchmarkWrapper({
 							{/* The v2 methodology model takes over as soon as it has a
 							    published row, otherwise the original panel renders exactly as
 							    before — so filling in the v2 field is the whole switch, and
-							    emptying it is the whole way back. */}
-							{hasMethodologyV2 ? (
+							    emptying it is the whole way back. The v1 panel is only ever a
+							    fallback for Backcast: its content is the Backcast methodology,
+							    so showing it under Real Performance would be the wrong
+							    document rather than a missing one. */}
+							{hasMethodologyV2 || isReal ? (
 								<MethodologyPanelV2
-									sections={
-										benchmarkType === "backcast"
-											? pageContent?.methodologyV2
-											: pageContent?.realPMethodologyV2
-									}
+									sections={methodologySections}
 									region={activeRegion}
 								/>
 							) : (
