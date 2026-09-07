@@ -48,7 +48,7 @@ function proxyAllMediaUrls(obj) {
  *  @param {string} query
  *  @param {{ tag?: string|string[] }} [dataObj]
  */
-export default async function GraphQLAPI(query, dataObj = {}) {
+export default async function GraphQLAPINew(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
 	// Not memoized per query — see UpstreamRequest.js. Every page that reads
 	// this data has to make the call itself, or the tags never reach its
@@ -69,7 +69,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 }
 
 /** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPIOld(query, dataObj) {
+export async function GraphQLAPI(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
@@ -87,6 +87,7 @@ export async function GraphQLAPIOld(query, dataObj) {
 	// }
 
 	// Cache
+	const tags = toCacheTags(dataObj?.tag);
 	let startTime = null; // Start time
 	let res;
 	let req;
@@ -112,6 +113,7 @@ export async function GraphQLAPIOld(query, dataObj) {
 			"Content-Type": "application/json",
 			method: "POST",
 			body: JSON.stringify({ ...data }),
+			...upstreamCacheConfig(tags),
 		});
 		res = await req.json();
 		const endTime = new Date(); // End time
