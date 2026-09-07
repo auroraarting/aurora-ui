@@ -38,7 +38,6 @@ import {
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getInsightsInside(params.slug2);
@@ -87,7 +86,7 @@ export async function generateMetadata({ params }) {
  *  known categories have no linkable category segment, so they are skipped. */
 export async function generateStaticParams() {
 	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		'first: 12, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
 	return (data?.data?.posts?.nodes || [])
 		.map((item) => ({
