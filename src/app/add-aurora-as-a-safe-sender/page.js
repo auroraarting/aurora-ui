@@ -3,7 +3,6 @@
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
-
 // COMPONENTS //
 // import MetaTags from "@/components/MetaTags";
 import ContentFromCms from "@/components/ContentFromCms";
