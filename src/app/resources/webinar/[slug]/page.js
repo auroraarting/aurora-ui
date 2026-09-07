@@ -50,7 +50,6 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getWebinarInside(params.slug);
@@ -82,7 +81,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getWebinars();
+	const data = await getWebinars("first: 12");
 	return data?.data?.webinars?.nodes.map((item) => ({
 		slug: item.slug,
 	}));

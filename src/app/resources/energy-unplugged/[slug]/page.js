@@ -45,7 +45,6 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`podcastBy(slug: "${params?.slug}")`);
@@ -125,7 +124,7 @@ async function getData({ slug }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const podcasts = await getPodcasts();
+	const podcasts = await getPodcasts("first: 12");
 	return podcasts?.data?.podcasts?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
