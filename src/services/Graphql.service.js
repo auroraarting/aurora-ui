@@ -1,23 +1,25 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import { proxyMediaUrl } from "@/utils";
 import { toCacheTags } from "./CacheTags";
-import { cachedSchedule, fetchUpstream } from "./UpstreamRequest";
+import {
+	fetchUpstream,
+	schedule,
+	upstreamCacheConfig,
+} from "./UpstreamRequest";
 
 // Concurrency, retries and the throttle cooldown all live in UpstreamRequest,
 // shared with Rest.service.js — the two contend for one origin, so one budget
 // covers both. See that file for why a per-module limiter was the thing
 // producing 403s during `next build`.
 
-// There is no time-based revalidation. Every response is cached indefinitely
-// (`cache: "force-cache"` plus `revalidate: false`) and leaves the cache only
-// when POST /api/revalidate flushes one of its tags. Both are stated
-// explicitly because these requests carry an Authorization header, which Next
-// treats as a signal not to cache unless a cache config says otherwise.
+// Responses are cached under a long TTL (see upstreamCacheConfig) and flushed
+// early by tag when POST /api/revalidate names one of them. The TTL is the
+// backstop, not the mechanism: an edit shows up as soon as the webhook fires,
+// and the timer only bounds how stale a page can get if that never happens.
 //
-// The consequence: a tag that no query carries, or a webhook that never fires,
-// means content stays stale until the next deploy. There is no timer to fall
-// back on, so a change to the tag vocabulary has to be matched on the
-// WordPress side (see services/CacheTags.js).
+// A change to the tag vocabulary still has to be matched on the WordPress side
+// (see services/CacheTags.js) — the TTL forgives a missed tag, it doesn't fix
+// one.
 
 /** Recursively replace all WordPress upload URLs in a GraphQL response object */
 function proxyAllMediaUrls(obj) {
@@ -38,8 +40,7 @@ function proxyAllMediaUrls(obj) {
 }
 
 /** Hits WordPress directly — no Redis.
- *  Deduplicates identical build-time queries and shares one outbound budget
- *  with the REST service.
+ *  Shares one outbound budget with the REST service.
  *  Runtime cache: held indefinitely, flushed by tag on demand.
  *  Only `tag` is read from dataObj — the cache tags this response can be
  *  revalidated by on demand (see services/CacheTags.js). `apiID` and `pageID`
@@ -49,14 +50,16 @@ function proxyAllMediaUrls(obj) {
  */
 export default async function GraphQLAPI(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
-	return cachedSchedule(`direct:${query}`, async () => {
+	// Not memoized per query — see UpstreamRequest.js. Every page that reads
+	// this data has to make the call itself, or the tags never reach its
+	// prerendered output and revalidation cannot touch it.
+	return schedule(async () => {
 		const req = await fetchUpstream(
 			`${process.env.API_URL}`,
 			{
 				...ServerHeaders,
 				body: JSON.stringify({ query }),
-				cache: "force-cache",
-				next: { revalidate: false, tags },
+				...upstreamCacheConfig(tags),
 			},
 			"GraphQL request",
 		);

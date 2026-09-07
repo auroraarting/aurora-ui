@@ -3,6 +3,14 @@
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 /* eslint-disable quotes */
+
+// Renders here outlast Vercel's 15s default function budget (the layout alone
+// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// every ISR regeneration is killed mid-render, so a revalidated page has
+// nothing to replace its stale HTML with and the edit never appears.
+// 300s is the Pro + Fluid compute ceiling.
+export const maxDuration = 300;
+
 // MODULES //
 
 // COMPONENTS //
@@ -70,17 +78,16 @@ export default async function HomePage() {
 	let errorMsg;
 
 	try {
-		// const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
-		// 	getRegions(),
-		// 	getHomePage(),
-		// 	// eslint-disable-next-line quotes
-		// 	getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
-		// 	getHomePageVoices(),
-		// ]);
-		const regions = await getRegions();
-		const dataFetch = await getHomePage();
-		const eventsdata = await getAllEvents("first:9999");
-		const voicesFetch = await getHomePageVoices();
+		// In parallel, not one after another. These four are independent, and
+		// serially they cost the sum of four WPGraphQL round trips (~19s, the
+		// events query alone is ~11s) on top of what the layout already spends —
+		// which is what pushed an ISR regeneration past its function budget.
+		const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
+			getRegions(),
+			getHomePage(),
+			getAllEvents("first:9999"),
+			getHomePageVoices(),
+		]);
 
 		mapJson = getMapJsonForAllRegions(regions);
 		data = dataFetch.data.page.homepage;

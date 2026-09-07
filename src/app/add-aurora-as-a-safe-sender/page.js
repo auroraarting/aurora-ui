@@ -1,4 +1,12 @@
 /* eslint-disable quotes */
+
+// Renders here outlast Vercel's 15s default function budget (the layout alone
+// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// every ISR regeneration is killed mid-render, so a revalidated page has
+// nothing to replace its stale HTML with and the edit never appears.
+// 300s is the Pro + Fluid compute ceiling.
+export const maxDuration = 300;
+
 // Force SSR (like getServerSideProps)
 // ❌ Remove: export const fetchCache = "force-no-store";
 
