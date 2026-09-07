@@ -14,3 +14,13 @@
 		padding-bottom: 0px;
 	}
 }
+
+/* Flexplorer card + right-side component layout */
+.flexplorerLayout {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	@media (max-width: 991px) {
+		flex-wrap: wrap;
+	}
+}

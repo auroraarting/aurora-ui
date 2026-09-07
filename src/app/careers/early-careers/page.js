@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -55,6 +55,8 @@ import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
 import { getPageSeo } from "@/services/Seo.service";
 
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo(
@@ -81,19 +83,15 @@ export async function generateMetadata() {
 
 /** EarlyCareers Page */
 export default async function EarlyCareers() {
-	const [
-		dataFetch,
-		pageFetch,
-		categoriesForSelect,
-		officesFetch,
-		careersRegions,
-	] = await Promise.all([
-		getEarlyCareersListing("first: 99999"),
-		getEarlyCareersPage(),
-		getInsightsCategories(),
-		getOffices(),
-		getEarlyCareersListingByRegions(),
-	]);
+	const dataFetch = await getEarlyCareersListing("first: 99999");
+	await pause();
+	const pageFetch = await getEarlyCareersPage();
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const officesFetch = await getOffices();
+	await pause();
+	const careersRegions = await getEarlyCareersListingByRegions();
 
 	const regionsArr = careersRegions.data.regions.nodes
 		?.sort((a, b) => a?.regionsFields?.sequence - b?.regionsFields?.sequence)

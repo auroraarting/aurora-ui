@@ -1,5 +1,5 @@
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -16,6 +16,8 @@ export const dynamic = "force-static"; // Use when data is highly cacheable
 
 // SECTIONS //
 import EventsWrap from "@/sections/events/EventsWrap";
+
+import { pause } from "@/utils/pace";
 
 // PLUGINS //
 
@@ -46,12 +48,18 @@ export const metadata = {
 
 /** events Page */
 export default async function Events() {
-	const [dataFetch, categoriesFetch, filters, pageFetch] = await Promise.all([
-		await getAllEvents(),
-		await getAllEventCategories(),
-		await getAllEventCountries(),
-		await getEventLandingPage(),
-	]);
+	// One at a time, a second apart. Note the shape this replaced —
+	// `Promise.all([await getAllEvents(), await getAllEventCategories(), …])` —
+	// was already sequential: array elements evaluate left to right, so each
+	// `await` settled before the next call was made and Promise.all only ever
+	// received finished values. The pauses are the actual change.
+	const dataFetch = await getAllEvents();
+	await pause();
+	const categoriesFetch = await getAllEventCategories();
+	await pause();
+	const filters = await getAllEventCountries();
+	await pause();
+	const pageFetch = await getEventLandingPage();
 	const data = dataFetch?.data?.events?.nodes?.sort(
 		(a, b) =>
 			new Date(b?.events?.thumbnail?.date) - new Date(a?.events?.thumbnail?.date),

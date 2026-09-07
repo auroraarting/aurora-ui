@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -38,6 +38,8 @@ import { getInsights } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`serviceBy(slug: "${params.slug}")`);
@@ -62,14 +64,15 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, regions, bundles, list] = await Promise.all([
-		await getServiceData(params.slug),
-		await getRegions(),
-		await getBundlesSection(),
-		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-		),
-	]);
+	const data = await getServiceData(params.slug);
+	await pause();
+	const regions = await getRegions();
+	await pause();
+	const bundles = await getBundlesSection();
+	await pause();
+	const list = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
 	const mapJson = getMapJsonForService(
 		filterMarkersBySlug(regions, params.slug),
 	);

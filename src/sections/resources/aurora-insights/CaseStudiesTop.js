@@ -42,6 +42,8 @@ export default function CaseStudiesTop({ data }) {
 		}
 	};
 
+	console.log(data, "data");
+
 	return (
 		<section className={`${styles.CaseStudiesTop} pt_50`}>
 			<div className="container">
@@ -107,6 +109,15 @@ export default function CaseStudiesTop({ data }) {
 						<div className={`${styles.imageWrapper}`}>
 							<img
 								src={data?.featuredImage?.node?.mediaItemUrl}
+								className="width_100 b_r_20"
+								alt={data?.title}
+							/>
+						</div>
+					)}
+					{data?.postFields?.thumbnail?.node?.mediaItemUrl && (
+						<div className={`${styles.imageWrapper}`}>
+							<img
+								src={data?.postFields?.thumbnail?.node?.mediaItemUrl}
 								className="width_100 b_r_20"
 								alt={data?.title}
 							/>

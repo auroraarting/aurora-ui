@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -37,6 +37,8 @@ import {
 import { getInsightsPage } from "@/services/InsightsListing.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "insight-listing", idType: URI)');
@@ -67,16 +69,17 @@ async function getData() {
 	// after a revalidation. Outbound concurrency is still capped centrally by
 	// the Bottleneck limiter in services/Graphql.service.js (4 at a time,
 	// 300ms apart), so this cannot flood WordPress.
-	const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
-		getInsights(
-			'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-		),
-		getInsightsCategories(),
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-		),
-		getInsightsPage(),
-	]);
+	const data = await getInsights(
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const list = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
+	await pause();
+	const insightsPage = await getInsightsPage();
 	const otherList = list?.data?.posts?.nodes;
 
 	return {

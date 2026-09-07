@@ -1,5 +1,5 @@
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -24,6 +24,8 @@ import VideosWrap from "@/sections/resources/videos/VideosWrap";
 import { getAllVideos } from "@/services/Videos.service";
 import { getVideosLandingPage } from "@/services/VideosLanding.service";
 
+import { pause } from "@/utils/pace";
+
 // DATA //
 
 /** Meta Data */
@@ -38,10 +40,9 @@ export const metadata = {
 
 /** Videos Page */
 export default async function Videos() {
-	const [dataFetch, landingFetch] = await Promise.all([
-		getAllVideos(),
-		getVideosLandingPage(),
-	]);
+	const dataFetch = await getAllVideos();
+	await pause();
+	const landingFetch = await getVideosLandingPage();
 	const videosLanding = landingFetch?.data?.page?.videosLanding || {};
 	const data =
 		dataFetch?.data?.videos?.nodes?.sort(

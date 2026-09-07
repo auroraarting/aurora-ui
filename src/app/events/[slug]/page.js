@@ -1,5 +1,5 @@
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -32,6 +32,8 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // SERVICES //
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
+
+import { pause } from "@/utils/pace";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -74,14 +76,17 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
-		await getEventsInside(slug),
-		// eslint-disable-next-line quotes
-		await getAllEvents("first:9999"), //Upcoming
-		await getInsightsCategories(),
-		// eslint-disable-next-line quotes
-		await getAllEvents("first:9999"), //Past
-	]);
+	const data = await getEventsInside(slug);
+	await pause();
+	// eslint-disable-next-line quotes
+	const events = await getAllEvents("first:9999");
+	await pause();
+	//Upcoming
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	// eslint-disable-next-line quotes
+	const pastEvents = await getAllEvents("first:9999");
+	//Past
 
 	let todaysDate = new Date();
 

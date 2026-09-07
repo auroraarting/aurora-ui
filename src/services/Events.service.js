@@ -291,7 +291,7 @@ query GetEventsListing {
     `;
 	const res = await GraphQLAPI(query, {
 		apiID: "event",
-		tag: ["event", "event-category", "eventdownload", "country", "post-speaker"],
+		tag: ["event", "country", "event-category", "eventdownload", "post-speaker"],
 		pageID: "/events",
 	});
 	return res;
@@ -350,7 +350,7 @@ query GetEventInside {
 	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
-		tag: ["country", "product", "software", "service"],
+		tag: ["country", "product", "service", "software"],
 		pageID: "/events",
 	});
 	return res;
@@ -650,12 +650,7 @@ query GetEventInsideNew {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "event",
-		tag: [
-			entryTag("event", slug),
-			"eventdownload",
-			"country",
-			"post-speaker",
-		],
+		tag: [entryTag("event", slug), "country", "eventdownload", "post-speaker"],
 		pageID: `/events/${slug}`,
 	});
 	return res;
@@ -683,6 +678,7 @@ query GetEventLanding {
               content
               title
               postSpeakers {
+              
                 thumbnail {
                   designation
                   linkedinLink
@@ -867,15 +863,15 @@ query GetEventLanding {
 		apiID: "page",
 		tag: [
 			"page:event-landing",
+			"country",
 			"event",
 			"event-category",
 			"post",
 			"post-speaker",
-			"testimonial",
-			"country",
 			"product",
-			"software",
 			"service",
+			"software",
+			"testimonial",
 		],
 		pageID: "/events",
 	});

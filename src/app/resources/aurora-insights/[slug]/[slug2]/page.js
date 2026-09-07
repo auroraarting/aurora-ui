@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -45,6 +45,8 @@ import {
 	getInsightsInside,
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
+
+import { pause } from "@/utils/pace";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -111,11 +113,11 @@ async function getData({ params }) {
 	// article. It used to ask for `first: 9999` — 747KB and 7.3s from the CMS —
 	// and then slice(0, 3). Four are fetched so that three remain after the
 	// article itself is dropped from its own related list.
-	const [data, list, categoriesForSelect] = await Promise.all([
-		await getInsightsInside(params.slug2),
-		await getInsights(`first: 4, where: {categoryName: "${resourceCat}"}`),
-		await getInsightsCategories(),
-	]);
+	const data = await getInsightsInside(params.slug2);
+	await pause();
+	const list = await getInsights(`first: 4, where: {categoryName: "${resourceCat}"}`);
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
 	if (!data?.data?.postBy || data?.data?.postBy?.status === "draft") {

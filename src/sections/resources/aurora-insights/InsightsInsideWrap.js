@@ -31,6 +31,7 @@ import { dynamicInsightsBtnProps, OpenIframePopup, slugify } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scss";
+import Speakers from "@/sections/events/Speakers";
 
 // IMAGES //
 
@@ -47,13 +48,13 @@ export default function InsightsInsideWrap({
 	insightsSectionButton,
 }) {
 	const isArticle = data?.categories?.nodes?.some(
-		(item) => item.slug === "commentary"
+		(item) => item.slug === "commentary",
 	);
 	const isCaseStudy = data?.categories?.nodes?.some(
-		(item) => item.slug === "case-study"
+		(item) => item.slug === "case-study",
 	);
 	const isReports = data?.categories?.nodes?.some((item) =>
-		item.slug.includes("report")
+		item.slug.includes("report"),
 	);
 	const dataForBtn = {
 		postFields: { insightsSectionButton: { ...insightsSectionButton } } || {},
@@ -115,8 +116,9 @@ export default function InsightsInsideWrap({
 											key={item?.sectionTitle}
 											id={slugify(item?.sectionTitle)}
 											data-name={item?.sectionTitle}
+											className="pb_40"
 										>
-											<ContentFromCms>{item?.content}</ContentFromCms>
+											<ContentFromCms>{item?.content || ""}</ContentFromCms>
 											{item?.lottie?.node?.mediaItemUrl && (
 												<LottieRenderer
 													src={item?.lottie?.node?.mediaItemUrl}
@@ -131,7 +133,7 @@ export default function InsightsInsideWrap({
 													// }}
 												/>
 											)}
-											<div className="cmsButtonsWrap">
+											<div className="cmsButtonsWrap pt_10">
 												{item?.buttons?.map((btnItem) => {
 													const dataForBtn = {
 														postFields: { btnItem: btnItem } || {},
@@ -154,6 +156,16 @@ export default function InsightsInsideWrap({
 										</section>
 									);
 								})}
+								{data?.postFields?.newSpeakers?.speakers && (
+									<div className="pb_40">
+										<Speakers
+											data={data?.postFields?.newSpeakers?.speakers}
+											title={data?.postFields?.newSpeakers?.title}
+											desc={data?.postFields?.newSpeakers?.desc}
+											iseventInside={true}
+										/>
+									</div>
+								)}
 								<div className="pb_100 pt_50">
 									<TestimonialFeedback data={data?.postFields} hideContainer />
 								</div>
@@ -165,21 +177,23 @@ export default function InsightsInsideWrap({
 					</div>
 				</section>
 
-				<div className="pb_100">
-					<Insights
-						isPowerBgVisible={true}
-						isInsightsBlogsVisible={true}
-						defaultList={otherList}
-						countries={countries}
-						formSectionTitle={insights?.title}
-						formSectionDesc={insights?.desc}
-						formSectionBtnText={
-							dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
-						}
-						insightsTitle="More from Aurora"
-						formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
-					/>
-				</div>
+				{data?.postFields && (
+					<div className="pb_100">
+						<Insights
+							isPowerBgVisible={true}
+							isInsightsBlogsVisible={true}
+							defaultList={otherList}
+							countries={countries}
+							formSectionTitle={insights?.title}
+							formSectionDesc={insights?.desc}
+							formSectionBtnText={
+								dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton").btntext
+							}
+							insightsTitle="More from Aurora"
+							formdata={dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton")}
+						/>
+					</div>
+				)}
 
 				<IframeModal hideLeft />
 			</main>

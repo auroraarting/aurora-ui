@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -39,6 +39,8 @@ import { getOffices } from "@/services/Offices.service";
 import { getEarlyCareersListing } from "@/services/EarlyCareers.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "life-at-aurora", idType: URI)');
@@ -64,17 +66,19 @@ export async function generateMetadata() {
 
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
-	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =
-		await Promise.all([
-			await getLifeAtAurora(),
-			await getFetchJobData(),
-			await getOffices(),
-			await getInsightsCategories(),
-			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-			),
-			await getEarlyCareersListing("first: 10"),
-		]);
+	const data = await getLifeAtAurora();
+	await pause();
+	const jobs = await getFetchJobData();
+	await pause();
+	const offices = await getOffices();
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const list = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
+	await pause();
+	const careersListFetch = await getEarlyCareersListing("first: 10");
 	let obj = {
 		data: { ...data.data.page.lifeAtAurora, offices: offices.data.offices.nodes },
 	};

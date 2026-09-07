@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -39,6 +39,8 @@ import {
 import Link from "next/link";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "global-presence", idType: URI)');
@@ -66,10 +68,9 @@ export async function generateMetadata() {
 async function getData() {
 	// const regions = await getRegions();
 	// const page = await getGlobalPresencePage();
-	const [regions, page] = await Promise.all([
-		await getRegions(),
-		await getGlobalPresencePage(),
-	]);
+	const regions = await getRegions();
+	await pause();
+	const page = await getGlobalPresencePage();
 
 	const mapJson = getMapJsonForAllRegions(regions);
 

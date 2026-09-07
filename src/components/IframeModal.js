@@ -24,9 +24,15 @@ export default function IframeModal({
 	hideLeft = true,
 	sectionTitle = "Sign up to receive our latest public insights straight to your inbox",
 	sectionDesc = "Please fill out this form to download a redacted sample of Navigating the e-fuel landscape: demand drivers, cost and willingness to pay - A Market Report by Aurora.",
+	// Opt in per page to a centred panel instead of the default right-hand drawer.
+	// One modal is mounted per page, so this covers every button on that page
+	// that opens #iframePopup, including the global header's.
+	centred = false,
 }) {
 	return (
-		<div className={`${styles.iframeModal}`}>
+		<div
+			className={`${styles.iframeModal} ${centred ? styles.iframeModalCentred : ""}`}
+		>
 			<Modal id="iframePopup">
 				<div className="wrap ">
 					{!hideLeft && (

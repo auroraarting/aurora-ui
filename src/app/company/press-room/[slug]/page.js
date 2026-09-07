@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -31,6 +31,8 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 // SERVICES //
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
 import { getPressPage, getPressPageInsights } from "@/services/Press.service";
+
+import { pause } from "@/utils/pace";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -73,14 +75,22 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, moreRelated, page] = await Promise.all([
-		await getInsightsInside(slug),
-		await getInsights(
-			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
-		),
-		await getPressPageInsights(),
-		await getPressPage(),
-	]);
+	// This destructured three names off a four-element Promise.all, so the fourth
+	// result was being dropped on the floor: `page` is getPressPageInsights(),
+	// and getPressPage() was fetched and discarded. Left out rather than wired
+	// up, because the consumer only reads `page?.insights?.sectionDesc`, which
+	// getPressPageInsights supplies — getPressPage returns a different slice of
+	// the same page (banner, mediaKit, leaders) that nothing here touches. Put
+	// it back only alongside a component that reads those fields:
+	//   await pause();
+	//   const mediaKit = await getPressPage();
+	const data = await getInsightsInside(slug);
+	await pause();
+	const moreRelated = await getInsights(
+		'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
+	);
+	await pause();
+	const page = await getPressPageInsights();
 	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {

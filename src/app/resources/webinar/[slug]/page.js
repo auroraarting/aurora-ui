@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -50,6 +50,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
+import { pause } from "@/utils/pace";
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getWebinarInside(params.slug);
@@ -89,11 +91,11 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, categoriesForSelect, list] = await Promise.all([
-		await getWebinarInside(params.slug),
-		await getInsightsCategories(),
-		await getWebinars("first: 4"),
-	]);
+	const data = await getWebinarInside(params.slug);
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const list = await getWebinars("first: 4");
 	const pastWebinars = [];
 	const otherList = list?.data?.webinars?.nodes;
 	otherList?.map((item) => {

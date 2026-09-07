@@ -1,5 +1,5 @@
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -40,6 +40,8 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 // DATA //
 
 
@@ -75,12 +77,13 @@ export async function generateStaticParams() {
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, services, regions, bundles] = await Promise.all([
-		await getSingleHowWeHelp(params.slug),
-		await getHowWeHelps(),
-		await getRegions(),
-		await getBundlesSection(),
-	]);
+	const data = await getSingleHowWeHelp(params.slug);
+	await pause();
+	const services = await getHowWeHelps();
+	await pause();
+	const regions = await getRegions();
+	await pause();
+	const bundles = await getBundlesSection();
 	const mapJson = getMapJsonForAllRegions(regions);
 
 	return {

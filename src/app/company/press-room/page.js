@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -41,6 +41,8 @@ import { getAllEventCountries } from "@/services/Events.service";
 import { getInsights } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "press-releases", idType: URI)');
@@ -66,12 +68,13 @@ export async function generateMetadata() {
 
 /** Fetch */
 async function getData() {
-	const [data, filters, languages, page] = await Promise.all([
-		await getInsights('first: 9999, where: {categoryName: "media"}'),
-		await getAllEventCountries(),
-		await getPressesLanguages(),
-		await getPressPage(),
-	]);
+	const data = await getInsights('first: 9999, where: {categoryName: "media"}');
+	await pause();
+	const filters = await getAllEventCountries();
+	await pause();
+	const languages = await getPressesLanguages();
+	await pause();
+	const page = await getPressPage();
 
 	return {
 		props: {

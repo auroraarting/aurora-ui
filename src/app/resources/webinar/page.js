@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -36,6 +36,8 @@ import {
 import { getWebinarPage, getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 // DATA //
 
 /** generateMetadata  */
@@ -63,11 +65,11 @@ export async function generateMetadata() {
 
 /** Fetch  getStaticProps*/
 async function getData() {
-	const [data, categoriesForSelect, webinarpage] = await Promise.all([
-		await getWebinars(),
-		await getInsightsCategories(),
-		await getWebinarPage(),
-	]);
+	const data = await getWebinars();
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const webinarpage = await getWebinarPage();
 	let pastSpeakers = [];
 
 	return {

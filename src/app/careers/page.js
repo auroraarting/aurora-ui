@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -33,6 +33,8 @@ import styles from "@/styles/pages/careers/Careers.module.scss";
 // IMAGES //
 import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 
+import { pause } from "@/utils/pace";
+
 // DATA //
 
 // SERVICES //
@@ -53,12 +55,11 @@ export const metadata = {
 
 /** Careers Page */
 export default async function Careers() {
-	const [categoriesForSelect, list] = await Promise.all([
-		await getInsightsCategories(),
-		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
-		),
-	]);
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const list = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}'
+	);
 	const otherList = list?.data?.posts?.nodes;
 	const countries = categoriesForSelect.data.countries.nodes;
 

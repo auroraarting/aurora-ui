@@ -155,7 +155,7 @@ export default function EnergyMiddleRight({ data, events }) {
 				</div>
 			</div>
 
-			{events.length > 0 && (
+			{events?.length > 0 && (
 				<div className={`${styles.whiteBox} ${styles.podcast}`}>
 					<h5
 						className={`${styles.subTxt} text_reg color_gray f_w_b pb_10 font_primary`}

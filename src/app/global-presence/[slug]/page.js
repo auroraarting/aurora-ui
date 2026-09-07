@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -51,6 +51,8 @@ import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
 // 	const { slug } = await params;
@@ -90,28 +92,24 @@ async function getData({ params }) {
 	// and awaiting searchParams here opted the whole page out of static
 	// rendering — so every visit re-ran all six CMS queries.
 
-	const [
-		insightsRes,
-		categoriesRes,
-		//  eventsRes,
-		//  webinarsRes,
-		countryData,
-		meta,
-		languages,
-	] = await Promise.all([
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-		),
-		getInsightsCategories(),
-		// getAllEvents("first:9999"),
-		// getWebinars("first:9999"),
-		// isJapanese
-		// 	? getCountryInsideWithLanguages(params.slug)
-		// 	: getCountryInside(params.slug),
-		getCountryInside(params.slug),
-		getPageSeo(`countryBy(slug: "${params.slug}")`),
-		getAllLanguages(),
-	]);
+	const insightsRes = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
+	await pause();
+	const categoriesRes = await getInsightsCategories();
+	await pause();
+	//  eventsRes,
+	//  webinarsRes,
+	// getAllEvents("first:9999"),
+	// getWebinars("first:9999"),
+	// isJapanese
+	// 	? getCountryInsideWithLanguages(params.slug)
+	// 	: getCountryInside(params.slug),
+	const countryData = await getCountryInside(params.slug);
+	await pause();
+	const meta = await getPageSeo(`countryBy(slug: "${params.slug}")`);
+	await pause();
+	const languages = await getAllLanguages();
 
 	// const countryBy = isJapanese
 	// 	? {

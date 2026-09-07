@@ -6,6 +6,21 @@ const nextConfig = {
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
+	// One static-generation worker, not one per core.
+	//
+	// The Bottleneck limiters in services/Graphql.service.js and
+	// services/Rest.service.js are module state, so `next build` builds a fresh
+	// pair inside every worker it forks — getNumberOfWorkers() in
+	// next/dist/build/index.js. The last build ran 7 workers, which turned a
+	// config reading "4 concurrent, 300ms apart" into 7 x 2 limiters x 3.3 req/s
+	// = ~46 req/s against an origin that allows ~2. That is the 403 'Checking
+	// your browser' WAF block, not a slow query.
+	//
+	// With one worker there is one pair of limiters, and their minTime is the
+	// real ceiling. Raise this only together with a shared, whole-build budget.
+	experimental: {
+		cpus: 1,
+	},
 	images: {
 		formats: ["image/avif", "image/webp"],
 		domains: [

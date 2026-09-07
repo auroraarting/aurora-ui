@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -48,6 +48,8 @@ import { getInsights } from "@/services/Insights.service";
 import { getAllEvents } from "@/services/Events.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "homepage", idType: URI)');
@@ -78,16 +80,19 @@ export default async function HomePage() {
 	let errorMsg;
 
 	try {
-		// In parallel, not one after another. These four are independent, and
-		// serially they cost the sum of four WPGraphQL round trips (~19s, the
-		// events query alone is ~11s) on top of what the layout already spends —
-		// which is what pushed an ISR regeneration past its function budget.
-		const [regions, dataFetch, eventsdata, voicesFetch] = await Promise.all([
-			getRegions(),
-			getHomePage(),
-			getAllEvents("first:9999"),
-			getHomePageVoices(),
-		]);
+		// One at a time, a second apart. These four are independent and could run
+		// concurrently, but a burst is what Pressable answers with 429/403 (see
+		// utils/pace.js), so throughput is traded for getting an answer at all.
+		// Serially they cost the sum of four round trips (~19s, the events query
+		// alone is ~11s) on top of what the layout already spends — which the
+		// 300s maxDuration above is what makes affordable.
+		const regions = await getRegions();
+		await pause();
+		const dataFetch = await getHomePage();
+		await pause();
+		const eventsdata = await getAllEvents("first:9999");
+		await pause();
+		const voicesFetch = await getHomePageVoices();
 
 		mapJson = getMapJsonForAllRegions(regions);
 		data = dataFetch.data.page.homepage;

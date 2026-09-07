@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -48,6 +48,8 @@ import { getOfficesByRegions } from "@/services/Offices.service";
 import { getContact } from "@/services/Contact.service";
 import Link from "next/link";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "contact", idType: URI)');
@@ -72,10 +74,9 @@ export async function generateMetadata() {
 
 /** Fetch  */
 async function getData() {
-	const [regions, page] = await Promise.all([
-		await getOfficesByRegions(),
-		await getContact(),
-	]);
+	const regions = await getOfficesByRegions();
+	await pause();
+	const page = await getContact();
 
 	const regionsArr = regions.data.regions.nodes
 		?.sort((a, b) => a?.regionsFields?.sequence - b?.regionsFields?.sequence)

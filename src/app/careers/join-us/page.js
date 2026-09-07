@@ -5,7 +5,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -37,6 +37,8 @@ import {
 import { getJoinUsPage } from "@/services/JoinUs.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "join-us", idType: URI)');
@@ -62,14 +64,15 @@ export async function generateMetadata() {
 
 /** JoinUs Page */
 export default async function JoinUs() {
-	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([
-		await getFetchJobData(),
-		await getInsightsCategories(),
-		await getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-		),
-		await getJoinUsPage(),
-	]);
+	const jobs = await getFetchJobData();
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const list = await getInsights(
+		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
+	await pause();
+	const pageFetch = await getJoinUsPage();
 
 	const page = pageFetch?.data?.page?.joinUs;
 	const otherList = list?.data?.posts?.nodes;

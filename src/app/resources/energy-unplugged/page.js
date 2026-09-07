@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 
 // Renders here outlast Vercel's 15s default function budget (the layout alone
-// spends ~11s on WPGraphQL — see services/UpstreamRequest.js). Without this,
+// spends ~11s on WPGraphQL — see services/Graphql.service.js). Without this,
 // every ISR regeneration is killed mid-render, so a revalidated page has
 // nothing to replace its stale HTML with and the edit never appears.
 // 300s is the Pro + Fluid compute ceiling.
@@ -40,6 +40,8 @@ import {
 import { getPodcasts } from "@/services/Podcast.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+import { pause } from "@/utils/pace";
+
 /** generateMetadata  */
 export async function generateMetadata() {
 	const meta = await getPageSeo('page(id: "energy-talks-listing", idType: URI)');
@@ -65,13 +67,13 @@ export async function generateMetadata() {
 
 /** Fetch getStaticProps */
 async function getData() {
-	const [data, categoriesForSelect, energyTalksPage, socialLinksFetch] =
-		await Promise.all([
-			getPodcasts(),
-			getInsightsCategories(),
-			getEnergyTalksPage(),
-			getEnergyTalksPageSocialLinks(),
-		]);
+	const data = await getPodcasts();
+	await pause();
+	const categoriesForSelect = await getInsightsCategories();
+	await pause();
+	const energyTalksPage = await getEnergyTalksPage();
+	await pause();
+	const socialLinksFetch = await getEnergyTalksPageSocialLinks();
 
 	return {
 		props: {
