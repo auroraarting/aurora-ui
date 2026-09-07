@@ -278,6 +278,20 @@ export default function MethodologyPanelV2({ sections, region }) {
 	const allOpen =
 		allNodeIds.length > 0 && allNodeIds.every((id) => openNodes.has(id));
 
+	// Whether anything in view actually carries a scope. The Methodologies API
+	// has no equivalent of the ACF scope taxonomy, so a methodology sourced from
+	// it has no badges — and a Universal / Regional key above sections that never
+	// show either one reads as a filter that has gone missing.
+	const hasScopes = useMemo(() => {
+		const scoped = (nodes) =>
+			(nodes || []).some(
+				(node) =>
+					["universal", "regional", "both"].includes(node.scope) ||
+					scoped(node.children),
+			);
+		return scoped(section?.sections);
+	}, [section]);
+
 	// The intro is clamped to three lines with a Load more / Load less toggle.
 	// `introOverflows` gates the button so a description that already fits in
 	// three lines doesn't get one.
@@ -386,14 +400,19 @@ export default function MethodologyPanelV2({ sections, region }) {
 						</>
 					)}
 
-					{/* Key for the scope badges against each section below */}
+					{/* Key for the scope badges against each section below, shown only
+					    when there are badges for it to explain */}
 					<div className={styles.assumptions}>
-						<div className={styles.assumptionLabel}>
-							<span className={styles.chipGray}>Universal</span>
-						</div>
-						<div className={styles.assumptionLabel}>
-							<span className={styles.chipYellow}>Regional</span>
-						</div>
+						{hasScopes && (
+							<>
+								<div className={styles.assumptionLabel}>
+									<span className={styles.chipGray}>Universal</span>
+								</div>
+								<div className={styles.assumptionLabel}>
+									<span className={styles.chipYellow}>Regional</span>
+								</div>
+							</>
+						)}
 						{allNodeIds.length > 0 && (
 							<button
 								type="button"
