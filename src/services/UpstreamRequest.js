@@ -67,12 +67,12 @@ const maxConcurrent = Math.max(
 // alike. They queue against each other because they contend for one origin.
 const limiter = new Bottleneck({ maxConcurrent, minTime: MIN_SPACING_MS });
 
-if (isBuildPhase) {
-	console.log(
-		`[upstream] ${maxConcurrent} concurrent × ${workerCount()} workers ` +
-			`(budget ${TOTAL_CONCURRENCY}), ${MIN_SPACING_MS}ms apart`,
-	);
-}
+// if (isBuildPhase) {
+// 	console.log(
+// 		`[upstream] ${maxConcurrent} concurrent × ${workerCount()} workers ` +
+// 			`(budget ${TOTAL_CONCURRENCY}), ${MIN_SPACING_MS}ms apart`,
+// 	);
+// }
 
 /** Backstop TTL for every cached WordPress response, in seconds.
  *
@@ -150,7 +150,11 @@ function openCooldown(ms) {
 async function awaitCooldown() {
 	// Re-read the deadline each time: a second throttle landing while this one
 	// waits should extend the wait, not be slept straight through.
-	for (let wait = cooldownUntil - Date.now(); wait > 0; wait = cooldownUntil - Date.now()) {
+	for (
+		let wait = cooldownUntil - Date.now();
+		wait > 0;
+		wait = cooldownUntil - Date.now()
+	) {
 		await sleep(wait);
 	}
 }

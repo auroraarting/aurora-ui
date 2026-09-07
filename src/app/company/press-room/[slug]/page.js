@@ -32,7 +32,6 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
 import { getPressPage, getPressPageInsights } from "@/services/Press.service";
 
-
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getInsightsInside(params.slug);
@@ -65,7 +64,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await await getInsights(
-		'first: 9999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
+		'first: 12, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
 	);
 	return data.data.posts.nodes.map((item) => ({
 		slug: item.slug,

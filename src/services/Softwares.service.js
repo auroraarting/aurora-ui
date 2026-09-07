@@ -391,7 +391,6 @@ query GetProductBySlug2 {
 		pageID: `/software/${slug}`,
 		// taxonomies
 	});
-	console.log("resresresres", res);
 	return res;
 };
 
