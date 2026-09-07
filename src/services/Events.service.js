@@ -1,5 +1,6 @@
 import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getAllEvents = cache(async (filters = "first:9999") => {
@@ -288,7 +289,11 @@ query GetEventsListing {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "event", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		apiID: "event",
+		tag: ["event", "event-category", "eventdownload", "country", "post-speaker"],
+		pageID: "/events",
+	});
 	return res;
 });
 
@@ -304,7 +309,11 @@ query GetEventCategories {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "common", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		apiID: "common",
+		tag: "event-category",
+		pageID: "/events",
+	});
 	return res;
 };
 
@@ -341,6 +350,7 @@ query GetEventInside {
 	// taxonomies
 	const res = await GraphQLAPI(query, {
 		apiID: "common",
+		tag: ["country", "product", "software", "service"],
 		pageID: "/events",
 	});
 	return res;
@@ -640,6 +650,12 @@ query GetEventInsideNew {
       `;
 	const res = await GraphQLAPI(query, {
 		apiID: "event",
+		tag: [
+			entryTag("event", slug),
+			"eventdownload",
+			"country",
+			"post-speaker",
+		],
 		pageID: `/events/${slug}`,
 	});
 	return res;
@@ -847,6 +863,21 @@ query GetEventLanding {
   }
 }
       `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		apiID: "page",
+		tag: [
+			"page:event-landing",
+			"event",
+			"event-category",
+			"post",
+			"post-speaker",
+			"testimonial",
+			"country",
+			"product",
+			"software",
+			"service",
+		],
+		pageID: "/events",
+	});
 	return res;
 };
