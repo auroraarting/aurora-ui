@@ -23,7 +23,7 @@ const PAGE_ID = "/page";
 
 /** The ACF field names behind this table were generated from editor-facing
  *  labels, so they carry ampersands and U+2028 line separators
- *  ("strategy &_planning", "financing_&_m&a"). Matching on a normalised
+ *  ("strategy &_planning", "financing_&_m&a"). Matching on a normalised
  *  key rather than the literal name keeps the mapping working when a label is
  *  retyped with different spacing. */
 const normalise = (key) => String(key).toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -48,6 +48,7 @@ const toCount = (value) => {
 
 /** One row of the comparison table, in the field order the query used. */
 function mapRow(row) {
+	/** One column's count for this row, looked up by its GraphQL field name. */
 	const count = (name) => toCount(rowValue(row, name));
 	return {
 		bgColor: orNull(rowValue(row, "bgColor")),
@@ -77,7 +78,6 @@ function mapTabs(field) {
 export const getBundlesSection = async () => {
 	const res = await rest("/pages?slug=bundles&_fields=id,acf", {
 		apiID: "page",
-		tag: "page:bundles",
 		pageID: PAGE_ID,
 	});
 	const pageRow = asList(res)[0] || null;

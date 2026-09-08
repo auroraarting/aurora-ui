@@ -217,6 +217,12 @@ export async function GraphQLAPIOld(query, dataObj) {
 			url: `${process.env.API_URL}`,
 			method: "POST",
 			body: { query },
+			// KNOWN DEFECT, dead code. `refreshInterval` is never declared in this
+			// module, so GraphQLAPIOld throws a ReferenceError on its first call.
+			// It has no callers — the Redis cache path it belongs to was retired —
+			// which is why nothing has noticed. Delete the function or restore the
+			// binding before ever calling it again.
+			// eslint-disable-next-line no-undef
 			refreshInterval: refreshInterval,
 			headers: {
 				...ServerHeaders.headers,

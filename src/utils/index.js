@@ -1311,7 +1311,6 @@ export function slugify(str) {
 export function highlightMatches(node, term) {
 	if (!term || !node || node.nodeType !== 1) return;
 
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const TEXT_NODE = 3;
 
 	for (let child of Array.from(node.childNodes)) {

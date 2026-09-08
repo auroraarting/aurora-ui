@@ -33,7 +33,6 @@ import Image from "next/image";
 /** HomeResources Section */
 export default function HomeResources({ data, countries, voices }) {
 	/** Map WP/Strapi category names → the label you want to surface */
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const CATEGORY_DISPLAY = {
 		"Case Studies": "LATEST CASE STUDY",
 		"Energy Unplugged": "LATEST PODCAST",

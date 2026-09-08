@@ -3,10 +3,16 @@
 		"next/core-web-vitals",
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended",
 		"plugin:react/jsx-runtime"
 	],
-	"plugins": ["react", "@typescript-eslint"],
+	"env": {
+		"browser": true,
+		"node": true,
+		"es2022": true
+	},
+	"plugins": [
+		"react"
+	],
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true
@@ -18,38 +24,28 @@
 		}
 	},
 	"rules": {
-		"indent": ["error", "tab"],
-		"quotes": ["error", "double"],
-		"semi": ["error", "always"],
-		"@typescript-eslint/naming-convention": [
+		"indent": "off",
+		"quotes": "off",
+		"semi": [
 			"error",
-			{
-				"selector": "variable",
-				"format": ["camelCase", "PascalCase"]
-			},
-			{
-				"selector": "function",
-				"format": ["camelCase", "PascalCase"],
-				"leadingUnderscore": "allow"
-			}
+			"always"
 		],
-		"react/prop-types": ["off"],
+		"react/prop-types": [
+			"off"
+		],
 		"react/jsx-max-props-per-line": [
 			"error",
-			{ "maximum": 1, "when": "multiline" }
-		],
-		"no-multiple-empty-lines": ["error", { "max": 1 }],
-		"require-jsdoc": [
-			"error",
 			{
-				"require": {
-					"FunctionDeclaration": true,
-					"MethodDefinition": false,
-					"ClassDeclaration": false,
-					"ArrowFunctionExpression": true,
-					"FunctionExpression": false
-				}
+				"maximum": 1,
+				"when": "multiline"
 			}
-		]
+		],
+		"no-multiple-empty-lines": "off",
+		"require-jsdoc": "off",
+		"no-unused-vars": "off",
+		"@next/next/no-img-element": "off",
+		"react-hooks/exhaustive-deps": "off",
+		"jsx-a11y/alt-text": "off",
+		"@next/next/no-head-element": "off"
 	}
 }

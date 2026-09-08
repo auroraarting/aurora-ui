@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 // lib/gtag.ts
 export const GA_TRACKING_ID = "G-XXXXXXXXXX";
 

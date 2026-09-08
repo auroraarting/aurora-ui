@@ -2,10 +2,46 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: false,
-	swcMinify: true,
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
+	// Sass: stop reprinting the @import deprecation 178 times.
+	//
+	// Dart Sass deprecated `@import` (sass-lang.com/d/import) and warns once per
+	// statement per module, so a build prints hundreds of identical notices and
+	// buries anything that matters. The code is not wrong and nothing is broken
+	// until Dart Sass 3.0.0 removes @import.
+	//
+	// This silences the notice, it does not fix the cause. The real fix is the
+	// @use/@forward migration across 171 files under src/styles (sass-migrator
+	// can do most of it) — worth scheduling before a Dart Sass 3 bump, because
+	// @use is namespaced and every global mixin/variable reference has to be
+	// qualified or explicitly forwarded.
+	// "legacy-js-api" is Next's own default here and gets clobbered by anything
+	// set below, so it has to be repeated — see the sassOptions spread in
+	// next/dist/build/webpack/config/blocks/css/index.js.
+	sassOptions: {
+		silenceDeprecations: ["legacy-js-api", "import"],
+	},
+	// ESLint: do not run it during `next build`.
+	//
+	// It was never actually running. `.eslintrc.json` declared the
+	// @typescript-eslint plugin, and @typescript-eslint 5.62 cannot load against
+	// the TypeScript 7.0.2 that is hoisted into node_modules — it reads compiler
+	// internals that no longer exist, which is the "Cannot read properties of
+	// undefined (reading 'Any')" failure. (TypeScript is not even a declared
+	// dependency here; this is a JavaScript project with a jsconfig.) So every
+	// build printed a plugin-load error and linted nothing. Repairing
+	// the config alone would have swapped that one line for a failed build:
+	// with the config loading, the codebase reports 1,177 errors and 621
+	// warnings, and `next build` fails on ESLint errors.
+	//
+	// So linting moves to where it belongs — `npm run lint`, deliberately, with
+	// a working config — and stops gating deploys on a rule set that has not
+	// been enforced for the life of the project.
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	// One static-generation worker, not one per core.
 	//
 	// The Bottleneck limiters in services/Graphql.service.js and

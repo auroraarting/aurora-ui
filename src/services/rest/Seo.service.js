@@ -13,7 +13,6 @@
 // Yoast supplies the values through `yoast_head_json`.
 
 import { asList, rest } from "./GraphqlShape";
-import { entryTag, restTag } from "../CacheTags";
 
 const PAGE_ID = "/common";
 
@@ -24,6 +23,13 @@ const PAGE_ID = "/common";
 const ROOT_FIELD = {
 	pages: "page",
 	softwares: "softwareBy",
+	products: "productBy",
+	services: "serviceBy",
+	country: "countryBy",
+	podcast: "podcastBy",
+	whoareyou: "whoareyouBy",
+	howwehelp: "howwehelpBy",
+	"early-career": "earlyCareerBy",
 };
 
 /** Yoast omits `description` entirely when it is unset, where WPGraphQL's
@@ -49,12 +55,7 @@ export const getPageSeo = async ({ postType, slug } = {}) => {
 	const res = await rest(
 		`/${postType}?slug=${encodeURIComponent(decodeURIComponent(slug))}` +
 			"&_fields=id,slug,status,yoast_head_json",
-		{
-			apiID: "common",
-			// The entry's own tag, plus "seo" for a Yoast-wide change.
-			tag: ["seo", entryTag(restTag(postType), slug)],
-			pageID: PAGE_ID,
-		},
+		{ apiID: "common", pageID: PAGE_ID },
 	);
 	const row = asList(res)[0] || null;
 
@@ -62,13 +63,13 @@ export const getPageSeo = async ({ postType, slug } = {}) => {
 		data: {
 			[rootField]: row
 				? {
-						status: row.status,
-						seo: {
-							title: orEmpty(row.yoast_head_json?.title),
-							metaDesc: orEmpty(row.yoast_head_json?.description),
-							metaKeywords: "",
-						},
-					}
+					status: row.status,
+					seo: {
+						title: orEmpty(row.yoast_head_json?.title),
+						metaDesc: orEmpty(row.yoast_head_json?.description),
+						metaKeywords: "",
+					},
+				}
 				: null,
 		},
 	};

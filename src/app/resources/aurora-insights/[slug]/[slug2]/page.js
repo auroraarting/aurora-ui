@@ -115,7 +115,9 @@ async function getData({ params }) {
 	// article itself is dropped from its own related list.
 	const data = await getInsightsInside(params.slug2);
 	await pause();
-	const list = await getInsights(`first: 4, where: {categoryName: "${resourceCat}"}`);
+	const list = await getInsights(
+		`first: 4, where: {categoryName: "${resourceCat}"}`,
+	);
 	await pause();
 	const categoriesForSelect = await getInsightsCategories();
 

@@ -7,7 +7,6 @@
 // equivalent — none of them are cosmetic.
 
 import RESTAPI from "../Rest.service";
-import { restTag } from "../CacheTags";
 
 // Read-only wp/v2 collections reject POST with a 401, so every call is a GET.
 export const GET = { method: "GET" };
@@ -31,7 +30,7 @@ const NAMED_ENTITIES = {
 	amp: "&",
 	lt: "<",
 	gt: ">",
-	quot: '"',
+	quot: "\"",
 	apos: "'",
 	nbsp: " ",
 	hellip: "…",
@@ -113,7 +112,7 @@ export function wptexturize(html) {
 
 			let out = "";
 			for (const character of dashed) {
-				if (character === '"') {
+				if (character === "\"") {
 					out += isOpeningPosition(previous) ? "&#8220;" : "&#8221;";
 				} else if (character === "'") {
 					out += isOpeningPosition(previous) ? "&#8216;" : "&#8217;";
@@ -233,13 +232,13 @@ function matchesRatio(sourceWidth, sourceHeight, targetWidth, targetHeight) {
 	const [constrained, expected] =
 		sourceWidth > targetWidth
 			? [
-					constrainDimensions(sourceWidth, sourceHeight, targetWidth),
-					[targetWidth, targetHeight],
-				]
+				constrainDimensions(sourceWidth, sourceHeight, targetWidth),
+				[targetWidth, targetHeight],
+			]
 			: [
-					constrainDimensions(targetWidth, targetHeight, sourceWidth),
-					[sourceWidth, sourceHeight],
-				];
+				constrainDimensions(targetWidth, targetHeight, sourceWidth),
+				[sourceWidth, sourceHeight],
+			];
 
 	return (
 		Math.abs(constrained[0] - expected[0]) <= 1 &&
@@ -295,9 +294,9 @@ function calculateSrcset(details, src, width, height) {
 		srcWidth === null
 			? entries
 			: [
-					[srcWidth, candidates.get(srcWidth)],
-					...entries.filter(([candidateWidth]) => candidateWidth !== srcWidth),
-				];
+				[srcWidth, candidates.get(srcWidth)],
+				...entries.filter(([candidateWidth]) => candidateWidth !== srcWidth),
+			];
 
 	return ordered
 		.map(([candidateWidth, url]) => `${url} ${candidateWidth}w`)
@@ -335,7 +334,7 @@ export function wpFilterContentTags(html, imageMedia) {
 		}
 
 		if (!/\sloading\s*=/.test(out)) {
-			out = out.replace(/^<img\s/, '<img loading="lazy" decoding="async" ');
+			out = out.replace(/^<img\s/, "<img loading=\"lazy\" decoding=\"async\" ");
 		}
 		return out;
 	});
@@ -364,7 +363,13 @@ export const toGlobalId = (id) => Buffer.from(`post:${id}`).toString("base64");
 /** ACF image/file field → the `{ node: … }` wrapper GraphQL returned. */
 export function toMediaNode(field, { withMimeType = false } = {}) {
 	const file = orNull(field);
-	if (!file || typeof file !== "object") return null;
+	if (!file) return null;
+	// An ACF image field set to return "URL" rather than "Array" gives a bare
+	// string; there is no alt text to be had in that case.
+	if (typeof file === "string") {
+		return { node: { altText: "", mediaItemUrl: file } };
+	}
+	if (typeof file !== "object") return null;
 	const url = file.url || file.source_url || null;
 	if (!url) return null;
 	const node = { altText: file.alt ?? "", mediaItemUrl: url };
@@ -411,13 +416,83 @@ export const toConnection = (nodes) => ({ nodes });
  *  connection, when the editor left the relation empty. */
 export const toRelation = (ids, nodes) => (ids.length ? { nodes } : null);
 
+/** A REST response as an array - `[]` for anything that is not one, so callers
+ *  can map over it without guarding first. */
 export const asList = (res) => (Array.isArray(res) ? res : []);
 
 /** One REST call. RESTAPI already de-duplicates identical queries during a
  *  build, throttles concurrency and retries what Pressable drops.
- *  `tag` is the on-demand revalidation key (see services/CacheTags.js). */
-export const rest = (path, { apiID, pageID, tag } = {}) =>
-	RESTAPI(path, { ...GET, apiID, pageID, tag });
+ *
+ *  The options may be a bare `apiID` string. Two call sites passed one, which
+ *  destructured to `apiID: undefined` and silently left the fetch tagged only
+ *  `alldata` — cheap to accept properly rather than to keep re-finding. */
+export const rest = (path, options = {}) => {
+	const { apiID, pageID, tags } =
+		typeof options === "string" ? { apiID: options } : options;
+	return RESTAPI(path, { ...GET, apiID, pageID, tags });
+};
+
+// Asks the ACF relation-expansion mu-plugin (cms/aurora-acf-expand.php) to
+// resolve relation ids into objects one level deep, so a page's related posts
+// arrive in the same request instead of one request per relation.
+export const ACF_EXPAND = "_acf_expand=1";
+
+/** An expanded ACF relation → the rows it holds.
+ *
+ *  With the expansion plugin a relation is an array of objects; without it, bare
+ *  ids. Only the expanded form is usable here, so unexpanded values are skipped
+ *  rather than silently rendered as blanks — the caller asked for expansion, and
+ *  a missing plugin should show up as absent data, not wrong data. */
+export function toExpanded(field) {
+	const value = orNull(field);
+	if (!value) return [];
+	const rows = Array.isArray(value) ? value : [value];
+	return rows.filter((row) => row && typeof row === "object" && row.id);
+}
+
+/** A post's `_embed`-ed featured image → the `{ node: … }` wrapper GraphQL used.
+ *  Embedding it avoids the separate /media request that alt text otherwise needs. */
+export function toEmbeddedImage(post) {
+	const media = post?._embedded?.["wp:featuredmedia"]?.[0];
+	if (!media?.source_url) return null;
+	return {
+		node: { altText: media.alt_text ?? "", mediaItemUrl: media.source_url },
+	};
+}
+
+/** An expanded row's title. The plugin uses get_the_title(), which leaves the
+ *  entities WordPress escapes; GraphQL decoded them. Its `content` is left alone,
+ *  because GraphQL kept the entities inside rendered HTML. */
+export const expandedTitle = (row) => orNull(decodeEntities(row?.title ?? null));
+
+/** An expanded row's featured image → the `{ node: … }` wrapper GraphQL used.
+ *  The plugin supplies url and alt together, which is what previously needed a
+ *  separate /media request. */
+export function toExpandedImage(row) {
+	const image = row?.featured_image;
+	if (!image?.url) return null;
+	return { node: { altText: image.alt ?? "", mediaItemUrl: image.url } };
+}
+
+/** One WordPress page with its ACF, by slug or by numeric id — the REST
+ *  equivalent of `page(id: …, idType: URI | DATABASE_ID)`. Returns null when the
+ *  page does not exist, which is what GraphQL returned too.
+ *
+ *  `fields` is deliberately narrow: ACF groups on these pages are small, but
+ *  asking for the whole `acf` object is still cheaper than one request per group. */
+export async function loadPage(
+	idOrSlug,
+	{ apiID = "page", pageID, tags, fields = "id,slug,title,acf" } = {},
+) {
+	const byId = typeof idOrSlug === "number" || /^\d+$/.test(String(idOrSlug));
+	const path = byId
+		? `/pages/${idOrSlug}?_fields=${fields}`
+		: `/pages?slug=${encodeURIComponent(idOrSlug)}&_fields=${fields}`;
+	const res = await rest(path, { apiID, pageID, tags });
+	// A by-id request returns the object itself; a slug query returns a list.
+	const row = byId ? res : asList(res)[0];
+	return row && row.id ? row : null;
+}
 
 /** The base URL for a namespace other than the `wp/v2` one REST_API_URL points
  *  at, e.g. the `aurora/v1` routes the mu-plugins register. */
@@ -425,12 +500,12 @@ export const wpJsonNamespace = (namespace) =>
 	`${String(process.env.REST_API_URL || "").replace(/\/wp\/v2\/?$/, "")}/${namespace}`;
 
 /** One REST call against another namespace. */
-export const restNamespaced = (namespace, path, { apiID, pageID, tag } = {}) =>
+export const restNamespaced = (namespace, path, { apiID, pageID, tags } = {}) =>
 	RESTAPI(path, {
 		...GET,
 		apiID,
 		pageID,
-		tag,
+		tags,
 		baseUrl: wpJsonNamespace(namespace),
 	});
 
@@ -441,7 +516,7 @@ export async function loadByIds(
 	base,
 	ids,
 	fields,
-	{ apiID, pageID, language, tag } = {},
+	{ apiID, pageID, tags, language } = {},
 ) {
 	const unique = [...new Set(ids)];
 	if (!unique.length) return new Map();
@@ -451,7 +526,7 @@ export async function loadByIds(
 	const languageParam = language ? `&${LANG_PARAM}=${language}` : "";
 	const res = await rest(
 		`/${base}?include=${unique.join(",")}&orderby=include&per_page=${PER_PAGE}${languageParam}&_fields=${fields}`,
-		{ apiID: apiID || base, pageID, tag: tag || restTag(base) },
+		{ apiID: apiID || base, pageID, tags },
 	);
 	return new Map(asList(res).map((item) => [item.id, item]));
 }
@@ -461,13 +536,13 @@ export async function loadByIds(
 export async function loadAll(
 	base,
 	params,
-	{ apiID, pageID, tag, maxPages = 20 } = {},
+	{ apiID, pageID, tags, maxPages = 20 } = {},
 ) {
 	const items = [];
 	for (let page = 1; page <= maxPages; page++) {
 		const res = await rest(
 			`/${base}?per_page=${PER_PAGE}&page=${page}&${params}`,
-			{ apiID: apiID || base, pageID, tag: tag || restTag(base) },
+			{ apiID: apiID || base, pageID, tags },
 		);
 		const rows = asList(res);
 		items.push(...rows);
@@ -476,14 +551,17 @@ export async function loadAll(
 	return items;
 }
 
-/** WPGraphQL ordered terms by name and broke ties by **descending** term id;
- *  REST breaks the same ties ascending. Only equal-name runs are touched, so
- *  REST's own collation for the primary sort is preserved. */
-export function orderTermsLikeGraphql(terms) {
+/** WPGraphQL broke ties on its sort field by **descending** id where REST breaks
+ *  them ascending — true for terms ordered by name and for posts ordered by
+ *  title. Only equal-key runs are touched, so REST's own collation for the
+ *  primary sort is preserved.
+ *
+ *  `keyOf` defaults to a term's `name`; pass an accessor for anything else. */
+export function orderTermsLikeGraphql(terms, keyOf = (item) => item.name) {
 	const ordered = [...terms];
 	for (let start = 0; start < ordered.length; ) {
 		let end = start + 1;
-		while (end < ordered.length && ordered[end].name === ordered[start].name) {
+		while (end < ordered.length && keyOf(ordered[end]) === keyOf(ordered[start])) {
 			end++;
 		}
 		if (end - start > 1) {
