@@ -75,7 +75,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getWebinars();
+	const data = await getWebinars("first:20");
 	return data?.data?.webinars?.nodes.map((item) => ({
 		slug: item.slug,
 	}));

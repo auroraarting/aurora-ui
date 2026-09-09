@@ -77,8 +77,8 @@ export async function generateStaticParams() {
 }
 
 /** Fetch  */
-async function getData({ params, query }) {
-	const language = query.language;
+async function getData({ params }) {
+	// const language = query.language;
 	// const isJapanese = language === "jp";
 
 	const [
@@ -162,10 +162,9 @@ async function getData({ params, query }) {
 }
 
 /** Australia Page */
-export default async function Australia({ params, searchParams }) {
+export default async function Australia({ params }) {
 	const { slug } = await params;
-	const query = await searchParams;
-	const { props } = await getData({ params: { slug }, query });
+	const { props } = await getData({ params: { slug } });
 
 	return (
 		<div>

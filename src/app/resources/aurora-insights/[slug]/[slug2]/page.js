@@ -71,7 +71,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		'first: 20, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
 	return data?.data?.posts?.nodes.map((item) => ({
 		slug: item.slug,
