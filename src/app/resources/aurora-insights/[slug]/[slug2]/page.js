@@ -67,7 +67,6 @@ export async function generateMetadata({ params }) {
 		},
 	};
 }
-
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getInsights(
