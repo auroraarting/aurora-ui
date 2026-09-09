@@ -145,9 +145,9 @@ export const getRegions = async () => {
 		.filter(Boolean);
 	const media = mediaIds.length
 		? await loadByIds("media", mediaIds, "id,source_url,alt_text", {
-				apiID: "media",
-				pageID: PAGE_ID,
-			})
+			apiID: "media",
+			pageID: PAGE_ID,
+		})
 		: new Map();
 
 	return {

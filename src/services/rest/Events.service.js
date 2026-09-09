@@ -369,20 +369,20 @@ export const getEventsInside = async (slug) => {
 	const [media, downloadTypes, speakers] = await Promise.all([
 		mediaIds.length
 			? loadByIds("media", mediaIds, "id,source_url,alt_text", {
-					...options,
-					apiID: "media",
-				})
+				...options,
+				apiID: "media",
+			})
 			: new Map(),
 		downloadTypeIds.length
 			? loadByIds("eventdownload", downloadTypeIds, "id,name,slug,acf", options)
 			: new Map(),
 		speakerIds.length
 			? loadByIds(
-					"post-speaker",
-					speakerIds,
-					"id,slug,title,content,acf",
-					options,
-				)
+				"post-speaker",
+				speakerIds,
+				"id,slug,title,content,acf",
+				options,
+			)
 			: new Map(),
 	]);
 

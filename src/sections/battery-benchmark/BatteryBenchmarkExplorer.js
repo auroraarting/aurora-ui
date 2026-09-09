@@ -88,8 +88,8 @@ export default function BatteryBenchmarkExplorer({
 			const missing = forceRefresh
 				? items.map((item) => item.uuid)
 				: items
-						.map((item) => item.uuid)
-						.filter((uuid) => !requested.current.has(uuid));
+					.map((item) => item.uuid)
+					.filter((uuid) => !requested.current.has(uuid));
 
 			if (!missing.length) return;
 

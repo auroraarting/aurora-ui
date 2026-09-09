@@ -51,10 +51,10 @@ function mapLeader(field) {
 			teams: {
 				thumbnail: thumbnail
 					? {
-							designation: orNull(thumbnail.designation),
-							linkedinLink: orNull(thumbnail.linkedin_link),
-							image: toMediaNode(thumbnail.image),
-						}
+						designation: orNull(thumbnail.designation),
+						linkedinLink: orNull(thumbnail.linkedin_link),
+						image: toMediaNode(thumbnail.image),
+					}
 					: null,
 			},
 		},
@@ -84,12 +84,12 @@ export const getOurTeamsPage = async () => {
 						: null,
 					insights: insights
 						? {
-								sectionTitle: orNull(insights.section_title),
-								sectionDesc: orNull(insights.section_desc),
-								insightsSectionButton: mapButton(
-									insights.insights_section_button,
-								),
-							}
+							sectionTitle: orNull(insights.section_title),
+							sectionDesc: orNull(insights.section_desc),
+							insightsSectionButton: mapButton(
+								insights.insights_section_button,
+							),
+						}
 						: null,
 					categories:
 						categories?.map((category) => ({

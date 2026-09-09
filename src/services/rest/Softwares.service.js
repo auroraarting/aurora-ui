@@ -307,9 +307,9 @@ function mapInsights(acf, { extended = false } = {}) {
 		// Only the language query selected these two.
 		...(extended
 			? {
-					insightsTitle: orNull(insights.insights_title),
-					listButtonText: orNull(insights.list_button_text),
-				}
+				insightsTitle: orNull(insights.insights_title),
+				listButtonText: orNull(insights.list_button_text),
+			}
 			: {}),
 		list: toRelation(ids, toExpanded(insights.list).map(mapInsightNode)),
 	};
@@ -423,9 +423,9 @@ function mapSoftwareLanding(acf) {
 		inisghtsSectionButton: mapButton(acf.inisghts_section_button),
 		insights: insights
 			? {
-					sectionDesc: orNull(insights.section_desc),
-					sectionTitle: orNull(insights.section_title),
-				}
+				sectionDesc: orNull(insights.section_desc),
+				sectionTitle: orNull(insights.section_title),
+			}
 			: null,
 		whyAurora: mapWhyAurora(acf),
 	};
@@ -466,10 +466,10 @@ export const getSoftwarePage = async () => {
 		data: {
 			page: pageRow
 				? {
-						title: renderedTitle(pageRow.title),
-						slug: toSlug(pageRow.slug),
-						softwareLanding: mapSoftwareLanding(pageRow.acf || {}),
-					}
+					title: renderedTitle(pageRow.title),
+					slug: toSlug(pageRow.slug),
+					softwareLanding: mapSoftwareLanding(pageRow.acf || {}),
+				}
 				: null,
 			softwares: toConnection(
 				softwares.map((software) => ({
@@ -477,9 +477,9 @@ export const getSoftwarePage = async () => {
 					slug: toSlug(software.slug),
 					softwares: software.acf
 						? {
-								thumbnail: mapThumbnail(software.acf),
-								ourClient: mapOurClient(software.acf),
-							}
+							thumbnail: mapThumbnail(software.acf),
+							ourClient: mapOurClient(software.acf),
+						}
 						: null,
 				})),
 			),
@@ -550,13 +550,13 @@ export const getSingleSoftware = async (slug) => {
 			countries,
 			softwareBy: software
 				? {
-						title: renderedTitle(software.title),
-						slug: toSlug(software.slug),
-						translations: (software.translations || []).map((translation) => ({
-							language: translation.language,
-						})),
-						softwares: mapSoftwares(software.acf),
-					}
+					title: renderedTitle(software.title),
+					slug: toSlug(software.slug),
+					translations: (software.translations || []).map((translation) => ({
+						language: translation.language,
+					})),
+					softwares: mapSoftwares(software.acf),
+				}
 				: null,
 		},
 	};

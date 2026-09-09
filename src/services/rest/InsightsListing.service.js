@@ -22,10 +22,10 @@ function findSectionButton(acf) {
 const mapButton = (button) =>
 	button
 		? {
-				buttonText: orNull(button.button_text),
-				iframe: orNull(button.iframe),
-				file: toMediaNode(button.file),
-			}
+			buttonText: orNull(button.button_text),
+			iframe: orNull(button.iframe),
+			file: toMediaNode(button.file),
+		}
 		: null;
 
 /** Fetch Page */
@@ -40,26 +40,26 @@ export const getInsightsPage = async () => {
 		data: {
 			page: row
 				? {
-						insightsListing: {
-							banner: banner
-								? { desc: orNull(banner.desc), title: orNull(banner.title) }
-								: null,
-							video: video
-								? {
-										redirectLink: orNull(video.redirect_link),
-										sectionDesc: orNull(video.section_desc),
-										videoLink: orNull(video.video_link),
-										sectionTitle: orNull(video.section_title),
-										iframe: orNull(video.iframe),
-										videoThumbnail: toMediaNode(video.video_thumbnail),
-									}
-								: null,
-							insights: insights
-								? { desc: orNull(insights.desc), title: orNull(insights.title) }
-								: null,
-							insightsSectionButton: mapButton(findSectionButton(acf)),
-						},
-					}
+					insightsListing: {
+						banner: banner
+							? { desc: orNull(banner.desc), title: orNull(banner.title) }
+							: null,
+						video: video
+							? {
+								redirectLink: orNull(video.redirect_link),
+								sectionDesc: orNull(video.section_desc),
+								videoLink: orNull(video.video_link),
+								sectionTitle: orNull(video.section_title),
+								iframe: orNull(video.iframe),
+								videoThumbnail: toMediaNode(video.video_thumbnail),
+							}
+							: null,
+						insights: insights
+							? { desc: orNull(insights.desc), title: orNull(insights.title) }
+							: null,
+						insightsSectionButton: mapButton(findSectionButton(acf)),
+					},
+				}
 				: null,
 		},
 	};

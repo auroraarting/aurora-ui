@@ -399,8 +399,8 @@ export const getInsights = async ({
 	}
 	const embeddedImages = embeddedImageIds.length
 		? await loadByIds("media", embeddedImageIds, "id,media_details", {
-				pageID: PAGE_ID,
-			})
+			pageID: PAGE_ID,
+		})
 		: new Map();
 	const imageMedia = new Map(
 		[...embeddedImages].map(([id, row]) => [id, row.media_details]),

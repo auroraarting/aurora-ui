@@ -27,26 +27,26 @@ export const getJoinUsPage = async () => {
 		data: {
 			page: row
 				? {
-						joinUs: {
-							banner: banner
-								? {
-										buttonLink: orNull(banner.button_link),
-										buttonText: orNull(banner.button_text),
-										desc: orNull(banner.desc),
-										title: orNull(banner.title),
-									}
-								: null,
-							insights: insights
-								? {
-										sectionDesc: orNull(insights.section_desc),
-										sectionTitle: orNull(insights.section_title),
-										insightsSectionButton: mapButton(
-											insights.insights_section_button,
-										),
-									}
-								: null,
-						},
-					}
+					joinUs: {
+						banner: banner
+							? {
+								buttonLink: orNull(banner.button_link),
+								buttonText: orNull(banner.button_text),
+								desc: orNull(banner.desc),
+								title: orNull(banner.title),
+							}
+							: null,
+						insights: insights
+							? {
+								sectionDesc: orNull(insights.section_desc),
+								sectionTitle: orNull(insights.section_title),
+								insightsSectionButton: mapButton(
+									insights.insights_section_button,
+								),
+							}
+							: null,
+					},
+				}
 				: null,
 		},
 	};

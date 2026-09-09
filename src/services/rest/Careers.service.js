@@ -73,82 +73,82 @@ export const getLifeAtAurora = async () => {
 				lifeAtAurora: {
 					banner: banner
 						? {
-								title: orNull(banner.title),
-								description: wpautop(banner.description),
-								videoLink: orNull(banner.video_link),
-								buttonText: orNull(banner.button_text),
-								buttonLink: orNull(banner.button_link),
-								// The CMS field name carries this typo on both sides.
-								dekstopimage: toMediaNode(banner.dekstopimage),
-								mobileimage: toMediaNode(banner.mobileimage),
-							}
+							title: orNull(banner.title),
+							description: wpautop(banner.description),
+							videoLink: orNull(banner.video_link),
+							buttonText: orNull(banner.button_text),
+							buttonLink: orNull(banner.button_link),
+							// The CMS field name carries this typo on both sides.
+							dekstopimage: toMediaNode(banner.dekstopimage),
+							mobileimage: toMediaNode(banner.mobileimage),
+						}
 						: null,
 					keyAdvantages: keyAdvantages
 						? {
-								title: orNull(keyAdvantages.title),
-								description: orNull(keyAdvantages.description),
-								tabTitle: orNull(keyAdvantages.tab_title),
-								buttonLink: orNull(keyAdvantages.button_link),
-								buttonText: orNull(keyAdvantages.button_text),
-								accordian:
+							title: orNull(keyAdvantages.title),
+							description: orNull(keyAdvantages.description),
+							tabTitle: orNull(keyAdvantages.tab_title),
+							buttonLink: orNull(keyAdvantages.button_link),
+							buttonText: orNull(keyAdvantages.button_text),
+							accordian:
 									toRows(keyAdvantages.accordian)?.map((entry) => ({
 										title: orNull(entry.title),
 										description: orNull(entry.description),
 										buttonLink: orNull(entry.button_link),
 										icon: toMediaNode(entry.icon),
 									})) ?? null,
-							}
+						}
 						: null,
 					stats: stats
 						? {
-								auroreans: orNull(stats.auroreans),
-								nationalities: orNull(stats.nationalities),
-							}
+							auroreans: orNull(stats.auroreans),
+							nationalities: orNull(stats.nationalities),
+						}
 						: null,
 					globalMap: globalMap
 						? { marqueetext: orNull(globalMap.marqueetext) }
 						: null,
 					collaborationSupport: collaborationSupport
 						? {
-								list:
+							list:
 									toRows(collaborationSupport.list)?.map((entry) => ({
 										description: wpautop(entry.description),
 										name: orNull(entry.name),
 										icon: toMediaNode(entry.icon),
 										image: toMediaNode(entry.image),
 									})) ?? null,
-							}
+						}
 						: null,
 					insights: insights
 						? {
-								sectionDesc: orNull(insights.section_desc),
-								sectionTitle: orNull(insights.section_title),
-							}
+							sectionDesc: orNull(insights.section_desc),
+							sectionTitle: orNull(insights.section_title),
+						}
 						: null,
 					insightsSectionButton: mapButton(acf.insights_section_button, {
 						withUrl: false,
 					}),
 					teamAurora: teamAurora
 						? {
-								teams:
+							teams:
 									toRows(teamAurora.teams)?.map((member) => ({
 										content: orNull(member.content),
 										designation: orNull(member.designation),
 										name: orNull(member.name),
 										image: toMediaNode(member.image),
 									})) ?? null,
-							}
+						}
 						: null,
 					benefits: benefits
 						? {
-								sectionTitle: orNull(benefits.section_title),
-								list:
+							sectionTitle: orNull(benefits.section_title),
+							list:
 									toRows(benefits.list)?.map((entry) => ({
 										desc: orNull(entry.desc),
 										title: orNull(entry.title),
 										icon: toMediaNode(entry.icon),
 									})) ?? null,
-							}
+						}
 						: null,
 					middleSectionButton: mapButton(acf.middle_section_button, {
 						withUrl: true,

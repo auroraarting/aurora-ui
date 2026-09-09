@@ -17,11 +17,11 @@ export const getFaqPage = async () => {
 		data: {
 			page: row
 				? {
-						faq: {
-							banner: banner
-								? { desc: orNull(banner.desc), title: orNull(banner.title) }
-								: null,
-							categories:
+					faq: {
+						banner: banner
+							? { desc: orNull(banner.desc), title: orNull(banner.title) }
+							: null,
+						categories:
 								categories?.map((category) => ({
 									title: orNull(category.title),
 									faq:
@@ -30,8 +30,8 @@ export const getFaqPage = async () => {
 											title: orNull(entry.title),
 										})) ?? null,
 								})) ?? null,
-						},
-					}
+					},
+				}
 				: null,
 		},
 	};

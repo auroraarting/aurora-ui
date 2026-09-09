@@ -63,13 +63,13 @@ export const getPageSeo = async ({ postType, slug } = {}) => {
 		data: {
 			[rootField]: row
 				? {
-						status: row.status,
-						seo: {
-							title: orEmpty(row.yoast_head_json?.title),
-							metaDesc: orEmpty(row.yoast_head_json?.description),
-							metaKeywords: "",
-						},
-					}
+					status: row.status,
+					seo: {
+						title: orEmpty(row.yoast_head_json?.title),
+						metaDesc: orEmpty(row.yoast_head_json?.description),
+						metaKeywords: "",
+					},
+				}
 				: null,
 		},
 	};

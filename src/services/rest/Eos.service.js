@@ -61,20 +61,20 @@ export const getEosPage = async () => {
 				eos: {
 					eosAi: eosAi
 						? {
-								logo: toMediaNode(eosAi.logo),
-								title: orNull(eosAi.title),
-								description: wpautop(eosAi.description),
-								button: mapButton(eosAi.button),
-							}
+							logo: toMediaNode(eosAi.logo),
+							title: orNull(eosAi.title),
+							description: wpautop(eosAi.description),
+							button: mapButton(eosAi.button),
+						}
 						: null,
 					banner: banner
 						? {
-								buttonLink: orNull(banner.button_link),
-								buttonText: orNull(banner.button_text),
-								description: wpautop(banner.description),
-								title: orNull(banner.title),
-								vimeoLink: orNull(banner.vimeo_link),
-								videos:
+							buttonLink: orNull(banner.button_link),
+							buttonText: orNull(banner.button_text),
+							description: wpautop(banner.description),
+							title: orNull(banner.title),
+							vimeoLink: orNull(banner.vimeo_link),
+							videos:
 									videos?.map((video) => ({
 										videoType: orNull(video.video_type),
 										videoFile: toMediaNode(video.video_file, {
@@ -83,16 +83,16 @@ export const getEosPage = async () => {
 										vimeoLink: orNull(video.vimeo_link),
 										youtubeLink: orNull(video.youtube_link),
 									})) ?? null,
-								desktopThumbnail: toMediaNode(banner.desktop_thumbnail),
-								logo: toMediaNode(banner.logo),
-								mobileThumbnail: toMediaNode(banner.mobile_thumbnail),
-							}
+							desktopThumbnail: toMediaNode(banner.desktop_thumbnail),
+							logo: toMediaNode(banner.logo),
+							mobileThumbnail: toMediaNode(banner.mobile_thumbnail),
+						}
 						: null,
 					expertise: expertise
 						? {
-								description: orNull(expertise.description),
-								title: orNull(expertise.title),
-								expertiseAccordion:
+							description: orNull(expertise.description),
+							title: orNull(expertise.title),
+							expertiseAccordion:
 									toRows(expertise.expertise_accordion)?.map((accordion) => ({
 										accordionDescription: orNull(
 											accordion.accordion_description,
@@ -101,46 +101,46 @@ export const getEosPage = async () => {
 										buttonLink: orNull(accordion.button_link),
 										icon: toMediaNode(accordion.icon),
 									})) ?? null,
-							}
+						}
 						: null,
 					map: map ? { marquee: orNull(map.marquee) } : null,
 					ourClient: ourClient
 						? {
-								title: orNull(ourClient.title),
-								selectLogos: toConnection(
-									toExpanded(ourClient.select_logos).map((logo) => ({
-										id: toGlobalId(logo.id),
-										featuredImage: toExpandedImage(logo),
-									})),
-								),
-								testimonials: toConnection(
-									toExpanded(ourClient.testimonials).map((testimonial) => ({
-										id: toGlobalId(testimonial.id),
-										// The expanded row carries content already rendered, so
-										// there is no .rendered wrapper to unwrap here.
-										content: orNull(testimonial.content),
-										title: expandedTitle(testimonial),
-										testimonials: {
-											designation: orNull(testimonial.acf?.designation),
-										},
-									})),
-								),
-							}
+							title: orNull(ourClient.title),
+							selectLogos: toConnection(
+								toExpanded(ourClient.select_logos).map((logo) => ({
+									id: toGlobalId(logo.id),
+									featuredImage: toExpandedImage(logo),
+								})),
+							),
+							testimonials: toConnection(
+								toExpanded(ourClient.testimonials).map((testimonial) => ({
+									id: toGlobalId(testimonial.id),
+									// The expanded row carries content already rendered, so
+									// there is no .rendered wrapper to unwrap here.
+									content: orNull(testimonial.content),
+									title: expandedTitle(testimonial),
+									testimonials: {
+										designation: orNull(testimonial.acf?.designation),
+									},
+								})),
+							),
+						}
 						: null,
 					topSectionButton: mapButton(acf.top_section_button),
 					middleSectionButton: mapButton(acf.middle_section_button),
 					insightsSectionButton: mapButton(acf.insights_section_button),
 					introduction: introduction
 						? {
-								description: wpautop(introduction.description),
-								sectionTitle: orNull(introduction.section_title),
-							}
+							description: wpautop(introduction.description),
+							sectionTitle: orNull(introduction.section_title),
+						}
 						: null,
 					insights: insights
 						? {
-								sectionTitle: orNull(insights.section_title),
-								sectionDesc: orNull(insights.section_desc),
-							}
+							sectionTitle: orNull(insights.section_title),
+							sectionDesc: orNull(insights.section_desc),
+						}
 						: null,
 					stats:
 						toRows(acf.stats)?.map((stat) => ({

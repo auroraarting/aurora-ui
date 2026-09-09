@@ -14,16 +14,16 @@ export const getContact = async () => {
 		data: {
 			page: row
 				? {
-						contact: {
-							banner: banner
-								? {
-										// A WYSIWYG field — GraphQL served it paragraphed.
-										description: wpautop(banner.description),
-										title: orNull(banner.title),
-									}
-								: null,
-						},
-					}
+					contact: {
+						banner: banner
+							? {
+								// A WYSIWYG field — GraphQL served it paragraphed.
+								description: wpautop(banner.description),
+								title: orNull(banner.title),
+							}
+							: null,
+					},
+				}
 				: null,
 		},
 	};

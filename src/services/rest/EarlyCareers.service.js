@@ -234,11 +234,11 @@ export const getEarlyCareersInside = async (slug) => {
 		data: {
 			earlyCareerBy: row
 				? {
-						title: renderedTitle(row.title),
-						slug: toSlug(row.slug),
-						status: orNull(row.status),
-						earlyCareers: mapEarlyCareers(row.acf || {}),
-					}
+					title: renderedTitle(row.title),
+					slug: toSlug(row.slug),
+					status: orNull(row.status),
+					earlyCareers: mapEarlyCareers(row.acf || {}),
+				}
 				: null,
 		},
 	};

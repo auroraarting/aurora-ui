@@ -26,24 +26,24 @@ export const getEnergyTalksPage = async () => {
 		data: {
 			page: row
 				? {
-						energyTalksListing: {
-							banner: banner
-								? { desc: orNull(banner.desc), title: orNull(banner.title) }
-								: null,
-							video: video
-								? {
-										redirectLink: orNull(video.redirect_link),
-										// A WYSIWYG field on this page (unlike the plain-text
-										// field of the same name on insight-listing).
-										sectionDesc: wpautop(video.section_desc),
-										videoLink: orNull(video.video_link),
-										sectionTitle: orNull(video.section_title),
-										iframe: orNull(video.iframe),
-										videoThumbnail: toMediaNode(video.video_thumbnail),
-									}
-								: null,
-						},
-					}
+					energyTalksListing: {
+						banner: banner
+							? { desc: orNull(banner.desc), title: orNull(banner.title) }
+							: null,
+						video: video
+							? {
+								redirectLink: orNull(video.redirect_link),
+								// A WYSIWYG field on this page (unlike the plain-text
+								// field of the same name on insight-listing).
+								sectionDesc: wpautop(video.section_desc),
+								videoLink: orNull(video.video_link),
+								sectionTitle: orNull(video.section_title),
+								iframe: orNull(video.iframe),
+								videoThumbnail: toMediaNode(video.video_thumbnail),
+							}
+							: null,
+					},
+				}
 				: null,
 		},
 	};
@@ -56,10 +56,10 @@ export const getEnergyTalksPageSocialLinks = async () => {
 		data: {
 			page: row
 				? {
-						energyTalksListing: {
-							socialLinks: mapSocialLinks(row.acf?.social_links),
-						},
-					}
+					energyTalksListing: {
+						socialLinks: mapSocialLinks(row.acf?.social_links),
+					},
+				}
 				: null,
 		},
 	};

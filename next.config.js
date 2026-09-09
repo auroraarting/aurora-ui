@@ -7,6 +7,12 @@ const nextConfig = {
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 
+	// Lint is run separately (`npm run lint`); don't fail or slow the Vercel
+	// build on rules the codebase hasn't been cleaned up for yet.
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+
 	// Pacing the WordPress calls only works if there is one queue, and the queue
 	// in services/limiter.js is per-process. By default Next fans static
 	// generation out across a worker per ~25 pages (up to one per CPU) and

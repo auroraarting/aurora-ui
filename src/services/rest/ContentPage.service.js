@@ -26,10 +26,10 @@ async function getContentPage(slug, pageID) {
 		data: {
 			page: row
 				? {
-						slug: toSlug(row.slug),
-						title: renderedTitle(row.title),
-						content: renderedHtml(row.content),
-					}
+					slug: toSlug(row.slug),
+					title: renderedTitle(row.title),
+					content: renderedHtml(row.content),
+				}
 				: null,
 		},
 	};

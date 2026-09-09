@@ -113,10 +113,10 @@ export const getTeamSectors = async () => {
 			loadByIds("media", mediaIds, "id,source_url,alt_text", { pageID: PAGE_ID }),
 			categoryIds.length
 				? loadAll(
-						"categories",
-						`include=${[...new Set(categoryIds)].join(",")}&_fields=id,slug,name`,
-						{ apiID: "categories", pageID: PAGE_ID },
-					).then((rows) => new Map(rows.map((row) => [row.id, row])))
+					"categories",
+					`include=${[...new Set(categoryIds)].join(",")}&_fields=id,slug,name`,
+					{ apiID: "categories", pageID: PAGE_ID },
+				).then((rows) => new Map(rows.map((row) => [row.id, row])))
 				: Promise.resolve(new Map()),
 		]);
 		ctx = { posts, categories, media };

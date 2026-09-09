@@ -232,13 +232,13 @@ function matchesRatio(sourceWidth, sourceHeight, targetWidth, targetHeight) {
 	const [constrained, expected] =
 		sourceWidth > targetWidth
 			? [
-					constrainDimensions(sourceWidth, sourceHeight, targetWidth),
-					[targetWidth, targetHeight],
-				]
+				constrainDimensions(sourceWidth, sourceHeight, targetWidth),
+				[targetWidth, targetHeight],
+			]
 			: [
-					constrainDimensions(targetWidth, targetHeight, sourceWidth),
-					[sourceWidth, sourceHeight],
-				];
+				constrainDimensions(targetWidth, targetHeight, sourceWidth),
+				[sourceWidth, sourceHeight],
+			];
 
 	return (
 		Math.abs(constrained[0] - expected[0]) <= 1 &&
@@ -294,9 +294,9 @@ function calculateSrcset(details, src, width, height) {
 		srcWidth === null
 			? entries
 			: [
-					[srcWidth, candidates.get(srcWidth)],
-					...entries.filter(([candidateWidth]) => candidateWidth !== srcWidth),
-				];
+				[srcWidth, candidates.get(srcWidth)],
+				...entries.filter(([candidateWidth]) => candidateWidth !== srcWidth),
+			];
 
 	return ordered
 		.map(([candidateWidth, url]) => `${url} ${candidateWidth}w`)
