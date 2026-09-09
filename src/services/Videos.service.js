@@ -328,7 +328,7 @@ query GetPodcastBy {
 	try {
 		res = await GraphQLAPI(query, {
 			apiID: "videos",
-			pageID: `/resources/videos`,
+			pageID: "/resources/videos",
 		});
 		return res;
 	} catch (error) {
