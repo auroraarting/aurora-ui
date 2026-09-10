@@ -112,6 +112,9 @@ export default function EventsMiddleRight({ data, events }) {
 
 			{companyLogos.length > 0 && (
 				<div className={`${styles.whiteBox} ${styles.logoBox}`}>
+					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
+						PARTNERS
+					</h5>
 					<Swiper
 						modules={[Pagination, Autoplay]}
 						slidesPerView={logosPerView}

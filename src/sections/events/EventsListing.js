@@ -118,7 +118,13 @@ export default function EventsListing({
 	/** Does the full (unfiltered) dataset have anything to show on the past listing? */
 	const hasPastEvents = useMemo(() => splitEvents(data).past.length > 0, [data]);
 
-	// Past events are their own listing, reached through the "View Previous Events"
+	/** ...and anything to come back to once the past listing is open? */
+	const hasUpcomingEvents = useMemo(
+		() => splitEvents(data).upcoming.length > 0,
+		[data],
+	);
+
+	// Past events are their own listing, reached through the "View Past Events"
 	// button or a `?status=Past` url. It also stands in whenever the current
 	// selection leaves no upcoming events, so filtered past results stay reachable.
 	const viewingPast = selected?.status === "Past";
@@ -197,6 +203,13 @@ export default function EventsListing({
 	const viewPreviousEvents = (e) => {
 		e?.preventDefault();
 		handleOptionClick("eventStatusType", { title: "Past" });
+		sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+
+	/** Back out of the past listing: clears the status filter, keeping the rest */
+	const viewUpcomingEvents = (e) => {
+		e?.preventDefault();
+		handleOptionClick("eventStatusType", { title: "" });
 		sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 	};
 
@@ -736,7 +749,7 @@ export default function EventsListing({
 						    router remount this section mid-update. */}
 						<a href="/events?status=Past" onClick={viewPreviousEvents}>
 							<Button color="primary" variant="filled" shape="rounded" mode="dark">
-								View Previous Events
+								View Past Events
 							</Button>
 						</a>
 					</div>
@@ -745,21 +758,46 @@ export default function EventsListing({
 				{/* Past & Other Events */}
 				{showPast && (
 					<>
-						{pastEvents?.length > 0 && (
-							<h2
-								className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
-							>
-								Past Events
-							</h2>
+						{(pastEvents?.length > 0 || (viewingPast && hasUpcomingEvents)) && (
+							<div className={`${styles.pastHeaderRow} d_f`}>
+								{pastEvents?.length > 0 && (
+									<h2
+										className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
+									>
+										Past Events
+									</h2>
+								)}
+								{/* Way back to the default listing — same plain-anchor trick as above */}
+								{viewingPast && hasUpcomingEvents && (
+									<a
+										className={styles.backToLatest}
+										href="/events"
+										onClick={viewUpcomingEvents}
+									>
+										<Button
+											color="primary"
+											variant="filled"
+											shape="rounded"
+											mode="dark"
+											size="text_xs"
+										>
+											View Upcoming Events
+										</Button>
+									</a>
+								)}
+							</div>
 						)}
 						<div className={`${styles.insightsItemFlex} d_f`}>
 							{list?.map((item) => renderEventCard(item, false))}
 							{loading && <p>Loading...</p>}
-							{upcomingEvents?.length === 0 && pastEvents?.length === 0 && !loading && (
-								<p className={`${styles.nodataText} nodataText`}>
-									No events available for this selection. Please choose a different option.
-								</p>
-							)}
+							{upcomingEvents?.length === 0 &&
+								pastEvents?.length === 0 &&
+								!loading && (
+									<p className={`${styles.nodataText} nodataText`}>
+										No events available for this selection. Please choose a different
+										option.
+									</p>
+								)}
 						</div>
 						{pastEvents?.length > 0 && (
 							<Pagination
