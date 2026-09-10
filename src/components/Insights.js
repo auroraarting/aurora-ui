@@ -325,9 +325,9 @@ export default function Insights({
 	defaultList,
 	countries,
 	insightsTitle = "Insights",
-	formSectionTitle = "Let’s power the future, together",
+	formSectionTitle,
 	formSectionDesc = "",
-	formSectionBtnText = "Sign up",
+	formSectionBtnText,
 	formdata,
 	insightsLink = "/resources/aurora-insights/",
 	customHtml,
@@ -336,6 +336,20 @@ export default function Insights({
 	insightsListButtonText = "View all",
 }) {
 	const pathname = usePathname();
+
+	// The intro block is only worth its space if something will render inside it:
+	// a title, a description, a CTA label, custom markup, or the inline form.
+	// `isPowerBgVisible={false}` still hides it outright.
+	const showPowerBg =
+		isPowerBgVisible &&
+		Boolean(
+			formSectionTitle ||
+				formSectionDesc ||
+				formSectionBtnText ||
+				customHtml ||
+				isFormVisible,
+		);
+
 	const [data, setData] = useState({ data: defaultList, countries });
 	const formRef = useRef();
 	const [thankYouMessage, setthankYouMessage] = useState(false);
@@ -489,26 +503,32 @@ export default function Insights({
 		<section className={`${styles.Insights} Insights`} {...sectionId}>
 			<div className="containerLarge">
 				<div className={`${styles.insightsBg} insightsBg dark_bg`}>
-					{isPowerBgVisible && (
+					{showPowerBg && (
 						<div className={`${styles.powerBg} powerBg`}>
 							<div
 								className={`${styles.contentFlex} contentFlex f_j ${
 									isFormVisible ? styles.isFormVisible : ""
 								}`}
 							>
-								<div className={`${styles.title_wrap}`}>
-									{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
+								{(formSectionTitle || formSectionDesc) && (
+									<div className={`${styles.title_wrap}`}>
+										{/* <h2 className="text_lg font_primary f_w_s_b color_white m_b_15">
 											{insightsTitle}
 										</h2> */}
-									<p className="text_lg font_primary f_w_s_b color_white pb_10">
-										{formSectionTitle}
-									</p>
-									<div className={`${styles.desc} text_reg color_silver_gray`}>
-										<ContentFromCms>{formSectionDesc}</ContentFromCms>
+										{formSectionTitle && (
+											<p className="text_lg font_primary f_w_s_b color_white pb_10">
+												{formSectionTitle}
+											</p>
+										)}
+										{formSectionDesc && (
+											<div className={`${styles.desc} text_reg color_silver_gray`}>
+												<ContentFromCms>{formSectionDesc}</ContentFromCms>
+											</div>
+										)}
 									</div>
-								</div>
+								)}
 								{customHtml && customHtml}
-								{!customHtml && !isFormVisible && (
+								{!customHtml && !isFormVisible && formSectionBtnText && (
 									<a
 										className={`${styles.bookBtn}`}
 										onClick={() => handleOpenForm()}
