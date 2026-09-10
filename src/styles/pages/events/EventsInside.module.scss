@@ -2,7 +2,7 @@
 .EventsInsidePage {
 	background-color: var(--color_silver);
 
-    iframe {
+	iframe {
 		width: 100%;
 		height: auto;
 		aspect-ratio: 640 / 360;
@@ -39,5 +39,9 @@
 				}
 			}
 		}
+	}
+
+	:global(.insightsBg) {
+		padding: 30px 60px !important;
 	}
 }
