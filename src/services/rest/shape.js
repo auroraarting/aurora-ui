@@ -278,6 +278,36 @@ function labelName(parent, key) {
  */
 export const acfBooleanFields = new Set(["islive"]);
 
+/** ACF stores a date-picker value as `Ymd` and formats it for display in the
+ *  field's own format — `20251220` and `20/12/2025` here. WPGraphQL returned
+ *  ISO 8601 instead. */
+const acfStoredDate = /^(\d{4})(\d{2})(\d{2})$/;
+const acfDisplayDate = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+
+/**
+ * An ACF date-picker value as WPGraphQL returned it, or null if this is not
+ * one.
+ *
+ * The pair is the signal: an eight-digit raw value *and* a slash-formatted
+ * counterpart. Neither alone is safe — plenty of fields hold eight digits, and
+ * plenty hold slashes — and there is no field type to consult, because these
+ * live inside a repeater and ACF only publishes types for top-level fields.
+ *
+ * This matters more than it looks: the careers popup renders the value through
+ * `formatDate`, which is `new Date(value)`. ISO parses; `20/12/2025` is an
+ * Invalid Date and reaches the page as "Invalid Date".
+ *
+ * @param {string} raw the value on the `acf` key
+ * @param {any} formatted its counterpart on the `_source` mirror
+ * @returns {string|null}
+ */
+function isoDate(raw, formatted) {
+	const parts = acfStoredDate.exec(raw);
+	if (!parts) return null;
+	if (typeof formatted !== "string" || !acfDisplayDate.test(formatted)) return null;
+	return `${parts[1]}-${parts[2]}-${parts[3]}T00:00:00+00:00`;
+}
+
 /**
  * Recursively normalise an ACF payload into the WPGraphQL shape.
  *
@@ -352,6 +382,16 @@ export function shapeAcf(value, options = {}) {
 
 		const meta = isTree ? undefined : value[`${key}_source`];
 		const fmt = isTree ? formatted[key] : meta?.formatted_value;
+
+		// A date picker is the one field whose formatted value is the wrong
+		// shape for the components — see isoDate.
+		if (typeof val === "string") {
+			const iso = isoDate(val, fmt);
+			if (iso) {
+				out[name] = iso;
+				continue;
+			}
+		}
 
 		// Only strings are taken from the formatted mirror — see the note above.
 		if (typeof val === "string" && typeof fmt === "string") {

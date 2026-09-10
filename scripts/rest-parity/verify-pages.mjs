@@ -227,7 +227,33 @@ const cases = [
 			(await gEarly.getEarlyCareersListing("first: 10"))?.data?.earlyCareers?.nodes,
 		rest: () => rEarly.getEarlyCareersListing({ first: 10 }),
 	},
+	{
+		label: "early careers landing",
+		gql: async () =>
+			(await gEarly.getEarlyCareersPage())?.data?.page?.earlyCareersLanding,
+		rest: async () => (await rEarly.getEarlyCareersPage())?.page,
+	},
+	{
+		label: "early careers programs",
+		gql: async () => (await gEarly.getEarlyCareersPage())?.data?.programs?.nodes,
+		rest: async () => (await rEarly.getEarlyCareersPage())?.programs,
+	},
+	{
+		label: "early-careers/[slug]",
+		gql: async () =>
+			(await gEarly.getEarlyCareersInside(earlyCareerSlug))?.data?.earlyCareerBy,
+		rest: () => rEarly.getEarlyCareersInside(earlyCareerSlug),
+	},
+	{
+		label: "early careers by region",
+		gql: async () =>
+			(await gEarly.getEarlyCareersListingByRegions())?.data?.regions?.nodes,
+		rest: () => rEarly.getEarlyCareersListingByRegions(),
+	},
 ];
+
+/** A published programme to compare the detail page against. */
+const earlyCareerSlug = "tokyo-graduate-analyst-programme";
 
 const only = process.argv[2];
 const summary = [];

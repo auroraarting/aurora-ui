@@ -34,11 +34,11 @@ shape-only pass reported 24/24 while the rendered pages still differed: every
 WYSIWYG field was missing its `<p>` wrapper and its curly quotes. Shape parity
 is necessary and nowhere near sufficient.
 
-**A set comparison cannot see order.** The rendered-page check compares text as
-a multiset, which is right for ignoring Suspense reshuffles but blind to
-ordering — a `<select>` whose options moved holds exactly the same strings. The
-country dropdown came back newest-first instead of alphabetical and only the
-value comparison caught it, because it compares by path.
+**A set comparison cannot see order.** A whole-page multiset is right for
+ignoring Suspense reshuffles but blind to ordering — a `<select>` whose options
+moved holds exactly the same strings. The country dropdown came back
+newest-first instead of alphabetical and only the value comparison caught it,
+because it compares by path. Diff `<main>` as a sequence to get order back.
 
 ## rest:audit
 
@@ -71,9 +71,13 @@ field name falls back to the field's label, as WPGraphQL did.
 3. Point the page at the REST services, drop `export const revalidate`, and
    unwrap the props (REST services return nodes directly; `getRegions` keeps
    its `data.regions` envelope because the map helpers walk it).
-4. Render the page before and after with `next dev` and diff the visible text.
-   Comparing it as a multiset rather than a sequence avoids false alarms from
-   Suspense chunks streaming in a different order.
+4. Render the page before and after with `next dev` and diff the text inside
+   `<main>` **as a sequence**. That excludes the header and footer, which
+   stream in a different order between runs and otherwise drag a whole-page
+   sequence diff down to ~0.78 similarity on identical content. Comparing
+   `<main>` gives an exact ordered match, and the heading sequence
+   (`<h1>`–`<h6>` in order) is a good second check. A whole-page multiset is
+   the fallback, but it cannot see ordering — see below.
 
 ## Watch for
 
@@ -105,6 +109,12 @@ field name falls back to the field's label, as WPGraphQL did.
   returns newest-first where the GraphQL query asked for TITLE ASC, and terms
   that share a name tie-break by *descending* id in WPGraphQL and ascending in
   REST. See `orderTermsLikeGraphql` in `rest/Insights.service.js`.
+- **ACF date pickers need converting.** The raw value is `Ymd` (`20251220`) and
+  the formatted mirror is the field's display format (`20/12/2025`), but
+  WPGraphQL returned ISO 8601. The careers popup passes the value straight to
+  `formatDate`, i.e. `new Date(value)`, so the display format reaches the page
+  as **"Invalid Date"**. `isoDate` in `shape.js` spots the pair — eight-digit
+  raw *and* slash-formatted counterpart — and emits ISO.
 - Never memoise in front of `fetch`. The second caller gets a promise instead
   of a fetch, so its page never registers the cache tags and on-demand
   revalidation silently stops working for it.
