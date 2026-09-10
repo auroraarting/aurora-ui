@@ -52,6 +52,19 @@ const [
 	importService("EarlyCareers.service.js"),
 ]);
 
+const [gPress, gEvents, gSoftwares] = await Promise.all([
+	importService("Press.service.js"),
+	importService("Events.service.js"),
+	importService("Softwares.service.js"),
+]);
+const rSoftwares = await importService("rest/Softwares.service.js");
+const [rPress, rLanguages, rFilterOptions, rEvents] = await Promise.all([
+	importService("rest/Press.service.js"),
+	importService("rest/Languages.service.js"),
+	importService("rest/FilterOptions.service.js"),
+	importService("rest/Events.service.js"),
+]);
+
 const [
 	gVideos, gVideosLanding, gEnergyTalks, gInsightsListing, gPodcast, gWebinar,
 ] = await Promise.all([
@@ -118,11 +131,24 @@ const acceptedValuePaths = [
 	/^postFields\.sections\[\d+\]\.content$/,
 ];
 
-/** `contentType` subfields the GraphQL queries select but nothing in src/ ever
- *  reads — every one of the ~12 usages goes through `contentType.node.name`.
- *  Reproducing `uri`/`label`/`id` would mean another call per post type for
- *  values no section looks at. */
-const acceptedMissing = [/\.contentType\.node\.(uri|label|id|showUi)$/];
+/** Fields REST cannot supply, with the reason.
+ *
+ *  - `contentType.node.uri|label|id|showUi`: the GraphQL queries select them
+ *    but nothing in src/ reads them — all ~12 usages go through
+ *    `contentType.node.name`. Reproducing the rest would mean another call per
+ *    post type for values no section looks at.
+ *
+ *  - `<media>.node.translations[…]`: WPML's *media* translations are visible to
+ *    WPGraphQL but not exposed on wp/v2 `/media`, which reports `translations:
+ *    []` for every attachment sampled (300+, across several pages) while
+ *    WPGraphQL reports a `ja` entry for 36 of 44 event banners. Those entries
+ *    point at the *same file* as the default, and the rendered pages are
+ *    identical, so nothing is lost visually. Fixing it properly needs a
+ *    server-side addition, like the two routes already in `aurora/v1`. */
+const acceptedMissing = [
+	/\.contentType\.node\.(uri|label|id|showUi)$/,
+	/\.node\.translations(\[|$)/,
+];
 
 /** Fields the GraphQL queries select but nothing in src/ ever reads, so REST
  *  does not reproduce them. Verified by grepping the whole tree. */
@@ -355,6 +381,109 @@ const cases = [
 		gql: async () => (await gWebinar.getWebinarInside(webinarSlug))?.data?.webinar,
 		rest: () => rWebinar.getWebinarInside(webinarSlug),
 	},
+	// ---- press room -----------------------------------------------------
+	{
+		label: "press landing",
+		gql: async () => (await gPress.getPressPage())?.data?.page?.pressLanding,
+		rest: () => rPress.getPressPage(),
+	},
+	{
+		label: "languages",
+		gql: async () => (await gPress.getPressesLanguages())?.data?.languages,
+		rest: () => rLanguages.getAllLanguages(),
+	},
+	{
+		label: "filter options",
+		gql: async () => (await gEvents.getAllEventCountries())?.data,
+		rest: async () => {
+			const { countries, products, softwares, services } =
+				await rFilterOptions.getFilterOptions();
+			// The GraphQL query selected these four as { nodes } connections.
+			return {
+				countries: { nodes: countries },
+				products: { nodes: products },
+				softwares: { nodes: softwares },
+				services: { nodes: services },
+			};
+		},
+	},
+	// ---- global presence -------------------------------------------------
+	{
+		label: "global presence landing",
+		gql: async () =>
+			(await gGlobal.getGlobalPresencePage())?.data?.page?.globalPresence,
+		rest: () => rShared.getGlobalPresencePage(),
+	},
+	{
+		label: "countries (default order)",
+		gql: async () => (await gGlobal.getCountries())?.data?.countries?.nodes,
+		rest: () => rShared.getCountries(),
+	},
+	{
+		label: "global-presence/[slug]",
+		gql: async () => (await gGlobal.getCountryInside(countrySlug))?.data?.countryBy,
+		rest: () => rShared.getCountryInside(countrySlug),
+	},
+	// ---- software --------------------------------------------------------
+	{
+		label: "software landing",
+		gql: async () =>
+			(await gSoftwares.getSoftwarePage())?.data?.page?.softwareLanding,
+		rest: async () => (await rSoftwares.getSoftwarePage())?.landing,
+	},
+	{
+		label: "software listing",
+		gql: async () => (await gSoftwares.getSoftwarePage())?.data?.softwares?.nodes,
+		rest: async () => (await rSoftwares.getSoftwarePage())?.softwares,
+	},
+	{
+		label: "software/[slug]",
+		gql: async () =>
+			(await gSoftwares.getSingleSoftware(softwareSlug))?.data?.softwareBy,
+		rest: () => rSoftwares.getSingleSoftware(softwareSlug),
+	},
+	// ---- products landing -----------------------------------------------
+	{
+		label: "product landing",
+		gql: async () => (await gProd.getProductPage())?.data?.page?.productLanding,
+		rest: async () => (await rProd.getProductPage())?.landing,
+	},
+	{
+		label: "product listing",
+		gql: async () => (await gProd.getProductPage())?.data?.products?.nodes,
+		rest: async () => (await rProd.getProductPage())?.products,
+	},
+	// ---- events ---------------------------------------------------------
+	{
+		label: "all events",
+		gql: async () => (await gEvents.getAllEvents())?.data?.events?.nodes,
+		rest: () => rEvents.getAllEvents(),
+	},
+	{
+		label: "events/[slug]",
+		gql: async () => (await gEvents.getEventsInside(eventSlug))?.data?.eventBy,
+		rest: () => rEvents.getEventsInside(eventSlug),
+	},
+	{
+		label: "event landing",
+		gql: async () =>
+			(await gEvents.getEventLandingPage())?.data?.page?.eventLanding,
+		rest: () => rEvents.getEventLandingPage(),
+	},
+	{
+		label: "event categories",
+		gql: async () =>
+			(await gEvents.getAllEventCategories())?.data?.eventscategories?.nodes,
+		rest: () => rEvents.getAllEventCategories(),
+	},
+	{
+		label: "press media posts",
+		gql: async () =>
+			(await gInsights.getInsights('first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}'))
+				?.data?.posts?.nodes,
+		rest: () =>
+			rInsights.getInsights({ first: 4, categories: ["media"], afterYear: 2023 }),
+	},
 ];
 
 /** A published programme to compare the detail page against. */
@@ -368,6 +497,15 @@ const podcastSlug = "ep-305-what-happens-when-a-market-moves-fast";
 
 /** A published insight with authors, sections and a powered-by reference. */
 const insightSlug = "ireland-energy-affordability-challenge";
+
+/** A country with offices, markets and a translation. */
+const countrySlug = "australia";
+
+/** A published software product. */
+const softwareSlug = "origin";
+
+/** A published event. */
+const eventSlug = "aurora-energy-transition-summit-london-2026";
 
 /** A published webinar. */
 const webinarSlug = "ai-powered-energy-workflows-with-aurora-mcp-noram-special-edition";

@@ -1,4 +1,12 @@
-import { getAllSlugs, getSingleBySlug } from "./Single.service";
+import { restAll } from "../Rest.service";
+
+import { resolveRelationsBatch } from "./Relations.service";
+import {
+	getAllSlugs,
+	getPageGroup,
+	getSingleBySlug,
+} from "./Single.service";
+import { shapeAcf, text } from "./shape";
 
 /**
  * The /products/[slug] page.
@@ -27,3 +35,31 @@ export const getProductBySlug = (slug) =>
  * @returns {Promise<Array<{ title: string, slug: string }>>}
  */
 export const getProductSlugs = () => getAllSlugs("products");
+
+/**
+ * The /products landing page: the `productLanding` field group plus every
+ * product with its own fields.
+ *
+ * WPGraphQL fetched both in one query. Over REST they are the page, the
+ * product collection, and one batched call per relationship field across all
+ * four products — the listing derives its client-logo and testimonial rails by
+ * merging each product's own pickers.
+ *
+ * @returns {Promise<{ landing: any, products: any[] }>}
+ */
+export const getProductPage = async () => {
+	const [landing, posts] = await Promise.all([
+		getPageGroup("product"),
+		restAll("products?_fields=id,slug,title,acf", { apiID: "products" }),
+	]);
+
+	const products = posts.map((post) => ({
+		id: post.id,
+		title: text(post.title),
+		slug: post.slug,
+		products: shapeAcf(post.acf || {}),
+	}));
+	await resolveRelationsBatch(products.map((product) => product.products));
+
+	return { landing, products };
+};

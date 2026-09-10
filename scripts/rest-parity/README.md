@@ -34,6 +34,25 @@ shape-only pass reported 24/24 while the rendered pages still differed: every
 WYSIWYG field was missing its `<p>` wrapper and its curly quotes. Shape parity
 is necessary and nowhere near sufficient.
 
+**The shape diff unions keys across every array element.** It used to sample
+index 0 only, which hid a relation that is null on the first repeater row and
+populated on later ones (`whyAttend.agenda[].speaker` on events) — the suite
+reported parity while a whole speaker list was missing from the rendered page.
+When adding a service, scan the raw ACF for integer arrays at *any* depth and
+*any* index; that is what a relation looks like:
+
+```js
+// every integer array in an ACF payload, however deep
+const scan = (o, p = "") =>
+  Array.isArray(o)
+    ? o.every((x) => Number.isInteger(x)) && o.length
+      ? console.log(p, o.slice(0, 4))
+      : o.forEach((x) => scan(x, p + "[]"))
+    : o && typeof o === "object"
+      ? Object.entries(o).forEach(([k, v]) => !k.endsWith("_source") && scan(v, p ? `${p}.${k}` : k))
+      : undefined;
+```
+
 **A set comparison cannot see order.** A whole-page multiset is right for
 ignoring Suspense reshuffles but blind to ordering — a `<select>` whose options
 moved holds exactly the same strings. The country dropdown came back
@@ -78,6 +97,19 @@ field name falls back to the field's label, as WPGraphQL did.
    `<main>` gives an exact ordered match, and the heading sequence
    (`<h1>`–`<h6>` in order) is a good second check. A whole-page multiset is
    the fallback, but it cannot see ordering — see below.
+
+## The site's own REST namespace
+
+`aurora/v1` is already installed on the CMS and supplies two things wp/v2
+cannot. Prefer them over rebuilding the same data from collections:
+
+- **`/aurora/v1/languages`** — WPML's language list, with the same fields
+  WPGraphQL's `languages` root field returned. wp/v2 has no equivalent: a
+  post's `translations` only names the languages *that post* is translated
+  into. Wrapped by `rest/Languages.service.js`.
+- **`/aurora/v1/filter-options`** — the six filter lists (tags, categories,
+  countries, products, softwares, services) in one request instead of six.
+  Wrapped by `rest/FilterOptions.service.js`.
 
 ## Watch for
 
@@ -139,9 +171,60 @@ field name falls back to the field's label, as WPGraphQL did.
 - Never memoise in front of `fetch`. The second caller gets a promise instead
   of a fetch, so its page never registers the cache tags and on-demand
   revalidation silently stops working for it.
+- **Post types are not named after their GraphQL field.** Webinars are the
+  `tribe_events` post type — The Events Calendar's CPT, registered here with
+  the label "Webinars" — and there is no `webinar` post type at all. Check
+  `/wp/v2/types` rather than guessing a rest_base.
+- **A post's terms come back name-ordered from WPGraphQL**, not in the order
+  the post stores them, and ties break by *descending* id. This CMS has two
+  categories called "NORAM" and two called "Alberta", so without the tie-break
+  they come back swapped. Handled in `termNodes`.
+- **WPML scopes every query to one language.** Asking for a translated post's
+  id from the default context returns an empty list, not the post — you need
+  `?wpml_language=<code>`. (`?lang=` is the wrong parameter: it unregisters the
+  custom post types entirely.)
+- **`our_clients` is `ourClient` on services but `ourClients` on country.**
+  WPGraphQL's name for the same ACF key differs per post type, so the global
+  `acfFieldNames` default is overridable per call — `getSingleBySlug` takes a
+  `rename` option.
+- **`resolveRelations` addresses fields by a dotted path, so it cannot reach
+  into a repeater.** A relation inside a repeater row (`speakers.speakers[]
+  .speakers`, `categories[].leader`, `map.markers[].category`) has to be
+  gathered across the rows and resolved separately — passing the repeater to a
+  relation resolver reads its rows as ids and quietly nulls the field.
+- **Object key order can be load-bearing.** WPGraphQL returns a group's fields
+  in the *query's* selection order; ACF returns them in field order. The events
+  page sorts its sections with `Object.entries(sectionOrders).sort((a,b) =>
+  a[1]-b[1])`, and two values tie because `whyattend` is stored as the string
+  `"3"` while `speakers` is the number `3` — so the tie falls back to key order
+  and a whole section moved, taking 16 speaker photographs with it. Pinned in
+  `rest/Events.service.js`; the real fix is to store that field as a number.
+- **`_source` siblings roughly multiply an ACF payload.** They carry the
+  formatted text, so they are not optional — but they took the events listing
+  to 3.0 MB and the regions country fetch to 2.2 MB, both over the cache limit.
+  Measure a listing *after* the wrapper has added them, not before.
 - **Pressable throttles hard.** A 429 gets 5 attempts (~75s of backoff) rather
   than 3, because a build and a page render at the same time exhausted three.
   Run the parity script and any rendering one at a time, or both will 429.
+
+## Not converted, and why
+
+**`/software/[slug]/[language]` and `/global-presence/[slug]/[language]`.**
+Their merge expects each translation to be a whole node, and WPGraphQL nests
+them three deep: the post's own translated node, and inside it every
+*relation's* translated node — a case study's `translations[0]` carries that
+case study's translated `content`, `date`, `featuredImage` and `postFields`.
+
+REST's `translations` is a stub (id, slug, language). Following one is a
+request; following them all is one request per related post per language —
+roughly 60 extra for a software with ~50 client logos, 5 testimonials and 5
+case studies. The software's own translation and the country list are cheap and
+were built; the nested relation translations are not.
+
+The fix is server-side, alongside the two routes already in `aurora/v1`: an
+endpoint returning a post with its translations expanded, the way
+`filter-options` returns six collections in one request. See the note at the
+foot of `rest/Softwares.service.js`.
 
 ## Known, accepted differences
 
@@ -149,6 +232,13 @@ field name falls back to the field's label, as WPGraphQL did.
 - `featured_image_url` carries no alt text, so `featuredImage.node.altText` is
   `""` — which is what WPGraphQL returned for these attachments anyway. The
   real alt would need a `/media` call per attachment.
+- **WPML media translations are not on wp/v2.** `/media` reports
+  `translations: []` for every attachment sampled (300+), while WPGraphQL
+  reports a `ja` entry for 36 of 44 event banners. Those entries point at the
+  *same file* as the default and the rendered pages are identical, so nothing
+  is lost visually — but the field cannot be reproduced without a server-side
+  addition. Note that a post's own `translations` *is* exposed and is used
+  throughout; this gap is specific to attachments.
 - `postFields.sections[].content` differs by one paragraph boundary inside a
   `[caption]` shortcode. At tag level the whole difference is a stray `</p>` in
   the GraphQL output with no `<p>` open to close. Rendered, that malformed

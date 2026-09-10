@@ -25,14 +25,15 @@ import {
 
 /** Case-study cards show an image, categories and a read time. */
 export const caseStudyFields =
-	"id,slug,title,date,content,featured_image_url,categories,acf.time";
+	"id,slug,title,date,content,featured_image_url,categories,translations,acf.time";
 
 /** Insight cards show no image or body — a date, categories, read time. */
-export const insightFields = "id,slug,title,date,categories,acf.time";
+export const insightFields =
+	"id,slug,title,date,categories,translations,acf.time";
 
 const logoFields = "id,title,featured_image_url";
 const testimonialFields =
-	"id,slug,title,content,featured_image_url,acf.designation";
+	"id,slug,title,content,featured_image_url,translations,acf.designation";
 
 /**
  * Client logos as `{ nodes: [{ id, featuredImage }] }`.
@@ -77,6 +78,7 @@ export async function getTestimonials(ids) {
 			content: html(item.content) || null,
 			featuredImage: urlNode(item.featured_image_url),
 			// Empty was null over GraphQL, not "" — see the note in shapeAcf.
+			translations: translationNodes(item.translations),
 			testimonials: { designation: item.acf?.designation || null },
 		})),
 	);
@@ -85,6 +87,15 @@ export async function getTestimonials(ids) {
 /** Selected posts as a `{ nodes }` connection. @param {Array<number>} ids @param {string} fields */
 const postConnection = async (ids, fields) =>
 	nodes(await getPostsByIds(ids, { fields }));
+
+/**
+ * Selected posts as a `{ nodes }` connection of cards — for the hand-picked
+ * post pickers that are not one of the defaults below (the press page's
+ * `featured`, for instance).
+ *
+ * @param {Array<number>} ids
+ */
+export const getSelectedPosts = (ids) => postConnection(ids, caseStudyFields);
 
 /** ACF path to the resolver for the IDs stored there. Paths are given in the
  *  shaped (camel-cased) form, because they are applied after shapeAcf. */

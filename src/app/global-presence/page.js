@@ -28,14 +28,16 @@ import slider_arrow from "/public/img/icons/slider_arrow.svg";
 import {
 	getGlobalPresencePage,
 	getRegions,
-} from "@/services/GlobalPresence.service";
+} from "@/services/rest/GlobalPresence.service";
 import Link from "next/link";
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "global-presence", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "global-presence");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -114,7 +116,8 @@ async function getData() {
 	});
 
 	return {
-		props: { regions, page: page.data.page.globalPresence, mapJson, regionsArr },
+		// getGlobalPresencePage returns the field group directly.
+		props: { regions, page, mapJson, regionsArr },
 	};
 }
 

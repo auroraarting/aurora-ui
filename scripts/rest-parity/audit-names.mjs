@@ -16,8 +16,9 @@ const { shapeAcf } = await importService("rest/shape.js");
 /** Post types worth sampling — every one with an ACF group behind a page. */
 const endpoints = [
 	"services", "whoareyou", "howwehelp", "products", "softwares", "country",
-	"event", "podcast", "video", "team", "offices", "early-career", "program",
-	"pages", "posts", "testimonial", "clients-logo", "post-author", "post-speaker",
+	"event", "tribe_events", "podcast", "video", "team", "offices",
+	"early-career", "program", "pages", "posts", "testimonial", "clients-logo",
+	"post-author", "post-speaker",
 ];
 
 /** Keys mediaNode introduces; ours, not CMS field names. */
@@ -83,3 +84,39 @@ console.log(
 			"check whether the sections read a different name for the same content."
 		: "\nEvery shaped field name is read somewhere in src/.",
 );
+
+// ---------------------------------------------------------------------------
+// Relation scan: every integer array in the sampled ACF payloads, at any depth
+// and any index. Each one is a relationship field that needs a resolver — and
+// the ones nested in a repeater are easy to miss, because a shape diff that
+// samples only the first row will not see a picker that is empty there.
+console.log("\nrelation fields found in the sampled payloads:");
+const relations = new Map();
+/** @param {any} value @param {string} path @param {string} endpoint */
+function scanRelations(value, path, endpoint) {
+	if (Array.isArray(value)) {
+		if (value.length && value.every((item) => Number.isInteger(item))) {
+			if (!relations.has(path)) relations.set(path, new Set());
+			relations.get(path).add(endpoint);
+			return;
+		}
+		return value.forEach((item) => scanRelations(item, `${path}[]`, endpoint));
+	}
+	if (!value || typeof value !== "object") return;
+	for (const [key, nested] of Object.entries(value)) {
+		if (key.endsWith("_source")) continue;
+		scanRelations(nested, path ? `${path}.${key}` : key, endpoint);
+	}
+}
+for (const endpoint of endpoints) {
+	try {
+		const res = await fetch(`${base}/${endpoint}?per_page=3&_fields=acf`);
+		if (!res.ok) continue;
+		for (const post of await res.json()) scanRelations(post?.acf, "", endpoint);
+	} catch {
+		// a collection that cannot be read is already reported above
+	}
+}
+for (const [path, origins] of [...relations.entries()].sort()) {
+	console.log(`  ${path.padEnd(46)} <- ${[...origins].join(", ")}`);
+}

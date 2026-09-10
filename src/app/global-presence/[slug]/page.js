@@ -30,20 +30,23 @@ import {
 	getCountries,
 	getCountryInside,
 	getRegions,
-} from "@/services/GlobalPresence.service";
+} from "@/services/rest/GlobalPresence.service";
 import {
 	getAllLanguages,
-	getCountryInside as getCountryInsideWithLanguages,
-} from "@/services/GlobalPresenceLanguages.service";
+} from "@/services/rest/Languages.service";
 import {
 	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
-import { getAllEvents } from "@/services/Events.service";
-import { getWebinars } from "@/services/Webinar.service";
-import { getPageSeo } from "@/services/Seo.service";
+	insightTeaserCategories,
+} from "@/services/rest/Insights.service";
+import { getAllEvents } from "@/services/rest/Events.service";
+import { getWebinars } from "@/services/rest/Webinar.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -71,7 +74,7 @@ export const revalidate = 30; // Revalidates every 60 seconds
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const countries = await getCountries();
-	return countries?.data?.countries?.nodes?.map((item) => ({
+	return countries.map((item) => ({
 		slug: item?.slug || "india",
 	}));
 }
@@ -90,17 +93,17 @@ async function getData({ params }) {
 		meta,
 		languages,
 	] = await Promise.all([
-		getInsights(
-			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-		),
-		getInsightsCategories(),
+		getInsights({ first: 3, categories: insightTeaserCategories }),
+		// This page only ever read `countries` off getInsightsCategories, which
+		// fetched six option lists to get it.
+		getCountries(),
 		// getAllEvents("first:9999"),
 		// getWebinars("first:9999"),
 		// isJapanese
 		// 	? getCountryInsideWithLanguages(params.slug)
 		// 	: getCountryInside(params.slug),
 		getCountryInside(params.slug),
-		getPageSeo(`countryBy(slug: "${params.slug}")`),
+		getPageSeo("country", params.slug),
 		getAllLanguages(),
 	]);
 
@@ -111,12 +114,13 @@ async function getData({ params }) {
 	// 	  }
 	// 	: countryData?.data?.countryBy;
 
-	const countryBy = countryData?.data?.countryBy;
-	const seo = meta?.data?.countryBy?.seo;
+	// The REST services return the node and the seo object directly.
+	const countryBy = countryData;
+	const seo = meta?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
-	const insightsList = insightsRes?.data?.posts?.nodes || [];
-	const countries = categoriesRes?.data?.countries?.nodes || [];
+	const insightsList = insightsRes || [];
+	const countries = categoriesRes || [];
 	const countryTranslations = countryBy?.translations || [];
 	let selectedAllLanguages = [
 		{
@@ -125,7 +129,7 @@ async function getData({ params }) {
 			icon: "/img/en-flag.svg",
 		},
 	];
-	languages?.data?.languages?.map((item) => {
+	languages?.map((item) => {
 		countryTranslations?.filter((item2) => {
 			if (item?.language_code === "ko" && params.slug === "japan") return; // Skip Ko for Japan as it's already added
 

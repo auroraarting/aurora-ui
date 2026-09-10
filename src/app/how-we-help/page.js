@@ -52,7 +52,11 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// No time-based revalidation. NOTE: this page's data still comes from
+// /graphql, and those requests are POSTs, which Next.js cannot cache or tag —
+// so it no longer refreshes on a timer and will only regenerate on a deploy or
+// when WordPress calls /api/revalidate?paths=<this route>. Converting its
+// services to the REST layer puts it back on cache tags.
 
 /** HowWeHelp Page */
 export default function HowWeHelp() {

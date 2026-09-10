@@ -1,6 +1,22 @@
 import RESTAPI, { restAll } from "../Rest.service";
 
-import { arr, html, mediaNode, shapeAcf, text, urlNode } from "./shape";
+import {
+	getClientLogos,
+	getTeamMembers,
+	getTestimonials,
+} from "./Relations.service";
+import { getOfficesByIds } from "./Offices.service";
+import { getPageGroup, getSingleBySlug } from "./Single.service";
+
+import {
+	arr,
+	html,
+	mediaNode,
+	shapeAcf,
+	text,
+	translationNodes,
+	urlNode,
+} from "./shape";
 
 /**
  * Regions, their countries, and the map markers on each country.
@@ -48,7 +64,7 @@ const countryFields = [
 const markerTypes = ["services", "products", "softwares"];
 
 /** Only the logo is read off a marker's target. */
-const markerFields = "id,type,title,slug,content,acf.map.logo";
+const markerFields = "id,type,title,slug,content,acf.map";
 
 /**
  * One ID→node lookup covering every post a marker can reference.
@@ -59,7 +75,7 @@ const markerFields = "id,type,title,slug,content,acf.map.logo";
  *
  * @returns {Promise<Map<number, any>>}
  */
-async function getMarkerTargets() {
+export async function getMarkerTargets() {
 	const collections = await Promise.all(
 		markerTypes.map((endpoint) =>
 			restAll(`${endpoint}?_fields=${markerFields}`, { apiID: endpoint }),
@@ -79,9 +95,9 @@ async function getMarkerTargets() {
 				// returned ("services"/"products"/"softwares"), which the map helpers
 				// switch on.
 				contentType: { node: { name: item.type } },
-				[groupKey]: {
-					map: { logo: mediaNode(item.acf?.map?.logo) },
-				},
+				// The whole map group, not just the logo: the country pages read
+				// `headerLogo` off it too.
+				[groupKey]: { map: shapeAcf(item.acf?.map) },
 			});
 		}
 	});
@@ -109,11 +125,12 @@ function shapeCountry(country, targets) {
 	// was deleted or unpublished) drop out rather than becoming null entries
 	// the map helpers would have to guard against.
 	for (const marker of arr(acf.map?.markers)) {
-		marker.category = {
-			nodes: arr(marker.category)
-				.map((id) => targets.get(Number(id)))
-				.filter(Boolean),
-		};
+		const nodes = arr(marker.category)
+			.map((id) => targets.get(Number(id)))
+			.filter(Boolean);
+		// A marker with nothing selected was null over GraphQL, not an empty
+		// connection — see the note in shapeAcf about empty relations.
+		marker.category = nodes.length ? { nodes } : null;
 	}
 
 	return {
@@ -139,7 +156,11 @@ export const getRegions = async () => {
 			apiID: "region",
 		}),
 		restAll(
-			`country?_fields=${countryFields}&orderby=title&order=asc`,
+			// 20 a page, not the 100 cap: the three ACF groups plus the
+			// `<field>_source` siblings the wrapper adds for their formatted text
+			// came to 2.2 MB for all 44 countries, over the Data Cache's 2 MB
+			// per-entry limit — which silently stops it being cached at all.
+			`country?_fields=${countryFields}&orderby=title&order=asc&per_page=20`,
 			// Tagged for both types: this one fetch is invalidated by a country
 			// edit and by a change to the region taxonomy itself.
 			{ apiID: "country", tags: ["region"] },
@@ -171,5 +192,107 @@ export const getCountryList = async () => {
 	return arr(countries).map((country) => ({
 		title: text(country.title),
 		slug: country.slug,
+	}));
+};
+
+/**
+ * The /global-presence landing content — the `globalPresence` field group.
+ *
+ * @returns {Promise<any|null>} what the page previously read as
+ *   `res.data.page.globalPresence`
+ */
+export const getGlobalPresencePage = () => getPageGroup("global-presence");
+
+/**
+ * Every country, in REST's default order.
+ *
+ * Distinct from getCountryList, which orders by title: the GraphQL query this
+ * replaces passed no `orderby`, so it took WPGraphQL's default rather than the
+ * alphabetical one the other call sites asked for.
+ *
+ * @returns {Promise<Array<{ title: string, slug: string }>>}
+ */
+export const getCountries = async () => {
+	const countries = await restAll("country?_fields=title,slug", {
+		apiID: "country",
+	});
+	return countries.map((country) => ({
+		title: text(country.title),
+		slug: country.slug,
+	}));
+};
+
+/**
+ * One country, with every ACF relationship resolved.
+ *
+ * `countries` is the ACF field-group name WPGraphQL nested a country's fields
+ * under, and `translations` rides along for the language switcher.
+ *
+ * @param {string} slug
+ * @returns {Promise<any|null>}
+ */
+export const getCountryInside = (slug) =>
+	getSingleBySlug("country", slug, {
+		group: "countries",
+		fields:
+			"id,slug,title,content,translations,featured_media,featured_image_url,acf",
+		// WPGraphQL exposed this post type's client group in the plural, unlike
+		// the services CPT — hence the override of the global default.
+		rename: { our_clients: "ourClients" },
+		relations: {
+			"offices.offices": getOfficesByIds,
+			"availableRegions.team": getTeamMembers,
+			"ourClients.selectLogos": getClientLogos,
+			"ourClients.testimonials": getTestimonials,
+		},
+	}).then(withCountryExtras);
+
+/**
+ * The two fields on a country that resolveRelations cannot address.
+ *
+ * `map.markers` is a repeater, so its rows are objects rather than the id list
+ * a relation resolver expects — each row's own `category` is the id to look
+ * up. And `eosAi.logo` holds a plain URL rather than an attachment row, with
+ * no ACF type metadata to say so (the same field shape as on /eos).
+ *
+ * @param {any} country
+ */
+async function withCountryExtras(country) {
+	const group = country?.countries;
+	if (!group) return country;
+
+	if (group.eosAi) group.eosAi.logo = mediaNode(group.eosAi.logo);
+
+	const markers = arr(group.map?.markers);
+	if (markers.length) {
+		const targets = await getMarkerTargets();
+		for (const marker of markers) {
+			const nodes = arr(marker?.category)
+				.map((id) => targets.get(Number(id)))
+				.filter(Boolean);
+			marker.category = nodes.length ? { nodes } : null;
+		}
+	}
+	return country;
+}
+
+/**
+ * Countries with their WPML translations, title-ordered.
+ *
+ * The language variants of the software and country pages select
+ * `countries { nodes { title slug translations { title } } }` alongside their
+ * own data, so the translations ride along here.
+ *
+ * @returns {Promise<Array<{ title: string, slug: string, translations: any[] }>>}
+ */
+export const getCountryListWithTranslations = async () => {
+	const countries = await restAll(
+		"country?_fields=id,title,slug,translations&orderby=title&order=asc",
+		{ apiID: "country" },
+	);
+	return countries.map((country) => ({
+		title: text(country.title),
+		slug: country.slug,
+		translations: translationNodes(country.translations),
 	}));
 };

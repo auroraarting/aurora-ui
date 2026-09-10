@@ -4,6 +4,7 @@ import {
 	getPostAuthors,
 	getPostSpeakers,
 	getPoweredBy,
+	getTestimonials,
 } from "./Relations.service";
 import { shapePosts } from "./Posts.service";
 import { arr, text } from "./shape";
@@ -53,6 +54,7 @@ const postRelations = {
 	authors: getPostAuthors,
 	speakers: getPostSpeakers,
 	poweredBy: getPoweredBy,
+	testimonials: getTestimonials,
 };
 
 /** The six option lists the filter dropdowns are built from.
@@ -136,11 +138,19 @@ export async function getCategoryIds(slugs) {
  * @param {number} [options.first] how many, default 100 (REST's per_page cap)
  * @param {string[]} [options.categories] category **slugs** to filter by
  * @param {string[]} [options.exclude] post ids to leave out
+ * @param {number} [options.afterYear] only posts published from this year on —
+ *   REST's `after` takes an ISO date where GraphQL took `dateQuery`
  * @param {boolean} [options.all] fetch every match, following pagination
  * @returns {Promise<any[]>} the nodes previously read as `res.data.posts.nodes`
  */
 export const getInsights = async (options = {}) => {
-	const { first = 100, categories = [], exclude = [], all = false } = options;
+	const {
+		first = 100,
+		categories = [],
+		exclude = [],
+		afterYear,
+		all = false,
+	} = options;
 
 	const params = [`_fields=${insightFields}`];
 	if (categories.length) {
@@ -151,6 +161,7 @@ export const getInsights = async (options = {}) => {
 		params.push(`categories=${ids.join(",")}`);
 	}
 	if (exclude.length) params.push(`exclude=${exclude.join(",")}`);
+	if (afterYear) params.push(`after=${afterYear}-01-01T00:00:00`);
 
 	const query = `posts?${params.join("&")}`;
 	// 50 a page, not the 100 cap: an insight carries its whole body, and 100 of

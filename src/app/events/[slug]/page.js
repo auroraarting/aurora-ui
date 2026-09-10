@@ -23,15 +23,22 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // DATA //
 
 // SERVICES //
-import { getAllEvents, getEventsInside } from "@/services/Events.service";
-import { getInsightsCategories } from "@/services/Insights.service";
+import {
+	getAllEvents,
+	getEventsInside,
+} from "@/services/rest/Events.service";
+import { getCountryList } from "@/services/rest/GlobalPresence.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const data = await getEventsInside(params.slug);
-	const post = data?.data?.eventBy;
+	// getEventsInside now returns the node directly.
+	const post = await getEventsInside(params.slug);
 
 	return {
 		title: post?.title || "Default Title",
@@ -59,34 +66,32 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const dataFetch = await getAllEvents();
-	return (
-		dataFetch?.data?.events?.nodes?.map((item) => ({
-			slug: item.slug,
-		})) || []
-	);
+	const events = await getAllEvents();
+	return events.map((item) => ({ slug: item.slug }));
 }
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
-		await getEventsInside(slug),
-		// eslint-disable-next-line quotes
-		await getAllEvents("first:9999"), //Upcoming
-		await getInsightsCategories(),
-		// eslint-disable-next-line quotes
-		await getAllEvents("first:9999"), //Past
+	// getAllEvents was called twice here, for the upcoming and the past lists —
+	// the same query both times, so it is fetched once. getInsightsCategories
+	// fetched six option lists for the `countries` value alone; getCountryList
+	// is the one call.
+	const [data, allEvents, countries] = await Promise.all([
+		getEventsInside(slug),
+		getAllEvents(),
+		getCountryList(),
 	]);
+	const events = allEvents;
+	const pastEvents = allEvents;
 
 	let todaysDate = new Date();
 
-	const countries = categoriesForSelect?.data?.countries?.nodes;
-	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
+	const dataForBtn = { postFields: data?.events || {} };
 
 	const eventList = [];
 	const pastEventList = [];
 
-	events?.data?.events?.nodes?.map((item) => {
+	events?.map((item) => {
 		const tempObj = {
 			title: item?.title,
 			slug: item?.slug,
@@ -113,8 +118,10 @@ async function getData({ slug }) {
 
 		if (item?.slug != slug) eventList.push(tempObj);
 	});
-	pastEvents?.data?.events?.nodes?.map((item) => {
-		let categories = [
+	pastEvents?.map((item) => {
+		// A fresh array per row: the loop appends the countries, and reusing the
+		// service's own arrays would corrupt a cached response.
+		const categories = [
 			{
 				slug: "event",
 				name: "Event",
@@ -148,15 +155,13 @@ async function getData({ slug }) {
 	});
 
 	let isUpcoming =
-		new Date(data?.data?.eventBy?.events?.thumbnail?.date) >= todaysDate
-			? "Upcoming"
-			: "Past";
+		new Date(data?.events?.thumbnail?.date) >= todaysDate ? "Upcoming" : "Past";
 
 	const dataFromAPI = {
-		...data?.data?.eventBy,
+		...data,
 		events: {
-			...data?.data?.eventBy?.events,
-			thumbnail: { ...data?.data?.eventBy?.events?.thumbnail, status: isUpcoming },
+			...data?.events,
+			thumbnail: { ...data?.events?.thumbnail, status: isUpcoming },
 		},
 	};
 
@@ -171,7 +176,7 @@ async function getData({ slug }) {
 				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
 				.slice(0, 3),
 			eventsOriginal:
-				events?.data?.events?.nodes
+				events
 					?.filter(
 						(item) =>
 							new Date() < new Date(item?.events?.thumbnail?.date) &&

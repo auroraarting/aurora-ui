@@ -1,4 +1,4 @@
-import { restAll } from "../Rest.service";
+import { restAll, restByIds } from "../Rest.service";
 
 import { arr, html, mediaNode, shapeAcf, text, urlNode } from "./shape";
 
@@ -87,6 +87,9 @@ export const getOfficesByRegions = async () => {
 	/** One country with its offices resolved. @param {any} country */
 	const shapeCountry = (country) => {
 		const acf = country.acf || {};
+		const officeNodes = arr(acf.offices?.offices)
+			.map((id) => officesById.get(Number(id)))
+			.filter(Boolean);
 		return {
 			title: text(country.title),
 			slug: country.slug,
@@ -99,11 +102,8 @@ export const getOfficesByRegions = async () => {
 					image: mediaNode(acf.banner_section?.image),
 				},
 				offices: {
-					offices: {
-						nodes: arr(acf.offices?.offices)
-							.map((id) => officesById.get(Number(id)))
-							.filter(Boolean),
-					},
+					// Empty was null over GraphQL, not an empty connection.
+					offices: officeNodes.length ? { nodes: officeNodes } : null,
 				},
 			},
 		};
@@ -125,4 +125,18 @@ export const getOfficesByRegions = async () => {
 	}));
 
 	return { data: { regions: { nodes } } };
+};
+
+/**
+ * Offices by id, as a `{ nodes }` connection — for the ACF office pickers on
+ * the country pages.
+ *
+ * @param {Array<number>} ids
+ */
+export const getOfficesByIds = async (ids) => {
+	const offices = await restByIds("offices", ids, {
+		apiID: "offices",
+		fields: officeFields,
+	});
+	return { nodes: offices.map(shapeOffice) };
 };

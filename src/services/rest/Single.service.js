@@ -1,7 +1,13 @@
 import RESTAPI, { restAll, restByIds } from "../Rest.service";
 
 import { resolveRelations } from "./Relations.service";
-import { html, shapeAcf, text } from "./shape";
+import {
+	html,
+	shapeAcf,
+	text,
+	translationNodes,
+	urlNode,
+} from "./shape";
 
 /**
  * The shape shared by every CPT single page.
@@ -28,11 +34,14 @@ const singleFields = "id,slug,title,content,featured_media,featured_image_url,ac
  *   "services", "whoAreYous", "howWeHelpInside" — the sections read this path
  * @param {Record<string, (ids: number[]) => Promise<any>>} [options.relations]
  *   extra or replacement relationship resolvers, keyed by shaped ACF path
+ * @param {Record<string,string>} [options.rename] per-post-type ACF key
+ *   renames, for the cases where WPGraphQL's name differs between post types —
+ *   `our_clients` is `ourClient` on services but `ourClients` on country
  * @param {string} [options.fields] override the `_fields` requested
  * @returns {Promise<any|null>} null when no post matches the slug
  */
 export async function getSingleBySlug(endpoint, slug, options) {
-	const { group, relations = {}, fields = singleFields } = options;
+	const { group, relations = {}, rename, fields = singleFields } = options;
 	const clean = decodeURIComponent(slug ?? "");
 
 	const found = await RESTAPI(
@@ -42,12 +51,24 @@ export async function getSingleBySlug(endpoint, slug, options) {
 	const post = Array.isArray(found) ? found[0] : found;
 	if (!post) return null;
 
-	const acf = await resolveRelations(shapeAcf(post.acf || {}), relations);
+	const acf = await resolveRelations(
+		shapeAcf(post.acf || {}, rename ? { rename } : undefined),
+		relations,
+	);
 
 	return {
 		id: post.id,
 		title: text(post.title),
 		slug: post.slug,
+		// WPML translations, when the caller asked for them. The software and
+		// country detail pages build their language switcher from these.
+		...("translations" in post
+			? { translations: translationNodes(post.translations) }
+			: {}),
+		...("content" in post ? { content: html(post.content) || null } : {}),
+		...("featured_image_url" in post
+			? { featuredImage: urlNode(post.featured_image_url) }
+			: {}),
 		[group]: acf,
 	};
 }

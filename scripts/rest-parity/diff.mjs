@@ -6,9 +6,12 @@ const isObj = (v) => v && typeof v === "object" && !Array.isArray(v);
 export function walk(value, path = "", out = new Map()) {
 	if (Array.isArray(value)) {
 		out.set(path + "[]", `array(${value.length})`);
-		// Only descend into the first element: these lists are homogeneous and
-		// the goal is shape, not per-item equality.
-		if (value.length) walk(value[0], path + "[0]", out);
+		// Every element, collapsed onto one `[0]` path: the union of their keys,
+		// not just the first element's. Sampling index 0 alone hid a relation
+		// (`whyAttend.agenda[].speaker`) that is null on the first agenda row
+		// and populated on later ones — the shape diff passed while a whole
+		// speaker list was missing from the page.
+		for (const item of value) walk(item, path + "[0]", out);
 	} else if (isObj(value)) {
 		for (const k of Object.keys(value).sort()) {
 			walk(value[k], path ? `${path}.${k}` : k, out);

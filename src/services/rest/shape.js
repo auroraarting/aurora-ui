@@ -202,6 +202,13 @@ export function mediaNode(value) {
 			title: decodeEntities(value.title || ""),
 			caption: value.caption || "",
 			mimeType: value.mime_type || "",
+			// WPGraphQL's mediaItem carries WPML translations, and some queries
+			// select them. ACF's attachment row over REST has no such field, and
+			// the real value would cost a /media call per image — but it is empty
+			// for every attachment in this CMS (0 of the first 100) and GraphQL
+			// returns `[]` for the ones checked, so the empty array is faithful.
+			// Revisit if media ever gets translated.
+			translations: [],
 		},
 	};
 }
@@ -288,12 +295,17 @@ function labelName(parent, key) {
  * ACF publishes on the `<field>_source` sibling — but only for top-level
  * fields, since a group's sibling carries values and no per-field types.
  *
- * So nested true/false fields are listed here by name. Both current entries
+ * So nested true/false fields are listed here by their **raw REST key**
+ * (snake_case, as ACF returns it) — not the camel-cased name the sections
+ * read. All current entries
  * were found by the parity checks (npm run rest:parity) rather than guessed,
  * and both are only read for truthiness today, so the distinction is about
  * staying faithful rather than fixing a visible bug.
  */
-export const acfBooleanFields = new Set(["islive"]);
+export const acfBooleanFields = new Set([
+	"islive",
+	"open_external_in_new_tab",
+]);
 
 /** How ACF stores its two date fields, and how it formats either for display.
  *  A date picker holds `Ymd` (`20251220`); a date-time picker holds
@@ -521,6 +533,15 @@ export function termNodes(ids, lookup) {
 	const resolved = arr(ids)
 		.map((id) => lookup.get(Number(id)))
 		.filter(Boolean);
+
+	// WPGraphQL returns a post's terms ordered by name, where REST returns them
+	// in the order the post stores them. Ties break by *descending* id — this
+	// CMS has two categories called "NORAM" and two called "Alberta", and
+	// without the tie-break they come back swapped.
+	resolved.sort((a, b) => {
+		const byName = String(a?.name ?? "").localeCompare(String(b?.name ?? ""));
+		return byName !== 0 ? byName : Number(b?.id ?? 0) - Number(a?.id ?? 0);
+	});
 	return { nodes: resolved };
 }
 
