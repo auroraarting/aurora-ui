@@ -88,6 +88,23 @@ const unwrap = (value) =>
 		: value;
 
 /**
+ * The unfiltered value of a `{ raw, rendered }` field, which REST returns only
+ * under `context=edit`. This is what `content(format: RAW)` gave over GraphQL.
+ * Falls back to the rendered form so a request without edit context still
+ * produces something.
+ *
+ * @param {any} value
+ * @returns {string}
+ */
+export function raw(value) {
+	if (value && typeof value === "object" && typeof value.raw === "string") {
+		return value.raw;
+	}
+	const rendered = unwrap(value);
+	return typeof rendered === "string" ? rendered : "";
+}
+
+/**
  * A plain-text field — post titles, term names. Entity-decoded.
  * @param {any} value
  * @returns {string}
@@ -278,34 +295,49 @@ function labelName(parent, key) {
  */
 export const acfBooleanFields = new Set(["islive"]);
 
-/** ACF stores a date-picker value as `Ymd` and formats it for display in the
- *  field's own format — `20251220` and `20/12/2025` here. WPGraphQL returned
- *  ISO 8601 instead. */
+/** How ACF stores its two date fields, and how it formats either for display.
+ *  A date picker holds `Ymd` (`20251220`); a date-time picker holds
+ *  `Y-m-d H:i:s` (`2026-09-17 11:00:00`). Both display as `d/m/Y`, optionally
+ *  with a time. WPGraphQL returned ISO 8601 for both. */
 const acfStoredDate = /^(\d{4})(\d{2})(\d{2})$/;
-const acfDisplayDate = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+const acfStoredDateTime =
+	/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
+const acfDisplayDate = /^\d{1,2}\/\d{1,2}\/\d{4}/;
 
 /**
- * An ACF date-picker value as WPGraphQL returned it, or null if this is not
- * one.
+ * An ACF date value as WPGraphQL returned it, or null if this is not one.
  *
- * The pair is the signal: an eight-digit raw value *and* a slash-formatted
- * counterpart. Neither alone is safe — plenty of fields hold eight digits, and
- * plenty hold slashes — and there is no field type to consult, because these
- * live inside a repeater and ACF only publishes types for top-level fields.
+ * The field type settles it where ACF publishes one, which it does for
+ * top-level fields. Inside a repeater there is no type, so the fallback is the
+ * pair: a raw value in one of ACF's two storage formats *and* a slash-
+ * formatted counterpart. Neither half alone is safe — plenty of fields hold
+ * eight digits, and plenty hold slashes.
  *
- * This matters more than it looks: the careers popup renders the value through
- * `formatDate`, which is `new Date(value)`. ISO parses; `20/12/2025` is an
- * Invalid Date and reaches the page as "Invalid Date".
+ * This matters more than it looks. Both values reach the page through
+ * `new Date(...)`: the careers popup renders `20/12/2025` as **"Invalid
+ * Date"**, and `2026-09-17 11:00:00` parses as *local* time where the ISO form
+ * is UTC, which shifts webinar times and their sort order.
  *
  * @param {string} raw the value on the `acf` key
  * @param {any} formatted its counterpart on the `_source` mirror
+ * @param {string} [type] the ACF field type, when known
  * @returns {string|null}
  */
-function isoDate(raw, formatted) {
-	const parts = acfStoredDate.exec(raw);
-	if (!parts) return null;
-	if (typeof formatted !== "string" || !acfDisplayDate.test(formatted)) return null;
-	return `${parts[1]}-${parts[2]}-${parts[3]}T00:00:00+00:00`;
+function isoDate(raw, formatted, type) {
+	const looksFormatted =
+		typeof formatted === "string" && acfDisplayDate.test(formatted);
+
+	const dateTime = acfStoredDateTime.exec(raw);
+	if (dateTime && (type === "date_time_picker" || looksFormatted)) {
+		const [, y, m, d, hh, mm, ss] = dateTime;
+		return `${y}-${m}-${d}T${hh}:${mm}:${ss}+00:00`;
+	}
+
+	const date = acfStoredDate.exec(raw);
+	if (date && (type === "date_picker" || looksFormatted)) {
+		return `${date[1]}-${date[2]}-${date[3]}T00:00:00+00:00`;
+	}
+	return null;
 }
 
 /**
@@ -383,10 +415,24 @@ export function shapeAcf(value, options = {}) {
 		const meta = isTree ? undefined : value[`${key}_source`];
 		const fmt = isTree ? formatted[key] : meta?.formatted_value;
 
+		// An image or file field is sometimes stored as a bare URL rather than
+		// an attachment row (the video thumbnails are), and a string would
+		// never satisfy `image?.node?.mediaItemUrl`. ACF names the field's type
+		// on its `_source` sibling, so where that is available the wrapping is
+		// automatic; nested fields have no type and need their service to call
+		// mediaNode explicitly (see Eos.service.js).
+		if (
+			typeof val === "string" &&
+			(meta?.type === "image" || meta?.type === "file")
+		) {
+			out[name] = mediaNode(val);
+			continue;
+		}
+
 		// A date picker is the one field whose formatted value is the wrong
 		// shape for the components — see isoDate.
 		if (typeof val === "string") {
-			const iso = isoDate(val, fmt);
+			const iso = isoDate(val, fmt, meta?.type);
 			if (iso) {
 				out[name] = iso;
 				continue;

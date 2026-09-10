@@ -1,6 +1,10 @@
 import RESTAPI, { restAll, restByIds } from "../Rest.service";
 
-import { getPostAuthors, getPostSpeakers } from "./Relations.service";
+import {
+	getPostAuthors,
+	getPostSpeakers,
+	getPoweredBy,
+} from "./Relations.service";
 import { shapePosts } from "./Posts.service";
 import { arr, text } from "./shape";
 
@@ -48,6 +52,7 @@ const insightFields =
 const postRelations = {
 	authors: getPostAuthors,
 	speakers: getPostSpeakers,
+	poweredBy: getPoweredBy,
 };
 
 /** The six option lists the filter dropdowns are built from.
@@ -148,8 +153,13 @@ export const getInsights = async (options = {}) => {
 	if (exclude.length) params.push(`exclude=${exclude.join(",")}`);
 
 	const query = `posts?${params.join("&")}`;
+	// 50 a page, not the 100 cap: an insight carries its whole body, and 100 of
+	// them come to ~1.2 MB — inside the Data Cache's 2 MB per-entry limit but
+	// not by much. An entry that outgrows the limit stops being cached
+	// silently, and then every request refetches it, which is the load this
+	// migration exists to avoid.
 	const posts = all
-		? await restAll(query, { apiID: "posts" })
+		? await restAll(`${query}&per_page=50`, { apiID: "posts" })
 		: arr(
 			await RESTAPI(`${query}&per_page=${Math.min(first, 100)}`, {
 				apiID: "posts",
@@ -219,4 +229,29 @@ export const getInsightsByIds = async (ids) => {
 		fields: insightFields,
 	});
 	return shapePosts(posts, { tags: true, relations: postRelations });
+};
+
+/**
+ * One insight, with its terms and every ACF relationship resolved.
+ *
+ * `status` is returned because the detail page 404s on a draft.
+ *
+ * @param {string} slug
+ * @returns {Promise<any|null>} what the page previously read as
+ *   `res.data.postBy`
+ */
+export const getInsightsInside = async (slug) => {
+	const clean = decodeURIComponent(slug ?? "");
+	const found = await RESTAPI(
+		`posts?slug=${encodeURIComponent(clean)}&_fields=${insightFields},status`,
+		{ apiID: "posts", slug: clean },
+	);
+	const post = Array.isArray(found) ? found[0] : found;
+	if (!post) return null;
+
+	const [shaped] = await shapePosts([post], {
+		tags: true,
+		relations: postRelations,
+	});
+	return shaped ? { ...shaped, status: post.status } : null;
 };

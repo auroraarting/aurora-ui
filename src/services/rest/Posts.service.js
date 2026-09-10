@@ -1,6 +1,9 @@
 import { restByIds } from "../Rest.service";
 
-import { resolveRelationsBatch } from "./Relations.service";
+import {
+	getFeaturedImages,
+	resolveRelationsBatch,
+} from "./Relations.service";
 
 import { arr, postNode, termLookup } from "./shape";
 
@@ -106,7 +109,10 @@ export async function shapePosts(posts, options = {}) {
 	const list = arr(posts);
 	if (!list.length) return [];
 
-	const lookups = await getTermLookups(list, { tags });
+	const [lookups, images] = await Promise.all([
+		getTermLookups(list, { tags }),
+		getFeaturedImages(list),
+	]);
 	const shaped = list.map((post) =>
 		postNode(post, {
 			categories: lookups.categories,
@@ -115,6 +121,11 @@ export async function shapePosts(posts, options = {}) {
 			group,
 		}),
 	);
+
+	// The attachment's own alt text, which featured_image_url does not carry.
+	shaped.forEach((post, index) => {
+		if (post) post.featuredImage = images.get(Number(list[index].id)) ?? null;
+	});
 
 	if (relations) {
 		await resolveRelationsBatch(

@@ -115,9 +115,33 @@ field name falls back to the field's label, as WPGraphQL did.
   `formatDate`, i.e. `new Date(value)`, so the display format reaches the page
   as **"Invalid Date"**. `isoDate` in `shape.js` spots the pair — eight-digit
   raw *and* slash-formatted counterpart — and emits ISO.
+- **Watch the 2 MB Data Cache limit per fetch.** Next.js logs `items over 2MB
+  can not be cached` and then serves that fetch **uncached** — so every request
+  re-fetches it, which is the load this migration exists to remove. It bit the
+  webinar listing (`context=edit` returns `raw` *and* `rendered` for title and
+  content: ~2.5 MB per 100) and nearly bit the insights listing (~1.2 MB per
+  100). Both now paginate smaller — `listingPerPage` in `rest/Webinar.service.js`,
+  `per_page=50` in `rest/Insights.service.js`. Grep the dev log for `over 2MB`
+  after converting any listing.
+- **`content(format: RAW)` needs `context=edit`.** REST only exposes
+  `content.raw` there, and it requires AUTH_TOKEN to be valid for editing. Use
+  `raw()` from shape.js. Check which form the old query actually asked for —
+  the webinar *listing* wanted RAW and the *detail* page wanted the filtered
+  output.
+- **A page addressed by database id may be addressed by a stale one.**
+  `pages?include=<id>` returns an empty list where `pages/<id>` 404s and the
+  wrapper throws; `getPageGroupById` uses the former so a missing id degrades
+  to null the way WPGraphQL did.
+- **Check every `generateStaticParams`.** They are easy to miss when converting
+  a page, and one left holding a GraphQL argument string returns `undefined`
+  rather than throwing — Next then fails with `result is not iterable` from
+  `buildAppStaticPaths`, which names neither your service nor your page.
 - Never memoise in front of `fetch`. The second caller gets a promise instead
   of a fetch, so its page never registers the cache tags and on-demand
   revalidation silently stops working for it.
+- **Pressable throttles hard.** A 429 gets 5 attempts (~75s of backoff) rather
+  than 3, because a build and a page render at the same time exhausted three.
+  Run the parity script and any rendering one at a time, or both will 429.
 
 ## Known, accepted differences
 
@@ -126,6 +150,8 @@ field name falls back to the field's label, as WPGraphQL did.
   `""` — which is what WPGraphQL returned for these attachments anyway. The
   real alt would need a `/media` call per attachment.
 - `postFields.sections[].content` differs by one paragraph boundary inside a
-  `[caption]` shortcode: WPGraphQL's `the_content` pass closes the `<p>` before
-  the caption's own `<p>` and ACF's formatting does not. It affects the
-  insight detail page, which is not yet converted.
+  `[caption]` shortcode. At tag level the whole difference is a stray `</p>` in
+  the GraphQL output with no `<p>` open to close. Rendered, that malformed
+  markup becomes **one empty `<p>`** on the insight detail page which REST does
+  not produce — visible text, media, `<img>` counts and `<main>` order are
+  otherwise identical. REST's output is the better-formed of the two.

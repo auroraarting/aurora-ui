@@ -1,7 +1,16 @@
 import { restByIds } from "../Rest.service";
 
 import { getPostsByIds } from "./Posts.service";
-import { arr, decodeEntities, html, nodes, shapeAcf, text, urlNode } from "./shape";
+import {
+	arr,
+	decodeEntities,
+	html,
+	nodes,
+	shapeAcf,
+	text,
+	translationNodes,
+	urlNode,
+} from "./shape";
 
 /**
  * The ACF relationship fields that recur across the CPT single pages.
@@ -286,3 +295,97 @@ export const getPostAuthors = (ids) =>
 export const getPostSpeakers = (ids) =>
 	getPeople("post-speaker", "postSpeakers", ids);
 
+/**
+ * Countries as `{ nodes: [{ id, slug, title }] }`.
+ *
+ * The country picker appears on videos, podcasts, webinars and programmes, so
+ * it lives here rather than in each of them.
+ *
+ * @param {Array<number>} ids
+ */
+export async function getCountries(ids) {
+	const countries = await restByIds("country", ids, {
+		apiID: "country",
+		fields: "id,slug,title,translations",
+	});
+	return nodes(
+		countries.map((country) => ({
+			id: country.id,
+			slug: country.slug,
+			title: text(country.title),
+			// The webinar query selects these; harmless extra elsewhere.
+			translations: translationNodes(country.translations),
+		})),
+	);
+}
+
+/** The post types a `powered_by` picker accepts, with the ACF field-group name
+ *  WPGraphQL exposed each one's fields under. The sections switch on
+ *  `contentType.node.name` and then read that type's group. */
+const poweredByTypes = [
+	{ endpoint: "products", group: "products" },
+	{ endpoint: "services", group: "services" },
+	{ endpoint: "softwares", group: "softwares" },
+];
+
+/**
+ * A `powered_by` picker resolved across its three possible post types.
+ *
+ * Single.service.js is imported at call time rather than at the top of the
+ * file: it imports this module for resolveRelations, and a static import both
+ * ways would be a cycle.
+ *
+ * @param {Array<number>} ids
+ */
+export async function getPoweredBy(ids) {
+	const { resolveMixedPosts } = await import("./Single.service");
+	return nodes(await resolveMixedPosts(ids, poweredByTypes));
+}
+
+/**
+ * Featured images with their real alt text, keyed by post id.
+ *
+ * `featured_image_url` is a URL and nothing else, so a featured image shaped
+ * from it alone has an empty `altText` — while WPGraphQL returned the
+ * attachment's own alt. Mostly that is the same thing (3 of the first 100
+ * attachments in this CMS carry alt text at all), but the podcast episodes do
+ * have it, and dropping it is an accessibility regression on every episode
+ * card. One `/media?include=…` call per listing buys the real value.
+ *
+ * Falls back to the URL-only shape for a post whose attachment cannot be
+ * fetched, so a deleted attachment degrades rather than throwing.
+ *
+ * @param {any[]} posts raw REST posts carrying `featured_media`
+ * @returns {Promise<Map<number, any>>} post id to `{ node }` or null
+ */
+export async function getFeaturedImages(posts) {
+	const list = arr(posts);
+	const ids = [
+		...new Set(list.map((post) => Number(post?.featured_media)).filter(Boolean)),
+	];
+
+	const media = ids.length
+		? await restByIds("media", ids, {
+			apiID: "media",
+			fields: "id,alt_text,source_url",
+		})
+		: [];
+	const byId = new Map(media.map((item) => [Number(item.id), item]));
+
+	const out = new Map();
+	for (const post of list) {
+		const item = byId.get(Number(post?.featured_media));
+		out.set(
+			Number(post?.id),
+			item
+				? {
+					node: {
+						altText: decodeEntities(item.alt_text || ""),
+						mediaItemUrl: item.source_url,
+					},
+				}
+				: urlNode(post?.featured_image_url),
+		);
+	}
+	return out;
+}

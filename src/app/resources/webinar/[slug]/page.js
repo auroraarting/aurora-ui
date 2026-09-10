@@ -33,21 +33,24 @@ import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsCategories,
-	getInsightsInside,
-} from "@/services/Insights.service";
+import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
+import {
+	getWebinarInside,
+	getWebinars,
+} from "@/services/rest/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	const data = await getWebinarInside(params.slug);
-	const post = data?.data?.webinar;
+	// getWebinarInside now returns the node directly.
+	const post = await getWebinarInside(params.slug);
 
 	return {
 		title: post?.title || "Default Title",
@@ -75,23 +78,28 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getWebinars("first:20");
-	return data?.data?.webinars?.nodes.map((item) => ({
+	const webinars = await getWebinars({ first: 20 });
+	return webinars.map((item) => ({
 		slug: item.slug,
 	}));
 }
 
 /** Fetch  */
 async function getData({ params }) {
-	const [data, categoriesForSelect, list] = await Promise.all([
-		await getWebinarInside(params.slug),
-		await getInsightsCategories(),
-		await getWebinars("first: 4"),
+	// getInsightsCategories fetched six option lists for the `countries` value
+	// alone; getCountryList is the one call, and the getInsights/
+	// getInsightsInside imports were never used.
+	const [data, countries, otherList] = await Promise.all([
+		getWebinarInside(params.slug),
+		getCountryList(),
+		getWebinars({ first: 4 }),
 	]);
 	const pastWebinars = [];
-	const otherList = list?.data?.webinars?.nodes;
 	otherList?.map((item) => {
-		let categories = item?.eventCategories?.nodes;
+		// Copied, not aliased: this loop appends the countries to the category
+		// list, and mutating the array the service returned would corrupt it for
+		// every later reader of the same cached response.
+		const categories = [...(item?.eventCategories?.nodes || [])];
 
 		item?.webinarsFields?.country?.nodes?.map((item) => {
 			categories.push({ ...item, name: item.title });
@@ -118,8 +126,8 @@ async function getData({ params }) {
 
 	return {
 		props: {
-			data: data.data.webinar,
-			countries: categoriesForSelect.data.countries.nodes,
+			data,
+			countries,
 			otherList,
 			pastWebinars: pastWebinars.slice(0, 3),
 		},

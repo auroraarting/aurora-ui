@@ -53,6 +53,27 @@ const [
 ]);
 
 const [
+	gVideos, gVideosLanding, gEnergyTalks, gInsightsListing, gPodcast, gWebinar,
+] = await Promise.all([
+	importService("Videos.service.js"),
+	importService("VideosLanding.service.js"),
+	importService("EnergyTalks.service.js"),
+	importService("InsightsListing.service.js"),
+	importService("Podcast.service.js"),
+	importService("Webinar.service.js"),
+]);
+const [
+	rVideos, rVideosLanding, rEnergyTalks, rInsightsListing, rPodcast, rWebinar,
+] = await Promise.all([
+	importService("rest/Videos.service.js"),
+	importService("rest/VideosLanding.service.js"),
+	importService("rest/EnergyTalks.service.js"),
+	importService("rest/InsightsListing.service.js"),
+	importService("rest/Podcast.service.js"),
+	importService("rest/Webinar.service.js"),
+]);
+
+const [
 	rContent, rFaq, rContact, rJoinUs, rEos, rOurTeams, rAbout, rCareers,
 	rOffices, rInsights, rEarly,
 ] = await Promise.all([
@@ -87,10 +108,21 @@ const unwrapLists = (data) =>
  *  `postFields.sections[].content` differs by a single paragraph boundary
  *  inside a `[caption]` shortcode: WPGraphQL's `the_content` pass closes the
  *  `<p>` before the caption's own `<p>` and ACF's formatted value does not.
- *  Nothing converted so far renders that field — it is the insight detail
- *  body, and that page is still on GraphQL — so it is recorded here rather
- *  than chased. Revisit when converting /resources/aurora-insights. */
-const acceptedValuePaths = [/^\[\d+\]\.postFields\.sections\[\d+\]\.content$/];
+ *  Compared at tag level the whole difference is one stray `</p>` in the
+ *  GraphQL output, with no `<p>` open to close — unbalanced markup that every
+ *  HTML parser discards, so the rendered DOM is the same. Confirmed by
+ *  rendering the page both ways: identical text, media, `<p>` and `<img>`
+ *  counts. REST's output is simply the better-formed of the two. */
+const acceptedValuePaths = [
+	/^\[\d+\]\.postFields\.sections\[\d+\]\.content$/,
+	/^postFields\.sections\[\d+\]\.content$/,
+];
+
+/** `contentType` subfields the GraphQL queries select but nothing in src/ ever
+ *  reads — every one of the ~12 usages goes through `contentType.node.name`.
+ *  Reproducing `uri`/`label`/`id` would mean another call per post type for
+ *  values no section looks at. */
+const acceptedMissing = [/\.contentType\.node\.(uri|label|id|showUi)$/];
 
 /** Fields the GraphQL queries select but nothing in src/ ever reads, so REST
  *  does not reproduce them. Verified by grepping the whole tree. */
@@ -250,10 +282,95 @@ const cases = [
 			(await gEarly.getEarlyCareersListingByRegions())?.data?.regions?.nodes,
 		rest: () => rEarly.getEarlyCareersListingByRegions(),
 	},
+	// ---- resources ------------------------------------------------------
+	{
+		label: "all videos",
+		gql: async () => (await gVideos.getAllVideos())?.data?.videos?.nodes,
+		rest: () => rVideos.getAllVideos(),
+	},
+	{
+		label: "latest videos",
+		gql: () => gVideos.getLatestVideos(videoSlug),
+		rest: () => rVideos.getLatestVideos(videoSlug),
+	},
+	{
+		label: "videos/[slug]",
+		gql: async () => (await gVideos.getVideosInside(videoSlug))?.data?.videoBy,
+		rest: () => rVideos.getVideosInside(videoSlug),
+	},
+	{
+		label: "videos landing",
+		gql: async () =>
+			(await gVideosLanding.getVideosLandingPage())?.data?.page?.videosLanding,
+		rest: () => rVideosLanding.getVideosLandingPage(),
+	},
+	{
+		label: "energy talks landing",
+		gql: async () =>
+			(await gEnergyTalks.getEnergyTalksPage())?.data?.page?.energyTalksListing,
+		rest: () => rEnergyTalks.getEnergyTalksPage(),
+	},
+	{
+		label: "energy talks social",
+		gql: async () =>
+			(await gEnergyTalks.getEnergyTalksPageSocialLinks())?.data?.page
+				?.energyTalksListing,
+		rest: () => rEnergyTalks.getEnergyTalksPageSocialLinks(),
+	},
+	{
+		label: "insights landing",
+		gql: async () =>
+			(await gInsightsListing.getInsightsPage())?.data?.page?.insightsListing,
+		rest: () => rInsightsListing.getInsightsPage(),
+	},
+	{
+		label: "podcasts",
+		gql: async () => (await gPodcast.getPodcasts())?.data?.podcasts?.nodes,
+		rest: () => rPodcast.getPodcasts(),
+	},
+	{
+		label: "energy-unplugged/[slug]",
+		gql: async () => (await gPodcast.getPodcastInside(podcastSlug))?.data?.podcastBy,
+		rest: () => rPodcast.getPodcastInside(podcastSlug),
+	},
+	{
+		label: "aurora-insights/[slug]",
+		gql: async () => (await gInsights.getInsightsInside(insightSlug))?.data?.postBy,
+		rest: () => rInsights.getInsightsInside(insightSlug),
+	},
+	{
+		label: "webinar landing",
+		gql: async () =>
+			(await gWebinar.getWebinarPage())?.data?.page?.webinarsListing,
+		rest: () => rWebinar.getWebinarPage(),
+	},
+	{
+		label: "webinars",
+		gql: async () =>
+			(await gWebinar.getWebinars("first: 20"))?.data?.webinars?.nodes,
+		rest: () => rWebinar.getWebinars({ first: 20 }),
+	},
+	{
+		label: "webinar/[slug]",
+		gql: async () => (await gWebinar.getWebinarInside(webinarSlug))?.data?.webinar,
+		rest: () => rWebinar.getWebinarInside(webinarSlug),
+	},
 ];
 
 /** A published programme to compare the detail page against. */
 const earlyCareerSlug = "tokyo-graduate-analyst-programme";
+
+/** A published video for the detail and "latest" comparisons. */
+const videoSlug = "flexplorer";
+
+/** A published podcast episode. */
+const podcastSlug = "ep-305-what-happens-when-a-market-moves-fast";
+
+/** A published insight with authors, sections and a powered-by reference. */
+const insightSlug = "ireland-energy-affordability-challenge";
+
+/** A published webinar. */
+const webinarSlug = "ai-powered-energy-workflows-with-aurora-mcp-noram-special-edition";
 
 const only = process.argv[2];
 const summary = [];
@@ -276,12 +393,23 @@ for (const { label, gql, rest } of cases) {
 		continue;
 	}
 	if (!g) {
-		summary.push([label, null, null, "GraphQL returned nothing"]);
+		// Both empty is parity: the videos landing page is addressed by a stale
+		// database id, so WPGraphQL returns null there too. Only GraphQL
+		// returning nothing while REST returns something is a real mismatch.
+		if (!r) {
+			summary.push([label, [], 0, null, [], "both empty"]);
+		} else {
+			summary.push([label, null, null, "GraphQL returned nothing, REST did not"]);
+		}
 		continue;
 	}
 
 	const { onlyGql, typeMismatch, valueMismatch } = compare(g, r, { label });
-	const missing = onlyGql.filter((path) => !accepted.has(path));
+	const missing = onlyGql.filter(
+		(path) =>
+			!accepted.has(path) &&
+			!acceptedMissing.some((pattern) => pattern.test(path)),
+	);
 	// A node `id` is WPGraphQL's base64 global id and REST's numeric post id;
 	// they cannot match, and nothing treats them as opaque strings — the utils
 	// only test them for truthiness or use them to de-duplicate.
@@ -296,7 +424,7 @@ for (const { label, gql, rest } of cases) {
 
 console.log(`\n${"=".repeat(72)}\nSUMMARY\n${"=".repeat(72)}`);
 let failed = 0;
-for (const [label, missing, mismatch, error, values = []] of summary) {
+for (const [label, missing, mismatch, error, values = [], note] of summary) {
 	if (error) {
 		failed++;
 		console.log(`ERR  ${label.padEnd(24)} ${error}`);
@@ -316,6 +444,8 @@ for (const [label, missing, mismatch, error, values = []] of summary) {
 				console.log(`         rest: ${JSON.stringify(r)?.slice(0, 120)}`);
 			}
 		}
+	} else if (note) {
+		console.log(`ok   ${label.padEnd(24)} ${note}`);
 	} else {
 		console.log(`ok   ${label.padEnd(24)} shape and values match (type-mismatch=${mismatch})`);
 	}

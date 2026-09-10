@@ -24,15 +24,17 @@ import AuroraInsightsWrap from "@/sections/resources/aurora-insights/AuroraInsig
 import {
 	getInsights,
 	getInsightsCategories,
-	getInsightsPath,
-} from "@/services/Insights.service";
-import { getInsightsPage } from "@/services/InsightsListing.service";
-import { getPageSeo } from "@/services/Seo.service";
+	insightTeaserCategories,
+} from "@/services/rest/Insights.service";
+import { getInsightsPage } from "@/services/rest/InsightsListing.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "insight-listing", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "insight-listing");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -51,42 +53,38 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Fetch  getStaticProps*/
 async function getData() {
-	// const [data, categoriesForSelect, list, insightsPage] = await Promise.all([
-	// 	getInsights(
-	// 		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports"}'
-	// 	),
-	// 	getInsightsCategories(),
-	// 	getInsights(
-	// 		'first: 3, where: {categoryName: "case-studies,commentary,market-reports"}'
-	// 	),
-	// 	getInsightsPage(),
-	// ]);
-	const data = await getInsights(
-		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-	);
-	const categoriesForSelect = await getInsightsCategories();
-	const list = await getInsights(
-		'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-	);
-	const insightsPage = await getInsightsPage();
-	const otherList = list?.data?.posts?.nodes;
+	// The two getInsights calls this replaces used the same filter and the same
+	// (default, newest-first) order — one asking for 9999 and one for 3 — so
+	// the teaser is the head of the full list rather than a second request over
+	// 817 posts. getInsightsPath was imported here but never called.
+	const [data, options, insightsPage] = await Promise.all([
+		getInsights({ all: true, categories: insightTeaserCategories }),
+		getInsightsCategories(),
+		getInsightsPage(),
+	]);
 
 	return {
 		props: {
-			pagination: data.data?.posts?.pageInfo || {},
-			data: data?.data?.posts?.nodes || [],
-			tags: categoriesForSelect.data.tags?.nodes || [],
-			categories: categoriesForSelect?.data?.categories?.nodes || [],
-			countries: categoriesForSelect?.data?.countries?.nodes || [],
-			products: categoriesForSelect?.data?.products?.nodes || [],
-			softwares: categoriesForSelect?.data?.softwares?.nodes || [],
-			services: categoriesForSelect?.data?.services?.nodes || [],
-			otherList,
-			insightsPage: insightsPage.data.page.insightsListing,
+			// `pagination` read a `posts.pageInfo` the query never selected, so it
+			// has always been an empty object.
+			pagination: {},
+			data,
+			tags: options.tags || [],
+			categories: options.categories || [],
+			countries: options.countries || [],
+			products: options.products || [],
+			softwares: options.softwares || [],
+			services: options.services || [],
+			otherList: data.slice(0, 3),
+			insightsPage,
 		},
 	};
 }

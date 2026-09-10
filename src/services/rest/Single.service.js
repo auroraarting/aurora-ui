@@ -171,3 +171,27 @@ export async function getPageGroup(slug, options = {}) {
 	if (!page) return null;
 	return resolveRelations(shapeAcf(page.acf || {}), relations);
 }
+
+/**
+ * One page's ACF field group, addressed by database id rather than slug.
+ *
+ * The videos landing service identifies its page by id, so this exists for it.
+ * `pages?include=<id>` is used rather than `pages/<id>` because the latter
+ * answers 404 for a missing id, which the wrapper turns into a thrown error;
+ * the collection form returns an empty list, matching the `null` WPGraphQL
+ * returned for an id that no longer exists.
+ *
+ * @param {number} id page database id
+ * @param {object} [options] see {@link getPageGroup}
+ * @returns {Promise<any|null>}
+ */
+export async function getPageGroupById(id, options = {}) {
+	const { relations = {}, fields = "id,slug,title,acf" } = options;
+	const found = await RESTAPI(
+		`pages?include=${Number(id)}&per_page=1&_fields=${fields}`,
+		{ apiID: "pages", tags: [`page:${id}`] },
+	);
+	const page = Array.isArray(found) ? found[0] : found;
+	if (!page) return null;
+	return resolveRelations(shapeAcf(page.acf || {}), relations);
+}

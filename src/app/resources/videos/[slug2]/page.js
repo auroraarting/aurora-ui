@@ -24,24 +24,29 @@ import styles from "@/styles/pages/video/video.module.scss";
 // DATA //
 
 // SERVICES //
-import { getInsightsCategories } from "@/services/Insights.service";
+import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import {
 	getAllVideos,
 	getLatestVideos,
 	getVideosInside,
-} from "@/services/Videos.service";
-import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
+} from "@/services/rest/Videos.service";
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const { slug2 } = params;
-	const data = await getVideosInside(slug2);
-	const post = data?.data?.videoBy;
+	// getVideosInside now returns the node directly. The `status` check below is
+	// kept as-is: the GraphQL query never selected `status` either, so it has
+	// always been the null check doing the work.
+	const post = await getVideosInside(slug2);
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
-	if (!data?.data?.videoBy || data?.data?.videoBy?.status === "draft") {
+	if (!post || post?.status === "draft") {
 		notFound(); // shows Next.js 404 page
 	}
 
@@ -71,29 +76,33 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getAllVideos();
-	return data?.data?.videos?.nodes.map((item) => ({
+	const videos = await getAllVideos();
+	return videos.map((item) => ({
 		slug: item.slug,
 	}));
 }
 
 /** Fetch  */
 async function getData({ slug }) {
-	const [data, latestVideos, categoriesForSelect] = await Promise.all([
+	// This page only ever read `countries` off getInsightsCategories, which
+	// fetched six option lists to get it. getCountryList is the one call. The
+	// getEnergyTalksPageSocialLinks import alongside it was never called —
+	// socialLinksFetch below is built by hand.
+	const [data, latestVideos, countries] = await Promise.all([
 		getVideosInside(slug),
 		getLatestVideos(slug),
-		getInsightsCategories(),
+		getCountryList(),
 	]);
 
 	// 🚫 Redirect to 404 if data is null
-	if (!data?.data?.videoBy) {
+	if (!data) {
 		notFound(); // shows Next.js 404 page
 	}
 
 	const socialLinksFetch = [
 		{
 			url:
-				data?.data?.videoBy?.videoFields?.youtubeLink ||
+				data?.videoFields?.youtubeLink ||
 				"https://youtube.com/playlist?list=PLVL1WPkN_GwmntaUW4VIKds14K1PGJKgl",
 			logo: {
 				node: {
@@ -106,9 +115,9 @@ async function getData({ slug }) {
 
 	return {
 		props: {
-			data: data?.data?.videoBy,
+			data,
 			videos: latestVideos?.slice(0, 1) || [],
-			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			countries: countries || [],
 			otherList: latestVideos?.slice(0, 3) || [],
 			socialLinks: socialLinksFetch,
 		},

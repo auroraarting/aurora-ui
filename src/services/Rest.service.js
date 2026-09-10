@@ -38,6 +38,13 @@ const requestTimeoutMs = 60000;
 const maxAttempts = 3;
 const retryBaseDelayMs = 1000; // 1s, then 2s
 
+/** Throttling gets more attempts than a normal fault. A 429 is a "come back
+ *  later", not a failure, and Pressable's window outlasts two retries — a
+ *  concurrent build and a page render were enough to exhaust 3 attempts and
+ *  500 the page. Five attempts at the backoff below tolerate ~75s of
+ *  throttling, which is what a static generation pass needs to survive. */
+const maxThrottleAttempts = 5;
+
 /** A 429 needs to outlast the rate-limit window, not just a blip. Retrying a
  *  throttled call after one second simply gets throttled again — observed
  *  against Pressable, where both retries failed at 1s/2s — so throttling backs
@@ -145,7 +152,10 @@ export async function restRequest(path, dataObj = {}) {
 
 	return schedule(async () => {
 		let lastError;
-		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+		// The ceiling rises once we know we are being throttled rather than
+		// failing, so a normal 500 still gives up quickly.
+		let attempts = maxAttempts;
+		for (let attempt = 1; attempt <= attempts; attempt++) {
 			let res = null;
 			try {
 				res = await fetch(url, {
@@ -170,10 +180,11 @@ export async function restRequest(path, dataObj = {}) {
 				};
 			} catch (error) {
 				lastError = error;
+				if (error?.status === 429) attempts = maxThrottleAttempts;
 				const retryable = !error?.status || isRetryable(error.status);
-				if (!retryable || attempt === maxAttempts) break;
+				if (!retryable || attempt === attempts) break;
 				console.warn(
-					`[wp-rest] attempt ${attempt}/${maxAttempts} for ${url}: ${error?.message || error}`,
+					`[wp-rest] attempt ${attempt}/${attempts} for ${url}: ${error?.message || error}`,
 				);
 				await sleep(backoffMs(res, attempt, error?.status));
 			}
