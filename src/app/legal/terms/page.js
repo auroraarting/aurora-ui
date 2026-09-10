@@ -24,8 +24,8 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getTerms } from "@/services/Terms.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getTerms } from "@/services/rest/ContentPage.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** Meta Data */
 // export const metadata = {
@@ -35,8 +35,10 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "terms", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "terms");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Terms | Aurora",
@@ -57,11 +59,8 @@ export async function generateMetadata() {
 
 /** Terms Page */
 export default async function Terms() {
-	const {
-		data: {
-			page: { title, content },
-		},
-	} = await getTerms();
+	// getTerms now returns the page node directly.
+	const { title, content } = (await getTerms()) || {};
 	return (
 		<div>
 			{/* Metatags */}

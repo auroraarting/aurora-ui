@@ -22,19 +22,24 @@ import { getMapJsonForAllRegions } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getEosPage } from "@/services/Eos.service";
-import { getBundlesSection } from "@/services/Bundles.service";
+import {
+	getCountryList,
+	getRegions,
+} from "@/services/rest/GlobalPresence.service";
+import { getEosPage } from "@/services/rest/Eos.service";
+import { getBundlesSection } from "@/services/rest/Bundles.service";
 import {
 	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
-import { getPageSeo } from "@/services/Seo.service";
+	insightTeaserCategories,
+} from "@/services/rest/Insights.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "eos", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "eos");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -53,25 +58,24 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** EOS Page */
 export default async function EOSPage() {
-	const [dataFetch, regions, bundlesFetch, categoriesForSelect, list] =
-		await Promise.all([
-			getEosPage(),
-			getRegions(),
-			getBundlesSection(),
-			getInsightsCategories(),
-			getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-			),
-		]);
+	// This page only ever read `countries` off getInsightsCategories, which
+	// fetched six option lists to get it. getCountryList is the one call.
+	const [data, regions, bundles, countries, otherList] = await Promise.all([
+		getEosPage(),
+		getRegions(),
+		getBundlesSection(),
+		getCountryList(),
+		getInsights({ first: 3, categories: insightTeaserCategories }),
+	]);
 	const mapJson = getMapJsonForAllRegions(regions);
-	const otherList = list?.data?.posts?.nodes;
-	const countries = categoriesForSelect.data.countries.nodes;
-	const data = dataFetch.data.page.eos;
-	const bundles = bundlesFetch.data.page.bundles;
 	const dataForBtn = { postFields: data || {} };
 
 	return (

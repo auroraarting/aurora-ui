@@ -22,20 +22,23 @@ import LifeAtAuroraWrap from "@/sections/careers/LifeAtAuroraWrap";
 // DATA //
 
 // SERVICES //
-import { getLifeAtAurora } from "@/services/Careers.service";
+import { getLifeAtAurora } from "@/services/rest/Careers.service";
 import { getFetchJobData } from "@/services/JobOpenings.service";
+import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import {
 	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
-import { getOffices } from "@/services/Offices.service";
-import { getEarlyCareersListing } from "@/services/EarlyCareers.service";
-import { getPageSeo } from "@/services/Seo.service";
+	insightTeaserCategories,
+} from "@/services/rest/Insights.service";
+import { getOffices } from "@/services/rest/Offices.service";
+import { getEarlyCareersListing } from "@/services/rest/EarlyCareers.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "life-at-aurora", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "life-at-aurora");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -54,28 +57,28 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
-	const [data, jobs, offices, categoriesForSelect, list, careersListFetch] =
+	// This page only ever read `countries` off getInsightsCategories, which
+	// fetched six option lists to get it. getCountryList is the one call.
+	const [data, jobs, offices, countries, otherList, careersList] =
 		await Promise.all([
-			await getLifeAtAurora(),
-			await getFetchJobData(),
-			await getOffices(),
-			await getInsightsCategories(),
-			await getInsights(
-				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
-			),
-			await getEarlyCareersListing("first: 10"),
+			getLifeAtAurora(),
+			getFetchJobData(),
+			getOffices(),
+			getCountryList(),
+			getInsights({ first: 3, categories: insightTeaserCategories }),
+			getEarlyCareersListing({ first: 10 }),
 		]);
-	let obj = {
-		data: { ...data.data.page.lifeAtAurora, offices: offices.data.offices.nodes },
-	};
-	delete obj.data.lifeAtAurora;
-	const otherList = list?.data?.posts?.nodes;
-	const countries = categoriesForSelect.data.countries.nodes;
-	const careersList = careersListFetch.data.earlyCareers.nodes;
+
+	// The section reads the field group with the office list merged onto it.
+	const obj = { data: { ...data, offices } };
 
 	return (
 		<div>
@@ -93,7 +96,7 @@ export default async function LifeAtAurora() {
 			{/* Page Content starts here */}
 			<LifeAtAuroraWrap
 				data={obj.data}
-				offices={offices?.data?.offices?.nodes}
+				offices={offices}
 				otherList={otherList}
 				countries={countries}
 				jobs={jobs}

@@ -25,22 +25,28 @@ import {
 // IMAGES //
 
 // SERVICES //
+import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getRegions } from "@/services/rest/GlobalPresence.service";
 import {
-	getHowWeHelps,
+	getHowWeHelpListing,
 	getSingleHowWeHelp,
-} from "@/services/HowWeHelp.service";
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import { getPageSeo } from "@/services/Seo.service";
+} from "@/services/rest/HowWeHelp.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 // DATA //
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`howwehelpBy(slug: "${params.slug}")`);
-	const seo = meta?.data?.howwehelpBy?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("howwehelp", params.slug);
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -61,8 +67,8 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const services = await getHowWeHelps();
-	return services.data.howWeHelps.nodes.map((item) => ({
+	const services = await getHowWeHelpListing();
+	return services.map((item) => ({
 		slug: item.slug,
 	}));
 }
@@ -70,20 +76,22 @@ export async function generateStaticParams() {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, services, regions, bundles] = await Promise.all([
-		await getSingleHowWeHelp(params.slug),
-		await getHowWeHelps(),
-		await getRegions(),
-		await getBundlesSection(),
+		getSingleHowWeHelp(params.slug),
+		getHowWeHelpListing(),
+		getRegions(),
+		getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
 
 	return {
 		props: {
-			data: data.data.howwehelpBy,
-			services: services.data.howWeHelps.nodes,
+			// The REST services return the nodes already unwrapped; only
+			// getRegions keeps its envelope, because the map helpers walk it.
+			data,
+			services,
 			mapJson,
 			regions,
-			bundles: bundles.data.page.bundles,
+			bundles,
 		},
 	};
 }

@@ -26,8 +26,8 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getCookies } from "@/services/Cookies.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getCookies } from "@/services/rest/ContentPage.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** Meta Data */
 // export const metadata = {
@@ -37,8 +37,10 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "cookies", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "cookies");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Cookies | Aurora",
@@ -59,11 +61,8 @@ export async function generateMetadata() {
 
 /** Cookies Page */
 export default async function Cookies() {
-	const {
-		data: {
-			page: { title, content },
-		},
-	} = await getCookies();
+	// getCookies now returns the page node directly.
+	const { title, content } = (await getCookies()) || {};
 
 	return (
 		<div>
