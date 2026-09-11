@@ -12,7 +12,9 @@
 		"create-section": "node scripts/createSection.js",
 		"create-page": "node scripts/createPage.js",
 		"rest:parity": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/verify-pages.mjs",
-		"rest:audit": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/audit-names.mjs"
+		"rest:audit": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/audit-names.mjs",
+		"rest:tags": "node --import ./scripts/rest-parity/register.mjs scripts/rest-parity/audit-tags.mjs",
+		"rest:tags:live": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/audit-tags.mjs --live"
 	},
 	"dependencies": {
 		"@lottiefiles/dotlottie-react": "^0.12.0",

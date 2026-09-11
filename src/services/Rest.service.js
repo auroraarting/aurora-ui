@@ -139,6 +139,8 @@ function buildUrl(baseUrl, path) {
  * @param {object} [dataObj]
  * @param {string} [dataObj.apiID] content type, for the cache tag — see ./rest/tags
  * @param {string} [dataObj.slug] single item, for the item-level cache tag
+ * @param {Array<number|string>} [dataObj.ids] items a by-id fetch names, each
+ *   becoming an item tag
  * @param {string[]} [dataObj.tags] extra cache tags
  * @param {string} [dataObj.method] defaults to GET; the read endpoints reject POST
  * @param {string} [dataObj.baseUrl] for routes outside the wp/v2 namespace
@@ -266,7 +268,10 @@ export async function restByIds(endpoint, ids, dataObj = {}) {
 		const batch = wanted.slice(i, i + maxPerPage);
 		const data = await RESTAPI(
 			`${endpoint}?include=${batch.join(",")}&per_page=${batch.length}&orderby=include${query}`,
-			rest,
+			// The ids travel with the request so each becomes an item tag —
+			// otherwise a single changed logo could only be reached by
+			// invalidating every fetch that reads client logos.
+			{ ...rest, ids: batch },
 		);
 		if (Array.isArray(data)) found.push(...data);
 	}

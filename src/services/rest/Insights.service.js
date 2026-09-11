@@ -126,7 +126,9 @@ export async function getCategoryIds(slugs) {
 
 	const terms = await RESTAPI(
 		`categories?slug=${wanted.map(encodeURIComponent).join(",")}&per_page=100&_fields=id,slug`,
-		{ apiID: "categories" },
+		// The slugs are the identity of this fetch, so name them: it depends on
+		// those categories alone, and should not go stale for every other one.
+		{ apiID: "categories", slugs: wanted },
 	);
 	return arr(terms).map((term) => Number(term.id)).filter(Boolean);
 }

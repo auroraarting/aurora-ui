@@ -2,6 +2,7 @@ import RESTAPI from "../Rest.service";
 
 import { auroraBaseUrl } from "./aurora";
 import { arr, text } from "./shape";
+import { tagFor } from "./tags";
 
 /**
  * The six option lists the filter dropdowns are built from — tags, categories,
@@ -16,15 +17,17 @@ import { arr, text } from "./shape";
  */
 export const getFilterOptions = async () => {
 	const options = await RESTAPI("filter-options", {
-		apiID: "common",
-		// Any of the six collections changing invalidates the whole payload.
+		// One request covering six collections, so it carries all six tags —
+		// any of them changing has to invalidate the whole payload. There is no
+		// single content type to name here, which is why `tags` is used
+		// directly rather than an `apiID`.
 		tags: [
-			"post-tag",
-			"category",
-			"country",
-			"product",
-			"software",
-			"service",
+			tagFor("tags"),
+			tagFor("categories"),
+			tagFor("country"),
+			tagFor("products"),
+			tagFor("softwares"),
+			tagFor("services"),
 		],
 		baseUrl: auroraBaseUrl(),
 	});

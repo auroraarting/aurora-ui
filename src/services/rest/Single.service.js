@@ -210,7 +210,10 @@ export async function getPageGroupById(id, options = {}) {
 	const { relations = {}, fields = "id,slug,title,acf" } = options;
 	const found = await RESTAPI(
 		`pages?include=${Number(id)}&per_page=1&_fields=${fields}`,
-		{ apiID: "pages", tags: [`page:${id}`] },
+		// A page addressed by database id, so the id form of the item tag — the
+		// `:` form is for slugs. Passed through `ids` rather than hand-written
+		// so it goes through the same vocabulary as every other fetch.
+		{ apiID: "pages", ids: [Number(id)] },
 	);
 	const page = Array.isArray(found) ? found[0] : found;
 	if (!page) return null;

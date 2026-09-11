@@ -6,7 +6,12 @@ Tooling for the GraphQL → REST migration in `src/services/rest/`.
 npm run rest:parity          # every converted page, GraphQL vs REST
 npm run rest:parity service  # just the cases whose label contains "service"
 npm run rest:audit           # ACF field names the sections cannot read
+npm run rest:tags            # cache tags on every fetch — static, no network
+npm run rest:tags:live       # …and capture what the wrapper really assembles
 ```
+
+`rest:tags` is the one to run habitually: it reads the sources, touches
+nothing, and returns instantly.
 
 Both scripts talk to the live CMS. They read `.env.local`, and they go through
 the same p-limit queue as the app, so set `WP_REST_CONCURRENCY=1
@@ -97,6 +102,89 @@ field name falls back to the field's label, as WPGraphQL did.
    `<main>` gives an exact ordered match, and the heading sequence
    (`<h1>`–`<h6>` in order) is a good second check. A whole-page multiset is
    the fallback, but it cannot see ordering — see below.
+
+## rest:tags
+
+Tags are the only thing that makes content refresh, so a fetch with a wrong or
+missing tag is a page that silently goes stale forever — invisible to a parity
+run, which only compares data.
+
+The default pass is **static**: it reads every call to `RESTAPI`, `restAll`,
+`restByIds` and `restRequest` across the service layer and flags four faults —
+
+- no `apiID` and no `tags`, so the fetch can never be revalidated
+- an `apiID` that is not in `contentTags`, so no webhook will ever match it
+- a `?slug=` read that does not pass `slug`, so it only gets a collection tag
+- an `?include=` read that does not pass `ids`, likewise
+
+It understands long-hand (`apiID: "posts"`), shorthand (`{ apiID }`) and
+spread-in options, and strips `${…}` interpolations first — without that,
+`?slug=${slug}` in a URL reads as a shorthand `{ slug }` property and masks the
+third fault. The checker was validated by injecting one of each fault and
+confirming all four are reported.
+
+`rest:tags:live` additionally calls every service and prints what the wrapper
+actually assembled, which is worth doing after changing `tagsFor` itself.
+
+**There is no global "everything" tag.** One used to be added to every fetch,
+which meant a single webhook could invalidate the whole site and made it
+tempting to fire that instead of naming what changed. `/api/revalidate` with
+no arguments still purges everything, but by fanning out over the 30 content
+tags explicitly, so the cost lives at the call site rather than on every cache
+entry.
+
+Tags come in three shapes, and **a webhook should send all three**:
+
+| tag | matches | so it is what makes… |
+| --- | --- | --- |
+| `post` | listings, anything reading the collection | a new or deleted item appear |
+| `post:my-slug` | that item's own page | an edit show on its page |
+| `post#123` | the batched by-id fetches behind ACF relation pickers | an edit show wherever it is referenced |
+
+The id form exists because the two halves of the system name things
+differently: a page is addressed by slug, while a relation field stores post
+ids and never sees a slug. WordPress knows both on save.
+
+### A fetch that names its items does not get the content-type tag
+
+This is the rule that keeps one edit cheap, and it is the one to understand
+before touching `tagsFor`.
+
+`posts?slug=my-article` depends on exactly one post, so `posts:my-article` is
+enough. Adding the bare `posts` tag as well would mean all **644** single-post
+cache entries — 458 insight pages plus 186 press-room pages — went stale
+whenever *any* post was edited. Measured: one insight detail page is 14 REST
+calls, of which only its own `posts?slug=` and its 3-item teaser carry a post
+tag, so the amplification was ~643 wasted calls per edit, not 644 × 14.
+
+| one post is edited | upstream calls to re-warm | detail pages re-rendered |
+| --- | --- | --- |
+| with the collection tag on single-post fetches | ~669 | 644 |
+| without it (current) | ~26 | 1 |
+
+Counts behind those figures, from `x-wp-total` on 2026-09-11: 820 posts in all,
+458 in the six insight categories (10 listing pages at `per_page=50`), 186 in
+`media` (4 listing pages). Videos, podcasts and webinars are separate post
+types with their own tags, so a post edit never touches them.
+
+The content-type tag belongs only on a fetch whose *result set* can change — an
+unfiltered or filtered collection read, where a new or deleted item alters the
+answer. Those keep it automatically, because they name no items. A fetch that
+names items *and* can change for other reasons can force it back with
+`collection: true`.
+
+**This makes the item tags mandatory in the webhook.** Sending only `post` will
+no longer refresh an individual article's page. Send all three.
+
+Verified end to end: purging `service:origin` left `/service/advisory` cached
+(5.8s) while `service:advisory` refetched it (8.7s), `category#217` refetched
+it, and `alldata` now does nothing at all.
+
+Two deliberate limits. Id tags are only added while a batch is small
+(`maxIdTags`, 32) because Next caps tags per fetch — a larger batch keeps its
+collection tag and is invalidated collection-wide. And a fetch spanning several
+collections, like `/aurora/v1/filter-options`, carries one tag per collection
+rather than an apiID.
 
 ## The site's own REST namespace
 

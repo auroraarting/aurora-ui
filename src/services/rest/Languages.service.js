@@ -18,8 +18,7 @@ import { auroraBaseUrl } from "./aurora";
 export const getAllLanguages = async () => {
 	try {
 		const languages = await RESTAPI("languages", {
-			apiID: "common",
-			tags: ["language"],
+			apiID: "language",
 			baseUrl: auroraBaseUrl(),
 		});
 		return Array.isArray(languages) ? languages : [];

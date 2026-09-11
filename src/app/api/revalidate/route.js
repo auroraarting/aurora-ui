@@ -1,6 +1,6 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 
-import { allTag } from "@/services/rest/tags";
+import { everyContentTag } from "@/services/rest/tags";
 
 /**
  * On-demand revalidation — the only way REST-backed pages go stale.
@@ -15,10 +15,24 @@ import { allTag } from "@/services/rest/tags";
  *   /api/revalidate?tags=post:my-article-slug     one article's page
  *   /api/revalidate?tags=service,country          two content types at once
  *   /api/revalidate?paths=/service/advisory       one route, by path
- *   /api/revalidate                               everything (the allTag)
+ *   /api/revalidate?tags=post%23123                one post by id
+ *   /api/revalidate                               everything (see below)
  *
  * Tags may also be sent as JSON — `{ "tags": ["post", "post:slug"] }` — which
  * is easier from a WordPress hook posting an array.
+ *
+ * Tags come in three shapes, and **a webhook should send all three**:
+ *
+ *   post          the content type — matches listings and anything that reads
+ *                 the collection, so it is what makes a new or deleted item
+ *                 show up
+ *   post:my-slug  the item as a page addresses it — matches that item's page
+ *   post#123      the item as an ACF relation field stores it — matches the
+ *                 batched by-id fetches that resolve relation pickers, which
+ *                 only ever see ids
+ *
+ * Sending only the item tags leaves listings stale; sending only the type tag
+ * works but invalidates more than it needs to. See services/rest/tags.js.
  *
  * AUTHENTICATION: when REVALIDATE_SECRET is set, callers must supply it as
  * `?secret=` or an `x-revalidate-secret` header. Note that this endpoint used
@@ -65,9 +79,12 @@ async function revalidate(req) {
 		}
 	}
 
-	// No tags named means "something changed and we don't know what", which is
-	// what the endpoint did before it understood tags at all.
-	if (!tags.length && !paths.length) tags = [allTag];
+	// No tags named means "something changed and we don't know what". That
+	// fans out over every content type rather than relying on a global tag
+	// stored on every cache entry: nothing carries such a tag any more, so the
+	// cost of purging the whole site is explicit here instead of being one
+	// webhook away at all times. Prefer naming what changed.
+	if (!tags.length && !paths.length) tags = [...everyContentTag];
 
 	try {
 		for (const tag of new Set(tags)) revalidateTag(tag);
