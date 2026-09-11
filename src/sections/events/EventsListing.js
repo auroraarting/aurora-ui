@@ -21,6 +21,7 @@ import formatDate, {
 	updateQueryFast,
 } from "@/utils";
 import EqualHeight from "@/utils/EqualHeight";
+import { scrollToSection } from "@/utils/ScrollToSection";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsListing.module.scss";
@@ -108,6 +109,12 @@ export default function EventsListing({
 
 	// Current page of the past events pagination
 	const [currentPage, setCurrentPage] = useState(1);
+
+	// Incremented by a click that should bring the filters back into view; the
+	// effect below serves it once the DOM has settled. A counter rather than a
+	// boolean so two clicks in a row are two distinct requests.
+	const [scrollRequest, setScrollRequest] = useState(0);
+	const servedScroll = useRef(0);
 
 	/** Live / upcoming events are always shown in full, above the past ones */
 	const { upcoming: upcomingEvents, past: pastEvents } = useMemo(
@@ -199,18 +206,34 @@ export default function EventsListing({
 		filter(option.title, key);
 	};
 
+	/** Ask for the filter bar to be scrolled into view. Bumping a counter rather
+	 *  than scrolling here on purpose — see the effect near EqualHeight below,
+	 *  which does the scrolling once the new listing has actually been laid out.
+	 *  A click handler is far too early: it runs before React has even
+	 *  re-rendered. */
+	const requestFilterScroll = () => setScrollRequest((n) => n + 1);
+
 	/** Switch over to the past events listing (same route, `?status=Past`) */
 	const viewPreviousEvents = (e) => {
 		e?.preventDefault();
 		handleOptionClick("eventStatusType", { title: "Past" });
-		sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+		requestFilterScroll();
 	};
 
 	/** Back out of the past listing: clears the status filter, keeping the rest */
 	const viewUpcomingEvents = (e) => {
 		e?.preventDefault();
 		handleOptionClick("eventStatusType", { title: "" });
-		sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+		requestFilterScroll();
+	};
+
+	/** A new page of past events replaces the cards below the filters, so the
+	 *  filters come back into view — but only when the reader clicked a page.
+	 *  Pagination also reports page 1 whenever the filtered set changes, and
+	 *  scrolling on that would jump the page on every keystroke in the search. */
+	const handlePageChange = (page, source) => {
+		setCurrentPage(page);
+		if (source === "click") requestFilterScroll();
 	};
 
 	/** filter  */
@@ -324,6 +347,47 @@ export default function EventsListing({
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
 	}, [list, showUpcoming, showPast, selected]);
+
+	/** Scroll the filter bar back into view after a click that replaced the
+	 *  listing under it.
+	 *
+	 *  The scroll has to go through Lenis — see scrollToSection. That is what
+	 *  makes it move at all.
+	 *
+	 *  It also deliberately does not happen in the click handler, because
+	 *  everything below the filters is still changing height at that point:
+	 *
+	 *    - a click sets state, so the handler still sees the *old* layout;
+	 *    - setPaginationArr triggers setCurrentPage(1), and Pagination's own
+	 *      effect triggers setCurrentItems — two more render passes;
+	 *    - leaving page 1 drops the whole upcoming-events block, because
+	 *      showUpcoming requires currentPage === 1;
+	 *    - EqualHeight (above) then writes explicit heights onto every card.
+	 *
+	 *  A target measured before all that is stale, and since the page ends up
+	 *  shorter, it can land past the end of the document and be clamped.
+	 *
+	 *  So: wait for the commit (this effect), then for two frames — the first
+	 *  lets this commit's own layout and EqualHeight land, the second measures
+	 *  a page that has stopped changing size. No arbitrary timeout involved. */
+	useEffect(() => {
+		if (!scrollRequest || servedScroll.current === scrollRequest) return;
+		if (loading) return; // a filter is still resolving; the next commit retries
+		servedScroll.current = scrollRequest;
+
+		// Not cancelled on cleanup, deliberately. The re-renders listed above
+		// arrive between scheduling and firing, and a cleanup would cancel the
+		// frame while the guard above already counts the request as served — so
+		// the scroll would be dropped altogether. Letting it fire is also more
+		// correct: it then measures the newest layout, not the one that
+		// scheduled it. After unmount sectionRef is null and scrollToSection
+		// no-ops.
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => scrollToSection(sectionRef.current));
+		});
+		// `list` and `currentPage` are here so a request made while a filter was
+		// still resolving is re-served on the commit that finishes it.
+	}, [scrollRequest, loading, list, currentPage]);
 
 	/** Render a single event card */
 	const renderEventCard = (item, isLive) => {
@@ -804,7 +868,7 @@ export default function EventsListing({
 								data={pastEvents}
 								paginationArr={pastEvents}
 								setCurrentItems={setList}
-								onPageChange={setCurrentPage}
+								onPageChange={handlePageChange}
 								isDark={true}
 								// itemsPerPage={12}
 							/>

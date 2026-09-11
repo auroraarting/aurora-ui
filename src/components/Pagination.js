@@ -19,7 +19,14 @@ import IconArrRight from "/public/img/icons/pagination-right.svg";
 
 // DATA //
 
-/** Pagination Component */
+/** Pagination Component
+ *
+ *  `onPageChange(page, source)` reports *why* the page changed, because the two
+ *  reasons want different treatment: "click" is the reader asking for another
+ *  page, while "reset" is this component snapping back to page 1 after the
+ *  filtered set changed. A caller that scrolls on a page change must only do it
+ *  for the first, or it yanks the page around on every keystroke in a search
+ *  box. Callers that ignore the second argument are unaffected. */
 export default function Pagination({
 	data = [],
 	paginationArr = [],
@@ -36,7 +43,7 @@ export default function Pagination({
 		const totalPages = Math.ceil(paginationArr.length / itemsPerPage);
 		setTotalPages(totalPages);
 		setCurrentPage(1);
-		onPageChange?.(1);
+		onPageChange?.(1, "reset");
 	}, [paginationArr, itemsPerPage]);
 
 	useEffect(() => {
@@ -46,7 +53,7 @@ export default function Pagination({
 	/** handlePageClick  */
 	const handlePageClick = (page) => {
 		setCurrentPage(page);
-		onPageChange?.(page);
+		onPageChange?.(page, "click");
 		setCurrentItems(
 			paginationArr.slice((page - 1) * itemsPerPage, page * itemsPerPage)
 		);
