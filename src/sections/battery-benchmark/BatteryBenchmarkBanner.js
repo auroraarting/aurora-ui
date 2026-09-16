@@ -27,7 +27,7 @@ export default function BatteryBenchmarkBanner({
 	dynamicBtn,
 }) {
 	return (
-		<section className={`${styles.ProductBanner} pt_60`}>
+		<section className={`${styles.ProductBanner} pt_40`}>
 			<div className="container">
 				<div className={`${styles.flexBox} f_j`}>
 					<div className={`${styles.flexItemOne}`}>

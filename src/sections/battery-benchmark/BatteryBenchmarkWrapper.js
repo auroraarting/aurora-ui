@@ -59,12 +59,25 @@ export default function BatteryBenchmarkWrapper({
 
 	// The selected market is held here so the explorer and the methodology
 	// panel (whose CMS rows are per region) stay on the same one.
+	const availableRegions = useMemo(
+		() => buildRegions(regions, activeBenchmarks, benchmarkType),
+		[regions, activeBenchmarks, benchmarkType],
+	);
 	const openingRegion = useMemo(
-		() => firstAvailableRegion(buildRegions(regions, activeBenchmarks)),
-		[regions, activeBenchmarks],
+		() => firstAvailableRegion(availableRegions),
+		[availableRegions],
 	);
 	const [region, setRegion] = useState(openingRegion);
-	const activeRegion = region || openingRegion;
+
+	// The two indices cover different markets, so the market selected under one
+	// may not be published under the other — fall back to the first published one
+	// rather than leaving the page on a market its selector no longer offers.
+	// `region` itself is left alone, so switching back restores the choice.
+	const activeRegion = availableRegions.some(
+		(item) => item.key === region && !item.soon,
+	)
+		? region
+		: openingRegion;
 
 	// The methodology rows for the tab in view. Backcast still comes from ACF;
 	// Real Performance comes from the Methodologies API, falling back to the ACF
@@ -110,14 +123,17 @@ export default function BatteryBenchmarkWrapper({
 					dynamicBtn={dynamicInsightsBtnProps(dataForBtn, "topSectionButton")}
 				/>
 
-				<div className="pt_100">
+				{/* Spacing above the chart is kept tight on purpose: the banner, the
+				    index selector and the chart header together used to push the plot
+				    itself off the first screen. */}
+				<div className="pt_30">
 					<BatteryBenchmarkIndices
 						selected={benchmarkType}
 						onSelect={setBenchmarkType}
 						// externalLinks={indexLinks}
 					/>
 				</div>
-				<div className="pt_40">
+				<div className="pt_20">
 					<BatteryBenchmarkExplorer
 						benchmarkType={benchmarkType}
 						regionCodes={regions}

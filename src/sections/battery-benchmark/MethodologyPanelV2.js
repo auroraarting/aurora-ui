@@ -6,6 +6,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 // COMPONENTS //
 import ContentFromCms from "@/components/ContentFromCms";
 
+// UTILS //
+import { getHeaderOffset, scrollToSection } from "@/utils/ScrollToSection";
+
 // STYLES //
 // Shares the v1 stylesheet so the two panels are visually identical and only the
 // content model differs — the v2-only classes are additions to that same module.
@@ -263,6 +266,49 @@ export default function MethodologyPanelV2({ sections, region }) {
 
 	const firstSectionId = section?.sections?.[0]?.id;
 
+	// Every id inside a level-1 section, keyed by that section. Opening one opens
+	// its whole subtree: a section read on its own is read with its sub-headings,
+	// and clicking 2, then 2.1, then 2.2 to see one section was the complaint.
+	const sectionSubtrees = useMemo(() => {
+		const map = new Map();
+		const collect = (node) => [
+			node.id,
+			...(node.children || []).flatMap(collect),
+		];
+		(section?.sections || []).forEach((item) => map.set(item.id, collect(item)));
+		return map;
+	}, [section]);
+
+	const subtreeOf = (id) => sectionSubtrees.get(id) || [id];
+
+	// One level-1 section at a time. Anything open elsewhere closes, so reading
+	// straight through the methodology doesn't grow a page-long scroll behind
+	// you. Sub-headings still toggle individually within the open section.
+	const openSectionOnly = (id) =>
+		setOpenNodes((prev) =>
+			prev.has(id) ? new Set() : new Set(subtreeOf(id)),
+		);
+
+	/** A level-1 heading was clicked. */
+	const toggleSection = (id) => {
+		const wasOpen = openNodes.has(id);
+		openSectionOnly(id);
+		setActiveId(id);
+		if (wasOpen) return;
+		// Collapsing the section above pulls this one up the page, so the heading
+		// you just clicked can end up behind the sticky header. Put it back only
+		// when the shift has actually taken it out of view — a section already in
+		// place shouldn't move at all.
+		requestAnimationFrame(() => {
+			const el = document.getElementById(`methodv2-${id}`);
+			if (!el) return;
+			const { top } = el.getBoundingClientRect();
+			if (top < getHeaderOffset() + 8 || top > window.innerHeight - 80) {
+				scrollToSection(el, 16);
+			}
+		});
+	};
+
 	// Every heading id at any depth, for the expand/collapse-all control.
 	const allNodeIds = useMemo(() => {
 		const ids = [];
@@ -300,9 +346,13 @@ export default function MethodologyPanelV2({ sections, region }) {
 	const [introOverflows, setIntroOverflows] = useState(false);
 
 	useEffect(() => {
-		setOpenNodes(firstSectionId ? new Set([firstSectionId]) : new Set());
+		setOpenNodes(
+			firstSectionId
+				? new Set(sectionSubtrees.get(firstSectionId) || [firstSectionId])
+				: new Set(),
+		);
 		setIntroOpen(false);
-	}, [firstSectionId]);
+	}, [firstSectionId, sectionSubtrees]);
 
 	useEffect(() => {
 		// Only measurable while clamped — expanded, scrollHeight equals
@@ -324,12 +374,11 @@ export default function MethodologyPanelV2({ sections, region }) {
 	const goToSection = (id) => {
 		setActiveId(id);
 		// Expand it first — jumping to a collapsed section would land on nothing
-		// but its heading. Scroll after paint so the target is at its full height.
-		setOpenNodes((prev) => new Set(prev).add(id));
+		// but its heading. Scroll after paint so the target is at its full height
+		// and whatever was open above it has already collapsed.
+		setOpenNodes(new Set(subtreeOf(id)));
 		requestAnimationFrame(() => {
-			document
-				.getElementById(`methodv2-${id}`)
-				?.scrollIntoView({ behavior: "smooth", block: "start" });
+			scrollToSection(document.getElementById(`methodv2-${id}`), 16);
 		});
 	};
 
@@ -481,7 +530,7 @@ export default function MethodologyPanelV2({ sections, region }) {
 												className={styles.itemToggle}
 												aria-expanded={open}
 												aria-controls={bodyId}
-												onClick={() => toggleNode(item.id)}
+												onClick={() => toggleSection(item.id)}
 											>
 												{heading}
 												<ScopeBadge scope={item.scope} />

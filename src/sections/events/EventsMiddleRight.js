@@ -22,6 +22,7 @@ import styles from "@/styles/sections/events/EventsMiddleRight.module.scss";
 // IMAGES //
 import grey_location from "../../../public/img/icons/grey_location.svg";
 import grey_calendar from "../../../public/img/icons/grey_calendar.svg";
+import Link from "next/link";
 
 // DATA //
 
@@ -36,8 +37,6 @@ export default function EventsMiddleRight({ data, events }) {
 	// more logos than fit on screen — otherwise there is nothing to navigate to.
 	const logosPerView = 1;
 	const logosScrollable = companyLogos.length > logosPerView;
-
-	console.log("EventsMiddleRight data:", data?.events?.sidebarLogos);
 
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
@@ -209,6 +208,37 @@ export default function EventsMiddleRight({ data, events }) {
 							</a>
 						);
 					})}
+				</div>
+			)}
+
+			{data?.events?.advetisment?.media?.node?.mediaItemUrl && (
+				<div className={`${styles.whiteBox}`}>
+					<div className={`${styles.itemBox}`}>
+						{/* <h5 className="text_reg color_gray f_w_b pb_10">Pricing</h5> */}
+						<div className={`${styles.ClientFlex}  f_r_a_center  text_xs`}>
+							<div className={`${styles.ClientDescription}`}>
+								<Link
+									target={data?.events?.advetisment?.url ? "_blank" : "_self"}
+									href={data?.events?.advetisment?.url}
+									className="text_xs color_dark_gray font_primary"
+								>
+									{/* The event is free of charge and tickets are limited - book yours today
+								and don’t miss this chance to contribute to the conversations driving
+								the energy transition forward. */}
+									<img
+										className={`${styles.advertismentImg}`}
+										src={data?.events?.advetisment?.media?.node?.mediaItemUrl}
+										alt="Advertisement"
+									/>
+								</Link>
+								{/* <div className={`${styles.btn_box} pt_10`}>
+								<Button color="secondary" variant="underline">
+									Register Now
+								</Button>
+							</div> */}
+							</div>
+						</div>
+					</div>
 				</div>
 			)}
 		</div>

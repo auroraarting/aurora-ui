@@ -170,7 +170,7 @@
 		background: var(--color_white);
 		border: 1px solid var(--color_platinum_gray);
 		border-radius: 12px;
-		padding: 26px 28px 22px;
+		padding: 20px 28px 22px;
 		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
 		@media (max-width: 767px) {
 			padding: 18px 14px 16px;
@@ -182,7 +182,7 @@
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: 16px;
-		margin-bottom: 18px;
+		margin-bottom: 14px;
 		min-width: 0;
 		@media (max-width: 767px) {
 			flex-wrap: wrap;
@@ -265,7 +265,7 @@
 	.durationToggles {
 		display: flex;
 		gap: 10px;
-		margin-bottom: 18px;
+		margin-bottom: 12px;
 		flex-wrap: wrap;
 	}
 

@@ -30,6 +30,7 @@ export const REGION_LABELS = {
 	bel: "Belgium",
 	nld: "Netherlands",
 	ibe: "Iberia",
+	esp: "Spain",
 	irx: "Ireland",
 	nod: "Nordics",
 	swe: "Sweden",
@@ -71,6 +72,7 @@ const REGION_ORDER = [
 	"bel",
 	"nld",
 	"ibe",
+	"esp",
 	"irx",
 	"nod",
 	"swe",
@@ -106,13 +108,37 @@ export function regionLabel(code) {
 	return REGION_LABELS[code] || String(code || "").toUpperCase();
 }
 
+/** Markets with no data yet that are still worth listing, per benchmark index.
+ *
+ *  The API answers /regions/all with every market Aurora models, most of which
+ *  will never carry a benchmark — listing all of them left a selector that was
+ *  almost entirely "Soon". So the selector shows what is published plus these,
+ *  and nothing else. A market only shows as "Soon" while it is genuinely
+ *  unpublished: once its benchmark appears in the catalogue it becomes
+ *  selectable on its own, with no edit here.
+ *
+ *  "esp" (Spain) is a display-only code — the API has no Spanish region, it
+ *  publishes Iberia with Spain as a price zone — so it exists purely to hold
+ *  this row until Real Performance covers it. */
+export const COMING_SOON_REGIONS = {
+	backcast: ["aus", "grc", "irx"],
+	real: ["cas", "esp", "irx"],
+};
+
 /** buildRegions - turns the API's region codes into selector items, in display
- *  order. A market is flagged "soon" when the benchmark catalogue has nothing
- *  published for it yet. Called with no codes it lists every known market, so
- *  the selector still renders if /regions/all fails. */
-export function buildRegions(codes, benchmarks = []) {
-	const list = codes?.length ? codes : REGION_ORDER;
+ *  order: every market with a published benchmark, plus the handful flagged as
+ *  coming soon for the index in view. With nothing published at all — the API
+ *  down, rather than a quiet market — it falls back to listing every known
+ *  market so the selector still renders. */
+export function buildRegions(codes, benchmarks = [], benchmarkType = "backcast") {
 	const published = new Set(benchmarks.map((item) => item.region));
+	const soon = COMING_SOON_REGIONS[benchmarkType] || [];
+
+	const list = published.size
+		? [...published, ...soon.filter((code) => !published.has(code))]
+		: codes?.length
+			? codes
+			: REGION_ORDER;
 
 	return [...new Set(list)]
 		.map((code) => ({

@@ -47,14 +47,18 @@ export default function EventsInsideWrap({
 	countries,
 	eventsOriginal,
 }) {
+	console.log("EventsInsideWrap data:", data);
 	const dataForBtn = { postFields: data?.events || {} };
-	const insightsBtn = dynamicInsightsBtnProps(dataForBtn, "insightsSectionButton");
+	const insightsBtn = dynamicInsightsBtnProps(
+		dataForBtn,
+		"insightsSectionButton",
+	);
 	// The dark CTA panel is editorial: without a title, body or button from the
 	// backend it renders as an empty grey card, so it is gated on having content.
 	const hasInsightsContent = Boolean(
 		data?.events?.insights?.sectionTitle ||
-			data?.events?.insights?.sectionDesc ||
-			insightsBtn.btntext,
+		data?.events?.insights?.sectionDesc ||
+		insightsBtn.btntext,
 	);
 	return (
 		<div>

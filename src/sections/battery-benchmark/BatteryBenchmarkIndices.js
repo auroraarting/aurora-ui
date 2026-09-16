@@ -38,7 +38,7 @@ export default function BatteryBenchmarkIndices({
 	return (
 		<div className={`${styles.IndicesWrap}`}>
 			<div className="container">
-				<section className={`${styles.Indices} pt_60`}>
+				<section className={styles.Indices}>
 					<div className={styles.top}>
 						<h2 className="text_md font_primary f_w_m color_secondary">
 							Aurora publishes two complementary storage indices
