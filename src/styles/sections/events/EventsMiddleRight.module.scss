@@ -22,6 +22,9 @@
 			.ClientFlex {
 				.ClientDescription {
 					width: 100%;
+					.advertismentImg {
+						width: 100%;
+					}
 					h3 {
 						&:last-child {
 							margin: 0;

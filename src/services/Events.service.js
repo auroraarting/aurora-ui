@@ -372,6 +372,15 @@ query GetEventInsideNew {
       }
     }
     events {
+      advetisment{
+        url
+        media {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
       sectionOrders{
         glimps
         hightlights

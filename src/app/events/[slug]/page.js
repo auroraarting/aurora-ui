@@ -25,7 +25,6 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 
-
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getEventsInside(params.slug);
@@ -126,8 +125,7 @@ async function getData({ slug }) {
 	const upcomingEvents = allEvents
 		.filter(
 			(item) =>
-				item?.slug !== slug &&
-				new Date(item?.events?.thumbnail?.date) > todaysDate,
+				item?.slug !== slug && new Date(item?.events?.thumbnail?.date) > todaysDate,
 		)
 		.sort(
 			(a, b) =>

@@ -37,11 +37,12 @@ export default function BatteryBenchmarkExplorer({
 	region: selectedRegion,
 	onRegionChange,
 }) {
-	// The API returns codes only ("gbr", "deu", …) - labelled and ordered here,
-	// with markets that have nothing published yet flagged as "soon"
+	// The API returns codes only ("gbr", "deu", …) - labelled and ordered here.
+	// Only markets that publish a benchmark are listed, plus the few flagged as
+	// coming soon for this index; the rest are left off entirely.
 	const regions = useMemo(
-		() => buildRegions(regionCodes, benchmarks),
-		[regionCodes, benchmarks],
+		() => buildRegions(regionCodes, benchmarks, benchmarkType),
+		[regionCodes, benchmarks, benchmarkType],
 	);
 
 	// The selected market lives in the wrapper, so the methodology panel can
