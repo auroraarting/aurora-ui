@@ -22,8 +22,13 @@
 			.ClientFlex {
 				.ClientDescription {
 					width: 100%;
+					/* The rail is sticky, so anything past the viewport can't be
+					   scrolled to — a tall creative is fitted to the card instead of
+					   setting the column's height. */
 					.advertismentImg {
 						width: 100%;
+						max-height: 420px;
+						object-fit: contain;
 					}
 					h3 {
 						&:last-child {
@@ -60,6 +65,13 @@
 	}
 	.yellowBox {
 		background-color: var(--color_primary);
+	}
+	// The advert that takes the upcoming-event slot when the space is sold. The
+	// creative is the card's whole content, so it sits closer to the edge than
+	// the text cards do rather than floating in 30px of white.
+	.advertBox {
+		padding: 16px;
+		line-height: 0;
 	}
 	// Company logo carousel, sat above the upcoming event card
 	.logoBox {
