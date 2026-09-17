@@ -47,7 +47,6 @@ export default function EventsInsideWrap({
 	countries,
 	eventsOriginal,
 }) {
-	console.log("EventsInsideWrap data:", data);
 	const dataForBtn = { postFields: data?.events || {} };
 	const insightsBtn = dynamicInsightsBtnProps(
 		dataForBtn,

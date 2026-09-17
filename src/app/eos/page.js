@@ -53,7 +53,6 @@ export async function generateMetadata() {
 	};
 }
 
-
 /** EOS Page */
 export default async function EOSPage() {
 	const [dataFetch, regions, bundlesFetch, categoriesForSelect, list] =

@@ -38,6 +38,17 @@ export default function EventsMiddleRight({ data, events }) {
 	const logosPerView = 1;
 	const logosScrollable = companyLogos.length > logosPerView;
 
+	// The last card in the sidebar is one slot, not two. It carries the advert
+	// when the space has been sold, and falls back to the Upcoming event card
+	// when it hasn't — so the column keeps its height either way instead of
+	// growing a fifth card the sticky rail has no room to show.
+	//
+	// Which one appears is decided by the advert image alone: uploading it is the
+	// whole switch, clearing it is the whole way back to the event.
+	const advert = data?.events?.advetisment;
+	const advertImage = advert?.media?.node;
+	const hasAdvert = Boolean(advertImage?.mediaItemUrl);
+
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
 			{data?.events?.interestedDesc && (
@@ -142,7 +153,42 @@ export default function EventsMiddleRight({ data, events }) {
 				</div>
 			)}
 
-			{events?.length > 0 && (
+			{/* ── Advert / Upcoming event slot ─────────────── */}
+			{hasAdvert && (
+				<div className={`${styles.whiteBox} ${styles.advertBox}`}>
+					<div className={`${styles.itemBox}`}>
+						<div className={`${styles.ClientFlex} f_r_a_center text_xs`}>
+							<div className={`${styles.ClientDescription}`}>
+								{/* The advert links out only when the CMS gives it a URL — a
+								    next/link with no href throws, so an unlinked creative is a
+								    plain image rather than a broken page. */}
+								{advert?.url ? (
+									<Link
+										href={advert.url}
+										target="_blank"
+										rel="noreferrer"
+										className="text_xs color_dark_gray font_primary"
+									>
+										<img
+											className={`${styles.advertismentImg}`}
+											src={advertImage.mediaItemUrl}
+											alt={advertImage.altText || "Advertisement"}
+										/>
+									</Link>
+								) : (
+									<img
+										className={`${styles.advertismentImg}`}
+										src={advertImage.mediaItemUrl}
+										alt={advertImage.altText || "Advertisement"}
+									/>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{!hasAdvert && events?.length > 0 && (
 				<div className={`${styles.whiteBox}`}>
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						UPCOMING EVENT
@@ -208,37 +254,6 @@ export default function EventsMiddleRight({ data, events }) {
 							</a>
 						);
 					})}
-				</div>
-			)}
-
-			{data?.events?.advetisment?.media?.node?.mediaItemUrl && (
-				<div className={`${styles.whiteBox}`}>
-					<div className={`${styles.itemBox}`}>
-						{/* <h5 className="text_reg color_gray f_w_b pb_10">Pricing</h5> */}
-						<div className={`${styles.ClientFlex}  f_r_a_center  text_xs`}>
-							<div className={`${styles.ClientDescription}`}>
-								<Link
-									target={data?.events?.advetisment?.url ? "_blank" : "_self"}
-									href={data?.events?.advetisment?.url}
-									className="text_xs color_dark_gray font_primary"
-								>
-									{/* The event is free of charge and tickets are limited - book yours today
-								and don’t miss this chance to contribute to the conversations driving
-								the energy transition forward. */}
-									<img
-										className={`${styles.advertismentImg}`}
-										src={data?.events?.advetisment?.media?.node?.mediaItemUrl}
-										alt="Advertisement"
-									/>
-								</Link>
-								{/* <div className={`${styles.btn_box} pt_10`}>
-								<Button color="secondary" variant="underline">
-									Register Now
-								</Button>
-							</div> */}
-							</div>
-						</div>
-					</div>
 				</div>
 			)}
 		</div>
