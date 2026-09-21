@@ -63,7 +63,9 @@ export const REGION_LABELS = {
 	phl: "Philippines",
 };
 
-/** Order the selector renders in — codes outside this list follow, A → Z */
+/** Every market the selector knows about. Only a fallback catalogue for when the
+ *  API returns no regions at all — the selector renders alphabetically, so this
+ *  list's own order carries no meaning. */
 const REGION_ORDER = [
 	"gbr",
 	"deu",
@@ -146,19 +148,31 @@ export function buildRegions(codes, benchmarks = [], benchmarkType = "backcast")
 			label: regionLabel(code),
 			soon: !published.has(code),
 		}))
-		.sort((a, b) => {
-			const aIndex = REGION_ORDER.indexOf(a.key);
-			const bIndex = REGION_ORDER.indexOf(b.key);
-			if (aIndex === -1 && bIndex === -1) return a.label.localeCompare(b.label);
-			if (aIndex === -1) return 1;
-			if (bIndex === -1) return -1;
-			return aIndex - bIndex;
-		});
+		// Alphabetical by the name on screen, not by region code: the codes are
+		// internal ("irx", "aies"), so ordering by them reads as no order at all.
+		// Coming-soon markets sort in with the rest rather than being herded to
+		// the bottom, so a market is where its name says it is.
+		.sort((a, b) => a.label.localeCompare(b.label));
 }
+
+/** The market the page opens on when it publishes a benchmark. Named rather
+ *  than taken from the top of the list: the selector is alphabetical, so the
+ *  first row is whichever market happens to sort first (Belgium today), and the
+ *  page opening there would be an accident of the sort rather than a choice. */
+const DEFAULT_REGION = "gbr";
 
 /** firstAvailableRegion - the market the selector opens on */
 export function firstAvailableRegion(regions = []) {
-	return regions.find((item) => !item.soon)?.key || regions[0]?.key || null;
+	const published = regions.filter((item) => !item.soon);
+	return (
+		published.find((item) => item.key === DEFAULT_REGION)?.key ||
+		published[0]?.key ||
+		// Nothing published at all (the API is down): still name the default
+		// rather than whatever sorts first.
+		regions.find((item) => item.key === DEFAULT_REGION)?.key ||
+		regions[0]?.key ||
+		null
+	);
 }
 
 /** Readable names for the API's price-zone codes. The Nordic and Iberian codes

@@ -16,7 +16,7 @@ const features = [
 	"Full revenue stream breakdown by market service",
 	"25-year forward forecasts under Aurora scenarios",
 	"Investment-case modelling & custom configurations",
-	"Fleet-level peer benchmarking (not asset-specific)",
+	"Compare your assets' performance with that of a peer group.",
 ];
 
 /** FlexplorerCard — Flexplorer promo / CTA card (sidebar column) */
