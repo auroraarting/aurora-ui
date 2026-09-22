@@ -1,6 +1,5 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import GraphQLAPI from "./Graphql.service";
-import { GraphQLAPILongerRevalidate } from "./Graphql.service";
 
 /** Fetch Regions Data */
 export const getRegions = async () => {

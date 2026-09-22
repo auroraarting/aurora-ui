@@ -54,13 +54,15 @@ export const metadata = {
 
 /** layout page */
 export default async function RootLayout({ children }) {
-	const [navigationFetch, eventsFetch, webinarsFetch] = await Promise.all([
-		fetchNavigationData(),
-		getAllEvents("first:9999"),
-		getWebinars("first:9999"),
-	]);
-	// const navigationFetch = await fetchNavigationData();
-	// const eventsFetch = await getAllEvents("first:9999");
+	// These four run on every page render, so they are issued together rather
+	// than letting fetchHeader add a fourth sequential round trip.
+	const [navigationFetch, eventsFetch, webinarsFetch, headerData] =
+		await Promise.all([
+			fetchNavigationData(),
+			getAllEvents("first:9999"),
+			getWebinars("first:9999"),
+			fetchHeader(),
+		]);
 	const events = eventsFetch?.data?.events?.nodes
 		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 		?.sort(
@@ -68,8 +70,6 @@ export default async function RootLayout({ children }) {
 				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
 		)
 		.slice(0, 1);
-
-	const headerData = await fetchHeader();
 
 	const navigation = {
 		...navigationFetch,

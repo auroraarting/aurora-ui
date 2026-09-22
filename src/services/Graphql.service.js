@@ -1,136 +1,72 @@
 import { ServerHeaders } from "@/utils/RequestHeaders";
-// import memoizedFetch from "@/lib/memoizedFetch";
+import {
+	buildTags,
+	proxyRefreshSeconds,
+	revalidateFor,
+} from "@/lib/cacheConfig";
 
-/** fetchWithRetry  */
-async function fetchWithRetry(url, options = {}, retries = 3, delay = 5000) {
-	for (let i = 0; i < retries; i++) {
-		try {
-			const res = await fetch(url, options);
-			if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			if (i === retries - 1) throw err;
-			console.warn(`Fetch failed for ${url}, retrying in ${delay}ms...`);
-			await new Promise((res) => setTimeout(res, delay));
-		}
-	}
-}
+/**
+ * GraphQLAPI - the single entry point for every WPGraphQL request.
+ *
+ * Requests go to the shared Redis proxy rather than straight to WordPress, and
+ * the response is additionally held in Next's Data Cache under a set of tags so
+ * /api/revalidate can purge it the moment content is published. Without those
+ * tags the only way a change could reach the site was waiting out the TTL,
+ * which is why the TTLs used to be set to 30s and why WordPress was being
+ * re-queried for the same data all day.
+ */
+export default async function GraphQLAPI(query, dataObj = {}) {
+	const { apiID, pageID } = dataObj;
+	const revalidate = revalidateFor(apiID);
+	const startTime = Date.now();
 
-/** GraphQLAPI  */
-export default async function GraphQLAPI(query, dataObj) {
-	const refreshInterval = 30000;
+	const payload = {
+		url: `${process.env.API_URL}`,
+		method: "POST",
+		body: { query },
+		// The proxy's own TTL, in ms. Kept short on purpose: Next's Data Cache
+		// below is what shields WordPress in steady state, so the proxy only
+		// gets called when we actually want fresh data. See cacheConfig.
+		refreshInterval: proxyRefreshSeconds * 1000,
+		headers: {
+			...ServerHeaders.headers,
+		},
+		...dataObj,
+		apiID: `${apiID}`,
+		pageID: `${process.env.NEXT_PUBLIC_SITE_ENV}${pageID}`,
+	};
 
-	// let res;
-	// let req;
-	// try {
-	// 	req = await fetch(`${process.env.API_URL}`, {
-	// 		...ServerHeaders,
-	// 		body: JSON.stringify({ query }),
-	// 		// next: { revalidate: 1800 },
-	// 	});
-	// 	res = await req.json();
-	// 	// res = req;
-	// 	return res;
-	// } catch (error) {
-	// 	// req = await req.text();
-	// 	console.log(error, req, "errror");
-	// }
-
-	// Cache
-	let startTime = null; // Start time
-	let res;
-	let req;
 	try {
-		startTime = new Date(); // Start time
-		const stagingDataObj = {
-			...dataObj,
-			apiID: `${dataObj.apiID}`,
-			pageID: `${process.env.NEXT_PUBLIC_SITE_ENV}${dataObj.pageID}`,
-		};
-		const data = {
-			url: `${process.env.API_URL}`,
+		const req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
 			method: "POST",
-			body: { query },
-			refreshInterval: refreshInterval,
 			headers: {
-				...ServerHeaders.headers,
+				"Content-Type": "application/json",
 			},
-			// ...dataObj,
-			...stagingDataObj,
-		};
-		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
-			"Content-Type": "application/json",
-			method: "POST",
-			body: JSON.stringify({ ...data }),
+			body: JSON.stringify(payload),
+			next: { revalidate, tags: buildTags(apiID) },
 		});
-		res = await req.json();
-		const endTime = new Date(); // End time
-		const fetchDuration = endTime - startTime; // Duration in milliseconds
-		// console.log(
-		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
-		// );
+
+		if (!req.ok) {
+			throw new Error(`Cache proxy responded ${req.status}`);
+		}
+
+		const res = await req.json();
+
+		// A GraphQL error still arrives as a 200, so Next would cache it for the
+		// full window. Log it loudly rather than letting a bad response sit in
+		// the cache unnoticed.
+		if (res?.errors) {
+			console.error(
+				`GraphQL errors for ${apiID} ${pageID}:`,
+				JSON.stringify(res.errors),
+			);
+		}
+
 		return res;
 	} catch (error) {
-		const endTime = new Date(); // End time
-		const fetchDuration = endTime - startTime; // Duration in milliseconds
-		console.log(
-			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
+		console.error(
+			`GraphQL fetch failed for ${apiID} ${pageID} after ${Date.now() - startTime}ms`,
+			error,
 		);
-		console.log(error, req, "errror");
-	}
-}
-
-/** GraphQLAPI  */
-export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
-	let res;
-	let req;
-
-	try {
-		// const options = {
-		// 	...ServerHeaders,
-		// 	body: JSON.stringify({ query }),
-		// 	method: "POST",
-		// };
-
-		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
-		// return req;
-
-		req = await fetch(`${process.env.API_URL}`, {
-			...ServerHeaders,
-			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 },
-		});
-		res = await req.json();
-		return res;
-	} catch (error) {
-		// req = await req.text();
-		console.log(error, req, "errror");
-	}
-}
-
-/** GraphQLAPI  */
-export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
-	let res;
-	let req;
-	try {
-		// const options = {
-		// 	...ServerHeaders,
-		// 	body: JSON.stringify({ query }),
-		// 	method: "POST",
-		// };
-
-		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
-		// return req;
-
-		req = await fetch(`${process.env.API_URL}`, {
-			...ServerHeaders,
-			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 }, // 30 minutes
-		});
-		res = await req.json();
-		return res;
-	} catch (error) {
-		// req = await req.text();
-		console.log(error, req, "errror");
 	}
 }

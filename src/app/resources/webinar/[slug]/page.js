@@ -42,7 +42,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = 900; // 15 minutes; purged on publish via /api/revalidate
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {

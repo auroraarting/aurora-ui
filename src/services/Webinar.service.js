@@ -1,3 +1,4 @@
+import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
 
 /** Fetch Webinar  Page */
@@ -50,7 +51,9 @@ query GetWebinarListing {
 };
 
 /** Fetch Webinar  Page */
-export const getWebinars = async (filters = "first: 9999") => {
+// Wrapped in cache() so the root layout and a webinar page rendering in the
+// same request share one result, as getAllEvents already does.
+export const getWebinars = cache(async (filters = "first: 9999") => {
 	const query = `
 query GetWebinars {
   webinars(${filters}) {
@@ -144,7 +147,7 @@ query GetWebinars {
 		pageID: "/resources/webinar",
 	});
 	return res;
-};
+});
 
 /** Fetch Webinar  Page */
 export const getWebinarInside = async (slug) => {

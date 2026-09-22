@@ -55,7 +55,7 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = 1800; // 30 minutes; purged on publish via /api/revalidate
 
 /** Fetch */
 async function getData() {

@@ -42,7 +42,7 @@ export const metadata = {
 	},
 };
 
-export const revalidate = 60; // Revalidates every 60 seconds
+export const revalidate = 900; // 15 minutes; purged on publish via /api/revalidate
 
 /** Careers Page */
 export default async function Careers() {
