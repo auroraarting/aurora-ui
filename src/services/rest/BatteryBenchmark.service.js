@@ -307,8 +307,16 @@ export function getDefaultLeaderboardDateRange() {
 }
 
 /** Parse a /leaderboards/<region> CSV response into monthly time series.
- *  Aggregates total net revenue (cashflow discharge + cashflow charge) per unit,
- *  then calculates fleet average per kW for each month. */
+ *  Aggregates total net revenue per unit, then calculates fleet average per kW
+ *  for each month.
+ *
+ *  Two column layouts are in circulation and both are read here. GB, Italy and
+ *  Australia name the unit `unit` and split revenue into `cashflow charge` and
+ *  `cashflow discharge`, which are summed. ERCOT names it `unit code` and
+ *  publishes the net as a single `total cashflow` column instead. Matching only
+ *  the first layout is why ERCOT's indices listed but charted nothing: every
+ *  column lookup missed, and a missing column returns no points rather than an
+ *  error. */
 export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 	const lines = String(csv || "")
 		.split("\n")
@@ -321,26 +329,36 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 
 	const header = splitCsvLine(lines[0]);
 	const dateCol = header.indexOf("local_date");
-	const unitCol =
-		header.indexOf("unit") !== -1
-			? header.indexOf("unit")
-			: header.indexOf("unit id");
+
+	// What identifies one asset, most specific name first. The fleet average is
+	// per unit, so picking the wrong column here would average over the wrong
+	// population rather than fail outright.
+	const unitCol = ["unit", "unit id", "unit code", "esr name", "battery name"]
+		.map((name) => header.indexOf(name))
+		.find((index) => index !== -1);
+
 	const chargeCol = header.findIndex((h) => h.includes("cashflow charge"));
 	const dischargeCol = header.findIndex((h) =>
 		h.includes("cashflow discharge"),
 	);
+	// ERCOT publishes the net directly instead of the charge/discharge pair.
+	const totalCol = header.findIndex((h) => h.includes("total cashflow"));
+
+	const hasPair = chargeCol !== -1 && dischargeCol !== -1;
+	// Whichever revenue column is in play also carries the currency
+	// ("cashflow discharge, gbp/kw", "total cashflow, usd/kw").
+	const currencyCol = hasPair ? chargeCol : totalCol;
 
 	let detectedCurrency = fallbackCurrency;
-	if (chargeCol !== -1) {
-		const match = header[chargeCol].match(/,\s*([a-z]{3})\/kw/i);
+	if (currencyCol !== -1) {
+		const match = header[currencyCol].match(/,\s*([a-z]{3})\/kw/i);
 		if (match) detectedCurrency = match[1].toLowerCase();
 	}
 
 	if (
 		dateCol === -1 ||
-		unitCol === -1 ||
-		chargeCol === -1 ||
-		dischargeCol === -1
+		unitCol === undefined ||
+		(!hasPair && totalCol === -1)
 	) {
 		return { currency: detectedCurrency, points: [] };
 	}
@@ -354,9 +372,9 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 
 		const monthKey = dateStr.slice(0, 7);
 		const unit = row[unitCol];
-		const charge = parseFloat(row[chargeCol]) || 0;
-		const discharge = parseFloat(row[dischargeCol]) || 0;
-		const net = charge + discharge;
+		const net = hasPair
+			? (parseFloat(row[chargeCol]) || 0) + (parseFloat(row[dischargeCol]) || 0)
+			: parseFloat(row[totalCol]) || 0;
 
 		if (!monthlyUnits.has(monthKey)) {
 			monthlyUnits.set(monthKey, new Map());

@@ -404,7 +404,7 @@ export default function BatteryBenchmarkExplorer({
 									<p className="text_xxs">
 										{isBackcast
 											? `${regionLabel(region)} has a benchmark in the catalogue, but Aurora has not released monthly figures for it yet.`
-											: "Real Performance benchmarks are currently published for Great Britain, Italy, and Australia. Aurora is expanding coverage soon."}
+											: "Real Performance benchmarks are currently published for Great Britain, Italy, Australia and ERCOT. Aurora is expanding coverage soon."}
 									</p>
 								)}
 							</div>
