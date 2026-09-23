@@ -66,11 +66,20 @@ async function getData() {
 			getRealPerformanceMethodology(),
 		]);
 
-	// Pre-seed both Backcast and Real Performance series on the server
-	const [initialSeries, initialRealSeries] = await Promise.all([
-		getBenchmarkSeriesByUuid((benchmarks || []).map((item) => item.uuid)),
-		getLeaderboardSeriesByIndices(realBenchmarks || []),
-	]);
+	// Pre-seed both Backcast and Real Performance series on the server.
+	//
+	// Deliberately sequential. Each of these batches six requests at a time,
+	// which is the most the benchmark API tolerates — run together they put
+	// twelve in flight and it answers some with HTTP 500. Those failures are
+	// swallowed into empty series, so the cost was silently missing lines on the
+	// chart rather than an error: measured against the live API, in parallel 3
+	// of 16 Real Performance series came back empty, sequentially 0 of 16.
+	const initialSeries = await getBenchmarkSeriesByUuid(
+		(benchmarks || []).map((item) => item.uuid),
+	);
+	const initialRealSeries = await getLeaderboardSeriesByIndices(
+		realBenchmarks || [],
+	);
 
 	return {
 		props: {
