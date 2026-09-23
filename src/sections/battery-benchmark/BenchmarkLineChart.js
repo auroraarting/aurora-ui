@@ -42,13 +42,24 @@ function labelWidth(text, compact) {
 /** A "nice" gridline step (1, 2, 2.5 or 5 x a power of ten) for a given max.
  *  The smallest one that keeps the axis to six intervals — picking off the
  *  rough max/5 instead let some units land on three coarse gridlines, so the
- *  same series looked differently spaced from one unit to the next. */
+ *  same series looked differently spaced from one unit to the next.
+ *
+ *  Whole numbers only, because the axis is labelled without decimals: a 0.25
+ *  step would print "0, 0, 1, 1, 1" and a 2.5 step "0, 3, 5, 8, 10" — labels
+ *  that repeat or don't match their own spacing. Dropping the fractional
+ *  candidates is what keeps every tick distinct and evenly valued. */
 function niceStep(max) {
-	const magnitude = Math.pow(10, Math.floor(Math.log10(max > 0 ? max : 1)));
-	const steps = [0.1, 0.2, 0.25, 0.5, 1, 2, 2.5, 5, 10].map(
-		(s) => s * magnitude,
-	);
-	return steps.find((step) => Math.ceil(max / step) <= 6) || max || 1;
+	const target = max > 0 ? max : 1;
+	for (let power = 0; power <= 12; power++) {
+		const magnitude = Math.pow(10, power);
+		for (const base of [1, 2, 2.5, 5]) {
+			const step = base * magnitude;
+			// 2.5 only survives from the tens up (25, 250, …), never as 2.5 itself.
+			if (!Number.isInteger(step)) continue;
+			if (Math.ceil(target / step) <= 6) return step;
+		}
+	}
+	return Math.max(1, Math.ceil(target));
 }
 
 /**
@@ -56,7 +67,9 @@ function niceStep(max) {
  * @param {Array} series - [{ key, label, color, data: Array<number|null> }]
  * @param {string[]} xLabels - label for every data point
  * @param {number[]} activeKeys - which series keys are visible
- * @param {number} decimals - decimal places on the axis and tooltip
+ * @param {number} decimals - decimal places in the tooltip. The Y axis is
+ *   always whole numbers: its labels were showing 0, 1 or 2 places depending on
+ *   the market and unit in view, which read as three different charts.
  */
 export default function BenchmarkLineChart({
 	series = [],
@@ -205,7 +218,7 @@ export default function BenchmarkLineChart({
 							textAnchor="end"
 							dominantBaseline="middle"
 						>
-							{v.toFixed(decimals)}
+							{Math.round(v)}
 						</text>
 					</g>
 				))}
