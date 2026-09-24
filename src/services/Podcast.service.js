@@ -65,6 +65,7 @@ query GetPodcasts {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["podcast"],
 		apiID: "podcast",
 		pageID: "/resources/energy-unplugged",
 	});
@@ -262,6 +263,7 @@ query GetPodcastBy {
 	let res = {};
 	try {
 		res = await GraphQLAPI(query, {
+			tags: ["podcast", `podcast:${slug}`],
 			apiID: "podcast",
 			pageID: `/resources/energy-unplugged/${slug}`,
 		});

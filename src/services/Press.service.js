@@ -98,6 +98,7 @@ query GetPresses {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["press", `press:${slug}`],
 		apiID: "press-room",
 		pageID: `/company/press-room/${slug}`,
 	});
@@ -203,6 +204,7 @@ query GetPresses {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["press"],
 		apiID: "press-room",
 		pageID: "/company/press-room",
 	});
@@ -307,6 +309,7 @@ query GetPressesCards {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["press"],
 		apiID: "press-room",
 		pageID: "/company/press-room",
 	});
@@ -326,6 +329,7 @@ query GetPressesLanguages {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["languages"],
 		apiID: "press-room",
 		pageID: "/company/press-room",
 		// taxonomies
@@ -488,6 +492,7 @@ query GetPressMediaKit {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:press-landing"],
 		apiID: "page",
 		pageID: "/company/press-room",
 	});
@@ -524,6 +529,7 @@ query GetPressMediaKit {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:press-landing"],
 		apiID: "page",
 		pageID: "/company/press-room",
 	});

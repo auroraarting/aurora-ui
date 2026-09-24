@@ -6,6 +6,11 @@ const nextConfig = {
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
+	experimental: {
+		// One build worker, so the 2 requests/second limiter in Graphql.service.js
+		// is a single queue for the whole build (avoids 429s from WordPress)
+		cpus: 1,
+	},
 	images: {
 		formats: ["image/avif", "image/webp"],
 		domains: [

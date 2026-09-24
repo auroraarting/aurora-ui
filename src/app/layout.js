@@ -1,4 +1,4 @@
-export const revalidate = 3600; // Revalidates every 1 hour
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
 
 import "@/styles/globals/globals.scss";
 import { GlobalContext } from "@/context/GlobalContext";

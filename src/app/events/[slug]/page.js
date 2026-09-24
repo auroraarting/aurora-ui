@@ -26,7 +26,8 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {

@@ -28,6 +28,7 @@ query GetWebinarListing {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:energy-talks-listing"],
 		apiID: "page",
 		pageID: "/resources/energy-unplugged",
 	});
@@ -54,6 +55,7 @@ query GetSocialLinks {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:energy-talks-listing"],
 		apiID: "page",
 		pageID: "/resources/energy-unplugged",
 	});

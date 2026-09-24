@@ -169,6 +169,7 @@ export async function searchData(searchTerm) {
 }
     `;
 	const { data } = await GraphQLAPI(combinedQuery, {
+		tags: ["software", "product", "service", "regions", "whoareyou", "howwehelp", "webinar", "office", "page", "teamsectors", "team", "testimonial", "post", "event", "earlyCareer", "podcast", "country"],
 		apiID: "common",
 		pageID: "/common",
 	});

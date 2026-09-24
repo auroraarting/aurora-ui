@@ -1,7 +1,8 @@
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 // ❌ Remove: export const fetchCache = "force-no-store";
-export const revalidate = 3600; // Revalidates every 1 hour
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 // MODULES //
 

@@ -42,7 +42,8 @@ export const metadata = {
 	},
 };
 
-export const revalidate = 60; // Revalidates every 60 seconds
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Careers Page */
 export default async function Careers() {

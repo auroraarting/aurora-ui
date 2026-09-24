@@ -105,6 +105,7 @@ query GetPageProduct {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:product", "product"],
 		apiID: "common",
 		pageID: "/products",
 		// taxonomies
@@ -416,6 +417,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["country", "product", `product:${slug}`],
 		apiID: "products",
 		pageID: `/products/${slug}`,
 	});

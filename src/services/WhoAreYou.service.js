@@ -133,6 +133,7 @@ export const getSingleWhoAreYou = async (slug) => {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["whoareyou", `whoareyou:${slug}`],
 		apiID: "whoareyou",
 		pageID: `/who-are-you/${slug}`,
 	});
@@ -233,6 +234,7 @@ query GetAllHowWeHelps {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["howwehelp"],
 		apiID: "whoareyou",
 		pageID: "/who-are-you",
 	});

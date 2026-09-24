@@ -70,6 +70,7 @@ query OurTeamPage {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:our-team"],
 		apiID: "page",
 		pageID: "/careers/our-team",
 	});

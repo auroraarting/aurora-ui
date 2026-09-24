@@ -33,7 +33,10 @@ export const getInsights = async ({ first = 36, after = null } = {}) => {
 	const variables = { first, after };
 
 	try {
-		const res = await GraphQLAPI(query, variables);
+		const res = await GraphQLAPI(query, {
+			...variables,
+			tags: ["post"],
+		});
 
 		// Check if response contains the expected data
 		if (res && res.data && res.data.posts) {
