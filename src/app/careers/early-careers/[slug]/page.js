@@ -23,27 +23,23 @@ import EarlyCareersInsideWrap from "@/sections/careers/EarlyCareersInsideWrap";
 // DATA //
 
 // SERVICES //
+import { getInsightsCategories } from "@/services/Insights.service";
 import {
 	getEarlyCareersInside,
 	getEarlyCareersListing,
-} from "@/services/rest/EarlyCareers.service";
-import { getOffices } from "@/services/rest/Offices.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+} from "@/services/EarlyCareers.service";
+import { getOffices } from "@/services/Offices.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("early-career", params.slug);
-	const seo = meta?.seo;
+	const meta = await getPageSeo(`earlyCareerBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.earlyCareerBy?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -64,32 +60,39 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	// Only the first few are prerendered: the build calls these one at a time
-	// through the p-limit queue, and Pressable throttles. Every other slug is
-	// rendered on first request and cached from then on (dynamicParams defaults
-	// to true here), so nothing is unreachable.
-	const earlyCareers = await getEarlyCareersListing({ first: 5 });
-	return earlyCareers.map((item) => ({ slug: item?.slug }));
+	const earlyCareers = await getEarlyCareersListing("first: 9999");
+	return (
+		earlyCareers?.data?.earlyCareers?.nodes?.map((item) => ({
+			slug: item?.slug,
+		})) || []
+	);
 }
 
 /** EarlyCareers Page */
 export default async function EarlyCareers({ params }) {
 	const { slug } = await params;
 
-	// The getInsightsCategories call that used to sit here fetched six option
-	// lists for a `countries` value this page assigned and never rendered.
-	const [data, list, offices] = await Promise.all([
-		getEarlyCareersInside(slug),
-		getEarlyCareersListing({ first: 10 }),
-		getOffices(),
-	]);
+	const [dataFetch, categoriesForSelect, list, officesFetch] = await Promise.all(
+		[
+			getEarlyCareersInside(slug),
+			getInsightsCategories(),
+			getEarlyCareersListing("first: 10"),
+			getOffices(),
+		],
+	);
+
+	const countries = categoriesForSelect.data.countries.nodes;
+	const data = dataFetch.data.earlyCareerBy;
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
 	if (!data || data?.status === "DRAFT") {
 		notFound(); // shows Next.js 404 page
 	}
 
-	const otherList = list?.filter((item) => item.slug !== slug);
+	const otherList = list.data.earlyCareers.nodes?.filter(
+		(item) => item.slug !== slug,
+	);
+	const offices = officesFetch.data.offices.nodes;
 	const dataForBtn = { postFields: data?.earlyCareers || {} };
 
 	return (

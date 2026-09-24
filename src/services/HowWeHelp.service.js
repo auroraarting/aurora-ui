@@ -284,6 +284,7 @@ query GetSingleHowWeHelp {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["howwehelp", `howwehelp:${slug}`],
 		apiID: "howwehelp",
 		pageID: `/how-we-help/${slug}`,
 	});
@@ -386,6 +387,7 @@ query GetAllHowWeHelps {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["howwehelp"],
 		apiID: "howwehelp",
 		pageID: "/how-we-help",
 	});

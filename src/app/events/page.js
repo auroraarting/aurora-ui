@@ -21,10 +21,10 @@ import EventsWrap from "@/sections/events/EventsWrap";
 // SERVICES //
 import {
 	getAllEventCategories,
+	getAllEventCountries,
 	getAllEvents,
 	getEventLandingPage,
-	getFilterOptions,
-} from "@/services/rest/Events.service";
+} from "@/services/Events.service";
 
 // DATA //
 
@@ -37,28 +37,29 @@ export const metadata = {
 	},
 };
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** events Page */
 export default async function Events() {
-	// getAllEventCountries queried four collections in one GraphQL request;
-	// /aurora/v1/filter-options is the REST equivalent, also one request.
-	const [events, eventCategories, filters, page] = await Promise.all([
-		getAllEvents(),
-		getAllEventCategories(),
-		getFilterOptions(),
-		getEventLandingPage(),
+	const [dataFetch, categoriesFetch, filters, pageFetch] = await Promise.all([
+		await getAllEvents(),
+		await getAllEventCategories(),
+		await getAllEventCountries(),
+		await getEventLandingPage(),
 	]);
-	const data = [...events].sort(
+	const data = dataFetch?.data?.events?.nodes?.sort(
 		(a, b) =>
 			new Date(b?.events?.thumbnail?.date) - new Date(a?.events?.thumbnail?.date),
 	);
-	const categories = eventCategories.map((item) => ({ title: item.name }));
-	const { countries, products, softwares, services } = filters;
+	const categories = categoriesFetch.data.eventscategories.nodes?.map((item) => {
+		return { title: item.name };
+	});
+	const countries = filters.data.countries.nodes;
+	const products = filters.data.products.nodes;
+	const softwares = filters.data.softwares.nodes;
+	const services = filters.data.services.nodes;
+	const page = pageFetch.data.page.eventLanding;
 
 	return (
 		<div>

@@ -35,17 +35,15 @@ import hoverBg from "@/../public/img/contact/hoverBg.png";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/rest/Seo.service";
-import { getOfficesByRegions } from "@/services/rest/Offices.service";
-import { getContact } from "@/services/rest/Contact.service";
+import { getPageSeo } from "@/services/Seo.service";
+import { getOfficesByRegions } from "@/services/Offices.service";
+import { getContact } from "@/services/Contact.service";
 import Link from "next/link";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "contact");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "contact", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -67,8 +65,8 @@ export async function generateMetadata() {
 /** Fetch  */
 async function getData() {
 	const [regions, page] = await Promise.all([
-		getOfficesByRegions(),
-		getContact(),
+		await getOfficesByRegions(),
+		await getContact(),
 	]);
 
 	const regionsArr = regions.data.regions.nodes
@@ -157,17 +155,13 @@ async function getData() {
 		props: {
 			regions: regions.data.regions.nodes,
 			regionsArr,
-			// getContact now returns the field group directly.
-			page,
+			page: page.data.page.contact,
 		},
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Contact Page */
 export default async function ContactPage() {

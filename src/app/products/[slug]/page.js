@@ -22,29 +22,18 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getBundlesSection } from "@/services/rest/Bundles.service";
-import {
-	getCountryList,
-	getRegions,
-} from "@/services/rest/GlobalPresence.service";
-import {
-	getProductBySlug,
-	getProductSlugs,
-} from "@/services/rest/Products.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+import { getProductBySlug, getProductPage } from "@/services/Products.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("products", params.slug);
-	const seo = meta?.seo;
+	const meta = await getPageSeo(`productBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.productBy?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -65,38 +54,29 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	// Was read off getProductPage, which fetched the whole product landing page
-	// just to take the slug list from the side of it.
-	// Only the first few are prerendered: the build calls these one at a time
-	// through the p-limit queue, and Pressable throttles. Every other slug is
-	// rendered on first request and cached from then on (dynamicParams defaults
-	// to true here), so nothing is unreachable.
-	const products = await getProductSlugs({ first: 5 });
-	return products.map((item) => ({
+	const data = await getProductPage();
+	return data?.data?.products?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
 }
 
 /** Fetch  */
 async function getData({ params }) {
-	// `countries` used to ride along inside the product query; REST cannot
-	// combine two collections in one request, so it is its own call.
-	const [data, regions, bundles, countries] = await Promise.all([
-		getProductBySlug(params.slug),
-		getRegions(),
-		getBundlesSection(),
-		getCountryList(),
+	const [data, regions, bundles] = await Promise.all([
+		await getProductBySlug(params.slug),
+		await getRegions(),
+		await getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForProducts(
 		filterMarkersBySlug(regions, params.slug),
 	);
+	const countries = data?.data?.countries?.nodes;
+
 	return {
 		props: {
-			// The REST services return the nodes already unwrapped; only
-			// getRegions keeps its envelope, because the map helpers walk it.
-			data,
+			data: data.data.productBy,
 			mapJson,
-			bundles,
+			bundles: bundles.data.page.bundles,
 			countries,
 		},
 	};

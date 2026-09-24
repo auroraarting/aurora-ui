@@ -5,7 +5,7 @@
 	"scripts": {
 		"prebuild": "node scripts/createRobots.js",
 		"dev": "next dev",
-		"build": "next build",
+		"build": "node scripts/timedBuild.js",
 		"start": "next start",
 		"lint": "next lint",
 		"create-component": "node scripts/createComponent.js",

@@ -52,6 +52,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:homepage", "country"],
 		apiID: "page",
 		pageID: "/",
 	});
@@ -789,26 +790,32 @@ export const getHomePageVoices = async () => {
 		// 	// taxonomies
 		// }),
 		await GraphQLAPI(pageCaseStudies, {
+			tags: ["post"],
 			apiID: "post",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageCommentary, {
+			tags: ["post"],
 			apiID: "post",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices1, {
+			tags: ["post"],
 			apiID: "common",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices2, {
+			tags: ["podcast"],
 			apiID: "common",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices3, {
+			tags: ["webinar"],
 			apiID: "common",
 			pageID: "/",
 		}),
 		await GraphQLAPI(pageVoices4, {
+			tags: ["event"],
 			apiID: "common",
 			pageID: "/",
 		}),

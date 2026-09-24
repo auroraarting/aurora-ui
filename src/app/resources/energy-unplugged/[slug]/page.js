@@ -26,28 +26,24 @@ import {
 // IMAGES //
 
 // SERVICES //
-import { getEnergyTalksPageSocialLinks } from "@/services/rest/EnergyTalks.service";
-import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import {
-	getPodcastInside,
-	getPodcasts,
-} from "@/services/rest/Podcast.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+	getInsights,
+	getInsightsCategories,
+	getInsightsInside,
+} from "@/services/Insights.service";
+import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
+import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("podcast", params?.slug);
-	const seo = meta?.seo;
+	const meta = await getPageSeo(`podcastBy(slug: "${params?.slug}")`);
+	const seo = meta?.data?.podcastBy?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -75,23 +71,21 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ slug }) {
-	// getPodcasts was called twice here for `events` and `list` — the same
-	// list, so it is fetched once. getInsightsCategories fetched six option
-	// lists for the `countries` value alone; getCountryList is the one call,
-	// and the getInsights/getInsightsInside imports were never used.
-	const [data, episodes, countries, social] = await Promise.all([
-		getPodcastInside(slug),
-		getPodcasts(),
-		getCountryList(),
-		getEnergyTalksPageSocialLinks(),
-	]);
+	const [data, events, categoriesForSelect, list, socialLinksFetch] =
+		await Promise.all([
+			getPodcastInside(slug),
+			getPodcasts(),
+			getInsightsCategories(),
+			getPodcasts(),
+			getEnergyTalksPageSocialLinks(),
+		]);
 
-	const otherList = episodes
+	const otherList = list?.data?.podcasts?.nodes
 		?.filter(
 			(item) =>
-				item?.slug !== data?.slug &&
+				item?.slug !== data?.data?.podcastBy?.slug &&
 				new Date(item?.podcastFields?.date) <
-					new Date(data?.podcastFields?.date), // published before now
+					new Date(data.data.podcastBy?.podcastFields.date), // published before now
 		)
 		?.sort(
 			(a, b) =>
@@ -101,16 +95,16 @@ async function getData({ slug }) {
 
 	return {
 		props: {
-			data,
+			data: data.data.podcastBy,
 			events:
-				episodes
-					?.filter((item) => item?.slug !== data?.slug)
+				events?.data?.podcasts?.nodes
+					?.filter((item) => item?.slug !== data?.data?.podcastBy?.slug)
 					?.sort(
 						(a, b) =>
 							new Date(b?.podcastFields?.date) - new Date(a?.podcastFields?.date),
 					)
 					.slice(0, 1) || [],
-			countries,
+			countries: categoriesForSelect.data.countries.nodes,
 			otherList: otherList?.map((item) => {
 				return {
 					...item,
@@ -118,19 +112,15 @@ async function getData({ slug }) {
 					customHtmlForTitle: true,
 				};
 			}),
-			socialLinks: social?.socialLinks,
+			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
 		},
 	};
 }
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	// Only the first few are prerendered: the build calls these one at a time
-	// through the p-limit queue, and Pressable throttles. Every other slug is
-	// rendered on first request and cached from then on (dynamicParams defaults
-	// to true here), so nothing is unreachable.
-	const podcasts = await getPodcasts({ first: 5 });
-	return podcasts.map((item) => ({
+	const podcasts = await getPodcasts("first:20");
+	return podcasts?.data?.podcasts?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
 }

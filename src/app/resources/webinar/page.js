@@ -21,21 +21,19 @@ import styles from "@/styles/pages/resources/webinar/Webinar.module.scss";
 import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 
 // SERVICES //
-import { getInsightsCategories } from "@/services/rest/Insights.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
 import {
-	getWebinarPage,
-	getWebinars,
-} from "@/services/rest/Webinar.service";
+	getInsights,
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getWebinarPage, getWebinars } from "@/services/Webinar.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "webinar-listing");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "webinar-listing", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -54,41 +52,35 @@ export async function generateMetadata() {
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch  getStaticProps*/
 async function getData() {
-	// This page renders all six option lists, so getInsightsCategories earns
-	// its keep here. The getInsights import alongside it was never called.
-	const [webinars, options, webinarpage] = await Promise.all([
-		getWebinars(),
-		getInsightsCategories(),
-		getWebinarPage(),
+	const [data, categoriesForSelect, webinarpage] = await Promise.all([
+		await getWebinars(),
+		await getInsightsCategories(),
+		await getWebinarPage(),
 	]);
 	let pastSpeakers = [];
 
 	return {
 		props: {
-			// `pagination` read webinars' response for a `posts.pageInfo` that was
-			// never in it, so it has always been an empty object.
-			pagination: {},
-			data: [...webinars].sort(
-				(a, b) =>
-					new Date(b.webinarsFields?.startDateAndTime) -
-					new Date(a.webinarsFields?.startDateAndTime),
-			),
-			tags: options.tags,
-			categories: options.categories,
-			countries: options.countries,
-			products: options.products,
-			softwares: options.softwares,
-			services: options.services,
+			pagination: data.data?.posts?.pageInfo || {},
+			data:
+				data?.data?.webinars?.nodes.sort(
+					(a, b) =>
+						new Date(b.webinarsFields?.startDateAndTime) -
+						new Date(a.webinarsFields?.startDateAndTime),
+				) || [],
+			tags: categoriesForSelect.data.tags.nodes,
+			categories: categoriesForSelect.data.categories.nodes,
+			countries: categoriesForSelect.data.countries.nodes,
+			products: categoriesForSelect.data.products.nodes,
+			softwares: categoriesForSelect.data.softwares.nodes,
+			services: categoriesForSelect.data.services.nodes,
 			pastSpeakers,
-			webinarpage,
+			webinarpage: webinarpage.data.page.webinarsListing,
 		},
 	};
 }

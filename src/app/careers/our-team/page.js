@@ -24,22 +24,20 @@ import { dynamicInsightsBtnProps } from "@/utils";
 // DATA //
 
 // SERVICES //
+import { getLifeAtAurora } from "@/services/Careers.service";
 import { getFetchJobData } from "@/services/JobOpenings.service";
 import {
 	getInsights,
 	getInsightsCategories,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
-import { getOurTeamsPage } from "@/services/rest/OurTeams.service";
-import { getOffices } from "@/services/rest/Offices.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+} from "@/services/Insights.service";
+import { getOurTeamsPage } from "@/services/OurTeams.service";
+import { getOffices } from "@/services/Offices.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "our-team");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "our-team", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -58,29 +56,36 @@ export async function generateMetadata() {
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** LifeAtAurora Page */
 export default async function LifeAtAurora() {
-	// The getLifeAtAurora call that used to sit here fed an `obj` this page
-	// built and then never rendered, so it is gone. Only the four option lists
-	// this page displays are fetched, rather than all six.
-	const [jobs, data, categoriesForSelect, otherList, offices] =
+	const [dataFetch, jobs, page, categoriesForSelect, list, offices] =
 		await Promise.all([
-			getFetchJobData(),
-			getOurTeamsPage(),
-			getInsightsCategories({
-				only: ["countries", "products", "softwares", "services"],
-			}),
-			getInsights({ first: 3, categories: insightTeaserCategories }),
-			getOffices(),
+			await getLifeAtAurora(),
+			await getFetchJobData(),
+			await getOurTeamsPage(),
+			await getInsightsCategories(),
+			await getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+			),
+			await getOffices(),
 		]);
+	let obj = {
+		data: {
+			...dataFetch.data.page.lifeAtAurora,
+			offices: dataFetch.data.offices.nodes,
+		},
+	};
+	delete obj.data.lifeAtAurora;
 
-	const { countries, products, softwares, services } = categoriesForSelect;
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect.data.countries.nodes;
+	const data = page.data.page.ourTeams;
+	const products = categoriesForSelect.data.products.nodes;
+	const softwares = categoriesForSelect.data.softwares.nodes;
+	const services = categoriesForSelect.data.services.nodes;
 	return (
 		<div>
 			{/* Metatags */}
@@ -103,7 +108,7 @@ export default async function LifeAtAurora() {
 				products={products}
 				softwares={softwares}
 				services={services}
-				offices={offices}
+				offices={offices?.data?.offices?.nodes}
 			/>
 			<IframeModal />
 			{/* Page Content ends here */}

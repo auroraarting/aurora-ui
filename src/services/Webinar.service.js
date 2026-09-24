@@ -43,6 +43,7 @@ query GetWebinarListing {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:webinar-listing"],
 		apiID: "page",
 		pageID: "/resources/webinar",
 	});
@@ -140,6 +141,7 @@ query GetWebinars {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["webinar"],
 		apiID: "tribe_events",
 		pageID: "/resources/webinar",
 	});
@@ -317,6 +319,7 @@ query GetWebinarInside {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["webinar", `webinar:${slug}`],
 		apiID: "tribe_events",
 		pageID: `/resources/webinar/${slug}`,
 	});

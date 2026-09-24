@@ -1,10 +1,7 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -27,15 +24,15 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 // DATA //
 
 // SERVICES //
-import { getSafeSender } from "@/services/rest/ContentPage.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+import { getSafeSender } from "@/services/SafeSender.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "add-aurora-as-a-safe-sender");
-	const seo = meta?.seo;
+	const meta = await getPageSeo(
+		'page(id: "add-aurora-as-a-safe-sender", idType: URI)',
+	);
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Add Aurora as a safe sender | Aurora",
@@ -56,8 +53,8 @@ export async function generateMetadata() {
 
 /** Add Aurora as a safe sender Page */
 export default async function AddAuroraAsASafeSender() {
-	// getSafeSender now returns the page node directly.
-	const { title, content } = (await getSafeSender()) || {};
+	const res = await getSafeSender();
+	const { title, content } = res?.data?.page || {};
 
 	return (
 		<div>

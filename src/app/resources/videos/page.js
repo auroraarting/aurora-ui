@@ -14,8 +14,8 @@ import VideosWrap from "@/sections/resources/videos/VideosWrap";
 // IMAGES //
 
 // SERVICES //
-import { getAllVideos } from "@/services/rest/Videos.service";
-import { getVideosLandingPage } from "@/services/rest/VideosLanding.service";
+import { getAllVideos } from "@/services/Videos.service";
+import { getVideosLandingPage } from "@/services/VideosLanding.service";
 
 // DATA //
 
@@ -28,23 +28,20 @@ export const metadata = {
 	},
 };
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Videos Page */
 export default async function Videos() {
-	// The REST services return the nodes and the field group directly.
-	const [videos, landing] = await Promise.all([
+	const [dataFetch, landingFetch] = await Promise.all([
 		getAllVideos(),
 		getVideosLandingPage(),
 	]);
-	const videosLanding = landing || {};
-	const data = [...videos].sort(
-		(a, b) => new Date(b?.videoFields?.date) - new Date(a?.videoFields?.date),
-	);
+	const videosLanding = landingFetch?.data?.page?.videosLanding || {};
+	const data =
+		dataFetch?.data?.videos?.nodes?.sort(
+			(a, b) => new Date(b?.videoFields?.date) - new Date(a?.videoFields?.date),
+		) || [];
 
 	// Extract unique topics from video data
 	const topicsMap = {};

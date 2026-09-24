@@ -23,22 +23,16 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // DATA //
 
 // SERVICES //
-import {
-	getAllEvents,
-	getEventsInside,
-} from "@/services/rest/Events.service";
-import { getCountryList } from "@/services/rest/GlobalPresence.service";
+import { getAllEvents, getEventsInside } from "@/services/Events.service";
+import { getInsightsCategories } from "@/services/Insights.service";
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	// getEventsInside now returns the node directly.
-	const post = await getEventsInside(params.slug);
+	const data = await getEventsInside(params.slug);
+	const post = data?.data?.eventBy;
 
 	return {
 		title: post?.title || "Default Title",
@@ -66,36 +60,34 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	// Only the first few are prerendered: the build calls these one at a time
-	// through the p-limit queue, and Pressable throttles. Every other slug is
-	// rendered on first request and cached from then on (dynamicParams defaults
-	// to true here), so nothing is unreachable.
-	const events = await getAllEvents({ first: 5 });
-	return events.map((item) => ({ slug: item.slug }));
+	const dataFetch = await getAllEvents();
+	return (
+		dataFetch?.data?.events?.nodes?.map((item) => ({
+			slug: item.slug,
+		})) || []
+	);
 }
 
 /** Fetch  */
 async function getData({ slug }) {
-	// getAllEvents was called twice here, for the upcoming and the past lists —
-	// the same query both times, so it is fetched once. getInsightsCategories
-	// fetched six option lists for the `countries` value alone; getCountryList
-	// is the one call.
-	const [data, allEvents, countries] = await Promise.all([
-		getEventsInside(slug),
-		getAllEvents(),
-		getCountryList(),
+	const [data, events, categoriesForSelect, pastEvents] = await Promise.all([
+		await getEventsInside(slug),
+		// eslint-disable-next-line quotes
+		await getAllEvents("first:9999"), //Upcoming
+		await getInsightsCategories(),
+		// eslint-disable-next-line quotes
+		await getAllEvents("first:9999"), //Past
 	]);
-	const events = allEvents;
-	const pastEvents = allEvents;
 
 	let todaysDate = new Date();
 
-	const dataForBtn = { postFields: data?.events || {} };
+	const countries = categoriesForSelect?.data?.countries?.nodes;
+	const dataForBtn = { postFields: data?.data?.eventBy?.events || {} };
 
 	const eventList = [];
 	const pastEventList = [];
 
-	events?.map((item) => {
+	events?.data?.events?.nodes?.map((item) => {
 		const tempObj = {
 			title: item?.title,
 			slug: item?.slug,
@@ -122,10 +114,8 @@ async function getData({ slug }) {
 
 		if (item?.slug != slug) eventList.push(tempObj);
 	});
-	pastEvents?.map((item) => {
-		// A fresh array per row: the loop appends the countries, and reusing the
-		// service's own arrays would corrupt a cached response.
-		const categories = [
+	pastEvents?.data?.events?.nodes?.map((item) => {
+		let categories = [
 			{
 				slug: "event",
 				name: "Event",
@@ -159,13 +149,15 @@ async function getData({ slug }) {
 	});
 
 	let isUpcoming =
-		new Date(data?.events?.thumbnail?.date) >= todaysDate ? "Upcoming" : "Past";
+		new Date(data?.data?.eventBy?.events?.thumbnail?.date) >= todaysDate
+			? "Upcoming"
+			: "Past";
 
 	const dataFromAPI = {
-		...data,
+		...data?.data?.eventBy,
 		events: {
-			...data?.events,
-			thumbnail: { ...data?.events?.thumbnail, status: isUpcoming },
+			...data?.data?.eventBy?.events,
+			thumbnail: { ...data?.data?.eventBy?.events?.thumbnail, status: isUpcoming },
 		},
 	};
 
@@ -180,7 +172,7 @@ async function getData({ slug }) {
 				?.sort((a, b) => new Date(b?.date) - new Date(a?.date))
 				.slice(0, 3),
 			eventsOriginal:
-				events
+				events?.data?.events?.nodes
 					?.filter(
 						(item) =>
 							new Date() < new Date(item?.events?.thumbnail?.date) &&

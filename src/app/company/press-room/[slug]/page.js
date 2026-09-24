@@ -21,22 +21,16 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 // DATA //
 
 // SERVICES //
-import {
-	getInsights,
-	getInsightsInside,
-} from "@/services/rest/Insights.service";
-import { getPressPageInsights } from "@/services/rest/Press.service";
+import { getInsights, getInsightsInside } from "@/services/Insights.service";
+import { getPressPage, getPressPageInsights } from "@/services/Press.service";
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	// getInsightsInside now returns the node directly.
-	const post = await getInsightsInside(params.slug);
+	const data = await getInsightsInside(params.slug);
+	const post = data?.data?.postBy;
 
 	return {
 		title: post?.title || "Default Title",
@@ -64,33 +58,34 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const posts = await getInsights({
-		first: 5,
-		categories: ["media"],
-		afterYear: 2023,
-	});
-	return posts.map((item) => ({
+	const data = await await getInsights(
+		'first: 20, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
+	);
+	return data.data.posts.nodes.map((item) => ({
 		slug: item.slug,
 	}));
 }
 
 /** Fetch  */
 async function getData({ slug }) {
-	// The Promise.all here had four entries and destructured three, so the
-	// fourth — a second call for the same page — was fetched and thrown away.
 	const [data, moreRelated, page] = await Promise.all([
-		getInsightsInside(slug),
-		getInsights({ first: 4, categories: ["media"], afterYear: 2023 }),
-		getPressPageInsights(),
+		await getInsightsInside(slug),
+		await getInsights(
+			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
+		),
+		await getPressPageInsights(),
+		await getPressPage(),
 	]);
-	const dataForBtn = { postFields: data?.postFields || {} };
+	const dataForBtn = { postFields: data?.data?.postBy?.postFields || {} };
 
 	return {
 		props: {
-			data: data || {},
-			moreRelated: moreRelated.filter((item) => item.slug != slug).slice(0, 3),
+			data: data?.data?.postBy || {},
+			moreRelated: moreRelated?.data?.posts?.nodes
+				.filter((item) => item.slug != slug)
+				.slice(0, 3),
 			dataForBtn,
-			page,
+			page: page?.data?.page?.pressLanding,
 		},
 	};
 }

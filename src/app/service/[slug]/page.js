@@ -1,10 +1,8 @@
 /* eslint-disable quotes */
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
-export const dynamic = "force-static";
+// Force SSR (like getServerSideProps)
+// export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const dynamic = "force-static"; // Use when data is highly cacheable
+// ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
 
@@ -26,23 +24,19 @@ import { filterMarkersBySlug, getMapJsonForService } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getBundlesSection } from "@/services/rest/Bundles.service";
-import {
-	getCountryList,
-	getRegions,
-} from "@/services/rest/GlobalPresence.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
-import {
-	getAllServiceData,
-	getServiceData,
-} from "@/services/rest/Service.service";
+import { getAllServiceData, getServiceData } from "@/services/Service.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
+import { getInsights } from "@/services/Insights.service";
+import { getPageSeo } from "@/services/Seo.service";
+
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("services", params.slug);
-	const seo = meta?.seo;
+	const meta = await getPageSeo(`serviceBy(slug: "${params.slug}")`);
+	const seo = meta?.data?.serviceBy?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -63,34 +57,35 @@ export async function generateMetadata({ params }) {
 
 /** Fetch  */
 async function getData({ params }) {
-	// `countries` used to ride along in the service query, and the insights
-	// call that fed `otherList` is gone — ServicesWrap never read that prop, so
-	// it was one upstream request per service page for nothing.
-	const [data, regions, bundles, countries] = await Promise.all([
-		getServiceData(params.slug),
-		getRegions(),
-		getBundlesSection(),
-		getCountryList(),
+	const [data, regions, bundles, list] = await Promise.all([
+		await getServiceData(params.slug),
+		await getRegions(),
+		await getBundlesSection(),
+		await getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		),
 	]);
-
 	const mapJson = getMapJsonForService(
 		filterMarkersBySlug(regions, params.slug),
 	);
+	const countries = data.data.countries.nodes;
+	const otherList = list?.data?.posts?.nodes || [];
 
 	return {
 		props: {
-			data,
+			data: data.data.serviceBy,
 			mapJson,
-			bundles,
+			bundles: bundles.data.page.bundles,
 			countries,
+			otherList,
 		},
 	};
 }
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const services = await getAllServiceData();
-	return services.map((item) => ({
+	const data = await getAllServiceData();
+	return data?.data?.services?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
 }

@@ -155,6 +155,7 @@ query MyQuery {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:life-at-aurora", "office"],
 		apiID: "page",
 		pageID: "/careers/life-at-arora",
 	});

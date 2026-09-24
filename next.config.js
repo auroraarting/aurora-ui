@@ -7,21 +7,8 @@ const nextConfig = {
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	experimental: {
-		// One static-generation worker, so the outbound limiter actually means
-		// what it says.
-		//
-		// src/services/rest/limiter.js paces WordPress calls with a p-limit
-		// queue at concurrency 1 during a build — but that queue is per
-		// *process*, and a build is a worker farm. Next's getNumberOfWorkers
-		// returns experimental.cpus, which defaults to cpus-1 (7 on this
-		// machine), so seven workers each ran their own queue and put seven
-		// requests on Pressable at once. Probing found it starts returning 429
-		// above six, and the build died prerendering /global-presence/czechia.
-		//
-		// The cost is a slower build: page generation no longer parallelises.
-		// That is the trade — a slow build that finishes beats a fast one that
-		// 429s. Raise this only alongside a matching drop in WP_REST_CONCURRENCY,
-		// since what Pressable sees is the product of the two.
+		// One build worker, so the 2 requests/second limiter in Graphql.service.js
+		// is a single queue for the whole build (avoids 429s from WordPress)
 		cpus: 1,
 	},
 	images: {

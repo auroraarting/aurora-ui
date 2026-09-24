@@ -29,6 +29,8 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 import { getCookies } from "@/services/rest/ContentPage.service";
 import { getPageSeo } from "@/services/rest/Seo.service";
 
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+
 /** Meta Data */
 // export const metadata = {
 // 	title: "Cookies | Aurora",

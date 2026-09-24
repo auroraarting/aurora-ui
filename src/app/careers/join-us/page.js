@@ -23,20 +23,17 @@ import JoinusWrap from "@/sections/careers/JoinusWrap";
 
 // SERVICES //
 import { getFetchJobData } from "@/services/JobOpenings.service";
-import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import {
 	getInsights,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
-import { getJoinUsPage } from "@/services/rest/JoinUs.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getJoinUsPage } from "@/services/JoinUs.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "join-us");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "join-us", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -55,22 +52,23 @@ export async function generateMetadata() {
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** JoinUs Page */
 export default async function JoinUs() {
-	// This page only ever read `countries` off getInsightsCategories, which
-	// fetched six option lists to get it. getCountryList is the one call.
-	const [jobs, countries, otherList, page] = await Promise.all([
-		getFetchJobData(),
-		getCountryList(),
-		getInsights({ first: 3, categories: insightTeaserCategories }),
-		getJoinUsPage(),
+	const [jobs, categoriesForSelect, list, pageFetch] = await Promise.all([
+		await getFetchJobData(),
+		await getInsightsCategories(),
+		await getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		),
+		await getJoinUsPage(),
 	]);
+
+	const page = pageFetch?.data?.page?.joinUs;
+	const otherList = list?.data?.posts?.nodes;
+	const countries = categoriesForSelect?.data?.countries?.nodes;
 
 	return (
 		<div>

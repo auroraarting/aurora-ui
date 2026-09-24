@@ -30,21 +30,21 @@ import {
 	getCountries,
 	getCountryInside,
 	getRegions,
-} from "@/services/rest/GlobalPresence.service";
-import { getAllLanguages } from "@/services/rest/Languages.service";
+} from "@/services/GlobalPresence.service";
+import {
+	getAllLanguages,
+	getCountryInside as getCountryInsideWithLanguages,
+} from "@/services/GlobalPresenceLanguages.service";
 import {
 	getInsights,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
-import { getAllEvents } from "@/services/rest/Events.service";
-import { getWebinars } from "@/services/rest/Webinar.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getAllEvents } from "@/services/Events.service";
+import { getWebinars } from "@/services/Webinar.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
@@ -72,7 +72,7 @@ import { getPageSeo } from "@/services/rest/Seo.service";
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const countries = await getCountries();
-	return countries.map((item) => ({
+	return countries?.data?.countries?.nodes?.map((item) => ({
 		slug: item?.slug || "india",
 	}));
 }
@@ -91,17 +91,17 @@ async function getData({ params }) {
 		meta,
 		languages,
 	] = await Promise.all([
-		getInsights({ first: 3, categories: insightTeaserCategories }),
-		// This page only ever read `countries` off getInsightsCategories, which
-		// fetched six option lists to get it.
-		getCountries(),
+		getInsights(
+			'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		),
+		getInsightsCategories(),
 		// getAllEvents("first:9999"),
 		// getWebinars("first:9999"),
 		// isJapanese
 		// 	? getCountryInsideWithLanguages(params.slug)
 		// 	: getCountryInside(params.slug),
 		getCountryInside(params.slug),
-		getPageSeo("country", params.slug),
+		getPageSeo(`countryBy(slug: "${params.slug}")`),
 		getAllLanguages(),
 	]);
 
@@ -112,13 +112,12 @@ async function getData({ params }) {
 	// 	  }
 	// 	: countryData?.data?.countryBy;
 
-	// The REST services return the node and the seo object directly.
-	const countryBy = countryData;
-	const seo = meta?.seo;
+	const countryBy = countryData?.data?.countryBy;
+	const seo = meta?.data?.countryBy?.seo;
 	// const mapJson = getMapJsonForCountries(countryBy?.countries?.map || []);
 	const mapJson = [];
-	const insightsList = insightsRes || [];
-	const countries = categoriesRes || [];
+	const insightsList = insightsRes?.data?.posts?.nodes || [];
+	const countries = categoriesRes?.data?.countries?.nodes || [];
 	const countryTranslations = countryBy?.translations || [];
 	let selectedAllLanguages = [
 		{
@@ -127,7 +126,7 @@ async function getData({ params }) {
 			icon: "/img/en-flag.svg",
 		},
 	];
-	languages?.map((item) => {
+	languages?.data?.languages?.map((item) => {
 		countryTranslations?.filter((item2) => {
 			if (item?.language_code === "ko" && params.slug === "japan") return; // Skip Ko for Japan as it's already added
 

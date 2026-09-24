@@ -35,17 +35,21 @@ import AccordianCommon from "@/components/AccordianCommon";
 
 /** EarlyCareers Page */
 export default function EarlyCareersWrap({
-	careers,
-	page,
-	programs,
-	countries: countryOptions,
-	offices,
+	dataFetch,
+	pageFetch,
+	categoriesForSelect,
+	officesFetch,
 	regionsArr,
 }) {
-	// The page now passes each list already unwrapped — the REST services
-	// return nodes directly rather than GraphQL's { data: { x: { nodes } } }.
+	// const [dataFetch, pageFetch, categoriesForSelect, officesFetch] =
+	// 	await Promise.all([
+	// 		await getEarlyCareersListing("first: 99999"),
+	// 		await getEarlyCareersPage(),
+	// 		await getInsightsCategories(),
+	// 		await getOffices(),
+	// 	]);
 
-	const data = careers?.map((item) => {
+	const data = dataFetch.data.earlyCareers.nodes?.map((item) => {
 		let countries = {
 			node: {
 				title: item?.earlyCareers?.thumbnail?.country?.node?.title || "",
@@ -69,12 +73,14 @@ export default function EarlyCareersWrap({
 			},
 		};
 	});
+	const page = pageFetch.data.page.earlyCareersLanding;
 	// Copied, not aliased: the loop below pushes the programme cities into this
-	// list, and mutating the array the service returned would corrupt it for
-	// every later reader of the same cached response.
-	let countries = [...(countryOptions || [])];
+	// list, which would otherwise mutate the array the service returned.
+	let countries = [...(categoriesForSelect?.data?.countries?.nodes || [])];
+	const programs = pageFetch.data.programs.nodes;
+	const offices = officesFetch.data.offices.nodes;
 
-	careers?.map((item) => {
+	dataFetch.data.earlyCareers.nodes?.map((item) => {
 		if (item?.earlyCareers?.banner?.city) {
 			countries.push({ title: item?.earlyCareers?.banner?.city });
 		}

@@ -46,32 +46,28 @@ import EosIntegratedSystem from "@/components/EosIntegratedSystem";
 import locationJson from "@/data/globalMap.json";
 
 // SERVICES //
-import { getBundlesSection } from "@/services/rest/Bundles.service";
-import {
-	getCountryList,
-	getRegions,
-} from "@/services/rest/GlobalPresence.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getSoftwarePage } from "@/services/Softwares.service";
 import {
 	getInsights,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
-import { getSoftwarePage } from "@/services/rest/Softwares.service";
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Fetch */
 async function getData() {
-	// This page only ever read `countries` off getInsightsCategories, which
-	// fetched six option lists to get it. getCountryList is the one call.
-	const [page, regions, insights, countries, bundles] = await Promise.all([
-		getSoftwarePage(),
-		getRegions(),
-		getInsights({ first: 3, categories: insightTeaserCategories }),
-		getCountryList(),
-		getBundlesSection(),
-	]);
-	// getSoftwarePage returns the landing group and the list unwrapped; the
-	// sections still read the products as a { nodes } connection.
-	const softwares = { nodes: page.softwares };
+	const [data, regions, insightsFetch, categoriesForSelect, bundles] =
+		await Promise.all([
+			await getSoftwarePage(),
+			await getRegions(),
+			await getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+			),
+			await getInsightsCategories(),
+			await getBundlesSection(),
+		]);
+	const softwares = data?.data?.softwares;
 	const mapJson = getMapJsonForSoftware(regions);
 
 	let testimonials = {
@@ -106,26 +102,24 @@ async function getData() {
 	return {
 		props: {
 			data: {
-				...page.landing,
+				...data?.data?.page?.softwareLanding,
 			},
-			insights: insights || [],
+			insights: insightsFetch?.data?.posts?.nodes || [],
 			softwares,
 			testimonials,
 			clientLogos,
 			regions,
 			mapJson,
-			countries: countries || [],
-			bundles,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			bundles: bundles.data.page.bundles,
 		},
 	};
 }
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "software");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "software", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -144,11 +138,8 @@ export async function generateMetadata() {
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Chronos Page */
 export default async function Softwares() {

@@ -60,6 +60,7 @@ query GetTeamSectors {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["country", "team"],
 		apiID: "team",
 		pageID: "/careers/our-team",
 		// taxonomies

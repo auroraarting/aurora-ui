@@ -42,23 +42,20 @@ import {
 	getEarlyCareersListing,
 	getEarlyCareersListingByRegions,
 	getEarlyCareersPage,
-} from "@/services/rest/EarlyCareers.service";
-import { getCountryList } from "@/services/rest/GlobalPresence.service";
-import { getOffices } from "@/services/rest/Offices.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+} from "@/services/EarlyCareers.service";
+import { getInsightsCategories } from "@/services/Insights.service";
+import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "early-careers-landing");
-	const seo = meta?.seo;
+	const meta = await getPageSeo(
+		'page(id: "early-careers-landing", idType: URI)',
+	);
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -79,19 +76,21 @@ export async function generateMetadata() {
 
 /** EarlyCareers Page */
 export default async function EarlyCareers() {
-	// This page only ever read `countries` off getInsightsCategories, which
-	// fetched six option lists to get it. getCountryList is the one call. The
-	// getOfficesByRegions import alongside it was never called at all.
-	const [careers, landing, countries, offices, careersRegions] =
-		await Promise.all([
-			getEarlyCareersListing(),
-			getEarlyCareersPage(),
-			getCountryList(),
-			getOffices(),
-			getEarlyCareersListingByRegions(),
-		]);
+	const [
+		dataFetch,
+		pageFetch,
+		categoriesForSelect,
+		officesFetch,
+		careersRegions,
+	] = await Promise.all([
+		getEarlyCareersListing("first: 99999"),
+		getEarlyCareersPage(),
+		getInsightsCategories(),
+		getOffices(),
+		getEarlyCareersListingByRegions(),
+	]);
 
-	const regionsArr = careersRegions
+	const regionsArr = careersRegions.data.regions.nodes
 		?.sort((a, b) => a?.regionsFields?.sequence - b?.regionsFields?.sequence)
 		.filter((regionFilter) => regionFilter?.earlyCareers?.nodes?.length > 0)
 		.map((regionItem) => {
@@ -183,11 +182,10 @@ export default async function EarlyCareers() {
 
 			{/* Page Content starts here */}
 			<EarlyCareersWrap
-				careers={careers}
-				page={landing.page}
-				programs={landing.programs}
-				countries={countries}
-				offices={offices}
+				dataFetch={dataFetch}
+				pageFetch={pageFetch}
+				categoriesForSelect={categoriesForSelect}
+				officesFetch={officesFetch}
 				regionsArr={regionsArr}
 			/>
 			{/* Page Content ends here */}

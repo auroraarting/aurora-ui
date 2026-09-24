@@ -22,19 +22,17 @@ import styles from "@/styles/pages/company/About.module.scss";
 // DATA //
 
 // SERVICES //
-import { getAboutPage } from "@/services/rest/About.service";
-import { getCountryList } from "@/services/rest/GlobalPresence.service";
-import { getOffices } from "@/services/rest/Offices.service";
-import { getEosPage } from "@/services/rest/Eos.service";
-import { getBundlesSection } from "@/services/rest/Bundles.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+import { getAboutPage } from "@/services/About.service";
+import { getInsightsCategories } from "@/services/Insights.service";
+import { getOffices } from "@/services/Offices.service";
+import { getEosPage } from "@/services/Eos.service";
+import { getBundlesSection } from "@/services/Bundles.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "about");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "about", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -63,21 +61,20 @@ async function getData() {
 	// 		await getEosPage(),
 	// 		await getBundlesSection(),
 	// 	]);
-	// The 200ms sleeps between these calls were pacing /graphql by hand. Every
-	// REST call queues through one p-limit limiter (services/rest/limiter.js),
-	// so the pacing is central now and these can run together.
-	// This page only ever read `countries` off getInsightsCategories, which
-	// fetched six option lists to get it — getCountryList is the one call.
-	const [data, countries, offices, pageEos, bundles] = await Promise.all([
-		getAboutPage(),
-		getCountryList(),
-		getOffices(),
-		getEosPage(),
-		getBundlesSection(),
-	]);
+	const data = await getAboutPage();
+	await new Promise((res) => setTimeout(res, 200));
+	const categoriesForSelect = await getInsightsCategories();
+	await new Promise((res) => setTimeout(res, 200));
+	const officesFetch = await getOffices();
+	await new Promise((res) => setTimeout(res, 200));
+	const pageFetch = await getEosPage();
+	await new Promise((res) => setTimeout(res, 200));
+	const bundlesFetch = await getBundlesSection();
 
-	// The section reads the field group with the office list merged onto it.
-	const obj = { data: { ...data, offices } };
+	let obj = {
+		data: { ...data.data.page.about, offices: officesFetch.data.offices.nodes },
+	};
+	delete obj.data.about;
 
 	let tempMapJson = {
 		zoom: 9,
@@ -89,7 +86,7 @@ async function getData() {
 		markers: [],
 	};
 
-	offices?.slice(0, 17).map((item) => {
+	officesFetch.data.offices.nodes?.slice(0, 17).map((item) => {
 		let obj = {
 			name: item?.title,
 			lat: item?.offices?.map?.lat,
@@ -103,22 +100,22 @@ async function getData() {
 
 		tempMapJson?.markers?.push(obj);
 	});
+	const pageEos = pageFetch.data.page.eos;
+	const bundles = bundlesFetch.data.page.bundles;
+
 	return {
 		props: {
 			...obj,
 			mapJson: tempMapJson,
-			countries: countries || [],
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
 			pageEos,
 			bundles,
 		},
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** About Page */
 export default async function About() {

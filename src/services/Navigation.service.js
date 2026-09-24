@@ -34,6 +34,7 @@ query GetSoftwares {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["software"],
 		apiID: "common",
 		pageID: "/common",
 	});
@@ -72,6 +73,7 @@ query GetProducts {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["product"],
 		apiID: "common",
 		pageID: "/common",
 	});
@@ -102,6 +104,7 @@ query GetServices {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["service"],
 		apiID: "common",
 		pageID: "/common",
 	});
@@ -127,6 +130,7 @@ query GetRegions {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["regions"],
 		apiID: "common",
 		pageID: "/common",
 	});
@@ -307,6 +311,7 @@ export async function fetchNavigationData() {
 
 	const [navdata, webinardata] = await Promise.all([
 		GraphQLAPI(combinedQuery, {
+			tags: ["software", "product", "service", "regions", "whoareyou", "howwehelp", "event", "page:search-topics"],
 			apiID: "common",
 			pageID: "/common",
 			// taxonomies
@@ -411,6 +416,7 @@ export async function fetchHeader() {
 }
   `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:header"],
 		apiID: "common",
 		pageID: "/common",
 	});

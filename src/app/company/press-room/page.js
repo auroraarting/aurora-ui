@@ -23,18 +23,20 @@ import country_thumb from "@/../public/img/global-presence/country_thumb.jpg";
 // DATA //
 
 // SERVICES //
-import { getFilterOptions } from "@/services/rest/FilterOptions.service";
-import { getInsights } from "@/services/rest/Insights.service";
-import { getAllLanguages } from "@/services/rest/Languages.service";
-import { getPressPage } from "@/services/rest/Press.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+import {
+	getPresses,
+	getPressesCards,
+	getPressesLanguages,
+	getPressPage,
+} from "@/services/Press.service";
+import { getAllEventCountries } from "@/services/Events.service";
+import { getInsights } from "@/services/Insights.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "press-releases");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "press-releases", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -53,35 +55,27 @@ export async function generateMetadata() {
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch */
 async function getData() {
-	// getAllEventCountries queried four collections in one GraphQL request;
-	// /aurora/v1/filter-options is the REST equivalent, also one request. The
-	// getPresses and getPressesCards imports here were never called — that post
-	// type no longer exists (WPGraphQL returns null for it), and this page reads
-	// posts in the "media" category instead.
 	const [data, filters, languages, page] = await Promise.all([
-		getInsights({ all: true, categories: ["media"] }),
-		getFilterOptions(),
-		getAllLanguages(),
-		getPressPage(),
+		await getInsights('first: 9999, where: {categoryName: "media"}'),
+		await getAllEventCountries(),
+		await getPressesLanguages(),
+		await getPressPage(),
 	]);
 
 	return {
 		props: {
-			data,
-			countries: filters.countries,
-			products: filters.products,
-			softwares: filters.softwares,
-			services: filters.services,
-			languages,
-			page,
+			data: data.data.posts.nodes,
+			countries: filters.data.countries.nodes,
+			products: filters.data.products.nodes,
+			softwares: filters.data.softwares.nodes,
+			services: filters.data.services.nodes,
+			languages: languages.data.languages,
+			page: page?.data?.page?.pressLanding,
 		},
 	};
 }

@@ -2,6 +2,7 @@
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const dynamic = "force-static"; // Use when data is highly cacheable
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //

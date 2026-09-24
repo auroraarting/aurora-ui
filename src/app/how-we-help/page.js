@@ -28,14 +28,12 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/rest/Seo.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a
-	// GraphQL selector, and returns the seo block directly.
-	const meta = await getPageSeo("pages", "how-we-help");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "how-we-help", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -54,11 +52,8 @@ export async function generateMetadata() {
 	};
 }
 
-// No time-based revalidation. NOTE: this page's data still comes from
-// /graphql, and those requests are POSTs, which Next.js cannot cache or tag —
-// so it no longer refreshes on a timer and will only regenerate on a deploy or
-// when WordPress calls /api/revalidate?paths=<this route>. Converting its
-// services to the REST layer puts it back on cache tags.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** HowWeHelp Page */
 export default function HowWeHelp() {

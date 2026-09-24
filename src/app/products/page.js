@@ -27,24 +27,19 @@ import styles from "@/styles/pages/product/Products.module.scss";
 // DATA //
 
 // SERVICES //
-import { getProductPage } from "@/services/rest/Products.service";
-import {
-	getCountryList,
-	getRegions,
-} from "@/services/rest/GlobalPresence.service";
-import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getProductPage } from "@/services/Products.service";
+import { getRegions } from "@/services/GlobalPresence.service";
+import { getBundlesSection } from "@/services/Bundles.service";
 import {
 	getInsights,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+	getInsightsCategories,
+} from "@/services/Insights.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "product");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "product", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -63,26 +58,22 @@ export async function generateMetadata() {
 	};
 }
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch */
 async function getData() {
-	// This page only ever read `countries` off getInsightsCategories, which
-	// fetched six option lists to get it. getCountryList is the one call.
-	const [page, regions, bundles, countries, insights] = await Promise.all([
-		getProductPage(),
-		getRegions(),
-		getBundlesSection(),
-		getCountryList(),
-		getInsights({ first: 3, categories: insightTeaserCategories }),
-	]);
-	// getProductPage returns the landing group and the product list unwrapped;
-	// the sections still read the products as a { nodes } connection.
-	const products = { nodes: page.products };
+	const [data, regions, bundles, categoriesForSelect, insightsFetch] =
+		await Promise.all([
+			await getProductPage(),
+			await getRegions(),
+			await getBundlesSection(),
+			await getInsightsCategories(),
+			await getInsights(
+				'first: 3, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+			),
+		]);
+	const products = data.data.products;
 	const mapJson = getMapJsonForProducts(regions);
 
 	let testimonials = {
@@ -119,16 +110,16 @@ async function getData() {
 	return {
 		props: {
 			data: {
-				...page.landing,
+				...data.data.page.productLanding,
 			},
 			products,
 			testimonials,
 			clientLogos,
 			regions,
 			mapJson,
-			bundles,
-			countries: countries || [],
-			insights: insights || [],
+			bundles: bundles.data.page.bundles,
+			countries: categoriesForSelect?.data?.countries?.nodes || [],
+			insights: insightsFetch?.data?.posts?.nodes || [],
 		},
 	};
 }

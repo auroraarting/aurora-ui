@@ -25,26 +25,23 @@ import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scs
 // DATA //
 
 // SERVICES //
-import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import {
 	getInsights,
+	getInsightsCategories,
 	getInsightsInside,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
+} from "@/services/Insights.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-// Statically generated, then refreshed on demand only: the REST services tag
-// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
-// through /api/revalidate. There is deliberately no `export const revalidate`
-// here — a TTL would regenerate this page on a timer whether or not anything
-// changed.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
+export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	// getInsightsInside now returns the node directly.
-	const post = await getInsightsInside(params.slug2);
+	const data = await getInsightsInside(params.slug2);
+	const post = data?.data?.postBy;
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
-	if (!post || post?.status === "draft") {
+	if (!data?.data?.postBy || data?.data?.postBy?.status === "draft") {
 		notFound(); // shows Next.js 404 page
 	}
 
@@ -73,16 +70,10 @@ export async function generateMetadata({ params }) {
 }
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	// Same 20 insights and the same `{ slug }` shape as before. Note this fills
-	// the *first* segment (the category, e.g. "articles") with a post slug and
-	// leaves `slug2` unset — pre-existing, and left alone because changing it
-	// changes which paths get pre-rendered. Next tolerates the partial params
-	// and renders the rest on demand.
-	const insights = await getInsights({
-		first: 5,
-		categories: insightTeaserCategories,
-	});
-	return insights.map((item) => ({
+	const data = await getInsights(
+		'first: 20, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+	);
+	return data?.data?.posts?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
 }
@@ -90,24 +81,22 @@ export async function generateStaticParams() {
 /** Fetch  */
 async function getData({ params }) {
 	const resourceCat = params.slug === "articles" ? "commentary" : params.slug;
-	// The teaser only ever showed the first three, so it asks for three rather
-	// than paginating the whole category and slicing. getInsightsCategories
-	// fetched six option lists for the `countries` value alone; getCountryList
-	// is the one call.
-	const [data, otherList, countries] = await Promise.all([
-		getInsightsInside(params.slug2),
-		getInsights({ first: 3, categories: [resourceCat] }),
-		getCountryList(),
+	const [data, list, categoriesForSelect] = await Promise.all([
+		await getInsightsInside(params.slug2),
+		await getInsights(`first: 9999, where: {categoryName: "${resourceCat}"}`),
+		await getInsightsCategories(),
 	]);
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
-	if (!data || data?.status === "draft") {
+	if (!data?.data?.postBy || data?.data?.postBy?.status === "draft") {
 		notFound(); // shows Next.js 404 page
 	}
 
+	const otherList = list?.data?.posts?.nodes?.slice(0, 3) || [];
+	const countries = categoriesForSelect?.data?.countries?.nodes || [];
 	return {
 		props: {
-			data: data || [],
+			data: data?.data?.postBy || [],
 			otherList,
 			countries,
 		},

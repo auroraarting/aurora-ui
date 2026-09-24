@@ -1,8 +1,4 @@
-// No time-based revalidation. NOTE: this page's data still comes from
-// /graphql, and those requests are POSTs, which Next.js cannot cache or tag —
-// so it no longer refreshes on a timer and will only regenerate on a deploy or
-// when WordPress calls /api/revalidate?paths=<this route>. Converting its
-// services to the REST layer puts it back on cache tags.
+export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
 
 import "@/styles/globals/globals.scss";
 import { GlobalContext } from "@/context/GlobalContext";
