@@ -221,6 +221,17 @@ function buildUrl(baseUrl, path) {
 export async function restRequest(path, dataObj = {}) {
 	const method = dataObj.method || "GET";
 	const baseUrl = dataObj.baseUrl || process.env.REST_API_URL;
+	if (!baseUrl) {
+		// Without this the first call dies as `Cannot read properties of
+		// undefined (reading 'replace')` from inside buildUrl — a stack trace
+		// pointing at a minified chunk, with nothing to say the real problem is
+		// a missing environment variable. It cost a Vercel build to work out.
+		throw new Error(
+			"REST_API_URL is not set. The wp/v2 base URL is required for every " +
+				"REST call, e.g. https://cms-production.auroraer.com/wp-json/wp/v2 — " +
+				"set it in the deployment's environment variables.",
+		);
+	}
 	const url = buildUrl(baseUrl, withExpansion(path, dataObj.expand));
 	const tags = tagsFor(dataObj);
 
