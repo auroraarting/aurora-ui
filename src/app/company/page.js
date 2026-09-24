@@ -27,12 +27,14 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "company", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a
+	// GraphQL selector, and returns the seo block directly.
+	const meta = await getPageSeo("pages", "company");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -51,7 +53,11 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// No time-based revalidation. NOTE: this page's data still comes from
+// /graphql, and those requests are POSTs, which Next.js cannot cache or tag —
+// so it no longer refreshes on a timer and will only regenerate on a deploy or
+// when WordPress calls /api/revalidate?paths=<this route>. Converting its
+// services to the REST layer puts it back on cache tags.
 
 /** company Page */
 export default function Company() {

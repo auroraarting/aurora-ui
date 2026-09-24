@@ -95,10 +95,11 @@ export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
 		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
 		// return req;
 
+		// No TTL: these are POSTs, which Next.js does not cache, so the
+		// `next: { revalidate: 1800 }` that used to sit here never did anything.
 		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 },
 		});
 		res = await req.json();
 		return res;
@@ -122,10 +123,10 @@ export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
 		// req = await memoizedFetch(`${process.env.API_URL}`, options, ttl);
 		// return req;
 
+		// No TTL — see the note in GraphQLAPINoBottleneck.
 		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 }, // 30 minutes
 		});
 		res = await req.json();
 		return res;

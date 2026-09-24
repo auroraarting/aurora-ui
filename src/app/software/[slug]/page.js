@@ -24,19 +24,28 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 
 // SERVICES //
 import {
+	getCountryList,
+	getRegions,
+} from "@/services/rest/GlobalPresence.service";
+import { getAllLanguages } from "@/services/rest/Languages.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
+import {
 	getSingleSoftware,
-	getSoftwarePage,
-} from "@/services/Softwares.service";
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getPageSeo } from "@/services/Seo.service";
-import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
+	getSoftwareSlugs,
+} from "@/services/rest/Softwares.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
-	const seo = meta?.data?.softwareBy?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("softwares", params.slug);
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -61,13 +70,15 @@ async function getData({ params }) {
 	// 	getSingleSoftware(params.slug),
 	// 	getRegions(),
 	// ]);
+	// getSingleSoftware now returns the node directly, and the `countries` list
+	// the GraphQL query selected alongside it is its own call.
 	const data = await getSingleSoftware(params.slug);
 	const regions = await getRegions();
 	const mapJson = getMapJsonForSoftware(
 		filterMarkersBySlug(regions, params.slug),
 	);
 	let showMap = mapJson?.some((item) => item?.markers?.length > 0);
-	const countries = data?.data?.countries?.nodes;
+	const countries = await getCountryList();
 	const languages = await getAllLanguages();
 	let selectedAllLanguages = [
 		{
@@ -77,8 +88,8 @@ async function getData({ params }) {
 		},
 	];
 
-	languages?.data?.languages?.map((item) => {
-		data?.data?.softwareBy.translations?.filter((item2) => {
+	languages?.map((item) => {
+		data?.translations?.filter((item2) => {
 			if (item2.language.language_code === item?.language_code) {
 				let title = item?.translated_name;
 				if (item?.native_name) {
@@ -96,11 +107,11 @@ async function getData({ params }) {
 
 	return {
 		props: {
-			data: data?.data?.softwareBy?.softwares || {},
+			data: data?.softwares || {},
 			mapJson,
 			regions,
 			showMap,
-			meta: data?.data?.softwareBy,
+			meta: data,
 			countries,
 			selectedAllLanguages,
 		},
@@ -109,8 +120,10 @@ async function getData({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getSoftwarePage();
-	return data?.data?.softwares?.nodes.map((item) => ({
+	// Was read off getSoftwarePage, which also fetched the whole landing page
+	// and every product's fields just to take the slug list from it.
+	const softwares = await getSoftwareSlugs();
+	return softwares.map((item) => ({
 		slug: item.slug,
 	}));
 }

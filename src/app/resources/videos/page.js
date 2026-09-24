@@ -14,8 +14,8 @@ import VideosWrap from "@/sections/resources/videos/VideosWrap";
 // IMAGES //
 
 // SERVICES //
-import { getAllVideos } from "@/services/Videos.service";
-import { getVideosLandingPage } from "@/services/VideosLanding.service";
+import { getAllVideos } from "@/services/rest/Videos.service";
+import { getVideosLandingPage } from "@/services/rest/VideosLanding.service";
 
 // DATA //
 
@@ -28,19 +28,23 @@ export const metadata = {
 	},
 };
 
-export const revalidate = 3600; // Revalidates every 1 hour
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Videos Page */
 export default async function Videos() {
-	const [dataFetch, landingFetch] = await Promise.all([
+	// The REST services return the nodes and the field group directly.
+	const [videos, landing] = await Promise.all([
 		getAllVideos(),
 		getVideosLandingPage(),
 	]);
-	const videosLanding = landingFetch?.data?.page?.videosLanding || {};
-	const data =
-		dataFetch?.data?.videos?.nodes?.sort(
-			(a, b) => new Date(b?.videoFields?.date) - new Date(a?.videoFields?.date),
-		) || [];
+	const videosLanding = landing || {};
+	const data = [...videos].sort(
+		(a, b) => new Date(b?.videoFields?.date) - new Date(a?.videoFields?.date),
+	);
 
 	// Extract unique topics from video data
 	const topicsMap = {};

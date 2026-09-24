@@ -35,16 +35,17 @@ import styles from "@/styles/pages/Home.module.scss";
 // DATA //
 
 // SERVICES //
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getHomePage, getHomePageVoices } from "@/services/Home.service";
-import { getInsights } from "@/services/Insights.service";
-import { getAllEvents } from "@/services/Events.service";
-import { getPageSeo } from "@/services/Seo.service";
+import { getRegions } from "@/services/rest/GlobalPresence.service";
+import { getHomePage, getHomePageVoices } from "@/services/rest/Home.service";
+import { getAllEvents } from "@/services/rest/Events.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "homepage", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// selector, and returns the seo block directly.
+	const meta = await getPageSeo("pages", "homepage");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -60,7 +61,11 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Home Page */
 export default async function HomePage() {
@@ -79,15 +84,23 @@ export default async function HomePage() {
 		// 	getAllEvents('first:3, where: { thumbnail: { status: "Upcoming" } }'),
 		// 	getHomePageVoices(),
 		// ]);
-		const regions = await getRegions();
-		const dataFetch = await getHomePage();
-		const eventsdata = await getAllEvents("first:9999");
-		const voicesFetch = await getHomePageVoices();
+		// These were four sequential awaits, which on the REST layer means four
+		// round trips the page waits through in series for no reason — none of
+		// them depends on another. The limiter still decides how many actually
+		// run at once.
+		const [regions, home, allEvents, voicesFetch] = await Promise.all([
+			getRegions(),
+			getHomePage(),
+			getAllEvents(),
+			getHomePageVoices(),
+		]);
 
 		mapJson = getMapJsonForAllRegions(regions);
-		data = dataFetch.data.page.homepage;
-		countries = dataFetch.data.countries.nodes;
-		events = eventsdata?.data?.events?.nodes
+		// The REST services return the nodes unwrapped; getRegions keeps its
+		// envelope because the map helpers walk it.
+		data = home.data;
+		countries = home.countries;
+		events = allEvents
 			?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 			?.sort(
 				(a, b) =>

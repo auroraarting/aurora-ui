@@ -1,0 +1,401 @@
+import { ServerHeaders } from "@/utils/RequestHeaders";
+
+import { pending, schedule } from "./rest/limiter";
+import { tagsFor } from "./rest/tags";
+
+/**
+ * WordPress REST wrapper — the REST counterpart of Graphql.service.js.
+ *
+ * Differences from the GraphQL service, all deliberate:
+ *
+ *  - No Redis hop. GraphQLAPI posts every query to REDIS_URL/api/cache because
+ *    /graphql is slow enough to need it. The REST endpoints are cheap, so calls
+ *    go straight to WordPress and Next.js's own Data Cache does the caching.
+ *
+ *  - No time-based revalidation. Nothing here carries a TTL: entries are stored
+ *    with `cache: "force-cache"` and a tag set, and only ever go stale when
+ *    WordPress calls /api/revalidate with those tags. (Next.js 15 no longer
+ *    caches fetch by default, which is why force-cache is explicit.)
+ *
+ *  - No in-process memoisation of responses. Deduplicating identical calls in a
+ *    Map looks like an easy build win, but the second caller then receives a
+ *    promise instead of making a fetch, so its page never registers the tags —
+ *    and on-demand revalidation silently stops working for that page. Next.js
+ *    already dedupes identical fetches per render while attributing tags to
+ *    every caller, so it is left to do the job.
+ *
+ *  - Concurrency is capped by ./rest/limiter (p-limit): one call at a time
+ *    during `next build`, so static generation cannot stampede Pressable.
+ */
+
+/** Abort a call that takes longer than this, so a hanging upstream cannot stall
+ *  a background revalidation forever. Set well above the slowest real
+ *  response, not near it — this should only trip on a genuine hang. */
+const requestTimeoutMs = 60000;
+
+/** Pressable drops calls under load; the limiter paces them but does not
+ *  retry. Without this a single dropped response fails a whole page. */
+const maxAttempts = 3;
+const retryBaseDelayMs = 1000; // 1s, then 2s
+
+/** Throttling gets more attempts than a normal fault. A 429 is a "come back
+ *  later", not a failure, and Pressable's window outlasts two retries — a
+ *  concurrent build and a page render were enough to exhaust 3 attempts and
+ *  500 the page. Five attempts at the backoff below tolerate ~90s of
+ *  throttling, which is what a static generation pass needs to survive.
+ *
+ *  This must stay above maxAttempts. It was briefly set below it, which made
+ *  the line that applies it *lower* the budget — a 429 then got fewer tries
+ *  than an ordinary error and gave up after ~10s, failing the build. The
+ *  assignment now takes the larger of the two so the ordering cannot matter,
+ *  but the intent is recorded here as well. */
+const maxThrottleAttempts = 5;
+
+/** A 429 needs to outlast the rate-limit window, not just a blip. Retrying a
+ *  throttled call after one second simply gets throttled again — observed
+ *  against Pressable, where both retries failed at 1s/2s — so throttling backs
+ *  off from 5s the way the GraphQL service did. */
+const throttleBaseDelayMs = 10000; // 5s, then 10s
+
+/** WordPress caps per_page at 100. */
+export const maxPerPage = 100;
+
+/** @param {number} ms */
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Request logging.
+ *
+ * On by default, because the thing these logs answer — how many calls a build
+ * actually makes, in what order, and how long each one takes — is exactly what
+ * was guesswork while chasing the 429s. Set WP_REST_LOG=0 to silence them.
+ */
+const logging = (process.env.WP_REST_LOG ?? "1") !== "0";
+
+/** Sequence number, so the pacing is legible when lines interleave. */
+let requestNo = 0;
+
+/** A logged request, trimmed to what tells one call from another.
+ *
+ *  The host is the same every time, and `_fields` is usually longer than the
+ *  rest of the URL put together while almost never being the thing you are
+ *  reading the log for — so both go, and the field count stands in for the
+ *  selection. What is left is the endpoint and the parameters that identify
+ *  the call: slug, include, page, _acf_expand.
+ *
+ *  @param {string} url */
+function shortUrl(url) {
+	const path = url.replace(/^https?:\/\/[^/]+\/wp-json\//, "");
+	return path.replace(/([?&])_fields=([^&]*)/, (whole, sep, fields) => {
+		const count = decodeURIComponent(fields).split(",").filter(Boolean).length;
+		return `${sep}_fields=(${count})`;
+	});
+}
+
+/** A response's size, when the upstream declares one. @param {Response} res */
+function sizeOf(res) {
+	const bytes = Number.parseInt(res?.headers?.get("content-length") ?? "", 10);
+	if (!Number.isFinite(bytes)) return "";
+	if (bytes < 1024) return ` ${bytes}B`;
+	if (bytes < 1024 * 1024) return ` ${Math.round(bytes / 1024)}KB`;
+	return ` ${(bytes / 1048576).toFixed(2)}MB`;
+}
+
+/** Statuses worth a second attempt: throttling and transient upstream faults.
+ *  A 4xx that is not 429 is a bad request — retrying only wastes the budget. */
+const isRetryable = (status) =>
+	status === 429 || status === 408 || status >= 500;
+
+/** Honour Retry-After when WordPress sends one, else exponential backoff from
+ *  a base that depends on why the call failed.
+ *  @param {Response|null} res @param {number} attempt @param {number} [status] */
+function backoffMs(res, attempt, status) {
+	const header = Number.parseInt(res?.headers?.get("retry-after") ?? "", 10);
+	if (Number.isFinite(header) && header > 0) return Math.min(header, 30) * 1000;
+	const base = status === 429 ? throttleBaseDelayMs : retryBaseDelayMs;
+	// Capped at the same 30s ceiling Retry-After gets: doubling from 10s reaches
+	// 80s by the fourth wait, and a single request stalling that long is worse
+	// than failing and being retried by the next build.
+	return Math.min(base * 2 ** (attempt - 1), 30000);
+}
+
+/** Registered REST fields that are computed from another field, and so come
+ *  back null if `_fields` trims the field they are derived from.
+ *
+ *  `featured_image_url` is the one that matters: asking for
+ *  `_fields=id,featured_image_url` returns null for every post, with no error
+ *  and no warning, because the callback reads `featured_media` off the
+ *  response it is decorating. Nested `_fields` is worth using — it took the
+ *  country payload from 3.6 MB to 200 KB — so rather than ban it, the
+ *  dependency is added back here, once, where no service can forget it. */
+const fieldDependencies = {
+	featured_image_url: "featured_media",
+};
+
+/** The `_source` sibling for a requested ACF path.
+ *
+ *  Selecting `_fields=acf.banner` returns the raw group but leaves behind
+ *  `acf.banner_source`, and that is where ACF publishes the value with
+ *  WordPress's content filters applied — the `<p>…</p>` and curly quotes
+ *  WPGraphQL returned (see shapeAcf). Asking for one without the other silently
+ *  drops the formatting: text still renders, just unwrapped and with straight
+ *  quotes. Only the first segment matters, because the top-level sibling
+ *  carries the whole formatted subtree.
+ *
+ *  @param {string} field a `_fields` entry
+ *  @returns {string|null} the sibling to add, or null if not applicable */
+function acfSourceFor(field) {
+	const match = /^acf\.([^.]+)/.exec(field);
+	if (!match || match[1].endsWith("_source")) return null;
+	return `acf.${match[1]}_source`;
+}
+
+/** Add back any field that a requested `_fields` value is computed from.
+ *  @param {string} path */
+function withFieldDependencies(path) {
+	const match = /([?&])_fields=([^&]*)/.exec(path);
+	if (!match) return path;
+
+	const fields = decodeURIComponent(match[2]).split(",").filter(Boolean);
+	const extra = new Set();
+
+	for (const [field, dep] of Object.entries(fieldDependencies)) {
+		if (fields.includes(field) && !fields.includes(dep)) extra.add(dep);
+	}
+	for (const field of fields) {
+		const sibling = acfSourceFor(field);
+		if (sibling && !fields.includes(sibling)) extra.add(sibling);
+	}
+	if (!extra.size) return path;
+
+	const merged = [...fields, ...extra].join(",");
+	return path.replace(match[0], `${match[1]}_fields=${merged}`);
+}
+
+/** Add the ACF relation-expansion flag.
+ *
+ *  cms/aurora-acf-expand.php inlines relation fields — a related post's id
+ *  becomes the post itself, with its own acf, terms and media — so one request
+ *  replaces the fan-out of `?include=` calls that resolving ids costs.
+ *
+ *  It is a query parameter in its own right, never part of `_fields`: folding
+ *  it into a field list silently swallows everything after it.
+ *
+ *  Depth is capped at 3 by the plugin. Use it on single-document fetches; a
+ *  listing expanded this way blows past the 2MB Data Cache entry limit (the
+ *  events listing measures 0.69MB plain and 3.07MB expanded), and over that
+ *  limit Next stores nothing and refetches on every request.
+ *
+ *  @param {string} path @param {number} [depth] */
+function withExpansion(path, depth) {
+	const level = Number(depth);
+	if (!Number.isFinite(level) || level < 1) return path;
+	const sep = path.includes("?") ? "&" : "?";
+	return `${path}${sep}_acf_expand=${Math.min(Math.trunc(level), 3)}`;
+}
+
+/** Join a base URL and a path/query without doubling or dropping the slash.
+ *  @param {string} baseUrl @param {string} path */
+function buildUrl(baseUrl, path) {
+	const base = baseUrl.replace(/\/+$/, "");
+	const rel = withFieldDependencies(String(path).replace(/^\/+/, ""));
+	return `${base}/${rel}`;
+}
+
+/**
+ * One REST call, paced, retried, cached and tagged.
+ *
+ * @param {string} path endpoint and query, e.g. `services?slug=advisory`
+ * @param {object} [dataObj]
+ * @param {string} [dataObj.apiID] content type, for the cache tag — see ./rest/tags
+ * @param {string} [dataObj.slug] single item, for the item-level cache tag
+ * @param {Array<number|string>} [dataObj.ids] items a by-id fetch names, each
+ *   becoming an item tag
+ * @param {string[]} [dataObj.tags] extra cache tags
+ * @param {number} [dataObj.expand] ACF relation expansion depth (1-3); see
+ *   {@link withExpansion}. Single documents only, never listings.
+ * @param {string} [dataObj.method] defaults to GET; the read endpoints reject POST
+ * @param {string} [dataObj.baseUrl] for routes outside the wp/v2 namespace
+ * @returns {Promise<{ data: any, total: number, totalPages: number }>}
+ */
+export async function restRequest(path, dataObj = {}) {
+	const method = dataObj.method || "GET";
+	const baseUrl = dataObj.baseUrl || process.env.REST_API_URL;
+	const url = buildUrl(baseUrl, withExpansion(path, dataObj.expand));
+	const tags = tagsFor(dataObj);
+
+	return schedule(async () => {
+		let lastError;
+		// The ceiling rises once we know we are being throttled rather than
+		// failing, so a normal 500 still gives up quickly.
+		let attempts = maxAttempts;
+		for (let attempt = 1; attempt <= attempts; attempt++) {
+			let res = null;
+			const id = ++requestNo;
+			const startedAt = Date.now();
+			if (logging) {
+				const queue = pending();
+				const retry = attempt > 1 ? ` retry ${attempt}/${attempts}` : "";
+				console.log(
+					`[wp-rest] #${id} → ${method} ${shortUrl(url)}${retry}` +
+						` (queued ${queue.queued})`,
+				);
+			}
+			try {
+				res = await fetch(url, {
+					method,
+					headers: ServerHeaders.headers,
+					signal: AbortSignal.timeout(requestTimeoutMs),
+					cache: "force-cache",
+					next: { tags },
+				});
+				if (!res.ok) {
+					const err = new Error(
+						`REST ${method} ${url} failed: ${res.status} ${res.statusText}`,
+					);
+					err.status = res.status;
+					throw err;
+				}
+				if (logging) {
+					console.log(
+						`[wp-rest] #${id} ← ${res.status} ${shortUrl(url)}` +
+							`${sizeOf(res)} in ${Date.now() - startedAt}ms`,
+					);
+				}
+				return {
+					data: await res.json(),
+					total: Number.parseInt(res.headers.get("x-wp-total") ?? "", 10) || 0,
+					totalPages:
+						Number.parseInt(res.headers.get("x-wp-totalpages") ?? "", 10) || 0,
+				};
+			} catch (error) {
+				lastError = error;
+				if (logging) {
+					console.log(
+						`[wp-rest] #${id} ✗ ${error?.status || "ERR"} ${shortUrl(url)}` +
+							` after ${Date.now() - startedAt}ms`,
+					);
+				}
+				// Never fewer attempts than a normal fault would get.
+				if (error?.status === 429) {
+					attempts = Math.max(attempts, maxThrottleAttempts);
+				}
+				const retryable = !error?.status || isRetryable(error.status);
+				if (!retryable || attempt === attempts) break;
+				console.warn(
+					`[wp-rest] attempt ${attempt}/${attempts} for ${url}: ${error?.message || error}`,
+				);
+				await sleep(backoffMs(res, attempt, error?.status));
+			}
+		}
+		// Rethrow rather than return undefined: on a background revalidation
+		// Next.js then keeps serving the last good page and retries later,
+		// instead of the caller crashing while destructuring the response.
+		console.error(
+			`[wp-rest] giving up on ${url}: ${lastError?.message || lastError}`,
+		);
+		throw lastError;
+	});
+}
+
+/**
+ * The common case — the response body only.
+ *
+ * @param {string} path
+ * @param {object} [dataObj] see {@link restRequest}
+ * @returns {Promise<any>}
+ */
+export default async function RESTAPI(path, dataObj = {}) {
+	const { data } = await restRequest(path, dataObj);
+	return data;
+}
+
+/**
+ * Every item in a collection, following X-WP-TotalPages.
+ *
+ * Replaces the `first: 9999` the GraphQL queries used, which REST cannot
+ * express — per_page is capped at 100. Page 1 tells us how many pages there
+ * are, so the rest can be requested without probing.
+ *
+ * `limit` caps the result and stops the pagination early, which is the point
+ * of it: asking for the first few entries should cost one call, not one per
+ * page of a collection whose tail is then discarded. It also shrinks the
+ * requested page when the cap is smaller, so a limit of 5 fetches 5 rows
+ * rather than 100. A per_page the caller already put in `path` is treated as a
+ * ceiling and never raised — those are tuned per endpoint to keep a response
+ * under the 2MB Data Cache limit (events sit at 15).
+ *
+ * @param {string} path endpoint and query; per_page is added if absent
+ * @param {object} [dataObj] see {@link restRequest}
+ * @param {number} [dataObj.limit] stop after this many items; omit for all
+ * @returns {Promise<any[]>}
+ */
+export async function restAll(path, dataObj = {}) {
+	const { limit, ...options } = dataObj;
+	const capped = limit > 0;
+
+	const declared = /(\?|&)per_page=(\d+)/.exec(path);
+	const pageSize = Math.min(
+		declared ? Number(declared[2]) : maxPerPage,
+		capped ? limit : maxPerPage,
+	);
+	const sep = path.includes("?") ? "&" : "?";
+	const sized = declared
+		? path.replace(declared[0], `${declared[1]}per_page=${pageSize}`)
+		: `${path}${sep}per_page=${pageSize}`;
+
+	const first = await restRequest(`${sized}&page=1`, options);
+	const items = Array.isArray(first.data) ? [...first.data] : [];
+	if (capped && items.length >= limit) return items.slice(0, limit);
+	if (first.totalPages <= 1) return items;
+
+	// Sequential on purpose: the limiter would serialise these during a build
+	// anyway, and a collection large enough to paginate is exactly what should
+	// not be fired at WordPress all at once.
+	for (let page = 2; page <= first.totalPages; page++) {
+		const next = await restRequest(`${sized}&page=${page}`, options);
+		if (Array.isArray(next.data)) items.push(...next.data);
+		if (capped && items.length >= limit) return items.slice(0, limit);
+	}
+	return items;
+}
+
+/**
+ * Fetch posts by ID in as few calls as possible.
+ *
+ * ACF relationship and post-object fields come back from REST as bare IDs,
+ * where GraphQL inlined the whole node. Resolving them one at a time is what
+ * turns a page into dozens of calls, so they are batched through `include`
+ * (100 per call) and returned in the order the IDs were given — `include` does
+ * not preserve it, and these fields are hand-ordered in the CMS.
+ *
+ * @param {string} endpoint e.g. "clients-logo"
+ * @param {Array<number|string>} ids
+ * @param {object} [dataObj] see {@link restRequest}; `fields` sets _fields
+ * @returns {Promise<any[]>}
+ */
+export async function restByIds(endpoint, ids, dataObj = {}) {
+	const wanted = [...new Set((ids || []).map(Number).filter(Boolean))];
+	if (!wanted.length) return [];
+
+	const { fields, ...rest } = dataObj;
+	const query = fields ? `&_fields=${fields}` : "";
+	const found = [];
+
+	for (let i = 0; i < wanted.length; i += maxPerPage) {
+		const batch = wanted.slice(i, i + maxPerPage);
+		const data = await RESTAPI(
+			`${endpoint}?include=${batch.join(",")}&per_page=${batch.length}&orderby=include${query}`,
+			// The ids travel with the request so each becomes an item tag —
+			// otherwise a single changed logo could only be reached by
+			// invalidating every fetch that reads client logos.
+			{ ...rest, ids: batch },
+		);
+		if (Array.isArray(data)) found.push(...data);
+	}
+
+	// `orderby=include` is supported by core, but fall back to sorting here so
+	// the order is guaranteed even on endpoints that ignore it.
+	const byId = new Map(found.map((item) => [item.id, item]));
+	return wanted.map((id) => byId.get(id)).filter(Boolean);
+}

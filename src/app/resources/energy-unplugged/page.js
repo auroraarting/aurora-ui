@@ -22,20 +22,19 @@ import EnergyTalksWrap from "@/sections/resources/energy-talks/EnergyTalksWrap";
 
 // SERVICES //
 import {
-	getInsights,
-	getInsightsCategories,
-} from "@/services/Insights.service";
-import {
 	getEnergyTalksPage,
 	getEnergyTalksPageSocialLinks,
-} from "@/services/EnergyTalks.service";
-import { getPodcasts } from "@/services/Podcast.service";
-import { getPageSeo } from "@/services/Seo.service";
+} from "@/services/rest/EnergyTalks.service";
+import { getInsightsCategories } from "@/services/rest/Insights.service";
+import { getPodcasts } from "@/services/rest/Podcast.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "energy-talks-listing", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "energy-talks-listing");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -54,34 +53,39 @@ export async function generateMetadata() {
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Fetch getStaticProps */
 async function getData() {
-	const [data, categoriesForSelect, energyTalksPage, socialLinksFetch] =
-		await Promise.all([
-			getPodcasts(),
-			getInsightsCategories(),
-			getEnergyTalksPage(),
-			getEnergyTalksPageSocialLinks(),
-		]);
+	// This page renders all six option lists, so getInsightsCategories earns
+	// its keep here. The getInsights import alongside it was never called.
+	const [podcasts, options, energyTalksPage, social] = await Promise.all([
+		getPodcasts(),
+		getInsightsCategories(),
+		getEnergyTalksPage(),
+		getEnergyTalksPageSocialLinks(),
+	]);
 
 	return {
 		props: {
-			pagination: data.data?.posts?.pageInfo || {},
-			data:
-				data?.data?.podcasts?.nodes?.sort(
-					(a, b) =>
-						new Date(b?.podcastFields.date) - new Date(a?.podcastFields.date),
-				) || [],
-			tags: categoriesForSelect.data.tags.nodes,
-			categories: categoriesForSelect.data.categories.nodes,
-			countries: categoriesForSelect.data.countries.nodes,
-			products: categoriesForSelect.data.products.nodes,
-			softwares: categoriesForSelect.data.softwares.nodes,
-			services: categoriesForSelect.data.services.nodes,
-			energyTalksPage: energyTalksPage.data.page.energyTalksListing,
-			socialLinks: socialLinksFetch.data.page.energyTalksListing?.socialLinks,
+			// `pagination` read podcasts' response for a `posts.pageInfo` that was
+			// never in it, so it has always been an empty object.
+			pagination: {},
+			data: [...podcasts].sort(
+				(a, b) => new Date(b?.podcastFields.date) - new Date(a?.podcastFields.date),
+			),
+			tags: options.tags,
+			categories: options.categories,
+			countries: options.countries,
+			products: options.products,
+			softwares: options.softwares,
+			services: options.services,
+			energyTalksPage,
+			socialLinks: social?.socialLinks,
 		},
 	};
 }

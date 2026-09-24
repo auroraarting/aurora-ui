@@ -35,15 +35,17 @@ import hoverBg from "@/../public/img/contact/hoverBg.png";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
-import { getOfficesByRegions } from "@/services/Offices.service";
-import { getContact } from "@/services/Contact.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
+import { getOfficesByRegions } from "@/services/rest/Offices.service";
+import { getContact } from "@/services/rest/Contact.service";
 import Link from "next/link";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "contact", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("pages", "contact");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -65,8 +67,8 @@ export async function generateMetadata() {
 /** Fetch  */
 async function getData() {
 	const [regions, page] = await Promise.all([
-		await getOfficesByRegions(),
-		await getContact(),
+		getOfficesByRegions(),
+		getContact(),
 	]);
 
 	const regionsArr = regions.data.regions.nodes
@@ -155,12 +157,17 @@ async function getData() {
 		props: {
 			regions: regions.data.regions.nodes,
 			regionsArr,
-			page: page.data.page.contact,
+			// getContact now returns the field group directly.
+			page,
 		},
 	};
 }
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** Contact Page */
 export default async function ContactPage() {

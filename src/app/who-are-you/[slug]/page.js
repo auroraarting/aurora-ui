@@ -22,20 +22,26 @@ import { getMapJsonForAllRegions } from "@/utils";
 // DATA //
 
 // SERVICES //
+import { getBundlesSection } from "@/services/rest/Bundles.service";
+import { getRegions } from "@/services/rest/GlobalPresence.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 import {
 	getSingleWhoAreYou,
 	getWhoAreYous,
-} from "@/services/WhoAreYou.service";
-import { getRegions } from "@/services/GlobalPresence.service";
-import { getBundlesSection } from "@/services/Bundles.service";
-import { getPageSeo } from "@/services/Seo.service";
+} from "@/services/rest/WhoAreYou.service";
 
-export const revalidate = 30; // Revalidates every 60 seconds
+// Statically generated, then refreshed on demand only: the REST services tag
+// every fetch (see services/rest/tags.js) and WordPress invalidates those tags
+// through /api/revalidate. There is deliberately no `export const revalidate`
+// here — a TTL would regenerate this page on a timer whether or not anything
+// changed.
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`whoareyouBy(slug: "${params.slug}")`);
-	const seo = meta?.data?.whoareyouBy?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
+	// fragment, and returns the `seo` object directly.
+	const meta = await getPageSeo("whoareyou", params.slug);
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -57,28 +63,34 @@ export async function generateMetadata({ params }) {
 /** Fetch  */
 async function getData({ params }) {
 	const [data, services, regions, bundles] = await Promise.all([
-		await getSingleWhoAreYou(params.slug),
-		await getWhoAreYous(),
-		await getRegions(),
-		await getBundlesSection(),
+		getSingleWhoAreYou(params.slug),
+		getWhoAreYous(),
+		getRegions(),
+		getBundlesSection(),
 	]);
 	const mapJson = getMapJsonForAllRegions(regions);
 
 	return {
 		props: {
-			data: data.data.whoareyouBy,
-			services: services.data.howWeHelps.nodes,
+			// The REST services return the nodes already unwrapped; only
+			// getRegions keeps its envelope, because the map helpers walk it.
+			data,
+			services,
 			mapJson,
 			regions,
-			bundles: bundles.data.page.bundles,
+			bundles,
 		},
 	};
 }
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
+	// Unchanged from the GraphQL version, deliberately: getWhoAreYous returns
+	// how-we-help entries, not who-are-you entries. See the note on that
+	// service — the slip is pre-existing and fixing it here would change which
+	// pages are pre-rendered.
 	const services = await getWhoAreYous();
-	return services.data.howWeHelps.nodes.map((item) => ({
+	return services.map((item) => ({
 		slug: item.slug,
 	}));
 }
