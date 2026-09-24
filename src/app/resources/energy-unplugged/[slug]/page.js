@@ -28,11 +28,15 @@ import {
 // SERVICES //
 import { getEnergyTalksPageSocialLinks } from "@/services/rest/EnergyTalks.service";
 import { getCountryList } from "@/services/rest/GlobalPresence.service";
-import {
-	getPodcastInside,
-	getPodcasts,
-} from "@/services/rest/Podcast.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+// The episode data comes from GraphQL, which answers this page in far fewer
+// requests than REST's relation fan-out (country, speakers, powered-by,
+// testimonials and the featured-image alt each cost a batched call there).
+// Both go through GraphqlDirect, so they are cached, tagged GETs.
+import { getPodcastInside, getPodcasts } from "@/services/Podcast.service";
+// SEO from GraphQL. Same signature and same `{ status, seo }` shape as the
+// REST service, so this is an import swap; the endpoint and slug still
+// become the cache tag (pages/faq -> page:faq).
+import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
@@ -79,12 +83,16 @@ async function getData({ slug }) {
 	// list, so it is fetched once. getInsightsCategories fetched six option
 	// lists for the `countries` value alone; getCountryList is the one call,
 	// and the getInsights/getInsightsInside imports were never used.
-	const [data, episodes, countries, social] = await Promise.all([
+	const [inside, all, countries, social] = await Promise.all([
 		getPodcastInside(slug),
 		getPodcasts(),
 		getCountryList(),
 		getEnergyTalksPageSocialLinks(),
 	]);
+
+	// GraphQL returns its envelope; the REST services above do not.
+	const data = inside?.data?.podcastBy;
+	const episodes = all?.data?.podcasts?.nodes || [];
 
 	const otherList = episodes
 		?.filter(
@@ -129,7 +137,10 @@ export async function generateStaticParams() {
 	// through the p-limit queue, and Pressable throttles. Every other slug is
 	// rendered on first request and cached from then on (dynamicParams defaults
 	// to true here), so nothing is unreachable.
-	const podcasts = await getPodcasts({ first: 5 });
+	// The GraphQL service takes the query's argument string, not an options
+	// object; `first: 5` is the same cap either way.
+	const podcasts =
+		(await getPodcasts("first: 5"))?.data?.podcasts?.nodes || [];
 	return podcasts.map((item) => ({
 		slug: item.slug,
 	}));

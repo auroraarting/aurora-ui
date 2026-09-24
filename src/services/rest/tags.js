@@ -85,6 +85,23 @@ export const contentTags = {
 	"post-speaker": "speaker",
 	"post-author": "author",
 	language: "language",
+
+	// Aliases for the names the GraphQL services pass. Those predate this map
+	// and use their own vocabulary — a query's purpose ("country-inside") or a
+	// plural ("videos") rather than the REST endpoint. tagFor falls through to
+	// the raw string for anything unmapped, so without these a fetch was tagged
+	// `latestVideos` or `country-titles`: a tag no webhook will ever send, which
+	// leaves the response cached until the next deploy.
+	//
+	// They resolve to existing values, so everyContentTag is unchanged.
+	videos: "video",
+	latestVideos: "video",
+	"press-room": "post",
+	"post-translations": "post",
+	"country-regions": "country",
+	"country-inside": "country",
+	"country-titles": "country",
+	"early-career-regions-3": "early-career",
 };
 
 /** Every distinct content tag, for the explicit purge-everything path. */

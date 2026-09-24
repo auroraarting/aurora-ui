@@ -38,7 +38,10 @@ import styles from "@/styles/pages/Home.module.scss";
 import { getRegions } from "@/services/rest/GlobalPresence.service";
 import { getHomePage, getHomePageVoices } from "@/services/rest/Home.service";
 import { getAllEvents } from "@/services/rest/Events.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+// SEO from GraphQL. Same signature and same `{ status, seo }` shape as the
+// REST service, so this is an import swap; the endpoint and slug still
+// become the cache tag (pages/faq -> page:faq).
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {

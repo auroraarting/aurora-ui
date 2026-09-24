@@ -24,8 +24,8 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 import {
 	getInsights,
 	getInsightsInside,
-} from "@/services/rest/Insights.service";
-import { getPressPageInsights } from "@/services/rest/Press.service";
+} from "@/services/Insights.service";
+import { getPressPageInsights } from "@/services/Press.service";
 
 // Statically generated, then refreshed on demand only: the REST services tag
 // every fetch (see services/rest/tags.js) and WordPress invalidates those tags
@@ -78,11 +78,16 @@ export async function generateStaticParams() {
 async function getData({ slug }) {
 	// The Promise.all here had four entries and destructured three, so the
 	// fourth — a second call for the same page — was fetched and thrown away.
-	const [data, moreRelated, page] = await Promise.all([
+	const [inside, related, pageRes] = await Promise.all([
 		getInsightsInside(slug),
-		getInsights({ first: 4, categories: ["media"], afterYear: 2023 }),
+		getInsights(
+			'first: 4, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
+		),
 		getPressPageInsights(),
 	]);
+	const data = inside?.data?.postBy;
+	const moreRelated = related?.data?.posts?.nodes || [];
+	const page = pageRes?.data?.page;
 	const dataForBtn = { postFields: data?.postFields || {} };
 
 	return {

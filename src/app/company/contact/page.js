@@ -35,7 +35,10 @@ import hoverBg from "@/../public/img/contact/hoverBg.png";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/rest/Seo.service";
+// SEO from GraphQL. Same signature and same `{ status, seo }` shape as the
+// REST service, so this is an import swap; the endpoint and slug still
+// become the cache tag (pages/faq -> page:faq).
+import { getPageSeo } from "@/services/Seo.service";
 import { getOfficesByRegions } from "@/services/rest/Offices.service";
 import { getContact } from "@/services/rest/Contact.service";
 import Link from "next/link";

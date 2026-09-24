@@ -25,12 +25,19 @@ import styles from "@/styles/pages/resources/aurora-insights/Articles.module.scs
 // DATA //
 
 // SERVICES //
+// The post data comes from GraphQL, which answers this page in two requests
+// where REST needed nineteen — the relation fan-out (authors, speakers,
+// powered-by, testimonials, terms, media) is inline in one query rather than a
+// batched call each. Both go through GraphqlDirect, so they are cached, tagged
+// GETs and still reachable by /api/revalidate.
+//
+// getCountryList stays on REST: one cheap tagged call, where the GraphQL
+// equivalent (getInsightsCategories) fetched six option lists to produce it.
+// insightTeaserCategories is the shared category list, kept as the single
+// source of truth for which six categories the teasers cover.
+import { getInsights, getInsightsInside } from "@/services/Insights.service";
 import { getCountryList } from "@/services/rest/GlobalPresence.service";
-import {
-	getInsights,
-	getInsightsInside,
-	insightTeaserCategories,
-} from "@/services/rest/Insights.service";
+import { insightTeaserCategories } from "@/services/rest/Insights.service";
 
 // Statically generated, then refreshed on demand only: the REST services tag
 // every fetch (see services/rest/tags.js) and WordPress invalidates those tags
@@ -40,8 +47,8 @@ import {
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	// getInsightsInside now returns the node directly.
-	const post = await getInsightsInside(params.slug2);
+	const meta = await getInsightsInside(params.slug2);
+	const post = meta?.data?.postBy;
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
 	if (!post || post?.status === "draft") {
@@ -78,11 +85,12 @@ export async function generateStaticParams() {
 	// leaves `slug2` unset — pre-existing, and left alone because changing it
 	// changes which paths get pre-rendered. Next tolerates the partial params
 	// and renders the rest on demand.
-	const insights = await getInsights({
-		first: 5,
-		categories: insightTeaserCategories,
-	});
-	return insights.map((item) => ({
+	// The GraphQL service takes the query's argument string rather than an
+	// options object; the cap and the category list are the same either way.
+	const insights = await getInsights(
+		`first: 5, where: {categoryName: "${insightTeaserCategories.join(",")}"}`,
+	);
+	return (insights?.data?.posts?.nodes || []).map((item) => ({
 		slug: item.slug,
 	}));
 }
@@ -94,11 +102,16 @@ async function getData({ params }) {
 	// than paginating the whole category and slicing. getInsightsCategories
 	// fetched six option lists for the `countries` value alone; getCountryList
 	// is the one call.
-	const [data, otherList, countries] = await Promise.all([
+	const [inside, list, countries] = await Promise.all([
 		getInsightsInside(params.slug2),
-		getInsights({ first: 3, categories: [resourceCat] }),
+		// Three, not the `first: 9999` this query used to ask for before slicing
+		// to three in JavaScript.
+		getInsights(`first: 3, where: {categoryName: "${resourceCat}"}`),
 		getCountryList(),
 	]);
+
+	const data = inside?.data?.postBy;
+	const otherList = list?.data?.posts?.nodes || [];
 
 	// 🚫 Redirect to 404 if status is DRAFT or data is null
 	if (!data || data?.status === "draft") {

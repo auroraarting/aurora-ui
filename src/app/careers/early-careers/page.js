@@ -45,7 +45,10 @@ import {
 } from "@/services/rest/EarlyCareers.service";
 import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import { getOffices } from "@/services/rest/Offices.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+// SEO from GraphQL. Same signature and same `{ status, seo }` shape as the
+// REST service, so this is an import swap; the endpoint and slug still
+// become the cache tag (pages/faq -> page:faq).
+import { getPageSeo } from "@/services/Seo.service";
 
 // Statically generated, then refreshed on demand only: the REST services tag
 // every fetch (see services/rest/tags.js) and WordPress invalidates those tags

@@ -23,10 +23,17 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // DATA //
 
 // SERVICES //
-import {
-	getAllEvents,
-	getEventsInside,
-} from "@/services/rest/Events.service";
+// The event data comes from GraphQL, which answers this page in two requests
+// where REST needed nineteen. Measured against the live CMS: getEventsInside
+// 3.1s vs 6.6s, and the 45-event listing 18.9s in one request vs 57.9s across
+// seventeen — most of that gap being 429s, because the host throttles on
+// request count. Both services now go through GraphqlDirect, so these are
+// cached, tagged GETs rather than the uncacheable POSTs GraphQL used to be.
+//
+// getCountryList stays on REST: it is a single cheap call either way, and the
+// GraphQL equivalent (getInsightsCategories) fetched six option lists to
+// produce the one this page reads.
+import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getCountryList } from "@/services/rest/GlobalPresence.service";
 
 // Statically generated, then refreshed on demand only: the REST services tag
@@ -37,8 +44,8 @@ import { getCountryList } from "@/services/rest/GlobalPresence.service";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
-	// getEventsInside now returns the node directly.
-	const post = await getEventsInside(params.slug);
+	const meta = await getEventsInside(params.slug);
+	const post = meta?.data?.eventBy;
 
 	return {
 		title: post?.title || "Default Title",
@@ -70,7 +77,9 @@ export async function generateStaticParams() {
 	// through the p-limit queue, and Pressable throttles. Every other slug is
 	// rendered on first request and cached from then on (dynamicParams defaults
 	// to true here), so nothing is unreachable.
-	const events = await getAllEvents({ first: 5 });
+	// The GraphQL service takes the query's argument string, not an options
+	// object; `first: 5` is the same cap either way.
+	const events = (await getAllEvents("first: 5"))?.data?.events?.nodes || [];
 	return events.map((item) => ({ slug: item.slug }));
 }
 
@@ -80,13 +89,15 @@ async function getData({ slug }) {
 	// the same query both times, so it is fetched once. getInsightsCategories
 	// fetched six option lists for the `countries` value alone; getCountryList
 	// is the one call.
-	const [data, allEvents, countries] = await Promise.all([
+	const [inside, allEvents, countries] = await Promise.all([
 		getEventsInside(slug),
 		getAllEvents(),
 		getCountryList(),
 	]);
-	const events = allEvents;
-	const pastEvents = allEvents;
+	// GraphQL returns its envelope; the REST country list does not.
+	const data = inside?.data?.eventBy;
+	const events = allEvents?.data?.events?.nodes || [];
+	const pastEvents = events;
 
 	let todaysDate = new Date();
 

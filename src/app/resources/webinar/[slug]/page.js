@@ -35,7 +35,9 @@ import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
 // SERVICES //
 import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { getWebinarInside, getWebinars } from "@/services/rest/Webinar.service";
+// Data from GraphQL: one query carries the relations REST resolves with a
+// batched call each. Via GraphqlDirect, so it is a cached, tagged GET.
+import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Statically generated, then refreshed on demand only: the REST services tag
@@ -86,11 +88,13 @@ async function getData({ params }) {
 	// getInsightsCategories fetched six option lists for the `countries` value
 	// alone; getCountryList is the one call, and the getInsights/
 	// getInsightsInside imports were never used.
-	const [data, countries, otherList] = await Promise.all([
+	const [inside, countries, list] = await Promise.all([
 		getWebinarInside(params.slug),
 		getCountryList(),
-		getWebinars({ first: 4 }),
+		getWebinars("first: 4"),
 	]);
+	const data = inside?.data?.webinar;
+	const otherList = list?.data?.webinars?.nodes || [];
 	const pastWebinars = [];
 	otherList?.map((item) => {
 		// Copied, not aliased: this loop appends the countries to the category

@@ -29,7 +29,7 @@ import {
 	getAllVideos,
 	getLatestVideos,
 	getVideosInside,
-} from "@/services/rest/Videos.service";
+} from "@/services/Videos.service";
 
 // Statically generated, then refreshed on demand only: the REST services tag
 // every fetch (see services/rest/tags.js) and WordPress invalidates those tags
@@ -92,11 +92,15 @@ async function getData({ slug }) {
 	// fetched six option lists to get it. getCountryList is the one call. The
 	// getEnergyTalksPageSocialLinks import alongside it was never called —
 	// socialLinksFetch below is built by hand.
-	const [data, latestVideos, countries] = await Promise.all([
+	const [inside, latest, countries] = await Promise.all([
 		getVideosInside(slug),
 		getLatestVideos(slug),
 		getCountryList(),
 	]);
+	// getVideosInside returns the GraphQL envelope; getLatestVideos does not —
+	// it filters, sorts and flattens the nodes itself before returning.
+	const data = inside?.data?.videoBy;
+	const latestVideos = latest || [];
 
 	// 🚫 Redirect to 404 if data is null
 	if (!data) {

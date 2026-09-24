@@ -22,16 +22,20 @@ import { filterMarkersBySlug, getMapJsonForProducts } from "@/utils";
 // DATA //
 
 // SERVICES //
-import { getBundlesSection } from "@/services/rest/Bundles.service";
+// Data from GraphQL: one query carries the relations REST resolves with a
+// batched call each. Via GraphqlDirect, so it is a cached, tagged GET.
+import { getBundlesSection } from "@/services/Bundles.service";
 import {
-	getCountryList,
 	getRegions,
 } from "@/services/rest/GlobalPresence.service";
 import {
 	getProductBySlug,
 	getProductSlugs,
-} from "@/services/rest/Products.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+} from "@/services/Products.service";
+// SEO from GraphQL. Same signature and same `{ status, seo }` shape as the
+// REST service, so this is an import swap; the endpoint and slug still
+// become the cache tag (pages/faq -> page:faq).
+import { getPageSeo } from "@/services/Seo.service";
 
 // Statically generated, then refreshed on demand only: the REST services tag
 // every fetch (see services/rest/tags.js) and WordPress invalidates those tags
@@ -81,12 +85,16 @@ export async function generateStaticParams() {
 async function getData({ params }) {
 	// `countries` used to ride along inside the product query; REST cannot
 	// combine two collections in one request, so it is its own call.
-	const [data, regions, bundles, countries] = await Promise.all([
+	// `countries` rides along inside the product query again, so the separate
+	// country call this needed under REST is gone.
+	const [product, regions, bundlesRes] = await Promise.all([
 		getProductBySlug(params.slug),
 		getRegions(),
 		getBundlesSection(),
-		getCountryList(),
 	]);
+	const data = product?.data?.productBy;
+	const countries = product?.data?.countries?.nodes || [];
+	const bundles = bundlesRes?.data?.page?.bundles;
 	const mapJson = getMapJsonForProducts(
 		filterMarkersBySlug(regions, params.slug),
 	);
