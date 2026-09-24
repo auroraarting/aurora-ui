@@ -2,10 +2,10 @@ import Bottleneck from "bottleneck";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 // import memoizedFetch from "@/lib/memoizedFetch";
 
-// During `next build`, let only two CMS requests start per second so static
+// During `next build`, let only one CMS request start per second so static
 // generation doesn't flood WPGraphQL. At runtime (ISR/SSR) requests run freely.
 const isBuild = process.env.NEXT_PHASE === "phase-production-build";
-const buildLimiter = new Bottleneck({ maxConcurrent: 2, minTime: 500 });
+const buildLimiter = new Bottleneck({ maxConcurrent: 1, minTime: 1000 });
 
 // Build cache: many pages send the exact same request (SEO, navigation,
 // listings...). Next's Data Cache stores the first response, so identical
@@ -122,9 +122,12 @@ async function limitDuringBuild(fn, name, key, retries = 3) {
 			} finally {
 				release();
 			}
-			if (res.status !== 429 || i === retries) break;
-			// Still rate limited: back off (5s, 10s, 15s) before queueing again
-			console.warn(`[CMS build] 429 for ${name}, retrying in ${(i + 1) * 5}s`);
+			// 429 = rate limited, 403 = the CMS host's firewall / bot check
+			if (![429, 403].includes(res.status) || i === retries) break;
+			// Back off (5s, 10s, 15s) before queueing again
+			console.warn(
+				`[CMS build] ${res.status} for ${name}, retrying in ${(i + 1) * 5}s`,
+			);
 			await new Promise((r) => setTimeout(r, (i + 1) * 5000));
 		}
 
@@ -200,7 +203,12 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 			name,
 			body,
 		);
-		if (!req.ok) throw new Error(`CMS responded ${req.status}`);
+		if (!req.ok) {
+			const html = (req.headers.get("content-type") || "").includes("html");
+			throw new Error(
+				`CMS responded ${req.status}${html ? " with an HTML page (blocked by the CMS host's firewall / bot check?)" : ""}`,
+			);
+		}
 		res = await req.json();
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
@@ -214,7 +222,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 		console.log(
 			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
 		);
-		console.log(error, req, "errror");
+		console.log(`[CMS] ${queryName(query)} failed:`, error.message);
 		// Outside the build, fail the render so Next keeps serving the last good
 		// page. Returning nothing would cache a broken page until revalidated.
 		if (!isBuild) throw error;
@@ -250,7 +258,7 @@ export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
 		return res;
 	} catch (error) {
 		// req = await req.text();
-		console.log(error, req, "errror");
+		console.log(`[CMS] ${queryName(query)} failed:`, error.message);
 	}
 }
 
@@ -282,6 +290,6 @@ export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
 		return res;
 	} catch (error) {
 		// req = await req.text();
-		console.log(error, req, "errror");
+		console.log(`[CMS] ${queryName(query)} failed:`, error.message);
 	}
 }
