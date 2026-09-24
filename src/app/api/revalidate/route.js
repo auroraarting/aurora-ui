@@ -21,18 +21,33 @@ import { everyContentTag } from "@/services/rest/tags";
  * Tags may also be sent as JSON — `{ "tags": ["post", "post:slug"] }` — which
  * is easier from a WordPress hook posting an array.
  *
- * Tags come in three shapes, and **a webhook should send all three**:
+ * Tags come in three shapes, and **which ones to send depends on what
+ * happened to the entry**:
  *
- *   post          the content type — matches listings and anything that reads
- *                 the collection, so it is what makes a new or deleted item
- *                 show up
  *   post:my-slug  the item as a page addresses it — matches that item's page
  *   post#123      the item as an ACF relation field stores it — matches the
  *                 batched by-id fetches that resolve relation pickers, which
  *                 only ever see ids
+ *   post          the content type — matches listings and anything else that
+ *                 reads the collection without naming items
  *
- * Sending only the item tags leaves listings stale; sending only the type tag
- * works but invalidates more than it needs to. See services/rest/tags.js.
+ *   an entry was EDITED            send `post:my-slug` and `post#123`
+ *   an entry was CREATED,          send those **and** `post`
+ *   DELETED, TRASHED or RESTORED
+ *
+ * That split is the whole point of the tag design. An edit changes one entry,
+ * so it should refresh that entry's page and the relation fetches that point
+ * at it — nothing else. Only a change in *membership* can alter what a listing
+ * answers, so only create/delete/trash/restore sends the collection tag.
+ *
+ * The consequence to be aware of: editing a post's title does not refresh the
+ * listings that show it until something else invalidates them. That is the
+ * trade this contract makes deliberately — it is what stops one edit costing
+ * hundreds of upstream calls. Send `post` as well if a given edit must reach
+ * the listings immediately.
+ *
+ * cms/aurora-revalidate.php implements exactly this from the WordPress side.
+ * See services/rest/tags.js for how the tags land on each fetch.
  *
  * AUTHENTICATION: when REVALIDATE_SECRET is set, callers must supply it as
  * `?secret=` or an `x-revalidate-secret` header. Note that this endpoint used

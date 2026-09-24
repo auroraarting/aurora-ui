@@ -91,12 +91,19 @@ export const contentTags = {
 export const everyContentTag = [...new Set(Object.values(contentTags))];
 
 /**
- * Next.js caps the tags on a single fetch. A by-id batch can name 100 posts,
- * which would blow past it, so id tags are only added while the batch is small
- * enough to stay comfortably inside the cap — a bigger batch keeps its
- * content-type tag and is invalidated collection-wide.
+ * Next.js caps the tags on a single fetch at 128 (NEXT_CACHE_TAG_MAX_ITEMS in
+ * next/dist/lib/constants.js; over it Next warns and silently drops the rest,
+ * it does not throw). 120 leaves room for the handful a caller may add.
+ *
+ * This used to be 32, which was wrong in a way that mattered: a by-id batch of
+ * more than 32 fell back to the collection tag, and the collection tag is only
+ * sent when an item is created or deleted — so editing one of those 33 posts
+ * would not have refreshed the fetch that reads them. restByIds batches at
+ * maxPerPage (100), so with the cap at 120 the fallback below is now
+ * unreachable in practice; it stays as a guard, and over-broad beats
+ * unreachable if a caller ever hand-rolls a larger id list.
  */
-const maxIdTags = 32;
+const maxIdTags = 120;
 
 /** Normalise one raw type into its canonical tag. An unmapped value passes
  *  through, which is harmless but also useless — it will never match a

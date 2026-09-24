@@ -27,12 +27,14 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getPageSeo } from "@/services/Seo.service";
+import { getPageSeo } from "@/services/rest/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "company", idType: URI)');
-	const seo = meta?.data?.page?.seo;
+	// The REST SEO service takes an endpoint and a slug rather than a
+	// GraphQL selector, and returns the seo block directly.
+	const meta = await getPageSeo("pages", "company");
+	const seo = meta?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
