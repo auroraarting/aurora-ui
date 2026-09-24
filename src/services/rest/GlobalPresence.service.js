@@ -173,7 +173,9 @@ export const getRegions = async () => {
 		slug: region.slug,
 		countries: {
 			nodes: countries
-				.filter((country) => arr(country.region).map(Number).includes(Number(region.id)))
+				.filter((country) =>
+					arr(country.region).map(Number).includes(Number(region.id)),
+				)
 				.map((country) => shapeCountry(country, targets)),
 		},
 	}));

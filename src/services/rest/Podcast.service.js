@@ -49,12 +49,15 @@ const shapeEpisode = (post) => ({
 /**
  * Every episode, shaped as GraphQL nodes.
  *
+ * @param {object} [options]
+ * @param {number} [options.first] cap the list; omit for all of them
  * @returns {Promise<any[]>} the nodes previously read as
  *   `res.data.podcasts.nodes`
  */
-export const getPodcasts = async () => {
+export const getPodcasts = async ({ first } = {}) => {
 	const posts = await restAll(`podcast?_fields=${listingFields}`, {
 		apiID: "podcast",
+		limit: first,
 	});
 	if (!posts.length) return [];
 
@@ -84,7 +87,7 @@ export const getPodcastInside = async (slug) => {
 	const clean = decodeURIComponent(slug ?? "");
 	const found = await RESTAPI(
 		`podcast?slug=${encodeURIComponent(clean)}&_fields=${insideFields}`,
-		{ apiID: "podcast", slug: clean },
+		{ apiID: "podcast", slug: clean, expand: 2 },
 	);
 	const post = Array.isArray(found) ? found[0] : found;
 	if (!post) return null;

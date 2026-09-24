@@ -64,7 +64,11 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const earlyCareers = await getEarlyCareersListing();
+	// Only the first few are prerendered: the build calls these one at a time
+	// through the p-limit queue, and Pressable throttles. Every other slug is
+	// rendered on first request and cached from then on (dynamicParams defaults
+	// to true here), so nothing is unreachable.
+	const earlyCareers = await getEarlyCareersListing({ first: 5 });
 	return earlyCareers.map((item) => ({ slug: item?.slug }));
 }
 

@@ -14,9 +14,25 @@ import pLimit from "p-limit";
  * other for no benefit. It is only 3, though: Pressable returned 429s for
  * plain REST reads at 6, so the ceiling here is the host's, not Next's.
  *
- * Both knobs are env vars so pacing can be tuned on Vercel without a deploy:
- *   WP_REST_CONCURRENCY   parallel calls        (build: 1, runtime: 3)
- *   WP_REST_PAUSE_MS      gap after each call   (build: 100, runtime: 0)
+ * On top of the concurrency cap there is a **rate limit**: at most one request
+ * per second during a build, measured between request *starts*. Concurrency
+ * alone does not bound a rate — one slot still fires as fast as WordPress can
+ * answer, and a cheap 12-byte response comes back in well under a second — so
+ * this is what actually holds the line against Pressable's per-IP quota.
+ *
+ * It is global rather than per endpoint. What the host counts is requests from
+ * this IP, not requests to /event; a per-endpoint limit would let a page
+ * touching six endpoints still burst six at once.
+ *
+ * The limit applies to a build by default and is off at runtime, where it
+ * would be actively harmful: a page resolving fourteen calls would take
+ * fourteen seconds on a cold cache. Set WP_REST_MIN_INTERVAL_MS to enable it
+ * there if a host ever needs it.
+ *
+ * All the knobs are env vars so pacing can be tuned on Vercel without a deploy:
+ *   WP_REST_CONCURRENCY      parallel calls           (build: 1, runtime: 3)
+ *   WP_REST_MIN_INTERVAL_MS  gap between starts       (build: 1000, runtime: 0)
+ *   WP_REST_PAUSE_MS         gap after each call      (build: 0, runtime: 0)
  */
 
 /** @param {string|undefined} value @param {number} fallback */
@@ -33,7 +49,37 @@ export const concurrency = Math.max(
 	toInt(process.env.WP_REST_CONCURRENCY, isBuild ? 1 : 3),
 );
 
-export const pauseMs = toInt(process.env.WP_REST_PAUSE_MS, isBuild ? 100 : 0);
+// Superseded by minIntervalMs below, which spaces requests properly rather
+// than adding to however long the last one took. Kept as a knob because it is
+// the only way to add a gap *after* a response, which a host that throttles on
+// connection count rather than request rate would want.
+export const pauseMs = toInt(process.env.WP_REST_PAUSE_MS, 0);
+
+/** Smallest gap between two request starts. */
+export const minIntervalMs = toInt(
+	process.env.WP_REST_MIN_INTERVAL_MS,
+	isBuild ? 1000 : 0,
+);
+
+/** When the next request may start. */
+let nextSlotAt = 0;
+
+/**
+ * Hold until this request's turn in the rate limit.
+ *
+ * The slot is claimed before the await, so concurrent callers each reserve a
+ * distinct one and queue behind each other rather than all reading the same
+ * timestamp and starting together. Spacing is measured from the start of a
+ * request, not its end, so a slow response does not push the next one further
+ * out than the limit requires.
+ */
+async function takeSlot() {
+	if (!minIntervalMs) return;
+	const now = Date.now();
+	const at = Math.max(now, nextSlotAt);
+	nextSlotAt = at + minIntervalMs;
+	if (at > now) await sleep(at - now);
+}
 
 const limit = pLimit(concurrency);
 
@@ -51,6 +97,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  */
 export function schedule(fn) {
 	return limit(async () => {
+		await takeSlot();
 		try {
 			return await fn();
 		} finally {
@@ -64,6 +111,8 @@ export const pending = () => ({ active: limit.activeCount, queued: limit.pending
 
 if (isBuild) {
 	console.log(
-		`[wp-rest] concurrency=${concurrency} pause=${pauseMs}ms (build phase)`,
+		`[wp-rest] concurrency=${concurrency} rate=${
+			minIntervalMs ? `1 per ${minIntervalMs}ms` : "unlimited"
+		} pause=${pauseMs}ms (build phase)`,
 	);
 }

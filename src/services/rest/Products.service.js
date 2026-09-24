@@ -32,9 +32,13 @@ export const getProductBySlug = (slug) =>
  *
  * The GraphQL page took these from getProductPage, which also fetched the
  * whole product landing page just to read the slug list off the side of it.
+ *
+ * @param {object} [options]
+ * @param {number} [options.first] cap the list; omit for all of them
  * @returns {Promise<Array<{ title: string, slug: string }>>}
  */
-export const getProductSlugs = () => getAllSlugs("products");
+export const getProductSlugs = ({ first } = {}) =>
+	getAllSlugs("products", { first });
 
 /**
  * The /products landing page: the `productLanding` field group plus every

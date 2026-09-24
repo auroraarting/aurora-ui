@@ -67,7 +67,11 @@ export async function generateMetadata({ params }) {
 export async function generateStaticParams() {
 	// Was read off getProductPage, which fetched the whole product landing page
 	// just to take the slug list from the side of it.
-	const products = await getProductSlugs();
+	// Only the first few are prerendered: the build calls these one at a time
+	// through the p-limit queue, and Pressable throttles. Every other slug is
+	// rendered on first request and cached from then on (dynamicParams defaults
+	// to true here), so nothing is unreachable.
+	const products = await getProductSlugs({ first: 5 });
 	return products.map((item) => ({
 		slug: item.slug,
 	}));

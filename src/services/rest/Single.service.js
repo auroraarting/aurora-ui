@@ -46,7 +46,10 @@ export async function getSingleBySlug(endpoint, slug, options) {
 
 	const found = await RESTAPI(
 		`${endpoint}?slug=${encodeURIComponent(clean)}&_fields=${fields}`,
-		{ apiID: endpoint, slug: clean },
+		// One document, so expansion is safe on size and removes the per-relation
+		// fan-out underneath it. Depth 2 because the relations this model cares
+		// about are two deep: a page's speakers, then each speaker's own images.
+		{ apiID: endpoint, slug: clean, expand: 2 },
 	);
 	const post = Array.isArray(found) ? found[0] : found;
 	if (!post) return null;
@@ -85,6 +88,7 @@ export async function getAllSlugs(endpoint, options = {}) {
 	const fields = options.fields || "title,slug";
 	const posts = await restAll(`${endpoint}?_fields=${fields}`, {
 		apiID: endpoint,
+		limit: options.first,
 	});
 	return posts.map((post) => ({
 		...post,
@@ -186,7 +190,7 @@ export async function getPageGroup(slug, options = {}) {
 	const { relations = {}, fields = "id,slug,title,acf" } = options;
 	const found = await RESTAPI(
 		`pages?slug=${encodeURIComponent(slug)}&_fields=${fields}`,
-		{ apiID: "pages", slug },
+		{ apiID: "pages", slug, expand: 2 },
 	);
 	const page = Array.isArray(found) ? found[0] : found;
 	if (!page) return null;
@@ -213,7 +217,7 @@ export async function getPageGroupById(id, options = {}) {
 		// A page addressed by database id, so the id form of the item tag — the
 		// `:` form is for slugs. Passed through `ids` rather than hand-written
 		// so it goes through the same vocabulary as every other fetch.
-		{ apiID: "pages", ids: [Number(id)] },
+		{ apiID: "pages", ids: [Number(id)], expand: 2 },
 	);
 	const page = Array.isArray(found) ? found[0] : found;
 	if (!page) return null;

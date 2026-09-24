@@ -35,10 +35,7 @@ import styles from "@/styles/pages/resources/webinar/WebinarInside.module.scss";
 // SERVICES //
 import { getCountryList } from "@/services/rest/GlobalPresence.service";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import {
-	getWebinarInside,
-	getWebinars,
-} from "@/services/rest/Webinar.service";
+import { getWebinarInside, getWebinars } from "@/services/rest/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Statically generated, then refreshed on demand only: the REST services tag
@@ -78,7 +75,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const webinars = await getWebinars({ first: 20 });
+	const webinars = await getWebinars({ first: 5 });
 	return webinars.map((item) => ({
 		slug: item.slug,
 	}));

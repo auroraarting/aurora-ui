@@ -26,7 +26,6 @@ import { filterMarkersBySlug, getMapJsonForSoftware } from "@/utils";
 import {
 	getSingleSoftware,
 	getSingleSoftwareByLanguage,
-	getSoftwarePage,
 } from "@/services/Softwares.service";
 import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
@@ -113,22 +112,26 @@ async function getData({ params }) {
 	};
 }
 
-/** generateStaticParams  */
+/** generateStaticParams
+ *
+ *  Deliberately empty: the translated pages are not prerendered.
+ *
+ *  Building them cost ~244 pages across the two language routes (5 languages ×
+ *  5 softwares, and × 44 countries), each one the most expensive kind of render
+ *  on the site — WPML gives every relation its own translated node, so a
+ *  language page fans out far wider than its English counterpart. That volume
+ *  against Pressable is what produced the 429s during `next build`.
+ *
+ *  `dynamicParams` is left at its default of true, so a language URL is
+ *  rendered on first request and then served from the cache. Nothing is
+ *  unreachable — the first visitor pays for the render, and only once.
+ *
+ *  The data underneath stays on GraphQL, which already caches: GraphQLAPI
+ *  posts every query through ${REDIS_URL}/api/cache rather than straight to
+ *  /graphql, so even that first render is usually answered from Redis.
+ */
 export async function generateStaticParams() {
-	const languages = await getAllLanguages();
-	const data = await getSoftwarePage();
-	const staticParams = [];
-
-	data?.data?.softwares?.nodes.map((item) => {
-		const slug = item?.slug;
-
-		languages?.data?.languages?.nodes?.forEach((lang) => {
-			const language = lang?.code || "en";
-			staticParams.push({ slug, language });
-		});
-	});
-
-	return staticParams;
+	return [];
 }
 
 /** Chronos Page */

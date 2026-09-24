@@ -65,11 +65,14 @@ const shapeVideo = (post) => ({
 /**
  * Every video, shaped as GraphQL nodes.
  *
+ * @param {object} [options]
+ * @param {number} [options.first] cap the list; omit for all of them
  * @returns {Promise<any[]>} the nodes previously read as `res.data.videos.nodes`
  */
-export const getAllVideos = async () => {
+export const getAllVideos = async ({ first } = {}) => {
 	const posts = await restAll(`video?_fields=${listingFields}`, {
 		apiID: "video",
+		limit: first,
 	});
 	if (!posts.length) return [];
 	const entries = posts.map(shapeVideo);
@@ -120,7 +123,7 @@ export const getVideosInside = async (slug) => {
 	const clean = decodeURIComponent(slug ?? "");
 	const found = await RESTAPI(
 		`video?slug=${encodeURIComponent(clean)}&_fields=id,slug,title,content,featured_media,featured_image_url,acf`,
-		{ apiID: "video", slug: clean },
+		{ apiID: "video", slug: clean, expand: 2 },
 	);
 	const post = Array.isArray(found) ? found[0] : found;
 	if (!post) return null;

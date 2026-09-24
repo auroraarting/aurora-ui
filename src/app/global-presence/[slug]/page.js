@@ -31,9 +31,7 @@ import {
 	getCountryInside,
 	getRegions,
 } from "@/services/rest/GlobalPresence.service";
-import {
-	getAllLanguages,
-} from "@/services/rest/Languages.service";
+import { getAllLanguages } from "@/services/rest/Languages.service";
 import {
 	getInsights,
 	insightTeaserCategories,

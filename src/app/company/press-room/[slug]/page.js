@@ -65,7 +65,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const posts = await getInsights({
-		first: 20,
+		first: 5,
 		categories: ["media"],
 		afterYear: 2023,
 	});
@@ -88,9 +88,7 @@ async function getData({ slug }) {
 	return {
 		props: {
 			data: data || {},
-			moreRelated: moreRelated
-				.filter((item) => item.slug != slug)
-				.slice(0, 3),
+			moreRelated: moreRelated.filter((item) => item.slug != slug).slice(0, 3),
 			dataForBtn,
 			page,
 		},

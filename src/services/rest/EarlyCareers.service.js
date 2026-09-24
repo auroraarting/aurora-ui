@@ -107,19 +107,14 @@ function finalise(entry) {
  * @returns {Promise<any[]>} the nodes previously read as
  *   `res.data.earlyCareers.nodes`
  */
-export const getEarlyCareersListing = async (options = {}) => {
-	const { first } = options;
-
-	const posts = first
-		? arr(
-			await RESTAPI(
-				`early-career?_fields=${listingFields}&per_page=${Math.min(first, 100)}`,
-				{ apiID: "early-career" },
-			),
-		)
-		: await restAll(`early-career?_fields=${listingFields}`, {
-			apiID: "early-career",
-		});
+export const getEarlyCareersListing = async ({ first } = {}) => {
+	// restAll caps the list and stops paginating itself. This used to branch
+	// onto a single RESTAPI call with `Math.min(first, 100)`, which silently
+	// returned 100 when asked for more than that.
+	const posts = await restAll(`early-career?_fields=${listingFields}`, {
+		apiID: "early-career",
+		limit: first,
+	});
 	if (!posts.length) return [];
 
 	const entries = posts.map(shapeEntry);

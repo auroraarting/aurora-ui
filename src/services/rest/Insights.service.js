@@ -257,7 +257,7 @@ export const getInsightsInside = async (slug) => {
 	const clean = decodeURIComponent(slug ?? "");
 	const found = await RESTAPI(
 		`posts?slug=${encodeURIComponent(clean)}&_fields=${insightFields},status`,
-		{ apiID: "posts", slug: clean },
+		{ apiID: "posts", slug: clean, expand: 2 },
 	);
 	const post = Array.isArray(found) ? found[0] : found;
 	if (!post) return null;

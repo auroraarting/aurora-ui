@@ -1,5 +1,6 @@
 import { restByIds } from "../Rest.service";
 
+import { expandedFeatured, expandedNodes, isExpandedNode } from "./expanded";
 import { getPostsByIds } from "./Posts.service";
 import {
 	arr,
@@ -44,6 +45,18 @@ const testimonialFields =
  *
  * @param {Array<number>} ids
  */
+/**
+ * Deliberately NOT shaped from expanded entries, so this keeps its one call.
+ *
+ * `featured_image_url` and the expansion's `featured_image` do not agree on
+ * this post type: the first logo on /products/[slug] has a URL from the
+ * registered field and nothing from the expansion, which resolves the
+ * thumbnail id alone. Some of these logos evidently hold their image somewhere
+ * the registered field reaches and `get_post_thumbnail_id` does not. Caught by
+ * rest:parity, which saw the image disappear.
+ *
+ * One batched call for every logo on a page is cheap; a missing logo is not.
+ */
 export async function getClientLogos(ids) {
 	const logos = await restByIds("clients-logo", ids, {
 		apiID: "clients-logo",
@@ -65,24 +78,30 @@ export async function getClientLogos(ids) {
  *
  * @param {Array<number>} ids
  */
-export async function getTestimonials(ids) {
-	const items = await restByIds("testimonial", ids, {
-		apiID: "testimonial",
-		fields: testimonialFields,
-	});
-	return nodes(
-		items.map((item) => ({
-			id: item.id,
-			title: text(item.title),
-			slug: item.slug,
-			content: html(item.content) || null,
-			featuredImage: urlNode(item.featured_image_url),
-			// Empty was null over GraphQL, not "" — see the note in shapeAcf.
-			translations: translationNodes(item.translations),
-			testimonials: { designation: item.acf?.designation || null },
-		})),
-	);
-}
+export const getTestimonials = resolver(
+	async function getTestimonials(ids) {
+		const items = await restByIds("testimonial", ids, {
+			apiID: "testimonial",
+			fields: testimonialFields,
+		});
+		return nodes(items.map(testimonialNode));
+	},
+	(entries) => nodes(entries.map(testimonialNode)),
+);
+
+/** One testimonial, from either form. @param {any} item */
+const testimonialNode = (item) => ({
+	id: item.id,
+	title: text(item.title),
+	slug: item.slug,
+	content: html(item.content) || null,
+	featuredImage: item.featured_image_url
+		? urlNode(item.featured_image_url)
+		: expandedFeatured(item),
+	// Empty was null over GraphQL, not "" — see the note in shapeAcf.
+	translations: translationNodes(item.translations),
+	testimonials: { designation: item.acf?.designation || null },
+});
 
 /** Selected posts as a `{ nodes }` connection. @param {Array<number>} ids @param {string} fields */
 const postConnection = async (ids, fields) =>
@@ -106,6 +125,59 @@ const defaultRelations = {
 		postConnection(ids, caseStudyFields),
 	"insights.list": (ids) => postConnection(ids, insightFields),
 };
+
+/**
+ * Pair a resolver with the shaper for the same data arriving inline.
+ *
+ * `_acf_expand` hands back the related posts themselves, so resolveRelations
+ * can build the identical `{ nodes }` connection without the request. The
+ * fetching form stays the default: expansion is opt-in per request, and a
+ * relation that was not expanded must still resolve.
+ *
+ * @template T
+ * @param {(ids: number[]) => Promise<T>} fetchByIds
+ * @param {(entries: any[]) => T} fromExpanded
+ * @returns {(ids: number[]) => Promise<T>}
+ */
+function resolver(fetchByIds, fromExpanded) {
+	fetchByIds.fromExpanded = fromExpanded;
+	return fetchByIds;
+}
+
+/** Shape whichever form a relation value arrived in.
+ *
+ *  Returns undefined when the value is still ids and so needs fetching, which
+ *  keeps the decision in one place rather than at every call site.
+ *
+ *  @param {(ids: number[]) => any} resolve @param {any} value */
+function shapeInline(resolve, value) {
+	if (typeof resolve?.fromExpanded !== "function") return undefined;
+	const entries = expandedNodes(value);
+	return entries ? resolve.fromExpanded(entries) : undefined;
+}
+
+/**
+ * The post ids behind a relation value, in either form.
+ *
+ * This is the safety net for expansion. A resolver without a `fromExpanded`
+ * still has to work when the request asked for expansion, and the naive
+ * `.map(Number)` turns an expanded entry into NaN — which filters away to an
+ * empty list and sets the whole relation to null. Silently: no error, the
+ * section just renders nothing. Reading `entry.id` first means an unconverted
+ * resolver merely keeps making its call, which is the old behaviour rather
+ * than a new bug.
+ *
+ * @param {any} value @returns {number[]}
+ */
+const relationIds = (value) =>
+	arr(value)
+		// Only an expanded entry contributes its `id`. Reading `.id` off any
+		// object would change behaviour for requests that never asked for
+		// expansion: an ACF attachment row carries an `id` too, and those used
+		// to fall to NaN and leave the field null. Resolving them instead makes
+		// fields appear that GraphQL returned as null.
+		.map((entry) => Number(isExpandedNode(entry) ? entry.id : entry))
+		.filter(Boolean);
 
 /** Read a dotted path without creating anything along the way. */
 function getAt(object, path) {
@@ -157,7 +229,17 @@ export async function resolveRelations(acf, overrides = {}) {
 			const owner = parent ? getAt(acf, parent) : acf;
 			if (!owner || typeof owner !== "object" || !(field in owner)) return;
 
-			const ids = arr(getAt(acf, path)).map(Number).filter(Boolean);
+			const value = getAt(acf, path);
+
+			// Already inline, because the request asked for expansion — shape it
+			// and skip the call entirely.
+			const inline = shapeInline(resolve, value);
+			if (inline !== undefined) {
+				setAt(acf, path, await inline);
+				return;
+			}
+
+			const ids = relationIds(value);
 			setAt(acf, path, ids.length ? await resolve(ids) : null);
 		}),
 	);
@@ -193,13 +275,28 @@ export async function resolveRelationsBatch(acfList, overrides = {}) {
 
 			// null marks a post that does not carry this field at all, so it is
 			// left untouched rather than given an empty connection.
-			const perPost = list.map((acf) => {
+			// An expanded item is shaped on the spot; the rest go on to be
+			// batched by id as before. Both can occur in one list, because
+			// expansion stops at its depth and budget.
+			const inlineWork = [];
+			const perPost = list.map((acf, index) => {
 				const owner = parentPath ? getAt(acf, parentPath) : acf;
 				if (!owner || typeof owner !== "object" || !(field in owner)) {
 					return null;
 				}
-				return arr(getAt(acf, path)).map(Number).filter(Boolean);
+				const value = getAt(acf, path);
+				const inline = shapeInline(resolve, value);
+				if (inline !== undefined) {
+					inlineWork.push(
+						Promise.resolve(inline).then((shaped) =>
+							setAt(list[index], path, shaped),
+						),
+					);
+					return null;
+				}
+				return relationIds(value);
 			});
+			await Promise.all(inlineWork);
 
 			const everyId = [...new Set(perPost.flatMap((ids) => ids || []))];
 			if (!everyId.length) {
@@ -275,7 +372,19 @@ async function getPeople(endpoint, group, ids) {
 		apiID: endpoint,
 		fields: "id,slug,title,content,acf",
 	});
+	return shapePeople(people, group);
+}
 
+/**
+ * People from either form — fetched rows or expanded entries.
+ *
+ * Their own `articles.articlesby` relation is resolved afterwards either way.
+ * At expansion depth 2 those articles arrived inline too, so that pass costs
+ * nothing; at depth 1 it falls back to the fetch, which is what it always did.
+ *
+ * @param {any[]} people @param {string} group
+ */
+async function shapePeople(people, group) {
 	const shaped = people.map((person) => ({
 		id: person.id,
 		title: text(person.title),
@@ -296,15 +405,22 @@ async function getPeople(endpoint, group, ids) {
 }
 
 /** Team members, under the `teams` ACF group. @param {Array<number>} ids */
-export const getTeamMembers = (ids) => getPeople("team", "teams", ids);
+export const getTeamMembers = resolver(
+	(ids) => getPeople("team", "teams", ids),
+	(entries) => shapePeople(entries, "teams"),
+);
 
 /** Post authors, under the `postAuthors` ACF group. @param {Array<number>} ids */
-export const getPostAuthors = (ids) =>
-	getPeople("post-author", "postAuthors", ids);
+export const getPostAuthors = resolver(
+	(ids) => getPeople("post-author", "postAuthors", ids),
+	(entries) => shapePeople(entries, "postAuthors"),
+);
 
 /** Post speakers, under the `postSpeakers` ACF group. @param {Array<number>} ids */
-export const getPostSpeakers = (ids) =>
-	getPeople("post-speaker", "postSpeakers", ids);
+export const getPostSpeakers = resolver(
+	(ids) => getPeople("post-speaker", "postSpeakers", ids),
+	(entries) => shapePeople(entries, "postSpeakers"),
+);
 
 /**
  * Countries as `{ nodes: [{ id, slug, title }] }`.
@@ -314,21 +430,27 @@ export const getPostSpeakers = (ids) =>
  *
  * @param {Array<number>} ids
  */
-export async function getCountries(ids) {
-	const countries = await restByIds("country", ids, {
-		apiID: "country",
-		fields: "id,slug,title,translations",
-	});
-	return nodes(
-		countries.map((country) => ({
-			id: country.id,
-			slug: country.slug,
-			title: text(country.title),
-			// The webinar query selects these; harmless extra elsewhere.
-			translations: translationNodes(country.translations),
-		})),
-	);
-}
+export const getCountries = resolver(
+	async function getCountries(ids) {
+		const countries = await restByIds("country", ids, {
+			apiID: "country",
+			fields: "id,slug,title,translations",
+		});
+		return nodes(countries.map(countryNode));
+	},
+	(entries) => nodes(entries.map(countryNode)),
+);
+
+/** One country, from either form. @param {any} country */
+const countryNode = (country) => ({
+	id: country.id,
+	slug: country.slug,
+	title: text(country.title),
+	// The webinar query selects these; harmless extra elsewhere. An expanded
+	// entry carries no translations field, and translationNodes(undefined) is
+	// the same `[]` every country returns today.
+	translations: translationNodes(country.translations),
+});
 
 /** The post types a `powered_by` picker accepts, with the ACF field-group name
  *  WPGraphQL exposed each one's fields under. The sections switch on
@@ -348,9 +470,38 @@ const poweredByTypes = [
  *
  * @param {Array<number>} ids
  */
-export async function getPoweredBy(ids) {
-	const { resolveMixedPosts } = await import("./Single.service");
-	return nodes(await resolveMixedPosts(ids, poweredByTypes));
+export const getPoweredBy = resolver(
+	async function getPoweredBy(ids) {
+		const { resolveMixedPosts } = await import("./Single.service");
+		return nodes(await resolveMixedPosts(ids, poweredByTypes));
+	},
+	(entries) => nodes(mixedFromExpanded(entries, poweredByTypes)),
+);
+
+/**
+ * Expanded entries shaped the way resolveMixedPosts shapes fetched ones.
+ *
+ * This is where expansion pays best: resolveMixedPosts has to ask every
+ * candidate post type for the ids, because a bare id does not say what it is —
+ * three calls for one `powered_by` field. An expanded entry names its own
+ * `type`, so the three become none.
+ *
+ * @param {any[]} entries @param {Array<{endpoint: string, group: string}>} types
+ */
+export function mixedFromExpanded(entries, types) {
+	return entries
+		.map((node) => {
+			const match = types.find((candidate) => candidate.endpoint === node.type);
+			if (!match) return null;
+			return {
+				id: node.id,
+				title: text(node.title),
+				slug: node.slug,
+				contentType: { node: { name: node.type } },
+				[match.group]: shapeAcf(node.acf || {}),
+			};
+		})
+		.filter(Boolean);
 }
 
 /**

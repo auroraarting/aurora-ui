@@ -79,7 +79,7 @@ export async function generateStaticParams() {
 	// changes which paths get pre-rendered. Next tolerates the partial params
 	// and renders the rest on demand.
 	const insights = await getInsights({
-		first: 20,
+		first: 5,
 		categories: insightTeaserCategories,
 	});
 	return insights.map((item) => ({

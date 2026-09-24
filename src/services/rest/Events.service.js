@@ -284,12 +284,15 @@ async function attachRelations(events, posts) {
 
 /**
  * Every event, shaped as GraphQL nodes.
+ *
+ * @param {object} [options]
+ * @param {number} [options.first] cap the list; omit for all of them
  * @returns {Promise<any[]>} the nodes previously read as `res.data.events.nodes`
  */
-export const getAllEvents = async () => {
+export const getAllEvents = async ({ first } = {}) => {
 	const posts = await restAll(
 		`event?_fields=${listingFields}&per_page=${listingPerPage}`,
-		{ apiID: "event" },
+		{ apiID: "event", limit: first },
 	);
 	if (!posts.length) return [];
 	const events = posts.map(shapeEvent);
@@ -306,7 +309,7 @@ export const getEventsInside = async (slug) => {
 	const clean = decodeURIComponent(slug ?? "");
 	const found = await RESTAPI(
 		`event?slug=${encodeURIComponent(clean)}&_fields=${singleFields}`,
-		{ apiID: "event", slug: clean },
+		{ apiID: "event", slug: clean, expand: 2 },
 	);
 	const post = Array.isArray(found) ? found[0] : found;
 	if (!post) return null;
