@@ -288,7 +288,11 @@ query GetEventsListing {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "event", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		tags: ["event"],
+		apiID: "event",
+		pageID: "/events",
+	});
 	return res;
 });
 
@@ -304,7 +308,11 @@ query GetEventCategories {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "common", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		tags: ["eventscategories"],
+		apiID: "common",
+		pageID: "/events",
+	});
 	return res;
 };
 
@@ -340,6 +348,7 @@ query GetEventInside {
     `;
 	// taxonomies
 	const res = await GraphQLAPI(query, {
+		tags: ["country", "product", "software", "service"],
 		apiID: "common",
 		pageID: "/events",
 	});
@@ -639,6 +648,7 @@ query GetEventInsideNew {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["event", `event:${slug}`],
 		apiID: "event",
 		pageID: `/events/${slug}`,
 	});
@@ -847,6 +857,10 @@ query GetEventLanding {
   }
 }
       `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/events" });
+	const res = await GraphQLAPI(query, {
+		tags: ["page:event-landing"],
+		apiID: "page",
+		pageID: "/events",
+	});
 	return res;
 };

@@ -241,6 +241,10 @@ query GetAbout {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "/about" });
+	const res = await GraphQLAPI(query, {
+		tags: ["page:about", "office"],
+		apiID: "page",
+		pageID: "/about",
+	});
 	return res;
 };

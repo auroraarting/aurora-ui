@@ -363,6 +363,7 @@ query GetProductBySlug2 {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["country", "software", `software:${slug}`],
 		apiID: "softwares",
 		pageID: `/software/${slug}`,
 		// taxonomies
@@ -473,6 +474,7 @@ query GetPageSoftwares {
 }
       `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:software", "software"],
 		apiID: "common",
 		pageID: "/software",
 	});
@@ -1281,6 +1283,7 @@ query GetProductBySlug2 {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["country", "software", `software:${slug}`],
 		apiID: "softwares",
 		pageID: `/software/${slug}/${language}`,
 		// taxonomies

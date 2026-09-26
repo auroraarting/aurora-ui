@@ -250,6 +250,7 @@ query GetProductBySlug {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["country", "service", `service:${slug}`],
 		apiID: "services",
 		pageID: `/service/${slug}`,
 		// taxonomies
@@ -270,6 +271,7 @@ query GetProductBySlug {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["service"],
 		apiID: "services",
 		pageID: `/service/${slug}`,
 	});

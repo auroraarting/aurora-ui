@@ -147,6 +147,10 @@ query EOSPage {
   }
 }
     `;
-	const res = await GraphQLAPI(query, { apiID: "page", pageID: "eos" });
+	const res = await GraphQLAPI(query, {
+		tags: ["page:eos"],
+		apiID: "page",
+		pageID: "eos",
+	});
 	return res;
 };

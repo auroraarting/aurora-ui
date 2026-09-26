@@ -57,6 +57,7 @@ query GetVideosListing {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["video"],
 		apiID: "video",
 		pageID: "/resources/videos",
 	});
@@ -96,6 +97,7 @@ query GetLatestVideos {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["video"],
 		apiID: "latestVideos",
 		pageID: "/resources/videos",
 	});
@@ -327,6 +329,7 @@ query GetPodcastBy {
 	let res = {};
 	try {
 		res = await GraphQLAPI(query, {
+			tags: ["video", `video:${slug}`],
 			apiID: "videos",
 			pageID: "/resources/videos",
 		});

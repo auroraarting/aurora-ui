@@ -5,12 +5,16 @@
 	"scripts": {
 		"prebuild": "node scripts/createRobots.js",
 		"dev": "next dev",
-		"build": "next build",
+		"build": "node scripts/timedBuild.js",
 		"start": "next start",
 		"lint": "next lint",
 		"create-component": "node scripts/createComponent.js",
 		"create-section": "node scripts/createSection.js",
-		"create-page": "node scripts/createPage.js"
+		"create-page": "node scripts/createPage.js",
+		"rest:parity": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/verify-pages.mjs",
+		"rest:audit": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/audit-names.mjs",
+		"rest:tags": "node --import ./scripts/rest-parity/register.mjs scripts/rest-parity/audit-tags.mjs",
+		"rest:tags:live": "node --import ./scripts/rest-parity/register.mjs --env-file=.env.local scripts/rest-parity/audit-tags.mjs --live"
 	},
 	"dependencies": {
 		"@lottiefiles/dotlottie-react": "^0.12.0",
@@ -32,6 +36,7 @@
 		"lottie-web": "^5.13.0",
 		"luxon": "^3.6.1",
 		"next": "15.3.8",
+		"p-limit": "^7.3.2",
 		"path": "^0.12.7",
 		"react": "^19.1.0",
 		"react-countup": "^6.5.0",

@@ -74,7 +74,9 @@ export default function EarlyCareersWrap({
 		};
 	});
 	const page = pageFetch.data.page.earlyCareersLanding;
-	let countries = categoriesForSelect?.data?.countries?.nodes || [];
+	// Copied, not aliased: the loop below pushes the programme cities into this
+	// list, which would otherwise mutate the array the service returned.
+	let countries = [...(categoriesForSelect?.data?.countries?.nodes || [])];
 	const programs = pageFetch.data.programs.nodes;
 	const offices = officesFetch.data.offices.nodes;
 

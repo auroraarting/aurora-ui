@@ -303,6 +303,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["post"],
 		apiID: "post",
 		pageID: "/resources/aurora-insights",
 	});
@@ -628,6 +629,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["post"],
 		apiID: "post-translations",
 		pageID: "/resources/aurora-insights",
 	});
@@ -648,6 +650,7 @@ query GetInsights {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["post"],
 		apiID: "post",
 		pageID: "/resources/aurora-insights",
 	});
@@ -697,6 +700,7 @@ query GetInsightsDropDowns {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["tags", "categories", "country", "product", "software", "service"],
 		apiID: "common",
 		pageID: "/resources/aurora-insights",
 		// taxonomies
@@ -1021,6 +1025,7 @@ query GetInsightsInside {
 	let res = {};
 	try {
 		res = await GraphQLAPI(query, {
+			tags: ["post", `post:${slug}`],
 			apiID: "post",
 			pageID: `/resources/aurora-insights/${slug}`,
 		});

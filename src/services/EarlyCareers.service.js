@@ -111,6 +111,7 @@ query GetEarlyCareersLanding {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["page:early-careers-landing", "programs"],
 		apiID: "page",
 		pageID: "/early-careers",
 	});
@@ -160,6 +161,7 @@ query GetEarlyCareersListing2 {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["earlyCareer"],
 		apiID: "early-career",
 		pageID: "/early-careers",
 	});
@@ -352,6 +354,7 @@ query GetCareers {
 }
     `;
 	const res = await GraphQLAPI(query, {
+		tags: ["earlyCareer", `earlyCareer:${slug}`],
 		apiID: "early-career",
 		pageID: `/early-careers/${slug}`,
 	});
@@ -412,6 +415,7 @@ export const getEarlyCareersListingByRegions = async (
   }
   `;
 	const res = await GraphQLAPI(query, {
+		tags: ["regions"],
 		apiID: "early-career-regions-3",
 		pageID: "/early-careers",
 	});
