@@ -9,9 +9,12 @@ export async function getFetchJobData() {
 					accept: "application/vnd.api+json",
 					"X-API-KEY": "8fVk9JMBsKbkHxEQUsGLesQf",
 				},
+				next: { revalidate: 3600 },
 			}
 		);
-		const res = await fetch("https://auroraer.pinpointhq.com/postings.json");
+		const res = await fetch("https://auroraer.pinpointhq.com/postings.json", {
+			next: { revalidate: 3600 },
+		});
 		const json = await res.json();
 		const locationsJson = await locationsRes.json();
 

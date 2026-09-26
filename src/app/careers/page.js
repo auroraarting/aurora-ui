@@ -42,7 +42,7 @@ export const metadata = {
 	},
 };
 
-export const revalidate = 60; // Revalidates every 60 seconds
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Careers Page */
 export default async function Careers() {

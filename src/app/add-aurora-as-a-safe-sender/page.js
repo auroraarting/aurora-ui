@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-export const revalidate = 3600;
+export const revalidate = 3600; // Revalidates every 1 hour
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //

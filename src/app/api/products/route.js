@@ -6,6 +6,8 @@ import {
 import { searchData } from "@/services/Search.service";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 
+export const revalidate = 3600; // Revalidates every 1 hour
+
 export async function GET(req, res) {
 	try {
 		const response = await getProducts();

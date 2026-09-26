@@ -26,7 +26,7 @@ export default async function GraphQLAPI(query, dataObj) {
 	// 	req = await fetch(`${process.env.API_URL}`, {
 	// 		...ServerHeaders,
 	// 		body: JSON.stringify({ query }),
-	// 		// next: { revalidate: 1800 },
+	// 		// next: { revalidate: 3600 }, // 1 hour
 	// 	});
 	// 	res = await req.json();
 	// 	// res = req;
@@ -98,7 +98,7 @@ export async function GraphQLAPINoBottleneck(query, ttl = 86400) {
 		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 },
+			next: { revalidate: 3600 }, // 1 hour
 		});
 		res = await req.json();
 		return res;
@@ -125,7 +125,7 @@ export async function GraphQLAPILongerRevalidate(query, ttl = 86400) {
 		req = await fetch(`${process.env.API_URL}`, {
 			...ServerHeaders,
 			body: JSON.stringify({ query }),
-			next: { revalidate: 1800 }, // 30 minutes
+			next: { revalidate: 3600 }, // 1 hour
 		});
 		res = await req.json();
 		return res;
