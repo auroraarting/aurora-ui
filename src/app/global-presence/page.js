@@ -2,7 +2,6 @@
 // Force SSR (like getServerSideProps)
 // export const dynamic = "force-dynamic"; // ⚠️ Important!
 export const dynamic = "force-static"; // Use when data is highly cacheable
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -29,16 +28,14 @@ import slider_arrow from "/public/img/icons/slider_arrow.svg";
 import {
 	getGlobalPresencePage,
 	getRegions,
-} from "@/services/rest/GlobalPresence.service";
+} from "@/services/GlobalPresence.service";
 import Link from "next/link";
-import { getPageSeo } from "@/services/rest/Seo.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "global-presence");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "global-presence", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Default Title",
@@ -57,7 +54,7 @@ export async function generateMetadata() {
 	};
 }
 
-// export const revalidate = 30; // Revalidates every 60 seconds
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch  */
 async function getData() {
@@ -117,8 +114,7 @@ async function getData() {
 	});
 
 	return {
-		// getGlobalPresencePage returns the field group directly.
-		props: { regions, page, mapJson, regionsArr },
+		props: { regions, page: page.data.page.globalPresence, mapJson, regionsArr },
 	};
 }
 

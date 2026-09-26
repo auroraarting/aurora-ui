@@ -32,8 +32,7 @@ import {
 } from "@/services/Insights.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -71,7 +70,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await getInsights(
-		'first: 20, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
+		'first: 9999, where: {categoryName: "case-studies,commentary,market-reports,policy-notes,newsletters,new-launches"}',
 	);
 	return data?.data?.posts?.nodes.map((item) => ({
 		slug: item.slug,

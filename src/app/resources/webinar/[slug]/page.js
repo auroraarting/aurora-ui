@@ -42,8 +42,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { getWebinarInside, getWebinars } from "@/services/Webinar.service";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -76,7 +75,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getWebinars("first:20");
+	const data = await getWebinars("first:9999");
 	return data?.data?.webinars?.nodes.map((item) => ({
 		slug: item.slug,
 	}));

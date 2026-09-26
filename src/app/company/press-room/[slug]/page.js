@@ -24,8 +24,7 @@ import PressReleasesInsideWrap from "@/sections/company/press-releases/PressRele
 import { getInsights, getInsightsInside } from "@/services/Insights.service";
 import { getPressPage, getPressPageInsights } from "@/services/Press.service";
 
-export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -59,7 +58,7 @@ export async function generateMetadata({ params }) {
 /** generateStaticParams  */
 export async function generateStaticParams() {
 	const data = await await getInsights(
-		'first: 20, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
+		'first: 999, where: {categoryName: "media", dateQuery: {after: {year: 2023}}}',
 	);
 	return data.data.posts.nodes.map((item) => ({
 		slug: item.slug,

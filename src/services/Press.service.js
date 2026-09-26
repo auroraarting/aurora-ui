@@ -109,7 +109,7 @@ query GetPresses {
 export const getPresses = async () => {
 	const query = `
 query GetPresses {
-  presses(first: 99999) {
+  presses(first: 9999) {
     nodes {
       content
       title
@@ -372,7 +372,7 @@ query GetPressMediaKit {
       leaders {
         sectionTitle
         sectionDesc
-        leaders(first: 99999) {
+        leaders(first: 999) {
           nodes {
             ... on Team {
               id

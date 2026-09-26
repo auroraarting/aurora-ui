@@ -24,10 +24,8 @@ import dropdown_arrow from "/public/img/icons/dropdown_arrow.svg";
 // DATA //
 
 // SERVICES //
-import { getTerms } from "@/services/rest/ContentPage.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
-
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+import { getTerms } from "@/services/Terms.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Meta Data */
 // export const metadata = {
@@ -35,12 +33,12 @@ export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s def
 // 	description: "Aurora",
 // };
 
+export const revalidate = 3600; // Revalidates every 1 hour
+
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "terms");
-	const seo = meta?.seo;
+	const meta = await getPageSeo('page(id: "terms", idType: URI)');
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Terms | Aurora",
@@ -61,8 +59,11 @@ export async function generateMetadata() {
 
 /** Terms Page */
 export default async function Terms() {
-	// getTerms now returns the page node directly.
-	const { title, content } = (await getTerms()) || {};
+	const {
+		data: {
+			page: { title, content },
+		},
+	} = await getTerms();
 	return (
 		<div>
 			{/* Metatags */}

@@ -47,8 +47,7 @@ import { getInsightsCategories } from "@/services/Insights.service";
 import { getOffices, getOfficesByRegions } from "@/services/Offices.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata() {
@@ -83,7 +82,7 @@ export default async function EarlyCareers() {
 		officesFetch,
 		careersRegions,
 	] = await Promise.all([
-		getEarlyCareersListing("first: 99999"),
+		getEarlyCareersListing("first: 999"),
 		getEarlyCareersPage(),
 		getInsightsCategories(),
 		getOffices(),

@@ -63,7 +63,7 @@ countries(first: 9999, where: {orderby: {field: TITLE, order: ASC}}) {
 export const getHomePageVoices = async () => {
 	const pageVoices = `
     query GetHomePageVoices {
-  posts(first: 99999, where: {categoryName: "market-reports", orderby: {field: DATE, order: DESC}}) {
+  posts(first: 9999, where: {categoryName: "market-reports", orderby: {field: DATE, order: DESC}}) {
     nodes {
       title
       slug
@@ -125,7 +125,7 @@ export const getHomePageVoices = async () => {
       }
     }
   }
-  podcasts(first: 99999) {
+  podcasts(first: 9999) {
     nodes {
       title
       slug
@@ -179,7 +179,7 @@ export const getHomePageVoices = async () => {
       }
     }
   }
-  webinars(first: 99999) {
+  webinars(first: 9999) {
     nodes {
       title
       slug
@@ -214,7 +214,7 @@ export const getHomePageVoices = async () => {
         startDateAndTime
         endDateAndTime
         timezone
-        serviceBy(first: 99999) {
+        serviceBy(first: 9999) {
           nodes {
             contentType {
               node {
@@ -242,7 +242,7 @@ export const getHomePageVoices = async () => {
       }
     }
   }
-  events(first: 99999) {
+  events(first: 9999) {
     nodes {
       title
       slug
@@ -508,7 +508,7 @@ export const getHomePageVoices = async () => {
         startDateAndTime
         endDateAndTime
         timezone
-        serviceBy(first: 99999) {
+        serviceBy(first: 9999) {
           nodes {
             contentType {
               node {
@@ -834,7 +834,7 @@ export const getHomePageVoices = async () => {
 		?.filter((item) => new Date() < new Date(item.events?.thumbnail?.date))
 		?.sort(
 			(a, b) =>
-				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date)
+				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
 		)
 		.slice(0, 3);
 
@@ -842,17 +842,17 @@ export const getHomePageVoices = async () => {
 		events: events,
 		podcasts: resAllData?.data?.podcasts?.nodes
 			.sort(
-				(a, b) => new Date(b.podcastFields?.date) - new Date(a.podcastFields.date)
+				(a, b) => new Date(b.podcastFields?.date) - new Date(a.podcastFields.date),
 			)
 			.slice(0, 1),
 		webinars: resAllData.data.webinars.nodes
 			?.filter(
-				(item) => new Date() < new Date(item?.webinarsFields?.startDateAndTime)
+				(item) => new Date() < new Date(item?.webinarsFields?.startDateAndTime),
 			)
 			?.sort(
 				(a, b) =>
 					new Date(a?.webinarsFields?.startDateAndTime) -
-					new Date(b?.webinarsFields?.startDateAndTime)
+					new Date(b?.webinarsFields?.startDateAndTime),
 			)
 			.slice(0, 1),
 		marketReports: resAllData.data.posts.nodes.slice(0, 1),

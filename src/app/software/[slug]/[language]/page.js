@@ -32,8 +32,7 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
 import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
 
-export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {

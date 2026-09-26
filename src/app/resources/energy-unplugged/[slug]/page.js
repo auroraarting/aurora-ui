@@ -37,8 +37,7 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-export const revalidate = false; // On-demand only: refreshed by tags via /api/revalidate
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
+export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -119,7 +118,7 @@ async function getData({ slug }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const podcasts = await getPodcasts("first:20");
+	const podcasts = await getPodcasts("first:9999");
 	return podcasts?.data?.podcasts?.nodes.map((item) => ({
 		slug: item.slug,
 	}));
