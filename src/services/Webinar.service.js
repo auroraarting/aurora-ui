@@ -106,7 +106,7 @@ query GetWebinars {
         startDateAndTime
         endDateAndTime
         timezone
-        serviceBy(first: 99999) {
+        serviceBy(first: 99) {
           nodes {
             contentType {
               node {
@@ -184,7 +184,7 @@ query GetWebinarInside {
       startDateAndTime
       endDateAndTime
       timezone
-      serviceBy(first: 99999) {
+      serviceBy(first: 99) {
         nodes {
               contentType {
                 node {

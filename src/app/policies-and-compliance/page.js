@@ -1,7 +1,6 @@
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
 export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const maxDuration = 300; // Let ISR regeneration outlive Vercel's 15s default (slow CMS)
 // ❌ Remove: export const fetchCache = "force-no-store";
 
 // MODULES //
@@ -24,8 +23,8 @@ import styles from "@/styles/pages/legal/Terms.module.scss";
 // DATA //
 
 // SERVICES //
-import { getPolicy } from "@/services/rest/ContentPage.service";
-import { getPageSeo } from "@/services/rest/Seo.service";
+import { getPolicy } from "@/services/Policy.service";
+import { getPageSeo } from "@/services/Seo.service";
 
 /** Meta Data */
 // export const metadata = {
@@ -33,12 +32,14 @@ import { getPageSeo } from "@/services/rest/Seo.service";
 // 	description: "Aurora",
 // };
 
+export const revalidate = 3600; // Revalidates every 1 hour
+
 /** generateMetadata  */
 export async function generateMetadata() {
-	// The REST SEO service takes an endpoint and a slug rather than a GraphQL
-	// fragment, and returns the `seo` object directly.
-	const meta = await getPageSeo("pages", "policies-and-compliance");
-	const seo = meta?.seo;
+	const meta = await getPageSeo(
+		'page(id: "policies-and-compliance", idType: URI)',
+	);
+	const seo = meta?.data?.page?.seo;
 
 	return {
 		title: seo?.title || "Policies and Compliance | Aurora",
@@ -59,8 +60,11 @@ export async function generateMetadata() {
 
 /** Policies and compliance Page */
 export default async function PoliciesAndCompliance() {
-	// getPolicy now returns the page node directly.
-	const { title, content } = (await getPolicy()) || {};
+	const {
+		data: {
+			page: { title, content },
+		},
+	} = await getPolicy();
 	return (
 		<div>
 			{/* Metatags */}

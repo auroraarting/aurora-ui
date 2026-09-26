@@ -118,7 +118,7 @@ async function getData({ slug }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const podcasts = await getPodcasts("first:20");
+	const podcasts = await getPodcasts("first:9999");
 	return podcasts?.data?.podcasts?.nodes.map((item) => ({
 		slug: item.slug,
 	}));

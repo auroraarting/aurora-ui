@@ -119,7 +119,7 @@ query GetEarlyCareersLanding {
 };
 
 /** About Page */
-export const getEarlyCareersListing = async (filters = "first: 99999") => {
+export const getEarlyCareersListing = async (filters = "first: 999") => {
 	const query = `
 query GetEarlyCareersListing2 {
   earlyCareers(${filters}) {
@@ -150,7 +150,7 @@ query GetEarlyCareersListing2 {
           }
         }
       }
-      programs(first: 99999) {
+      programs(first: 999) {
         nodes {
           slug
           name
@@ -402,7 +402,7 @@ export const getEarlyCareersListingByRegions = async (
                 }
               }
             }
-            programs(first: 99999) {
+            programs(first: 999) {
               nodes {
                 slug
                 name

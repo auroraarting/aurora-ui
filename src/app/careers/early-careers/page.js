@@ -82,7 +82,7 @@ export default async function EarlyCareers() {
 		officesFetch,
 		careersRegions,
 	] = await Promise.all([
-		getEarlyCareersListing("first: 99999"),
+		getEarlyCareersListing("first: 999"),
 		getEarlyCareersPage(),
 		getInsightsCategories(),
 		getOffices(),
