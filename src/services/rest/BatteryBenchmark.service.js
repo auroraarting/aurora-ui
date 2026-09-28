@@ -465,19 +465,3 @@ export const getLeaderboardSeries = async (
 	}
 };
 
-/** Fetch several real performance indices series in parallel batches */
-export const getLeaderboardSeriesByIndices = async (
-	indices = [],
-	{ start, end } = {},
-) => {
-	const list = await inBatches(indices.filter(Boolean), (item) =>
-		getLeaderboardSeries(item.region, {
-			start,
-			end,
-			index: item.uuid,
-			currency: item.currency,
-		}),
-	);
-	return Object.fromEntries(list.map((item) => [item.uuid, item]));
-};
-

@@ -236,12 +236,6 @@ function usableSections(sections) {
 		);
 }
 
-/** ["Great Britain", "Germany", "France"] → "Great Britain, Germany and France" */
-function listNames(names = []) {
-	if (names.length < 2) return names[0] || "";
-	return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
-}
-
 /** Tabs grouped under their `section_tag` heading, both in CMS order */
 function groupTabs(tabs = []) {
 	const groups = [];
@@ -266,11 +260,6 @@ export default function MethodologyPanel({ sections, region, updated }) {
 		[published, region],
 	);
 	const fromCms = Boolean(section);
-	// Markets the CMS has methodology for, named for the empty state
-	const publishedNames = useMemo(
-		() => published.map((item) => regionLabel(item.regionCode)),
-		[published],
-	);
 	const missing = !section && published.length > 0;
 	const groups = useMemo(() => groupTabs(section?.tabs), [section]);
 	const regionName = regionLabel(region) || "Great Britain";
@@ -278,6 +267,10 @@ export default function MethodologyPanel({ sections, region, updated }) {
 
 	const [activeId, setActiveId] = useState(null);
 	const [openFaq, setOpenFaq] = useState(0);
+
+	// Other markets have published methodology but this one doesn't — hide the
+	// panel rather than show an empty "not published yet" placeholder.
+	if (missing) return null;
 
 	// Tab ids are per market, so a switch of region drops the highlight back to
 	// the first tab of the market now being shown.
@@ -312,7 +305,7 @@ export default function MethodologyPanel({ sections, region, updated }) {
 					<ContentFromCms>{rewriteCmsClasses(section.description)}</ContentFromCms>
 				</div>
 			)}
-			{!fromCms && !missing && (
+			{!fromCms && (
 				<p className={styles.intro}>
 					The <b>Aurora Backcast Benchmark</b> models the gross revenue a reference
 					storage asset could have earned from the wholesale, capacity and ancillary
@@ -323,45 +316,20 @@ export default function MethodologyPanel({ sections, region, updated }) {
 				</p>
 			)}
 
-			{/* ── Nothing written for this market yet ────── */}
-			{missing && (
-				<div className={styles.main}>
-					<div className={styles.items}>
-						<section className={`${styles.item} ${styles.itemLast}`}>
-							<div className={styles.itemHead}>
-								<h4 className={`${styles.itemTitle} font_secondary`}>
-									{regionName} methodology is not published yet
-								</h4>
-							</div>
-							<div className={`${styles.itemBox} ${styles.itemBoxWhite}`}>
-								<p className={styles.itemBoxText}>
-									Aurora publishes the benchmark methodology market by market
-									{publishedNames.length
-										? ` — available so far for ${listNames(publishedNames)}`
-										: ""}
-									.
-								</p>
-							</div>
-						</section>
+			{/* ── Assumptions row ────────────────────────── */}
+			<>
+				{/* Key for the scope badges against each section below */}
+				<div className={styles.assumptions}>
+					<div className={styles.assumptionLabel}>
+						<span className={styles.chipGray}>Universal</span>
+					</div>
+					<div className={styles.assumptionLabel}>
+						<span className={styles.chipYellow}>Regional</span>
 					</div>
 				</div>
-			)}
 
-			{/* ── Assumptions row ────────────────────────── */}
-			{!missing && (
-				<>
-					{/* Key for the scope badges against each section below */}
-					<div className={styles.assumptions}>
-						<div className={styles.assumptionLabel}>
-							<span className={styles.chipGray}>Universal</span>
-						</div>
-						<div className={styles.assumptionLabel}>
-							<span className={styles.chipYellow}>Regional</span>
-						</div>
-					</div>
-
-					{/* ── Main content: nav + items ──────────────── */}
-					<div className={styles.main}>
+				{/* ── Main content: nav + items ──────────────── */}
+				<div className={styles.main}>
 						<nav className={styles.nav} aria-label="Methodology sections">
 							{fromCms
 								? groups.map((group) => (
@@ -470,9 +438,8 @@ export default function MethodologyPanel({ sections, region, updated }) {
 										</section>
 									))}
 						</div>
-					</div>
-				</>
-			)}
+				</div>
+			</>
 
 			{/* ── Common questions ───────────────────────── */}
 			<div className={styles.faqSection}>

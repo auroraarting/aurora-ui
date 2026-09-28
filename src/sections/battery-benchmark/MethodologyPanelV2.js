@@ -239,11 +239,6 @@ export default function MethodologyPanelV2({ sections, region }) {
 		[published, region],
 	);
 
-	const publishedNames = useMemo(
-		() => published.map((item) => regionLabel(item.regionCode)),
-		[published],
-	);
-
 	const groups = useMemo(() => groupSections(section?.sections), [section]);
 	const regionName = regionLabel(region) || "";
 	const meta = updatedLabel(section?.lastReviewed);
@@ -385,6 +380,9 @@ export default function MethodologyPanelV2({ sections, region }) {
 	// Nothing authored for any market — the caller falls back to v1, so render
 	// nothing rather than an empty shell.
 	if (!published.length) return null;
+	// Other markets have published methodology but this one doesn't — hide the
+	// panel rather than show an empty "not published yet" placeholder.
+	if (!section) return null;
 
 	return (
 		<div className={styles.panel}>
@@ -403,28 +401,8 @@ export default function MethodologyPanelV2({ sections, region }) {
 				</span>
 			</div>
 
-			{!section && (
-				<div className={styles.main}>
-					<div className={styles.items}>
-						<section className={`${styles.item} ${styles.itemLast}`}>
-							<div className={styles.itemHead}>
-								<h4 className={`${styles.itemTitle} font_secondary`}>
-									{regionName} methodology is not published yet
-								</h4>
-							</div>
-							{publishedNames.length > 0 && (
-								<p className={styles.itemPlain}>
-									Published for {publishedNames.join(", ")}.
-								</p>
-							)}
-						</section>
-					</div>
-				</div>
-			)}
-
-			{section && (
-				<>
-					{section.description && (
+			<>
+				{section.description && (
 						<>
 							<div
 								ref={introRef}
@@ -616,8 +594,7 @@ export default function MethodologyPanelV2({ sections, region }) {
 							</div>
 						</div>
 					)}
-				</>
-			)}
+			</>
 
 			{/* ── Common questions — shared across every market ── */}
 			{methodologyFaqs.length > 0 && (

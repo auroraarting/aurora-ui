@@ -38,7 +38,6 @@ export default function BatteryBenchmarkWrapper({
 	benchmarks,
 	initialSeries,
 	realBenchmarks = [],
-	initialRealSeries = {},
 	realMethodology = [],
 }) {
 	// Banner copy and its button come from the Battery Benchmarks page in
@@ -47,15 +46,14 @@ export default function BatteryBenchmarkWrapper({
 	const dataForBtn = { postFields: { topSectionButton: cmsButton } };
 	const [benchmarkType, setBenchmarkType] = useState("backcast");
 
-	// Active benchmark catalogue and initial series based on benchmark type
+	// Active benchmark catalogue and initial series based on benchmark type.
+	// Real Performance is never pre-seeded from the server (see page.js) — the
+	// explorer always fetches it live on mount — so it starts with nothing here.
 	const activeBenchmarks =
 		benchmarkType === "real" && realBenchmarks.length > 0
 			? realBenchmarks
 			: benchmarks;
-	const activeInitialSeries =
-		benchmarkType === "real" && Object.keys(initialRealSeries).length > 0
-			? initialRealSeries
-			: initialSeries;
+	const activeInitialSeries = benchmarkType === "real" ? {} : initialSeries;
 
 	// The selected market is held here so the explorer and the methodology
 	// panel (whose CMS rows are per region) stay on the same one.
