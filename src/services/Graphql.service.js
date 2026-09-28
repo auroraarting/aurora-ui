@@ -58,7 +58,7 @@ export default async function GraphQLAPI(query, dataObj) {
 			// ...dataObj,
 			...stagingDataObj,
 		};
-		console.log("GraphQLAPI data", data);
+		// console.log("GraphQLAPI data", data);
 		req = await fetch(`${process.env.REDIS_URL}/api/cache`, {
 			"Content-Type": "application/json",
 			method: "POST",
