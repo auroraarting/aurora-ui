@@ -48,8 +48,8 @@ export default async function GraphQLAPI(query, dataObj) {
 			pageID: `${process.env.NEXT_PUBLIC_SITE_ENV}${dataObj.pageID}`,
 		};
 		const data = {
-			url: `${process.env.API_URL}`,
-			method: "POST",
+			url: `${process.env.API_URL}${query}`,
+			method: "GET",
 			body: { query },
 			refreshInterval: refreshInterval,
 			headers: {
