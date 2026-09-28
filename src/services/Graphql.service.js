@@ -26,6 +26,25 @@ const requestTimeoutMs = 60000;
 const maxAttempts = 3;
 const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
 
+// Queries go out as GET (query in the URL) by default, but the WordPress host
+// rejects long URLs with 414 Request-URI Too Large (nginx's default header
+// buffer is 8KB). Anything over this length is sent as a POST body instead.
+// Next's Data Cache keys POST requests on the body, so both are cached alike.
+const maxGetUrlLength = 6000;
+
+/** Build the fetch URL + options for a query, choosing GET or POST by size.
+ *  @param {string} query */
+function buildRequest(query) {
+	const getUrl = `${process.env.API_URL}?query=${encodeURIComponent(query)}`;
+	if (getUrl.length <= maxGetUrlLength) {
+		return { url: getUrl, init: { method: "GET" } };
+	}
+	return {
+		url: process.env.API_URL,
+		init: { method: "POST", body: JSON.stringify({ query }) },
+	};
+}
+
 /** Resolve after `ms` milliseconds. @param {number} ms */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -103,20 +122,18 @@ function proxyAllMediaUrls(obj) {
  */
 export default async function GraphQLAPI(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
+	const { url, init } = buildRequest(query);
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			try {
-				const req = await fetch(
-					`${process.env.API_URL}?query=${encodeURIComponent(query)}`,
-					{
-						...ServerHeaders,
-						method: "GET",
-						signal: AbortSignal.timeout(requestTimeoutMs),
-						cache: "force-cache",
-						next: { revalidate: false, tags },
-					},
-				);
+				const req = await fetch(url, {
+					...ServerHeaders,
+					...init,
+					signal: AbortSignal.timeout(requestTimeoutMs),
+					cache: "force-cache",
+					next: { revalidate: false, tags },
+				});
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
 				}
