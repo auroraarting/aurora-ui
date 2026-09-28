@@ -192,7 +192,7 @@ export default function HomeBanner() {
 										complexity into confident decisions.
 									</p>
 									<div className={`${styles.bookBtnOne} pt_40`}>
-										<a href="/products/ai-and-data" role="button">
+										<a href="/eos-ai" role="button">
 											<Button color="primary" variant="filled" shape="rounded" mode="dark">
 												Find out more
 											</Button>
