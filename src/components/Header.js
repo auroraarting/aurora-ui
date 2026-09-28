@@ -900,6 +900,20 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															insights.
 														</p>
 													</div>
+													<div className={`${styles.eosItem}`}>
+														<Link
+															href="/eos-ai"
+															className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+															role="button"
+														>
+															<span>EOS AI</span>{" "}
+															<img src={menu_hover_arrow.src} alt="arrow" />
+														</Link>
+														<p className="text_xs color_light_gray ">
+															EOS centralises Aurora&apos;s data, software, forecasts, and
+															insights.
+														</p>
+													</div>
 													{data?.services?.map((item, ind) => {
 														return (
 															<div className={`${styles.eosItem}`} key={ind}>

@@ -180,6 +180,39 @@ export default function HomeBanner() {
 								</div>
 							</div>
 						</SwiperSlide>
+						<SwiperSlide>
+							<div className={`${styles.BannerInfo} f_w_j`}>
+								<div className={`${styles.BannerContent}`}>
+									<h2 className="text_lg f_w_m color_white pb_10 text_uppercase">
+										Bring Aurora data directly into your AI workflow with EOS MCP
+									</h2>
+									<p className="text_reg color_silver_gray">
+										Put Aurora&apos;s extensive energy market intelligence at the heart of
+										your AI workflows, turning hours of analysis into minutes and market
+										complexity into confident decisions.
+									</p>
+									<div className={`${styles.bookBtnOne} pt_40`}>
+										<a href="/products/ai-and-data" role="button">
+											<Button color="primary" variant="filled" shape="rounded" mode="dark">
+												Find out more
+											</Button>
+										</a>
+									</div>
+								</div>
+								<div className={`${styles.BannerImg}`}>
+									{/* Client-supplied artwork: transparent PNG/WebP, ~800x700px
+									    (2x of the 400x350 slot below), matching the aspect ratio
+									    the other slides' visuals use. */}
+									<Image
+										src="/img/home/banner-ai-mcp.png"
+										alt="EOS MCP bringing Aurora data into AI workflows"
+										width={400}
+										height={350}
+										className="width_100"
+									/>
+								</div>
+							</div>
+						</SwiperSlide>
 					</Swiper>
 				</div>
 			</div>

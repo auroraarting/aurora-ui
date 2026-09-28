@@ -655,11 +655,14 @@
 		.menuBoxRight {
 			.eosAdvisoryFlex {
 				.eosItem {
-					width: 48%;
+					width: 30%;
 					padding: 20px 0px;
 					border-bottom: 1px solid rgba(44, 44, 44, 0.2);
 					@media (max-width: 767px) {
 						width: 100%;
+					}
+					p {
+						width: 90%;
 					}
 					.eosLinksTxt {
 						font-size: 20px;

@@ -104,6 +104,11 @@ export default function EOSPageWrap({
 						<EOSAI data={data?.eosAi} />
 					</div>
 				)}
+				{data?.eosMcp && (
+					<div className="pb_100">
+						<EOSAI data={data?.eosMcp} />
+					</div>
+				)}
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>
