@@ -107,13 +107,16 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			try {
-				const req = await fetch(`${process.env.API_URL}`, {
-					...ServerHeaders,
-					body: JSON.stringify({ query }),
-					signal: AbortSignal.timeout(requestTimeoutMs),
-					cache: "force-cache",
-					next: { revalidate: false, tags },
-				});
+				const req = await fetch(
+					`${process.env.API_URL}?query=${encodeURIComponent(query)}`,
+					{
+						...ServerHeaders,
+						method: "GET",
+						signal: AbortSignal.timeout(requestTimeoutMs),
+						cache: "force-cache",
+						next: { revalidate: false, tags },
+					},
+				);
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
 				}
@@ -169,10 +172,9 @@ export async function GraphQLAPIOld(query, dataObj) {
 			pageID: `${process.env.NEXT_PUBLIC_SITE_ENV}${dataObj.pageID}`,
 		};
 		const data = {
-			url: `${process.env.API_URL}`,
-			method: "POST",
-			body: { query },
-			refreshInterval: refreshInterval,
+			url: `${process.env.API_URL}?query=${encodeURIComponent(query)}`,
+			method: "GET",
+			// refreshInterval: refreshInterval,
 			headers: {
 				...ServerHeaders.headers,
 			},
