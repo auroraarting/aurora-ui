@@ -399,15 +399,27 @@ function toSection(chapter, idPrefix) {
 /** Region codes the explorer knows, so a token can be recognised as one. */
 const REGION_CODES = new Set(Object.keys(REGION_LABELS));
 
+/** Some markets are titled in CMS documents by their common market name rather
+ *  than the API's internal region code — "RPB_methodology_ERCOT_V1" for the
+ *  `erc` region, "RPB_methodology_MISO_V1" for `mis`, and so on. Built from
+ *  REGION_LABELS so any single-word market name is recognised alongside its
+ *  code, the same way "GBR" already is. */
+const REGION_NAME_CODES = new Map(
+	Object.entries(REGION_LABELS).map(([code, label]) => [
+		label.replace(/[^A-Za-z]/g, "").toLowerCase(),
+		code,
+	]),
+);
+
 /** The market a document belongs to, as the lowercase code the explorer and the
  *  panel match on.
  *
  *  `chapters[].regions[]` is the field meant for this and is read first, but it
  *  is empty on every document published so far — the market is instead only in
- *  the document's own title and slug ("… (GBR)", "RPB_methodology_GBR_V1.1"), so
- *  those are tokenised as the fallback. A token counts only on an exact match
- *  against a known code, so ordinary words in a title cannot be mistaken for
- *  one. */
+ *  the document's own title and slug ("… (GBR)", "RPB_methodology_GBR_V1.1",
+ *  "RPB_methodology_ERCOT_V1.1"), so those are tokenised as the fallback. A
+ *  token counts only on an exact match against a known code or market name, so
+ *  ordinary words in a title cannot be mistaken for one. */
 function regionCodeFor(doc) {
 	for (const chapter of Array.isArray(doc?.chapters) ? doc.chapters : []) {
 		for (const region of Array.isArray(chapter?.regions) ? chapter.regions : []) {
@@ -418,6 +430,7 @@ function regionCodeFor(doc) {
 	for (const token of `${doc?.title || ""} ${doc?.slug || ""}`.split(/[^A-Za-z]+/)) {
 		const code = token.toLowerCase();
 		if (REGION_CODES.has(code)) return code;
+		if (REGION_NAME_CODES.has(code)) return REGION_NAME_CODES.get(code);
 	}
 	return null;
 }
