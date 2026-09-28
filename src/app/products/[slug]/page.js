@@ -27,7 +27,6 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`productBy(slug: "${params.slug}")`);
@@ -52,7 +51,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getProductPage();
+	const data = await getProductPage("first: 5");
 	return data?.data?.products?.nodes.map((item) => ({
 		slug: item.slug,
 	}));

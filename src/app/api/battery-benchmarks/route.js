@@ -52,11 +52,13 @@ export async function GET(req) {
 		}
 
 		try {
-			const seriesData = await getLeaderboardSeries(region, {
-				start,
-				end,
-				index,
-			});
+			// A visitor's own date range must always be live, not the ISR-cached
+			// default window the page pre-seeds server-side.
+			const seriesData = await getLeaderboardSeries(
+				region,
+				{ start, end, index },
+				{ cache: "no-store" },
+			);
 			return Response.json(
 				{ series: { [index]: seriesData } },
 				{

@@ -773,10 +773,10 @@ export const getCountryInside = async (slug) => {
 };
 
 /** Fetch Regions Data */
-export const getCountries = async () => {
+export const getCountries = async (filters = "first:9999") => {
 	const query = `
  query GetProductBySlug {
-  countries(first: 9999) {
+  countries(${filters}) {
     nodes {
       title
       slug

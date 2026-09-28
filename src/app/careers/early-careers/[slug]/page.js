@@ -32,7 +32,6 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`earlyCareerBy(slug: "${params.slug}")`);
@@ -57,7 +56,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const earlyCareers = await getEarlyCareersListing("first: 9999");
+	const earlyCareers = await getEarlyCareersListing("first: 5");
 	return (
 		earlyCareers?.data?.earlyCareers?.nodes?.map((item) => ({
 			slug: item?.slug,

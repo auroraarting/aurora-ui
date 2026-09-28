@@ -142,10 +142,10 @@ export const getSingleWhoAreYou = async (slug) => {
 };
 
 /** Fetch Page */
-export const getWhoAreYous = async () => {
+export const getWhoAreYous = async (filters = "first: 999") => {
 	const query = `
 query GetAllHowWeHelps {
-  howWeHelps(first: 999) {
+  howWeHelps(${filters}) {
     nodes {
       title
       slug

@@ -44,7 +44,6 @@ import { getAllEvents } from "@/services/Events.service";
 import { getWebinars } from "@/services/Webinar.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-
 /** generateMetadata  */
 // export async function generateMetadata({ params }) {
 // 	const { slug } = await params;
@@ -67,8 +66,8 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const countries = await getCountries();
-	const languages = await getAllLanguages();
+	const countries = await getCountries("first: 5");
+	const languages = await getAllLanguages("first: 5");
 	const staticParams = [];
 
 	countries?.data?.countries?.nodes?.map((country) => {

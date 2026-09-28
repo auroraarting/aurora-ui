@@ -29,7 +29,6 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getBundlesSection } from "@/services/Bundles.service";
 import { getPageSeo } from "@/services/Seo.service";
 
-
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`whoareyouBy(slug: "${params.slug}")`);
@@ -75,7 +74,7 @@ async function getData({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const services = await getWhoAreYous();
+	const services = await getWhoAreYous("first: 5");
 	return services.data.howWeHelps.nodes.map((item) => ({
 		slug: item.slug,
 	}));

@@ -145,12 +145,12 @@ async function loadContext(
 	}
 	await Promise.all(
 		[...mediaIdsByLanguage].map(async ([code, ids]) => {
-			const found = await loadByIds(
-				"media",
-				ids,
-				"id,source_url,alt_text",
-				{ apiID: "media", tag: "media", pageID: PAGE_ID, language: code },
-			);
+			const found = await loadByIds("media", ids, "id,source_url,alt_text", {
+				apiID: "media",
+				tag: "media",
+				pageID: PAGE_ID,
+				language: code,
+			});
 			for (const [id, row] of found) media.set(id, row);
 		}),
 	);
@@ -496,7 +496,11 @@ function mapFourStepProcess(acf) {
 	};
 }
 
-function mapInsights(acf, ctx, { extended = false, withTranslations = false } = {}) {
+function mapInsights(
+	acf,
+	ctx,
+	{ extended = false, withTranslations = false } = {},
+) {
 	const insights = group(acf, "insights");
 	if (!insights) return null;
 	const ids = toIds(insights.list);
@@ -581,7 +585,11 @@ function mapSoftwares(
 	};
 }
 
-function mapOurClient(acf, ctx, { withTabTitle = false, withTranslations = false } = {}) {
+function mapOurClient(
+	acf,
+	ctx,
+	{ withTabTitle = false, withTranslations = false } = {},
+) {
 	const ourClient = group(acf, "our_client");
 	if (!ourClient) return null;
 
@@ -620,19 +628,17 @@ function mapOurClient(acf, ctx, { withTabTitle = false, withTranslations = false
 				testimonials: { designation: orNull(testimonial.acf?.designation) },
 			};
 			if (withTranslations) {
-				node.translations = (testimonial.translations || []).map(
-					(translation) => {
-						const row = ctx.translatedTestimonials?.get(translation.id);
-						return {
-							language: translation.language,
-							content: row ? renderedHtml(row.content) : null,
-							title: row ? renderedTitle(row.title) : null,
-							testimonials: {
-								designation: row ? orNull(row.acf?.designation) : null,
-							},
-						};
-					},
-				);
+				node.translations = (testimonial.translations || []).map((translation) => {
+					const row = ctx.translatedTestimonials?.get(translation.id);
+					return {
+						language: translation.language,
+						content: row ? renderedHtml(row.content) : null,
+						title: row ? renderedTitle(row.title) : null,
+						testimonials: {
+							designation: row ? orNull(row.acf?.designation) : null,
+						},
+					};
+				});
 			}
 			return node;
 		});

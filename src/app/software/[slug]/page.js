@@ -37,7 +37,6 @@ import { getRegions } from "@/services/GlobalPresence.service";
 import { getPageSeo } from "@/services/Seo.service";
 import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
 
-
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	// const meta = await getPageSeo({

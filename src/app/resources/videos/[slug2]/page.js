@@ -32,7 +32,6 @@ import {
 } from "@/services/Videos.service";
 import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 
-
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const { slug2 } = params;
@@ -70,7 +69,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const data = await getAllVideos();
+	const data = await getAllVideos("first: 5");
 	// The segment is [slug2]; returning `slug` left this route with nothing
 	// prerendered, so every video rendered on demand on its first visit.
 	return (data?.data?.videos?.nodes || [])

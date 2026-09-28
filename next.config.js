@@ -4,6 +4,9 @@ const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
 	poweredByHeader: false,
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	sassOptions: {

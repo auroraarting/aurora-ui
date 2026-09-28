@@ -35,7 +35,6 @@ import { getPageSeo } from "@/services/Seo.service";
 
 // DATA //
 
-
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const meta = await getPageSeo(`howwehelpBy(slug: "${params.slug}")`);
@@ -60,7 +59,7 @@ export async function generateMetadata({ params }) {
 
 /** generateStaticParams  */
 export async function generateStaticParams() {
-	const services = await getHowWeHelps();
+	const services = await getHowWeHelps("first: 5");
 	return services?.data?.howWeHelps?.nodes?.map((item) => ({
 		slug: item.slug,
 	}));

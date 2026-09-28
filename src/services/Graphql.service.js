@@ -101,7 +101,7 @@ function proxyAllMediaUrls(obj) {
  *  @param {string} query
  *  @param {{ tag?: string|string[] }} [dataObj]
  */
-export default async function GraphQLAPI(query, dataObj = {}) {
+export async function GraphQLAPINew(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
@@ -140,7 +140,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 }
 
 /** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPIOld(query, dataObj) {
+export default async function GraphQLAPI(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
@@ -158,6 +158,7 @@ export async function GraphQLAPIOld(query, dataObj) {
 	// }
 
 	// Cache
+	const refreshInterval = 3600; // 30 minutes
 	let startTime = null; // Start time
 	let res;
 	let req;
@@ -185,7 +186,7 @@ export async function GraphQLAPIOld(query, dataObj) {
 			body: JSON.stringify({ ...data }),
 		});
 		res = await req.json();
-		console.log(res, "res");
+		// console.log(res, JSON.stringify(res), "res");
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
 		// console.log(
@@ -198,7 +199,7 @@ export async function GraphQLAPIOld(query, dataObj) {
 		console.log(
 			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
 		);
-		console.log(error, req, "errror");
+		console.log(error, JSON.stringify(query), "errror");
 	}
 }
 

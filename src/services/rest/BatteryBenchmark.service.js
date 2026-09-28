@@ -8,6 +8,13 @@
 // so a short window here just means visitors pay that latency again for nothing.
 const REFRESH_INTERVAL = 604800; // 1 week
 
+// The Real Performance leaderboard reports daily, not monthly, so a week-long
+// window is too stale for it. An hour matches the s-maxage already used for
+// the indices list in app/api/battery-benchmarks/route.js. Interactive
+// requests (a visitor changing the date range) bypass this entirely via
+// `cache: "no-store"` and always hit the live endpoint.
+const LEADERBOARD_REFRESH_INTERVAL = 3600; // 1 hour
+
 // The benchmark endpoints are slow (~2.8s each), so a whole region's worth of
 // series is fetched in small parallel batches rather than one at a time.
 // Do NOT raise this: measured against the live API, 6 at a time returns 32/32,
@@ -69,13 +76,17 @@ const RESTAPI = async (query, options) => {
 };
 
 /** Shared request for the endpoints that answer with CSV */
-const RESTAPICsv = async (query, options) => {
+const RESTAPICsv = async (query, options = {}) => {
 	const res = await fetch(`${process.env.BATTERY_BENCHMARK_API_URL}${query}`, {
 		method: "GET",
 		headers: {
 			"Private-Token": process.env.BATTERY_BENCHMARK_TOKEN,
 		},
-		next: { revalidate: REFRESH_INTERVAL },
+		// A caller asking for `cache: "no-store"` wants a genuinely live request —
+		// pairing that with `next.revalidate` throws ("no-store" and a revalidate
+		// window contradict each other), so the default only applies when nothing
+		// else specifies its own cache mode.
+		...(options.cache ? {} : { next: { revalidate: REFRESH_INTERVAL } }),
 		...options,
 	});
 	if (!res.ok) {
@@ -407,7 +418,13 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 }
 
 /** Fetch the real-performance leaderboard for a region.
- *  Returns the raw CSV. */
+ *  Returns the raw CSV.
+ *
+ *  Cached on a timer by default (see LEADERBOARD_REFRESH_INTERVAL) so the
+ *  page's initial, default-date-range render can be statically generated.
+ *  Pass `{ cache: "no-store" }` for a request that must be live — that's what
+ *  the interactive API route (app/api/battery-benchmarks) does for a visitor's
+ *  own date range. */
 export const getLeaderboard = async (
 	region,
 	{ start, end, index } = {},
@@ -421,7 +438,7 @@ export const getLeaderboard = async (
 
 	try {
 		return await RESTAPICsv(`/leaderboards/${region}?${params.toString()}`, {
-			cache: "no-store",
+			...(options.cache ? {} : { next: { revalidate: LEADERBOARD_REFRESH_INTERVAL } }),
 			...options,
 		});
 	} catch (error) {
@@ -434,9 +451,10 @@ export const getLeaderboard = async (
 export const getLeaderboardSeries = async (
 	region,
 	{ start, end, index, currency } = {},
+	options = {},
 ) => {
 	try {
-		const csv = await getLeaderboard(region, { start, end, index });
+		const csv = await getLeaderboard(region, { start, end, index }, options);
 		return { uuid: index, ...parseLeaderboardCsv(csv, currency) };
 	} catch (error) {
 		console.error(

@@ -1,6 +1,9 @@
-// Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
-// ❌ Remove: export const fetchCache = "force-no-store";
+// ISR: statically generated, then revalidated in the background. 1800s matches
+// the shortest-lived data on the page (the Real Performance methodology API's
+// pre-signed media URLs expire after an hour — see Methodology.service.js).
+// WordPress content and benchmark series are cached separately (tag-flushed or
+// on a longer timer) and are unaffected by this.
+export const revalidate = 1800;
 
 // MODULES //
 
@@ -30,7 +33,6 @@ import {
 } from "@/services/rest/BatteryBenchmark.service";
 import { getBatteryBenchmarkPage } from "@/services/rest/BatteryBenchmarkPage.service";
 import { getRealPerformanceMethodology } from "@/services/rest/Methodology.service";
-
 
 /** generateMetadata */
 export async function generateMetadata() {

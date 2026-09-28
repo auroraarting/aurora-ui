@@ -301,10 +301,10 @@ query GetSingleHowWeHelp {
 };
 
 /** Fetch Page */
-export const getHowWeHelps = async () => {
+export const getHowWeHelps = async (filters = "first: 999") => {
 	const query = `
 query GetAllHowWeHelps {
-  howWeHelps(first: 999) {
+  howWeHelps(${filters}) {
     nodes {
       slug
       howWeHelpInside {
