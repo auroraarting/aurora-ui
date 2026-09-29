@@ -1,14 +1,20 @@
-// Real Performance methodologies — Aurora Methodologies API (Strapi v5).
+// Benchmark methodologies — Aurora Methodologies API (Strapi v5).
 //
-// The Real Performance tab's methodology used to come from the Battery
-// Benchmarks page in WordPress (the `realPMethodology_v2` ACF repeater, still
-// normalised in BatteryBenchmarkPage.service.js). It now comes from this API
+// Both tabs' methodology used to come from the Battery Benchmarks page in
+// WordPress (the `realPMethodology_v2` / `methodology_v2` ACF repeaters, still
+// normalised in BatteryBenchmarkPage.service.js). They now come from this API
 // instead: one published document per market, authored in the Aurora CMS.
-// The Backcast tab is untouched and still reads ACF.
+//
+// The API files every market's document for both tabs under the same product
+// ("Flexplorer"), distinguished only by a slug prefix — "RPB_…" for Real
+// Performance, "BCB_…" for Backcast — so each fetch below filters on that
+// prefix; without it, a Backcast document could surface as a Real Performance
+// row (or the reverse) for whatever market it names.
 //
 // The output shape here is exactly what MethodologyPanelV2 already consumes —
 // one row per region, each carrying a nested `sections` outline — so the panel
-// itself needed no changes and the ACF field remains a working fallback.
+// itself needed no changes and the ACF fields remain a working fallback for
+// either tab.
 //
 // Docs: methodolofy.md at the repo root.
 
@@ -463,11 +469,14 @@ function toMethodologyRow(doc) {
 	};
 }
 
-/** GET the Real Performance methodologies for every market. */
-async function fetchMethodologies(locale) {
+/** GET the methodologies for every market whose slug starts with `slugPrefix`
+ *  — the one field that tells a Real Performance ("RPB_…") document apart from
+ *  a Backcast ("BCB_…") one, both filed under the same product. */
+async function fetchMethodologies(locale, slugPrefix) {
 	const params = new URLSearchParams({
 		...POPULATE,
 		"filters[product][name][$eq]": PRODUCT,
+		"filters[slug][$startsWith]": slugPrefix,
 		locale,
 		// One market per document and a handful of markets, so a single page is
 		// the whole set. 100 is the API's maximum.
@@ -489,13 +498,14 @@ async function fetchMethodologies(locale) {
 	return Array.isArray(json?.data) ? json.data : [];
 }
 
-/** Real Performance methodology rows, one per market.
+/** Methodology rows for one tab (Real Performance or Backcast), one per market.
  *
- *  Returns [] on any failure — an unreachable API leaves the Real Performance
- *  tab on whatever the ACF field still holds rather than failing the page. */
-export const getRealPerformanceMethodology = async (locale = "en") => {
+ *  Returns [] on any failure or when nothing published matches — an
+ *  unreachable API, or a slug prefix with nothing behind it yet, leaves the
+ *  tab on whatever its ACF field still holds rather than failing the page. */
+async function fetchMethodologyRows(locale, slugPrefix, label) {
 	try {
-		const docs = await fetchMethodologies(locale);
+		const docs = await fetchMethodologies(locale, slugPrefix);
 		const byRegion = new Map();
 
 		for (const doc of docs) {
@@ -515,10 +525,15 @@ export const getRealPerformanceMethodology = async (locale = "en") => {
 
 		return [...byRegion.values()].map((entry) => entry.row);
 	} catch (error) {
-		console.error(
-			"Real Performance methodology fetch failed:",
-			error?.message || error,
-		);
+		console.error(`${label} methodology fetch failed:`, error?.message || error);
 		return [];
 	}
-};
+}
+
+/** Real Performance methodology rows, one per market. */
+export const getRealPerformanceMethodology = (locale = "en") =>
+	fetchMethodologyRows(locale, "RPB_", "Real Performance");
+
+/** Backcast methodology rows, one per market. */
+export const getBackcastMethodology = (locale = "en") =>
+	fetchMethodologyRows(locale, "BCB_", "Backcast");

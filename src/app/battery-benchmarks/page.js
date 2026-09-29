@@ -31,7 +31,10 @@ import {
 	getBenchmarkSeriesByUuid,
 } from "@/services/rest/BatteryBenchmark.service";
 import { getBatteryBenchmarkPage } from "@/services/rest/BatteryBenchmarkPage.service";
-import { getRealPerformanceMethodology } from "@/services/rest/Methodology.service";
+import {
+	getBackcastMethodology,
+	getRealPerformanceMethodology,
+} from "@/services/rest/Methodology.service";
 
 /** generateMetadata */
 export async function generateMetadata() {
@@ -56,16 +59,25 @@ export async function generateMetadata() {
 
 /** Fetch  */
 async function getData() {
-	const [regions, benchmarks, realBenchmarks, pageContent, realMethodology] =
-		await Promise.all([
-			getAllRegions(),
-			getAllBenchmarks(),
-			getAllLeaderboardIndices(),
-			getBatteryBenchmarkPage(),
-			// Real Performance methodology comes from the Methodologies API rather
-			// than WordPress; the Backcast one is still part of pageContent.
-			getRealPerformanceMethodology(),
-		]);
+	const [
+		regions,
+		benchmarks,
+		realBenchmarks,
+		pageContent,
+		realMethodology,
+		backcastMethodology,
+	] = await Promise.all([
+		getAllRegions(),
+		getAllBenchmarks(),
+		getAllLeaderboardIndices(),
+		getBatteryBenchmarkPage(),
+		// Both tabs' methodology comes from the Methodologies API first, each
+		// filtered to its own document family (see Methodology.service.js); the
+		// ACF fields in pageContent are only the fallback for when the API has
+		// nothing for a tab.
+		getRealPerformanceMethodology(),
+		getBackcastMethodology(),
+	]);
 
 	// Pre-seed Backcast series on the server; Backcast changes monthly, so a
 	// server-rendered snapshot is never meaningfully stale.
@@ -88,6 +100,7 @@ async function getData() {
 			initialSeries,
 			realBenchmarks,
 			realMethodology,
+			backcastMethodology,
 		},
 	};
 }

@@ -39,6 +39,7 @@ export default function BatteryBenchmarkWrapper({
 	initialSeries,
 	realBenchmarks = [],
 	realMethodology = [],
+	backcastMethodology = [],
 }) {
 	// Banner copy and its button come from the Battery Benchmarks page in
 	// WordPress (wp/v2/pages?slug=battery-benchmarks).
@@ -77,17 +78,21 @@ export default function BatteryBenchmarkWrapper({
 		? region
 		: openingRegion;
 
-	// The methodology rows for the tab in view. Backcast still comes from ACF;
-	// Real Performance comes from the Methodologies API, falling back to the ACF
-	// field for as long as that is still filled in, so an unreachable API costs
-	// freshness rather than the whole panel.
+	// The methodology rows for the tab in view. Both tabs come from the
+	// Methodologies API first, falling back to their own ACF field for as long
+	// as that is still filled in, so an unreachable API (or a tab the CMS has no
+	// documents for yet) costs freshness rather than the whole panel.
 	const isReal = benchmarkType === "real";
 	const methodologySections = useMemo(() => {
-		if (!isReal) return pageContent?.methodologyV2;
+		if (!isReal) {
+			return backcastMethodology?.length
+				? backcastMethodology
+				: pageContent?.methodologyV2;
+		}
 		return realMethodology?.length
 			? realMethodology
 			: pageContent?.realPMethodologyV2;
-	}, [isReal, pageContent, realMethodology]);
+	}, [isReal, pageContent, realMethodology, backcastMethodology]);
 
 	// Which methodology model to render. Any published v2 row wins; with no v2
 	// rows this is false and the page behaves exactly as it does today.
