@@ -101,19 +101,25 @@ function proxyAllMediaUrls(obj) {
  *  @param {string} query
  *  @param {{ tag?: string|string[] }} [dataObj]
  */
-export async function GraphQLAPINew(query, dataObj = {}) {
+export default async function GraphQLAPI(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			try {
-				const req = await fetch(`${process.env.API_URL}`, {
-					...ServerHeaders,
-					body: JSON.stringify({ query }),
-					signal: AbortSignal.timeout(requestTimeoutMs),
-					cache: "force-cache",
-					next: { revalidate: false, tags },
-				});
+				const req = await fetch(
+					`${process.env.API_URL}?query=${encodeURIComponent(query)}`,
+					{
+						// ...ServerHeaders,
+						// body: JSON.stringify({ query }),
+						headers: {
+							"Content-Type": "application/json",
+						},
+						signal: AbortSignal.timeout(requestTimeoutMs),
+						cache: "force-cache",
+						next: { revalidate: false, tags },
+					},
+				);
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
 				}
@@ -140,7 +146,7 @@ export async function GraphQLAPINew(query, dataObj = {}) {
 }
 
 /** Legacy Redis-based version. Kept for reference only. */
-export default async function GraphQLAPI(query, dataObj) {
+export async function GraphQLAPIOld(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
