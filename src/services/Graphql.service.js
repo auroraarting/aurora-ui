@@ -101,7 +101,7 @@ function proxyAllMediaUrls(obj) {
  *  @param {string} query
  *  @param {{ tag?: string|string[] }} [dataObj]
  */
-export default async function GraphQLAPI(query, dataObj = {}) {
+export async function GraphQLAPINew(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
@@ -146,7 +146,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 }
 
 /** Legacy Redis-based version. Kept for reference only. */
-export async function GraphQLAPIOld(query, dataObj) {
+export default async function GraphQLAPI(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
