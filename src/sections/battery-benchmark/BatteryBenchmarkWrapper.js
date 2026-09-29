@@ -26,7 +26,11 @@ import styles from "@/styles/pages/product/Products.module.scss";
 // IMAGES //
 
 // DATA //
-import { buildRegions, firstAvailableRegion } from "./benchmarkData";
+import {
+	buildRegions,
+	firstAvailableRegion,
+	mergeMethodologyRows,
+} from "./benchmarkData";
 import { flexplorerChartUrl } from "./eosLinks";
 
 // SERVICES //
@@ -78,20 +82,17 @@ export default function BatteryBenchmarkWrapper({
 		? region
 		: openingRegion;
 
-	// The methodology rows for the tab in view. Both tabs come from the
-	// Methodologies API first, falling back to their own ACF field for as long
-	// as that is still filled in, so an unreachable API (or a tab the CMS has no
-	// documents for yet) costs freshness rather than the whole panel.
+	// The methodology rows for the tab in view. Both tabs merge the
+	// Methodologies API rows over their own ACF field, market by market — a
+	// market with nothing published in the API yet still shows its ACF content
+	// rather than losing it just because the API answered for other markets
+	// (see mergeMethodologyRows).
 	const isReal = benchmarkType === "real";
 	const methodologySections = useMemo(() => {
 		if (!isReal) {
-			return backcastMethodology?.length
-				? backcastMethodology
-				: pageContent?.methodologyV2;
+			return mergeMethodologyRows(backcastMethodology, pageContent?.methodologyV2);
 		}
-		return realMethodology?.length
-			? realMethodology
-			: pageContent?.realPMethodologyV2;
+		return mergeMethodologyRows(realMethodology, pageContent?.realPMethodologyV2);
 	}, [isReal, pageContent, realMethodology, backcastMethodology]);
 
 	// Which methodology model to render. Any published v2 row wins; with no v2

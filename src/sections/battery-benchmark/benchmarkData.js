@@ -360,6 +360,32 @@ export function buildChart(selection = [], seriesByUuid = {}, factor = 1) {
 	return { months, xLabels, series, currency };
 }
 
+/** mergeMethodologyRows - per-market merge of the Methodologies API rows over
+ *  the CMS (ACF) ones.
+ *
+ *  The API and the ACF field don't necessarily cover the same markets — a
+ *  market with nothing published in the API yet (e.g. only in ACF so far)
+ *  must not disappear just because the API answered with *some* rows for
+ *  other markets. So the merge is per region: an API row for a market takes
+ *  over that market, but a market the API is silent on still falls through to
+ *  whatever the CMS holds for it. */
+export function mergeMethodologyRows(apiRows = [], cmsRows = []) {
+	const keyOf = (row) => row?.regionCode || row?.id;
+	const byKey = new Map();
+
+	(Array.isArray(cmsRows) ? cmsRows : []).forEach((row) => {
+		const key = keyOf(row);
+		if (key) byKey.set(key, row);
+	});
+	// API rows are read second, so they overwrite the CMS row for any market
+	// both sides publish.
+	(Array.isArray(apiRows) ? apiRows : []).forEach((row) => {
+		const key = keyOf(row);
+		if (key) byKey.set(key, row);
+	});
+
+	return [...byKey.values()];
+}
 
 /** Benchmark index types shown in the top toggle */
 export const benchmarkTypes = [
