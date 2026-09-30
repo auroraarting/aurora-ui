@@ -124,7 +124,8 @@ export async function GraphQLAPINew(query, dataObj = {}) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
 				}
 				const res = await req.json();
-				return proxyAllMediaUrls(res);
+				// return proxyAllMediaUrls(res);
+				return res;
 			} catch (error) {
 				lastError = error;
 				console.error(
@@ -198,7 +199,8 @@ export default async function GraphQLAPI(query, dataObj) {
 		// console.log(
 		// 	`Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`
 		// );
-		return proxyAllMediaUrls(res);
+		// return proxyAllMediaUrls(res);
+		return res;
 	} catch (error) {
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
