@@ -1,6 +1,6 @@
 "use client";
 // MODULES //
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 
 // COMPONENTS //
 import Button from "@/components/Buttons/Button";
@@ -21,6 +21,7 @@ import formatDate, {
 	updateQueryFast,
 } from "@/utils";
 import EqualHeight from "@/utils/EqualHeight";
+import { scrollToSection } from "@/utils/ScrollToSection";
 
 // STYLES //
 import styles from "@/styles/sections/events/EventsListing.module.scss";
@@ -36,6 +37,58 @@ import hoverBg from "@/../public/img/home/hoverBg.png";
 
 // DATA //
 
+/** Split events into live/upcoming ones and past (or undated) ones */
+const splitEvents = (arr = []) => {
+	const now = new Date();
+	const upcoming = [];
+	const past = [];
+
+	(arr || []).forEach((item) => {
+		const rawDate = item?.events?.thumbnail?.date;
+		const date = rawDate ? new Date(rawDate) : null;
+		if (date && !isNaN(date.getTime()) && date >= now) {
+			upcoming.push(item);
+		} else {
+			past.push(item);
+		}
+	});
+
+	// Soonest event first
+	upcoming.sort(
+		(a, b) =>
+			new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
+	);
+
+	// Most recent event first. Undated entries can't be compared, so they sink to
+	// the bottom rather than landing wherever the comparator happens to leave them.
+	past.sort((a, b) => {
+		const aTime = new Date(a?.events?.thumbnail?.date).getTime();
+		const bTime = new Date(b?.events?.thumbnail?.date).getTime();
+		if (isNaN(aTime)) return isNaN(bTime) ? 0 : 1;
+		if (isNaN(bTime)) return -1;
+		return bTime - aTime;
+	});
+
+	return { upcoming, past };
+};
+
+/** Pristine state of the filter bar dropdowns */
+const DEFAULT_DROPDOWNS = {
+	eventNameType: { isOpen: false, selected: { title: "Event Name" } },
+	countryType: { isOpen: false, selected: { title: "Country" } },
+	offeringsType: { isOpen: false, selected: { title: "Offerings" } },
+	eventStatusType: { isOpen: false, selected: { title: "Status" } },
+	yearsType: { isOpen: false, selected: { title: "Year" } },
+};
+
+/** Url query param -> dropdown it drives */
+const QUERY_TO_DROPDOWN = {
+	type: "eventNameType",
+	country: "countryType",
+	status: "eventStatusType",
+	year: "yearsType",
+};
+
 /** EventsListing Section */
 export default function EventsListing({
 	countries,
@@ -49,15 +102,44 @@ export default function EventsListing({
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
-	const [dropdowns, setDropdowns] = useState({
-		eventNameType: { isOpen: false, selected: { title: "Event Name" } },
-		countryType: { isOpen: false, selected: { title: "Country" } },
-		offeringsType: { isOpen: false, selected: { title: "Offerings" } },
-		eventStatusType: { isOpen: false, selected: { title: "Status" } },
-		yearsType: { isOpen: false, selected: { title: "Year" } },
-	});
-	const [list, setList] = useState(data);
+	const [dropdowns, setDropdowns] = useState(DEFAULT_DROPDOWNS);
+	// `list` holds the current page of past events, `paginationArr` the full filtered set
+	const [list, setList] = useState(() => splitEvents(data).past);
 	const [paginationArr, setPaginationArr] = useState(data);
+
+	// Current page of the past events pagination
+	const [currentPage, setCurrentPage] = useState(1);
+
+	// Incremented by a click that should bring the filters back into view; the
+	// effect below serves it once the DOM has settled. A counter rather than a
+	// boolean so two clicks in a row are two distinct requests.
+	const [scrollRequest, setScrollRequest] = useState(0);
+	const servedScroll = useRef(0);
+
+	/** Live / upcoming events are always shown in full, above the past ones */
+	const { upcoming: upcomingEvents, past: pastEvents } = useMemo(
+		() => splitEvents(paginationArr),
+		[paginationArr],
+	);
+
+	/** Does the full (unfiltered) dataset have anything to show on the past listing? */
+	const hasPastEvents = useMemo(() => splitEvents(data).past.length > 0, [data]);
+
+	/** ...and anything to come back to once the past listing is open? */
+	const hasUpcomingEvents = useMemo(
+		() => splitEvents(data).upcoming.length > 0,
+		[data],
+	);
+
+	// Past events are their own listing, reached through the "View Past Events"
+	// button or a `?status=Past` url. It also stands in whenever the current
+	// selection leaves no upcoming events, so filtered past results stay reachable.
+	const viewingPast = selected?.status === "Past";
+	const showPast = viewingPast || upcomingEvents?.length === 0;
+
+	// Upcoming events only belong on the first page
+	const showUpcoming =
+		!viewingPast && currentPage === 1 && upcomingEvents?.length > 0;
 	const [searchInput, setSearchInput] = useState(null);
 	/** Debounced search when typing */
 	useEffect(() => {
@@ -83,6 +165,8 @@ export default function EventsListing({
 	const handleChange = (option) => {
 		setSelected(option); // Only one selected option at a time
 	};
+
+	const sectionRef = useRef(null);
 
 	const dropdownRefs = {
 		eventNameType: useRef(null),
@@ -122,6 +206,36 @@ export default function EventsListing({
 		filter(option.title, key);
 	};
 
+	/** Ask for the filter bar to be scrolled into view. Bumping a counter rather
+	 *  than scrolling here on purpose — see the effect near EqualHeight below,
+	 *  which does the scrolling once the new listing has actually been laid out.
+	 *  A click handler is far too early: it runs before React has even
+	 *  re-rendered. */
+	const requestFilterScroll = () => setScrollRequest((n) => n + 1);
+
+	/** Switch over to the past events listing (same route, `?status=Past`) */
+	const viewPreviousEvents = (e) => {
+		e?.preventDefault();
+		handleOptionClick("eventStatusType", { title: "Past" });
+		requestFilterScroll();
+	};
+
+	/** Back out of the past listing: clears the status filter, keeping the rest */
+	const viewUpcomingEvents = (e) => {
+		e?.preventDefault();
+		handleOptionClick("eventStatusType", { title: "" });
+		requestFilterScroll();
+	};
+
+	/** A new page of past events replaces the cards below the filters, so the
+	 *  filters come back into view — but only when the reader clicked a page.
+	 *  Pagination also reports page 1 whenever the filtered set changes, and
+	 *  scrolling on that would jump the page on every keystroke in the search. */
+	const handlePageChange = (page, source) => {
+		setCurrentPage(page);
+		if (source === "click") requestFilterScroll();
+	};
+
 	/** filter  */
 	const filter = async (catName, key) => {
 		let selectedObj = selected;
@@ -155,7 +269,7 @@ export default function EventsListing({
 		setLoading(false);
 
 		const filteredArr = filterItemsBySelectedObj(arr, selectedObj);
-		setList(filteredArr);
+		setList(splitEvents(filteredArr).past);
 		setPaginationArr(filteredArr);
 		setSelected(selectedObj);
 
@@ -196,8 +310,18 @@ export default function EventsListing({
 		if (params.size > 0) {
 			setLoading(true);
 			setSelected(selecObj);
+			// Mirror the query params onto the dropdowns so they read as selected
+			setDropdowns((prev) => {
+				const next = { ...prev };
+				Object.entries(QUERY_TO_DROPDOWN).forEach(([param, key]) => {
+					if (selecObj[param] !== undefined) {
+						next[key] = { isOpen: false, selected: { title: selecObj[param] } };
+					}
+				});
+				return next;
+			});
 			const filteredArr = filterItemsBySelectedObj(data, selecObj);
-			setList(filteredArr);
+			setList(splitEvents(filteredArr).past);
 			setPaginationArr(filteredArr);
 			setLoading(false);
 		}
@@ -209,18 +333,160 @@ export default function EventsListing({
 	useEffect(() => {
 		if (search) {
 			const filtered = filterBySearchQueryEvents(data, search);
-			setList(filtered);
+			setList(splitEvents(filtered).past);
 			setPaginationArr(filtered);
 			setOriginal(filtered);
 		}
 	}, [search]);
 
+	/** Any new filter result starts back at page one */
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [paginationArr]);
+
 	useEffect(() => {
 		EqualHeight(`${styles.ItemBox}`);
-	}, [list, selected]);
+	}, [list, showUpcoming, showPast, selected]);
+
+	/** Scroll the filter bar back into view after a click that replaced the
+	 *  listing under it.
+	 *
+	 *  The scroll has to go through Lenis — see scrollToSection. That is what
+	 *  makes it move at all.
+	 *
+	 *  It also deliberately does not happen in the click handler, because
+	 *  everything below the filters is still changing height at that point:
+	 *
+	 *    - a click sets state, so the handler still sees the *old* layout;
+	 *    - setPaginationArr triggers setCurrentPage(1), and Pagination's own
+	 *      effect triggers setCurrentItems — two more render passes;
+	 *    - leaving page 1 drops the whole upcoming-events block, because
+	 *      showUpcoming requires currentPage === 1;
+	 *    - EqualHeight (above) then writes explicit heights onto every card.
+	 *
+	 *  A target measured before all that is stale, and since the page ends up
+	 *  shorter, it can land past the end of the document and be clamped.
+	 *
+	 *  So: wait for the commit (this effect), then for two frames — the first
+	 *  lets this commit's own layout and EqualHeight land, the second measures
+	 *  a page that has stopped changing size. No arbitrary timeout involved. */
+	useEffect(() => {
+		if (!scrollRequest || servedScroll.current === scrollRequest) return;
+		if (loading) return; // a filter is still resolving; the next commit retries
+		servedScroll.current = scrollRequest;
+
+		// Not cancelled on cleanup, deliberately. The re-renders listed above
+		// arrive between scheduling and firing, and a cleanup would cancel the
+		// frame while the guard above already counts the request as served — so
+		// the scroll would be dropped altogether. Letting it fire is also more
+		// correct: it then measures the newest layout, not the one that
+		// scheduled it. After unmount sectionRef is null and scrollToSection
+		// no-ops.
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => scrollToSection(sectionRef.current));
+		});
+		// `list` and `currentPage` are here so a request made while a filter was
+		// still resolving is re-served on the commit that finishes it.
+	}, [scrollRequest, loading, list, currentPage]);
+
+	/** Render a single event card */
+	const renderEventCard = (item, isLive) => {
+		let hrefObj = {};
+		if (item?.events?.thumbnail?.externalUrl) {
+			hrefObj.href = item?.events?.thumbnail?.externalUrl;
+			hrefObj.onClick = (e) => {
+				e?.preventDefault(); // Prevent navigation
+				OpenIframePopup(
+					"iframePopup",
+					item?.events?.thumbnail?.externalUrl ||
+						"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
+				);
+			};
+			if (item?.events?.thumbnail?.openExternalInNewTab) {
+				delete hrefObj.onClick;
+				hrefObj.target = "_blank"; // Open in new tab
+				hrefObj.rel = "noopener noreferrer"; // Security best practice
+			}
+		} else {
+			hrefObj.href = `/events/${item?.slug}`;
+		}
+
+		return (
+			<div className={`${styles.ItemBox}`} key={item?.title}>
+				<Link {...hrefObj}>
+					<div className={`${styles.hoverBox}`}>
+						<img
+							src={hoverBg.src}
+							className={`${styles.hoverBg} width_100 b_r_10`}
+							alt="img"
+						/>
+						<div className={`${styles.thumb}`}>
+							<div className={`${styles.logoWrap}`}>
+								{isLive ? (
+									<p
+										className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
+									>
+										Live
+									</p>
+								) : (
+									<div></div>
+								)}
+								<img
+									src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
+									className={`${styles.productLogo} `}
+									alt="Events Logo"
+								/>
+							</div>
+							{item?.events?.banner?.desktop?.node?.mediaItemUrl && (
+								<img
+									src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
+									className={`${styles.productLogoBanner} `}
+									alt="Events Banner"
+								/>
+							)}
+						</div>
+						{item?.eventscategories?.nodes?.length > 0 && (
+							<p
+								className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
+							>
+								{item?.eventscategories?.nodes?.map((item2) => item2.name)}
+							</p>
+						)}
+						<p
+							className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
+						>
+							{item?.title}
+						</p>
+						<div className={`${styles.dateFlex} f_j pt_40`}>
+							<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
+								<img
+									src={calender.src}
+									className={`${styles.calender}`}
+									alt="calender"
+								/>
+								<span>{formatDate(item?.events?.thumbnail?.date)}</span>
+							</p>
+							<p className="text_xs f_w_m color_light_gray f_r_a_center">
+								<img
+									src={location.src}
+									className={`${styles.location}`}
+									alt="location"
+								/>
+								<span className="text_uppercase">
+									{item?.events?.thumbnail?.country?.nodes
+										?.map((item2) => item2.title)
+										.join(", ")}
+								</span>
+							</p>
+						</div>
+					</div>
+				</Link>
+			</div>
+		);
+	};
 
 	return (
-		<section className={styles.EventsListing}>
+		<section className={styles.EventsListing} ref={sectionRef}>
 			<div className={styles.filterMain}>
 				<div className="container">
 					<div className={styles.filterflex}>
@@ -457,7 +723,8 @@ export default function EventsListing({
 									className={`${styles.select_header_wapper} "activeDropDown"`}
 									onClick={() => {
 										setSelected({});
-										setList(data);
+										setDropdowns(DEFAULT_DROPDOWNS);
+										setList(splitEvents(data).past);
 										setPaginationArr(data);
 										const newUrl = `${window.location.pathname}`;
 										window.history.pushState({}, "", newUrl); // Fast and smooth
@@ -524,118 +791,89 @@ export default function EventsListing({
 				</div>
 			</div>
 			<div className="container">
-				<div className={`${styles.insightsItemFlex} d_f m_t_20`}>
-					{list?.map((item, ind) => {
-						let hrefObj = {};
-						if (item?.events?.thumbnail?.externalUrl) {
-							hrefObj.href = item?.events?.thumbnail?.externalUrl;
-							hrefObj.onClick = (e) => {
-								e?.preventDefault(); // Prevent navigation
-								OpenIframePopup(
-									"iframePopup",
-									item?.events?.thumbnail?.externalUrl ||
-										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
-								);
-							};
-							if (item?.events?.thumbnail?.openExternalInNewTab) {
-								delete hrefObj.onClick;
-								hrefObj.target = "_blank"; // Open in new tab
-								hrefObj.rel = "noopener noreferrer"; // Security best practice
-							}
-						} else {
-							hrefObj.href = `/events/${item?.slug}`;
-						}
+				{/* Upcoming / Live Events — first page only */}
+				{showUpcoming && (
+					<>
+						<h2
+							className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
+						>
+							Upcoming Events
+						</h2>
+						<div className={`${styles.insightsItemFlex} d_f`}>
+							{upcomingEvents.map((item) => renderEventCard(item, true))}
+						</div>
+					</>
+				)}
 
-						const isLive = new Date(item?.events?.thumbnail?.date) >= new Date();
+				{/* Gateway to the past events listing, at the end of the upcoming ones */}
+				{!showPast && hasPastEvents && (
+					<div className={`${styles.viewPastWrap} f_r_aj_center`}>
+						{/* A plain anchor, not next/link: the href keeps the past listing
+						    linkable, while the handler filters in place without letting the
+						    router remount this section mid-update. */}
+						<a href="/events?status=Past" onClick={viewPreviousEvents}>
+							<Button color="primary" variant="filled" shape="rounded" mode="dark">
+								View Past Events
+							</Button>
+						</a>
+					</div>
+				)}
 
-						return (
-							<div className={`${styles.ItemBox}`} key={item?.title}>
-								<Link {...hrefObj}>
-									<div className={`${styles.hoverBox}`}>
-										<img
-											src={hoverBg.src}
-											className={`${styles.hoverBg} width_100 b_r_10`}
-											alt="img"
-										/>
-										<div className={`${styles.thumb}`}>
-											<div className={`${styles.logoWrap}`}>
-												{isLive ? (
-													<p
-														className={`${styles.liveTag} text_xxs color_secondary text_uppercase`}
-													>
-														Live
-													</p>
-												) : (
-													<div></div>
-												)}
-												<img
-													src={item?.events?.thumbnail?.logo?.node?.mediaItemUrl}
-													className={`${styles.productLogo} `}
-													alt="Events Logo"
-												/>
-											</div>
-											{item?.events?.banner?.desktop?.node?.mediaItemUrl && (
-												<img
-													src={item?.events?.banner?.desktop?.node?.mediaItemUrl}
-													className={`${styles.productLogoBanner} `}
-													alt="Events Banner"
-												/>
-											)}
-										</div>
-										{item?.eventscategories?.nodes?.length > 0 && (
-											<p
-												className={`${styles.categoryTxt} text_xs font_primary color_dark_gray text_uppercase m_t_40`}
-											>
-												{item?.eventscategories?.nodes?.map((item2) => item2.name)}
-											</p>
-										)}
-										<p
-											className={`${styles.descTxt} text_reg font_primary color_dark_gray pt_20`}
+				{/* Past & Other Events */}
+				{showPast && (
+					<>
+						{(pastEvents?.length > 0 || (viewingPast && hasUpcomingEvents)) && (
+							<div className={`${styles.pastHeaderRow} d_f`}>
+								{pastEvents?.length > 0 && (
+									<h2
+										className={`${styles.groupTitle} text_xs f_w_m color_secondary text_uppercase`}
+									>
+										Past Events
+									</h2>
+								)}
+								{/* Way back to the default listing — same plain-anchor trick as above */}
+								{viewingPast && hasUpcomingEvents && (
+									<a
+										className={styles.backToLatest}
+										href="/events"
+										onClick={viewUpcomingEvents}
+									>
+										<Button
+											color="primary"
+											variant="filled"
+											shape="rounded"
+											mode="dark"
+											size="text_xs"
 										>
-											{item?.title}
-										</p>
-										<div className={`${styles.dateFlex} f_j pt_40`}>
-											<p className="text_xs f_w_m color_light_gray text_uppercase f_r_a_center">
-												<img
-													src={calender.src}
-													className={`${styles.calender}`}
-													alt="calender"
-												/>
-												<span>{formatDate(item?.events?.thumbnail?.date)}</span>
-											</p>
-											<p className="text_xs f_w_m color_light_gray f_r_a_center">
-												<img
-													src={location.src}
-													className={`${styles.location}`}
-													alt="location"
-												/>
-												<span className="text_uppercase">
-													{item?.events?.thumbnail?.country?.nodes
-														?.map((item2) => item2.title)
-														.join(", ")}
-												</span>
-											</p>
-										</div>
-									</div>
-								</Link>
+											View Upcoming Events
+										</Button>
+									</a>
+								)}
 							</div>
-						);
-					})}
-					{loading && <p>Loading...</p>}
-					{list?.length === 0 && !loading && (
-						<p className={`${styles.nodataText} nodataText`}>
-							No events available for this selection. Please choose a different option.
-						</p>
-					)}
-				</div>
-				{list?.length > 0 && (
-					<Pagination
-						data={list}
-						paginationArr={paginationArr}
-						setCurrentItems={setList}
-						isDark={true}
-						// itemsPerPage={12}
-					/>
+						)}
+						<div className={`${styles.insightsItemFlex} d_f`}>
+							{list?.map((item) => renderEventCard(item, false))}
+							{loading && <p>Loading...</p>}
+							{upcomingEvents?.length === 0 &&
+								pastEvents?.length === 0 &&
+								!loading && (
+									<p className={`${styles.nodataText} nodataText`}>
+										No events available for this selection. Please choose a different
+										option.
+									</p>
+								)}
+						</div>
+						{pastEvents?.length > 0 && (
+							<Pagination
+								data={pastEvents}
+								paginationArr={pastEvents}
+								setCurrentItems={setList}
+								onPageChange={handlePageChange}
+								isDark={true}
+								// itemsPerPage={12}
+							/>
+						)}
+					</>
 				)}
 			</div>
 		</section>

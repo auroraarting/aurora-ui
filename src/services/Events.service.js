@@ -1,5 +1,6 @@
 import { cache } from "react";
 import GraphQLAPI from "./Graphql.service";
+import { entryTag } from "./CacheTags";
 
 /** Fetch Page */
 export const getAllEvents = cache(async (filters = "first:9999") => {
@@ -289,8 +290,8 @@ query GetEventsListing {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		tags: ["event"],
 		apiID: "event",
+		tag: ["event", "country", "event-category", "eventdownload", "post-speaker"],
 		pageID: "/events",
 	});
 	return res;
@@ -309,8 +310,8 @@ query GetEventCategories {
 }
     `;
 	const res = await GraphQLAPI(query, {
-		tags: ["eventscategories"],
 		apiID: "common",
+		tag: "event-category",
 		pageID: "/events",
 	});
 	return res;
@@ -348,8 +349,8 @@ query GetEventInside {
     `;
 	// taxonomies
 	const res = await GraphQLAPI(query, {
-		tags: ["country", "product", "software", "service"],
 		apiID: "common",
+		tag: ["country", "product", "service", "software"],
 		pageID: "/events",
 	});
 	return res;
@@ -371,6 +372,15 @@ query GetEventInsideNew {
       }
     }
     events {
+      advetisment{
+        url
+        media {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+      }
       sectionOrders{
         glimps
         hightlights
@@ -410,6 +420,14 @@ query GetEventInsideNew {
       }
       interestedDesc
       pricingDesc
+      # Company logo carousel above the upcoming event card (EventsMiddleRight.js).
+      # ACF repeater: one row per logo.
+      sidebarLogos {
+        nodes {
+          altText
+          mediaItemUrl
+        }
+      }
       thumbnail {
         openExternalInNewTab
         address
@@ -538,6 +556,13 @@ query GetEventInsideNew {
                 title
                 slug
                 postSpeakers {
+                  # Rendered opposite the speaker's name in the popup (Speakers.js)
+                  companyLogo {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
                   thumbnail {
                     designation
                     linkedinLink
@@ -648,8 +673,8 @@ query GetEventInsideNew {
 }
       `;
 	const res = await GraphQLAPI(query, {
-		tags: ["event", `event:${slug}`],
 		apiID: "event",
+		tag: [entryTag("event", slug), "country", "eventdownload", "post-speaker"],
 		pageID: `/events/${slug}`,
 	});
 	return res;
@@ -677,6 +702,13 @@ query GetEventLanding {
               content
               title
               postSpeakers {
+                # Rendered opposite the speaker's name in the popup (Speakers.js)
+                companyLogo {
+                  node {
+                    altText
+                    mediaItemUrl
+                  }
+                }
                 thumbnail {
                   designation
                   linkedinLink
@@ -858,8 +890,19 @@ query GetEventLanding {
 }
       `;
 	const res = await GraphQLAPI(query, {
-		tags: ["page:event-landing"],
 		apiID: "page",
+		tag: [
+			"page:event-landing",
+			"country",
+			"event",
+			"event-category",
+			"post",
+			"post-speaker",
+			"product",
+			"service",
+			"software",
+			"testimonial",
+		],
 		pageID: "/events",
 	});
 	return res;

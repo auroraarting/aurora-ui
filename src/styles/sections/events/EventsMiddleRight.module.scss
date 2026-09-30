@@ -22,6 +22,14 @@
 			.ClientFlex {
 				.ClientDescription {
 					width: 100%;
+					/* The rail is sticky, so anything past the viewport can't be
+					   scrolled to — a tall creative is fitted to the card instead of
+					   setting the column's height. */
+					.advertismentImg {
+						width: 100%;
+						max-height: 420px;
+						object-fit: contain;
+					}
 					h3 {
 						&:last-child {
 							margin: 0;
@@ -57,5 +65,49 @@
 	}
 	.yellowBox {
 		background-color: var(--color_primary);
+	}
+	// The advert that takes the upcoming-event slot when the space is sold. The
+	// creative is the card's whole content, so it sits closer to the edge than
+	// the text cards do rather than floating in 30px of white.
+	.advertBox {
+		padding: 16px;
+		line-height: 0;
+	}
+	// Company logo carousel, sat above the upcoming event card
+	.logoBox {
+		// Bottom padding is light because the pagination adds its own gap below;
+		// without pagination the slider sits flush and the padding evens out.
+		padding: 20px 20px 20px;
+		.logoSlider {
+			:global(.swiper-pagination) {
+				position: static;
+				margin-top: 0px;
+				margin-bottom: 0px;
+				line-height: 1;
+			}
+			:global(.swiper-pagination-bullet) {
+				background: var(--color_platinum_gray);
+				opacity: 1;
+			}
+			:global(.swiper-pagination-bullet-active) {
+				background: var(--color_secondary);
+			}
+		}
+		// Logos come in mixed aspect ratios, so each slide is a fixed-height box
+		// the artwork is centred and contained within.
+		.logoItem {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 160px;
+
+			img {
+				max-width: 100%;
+				max-height: 100%;
+				width: auto;
+				height: auto;
+				object-fit: contain;
+			}
+		}
 	}
 }

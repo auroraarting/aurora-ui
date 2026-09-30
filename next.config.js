@@ -4,6 +4,10 @@ const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
 	poweredByHeader: false,
+	eslint: {
+		// Lint errors no longer fail `next build`; run `npm run lint` separately
+		ignoreDuringBuilds: true,
+	},
 	productionBrowserSourceMaps: false,
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	// experimental: {

@@ -8,6 +8,10 @@ import ContentFromCms from "@/components/ContentFromCms";
 // SECTIONS //
 
 // PLUGINS //
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
 
 // UTILS //
 import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
@@ -16,18 +20,35 @@ import formatDate, { dynamicInsightsBtnProps, OpenIframePopup } from "@/utils";
 import styles from "@/styles/sections/events/EventsMiddleRight.module.scss";
 
 // IMAGES //
-import spring_forum from "@/../public/img/events/spring_forum.png";
 import grey_location from "../../../public/img/icons/grey_location.svg";
 import grey_calendar from "../../../public/img/icons/grey_calendar.svg";
-
-import author_logo from "@/../public/img/resources/aurora_insights/author_logo.png";
-import social_icon from "@/../public/img/resources/aurora_insights/social_icon.svg";
-import origin from "@/../public/img/resources/aurora_insights/origin.png";
+import Link from "next/link";
 
 // DATA //
 
 /** Client Section */
 export default function EventsMiddleRight({ data, events }) {
+	// Company logos for the carousel above the upcoming event card. `sidebarLogos`
+	// is an ACF repeater, so it arrives as one row per logo.
+	const companyLogos = (data?.events?.sidebarLogos?.nodes || [])
+		// .map((item) => item?.companyLogo?.node)
+		.filter((node) => node?.mediaItemUrl);
+	// Two logos per view. Dots, autoplay and dragging only appear once there are
+	// more logos than fit on screen — otherwise there is nothing to navigate to.
+	const logosPerView = 1;
+	const logosScrollable = companyLogos.length > logosPerView;
+
+	// The last card in the sidebar is one slot, not two. It carries the advert
+	// when the space has been sold, and falls back to the Upcoming event card
+	// when it hasn't — so the column keeps its height either way instead of
+	// growing a fifth card the sticky rail has no room to show.
+	//
+	// Which one appears is decided by the advert image alone: uploading it is the
+	// whole switch, clearing it is the whole way back to the event.
+	const advert = data?.events?.advetisment;
+	const advertImage = advert?.media?.node;
+	const hasAdvert = Boolean(advertImage?.mediaItemUrl);
+
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
 			{data?.events?.interestedDesc && (
@@ -67,12 +88,12 @@ export default function EventsMiddleRight({ data, events }) {
 									<ContentFromCms>{data?.events?.pricingDesc}</ContentFromCms>
 									{dynamicInsightsBtnProps(
 										{ postFields: data?.events },
-										"middleSectionButton"
+										"middleSectionButton",
 									).btntext && (
 										<div
 											{...dynamicInsightsBtnProps(
 												{ postFields: data?.events },
-												"middleSectionButton"
+												"middleSectionButton",
 											)}
 											key="btn"
 											to="Insights"
@@ -81,7 +102,7 @@ export default function EventsMiddleRight({ data, events }) {
 												{
 													dynamicInsightsBtnProps(
 														{ postFields: data?.events },
-														"middleSectionButton"
+														"middleSectionButton",
 													).btntext
 												}
 											</Button>
@@ -99,7 +120,75 @@ export default function EventsMiddleRight({ data, events }) {
 				</div>
 			)}
 
-			{events?.length > 0 && (
+			{companyLogos.length > 0 && (
+				<div className={`${styles.whiteBox} ${styles.logoBox}`}>
+					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
+						PARTNERS
+					</h5>
+					<Swiper
+						modules={[Pagination, Autoplay]}
+						slidesPerView={logosPerView}
+						spaceBetween={16}
+						grabCursor={logosScrollable}
+						loop={logosScrollable}
+						speed={600}
+						pagination={logosScrollable ? { clickable: true } : false}
+						autoplay={
+							logosScrollable ? { delay: 3000, disableOnInteraction: false } : false
+						}
+						className={styles.logoSlider}
+					>
+						{companyLogos.map((item, ind) => (
+							<SwiperSlide key={item?.mediaItemUrl || ind}>
+								<div className={`${styles.logoItem}`}>
+									<img
+										src={item?.mediaItemUrl}
+										alt={item?.altText || "Company logo"}
+										loading="lazy"
+									/>
+								</div>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
+			)}
+
+			{/* ── Advert / Upcoming event slot ─────────────── */}
+			{hasAdvert && (
+				<div className={`${styles.whiteBox} ${styles.advertBox}`}>
+					<div className={`${styles.itemBox}`}>
+						<div className={`${styles.ClientFlex} f_r_a_center text_xs`}>
+							<div className={`${styles.ClientDescription}`}>
+								{/* The advert links out only when the CMS gives it a URL — a
+								    next/link with no href throws, so an unlinked creative is a
+								    plain image rather than a broken page. */}
+								{advert?.url ? (
+									<Link
+										href={advert.url}
+										target="_blank"
+										rel="noreferrer"
+										className="text_xs color_dark_gray font_primary"
+									>
+										<img
+											className={`${styles.advertismentImg}`}
+											src={advertImage.mediaItemUrl}
+											alt={advertImage.altText || "Advertisement"}
+										/>
+									</Link>
+								) : (
+									<img
+										className={`${styles.advertismentImg}`}
+										src={advertImage.mediaItemUrl}
+										alt={advertImage.altText || "Advertisement"}
+									/>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{!hasAdvert && events?.length > 0 && (
 				<div className={`${styles.whiteBox}`}>
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						UPCOMING EVENT
@@ -113,7 +202,7 @@ export default function EventsMiddleRight({ data, events }) {
 								OpenIframePopup(
 									"iframePopup",
 									item?.events?.thumbnail?.externalUrl ||
-										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc"
+										"https://go.auroraer.com/l/885013/2025-04-22/pbkzc",
 								);
 							};
 							if (item?.events?.thumbnail?.openExternalInNewTab) {
@@ -156,7 +245,7 @@ export default function EventsMiddleRight({ data, events }) {
 											/>
 											<span>
 												{item?.events?.thumbnail?.country?.nodes?.map(
-													(item) => item?.title
+													(item) => item?.title,
 												) || "London"}
 											</span>
 										</p>
