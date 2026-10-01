@@ -2,7 +2,7 @@
 export const ServerHeaders = {
 	headers: {
 		"Content-Type": "application/json",
-		Authorization: `Bearer ${process.env.AUTH_TOKEN}`,
+		// Authorization: `Bearer ${process.env.AUTH_TOKEN}`,
 	},
 	method: "POST",
 };
