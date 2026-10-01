@@ -36,6 +36,25 @@ const retryBaseDelayMs = 2000; // backoff: 2s, then 4s between attempts
 const maxThrottleAttempts = 5;
 const throttleBaseDelayMs = 5000;
 
+// Queries go out as GET (query in the URL) by default, but the WordPress host
+// rejects long URLs with 414 Request-URI Too Large (nginx's default header
+// buffer is 8KB). Anything over this length is sent as a POST body instead.
+// Next's Data Cache keys POST requests on the body, so both are cached alike.
+const maxGetUrlLength = 6000;
+
+/** Build the fetch URL + options for a query, choosing GET or POST by size.
+ *  @param {string} query */
+function buildRequest(query) {
+	const getUrl = `${process.env.API_URL}?query=${encodeURIComponent(query)}`;
+	if (getUrl.length <= maxGetUrlLength) {
+		return { url: getUrl, init: { method: "GET" } };
+	}
+	return {
+		url: process.env.API_URL,
+		init: { method: "POST", body: JSON.stringify({ query }) },
+	};
+}
+
 /** Resolve after `ms` milliseconds. @param {number} ms */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -159,19 +178,16 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 				// below happens outside, so a waiting retry holds no slot.
 				return await schedule(async () => {
 					await waitTurn();
-					const req = await fetch(
-						`${process.env.API_URL}?query=${encodeURIComponent(query)}`,
-						{
-							// ...ServerHeaders,
-							// body: JSON.stringify({ query }),
-							headers: {
-								"Content-Type": "application/json",
-							},
-							signal: AbortSignal.timeout(requestTimeoutMs),
-							cache: "force-cache",
-							next: { revalidate: false, tags },
+					const { url, init } = buildRequest(query);
+					const req = await fetch(url, {
+						...init,
+						headers: {
+							"Content-Type": "application/json",
 						},
-					);
+						signal: AbortSignal.timeout(requestTimeoutMs),
+						cache: "force-cache",
+						next: { revalidate: false, tags },
+					});
 					if (!req.ok) {
 						const err = new Error(
 							`GraphQL request failed: ${req.status} ${req.statusText}`,
