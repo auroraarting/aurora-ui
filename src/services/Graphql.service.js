@@ -7,7 +7,7 @@ import { toCacheTags } from "./CacheTags";
 // Limits concurrent outbound calls to WordPress during builds. Kept gentle
 // because Pressable is slow and throttles under load — fewer parallel calls and
 // more spacing between them trades a slower build for far fewer dropped calls.
-const limiter = new Bottleneck({ maxConcurrent: 2, minTime: 300 });
+const limiter = new Bottleneck({ maxConcurrent: 4, minTime: 300 });
 
 // Build-time in-process cache: identical queries during `next build` hit the
 // network once — e.g. getInsightsCategories called per-page resolves from cache.
@@ -132,7 +132,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 					...init,
 					signal: AbortSignal.timeout(requestTimeoutMs),
 					cache: "force-cache",
-					next: { revalidate: false, tags },
+					next: { revalidate: 3600, tags },
 				});
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
