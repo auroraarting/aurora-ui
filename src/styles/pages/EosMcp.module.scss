@@ -1,0 +1,763 @@
+@import "../helpers/helpers.scss";
+
+// Ported from "EOS MCP - Product page.html" (design mockup)
+.EosMcpPage {
+	--teal: var(--color_blue);
+	--border: #e7e7e5;
+	--tint: #f7f7f6;
+
+	background-color: var(--color_white);
+	color: var(--color_secondary);
+
+	section {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.btn {
+		// display: inline-block;
+	}
+
+	.kicker {
+		font-family: var(--font_secondary);
+		font-weight: 800;
+		font-size: 12.5px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--teal);
+		margin-bottom: 14px;
+	}
+
+	.sectionTitle {
+		font-weight: 700;
+		margin-bottom: 18px;
+		max-width: 720px;
+		letter-spacing: -0.01em;
+	}
+
+	// ============ HERO ============
+	.hero {
+		padding: 64px 0 80px;
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background:
+				radial-gradient(
+					700px 420px at 10% 10%,
+					rgba(255, 204, 0, 0.16),
+					transparent 60%
+				),
+				radial-gradient(
+					700px 460px at 55% -10%,
+					rgba(139, 180, 255, 0.14),
+					transparent 60%
+				),
+				radial-gradient(
+					700px 460px at 95% 30%,
+					rgba(40, 129, 132, 0.14),
+					transparent 60%
+				);
+		}
+
+		h1 {
+			line-height: 1.14;
+			letter-spacing: -0.01em;
+		}
+	}
+
+	.heroTop {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1.15fr 1fr;
+		gap: 56px;
+		align-items: start;
+		padding-bottom: 48px;
+
+		@include md-down {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+	}
+
+	.logo {
+		height: 30px;
+		width: auto;
+		margin-bottom: 22px;
+	}
+
+	.heroCopy {
+		padding-top: 8px;
+	}
+
+	.lead {
+		color: var(--color_light_gray);
+		max-width: 400px;
+		margin-bottom: 24px;
+	}
+
+	.availNote {
+		font-size: 12.5px;
+		color: var(--color_medium_gray);
+		margin-bottom: 16px;
+	}
+
+	.heroMedia {
+		position: relative;
+		text-align: center;
+
+		img {
+			display: inline-block;
+			max-width: 100%;
+			border-radius: 16px;
+			border: 1px solid var(--border);
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+		}
+	}
+
+	// ============ LIVE DEMO ============
+	.demo {
+		background: var(--tint);
+		padding: 92px 0;
+
+		@include sm-down {
+			padding: 64px 0;
+		}
+	}
+
+	.demoGrid {
+		display: grid;
+		grid-template-columns: 0.85fr 1fr;
+		gap: 56px;
+		align-items: center;
+
+		@include md-down {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+	}
+
+	.demoHead p {
+		color: var(--color_light_gray);
+		max-width: 420px;
+	}
+
+	// Pure-CSS looping animation. Every keyframe starts and ends on the fully
+	// built "answered" state, so a paused animation still shows a full result.
+	.demoCard {
+		display: flex;
+		flex-direction: column;
+		background: var(--color_white);
+		border: 1px solid var(--border);
+		border-radius: 18px;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+		padding: 34px 40px;
+		width: 100%;
+		max-width: 640px;
+		margin: 0 auto;
+		min-width: 0;
+
+		@include md-down {
+			padding: 26px 24px;
+		}
+	}
+
+	.topbar {
+		display: flex;
+		gap: 6px;
+		margin-bottom: 16px;
+
+		span {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--border);
+		}
+	}
+
+	.chatQ {
+		align-self: flex-end;
+		background: var(--tint);
+		border-radius: 10px 10px 2px 10px;
+		padding: 10px 14px;
+		font-weight: 600;
+		max-width: 88%;
+		margin-bottom: 16px;
+		font-size: 14.5px;
+		animation: bubbleShow 8s ease infinite;
+	}
+
+	.thinking {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		margin-bottom: 12px;
+		animation: thinkingShow 8s ease infinite;
+
+		span {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--color_medium_gray);
+			animation: pulse 1s ease-in-out infinite;
+
+			&:nth-child(2) {
+				animation-delay: 0.15s;
+			}
+			&:nth-child(3) {
+				animation-delay: 0.3s;
+			}
+		}
+	}
+
+	.chatLabel {
+		font-size: 11px;
+		font-weight: 700;
+		color: var(--color_medium_gray);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+		animation: fadeInHold 8s ease infinite;
+	}
+
+	.chartBox {
+		border: 1px solid var(--border);
+		border-radius: 10px;
+		padding: 14px 16px 10px;
+		margin-bottom: 14px;
+		animation: fadeInHold 8s ease infinite;
+	}
+
+	.bars {
+		display: flex;
+		align-items: flex-end;
+		gap: 5px;
+		height: 78px;
+
+		i {
+			flex: 1;
+			border-radius: 2px 2px 0 0;
+			height: var(--h);
+			animation: barGrow 8s ease infinite;
+		}
+
+		.teal {
+			background: var(--teal);
+		}
+		.gold {
+			background: var(--color_primary);
+		}
+		.grey {
+			background: var(--color_silver_gray);
+		}
+	}
+
+	.answerLine {
+		height: 9px;
+		background: var(--border);
+		border-radius: 4px;
+		margin-bottom: 8px;
+	}
+	.l1 {
+		width: 96%;
+		animation: lineShow1 8s ease infinite;
+	}
+	.l2 {
+		width: 87%;
+		animation: lineShow2 8s ease infinite;
+	}
+	.l3 {
+		width: 58%;
+		animation: lineShow3 8s ease infinite;
+	}
+
+	// ============ BENEFITS ============
+	.benefits {
+		background: var(--color_secondary);
+		padding: 60px 0 66px;
+	}
+
+	.benefitsGrid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 30px;
+
+		@include md-down {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@include xs-down {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.benefit {
+		.icon {
+			width: 36px;
+			height: 36px;
+			margin-bottom: 16px;
+			color: var(--color_primary);
+		}
+
+		h3 {
+			font-family: var(--font_primary);
+			font-size: 15.5px;
+			font-weight: 700;
+			color: var(--color_white);
+			margin-bottom: 8px;
+		}
+
+		p {
+			font-size: 13.5px;
+			line-height: 1.55;
+			color: var(--color_medium_gray);
+			margin: 0;
+		}
+	}
+
+	.icon svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	// ============ LIFECYCLE ============
+	.lifecycle {
+		padding: 96px 0 100px;
+
+		@include sm-down {
+			padding: 64px 0;
+		}
+	}
+
+	.lcHead {
+		max-width: 680px;
+		margin-bottom: 48px;
+
+		p {
+			color: var(--color_light_gray);
+		}
+	}
+
+	.lcTabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px;
+		border-bottom: 1px solid var(--border);
+		margin-bottom: 40px;
+	}
+
+	.lcTab {
+		flex: 1 1 130px;
+		min-width: 130px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 14px 10px 16px;
+		text-align: left;
+		position: relative;
+		font-family: var(--font_secondary);
+
+		.num {
+			display: block;
+			font-family: var(--font_primary);
+			font-size: 11px;
+			font-weight: 800;
+			letter-spacing: 0.05em;
+			color: var(--color_medium_gray);
+			margin-bottom: 4px;
+		}
+
+		.ttl {
+			font-size: 12.5px;
+			font-weight: 700;
+			line-height: 1.3;
+			color: var(--color_light_gray);
+		}
+
+		.bar {
+			position: absolute;
+			left: 0;
+			bottom: -1px;
+			height: 2px;
+			width: 100%;
+			background: var(--border);
+
+			i {
+				display: block;
+				height: 100%;
+				width: 0%;
+				background: linear-gradient(90deg, var(--color_primary), var(--teal));
+				transition: width 0.3s ease;
+			}
+		}
+
+		&.active {
+			.num {
+				color: var(--teal);
+			}
+			.ttl {
+				color: var(--color_secondary);
+			}
+			.bar i {
+				width: 100%;
+			}
+		}
+	}
+
+	.lcPanel {
+		display: grid;
+		grid-template-columns: 1fr 1.15fr;
+		gap: 56px;
+		align-items: flex-start;
+		animation: fadein 0.45s ease;
+
+		@include md-down {
+			grid-template-columns: 1fr;
+			gap: 28px;
+		}
+	}
+
+	.lcLeft {
+		.icon {
+			width: 44px;
+			height: 44px;
+			color: var(--teal);
+			margin-bottom: 22px;
+		}
+
+		.stageTitle {
+			font-family: var(--font_primary);
+			font-size: 12.5px;
+			font-weight: 700;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--color_medium_gray);
+			margin-bottom: 10px;
+		}
+
+		.question {
+			font-size: 23px;
+			font-weight: 700;
+			line-height: 1.35;
+		}
+	}
+
+	.lcRight {
+		background: var(--tint);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 28px 30px;
+
+		.lbl {
+			font-family: var(--font_primary);
+			font-size: 11.5px;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--teal);
+			margin-bottom: 16px;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		li {
+			display: flex;
+			gap: 10px;
+			font-size: 15px;
+			line-height: 1.5;
+			color: var(--color_dark_gray);
+			padding: 9px 0;
+			border-bottom: 1px solid var(--border);
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		.chk {
+			width: 16px;
+			height: 16px;
+			margin-top: 4px;
+			flex-shrink: 0;
+		}
+	}
+
+	// ============ CLOSING CTA ============
+	.finalCta {
+		background: var(--color_secondary);
+		text-align: center;
+		padding: 76px 0;
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: radial-gradient(
+				550px 320px at 50% 0%,
+				rgba(255, 204, 0, 0.25),
+				transparent 65%
+			);
+		}
+
+		:global(.container) {
+			position: relative;
+		}
+
+		h2 {
+			margin-bottom: 14px;
+		}
+
+		p {
+			// color: var(--color_silver_gray);
+			max-width: 520px;
+			margin: 0 auto 30px;
+			margin-bottom: 0px;
+		}
+	}
+
+	.ctaRow {
+		display: flex;
+		gap: 16px;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-top: 30px;
+	}
+
+	// ============ RESOURCES ============
+	.resources {
+		background: var(--tint);
+		border-top: 1px solid var(--border);
+		padding: 88px 0 96px;
+
+		@include sm-down {
+			padding: 64px 0;
+		}
+	}
+
+	.resourcesHead {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 24px;
+		margin-bottom: 36px;
+
+		.sectionTitle {
+			margin-bottom: 0;
+		}
+
+		@include sm-down {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	.resourcesGrid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+
+		@include md-down {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	// Dark blurred-gradient cards, after the screenshot in the answers doc.
+	// Swap the gradient for the background images once they arrive by email.
+	.resCard {
+		position: relative;
+		overflow: hidden;
+		border-radius: 14px;
+		padding: 36px 32px;
+		min-height: 180px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 22px;
+		text-align: center;
+		background-color: var(--color_secondary);
+		background-image:
+			radial-gradient(260px 160px at 30% 15%, rgba(255, 204, 0, 0.45), transparent 70%),
+			radial-gradient(300px 200px at 75% 80%, rgba(40, 129, 132, 0.6), transparent 70%);
+		transition: var(--transition);
+
+		&:nth-child(2) {
+			background-image:
+				radial-gradient(260px 160px at 70% 20%, rgba(255, 204, 0, 0.4), transparent 70%),
+				radial-gradient(300px 200px at 20% 85%, rgba(40, 129, 132, 0.6), transparent 70%);
+		}
+
+		&:nth-child(3) {
+			background-image:
+				radial-gradient(260px 160px at 50% 10%, rgba(255, 204, 0, 0.45), transparent 70%),
+				radial-gradient(300px 200px at 85% 90%, rgba(40, 129, 132, 0.55), transparent 70%);
+		}
+
+		&:hover {
+			box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+
+			.resCta {
+				background: var(--color_primary);
+				color: var(--color_secondary);
+			}
+		}
+	}
+
+	.resTitle {
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 1.3;
+		color: var(--color_white);
+	}
+
+	.resCta {
+		display: inline-block;
+		background: var(--color_black);
+		color: var(--color_white);
+		font-family: var(--font_secondary);
+		font-weight: 700;
+		padding: 10px 32px;
+		border-radius: 50px;
+		transition: var(--transition);
+	}
+}
+
+@keyframes bubbleShow {
+	0%,
+	69% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	70% {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+	76%,
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 0.3;
+		transform: scale(0.8);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes thinkingShow {
+	0%,
+	81% {
+		opacity: 0;
+		visibility: hidden;
+	}
+	82%,
+	89% {
+		opacity: 1;
+		visibility: visible;
+	}
+	90%,
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+@keyframes fadeInHold {
+	0%,
+	69% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	70%,
+	89% {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	92%,
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes barGrow {
+	0%,
+	69% {
+		height: var(--h);
+	}
+	70%,
+	89% {
+		height: 4px;
+	}
+	94%,
+	100% {
+		height: var(--h);
+	}
+}
+
+@keyframes lineShow1 {
+	0%,
+	69% {
+		opacity: 1;
+	}
+	70%,
+	93% {
+		opacity: 0;
+	}
+	96%,
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes lineShow2 {
+	0%,
+	69% {
+		opacity: 1;
+	}
+	70%,
+	95% {
+		opacity: 0;
+	}
+	98%,
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes lineShow3 {
+	0%,
+	69% {
+		opacity: 1;
+	}
+	70%,
+	97% {
+		opacity: 0;
+	}
+	99%,
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

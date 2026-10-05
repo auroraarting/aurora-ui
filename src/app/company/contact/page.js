@@ -151,7 +151,6 @@ async function getData() {
 	};
 }
 
-
 /** Contact Page */
 export default async function ContactPage() {
 	const { props } = await getData();

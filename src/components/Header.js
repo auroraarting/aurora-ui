@@ -985,6 +985,29 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														</div>
 													</div>
 												</div>
+												<div className={`${styles.softwareFlex} f_w_j`}>
+													<div className={`${styles.softwareItem}`}>
+														<Link
+															href="/"
+															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+															role="button"
+														>
+															<span>AI and Data</span>{" "}
+															{/* <img src={menu_hover_arrow.src} alt="arrow" /> */}
+														</Link>
+														<div className={`${styles.softwareListBox}`}>
+															<Link
+																href={"/eos-mcp"}
+																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
+															>
+																{/* <img src={item?.logo?.logo} alt="arrow" /> */}
+																<img src={menu_hover_arrow.src} alt="arrow" />
+																<span>EOS MCP</span>
+															</Link>
+														</div>
+													</div>
+												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												<div className={`${styles.productImgBox}`}>
