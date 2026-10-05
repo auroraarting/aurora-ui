@@ -199,12 +199,12 @@ export default function HomeBanner() {
 										</a>
 									</div>
 								</div>
-								<div className={`${styles.BannerImg}`}>
+								<div className={`${styles.BannerImg} ${styles.eosBannerImg}`}>
 									{/* Client-supplied artwork: transparent PNG/WebP, ~800x700px
 									    (2x of the 400x350 slot below), matching the aspect ratio
 									    the other slides' visuals use. */}
 									<Image
-										src="/img/home/banner-ai-mcp.png"
+										src="/img/eos-mcp/resource-homepage.png"
 										alt="EOS MCP bringing Aurora data into AI workflows"
 										width={400}
 										height={350}
