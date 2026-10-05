@@ -512,14 +512,14 @@
 				}
 			}
 			.pageLinks {
-				width: 500px;
+				width: 100%;
 				display: flex;
 				flex-wrap: wrap;
 				@media (max-width: 767px) {
 					width: 100%;
 				}
 				.pageLinksTxt {
-					width: 50%;
+					width: 33%;
 					margin-bottom: 10px;
 					padding-right: 15px;
 					&:nth-child(2n) {
