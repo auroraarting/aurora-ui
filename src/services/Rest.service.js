@@ -2,6 +2,7 @@ import { ServerHeaders } from "@/utils/RequestHeaders";
 
 import { pending, schedule } from "./rest/limiter";
 import { tagsFor } from "./rest/tags";
+import { DATA_CACHE_TTL } from "./CacheTags";
 
 /**
  * WordPress REST wrapper — the REST counterpart of Graphql.service.js.
@@ -12,10 +13,10 @@ import { tagsFor } from "./rest/tags";
  *    /graphql is slow enough to need it. The REST endpoints are cheap, so calls
  *    go straight to WordPress and Next.js's own Data Cache does the caching.
  *
- *  - No time-based revalidation. Nothing here carries a TTL: entries are stored
- *    with `cache: "force-cache"` and a tag set, and only ever go stale when
- *    WordPress calls /api/revalidate with those tags. (Next.js 15 no longer
- *    caches fetch by default, which is why force-cache is explicit.)
+ *  - Entries are stored with `cache: "force-cache"` and a tag set, refreshed
+ *    when WordPress calls /api/revalidate with those tags, and after
+ *    DATA_CACHE_TTL regardless, in case a webhook is missed. (Next.js 15 no
+ *    longer caches fetch by default, which is why force-cache is explicit.)
  *
  *  - No in-process memoisation of responses. Deduplicating identical calls in a
  *    Map looks like an easy build win, but the second caller then receives a
@@ -258,7 +259,7 @@ export async function restRequest(path, dataObj = {}) {
 					headers: ServerHeaders.headers,
 					signal: AbortSignal.timeout(requestTimeoutMs),
 					cache: "force-cache",
-					next: { tags },
+					next: { revalidate: DATA_CACHE_TTL, tags },
 				});
 				if (!res.ok) {
 					const err = new Error(

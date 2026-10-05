@@ -55,6 +55,13 @@
 // traffic becomes a problem. Pruning trades rebuild traffic for staleness that
 // nothing will now correct on its own.
 
+/** Seconds a cached WordPress response lives (GraphQL and REST alike), the
+ *  same hour the pages rebuild on. Tags still refresh content straight away;
+ *  this is the safety net for a webhook that never fires or a tag no webhook
+ *  sends. Without it (`revalidate: false`) a missed tag meant stale forever —
+ *  the hourly page rebuild just re-read the same frozen entry. */
+export const DATA_CACHE_TTL = 3600;
+
 /** Added to every fetch, so /api/revalidate can flush everything at once. */
 export const GLOBAL_TAG = "alldata";
 

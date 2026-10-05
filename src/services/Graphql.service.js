@@ -2,7 +2,7 @@ import Bottleneck from "bottleneck";
 import { AsyncResource } from "node:async_hooks";
 import { ServerHeaders } from "@/utils/RequestHeaders";
 import { proxyMediaUrl } from "@/utils";
-import { toCacheTags } from "./CacheTags";
+import { DATA_CACHE_TTL, toCacheTags } from "./CacheTags";
 
 // Pressable rate-limits each source IP to 2 requests/second and answers 429
 // above that. Bottleneck only caps how many calls are in flight; the pacing is
@@ -94,16 +94,14 @@ function retryDelay(error, attempt) {
 	return throttleBaseDelayMs * 2 ** (attempt - 1);
 }
 
-// There is no time-based revalidation. Every response is cached indefinitely
-// (`cache: "force-cache"` plus `revalidate: false`) and leaves the cache only
-// when POST /api/revalidate flushes one of its tags. Both are stated
-// explicitly because these requests carry an Authorization header, which Next
-// treats as a signal not to cache unless a cache config says otherwise.
+// Every response is cached (`cache: "force-cache"`) for DATA_CACHE_TTL, and
+// POST /api/revalidate flushes it sooner by tag. Both are stated explicitly
+// because these requests carry an Authorization header, which Next treats as
+// a signal not to cache unless a cache config says otherwise.
 //
-// The consequence: a tag that no query carries, or a webhook that never fires,
-// means content stays stale until the next deploy. There is no timer to fall
-// back on, so a change to the tag vocabulary has to be matched on the
-// WordPress side (see services/CacheTags.js).
+// The TTL is the safety net: a tag that no query carries, or a webhook that
+// never fires, now means content up to an hour stale rather than stale until
+// someone purges the Data Cache (see services/CacheTags.js).
 
 // The memo below is build-only. It is a permanent promise cache, and it sits in
 // *front* of Next's Data Cache — so in a long-lived server process a query
@@ -186,7 +184,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 						},
 						signal: AbortSignal.timeout(requestTimeoutMs),
 						cache: "force-cache",
-						next: { revalidate: false, tags },
+						next: { revalidate: DATA_CACHE_TTL, tags },
 					});
 					if (!req.ok) {
 						const err = new Error(
