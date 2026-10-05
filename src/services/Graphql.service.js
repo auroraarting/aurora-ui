@@ -26,6 +26,25 @@ const requestTimeoutMs = 60000;
 const maxAttempts = 3;
 const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
 
+// Queries go out as GET (query in the URL) by default, but the WordPress host
+// rejects long URLs with 414 Request-URI Too Large (nginx's default header
+// buffer is 8KB). Anything over this length is sent as a POST body instead.
+// Next's Data Cache keys POST requests on the body, so both are cached alike.
+const maxGetUrlLength = 6000;
+
+/** Build the fetch URL + options for a query, choosing GET or POST by size.
+ *  @param {string} query */
+function buildRequest(query) {
+	const getUrl = `${process.env.API_URL}?query=${encodeURIComponent(query)}`;
+	if (getUrl.length <= maxGetUrlLength) {
+		return { url: getUrl, init: { method: "GET" } };
+	}
+	return {
+		url: process.env.API_URL,
+		init: { method: "POST", body: JSON.stringify({ query }) },
+	};
+}
+
 /** Resolve after `ms` milliseconds. @param {number} ms */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -101,25 +120,20 @@ function proxyAllMediaUrls(obj) {
  *  @param {string} query
  *  @param {{ tag?: string|string[] }} [dataObj]
  */
-export async function GraphQLAPINew(query, dataObj = {}) {
+export default async function GraphQLAPI(query, dataObj = {}) {
 	const tags = toCacheTags(dataObj?.tag);
+	const { url, init } = buildRequest(query);
 	return cachedSchedule(`direct:${query}`, async () => {
 		let lastError;
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			try {
-				const req = await fetch(
-					`${process.env.API_URL}?query=${encodeURIComponent(query)}`,
-					{
-						// ...ServerHeaders,
-						// body: JSON.stringify({ query }),
-						headers: {
-							"Content-Type": "application/json",
-						},
-						signal: AbortSignal.timeout(requestTimeoutMs),
-						cache: "force-cache",
-						next: { revalidate: false, tags },
-					},
-				);
+				const req = await fetch(url, {
+					...ServerHeaders,
+					...init,
+					signal: AbortSignal.timeout(requestTimeoutMs),
+					cache: "force-cache",
+					next: { revalidate: false, tags },
+				});
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
 				}
@@ -146,7 +160,7 @@ export async function GraphQLAPINew(query, dataObj = {}) {
 }
 
 /** Legacy Redis-based version. Kept for reference only. */
-export default async function GraphQLAPI(query, dataObj) {
+export async function GraphQLAPIOld(query, dataObj) {
 	// let res;
 	// let req;
 	// try {
@@ -164,7 +178,6 @@ export default async function GraphQLAPI(query, dataObj) {
 	// }
 
 	// Cache
-	const refreshInterval = 3600; // 30 minutes
 	let startTime = null; // Start time
 	let res;
 	let req;
@@ -176,10 +189,9 @@ export default async function GraphQLAPI(query, dataObj) {
 			pageID: `${process.env.NEXT_PUBLIC_SITE_ENV}${dataObj.pageID}`,
 		};
 		const data = {
-			url: `${process.env.API_URL}`,
-			method: "POST",
-			body: { query },
-			refreshInterval: refreshInterval,
+			url: `${process.env.API_URL}?query=${encodeURIComponent(query)}`,
+			method: "GET",
+			// refreshInterval: refreshInterval,
 			headers: {
 				...ServerHeaders.headers,
 			},
@@ -192,7 +204,7 @@ export default async function GraphQLAPI(query, dataObj) {
 			body: JSON.stringify({ ...data }),
 		});
 		res = await req.json();
-		// console.log(res, JSON.stringify(res), "res");
+		console.log(res, "res");
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
 		// console.log(
@@ -205,7 +217,7 @@ export default async function GraphQLAPI(query, dataObj) {
 		console.log(
 			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
 		);
-		console.log(error, JSON.stringify(query), "errror");
+		console.log(error, req, "errror");
 	}
 }
 
