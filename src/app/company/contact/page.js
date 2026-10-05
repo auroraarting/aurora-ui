@@ -151,6 +151,8 @@ async function getData() {
 			return obj;
 		});
 
+	console.log("regionsArr", regions.data.regions.nodes);
+
 	return {
 		props: {
 			regions: regions.data.regions.nodes,
