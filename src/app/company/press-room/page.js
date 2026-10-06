@@ -55,7 +55,6 @@ export async function generateMetadata() {
 	};
 }
 
-
 /** Fetch */
 async function getData() {
 	const [data, filters, languages, page] = await Promise.all([
@@ -64,6 +63,8 @@ async function getData() {
 		await getPressesLanguages(),
 		await getPressPage(),
 	]);
+
+	console.log(data, "data");
 
 	return {
 		props: {
