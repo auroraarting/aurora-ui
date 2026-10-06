@@ -41,7 +41,7 @@ function buildRequest(query) {
 	}
 	return {
 		url: process.env.API_URL,
-		init: { method: "POST", body: JSON.stringify({ query }) },
+		init: { method: "GET" },
 	};
 }
 
