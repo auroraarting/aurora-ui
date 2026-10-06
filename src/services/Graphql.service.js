@@ -40,7 +40,7 @@ const throttleBaseDelayMs = 5000;
 // rejects long URLs with 414 Request-URI Too Large (nginx's default header
 // buffer is 8KB). Anything over this length is sent as a POST body instead.
 // Next's Data Cache keys POST requests on the body, so both are cached alike.
-const maxGetUrlLength = 6000;
+const maxGetUrlLength = 60000000;
 
 /** Build the fetch URL + options for a query, choosing GET or POST by size.
  *  @param {string} query */
