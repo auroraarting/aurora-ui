@@ -17,25 +17,38 @@ import EosMcpResourcesWrap from "@/sections/eos-mcp/EosMcpResourcesWrap";
 // DATA //
 
 // SERVICES //
+import { getEosMcpResourcesPage } from "@/services/EosMcp.service";
+import { getPageSeo } from "@/services/Seo.service";
 
-// Static like /eos-mcp — there is no CMS page behind it
-export const metadata = {
-	title: "AI-Powered Energy Workflows with EOS MCP | Aurora Energy Research",
-	description:
-		"Learn what EOS MCP is, see it in action, and get set up in minutes: use cases, best practices and FAQs for bringing Aurora's intelligence into ChatGPT, Claude and other AI tools.",
-	alternates: {
-		canonical: "https://auroraer.com/resources/eos-mcp",
-	},
-	openGraph: {
-		images: [
-			{
-				url: "https://auroraer.com/img/og-image.jpg",
-			},
-		],
-	},
-};
+/** generateMetadata — Yoast SEO from the CMS page, or this copy until it exists */
+export async function generateMetadata() {
+	const meta = await getPageSeo('page(id: "resources/eos-mcp", idType: URI)');
+	const seo = meta?.data?.page?.seo;
+
+	return {
+		title:
+			seo?.title ||
+			"AI-Powered Energy Workflows with EOS MCP | Aurora Energy Research",
+		description:
+			seo?.metaDesc ||
+			"Learn what EOS MCP is, see it in action, and get set up in minutes: use cases, best practices and FAQs for bringing Aurora's intelligence into ChatGPT, Claude and other AI tools.",
+		keywords: seo?.metaKeywords || "",
+		alternates: {
+			canonical: "https://auroraer.com/resources/eos-mcp",
+		},
+		openGraph: {
+			images: [
+				{
+					url: "https://auroraer.com/img/og-image.jpg",
+				},
+			],
+		},
+	};
+}
 
 /** EOS MCP Resources Page */
-export default function EosMcpResourcesPage() {
-	return <EosMcpResourcesWrap />;
+export default async function EosMcpResourcesPage() {
+	const data = await getEosMcpResourcesPage();
+
+	return <EosMcpResourcesWrap data={data} />;
 }

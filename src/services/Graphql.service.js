@@ -30,7 +30,7 @@ const retryBaseDelayMs = 1000; // backoff: 1s, then 2s between attempts
 // rejects long URLs with 414 Request-URI Too Large (nginx's default header
 // buffer is 8KB). Anything over this length is sent as a POST body instead.
 // Next's Data Cache keys POST requests on the body, so both are cached alike.
-const maxGetUrlLength = 6000000;
+const maxGetUrlLength = 6000;
 
 /** Build the fetch URL + options for a query, choosing GET or POST by size.
  *  @param {string} query */
@@ -41,7 +41,7 @@ function buildRequest(query) {
 	}
 	return {
 		url: process.env.API_URL,
-		init: { method: "GET" },
+		init: { method: "POST", body: JSON.stringify({ query }) },
 	};
 }
 
@@ -134,6 +134,7 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 					cache: "force-cache",
 					next: { revalidate: 3600, tags },
 				});
+				console.log("GraphQLAPI request:", url, "status:", req.status);
 				if (!req.ok) {
 					throw new Error(`GraphQL request failed: ${req.status} ${req.statusText}`);
 				}

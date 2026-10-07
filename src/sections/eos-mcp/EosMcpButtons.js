@@ -19,19 +19,29 @@ function ExternalButton({ href, mode, color, children }) {
 }
 
 /** ConnectButton — opens the MCP quick-start guide on EOS */
-export function ConnectButton({ mode, color = "primary", children = "Connect EOS MCP" }) {
+export function ConnectButton({
+	href = eosMcpConnectUrl,
+	mode,
+	color = "primary",
+	children = "Connect EOS MCP",
+}) {
 	return (
-		<ExternalButton href={eosMcpConnectUrl} mode={mode} color={color}>
+		<ExternalButton href={href} mode={mode} color={color}>
 			{children}
 		</ExternalButton>
 	);
 }
 
 /** DemoButton — opens the Microsoft Bookings page */
-export function DemoButton({ mode = "dark", color = "primary" }) {
+export function DemoButton({
+	href = eosMcpDemoUrl,
+	mode = "dark",
+	color = "primary",
+	children = "Book a demo",
+}) {
 	return (
-		<ExternalButton href={eosMcpDemoUrl} mode={mode} color={color}>
-			Book a demo
+		<ExternalButton href={href} mode={mode} color={color}>
+			{children}
 		</ExternalButton>
 	);
 }

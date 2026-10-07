@@ -1,0 +1,236 @@
+{
+  "acf": {
+    "buttons": {
+      "connect_button_text": "Connect EOS MCP",
+      "connect_url": "https://eos.auroraer.com/dragonfly/user-guides/eos/aurora-mcp-guide?locale=en#quick-start",
+      "demo_button_text": "Book a demo",
+      "demo_url": "https://bookings.cloud.microsoft/book/CommercialWorkshopBookings@auroraer.com/s/n2uLQiae5k67LMn2_yx3Xg2?ismsaljsauthenabled"
+    },
+    "banner": {
+      "title": "Turn AI into an energy market expert.",
+      "description": "Bring Aurora's trusted intelligence into your AI tools like ChatGPT and Claude to explore complex questions, generate decision-ready analysis, and move forward with confidence.",
+      "availability_note": "Available to all Aurora subscribers."
+    },
+    "overview": {
+      "kicker": "Overview",
+      "title": "Ask a question. Get a decision-ready outcome.",
+      "description": "EOS MCP helps your AI agent retrieve the right Aurora data, reason through the task, and generate the analysis, recommendations, content, or answers you need in seconds, all within your AI assistant.",
+      "demo_question": "What's driving the dips in French nuclear availability?",
+      "demo_label": "Aurora Energy Research"
+    },
+    "key_advantages": {
+      "kicker": "Key Advantages",
+      "items": [
+        {
+          "icon": "bars",
+          "title": "Built for real analytical work",
+          "description": "Energy market research, strategy, valuations and investment calls."
+        },
+        {
+          "icon": "clock",
+          "title": "Compresses hours into minutes",
+          "description": "Your research and analytical capabilities, scaled."
+        },
+        {
+          "icon": "database",
+          "title": "Built on Aurora's source of truth",
+          "description": "Aurora's proprietary intelligence, with the expertise clients trust."
+        },
+        {
+          "icon": "network",
+          "title": "Bring Aurora into your own professional context",
+          "description": "Energy intelligence available in the AI tools you already use."
+        }
+      ]
+    },
+    "lifecycle": {
+      "kicker": "Full lifecycle coverage",
+      "title": "One AI agent, every stage of the asset lifecycle.",
+      "description": "Every decision in the asset lifecycle starts with a question. EOS MCP makes Aurora's market intelligence available directly within your AI workflows—enabling faster analysis and more informed decisions at every stage, from first market read to portfolio valuation.",
+      "points_label": "MCP can help you",
+      "stages": [
+        {
+          "icon": "search",
+          "title": "Market understanding",
+          "question": "What is happening, and what is Aurora's view?",
+          "points": [
+            {
+              "point": "Generate tailored market briefings"
+            },
+            {
+              "point": "Explain market shifts and their drivers"
+            },
+            {
+              "point": "Compare Aurora's view across markets"
+            },
+            {
+              "point": "Track emerging opportunities and risks"
+            },
+            {
+              "point": "Turn research into board-ready summaries"
+            }
+          ]
+        },
+        {
+          "icon": "pin",
+          "title": "Project siting",
+          "question": "Where could we build?",
+          "points": [
+            {
+              "point": "Screen development locations at scale"
+            },
+            {
+              "point": "Identify new market hotspots"
+            },
+            {
+              "point": "Compare regions and countries"
+            },
+            {
+              "point": "Assess curtailment and network risks"
+            },
+            {
+              "point": "Shortlist the most attractive sites"
+            }
+          ]
+        },
+        {
+          "icon": "rank",
+          "title": "Project prioritisation",
+          "question": "Which opportunities are worth developing?",
+          "points": [
+            {
+              "point": "Rank projects across a pipeline"
+            },
+            {
+              "point": "Compare investment opportunities"
+            },
+            {
+              "point": "Stress test project economics"
+            },
+            {
+              "point": "Identify hidden upside and risks"
+            },
+            {
+              "point": "Build investment committee recommendations"
+            }
+          ]
+        },
+        {
+          "icon": "gear",
+          "title": "Project & asset design",
+          "question": "What should we build, or rebuild, at this site?",
+          "points": [
+            {
+              "point": "Compare technology configurations"
+            },
+            {
+              "point": "Optimise asset sizing and design"
+            },
+            {
+              "point": "Evaluate repowering opportunities"
+            },
+            {
+              "point": "Test hybrid asset concepts"
+            },
+            {
+              "point": "Quantify the value of design choices"
+            }
+          ]
+        },
+        {
+          "icon": "contract",
+          "title": "Contracting & route to market",
+          "question": "How should this asset earn revenue?",
+          "points": [
+            {
+              "point": "Compare revenue strategies"
+            },
+            {
+              "point": "Assess PPAs and merchant exposure"
+            },
+            {
+              "point": "Evaluate contracting options"
+            },
+            {
+              "point": "Test revenue outcomes under different scenarios"
+            },
+            {
+              "point": "Support negotiation and bidding decisions"
+            }
+          ]
+        },
+        {
+          "icon": "gauge",
+          "title": "Asset benchmarking",
+          "question": "Is this asset capturing the revenue it should?",
+          "points": [
+            {
+              "point": "Benchmark performance against expectations"
+            },
+            {
+              "point": "Diagnose drivers of underperformance"
+            },
+            {
+              "point": "Identify revenue leakage"
+            },
+            {
+              "point": "Compare assets across portfolios"
+            },
+            {
+              "point": "Produce automated performance reviews"
+            }
+          ]
+        },
+        {
+          "icon": "trend",
+          "title": "Asset value reporting",
+          "question": "Has the expected value of what we own changed?",
+          "points": [
+            {
+              "point": "Track portfolio value changes"
+            },
+            {
+              "point": "Explain valuation movements"
+            },
+            {
+              "point": "Generate mark-to-market updates"
+            },
+            {
+              "point": "Produce investor-ready reporting"
+            },
+            {
+              "point": "Highlight key value drivers and risks"
+            }
+          ]
+        }
+      ]
+    },
+    "closing_cta": {
+      "title": "Get started with EOS MCP today.",
+      "description": "Follow the simple setup instructions in our MCP documentation and connect your first AI tool in minutes."
+    },
+    "resources": {
+      "kicker": "Resources",
+      "title": "Learn more about EOS MCP",
+      "view_all_text": "View all",
+      "view_all_url": "/resources/eos-mcp",
+      "cards": [
+        {
+          "title": "What's an MCP?",
+          "cta_text": "Understand MCPs",
+          "url": "/resources/eos-mcp#what-is-mcp"
+        },
+        {
+          "title": "See EOS MCP in action",
+          "cta_text": "Watch real examples",
+          "url": "/resources/eos-mcp#use-cases"
+        },
+        {
+          "title": "Frequently asked questions",
+          "cta_text": "Get answers",
+          "url": "/resources/eos-mcp#faqs"
+        }
+      ]
+    }
+  }
+}

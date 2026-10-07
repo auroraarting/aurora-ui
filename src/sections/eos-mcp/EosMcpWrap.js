@@ -24,13 +24,7 @@ import checkIcon from "/public/img/icons/checkIcn.svg";
 import heroImg from "/public/img/eos-mcp/homepage.png";
 
 // DATA //
-import {
-	benefits,
-	demoBars,
-	lifecycleStages,
-	resources,
-	eosMcpResourcesUrl,
-} from "@/data/eosMcp";
+import { demoBars } from "@/data/eosMcp";
 
 /** Line icons used by the benefits strip and lifecycle panels (48×48 viewBox) */
 const icons = {
@@ -113,10 +107,26 @@ function Icon({ name }) {
 	);
 }
 
-/** EOS MCP Page */
-export default function EosMcpWrap() {
+/** EOS MCP Page — `data` is normalised by getEosMcpProductsPage */
+export default function EosMcpWrap({ data }) {
+	const {
+		buttons,
+		banner,
+		overview,
+		keyAdvantages,
+		lifecycle,
+		closingCta,
+		resources,
+	} = data;
 	const [activeStage, setActiveStage] = useState(0);
-	const stage = lifecycleStages[activeStage];
+	const stage = lifecycle.stages[activeStage] || lifecycle.stages[0];
+
+	/** connect — the CMS-labelled Connect button */
+	const connect = (props) => (
+		<ConnectButton href={buttons.connectUrl} {...props}>
+			{buttons.connectButtonText}
+		</ConnectButton>
+	);
 
 	return (
 		<main className={styles.EosMcpPage}>
@@ -124,46 +134,46 @@ export default function EosMcpWrap() {
 			<section className={styles.hero} id="introduction" data-name="Introduction">
 				<div className={`container ${styles.heroTop}`}>
 					<div>
-						<img className={styles.logo} src={logo.src} alt="EOS MCP" />
+						<img className={styles.logo} src={banner.logo || logo.src} alt="EOS MCP" />
 						<h1 className="text_xl font_primary f_w_b text_uppercase">
-							Turn AI into an energy market expert.
+							{banner.title}
 						</h1>
 					</div>
 					<div className={styles.heroCopy}>
-						<p className={`${styles.lead} text_reg`}>
-							Bring Aurora&apos;s trusted intelligence into your AI tools like ChatGPT
-							and Claude to explore complex questions, generate decision-ready
-							analysis, and move forward with confidence.
-						</p>
-						<p className={styles.availNote}>Available to all Aurora subscribers.</p>
-						<ConnectButton />
+						<p className={`${styles.lead} text_reg`}>{banner.description}</p>
+						{banner.availabilityNote && (
+							<p className={styles.availNote}>{banner.availabilityNote}</p>
+						)}
+						{connect()}
 					</div>
 				</div>
 				<div className="container">
 					<div className={styles.heroMedia}>
 						<img
-							src={heroImg.src}
+							src={banner.image || heroImg.src}
 							alt="EOS MCP connected inside an AI assistant, showing French nuclear generation analysis"
 						/>
 					</div>
 				</div>
 			</section>
 
-			<SectionsHeader customHtml={<ConnectButton key="btn" />} />
+			<SectionsHeader
+				customHtml={
+					<ConnectButton key="btn" href={buttons.connectUrl}>
+						{buttons.connectButtonText}
+					</ConnectButton>
+				}
+			/>
 
 			{/* Overview / live demo */}
 			<section className={styles.demo} id="overview" data-name="Overview">
 				<div className={`container ${styles.demoGrid}`}>
 					<div className={styles.demoHead}>
-						<div className={styles.kicker}>Overview</div>
+						<div className={styles.kicker}>{overview.kicker}</div>
 						<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
-							Ask a question. Get a decision-ready outcome.
+							{overview.title}
 						</h2>
-						<p>
-							EOS MCP helps your AI agent retrieve the right Aurora data, reason
-							through the task, and generate the analysis, recommendations, content, or
-							answers you need in seconds, all within your AI assistant.
-						</p>
+						<p>{overview.description}</p>
 					</div>
 					<div className={styles.demoCard} aria-hidden="true">
 						<div className={styles.topbar}>
@@ -171,15 +181,13 @@ export default function EosMcpWrap() {
 							<span></span>
 							<span></span>
 						</div>
-						<div className={styles.chatQ}>
-							What&apos;s driving the dips in French nuclear availability?
-						</div>
+						<div className={styles.chatQ}>{overview.demoQuestion}</div>
 						<div className={styles.thinking}>
 							<span></span>
 							<span></span>
 							<span></span>
 						</div>
-						<div className={styles.chatLabel}>Aurora Energy Research</div>
+						<div className={styles.chatLabel}>{overview.demoLabel}</div>
 						<div className={styles.chartBox}>
 							<div className={styles.bars}>
 								{demoBars.map(([h, c], i) => (
@@ -205,15 +213,15 @@ export default function EosMcpWrap() {
 				data-name="Key Advantages"
 			>
 				<div className="container">
-					<div className={styles.kicker}>Key Advantages</div>
+					<div className={styles.kicker}>{keyAdvantages.kicker}</div>
 					<div className={styles.benefitsGrid}>
-						{benefits.map((item) => (
+						{keyAdvantages.items.map((item) => (
 							<div className={styles.benefit} key={item.title}>
 								<div className={styles.icon}>
 									<Icon name={item.icon} />
 								</div>
 								<h3>{item.title}</h3>
-								<p>{item.desc}</p>
+								<p>{item.description}</p>
 							</div>
 						))}
 					</div>
@@ -228,20 +236,15 @@ export default function EosMcpWrap() {
 			>
 				<div className="container">
 					<div className={styles.lcHead}>
-						<div className={styles.kicker}>Full lifecycle coverage</div>
+						<div className={styles.kicker}>{lifecycle.kicker}</div>
 						<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
-							One AI agent, every stage of the asset lifecycle.
+							{lifecycle.title}
 						</h2>
-						<p>
-							Every decision in the asset lifecycle starts with a question. EOS MCP
-							makes Aurora&apos;s market intelligence available directly within your AI
-							workflows—enabling faster analysis and more informed decisions at every
-							stage, from first market read to portfolio valuation.
-						</p>
+						<p>{lifecycle.description}</p>
 					</div>
 
 					<div className={styles.lcTabs} role="tablist">
-						{lifecycleStages.map((item, ind) => (
+						{lifecycle.stages.map((item, ind) => (
 							<button
 								key={item.title}
 								type="button"
@@ -272,7 +275,7 @@ export default function EosMcpWrap() {
 							</div>
 						</div>
 						<div className={styles.lcRight}>
-							<div className={styles.lbl}>MCP can help you</div>
+							<div className={styles.lbl}>{lifecycle.pointsLabel}</div>
 							<ul>
 								{stage.points.map((point) => (
 									<li key={point}>
@@ -289,16 +292,11 @@ export default function EosMcpWrap() {
 			{/* Closing CTA */}
 			<section className={styles.finalCta}>
 				<div className="container">
-					<h2 className="text_lg font_primary color_white">
-						Get started with EOS MCP today.
-					</h2>
-					<p className="color_silver_gray">
-						Follow the simple setup instructions in our MCP documentation and connect
-						your first AI tool in minutes.
-					</p>
+					<h2 className="text_lg font_primary color_white">{closingCta.title}</h2>
+					<p className="color_silver_gray">{closingCta.description}</p>
 					<div className={styles.ctaRow}>
-						<ConnectButton color="primary_yellow" mode="light" />
-						<DemoButton />
+						{connect({ color: "primary_yellow", mode: "light" })}
+						<DemoButton href={buttons.demoUrl}>{buttons.demoButtonText}</DemoButton>
 					</div>
 				</div>
 			</section>
@@ -308,26 +306,26 @@ export default function EosMcpWrap() {
 				<div className="container">
 					<div className={styles.resourcesHead}>
 						<div>
-							<div className={styles.kicker}>Resources</div>
+							<div className={styles.kicker}>{resources.kicker}</div>
 							<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
-								Learn more about EOS MCP
+								{resources.title}
 							</h2>
 						</div>
 						<Link
-							href={eosMcpResourcesUrl}
+							href={resources.viewAllUrl}
 							role="button"
 							className={styles.btn}
 						>
 							<Button color="primary" variant="filled" shape="rounded" textlowercase>
-								View all
+								{resources.viewAllText}
 							</Button>
 						</Link>
 					</div>
 					<div className={styles.resourcesGrid}>
-						{resources.map((item) => (
-							<Link key={item.title} href={item.href} className={styles.resCard}>
+						{resources.cards.map((item) => (
+							<Link key={item.title} href={item.url} className={styles.resCard}>
 								<div className={`${styles.resTitle} font_primary`}>{item.title}</div>
-								<span className={`${styles.resCta} text_xs`}>{item.cta}</span>
+								<span className={`${styles.resCta} text_xs`}>{item.ctaText}</span>
 							</Link>
 						))}
 					</div>

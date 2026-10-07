@@ -1,17 +1,22 @@
-/** Static content for the EOS MCP resources page (/resources/eos-mcp),
- *  ported from "EOS MCP - Resources.html". */
+/** Default content for the EOS MCP resources page (/resources/eos-mcp), CMS
+ *  page "EOS MCP - Resources", ported from "EOS MCP - Resources.html". Shaped
+ *  like the page's ACF fields: the page falls back to these field by field
+ *  until the CMS has a value, and cms/eos-mcp-resources-content.json seeds the
+ *  CMS with exactly this copy. */
+
+import { eosMcpConnectUrl, eosMcpDemoUrl } from "./eosMcp";
 
 export const stats = [
 	{
-		num: "100+",
+		number: "100+",
 		label: "specialists across data, engineering, modelling and product building AI-powered analytics",
 	},
 	{
-		num: "70%",
+		number: "70%",
 		label: "Estimated share of Aurora clients with access to agentic AI by H1 2027",
 	},
 	{
-		num: "22k",
+		number: "22k",
 		label: "Monthly agentic tool calls made to EOS MCP.",
 	},
 ];
@@ -42,32 +47,32 @@ export const videoFilters = [
  *  its thumbnail. */
 export const videos = [
 	{
-		thumb: "/img/eos-mcp/video-bess-markets.png",
+		thumbnail: "/img/eos-mcp/video-bess-markets.png",
 		duration: "4:12",
 		category: "Market Understanding",
 		title: "Prioritise the most attractive European BESS markets",
-		desc: "Compare six markets on revenue potential, fundamentals and policy, in one prompt.",
+		description: "Compare six markets on revenue potential, fundamentals and policy, in one prompt.",
 	},
 	{
-		thumb: "/img/eos-mcp/video-forecast-assumptions.png",
+		thumbnail: "/img/eos-mcp/video-forecast-assumptions.png",
 		duration: "3:48",
 		category: "Best Practices",
 		title: "Trace forecast assumptions back to the source",
-		desc: "See how EOS MCP surfaces the analysis behind Aurora's Central scenario.",
+		description: "See how EOS MCP surfaces the analysis behind Aurora's Central scenario.",
 	},
 	{
-		thumb: "/img/eos-mcp/video-repower.png",
+		thumbnail: "/img/eos-mcp/video-repower.png",
 		duration: "5:03",
 		category: "Project Siting",
 		title: "Decide what to build, rebuild, or repower",
-		desc: "Compare technology options for an existing project site, end to end.",
+		description: "Compare technology options for an existing project site, end to end.",
 	},
 	{
-		thumb: "/img/eos-mcp/video-battery-benchmark.png",
+		thumbnail: "/img/eos-mcp/video-battery-benchmark.png",
 		duration: "4:35",
 		category: "Asset Management",
 		title: "Benchmark battery performance",
-		desc: "Compare modelled vs. fleet revenues and update the outlook to 2035.",
+		description: "Compare modelled vs. fleet revenues and update the outlook to 2035.",
 	},
 ];
 
@@ -95,7 +100,7 @@ export const practices = [
 	{
 		index: "01—Invocation",
 		title: "Tell your AI assistant when to use EOS MCP",
-		desc: "Naming the tool up front keeps your assistant grounded in Aurora data instead of guessing from general knowledge.",
+		description: "Naming the tool up front keeps your assistant grounded in Aurora data instead of guessing from general knowledge.",
 		benefit: "keeps answers specific and saves tokens",
 		sayLabel: "Say it like this",
 		quotes: [
@@ -106,7 +111,7 @@ export const practices = [
 	{
 		index: "02—Assign the whole task",
 		title: "Don't stop at a single question",
-		desc: "Specify the analysis, markets, comparisons, sources, and final format in one go—let the assistant chain the steps.",
+		description: "Specify the analysis, markets, comparisons, sources, and final format in one go—let the assistant chain the steps.",
 		benefit: "complex analysis becomes one structured workflow, compressing days of work into minutes",
 		sayLabel: "One prompt, a full IC report",
 		quotes: [
@@ -117,7 +122,7 @@ export const practices = [
 	{
 		index: "03—Skills",
 		title: "Save your preferred workflows as skills",
-		desc: "Turn a prompt you've refined into a reusable prompt file (skill.md) so the same analysis runs the same way every time.",
+		description: "Turn a prompt you've refined into a reusable prompt file (skill.md) so the same analysis runs the same way every time.",
 		benefit: "reproducible results, fewer tokens",
 		sayLabel: "From one-off to quarterly",
 		quotes: [
@@ -129,43 +134,105 @@ export const practices = [
 
 export const faqs = [
 	{
-		q: "Is EOS MCP included in my subscription?",
-		a: "Yes. EOS MCP is included with your subscription and does not require an additional add-on.",
+		question: "Is EOS MCP included in my subscription?",
+		answer: "Yes. EOS MCP is included with your subscription and does not require an additional add-on.",
 	},
 	{
-		q: "Which AI tools can connect to EOS MCP?",
-		a: "Any AI application, including in-house solutions, can connect if it supports MCP and Dynamic Client Registration.",
+		question: "Which AI tools can connect to EOS MCP?",
+		answer: "Any AI application, including in-house solutions, can connect if it supports MCP and Dynamic Client Registration.",
 	},
 	{
-		q: "What's the difference between using an AI assistant directly and using EOS MCP?",
-		a: "EOS MCP enables your AI assistant to access Aurora data and analytics directly within your workflow.",
+		question: "What's the difference between using an AI assistant directly and using EOS MCP?",
+		answer: "EOS MCP enables your AI assistant to access Aurora data and analytics directly within your workflow.",
 	},
 	{
-		q: "How does EOS MCP find the right data?",
-		a: "EOS MCP automatically selects relevant datasets, or you can specify a dataset directly in your prompt.",
+		question: "How does EOS MCP find the right data?",
+		answer: "EOS MCP automatically selects relevant datasets, or you can specify a dataset directly in your prompt.",
 	},
 	{
-		q: "Can I ask my AI to combine information from EOS MCP with my other data sources such as SharePoint documents, other MCPs, and internet search?",
-		a: "Yes. An agentic AI such as Claude and ChatGPT is able to orchestrate workflows between multiple MCP connectors and data sources. EOS MCP enables you to bring Aurora into your professional context without switching between browser tabs.",
+		question: "Can I ask my AI to combine information from EOS MCP with my other data sources such as SharePoint documents, other MCPs, and internet search?",
+		answer: "Yes. An agentic AI such as Claude and ChatGPT is able to orchestrate workflows between multiple MCP connectors and data sources. EOS MCP enables you to bring Aurora into your professional context without switching between browser tabs.",
 	},
 	{
-		q: "Which markets and datasets are available?",
-		a: "EOS MCP provides access to the products, datasets and geographies included in your subscription.",
+		question: "Which markets and datasets are available?",
+		answer: "EOS MCP provides access to the products, datasets and geographies included in your subscription.",
 	},
 	{
-		q: "Can EOS MCP link me to the source data and reports?",
-		a: "Yes. EOS MCP can provide direct links to the underlying reports and datasets.",
+		question: "Can EOS MCP link me to the source data and reports?",
+		answer: "Yes. EOS MCP can provide direct links to the underlying reports and datasets.",
 	},
 	{
-		q: "Are prompts shared with Aurora?",
-		a: "No. Aurora does not see your prompts; we only see MCP tool calls and the parameters passed to those tools.",
+		question: "Are prompts shared with Aurora?",
+		answer: "No. Aurora does not see your prompts; we only see MCP tool calls and the parameters passed to those tools.",
 	},
 	{
-		q: "Does EOS MCP reduce token usage?",
-		a: "Typically, yes. EOS MCP retrieves only the information needed for a task, rather than processing large volumes of files.",
+		question: "Does EOS MCP reduce token usage?",
+		answer: "Typically, yes. EOS MCP retrieves only the information needed for a task, rather than processing large volumes of files.",
 	},
 	{
-		q: "Where can I find MCP skills?",
-		a: "Skills and installation instructions are available in the EOS MCP documentation.",
+		question: "Where can I find MCP skills?",
+		answer: "Skills and installation instructions are available in the EOS MCP documentation.",
 	},
 ];
+
+export const eosMcpResources = {
+	buttons: {
+		connectButtonText: "Connect MCP",
+		connectUrl: eosMcpConnectUrl,
+		demoButtonText: "Book a demo",
+		demoUrl: eosMcpDemoUrl,
+	},
+	banner: {
+		title: "AI-Powered Energy Workflows",
+		description: "Learn, explore and get more from AI with EOS MCP.",
+	},
+	intelligenceLayer: {
+		kicker: "Why AI is changing energy market intelligence",
+		title: "The new intelligence layer",
+		content:
+			"<p>AI is rapidly becoming the primary way clients access intelligence and insights. At Aurora, we've invested heavily in that future, building APIs, EOS AI and Aurora EOS MCP with support from more than 100 specialists across data, engineering, modelling and product teams.</p>\n<p><strong>Our goal is simple: bring Aurora's intelligence directly into the tools clients use every day.</strong></p>",
+		stats,
+		highlightText:
+			"As the energy industry enters a new intelligence era, EOS MCP extends Aurora's intelligence beyond the EOS platform, enabling seamless integration with AI-driven research and analysis workflows.",
+	},
+	whatIsMcp: {
+		kicker: "What's an MCP?",
+		definition:
+			"MCP stands for <strong>Model Context Protocol</strong>—an open standard that lets AI models query live, structured data sources in real time, without manual data export.",
+		description:
+			"In practice, EOS MCP delivers Aurora's market intelligence directly into tools such as ChatGPT and Claude, so users can access trusted data and insights wherever analysis happens.",
+		doesTitle: "What EOS MCP does",
+		does: mcpDoes,
+		doesntTitle: "What EOS MCP doesn't do",
+		doesnt: mcpDoesnt,
+	},
+	useCases: {
+		kicker: "Use cases",
+		title: "See EOS MCP in action",
+		description:
+			"Short walkthroughs of real prompts, run against real Aurora data—no reformatting, no manual lookups.",
+		filters: videoFilters,
+		videos,
+	},
+	gettingStarted: {
+		kicker: "Getting started",
+		title: "Three steps to get up and running",
+		buttonText: "Get started today",
+		steps,
+	},
+	bestPractices: {
+		kicker: "Best practices",
+		title: "Tips for effective use of EOS MCP",
+		items: practices,
+	},
+	faqs: {
+		kicker: "FAQs",
+		title: "Frequently asked questions",
+		items: faqs,
+	},
+	finalCta: {
+		title: "Ready to get started?",
+		description:
+			"Follow the simple setup instructions in our MCP documentation and connect your first AI tool in minutes.",
+	},
+};

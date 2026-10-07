@@ -1002,7 +1002,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																role="button"
 															>
 																{/* <img src={item?.logo?.logo} alt="arrow" /> */}
-																<img src={menu_hover_arrow.src} alt="arrow" />
+																{/* <img src={menu_hover_arrow.src} alt="arrow" /> */}
 																<span>EOS MCP</span>
 															</Link>
 														</div>

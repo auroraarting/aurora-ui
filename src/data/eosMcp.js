@@ -1,5 +1,7 @@
-/** Static content for the EOS MCP product page (/eos-mcp).
- *  There is no "eos-mcp" page in the CMS yet, so the copy lives here. */
+/** Default content for the EOS MCP product page (/eos-mcp), CMS page
+ *  "EOS MCP - Products". Shaped like the page's ACF fields: the page falls back
+ *  to these field by field until the CMS has a value, and
+ *  cms/eos-mcp-products-content.json seeds the CMS with exactly this copy. */
 
 /** MCP quick-start guide on EOS (from "EOS MCP - Website request - answers") */
 export const eosMcpConnectUrl =
@@ -16,22 +18,22 @@ export const benefits = [
 	{
 		icon: "bars",
 		title: "Built for real analytical work",
-		desc: "Energy market research, strategy, valuations and investment calls.",
+		description: "Energy market research, strategy, valuations and investment calls.",
 	},
 	{
 		icon: "clock",
 		title: "Compresses hours into minutes",
-		desc: "Your research and analytical capabilities, scaled.",
+		description: "Your research and analytical capabilities, scaled.",
 	},
 	{
 		icon: "database",
 		title: "Built on Aurora's source of truth",
-		desc: "Aurora's proprietary intelligence, with the expertise clients trust.",
+		description: "Aurora's proprietary intelligence, with the expertise clients trust.",
 	},
 	{
 		icon: "network",
 		title: "Bring Aurora into your own professional context",
-		desc: "Energy intelligence available in the AI tools you already use.",
+		description: "Energy intelligence available in the AI tools you already use.",
 	},
 ];
 
@@ -126,20 +128,67 @@ export const lifecycleStages = [
 export const resources = [
 	{
 		title: "What's an MCP?",
-		cta: "Understand MCPs",
-		href: `${eosMcpResourcesUrl}#what-is-mcp`,
+		ctaText: "Understand MCPs",
+		url: `${eosMcpResourcesUrl}#what-is-mcp`,
 	},
 	{
 		title: "See EOS MCP in action",
-		cta: "Watch real examples",
-		href: `${eosMcpResourcesUrl}#use-cases`,
+		ctaText: "Watch real examples",
+		url: `${eosMcpResourcesUrl}#use-cases`,
 	},
 	{
 		title: "Frequently asked questions",
-		cta: "Get answers",
-		href: `${eosMcpResourcesUrl}#faqs`,
+		ctaText: "Get answers",
+		url: `${eosMcpResourcesUrl}#faqs`,
 	},
 ];
+
+export const eosMcpProducts = {
+	buttons: {
+		connectButtonText: "Connect EOS MCP",
+		connectUrl: eosMcpConnectUrl,
+		demoButtonText: "Book a demo",
+		demoUrl: eosMcpDemoUrl,
+	},
+	banner: {
+		title: "Turn AI into an energy market expert.",
+		description:
+			"Bring Aurora's trusted intelligence into your AI tools like ChatGPT and Claude to explore complex questions, generate decision-ready analysis, and move forward with confidence.",
+		availabilityNote: "Available to all Aurora subscribers.",
+	},
+	overview: {
+		kicker: "Overview",
+		title: "Ask a question. Get a decision-ready outcome.",
+		description:
+			"EOS MCP helps your AI agent retrieve the right Aurora data, reason through the task, and generate the analysis, recommendations, content, or answers you need in seconds, all within your AI assistant.",
+		demoQuestion: "What's driving the dips in French nuclear availability?",
+		demoLabel: "Aurora Energy Research",
+	},
+	keyAdvantages: {
+		kicker: "Key Advantages",
+		items: benefits,
+	},
+	lifecycle: {
+		kicker: "Full lifecycle coverage",
+		title: "One AI agent, every stage of the asset lifecycle.",
+		description:
+			"Every decision in the asset lifecycle starts with a question. EOS MCP makes Aurora's market intelligence available directly within your AI workflows—enabling faster analysis and more informed decisions at every stage, from first market read to portfolio valuation.",
+		pointsLabel: "MCP can help you",
+		stages: lifecycleStages,
+	},
+	closingCta: {
+		title: "Get started with EOS MCP today.",
+		description:
+			"Follow the simple setup instructions in our MCP documentation and connect your first AI tool in minutes.",
+	},
+	resources: {
+		kicker: "Resources",
+		title: "Learn more about EOS MCP",
+		viewAllText: "View all",
+		viewAllUrl: eosMcpResourcesUrl,
+		cards: resources,
+	},
+};
 
 /** Bar heights (px) and colours for the looping demo chart */
 export const demoBars = [
