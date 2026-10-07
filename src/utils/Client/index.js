@@ -22,6 +22,31 @@ const tzAbbreviationMap = {
 	"UTC-6": { std: "CST", dst: "CDT" }, // map UTC-6 to America/Chicago abbreviations
 };
 
+// Events entered before the per-event timezone field existed (and any where an
+// editor leaves it blank) carry no zone of their own. Aurora is headquartered
+// in Oxford, so that's the most common actual entry zone and the sanest
+// default — closer to "right" than treating the digits as literal UTC.
+export const defaultEventTimezone = "Europe/London";
+
+/** Resolves a CMS event date/time to the correct absolute instant.
+ *  WPGraphQL always suffixes thumbnail.date/endDate with "+00:00", but that
+ *  offset isn't trustworthy — editors in different offices each enter the
+ *  wall-clock time as it is where *they* are, so the digits actually mean
+ *  local time in whatever zone thumbnail.timezone (an IANA id, e.g.
+ *  "Europe/Paris") names. This discards the bogus offset and reinterprets
+ *  the same wall-clock numbers as local time in that zone instead, falling
+ *  back to defaultEventTimezone when no (valid) timezone is given.
+ *  @param {string} dateStr @param {string} [timezone] @returns {Date|null} */
+export function resolveEventDateTime(dateStr, timezone) {
+	if (!dateStr) return null;
+	const utc = DateTime.fromISO(dateStr, { setZone: true });
+	if (!utc.isValid) return null;
+	const local = utc.setZone(timezone || defaultEventTimezone, {
+		keepLocalTime: true,
+	});
+	return local.isValid ? local.toJSDate() : utc.toJSDate();
+}
+
 /** formatWebinarDateTime  */
 export function formatWebinarDateTime(
 	startDateAndTime,

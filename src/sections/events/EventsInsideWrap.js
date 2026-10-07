@@ -75,7 +75,10 @@ export default function EventsInsideWrap({
 			{/* Page Content starts here */}
 			<main className={styles.EventsInsidePage}>
 				{data?.events?.thumbnail?.status === "Upcoming" && (
-					<CountdownTimer targetDate={data?.events?.thumbnail?.date} />
+					<CountdownTimer
+						targetDate={data?.events?.thumbnail?.date}
+						timezone={data?.events?.thumbnail?.timezone}
+					/>
 				)}
 				{/* <div className="container">
 					<Breadcrumbs />

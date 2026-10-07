@@ -1,20 +1,32 @@
 /* eslint-disable quotes */
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
+import { DateTime } from "luxon";
 import { openModal } from "@/components/Modal";
 // import { Link, scroller } from "react-scroll";
 
 /** formatDate  */
 export default function formatDate(isoString, language = "en-US", timezone) {
-	const date = new Date(isoString);
 	const options = { month: "short", day: "numeric", year: "numeric" };
-	// If admin has set a timezone, the UTC date is correct — show in user's local timezone
-	// If no timezone is set, force UTC to avoid off-by-one date issues
-	if (!timezone) {
-		options.timeZone = "UTC";
+	// WPGraphQL always suffixes the stored date with "+00:00", but that offset
+	// isn't trustworthy — it's the wall-clock time the editor entered in their
+	// own zone. When a real IANA timezone is given, reinterpret those same
+	// digits as local time there, then let the browser show it in the
+	// viewer's own timezone.
+	if (timezone) {
+		const local = DateTime.fromISO(isoString, { setZone: true }).setZone(
+			timezone,
+			{ keepLocalTime: true },
+		);
+		if (local.isValid) {
+			return local.toJSDate().toLocaleDateString(language, options);
+		}
 	}
+	// No (valid) timezone: pin to UTC to avoid an off-by-one day for viewers
+	// on the other side of the date line.
+	const date = new Date(isoString);
 	try {
-		return date.toLocaleDateString(language, options);
+		return date.toLocaleDateString(language, { ...options, timeZone: "UTC" });
 	} catch {
 		return date.toLocaleDateString(language, { ...options, timeZone: "UTC" });
 	}

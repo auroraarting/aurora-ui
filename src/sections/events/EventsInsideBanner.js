@@ -19,6 +19,7 @@ import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
 import grey_location from "@/../public/img/icons/grey_location.svg";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
 import formatDate from "@/utils";
+import { defaultEventTimezone } from "@/utils/Client";
 
 // UTILS //
 
@@ -43,9 +44,17 @@ function EventsInsideBanner({ data }) {
 						<li className="text_xs color_light_gray text_uppercase">
 							<img src={grey_calendar.src} alt="grey_calendar" />
 							<span>
-								{formatDate(data?.events?.thumbnail?.date)}
+								{formatDate(
+									data?.events?.thumbnail?.date,
+									"en-US",
+									data?.events?.thumbnail?.timezone || defaultEventTimezone,
+								)}
 								{data?.events?.thumbnail?.endDate
-									? ` - ${formatDate(data?.events?.thumbnail?.endDate)}`
+									? ` - ${formatDate(
+										data?.events?.thumbnail?.endDate,
+										"en-US",
+										data?.events?.thumbnail?.timezone || defaultEventTimezone,
+									)}`
 									: ""}
 							</span>
 						</li>

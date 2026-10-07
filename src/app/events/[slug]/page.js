@@ -24,6 +24,7 @@ import styles from "@/styles/pages/events/EventsInside.module.scss";
 // SERVICES //
 import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
+import { resolveEventDateTime } from "@/utils/Client";
 
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
@@ -107,10 +108,11 @@ async function getData({ slug }) {
 
 		if (item?.slug != slug) eventList.push(tempObj);
 	});
-	let isUpcoming =
-		new Date(data?.data?.eventBy?.events?.thumbnail?.date) >= todaysDate
-			? "Upcoming"
-			: "Past";
+	const eventDateTime = resolveEventDateTime(
+		data?.data?.eventBy?.events?.thumbnail?.date,
+		data?.data?.eventBy?.events?.thumbnail?.timezone,
+	);
+	let isUpcoming = eventDateTime >= todaysDate ? "Upcoming" : "Past";
 
 	// The sidebar shows a single upcoming event, picked for relevance to the one
 	// being viewed. The full listing already includes this event, so its category
@@ -125,11 +127,22 @@ async function getData({ slug }) {
 	const upcomingEvents = allEvents
 		.filter(
 			(item) =>
-				item?.slug !== slug && new Date(item?.events?.thumbnail?.date) > todaysDate,
+				item?.slug !== slug &&
+				resolveEventDateTime(
+					item?.events?.thumbnail?.date,
+					item?.events?.thumbnail?.timezone,
+				) > todaysDate,
 		)
 		.sort(
 			(a, b) =>
-				new Date(a?.events?.thumbnail?.date) - new Date(b?.events?.thumbnail?.date),
+				resolveEventDateTime(
+					a?.events?.thumbnail?.date,
+					a?.events?.thumbnail?.timezone,
+				) -
+				resolveEventDateTime(
+					b?.events?.thumbnail?.date,
+					b?.events?.thumbnail?.timezone,
+				),
 		);
 	// Soonest event sharing a category with this one. Falls back to the soonest
 	// upcoming event overall — without it the card would usually be empty, since
