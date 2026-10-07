@@ -39,6 +39,8 @@ const options = [
 	"Tokyo",
 	"Santiago, Chile",
 	"Mexico",
+	"Warsaw",
+	"Amsterdam",
 ];
 
 /** CompanyContact Component */
@@ -112,6 +114,10 @@ export default function CompanyContact() {
 				officeEmail = "contact.tokyo@auroraer.com";
 			} else if (data?.office === "Mexico") {
 				officeEmail = "contact.mexicocity@auroraer.com";
+			} else if (data?.office === "Warsaw") {
+				officeEmail = "contact-warsaw@auroraer.com";
+			} else if (data?.office === "Amsterdam") {
+				officeEmail = "contact.amsterdam@auroraer.com";
 			}
 
 			await Promise.all([
