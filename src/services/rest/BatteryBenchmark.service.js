@@ -51,6 +51,10 @@ const MONTH_SHORT = [
 	"Dec",
 ];
 
+/** Month a "Financial Year" series starts on (0-based: July). Only Australia
+ *  NEM publishes on a financial year, and Australia's runs July–June. */
+const FINANCIAL_YEAR_START = 6;
+
 /** Shared request for the JSON endpoints.
  *
  *  The one place in the app that still revalidates on a timer, deliberately:
@@ -150,16 +154,27 @@ export function parseBenchmarkCsv(csv) {
 		.map((line) => line.trim())
 		.filter(Boolean);
 
-	const unitCell = lines[1]?.split(",")[5] || "";
+	const unitRow = lines[1]?.split(",") || [];
+	const unitCell = unitRow[5] || "";
 	const currency = unitCell.split("/")[0]?.trim();
+
+	// The units row also says how to read the Year column. Most markets send
+	// "Calendar Year", but Australia NEM sends "Financial Year": July–June, named
+	// for the year it ends in, so "2026,December" is December 2025. Read
+	// literally, those months land a year in the future.
+	const isFinancialYear = /financial/i.test(unitRow[0] || "");
 
 	const points = lines
 		.slice(2)
 		.map((line) => {
-			const [year, month, , , , cashflow] = line.split(",");
+			const [yearCell, month, , , , cashflow] = line.split(",");
 			const monthIndex = MONTHS.indexOf(month);
 			const value = parseFloat(cashflow);
 			if (monthIndex === -1 || !Number.isFinite(value)) return null;
+			const year =
+				isFinancialYear && monthIndex >= FINANCIAL_YEAR_START
+					? Number(yearCell) - 1
+					: Number(yearCell);
 			return {
 				key: `${year}-${String(monthIndex + 1).padStart(2, "0")}`,
 				label: `${MONTH_SHORT[monthIndex]} ${String(year).slice(2)}`,
