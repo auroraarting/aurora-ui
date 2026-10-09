@@ -131,7 +131,7 @@ function toEosMcpProducts(res) {
 	};
 }
 
-/** Fetch "EOS MCP - Resources" (/resources/eos-mcp) */
+/** Fetch "EOS MCP - Resources" (/eos-mcp/ai-powered-energy-workflows) */
 export const getEosMcpResourcesPage = async () => {
 	const query = `
 query EosMcpResourcesPage {
@@ -173,6 +173,7 @@ query EosMcpResourcesPage {
           duration
           thumbnail { ${image} }
           vimeoId
+		  driveLink
         }
       }
       gettingStarted {
@@ -213,7 +214,7 @@ query EosMcpResourcesPage {
 	const res = await GraphQLAPI(query, {
 		apiID: "page",
 		tag: "page:eos-mcp",
-		pageID: "resources/eos-mcp",
+		pageID: "eos-mcp/ai-powered-energy-workflows",
 	});
 	return toEosMcpResources(res);
 };

@@ -1,4 +1,4 @@
-/** Default content for the EOS MCP resources page (/resources/eos-mcp), CMS
+/** Default content for the EOS MCP resources page (/eos-mcp/ai-powered-energy-workflows), CMS
  *  page "EOS MCP - Resources", ported from "EOS MCP - Resources.html". Shaped
  *  like the page's ACF fields: the page falls back to these field by field
  *  until the CMS has a value, and cms/eos-mcp-resources-content.json seeds the
@@ -73,6 +73,61 @@ export const videos = [
 		category: "Asset Management",
 		title: "Benchmark battery performance",
 		description: "Compare modelled vs. fleet revenues and update the outlook to 2035.",
+	},
+	/** New case studies from the "Website request - answers" doc. Each one
+	 *  only has a raw Google Drive file, not a Vimeo ID — `driveLink` plays in
+	 *  a popup via Drive's own preview iframe, and its thumbnail comes from
+	 *  Drive's public thumbnail endpoint (see VideoLibrary in
+	 *  EosMcpResourcesWrap). Swap in `vimeoId` + `thumbnail` once these are
+	 *  uploaded to Vimeo. */
+	{
+		category: "Asset Management",
+		title: "Test whether wider price spreads pay batteries",
+		description:
+			"Compare two-hour spreads with fleet revenue across four Australian states, split into wholesale and FCAS, in one prompt.",
+		driveLink: "https://drive.google.com/file/d/1GNBZn4dQb7y7bNFKCsWKpCE__gow97Mv/view?usp=sharing",
+	},
+	{
+		category: "Asset Management",
+		title: "Quantify the value of switching off at negative prices",
+		description:
+			"See how much a Belgian solar plant's 2026 capture price improves if it stops generating through negative-price periods.",
+		driveLink: "https://drive.google.com/file/d/1gLF5MNgrqC-xbDh0Q77U_ACauX06WFbs/view?usp=sharing",
+	},
+	{
+		category: "Market Understanding",
+		title: "Turn an Aurora report slide into an interactive analysis",
+		description:
+			"Recreate a CAISO nodal Sankey for 2020 vs 2025, add node-level tooltips and map the results, in three prompts.",
+		driveLink: "https://drive.google.com/file/d/1dL4mtdYVTjWyo1lwM1afXjXrXtbnoQUo/view?usp=sharing",
+	},
+	{
+		category: "Asset Management",
+		title: "Benchmark battery margins against the wider fleet",
+		description:
+			"Compare ERCOT average, top-decile and bottom-decile margins, then trace the gap to revenue streams, cycling and spreads.",
+		driveLink: "https://drive.google.com/file/d/12yi2DTd5q5IlfhMqUnklG_iF1xzvhcPM/view?usp=sharing",
+	},
+	{
+		category: "Market Understanding",
+		title: "Spot nuclear availability dips in the generation mix",
+		description:
+			"See how visible four years of French nuclear outages are in monthly generation, in one prompt.",
+		driveLink: "https://drive.google.com/file/d/1pD9qpikjH_rmDy1OT2pC_bkoiCeXOtDe/view?usp=sharing",
+	},
+	{
+		category: "Asset Management",
+		title: "Size the premium for a better optimiser",
+		description:
+			"Measure what the day's best optimiser earns over a median 2-hour battery on GB's most volatile days.",
+		driveLink: "https://drive.google.com/file/d/1QNiYMVc--L37R6IFZQBCceTmbmmvHKaw/view?usp=sharing",
+	},
+	{
+		category: "Market Understanding",
+		title: "Check forecasts against market outcomes",
+		description:
+			"Compare Aurora's India day-ahead price band with IEX clearing prices from Q3 2025 to Q1 2026, in one prompt.",
+		driveLink: "https://drive.google.com/file/d/1rjNVKFkplC7WR3p0fUT_6FyiolJoHsZY/view?usp=drive_link",
 	},
 ];
 
@@ -177,7 +232,7 @@ export const faqs = [
 
 export const eosMcpResources = {
 	buttons: {
-		connectButtonText: "Connect MCP",
+		connectButtonText: "Connect EOS MCP",
 		connectUrl: eosMcpConnectUrl,
 		demoButtonText: "Book a demo",
 		demoUrl: eosMcpDemoUrl,
@@ -187,7 +242,7 @@ export const eosMcpResources = {
 		description: "Learn, explore and get more from AI with EOS MCP.",
 	},
 	intelligenceLayer: {
-		kicker: "Why AI is changing energy market intelligence",
+		kicker: "",
 		title: "The new intelligence layer",
 		content:
 			"<p>AI is rapidly becoming the primary way clients access intelligence and insights. At Aurora, we've invested heavily in that future, building APIs, EOS AI and Aurora EOS MCP with support from more than 100 specialists across data, engineering, modelling and product teams.</p>\n<p><strong>Our goal is simple: bring Aurora's intelligence directly into the tools clients use every day.</strong></p>",
@@ -196,7 +251,7 @@ export const eosMcpResources = {
 			"As the energy industry enters a new intelligence era, EOS MCP extends Aurora's intelligence beyond the EOS platform, enabling seamless integration with AI-driven research and analysis workflows.",
 	},
 	whatIsMcp: {
-		kicker: "What's an MCP?",
+		kicker: "What is an MCP?",
 		definition:
 			"MCP stands for <strong>Model Context Protocol</strong>—an open standard that lets AI models query live, structured data sources in real time, without manual data export.",
 		description:

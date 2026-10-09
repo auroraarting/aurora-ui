@@ -12,7 +12,7 @@ export const eosMcpDemoUrl =
 	"https://bookings.cloud.microsoft/book/CommercialWorkshopBookings@auroraer.com/s/n2uLQiae5k67LMn2_yx3Xg2?ismsaljsauthenabled";
 
 /** Resources page that the product page's "View all" and resource cards point to */
-export const eosMcpResourcesUrl = "/resources/eos-mcp";
+export const eosMcpResourcesUrl = "/eos-mcp/ai-powered-energy-workflows";
 
 export const benefits = [
 	{
@@ -127,7 +127,7 @@ export const lifecycleStages = [
 /** Each card jumps to a section of the resources page */
 export const resources = [
 	{
-		title: "What's an MCP?",
+		title: "What is an MCP?",
 		ctaText: "Understand MCPs",
 		url: `${eosMcpResourcesUrl}#what-is-mcp`,
 	},

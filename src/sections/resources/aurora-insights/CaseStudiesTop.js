@@ -42,8 +42,6 @@ export default function CaseStudiesTop({ data }) {
 		}
 	};
 
-	console.log(data, "data");
-
 	return (
 		<section className={`${styles.CaseStudiesTop} pt_50`}>
 			<div className="container">

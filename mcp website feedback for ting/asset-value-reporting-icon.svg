@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" stroke="#1B8A83" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" role="img" aria-label="Asset value reporting">
+  <!-- trend line: rises, dips, then climbs to the arrow tip -->
+  <path d="M16 88 L38 64 L54 80 L90 44"/>
+  <!-- arrowhead, anchored exactly on the line's end point -->
+  <path d="M68 44 H90 V66"/>
+</svg>

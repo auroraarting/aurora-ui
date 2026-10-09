@@ -46,6 +46,7 @@ export default function EOSPageWrap({
 	data,
 	bundles,
 	dataForBtn,
+	isEosAI,
 }) {
 	return (
 		<div>
@@ -98,17 +99,37 @@ export default function EOSPageWrap({
 						)
 					}
 				/>
-				{data?.introduction && <Introduction data={data?.introduction} />}
-				{data?.eosAi && (
-					<div className="pb_100">
-						<EOSAI data={data?.eosAi} />
-					</div>
+				{data?.introduction?.sectionTitle && (
+					<Introduction data={data?.introduction} />
 				)}
-				{data?.eosMcp && (
-					<div className="pb_100">
-						<EOSAI data={data?.eosMcp} />
-					</div>
+				{isEosAI ? (
+					<>
+						{data?.eosMcp && (
+							<div className="pt_100">
+								<EOSAI data={data?.eosMcp} />
+							</div>
+						)}
+						{data?.eosAi && (
+							<div className="ptb_100">
+								<EOSAI data={data?.eosAi} />
+							</div>
+						)}
+					</>
+				) : (
+					<>
+						{data?.eosAi && (
+							<div className="pb_100">
+								<EOSAI data={data?.eosAi} />
+							</div>
+						)}
+						{data?.eosMcp && (
+							<div className="pb_100">
+								<EOSAI data={data?.eosMcp} />
+							</div>
+						)}
+					</>
 				)}
+
 				<div className="pb_100">
 					<SoftwareCards />
 				</div>

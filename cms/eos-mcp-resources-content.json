@@ -1,7 +1,7 @@
 {
   "acf": {
     "buttons": {
-      "connect_button_text": "Connect MCP",
+      "connect_button_text": "Connect EOS MCP",
       "connect_url": "https://eos.auroraer.com/dragonfly/user-guides/eos/aurora-mcp-guide?locale=en#quick-start",
       "demo_button_text": "Book a demo",
       "demo_url": "https://bookings.cloud.microsoft/book/CommercialWorkshopBookings@auroraer.com/s/n2uLQiae5k67LMn2_yx3Xg2?ismsaljsauthenabled"
@@ -11,7 +11,7 @@
       "description": "Learn, explore and get more from AI with EOS MCP."
     },
     "intelligence_layer": {
-      "kicker": "Why AI is changing energy market intelligence",
+      "kicker": "",
       "title": "The new intelligence layer",
       "content": "<p>AI is rapidly becoming the primary way clients access intelligence and insights. At Aurora, we've invested heavily in that future, building APIs, EOS AI and Aurora EOS MCP with support from more than 100 specialists across data, engineering, modelling and product teams.</p>\n<p><strong>Our goal is simple: bring Aurora's intelligence directly into the tools clients use every day.</strong></p>",
       "stats": [
@@ -31,7 +31,7 @@
       "highlight_text": "As the energy industry enters a new intelligence era, EOS MCP extends Aurora's intelligence beyond the EOS platform, enabling seamless integration with AI-driven research and analysis workflows."
     },
     "what_is_mcp": {
-      "kicker": "What's an MCP?",
+      "kicker": "What is an MCP?",
       "definition": "MCP stands for <strong>Model Context Protocol</strong>—an open standard that lets AI models query live, structured data sources in real time, without manual data export.",
       "description": "In practice, EOS MCP delivers Aurora's market intelligence directly into tools such as ChatGPT and Claude, so users can access trusted data and insights wherever analysis happens.",
       "does_title": "What EOS MCP does",

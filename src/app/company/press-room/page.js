@@ -64,8 +64,6 @@ async function getData() {
 		await getPressPage(),
 	]);
 
-	console.log(data, "data");
-
 	return {
 		props: {
 			data: data.data.posts.nodes,

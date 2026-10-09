@@ -213,22 +213,22 @@
       "kicker": "Resources",
       "title": "Learn more about EOS MCP",
       "view_all_text": "View all",
-      "view_all_url": "/resources/eos-mcp",
+      "view_all_url": "/eos-mcp/ai-powered-energy-workflows",
       "cards": [
         {
-          "title": "What's an MCP?",
+          "title": "What is an MCP?",
           "cta_text": "Understand MCPs",
-          "url": "/resources/eos-mcp#what-is-mcp"
+          "url": "/eos-mcp/ai-powered-energy-workflows#what-is-mcp"
         },
         {
           "title": "See EOS MCP in action",
           "cta_text": "Watch real examples",
-          "url": "/resources/eos-mcp#use-cases"
+          "url": "/eos-mcp/ai-powered-energy-workflows#use-cases"
         },
         {
           "title": "Frequently asked questions",
           "cta_text": "Get answers",
-          "url": "/resources/eos-mcp#faqs"
+          "url": "/eos-mcp/ai-powered-energy-workflows#faqs"
         }
       ]
     }

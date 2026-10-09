@@ -90,6 +90,7 @@ export default async function EOSPage() {
 				data={data}
 				bundles={bundles}
 				dataForBtn={dataForBtn}
+				isEosAI={true}
 			/>
 			{/* Page eos ends here */}
 

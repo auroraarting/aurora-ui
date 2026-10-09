@@ -1148,7 +1148,7 @@
                         "type": "text",
                         "name": "view_all_url",
                         "label": "View all button URL",
-                        "instructions": "A site path like /resources/eos-mcp, or a full URL.",
+                        "instructions": "A site path like /eos-mcp/ai-powered-energy-workflows, or a full URL.",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -1161,7 +1161,7 @@
                         "graphql_description": "",
                         "graphql_field_name": "viewAllUrl",
                         "graphql_non_null": 0,
-                        "default_value": "/resources/eos-mcp",
+                        "default_value": "/eos-mcp/ai-powered-energy-workflows",
                         "placeholder": "",
                         "prepend": "",
                         "append": "",
@@ -1246,7 +1246,7 @@
                                 "type": "text",
                                 "name": "url",
                                 "label": "URL",
-                                "instructions": "e.g. /resources/eos-mcp#faqs",
+                                "instructions": "e.g. /eos-mcp/ai-powered-energy-workflows#faqs",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {

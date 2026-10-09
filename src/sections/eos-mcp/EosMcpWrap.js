@@ -92,8 +92,8 @@ const icons = {
 	),
 	trend: (
 		<>
-			<path d="M8 38l9-10 7 6 16-18" />
-			<path d="M32 12h8v8" />
+			<path d="M6.4 35.2L15.2 25.6L21.6 32L36 17.6" />
+			<path d="M27.2 17.6H36V26.4" />
 		</>
 	),
 };
@@ -165,8 +165,8 @@ export default function EosMcpWrap({ data }) {
 				}
 			/>
 
-			{/* Overview / live demo */}
-			<section className={styles.demo} id="overview" data-name="Overview">
+			{/* Overview / live demo — merged into the Introduction tab above */}
+			<section className={styles.demo} id="overview">
 				<div className={`container ${styles.demoGrid}`}>
 					<div className={styles.demoHead}>
 						<div className={styles.kicker}>{overview.kicker}</div>

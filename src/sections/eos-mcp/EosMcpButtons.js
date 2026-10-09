@@ -11,7 +11,7 @@ import { eosMcpConnectUrl, eosMcpDemoUrl } from "@/data/eosMcp";
 function ExternalButton({ href, mode, color, children }) {
 	return (
 		<a href={href} target="_blank" rel="noreferrer" role="button">
-			<Button color={color} variant="filled" shape="rounded" mode={mode} textlowercase>
+			<Button color={color} variant="filled" shape="rounded" mode={mode}>
 				{children}
 			</Button>
 		</a>

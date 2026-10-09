@@ -22,7 +22,9 @@ import { getPageSeo } from "@/services/Seo.service";
 
 /** generateMetadata — Yoast SEO from the CMS page, or this copy until it exists */
 export async function generateMetadata() {
-	const meta = await getPageSeo('page(id: "resources/eos-mcp", idType: URI)');
+	const meta = await getPageSeo(
+		'page(id: "eos-mcp/ai-powered-energy-workflows", idType: URI)',
+	);
 	const seo = meta?.data?.page?.seo;
 
 	return {
@@ -34,7 +36,7 @@ export async function generateMetadata() {
 			"Learn what EOS MCP is, see it in action, and get set up in minutes: use cases, best practices and FAQs for bringing Aurora's intelligence into ChatGPT, Claude and other AI tools.",
 		keywords: seo?.metaKeywords || "",
 		alternates: {
-			canonical: "https://auroraer.com/resources/eos-mcp",
+			canonical: "https://auroraer.com/eos-mcp/ai-powered-energy-workflows",
 		},
 		openGraph: {
 			images: [

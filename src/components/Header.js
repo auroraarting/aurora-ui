@@ -42,6 +42,7 @@ import popup_close from "@/../public/img/icons/popup_close.svg";
 import white_close from "@/../public/img/icons/white_close.svg";
 import Close from "@/../public/img/icons/close.svg";
 import WebinarImg from "/public/img/header_webinar.jpg";
+import eos_round_icon from "@/../public/img/favicon.png";
 
 // SERVICES //
 
@@ -900,20 +901,6 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															insights.
 														</p>
 													</div>
-													<div className={`${styles.eosItem}`}>
-														<Link
-															href="/eos-ai"
-															className={`${styles.eosLinksTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
-															role="button"
-														>
-															<span>EOS AI</span>{" "}
-															<img src={menu_hover_arrow.src} alt="arrow" />
-														</Link>
-														<p className="text_xs color_light_gray ">
-															EOS centralises Aurora&apos;s data, software, forecasts, and
-															insights.
-														</p>
-													</div>
 													{data?.services?.map((item, ind) => {
 														return (
 															<div className={`${styles.eosItem}`} key={ind}>
@@ -992,18 +979,31 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 															role="button"
 														>
-															<span>AI and Data</span>{" "}
+															<span>AI & Data</span>{" "}
 															{/* <img src={menu_hover_arrow.src} alt="arrow" /> */}
 														</Link>
 														<div className={`${styles.softwareListBox}`}>
+															<Link
+																href={"/eos-ai"}
+																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
+															>
+																<span>EOS AI</span>
+															</Link>
 															<Link
 																href={"/eos-mcp"}
 																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 																role="button"
 															>
-																{/* <img src={item?.logo?.logo} alt="arrow" /> */}
-																{/* <img src={menu_hover_arrow.src} alt="arrow" /> */}
+																<img src={eos_round_icon.src} alt="" />
 																<span>EOS MCP</span>
+															</Link>
+															<Link
+																href={"/eos-mcp/ai-powered-energy-workflows"}
+																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
+															>
+																<span>AI-Powered Energy Workflows</span>
 															</Link>
 														</div>
 													</div>
@@ -1080,14 +1080,14 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<span>Energy Unplugged</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
-													<Link
-														href="/resources/eos-mcp"
+													{/* <Link
+														href="/eos-mcp/ai-powered-energy-workflows"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 														role="button"
 													>
 														<span>AI Powered Energy Workflows</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
-													</Link>
+													</Link> */}
 													<Link
 														href="/resources/webinar"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}

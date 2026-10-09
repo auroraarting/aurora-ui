@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable quotes */
 // MODULES //
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 
 // COMPONENTS //
@@ -17,6 +17,86 @@ import logo from "/public/img/eos-mcp/logo.png";
 import heroImg from "/public/img/eos-mcp/resource-homepage.png";
 import diagramImg from "/public/img/eos-mcp/mcp-diagram.png";
 
+/** Google Drive file id from any of Drive's share-link shapes. */
+const driveFileId = (link) => {
+	if (!link) return null;
+	const pathMatch = link.match(/\/d\/([a-zA-Z0-9_-]+)/);
+	if (pathMatch) return pathMatch[1];
+	const queryMatch = link.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+	return queryMatch ? queryMatch[1] : null;
+};
+
+/** Drive's public thumbnail endpoint — works for files shared "anyone with the link". */
+const driveThumbnail = (link) => {
+	const id = driveFileId(link);
+	return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : null;
+};
+
+/** Drive's embeddable preview player, used inside the popup. */
+const drivePreviewUrl = (link) => {
+	const id = driveFileId(link);
+	return id ? `https://drive.google.com/file/d/${id}/preview` : null;
+};
+
+/** Whether a video has something to actually play in the popup. */
+const isPlayable = (video) => Boolean(video?.vimeoId || video?.driveLink);
+/** Thumbnail image for a video, falling back to Drive's thumbnail endpoint. */
+const thumbnailFor = (video) => video?.thumbnail || driveThumbnail(video?.driveLink);
+
+/** VideoModal — plays a video's Vimeo embed or Drive preview over the page */
+function VideoModal({ video, onClose }) {
+	useEffect(() => {
+		/** Close the popup on Escape. */
+		const onKeyDown = (e) => e.key === "Escape" && onClose();
+		document.addEventListener("keydown", onKeyDown);
+		document.body.style.overflow = "hidden";
+		return () => {
+			document.removeEventListener("keydown", onKeyDown);
+			document.body.style.overflow = "";
+		};
+	}, [onClose]);
+
+	if (!video) return null;
+
+	const previewUrl = !video.vimeoId && drivePreviewUrl(video.driveLink);
+
+	return (
+		<div className={styles.videoModalOverlay} onClick={onClose}>
+			<div className={styles.videoModalBox} onClick={(e) => e.stopPropagation()}>
+				<button
+					type="button"
+					className={styles.videoModalClose}
+					onClick={onClose}
+					aria-label="Close video"
+				>
+					&times;
+				</button>
+				<div className={styles.videoModalPlayer}>
+					{video.vimeoId ? (
+						<VimeoPlayer
+							key={video.vimeoId}
+							video={video.vimeoId}
+							autoplay
+							responsive
+							className={styles.videoModalEmbed}
+						/>
+					) : (
+						previewUrl && (
+							<iframe
+								src={previewUrl}
+								title={video.title}
+								className={styles.videoModalEmbed}
+								allow="autoplay; fullscreen"
+								allowFullScreen
+							/>
+						)
+					)}
+				</div>
+			</div>
+		</div>
+	);
+}
+
 /** VideoLibrary — filter chips, a main stage and a playlist that drives it */
 function VideoLibrary({ videoFilters, videos }) {
 	// Only offer filters that have at least one video behind them
@@ -26,6 +106,7 @@ function VideoLibrary({ videoFilters, videos }) {
 	];
 	const [filter, setFilter] = useState("All");
 	const [activeTitle, setActiveTitle] = useState(videos[0]?.title);
+	const [openVideo, setOpenVideo] = useState(null);
 
 	const list =
 		filter === "All" ? videos : videos.filter((v) => v.category === filter);
@@ -48,22 +129,24 @@ function VideoLibrary({ videoFilters, videos }) {
 
 			<div className={styles.videoLibrary}>
 				<div className={styles.videoStage}>
-					<div className={styles.stageThumb}>
-						{active?.vimeoId ? (
-							<VimeoPlayer
-								key={active.vimeoId}
-								video={active.vimeoId}
-								responsive
-								className={styles.stagePlayer}
-							/>
-						) : (
-							<>
-								{active?.thumbnail && (
-									<img src={active.thumbnail} alt={`Video preview: ${active?.title}`} />
-								)}
-								<span className={styles.playBtn}>&#9654;</span>
-								<span className={styles.durationBadge}>{active?.duration}</span>
-							</>
+					<div
+						className={styles.stageThumb}
+						role={isPlayable(active) ? "button" : undefined}
+						tabIndex={isPlayable(active) ? 0 : undefined}
+						onClick={() => isPlayable(active) && setOpenVideo(active)}
+						onKeyDown={(e) => {
+							if (isPlayable(active) && (e.key === "Enter" || e.key === " ")) {
+								e.preventDefault();
+								setOpenVideo(active);
+							}
+						}}
+					>
+						{thumbnailFor(active) && (
+							<img src={thumbnailFor(active)} alt={`Video preview: ${active?.title}`} />
+						)}
+						{isPlayable(active) && <span className={styles.playBtn}>&#9654;</span>}
+						{active?.duration && (
+							<span className={styles.durationBadge}>{active.duration}</span>
 						)}
 					</div>
 					<div className={styles.stageMeta}>
@@ -79,11 +162,14 @@ function VideoLibrary({ videoFilters, videos }) {
 							type="button"
 							role="listitem"
 							className={`${styles.playlistItem} ${item === active ? styles.isActive : ""}`}
-							onClick={() => setActiveTitle(item.title)}
+							onClick={() => {
+								setActiveTitle(item.title);
+								if (isPlayable(item)) setOpenVideo(item);
+							}}
 						>
 							<span className={styles.playlistThumb}>
-								{item.thumbnail && <img src={item.thumbnail} alt="" />}
-								<span className={styles.playBtn}>&#9654;</span>
+								{thumbnailFor(item) && <img src={thumbnailFor(item)} alt="" />}
+								{isPlayable(item) && <span className={styles.playBtn}>&#9654;</span>}
 							</span>
 							<span className={styles.playlistInfo}>
 								<span className={styles.playlistTitle}>{item.title}</span>
@@ -93,6 +179,8 @@ function VideoLibrary({ videoFilters, videos }) {
 					))}
 				</div>
 			</div>
+
+			<VideoModal video={openVideo} onClose={() => setOpenVideo(null)} />
 		</>
 	);
 }
@@ -179,9 +267,11 @@ export default function EosMcpResourcesWrap({ data }) {
 			<SectionsHeader />
 
 			{/* 1. The new intelligence layer */}
-			<section id="intelligence-layer" data-name="Overview">
+			<section id="intelligence-layer" data-name="Introduction">
 				<div className="container">
-					<div className={styles.kicker}>{intelligenceLayer.kicker}</div>
+					{intelligenceLayer.kicker && (
+						<div className={styles.kicker}>{intelligenceLayer.kicker}</div>
+					)}
 					<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
 						{intelligenceLayer.title}
 					</h2>
@@ -206,7 +296,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* 2. What is MCP */}
-			<section className={styles.tint} id="what-is-mcp" data-name="What's an MCP?">
+			<section className={styles.tint} id="what-is-mcp" data-name="What is an MCP?">
 				<div className="container">
 					<div className={styles.kicker}>{whatIsMcp.kicker}</div>
 					<p className={`${styles.definition} font_primary`}>
