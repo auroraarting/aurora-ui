@@ -155,17 +155,19 @@ function VideoLibrary({ videoFilters, videos }) {
 					</div>
 				</div>
 
-				<div className={styles.playlist} role="list" aria-label="Use case videos">
+				<div
+					className={styles.playlist}
+					role="list"
+					aria-label="Use case videos"
+					data-lenis-prevent
+				>
 					{list.map((item) => (
 						<button
 							key={item.title}
 							type="button"
 							role="listitem"
 							className={`${styles.playlistItem} ${item === active ? styles.isActive : ""}`}
-							onClick={() => {
-								setActiveTitle(item.title);
-								if (isPlayable(item)) setOpenVideo(item);
-							}}
+							onClick={() => setActiveTitle(item.title)}
 						>
 							<span className={styles.playlistThumb}>
 								{thumbnailFor(item) && <img src={thumbnailFor(item)} alt="" />}
