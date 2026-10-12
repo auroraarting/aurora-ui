@@ -19,9 +19,11 @@ import {
 	buildChart,
 	buildRegions,
 	currencyForRegion,
+	defaultZoneFor,
 	durationsFor,
 	firstAvailableRegion,
 	regionLabel,
+	trailingMonths,
 	unitsFor,
 	zoneLabel,
 	zonesFor,
@@ -61,7 +63,8 @@ export default function BatteryBenchmarkExplorer({
 		() => zonesFor(benchmarks, region),
 		[benchmarks, region],
 	);
-	const activeZone = zone && zones.includes(zone) ? zone : zones[0] || null;
+	const activeZone =
+		zone && zones.includes(zone) ? zone : defaultZoneFor(zones, region);
 
 	const selection = useMemo(
 		() => benchmarksFor(benchmarks, region, activeZone),
@@ -74,6 +77,25 @@ export default function BatteryBenchmarkExplorer({
 	);
 
 	const isBackcast = benchmarkType === "backcast";
+
+	// Backcast's axis always spans the 13 months trailing the market's own most
+	// recent release, however many of them it has actually published for — Real
+	// Performance already fetches its own explicit date range, so it keeps the
+	// union-of-available-months axis.
+	//
+	// Anchored on the catalogue's latestReleaseMonth rather than today's date:
+	// benchmarks publish on a lag (today's date can be a month or two ahead of
+	// the newest release), and anchoring on "now" would just as often trim real
+	// months off an already-13-month-deep market to make room for blank ones at
+	// the end as it would widen a newer market's axis.
+	const backcastWindow = useMemo(() => {
+		if (!isBackcast) return null;
+		const latest = selection
+			.map((item) => (item.latestReleaseMonth ? new Date(item.latestReleaseMonth) : null))
+			.filter(Boolean)
+			.sort((a, b) => b - a)[0];
+		return trailingMonths(13, latest || new Date());
+	}, [isBackcast, selection]);
 
 	// Sync initial series when benchmark catalogue / initialSeries changes
 	useEffect(() => {
@@ -144,8 +166,8 @@ export default function BatteryBenchmarkExplorer({
 	}, [selection, isBackcast, fetchSeries]);
 
 	const chart = useMemo(
-		() => buildChart(selection, seriesByUuid, 1),
-		[selection, seriesByUuid],
+		() => buildChart(selection, seriesByUuid, 1, { fixedMonths: backcastWindow }),
+		[selection, seriesByUuid, backcastWindow],
 	);
 
 	// The API omits `baseCurrencyCode` on some benchmarks (Italy today), which
@@ -156,8 +178,11 @@ export default function BatteryBenchmarkExplorer({
 
 	// Scaled to the selected unit
 	const series = useMemo(
-		() => buildChart(selection, seriesByUuid, unit.factor).series,
-		[selection, seriesByUuid, unit],
+		() =>
+			buildChart(selection, seriesByUuid, unit.factor, {
+				fixedMonths: backcastWindow,
+			}).series,
+		[selection, seriesByUuid, unit, backcastWindow],
 	);
 
 	const activeKeys = useMemo(

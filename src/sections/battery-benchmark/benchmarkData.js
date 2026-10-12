@@ -214,6 +214,22 @@ export function zonesFor(benchmarks = [], region) {
 	].sort((a, b) => zoneLabel(a).localeCompare(zoneLabel(b)));
 }
 
+/** The price zone a market opens on, where one zone has materially more
+ *  history than its siblings — alphabetical order would otherwise default to
+ *  Denmark 1 / Sweden 1, which are the newer of their respective zones. Only
+ *  overridden where that's actually true; everything else still opens on
+ *  whichever zone sorts first. */
+const DEFAULT_ZONE_BY_REGION = {
+	dnk: "nod_dk2",
+	swe: "nod_se4",
+};
+
+/** defaultZoneFor - the zone a market's selector should open on */
+export function defaultZoneFor(zones = [], region) {
+	const preferred = DEFAULT_ZONE_BY_REGION[region];
+	return preferred && zones.includes(preferred) ? preferred : zones[0] || null;
+}
+
 /** benchmarksFor - the published benchmarks behind the current selection */
 export function benchmarksFor(benchmarks = [], region, zone) {
 	const filtered = benchmarks.filter(
@@ -317,17 +333,48 @@ export function unitsFor(currency) {
 	];
 }
 
+/** trailingMonths - the last `count` calendar months as "YYYY-MM" keys,
+ *  ending on the anchor's month (today, by default).
+ *
+ *  Used to give the Backcast axis a fixed 13-month width regardless of how
+ *  many months a market has actually published: a market that only started
+ *  last quarter still gets the full window, its earlier months rendered as
+ *  gaps rather than a visibly short axis. */
+export function trailingMonths(count = 13, anchor = new Date()) {
+	const keys = [];
+	for (let i = count - 1; i >= 0; i--) {
+		const date = new Date(anchor.getFullYear(), anchor.getMonth() - i, 1);
+		keys.push(
+			`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`,
+		);
+	}
+	return keys;
+}
+
 /** buildChart - aligns the selected benchmarks' monthly series onto one axis.
- *  Series can cover different months, so the axis is the union of all of them
- *  and a series without a value for a month gets a null (gap in the line). */
-export function buildChart(selection = [], seriesByUuid = {}, factor = 1) {
-	const months = [
-		...new Set(
-			selection.flatMap((item) =>
-				(seriesByUuid[item.uuid]?.points || []).map((point) => point.key),
+ *
+ *  By default the axis is the union of whatever months the selected series
+ *  cover. Passing `fixedMonths` (see trailingMonths) overrides that with a
+ *  fixed set of month keys instead — every series is read against exactly
+ *  those months, so a market with less history than the window still gets
+ *  the full window, with the uncovered months left null (a gap in the line).
+ *
+ *  Either way, a series without a value for a month gets a null. */
+export function buildChart(
+	selection = [],
+	seriesByUuid = {},
+	factor = 1,
+	{ fixedMonths = null } = {},
+) {
+	const months =
+		fixedMonths ||
+		[
+			...new Set(
+				selection.flatMap((item) =>
+					(seriesByUuid[item.uuid]?.points || []).map((point) => point.key),
+				),
 			),
-		),
-	].sort();
+		].sort();
 
 	const xLabels = months.map((month) => {
 		const [year, index] = month.split("-");
