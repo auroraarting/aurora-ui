@@ -11,7 +11,7 @@
 
 	section {
 		position: relative;
-		padding: 88px 0;
+		// padding: 88px 0;
 
 		@include sm-down {
 			padding: 64px 0;
@@ -583,8 +583,8 @@
 	.stepImg {
 		display: block;
 		width: calc(100% + 20px);
-		margin: 0 -10px 24px;
-		aspect-ratio: 486 / 239;
+		margin: 0 0px 24px;
+		// aspect-ratio: 486 / 239;
 		object-fit: cover;
 		object-position: top;
 		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);

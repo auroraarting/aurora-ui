@@ -16,6 +16,7 @@ import styles from "@/styles/pages/EosMcpResources.module.scss";
 import logo from "/public/img/eos-mcp/logo.png";
 import heroImg from "/public/img/eos-mcp/resource-homepage.png";
 import diagramImg from "/public/img/eos-mcp/mcp-diagram.png";
+import EqualHeight from "@/utils/EqualHeight";
 
 /** Google Drive file id from any of Drive's share-link shapes. */
 const driveFileId = (link) => {
@@ -41,7 +42,8 @@ const drivePreviewUrl = (link) => {
 /** Whether a video has something to actually play in the popup. */
 const isPlayable = (video) => Boolean(video?.vimeoId || video?.driveLink);
 /** Thumbnail image for a video, falling back to Drive's thumbnail endpoint. */
-const thumbnailFor = (video) => video?.thumbnail || driveThumbnail(video?.driveLink);
+const thumbnailFor = (video) =>
+	video?.thumbnail || driveThumbnail(video?.driveLink);
 
 /** VideoModal — plays a video's Vimeo embed or Drive preview over the page */
 function VideoModal({ video, onClose }) {
@@ -142,7 +144,10 @@ function VideoLibrary({ videoFilters, videos }) {
 						}}
 					>
 						{thumbnailFor(active) && (
-							<img src={thumbnailFor(active)} alt={`Video preview: ${active?.title}`} />
+							<img
+								src={thumbnailFor(active)}
+								alt={`Video preview: ${active?.title}`}
+							/>
 						)}
 						{isPlayable(active) && <span className={styles.playBtn}>&#9654;</span>}
 						{active?.duration && (
@@ -245,6 +250,10 @@ export default function EosMcpResourcesWrap({ data }) {
 		</>
 	);
 
+	useEffect(() => {
+		EqualHeight("stepImg");
+	}, []);
+
 	return (
 		<main className={styles.EosMcpResourcesPage}>
 			{/* Hero */}
@@ -269,7 +278,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			<SectionsHeader />
 
 			{/* 1. The new intelligence layer */}
-			<section id="intelligence-layer" data-name="Introduction">
+			<section className="pt_100" id="intelligence-layer" data-name="Introduction">
 				<div className="container">
 					{intelligenceLayer.kicker && (
 						<div className={styles.kicker}>{intelligenceLayer.kicker}</div>
@@ -277,7 +286,9 @@ export default function EosMcpResourcesWrap({ data }) {
 					<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
 						{intelligenceLayer.title}
 					</h2>
-					<div className={styles.layerContent}>{parse(intelligenceLayer.content)}</div>
+					<div className={styles.layerContent}>
+						{parse(intelligenceLayer.content)}
+					</div>
 					<div className={styles.statsRow}>
 						{intelligenceLayer.stats.map((item) => (
 							<div className={styles.statCard} key={item.number}>
@@ -298,7 +309,11 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* 2. What is MCP */}
-			<section className={styles.tint} id="what-is-mcp" data-name="What is an MCP?">
+			<section
+				className={`${styles.tint} pt_100`}
+				id="what-is-mcp"
+				data-name="What is an MCP?"
+			>
 				<div className="container">
 					<div className={styles.kicker}>{whatIsMcp.kicker}</div>
 					<p className={`${styles.definition} font_primary`}>
@@ -338,7 +353,11 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* 3. Use cases */}
-			<section className={styles.tint} id="use-cases" data-name="Use Cases">
+			<section
+				className={`${styles.tint} pt_100`}
+				id="use-cases"
+				data-name="Use Cases"
+			>
 				<div className="container">
 					<div className={styles.kicker}>{useCases.kicker}</div>
 					<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
@@ -351,7 +370,7 @@ export default function EosMcpResourcesWrap({ data }) {
 
 			{/* 4. Getting started */}
 			<section
-				className={styles.tint}
+				className={`${styles.tint} pt_100`}
 				id="getting-started"
 				data-name="Getting Started"
 			>
@@ -367,9 +386,9 @@ export default function EosMcpResourcesWrap({ data }) {
 									{String(ind + 1).padStart(2, "0")}
 								</div>
 								{item.image && (
-									<img className={styles.stepImg} src={item.image} alt="" />
+									<img className={`${styles.stepImg} stepImg`} src={item.image} alt="" />
 								)}
-								<p>{item.text}</p>
+								<p className={styles.stepCardTitle}>{item.text}</p>
 								<span className={styles.stepTime}>{item.time}</span>
 								{ind < gettingStarted.steps.length - 1 && (
 									<span className={styles.stepLink}></span>
@@ -386,7 +405,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* 5. Best practices */}
-			<section id="best-practices" data-name="Best Practices">
+			<section className="pt_100" id="best-practices" data-name="Best Practices">
 				<div className="container">
 					<div className={styles.kicker}>{bestPractices.kicker}</div>
 					<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
@@ -420,7 +439,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* 6. FAQs */}
-			<section id="faqs" data-name="FAQs">
+			<section className="pt_100" id="faqs" data-name="FAQs">
 				<div className="container">
 					<div className={styles.kicker}>{faqs.kicker}</div>
 					<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
@@ -431,7 +450,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* Final CTA */}
-			<section className={styles.finalCta} id="connect">
+			<section className={`${styles.finalCta} pt_100`} id="connect">
 				<div className="container">
 					<h2 className="text_lg font_primary color_white">{finalCta.title}</h2>
 					<p className="color_silver_gray">{finalCta.description}</p>
