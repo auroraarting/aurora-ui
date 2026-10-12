@@ -47,11 +47,32 @@ export function resolveEventDateTime(dateStr, timezone) {
 	return local.isValid ? local.toJSDate() : utc.toJSDate();
 }
 
+/** Formats an event's actual start/end clock time, converted into whichever
+ *  timezone the browser rendering it is in (no explicit timeZone option, so
+ *  it follows the viewer, unlike resolveEventDateTime's instant which is
+ *  viewer-independent) — with that viewer's own zone label appended (e.g.
+ *  "8:30 PM HST"), never the uploader's. For zones with no unambiguous
+ *  abbreviation (notably India, which CLDR won't label "IST" — that's also
+ *  Irish and Israel Standard Time), the browser falls back to a GMT offset
+ *  (e.g. "GMT+5:30") instead of guessing wrong.
+ *  @param {string} dateStr @param {string} [timezone] @param {string} [language]
+ *  @returns {string|null} */
+export function formatEventTime(dateStr, timezone, language = "en-US") {
+	const instant = resolveEventDateTime(dateStr, timezone);
+	if (!instant) return null;
+	return instant.toLocaleTimeString(language, {
+		hour: "2-digit",
+		minute: "2-digit",
+		hour12: true,
+		timeZoneName: "short",
+	});
+}
+
 /** formatWebinarDateTime  */
 export function formatWebinarDateTime(
 	startDateAndTime,
 	endDateAndTime,
-	timezone
+	timezone,
 ) {
 	// const zone = timezone[0];
 
