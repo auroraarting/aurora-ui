@@ -2,8 +2,8 @@
 /* eslint-disable indent */
 /* eslint-disable quotes */
 // Force SSR (like getServerSideProps)
-// export const dynamic = "force-dynamic"; // ⚠️ Important!
-// ❌ Remove: export const fetchCache = "force-no-store";
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const fetchCache = "force-no-store";
 
 // MODULES //
 

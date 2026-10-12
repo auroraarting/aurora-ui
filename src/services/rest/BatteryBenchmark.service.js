@@ -2,19 +2,6 @@
 // Docs (from Aurora): /regions/all, /benchmarks/all,
 // /benchmarks/<uuid>/data/total, /leaderboards/<region>
 
-// Benchmarks are republished monthly (see `latestReleaseMonth`), so the series
-// data is cached for a week. The upstream endpoint costs a flat ~2.8s per
-// benchmark and does not get faster on repeat — it has no caching of its own —
-// so a short window here just means visitors pay that latency again for nothing.
-const REFRESH_INTERVAL = 604800; // 1 week
-
-// The Real Performance leaderboard reports daily, not monthly, so a week-long
-// window is too stale for it. An hour matches the s-maxage already used for
-// the indices list in app/api/battery-benchmarks/route.js. Interactive
-// requests (a visitor changing the date range) bypass this entirely via
-// `cache: "no-store"` and always hit the live endpoint.
-const LEADERBOARD_REFRESH_INTERVAL = 3600; // 1 hour
-
 // The benchmark endpoints are slow (~2.8s each), so a whole region's worth of
 // series is fetched in small parallel batches rather than one at a time.
 // Do NOT raise this: measured against the live API, 6 at a time returns 32/32,
@@ -55,13 +42,8 @@ const MONTH_SHORT = [
  *  NEM publishes on a financial year, and Australia's runs July–June. */
 const FINANCIAL_YEAR_START = 6;
 
-/** Shared request for the JSON endpoints.
- *
- *  The one place in the app that still revalidates on a timer, deliberately:
- *  this is the benchmark vendor's API, not WordPress, so no CMS webhook can
- *  ever flush it and a tag would never be invalidated. Everything sourced from
- *  WordPress is cached indefinitely and flushed on demand instead — see
- *  services/CacheTags.js. */
+/** Shared request for the JSON endpoints. Always live — no Next.js fetch
+ *  cache, matching the rest of the app. */
 const RESTAPI = async (query, options) => {
 	const res = await fetch(`${process.env.BATTERY_BENCHMARK_API_URL}${query}`, {
 		method: "GET",
@@ -69,7 +51,7 @@ const RESTAPI = async (query, options) => {
 			"Content-Type": "application/json",
 			"Private-Token": process.env.BATTERY_BENCHMARK_TOKEN,
 		},
-		next: { revalidate: REFRESH_INTERVAL },
+		cache: "no-store",
 		...options,
 	});
 	if (!res.ok) {
@@ -79,18 +61,15 @@ const RESTAPI = async (query, options) => {
 	return data;
 };
 
-/** Shared request for the endpoints that answer with CSV */
+/** Shared request for the endpoints that answer with CSV. Always live — no
+ *  Next.js fetch cache, matching the rest of the app. */
 const RESTAPICsv = async (query, options = {}) => {
 	const res = await fetch(`${process.env.BATTERY_BENCHMARK_API_URL}${query}`, {
 		method: "GET",
 		headers: {
 			"Private-Token": process.env.BATTERY_BENCHMARK_TOKEN,
 		},
-		// A caller asking for `cache: "no-store"` wants a genuinely live request —
-		// pairing that with `next.revalidate` throws ("no-store" and a revalidate
-		// window contradict each other), so the default only applies when nothing
-		// else specifies its own cache mode.
-		...(options.cache ? {} : { next: { revalidate: REFRESH_INTERVAL } }),
+		cache: "no-store",
 		...options,
 	});
 	if (!res.ok) {
@@ -432,14 +411,8 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 	};
 }
 
-/** Fetch the real-performance leaderboard for a region.
- *  Returns the raw CSV.
- *
- *  Cached on a timer by default (see LEADERBOARD_REFRESH_INTERVAL) so the
- *  page's initial, default-date-range render can be statically generated.
- *  Pass `{ cache: "no-store" }` for a request that must be live — that's what
- *  the interactive API route (app/api/battery-benchmarks) does for a visitor's
- *  own date range. */
+/** Fetch the real-performance leaderboard for a region. Returns the raw CSV.
+ *  Always live — no Next.js fetch cache, matching the rest of the app. */
 export const getLeaderboard = async (
 	region,
 	{ start, end, index } = {},
@@ -452,10 +425,7 @@ export const getLeaderboard = async (
 	if (index) params.set("index", index);
 
 	try {
-		return await RESTAPICsv(`/leaderboards/${region}?${params.toString()}`, {
-			...(options.cache ? {} : { next: { revalidate: LEADERBOARD_REFRESH_INTERVAL } }),
-			...options,
-		});
+		return await RESTAPICsv(`/leaderboards/${region}?${params.toString()}`, options);
 	} catch (error) {
 		console.error(`getLeaderboard(${region}) failed:`, error?.message || error);
 		return "";

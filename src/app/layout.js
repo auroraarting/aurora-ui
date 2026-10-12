@@ -16,6 +16,13 @@ import { getWebinars } from "@/services/Webinar.service";
 import { GTM_ID } from "@/lib/tags";
 import { Inter, Lato } from "next/font/google";
 
+// Global default: every route renders fresh per-request with no fetch
+// caching, unless a nested segment explicitly overrides it. Pages already
+// declare this themselves too (see each page.js's own dynamic/fetchCache
+// exports) — this is the fallback for anything that doesn't.
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export const inter = Inter({
 	subsets: ["latin"],
 	weight: ["400", "500", "600", "700"],

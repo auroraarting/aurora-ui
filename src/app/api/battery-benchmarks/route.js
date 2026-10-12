@@ -1,3 +1,8 @@
+// Force this route to run fresh on every request — no Next.js route cache,
+// no Data Cache for its fetch() calls.
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 /* eslint-disable require-jsdoc */
 import {
 	getBenchmarkSeriesByUuid,
@@ -28,7 +33,7 @@ export async function GET(req) {
 				{
 					headers: {
 						"Cache-Control":
-							"public, s-maxage=3600, stale-while-revalidate=1800",
+							"no-store, no-cache, must-revalidate, proxy-revalidate",
 					},
 				},
 			);
@@ -91,16 +96,12 @@ export async function GET(req) {
 
 	try {
 		const series = await getBenchmarkSeriesByUuid(uuids);
-		// The page now seeds every series server-side, so this route is only a
-		// fallback. Benchmarks change monthly, so let the CDN and browser hold the
-		// response for a day and serve it stale for a week while it refreshes —
-		// otherwise every request pays the upstream's flat ~2.8s per benchmark.
 		return Response.json(
 			{ series },
 			{
 				headers: {
 					"Cache-Control":
-						"public, s-maxage=86400, stale-while-revalidate=604800",
+						"no-store, no-cache, must-revalidate, proxy-revalidate",
 				},
 			},
 		);

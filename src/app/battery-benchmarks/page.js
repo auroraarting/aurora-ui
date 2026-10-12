@@ -1,9 +1,6 @@
-// ISR: statically generated, then revalidated in the background. 1800s matches
-// the shortest-lived data on the page (the Real Performance methodology API's
-// pre-signed media URLs expire after an hour — see Methodology.service.js).
-// WordPress content and benchmark series are cached separately (tag-flushed or
-// on a longer timer) and are unaffected by this.
-export const revalidate = 1800;
+// Force SSR (like getServerSideProps)
+export const dynamic = "force-dynamic"; // ⚠️ Important!
+export const fetchCache = "force-no-store";
 
 // MODULES //
 

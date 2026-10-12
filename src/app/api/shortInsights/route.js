@@ -1,3 +1,8 @@
+// Force this route to run fresh on every request — no Next.js route cache,
+// no Data Cache for its fetch() calls.
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 /* eslint-disable quotes */
 /* eslint-disable require-jsdoc */
 import {

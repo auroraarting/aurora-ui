@@ -29,6 +29,7 @@ import {
 
 // Never prerender or cache the endpoint itself.
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 const SECRET_HEADER = "x-revalidate-secret";
 

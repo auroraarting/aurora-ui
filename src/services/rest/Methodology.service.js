@@ -30,17 +30,6 @@ const BASE_URL =
 // distinguishes them.
 const PRODUCT = "Flexplorer";
 
-// Media in these payloads is served by pre-signed URLs that expire one hour
-// after the response is generated, so a cached response must not outlive them.
-// Thirty minutes keeps every URL well inside its hour while still meaning the
-// API is hit twice an hour rather than per page view.
-//
-// Timed rather than tag-flushed on purpose: like the Flexplorer API in
-// BatteryBenchmark.service.js this is not WordPress, so no CMS webhook reaches
-// /api/revalidate for it and a cache tag would never be invalidated. The tag is
-// carried anyway so the endpoint can be flushed by hand after an urgent edit.
-const REFRESH_INTERVAL = 1800; // 30 minutes
-export const METHODOLOGY_TAG = "methodology";
 
 const requestTimeoutMs = 20000;
 
@@ -487,7 +476,7 @@ async function fetchMethodologies(locale, slugPrefix) {
 		method: "GET",
 		headers: { Accept: "application/json" },
 		signal: AbortSignal.timeout(requestTimeoutMs),
-		next: { revalidate: REFRESH_INTERVAL, tags: [METHODOLOGY_TAG] },
+		cache: "no-store",
 	});
 	if (!res.ok) {
 		throw new Error(
