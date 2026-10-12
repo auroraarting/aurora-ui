@@ -23,6 +23,7 @@ query GetEventsListing {
           address
           date
           endDate
+          timezone
           time
           externalUrl
           logo {
@@ -433,6 +434,7 @@ query GetEventInsideNew {
         address
         date
         endDate
+        timezone
         time
         logo {
           node {
@@ -771,6 +773,7 @@ query GetEventLanding {
                 openExternalInNewTab
                 address
                 date
+                timezone
                 time
                 externalUrl
                 logo {

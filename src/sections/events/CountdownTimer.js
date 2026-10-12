@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 // PLUGINS //
 
 // UTILS //
+import { resolveEventDateTime } from "@/utils/Client";
 
 // STYLES //
 import styles from "@/styles/sections/events/CountdownTimer.module.scss";
@@ -18,7 +19,7 @@ import styles from "@/styles/sections/events/CountdownTimer.module.scss";
 // DATA //
 
 /** CountdownTimer  */
-const CountdownTimer = ({ targetDate }) => {
+const CountdownTimer = ({ targetDate, timezone }) => {
 	const [timeLeft, setTimeLeft] = useState({
 		days: 0,
 		hours: 0,
@@ -27,7 +28,8 @@ const CountdownTimer = ({ targetDate }) => {
 	});
 
 	useEffect(() => {
-		const target = new Date(targetDate).getTime(); // UTC to local automatically
+		const target = resolveEventDateTime(targetDate, timezone)?.getTime();
+		if (!target) return;
 
 		const interval = setInterval(() => {
 			const now = new Date().getTime(); // local time
@@ -47,7 +49,7 @@ const CountdownTimer = ({ targetDate }) => {
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, [targetDate]);
+	}, [targetDate, timezone]);
 
 	// Don't render anything if timeLeft hasn't been calculated yet or all values are 0
 	if (
