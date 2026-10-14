@@ -400,10 +400,12 @@ export default function EosMcpResourcesWrap({ data }) {
 							</div>
 						))}
 					</div>
-					<div className={styles.gettingStartedCta}>
-						<ConnectButton href={buttons.connectUrl}>
-							{gettingStarted.buttonText}
-						</ConnectButton>
+					<div className="pb_100">
+						<div className={styles.gettingStartedCta}>
+							<ConnectButton href={buttons.connectUrl}>
+								{gettingStarted.buttonText}
+							</ConnectButton>
+						</div>
 					</div>
 				</div>
 			</section>
