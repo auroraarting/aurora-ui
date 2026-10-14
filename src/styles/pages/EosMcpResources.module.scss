@@ -341,8 +341,6 @@
 		.playBtn {
 			width: 64px;
 			height: 64px;
-			font-size: 20px;
-			padding-left: 4px;
 			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 		}
 	}
@@ -364,6 +362,14 @@
 		align-items: center;
 		justify-content: center;
 		pointer-events: none;
+
+		// Triangle sits optically centred, nudged right of the circle's centre
+		svg {
+			width: 40%;
+			height: 40%;
+			margin-left: 6%;
+			fill: currentColor;
+		}
 	}
 
 	.durationBadge {
@@ -459,8 +465,6 @@
 		.playBtn {
 			width: 26px;
 			height: 26px;
-			font-size: 9px;
-			padding-left: 2px;
 		}
 	}
 
@@ -491,6 +495,10 @@
 		justify-content: center;
 		padding: 56px 24px 24px;
 		z-index: 1000;
+
+		@include md-down {
+			padding: 56px 12px 24px;
+		}
 	}
 
 	.videoModalBox {
@@ -529,6 +537,13 @@
 		background: #000;
 		border-radius: 12px;
 		overflow: hidden;
+
+		// Drive's mobile player stacks a toolbar above the video and crops it
+		// inside a 16:9 box, so give it the screen's height to letterbox into
+		@include md-down {
+			aspect-ratio: auto;
+			height: calc(100dvh - 140px);
+		}
 	}
 
 	.videoModalEmbed {
@@ -537,6 +552,16 @@
 		width: 100%;
 		height: 100%;
 		border: 0;
+	}
+
+	.videoModalFallback {
+		display: block;
+		margin-top: 14px;
+		text-align: center;
+		font-size: 14px;
+		color: var(--color_white);
+		text-decoration: underline;
+		opacity: 0.8;
 	}
 
 	// ---------- 4. GETTING STARTED ----------

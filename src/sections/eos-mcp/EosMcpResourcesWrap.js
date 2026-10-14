@@ -27,10 +27,11 @@ const driveFileId = (link) => {
 	return queryMatch ? queryMatch[1] : null;
 };
 
-/** Drive's public thumbnail endpoint — works for files shared "anyone with the link". */
+/** Drive's public thumbnail — works for files shared "anyone with the link".
+ * The lh3 host serves it with a referrer; drive.google.com/thumbnail 403s. */
 const driveThumbnail = (link) => {
 	const id = driveFileId(link);
-	return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : null;
+	return id ? `https://lh3.googleusercontent.com/d/${id}=w1000` : null;
 };
 
 /** Drive's embeddable preview player, used inside the popup. */
@@ -38,6 +39,13 @@ const drivePreviewUrl = (link) => {
 	const id = driveFileId(link);
 	return id ? `https://drive.google.com/file/d/${id}/preview` : null;
 };
+
+/** Play triangle as SVG — the ▶ character renders as an emoji on iOS. */
+const PlayIcon = () => (
+	<svg viewBox="0 0 24 24" aria-hidden="true">
+		<path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.6-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z" />
+	</svg>
+);
 
 /** Whether a video has something to actually play in the popup. */
 const isPlayable = (video) => Boolean(video?.vimeoId || video?.driveLink);
@@ -48,6 +56,9 @@ const thumbnailFor = (video) =>
 /** VideoModal — plays a video's Vimeo embed or Drive preview over the page */
 function VideoModal({ video, onClose }) {
 	useEffect(() => {
+		// Only lock scrolling while a video is actually open — this component
+		// is always mounted, and a permanent lock kills touch scrolling on mobile
+		if (!video) return;
 		/** Close the popup on Escape. */
 		const onKeyDown = (e) => e.key === "Escape" && onClose();
 		document.addEventListener("keydown", onKeyDown);
@@ -56,7 +67,7 @@ function VideoModal({ video, onClose }) {
 			document.removeEventListener("keydown", onKeyDown);
 			document.body.style.overflow = "";
 		};
-	}, [onClose]);
+	}, [video, onClose]);
 
 	if (!video) return null;
 
@@ -94,6 +105,17 @@ function VideoModal({ video, onClose }) {
 						)
 					)}
 				</div>
+				{/* Drive embeds can refuse to play (iOS Safari, Drive view limits) */}
+				{previewUrl && (
+					<a
+						className={styles.videoModalFallback}
+						href={video.driveLink}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Video not playing? Open it in Google Drive
+					</a>
+				)}
 			</div>
 		</div>
 	);
@@ -146,10 +168,13 @@ function VideoLibrary({ videoFilters, videos }) {
 						{thumbnailFor(active) && (
 							<img
 								src={thumbnailFor(active)}
+								referrerPolicy="no-referrer"
 								alt={`Video preview: ${active?.title}`}
 							/>
 						)}
-						{isPlayable(active) && <span className={styles.playBtn}>&#9654;</span>}
+						{isPlayable(active) && <span className={styles.playBtn}>
+							<PlayIcon />
+						</span>}
 						{active?.duration && (
 							<span className={styles.durationBadge}>{active.duration}</span>
 						)}
@@ -175,8 +200,14 @@ function VideoLibrary({ videoFilters, videos }) {
 							onClick={() => setActiveTitle(item.title)}
 						>
 							<span className={styles.playlistThumb}>
-								{thumbnailFor(item) && <img src={thumbnailFor(item)} alt="" />}
-								{isPlayable(item) && <span className={styles.playBtn}>&#9654;</span>}
+								{thumbnailFor(item) && <img
+									src={thumbnailFor(item)}
+									referrerPolicy="no-referrer"
+									alt=""
+								/>}
+								{isPlayable(item) && <span className={styles.playBtn}>
+									<PlayIcon />
+								</span>}
 							</span>
 							<span className={styles.playlistInfo}>
 								<span className={styles.playlistTitle}>{item.title}</span>
