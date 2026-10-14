@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 // COMPONENTS //
+import Vimeo from "@/components/VimeoPlayer";
 
 // SECTIONS //
 
 // PLUGINS //
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import Vimeo from "@u-wave/react-vimeo";
 
 // UTILS //
 

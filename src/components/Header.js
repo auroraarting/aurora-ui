@@ -42,6 +42,7 @@ import popup_close from "@/../public/img/icons/popup_close.svg";
 import white_close from "@/../public/img/icons/white_close.svg";
 import Close from "@/../public/img/icons/close.svg";
 import WebinarImg from "/public/img/header_webinar.jpg";
+import eos_round_icon from "@/../public/img/favicon.png";
 
 // SERVICES //
 
@@ -854,6 +855,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 									} ${
 										(pathname.includes("/software") ||
 											pathname.includes("/eos") ||
+											pathname.includes("/ai-data") ||
 											pathname.includes("/products") ||
 											pathname.includes("/service")) &&
 										styles.active
@@ -971,6 +973,35 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														</div>
 													</div>
 												</div>
+												<div className={`${styles.softwareFlex} f_w_j`}>
+													<div className={`${styles.softwareItem}`}>
+														<Link
+															href="/ai-data"
+															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
+															role="button"
+														>
+															<span>AI & Data</span>{" "}
+															{/* <img src={menu_hover_arrow.src} alt="arrow" /> */}
+														</Link>
+														<div className={`${styles.softwareListBox}`}>
+															<Link
+																href={"/eos-mcp"}
+																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
+															>
+																<img src={eos_round_icon.src} alt="" />
+																<span>EOS MCP</span>
+															</Link>
+															<Link
+																href={"/eos-mcp/ai-powered-energy-workflows"}
+																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+																role="button"
+															>
+																<span>AI-Powered Energy Workflows</span>
+															</Link>
+														</div>
+													</div>
+												</div>
 											</div>
 											<div className={`${styles.menuBoxleft}`}>
 												<div className={`${styles.productImgBox}`}>
@@ -980,6 +1011,22 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 										</div>
 									</div>
 								</div>
+
+								{/* <div
+									className={`${styles.links} ${
+										pathname.includes("/battery-benchmarks") && styles.active
+									}`}
+									role="button"
+									onClick={() => setOpenSidebar(false)}
+								>
+									<Link href="/battery-benchmarks" role="button">
+										<div
+											className={`${styles.link_title} text_xs font_primary color_dark_gray`}
+										>
+											<p>Battery Benchmarks</p>
+										</div>
+									</Link>
+								</div> */}
 
 								<div
 									className={`${styles.links} ${styles.has_dropdown} ${
@@ -1027,6 +1074,14 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 														<span>Energy Unplugged</span>{" "}
 														<img src={menu_hover_arrow.src} alt="arrow" />
 													</Link>
+													{/* <Link
+														href="/eos-mcp/ai-powered-energy-workflows"
+														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
+														role="button"
+													>
+														<span>AI Powered Energy Workflows</span>{" "}
+														<img src={menu_hover_arrow.src} alt="arrow" />
+													</Link> */}
 													<Link
 														href="/resources/webinar"
 														className={`${styles.pageLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}

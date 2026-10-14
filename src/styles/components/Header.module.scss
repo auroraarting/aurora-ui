@@ -160,12 +160,12 @@
 				width: 35%;
 			}
 		}
-		.globalList {
-			width: calc(20% + 1.5px);
-			@media (max-width: 1366px) {
-				width: 35%;
-			}
-		}
+		// The nav row is deliberately left alone here. Widening .globalList to
+		// match the language column above it pushed .header_inside past 100% of
+		// the row, which squeezed the eight nav links onto two or more lines —
+		// and even once the widths added up, 65% was not enough room for them
+		// below 1366px. The switcher now changes only the bar above, so a page
+		// with translations gets the same nav layout as one without.
 	}
 	&.showLanguagesList {
 		background-color: #f7f7f7;
@@ -512,14 +512,14 @@
 				}
 			}
 			.pageLinks {
-				width: 500px;
+				width: 100%;
 				display: flex;
 				flex-wrap: wrap;
 				@media (max-width: 767px) {
 					width: 100%;
 				}
 				.pageLinksTxt {
-					width: 50%;
+					width: 33%;
 					margin-bottom: 10px;
 					padding-right: 15px;
 					&:nth-child(2n) {
@@ -655,11 +655,14 @@
 		.menuBoxRight {
 			.eosAdvisoryFlex {
 				.eosItem {
-					width: 48%;
+					width: 45%;
 					padding: 20px 0px;
 					border-bottom: 1px solid rgba(44, 44, 44, 0.2);
 					@media (max-width: 767px) {
 						width: 100%;
+					}
+					p {
+						width: 90%;
 					}
 					.eosLinksTxt {
 						font-size: 20px;
