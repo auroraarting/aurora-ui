@@ -855,6 +855,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 									} ${
 										(pathname.includes("/software") ||
 											pathname.includes("/eos") ||
+											pathname.includes("/ai-data") ||
 											pathname.includes("/products") ||
 											pathname.includes("/service")) &&
 										styles.active
@@ -975,7 +976,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 												<div className={`${styles.softwareFlex} f_w_j`}>
 													<div className={`${styles.softwareItem}`}>
 														<Link
-															href="/"
+															href="/ai-data"
 															className={`${styles.softwareTxt} f_r_a_center text_reg f_w_m font_primary color_dark_gray`}
 															role="button"
 														>
@@ -983,13 +984,6 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 															{/* <img src={menu_hover_arrow.src} alt="arrow" /> */}
 														</Link>
 														<div className={`${styles.softwareListBox}`}>
-															<Link
-																href={"/eos-ai"}
-																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
-																role="button"
-															>
-																<span>EOS AI</span>
-															</Link>
 															<Link
 																href={"/eos-mcp"}
 																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}

@@ -278,7 +278,11 @@ export default function EosMcpResourcesWrap({ data }) {
 			<SectionsHeader />
 
 			{/* 1. The new intelligence layer */}
-			<section className="pt_100" id="intelligence-layer" data-name="Introduction">
+			<section
+				className="ptb_100"
+				id="intelligence-layer"
+				data-name="Introduction"
+			>
 				<div className="container">
 					{intelligenceLayer.kicker && (
 						<div className={styles.kicker}>{intelligenceLayer.kicker}</div>
@@ -439,7 +443,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* 6. FAQs */}
-			<section className="pt_100" id="faqs" data-name="FAQs">
+			<section className="ptb_100" id="faqs" data-name="FAQs">
 				<div className="container">
 					<div className={styles.kicker}>{faqs.kicker}</div>
 					<h2 className={`${styles.sectionTitle} text_lg font_primary`}>
@@ -450,7 +454,7 @@ export default function EosMcpResourcesWrap({ data }) {
 			</section>
 
 			{/* Final CTA */}
-			<section className={`${styles.finalCta} pt_100`} id="connect">
+			<section className={`${styles.finalCta} ptb_100`} id="connect">
 				<div className="container">
 					<h2 className="text_lg font_primary color_white">{finalCta.title}</h2>
 					<p className="color_silver_gray">{finalCta.description}</p>
