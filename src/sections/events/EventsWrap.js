@@ -37,8 +37,6 @@ export default function EventsWrap({
 	services,
 	page,
 }) {
-	// console.log(data, "data");
-
 	return (
 		<div>
 			{/* Metatags */}

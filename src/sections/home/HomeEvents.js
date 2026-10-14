@@ -31,7 +31,6 @@ import formatDate, { OpenIframePopup } from "@/utils";
 
 /** HomeEvents Section */
 export default function HomeEvents({ data }) {
-	// console.log(data);
 	return (
 		<section
 			className={`${styles.HomeEvents}`}

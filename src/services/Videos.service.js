@@ -335,7 +335,7 @@ query GetPodcastBy {
 		});
 		return res;
 	} catch (error) {
-		console.log("error", error);
+		console.error("error", error);
 	}
 	return res;
 };

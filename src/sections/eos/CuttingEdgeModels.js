@@ -112,7 +112,6 @@ export default function CuttingEdgeModels({ data }) {
 		return <></>;
 	}
 
-	// console.log(eventSpeakersData);
 	return (
 		<section className={`${styles.CuttingEdgeModels}`}>
 			<div className="container">

@@ -9,6 +9,13 @@ const nextConfig = {
 		ignoreDuringBuilds: true,
 	},
 	productionBrowserSourceMaps: false,
+	sassOptions: {
+		// Sass deprecation warnings (@import, darken(), slash division…) flood
+		// the build log; they are left unfixed in the styles on purpose. Errors
+		// still fail the build — only warnings and @debug output are dropped.
+		quietDeps: true,
+		logger: { warn() {}, debug() {} },
+	},
 	staticPageGenerationTimeout: 1000, // Increase to 1000 seconds (or higher if needed)
 	experimental: {
 		// One build worker, so the rate limiter in Graphql.service.js (~1.67

@@ -9,7 +9,7 @@ import Button from "@/components/Buttons/Button";
 export default function Error({ error, reset }) {
 	useEffect(() => {
 		// Log the error to an error reporting service
-		console.log(error);
+		console.error(error);
 	}, [error]);
 
 	return (

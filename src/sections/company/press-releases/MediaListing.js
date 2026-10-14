@@ -224,8 +224,6 @@ export default function MediaListing({
 		EqualHeight(`${styles.ItemBox}`);
 	}, [list, selected]);
 
-	// console.log(list, "list");
-
 	return (
 		<section className={styles.MediaListing}>
 			<div className={styles.filterMain}>

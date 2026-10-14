@@ -88,9 +88,6 @@ async function handler(req) {
 		webhook = webhookTags(body, searchParams.get("action"));
 		if (webhook.skip) return Response.json({ msg: webhook.skip, ...webhook });
 		items = [...new Set([...items, ...webhook.tags.map((tag) => `tag:${tag}`)])];
-		console.log(
-			`[revalidate] WordPress ${webhook.action} ${webhook.postType}: ${webhook.tags.join(", ")}`,
-		);
 	}
 
 	if (items.length === 0) {
@@ -129,10 +126,6 @@ async function handler(req) {
 		console.error(`[revalidate] failed ${current}:`, error);
 		return new Response(`Webhook error: ${error.message}`, { status: 500 });
 	}
-	console.log(
-		`[revalidate] ${done + 1}/${total} ${current} (${remaining.length} queued)`,
-	);
-
 	if (remaining.length) {
 		after(async () => {
 			await new Promise((r) => setTimeout(r, delayMs));

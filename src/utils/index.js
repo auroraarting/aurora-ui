@@ -946,7 +946,6 @@ export const filterItemsForWebinar = (podcasts, selected) => {
 
 /** filterBySearchQuery */
 export const filterBySearchQuery = (items, searchQuery) => {
-	// console.log(searchQuery, "searchQuery");
 	if (!searchQuery) return items;
 
 	const lowerSearch = searchQuery.toLowerCase();

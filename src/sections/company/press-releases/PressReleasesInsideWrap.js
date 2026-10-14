@@ -42,7 +42,6 @@ export default function PressReleasesInsideWrap({
 	page,
 }) {
 	const dataForBtn2 = { postFields: page || {} };
-	// console.log(page, "page");
 	return (
 		<div>
 			{/* Metatags */}

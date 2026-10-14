@@ -98,7 +98,7 @@ export default async function HomePage() {
 		voices = voicesFetch;
 	} catch (error) {
 		errorMsg = error;
-		console.log(error, "Error");
+		console.error(error, "Error");
 	}
 
 	// if (errorMsg) return <div>{errorMsg}</div>;

@@ -74,10 +74,6 @@ export async function POST(req, { params }) {
 	if (result.skip) return Response.json({ msg: result.skip, ...result });
 
 	const key = result.tags.join(",");
-	console.log(
-		`[revalidate/wordpress] ${action} (${resolved}) ${result.postType}: ${key}`,
-	);
-
 	// Answer WordPress straight away; /api/revalidate works through the tags
 	// one per second in the background
 	after(async () => {

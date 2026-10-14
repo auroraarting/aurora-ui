@@ -81,8 +81,6 @@ export default function SoftwareMarket({
 		centerOfCountry: centerOfCountry(),
 	};
 
-	// console.log(customMapJson, "customMapJson");
-
 	const [mapCenter, setMapCenter] = useState(centerOfCountry());
 	const [map, setMap] = useState(null);
 	const [valueOfSelect, setValueOfSelect] = useState(0);

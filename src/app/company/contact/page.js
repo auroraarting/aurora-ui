@@ -93,7 +93,6 @@ async function getData() {
 											return true;
 										})
 										.map((item3, ind3) => {
-											// console.log(item3);
 											// if (item2?.countries?.hideonglobalpresence) return null;
 											return (
 												<div className={`${styles.CountryItem}`} key={item2?.title + ind3}>
@@ -150,8 +149,6 @@ async function getData() {
 			}
 			return obj;
 		});
-
-	console.log("regionsArr", regions.data.regions.nodes);
 
 	return {
 		props: {

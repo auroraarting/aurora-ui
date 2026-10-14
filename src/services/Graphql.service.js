@@ -155,6 +155,14 @@ function proxyAllMediaUrls(obj) {
 	return result;
 }
 
+/** Wall-clock time for the request logs, e.g. 14:03:22.517 */
+const stamp = () => new Date().toISOString().slice(11, 23);
+
+/** Operation name of a query, or its first characters when it has none. */
+const queryLabel = (query) =>
+	query.match(/\b(?:query|mutation)\s+(\w+)/)?.[1] ||
+	query.replace(/\s+/g, " ").trim().slice(0, 60);
+
 /** Hits WordPress directly — no Redis.
  *  Deduplicates identical build-time queries and throttles concurrency.
  *  Runtime cache: held indefinitely, flushed by tag on demand.
@@ -177,6 +185,9 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 				return await schedule(async () => {
 					await waitTurn();
 					const { url, init } = buildRequest(query);
+					const label = queryLabel(query);
+					const startedAt = Date.now();
+					console.log(`[graphql] ${stamp()} → ${label} start (attempt ${attempt})`);
 					const req = await fetch(url, {
 						...init,
 						headers: {
@@ -195,6 +206,9 @@ export default async function GraphQLAPI(query, dataObj = {}) {
 						throw err;
 					}
 					const res = await req.json();
+					console.log(
+						`[graphql] ${stamp()} ← ${label} end ${req.status} in ${Date.now() - startedAt}ms`,
+					);
 					// return proxyAllMediaUrls(res);
 					return res;
 				});
@@ -267,7 +281,6 @@ export async function GraphQLAPIOld(query, dataObj) {
 			body: JSON.stringify({ ...data }),
 		});
 		res = await req.json();
-		// console.log(res, JSON.stringify(res), "res");
 		const endTime = new Date(); // End time
 		const fetchDuration = endTime - startTime; // Duration in milliseconds
 		// console.log(
@@ -281,7 +294,7 @@ export async function GraphQLAPIOld(query, dataObj) {
 		console.log(
 			`Error Fetch completed in ${fetchDuration}ms at ${endTime.toLocaleString()}`,
 		);
-		console.log(error, JSON.stringify(query), "errror");
+		console.error(error, JSON.stringify(query), "errror");
 	}
 }
 

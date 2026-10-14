@@ -138,8 +138,6 @@ export default function Leaders({ data }) {
 		setList([...ceo, ...teams]);
 	}, []);
 
-	// console.log(mediaLeadersData, "mediaLeadersData");
-
 	return (
 		<section className={`${styles.Leaders}`}>
 			<div className="container">

@@ -45,10 +45,6 @@ export default function EventsGallery({ data }) {
 	};
 
 	/** EventsGallery Section */
-	const onInit = () => {
-		// console.log("lightGallery has been initialized");
-	};
-
 	const chunks = chunkItems(data?.events?.glimps?.gallery?.nodes, 7);
 
 	return (
@@ -59,7 +55,6 @@ export default function EventsGallery({ data }) {
 					return (
 						<div className={styles.galleryBox} key={ind}>
 							<LightGallery
-								onInit={onInit}
 								speed={500}
 								plugins={[lgThumbnail, lgVideo]}
 								mode="lg-fade"

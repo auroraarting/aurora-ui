@@ -73,6 +73,9 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  */
 const logging = (process.env.WP_REST_LOG ?? "1") !== "0";
 
+/** Wall-clock time for the request logs, e.g. 14:03:22.517 */
+const stamp = () => new Date().toISOString().slice(11, 23);
+
 /** Sequence number, so the pacing is legible when lines interleave. */
 let requestNo = 0;
 
@@ -249,7 +252,7 @@ export async function restRequest(path, dataObj = {}) {
 				const queue = pending();
 				const retry = attempt > 1 ? ` retry ${attempt}/${attempts}` : "";
 				console.log(
-					`[wp-rest] #${id} → ${method} ${shortUrl(url)}${retry}` +
+					`[wp-rest] ${stamp()} #${id} → ${method} ${shortUrl(url)}${retry}` +
 						` (queued ${queue.queued})`,
 				);
 			}
@@ -270,7 +273,7 @@ export async function restRequest(path, dataObj = {}) {
 				}
 				if (logging) {
 					console.log(
-						`[wp-rest] #${id} ← ${res.status} ${shortUrl(url)}` +
+						`[wp-rest] ${stamp()} #${id} ← ${res.status} ${shortUrl(url)}` +
 							`${sizeOf(res)} in ${Date.now() - startedAt}ms`,
 					);
 				}
@@ -284,7 +287,7 @@ export async function restRequest(path, dataObj = {}) {
 				lastError = error;
 				if (logging) {
 					console.log(
-						`[wp-rest] #${id} ✗ ${error?.status || "ERR"} ${shortUrl(url)}` +
+						`[wp-rest] ${stamp()} #${id} ✗ ${error?.status || "ERR"} ${shortUrl(url)}` +
 							` after ${Date.now() - startedAt}ms`,
 					);
 				}

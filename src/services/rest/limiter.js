@@ -108,11 +108,3 @@ export function schedule(fn) {
 
 /** Queue depth, for logging a slow build. */
 export const pending = () => ({ active: limit.activeCount, queued: limit.pendingCount });
-
-if (isBuild) {
-	console.log(
-		`[wp-rest] concurrency=${concurrency} rate=${
-			minIntervalMs ? `1 per ${minIntervalMs}ms` : "unlimited"
-		} pause=${pauseMs}ms (build phase)`,
-	);
-}

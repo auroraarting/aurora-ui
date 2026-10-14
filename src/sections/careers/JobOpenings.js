@@ -148,7 +148,7 @@ export default function JobOpenings({
 			setFilterdJob(json.data);
 			setPaginationArr(json.data);
 		} catch (error) {
-			console.log(error, "json");
+			console.error(error, "json");
 		}
 	}
 

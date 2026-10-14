@@ -49,6 +49,6 @@ export async function getFetchJobData() {
 
 		return data;
 	} catch (error) {
-		console.log(error, "json");
+		console.error(error, "json");
 	}
 }

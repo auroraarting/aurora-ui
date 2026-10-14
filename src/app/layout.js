@@ -77,9 +77,6 @@ export default async function RootLayout({ children }) {
 		topSearches: headerData.data?.page?.headerFields?.topSearches,
 	};
 
-	// console.log(navigationFetch, "navigationFetch");
-	// console.log(navigationJSON, "eventsFetch");
-
 	return (
 		<html lang="en">
 			<head>

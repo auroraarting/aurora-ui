@@ -57,7 +57,6 @@ export default function PastSpeakers({ data }) {
 	}, [slideNo]);
 
 	const eventSpeakersData = data;
-	// console.log(eventSpeakersData);
 	return (
 		<section className={`${styles.PastSpeakers}`}>
 			<div className="container">
