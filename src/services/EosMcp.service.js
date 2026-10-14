@@ -51,6 +51,30 @@ query EosMcpProductsPage {
         description
         availabilityNote
         image { ${image} }
+        vimeoLink
+        videos {
+          videoType
+          videoFile {
+            node {
+              mediaItemUrl
+              mimeType
+            }
+          }
+          vimeoLink
+          youtubeLink
+        }
+        desktopThumbnail {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        mobileThumbnail {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
       }
       overview { kicker title description demoQuestion demoLabel }
       keyAdvantages {

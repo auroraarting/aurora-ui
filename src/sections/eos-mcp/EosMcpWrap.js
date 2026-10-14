@@ -25,6 +25,7 @@ import heroImg from "/public/img/eos-mcp/homepage.png";
 
 // DATA //
 import { demoBars } from "@/data/eosMcp";
+import BannerVideoSlider from "@/components/BannerVideoSlider";
 
 /** Line icons used by the benefits strip and lifecycle panels (48×48 viewBox) */
 const icons = {
@@ -121,6 +122,8 @@ export default function EosMcpWrap({ data }) {
 	const [activeStage, setActiveStage] = useState(0);
 	const stage = lifecycle.stages[activeStage] || lifecycle.stages[0];
 
+	console.log(data, "data");
+
 	/** connect — the CMS-labelled Connect button */
 	const connect = (props) => (
 		<ConnectButton href={buttons.connectUrl} {...props}>
@@ -134,7 +137,11 @@ export default function EosMcpWrap({ data }) {
 			<section className={styles.hero} id="introduction" data-name="Introduction">
 				<div className={`container ${styles.heroTop}`}>
 					<div>
-						<img className={styles.logo} src={banner.logo || logo.src} alt="EOS MCP" />
+						<img
+							className={styles.logo}
+							src={banner.logo || logo.src}
+							alt="EOS MCP"
+						/>
 						<h1 className="text_xl font_primary f_w_b text_uppercase">
 							{banner.title}
 						</h1>
@@ -148,12 +155,19 @@ export default function EosMcpWrap({ data }) {
 					</div>
 				</div>
 				<div className="container">
-					<div className={styles.heroMedia}>
+					{/* <div className={styles.heroMedia}>
 						<img
 							src={banner.image || heroImg.src}
 							alt="EOS MCP connected inside an AI assistant, showing French nuclear generation analysis"
 						/>
-					</div>
+					</div> */}
+					<BannerVideoSlider
+						styles={styles}
+						videos={data?.banner?.videos}
+						vimeoLink={data?.banner?.vimeoLink}
+						desktopImage={data?.banner?.desktopThumbnail?.node?.mediaItemUrl}
+						mobileImage={data?.banner?.mobileThumbnail?.node?.mediaItemUrl}
+					/>
 				</div>
 			</section>
 
@@ -311,11 +325,7 @@ export default function EosMcpWrap({ data }) {
 								{resources.title}
 							</h2>
 						</div>
-						<Link
-							href={resources.viewAllUrl}
-							role="button"
-							className={styles.btn}
-						>
+						<Link href={resources.viewAllUrl} role="button" className={styles.btn}>
 							<Button color="primary" variant="filled" shape="rounded" textlowercase>
 								{resources.viewAllText}
 							</Button>
@@ -331,7 +341,6 @@ export default function EosMcpWrap({ data }) {
 					</div>
 				</div>
 			</section>
-
 		</main>
 	);
 }
