@@ -76,7 +76,7 @@ query EosMcpProductsPage {
           }
         }
       }
-      overview { kicker title description demoQuestion demoLabel }
+      overview { kicker title description demoQuestion demoLabel animation { ${image} } }
       keyAdvantages {
         kicker
         items { icon title description }

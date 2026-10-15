@@ -190,32 +190,35 @@ export default function EosMcpWrap({ data }) {
 						<p>{overview.description}</p>
 					</div>
 					<div className={styles.demoCard} aria-hidden="true">
-						<div className={styles.topbar}>
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-						<div className={styles.chatQ}>{overview.demoQuestion}</div>
-						<div className={styles.thinking}>
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-						<div className={styles.chatLabel}>{overview.demoLabel}</div>
-						<div className={styles.chartBox}>
-							<div className={styles.bars}>
-								{demoBars.map(([h, c], i) => (
-									<i
-										key={i}
-										className={styles[c]}
-										style={{ "--h": `${h}px`, animationDelay: `${i * 0.02}s` }}
-									/>
-								))}
+						<img src={overview.animation?.node?.mediaItemUrl} />
+						{/* <>
+							<div className={styles.topbar}>
+								<span></span>
+								<span></span>
+								<span></span>
 							</div>
-						</div>
-						<div className={`${styles.answerLine} ${styles.l1}`}></div>
-						<div className={`${styles.answerLine} ${styles.l2}`}></div>
-						<div className={`${styles.answerLine} ${styles.l3}`}></div>
+							<div className={styles.chatQ}>{overview.demoQuestion}</div>
+							<div className={styles.thinking}>
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+							<div className={styles.chatLabel}>{overview.demoLabel}</div>
+							<div className={styles.chartBox}>
+								<div className={styles.bars}>
+									{demoBars.map(([h, c], i) => (
+										<i
+											key={i}
+											className={styles[c]}
+											style={{ "--h": `${h}px`, animationDelay: `${i * 0.02}s` }}
+										/>
+									))}
+								</div>
+							</div>
+							<div className={`${styles.answerLine} ${styles.l1}`}></div>
+							<div className={`${styles.answerLine} ${styles.l2}`}></div>
+							<div className={`${styles.answerLine} ${styles.l3}`}></div>
+						</> */}
 					</div>
 				</div>
 			</section>
