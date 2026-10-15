@@ -104,12 +104,12 @@ export default function EOSPageWrap({
 				)}
 				{isEosAI ? (
 					<>
-						{data?.eosMcp && (
+						{data?.eosMcp?.logo?.node?.mediaItemUrl && (
 							<div className="pt_100">
 								<EOSAI data={data?.eosMcp} />
 							</div>
 						)}
-						{data?.eosAi && (
+						{data?.eosAi?.logo?.node?.mediaItemUrl && (
 							<div className="ptb_100">
 								<EOSAI data={data?.eosAi} />
 							</div>
@@ -117,12 +117,12 @@ export default function EOSPageWrap({
 					</>
 				) : (
 					<>
-						{data?.eosAi && (
+						{data?.eosAi?.logo?.node?.mediaItemUrl && (
 							<div className="pb_100">
 								<EOSAI data={data?.eosAi} />
 							</div>
 						)}
-						{data?.eosMcp && (
+						{data?.eosMcp?.logo?.node?.mediaItemUrl && (
 							<div className="pb_100">
 								<EOSAI data={data?.eosMcp} />
 							</div>
