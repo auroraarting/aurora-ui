@@ -9,11 +9,13 @@ import { eosMcpConnectUrl, eosMcpDemoUrl } from "./eosMcp";
 export const stats = [
 	{
 		number: "100+",
-		label: "specialists across data, engineering, modelling and product building AI-powered analytics",
+		label:
+			"specialists across data, engineering, modelling and product building AI-powered analytics",
 	},
 	{
 		number: "70%",
-		label: "Estimated share of Aurora clients with access to agentic AI by H1 2027",
+		label:
+			"Estimated share of Aurora clients with access to agentic AI by H1 2027",
 	},
 	{
 		number: "22k",
@@ -51,83 +53,101 @@ export const videos = [
 		duration: "4:12",
 		category: "Market Understanding",
 		title: "Prioritise the most attractive European BESS markets",
-		description: "Compare six markets on revenue potential, fundamentals and policy, in one prompt.",
+		description:
+			"Compare six markets on revenue potential, fundamentals and policy, in one prompt.",
 	},
 	{
 		thumbnail: "/img/eos-mcp/video-forecast-assumptions.png",
 		duration: "3:48",
 		category: "Best Practices",
 		title: "Trace forecast assumptions back to the source",
-		description: "See how EOS MCP surfaces the analysis behind Aurora's Central scenario.",
+		description:
+			"See how EOS MCP surfaces the analysis behind Aurora's Central scenario.",
 	},
 	{
 		thumbnail: "/img/eos-mcp/video-repower.png",
 		duration: "5:03",
 		category: "Project Siting",
 		title: "Decide what to build, rebuild, or repower",
-		description: "Compare technology options for an existing project site, end to end.",
+		description:
+			"Compare technology options for an existing project site, end to end.",
 	},
 	{
 		thumbnail: "/img/eos-mcp/video-battery-benchmark.png",
 		duration: "4:35",
 		category: "Asset Management",
 		title: "Benchmark battery performance",
-		description: "Compare modelled vs. fleet revenues and update the outlook to 2035.",
+		description:
+			"Compare modelled vs. fleet revenues and update the outlook to 2035.",
 	},
 	/** New case studies from the "Website request - answers" doc. Each one
-	 *  only has a raw Google Drive file, not a Vimeo ID — `driveLink` plays in
-	 *  a popup via Drive's own preview iframe, and its thumbnail comes from
-	 *  Drive's public thumbnail endpoint (see VideoLibrary in
-	 *  EosMcpResourcesWrap). Swap in `vimeoId` + `thumbnail` once these are
-	 *  uploaded to Vimeo. */
+	 *  has a raw Google Drive file, not a Vimeo ID — `driveLink` gives the
+	 *  thumbnail (via Drive's public thumbnail endpoint — see thumbnailFor in
+	 *  EosMcpResourcesWrap), while `video` is the hosted video file that plays
+	 *  directly in a native <video> element in the popup. Swap in `vimeoId` +
+	 *  `thumbnail` once these are uploaded to Vimeo. */
 	{
 		category: "Asset Management",
 		title: "Test whether wider price spreads pay batteries",
 		description:
 			"Compare two-hour spreads with fleet revenue across four Australian states, split into wholesale and FCAS, in one prompt.",
-		driveLink: "https://drive.google.com/file/d/1GNBZn4dQb7y7bNFKCsWKpCE__gow97Mv/view?usp=sharing",
+		driveLink:
+			"https://drive.google.com/file/d/1GNBZn4dQb7y7bNFKCsWKpCE__gow97Mv/view?usp=sharing",
+		video: "/video/eos-mcp/wider-price-spreads.mp4",
 	},
 	{
 		category: "Asset Management",
 		title: "Quantify the value of switching off at negative prices",
 		description:
 			"See how much a Belgian solar plant's 2026 capture price improves if it stops generating through negative-price periods.",
-		driveLink: "https://drive.google.com/file/d/1gLF5MNgrqC-xbDh0Q77U_ACauX06WFbs/view?usp=sharing",
+		driveLink:
+			"https://drive.google.com/file/d/1gLF5MNgrqC-xbDh0Q77U_ACauX06WFbs/view?usp=sharing",
+		video: "/video/eos-mcp/negative-prices.mp4",
 	},
 	{
 		category: "Market Understanding",
 		title: "Turn an Aurora report slide into an interactive analysis",
 		description:
 			"Recreate a CAISO nodal Sankey for 2020 vs 2025, add node-level tooltips and map the results, in three prompts.",
-		driveLink: "https://drive.google.com/file/d/1dL4mtdYVTjWyo1lwM1afXjXrXtbnoQUo/view?usp=sharing",
+		driveLink:
+			"https://drive.google.com/file/d/1dL4mtdYVTjWyo1lwM1afXjXrXtbnoQUo/view?usp=sharing",
+		video: "/video/eos-mcp/caiso-sankey.mp4",
 	},
 	{
 		category: "Asset Management",
 		title: "Benchmark battery margins against the wider fleet",
 		description:
 			"Compare ERCOT average, top-decile and bottom-decile margins, then trace the gap to revenue streams, cycling and spreads.",
-		driveLink: "https://drive.google.com/file/d/12yi2DTd5q5IlfhMqUnklG_iF1xzvhcPM/view?usp=sharing",
+		driveLink:
+			"https://drive.google.com/file/d/12yi2DTd5q5IlfhMqUnklG_iF1xzvhcPM/view?usp=sharing",
+		video: "/video/eos-mcp/battery-margins.mp4",
 	},
 	{
 		category: "Market Understanding",
 		title: "Spot nuclear availability dips in the generation mix",
 		description:
 			"See how visible four years of French nuclear outages are in monthly generation, in one prompt.",
-		driveLink: "https://drive.google.com/file/d/1pD9qpikjH_rmDy1OT2pC_bkoiCeXOtDe/view?usp=sharing",
+		driveLink:
+			"https://drive.google.com/file/d/1pD9qpikjH_rmDy1OT2pC_bkoiCeXOtDe/view?usp=sharing",
+		video: "/video/eos-mcp/nuclear-availability.mp4",
 	},
 	{
 		category: "Asset Management",
 		title: "Size the premium for a better optimiser",
 		description:
 			"Measure what the day's best optimiser earns over a median 2-hour battery on GB's most volatile days.",
-		driveLink: "https://drive.google.com/file/d/1QNiYMVc--L37R6IFZQBCceTmbmmvHKaw/view?usp=sharing",
+		driveLink:
+			"https://drive.google.com/file/d/1QNiYMVc--L37R6IFZQBCceTmbmmvHKaw/view?usp=sharing",
+		video: "/video/eos-mcp/optimiser-premium.mp4",
 	},
 	{
 		category: "Market Understanding",
 		title: "Check forecasts against market outcomes",
 		description:
 			"Compare Aurora's India day-ahead price band with IEX clearing prices from Q3 2025 to Q1 2026, in one prompt.",
-		driveLink: "https://drive.google.com/file/d/1rjNVKFkplC7WR3p0fUT_6FyiolJoHsZY/view?usp=drive_link",
+		driveLink:
+			"https://drive.google.com/file/d/1rjNVKFkplC7WR3p0fUT_6FyiolJoHsZY/view?usp=drive_link",
+		video: "/video/eos-mcp/forecast-vs-outcomes.mp4",
 	},
 ];
 
@@ -155,7 +175,8 @@ export const practices = [
 	{
 		index: "01—Invocation",
 		title: "Tell your AI assistant when to use EOS MCP",
-		description: "Naming the tool up front keeps your assistant grounded in Aurora data instead of guessing from general knowledge.",
+		description:
+			"Naming the tool up front keeps your assistant grounded in Aurora data instead of guessing from general knowledge.",
 		benefit: "keeps answers specific and saves tokens",
 		sayLabel: "Say it like this",
 		quotes: [
@@ -166,67 +187,84 @@ export const practices = [
 	{
 		index: "02—Assign the whole task",
 		title: "Don't stop at a single question",
-		description: "Specify the analysis, markets, comparisons, sources, and final format in one go—let the assistant chain the steps.",
-		benefit: "complex analysis becomes one structured workflow, compressing days of work into minutes",
+		description:
+			"Specify the analysis, markets, comparisons, sources, and final format in one go—let the assistant chain the steps.",
+		benefit:
+			"complex analysis becomes one structured workflow, compressing days of work into minutes",
 		sayLabel: "One prompt, a full IC report",
 		quotes: [
 			"“Latest flex scenarios, seven markets in one confidential HTML report, each benchmarked against GB, with web research on grid connection status folded into a ‘probability of success’ metric.”",
 		],
-		note: "Your tool choice shows here: Claude runs the prompt step by step end-to-end, where some assistants stall partway and ask which scenario to use.",
+		note:
+			"Your tool choice shows here: Claude runs the prompt step by step end-to-end, where some assistants stall partway and ask which scenario to use.",
 	},
 	{
 		index: "03—Skills",
 		title: "Save your preferred workflows as skills",
-		description: "Turn a prompt you've refined into a reusable prompt file (skill.md) so the same analysis runs the same way every time.",
+		description:
+			"Turn a prompt you've refined into a reusable prompt file (skill.md) so the same analysis runs the same way every time.",
 		benefit: "reproducible results, fewer tokens",
 		sayLabel: "From one-off to quarterly",
 		quotes: [
 			"You build a “What happened last quarter to batteries across six European markets” newsletter with Claude and EOS MCP, iterating until structure, detail, citations and tone are right.",
 		],
-		note: "Save it as a skill—the same report lands every quarter, without rebuilding the prompt.",
+		note:
+			"Save it as a skill—the same report lands every quarter, without rebuilding the prompt.",
 	},
 ];
 
 export const faqs = [
 	{
 		question: "Is EOS MCP included in my subscription?",
-		answer: "Yes. EOS MCP is included with your subscription and does not require an additional add-on.",
+		answer:
+			"Yes. EOS MCP is included with your subscription and does not require an additional add-on.",
 	},
 	{
 		question: "Which AI tools can connect to EOS MCP?",
-		answer: "Any AI application, including in-house solutions, can connect if it supports MCP and Dynamic Client Registration.",
+		answer:
+			"Any AI application, including in-house solutions, can connect if it supports MCP and Dynamic Client Registration.",
 	},
 	{
-		question: "What's the difference between using an AI assistant directly and using EOS MCP?",
-		answer: "EOS MCP enables your AI assistant to access Aurora data and analytics directly within your workflow.",
+		question:
+			"What's the difference between using an AI assistant directly and using EOS MCP?",
+		answer:
+			"EOS MCP enables your AI assistant to access Aurora data and analytics directly within your workflow.",
 	},
 	{
 		question: "How does EOS MCP find the right data?",
-		answer: "EOS MCP automatically selects relevant datasets, or you can specify a dataset directly in your prompt.",
+		answer:
+			"EOS MCP automatically selects relevant datasets, or you can specify a dataset directly in your prompt.",
 	},
 	{
-		question: "Can I ask my AI to combine information from EOS MCP with my other data sources such as SharePoint documents, other MCPs, and internet search?",
-		answer: "Yes. An agentic AI such as Claude and ChatGPT is able to orchestrate workflows between multiple MCP connectors and data sources. EOS MCP enables you to bring Aurora into your professional context without switching between browser tabs.",
+		question:
+			"Can I ask my AI to combine information from EOS MCP with my other data sources such as SharePoint documents, other MCPs, and internet search?",
+		answer:
+			"Yes. An agentic AI such as Claude and ChatGPT is able to orchestrate workflows between multiple MCP connectors and data sources. EOS MCP enables you to bring Aurora into your professional context without switching between browser tabs.",
 	},
 	{
 		question: "Which markets and datasets are available?",
-		answer: "EOS MCP provides access to the products, datasets and geographies included in your subscription.",
+		answer:
+			"EOS MCP provides access to the products, datasets and geographies included in your subscription.",
 	},
 	{
 		question: "Can EOS MCP link me to the source data and reports?",
-		answer: "Yes. EOS MCP can provide direct links to the underlying reports and datasets.",
+		answer:
+			"Yes. EOS MCP can provide direct links to the underlying reports and datasets.",
 	},
 	{
 		question: "Are prompts shared with Aurora?",
-		answer: "No. Aurora does not see your prompts; we only see MCP tool calls and the parameters passed to those tools.",
+		answer:
+			"No. Aurora does not see your prompts; we only see MCP tool calls and the parameters passed to those tools.",
 	},
 	{
 		question: "Does EOS MCP reduce token usage?",
-		answer: "Typically, yes. EOS MCP retrieves only the information needed for a task, rather than processing large volumes of files.",
+		answer:
+			"Typically, yes. EOS MCP retrieves only the information needed for a task, rather than processing large volumes of files.",
 	},
 	{
 		question: "Where can I find MCP skills?",
-		answer: "Skills and installation instructions are available in the EOS MCP documentation.",
+		answer:
+			"Skills and installation instructions are available in the EOS MCP documentation.",
 	},
 ];
 

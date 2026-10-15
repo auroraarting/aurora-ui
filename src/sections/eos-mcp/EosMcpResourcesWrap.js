@@ -34,12 +34,6 @@ const driveThumbnail = (link) => {
 	return id ? `https://lh3.googleusercontent.com/d/${id}=w1000` : null;
 };
 
-/** Drive's embeddable preview player, used inside the popup. */
-const drivePreviewUrl = (link) => {
-	const id = driveFileId(link);
-	return id ? `https://drive.google.com/file/d/${id}/preview` : null;
-};
-
 /** Play triangle as SVG — the ▶ character renders as an emoji on iOS. */
 const PlayIcon = () => (
 	<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -48,13 +42,14 @@ const PlayIcon = () => (
 );
 
 /** Whether a video has something to actually play in the popup. */
-const isPlayable = (video) => Boolean(video?.vimeoId || video?.driveLink);
-/** Thumbnail image for a video, falling back to Drive's thumbnail endpoint. */
+const isPlayable = (video) => Boolean(video?.vimeoId || video?.video);
+/** Thumbnail image for a video — an explicit thumbnail, else Drive's thumbnail endpoint. */
 const thumbnailFor = (video) =>
 	video?.thumbnail || driveThumbnail(video?.driveLink);
 
-/** VideoModal — plays a video's Vimeo embed or Drive preview over the page */
+/** VideoModal — plays a video's Vimeo embed or hosted video file over the page */
 function VideoModal({ video, onClose }) {
+	console.log("VideoModal video:", video); // Debugging line
 	useEffect(() => {
 		// Only lock scrolling while a video is actually open — this component
 		// is always mounted, and a permanent lock kills touch scrolling on mobile
@@ -70,8 +65,6 @@ function VideoModal({ video, onClose }) {
 	}, [video, onClose]);
 
 	if (!video) return null;
-
-	const previewUrl = !video.vimeoId && drivePreviewUrl(video.driveLink);
 
 	return (
 		<div className={styles.videoModalOverlay} onClick={onClose}>
@@ -94,28 +87,18 @@ function VideoModal({ video, onClose }) {
 							className={styles.videoModalEmbed}
 						/>
 					) : (
-						previewUrl && (
-							<iframe
-								src={previewUrl}
-								title={video.title}
+						video.video && (
+							<video
+								key={video.video.node.mediaItemUrl}
+								src={video.video.node.mediaItemUrl}
 								className={styles.videoModalEmbed}
-								allow="autoplay; fullscreen"
-								allowFullScreen
+								controls
+								autoPlay
+								playsInline
 							/>
 						)
 					)}
 				</div>
-				{/* Drive embeds can refuse to play (iOS Safari, Drive view limits) */}
-				{previewUrl && (
-					<a
-						className={styles.videoModalFallback}
-						href={video.driveLink}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Video not playing? Open it in Google Drive
-					</a>
-				)}
 			</div>
 		</div>
 	);
@@ -165,16 +148,27 @@ function VideoLibrary({ videoFilters, videos }) {
 							}
 						}}
 					>
-						{thumbnailFor(active) && (
+						{thumbnailFor(active) ? (
 							<img
 								src={thumbnailFor(active)}
 								referrerPolicy="no-referrer"
 								alt={`Video preview: ${active?.title}`}
 							/>
+						) : (
+							active?.video && (
+								<video
+									src={active.video.node.mediaItemUrl}
+									muted
+									playsInline
+									preload="metadata"
+								/>
+							)
 						)}
-						{isPlayable(active) && <span className={styles.playBtn}>
-							<PlayIcon />
-						</span>}
+						{isPlayable(active) && (
+							<span className={styles.playBtn}>
+								<PlayIcon />
+							</span>
+						)}
 						{active?.duration && (
 							<span className={styles.durationBadge}>{active.duration}</span>
 						)}
@@ -200,14 +194,18 @@ function VideoLibrary({ videoFilters, videos }) {
 							onClick={() => setActiveTitle(item.title)}
 						>
 							<span className={styles.playlistThumb}>
-								{thumbnailFor(item) && <img
-									src={thumbnailFor(item)}
-									referrerPolicy="no-referrer"
-									alt=""
-								/>}
-								{isPlayable(item) && <span className={styles.playBtn}>
-									<PlayIcon />
-								</span>}
+								{thumbnailFor(item) ? (
+									<img src={thumbnailFor(item)} referrerPolicy="no-referrer" alt="" />
+								) : (
+									item.video && (
+										<video src={item.video} muted playsInline preload="metadata" />
+									)
+								)}
+								{isPlayable(item) && (
+									<span className={styles.playBtn}>
+										<PlayIcon />
+									</span>
+								)}
 							</span>
 							<span className={styles.playlistInfo}>
 								<span className={styles.playlistTitle}>{item.title}</span>
@@ -271,6 +269,8 @@ export default function EosMcpResourcesWrap({ data }) {
 		faqs,
 		finalCta,
 	} = data;
+
+	console.log("EosMcpResourcesWrap data:", data);
 
 	const ctaButtons = (
 		<>

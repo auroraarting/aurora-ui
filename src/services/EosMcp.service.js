@@ -197,7 +197,8 @@ query EosMcpResourcesPage {
           duration
           thumbnail { ${image} }
           vimeoId
-		  driveLink
+		      driveLink
+		      video { ${image} }
         }
       }
       gettingStarted {
@@ -240,6 +241,7 @@ query EosMcpResourcesPage {
 		tag: "page:eos-mcp",
 		pageID: "eos-mcp/ai-powered-energy-workflows",
 	});
+	console.log("getEosMcpResourcesPage res:", res); // Debugging line
 	return toEosMcpResources(res);
 };
 
