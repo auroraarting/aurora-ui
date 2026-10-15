@@ -19,16 +19,11 @@ import grey_calendar from "@/../public/img/icons/grey_calendar.svg";
 import grey_location from "@/../public/img/icons/grey_location.svg";
 import grey_clock from "@/../public/img/icons/grey_clock.svg";
 import formatDate from "@/utils";
-import { defaultEventTimezone, formatEventTime } from "@/utils/Client";
 
 // UTILS //
 
 /** Events Inside Banner component */
 function EventsInsideBanner({ data }) {
-	const startTime = formatEventTime(
-		data?.events?.thumbnail?.date,
-		data?.events?.thumbnail?.timezone || defaultEventTimezone,
-	);
 	return (
 		<section className={`${styles.EventsInsideBanner}`}>
 			<div className="container">
@@ -48,17 +43,9 @@ function EventsInsideBanner({ data }) {
 						<li className="text_xs color_light_gray text_uppercase">
 							<img src={grey_calendar.src} alt="grey_calendar" />
 							<span>
-								{formatDate(
-									data?.events?.thumbnail?.date,
-									"en-US",
-									data?.events?.thumbnail?.timezone || defaultEventTimezone,
-								)}
+								{formatDate(data?.events?.thumbnail?.date, "en-US")}
 								{data?.events?.thumbnail?.endDate
-									? ` - ${formatDate(
-											data?.events?.thumbnail?.endDate,
-											"en-US",
-											data?.events?.thumbnail?.timezone || defaultEventTimezone,
-										)}`
+									? ` - ${formatDate(data?.events?.thumbnail?.endDate, "en-US")}`
 									: ""}
 							</span>
 						</li>
@@ -68,13 +55,16 @@ function EventsInsideBanner({ data }) {
 								<span>{data?.events?.thumbnail?.address}</span>
 							</li>
 						)}
-						{(startTime || data?.events?.thumbnail?.time) && (
+						{(data?.events?.thumbnail?.time ||
+							data?.events?.thumbnail?.timezone) && (
 							<li className="text_xs color_light_gray text_uppercase">
 								<img src={grey_clock.src} alt="grey_calendar" />
 								<span>
-									{startTime}
-									{startTime && data?.events?.thumbnail?.time ? " — " : ""}
 									{data?.events?.thumbnail?.time}
+									{data?.events?.thumbnail?.time && data?.events?.thumbnail?.timezone
+										? " "
+										: ""}
+									{data?.events?.thumbnail?.timezone}
 								</span>
 							</li>
 						)}

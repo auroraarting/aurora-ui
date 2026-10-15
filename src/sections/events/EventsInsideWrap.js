@@ -20,7 +20,6 @@ import EventsMiddleRight from "@/sections/events/EventsMiddleRight";
 import EventsGallery from "@/sections/events/EventsGallery";
 import AudienceBreakdown from "@/sections/events/AudienceBreakdown";
 import DownloadList from "@/sections/events/DownloadList";
-import CountdownTimer from "@/sections/events/CountdownTimer";
 
 // PLUGINS //
 import parse from "html-react-parser";
@@ -74,12 +73,6 @@ export default function EventsInsideWrap({
 
 			{/* Page Content starts here */}
 			<main className={styles.EventsInsidePage}>
-				{data?.events?.thumbnail?.status === "Upcoming" && (
-					<CountdownTimer
-						targetDate={data?.events?.thumbnail?.date}
-						timezone={data?.events?.thumbnail?.timezone}
-					/>
-				)}
 				{/* <div className="container">
 					<Breadcrumbs />
 				</div> */}
