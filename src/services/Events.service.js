@@ -373,6 +373,7 @@ query GetEventInsideNew {
       }
     }
     events {
+      hideSection
       advetisment{
         url
         media {

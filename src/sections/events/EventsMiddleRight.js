@@ -49,9 +49,15 @@ export default function EventsMiddleRight({ data, events }) {
 	const advertImage = advert?.media?.node;
 	const hasAdvert = Boolean(advertImage?.mediaItemUrl);
 
+	// Sections hidden from the sidebar via the CMS `hideSection` checkbox field.
+	const hideSection = data?.events?.hideSection || [];
+	const hideInterestedIn = hideSection.includes("Interested In");
+	const hidePartners = hideSection.includes("Partners");
+	const hideUpcomingEvent = hideSection.includes("Upcoming Event");
+
 	return (
 		<div className={`${styles.EventsMiddleRightBox}`}>
-			{data?.events?.interestedDesc && (
+			{data?.events?.interestedDesc && !hideInterestedIn && (
 				<div className={`${styles.whiteBox} `}>
 					<div className={`${styles.itemBox}`}>
 						<h5 className="text_reg color_gray f_w_m pb_10">
@@ -120,7 +126,7 @@ export default function EventsMiddleRight({ data, events }) {
 				</div>
 			)}
 
-			{companyLogos.length > 0 && (
+			{companyLogos.length > 0 && !hidePartners && (
 				<div className={`${styles.whiteBox} ${styles.logoBox}`}>
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						PARTNERS
@@ -188,7 +194,7 @@ export default function EventsMiddleRight({ data, events }) {
 				</div>
 			)}
 
-			{!hasAdvert && events?.length > 0 && (
+			{!hasAdvert && events?.length > 0 && !hideUpcomingEvent && (
 				<div className={`${styles.whiteBox}`}>
 					<h5 className={`${styles.subTxt} text_reg color_gray f_w_b pb_10`}>
 						UPCOMING EVENT
