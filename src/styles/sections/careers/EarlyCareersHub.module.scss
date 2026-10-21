@@ -1,0 +1,78 @@
+@import "../../helpers/helpers.scss";
+
+.EarlyCareersHub {
+	.explore {
+		background-color: var(--color_secondary);
+
+		// Same dark-section overrides as CareerCountryCard's region accordion.
+		:global(.accordionContent) {
+			padding-left: 0 !important;
+		}
+		:global(.accordionItem) :global(.icon) img {
+			filter: invert(1);
+		}
+	}
+
+	.regionBody {
+		padding-top: 5px;
+	}
+	.cityHeader {
+		gap: 10px;
+		padding: 15px 0 8px;
+		border-top: 1px solid #333;
+		.cityFlag {
+			font-size: 18px;
+			line-height: 1;
+		}
+	}
+	.cityGroup:first-child .cityHeader {
+		border-top: 0;
+	}
+
+	.roleRow {
+		gap: 20px;
+		padding: 14px 20px;
+		margin: 5px 0;
+		border: 1px solid #333;
+		transition: var(--transition);
+		&:hover {
+			border-color: var(--color_primary);
+			background-color: var(--color_gray);
+		}
+		@media (max-width: 767px) {
+			padding: 12px 15px;
+			flex-wrap: wrap;
+			gap: 8px;
+		}
+	}
+	.roleDot {
+		width: 8px;
+		height: 8px;
+		margin-right: 12px;
+		border-radius: 50%;
+		flex-shrink: 0;
+		// Accent per programme type, from the site palette.
+		&.teal {
+			background-color: var(--color_primary);
+		}
+		&.gold {
+			background-color: var(--color_orange);
+		}
+		&.blue {
+			background-color: var(--color_sky_blue);
+		}
+	}
+
+	.regionNote {
+		margin-top: 10px;
+		padding: 20px;
+		border: 1px solid #333;
+		background-color: var(--color_gray);
+		a {
+			color: var(--color_primary);
+		}
+	}
+	.regionBody > .regionNote:first-child {
+		margin-top: 0;
+	}
+}

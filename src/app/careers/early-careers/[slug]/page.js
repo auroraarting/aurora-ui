@@ -1,120 +1,45 @@
-// Force SSR (like getServerSideProps)
-export const dynamic = "force-dynamic"; // ⚠️ Important!
-export const fetchCache = "force-no-store";
-
-/* eslint-disable quotes */
-// MODULES //
+export const dynamic = "force-static";
+export const dynamicParams = false; // Only the slugs in the data file exist.
 
 // COMPONENTS //
 import { notFound } from "next/navigation";
 
 // SECTIONS //
-import EarlyCareersInsideWrap from "@/sections/careers/EarlyCareersInsideWrap";
-
-// PLUGINS //
-
-// UTILS //
-
-// STYLES //
-
-// IMAGES //
+import EarlyProgramme from "@/sections/careers/EarlyProgramme";
 
 // DATA //
-
-// SERVICES //
-import { getInsightsCategories } from "@/services/Insights.service";
-import {
-	getEarlyCareersInside,
-	getEarlyCareersListing,
-} from "@/services/EarlyCareers.service";
-import { getOffices } from "@/services/Offices.service";
-import { getPageSeo } from "@/services/Seo.service";
-
-// DATA //
+import { getProgrammeBySlug, programmes } from "@/data/earlyCareersProgrammes";
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
-	const meta = await getPageSeo(`earlyCareerBy(slug: "${params.slug}")`);
-	const seo = meta?.data?.earlyCareerBy?.seo;
+	const { slug } = await params;
+	const data = getProgrammeBySlug(slug);
 
 	return {
-		title: seo?.title || "Default Title",
-		description: seo?.metaDesc || "",
-		keywords: seo?.metaKeywords || "",
+		title: data ? `${data.title} | Aurora Energy Research` : "Early Careers",
+		description: data?.programmes?.header?.intro || "",
 		alternates: {
-			canonical: `https://auroraer.com/careers/early-careers/${params.slug}`, // 👈 canonical URL
+			canonical: `https://auroraer.com/careers/early-careers/${slug}`,
 		},
 		openGraph: {
-			images: [
-				{
-					url: "https://auroraer.com/img/og-image.jpg",
-				},
-			],
+			images: [{ url: "https://auroraer.com/img/og-image.jpg" }],
 		},
 	};
 }
 
 /** generateStaticParams  */
-export async function generateStaticParams() {
-	const earlyCareers = await getEarlyCareersListing("first: 5");
-	return (
-		earlyCareers?.data?.earlyCareers?.nodes?.map((item) => ({
-			slug: item?.slug,
-		})) || []
-	);
+export function generateStaticParams() {
+	return programmes.map((item) => ({ slug: item.slug }));
 }
 
-/** EarlyCareers Page */
-export default async function EarlyCareers({ params }) {
+/** Early careers programme page (redesign) */
+export default async function EarlyCareersProgramme({ params }) {
 	const { slug } = await params;
+	const data = getProgrammeBySlug(slug);
 
-	const [dataFetch, categoriesForSelect, list, officesFetch] = await Promise.all(
-		[
-			getEarlyCareersInside(slug),
-			getInsightsCategories(),
-			getEarlyCareersListing("first: 10"),
-			getOffices(),
-		],
-	);
-
-	const countries = categoriesForSelect.data.countries.nodes;
-	const data = dataFetch.data.earlyCareerBy;
-
-	// 🚫 Redirect to 404 if status is DRAFT or data is null
-	if (!data || data?.status === "DRAFT") {
-		notFound(); // shows Next.js 404 page
+	if (!data) {
+		notFound();
 	}
 
-	const otherList = list.data.earlyCareers.nodes?.filter(
-		(item) => item.slug !== slug,
-	);
-	const offices = officesFetch.data.offices.nodes;
-	const dataForBtn = { postFields: data?.earlyCareers || {} };
-
-	return (
-		<div>
-			{/* Metatags */}
-			{/* <MetaTags
-				Title={data?.title}
-				Desc={""}
-				OgImg={""}
-				Url={`https://auroraer.com/careers/early-careers/${data?.slug}`}
-			/> */}
-
-			{/* Header */}
-			{/* <Header /> */}
-
-			{/* Page Content starts here */}
-			<EarlyCareersInsideWrap
-				data={data}
-				otherList={otherList}
-				offices={offices}
-				dataForBtn={dataForBtn}
-			/>
-			{/* Page Content ends here */}
-
-			{/* Footer */}
-			{/* <Footer /> */}
-		</div>
-	);
+	return <EarlyProgramme data={data} />;
 }

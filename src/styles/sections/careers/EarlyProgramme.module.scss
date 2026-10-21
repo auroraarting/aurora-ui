@@ -1,0 +1,101 @@
+@import "../../helpers/helpers.scss";
+
+.EarlyProgramme {
+	// Accent per programme type, from the site palette — the same mapping as
+	// the dots in EarlyCareersHub.module.scss.
+	--programme_accent: var(--color_primary);
+	&.gold {
+		--programme_accent: var(--color_orange);
+	}
+	&.blue {
+		--programme_accent: var(--color_sky_blue);
+	}
+
+	.topBar {
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+	.tag {
+		padding: 5px 12px;
+		background-color: var(--programme_accent);
+	}
+
+	.mapImg {
+		display: block;
+		width: 100%;
+		max-width: 600px;
+		height: auto;
+	}
+
+	.content {
+		background-color: var(--color_silver);
+	}
+	.ovGrid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+		@media (max-width: 767px) {
+			grid-template-columns: 1fr;
+		}
+	}
+	.ovCard {
+		padding: 20px 25px;
+		background-color: var(--color_white);
+		border: 1px solid var(--color_platinum_gray);
+		border-left: 3px solid var(--programme_accent);
+	}
+	.bodySection {
+		max-width: 800px;
+		ul {
+			list-style: disc;
+			padding-left: 20px;
+		}
+		li {
+			line-height: 1.8;
+		}
+		&:last-child {
+			padding-bottom: 0;
+		}
+	}
+
+	.cardsGrid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 15px;
+	}
+	.cityCard {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 25px 20px;
+		text-align: center;
+		background-color: var(--color_gray);
+		border: 1px solid #333;
+		transition: var(--transition);
+		&:hover:not(.unavail) {
+			border-color: var(--color_primary);
+		}
+		&.unavail {
+			opacity: 0.35;
+		}
+	}
+	.cardFlag {
+		font-size: 26px;
+		line-height: 1;
+		margin-bottom: 10px;
+	}
+	.cardFacts {
+		min-height: 60px;
+		p {
+			line-height: 1.6;
+		}
+	}
+	.deadline {
+		padding: 3px 10px;
+		margin-bottom: 15px;
+		border: 1px solid var(--color_primary);
+	}
+	.cardAction {
+		margin-top: auto;
+	}
+}

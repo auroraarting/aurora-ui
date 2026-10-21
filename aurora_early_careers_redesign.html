@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Early Careers Hub | Aurora Energy Research</title>
+<style>
+:root {
+  --navy:   #0F1F3D;
+  --mid:    #1A3362;
+  --teal:   #0D7B8A;
+  --teal2:  #0A9BAD;
+  --gold:   #C8963A;
+  --white:  #FFFFFF;
+  --off:    #F4F6F9;
+  --border: #D0D8E8;
+  --text:   #1A2540;
+  --muted:  #5A6880;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Arial', sans-serif; color: var(--text); background: var(--white); }
+
+/* NAV */
+.nav {
+  background: var(--navy); padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 58px; position: sticky; top: 0; z-index: 200;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo-mark {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--teal); display: flex; align-items: center;
+  justify-content: center; font-size: 13px; font-weight: 700; color: white;
+}
+.nav-name { color: white; font-size: 15px; font-weight: 700; letter-spacing: 0.2px; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; }
+.nav-links a:hover { color: white; }
+.nav-cta {
+  background: var(--teal); color: white; font-size: 12px;
+  padding: 7px 16px; border-radius: 3px; text-decoration: none;
+  font-weight: 700; letter-spacing: 0.3px;
+}
+
+/* SCREENS */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* HERO */
+.hero {
+  background: var(--navy); padding: 4rem 2.5rem 3.5rem;
+  text-align: center; position: relative;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--teal);
+}
+.hero-img {
+  width: 100%; max-width: 680px; height: 210px; margin: 0 auto 2.5rem;
+  border-radius: 6px; border: 1px solid rgba(13,123,138,0.3);
+  background: linear-gradient(135deg, #1A3362, #1E4A7A, #0D7B8A);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-img span { color: rgba(255,255,255,0.3); font-size: 13px; }
+.hero h1 { color: white; font-size: 34px; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+.hero h1 em { color: var(--teal2); font-style: normal; }
+.hero p { color: rgba(255,255,255,0.62); font-size: 16px; max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+.hero-btn {
+  display: inline-block; background: var(--teal); color: white;
+  padding: 12px 28px; border-radius: 3px; text-decoration: none;
+  font-size: 14px; font-weight: 700;
+}
+
+/* ── EXPLORE SECTION ────────────────────────────────── */
+.explore { background: #111827; padding: 4rem 2.5rem; }
+.explore-eyebrow {
+  font-size: 11px; color: var(--teal2); letter-spacing: 2px;
+  font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.explore-title {
+  color: white; font-size: 32px; font-weight: 700;
+  margin-bottom: 3rem; line-height: 1.2;
+}
+
+/* ── ACCORDION REGIONS ──────────────────────────────── */
+.accordion { border-top: 1px solid rgba(255,255,255,0.15); }
+
+.acc-region { border-bottom: 1px solid rgba(255,255,255,0.15); }
+
+.acc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.6rem 0; cursor: pointer; user-select: none;
+}
+.acc-header:hover .acc-title { color: var(--teal2); }
+.acc-title { color: white; font-size: 18px; font-weight: 700; }
+.acc-icon {
+  color: white; font-size: 22px; font-weight: 300;
+  transition: transform 0.25s; line-height: 1; flex-shrink: 0;
+}
+.acc-region.open .acc-icon { transform: rotate(45deg); }
+
+/* ── ACCORDION BODY — EMEA ──────────────────────────── */
+.acc-body {
+  display: none; padding-bottom: 2rem;
+}
+.acc-region.open .acc-body { display: block; }
+
+/* City group */
+.city-group { margin-bottom: 0; }
+.city-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 1rem 0 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.city-flag { font-size: 18px; }
+.city-name { color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+.role-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 1.5rem; margin: 4px 0;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.role-row:hover { background: rgba(13,123,138,0.15); border-color: rgba(13,123,138,0.4); }
+.role-row-left { display: flex; align-items: center; gap: 12px; }
+.role-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.rd-a { background: var(--teal); }
+.rd-m { background: var(--gold); }
+.rd-s { background: #7BA7D4; }
+.role-label { color: white; font-size: 15px; font-weight: 600; }
+.role-arrow { color: rgba(255,255,255,0.35); font-size: 16px; }
+.role-row:hover .role-arrow { color: var(--teal2); }
+
+/* Other regions placeholder */
+.region-placeholder {
+  padding: 1.5rem; background: rgba(255,255,255,0.03);
+  border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);
+}
+.region-placeholder p { color: rgba(255,255,255,0.45); font-size: 14px; line-height: 1.65; }
+.region-placeholder a { color: var(--teal2); text-decoration: none; }
+
+/* ── PROGRAMME PAGES ────────────────────────────────── */
+.prog-header { background: var(--navy); padding: 2.5rem 2.5rem 2rem; position: relative; }
+.prog-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--teal); }
+.breadcrumb {
+  font-size: 12px; color: rgba(255,255,255,0.4);
+  cursor: pointer; margin-bottom: 0.75rem;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.breadcrumb:hover { color: var(--teal2); }
+.prog-tag {
+  display: inline-block; font-size: 11px; padding: 4px 12px;
+  border-radius: 3px; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.pt-a { background: rgba(13,123,138,0.25); color: var(--teal2); }
+.pt-m { background: rgba(200,150,58,0.25); color: #E8B050; }
+.pt-s { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+.prog-header h2 { color: white; font-size: 28px; font-weight: 700; margin-bottom: 0.6rem; }
+.prog-header p { color: rgba(255,255,255,0.6); font-size: 15px; max-width: 560px; line-height: 1.7; }
+
+/* MAP */
+.map-section { background: #0D1E38; padding: 1.75rem 2.5rem; }
+.map-eyebrow { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem; }
+.map-wrap { max-width: 600px; }
+
+/* OVERVIEW */
+.prog-overview { padding: 2.5rem; background: var(--off); }
+.ov-eyebrow { font-size: 11px; color: var(--teal); letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+.ov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ov-card {
+  background: white; border: 1px solid var(--border);
+  border-left: 3px solid var(--teal); border-radius: 4px; padding: 1.1rem 1.25rem;
+}
+.ov-card h4 { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.ov-card p { font-size: 15px; font-weight: 700; color: var(--navy); }
+
+/* BODY */
+.prog-body { padding: 2rem 2.5rem; background: var(--off); }
+.prog-body h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; }
+.prog-body p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+.prog-body ul { margin: 0 0 1.25rem 1.2rem; }
+.prog-body li { font-size: 14px; color: var(--muted); line-height: 1.85; }
+
+/* CITY CARDS */
+.city-section { background: var(--navy); padding: 2.5rem; }
+.city-section h3 { color: white; font-size: 20px; font-weight: 700; margin-bottom: 0.35rem; }
+.city-section-sub { color: rgba(255,255,255,0.4); font-size: 13px; margin-bottom: 1.75rem; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 14px; }
+.city-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 1.25rem; text-align: center; transition: all 0.15s;
+}
+.city-card:hover:not(.unavail) { background: rgba(13,123,138,0.14); border-color: rgba(13,123,138,0.45); }
+.city-card.unavail { opacity: 0.32; }
+.card-flag { font-size: 26px; margin-bottom: 8px; }
+.card-name { color: white; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.card-facts { margin-bottom: 10px; min-height: 54px; }
+.card-fact { color: rgba(255,255,255,0.42); font-size: 11px; line-height: 1.65; }
+.deadline {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(200,150,58,0.15); color: #E8B050;
+  font-size: 10px; padding: 3px 10px; border-radius: 3px;
+  font-weight: 700; margin-bottom: 10px;
+}
+.apply-btn {
+  display: inline-block; background: var(--teal); color: white;
+  border: none; border-radius: 3px; padding: 7px 16px;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  text-decoration: none; transition: background 0.15s;
+}
+.apply-btn:hover { background: var(--teal2); }
+.apply-na {
+  display: inline-block; background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.2); border-radius: 3px;
+  padding: 7px 16px; font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">A</div>
+    <span class="nav-name">Aurora Energy Research</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Company</a>
+    <a href="#">Products &amp; Services</a>
+    <a href="#">Resources</a>
+    <a href="#">Careers</a>
+  </div>
+  <a href="#" class="nav-cta">See open positions</a>
+</nav>
+
+<!-- ═══ HOME SCREEN ═══════════════════════════════════════════════════ -->
+<div id="screen-home" class="screen active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-img">
+      <span>Graduate photo — existing image retained from current page</span>
+    </div>
+    <h1>Launch your energy career<br><em>with Aurora</em></h1>
+    <p>At Aurora, we don't just predict the future of energy — we help shape it. Our graduate opportunities offer you a unique platform to thrive, with roles available across the globe.</p>
+    <a href="#" class="hero-btn">Join us ↓</a>
+  </div>
+
+  <!-- EXPLORE ACCORDION -->
+  <div class="explore">
+    <div class="explore-eyebrow">Explore</div>
+    <div class="explore-title">Explore Aurora's opportunities by region</div>
+
+    <div class="accordion">
+
+      <!-- EMEA -->
+      <div class="acc-region" id="acc-emea">
+        <div class="acc-header" onclick="toggleAcc('acc-emea')">
+          <span class="acc-title">Europe, Middle East &amp; Africa</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+
+          <!-- Oxford -->
+          <div class="city-group">
+            <div class="city-header">
+              <span class="city-flag">🇬🇧</span>
+              <span class="city-name">Oxford</span>
+            </div>
+            <div class="role-row" onclick="goto('analyst')">
+              <div class="role-row-left">
+                <span class="role-dot rd-a"></span>
+                <span class="role-label">Graduate Analyst</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+            <div class="role-row" onclick="goto('modeller')">
+              <div class="role-row-left">
+                <span class="role-dot rd-m"></span>
+                <span class="role-label">Graduate Modeller</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+            <div class="role-row" onclick="goto('software')">
+              <div class="role-row-left">
+                <span class="role-dot rd-s"></span>
+                <span class="role-label">Graduate Software Engineer</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Berlin -->
+          <div class="city-group">
+            <div class="city-header">
+              <span class="city-flag">🇩🇪</span>
+              <span class="city-name">Berlin</span>
+            </div>
+            <div class="role-row" onclick="goto('analyst')">
+              <div class="role-row-left">
+                <span class="role-dot rd-a"></span>
+                <span class="role-label">Graduate Analyst</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+            <div class="role-row" onclick="goto('modeller')">
+              <div class="role-row-left">
+                <span class="role-dot rd-m"></span>
+                <span class="role-label">Graduate Modeller</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Madrid -->
+          <div class="city-group">
+            <div class="city-header">
+              <span class="city-flag">🇪🇸</span>
+              <span class="city-name">Madrid</span>
+            </div>
+            <div class="role-row" onclick="goto('analyst')">
+              <div class="role-row-left">
+                <span class="role-dot rd-a"></span>
+                <span class="role-label">Graduate Analyst</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Paris -->
+          <div class="city-group">
+            <div class="city-header">
+              <span class="city-flag">🇫🇷</span>
+              <span class="city-name">Paris</span>
+            </div>
+            <div class="role-row" onclick="goto('analyst')">
+              <div class="role-row-left">
+                <span class="role-dot rd-a"></span>
+                <span class="role-label">Graduate Analyst</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Stockholm -->
+          <div class="city-group">
+            <div class="city-header">
+              <span class="city-flag">🇸🇪</span>
+              <span class="city-name">Stockholm</span>
+            </div>
+            <div class="role-row" onclick="goto('analyst')">
+              <div class="role-row-left">
+                <span class="role-dot rd-a"></span>
+                <span class="role-label">Graduate Analyst</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Athens -->
+          <div class="city-group">
+            <div class="city-header">
+              <span class="city-flag">🇬🇷</span>
+              <span class="city-name">Athens</span>
+            </div>
+            <div class="role-row" onclick="goto('analyst')">
+              <div class="role-row-left">
+                <span class="role-dot rd-a"></span>
+                <span class="role-label">Graduate Analyst</span>
+              </div>
+              <span class="role-arrow">→</span>
+            </div>
+          </div>
+
+        </div><!-- /acc-body EMEA -->
+      </div><!-- /acc-region EMEA -->
+
+      <!-- ASIA PACIFIC -->
+      <div class="acc-region" id="acc-apac">
+        <div class="acc-header" onclick="toggleAcc('acc-apac')">
+          <span class="acc-title">Asia Pacific</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="region-placeholder">
+            <p>🌏 &nbsp;APAC graduate programmes — roles in Japan, Singapore, Australia and India are available on the <a href="https://auroraer.com/careers/early-careers" target="_blank">current site</a>. This section will be updated as the page expands.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- NORTH AMERICA -->
+      <div class="acc-region" id="acc-noram">
+        <div class="acc-header" onclick="toggleAcc('acc-noram')">
+          <span class="acc-title">North America</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="region-placeholder">
+            <p>🌎 &nbsp;North America graduate programmes — United States and Canada roles are available on the <a href="https://auroraer.com/careers/early-careers" target="_blank">current site</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOUTH AMERICA -->
+      <div class="acc-region" id="acc-latam">
+        <div class="acc-header" onclick="toggleAcc('acc-latam')">
+          <span class="acc-title">South America</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="region-placeholder">
+            <p>🌎 &nbsp;South America graduate programmes — Brazil and Chile roles are available on the <a href="https://auroraer.com/careers/early-careers" target="_blank">current site</a>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion -->
+  </div><!-- /explore -->
+</div><!-- /screen-home -->
+
+<!-- ═══ ANALYST PAGE ══════════════════════════════════════════════════ -->
+<div id="screen-analyst" class="screen">
+  <div class="prog-header">
+    <div class="breadcrumb" onclick="goHome()">← Early Careers / EMEA</div>
+    <span class="prog-tag pt-a">Graduate Analyst Programme</span>
+    <h2>EMEA Graduate Analyst</h2>
+    <p>Join Aurora's analytical community across Europe, the Middle East and Africa — producing forecasts and strategic advice that shape the global energy transition.</p>
+  </div>
+
+  <div class="map-section">
+    <div class="map-eyebrow">EMEA locations — Graduate Analyst</div>
+    <div class="map-wrap">
+      <svg style="width:100%;display:block" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55,42 L78,32 L108,28 L138,33 L162,26 L188,31 L212,27 L238,31 L258,20 L278,26 L298,23 L318,29 L340,25 L362,31 L378,21 L398,29 L412,23 L424,37 L418,52 L428,64 L420,78 L430,90 L422,103 L410,111 L418,124 L406,136 L390,130 L378,143 L364,140 L350,151 L338,158 L323,150 L313,161 L296,168 L283,160 L270,168 L256,163 L240,171 L226,164 L212,172 L197,166 L182,174 L166,164 L153,170 L140,160 L126,164 L113,154 L100,160 L87,150 L74,157 L62,147 L50,140 L42,127 L46,113 L40,99 L48,86 L42,73 L50,59 L55,42Z" fill="rgba(13,123,138,0.07)" stroke="rgba(13,123,138,0.3)" stroke-width="0.8"/>
+        <path d="M212,27 L222,15 L234,8 L250,12 L262,8 L270,16 L278,26 L268,36 L258,20 L246,28 L238,31 L226,22Z" fill="rgba(13,123,138,0.07)" stroke="rgba(13,123,138,0.2)" stroke-width="0.7"/>
+        <path d="M115,72 L126,63 L138,66 L146,77 L140,88 L129,93 L118,87 L112,76Z" fill="rgba(13,123,138,0.13)" stroke="rgba(13,123,138,0.4)" stroke-width="0.7"/>
+        <path d="M100,128 L120,120 L142,118 L150,131 L146,150 L130,158 L110,152 L98,141Z" fill="rgba(13,123,138,0.1)" stroke="rgba(13,123,138,0.3)" stroke-width="0.7"/>
+        <path d="M294,150 L308,144 L318,152 L313,164 L300,168 L291,160Z" fill="rgba(13,123,138,0.13)" stroke="rgba(13,123,138,0.4)" stroke-width="0.7"/>
+        <!-- dots -->
+        <g><circle cx="129" cy="80" r="8" fill="rgba(13,123,138,0.22)"/><circle cx="129" cy="80" r="4.5" fill="#0D7B8A"/><text x="141" y="84" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Oxford</text></g>
+        <g><circle cx="240" cy="74" r="8" fill="rgba(13,123,138,0.22)"/><circle cx="240" cy="74" r="4.5" fill="#0D7B8A"/><text x="252" y="78" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Berlin</text></g>
+        <g><circle cx="122" cy="138" r="8" fill="rgba(13,123,138,0.22)"/><circle cx="122" cy="138" r="4.5" fill="#0D7B8A"/><text x="134" y="142" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Madrid</text></g>
+        <g><circle cx="168" cy="96" r="8" fill="rgba(13,123,138,0.22)"/><circle cx="168" cy="96" r="4.5" fill="#0D7B8A"/><text x="180" y="100" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Paris</text></g>
+        <g><circle cx="250" cy="30" r="8" fill="rgba(13,123,138,0.22)"/><circle cx="250" cy="30" r="4.5" fill="#0D7B8A"/><text x="262" y="34" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Stockholm</text></g>
+        <g><circle cx="301" cy="157" r="8" fill="rgba(13,123,138,0.22)"/><circle cx="301" cy="157" r="4.5" fill="#0D7B8A"/><text x="313" y="161" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Athens</text></g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="prog-overview">
+    <div class="ov-eyebrow">General overview of opportunities</div>
+    <div class="ov-grid">
+      <div class="ov-card"><h4>Programme length</h4><p>2 years</p></div>
+      <div class="ov-card"><h4>Start date</h4><p>September 2026</p></div>
+      <div class="ov-card"><h4>Region</h4><p>EMEA</p></div>
+      <div class="ov-card"><h4>Locations</h4><p>Oxford · Berlin · Madrid · Paris · Stockholm · Athens</p></div>
+    </div>
+  </div>
+  <div class="prog-body">
+    <h3>About the programme</h3>
+    <p>The Graduate Analyst Programme gives you an immersive introduction to energy markets analysis. You'll work alongside senior analysts on live client projects — producing forecasts, reports and strategic advisory that directly shape investment decisions across the global energy sector.</p>
+    <h3>What you'll do</h3>
+    <ul>
+      <li>Analyse power markets, grid infrastructure and policy across your region</li>
+      <li>Build and maintain quantitative models for energy price forecasting</li>
+      <li>Contribute to client reports and presentations</li>
+      <li>Collaborate cross-functionally with modelling and software teams</li>
+    </ul>
+    <h3>What we look for</h3>
+    <ul>
+      <li>Strong quantitative and analytical ability</li>
+      <li>Degree in economics, engineering, mathematics, physics or related field</li>
+      <li>Intellectual curiosity about energy markets and the energy transition</li>
+      <li>Excellent written and verbal communication</li>
+    </ul>
+  </div>
+  <div class="city-section">
+    <h3>Choose your location</h3>
+    <div class="city-section-sub">Select a city to apply via Pinpoint — the full job description and application form will open.</div>
+    <div class="cards-grid" id="analyst-cards"></div>
+  </div>
+</div>
+
+<!-- ═══ MODELLER PAGE ══════════════════════════════════════════════════ -->
+<div id="screen-modeller" class="screen">
+  <div class="prog-header">
+    <div class="breadcrumb" onclick="goHome()">← Early Careers / EMEA</div>
+    <span class="prog-tag pt-m">Graduate Modeller Programme</span>
+    <h2>EMEA Graduate Modeller</h2>
+    <p>Build the quantitative engine behind Aurora's forecasts — sitting at the intersection of energy systems, mathematics and cutting-edge computational methods.</p>
+  </div>
+  <div class="map-section">
+    <div class="map-eyebrow">EMEA locations — Graduate Modeller</div>
+    <div class="map-wrap">
+      <svg style="width:100%;display:block" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55,42 L78,32 L108,28 L138,33 L162,26 L188,31 L212,27 L238,31 L258,20 L278,26 L298,23 L318,29 L340,25 L362,31 L378,21 L398,29 L412,23 L424,37 L418,52 L428,64 L420,78 L430,90 L422,103 L410,111 L418,124 L406,136 L390,130 L378,143 L364,140 L350,151 L338,158 L323,150 L313,161 L296,168 L283,160 L270,168 L256,163 L240,171 L226,164 L212,172 L197,166 L182,174 L166,164 L153,170 L140,160 L126,164 L113,154 L100,160 L87,150 L74,157 L62,147 L50,140 L42,127 L46,113 L40,99 L48,86 L42,73 L50,59 L55,42Z" fill="rgba(200,150,58,0.05)" stroke="rgba(200,150,58,0.2)" stroke-width="0.8"/>
+        <path d="M115,72 L126,63 L138,66 L146,77 L140,88 L129,93 L118,87 L112,76Z" fill="rgba(200,150,58,0.12)" stroke="rgba(200,150,58,0.4)" stroke-width="0.7"/>
+        <g><circle cx="129" cy="80" r="8" fill="rgba(200,150,58,0.22)"/><circle cx="129" cy="80" r="4.5" fill="#C8963A"/><text x="141" y="84" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Oxford</text></g>
+        <g><circle cx="240" cy="74" r="8" fill="rgba(200,150,58,0.22)"/><circle cx="240" cy="74" r="4.5" fill="#C8963A"/><text x="252" y="78" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Berlin</text></g>
+        <text x="55" y="218" font-size="10" fill="rgba(255,255,255,0.28)" font-family="Arial">Modeller roles available in Oxford and Berlin only</text>
+      </svg>
+    </div>
+  </div>
+  <div class="prog-overview">
+    <div class="ov-eyebrow">General overview of opportunities</div>
+    <div class="ov-grid">
+      <div class="ov-card"><h4>Programme length</h4><p>2 years</p></div>
+      <div class="ov-card"><h4>Start date</h4><p>September 2026</p></div>
+      <div class="ov-card"><h4>Region</h4><p>EMEA</p></div>
+      <div class="ov-card"><h4>Locations</h4><p>Oxford · Berlin</p></div>
+    </div>
+  </div>
+  <div class="prog-body">
+    <h3>About the programme</h3>
+    <p>Graduate Modellers develop Aurora's proprietary large-scale simulations of electricity markets and grid infrastructure. You'll work with world-class researchers and engineers to produce the forecasts that underpin strategic decisions for clients worldwide.</p>
+    <h3>What you'll do</h3>
+    <ul>
+      <li>Develop and validate energy system models in Python and other tools</li>
+      <li>Improve forecast accuracy through statistical analysis and calibration</li>
+      <li>Work with large, complex datasets from grid operators and market exchanges</li>
+      <li>Collaborate with analysts and software engineers in cross-functional teams</li>
+    </ul>
+    <h3>What we look for</h3>
+    <ul>
+      <li>Strong mathematical, statistical or computational background</li>
+      <li>Degree in mathematics, physics, engineering, computer science or related</li>
+      <li>Programming experience (Python preferred)</li>
+      <li>Interest in energy systems and market design</li>
+    </ul>
+  </div>
+  <div class="city-section">
+    <h3>Choose your location</h3>
+    <div class="city-section-sub">Modeller roles available in Oxford and Berlin. Click to apply via Pinpoint.</div>
+    <div class="cards-grid" id="modeller-cards"></div>
+  </div>
+</div>
+
+<!-- ═══ SOFTWARE PAGE ═════════════════════════════════════════════════ -->
+<div id="screen-software" class="screen">
+  <div class="prog-header">
+    <div class="breadcrumb" onclick="goHome()">← Early Careers / EMEA</div>
+    <span class="prog-tag pt-s">Graduate Software Engineer Programme</span>
+    <h2>EMEA Graduate Software Engineer</h2>
+    <p>Build the tools, platforms and infrastructure that power Aurora's analytics and client-facing products — at the frontier of energy data and software engineering.</p>
+  </div>
+  <div class="map-section">
+    <div class="map-eyebrow">EMEA locations — Graduate Software Engineer</div>
+    <div class="map-wrap">
+      <svg style="width:100%;display:block" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55,42 L78,32 L108,28 L138,33 L162,26 L188,31 L212,27 L238,31 L258,20 L278,26 L298,23 L318,29 L340,25 L362,31 L378,21 L398,29 L412,23 L424,37 L418,52 L428,64 L420,78 L430,90 L422,103 L410,111 L418,124 L406,136 L390,130 L378,143 L364,140 L350,151 L338,158 L323,150 L313,161 L296,168 L283,160 L270,168 L256,163 L240,171 L226,164 L212,172 L197,166 L182,174 L166,164 L153,170 L140,160 L126,164 L113,154 L100,160 L87,150 L74,157 L62,147 L50,140 L42,127 L46,113 L40,99 L48,86 L42,73 L50,59 L55,42Z" fill="rgba(100,140,200,0.05)" stroke="rgba(120,160,210,0.2)" stroke-width="0.8"/>
+        <path d="M115,72 L126,63 L138,66 L146,77 L140,88 L129,93 L118,87 L112,76Z" fill="rgba(100,140,200,0.18)" stroke="rgba(150,180,220,0.5)" stroke-width="0.7"/>
+        <g><circle cx="129" cy="80" r="8" fill="rgba(100,140,200,0.22)"/><circle cx="129" cy="80" r="4.5" fill="#4A7FC0"/><text x="141" y="84" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Oxford</text></g>
+        <text x="55" y="218" font-size="10" fill="rgba(255,255,255,0.28)" font-family="Arial">Software Engineering based in Oxford only</text>
+      </svg>
+    </div>
+  </div>
+  <div class="prog-overview">
+    <div class="ov-eyebrow">General overview of opportunities</div>
+    <div class="ov-grid">
+      <div class="ov-card"><h4>Programme length</h4><p>2 years</p></div>
+      <div class="ov-card"><h4>Start date</h4><p>September 2026</p></div>
+      <div class="ov-card"><h4>Region</h4><p>EMEA</p></div>
+      <div class="ov-card"><h4>Locations</h4><p>Oxford</p></div>
+    </div>
+  </div>
+  <div class="prog-body">
+    <h3>About the programme</h3>
+    <p>Graduate Software Engineers at Aurora build and maintain the EOS platform, internal tools and the data pipelines that support our models and analytics. You'll work within agile product teams, contributing to real features that thousands of energy professionals use every day.</p>
+    <h3>What you'll do</h3>
+    <ul>
+      <li>Develop full-stack features for Aurora's EOS analytics platform</li>
+      <li>Design and maintain scalable data pipelines and APIs</li>
+      <li>Collaborate with modellers and analysts to surface insights effectively</li>
+      <li>Participate in code reviews, testing and architectural decisions</li>
+    </ul>
+    <h3>What we look for</h3>
+    <ul>
+      <li>Degree in computer science, software engineering or related field</li>
+      <li>Proficiency in Python and/or JavaScript/TypeScript</li>
+      <li>Understanding of software design principles and data structures</li>
+      <li>Collaborative, product-minded approach to engineering</li>
+    </ul>
+  </div>
+  <div class="city-section">
+    <h3>Choose your location</h3>
+    <div class="city-section-sub">Software Engineering roles are Oxford-based. Click to apply via Pinpoint.</div>
+    <div class="cards-grid" id="software-cards"></div>
+  </div>
+</div>
+
+<script>
+const cities = {
+  oxford:    { flag:'🇬🇧', name:'Oxford',    facts:['Aurora HQ — largest EMEA team','Vibrant university city, close to London','All 3 graduate programmes available'], deadline:'Exp. Nov 27', roles:{analyst:true,modeller:true,software:true} },
+  berlin:    { flag:'🇩🇪', name:'Berlin',    facts:['German & Central European markets','Fast-growing office in energy hub','Analyst & Modeller roles'],              deadline:'Exp. Nov 27', roles:{analyst:true,modeller:true,software:false} },
+  madrid:    { flag:'🇪🇸', name:'Madrid',    facts:['Iberian Peninsula energy markets','Solar, wind & storage focus','Graduate Analyst role'],                      deadline:'Exp. Nov 27', roles:{analyst:true,modeller:false,software:false} },
+  paris:     { flag:'🇫🇷', name:'Paris',     facts:['French & Benelux power markets','Nuclear, hydro & renewables expertise','Graduate Analyst role'],              deadline:'Exp. Nov 27', roles:{analyst:true,modeller:false,software:false} },
+  stockholm: { flag:'🇸🇪', name:'Stockholm', facts:['Nordics energy market specialists','Hydro-dominated system dynamics','Graduate Analyst role'],                  deadline:'Exp. Nov 27', roles:{analyst:true,modeller:false,software:false} },
+  athens:    { flag:'🇬🇷', name:'Athens',    facts:['Greek & SE European power markets','High-growth renewables market','Graduate Analyst role'],                   deadline:'Exp. Nov 27', roles:{analyst:true,modeller:false,software:false} }
+};
+
+function buildCards(containerId, role) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  Object.entries(cities).forEach(([key, c]) => {
+    const avail = c.roles[role];
+    const card = document.createElement('div');
+    card.className = 'city-card' + (avail ? '' : ' unavail');
+    card.innerHTML = `
+      <div class="card-flag">${c.flag}</div>
+      <div class="card-name">${c.name}</div>
+      <div class="card-facts">${c.facts.map(f=>`<div class="card-fact">${f}</div>`).join('')}</div>
+      ${avail ? `<div class="deadline">&#9719; ${c.deadline}</div><br>` : ''}
+      ${avail
+        ? `<a href="#" class="apply-btn" onclick="applyClick(event,'${c.name}','${role}')">Apply via Pinpoint</a>`
+        : `<span class="apply-na">Not available</span>`}
+    `;
+    el.appendChild(card);
+  });
+}
+
+function applyClick(e, city, role) {
+  e.preventDefault();
+  const labels = {analyst:'Graduate Analyst',modeller:'Graduate Modeller',software:'Graduate Software Engineer'};
+  alert('Pinpoint link opens here\n\n' + city + ' — ' + labels[role] + '\n\nJob description and application form will open in Pinpoint.');
+}
+
+function toggleAcc(id) {
+  const el = document.getElementById(id);
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.acc-region').forEach(r => r.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+
+function goto(role) {
+  buildCards(role + '-cards', role);
+  showScreen('screen-' + role);
+}
+
+function goHome() { showScreen('screen-home'); }
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

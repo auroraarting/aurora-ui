@@ -1,0 +1,14 @@
+<svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55,42 L78,32 L108,28 L138,33 L162,26 L188,31 L212,27 L238,31 L258,20 L278,26 L298,23 L318,29 L340,25 L362,31 L378,21 L398,29 L412,23 L424,37 L418,52 L428,64 L420,78 L430,90 L422,103 L410,111 L418,124 L406,136 L390,130 L378,143 L364,140 L350,151 L338,158 L323,150 L313,161 L296,168 L283,160 L270,168 L256,163 L240,171 L226,164 L212,172 L197,166 L182,174 L166,164 L153,170 L140,160 L126,164 L113,154 L100,160 L87,150 L74,157 L62,147 L50,140 L42,127 L46,113 L40,99 L48,86 L42,73 L50,59 L55,42Z" fill="rgba(255,204,0,0.07)" stroke="rgba(255,204,0,0.3)" stroke-width="0.8"/>
+        <path d="M212,27 L222,15 L234,8 L250,12 L262,8 L270,16 L278,26 L268,36 L258,20 L246,28 L238,31 L226,22Z" fill="rgba(255,204,0,0.07)" stroke="rgba(255,204,0,0.2)" stroke-width="0.7"/>
+        <path d="M115,72 L126,63 L138,66 L146,77 L140,88 L129,93 L118,87 L112,76Z" fill="rgba(255,204,0,0.13)" stroke="rgba(255,204,0,0.4)" stroke-width="0.7"/>
+        <path d="M100,128 L120,120 L142,118 L150,131 L146,150 L130,158 L110,152 L98,141Z" fill="rgba(255,204,0,0.1)" stroke="rgba(255,204,0,0.3)" stroke-width="0.7"/>
+        <path d="M294,150 L308,144 L318,152 L313,164 L300,168 L291,160Z" fill="rgba(255,204,0,0.13)" stroke="rgba(255,204,0,0.4)" stroke-width="0.7"/>
+        
+        <g><circle cx="129" cy="80" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="129" cy="80" r="4.5" fill="#FFCC00"/><text x="141" y="84" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Oxford</text></g>
+        <g><circle cx="240" cy="74" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="240" cy="74" r="4.5" fill="#FFCC00"/><text x="252" y="78" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Berlin</text></g>
+        <g><circle cx="122" cy="138" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="122" cy="138" r="4.5" fill="#FFCC00"/><text x="134" y="142" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Madrid</text></g>
+        <g><circle cx="168" cy="96" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="168" cy="96" r="4.5" fill="#FFCC00"/><text x="180" y="100" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Paris</text></g>
+        <g><circle cx="250" cy="30" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="250" cy="30" r="4.5" fill="#FFCC00"/><text x="262" y="34" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Stockholm</text></g>
+        <g><circle cx="301" cy="157" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="301" cy="157" r="4.5" fill="#FFCC00"/><text x="313" y="161" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Athens</text></g>
+      </svg>

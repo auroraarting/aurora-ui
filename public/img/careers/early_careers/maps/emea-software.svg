@@ -1,0 +1,6 @@
+<svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55,42 L78,32 L108,28 L138,33 L162,26 L188,31 L212,27 L238,31 L258,20 L278,26 L298,23 L318,29 L340,25 L362,31 L378,21 L398,29 L412,23 L424,37 L418,52 L428,64 L420,78 L430,90 L422,103 L410,111 L418,124 L406,136 L390,130 L378,143 L364,140 L350,151 L338,158 L323,150 L313,161 L296,168 L283,160 L270,168 L256,163 L240,171 L226,164 L212,172 L197,166 L182,174 L166,164 L153,170 L140,160 L126,164 L113,154 L100,160 L87,150 L74,157 L62,147 L50,140 L42,127 L46,113 L40,99 L48,86 L42,73 L50,59 L55,42Z" fill="rgba(255,204,0,0.05)" stroke="rgba(255,204,0,0.2)" stroke-width="0.8"/>
+        <path d="M115,72 L126,63 L138,66 L146,77 L140,88 L129,93 L118,87 L112,76Z" fill="rgba(255,204,0,0.18)" stroke="rgba(255,204,0,0.5)" stroke-width="0.7"/>
+        <g><circle cx="129" cy="80" r="8" fill="rgba(255,204,0,0.22)"/><circle cx="129" cy="80" r="4.5" fill="#FFCC00"/><text x="141" y="84" font-size="10" fill="rgba(255,255,255,0.72)" font-family="Arial" font-weight="700">Oxford</text></g>
+        <text x="55" y="218" font-size="10" fill="rgba(255,255,255,0.28)" font-family="Arial">Software Engineering based in Oxford only</text>
+      </svg>
