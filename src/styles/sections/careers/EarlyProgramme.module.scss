@@ -84,6 +84,14 @@
 		line-height: 1;
 		margin-bottom: 10px;
 	}
+	/* CMS flag image, sized to sit where the emoji did */
+	.cardFlagImg {
+		display: block;
+		width: 26px;
+		height: 26px;
+		object-fit: contain;
+		margin: 0 auto 10px;
+	}
 	.cardFacts {
 		min-height: 60px;
 		p {

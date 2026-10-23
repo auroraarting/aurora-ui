@@ -129,10 +129,19 @@ export default function EarlyProgramme({ data }) {
 										key={city.city}
 										className={`${styles.cityCard} b_r_10 ${city.available ? "" : styles.unavail}`}
 									>
-										{city.flagEmoji && (
-											<span className={styles.cardFlag} aria-hidden="true">
-												{city.flagEmoji}
-											</span>
+										{city.flagImage?.mediaItemUrl ? (
+											<img
+												src={city.flagImage.mediaItemUrl}
+												alt=""
+												aria-hidden="true"
+												className={styles.cardFlagImg}
+											/>
+										) : (
+											city.flagEmoji && (
+												<span className={styles.cardFlag} aria-hidden="true">
+													{city.flagEmoji}
+												</span>
+											)
 										)}
 										<p className="text_md font_primary f_w_m color_white pb_10">
 											{city.city}

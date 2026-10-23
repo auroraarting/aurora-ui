@@ -16,8 +16,9 @@ const emeaCities = [
 	{ key: "athens", city: "Athens", flagEmoji: "🇬🇷", sequence: 60, facts: ["Greek & SE European power markets", "High-growth renewables market", "Graduate Analyst role"] },
 ];
 
-/** Flag and hub order per city, keyed by the CMS `careercountry` slug — the
- *  taxonomy carries only a name, so the hub listing reads these from here. */
+/** Fallback flag emoji, hub order and card facts per city, keyed by the CMS
+ *  `careercountry` slug. A flag image set on the term (programmeCountryFields
+ *  .flag) takes precedence over the emoji. */
 export const cityDetails = Object.fromEntries(
 	emeaCities.map(({ key, flagEmoji, sequence, facts }) => [
 		key,
@@ -197,8 +198,8 @@ const plainText = (html) => String(html || "").replace(/<[^>]*>/g, "").trim();
  *
  *  The CMS carries the banner, map, overview points and body sections. The
  *  rest has no field yet and is derived: the tag and breadcrumb from the title
- *  and region, and the city cards from the `careercountry` terms, with flag and
- *  facts from cityDetails. Each card's apply link is the term's `pinpointUrl`;
+ *  and region, and the city cards from the `careercountry` terms: flag image
+ *  from the term (emoji from cityDetails when unset), facts from cityDetails. Each card's apply link is the term's `pinpointUrl`;
  *  a city without one reads "Opening soon".
  *
  *  The link lives on the city term, not the programme, so a city offered by
@@ -218,6 +219,7 @@ export function toProgrammeData(node) {
 		.map((term) => ({
 			city: term.name,
 			flagEmoji: cityDetails[term.slug]?.flagEmoji,
+			flagImage: term.programmeCountryFields?.flag?.node || null,
 			facts: cityDetails[term.slug]?.facts || [],
 			sequence: cityDetails[term.slug]?.sequence ?? Infinity,
 			available: true,

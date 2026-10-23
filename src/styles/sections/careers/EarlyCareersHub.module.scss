@@ -24,6 +24,13 @@
 			font-size: 18px;
 			line-height: 1;
 		}
+		/* CMS flag image, sized to sit where the emoji did */
+		.cityFlagImg {
+			width: 18px;
+			height: 18px;
+			object-fit: contain;
+			flex-shrink: 0;
+		}
 	}
 	.cityGroup:first-child .cityHeader {
 		border-top: 0;

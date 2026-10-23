@@ -441,6 +441,14 @@ query GetProgrammeList {
         nodes {
           name
           slug
+          programmeCountryFields {
+            flag {
+              node {
+                mediaItemUrl
+                altText
+              }
+            }
+          }
         }
       }
       programmeFields {
@@ -501,6 +509,12 @@ query GetProgrammeBySlug {
         slug
         programmeCountryFields {
           pinpointUrl
+          flag {
+            node {
+              mediaItemUrl
+              altText
+            }
+          }
         }
       }
     }

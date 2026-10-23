@@ -46,6 +46,7 @@ function buildRegions(programmes) {
 					cities.set(country.slug, {
 						city: country.name,
 						flagEmoji: cityDetails[country.slug]?.flagEmoji,
+						flagImage: country.programmeCountryFields?.flag?.node || null,
 						sequence: cityDetails[country.slug]?.sequence ?? Infinity,
 						roles: [],
 					});
@@ -59,7 +60,12 @@ function buildRegions(programmes) {
 	const toCities = (cities) =>
 		[...(cities?.values() || [])]
 			.sort((a, b) => a.sequence - b.sequence || a.city.localeCompare(b.city))
-			.map(({ city, flagEmoji, roles }) => ({ city, flagEmoji, roles }));
+			.map(({ city, flagEmoji, flagImage, roles }) => ({
+				city,
+				flagEmoji,
+				flagImage,
+				roles,
+			}));
 
 	const matched = new Set();
 	const known = hub.regions.map((region) => {

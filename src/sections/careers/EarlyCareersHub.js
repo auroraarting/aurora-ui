@@ -21,6 +21,7 @@ const exploreId = "explore-programmes";
  *  @param {{ hero: any, explore: any, regions: Array<{
  *    name: string, slug: string, note?: string,
  *    cities: Array<{ city: string, flagEmoji?: string,
+ *      flagImage?: { mediaItemUrl: string, altText?: string },
  *      roles: Array<{ label: string, slug: string, accent: string }> }> }> }} props */
 export default function EarlyCareersHub({ hero, explore, regions }) {
 	/** The banner's "Join us" is a plain #anchor, which Lenis ignores — scroll
@@ -40,10 +41,19 @@ export default function EarlyCareersHub({ hero, explore, regions }) {
 						<p
 							className={`${styles.cityHeader} text_xs text_uppercase f_w_m color_silver_gray f_r_a_center`}
 						>
-							{city.flagEmoji && (
-								<span className={styles.cityFlag} aria-hidden="true">
-									{city.flagEmoji}
-								</span>
+							{city.flagImage?.mediaItemUrl ? (
+								<img
+									src={city.flagImage.mediaItemUrl}
+									alt=""
+									aria-hidden="true"
+									className={styles.cityFlagImg}
+								/>
+							) : (
+								city.flagEmoji && (
+									<span className={styles.cityFlag} aria-hidden="true">
+										{city.flagEmoji}
+									</span>
+								)
 							)}
 							{city.city}
 						</p>
