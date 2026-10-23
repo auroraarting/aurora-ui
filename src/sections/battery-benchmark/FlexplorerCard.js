@@ -14,8 +14,8 @@ import checkIcon from "../../../public/img/battery-benchmark/check-circle.svg";
 // DATA //
 const features = [
 	"Full revenue stream breakdown by market service",
-	"25-year forward forecasts under Aurora scenarios",
-	"Investment-case modelling & custom configurations",
+	"25-year forecasts and investment-case modelling",
+	"Connected with EOS MCP for AI-powered analysis",
 	"Compare your assets' performance with that of a peer group.",
 ];
 
