@@ -70,12 +70,16 @@ function niceStep(max) {
  * @param {number} decimals - decimal places in the tooltip. The Y axis is
  *   always whole numbers: its labels were showing 0, 1 or 2 places depending on
  *   the market and unit in view, which read as three different charts.
+ * @param {object|null} partial - the incomplete final month, if any (see
+ *   partialMonthFor): its segment is dashed, its markers hollow and its column
+ *   shaded, so it reads as different before the footnote is.
  */
 export default function BenchmarkLineChart({
 	series = [],
 	xLabels = [],
 	activeKeys,
 	decimals = 1,
+	partial = null,
 }) {
 	const [hover, setHover] = useState(null);
 	const wrapRef = useRef(null);
@@ -181,6 +185,8 @@ export default function BenchmarkLineChart({
 		return Math.min(pointCount - 1, Math.max(0, i));
 	};
 
+	const partialIndex = partial ? partial.index : -1;
+
 	const onTouch = (e) => {
 		const touch = e.touches?.[0];
 		if (!touch) return;
@@ -201,6 +207,18 @@ export default function BenchmarkLineChart({
 				onTouchMove={onTouch}
 				onTouchEnd={() => setHover(null)}
 			>
+				{/* Partial month column, shaded behind everything else */}
+				{partialIndex > 0 && (
+					<rect
+						x={xAt(partialIndex) - innerW / Math.max(1, pointCount - 1) / 2}
+						y={PAD.top - 8}
+						width={innerW / Math.max(1, pointCount - 1) / 2 + Math.min(PADR, 24)}
+						height={innerH + 8}
+						rx="6"
+						className={styles.partialBand}
+					/>
+				)}
+
 				{/* Horizontal gridlines + Y labels */}
 				{yTicks.map((v) => (
 					<g key={v}>
@@ -229,7 +247,9 @@ export default function BenchmarkLineChart({
 						key={xLabels[i] + i}
 						x={xAt(i)}
 						y={HEIGHT - PAD.bottom + (compact ? 18 : 22)}
-						className={styles.axisLabel}
+						className={`${styles.axisLabel} ${
+							i === partialIndex ? styles.axisLabelPartial : ""
+						}`}
 						textAnchor="middle"
 					>
 						{xLabels[i]}
@@ -242,26 +262,55 @@ export default function BenchmarkLineChart({
 					const drawn = s.data
 						.map((v, i) => ({ v, i }))
 						.filter(({ v }) => v !== null && Number.isFinite(v));
-					const points = drawn.map(({ v, i }) => `${xAt(i)},${yAt(v)}`).join(" ");
+					// The line into an incomplete final month is drawn dashed, apart
+					// from the solid run of complete months.
+					const last = drawn[drawn.length - 1];
+					const dashedTail =
+						drawn.length > 1 && last.i === partialIndex ? drawn.slice(-2) : null;
+					const solid = dashedTail ? drawn.slice(0, -1) : drawn;
+					const toPoints = (list) =>
+						list.map(({ v, i }) => `${xAt(i)},${yAt(v)}`).join(" ");
 					return (
 						<g key={s.key}>
 							<polyline
-								points={points}
+								points={toPoints(solid)}
 								fill="none"
 								stroke={s.color}
 								strokeWidth="2.5"
 								strokeLinejoin="round"
 								strokeLinecap="round"
 							/>
-							{drawn.map(({ v, i }) => (
-								<circle
-									key={i}
-									cx={xAt(i)}
-									cy={yAt(v)}
-									r={hover === i ? 4 : 2.5}
-									fill={s.color}
+							{dashedTail && (
+								<polyline
+									points={toPoints(dashedTail)}
+									fill="none"
+									stroke={s.color}
+									strokeWidth="2.5"
+									strokeDasharray="6 5"
+									strokeLinecap="round"
 								/>
-							))}
+							)}
+							{drawn.map(({ v, i }) =>
+								i === partialIndex ? (
+									<circle
+										key={i}
+										cx={xAt(i)}
+										cy={yAt(v)}
+										r={hover === i ? 5 : 4}
+										className={styles.partialMarker}
+										stroke={s.color}
+										strokeWidth="2"
+									/>
+								) : (
+									<circle
+										key={i}
+										cx={xAt(i)}
+										cy={yAt(v)}
+										r={hover === i ? 4 : 2.5}
+										fill={s.color}
+									/>
+								),
+							)}
 						</g>
 					);
 				})}
@@ -299,7 +348,13 @@ export default function BenchmarkLineChart({
 						left: `${Math.min(82, Math.max(18, (xAt(hover) / WIDTH) * 100))}%`,
 					}}
 				>
-					<span className={styles.tooltipDate}>{xLabels[hover]}</span>
+					<span className={styles.tooltipDate}>
+						{hover === partialIndex
+							? `${xLabels[hover].replace(/\*$/, "")} · month to date (${partial.days} ${
+									partial.days === 1 ? "day" : "days"
+								})`
+							: xLabels[hover]}
+					</span>
 					{visibleSeries.map((s) => (
 						<span key={s.key} className={styles.tooltipRow}>
 							<i style={{ background: s.color }} />
@@ -311,6 +366,11 @@ export default function BenchmarkLineChart({
 							</b>
 						</span>
 					))}
+					{hover === partialIndex && (
+						<span className={styles.tooltipNote}>
+							Not comparable with full months
+						</span>
+					)}
 				</div>
 			)}
 		</div>

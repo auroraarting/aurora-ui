@@ -20,6 +20,22 @@ const MONTH_SHORT = [
 	"Dec",
 ];
 
+/** Full month names, for the partial-month footnote */
+const MONTH_LONG = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
 /** Display names for the region codes returned by the API (/regions/all) */
 export const REGION_LABELS = {
 	// Europe
@@ -376,9 +392,13 @@ export function buildChart(
 			),
 		].sort();
 
-	const xLabels = months.map((month) => {
+	const partial = partialMonthFor(selection, seriesByUuid, months);
+
+	const xLabels = months.map((month, i) => {
 		const [year, index] = month.split("-");
-		return `${MONTH_SHORT[Number(index) - 1]} ${year.slice(2)}`;
+		const label = `${MONTH_SHORT[Number(index) - 1]} ${year.slice(2)}`;
+		// The asterisk ties the label to the chart's footnote.
+		return partial && partial.index === i ? `${label}*` : label;
 	});
 
 	const series = selection.map((item) => {
@@ -404,7 +424,41 @@ export function buildChart(
 		selection.map((item) => item.currency).find(Boolean) ||
 		null;
 
-	return { months, xLabels, series, currency };
+	return { months, xLabels, series, currency, partial };
+}
+
+/** partialMonthFor - the axis' final month when it is still incomplete: its
+ *  latest data date falls before the month end. Only Real Performance series
+ *  carry `latestDate` (Backcast publishes whole months), so this is null for
+ *  Backcast and disappears on its own once a month's data is complete.
+ *
+ *  Returns { index, monthKey, monthName, year, days, latestDate } or null. */
+export function partialMonthFor(selection = [], seriesByUuid = {}, months = []) {
+	const index = months.length - 1;
+	const monthKey = months[index];
+	if (!monthKey) return null;
+
+	// The furthest-along series decides: if one duration already has the whole
+	// month, the month isn't partial for the chart.
+	const latest = selection
+		.map((item) => seriesByUuid[item.uuid])
+		.filter((item) => item?.latestDate?.startsWith(monthKey))
+		.sort((a, b) => (a.latestDate < b.latestDate ? 1 : -1))[0];
+	if (!latest) return null;
+
+	const [year, month] = monthKey.split("-").map(Number);
+	const day = Number(latest.latestDate.slice(8, 10));
+	const daysInMonth = new Date(year, month, 0).getDate();
+	if (!day || day >= daysInMonth) return null;
+
+	return {
+		index,
+		monthKey,
+		monthName: MONTH_LONG[month - 1],
+		year,
+		days: latest.latestMonthDays || day,
+		latestDate: latest.latestDate,
+	};
 }
 
 /** mergeMethodologyRows - per-market merge of the Methodologies API rows over

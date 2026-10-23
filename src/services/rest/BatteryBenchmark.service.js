@@ -369,6 +369,9 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 	}
 
 	const monthlyUnits = new Map();
+	// Distinct days with data, per month — the latest month is usually still in
+	// progress, and the chart flags it as partial from these.
+	const monthlyDays = new Map();
 
 	for (let i = 1; i < lines.length; i++) {
 		const row = splitCsvLine(lines[i]);
@@ -376,6 +379,10 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 		if (!dateStr || dateStr.length < 7) continue;
 
 		const monthKey = dateStr.slice(0, 7);
+		if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+			if (!monthlyDays.has(monthKey)) monthlyDays.set(monthKey, new Set());
+			monthlyDays.get(monthKey).add(dateStr.slice(0, 10));
+		}
 		const unit = row[unitCol];
 		const net = hasPair
 			? (parseFloat(row[chargeCol]) || 0) + (parseFloat(row[dischargeCol]) || 0)
@@ -405,9 +412,15 @@ export function parseLeaderboardCsv(csv, fallbackCurrency = null) {
 		};
 	});
 
+	// Latest day with data, and how many days its month has so far ("YYYY-MM-DD")
+	const lastMonth = sortedMonths[sortedMonths.length - 1];
+	const lastDays = [...(monthlyDays.get(lastMonth) || [])].sort();
+
 	return {
 		currency: detectedCurrency,
 		points,
+		latestDate: lastDays[lastDays.length - 1] || null,
+		latestMonthDays: lastDays.length,
 	};
 }
 

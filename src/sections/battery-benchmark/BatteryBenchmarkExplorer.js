@@ -203,6 +203,16 @@ export default function BatteryBenchmarkExplorer({
 		});
 	};
 
+	// The final month while its data is still coming in (Real Performance only).
+	// Everything below is derived from the data, so it clears itself once the
+	// month is complete.
+	const partial = chart.partial;
+	const partialNote = partial
+		? `*${partial.monthName} ${partial.year} is incomplete (${partial.days} ${
+				partial.days === 1 ? "day" : "days"
+			} of data so far) and is not directly comparable with full months.`
+		: null;
+
 	const hasData = series.some((item) =>
 		item.data.some((value) => value !== null),
 	);
@@ -406,6 +416,12 @@ export default function BatteryBenchmarkExplorer({
 										</button>
 									);
 								})}
+								{partial && hasData && (
+									<span className={styles.partialKey}>
+										<i aria-hidden="true" />
+										Month to date
+									</span>
+								)}
 							</div>
 						)}
 
@@ -415,6 +431,7 @@ export default function BatteryBenchmarkExplorer({
 								xLabels={chart.xLabels}
 								activeKeys={activeKeys}
 								decimals={unit.decimals}
+								partial={partial}
 							/>
 						) : (
 							<div className={styles.emptyState}>
@@ -433,6 +450,10 @@ export default function BatteryBenchmarkExplorer({
 									</p>
 								)}
 							</div>
+						)}
+
+						{hasData && partialNote && (
+							<p className={styles.partialNote}>{partialNote}</p>
 						)}
 
 						<div className={styles.panelFoot}>
