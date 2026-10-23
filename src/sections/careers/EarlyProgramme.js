@@ -1,10 +1,14 @@
 // MODULES //
 import Link from "next/link";
+import parse from "html-react-parser";
 
 // COMPONENTS //
 import InnerBanner from "@/components/InnerBanner";
 import Button from "@/components/Buttons/Button";
 import ContentFromCms from "@/components/ContentFromCms";
+
+// UTILS //
+import { removeHTML } from "@/utils";
 
 // STYLES //
 import styles from "@/styles/sections/careers/EarlyProgramme.module.scss";
@@ -12,7 +16,8 @@ import styles from "@/styles/sections/careers/EarlyProgramme.module.scss";
 const accents = new Set(["teal", "gold", "blue"]);
 
 /** One region + programme page, e.g. EMEA Graduate Analyst.
- *  @param {{ data: any }} props — a programme from data/earlyCareersProgrammes */
+ *  @param {{ data: any }} props — a programme in the data/earlyCareersProgrammes
+ *  shape (CMS programmes are mapped to it by toProgrammeData) */
 export default function EarlyProgramme({ data }) {
 	const fields = data?.programmes || {};
 	const { header, map, overview, bodySections, locations } = fields;
@@ -39,7 +44,8 @@ export default function EarlyProgramme({ data }) {
 			</div>
 
 			<InnerBanner
-				bannerTitle={data?.title}
+				bannerTitle={removeHTML(data?.title)}
+				showHeadingWithHTML
 				bannerDescription={header?.intro}
 				showContentOnly
 			/>
@@ -89,7 +95,9 @@ export default function EarlyProgramme({ data }) {
 							<div className={`${styles.bodySection} pb_40`} key={i}>
 								{section.heading && (
 									<h3 className="text_lg font_primary f_w_m color_secondary pb_20">
-										{section.heading}
+										{/* CMS headings arrive as "<p>What you&#8217;ll do</p>" —
+										    tags dropped, entities decoded. */}
+										{parse(removeHTML(section.heading).trim())}
 									</h3>
 								)}
 								<div className="text_reg color_dark_gray">

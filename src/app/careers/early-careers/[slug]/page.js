@@ -1,5 +1,4 @@
 export const dynamic = "force-static";
-export const dynamicParams = false; // Only the slugs in the data file exist.
 
 // COMPONENTS //
 import { notFound } from "next/navigation";
@@ -7,17 +6,31 @@ import { notFound } from "next/navigation";
 // SECTIONS //
 import EarlyProgramme from "@/sections/careers/EarlyProgramme";
 
+// SERVICES //
+import { getProgrammeBySlug, getProgrammeList } from "@/services/EarlyCareers.service";
+
 // DATA //
-import { getProgrammeBySlug, programmes } from "@/data/earlyCareersProgrammes";
+import { toProgrammeData } from "@/data/earlyCareersProgrammes";
+
+/** The CMS programme for a route slug, or null. @param {string} slug */
+async function fetchProgramme(slug) {
+	const res = await getProgrammeBySlug(slug);
+	return res?.data?.programme || null;
+}
 
 /** generateMetadata  */
 export async function generateMetadata({ params }) {
 	const { slug } = await params;
-	const data = getProgrammeBySlug(slug);
+	const node = await fetchProgramme(slug);
+	const data = node ? toProgrammeData(node) : null;
+	const seo = node?.seo;
 
 	return {
-		title: data ? `${data.title} | Aurora Energy Research` : "Early Careers",
-		description: data?.programmes?.header?.intro || "",
+		title: seo?.title || (data ? `${data.title} | Aurora Energy Research` : "Early Careers"),
+		description:
+			seo?.metaDesc ||
+			String(data?.programmes?.header?.intro || "").replace(/<[^>]*>/g, "").trim(),
+		keywords: seo?.metaKeywords || "",
 		alternates: {
 			canonical: `https://auroraer.com/careers/early-careers/${slug}`,
 		},
@@ -27,19 +40,21 @@ export async function generateMetadata({ params }) {
 	};
 }
 
-/** generateStaticParams  */
-export function generateStaticParams() {
-	return programmes.map((item) => ({ slug: item.slug }));
+/** generateStaticParams — every published programme. A programme published
+ *  after the build renders on its first request (dynamicParams stays on). */
+export async function generateStaticParams() {
+	const res = await getProgrammeList();
+	return (res?.data?.programmes?.nodes || []).map((item) => ({ slug: item.slug }));
 }
 
 /** Early careers programme page (redesign) */
 export default async function EarlyCareersProgramme({ params }) {
 	const { slug } = await params;
-	const data = getProgrammeBySlug(slug);
+	const node = await fetchProgramme(slug);
 
-	if (!data) {
+	if (!node) {
 		notFound();
 	}
 
-	return <EarlyProgramme data={data} />;
+	return <EarlyProgramme data={toProgrammeData(node)} />;
 }

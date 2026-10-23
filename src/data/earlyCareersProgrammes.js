@@ -16,6 +16,15 @@ const emeaCities = [
 	{ key: "athens", city: "Athens", flagEmoji: "🇬🇷", sequence: 60, facts: ["Greek & SE European power markets", "High-growth renewables market", "Graduate Analyst role"] },
 ];
 
+/** Flag and hub order per city, keyed by the CMS `careercountry` slug — the
+ *  taxonomy carries only a name, so the hub listing reads these from here. */
+export const cityDetails = Object.fromEntries(
+	emeaCities.map(({ key, flagEmoji, sequence, facts }) => [
+		key,
+		{ flagEmoji, sequence, facts },
+	]),
+);
+
 /** City cards for one programme: every EMEA city, available where offered.
  *  @param {string[]} offered city keys */
 const cityCards = (offered) =>
@@ -165,3 +174,86 @@ export const hub = {
 
 /** One programme by slug, or undefined. @param {string} slug */
 export const getProgrammeBySlug = (slug) => programmes.find((p) => p.slug === slug);
+
+const accentCycle = ["teal", "gold", "blue"];
+
+/** Dot / page accent for a programme. The CMS has no field for it: the three
+ *  original programmes keep theirs, any other slug gets a stable one from the
+ *  cycle so the hub and the programme page always agree.
+ *  @param {string} slug */
+export function programmeAccent(slug = "") {
+	const known = getProgrammeBySlug(slug)?.programmes.header.accent;
+	if (known) return known;
+	const hash = [...slug].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+	return accentCycle[hash % accentCycle.length];
+}
+
+/** Strip the <p> wrapper WordPress puts round single-line ACF text.
+ *  @param {string} html */
+const plainText = (html) => String(html || "").replace(/<[^>]*>/g, "").trim();
+
+/** A CMS `programme` node (GetProgrammeBySlug) in the shape EarlyProgramme
+ *  renders — the same shape as the static `programmes` above.
+ *
+ *  The CMS carries the banner, map, overview points and body sections. The
+ *  rest has no field yet and is derived: the tag and breadcrumb from the title
+ *  and region, and the city cards from the `careercountry` terms, with flag and
+ *  facts from cityDetails. Each card's apply link is the term's `pinpointUrl`;
+ *  a city without one reads "Opening soon".
+ *
+ *  The link lives on the city term, not the programme, so a city offered by
+ *  several programmes shares one link across all their pages.
+ *  @param {any} node */
+export function toProgrammeData(node) {
+	const fields = node?.programmeFields || {};
+	const cards = (fields.overviewPoints || [])
+		.map((point) => ({ label: point?.title, value: point?.value }))
+		.filter((card) => card.label || card.value);
+	const region =
+		cards.find((card) => /^region$/i.test(card.label || ""))?.value ||
+		node?.regions?.nodes?.[0]?.name ||
+		"";
+
+	const cities = (node?.careercountries?.nodes || [])
+		.map((term) => ({
+			city: term.name,
+			flagEmoji: cityDetails[term.slug]?.flagEmoji,
+			facts: cityDetails[term.slug]?.facts || [],
+			sequence: cityDetails[term.slug]?.sequence ?? Infinity,
+			available: true,
+			applyUrl: term.programmeCountryFields?.pinpointUrl || "",
+			applyText: "Apply via Pinpoint",
+		}))
+		.sort((a, b) => a.sequence - b.sequence || a.city.localeCompare(b.city));
+
+	return {
+		slug: node?.slug,
+		title: plainText(fields.banner?.heading) || node?.title,
+		programmes: {
+			header: {
+				tag: `${node?.title} Programme`,
+				accent: programmeAccent(node?.slug),
+				breadcrumb: region ? `Early Careers / ${region}` : "Early Careers",
+				intro: fields.banner?.description,
+			},
+			map: {
+				eyebrow: region ? `${region} locations — ${node?.title}` : null,
+				image: fields.map?.image,
+			},
+			overview: {
+				eyebrow: "General overview of opportunities",
+				cards,
+			},
+			bodySections: (fields.sections || []).map((section) => ({
+				heading: section?.sectionTitle,
+				content: section?.sectionDescription,
+			})),
+			locations: {
+				title: "Choose your location",
+				subtitle:
+					"Select a city to apply via Pinpoint — the full job description and application form will open.",
+				cities,
+			},
+		},
+	};
+}

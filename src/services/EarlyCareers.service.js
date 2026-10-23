@@ -422,3 +422,117 @@ export const getEarlyCareersListingByRegions = async (
 	});
 	return res;
 };
+
+/** Early careers programmes — the hub's region → city → programme listing */
+export const getProgrammeList = async () => {
+	const query = `
+query GetProgrammeList {
+  programmes(first: 999) {
+    nodes {
+      title
+      slug
+      regions(first: 99) {
+        nodes {
+          name
+          slug
+        }
+      }
+      careercountries(first: 99) {
+        nodes {
+          name
+          slug
+        }
+      }
+      programmeFields {
+        banner {
+          heading
+          description
+        }
+        map {
+          image {
+            node {
+              mediaItemUrl
+              altText
+            }
+          }
+        }
+        overviewPoints {
+          title
+          value
+        }
+        sections {
+          sectionTitle
+          sectionDescription
+        }
+      }
+    }
+  }
+}
+  `;
+	const res = await GraphQLAPI(query, {
+		apiID: "programme",
+		tag: ["programme", "region", "career-country"],
+		pageID: "/careers/early-careers",
+	});
+	return res;
+};
+
+/** One early careers programme, for its page */
+export const getProgrammeBySlug = async (slug) => {
+	const query = `
+query GetProgrammeBySlug {
+  programme(id: ${JSON.stringify(String(slug))}, idType: SLUG) {
+    title
+    slug
+    seo {
+      title
+      metaDesc
+      metaKeywords
+    }
+    regions(first: 99) {
+      nodes {
+        name
+        slug
+      }
+    }
+    careercountries(first: 99) {
+      nodes {
+        name
+        slug
+        programmeCountryFields {
+          pinpointUrl
+        }
+      }
+    }
+    programmeFields {
+      banner {
+        heading
+        description
+      }
+      map {
+        image {
+          node {
+            mediaItemUrl
+            altText
+          }
+        }
+      }
+      overviewPoints {
+        title
+        value
+      }
+      sections {
+        sectionTitle
+        sectionDescription
+      }
+    }
+  }
+}
+  `;
+	const res = await GraphQLAPI(query, {
+		apiID: "programme",
+		tag: [entryTag("programme", slug), "region", "career-country", "seo"],
+		pageID: `/careers/early-careers/${slug}`,
+	});
+	return res;
+};

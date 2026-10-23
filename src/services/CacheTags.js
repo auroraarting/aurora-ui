@@ -15,12 +15,13 @@
 //   Post types   page, post, event, software, product, service, podcast,
 //                webinar, video, press, region, country, office, team,
 //                team-sector, testimonial, how-we-help, who-are-you,
-//                early-career, program, language, media, clients-logo,
-//                post-author, post-speaker, eventdownload
+//                early-career, program, programme, language, media,
+//                clients-logo, post-author, post-speaker, eventdownload
 //   Taxonomies   category, post-tag, event-category (eventscategory, on
 //                events), webinar-category (tribe_events_cat, on webinars),
 //                webinar-tag, eventdownload, region, program, team-sector,
-//                section-tag, tab-column, video-category, video-tag
+//                career-country, section-tag, tab-column, video-category,
+//                video-tag
 //   Site-wide    seo (Yoast metadata, whatever entry it hangs off)
 //
 // A query that reads one specific entry is tagged `<type>:<slug>`
@@ -138,6 +139,7 @@ const TAG_BY_CONTENT_TYPE = {
 	howwehelp: "how-we-help",
 	whoareyou: "who-are-you",
 	"early-career": "early-career",
+	programme: "programme",
 	"post-author": "post-author",
 	"post-speaker": "post-speaker",
 	attachment: "media",
@@ -156,6 +158,7 @@ const TAG_BY_CONTENT_TYPE = {
 	eventdownload: "eventdownload",
 	region: "region",
 	program: "program",
+	careercountry: "career-country",
 	teamsector: "team-sector",
 	"section-tag": "section-tag",
 	"tab-column": "tab-column",
