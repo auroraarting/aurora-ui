@@ -26,6 +26,8 @@ import { getAllEvents, getEventsInside } from "@/services/Events.service";
 import { getInsightsCategories } from "@/services/Insights.service";
 import { resolveEventDateTime } from "@/utils/Client";
 
+export const revalidate = 3600; // Revalidates every 1 hour
+
 /** Fetch Meta Data */
 export async function generateMetadata({ params }) {
 	const data = await getEventsInside(params.slug);

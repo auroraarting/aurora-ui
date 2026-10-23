@@ -20,6 +20,8 @@ import EosMcpResourcesWrap from "@/sections/eos-mcp/EosMcpResourcesWrap";
 import { getEosMcpResourcesPage } from "@/services/EosMcp.service";
 import { getPageSeo } from "@/services/Seo.service";
 
+export const revalidate = 3600; // Revalidates every 1 hour
+
 /** generateMetadata — Yoast SEO from the CMS page, or this copy until it exists */
 export async function generateMetadata() {
 	const meta = await getPageSeo(
