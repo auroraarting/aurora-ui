@@ -989,7 +989,7 @@ export default function Header({ defaultNavigation, allEvents, allWebinars }) {
 																className={`${styles.softwareLinksTxt} f_r_a_center text_xs font_primary color_dark_gray`}
 																role="button"
 															>
-																<img src={eos_round_icon.src} alt="" />
+																{/* <img src={eos_round_icon.src} alt="" /> */}
 																<span>EOS MCP</span>
 															</Link>
 															<Link
