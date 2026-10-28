@@ -1,4 +1,4 @@
-/* eslint-disable require-jsdoc */
+/* eslint-disable jsdoc/require-jsdoc */
 import { after } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { readWebhookBody, webhookTags } from "@/utils/WordpressWebhook";
@@ -120,7 +120,7 @@ async function handler(req) {
 	const [current, ...remaining] = items;
 	const value = current.slice(current.indexOf(":") + 1);
 	try {
-		if (current.startsWith("tag:")) revalidateTag(value);
+		if (current.startsWith("tag:")) revalidateTag(value, "max");
 		else revalidatePath(value);
 	} catch (error) {
 		console.error(`[revalidate] failed ${current}:`, error);

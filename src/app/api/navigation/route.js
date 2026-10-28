@@ -1,4 +1,4 @@
-/* eslint-disable require-jsdoc */
+/* eslint-disable jsdoc/require-jsdoc */
 import { fetchNavigationData } from "@/services/Navigation.service";
 import { searchData } from "@/services/Search.service";
 import { ServerHeaders } from "@/utils/RequestHeaders";

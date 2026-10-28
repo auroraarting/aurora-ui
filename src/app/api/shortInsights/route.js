@@ -1,5 +1,5 @@
 /* eslint-disable quotes */
-/* eslint-disable require-jsdoc */
+/* eslint-disable jsdoc/require-jsdoc */
 import {
 	getInsights,
 	getInsightsCategories,

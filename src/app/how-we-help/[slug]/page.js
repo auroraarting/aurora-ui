@@ -38,7 +38,8 @@ import { getPageSeo } from "@/services/Seo.service";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const meta = await getPageSeo(`howwehelpBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.howwehelpBy?.seo;
 
@@ -89,7 +90,8 @@ async function getData({ params }) {
 }
 
 /** Transactions Page */
-export default async function Transactions({ params }) {
+export default async function Transactions({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const { props } = await getData({ params });
 	const services =
 		props?.data?.howWeHelpInside?.spotlights?.selected?.nodes?.map((item) => {

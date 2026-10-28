@@ -35,7 +35,8 @@ import { getPageSeo } from "@/services/Seo.service";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const data = await getInsightsInside(params.slug2);
 	const post = data?.data?.postBy;
 
@@ -103,7 +104,8 @@ async function getData({ params }) {
 }
 
 /** Articles Page */
-export default async function Articles({ params }) {
+export default async function Articles({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const { slug2, slug } = await params;
 	const { props } = await getData({ params });
 

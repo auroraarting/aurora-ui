@@ -40,7 +40,7 @@ export default function HomeResources({ data, countries, voices }) {
 		Events: "UPcoming EVENT",
 	};
 
-	// eslint-disable-next-line require-jsdoc
+	// eslint-disable-next-line jsdoc/require-jsdoc
 	const getDisplayCategory = (cat) =>
 		CATEGORY_DISPLAY[cat] || cat?.toUpperCase(); // fallback keeps everything else nice
 

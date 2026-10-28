@@ -35,7 +35,8 @@ import { getAllLanguages } from "@/services/GlobalPresenceLanguages.service";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const meta = await getPageSeo(`softwareBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.softwareBy?.seo;
 
@@ -128,7 +129,8 @@ export async function generateStaticParams() {
 }
 
 /** Chronos Page */
-export default async function SoftwarePage({ params }) {
+export default async function SoftwarePage({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const { props } = await getData({ params });
 
 	return (

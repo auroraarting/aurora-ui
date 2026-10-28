@@ -1,4 +1,4 @@
-/* eslint-disable require-jsdoc */
+/* eslint-disable jsdoc/require-jsdoc */
 "use client";
 // MODULES //
 import { useState, useEffect } from "react";

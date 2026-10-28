@@ -29,7 +29,8 @@ import { resolveEventDateTime } from "@/utils/Client";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const data = await getEventsInside(params.slug);
 	const post = data?.data?.eventBy;
 

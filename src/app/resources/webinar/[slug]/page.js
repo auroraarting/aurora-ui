@@ -45,7 +45,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const data = await getWebinarInside(params.slug);
 	const post = data?.data?.webinar;
 
@@ -127,7 +128,8 @@ async function getData({ params }) {
 }
 
 /** WebinarInside Page */
-export default async function WebinarInside({ params }) {
+export default async function WebinarInside({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const { props } = await getData({ params });
 
 	return (

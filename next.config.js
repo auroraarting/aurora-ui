@@ -2,12 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: false,
-	swcMinify: true,
 	poweredByHeader: false,
-	eslint: {
-		// Lint errors no longer fail `next build`; run `npm run lint` separately
-		ignoreDuringBuilds: true,
-	},
 	productionBrowserSourceMaps: false,
 	sassOptions: {
 		// Sass deprecation warnings (@import, darken(), slash division…) flood
@@ -25,12 +20,14 @@ const nextConfig = {
 	},
 	images: {
 		formats: ["image/avif", "image/webp"],
-		domains: [
+		remotePatterns: [
 			"img.youtube.com",
 			"aurora-staging.mystagingwebsite.com",
 			"cms-production.auroraer.com",
 			"i.vimeocdn.com",
-		],
+		].map((hostname) => ({ protocol: "https", hostname })),
+		// Next 16 only allows quality 75 by default; HomeBanner uses 100
+		qualities: [75, 100],
 		minimumCacheTTL: 3600,
 	},
 	async headers() {

@@ -1,51 +1,49 @@
 @import "../helpers/helpers.scss";
 
 .iframeModal {
-	:global {
-		.modal {
-			justify-content: flex-end;
+	:global(.modal) {
+		justify-content: flex-end;
 
-			&.open {
-				.content {
-					transform: translateX(0%);
-				}
+		&:global(.open) {
+			:global(.content) {
+				transform: translateX(0%);
+			}
+		}
+
+		:global(.content) {
+			transform: translateX(100%);
+			transition: all 0.5s ease-in-out;
+			// background-color: var(--color_gray);
+			background-color: transparent;
+			background-color: var(--color_white);
+			width: 80%;
+			height: 70%;
+			@media screen and (max-width: 767px) {
+				width: 90%;
 			}
 
-			.content {
-				transform: translateX(100%);
-				transition: all 0.5s ease-in-out;
-				// background-color: var(--color_gray);
-				background-color: transparent;
-				background-color: var(--color_white);
-				width: 80%;
-				height: 70%;
-				@media screen and (max-width: 767px) {
-					width: 90%;
+			:global(.wrap) {
+				display: flex;
+				justify-content: center;
+				height: 100%;
+				gap: 50px;
+
+				:global(.text) {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					max-width: 380px;
+					:global(.title) {
+						margin-bottom: 20px;
+					}
 				}
 
-				.wrap {
-					display: flex;
-					justify-content: center;
-					height: 100%;
-					gap: 50px;
-
-					.text {
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						max-width: 380px;
-						.title {
-							margin-bottom: 20px;
-						}
-					}
-
-					.form {
-						flex: 1;
-						iframe {
-							border: none;
-							width: 100%;
-							height: 100%;
-						}
+				:global(.form) {
+					flex: 1;
+					iframe {
+						border: none;
+						width: 100%;
+						height: 100%;
 					}
 				}
 			}
@@ -57,20 +55,18 @@
 // It must come after the block above: the selectors below match its specificity
 // exactly, so source order is what makes these win. Keep this last in the file.
 .iframeModalCentred {
-	:global {
-		.modal {
-			justify-content: center;
+	:global(.modal) {
+		justify-content: center;
 
-			// Rise in from just below centre rather than sliding in from the right.
-			// The 0.5s ease-in-out transition is inherited from the base block.
-			.content {
-				transform: translateY(30px);
-			}
+		// Rise in from just below centre rather than sliding in from the right.
+		// The 0.5s ease-in-out transition is inherited from the base block.
+		:global(.content) {
+			transform: translateY(30px);
+		}
 
-			&.open {
-				.content {
-					transform: translateY(0);
-				}
+		&:global(.open) {
+			:global(.content) {
+				transform: translateY(0);
 			}
 		}
 	}

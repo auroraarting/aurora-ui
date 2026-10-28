@@ -1,4 +1,4 @@
-/* eslint-disable require-jsdoc */
+/* eslint-disable jsdoc/require-jsdoc */
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";

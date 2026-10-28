@@ -19,11 +19,9 @@
 				margin-bottom: 40px;
 			}
 		}
-		:global {
-			.swiper-wrapper {
-				border-radius: 12px;
-				// overflow: hidden;
-			}
+		:global(.swiper-wrapper) {
+			border-radius: 12px;
+			// overflow: hidden;
 		}
 		.integratedImgMain {
 			width: 55%;

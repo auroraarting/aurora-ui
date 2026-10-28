@@ -119,10 +119,8 @@
 
 	&.isSlider {
 		height: auto;
-		:global {
-			.swiper {
-				height: 100%;
-			}
+		:global(.swiper) {
+			height: 100%;
 		}
 		.arrowSection {
 			position: absolute;

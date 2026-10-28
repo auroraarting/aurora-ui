@@ -35,7 +35,8 @@ import { getEnergyTalksPageSocialLinks } from "@/services/EnergyTalks.service";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** Fetch Meta Data */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const { slug2 } = params;
 	const data = await getVideosInside(slug2);
 	const post = data?.data?.videoBy;

@@ -7,14 +7,12 @@
 		}
 	}
 
-	:global {
-		.downloadListen {
-			display: grid;
-			place-items: center;
-			.downloadBox {
-				img {
-					width: 47px;
-				}
+	:global(.downloadListen) {
+		display: grid;
+		place-items: center;
+		:global(.downloadBox) {
+			img {
+				width: 47px;
 			}
 		}
 	}

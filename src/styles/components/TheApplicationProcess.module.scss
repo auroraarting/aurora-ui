@@ -38,20 +38,18 @@
 		padding-left: 0px !important;
 	}
 
-	:global {
-		.modal {
-			.content {
-				width: 80%;
-				@media (max-width: 991px) {
-					width: 100% !important;
-					max-height: 100vh;
-					height: 100vh !important;
-					padding: 60px 20px 20px;
-				}
-				p {
-					a {
-						color: var(--color_white);
-					}
+	:global(.modal) {
+		:global(.content) {
+			width: 80%;
+			@media (max-width: 991px) {
+				width: 100% !important;
+				max-height: 100vh;
+				height: 100vh !important;
+				padding: 60px 20px 20px;
+			}
+			p {
+				a {
+					color: var(--color_white);
 				}
 			}
 		}
@@ -73,15 +71,13 @@
 		@media (max-width: 767px) {
 			padding: 0px;
 		}
-		:global {
-			.icon {
-				img {
-					filter: invert(1);
-				}
+		:global(.icon) {
+			img {
+				filter: invert(1);
 			}
-			.accordionItem {
-				border-color: #2c2c2c;
-			}
+		}
+		:global(.accordionItem) {
+			border-color: #2c2c2c;
 		}
 		.accordian_main {
 			border-top: 1px solid #2c2c2c;

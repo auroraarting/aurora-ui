@@ -30,7 +30,8 @@ import { getPageSeo } from "@/services/Seo.service";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const meta = await getPageSeo(`productBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.productBy?.seo;
 
@@ -82,7 +83,8 @@ async function getData({ params }) {
 }
 
 /** ProductInside Page */
-export default async function ProductInside({ params }) {
+export default async function ProductInside({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const { props } = await getData({ params });
 
 	return (

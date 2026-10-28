@@ -36,7 +36,8 @@ import { getPageSeo } from "@/services/Seo.service";
 export const revalidate = 3600; // Revalidates every 1 hour
 
 /** generateMetadata  */
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+	const params = await paramsPromise;
 	const meta = await getPageSeo(`earlyCareerBy(slug: "${params.slug}")`);
 	const seo = meta?.data?.earlyCareerBy?.seo;
 
