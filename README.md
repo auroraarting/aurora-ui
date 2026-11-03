@@ -23,7 +23,7 @@ This template provides a structured starting point for your Next.js project.
   - **createSection.js**: Script to scaffold new sections.
 - **.env.example**: Example environment variables file.
 - **package.json**: Node.js dependencies and project configuration.
-- **next.config.json**: Next.js configuration.
+- **next.config.json**: Next.js configuration
 
 ## Getting Started
 

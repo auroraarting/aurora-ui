@@ -75,6 +75,7 @@ async function getData({ slug }) {
 		await getAllEvents("first:9999"),
 		await getInsightsCategories(),
 	]);
+	console.log("🚀 ~ file: page.js:75 ~ getData ~ data:", data);
 
 	let todaysDate = new Date();
 
