@@ -22,6 +22,9 @@ export const FLEXPLORER_PRODUCT_URL =
  */
 export const FLEXPLORER_VIDEO_ID = "https://vimeo.com/1208038046/54eef817cd";
 
+/** Query param Flexplorer reads the price zone from. */
+const FLEXPLORER_ZONE_PARAM = "priceZone";
+
 const FLEXPLORER_BASE = "https://eos.auroraer.com/dragonfly/flexplorer";
 
 /**
@@ -33,11 +36,14 @@ const FLEXPLORER_BASE = "https://eos.auroraer.com/dragonfly/flexplorer";
  *
  * @param {string} region - API region code, e.g. "gbr"
  * @param {string} benchmarkType - "backcast" | anything else (real performance)
+ * @param {string|null} zone - price zone on screen, e.g. "nod_se4" or "NSW"
  * @returns {string}
  */
-export function flexplorerChartUrl(region, benchmarkType = "backcast") {
+export function flexplorerChartUrl(region, benchmarkType = "backcast", zone = null) {
 	const view = benchmarkType === "backcast" ? "benchmarks" : "leaderboards";
 	const url = new URL(`${FLEXPLORER_BASE}/${view}`);
 	if (region) url.searchParams.set("region", region);
+	// Query-param name must match what Flexplorer reads; confirm with the EOS team.
+	if (zone) url.searchParams.set(FLEXPLORER_ZONE_PARAM, zone);
 	return url.toString();
 }

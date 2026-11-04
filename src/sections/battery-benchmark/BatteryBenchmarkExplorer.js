@@ -1,7 +1,8 @@
 "use client";
 
 // MODULES //
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 // COMPONENTS //
 import BenchmarkLineChart from "./BenchmarkLineChart";
@@ -50,6 +51,8 @@ export default function BatteryBenchmarkExplorer({
 	// The selected market lives in the wrapper, so the methodology panel can
 	// follow it too; falls back to the first published one.
 	const region = selectedRegion || firstAvailableRegion(regions);
+	const router = useRouter();
+	const [retrying, startRetry] = useTransition();
 	const [zone, setZone] = useState(null);
 	const [unitKey, setUnitKey] = useState("kw-month");
 	const [hiddenDurations, setHiddenDurations] = useState([]);
@@ -309,6 +312,34 @@ export default function BatteryBenchmarkExplorer({
 		URL.revokeObjectURL(url);
 	};
 
+	// An empty catalogue means the benchmark API failed (a quiet market still
+	// publishes something). Say so, rather than listing every market as "Soon",
+	// and let the visitor re-run the server fetch without a manual page refresh.
+	if (!benchmarks.length) {
+		return (
+			<section className={`${styles.Explorer}`}>
+				<div className="container">
+					<div className={styles.emptyState} role="alert">
+						<p className="text_reg text_600">
+							We couldn&apos;t load the benchmark data
+						</p>
+						<p className="text_xxs">
+							This is usually temporary. Please try again in a moment.
+						</p>
+						<button
+							type="button"
+							className={styles.retryBtn}
+							disabled={retrying}
+							onClick={() => startRetry(() => router.refresh())}
+						>
+							{retrying ? "Retrying…" : "Try again"}
+						</button>
+					</div>
+				</div>
+			</section>
+		);
+	}
+
 	return (
 		<section className={`${styles.Explorer}`}>
 			<div className="container">
@@ -462,7 +493,7 @@ export default function BatteryBenchmarkExplorer({
 							</p>
 							<div className={styles.footActions}>
 								<a
-									href={flexplorerChartUrl(region, benchmarkType)}
+									href={flexplorerChartUrl(region, benchmarkType, activeZone)}
 									target="_blank"
 									rel="noreferrer"
 									className={styles.flexBtn}

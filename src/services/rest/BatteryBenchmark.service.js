@@ -43,8 +43,22 @@ const MONTH_SHORT = [
 const FINANCIAL_YEAR_START = 6;
 
 /** Shared request for the JSON endpoints. Always live — no Next.js fetch
- *  cache, matching the rest of the app. */
-const RESTAPI = async (query, options) => {
+ *  cache, matching the rest of the app. Transient failures (network errors,
+ *  5xx, 429) are retried so a blip doesn't render an empty catalogue, which
+ *  the selector would show as every market "Soon". */
+const RESTAPI = async (query, options, attempts = 3) => {
+	for (let i = 1; ; i++) {
+		try {
+			return await RESTAPIOnce(query, options);
+		} catch (error) {
+			const retryable = !error.status || error.status >= 500 || error.status === 429;
+			if (i >= attempts || !retryable) throw error;
+			await new Promise((r) => setTimeout(r, 300 * i));
+		}
+	}
+};
+
+const RESTAPIOnce = async (query, options) => {
 	const res = await fetch(`${process.env.BATTERY_BENCHMARK_API_URL}${query}`, {
 		method: "GET",
 		headers: {
@@ -55,7 +69,9 @@ const RESTAPI = async (query, options) => {
 		...options,
 	});
 	if (!res.ok) {
-		throw new Error(`Benchmark API ${query} failed: ${res.status}`);
+		const err = new Error(`Benchmark API ${query} failed: ${res.status}`);
+		err.status = res.status;
+		throw err;
 	}
 	const data = await res.json();
 	return data;
