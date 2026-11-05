@@ -96,7 +96,7 @@ Copy `.env.example` to `.env.local` and fill in your environment-specific variab
 
 ## Additional Information
 
-Feel free to modify and expand upon this template to suit your project's needs.
+Feel free to modify and expand upon this template to suit your project's needs
 
 ```
 
